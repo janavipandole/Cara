@@ -102,7 +102,7 @@ Look for issues labeled `good first issue` or `beginner-friendly`. These are spe
 ### Before Submitting
 
 - [ ] Check that your code follows our style guidelines
-- [ ] Run the linter and fix any issues: `npm run lint`
+- [ ] Run the linter and fix any issues: 
 - [ ] Test your changes manually
 - [ ] Update documentation if needed
 - [ ] Add or update tests if applicable
@@ -131,13 +131,6 @@ Look for issues labeled `good first issue` or `beginner-friendly`. These are spe
 #### JavaScript/
 
 #### CSS/Styling
-
-
-#### 
-
-### Commit Messages
-
-We use [Conventional Commits](https://www.conventionalcommits.org/):
  
 ## Issue Guidelines
 
