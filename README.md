@@ -8,7 +8,6 @@
 
 Cara is a modern, full-featured e-commerce platform designed to deliver a seamless online shopping experience. It empowers users to browse, purchase, and manage products with ease, while offering a responsive, fast, and user-friendly interface built on the latest web technologies.
 
-[![Deploy with Vercel](https://peppy-cascaron-53de33.netlify.app/)]
 
 ### 1. Clone the repository
 ```bash
