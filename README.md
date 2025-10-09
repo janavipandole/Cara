@@ -8,42 +8,7 @@
 
 Cara is a modern, full-featured e-commerce platform designed to deliver a seamless online shopping experience. It empowers users to browse, purchase, and manage products with ease, while offering a responsive, fast, and user-friendly interface built on the latest web technologies.
 
-## 🚀 Features
-
-- **🧮 Carbon Footprint Calculator** - Calculate your environmental impact across home, travel, food, and waste
-- **🌬️ Air Quality Monitoring (AirBuddy)** - Real-time air quality data and health recommendations
-- **🗺️ Green Lane Navigation** - Eco-friendly route planning and green transportation options
-- **🥬 Local Harvest** - Discover local, sustainable food sources and farmers markets
-- **♻️ WasteLess** - Waste reduction tips, recycling guidance, and sustainability practices
-- **📊 Interactive Dashboard** - Comprehensive overview of your environmental impact
-- **🗺️ Interactive Maps** - Location-based environmental data and services
-
-## 🛠️ Tech Stack
-
-**Frontend:**
-- React 19.1.0 with Vite
-- React Router for navigation
-- Tailwind CSS for styling
-- Radix UI components
-- Leaflet for interactive maps
-- Recharts for data visualization
-
-**Backend:**
-- Node.js with Express 5.1.0
-- CORS for cross-origin requests
-- Multer for file uploads
-- Dotenv for environment management
-
-## 📦 Prerequisites
-
-- Node.js (v18.0.0 or higher)
-- npm or yarn package manager
-- Git
-
-## 🚀 Quick Start
-
-### 🌐 Deploy to Vercel (One-click)
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FMeghali54%2FVerdigo_Eco-friendly_Project&project-name=verdigo-eco-platform&framework=vite&root-directory=frontend)
+[![Deploy with Vercel](https://peppy-cascaron-53de33.netlify.app/)]
 
 ### 1. Clone the repository
 ```bash
@@ -88,23 +53,6 @@ We welcome contributions from the community! Please see our [Contributing Guidel
 - 🔧 **Code Contributions** - Help us build new features
 - 📚 **Documentation** - Improve our docs
 - 🧪 **Testing** - Help us test new features
-
-## 📋 Development Guidelines
-
-### Code Style
-- Follow ESLint configuration
-- Use meaningful variable and function names
-- Write comments for complex logic
-- Follow React best practices
-
-### Commit Convention
-We use conventional commits:
-```
-feat: add new carbon calculator component
-fix: resolve map rendering issue
-docs: update installation instructions
-style: format code with prettier
-```
 
 ## 🐛 Issue Reporting
 
