@@ -1,4 +1,4 @@
-🛍️ Cara - E-commerce Platform
+# 🛍️ Cara - E-commerce Platform
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![HTML](https://img.shields.io/badge/HTML5-E34F26.svg?&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
