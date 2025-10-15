@@ -1,7 +1,5 @@
 # 🛍️ Cara - E-commerce Platform
 
----
-
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![HTML](https://img.shields.io/badge/HTML5-E34F26.svg?&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![CSS](https://img.shields.io/badge/CSS3-1572B6.svg?&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
@@ -22,25 +20,25 @@ Cara
 │ ├── about/ # Images related to the About page
 │ │ ├── 1.mp4
 │ │ ├── a1.png
-│ │ ├── a2.png
+│ │ ├── a2.jpg
 │ │ ├── a3.png
 │ │ ├── a4.png
-│ │ ├── a5.png
-│ │ ├── a6.png
+│ │ ├── a5.jpg
+│ │ ├── a6.jpg
 │ │ └── banner.png
 │ ├── banner/ # Banner images
-│ │ ├── b1.png
-│ │ ├── b10.png
+│ │ ├── b1.jpg
+│ │ ├── b10.jpg
 │ │ ├── b14.png
-│ │ ├── b16.png
-│ │ ├── b17.png
-│ │ ├── b18.png
-│ │ ├── b19.png
-│ │ ├── b2.png
-│ │ ├── b20.png
-│ │ ├── b4.png
-│ │ ├── b7.png
-│ │ └── banner.png
+│ │ ├── b16.jpg
+│ │ ├── b17.jpg
+│ │ ├── b18.jpg
+│ │ ├── b19.jpg
+│ │ ├── b2.jpg
+│ │ ├── b20.jpg
+│ │ ├── b4.jpg
+│ │ ├── b7.jpg
+│ │ └── banner.jpg
 │ ├── blog/ # Blog images
 │ │ ├── b1.png
 │ │ ├── b2.png
