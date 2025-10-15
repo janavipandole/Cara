@@ -1,5 +1,7 @@
 # 🛍️ Cara - E-commerce Platform
 
+---
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![HTML](https://img.shields.io/badge/HTML5-E34F26.svg?&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![CSS](https://img.shields.io/badge/CSS3-1572B6.svg?&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
@@ -132,6 +134,9 @@ Fully optimized for desktops, tablets, and smartphones
 Fast loading times and smooth navigation
 
 Accessible design following best practices
+
+---
+
 ## 🤝 Contributing
 
 We welcome contributions from the community! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details on how to get started.
@@ -152,6 +157,8 @@ Found a bug? Please create an issue with:
 - Screenshots if applicable
 - System information (OS, browser, Node version)
 
+---
+
 ## 🗺️ Roadmap
 
 - [ ] **Mobile App** - React Native mobile application
@@ -161,19 +168,27 @@ Found a bug? Please create an issue with:
 - [ ] **AI Recommendations** - Personalized sustainability suggestions
 - [ ] **Offset Marketplace** - Carbon offset purchasing platform
 
+---
+
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+---
+
 ## 👥 Authors
 
 - **Your Name** - *Initial work* - [YourGitHub](https://github.com/janavipandole)
+
+---
 
 ## 🙏 Acknowledgments
 
 - Thanks to all contributors who help make this project better
 - Environmental data providers and APIs
 - Open source community for the amazing tools and libraries
+
+---
 
 
 ## 🌟 Star History
