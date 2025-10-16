@@ -119,7 +119,8 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 18px 80px;
-    background: rgba(255, 255, 255, 0.5); /* almost clear */
+    background: rgba(255, 255, 255, 0.5);
+    /* almost clear */
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
@@ -149,7 +150,8 @@ body {
 }
 
 #navbar li a {
-    position: relative; /* Added postion-relative*/
+    position: relative;
+    /* Added postion-relative*/
     pointer-events: all;
     text-decoration: none;
     font-size: 22px;
@@ -175,7 +177,8 @@ body {
     background: #088178;
     position: absolute;
     bottom: -4px;
-    left: 2px; /* Changed top 2px */
+    left: 2px;
+    /* Changed top 2px */
 }
 
 /* home page */
@@ -1428,9 +1431,9 @@ footer .copyright {
 }
 
 canvas {
-    position: fixed; 
+    position: fixed;
     top: 0;
     left: 0;
-    pointer-events: none; 
+    pointer-events: none;
     z-index: -100;
 }
