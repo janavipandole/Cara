@@ -164,20 +164,17 @@ Cara/
 ---
 
 ## 📸 Screenshots
-
-
-## 📸 Screenshots
-
+Homepage - 
 <p align="center">
   <img src="images/readme/Homepage.png" alt="Homepage"><br>
   <b>Homepage</b>
 </p>
-
+Shop - 
 <p align="center">
   <img src="images/readme/shop.png" alt="Shop"><br>
   <b>Shop</b>
 </p>
-
+Cart - 
 <p align="center">
   <img src="images/readme/cart.png" alt="Cart"><br>
   <b>Shopping Cart</b>
