@@ -1,4 +1,4 @@
-
+---
 name: ✨ Feature Request
 about: Suggest a new feature or enhancement for this project
 title: "[FEATURE] <short description>"
