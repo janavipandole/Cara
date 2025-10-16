@@ -166,17 +166,23 @@ Cara/
 ## 📸 Screenshots
 
 
+## 📸 Screenshots
 
-```markdown
-### Homepage
-![Homepage](images/readme/Homepage.png)
+<p align="center">
+  <img src="images/readme/homepage.png" alt="Homepage" width="600"><br>
+  <b>Homepage</b>
+</p>
 
-### Shop
-![Shop](readme/shop.png)
+<p align="center">
+  <img src="images/readme/shop.png" alt="Shop" width="600"><br>
+  <b>Shop</b>
+</p>
 
-### Shopping Cart
-![Cart](readme/cart.png)
-```
+<p align="center">
+  <img src="images/readme/cart.png" alt="Cart" width="600"><br>
+  <b>Shopping Cart</b>
+</p>
+
 
 ---
 
