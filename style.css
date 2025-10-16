@@ -618,6 +618,7 @@ footer .copyright {
 #shop-hero h2,
 #shop-hero p {
     color: #fff;
+    text-align: center;
 }
 
 #pagination {
@@ -713,6 +714,7 @@ footer .copyright {
 #blog-head h2,
 #blog-head p {
     color: #fff;
+    text-align: center;
 }
 
 #blog {
@@ -796,6 +798,7 @@ footer .copyright {
 #about-head h2,
 #about-head p {
     color: #fff;
+    text-align: center;
 }
 
 #about-us {
