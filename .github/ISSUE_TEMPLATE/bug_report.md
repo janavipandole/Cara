@@ -1,4 +1,4 @@
-
+---
 name: 🐛 Bug Report
 about: Report a bug or unexpected behavior in the project
 title: "[BUG] <short description>"
