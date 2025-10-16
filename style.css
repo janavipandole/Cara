@@ -1140,10 +1140,6 @@ footer .copyright {
         cursor: pointer;
     }
 
-    /* #main {
-        height: 70vh;
-    } */
-
     #back {
         height: 100%;
     }
@@ -1173,7 +1169,6 @@ footer .copyright {
     }
 
     #sm-banner .banner-box {
-        height: 30vh;
         min-width: 100%;
         margin: 10px;
 
