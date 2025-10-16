@@ -1140,9 +1140,9 @@ footer .copyright {
         cursor: pointer;
     }
 
-    #main {
+    /* #main {
         height: 70vh;
-    }
+    } */
 
     #back {
         height: 100%;
