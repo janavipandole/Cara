@@ -169,17 +169,17 @@ Cara/
 ## 📸 Screenshots
 
 <p align="center">
-  <img src="images/readme/homepage.png" alt="Homepage" width="600"><br>
+  <img src="images/readme/Homepage.png" alt="Homepage"><br>
   <b>Homepage</b>
 </p>
 
 <p align="center">
-  <img src="images/readme/shop.png" alt="Shop" width="600"><br>
+  <img src="images/readme/shop.png" alt="Shop"><br>
   <b>Shop</b>
 </p>
 
 <p align="center">
-  <img src="images/readme/cart.png" alt="Cart" width="600"><br>
+  <img src="images/readme/cart.png" alt="Cart"><br>
   <b>Shopping Cart</b>
 </p>
 
