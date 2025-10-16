@@ -169,7 +169,7 @@ Cara/
 
 ```markdown
 ### Homepage
-![Homepage](Cara/images/readme/Homepage.png)
+![Homepage](images/readme/Homepage.png)
 
 ### Shop
 ![Shop](readme/shop.png)
