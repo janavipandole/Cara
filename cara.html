@@ -329,6 +329,25 @@
       background: var(--glass-2)
     }
 
+    #clearFilters {
+      background: var(--glass-2);
+      border-radius: 10px;
+      padding: 6px 12px;
+      font-size: 13px;
+      color: var(--muted);
+      cursor: pointer;
+      border: none;
+      /* Optional: remove default border */
+      transition: background 0.3s, transform 0.2s;
+      /* Optional: for hover effects */
+    }
+
+    #clearFilters:hover {
+      background: var(--glass);
+      transform: translateY(-2px);
+    }
+
+
     /* Small screens */
     @media (max-width:980px) {
       .app {
@@ -435,6 +454,8 @@
             <option value="25-75">$25–75</option>
             <option value="75-9999">$75+</option>
           </select>
+          <button id="clearFilters" class="filter-btn" title="Clear all filters">Clear All Filters</button>
+
         </div>
       </div>
 
@@ -516,6 +537,13 @@
     categories.forEach(cat => {
       const opt = document.createElement('option'); opt.value = cat; opt.textContent = cat[0].toUpperCase() + cat.slice(1); categorySelect.appendChild(opt);
     });
+    document.getElementById('clearFilters').addEventListener('click', () => {
+      categorySelect.value = 'all';
+      priceRange.value = 'any';
+      searchInput.value = '';
+      filterProducts();
+    });
+
 
     // helpers
     function formatPrice(v) { return '$' + v.toFixed(2) }
