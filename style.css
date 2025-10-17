@@ -288,6 +288,11 @@ button.white {
     flex-direction: column;
 }
 
+button a{
+    text-decoration: none;
+    color: black;
+}
+
 #hero h4 {
     padding-bottom: 15px;
 }
