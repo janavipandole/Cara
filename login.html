@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Signup and Login</title>
+</head>
+
+<body class="flex items-center justify-center min-h-screen">
+
+    <div id="signUpMessage"
+        class="fixed top-4 left-1/2 transform -translate-x-1/2 p-3 text-sm text-center text-white rounded-md shadow-lg z-50 transition-opacity duration-500 bg-red-500"
+        style="display:none; opacity:0; min-width: 300px;">
+    </div>
+
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+        <h2 class="text-2xl font-bold text-center mb-6" id="form-title">Register</h2>
+        <div class="relative flex py-5 items-center mb-6">
+            <div class="flex-grow border-t border-gray-300"></div>
+            <span class="flex-shrink mx-4 text-gray-500">OR</span>
+            <div class="flex-grow border-t border-gray-300"></div>
+        </div>
+
+        <form id="auth-form">
+            <div id="register-fields" class="space-y-4">
+                <div id="name-field">
+                    <label for="name" class="block text-sm font-medium text-gray-700">Your name</label>
+                    <input id="name" required
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                    <input type="email" id="email" name="email" required
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                    <input type="password" id="password" name="password" required
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <div id="confirm-password-field">
+                    <label for="confirm-password" class="block text-sm font-medium text-gray-700">Confirm
+                        Password</label>
+                    <input type="password" id="confirm-password" name="confirm-password" required
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+            </div>
+
+            <div class="text-sm mt-4 text-right" id="forgot-password-link" style="display:none;">
+                <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">Forgot your password?</a>
+            </div>
+
+            <div class="mt-6">
+                <button type="submit" id="submitButton"
+                    class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Register
+                </button>
+            </div>
+        </form>
+
+        <div class="mt-6 text-center text-sm">
+            <p id="toggle-auth-text">Already have an account? <a href="#" id="toggle-auth-link"
+                    class="font-medium text-indigo-600 hover:text-indigo-500">Login</a></p>
+        </div>
+    </div>
+
+    <script>
+        const formTitle = document.getElementById('form-title');
+        const nameField = document.getElementById('name-field');
+        const confirmPasswordField = document.getElementById('confirm-password-field');
+        const forgotPasswordLink = document.getElementById('forgot-password-link');
+        const submitButton = document.querySelector('#auth-form button[type="submit"]');
+        const toggleAuthText = document.getElementById('toggle-auth-text');
+
+        const nameInput = document.getElementById('name');
+        const confirmPasswordInput = document.getElementById('confirm-password');
+        let isRegisterMode = true; // Start in Register mode
+
+        function updateFormState() {
+            if (isRegisterMode) {
+                formTitle.textContent = 'Register';
+                nameField.style.display = 'block';
+                confirmPasswordField.style.display = 'block';
+                forgotPasswordLink.style.display = 'none';
+                submitButton.textContent = 'Register';
+                toggleAuthText.innerHTML = 'Already have an account? <a href="#" id="toggle-auth-link" class="font-medium text-indigo-600 hover:text-indigo-500">Login</a>';
+                nameInput.setAttribute('required', '');
+                confirmPasswordInput.setAttribute('required', '');
+            } else {
+                formTitle.textContent = 'Login';
+                nameField.style.display = 'none';
+                confirmPasswordField.style.display = 'none';
+                forgotPasswordLink.style.display = 'block';
+                submitButton.textContent = 'Login';
+                toggleAuthText.innerHTML = 'Don\'t have an account? <a href="#" id="toggle-auth-link" class="font-medium text-indigo-600 hover:text-indigo-500">Sign up</a>';
+                nameInput.removeAttribute('required');
+                confirmPasswordInput.removeAttribute('required');
+            }
+            // Re-attach the event listener to the new anchor tag every time the innerHTML is changed
+            document.getElementById('toggle-auth-link').addEventListener('click', (e) => {
+                e.preventDefault();
+                isRegisterMode = !isRegisterMode;
+                updateFormState();
+            });
+        }
+
+        updateFormState(); 
+    </script>
+</body>
+
+</html>
