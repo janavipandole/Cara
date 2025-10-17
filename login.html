@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup and Login</title>
+    <style>
+        /* Base styles */
+        body {
+            font-family:"League Spartan, sans-serif";
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f3f4f6; 
+            margin: 10;
+        }
+
+        /* Message Box */
+        #signUpMessage {
+            position: fixed;
+            top: 2rem; 
+            left: 50%;
+            padding: 0.75rem;
+            font-size: 0.875rem;
+            text-align: center;
+            color: #ffffff; 
+            border-radius: 0.375rem; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            transition: opacity 0.5s ease-in-out; 
+            background-color: #ef4444; 
+            min-width: 300px;
+            display: none;
+        }
+
+        /* Form Container */
+        .auth-container {
+            background-color: #ffffff; 
+            padding: 2rem; 
+            border-radius: 0.5rem; 
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1); 
+            width: 100%;
+            max-width: 28rem; 
+        }
+
+        /* Form Title */
+        .auth-container h2 {
+            font-size: 1.5rem; 
+            font-weight: 700; 
+            text-align: center;
+            margin-bottom: 1.5rem; 
+        }
+
+        /* OR Divider */
+        .divider {
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding-top: 1.25rem; 
+            padding-bottom: 1.25rem; 
+            margin-bottom: 1.5rem; 
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex-grow: 1;
+            border-top: 1px solid #d1d5db; 
+        }
+
+        .divider span {
+            flex-shrink: 0;
+            margin-left: 1rem; 
+            margin-right: 1rem; 
+            color: #6b7280; 
+        }
+
+        /* Form Labels */
+        label {
+            display: block;
+            font-size: 0.875rem; 
+            font-weight: 500; 
+            color: #374151; 
+        }
+
+        /* Form Inputs */
+        input {
+            margin-top: 0.25rem; 
+            display: block;
+            width: 100%;
+            padding: 0.5rem 0.75rem; /* px-3 py-2 */
+            border: 1px solid #d1d5db; 
+            border-radius: 0.375rem; /* rounded-md */
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+            color: #111827;
+            font-size: 0.875rem; 
+        }
+
+        input::placeholder {
+            color: #9ca3af;
+        }
+
+        input:focus {
+            outline: 2px solid transparent;
+            outline-offset: 2px;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 1px #6366f1, 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        /* Input Grouping */
+        #register-fields>div {
+            margin-bottom: 1rem; 
+        }
+
+        /* Forgot Password Link */
+        #forgot-password-link {
+            font-size: 0.875rem; 
+            margin-top: 1rem; /* mt-4 */
+            text-align: right;
+        }
+
+        #forgot-password-link a {
+            font-weight: 500; 
+            color: #4f46e5; 
+            text-decoration: none;
+        }
+
+        #forgot-password-link a:hover {
+            color: #4338ca; /* hover:text-indigo-500 */
+        }
+
+        /* Submit Button */
+        .submit-button-container {
+            margin-top: 1.5rem; /* mt-6 */
+        }
+
+        #submitButton {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 0.5rem 1rem; 
+            border: 1px solid transparent; 
+            border-radius: 0.375rem; 
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); 
+            font-size: 0.875rem; /* text-sm */
+            font-weight: 500; /* font-medium */
+            color: #ffffff; /* text-white */
+            background-color: #4f46e5; 
+            cursor: pointer;
+            transition: background-color 0.15s ease-in-out;
+        }
+
+        #submitButton:hover {
+            background-color: #4338ca; /* hover:bg-indigo-700 */
+        }
+
+        #submitButton:focus {
+            outline: 2px solid transparent;
+            outline-offset: 2px;
+            box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #6366f1; 
+        }
+
+        /* Toggle Auth Link */
+        .toggle-auth-footer {
+            margin-top: 1.5rem;
+            text-align: center;
+            font-size: 0.875rem; 
+        }
+
+        .toggle-auth-footer a {
+            font-weight: 500; 
+            color: #4f46e5; 
+            text-decoration: none;
+        }
+
+        .toggle-auth-footer a:hover {
+            color: #4338ca; 
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="signUpMessage"
+        class="fixed-message"
+        style="display:none; opacity:0;">
+    </div>
+
+    <div class="auth-container">
+        <h2 id="form-title">Register</h2>
+        <div class="divider">
+            <span>OR</span>
+        </div>
+
+        <form id="auth-form">
+            <div id="register-fields">
+                <div id="name-field">
+                    <label for="name">Your name</label>
+                    <input id="name" required>
+                </div>
+                <div>
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div>
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div id="confirm-password-field">
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" id="confirm-password" name="confirm-password" required>
+                </div>
+            </div>
+
+            <div id="forgot-password-link" style="display:none;">
+                <a href="#">Forgot your password?</a>
+            </div>
+
+            <div class="submit-button-container">
+                <button type="submit" id="submitButton">
+                    Register
+                </button>
+            </div>
+        </form>
+
+        <div class="toggle-auth-footer">
+            <p id="toggle-auth-text">Already have an account? <a href="#" id="toggle-auth-link">Login</a></p>
+        </div>
+    </div>
+
+    <script>
+        const formTitle = document.getElementById('form-title');
+        const nameField = document.getElementById('name-field');
+        const confirmPasswordField = document.getElementById('confirm-password-field');
+        const forgotPasswordLink = document.getElementById('forgot-password-link');
+        const submitButton = document.getElementById('submitButton');
+        const toggleAuthText = document.getElementById('toggle-auth-text');
+
+        const nameInput = document.getElementById('name');
+        const confirmPasswordInput = document.getElementById('confirm-password');
+        let isRegisterMode = true; // Start in Register mode
+
+        function setupToggleListener() {
+            // Remove any existing listener to prevent duplicates
+            const existingLink = document.getElementById('toggle-auth-link');
+            if (existingLink) {
+                existingLink.removeEventListener('click', toggleAuthMode);
+            }
+
+            // Get the new link element
+            const newLink = document.getElementById('toggle-auth-link');
+            if (newLink) {
+                newLink.addEventListener('click', toggleAuthMode);
+            }
+        }
+
+        function toggleAuthMode(e) {
+            e.preventDefault();
+            isRegisterMode = !isRegisterMode;
+            updateFormState();
+        }
+
+        function updateFormState() {
+            if (isRegisterMode) {
+                formTitle.textContent = 'Register';
+                nameField.style.display = 'block';
+                confirmPasswordField.style.display = 'block';
+                forgotPasswordLink.style.display = 'none';
+                submitButton.textContent = 'Register';
+                toggleAuthText.innerHTML = 'Already have an account? <a href="#" id="toggle-auth-link">Login</a>';
+                nameInput.setAttribute('required', '');
+                confirmPasswordInput.setAttribute('required', '');
+            } else {
+                formTitle.textContent = 'Login';
+                nameField.style.display = 'none';
+                confirmPasswordField.style.display = 'none';
+                forgotPasswordLink.style.display = 'block';
+                submitButton.textContent = 'Login';
+                toggleAuthText.innerHTML = 'Don\'t have an account? <a href="#" id="toggle-auth-link">Sign up</a>';
+                nameInput.removeAttribute('required');
+                confirmPasswordInput.removeAttribute('required');
+            }
+            // Re-attach the event listener to the new anchor tag
+            setupToggleListener();
+        }
+
+        // Initial setup
+        updateFormState();
+    </script>
+</body>
+
+</html>
