@@ -1290,14 +1290,14 @@ footer .copyright {
 /* Form Labels */
 label {
     display: block;
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     font-weight: 500;
     color: #374151;
+    margin-bottom: 0.4rem;
 }
 
 /* Form Inputs */
 input {
-    margin-top: 0.25rem;
     display: block;
     width: 100%;
     padding: 0.5rem 0.75rem;
