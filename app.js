@@ -1,3 +1,4 @@
+// Mobile menu functionality
 const bar = document.getElementById("bar");
 const nav = document.getElementById("navbar");
 const close = document.getElementById("close");
@@ -13,11 +14,10 @@ if (close) {
   });
 }
 
-// Single Product Image Switching (FIXED: getElementsById -> getElementById)
+// Single Product Image Switching
 var MainImg = document.getElementById("MainImg");
 var smallImg = document.getElementsByClassName("small-img");
 
-// Only run the image switching logic if the elements exist (i.e., on the single product page)
 if (MainImg) {
     for (let i = 0; i < smallImg.length; i++) {
         smallImg[i].onclick = function () {
@@ -26,10 +26,8 @@ if (MainImg) {
     }
 }
 
-
 /* --- START: CART FUNCTIONALITY --- */
 
-// Core function to add item to cart (uses Local Storage)
 function addToCart(productName, productPrice, productImage, quantity, size) {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
     let item = {
@@ -40,7 +38,6 @@ function addToCart(productName, productPrice, productImage, quantity, size) {
         size: size
     };
 
-    // Check if the exact item (name + size) already exists
     let existingItem = cart.find(p => p.name === item.name && p.size === item.size);
 
     if (existingItem) {
@@ -53,7 +50,6 @@ function addToCart(productName, productPrice, productImage, quantity, size) {
     alert(`${item.name} (Size: ${item.size}) added to cart!`);
 }
 
-// Function to handle the 'Add to Cart' button click from singleProduct.html
 window.handleAddToCart = function() {
     const nameElement = document.getElementById('product-name');
     const priceElement = document.getElementById('product-price');
@@ -84,13 +80,12 @@ window.handleAddToCart = function() {
     addToCart(name, price, image, quantity, size);
 }
 
-// Function to populate the cart page table
 window.loadCart = function() {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
     const tableBody = document.querySelector('#cart table tbody');
     if (!tableBody) return;
 
-    tableBody.innerHTML = ''; // Clear the default/old content
+    tableBody.innerHTML = '';
     let total = 0;
 
     cart.forEach((item, index) => {
@@ -100,26 +95,14 @@ window.loadCart = function() {
 
         const newRow = tableBody.insertRow();
 
-        // 1. Remove Button
         newRow.insertCell().innerHTML = `<a href="#" onclick="removeItem(${index}); return false;"><i class="fa-regular fa-circle-xmark"></i></a>`;
-
-        // 2. Image
         newRow.insertCell().innerHTML = `<img src="${item.image}" alt="${item.name}">`;
-
-        // 3. Product Name & Size
         newRow.insertCell().innerHTML = `${item.name}<br><small>Size: ${item.size}</small>`;
-
-        // 4. Price
         newRow.insertCell().innerHTML = `$${itemPrice.toFixed(2)}`;
-
-        // 5. Quantity (with update function)
         newRow.insertCell().innerHTML = `<input id="qty-${index}" type="number" value="${item.quantity}" min="1" onchange="updateQuantity(${index}, this.value)">`;
-
-        // 6. Subtotal
         newRow.insertCell().innerHTML = `$${subtotal.toFixed(2)}`;
     });
 
-    // Update Totals
     const subtotalCell = document.querySelector('.subtotal table tr:nth-child(1) td:nth-child(2)');
     const totalCell = document.querySelector('.subtotal table tr:nth-child(3) td:nth-child(2) strong');
 
@@ -131,30 +114,27 @@ window.loadCart = function() {
     }
 }
 
-// Utility functions for cart page interaction (must be globally accessible)
 window.removeItem = function(index) {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
     cart.splice(index, 1);
     localStorage.setItem('productsInCart', JSON.stringify(cart));
-    loadCart(); // Reload the cart display
+    loadCart();
 }
 
 window.updateQuantity = function(index, newQuantity) {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
     newQuantity = parseInt(newQuantity);
     
-    // Validate quantity
     if (newQuantity < 1 || isNaN(newQuantity)) {
         newQuantity = 1;
-        document.getElementById(`qty-${index}`).value = 1; // Correct the input field
+        document.getElementById(`qty-${index}`).value = 1;
     }
     
     cart[index].quantity = newQuantity;
     localStorage.setItem('productsInCart', JSON.stringify(cart));
-    loadCart(); // Reload the cart display
+    loadCart();
 }
 
-// Load cart on the cart page once the window is loaded
 window.addEventListener('load', () => {
     const cartElement = document.getElementById('cart');
     if (cartElement) {
@@ -163,3 +143,70 @@ window.addEventListener('load', () => {
 });
 
 /* --- END: CART FUNCTIONALITY --- */
+
+/* --- START: THEME TOGGLE FUNCTIONALITY --- */
+
+(function() {
+    console.log('Theme script starting...');
+    
+    function initTheme() {
+        console.log('Initializing theme...');
+        
+        const themeToggle = document.getElementById('themeToggle');
+        const themeToggleMobile = document.getElementById('themeToggleMobile');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeIconMobile = document.getElementById('themeIconMobile');
+        const html = document.documentElement;
+
+        console.log('Elements found:', {
+            themeToggle: !!themeToggle,
+            themeToggleMobile: !!themeToggleMobile,
+            themeIcon: !!themeIcon,
+            themeIconMobile: !!themeIconMobile
+        });
+
+        // Check for saved theme preference
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        console.log('Current theme:', currentTheme);
+        
+        html.setAttribute('data-theme', currentTheme);
+        updateThemeIcon(currentTheme);
+
+        function updateThemeIcon(theme) {
+            console.log('Updating icons to:', theme);
+            const iconClass = theme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
+            if (themeIcon) themeIcon.className = iconClass;
+            if (themeIconMobile) themeIconMobile.className = iconClass;
+        }
+
+        function toggleTheme() {
+            console.log('Toggle clicked!');
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            console.log('Switching from', currentTheme, 'to', newTheme);
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        }
+
+        if (themeToggle) {
+            themeToggle.addEventListener('click', toggleTheme);
+            console.log('Desktop toggle listener added');
+        }
+        if (themeToggleMobile) {
+            themeToggleMobile.addEventListener('click', toggleTheme);
+            console.log('Mobile toggle listener added');
+        }
+    }
+
+    // Try multiple ways to ensure the script runs
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initTheme);
+    } else {
+        initTheme();
+    }
+})();
+
+/* --- END: THEME TOGGLE FUNCTIONALITY --- */
