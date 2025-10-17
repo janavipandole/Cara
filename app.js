@@ -4,14 +4,14 @@ const nav = document.getElementById("navbar");
 const close = document.getElementById("close");
 
 if (bar) {
-  bar.addEventListener("click", () => {
-    nav.classList.add("active");
-  });
+    bar.addEventListener("click", () => {
+        nav.classList.add("active");
+    });
 }
 if (close) {
-  close.addEventListener("click", () => {
-    nav.classList.remove("active");
-  });
+    close.addEventListener("click", () => {
+        nav.classList.remove("active");
+    });
 }
 
 // Single Product Image Switching
@@ -50,7 +50,7 @@ function addToCart(productName, productPrice, productImage, quantity, size) {
     alert(`${item.name} (Size: ${item.size}) added to cart!`);
 }
 
-window.handleAddToCart = function() {
+window.handleAddToCart = function () {
     const nameElement = document.getElementById('product-name');
     const priceElement = document.getElementById('product-price');
     const sizeSelect = document.getElementById('product-size');
@@ -73,14 +73,14 @@ window.handleAddToCart = function() {
         return;
     }
     if (quantity < 1 || isNaN(quantity)) {
-         alert('Please enter a valid quantity.');
-         return;
+        alert('Please enter a valid quantity.');
+        return;
     }
 
     addToCart(name, price, image, quantity, size);
 }
 
-window.loadCart = function() {
+window.loadCart = function () {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
     const tableBody = document.querySelector('#cart table tbody');
     if (!tableBody) return;
@@ -108,28 +108,28 @@ window.loadCart = function() {
 
     if (subtotalCell) subtotalCell.innerText = `$ ${total.toFixed(2)}`;
     if (totalCell) totalCell.innerText = `$ ${total.toFixed(2)}`;
-    
+
     if (cart.length === 0) {
         tableBody.innerHTML = '<tr><td colspan="6" style="text-align: center;">Your cart is empty.</td></tr>';
     }
 }
 
-window.removeItem = function(index) {
+window.removeItem = function (index) {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
     cart.splice(index, 1);
     localStorage.setItem('productsInCart', JSON.stringify(cart));
     loadCart();
 }
 
-window.updateQuantity = function(index, newQuantity) {
+window.updateQuantity = function (index, newQuantity) {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
     newQuantity = parseInt(newQuantity);
-    
+
     if (newQuantity < 1 || isNaN(newQuantity)) {
         newQuantity = 1;
         document.getElementById(`qty-${index}`).value = 1;
     }
-    
+
     cart[index].quantity = newQuantity;
     localStorage.setItem('productsInCart', JSON.stringify(cart));
     loadCart();
@@ -146,12 +146,12 @@ window.addEventListener('load', () => {
 
 /* --- START: THEME TOGGLE FUNCTIONALITY --- */
 
-(function() {
+(function () {
     console.log('Theme script starting...');
-    
+
     function initTheme() {
         console.log('Initializing theme...');
-        
+
         const themeToggle = document.getElementById('themeToggle');
         const themeToggleMobile = document.getElementById('themeToggleMobile');
         const themeIcon = document.getElementById('themeIcon');
@@ -168,7 +168,7 @@ window.addEventListener('load', () => {
         // Check for saved theme preference
         const currentTheme = localStorage.getItem('theme') || 'light';
         console.log('Current theme:', currentTheme);
-        
+
         html.setAttribute('data-theme', currentTheme);
         updateThemeIcon(currentTheme);
 
@@ -183,9 +183,9 @@ window.addEventListener('load', () => {
             console.log('Toggle clicked!');
             const currentTheme = html.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
+
             console.log('Switching from', currentTheme, 'to', newTheme);
-            
+
             html.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
             updateThemeIcon(newTheme);
