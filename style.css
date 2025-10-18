@@ -1,27 +1,89 @@
-@import url('https://fonts.googleapis.com/css2?family=Aboreto&family=Averia+Serif+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Cherry+Swash:wght@400;700&family=Gotu&family=League+Spartan:wght@100..900&family=Metrophobic&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
+
+/* ============================================
+   DARK THEME VARIABLES
+   ============================================ */
+
+:root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --text-primary: #222;
+    --text-secondary: #465b52;
+    --header-bg: rgba(255, 255, 255, 0.5);
+    --card-bg: #ffffff;
+    --border-color: #cce7d0;
+    --shadow: rgba(0, 0, 0, 0.02);
+    --shadow-hover: rgba(0, 0, 0, 0.25);
+    --accent: #088178;
+    --feature-bg-1: #fddde4;
+    --feature-bg-2: #cdebbc;
+    --feature-bg-3: #d1e8f2;
+    --feature-bg-4: #cdd4f6;
+    --feature-bg-5: #f6dbf6;
+    --feature-bg-6: #fff2e5;
+    --input-bg: #ffffff;
+    --footer-text: #222;
+    --cart-icon-bg: #e8f6ea;
+}
+
+[data-theme="dark"] {
+    --bg-primary: #0f1419;
+    --bg-secondary: #1a1f26;
+    --text-primary: #e6eef8;
+    --text-secondary: #94a3b8;
+    --header-bg: rgba(15, 20, 25, 0.85);
+    --card-bg: #1a1f26;
+    --border-color: #2d3748;
+    --shadow: rgba(0, 0, 0, 0.4);
+    --shadow-hover: rgba(124, 58, 237, 0.3);
+    --accent: #06b6d4;
+    --feature-bg-1: #7c3aed;
+    --feature-bg-2: #10b981;
+    --feature-bg-3: #3b82f6;
+    --feature-bg-4: #8b5cf6;
+    --feature-bg-5: #ec4899;
+    --feature-bg-6: #f59e0b;
+    --input-bg: #2d3748;
+    --footer-text: #e6eef8;
+    --cart-icon-bg: #2d3748;
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
 
 * {
-    font-family: "League Spartan";
+    font-family: "League Spartan", sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+body {
+    width: 100%;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 h1 {
     font-size: 70px;
     line-height: 74px;
-    color: #222;
+    color: var(--text-primary);
+    transition: color 0.3s ease;
 }
 
 h2 {
     font-size: 56px;
     line-height: 60px;
-    color: #222;
+    color: var(--text-primary);
+    transition: color 0.3s ease;
 }
 
 h4 {
     font-size: 30px;
-    color: #222;
+    color: var(--text-primary);
+    transition: color 0.3s ease;
 }
 
 h6 {
@@ -32,11 +94,14 @@ h6 {
 p {
     font-size: 22px;
     margin: 12px 0 20px 0;
-    color: #465b52;
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
 }
 
 .section-p1 {
     padding: 40px 80px;
+    background-color: var(--bg-primary);
+    transition: background-color 0.3s ease;
 }
 
 .section-m1 {
@@ -55,7 +120,6 @@ button.normal {
     border-radius: 4px;
     outline: none;
     transition: 0.3s ease;
-
 }
 
 button.white {
@@ -70,22 +134,50 @@ button.white {
     cursor: pointer;
     outline: none;
     transition: 0.3s linear;
-
 }
 
-body {
-    width: 100%;
+/* ============================================
+   THEME TOGGLE BUTTON
+   ============================================ */
+
+.theme-toggle {
+    background: transparent;
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-primary);
+    font-size: 18px;
+    transition: all 0.3s ease;
 }
+
+.theme-toggle:hover {
+    background-color: var(--accent);
+    border-color: var(--accent);
+    color: white;
+    transform: rotate(180deg);
+}
+
+.mobile .theme-toggle {
+    margin-right: 10px;
+}
+
+/* ============================================
+   LAYOUT
+   ============================================ */
 
 #main {
     width: 100%;
     height: 100vh;
-
 }
 
 #back {
     width: 100%;
-    height: 90%vh;
+    height: 90vh;
 }
 
 #back img {
@@ -112,15 +204,16 @@ body {
     height: 100vh;
 }
 
+/* ============================================
+   HEADER
+   ============================================ */
 
-/* header */
 #header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 18px 80px;
-    background: rgba(255, 255, 255, 0.5);
-    /* almost clear */
+    background: var(--header-bg);
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
@@ -129,9 +222,8 @@ body {
     top: 0;
     width: 100%;
     border: none;
-    transition: all 0.44s ease;
+    transition: all 0.3s ease;
 }
-
 
 #header a {
     pointer-events: all;
@@ -151,18 +243,17 @@ body {
 
 #navbar li a {
     position: relative;
-    /* Added postion-relative*/
     pointer-events: all;
     text-decoration: none;
     font-size: 22px;
     font-weight: 500;
-    color: #1a1a1a;
-    transition: 0.3s ease;
+    color: var(--text-primary);
+    transition: color 0.3s ease;
 }
 
 #navbar li a:hover,
 #navbar li a.active {
-    color: #088178;
+    color: var(--accent);
 }
 
 .mobile,
@@ -174,14 +265,16 @@ body {
     content: '';
     width: 100%;
     height: 2px;
-    background: #088178;
+    background: var(--accent);
     position: absolute;
     bottom: -4px;
     left: 2px;
-    /* Changed top 2px */
 }
 
-/* home page */
+/* ============================================
+   HERO SECTION
+   ============================================ */
+
 #hero {
     background-image: url("images/hero4.png");
     height: 100vh;
@@ -193,7 +286,11 @@ body {
     align-items: start;
     justify-content: center;
     flex-direction: column;
+}
 
+button a {
+    text-decoration: none;
+    color: black;
 }
 
 #hero h4 {
@@ -201,7 +298,7 @@ body {
 }
 
 #hero h1 {
-    color: #088178;
+    color: var(--accent);
 }
 
 #hero button {
@@ -218,31 +315,35 @@ body {
 
 #hero button a {
     text-decoration: none;
-    color: #088178;
+    color: var(--accent);
 }
+
+/* ============================================
+   FEATURES SECTION
+   ============================================ */
 
 #feature {
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-
 }
 
 #feature .fe-box {
     width: 180px;
     text-align: center;
     padding: 25px 15px;
-    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.02);
+    box-shadow: 20px 20px 30px var(--shadow);
     border-radius: 4px;
-    border: 1px solid #cce7d0;
+    border: 1px solid var(--border-color);
     margin: 35px 0;
     margin-top: 100px;
-    transition: 0.3s ease-in-out;
+    background-color: var(--card-bg);
+    transition: all 0.3s ease;
 }
 
 #feature .fe-box:hover {
-    box-shadow: 10px 10px 74px rgba(0, 0, 0, 0.25);
+    box-shadow: 10px 10px 74px var(--shadow-hover);
 }
 
 #feature.fe-box img {
@@ -257,29 +358,36 @@ body {
     margin-top: 10px;
     border-radius: 4px;
     color: #088178;
-    background-color: #fddde4;
     font-size: 16px;
 }
 
+#feature .fe-box:nth-child(1) h6 {
+    background-color: var(--feature-bg-1);
+}
+
 #feature .fe-box:nth-child(2) h6 {
-    background-color: #cdebbc;
+    background-color: var(--feature-bg-2);
 }
 
 #feature .fe-box:nth-child(3) h6 {
-    background-color: #d1e8f2;
+    background-color: var(--feature-bg-3);
 }
 
 #feature .fe-box:nth-child(4) h6 {
-    background-color: #cdd4f6;
+    background-color: var(--feature-bg-4);
 }
 
 #feature .fe-box:nth-child(5) h6 {
-    background-color: #f6dbf6;
+    background-color: var(--feature-bg-5);
 }
 
 #feature .fe-box:nth-child(6) h6 {
-    background-color: #fff2e5;
+    background-color: var(--feature-bg-6);
 }
+
+/* ============================================
+   PRODUCTS SECTION
+   ============================================ */
 
 #product1 {
     text-align: center;
@@ -297,16 +405,17 @@ body {
     width: 23%;
     min-width: 250px;
     padding: 10px 12px;
-    border: 1px solid #cce7d0;
+    border: 1px solid var(--border-color);
     border-radius: 20px;
     cursor: pointer;
-    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.02);
+    box-shadow: 20px 20px 30px var(--shadow);
     margin: 15px 0;
-    transition: 0.3s ease;
+    background-color: var(--card-bg);
+    transition: all 0.3s ease;
 }
 
 #product1 .pro:hover {
-    box-shadow: 10px 10px 50px rgba(0, 0, 0.06);
+    box-shadow: 10px 10px 50px var(--shadow-hover);
 }
 
 #product1 .pro img {
@@ -316,17 +425,17 @@ body {
 
 #product1 .pro .des {
     text-align: start;
-    padding: 10px 0
+    padding: 10px 0;
 }
 
 #product1 .pro .des span {
-    color: #606063;
+    color: var(--text-secondary);
     font-size: 14px;
 }
 
 #product1 .pro .des h5 {
     padding-top: 7px;
-    color: #1a1a1a;
+    color: var(--text-primary);
     font-weight: 500;
     font-size: 16px;
 }
@@ -338,7 +447,7 @@ body {
 
 #product1 .pro .des h4 {
     padding-top: 7px;
-    color: #088178;
+    color: var(--accent);
     font-size: 15px;
     font-weight: 700;
 }
@@ -348,15 +457,19 @@ body {
     height: 40px;
     line-height: 40px;
     border-radius: 50px;
-    background-color: #e8f6ea;
+    background-color: var(--cart-icon-bg);
     font-weight: 500;
-    color: #088178;
-    border: 1px solid #cce7d0;
+    color: var(--accent);
+    border: 1px solid var(--border-color);
     position: absolute;
     bottom: 18px;
     right: 10px;
-
+    transition: all 0.3s ease;
 }
+
+/* ============================================
+   BANNERS
+   ============================================ */
 
 #banner {
     background-image: url("images/banner/b2.jpg");
@@ -410,7 +523,6 @@ body {
     color: #FFF;
     flex-direction: column;
     padding: 30px;
-
 }
 
 #sm-banner .banner-box2 {
@@ -439,7 +551,6 @@ body {
 #sm-banner .banner-box:hover button {
     color: #000;
     background-color: #1ea59c;
-
 }
 
 #banner3 {
@@ -461,7 +572,6 @@ body {
     flex-direction: column;
     padding: 20px;
     margin-bottom: 20px;
-
 }
 
 #banner3 .banner-box2 {
@@ -483,6 +593,10 @@ body {
     font-weight: 700;
     font-size: 22px;
 }
+
+/* ============================================
+   NEWSLETTER
+   ============================================ */
 
 #newsletter {
     display: flex;
@@ -527,7 +641,9 @@ body {
     border-radius: 4px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+    transition: all 0.3s ease;
 }
 
 #newsletter .form button {
@@ -538,10 +654,16 @@ body {
     white-space: nowrap;
 }
 
+/* ============================================
+   FOOTER
+   ============================================ */
+
 footer {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    background-color: var(--bg-secondary);
+    transition: background-color 0.3s ease;
 }
 
 footer .col {
@@ -558,18 +680,21 @@ footer .logo {
 footer h4 {
     margin-bottom: 20px;
     font-size: 20px;
+    color: var(--footer-text);
 }
 
 footer p {
     margin: 0 0 8px 0;
     font-size: 20px;
+    color: var(--footer-text);
 }
 
 footer a {
     font-size: 18px;
     text-decoration: none;
-    color: #222;
+    color: var(--footer-text);
     margin-bottom: 10px;
+    transition: color 0.3s ease;
 }
 
 footer .follow {
@@ -577,9 +702,10 @@ footer .follow {
 }
 
 footer .follow i {
-    color: #465b53;
+    color: var(--text-secondary);
     padding-right: 4px;
     cursor: pointer;
+    transition: color 0.3s ease;
 }
 
 footer .install .row img {
@@ -593,8 +719,7 @@ footer .install img {
 
 footer .follow i:hover,
 footer a:hover {
-    color: #088178;
-
+    color: var(--accent);
 }
 
 footer .copyright {
@@ -602,7 +727,10 @@ footer .copyright {
     width: 100%;
 }
 
-/* SHOP PAGE */
+/* ============================================
+   SHOP PAGE
+   ============================================ */
+
 #shop-hero {
     background-image: url("images/banner/b1.jpg");
     background-size: cover;
@@ -632,16 +760,17 @@ footer .copyright {
     border-radius: 4px;
     color: #fff;
     font-weight: 600;
-
 }
 
-/* single product */
+/* ============================================
+   SINGLE PRODUCT
+   ============================================ */
+
 #pro-details {
     margin-top: 80px;
     pointer-events: all;
     display: flex;
 }
-
 
 #pro-details .single-pro-image {
     pointer-events: all;
@@ -677,7 +806,6 @@ footer .copyright {
     display: block;
     padding: 5px 10px;
     margin-bottom: 10px;
-
 }
 
 #pro-details .single-pro-details input {
@@ -697,7 +825,10 @@ footer .copyright {
     background: #088178;
 }
 
-/* blog-page */
+/* ============================================
+   BLOG PAGE
+   ============================================ */
+
 #blog-head {
     background-image: url("images/banner/b19.jpg");
     background-size: cover;
@@ -708,7 +839,6 @@ footer .copyright {
     justify-content: center;
     flex-direction: column;
     padding: 14px;
-
 }
 
 #blog-head h2,
@@ -781,7 +911,10 @@ footer .copyright {
     background-color: #088178;
 }
 
-/* about us */
+/* ============================================
+   ABOUT US
+   ============================================ */
+
 #about-head {
     background-image: url("images/about/banner.png");
     background-size: cover;
@@ -792,7 +925,6 @@ footer .copyright {
     justify-content: center;
     flex-direction: column;
     padding: 14px;
-
 }
 
 #about-head h2,
@@ -834,7 +966,9 @@ footer .copyright {
     border-radius: 20px;
 }
 
-/* contact us */
+/* ============================================
+   CONTACT US
+   ============================================ */
 
 #contact-details {
     display: flex;
@@ -883,7 +1017,6 @@ footer .copyright {
 #contact-details .map {
     width: 55%;
     height: 400px;
-    /* margin-top: 50px; */
 }
 
 #contact-details .map iframe {
@@ -927,16 +1060,11 @@ footer .copyright {
     align-items: flex-start;
 }
 
-#form-details .social-media div {
-    padding-bottom: 25px;
-}
-
 #form-details .social-media div img {
     width: 65px;
     height: 65px;
     object-fit: cover;
     margin-right: 15px;
-
 }
 
 #form-details .social-media div p {
@@ -947,12 +1075,15 @@ footer .copyright {
 
 #form-details .social-media div p span {
     display: block;
-    font-size: 20;
+    font-size: 20px;
     font-weight: 600;
     color: #000;
 }
 
-/* cart  page*/
+/* ============================================
+   CART PAGE
+   ============================================ */
+
 #cart {
     overflow-x: auto;
 }
@@ -1014,7 +1145,6 @@ footer .copyright {
 
 #cart table thead td a i {
     color: #000;
-
 }
 
 #cart table tbody tr td {
@@ -1085,12 +1215,194 @@ footer .copyright {
 }
 
 
+/* ============================================
+   LOGIN 
+   ============================================ */
+/* login page */
+.login-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f3f4f6;
+    margin: 10;
+}
 
+/* Message Box */
+#signUpMessage {
+    position: fixed;
+    top: 2rem;
+    left: 50%;
+    padding: 0.75rem;
+    font-size: 0.875rem;
+    text-align: center;
+    color: #ffffff;
+    border-radius: 0.375rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.5s ease-in-out;
+    background-color: #ef4444;
+    min-width: 300px;
+    display: none;
+}
 
+/* Form Container */
+.auth-container {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 28rem;
+}
+
+/* Form Title */
+.auth-container h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+/* OR Divider */
+.divider {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex-grow: 1;
+    border-top: 1px solid #d1d5db;
+}
+
+.divider span {
+    flex-shrink: 0;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    color: #6b7280;
+}
+
+/* Form Labels */
+label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.4rem;
+}
+
+/* Form Inputs */
+input {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    color: #111827;
+    font-size: 0.875rem;
+}
+
+input::placeholder {
+    color: #9ca3af;
+}
+
+input:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    border-color: #088178;
+    ;
+    box-shadow: 0 0 0 1px #088178, 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* Input Grouping */
+#register-fields>div {
+    margin-bottom: 1rem;
+}
+
+/* Forgot Password Link */
+#forgot-password-link {
+    font-size: 0.875rem;
+    margin-top: 1rem;
+    /* mt-4 */
+    text-align: right;
+}
+
+#forgot-password-link a {
+    font-weight: 500;
+    color: #088178;
+    text-decoration: none;
+}
+
+#forgot-password-link a:hover {
+    color: #088179ec;
+    ;
+}
+
+/* Submit Button */
+.submit-button-container {
+    margin-top: 1.5rem;
+}
+
+#submitButton {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.375rem;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #ffffff;
+    background-color: #088178;
+    ;
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out;
+}
+
+#submitButton:hover {
+    background-color: #088178;
+    ;
+}
+
+#submitButton:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #088178;
+    ;
+}
+
+/* Toggle Auth Link */
+.toggle-auth-footer {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 0.875rem;
+}
+
+.toggle-auth-footer a {
+    font-weight: 500;
+    color: #088178;
+    ;
+    text-decoration: none;
+}
+
+.toggle-auth-footer a:hover {
+    color: #088178;
+    ;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
 
 @media (max-width:799px) {
     #navbar {
-
         display: flex;
         flex-direction: column;
         align-items: flex-start;
@@ -1100,11 +1412,10 @@ footer .copyright {
         right: -300px;
         height: 100vh;
         width: 300px;
-        background-color: #E3E6F3;
+        background-color: var(--card-bg);
         box-shadow: 0 40px 60px rgba(0, 0, 0, 0.1);
         padding: 80px 0 0 10px;
         transition: 0.3s linear;
-
     }
 
     #navbar.active {
@@ -1117,19 +1428,19 @@ footer .copyright {
 
     .mobile {
         pointer-events: all;
-        display: block;
+        display: flex;
         align-items: center;
     }
 
     .mobile i {
         pointer-events: all;
-        color: #1a1a1a;
+        color: var(--text-primary);
         font-size: 24px;
         padding-left: 20px;
     }
 
     #lg-bag {
-        display: none
+        display: none;
     }
 
     #navbar #close {
@@ -1139,7 +1450,7 @@ footer .copyright {
         top: 20px;
         left: 20px;
         font-size: 24px;
-        color: #1a1a1a;
+        color: var(--text-primary);
         cursor: pointer;
     }
 
@@ -1152,7 +1463,7 @@ footer .copyright {
         object-position: top 30% right 30%;
     }
 
-    #hore {
+    #hero {
         background-position: top 30% right 30%;
         padding: 0 80px;
     }
@@ -1174,7 +1485,6 @@ footer .copyright {
     #sm-banner .banner-box {
         min-width: 100%;
         margin: 10px;
-
     }
 
     #banner3 {
@@ -1223,7 +1533,6 @@ footer .copyright {
         flex-direction: column;
         display: flex;
     }
-
 
     #pro-details .single-pro-image {
         pointer-events: all;
@@ -1320,10 +1629,6 @@ footer .copyright {
         align-items: center;
     }
 
-    #form-details .social-media div {
-        padding-bottom: 25px;
-    }
-
     #cart-add {
         flex-direction: column;
     }
@@ -1363,7 +1668,6 @@ footer .copyright {
 
     #hero p {
         font-size: 18px;
-        color: #000;
     }
 
     .section-p1 {
@@ -1390,7 +1694,7 @@ footer .copyright {
         height: 40vh;
     }
 
-    #sm-banner.banner-box {
+    #sm-banner .banner-box {
         height: 50vh;
         padding: 0 20px;
         width: 100%;
@@ -1412,7 +1716,6 @@ footer .copyright {
 
     #newsletter .form {
         width: 100%;
-
     }
 
     #blog {
@@ -1426,7 +1729,6 @@ footer .copyright {
     #about-us img {
         height: 60vh;
     }
-
 }
 
 canvas {
