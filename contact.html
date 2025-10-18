@@ -14,22 +14,36 @@
 
 <body>
     <section id="header">
-        <a href="index.html"><img src="images/logo.png" alt=""></a>
+        <a href="index.html" aria-label="Cara Store — Home" title="Cara Store — Home">
+            <img src="images/logo.png" alt="Cara Store logo">
+        </a>
 
         <div>
             <ul id="navbar">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="shop.html">Shop</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a class="active" href="contact.html">Contact</a></li>
-                <li><a href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
-                <a href="" id="close"><i class="fa-solid fa-xmark"></i></a>
+                <li><a href="index.html" title="Home">Home</a></li>
+                <li><a href="shop.html" title="Shop">Shop</a></li>
+                <li><a href="blog.html" title="Blog">Blog</a></li>
+                <li><a href="about.html" title="About">About</a></li>
+                <li><a class="active" href="contact.html" title="Contact">Contact</a></li>
+                <li>
+                    <a href="cart.html" id="lg-bag" aria-label="View cart" title="View cart">
+                        <i class="ri-shopping-bag-4-line" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li>
+                    <button id="close" class="icon-btn" type="button" aria-label="Close menu" title="Close menu">
+                        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                    </button>
+                </li>
             </ul>
         </div>
         <div class="mobile">
-            <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
-            <i class="fas fa-outdent" id="bar"></i>
+            <a href="cart.html" aria-label="View cart" title="View cart">
+                <i class="ri-shopping-bag-4-line" aria-hidden="true"></i>
+            </a>
+            <button id="bar" class="icon-btn" aria-label="Open menu" title="Open menu" type="button">
+                <i class="fas fa-outdent" aria-hidden="true"></i>
+            </button>
         </div>
     </section>
     <section id="about-head">
@@ -39,53 +53,67 @@
     <section id="contact-details" class="section-p1">
         <div class="details">
             <span>GET IN TOUCH</span>
-            <h2>Visit onr of our agency location or contact us today</h2>
-            <h3>head Office</h3>
-            <div>
+            <h2>Visit one of our agency locations or contact us today</h2>
+            <h3>Head Office</h3>
+
+            <ul class="contact-list" aria-label="Contact details">
                 <li>
-                    <i class="fa-regular fa-map"></i>
-                    <p>56 Glassford Street Glasgoq G1 1UL New York</p>
+                    <i class="fa-regular fa-map" aria-hidden="true"></i>
+                    <p>56 Glassford Street, Glasgow G1 1UL, United Kingdom</p>
                 </li>
                 <li>
-                    <i class="fa-regular fa-envelope"></i>
-                    <p>cantact@exmple.com</p>
+                    <i class="fa-regular fa-envelope" aria-hidden="true"></i>
+                    <p><a href="mailto:contact@example.com">contact@example.com</a></p>
                 </li>
                 <li>
-                    <i class="fa-solid fa-phone"></i>
-                    <p>cantact@exmple.comk</p>
+                    <i class="fa-solid fa-phone" aria-hidden="true"></i>
+                    <p><a href="tel:+0001230007788">+000 123 000 77 88</a></p>
                 </li>
                 <li>
-                    <i class="fa-regular fa-clock"></i>
-                    <p>Monday to Saturday</p>
+                    <i class="fa-regular fa-clock" aria-hidden="true"></i>
+                    <p>Monday to Saturday — 09:00 to 18:00</p>
                 </li>
-            </div>
+            </ul>
         </div>
         <div class="map">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d79041.63809687465!2d-1.3299880336476733!3d51.750387492608276!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48713380adc41faf%3A0xc820dba8cb547402!2sOxford%2C%20UK!5e0!3m2!1sen!2sin!4v1730811271071!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe
+                title="Map showing Cara head office location in Oxford"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d79041.63809687465!2d-1.3299880336476733!3d51.750387492608276!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48713380adc41faf%3A0xc820dba8cb547402!2sOxford%2C%20UK!5e0!3m2!1sen!2sin!4v1730811271071!5m2!1sen!2sin"
+                width="600" height="450" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
         </div>
     </section>
     <section id="form-details">
-        <form action="">
+        <form action="" aria-label="Contact form">
             <span>LEAVE A MESSAGE</span>
-            <h2>We love to hear frim you!</h2>
-            <input type="text" placeholder="Your Name">
-            <input type="text" placeholder="Your Email">
-            <input type="text" placeholder="Subject">
-            <textarea cols="30" rows="12" placeholder="Your Message"></textarea>
-            <button class="normal">Submit</button>
+            <h2>We love to hear from you!</h2>
+
+            <label class="sr-only" for="contact-name">Your Name</label>
+            <input id="contact-name" name="name" type="text" placeholder="Your Name" required>
+
+            <label class="sr-only" for="contact-email">Your Email</label>
+            <input id="contact-email" name="email" type="email" placeholder="Your Email" required>
+
+            <label class="sr-only" for="contact-subject">Subject</label>
+            <input id="contact-subject" name="subject" type="text" placeholder="Subject">
+
+            <label class="sr-only" for="contact-message">Your Message</label>
+            <textarea id="contact-message" name="message" cols="30" rows="12" placeholder="Your Message" required></textarea>
+
+            <button class="normal" type="submit">Submit</button>
         </form>
-        <div class="social-media">
+
+        <div class="social-media" aria-label="Team contacts">
             <div>
-                <img src="images/people/1.png" alt="">
-                <p><span>John Doe</span> Senior Marketing Manager <br> Phone: +000 123 000 77 88 <br> Email: contact@exmple.com</p>
+                <img src="images/people/1.png" alt="John Doe — Senior Marketing Manager">
+                <p><strong>John Doe</strong><br>Senior Marketing Manager<br>Phone: <a href="tel:+0001230007788">+000 123 000 77 88</a><br>Email: <a href="mailto:contact@example.com">contact@example.com</a></p>
             </div>
             <div>
-                <img src="images/people/2.png" alt="">
-                <p><span>John Doe</span> Senior Marketing Manager <br> Phone: +000 123 000 77 88 <br> Email: contact@exmple.com</p>
+                <img src="images/people/2.png" alt="Jane Smith — Sales Manager">
+                <p><strong>Jane Smith</strong><br>Sales Manager<br>Phone: <a href="tel:+0001230007799">+000 123 000 77 99</a><br>Email: <a href="mailto:sales@example.com">sales@example.com</a></p>
             </div>
             <div>
-                <img src="images/people/3.png" alt="">
-                <p><span>John Doe</span> Senior Marketing Manager <br> Phone: +000 123 000 77 88 <br> Email: contact@exmple.com</p>
+                <img src="images/people/3.png" alt="Alex Lee — Customer Support">
+                <p><strong>Alex Lee</strong><br>Customer Support<br>Phone: <a href="tel:+0001230007700">+000 123 000 77 00</a><br>Email: <a href="mailto:support@example.com">support@example.com</a></p>
             </div>
         </div>
     </section>
@@ -110,11 +138,21 @@
             <div class="follow">
                 <h4>Follow us</h4>
                 <div class="icon">
-                    <i class="fab fa-facebook-f"></i>
-                    <i class="fab fa-twitter"></i>
-                    <i class="fab fa-instagram"></i>
-                    <i class="fab fa-pinterest-p"></i>
-                    <i class="fab fa-youtube"></i>
+                    <a href="#" aria-label="Follow Cara on Facebook" title="Follow on Facebook" rel="noopener">
+                        <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                    </a>
+                    <a href="#" aria-label="Follow Cara on Twitter" title="Follow on Twitter" rel="noopener">
+                        <i class="fab fa-twitter" aria-hidden="true"></i>
+                    </a>
+                    <a href="#" aria-label="Follow Cara on Instagram" title="Follow on Instagram" rel="noopener">
+                        <i class="fab fa-instagram" aria-hidden="true"></i>
+                    </a>
+                    <a href="#" aria-label="Follow Cara on Pinterest" title="Follow on Pinterest" rel="noopener">
+                        <i class="fab fa-pinterest-p" aria-hidden="true"></i>
+                    </a>
+                    <a href="#" aria-label="Follow Cara on YouTube" title="Follow on YouTube" rel="noopener">
+                        <i class="fab fa-youtube" aria-hidden="true"></i>
+                    </a>
                 </div>
             </div>
         </div>
