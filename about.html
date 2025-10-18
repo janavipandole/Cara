@@ -14,7 +14,9 @@
 
 <body>
     <section id="header">
-        <a href="index.html"><img src="images/logo.png" alt=""></a>
+        <a href="index.html" aria-label="Cara Store — Home" title="Cara Store — Home">
+            <img src="images/logo.png" alt="Cara Store logo">
+        </a>
 
         <div>
             <ul id="navbar">
@@ -23,13 +25,25 @@
                 <li><a href="blog.html">Blog</a></li>
                 <li><a class="active" href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
-                <li><a href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
-                <a href="" id="close"><i class="fa-solid fa-xmark"></i></a>
+                <li>
+                    <a href="cart.html" id="lg-bag" aria-label="View cart" title="View cart">
+                        <i class="ri-shopping-bag-4-line" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="close" role="button" aria-label="Close menu" title="Close menu">
+                        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                    </a>
+                </li>
             </ul>
         </div>
         <div class="mobile">
-            <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
-            <i class="fas fa-outdent" id="bar"></i>
+            <a href="cart.html" aria-label="View cart" title="View cart">
+                <i class="ri-shopping-bag-4-line" aria-hidden="true"></i>
+            </a>
+            <button id="bar" class="icon-btn" aria-label="Open menu" title="Open menu">
+                <i class="fas fa-outdent" aria-hidden="true"></i>
+            </button>
         </div>
     </section>
     <section id="about-head">
@@ -37,7 +51,7 @@
         <p>Read all case studies about Us!</p>
     </section>
     <section id="about-us" class="section-p1">
-        <img src="images/about/a6.jpg" alt="">
+        <img src="images/about/a6.jpg" alt="Team working at Cara">
         <div>
             <h2>Who We Are</h2>
             <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi sed necessitatibus quaerat? Est alias
@@ -48,18 +62,18 @@
                 perspiciatis, eos sit. Minus!
             </p>
 
-            <abbr title="">Create stunning images with as much or as little control as you
-                like thanks to a choice of Basic and Creative modes.</abbr>
-            <br><br>
-            <marquee bgcolor=" #ccc" loop="-1" scollamount="5" width="100%">Create stunning images with as much or as
-                little control as you
-                like thanks to a choice of Basic and Creative modes. </marquee>
+            <p><strong>Create stunning images with as much or as little control as you like thanks to a choice of Basic and Creative modes.</strong></p>
+
+            <div class="ticker" aria-hidden="true">Create stunning images with as much or as little control as you like thanks to a choice of Basic and Creative modes.</div>
         </div>
     </section>
     <section id="about-app">
-        <h1>Download Our <a href="#">App</a></h1>
+        <h1>Download Our <a href="#" title="Download app">App</a></h1>
         <div class="video">
-            <video autoplay muted loop src="images/about/1.mp4"></video>
+            <figure>
+                <video controls muted loop src="images/about/1.mp4" aria-label="Cara app demo video" poster="images/about/1.jpg"></video>
+                <figcaption class="muted">Demo of the Cara app. Use controls to play.</figcaption>
+            </figure>
         </div>
     </section>
     <section id="feature" class="section-p1">
@@ -109,11 +123,21 @@
             <div class="follow">
                 <h4>Follow us</h4>
                 <div class="icon">
-                    <i class="fab fa-facebook-f"></i>
-                    <i class="fab fa-twitter"></i>
-                    <i class="fab fa-instagram"></i>
-                    <i class="fab fa-pinterest-p"></i>
-                    <i class="fab fa-youtube"></i>
+                    <a href="#" aria-label="Follow Cara on Facebook" title="Follow on Facebook" rel="noopener">
+                        <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                    </a>
+                    <a href="#" aria-label="Follow Cara on Twitter" title="Follow on Twitter" rel="noopener">
+                        <i class="fab fa-twitter" aria-hidden="true"></i>
+                    </a>
+                    <a href="#" aria-label="Follow Cara on Instagram" title="Follow on Instagram" rel="noopener">
+                        <i class="fab fa-instagram" aria-hidden="true"></i>
+                    </a>
+                    <a href="#" aria-label="Follow Cara on Pinterest" title="Follow on Pinterest" rel="noopener">
+                        <i class="fab fa-pinterest-p" aria-hidden="true"></i>
+                    </a>
+                    <a href="#" aria-label="Follow Cara on YouTube" title="Follow on YouTube" rel="noopener">
+                        <i class="fab fa-youtube" aria-hidden="true"></i>
+                    </a>
                 </div>
             </div>
         </div>
