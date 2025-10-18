@@ -111,14 +111,24 @@
     /* Empty states */
     .empty{padding:28px;border-radius:12px;text-align:center;color:var(--muted);background:var(--glass-2)}
 
-    /* Small screens */
-    @media (max-width:980px){
-      .app{grid-template-columns:1fr}
-      .sidebar{order:2}
-      header{flex-direction:column;align-items:flex-start;gap:12px}
-      .search{min-width:100%}
-      .modal-card{grid-template-columns:1fr}
-    }
+    /* utility classes to replace inline styles */
+    .hidden{display:none}
+    .mt-sm{margin-top:14px}
+    .mt-12{margin-top:12px}
+    .ml-6{margin-left:6px}
+    .ml-8{margin-left:8px}
+    .fw-700{font-weight:700}
+    .no-margin{margin:0}
+    .split{display:flex;justify-content:space-between;align-items:center}
+    .cart-thumb img, .cart-thumb-img{width:100%;height:100%;object-fit:cover;border-radius:6px}
+    .cart-item-row{display:flex;justify-content:space-between;align-items:center}
+    .cart-item-meta{display:flex;justify-content:space-between;align-items:center;margin-top:6px}
+    .qty-count{min-width:22px;text-align:center}
+    .modal-col{display:flex;flex-direction:column;gap:12px}
+    .modal-thumb img, .modal-thumb-img{width:100%;height:320px;object-fit:cover;display:block}
+    .modal-hr{border-color:rgba(255,255,255,0.03);margin:14px 0}
+    .heading-small{margin-left:8px;font-weight:500;font-size:13px}
+    .subtotal-strong{font-weight:800}
 
     /* Tiny polish */
     a,button{font-family:inherit}
@@ -159,15 +169,15 @@
       <div class="toolbar">
         <div>
           <div class="muted">Showing <span id="count">0</span> products</div>
-          <h2 style="margin:6px 0 0">Featured
-            <small class="muted" style="margin-left:8px;font-weight:500;font-size:13px">Hand-picked, best sellers</small>
+          <h2 class="heading">Featured
+            <small class="muted heading-small">Hand-picked, best sellers</small>
           </h2>
         </div>
         <div class="filters">
-          <select id="category" class="filter-btn">
+          <select id="category" class="filter-btn" aria-label="Filter by category" title="Filter by category">
             <option value="all">All categories</option>
           </select>
-          <select id="priceRange" class="filter-btn">
+          <select id="priceRange" class="filter-btn" aria-label="Filter by price range" title="Filter by price range">
             <option value="any">Any price</option>
             <option value="0-25">Under $25</option>
             <option value="25-75">$25–75</option>
@@ -178,13 +188,13 @@
 
       <div id="grid" class="grid" aria-live="polite"></div>
 
-      <div id="empty" class="empty" style="display:none;margin-top:14px">No products match your search. Try different keywords or clear filters.</div>
+      <div id="empty" class="empty mt-sm hidden">No products match your search. Try different keywords or clear filters.</div>
     </section>
 
     <aside class="sidebar" aria-label="Cart and summary">
-      <div style="display:flex;justify-content:space-between;align-items:center;">
+      <div class="split">
         <div>
-          <h3 style="margin:0">Your Cart</h3>
+          <h3 class="no-margin">Your Cart</h3>
           <div class="muted">Keep items for later or checkout quickly</div>
         </div>
         <button id="clearCart" class="icon-btn" title="Clear cart">Clear</button>
@@ -194,10 +204,10 @@
         <div class="muted">Cart is empty</div>
       </div>
 
-      <div style="margin-top:12px">
-        <div style="display:flex;justify-content:space-between;align-items:center">
+      <div class="mt-sm">
+        <div class="cart-item-row">
           <div class="muted">Subtotal</div>
-          <div id="subtotal" style="font-weight:800">$0.00</div>
+          <div id="subtotal" class="subtotal-strong">$0.00</div>
         </div>
         <button id="checkout" class="checkout">Proceed to Checkout</button>
       </div>
@@ -205,7 +215,7 @@
   </main>
 
   <!-- Quick view modal (hidden by default) -->
-  <div id="modalRoot" style="display:none"></div>
+  <div id="modalRoot" class="hidden"></div>
 
   <script>
     /* Cara — lightweight product catalogue + cart
@@ -321,19 +331,19 @@
         const p = products.find(x=>x.id===id); const q = cart[id]; const line = p.price*q; total += line;
         const el = document.createElement('div'); el.className='cart-item';
         el.innerHTML = `
-          <div class='cart-thumb'><img src='${p.img}' alt='${p.title}' style='width:100%;height:100%;object-fit:cover;border-radius:6px'/></div>
-          <div style='flex:1'>
-            <div style='display:flex;justify-content:space-between;align-items:center'>
-              <div style='font-weight:700'>${p.title}</div>
-              <div style='font-weight:700'>${formatPrice(line)}</div>
+          <div class='cart-thumb'><img src='${p.img}' alt='${p.title}' class='cart-thumb-img'/></div>
+          <div class='cart-item-content' style='flex:1'>
+            <div class='cart-item-row'>
+              <div class='fw-700'>${p.title}</div>
+              <div class='fw-700'>${formatPrice(line)}</div>
             </div>
-            <div style='display:flex;justify-content:space-between;align-items:center;margin-top:6px'>
+            <div class='cart-item-meta'>
               <div class='muted' style='font-size:13px'>${formatPrice(p.price)} each</div>
               <div class='qty'>
                 <button data-dec='${id}'>-</button>
-                <div style='min-width:22px;text-align:center'>${q}</div>
+                <div class='qty-count'>${q}</div>
                 <button data-inc='${id}'>+</button>
-                <button title='Remove' data-rm='${id}' style='margin-left:6px' class='icon-btn'>✕</button>
+                <button title='Remove' data-rm='${id}' class='icon-btn ml-6'>✕</button>
               </div>
             </div>
           </div>
@@ -354,19 +364,19 @@
       modalRoot.innerHTML = `
         <div class='modal' role='dialog' aria-modal='true'>
           <div class='modal-card'>
-            <div style='display:flex;flex-direction:column;gap:12px'>
-              <div style='border-radius:10px;overflow:hidden'><img src='${p.img}' alt='${p.title}' style='width:100%;height:320px;object-fit:cover;display:block'/></div>
-              <div style='display:flex;gap:8px;align-items:center'>
+            <div class='modal-col'>
+              <div class='modal-thumb'><img src='${p.img}' alt='${p.title}' class='modal-thumb-img'/></div>
+              <div class='modal-actions'>
                 <button class='add' data-id='${p.id}'>Add to cart</button>
                 <button id='closeModal' class='icon-btn'>Close</button>
               </div>
             </div>
             <div>
-              <h3 style='margin-top:0'>${p.title}</h3>
+              <h3 class='no-margin'>${p.title}</h3>
               <div class='muted'>${p.cat}</div>
-              <div style='font-size:20px;font-weight:800;margin-top:8px'>${formatPrice(p.price)}</div>
-              <p class='muted' style='margin-top:12px'>${p.desc}</p>
-              <hr style='border-color:rgba(255,255,255,0.03);margin:14px 0'/>
+              <div class='fw-700' style='margin-top:8px'>${formatPrice(p.price)}</div>
+              <p class='muted mt-12'>${p.desc}</p>
+              <hr class='modal-hr'/>
               <div class='muted' style='font-size:13px'>Fast shipping • 30‑day returns • Secure checkout</div>
             </div>
           </div>
