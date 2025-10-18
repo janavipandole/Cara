@@ -25,7 +25,9 @@
         <div id="top">
             <div id="workingArea">
                 <section id="header">
-                    <a href="index.html"><img src="images/logo.png" alt=""></a>
+                <a href="index.html" aria-label="Cara Store — Home" title="Cara Store — Home">
+                <img src="images/logo.png" alt="Cara Store logo">
+                </a>    
 
                     <div>
                         <ul id="navbar">
@@ -34,13 +36,23 @@
                             <li><a href="blog.html">Blog</a></li>
                             <li><a href="about.html">About</a></li>
                             <li><a href="contact.html">Contact</a></li>
-                            <li><a href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
-                            <a href="" id="close"><i class="fa-solid fa-xmark"></i></a>
+                            <li>
+                                <a href="cart.html" id="lg-bag" aria-label="View cart" title="View cart">
+                                    <i class="ri-shopping-bag-4-line" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <!-- close button moved inside li; given accessible name and role -->
+                                <a href="#" id="close" aria-label="Close menu" role="button" title="Close menu">
+                                    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                     <div class="mobile">
-                        <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
-                        <i class="fas fa-outdent" id="bar"></i>
+                        <!-- mobile cart button given accessible name -->
+                        <a href="cart.html" aria-label="View cart" title="View cart"><i class="ri-shopping-bag-4-line" aria-hidden="true"></i></a>
+                        <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" title="Open menu"></i>
                     </div>
                 </section>
                 <section id="hero">
@@ -48,7 +60,8 @@
                     <h2>Super value deals</h2>
                     <h1>On all products</h1>
                     <p>Save more with coupons & up to 70% off!</p>
-                    <button><a href="shop.html">Shop Now</a></button>
+                    <!-- do not nest <a> inside <button>; use an anchor styled as a button -->
+                    <a class="normal" href="shop.html" role="button" title="Shop Now">Shop Now</a>
                 </section>
             </div>
         </div>
@@ -89,15 +102,18 @@
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
                     <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
                     </div>
                     <h4>$78</h4>
                 </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+                <!-- icon-only link now has an accessible name and title -->
+                <a href="#" class="cart" aria-label="Add Cartoon Astronaut T-Shirts to cart" title="Add to cart">
+                    <i class="ri-shopping-cart-2-line" aria-hidden="true"></i>
+                </a>
             </div>
             <div class="pro">
                 <img src="images/products/f2.jpg" alt="">
@@ -105,15 +121,17 @@
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
                     <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
                     </div>
                     <h4>$78</h4>
                 </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+                <a href="#" class="cart" aria-label="Add Cartoon Astronaut T-Shirts to cart" title="Add to cart">
+                    <i class="ri-shopping-cart-2-line" aria-hidden="true"></i>
+                </a>
             </div>
             <div class="pro">
                 <img src="images/products/f3.jpg" alt="">
@@ -121,15 +139,17 @@
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
                     <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
                     </div>
                     <h4>$78</h4>
                 </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+                <a href="#" class="cart" aria-label="Add Cartoon Astronaut T-Shirts to cart" title="Add to cart">
+                    <i class="ri-shopping-cart-2-line" aria-hidden="true"></i>
+                </a>
             </div>
             <div class="pro">
                 <img src="images/products/f4.jpg" alt="">
@@ -137,15 +157,17 @@
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
                     <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
                     </div>
                     <h4>$78</h4>
                 </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+                <a href="#" class="cart" aria-label="Add Cartoon Astronaut T-Shirts to cart" title="Add to cart">
+                    <i class="ri-shopping-cart-2-line" aria-hidden="true"></i>
+                </a>
             </div>
             <div class="pro">
                 <img src="images/products/f5.jpg" alt="">
@@ -153,15 +175,17 @@
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
                     <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
                     </div>
                     <h4>$78</h4>
                 </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+                <a href="#" class="cart" aria-label="Add Cartoon Astronaut T-Shirts to cart" title="Add to cart">
+                    <i class="ri-shopping-cart-2-line" aria-hidden="true"></i>
+                </a>
             </div>
             <div class="pro">
                 <img src="images/products/f6.jpg" alt="">
@@ -169,15 +193,17 @@
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
                     <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
                     </div>
                     <h4>$78</h4>
                 </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+                <a href="#" class="cart" aria-label="Add Cartoon Astronaut T-Shirts to cart" title="Add to cart">
+                    <i class="ri-shopping-cart-2-line" aria-hidden="true"></i>
+                </a>
             </div>
             <div class="pro">
                 <img src="images/products/f7.jpg" alt="">
@@ -185,15 +211,17 @@
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
                     <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
                     </div>
                     <h4>$78</h4>
                 </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+                <a href="#" class="cart" aria-label="Add Cartoon Astronaut T-Shirts to cart" title="Add to cart">
+                    <i class="ri-shopping-cart-2-line" aria-hidden="true"></i>
+                </a>
             </div>
             <div class="pro">
                 <img src="images/products/f8.jpg" alt="">
@@ -201,15 +229,17 @@
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
                     <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
                     </div>
                     <h4>$78</h4>
                 </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+                <a href="#" class="cart" aria-label="Add Cartoon Astronaut T-Shirts to cart" title="Add to cart">
+                    <i class="ri-shopping-cart-2-line" aria-hidden="true"></i>
+                </a>
             </div>
         </div>
 
@@ -229,15 +259,17 @@
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
                     <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
                     </div>
                     <h4>$78</h4>
                 </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+                <a href="#" class="cart" aria-label="Add Cartoon Astronaut T-Shirts to cart" title="Add to cart">
+                    <i class="ri-shopping-cart-2-line" aria-hidden="true"></i>
+                </a>
             </div>
             <div class="pro">
                 <img src="images/products/n2.jpg" alt="">
@@ -245,15 +277,17 @@
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
                     <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
                     </div>
                     <h4>$78</h4>
                 </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+                <a href="#" class="cart" aria-label="Add Cartoon Astronaut T-Shirts to cart" title="Add to cart">
+                    <i class="ri-shopping-cart-2-line" aria-hidden="true"></i>
+                </a>
             </div>
             <div class="pro">
                 <img src="images/products/n3.jpg" alt="">
@@ -261,15 +295,17 @@
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
                     <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
                     </div>
                     <h4>$78</h4>
                 </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+                <a href="#" class="cart" aria-label="Add Cartoon Astronaut T-Shirts to cart" title="Add to cart">
+                    <i class="ri-shopping-cart-2-line" aria-hidden="true"></i>
+                </a>
             </div>
             <div class="pro">
                 <img src="images/products/n4.jpg" alt="">
@@ -277,15 +313,17 @@
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
                     <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
                     </div>
                     <h4>$78</h4>
                 </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+                <a href="#" class="cart" aria-label="Add Cartoon Astronaut T-Shirts to cart" title="Add to cart">
+                    <i class="ri-shopping-cart-2-line" aria-hidden="true"></i>
+                </a>
             </div>
             <div class="pro">
                 <img src="images/products/n5.jpg" alt="">
@@ -293,15 +331,17 @@
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
                     <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
                     </div>
                     <h4>$78</h4>
                 </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+                <a href="#" class="cart" aria-label="Add Cartoon Astronaut T-Shirts to cart" title="Add to cart">
+                    <i class="ri-shopping-cart-2-line" aria-hidden="true"></i>
+                </a>
             </div>
             <div class="pro">
                 <img src="images/products/n6.jpg" alt="">
@@ -309,15 +349,17 @@
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
                     <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
                     </div>
                     <h4>$78</h4>
                 </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+                <a href="#" class="cart" aria-label="Add Cartoon Astronaut T-Shirts to cart" title="Add to cart">
+                    <i class="ri-shopping-cart-2-line" aria-hidden="true"></i>
+                </a>
             </div>
             <div class="pro">
                 <img src="images/products/n7.jpg" alt="">
@@ -325,15 +367,17 @@
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
                     <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
                     </div>
                     <h4>$78</h4>
                 </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+                <a href="#" class="cart" aria-label="Add Cartoon Astronaut T-Shirts to cart" title="Add to cart">
+                    <i class="ri-shopping-cart-2-line" aria-hidden="true"></i>
+                </a>
             </div>
             <div class="pro">
                 <img src="images/products/n8.jpg" alt="">
@@ -341,15 +385,17 @@
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
                     <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
+                        <i class="ri-star-fill" aria-hidden="true"></i>
                     </div>
                     <h4>$78</h4>
                 </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+                <a href="#" class="cart" aria-label="Add Cartoon Astronaut T-Shirts to cart" title="Add to cart">
+                    <i class="ri-shopping-cart-2-line" aria-hidden="true"></i>
+                </a>
             </div>
         </div>
 
@@ -405,11 +451,11 @@
             <div class="follow">
                 <h4>Follow us</h4>
                 <div class="icon">
-                    <i class="fab fa-facebook-f"></i>
-                    <i class="fab fa-twitter"></i>
-                    <i class="fab fa-instagram"></i>
-                    <i class="fab fa-pinterest-p"></i>
-                    <i class="fab fa-youtube"></i>
+                    <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                    <i class="fab fa-instagram" aria-hidden="true"></i>
+                    <i class="fab fa-pinterest-p" aria-hidden="true"></i>
+                    <i class="fab fa-youtube" aria-hidden="true"></i>
                 </div>
             </div>
         </div>
