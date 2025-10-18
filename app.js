@@ -210,20 +210,3 @@ window.addEventListener('load', () => {
 })();
 
 /* --- END: THEME TOGGLE FUNCTIONALITY --- */
-
-/* --- START: CLEAR CART FEATURE (NEW CONTRIBUTION) --- */
-
-window.clearCart = function() {
-    localStorage.removeItem('productsInCart');
-    alert('Cart cleared!');
-    window.loadCart();
-};
-
-window.addEventListener('load', () => {
-    const clearBtn = document.getElementById('clear-cart-btn');
-    if (clearBtn) {
-        clearBtn.addEventListener('click', window.clearCart);
-    }
-});
-
-/* --- END: CLEAR CART FEATURE --- */
