@@ -78,6 +78,49 @@ Cara is a fully responsive e-commerce website that provides users with a seamles
 - Modular and maintainable code structure
 
 ---
+##  📁 Project Structure - Cara
+
+```
+Cara/
+├── .vscode/                   # VS Code workspace settings
+│   └── settings.json          # Editor-specific configuration
+│
+├── images/                    # All image assets used in the website
+│   ├── about/                 # Images for About page
+│   ├── banner/                # Banner section images
+│   ├── blog/                  # Blog page images
+│   ├── feature/               # Feature section icons or images
+│   ├── pay/                   # Payment-related icons/images
+│   ├── people/                # Team or testimonial images
+│   └── products/              # Product images
+│
+├── .DS_Store                  # macOS system file (can be ignored)
+│
+├── Homepage.png               # Preview image of homepage
+├── cart.png                   # Cart section preview
+├── shop.png                   # Shop page preview
+├── button.png                 # Button design image
+├── favicon.jpeg               # Favicon for website
+├── hero4.png                  # Hero section image
+├── logo.png                   # Website logo
+│
+├── CONTRIBUTING.md            # Contribution guidelines
+├── LICENSE                    # Project license
+├── README.md                  # Project documentation
+│
+├── about.html                 # About page
+├── app.js                     # Main JavaScript file
+├── blog.html                  # Blog page
+├── cara.html                  # Main Cara page (homepage)
+├── cart.html                  # Cart page
+├── contact.html               # Contact page
+├── index.html                 # Default landing page (can redirect to cara.html)
+├── shop.html                  # Shop listing page
+├── singleProduct.html         # Single product details page
+│
+└── style.css                  # Main CSS stylesheet
+```
+---
 
 ## 🛠️ Tech Stack
 
@@ -263,6 +306,17 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Font Awesome](https://fontawesome.com) - Icons
 - All contributors who help improve this project
 
+---
+
+## ✨ Contributors
+
+#### Thanks to all the wonderful contributors 💖
+
+<a href="https://github.com/janavipandole/Cara/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=janavipandole/Cara" />
+</a>
+
+#### See full list of contributor contribution [Contribution Graph](https://github.com/janavipandole/Cara/graphs/contributors)  
 ---
 
 ## ⭐ Show Your Support
