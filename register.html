@@ -43,7 +43,7 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css">
-    
+    <link rel="stylesheet" href="register.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
@@ -53,47 +53,50 @@
 
 <body>
     <div id="particles-js"></div>
-    <main class="login">
 
-        <div class="container">
-            <div class="form-box">
-                <h2>Login</h2>
-                <p>Welcome Back!&#128522</p>
+    <div class="container">
+        <div class="form-box">
+            <h2>Register</h2>
+            <p>Namaste!!&#128075</p>
 
-                <form id="loginForm">
-                    <div class="input-group">
-                        <input type="text" id="loginEmail" required class="input-field">
-                        <label for="loginEmail">Email</label>
-                        <div class="glow-line"></div>
+            <form id="registerForm">
+                <div class="input-group">
+                    <input type="text" id="registerUsername" required class="input-field">
+                    <label for="registerUsername">Username</label>
+                    <div class="glow-line"></div>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="registerEmail" required class="input-field">
+                    <label for="registerEmail">Email</label>
+                    <div class="glow-line"></div>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="registerPassword" required class="input-field">
+                    <label for="registerPassword">Password</label>
+                    <div class="glow-line"></div>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="registerConfirmPassword" required class="input-field">
+                    <label for="registerConfirmPassword">Confirm Password</label>
+                    <div class="glow-line"></div>
+                </div>
+                <div class="remember-forgot">
+                    <div class="remember">
+                        <input type="checkbox" id="remember">
+                        <label for="remember">Remember me</label>
                     </div>
-
-                    <div class="input-group">
-                        <input type="password" id="loginPassword" required class="input-field">
-                        <label for="loginPassword">Password</label>
-                        <div class="glow-line"></div>
-                    </div>
-
-                    <div class="remember-forgot">
-                        <div class="remember">
-                            <input type="checkbox" id="remember">
-                            <label for="remember">Remember me</label>
-                        </div>
-                        <a href="#" class="forgot">Forgot Password?</a>
-                    </div>
-
-                    <button type="submit" class="login-btn">
-                        <span>SIGN IN</span>
-                        <div class="btn-glow"></div>
-                    </button>
-
-                    <div class="signup-link">
-                        Don't have an account? <a href="register.html">Register</a>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <button type="submit" class="login-btn">
+                    <span> REGISTER</span>
+                    <div class="btn-glow"></div>
+                </button>
+                <div class="signup-link">
+                    Already have an account? <a href="login.html">Login</a>
+                </div>
+            </form>
         </div>
+    </div>
 
-    </main>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -204,7 +207,7 @@
             });
         });
     </script>
-    <script src="app.js"></script>
+    <script src="register.js"></script>
 </body>
 
 </html>
