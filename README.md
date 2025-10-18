@@ -250,6 +250,17 @@ This project is licensed under the MIT License - see the [LICENSE](./LICENSE) fi
 
 <img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="1920" />
 
+## ✨ Contributors
+
+#### Thanks to all the wonderful contributors 💖
+
+<a href="https://github.com/janavipandole/Cara/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=janavipandole/Cara" />
+</a>
+
+#### See full list of contributor contribution [Contribution Graph](https://github.com/janavipandole/Cara/graphs/contributors)  
+---
+
 ## ⭐ Show Your Support
 If you find this project helpful, please consider giving it a ⭐ on GitHub!
 
