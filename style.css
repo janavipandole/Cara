@@ -1738,3 +1738,70 @@ canvas {
     pointer-events: none;
     z-index: -100;
 }
+
+#pagination {
+    text-align: center;
+    padding: 40px 0;
+    margin-top: 20px;
+}
+
+#pagination a {
+    text-decoration: none;
+    background-color: #088178;
+    padding: 15px 20px;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: 600;
+    margin: 0 5px;
+    display: inline-block;
+    transition: all 0.3s ease;
+    min-width: 50px;
+    text-align: center;
+}
+
+#pagination a:hover:not(.disabled) {
+    background-color: #066e66;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(8, 129, 120, 0.3);
+}
+
+#pagination a.active {
+    background-color: #066e66;
+    box-shadow: 0 4px 12px rgba(8, 129, 120, 0.4);
+    transform: scale(1.1);
+}
+
+#pagination a.disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+#pagination a.pagination-arrow {
+    padding: 15px 18px;
+    font-size: 18px;
+}
+
+#pagination a.pagination-arrow i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+[data-theme="dark"] #pagination a {
+    background-color: #06b6d4;
+}
+
+[data-theme="dark"] #pagination a:hover:not(.disabled) {
+    background-color: #0891b2;
+}
+
+[data-theme="dark"] #pagination a.active {
+    background-color: #0891b2;
+    box-shadow: 0 4px 12px rgba(6, 182, 212, 0.4);
+}
+
+[data-theme="dark"] #pagination a.disabled {
+    background-color: #2d3748;
+}
