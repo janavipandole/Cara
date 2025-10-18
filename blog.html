@@ -13,25 +13,32 @@
 </head>
 
 <body>
-    <section id="header">
-        <a href="index.html"><img src="images/logo.png" alt=""></a>
+    <header id="header">
+        <!-- logo anchor given accessible name -->
+        <a href="index.html" aria-label="Cara Store — Home" title="Cara Store — Home">
+            <img src="images/logo.png" alt="Cara Store logo">
+        </a>
 
-        <div>
+        <nav>
             <ul id="navbar">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="shop.html">Shop</a></li>
-                <li><a class="active" href="blog.html">Blog</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
-                <a href="" id="close"><i class="fa-solid fa-xmark"></i></a>
+                <li><a class="active" href="index.html" title="Home">Home</a></li>
+                <li><a href="shop.html" title="Shop">Shop</a></li>
+                <li><a href="blog.html" title="Blog">Blog</a></li>
+                <li><a href="about.html" title="About">About</a></li>
+                <li><a href="contact.html" title="Contact">Contact</a></li>
+                <li>
+                    <a href="cart.html" id="lg-bag" aria-label="View cart" title="View cart">
+                        <i class="ri-shopping-bag-4-line" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="close" role="button" aria-label="Close menu" title="Close menu">
+                        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                    </a>
+                </li>
             </ul>
-        </div>
-        <div class="mobile">
-            <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
-            <i class="fas fa-outdent" id="bar"></i>
-        </div>
-    </section>
+        </nav>
+    </header>
     <section id="blog-head">
         <h2>#readmore</h2>
         <p>Read all case studies about our products!</p>
@@ -98,10 +105,12 @@
             <h1>10/01</h1>
         </div>
     </section>
-    <section id="pagination">
-        <a href="">1</a>
-        <a href="">2</a>
-        <a href=""><i class="fa-solid fa-arrow-right"></i></a>
+    <section id="pagination" aria-label="Pagination">
+        <a href="" title="Page 1" aria-label="Page 1">1</a>
+        <a href="" title="Page 2" aria-label="Page 2">2</a>
+        <a href="" title="Next page" aria-label="Next page">
+            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </a>
     </section>
     <section id="newsletter" class="section-p1 section-m1">
         <div class="newstext">
