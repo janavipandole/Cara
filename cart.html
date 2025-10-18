@@ -14,7 +14,9 @@
 
 <body>
     <section id="header">
-        <a href="index.html"><img src="images/logo.png" alt=""></a>
+        <a href="index.html" aria-label="Cara Store — Home" title="Cara Store — Home">
+            <img src="images/logo.png" alt="Cara Store logo">
+        </a>
 
         <div>
             <ul id="navbar">
@@ -23,13 +25,25 @@
                 <li><a href="blog.html">Blog</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
-                <li><a class="active" href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
-                <a href="" id="close"><i class="fa-solid fa-xmark"></i></a>
+                <li>
+                  <a class="active" href="cart.html" id="lg-bag" aria-label="View cart" title="View cart">
+                    <i class="ri-shopping-bag-4-line" aria-hidden="true"></i>
+                  </a>
+                </li>
+                <li>
+                  <button id="close" class="icon-btn" type="button" aria-label="Close menu" title="Close menu">
+                    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                  </button>
+                </li>
             </ul>
         </div>
         <div class="mobile">
-            <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
-            <i class="fas fa-outdent" id="bar"></i>
+            <a href="cart.html" aria-label="View cart" title="View cart">
+              <i class="ri-shopping-bag-4-line" aria-hidden="true"></i>
+            </a>
+            <button id="bar" class="icon-btn" aria-label="Open menu" title="Open menu" type="button">
+              <i class="fas fa-outdent" aria-hidden="true"></i>
+            </button>
         </div>
     </section>
     <section id="about-head">
@@ -37,15 +51,15 @@
         <p>LEAVE A MESSAGE, We love to hera from you!</p>
     </section>
      <section id="cart" class="section-p1">
-        <table width="100%">
+        <table width="100%" aria-label="Shopping cart items">
             <thead>
                 <tr>
-                    <td>Remove</td>
-                    <td>Image</td>
-                    <td>Product</td>
-                    <td>Price</td>
-                    <td>Quantity</td>
-                    <td>Subtotal</td>
+                    <th scope="col">Remove</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Subtotal</th>
                 </tr>
             </thead>
             <tbody>
@@ -74,11 +88,21 @@
             <div class="follow">
                 <h4>Follow us</h4>
                 <div class="icon">
-                    <i class="fab fa-facebook-f"></i>
-                    <i class="fab fa-twitter"></i>
-                    <i class="fab fa-instagram"></i>
-                    <i class="fab fa-pinterest-p"></i>
-                    <i class="fab fa-youtube"></i>
+                    <a href="#" aria-label="Follow Cara on Facebook" title="Follow on Facebook" rel="noopener">
+                      <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                    </a>
+                    <a href="#" aria-label="Follow Cara on Twitter" title="Follow on Twitter" rel="noopener">
+                      <i class="fab fa-twitter" aria-hidden="true"></i>
+                    </a>
+                    <a href="#" aria-label="Follow Cara on Instagram" title="Follow on Instagram" rel="noopener">
+                      <i class="fab fa-instagram" aria-hidden="true"></i>
+                    </a>
+                    <a href="#" aria-label="Follow Cara on Pinterest" title="Follow on Pinterest" rel="noopener">
+                      <i class="fab fa-pinterest-p" aria-hidden="true"></i>
+                    </a>
+                    <a href="#" aria-label="Follow Cara on YouTube" title="Follow on YouTube" rel="noopener">
+                      <i class="fab fa-youtube" aria-hidden="true"></i>
+                    </a>
                 </div>
             </div>
         </div>
