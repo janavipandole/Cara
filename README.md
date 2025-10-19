@@ -14,7 +14,7 @@
 
 </div>
 
----
+<img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="1920" />
 
 ## 📋 Table of Contents
 
@@ -30,21 +30,19 @@
 - [Contact](#-contact)
 - [Acknowledgments](#-acknowledgments)
 
----
+<img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="1920" />
 
 ## 🎯 About The Project
-
 Cara is a fully responsive e-commerce website that provides users with a seamless online shopping experience. Built with modern web technologies, it features an intuitive interface for browsing products, managing shopping carts, and exploring product details. The platform is designed to be fast, accessible, and easy to use across all devices.
 
 ### Why Cara?
-
 - ✨ **Clean & Modern UI** - Beautiful, intuitive interface with smooth animations
 - 📱 **Fully Responsive** - Optimized for mobile, tablet, and desktop devices
 - ⚡ **Fast & Lightweight** - Built with vanilla JavaScript for optimal performance
 - 🎨 **Customizable** - Easy to modify and extend for your needs
 - 🆓 **Open Source** - Free to use and contribute to
 
----
+<img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="1920" />
 
 ## ✨ Features
 
@@ -77,76 +75,29 @@ Cara is a fully responsive e-commerce website that provides users with a seamles
 - Vanilla JavaScript 
 - Modular and maintainable code structure
 
----
-##  📁 Project Structure - Cara
-
-```
-Cara/
-├── .vscode/                   # VS Code workspace settings
-│   └── settings.json          # Editor-specific configuration
-│
-├── images/                    # All image assets used in the website
-│   ├── about/                 # Images for About page
-│   ├── banner/                # Banner section images
-│   ├── blog/                  # Blog page images
-│   ├── feature/               # Feature section icons or images
-│   ├── pay/                   # Payment-related icons/images
-│   ├── people/                # Team or testimonial images
-│   └── products/              # Product images
-│
-├── .DS_Store                  # macOS system file (can be ignored)
-│
-├── Homepage.png               # Preview image of homepage
-├── cart.png                   # Cart section preview
-├── shop.png                   # Shop page preview
-├── button.png                 # Button design image
-├── favicon.jpeg               # Favicon for website
-├── hero4.png                  # Hero section image
-├── logo.png                   # Website logo
-│
-├── CONTRIBUTING.md            # Contribution guidelines
-├── LICENSE                    # Project license
-├── README.md                  # Project documentation
-│
-├── about.html                 # About page
-├── app.js                     # Main JavaScript file
-├── blog.html                  # Blog page
-├── cara.html                  # Main Cara page (homepage)
-├── cart.html                  # Cart page
-├── contact.html               # Contact page
-├── index.html                 # Default landing page (can redirect to cara.html)
-├── shop.html                  # Shop listing page
-├── singleProduct.html         # Single product details page
-│
-└── style.css                  # Main CSS stylesheet
-```
----
+<img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="1920" />
 
 ## 🛠️ Tech Stack
-
 - **Frontend**: HTML5, CSS3, JavaScript (ES6+)
 - **Styling**: Custom CSS 
 - **Icons**: Font Awesome / Custom SVGs
 - **Version Control**: Git & GitHub
 
----
+<img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="1920" />
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-
 All you need is a modern web browser and a text editor!
 
 ### Installation
-
 1. **Clone the repository**
    ```bash
    git clone https://github.com/janavipandole/Cara.git
    cd Cara
    ```
-
-2. **Open in browser**
    
+2. **Open in browser**
    Simply open `index.html` in your web browser:
    - Double-click the `index.html` file, or
    - Right-click and select "Open with" your preferred browser, or
@@ -164,18 +115,16 @@ All you need is a modern web browser and a text editor!
    ```
 
 3. **Access the site**
-   
    Open your browser and navigate to `http://localhost:8000`
 
 ### Development
-
 For live reloading during development, you can use:
 
 - [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) (VS Code Extension)
 - [Browser Sync](https://browsersync.io/)
 - [Live Reload](http://livereload.com/)
 
----
+<img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="1920" />
 
 ## 📁 Project Structure
 
@@ -204,7 +153,7 @@ Cara/
 └── CONTRIBUTING.md         # Contribution guidelines
 ```
 
----
+<img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="1920" />
 
 ## 📸 Screenshots
 Homepage - 
@@ -223,11 +172,9 @@ Cart -
   <b>Shopping Cart</b>
 </p>
 
-
----
+<img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="1920" />
 
 ## 🗺️ Roadmap
-
 ### Current Version (v1.0)
 - [x] Responsive homepage design
 - [x] Product listing pages
@@ -251,16 +198,14 @@ Cart -
 
 See the [open issues](https://github.com/janavipandole/Cara/issues) for a full list of proposed features and known issues.
 
----
+<img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="1920" />
 
 ## 🤝 Contributing
 
 Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
 Please read our [Contributing Guidelines](CONTRIBUTING.md) before submitting a Pull Request.
 
 ### How to Contribute
-
 1. **Fork the Project**
 2. **Create your Feature Branch**
    ```bash
@@ -284,29 +229,26 @@ Please read our [Contributing Guidelines](CONTRIBUTING.md) before submitting a P
 - ✅ Write tests
 - 🔧 Fix bugs and implement features
 
----
+<img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="1920" />
 
 ## 📄 License
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
+<img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="1920" />
 
 ## 👤 Contact
 
 **Janavi Pandole**
-
 - GitHub: [@janavipandole](https://github.com/janavipandole)
 - Project Link: [https://github.com/janavipandole/Cara](https://github.com/janavipandole/Cara)
 
----
+<img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="1920" />
 
 ## 🙏 Acknowledgments
-
 - [Font Awesome](https://fontawesome.com) - Icons
 - All contributors who help improve this project
 
----
+<img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="1920" />
 
 ## ✨ Contributors
 
@@ -320,10 +262,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 ## ⭐ Show Your Support
-
 If you find this project helpful, please consider giving it a ⭐ on GitHub!
 
----
+<img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="1920" />
 
 <div align="center">
 
