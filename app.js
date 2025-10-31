@@ -315,3 +315,25 @@ window.addEventListener('load', () => {
 
     showPage(1);
 })();
+
+// Style Quiz Functionality
+function openQuiz() {
+    document.getElementById('quiz-modal').style.display = 'flex';
+}
+
+function closeQuiz() {
+    document.getElementById('quiz-modal').style.display = 'none';
+}
+
+function selectStyle(style) {
+    closeQuiz();
+    const products = document.querySelectorAll('.pro');
+    products.forEach(product => {
+        if (product.getAttribute('data-category') === style) {
+            product.style.display = 'block';
+        } else {
+            product.style.display = 'none';
+        }
+    });
+    alert(`Showing ${style} style recommendations!`);
+}
