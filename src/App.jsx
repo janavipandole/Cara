@@ -1,5 +1,6 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
+import { useEffect } from 'react'
 import ProtectedRoute from './components/ProtectedRoute'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
@@ -10,10 +11,24 @@ import Services from './pages/Services'
 import CaseStudy from './pages/CaseStudy'
 import Projects from './pages/Projects'
 
+function RedirectHandler() {
+  const navigate = useNavigate()
+  const location = useLocation()
+  useEffect(() => {
+    const redirect = sessionStorage.redirect
+    delete sessionStorage.redirect
+    if (redirect && redirect !== location.pathname) {
+      navigate(redirect, { replace: true })
+    }
+  }, [])
+  return null
+}
+
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
+        <RedirectHandler />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
