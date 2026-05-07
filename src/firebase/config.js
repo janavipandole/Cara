@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app'
-import { getAuth } from 'firebase/auth'
+import { getAuth, connectAuthEmulator } from 'firebase/auth'
 
 const firebaseConfig = {
     apiKey: "AIzaSyAeixdgwXM0AKNanKhEaRcQKzKEl2vgr5E",
@@ -10,5 +10,14 @@ const firebaseConfig = {
   appId: "1:843334805854:web:2b31ec97d9376eb74947cf",
   measurementId: "G-1SZWCS51B7"
 }
-const app = initializeApp(firebaseConfig)
-export const auth = getAuth(app)
+
+let auth
+try {
+  const app = initializeApp(firebaseConfig)
+  auth = getAuth(app)
+} catch (e) {
+  console.error('Firebase init failed:', e)
+  auth = null
+}
+
+export { auth }

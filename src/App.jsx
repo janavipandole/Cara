@@ -1,3 +1,5 @@
+console.log('[App] module loaded')
+
 import { BrowserRouter, Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
 import { useEffect } from 'react'
