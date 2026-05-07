@@ -17,8 +17,12 @@ function RedirectHandler() {
   useEffect(() => {
     const redirect = sessionStorage.redirect
     delete sessionStorage.redirect
-    if (redirect && redirect !== location.pathname) {
-      navigate(redirect, { replace: true })
+    if (redirect) {
+      const base = '/React-Project'
+      const path = redirect.startsWith(base) ? redirect.slice(base.length) : redirect
+      if (path && path !== location.pathname) {
+        navigate(path, { replace: true })
+      }
     }
   }, [])
   return null
