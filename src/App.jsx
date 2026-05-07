@@ -1,5 +1,3 @@
-console.log('[App] module loaded')
-
 import { BrowserRouter, Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
 import { useEffect } from 'react'
@@ -33,7 +31,7 @@ function RedirectHandler() {
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
+        <BrowserRouter basename="/React-Project">
         <RedirectHandler />
         <Routes>
           <Route path="/" element={<Home />} />
