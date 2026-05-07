@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import email from '../assets/Contact-Us-img/email.png'
 import location from '../assets/Contact-Us-img/location.png'
 import call from '../assets/Contact-Us-img/call.png'
@@ -13,9 +13,9 @@ function Contact() {
                 <div className="flex justify-between h-[80px] w-full">
                     <div className="font-bold text-medium pl-[32px] pt-[30px] pb-[32px] pr-[35.97px]">PRECISION</div>
                     <div className="flex pt-[30px] gap-[40px]">
-                        <a href="/services" className="text-gray-500 font-bold no-underline hover:text-[#003EC7]">Services</a>
-                        <a href="/casestudy" className="text-gray-500 font-bold no-underline hover:text-[#003EC7]">Case Study</a>
-                        <a href="/contact" className="text-gray-500 font-bold no-underline hover:text-[#003EC7]">Contact</a>
+                        <Link to="/services" className="text-gray-500 font-bold no-underline hover:text-[#003EC7]">Services</Link>
+                        <Link to="/casestudy" className="text-gray-500 font-bold no-underline hover:text-[#003EC7]">Case Study</Link>
+                        <Link to="/contact" className="text-gray-500 font-bold no-underline hover:text-[#003EC7]">Contact</Link>
                     </div>
                     <div className="w-[130px] h-[35px] bg-gradient-to-b from-[#003EC7] to-[#0052FF] rounded-[9px] text-white text-sm flex items-center justify-center mt-[25px] mr-[20px] cursor-pointer" onClick={() => navigate('/signup')}>
                         Start a Project

@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import pen from '../assets/Services-img/pen.png'
 import videoEdit from '../assets/Services-img/video edit.png'
 import compass from '../assets/Services-img/compass.png'
@@ -13,9 +13,9 @@ function Services() {
                 <div style={{ width: '100%', height: '80px', border: '1px solid black', display: 'flex', justifyContent: 'space-between' }}>
                     <div style={{ fontWeight: 'bold', paddingLeft: '32px', paddingTop: '30px', paddingBottom: '32px', paddingRight: '35.97px', fontSize: 'medium' }}>PRESICION</div>
                     <div style={{ display: 'flex', paddingTop: '30px', gap: '40px' }}>
-                        <a href="/services" style={{ textDecoration: 'none', color: 'gray', fontWeight: 'bold' }}>Services</a>
-                        <a href="/casestudy" style={{ textDecoration: 'none', color: 'gray', fontWeight: 'bold' }}>Case Study</a>
-                        <a href="/contact" style={{ textDecoration: 'none', color: 'gray', fontWeight: 'bold' }}>Contact</a>
+                        <Link to="/services" style={{ textDecoration: 'none', color: 'gray', fontWeight: 'bold' }}>Services</Link>
+                        <Link to="/casestudy" style={{ textDecoration: 'none', color: 'gray', fontWeight: 'bold' }}>Case Study</Link>
+                        <Link to="/contact" style={{ textDecoration: 'none', color: 'gray', fontWeight: 'bold' }}>Contact</Link>
                     </div>
                     <div style={{ height: '35px', width: '130px', background: 'linear-gradient(#003EC7, #0052FF)', borderRadius: '9px', color: 'white', fontSize: 'small', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '25px', marginRight: '20px', cursor: 'pointer' }} onClick={() => navigate('/signup')}>
                         Start a Project
