@@ -1192,20 +1192,6 @@ footer .copyright {
     text-align: center;
 }
 
-#pagination {
-    text-align: center;
-}
-
-#pagination a {
-    text-decoration: none;
-    background-color: var(--accent);
-    padding: 15px 20px;
-    border-radius: 4px;
-    color: #fff;
-    font-weight: 600;
-}
-
-
 
 /* ============================================
    SINGLE PRODUCT

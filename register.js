@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const name = document.getElementById('registerUsername').value.trim();
         const email = document.getElementById('registerEmail').value.trim();
         const password = document.getElementById('registerPassword').value;
+        const confirmPassword = document.getElementById('registerConfirmPassword').value;
 
        if (!name || !email || !password) {
     alert('Please fill all fields.');
@@ -29,6 +30,16 @@ if (!passwordRegex.test(password)) {
     return;
 }
 
+        if (password !== confirmPassword) {
+            alert('Passwords do not match.');
+            return;
+        }
+
+        if (password.length < 6) {
+            alert('Password must be at least 6 characters.');
+            return;
+        }
+
         let users = JSON.parse(localStorage.getItem('users') || '[]');
         if (users.find(u => u.email === email)) {
             alert('Email already registered.');
@@ -40,7 +51,6 @@ if (!passwordRegex.test(password)) {
         }
         users.push({ name, email, password });
         localStorage.setItem('users', JSON.stringify(users));
-        // On successful registration
         alert('Signup successful! You are now logged in.');
         localStorage.setItem('loggedInUser', email);
         window.location.href = 'index.html';
