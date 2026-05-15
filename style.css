@@ -762,6 +762,8 @@ footer .copyright {
     font-weight: 600;
 }
 
+
+
 /* ============================================
    SINGLE PRODUCT
    ============================================ */
@@ -861,7 +863,7 @@ footer .copyright {
 
 #blog .blog-box h1 {
     position: absolute;
-    top: -12%;
+    top: -70px;
     left: 0;
     z-index: -9;
     font-size: 70px;
@@ -1212,6 +1214,82 @@ footer .copyright {
     background-color: #088178;
     color: #fff;
     cursor: pointer;
+}
+
+/* Continue Shopping Button -{csritik-max}*/
+a.normal {
+  display: inline-block;
+  padding: 12px 28px;
+  background-color: #2563eb;
+  color: #ffffff;
+  text-decoration: none;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+a.normal:hover {
+  background-color: #1d4ed8;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+  transform: translateY(-1px);
+}
+
+a.normal:active {
+  transform: translateY(0px);
+  box-shadow: none;
+}
+
+/* csritik-max */
+
+button.normal {
+  display: inline-block;
+  padding: 12px 28px;
+  background-color: #2563eb;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Segoe UI', sans-serif;
+  letter-spacing: 0.4px;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+button.normal:hover {
+  background-color: #1d4ed8;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+  transform: translateY(-1px);
+}
+
+.normal:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.toast {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: #1e293b;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 
@@ -1570,7 +1648,7 @@ input:focus {
     }
 
     #blog .blog-box h1 {
-        top: -7%;
+        top: 0;
     }
 
     #about-us {
@@ -1723,7 +1801,7 @@ input:focus {
     }
 
     #blog .blog-box h1 {
-        top: -4%;
+        top: 0;
     }
 
     #about-us img {
@@ -1856,4 +1934,61 @@ canvas {
 
 .quiz-options button:hover {
     background-color: #066a5c;
+}
+#Toptoback {
+  position: fixed;
+  bottom: 2.5rem;
+  right: 2.5rem;
+  z-index: 2000;
+  background: linear-gradient cream;
+  color: #c97171;
+  border: none;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  font-size: 2rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s, transform 0.2s;
+}
+
+#Toptoback.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(-10px) scale(1.08);
+}
+
+#Toptoback:hover {
+  background: linear-gradient cream;
+  transform: scale(1.15);
+}
+/* Back to Top Button Styles */
+#backToTop {
+  position: fixed;
+  bottom: 2.5rem;
+  right: 2.5rem;
+  z-index: 2000;
+  background: linear-gradient(135deg,
+      var(--candy-red),
+      var(--sky-blue),
+      var(--sunny-yellow));
+  color: #c97171;
+  border: none;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  font-size: 2rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s, transform 0.2s;
+}
+
+#backToTop.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(-10px) scale(1.08);
 }

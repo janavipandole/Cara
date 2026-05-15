@@ -1,0 +1,129 @@
+ * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #f5f7fa, #e4ecf5);
+      color: #333;
+      line-height: 1.8;
+      padding: 40px 20px;
+    }
+
+    .policy-container {
+      max-width: 950px;
+      margin: auto;
+      background: #ffffff;
+      padding: 50px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      border-top: 6px solid #088178;
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 42px;
+      color: #088178;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 35px;
+      font-size: 16px;
+    }
+
+    .section {
+      margin-bottom: 30px;
+      padding: 20px;
+      border-radius: 12px;
+      background: #f9fbfc;
+      transition: 0.3s ease;
+    }
+
+    .section:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    h2 {
+      color: #088178;
+      margin-bottom: 10px;
+      font-size: 24px;
+    }
+
+    p {
+      color: #555;
+      font-size: 16px;
+    }
+
+    ul {
+      padding-left: 20px;
+      margin-top: 10px;
+    }
+
+    ul li {
+      margin-bottom: 10px;
+      color: #444;
+    }
+
+    a {
+      color: #088178;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .contact-box {
+      background: #088178;
+      color: white;
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 15px;
+    }
+
+    .contact-box p {
+      color: white;
+    }
+
+    .footer-note {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 14px;
+      color: #777;
+      border-top: 1px solid #ddd;
+      padding-top: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .policy-container {
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 32px;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+    }
