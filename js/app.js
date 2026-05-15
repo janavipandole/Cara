@@ -30,6 +30,7 @@ if (MainImg) {
 
 /* --- START: CART FUNCTIONALITY --- */
 
+// Adds a product to the localStorage-based shopping cart
 function addToCart(productName, productPrice, productImage, quantity, size) {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
     let item = {
@@ -163,6 +164,7 @@ window.addEventListener('load', () => {
 
 /* --- START: THEME TOGGLE FUNCTIONALITY --- */
 
+// Initializes the dark/light mode based on saved preference
 function initTheme() {
     console.log('Initializing theme...');
 
@@ -333,7 +335,7 @@ ToptobackBtn.addEventListener("click", () => {
     window.scrollTo({ top: 10000, behavior: "smooth" });
 });
 
-// Style Quiz Functionality
+// Style Quiz logic to filter products based on user preference
 function openQuiz() {
     document.getElementById('quiz-modal').style.display = 'flex';
 }

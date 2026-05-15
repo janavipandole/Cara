@@ -1,3 +1,4 @@
+// Helper function to fetch and inject HTML components into a placeholder element
 async function loadComponent(elementId, componentPath, callback) {
     const element = document.getElementById(elementId);
     if (!element) return;
@@ -15,6 +16,7 @@ async function loadComponent(elementId, componentPath, callback) {
     }
 }
 
+// Highlights the active page in the navigation menu based on the current URL
 function setActiveNavLink() {
     const navLinks = document.querySelectorAll('#navbar li a');
     const currentPath = globalThis.location.pathname;
@@ -30,6 +32,7 @@ function setActiveNavLink() {
     });
 }
 
+// Main initialization function called on page load
 function init() {
     // load header first
     loadComponent('header-placeholder', 'components/header.html', () => {
