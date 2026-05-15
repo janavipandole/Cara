@@ -1992,3 +1992,17 @@ canvas {
   pointer-events: auto;
   transform: translateY(-10px) scale(1.08);
 }
+
+#page-header{
+    padding-top: 100px;
+    padding-left: 100px;
+}
+.wishbutton img{
+    width: 30px;
+    height: 30px;
+    background: none;
+}
+.wishbutton{
+    background-color: white;
+    border: none;
+}
