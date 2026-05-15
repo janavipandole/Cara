@@ -2006,3 +2006,9 @@ canvas {
     background-color: white;
     border: none;
 }
+.wish{
+    padding-left: 100px;
+    height: 30px;
+    width: 30px;
+    background-color: rgba(222, 20, 20, 0.02);
+}

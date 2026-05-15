@@ -63,6 +63,7 @@
                 <li><a href="contact.html">Contact</a></li>
                 <li><a href="login.html">Login</a></li>
                 <li><a class="active" href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
+                 <li><a href="wishlist.html" id="lg-bag"><i class="ri-heart-line"></i></a></li>
                 <li>
                     <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
                         <i class="ri-moon-line" id="themeIcon"></i>
@@ -83,21 +84,25 @@
     </section>
 
     <section id="wishlist" class="section-p1">
-        <table width="100%">
-            <thead>
-                <tr>
-                
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+        <div id="wishlist-container">
+
+        </div>
     </section>
 
     <section id="wishlist-actions" class="section-p1">
         <div class="wishlist-buttons">
             <a href="shop.html" class="normal">Continue Shopping</a>
             
+        </div>
+    </section>
+    <section id="newsletter" class="section-p1 section-m1">
+        <div class="newstext">
+            <h4>Sign Up For Newsletters</h4>
+            <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
+        </div>
+        <div class="form">
+            <input type="text" placeholder="Your email address">
+            <button class="normal">Sign Up</button>
         </div>
     </section>
 
@@ -125,8 +130,8 @@
             <h4>About</h4>
             <a href="about.html">About us</a>
             <a href="#">Delivery Information</a>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms & Conditions</a>
+        <a href="privacy.html">Privacy Policy</a>           
+        <a href="#">Terms & Conditions</a>
             <a href="contact.html">Contact Us</a>
         </div>
         <div class="col">
@@ -153,7 +158,7 @@
         </div>
     </footer>
 
-    <script src="wishlist.js"></script>
+    <script src="app.js"></script>
 <!-- csritik-max -->
 <div class="toast" id="toast">
     <div class="toast-icon" id="toast-icon">✅</div>
