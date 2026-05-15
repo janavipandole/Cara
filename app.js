@@ -337,3 +337,27 @@ function selectStyle(style) {
     });
     alert(`Showing ${style} style recommendations!`);
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    const readMoreLinks = document.querySelectorAll('.read-more');
+    
+    readMoreLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const blogDetails = this.closest('.blog-details');
+            const fullDescription = blogDetails.querySelector('.full-description');
+            const shortDescription = fullDescription.previousElementSibling;
+            
+            if (fullDescription.style.display === 'none' || fullDescription.style.display === '') {
+                fullDescription.style.display = 'block';
+                shortDescription.style.display = 'none';
+                this.textContent = 'READ LESS';
+            } else {
+                fullDescription.style.display = 'none';
+                shortDescription.style.display = 'block';
+                this.textContent = 'CONTINUE READING';
+            }
+        });
+    });
+});
