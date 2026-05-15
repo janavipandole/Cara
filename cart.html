@@ -102,7 +102,8 @@
     <section id="cart-actions" class="section-p1">
         <div class="cart-buttons">
             <a href="shop.html" class="normal">Continue Shopping</a>
-            <button class="normal" onclick="alert('Proceeding to checkout...')">Proceed to Checkout</button>
+            <!-- csritik-max -->
+            <button class="normal" onclick="showToast('Proceeding to checkout…')">Proceed to Checkout</button>
         </div>
     </section>
 
@@ -119,7 +120,9 @@
                 <div class="icon">
                     <a href="https://x.com/JanaviPandole"><i class="fab fa-twitter"></i></a>
                     <a href="https://github.com/janavipandole"><i class="fab fa-github"></i></a>
-                    <a href="www.linkedin.com/in/janavi-pandole-80a7b2290"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
                     <a href="https://www.youtube.com/@JanaviPandole"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
@@ -142,7 +145,7 @@
         </div>
         <div class="col install">
             <h4>Install App</h4>
-            <p>From App Store ro Google Play</p>
+            <p>From App Store or Google Play</p>
             <div class="row">
                 <img src="images/pay/app.jpg" alt="">
                 <img src="images/pay/play.jpg" alt="">
@@ -157,7 +160,11 @@
     </footer>
 
     <script src="app.js"></script>
-
+<!-- csritik-max -->
+<div class="toast" id="toast">
+    <div class="toast-icon" id="toast-icon">✅</div>
+    <span id="toast-msg"></span>
+</div>
 </body>
 
 </html>

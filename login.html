@@ -44,6 +44,7 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="forgotPassword.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
@@ -61,13 +62,13 @@
 
             <form id="loginForm">
                 <div class="input-group">
-                    <input type="text" id="loginEmail" required class="input-field" placeholder="Enter your email">
+                   <input type="text" id="loginEmail" required class="input-field" placeholder=" ">
                     <label for="loginEmail">Email</label>
                     <div class="glow-line"></div>
                 </div>
 
                 <div class="input-group">
-                    <input type="password" id="loginPassword" required class="input-field" placeholder="Enter your password">
+                   <input type="password" id="loginPassword" required class="input-field" placeholder=" ">
                     <label for="loginPassword">Password</label>
                     <div class="glow-line"></div>
                 </div>
@@ -77,7 +78,7 @@
                         <input type="checkbox" id="remember">
                         <label for="remember">Remember me</label>
                     </div>
-                    <a href="#" class="forgot">Forgot Password?</a>
+                    <a href="#" class="forgot" onclick="openForgotPassword()">Forgot Password?</a>
                 </div>
 
                 <button type="submit" class="login-btn">
@@ -202,7 +203,34 @@
             });
         });
     </script>
-    <script src="login.js"></script>
+<!--csritik-max-->
+  <div class="fp-overlay" id="fp-overlay">
+        <div class="fp-modal">
+            <button class="fp-close" onclick="closeForgotPassword()">✕</button>
+            <h3>FORGOT PASSWORD</h3>
+            <p>Enter your registered email to reset your password.</p>
+            <div class="fp-input-group">
+                <input type="email" id="fp-email" placeholder="Enter your email" />
+                <div class="fp-glow-line"></div>
+            </div>
+            <div class="fp-input-group">
+                <input type="password" id="fp-newpass" placeholder="Enter new password" />
+                <div class="fp-glow-line"></div>
+            </div>
+            <button class="fp-submit" onclick="submitForgotPassword()">RESET PASSWORD</button>
+        </div>
+    </div>
+
+    <!-- TOAST HERE -->
+    <div class="toast" id="toast">
+        <div class="toast-icon" id="toast-icon">✅</div>
+        <span id="toast-msg"></span>
+    </div>
+
+<script src="forgotPassword.js"></script>
+<!--   -->
+
+<script src="login.js"></script>
 </body>
 
 </html>

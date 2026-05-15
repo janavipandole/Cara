@@ -16,6 +16,10 @@ document.addEventListener('DOMContentLoaded', function () {
             alert('Email already registered.');
             return;
         }
+        if (users.find(u => u.name.toLowerCase() === name.toLowerCase())) {
+        alert('Username already exists.');
+        return;
+        }
         users.push({ name, email, password });
         localStorage.setItem('users', JSON.stringify(users));
         // On successful registration
