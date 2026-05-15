@@ -63,6 +63,7 @@
                 <li><a href="contact.html">Contact</a></li>
                 <li><a href="login.html">Login</a></li>
                 <li><a href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
+                <li><a href="wishlist.html" id="lg-bag"><i class="ri-heart-line"></i></a></li>
                 <li>
                     <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
                         <i class="ri-moon-line" id="themeIcon"></i>
@@ -111,6 +112,9 @@
             </select>
             <input id="product-quantity" type="number" value="1" min="1">
             <button class="normal" onclick="handleAddToCart()">Add to Cart</button>
+            <button class="wishbutton" onclick="add_prods()">
+                <i class="ri-heart-line"></i>
+            </button>
             <h4>Product Details</h4>
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officia tenetur, exercitationem velit maxime
                 sit beatae ea tempore a itaque natus placeat, neque fuga cumque aperiam nemo quia atque ducimus ipsam.
@@ -235,7 +239,7 @@
             <h4>My Account</h4>
             <a href="login.html">Sign In</a>
             <a href="cart.html">View Cart</a>
-            <a href="#">My Wishlist</a>
+            <a href="wishlist.html">My Wishlist</a>
             <a href="cart.html">Track My Order</a>
             <a href="contact.html">Help</a>
         </div>
