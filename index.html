@@ -42,8 +42,8 @@
     <meta name="theme-color" content="#000000">
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" integrity="sha384-L/vw44MdBs/7hovWr2rBVSRKqdti4Vw077yuSGQ2PO3tQARRLiLuMh8xhVmVrR0I" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -62,31 +62,7 @@
     <div id="main">
         <div id="top">
             <div id="workingArea">
-                <section id="header">
-                    <a href="index.html"><img src="images/logo.png" alt=""></a>
-
-                    <div>
-                        <ul id="navbar">
-                            <li><a class="active" href="index.html">Home</a></li>
-                            <li><a href="shop.html">Shop</a></li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="about.html">About</a></li>
-                            <li><a href="contact.html">Contact</a></li>
-                            <li><a href="login.html">Login</a></li>
-                            <li><a href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
-                            <li>
-                                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-                                    <i class="ri-moon-line" id="themeIcon"></i>
-                                </button>
-                            </li>
-                            <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
-                        </ul>
-                    </div>
-                    <div class="mobile">
-                        <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
-                        <i class="fas fa-outdent" id="bar"></i>
-                    </div>
-                </section>
+                <div id="header-placeholder"></div>
                 <section id="hero">
                     <h4>Trade-in-offer</h4>
                     <h2>Super value deals</h2>
@@ -101,27 +77,27 @@
 
     <section id="feature" class="section-p1">
         <div class="fe-box">
-            <img src="images/feature/f1.png" alt="">
+            <img src="images/feature/f1.png" alt="Image">
             <h6>Free Shipping</h6>
         </div>
         <div class="fe-box">
-            <img src="images/feature/f2.png" alt="">
+            <img src="images/feature/f2.png" alt="Image">
             <h6>Online Order</h6>
         </div>
         <div class="fe-box">
-            <img src="images/feature/f3.png" alt="">
+            <img src="images/feature/f3.png" alt="Image">
             <h6>Save Money</h6>
         </div>
         <div class="fe-box">
-            <img src="images/feature/f4.png" alt="">
+            <img src="images/feature/f4.png" alt="Image">
             <h6>Promotions</h6>
         </div>
         <div class="fe-box">
-            <img src="images/feature/f5.png" alt="">
+            <img src="images/feature/f5.png" alt="Image">
             <h6>Happy Sell</h6>
         </div>
         <div class="fe-box">
-            <img src="images/feature/f6.png" alt="">
+            <img src="images/feature/f6.png" alt="Image">
             <h6>24/7 Support</h6>
         </div>
     </section>
@@ -130,7 +106,7 @@
         <h2>Featured Product</h2>
         <p>Summer Collection New Modern Design</p>
         <div class="pro-container">
-            <div class="pro" onclick="window.location.href='singleProduct.html';" data-category="street" onclick="window.location.href='singleProduct.html';">
+            <div class="pro" role="button" tabindex="0" onclick="window.location.href='singleProduct.html';" onkeypress="if(event.key==='Enter') {window.location.href='singleProduct.html';}" data-category="street" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/f1.jpg" alt="Cartoon Astronaut T-Shirts">
                 <div class="des">
                     <span>adidas</span>
@@ -144,9 +120,9 @@
                     </div>
                     <h4>$78</h4>
                 </div>
-                <a href="#" class="cart" onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/f1.jpg', 1, 'M')"><i class="ri-shopping-cart-2-line"></i></a>
+                <button type="button" class="cart"  onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/f1.jpg', 1, 'M')" style="background:none;border:none;padding:0;cursor:pointer;"><i class="ri-shopping-cart-2-line"></i></button>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';" data-category="minimal">
+            <div class="pro" role="button" tabindex="0" onclick="window.location.href='singleProduct.html';" onkeypress="if(event.key==='Enter') {window.location.href='singleProduct.html';}" data-category="minimal">
                 <img src="images/products/f2.jpg" alt="Cartoon Astronaut T-Shirts">
                 <div class="des">
                     <span>adidas</span>
@@ -160,10 +136,10 @@
                     </div>
                     <h4>$78</h4>
                 </div>
-                <a href="#" class="cart" onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/f2.jpg', 1, 'M')"><i class="ri-shopping-cart-2-line"></i></a>
+                <button type="button" class="cart"  onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/f2.jpg', 1, 'M')" style="background:none;border:none;padding:0;cursor:pointer;"><i class="ri-shopping-cart-2-line"></i></button>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';" data-category="minimal">
-                <img src="images/products/f3.jpg" alt="">
+            <div class="pro" role="button" tabindex="0" onclick="window.location.href='singleProduct.html';" onkeypress="if(event.key==='Enter') {window.location.href='singleProduct.html';}" data-category="minimal">
+                <img src="images/products/f3.jpg" alt="Image">
                 <div class="des">
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
@@ -176,10 +152,10 @@
                     </div>
                     <h4>$78</h4>
                 </div>
-                <a href="#" class="cart" onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/f3.jpg', 1, 'M')"><i class="ri-shopping-cart-2-line"></i></a>
+                <button type="button" class="cart"  onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/f3.jpg', 1, 'M')" style="background:none;border:none;padding:0;cursor:pointer;"><i class="ri-shopping-cart-2-line"></i></button>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';" data-category="minimal">
-                <img src="images/products/f4.jpg" alt="">
+            <div class="pro" role="button" tabindex="0" onclick="window.location.href='singleProduct.html';" onkeypress="if(event.key==='Enter') {window.location.href='singleProduct.html';}" data-category="minimal">
+                <img src="images/products/f4.jpg" alt="Image">
                 <div class="des">
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
@@ -192,10 +168,10 @@
                     </div>
                     <h4>$78</h4>
                 </div>
-                <a href="#" class="cart" onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/f4.jpg', 1, 'M')"><i class="ri-shopping-cart-2-line"></i></a>
+                <button type="button" class="cart"  onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/f4.jpg', 1, 'M')" style="background:none;border:none;padding:0;cursor:pointer;"><i class="ri-shopping-cart-2-line"></i></button>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';" data-category="street">
-                <img src="images/products/f5.jpg" alt="">
+            <div class="pro" role="button" tabindex="0" onclick="window.location.href='singleProduct.html';" onkeypress="if(event.key==='Enter') {window.location.href='singleProduct.html';}" data-category="street">
+                <img src="images/products/f5.jpg" alt="Image">
                 <div class="des">
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
@@ -208,10 +184,10 @@
                     </div>
                     <h4>$78</h4>
                 </div>
-                <a href="#" class="cart" onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/f5.jpg', 1, 'M')"><i class="ri-shopping-cart-2-line"></i></a>
+                <button type="button" class="cart"  onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/f5.jpg', 1, 'M')" style="background:none;border:none;padding:0;cursor:pointer;"><i class="ri-shopping-cart-2-line"></i></button>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';" data-category="street">
-                <img src="images/products/f6.jpg" alt="">
+            <div class="pro" role="button" tabindex="0" onclick="window.location.href='singleProduct.html';" onkeypress="if(event.key==='Enter') {window.location.href='singleProduct.html';}" data-category="street">
+                <img src="images/products/f6.jpg" alt="Image">
                 <div class="des">
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
@@ -224,10 +200,10 @@
                     </div>
                     <h4>$78</h4>
                 </div>
-                <a href="#" class="cart" onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/f6.jpg', 1, 'M')"><i class="ri-shopping-cart-2-line"></i></a>
+                <button type="button" class="cart"  onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/f6.jpg', 1, 'M')" style="background:none;border:none;padding:0;cursor:pointer;"><i class="ri-shopping-cart-2-line"></i></button>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';" data-category="street">
-                <img src="images/products/f7.jpg" alt="">
+            <div class="pro" role="button" tabindex="0" onclick="window.location.href='singleProduct.html';" onkeypress="if(event.key==='Enter') {window.location.href='singleProduct.html';}" data-category="street">
+                <img src="images/products/f7.jpg" alt="Image">
                 <div class="des">
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
@@ -240,10 +216,10 @@
                     </div>
                     <h4>$78</h4>
                 </div>
-                <a href="#" class="cart" onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/f7.jpg', 1, 'M')"><i class="ri-shopping-cart-2-line"></i></a>
+                <button type="button" class="cart"  onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/f7.jpg', 1, 'M')" style="background:none;border:none;padding:0;cursor:pointer;"><i class="ri-shopping-cart-2-line"></i></button>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
-                <img src="images/products/f8.jpg" alt="">
+            <div class="pro" role="button" tabindex="0" onclick="window.location.href='singleProduct.html';" onkeypress="if(event.key==='Enter') {window.location.href='singleProduct.html';}">
+                <img src="images/products/f8.jpg" alt="Image">
                 <div class="des">
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
@@ -268,12 +244,12 @@
         <button class="normal"><a href="shop.html">Explore More</a></button>
     </section>
 
-    <section id="product1" class="section-p1">
+    <section id="product2" class="section-p1">
         <h2>New Arrivals</h2>
         <p>Summer Collection New Morden Design</p>
         <div class="pro-container">
-            <div class="pro" onclick="window.location.href='singleProduct.html';" data-category="formal">
-                <img src="images/products/n1.jpg" alt="">
+            <div class="pro" role="button" tabindex="0" onclick="window.location.href='singleProduct.html';" onkeypress="if(event.key==='Enter') {window.location.href='singleProduct.html';}" data-category="formal">
+                <img src="images/products/n1.jpg" alt="Image">
                 <div class="des">
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
@@ -286,10 +262,10 @@
                     </div>
                     <h4>$78</h4>
                 </div>
-                <a href="#" class="cart" onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/n1.jpg', 1, 'M')"><i class="ri-shopping-cart-2-line"></i></a>
+                <button type="button" class="cart"  onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/n1.jpg', 1, 'M')" style="background:none;border:none;padding:0;cursor:pointer;"><i class="ri-shopping-cart-2-line"></i></button>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';" data-category="formal">
-                <img src="images/products/n2.jpg" alt="">
+            <div class="pro" role="button" tabindex="0" onclick="window.location.href='singleProduct.html';" onkeypress="if(event.key==='Enter') {window.location.href='singleProduct.html';}" data-category="formal">
+                <img src="images/products/n2.jpg" alt="Image">
                 <div class="des">
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
@@ -302,10 +278,10 @@
                     </div>
                     <h4>$78</h4>
                 </div>
-                <a href="#" class="cart" onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/n2.jpg', 1, 'M')"><i class="ri-shopping-cart-2-line"></i></a>
+                <button type="button" class="cart"  onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/n2.jpg', 1, 'M')" style="background:none;border:none;padding:0;cursor:pointer;"><i class="ri-shopping-cart-2-line"></i></button>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';" data-category="formal">
-                <img src="images/products/n3.jpg" alt="">
+            <div class="pro" role="button" tabindex="0" onclick="window.location.href='singleProduct.html';" onkeypress="if(event.key==='Enter') {window.location.href='singleProduct.html';}" data-category="formal">
+                <img src="images/products/n3.jpg" alt="Image">
                 <div class="des">
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
@@ -318,10 +294,10 @@
                     </div>
                     <h4>$78</h4>
                 </div>
-                <a href="#" class="cart" onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/n3.jpg', 1, 'M')"><i class="ri-shopping-cart-2-line"></i></a>
+                <button type="button" class="cart"  onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/n3.jpg', 1, 'M')" style="background:none;border:none;padding:0;cursor:pointer;"><i class="ri-shopping-cart-2-line"></i></button>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';" data-category="formal">
-                <img src="images/products/n4.jpg" alt="">
+            <div class="pro" role="button" tabindex="0" onclick="window.location.href='singleProduct.html';" onkeypress="if(event.key==='Enter') {window.location.href='singleProduct.html';}" data-category="formal">
+                <img src="images/products/n4.jpg" alt="Image">
                 <div class="des">
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
@@ -334,10 +310,10 @@
                     </div>
                     <h4>$78</h4>
                 </div>
-                <a href="#" class="cart" onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/n4.jpg', 1, 'M')"><i class="ri-shopping-cart-2-line"></i></a>
+                <button type="button" class="cart"  onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/n4.jpg', 1, 'M')" style="background:none;border:none;padding:0;cursor:pointer;"><i class="ri-shopping-cart-2-line"></i></button>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';" data-category="minimal">
-                <img src="images/products/n5.jpg" alt="">
+            <div class="pro" role="button" tabindex="0" onclick="window.location.href='singleProduct.html';" onkeypress="if(event.key==='Enter') {window.location.href='singleProduct.html';}" data-category="minimal">
+                <img src="images/products/n5.jpg" alt="Image">
                 <div class="des">
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
@@ -350,10 +326,10 @@
                     </div>
                     <h4>$78</h4>
                 </div>
-                <a href="#" class="cart" onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/n5.jpg', 1, 'M')"><i class="ri-shopping-cart-2-line"></i></a>
+                <button type="button" class="cart"  onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/n5.jpg', 1, 'M')" style="background:none;border:none;padding:0;cursor:pointer;"><i class="ri-shopping-cart-2-line"></i></button>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';" data-category="minimal">
-                <img src="images/products/n6.jpg" alt="">
+            <div class="pro" role="button" tabindex="0" onclick="window.location.href='singleProduct.html';" onkeypress="if(event.key==='Enter') {window.location.href='singleProduct.html';}" data-category="minimal">
+                <img src="images/products/n6.jpg" alt="Image">
                 <div class="des">
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
@@ -366,10 +342,10 @@
                     </div>
                     <h4>$78</h4>
                 </div>
-                <a href="#" class="cart" onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/n6.jpg', 1, 'M')"><i class="ri-shopping-cart-2-line"></i></a>
+                <button type="button" class="cart"  onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/n6.jpg', 1, 'M')" style="background:none;border:none;padding:0;cursor:pointer;"><i class="ri-shopping-cart-2-line"></i></button>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';" data-category="minimal">
-                <img src="images/products/n7.jpg" alt="">
+            <div class="pro" role="button" tabindex="0" onclick="window.location.href='singleProduct.html';" onkeypress="if(event.key==='Enter') {window.location.href='singleProduct.html';}" data-category="minimal">
+                <img src="images/products/n7.jpg" alt="Image">
                 <div class="des">
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
@@ -382,10 +358,10 @@
                     </div>
                     <h4>$78</h4>
                 </div>
-                <a href="#" class="cart" onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/n7.jpg', 1, 'M')"><i class="ri-shopping-cart-2-line"></i></a>
+                <button type="button" class="cart"  onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/n7.jpg', 1, 'M')" style="background:none;border:none;padding:0;cursor:pointer;"><i class="ri-shopping-cart-2-line"></i></button>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';" data-category="minimal">
-                <img src="images/products/n8.jpg" alt="">
+            <div class="pro" role="button" tabindex="0" onclick="window.location.href='singleProduct.html';" onkeypress="if(event.key==='Enter') {window.location.href='singleProduct.html';}" data-category="minimal">
+                <img src="images/products/n8.jpg" alt="Image">
                 <div class="des">
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
@@ -398,7 +374,7 @@
                     </div>
                     <h4>$78</h4>
                 </div>
-                <a href="#" class="cart" onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/n8.jpg', 1, 'M')"><i class="ri-shopping-cart-2-line"></i></a>
+                <button type="button" class="cart"  onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/n8.jpg', 1, 'M')" style="background:none;border:none;padding:0;cursor:pointer;"><i class="ri-shopping-cart-2-line"></i></button>
             </div>
         </div>
 
@@ -450,7 +426,7 @@
     <!-- Style Quiz Modal -->
     <div id="quiz-modal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeQuiz()">&times;</span>
+            <span class="close" role="button" tabindex="0" onclick="closeQuiz()" onkeypress="if(event.key==='Enter') {closeQuiz()}">&times;</span>
             <h2>What's Your Style?</h2>
             <div class="quiz-options">
                 <button onclick="selectStyle('minimal')">Minimal</button>
@@ -464,60 +440,10 @@
     <button id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">⬇</button>
 
 
-    <footer class="section-p1">
-        <div class="col">
-            <img class="logo" src="images/logo.png" alt="">
-            <h4>Contact</h4>
-            <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
-            <p><strong>Phone:</strong> +01 2222 365 /(+91) 01 2345 6789</p>
-            <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
+    <div id="footer-placeholder"></div>
 
-            <div class="follow">
-                <h4>Follow us</h4>
-                <div class="icon">
-                    <a href="https://x.com/JanaviPandole"><i class="fab fa-twitter"></i></a>
-                    <a href="https://github.com/janavipandole"><i class="fab fa-github"></i></a>
-                    <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="https://www.youtube.com/@JanaviPandole"><i class="fab fa-youtube"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <h4>About</h4>
-            <a href="about.html">About us</a>
-            <a href="#">Delivery Information</a>
-        <a href="privacy.html">Privacy Policy</a>           
-            <a href="#">Terms & Conditions</a>
-            <a href="contact.html">Contact Us</a>
-        </div>
-        <div class="col">
-            <h4>My Account</h4>
-            <a href="login.html">Sign In</a>
-            <a href="#">View Cart</a>
-            <a href="cart.html">View Cart</a>
-            <a href="#">My Wishlist</a>
-            <a href="cart.html">Track My Order</a>
-            <a href="contact.html">Help</a>
-        </div>
-        <div class="col install">
-            <h4>Install App</h4>
-            <p>From App Store or Google Play</p>
-            <div class="row">
-                <img src="images/pay/app.jpg" alt="">
-                <img src="images/pay/play.jpg" alt="">
-            </div>
-            <p>Secured Payment Gateways</p>
-            <img src="images/pay/pay.png" alt="">
-        </div>
-        <div class="copyright">
-            <p> &copy; Cara 2025. All rights reserved. | <a href="license.html" style="color: #088178;">MIT License</a>
-            </p>
-        </div>
-    </footer>
-
-    <script src="app.js"></script>
+    <script src="js/loader.js"></script>
+    <script src="js/app.js"></script>
 
 </body>
 

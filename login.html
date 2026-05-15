@@ -42,10 +42,10 @@
     <meta name="theme-color" content="#000000">
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="login.css">
-    <link rel="stylesheet" href="forgotPassword.css">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/forgotPassword.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" integrity="sha384-L/vw44MdBs/7hovWr2rBVSRKqdti4Vw077yuSGQ2PO3tQARRLiLuMh8xhVmVrR0I" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -53,6 +53,7 @@
 </head>
 
 <body>
+    <div id="header-placeholder"></div>
     <div id="particles-js"></div>
 
     <div class="container">
@@ -78,7 +79,7 @@
                         <input type="checkbox" id="remember">
                         <label for="remember">Remember me</label>
                     </div>
-                    <a href="#" class="forgot" onclick="openForgotPassword()">Forgot Password?</a>
+                    <button type="button" class="forgot"  onclick="openForgotPassword()" style="background:none;border:none;padding:0;cursor:pointer;">Forgot Password?</button>
                 </div>
 
                 <button type="submit" class="login-btn">
@@ -93,7 +94,7 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js" integrity="sha384-d+UOwmNNIC7V4izkTAKSXzWhjC2GxiS9PTykO1XdOPC3nc2z65UOS7SP6QdKPA70" crossorigin="anonymous"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             particlesJS('particles-js', {
@@ -227,10 +228,13 @@
         <span id="toast-msg"></span>
     </div>
 
-<script src="forgotPassword.js"></script>
+<script src="js/forgotPassword.js"></script>
 <!--   -->
 
-<script src="login.js"></script>
+    <div id="footer-placeholder"></div>
+    <script src="js/loader.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/login.js"></script>
 </body>
 
 </html>
