@@ -18,6 +18,15 @@ if (close) {
 var MainImg = document.getElementById("MainImg");
 var smallImg = document.getElementsByClassName("small-img");
 
+document.querySelectorAll(".pro img").forEach((img) => {
+    img.addEventListener("click", function () {
+
+        localStorage.setItem("productImage", this.src);
+
+        window.location.href = "singleProduct.html";
+    });
+});
+
 if (MainImg) {
     for (let i = 0; i < smallImg.length; i++) {
         smallImg[i].onclick = function () {
@@ -28,35 +37,35 @@ if (MainImg) {
 
 // buttons ripple effect
 document.addEventListener("DOMContentLoaded", () => {
-  
-  const buttons = document.querySelectorAll("button.normal, button.white");
 
-  buttons.forEach((button) => {
-    button.addEventListener("click", function (e) {
-    
-      const rect = this.getBoundingClientRect();
-      
-      // Calculate coordinates relative to the button
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
+    const buttons = document.querySelectorAll("button.normal, button.white");
 
-      // Create the ripple element
-      const ripple = document.createElement("span");
-      ripple.classList.add("ripple-effect");
+    buttons.forEach((button) => {
+        button.addEventListener("click", function (e) {
 
-      // Set position
-      ripple.style.left = `${x}px`;
-      ripple.style.top = `${y}px`;
+            const rect = this.getBoundingClientRect();
 
-      // Append to the button
-      this.appendChild(ripple);
+            // Calculate coordinates relative to the button
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
 
-      // Remove the ripple element after the animation finishes to keep the DOM clean
-      ripple.addEventListener("animationend", () => {
-        ripple.remove();
-      });
+            // Create the ripple element
+            const ripple = document.createElement("span");
+            ripple.classList.add("ripple-effect");
+
+            // Set position
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
+
+            // Append to the button
+            this.appendChild(ripple);
+
+            // Remove the ripple element after the animation finishes to keep the DOM clean
+            ripple.addEventListener("animationend", () => {
+                ripple.remove();
+            });
+        });
     });
-  });
 });
 
 /* --- START: CART FUNCTIONALITY --- */
@@ -136,7 +145,7 @@ window.handleAddToCart = function () {
         return;
     }
     if (quantity < 1 || isNaN(quantity)) {
-        showToast('Please enter a valid quantity.',true);
+        showToast('Please enter a valid quantity.', true);
         return;
     }
 
@@ -145,7 +154,7 @@ window.handleAddToCart = function () {
 
 window.loadCart = function () {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
-    
+
     // First, check if we need to show the empty message
     handleEmptyCartView();
 
@@ -221,17 +230,17 @@ window.addEventListener('load', () => {
     updateThemeIcon(currentTheme);
 
     function updateThemeIcon(theme) {
-            console.log('Updating icons to:', theme);
-            const iconClass = theme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
-            if (themeIcon) themeIcon.className = iconClass;
-            if (themeIconMobile) themeIconMobile.className = iconClass;
+        console.log('Updating icons to:', theme);
+        const iconClass = theme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
+        if (themeIcon) themeIcon.className = iconClass;
+        if (themeIconMobile) themeIconMobile.className = iconClass;
 
-            // Swap logo based on theme
-            const siteLogo = document.getElementById('siteLogo');
-            if (siteLogo) {
-                siteLogo.src = theme === 'dark' ? 'images/Dlogo.png' : 'images/logo.png';
-            }
+        // Swap logo based on theme
+        const siteLogo = document.getElementById('siteLogo');
+        if (siteLogo) {
+            siteLogo.src = theme === 'dark' ? 'images/Dlogo.png' : 'images/logo.png';
         }
+    }
 
     function toggleTheme() {
         const currentTheme = html.getAttribute('data-theme');
@@ -251,16 +260,16 @@ window.addEventListener('load', () => {
 
 /* --- END: THEME TOGGLE FUNCTIONALITY --- */
 
-(function() {
+(function () {
     const paginationSection = document.getElementById('pagination');
     if (!paginationSection) return;
 
-    const productsPerPage = 16; 
+    const productsPerPage = 16;
     const productSection = document.getElementById('product1');
     if (!productSection) return;
 
     const productContainers = Array.from(productSection.querySelectorAll('.pro-container'));
-    
+
     let allProducts = [];
     productContainers.forEach(container => {
         const products = Array.from(container.querySelectorAll('.pro'));
@@ -289,11 +298,11 @@ window.addEventListener('load', () => {
         const endIndex = startIndex + productsPerPage;
 
         const productsToShow = allProducts.slice(startIndex, endIndex);
-        
+
         const firstContainer = productContainers[0];
         firstContainer.innerHTML = '';
         firstContainer.style.display = 'flex';
-        
+
         productsToShow.forEach(product => {
             product.style.display = 'block';
             firstContainer.appendChild(product);
@@ -358,12 +367,12 @@ window.addEventListener('load', () => {
 
 // Back to Top Button Logic
 const backToTopBtn = document.getElementById("backToTop");
-if(backToTopBtn) {
+if (backToTopBtn) {
     window.addEventListener("scroll", () => {
         if (window.scrollY > 100) {
             backToTopBtn.classList.add("show");
         } else {
-             backToTopBtn.classList.remove("show");
+            backToTopBtn.classList.remove("show");
         }
     });
     backToTopBtn.addEventListener("click", () => {
@@ -373,7 +382,7 @@ if(backToTopBtn) {
 
 // Top to Bottom Button Logic
 const ToptobackBtn = document.getElementById("Toptoback");
-if(ToptobackBtn) {
+if (ToptobackBtn) {
     window.addEventListener("scroll", () => {
         if (window.scrollY < 100) {
             ToptobackBtn.classList.add("show");
@@ -387,15 +396,15 @@ if(ToptobackBtn) {
 }
 
 // Style Quiz Functionality
-window.openQuiz = function() {
+window.openQuiz = function () {
     document.getElementById('quiz-modal').style.display = 'flex';
 }
 
-window.closeQuiz = function() {
+window.closeQuiz = function () {
     document.getElementById('quiz-modal').style.display = 'none';
 }
 
-window.selectStyle = function(style) {
+window.selectStyle = function (style) {
     closeQuiz();
     const products = document.querySelectorAll('.pro');
     products.forEach(product => {

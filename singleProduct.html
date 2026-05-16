@@ -125,7 +125,7 @@
         <p>Summer Collection New Morden Design</p>
 
         <!-- Dynamic Js container  {csritik-max }-->
-       <div class="pro-container" id="featured-container"></div>
+        <div class="pro-container" id="featured-container"></div>
         <!--   -->
     </section>
 
@@ -153,7 +153,8 @@
                 <div class="icon">
                     <a href="https://x.com/JanaviPandole"><i class="fab fa-twitter"></i></a>
                     <a href="https://github.com/janavipandole"><i class="fab fa-github"></i></a>
-                    <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank"
+                        rel="noopener noreferrer">
                         <i class="fab fa-linkedin"></i>
                     </a>
                     <a href="https://www.youtube.com/@JanaviPandole"><i class="fab fa-youtube"></i></a>
@@ -194,11 +195,15 @@
 
     <script src="products.js"></script>
     <script src="app.js"></script>
-<!-- csritik-max -->
-<div class="toast" id="toast">
-    <div class="toast-icon" id="toast-icon">✅</div>
-    <span id="toast-msg"></span>
-</div>
+    <!-- csritik-max -->
+    <div class="toast" id="toast">
+        <div class="toast-icon" id="toast-icon">✅</div>
+        <span id="toast-msg"></span>
+    </div>
+    <script>
+        document.getElementById("MainImg").src =
+            localStorage.getItem("productImage") || "images/products/f1.jpg";
+    </script>
 </body>
 
 </html>
