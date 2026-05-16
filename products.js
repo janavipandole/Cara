@@ -13,7 +13,7 @@ const products = [
   {
     id: 1,
     brand: "Adidas",
-    name: "Cartoon Astronaut T-Shirt — Midnight Blue",
+    name: "Tropical Hibiscus Summer Shirt",
     price: 78,
     img: "images/products/f1.jpg",
     rating: 5,
@@ -22,7 +22,7 @@ const products = [
   {
     id: 2,
     brand: "Adidas",
-    name: "Cartoon Astronaut T-Shirt — Ivory",
+    name: "White Palm Leaf Casual Shirt",
     price: 78,
     img: "images/products/f2.jpg",
     rating: 5,
@@ -31,7 +31,7 @@ const products = [
   {
     id: 3,
     brand: "Adidas",
-    name: "Cartoon Astronaut T-Shirt — Olive",
+    name: "Vintage Rose Garden Shirt",
     price: 78,
     img: "images/products/f3.jpg",
     rating: 5,
@@ -40,7 +40,7 @@ const products = [
   {
     id: 4,
     brand: "Adidas",
-    name: "Cartoon Astronaut T-Shirt — Charcoal",
+    name: "Sakura Blossom Floral Shirt",
     price: 78,
     img: "images/products/f4.jpg",
     rating: 5,
@@ -49,7 +49,7 @@ const products = [
   {
     id: 5,
     brand: "Adidas",
-    name: "Cartoon Astronaut T-Shirt — Sky Blue",
+    name: "Pink Peony Patterned Shirt",
     price: 78,
     img: "images/products/f5.jpg",
     rating: 5,
@@ -58,7 +58,7 @@ const products = [
   {
     id: 6,
     brand: "Adidas",
-    name: "Cartoon Astronaut T-Shirt — Coral",
+    name: "Dual-Tone Corduroy Shirt",
     price: 78,
     img: "images/products/f6.jpg",
     rating: 5,
@@ -67,7 +67,7 @@ const products = [
   {
     id: 7,
     brand: "Adidas",
-    name: "Cartoon Astronaut T-Shirt — Forest Green",
+    name: "Embroidered Linen Trousers",
     price: 78,
     img: "images/products/f7.jpg",
     rating: 5,
@@ -76,7 +76,7 @@ const products = [
   {
     id: 8,
     brand: "Adidas",
-    name: "Cartoon Astronaut T-Shirt — Black",
+    name: "Cat Print Long Sleeve Blouse",
     price: 78,
     img: "images/products/f8.jpg",
     rating: 5,
@@ -85,7 +85,7 @@ const products = [
   {
     id: 9,
     brand: "Adidas",
-    name: "New Wave T-Shirt — White",
+    name: "Sky Blue Mandarin Collar Shirt",
     price: 78,
     img: "images/products/n1.jpg",
     rating: 5,
@@ -94,7 +94,7 @@ const products = [
   {
     id: 10,
     brand: "Adidas",
-    name: "New Wave T-Shirt — Slate Grey",
+    name: "Navy Textured Formal Shirt",
     price: 78,
     img: "images/products/n2.jpg",
     rating: 5,
@@ -103,7 +103,7 @@ const products = [
   {
     id: 11,
     brand: "Adidas",
-    name: "New Wave T-Shirt — Navy",
+    name: "Classic White Cotton Shirt",
     price: 78,
     img: "images/products/n3.jpg",
     rating: 5,
@@ -112,7 +112,7 @@ const products = [
   {
     id: 12,
     brand: "Adidas",
-    name: "New Wave T-Shirt — Sand",
+    name: "Sandstone Tactical Utility Shirt",
     price: 78,
     img: "images/products/n4.jpg",
     rating: 5,
@@ -121,7 +121,7 @@ const products = [
   {
     id: 13,
     brand: "Adidas",
-    name: "New Wave T-Shirt — Burgundy",
+    name: "Denim Blue Everyday Shirt",
     price: 79,
     img: "images/products/n5.jpg",
     rating: 5,
@@ -130,7 +130,7 @@ const products = [
   {
     id: 14,
     brand: "Adidas",
-    name: "New Wave T-Shirt — Mustard",
+    name: "Vertical Stripe Chino Shorts",
     price: 78,
     img: "images/products/n6.jpg",
     rating: 5,
@@ -139,7 +139,7 @@ const products = [
   {
     id: 15,
     brand: "Adidas",
-    name: "New Wave T-Shirt — Teal",
+    name: "Khaki Safari Work Shirt",
     price: 78,
     img: "images/products/n7.jpg",
     rating: 5,
@@ -148,7 +148,7 @@ const products = [
   {
     id: 16,
     brand: "Adidas",
-    name: "New Wave T-Shirt — Blush Pink",
+    name: "Deep Charcoal Casual Shirt",
     price: 78,
     img: "images/products/n8.jpg",
     rating: 5,
