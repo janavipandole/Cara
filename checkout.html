@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Modern Checkout Form</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="checkout.css">
+</head>
+<body>
+
+  <div class="checkout-container">
+
+    <div class="logo">
+      <span>Cara</span>
+    </div>
+
+    <div class="title">
+      <h2>Checkout Your Order</h2>
+      <p>Fill all details to complete your order</p>
+    </div>
+
+    <form id="checkoutForm">
+
+      <div class="input-group">
+        <label>Full Name</label>
+        <input type="text" placeholder="Enter your full name" required>
+      </div>
+
+      <div class="row">
+
+        <div class="input-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="Enter your email" required>
+        </div>
+
+        <div class="input-group">
+          <label>Phone Number</label>
+          <input type="tel" placeholder="Enter phone number" required>
+        </div>
+
+      </div>
+
+      <div class="input-group">
+        <label>Delivery Address</label>
+        <textarea placeholder="Enter full address" required></textarea>
+      </div>
+
+      <div class="row">
+
+        <div class="input-group">
+          <label>City</label>
+          <input type="text" placeholder="Enter city" required>
+        </div>
+
+        <div class="input-group">
+          <label>ZIP Code</label>
+          <input type="text" placeholder="ZIP Code" required>
+        </div>
+
+      </div>
+
+      <!-- PAYMENT METHOD -->
+      <div class="input-group">
+        <label>Select Payment Method</label>
+
+        <select id="paymentMethod" required>
+          <option value="">Choose Payment Method</option>
+          <option value="cod">Cash On Delivery</option>
+          <option value="online">Online Payment</option>
+        </select>
+      </div>
+
+      <!-- CARD DETAILS -->
+      <div class="payment-box" id="cardDetails">
+
+        <div class="payment-title">
+          Card Details
+        </div>
+
+        <div class="input-group">
+          <label>Card Holder Name</label>
+          <input type="text" id="cardName" placeholder="Card holder name">
+        </div>
+
+        <div class="input-group">
+          <label>Card Number</label>
+          <input type="text" id="cardNumber" placeholder="XXXX XXXX XXXX XXXX">
+        </div>
+
+        <div class="row">
+
+          <div class="input-group">
+            <label>Expiry Date</label>
+            <input type="text" id="expiry" placeholder="MM/YY">
+          </div>
+
+          <div class="input-group">
+            <label>CVV</label>
+            <input type="password" id="cvv" placeholder="***">
+          </div>
+
+        </div>
+
+      </div>
+
+      <button type="submit" class="submit-btn">
+        Place Your Order
+      </button>
+
+    </form>
+
+  </div>
+
+  <!-- SUCCESS MESSAGE -->
+  <div class="success-popup" id="successPopup">
+    <div class="popup-box">
+      <div class="check-icon">
+        ✓
+      </div>
+      <h2>Order Successful!</h2>
+      <p>Your Order has been completed successfully.</p>
+      <a href="shop.html" > <button>Continue to Shopping </button></a>
+    </div>
+  </div>
+
+  <script src="checkout.js"></script>
+
+</body>
+</html>

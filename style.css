@@ -295,6 +295,10 @@ button a {
 
 #hero h4 {
     padding-bottom: 15px;
+    color: #000000;
+}
+#hero h2{
+    color: rgb(0, 0, 0);
 }
 
 #hero h1 {
@@ -359,6 +363,9 @@ button a {
     border-radius: 4px;
     color: #088178;
     font-size: 16px;
+}
+[data-theme="dark"] #feature .fe-box h6 {
+    color: #ffffff;
 }
 
 #feature .fe-box:nth-child(1) h6 {
@@ -1215,6 +1222,13 @@ footer .copyright {
     color: #fff;
     cursor: pointer;
 }
+
+.normals{
+    margin:10px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
 
 /* Continue Shopping Button -{csritik-max}*/
 a.normal {
