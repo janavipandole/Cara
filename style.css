@@ -1223,13 +1223,6 @@ footer .copyright {
     cursor: pointer;
 }
 
-.normals{
-    margin:10px;
-    text-decoration: none;
-    font-size: 17px;
-}
-
-
 /* Continue Shopping Button -{csritik-max}*/
 a.normal {
   display: inline-block;
@@ -2010,3 +2003,52 @@ canvas {
     margin-top: 100px;
     margin-left: 80px;
 }
+/* Continue Shopping Button */
+.continue-shopping {
+  display: inline-block;
+  padding: 12px 24px;
+  border: 2px solid #088178;
+  color: #088178;
+  background: transparent;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.continue-shopping:hover {
+  background: #054a47c2;
+  color: white;
+}
+
+/* Proceed to Checkout Button */
+.proceed-checkout {
+  display: inline-block;
+  padding: 12px 24px;
+  background: #088178;
+  color: white;
+  border: 2px solid #088178;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: all 0.3s ease;
+}
+
+.proceed-checkout:hover {
+  background: #066b63;
+  border-color: #066b63;
+}
+
+Then add classes to your HTML:
+html<a href="/shop.html" class="continue-shopping">
+  Continue Shopping
+</a>
+<a href="/checkout.html" class="proceed-checkout">
+  Proceed to Checkout
+</a>
+
