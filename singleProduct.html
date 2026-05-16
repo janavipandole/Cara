@@ -63,7 +63,7 @@
                 <li><a href="contact.html">Contact</a></li>
                 <li><a href="login.html">Login</a></li>
                 <li><a href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
-                <li><a href="wishlist.html" id="lg-bag"><i class="ri-heart-line"></i></a></li>
+                <li><a href="wishlist.html" id="wish-bag"><i class="ri-heart-line"></i></a></li>
                 <li>
                     <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
                         <i class="ri-moon-line" id="themeIcon"></i>
@@ -112,7 +112,7 @@
             </select>
             <input id="product-quantity" type="number" value="1" min="1">
             <button class="normal" onclick="handleAddToCart()">Add to Cart</button>
-            <button class="wishbutton" onclick="renderWishlist()">
+            <button class="wishbutton" id="wishbtn">
                 <i class="ri-heart-line"></i>
             </button>
             <h4>Product Details</h4>
@@ -143,7 +143,7 @@
                     <h4>$78</h4>
                 </div>
                 <a href="#" class="cart" onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/n1.jpg', 1, 'M')"><i class="ri-shopping-cart-2-line"></i></a>
-                <a href="#" class="wish" onclick="renderWishlist('Cartoon Astronaut T-Shirts', '$78', 'images/products/n1.jpg', 1, 'M')"><i class="ri-heart-line"></i></a>
+               
             </div>
             
             <div class="pro">
@@ -161,7 +161,7 @@
                     <h4>$78</h4>
                 </div>
                 <a href="#" class="cart" onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/n2.jpg', 1, 'M')"><i class="ri-shopping-cart-2-line"></i></a>
-                <a href="#" class="wish" onclick="renderWishlist('Cartoon Astronaut T-Shirts', '$78', 'images/products/n2.jpg', 1, 'M')"><i class="ri-heart-line"></i></a>
+                
             </div>
             <div class="pro">
                 <img src="images/products/n3.jpg" alt="">
@@ -178,7 +178,7 @@
                     <h4>$78</h4>
                 </div>
                 <a href="#" class="cart" onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/n3.jpg', 1, 'M')"><i class="ri-shopping-cart-2-line"></i></a>
-                <a href="#" class="wish" onclick="renderWishlist('Cartoon Astronaut T-Shirts', '$78', 'images/products/n3.jpg', 1, 'M')"><i class="ri-heart-line"></i></a>
+                
             </div>
             
             <div class="pro">
@@ -196,7 +196,7 @@
                     <h4>$78</h4>
                 </div>
                 <a href="#" class="cart" onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/n4.jpg', 1, 'M')"><i class="ri-shopping-cart-2-line"></i></a>
-                <a href="#" class="wish" onclick="renderWishlist('Cartoon Astronaut T-Shirts', '$78', 'images/products/n4.jpg', 1, 'M')"><i class="ri-heart-line"></i></a>
+               
             </div>
         </div>
 
