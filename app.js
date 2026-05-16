@@ -331,6 +331,32 @@ window.addEventListener('load', () => {
     showPage(1);
 })();
 
+// Back to Top Button Logic
+const backToTopBtn = document.getElementById("backToTop");
+window.addEventListener("scroll", () => {
+    if (window.scrollY > 100) {
+        backToTopBtn.classList.add("show");
+    } else {
+         backToTopBtn.classList.remove("show");
+    }
+});
+backToTopBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+        //Top to Bottom Button Logic
+const ToptobackBtn = document.getElementById("Toptoback");
+window.addEventListener("scroll", () => {
+    if (window.scrollY < 100) {
+        ToptobackBtn.classList.add("show");
+    } else {
+        ToptobackBtn.classList.remove("show");
+    }
+});
+ToptobackBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 10000, behavior: "smooth" });
+});
+
 // Style Quiz Functionality
 function openQuiz() {
     document.getElementById('quiz-modal').style.display = 'flex';

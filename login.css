@@ -157,10 +157,11 @@ h2 {
 
 .input-field::placeholder {
     color: transparent;
+    transition : opacity 0.3s ease;
 }
 
 .input-field:focus::placeholder {
-    color: rgba(0, 212, 255, 0.5);
+     color: rgba(0, 212, 255, 0.35);
 }
 
 @keyframes scanLine {
@@ -320,13 +321,10 @@ p {
     position: relative;
 }
 
-.input-field::placeholder {
-    color: rgba(0, 212, 255, 0.35);
-}
 
 .input-field:focus ~ label,
 .input-field:not(:placeholder-shown) ~ label {
-    top: -12px;
+    top: -20px;
     font-size: 12px;
     color: #00d4ff;
     text-shadow: 0 0 5px rgba(0, 212, 255, 0.5);
