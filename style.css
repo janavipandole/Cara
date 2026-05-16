@@ -130,11 +130,11 @@ button.normal {
     cursor: pointer;
     border-radius: 4px;
     outline: none;
-    
+
     /* Required for JavaScript ripple positioning */
     position: relative;
     overflow: hidden;
-    
+
     /* Smooth transition handling */
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.2s ease;
     will-change: transform, box-shadow;
@@ -143,7 +143,7 @@ button.normal {
 /* Hover State for Normal Buttons */
 button.normal:hover {
     background-color: var(--accent);
-    color: #ffffff; 
+    color: #ffffff;
     border-color: var(--accent);
     transform: translateY(-2px) scale(1.03);
     box-shadow: 0 6px 15px var(--shadow-hover);
@@ -167,11 +167,11 @@ button.white {
     cursor: pointer;
     border-radius: 4px;
     outline: none;
-    
+
     /* Required for JavaScript ripple positioning */
     position: relative;
     overflow: hidden;
-    
+
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.2s ease;
     will-change: transform, box-shadow;
 }
@@ -204,7 +204,8 @@ button.white:focus-visible {
 .ripple-effect {
     position: absolute;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.4); /* Light ripple for colored backgrounds */
+    background: rgba(255, 255, 255, 0.4);
+    /* Light ripple for colored backgrounds */
     transform: translate(-50%, -50%) scale(0);
     animation: ripple-animation 0.6s ease-out;
     pointer-events: none;
@@ -407,6 +408,7 @@ button.white .ripple-effect {
 }
 
 #hero h2 {
+    color: rgb(0, 0, 0);
     font-weight: 700;
     margin-bottom: 5px;
     animation: fadeInUp 0.8s ease forwards 0.2s;
@@ -471,6 +473,7 @@ button.white .ripple-effect {
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -519,6 +522,7 @@ button.white .ripple-effect {
     color: var(--accent);
     font-size: 16px;
 }
+
 [data-theme="dark"] #feature .fe-box h6 {
     color: #ffffff;
 }
@@ -646,7 +650,7 @@ button.white .ripple-effect {
 
 #banner {
     background-image: url("images/banner/b2.jpg");
-    height: 40vh;
+    min-height: 40vh;
     width: 100%;
     background-size: cover;
     background-position: center;
@@ -656,6 +660,7 @@ button.white .ripple-effect {
     color: #FFF;
     text-align: center;
     flex-direction: column;
+    padding: 40px 20px;
 }
 
 #banner h4 {
@@ -681,21 +686,45 @@ button.white .ripple-effect {
 #sm-banner {
     display: flex;
     justify-content: space-between;
+    gap: 20px;
     flex-wrap: wrap;
 }
 
 #sm-banner .banner-box {
     background-image: url("images/banner/b17.jpg");
-    height: 50vh;
-    min-width: 660px;
+    flex: 1 1 calc(50% - 20px);
+    min-height: 320px;
     background-size: cover;
     background-position: center;
     display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    color: #FFF;
     flex-direction: column;
-    padding: 30px;
+    justify-content: center;
+    align-items: flex-start;
+    color: #FFF;
+    padding: 50px;
+    border-radius: 18px;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Better banner content spacing */
+
+#sm-banner .banner-box h4,
+#sm-banner .banner-box h2,
+#sm-banner .banner-box span,
+#sm-banner .banner-box button {
+    position: relative;
+    z-index: 2;
+}
+
+#sm-banner .banner-box h2 {
+    max-width: 70%;
+    line-height: 1.2;
+}
+
+#sm-banner .banner-box span {
+    max-width: 75%;
+    line-height: 1.5;
 }
 
 #sm-banner .banner-box2 {
@@ -729,22 +758,35 @@ button.white .ripple-effect {
 #banner3 {
     display: flex;
     justify-content: space-between;
+    gap: 20px;
     flex-wrap: wrap;
     padding: 0 80px;
 }
 
 #banner3 .banner-box {
     background-image: url("images/banner/b7.jpg");
-    height: 30vh;
-    min-width: 30%;
+    flex: 1 1 calc(33.33% - 20px);
+    min-height: 250px;
     background-size: cover;
     background-position: center;
     display: flex;
-    align-items: flex-start;
-    justify-content: center;
     flex-direction: column;
-    padding: 20px;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 30px;
+    border-radius: 18px;
+    overflow: hidden;
     margin-bottom: 20px;
+    position: relative;
+}
+
+#banner3 h2 {
+    max-width: 80%;
+    line-height: 1.3;
+}
+
+#banner3 h3 {
+    line-height: 1.4;
 }
 
 #banner3 .banner-box2 {
@@ -1092,7 +1134,9 @@ footer .copyright {
    ABOUT US
    ============================================ */
 
-#page-header, #about-head, #blog-head {
+#page-header,
+#about-head,
+#blog-head {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1104,9 +1148,12 @@ footer .copyright {
     background-color: var(--bg-secondary);
 }
 
-#page-header h2, #page-header p,
-#about-head h2, #about-head p,
-#blog-head h2, #blog-head p {
+#page-header h2,
+#page-header p,
+#about-head h2,
+#about-head p,
+#blog-head h2,
+#blog-head p {
     color: var(--text-primary);
 }
 
@@ -1285,19 +1332,22 @@ marquee {
 /* ============================================
    CART PAGE
    ============================================ */
-.cartmain{
+.cartmain {
     display: flex;
     flex-direction: column;
     position: absolute;
     top: 100px;
 }
-#page-header{
+
+#page-header {
     margin-left: 100px;
 }
-.seperator{
+
+.seperator {
     height: 1px;
     background-color: #bfbfbf;
 }
+
 #cart {
     overflow-x: auto;
 }
@@ -1428,8 +1478,8 @@ marquee {
     cursor: pointer;
 }
 
-.normals{
-    margin:10px;
+.normals {
+    margin: 10px;
     text-decoration: none;
     font-size: 17px;
 }
@@ -1437,78 +1487,78 @@ marquee {
 
 /* Continue Shopping Button -{csritik-max}*/
 a.normal {
-  display: inline-block;
-  padding: 12px 28px;
-  background-color: #2563eb;
-  color: #ffffff;
-  text-decoration: none;
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: 0.4px;
-  border-radius: 8px;
-  border: 2px solid transparent;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+    display: inline-block;
+    padding: 12px 28px;
+    background-color: #2563eb;
+    color: #ffffff;
+    text-decoration: none;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
 }
 
 a.normal:hover {
-  background-color: #1d4ed8;
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
-  transform: translateY(-1px);
+    background-color: #1d4ed8;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+    transform: translateY(-1px);
 }
 
 a.normal:active {
-  transform: translateY(0px);
-  box-shadow: none;
+    transform: translateY(0px);
+    box-shadow: none;
 }
 
 /* csritik-max */
 
 button.normal {
-  display: inline-block;
-  padding: 12px 28px;
-  background-color: #2563eb;
-  color: #ffffff;
-  font-size: 15px;
-  font-weight: 600;
-  font-family: 'Segoe UI', sans-serif;
-  letter-spacing: 0.4px;
-  border: 2px solid transparent;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+    display: inline-block;
+    padding: 12px 28px;
+    background-color: #2563eb;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'Segoe UI', sans-serif;
+    letter-spacing: 0.4px;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
 }
 
 button.normal:hover {
-  background-color: #1d4ed8;
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
-  transform: translateY(-1px);
+    background-color: #1d4ed8;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+    transform: translateY(-1px);
 }
 
 .normal:active {
-  transform: translateY(0);
-  box-shadow: none;
+    transform: translateY(0);
+    box-shadow: none;
 }
 
 .toast {
-  position: fixed;
-  bottom: 1.5rem;
-  left: 50%;
-  transform: translateX(-50%) translateY(20px);
-  background: #1e293b;
-  color: #fff;
-  padding: 12px 20px;
-  border-radius: 8px;
-  font-size: 14px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #1e293b;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .toast.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
 }
 
 
@@ -1791,8 +1841,8 @@ input:focus {
     }
 
     #banner3 .banner-box {
-        width: 45%;
-        margin: 10px;
+        width: 100%;
+        margin: 10px 0;
     }
 
     #banner3 .banner-box2 {
@@ -1800,7 +1850,7 @@ input:focus {
     }
 
     #banner3 .banner-box3 {
-        width: 45%;
+        width: 100%;
     }
 
     #newsletter {
@@ -1992,15 +2042,74 @@ input:focus {
     }
 
     #sm-banner .banner-box {
-        height: 50vh;
-        padding: 0 20px;
+        min-height: 260px;
+        height: auto;
         width: 100%;
-        margin: 10px;
+        margin: 10px 0;
+        padding: 24px;
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-direction: column;
+        overflow: hidden;
+        border-radius: 16px;
+    }
+
+    #sm-banner h4 {
+        font-size: 20px;
+        line-height: 1.2;
+        margin-bottom: 10px;
+    }
+
+    #sm-banner h2 {
+        font-size: 34px;
+        line-height: 1.1;
+        max-width: 90%;
+        margin-bottom: 10px;
+    }
+
+    #sm-banner span {
+        font-size: 18px;
+        line-height: 1.4;
+        max-width: 90%;
+        display: block;
+        margin-bottom: 16px;
+    }
+
+    #sm-banner button {
+        padding: 10px 18px;
+        font-size: 14px;
     }
 
     #banner3 .banner-box {
+        flex: 1 1 100%;
         width: 100%;
-        margin: 10px;
+        min-height: 220px;
+        margin: 12px 0;
+        padding: 24px;
+        background-position: center;
+        background-size: cover;
+        border-radius: 16px;
+        overflow: hidden;
+    }
+
+    #banner3 {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    #banner3 h2 {
+        font-size: 28px;
+        line-height: 1.2;
+        max-width: 90%;
+    }
+
+    #banner3 h3 {
+        font-size: 18px;
+        line-height: 1.3;
+        max-width: 90%;
     }
 
     #banner3 .banner-box2 {
@@ -2156,190 +2265,37 @@ canvas {
 }
 
 
-/*fix-homepage-navigation*/
 
-/* Hover effects for homepage banners */
-
-#sm-banner .banner-box,
-#banner3 .banner-box {
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-}
-
-/* Card hover animation */
-#sm-banner .banner-box:hover,
-#banner3 .banner-box:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
-}
-
-/* Smooth button animation */
-#sm-banner .banner-box button,
-#banner3 .banner-box button {
-    transition: all 0.3s ease;
-}
-
-/* Button hover effect */
-#sm-banner .banner-box button:hover,
-#banner3 .banner-box button:hover {
-    background-color: #088178;
-    color: #fff;
-    transform: scale(1.08);
-    border-color: #088178;
-}
-
-/* Banner text styling */
-
-#sm-banner .banner-box h4,
-#banner3 .banner-box h3 {
-    font-size: 20px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-}
-
-#sm-banner .banner-box h2,
-#banner3 .banner-box h2 {
-    font-size: 38px;
-    font-weight: 800;
-    line-height: 1.2;
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-#sm-banner .banner-box span {
-    font-size: 16px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-}
-
-/* Smooth text animation on hover */
-
-#sm-banner .banner-box h2,
-#sm-banner .banner-box h4,
-#sm-banner .banner-box span,
-#banner3 .banner-box h2,
-#banner3 .banner-box h3 {
-    transition: all 0.3s ease;
-}
-
-#sm-banner .banner-box:hover h2,
-#banner3 .banner-box:hover h2 {
-    transform: translateX(8px);
-    color: #fff;
-}
-
-#sm-banner .banner-box:hover h4,
-#banner3 .banner-box:hover h3 {
-    transform: translateX(5px);
-    color: #fdd835;
-}
-
-
-#sm-banner {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
-    padding: 20px 40px;
-}
-
-#sm-banner .banner-box {
-    flex: 1;
-    min-width: 650px;
-    height: 55vh;
-
-    padding: 40px;
-    background-size: cover;
-    background-position: center;
-
-    border-radius: 14px;
-    position: relative;
-}
-
-#banner3 {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
-    padding: 20px 40px;
-}
-
-#banner3 .banner-box {
-    flex: 1;
-    min-width: 420px;
-    height: 35vh;
-
-    padding: 30px;
-    background-size: cover;
-    background-position: center;
-
-    border-radius: 12px;
-    position: relative;
-
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-#banner3 .banner-box:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
-=======
-#Toptoback {
-  position: fixed;
-  bottom: 2.5rem;
-  right: 2.5rem;
-  z-index: 2000;
-  background: linear-gradient cream;
-  color: #c97171;
-  border: none;
-  border-radius: 50%;
-  width: 56px;
-  height: 56px;
-  font-size: 2rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
-  cursor: pointer;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s, transform 0.2s;
-}
-
-#Toptoback.show {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateY(-10px) scale(1.08);
-}
-
-#Toptoback:hover {
-  background: linear-gradient cream;
-  transform: scale(1.15);
-}
 /* Back to Top Button Styles */
+
 #backToTop {
-  position: fixed;
-  bottom: 2.5rem;
-  right: 2.5rem;
-  z-index: 2000;
-  background: linear-gradient(135deg,
-      var(--candy-red),
-      var(--sky-blue),
-      var(--sunny-yellow));
-  color: #c97171;
-  border: none;
-  border-radius: 50%;
-  width: 56px;
-  height: 56px;
-  font-size: 2rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
-  cursor: pointer;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s, transform 0.2s;
+    position: fixed;
+    bottom: 2.5rem;
+    right: 2.5rem;
+    z-index: 2000;
+    background: linear-gradient(135deg,
+            var(--candy-red),
+            var(--sky-blue),
+            var(--sunny-yellow));
+    color: #c97171;
+    border: none;
+    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+    font-size: 2rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s, transform 0.2s;
 }
 
 #backToTop.show {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateY(-10px) scale(1.08);
-   main
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(-10px) scale(1.08);
+}
+
+#backToTop:hover {
+    transform: scale(1.15);
 }
