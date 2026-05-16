@@ -329,7 +329,7 @@ button.white .ripple-effect {
 }
 
 #siteLogo {
-    
+
     width: 120px;
     height: 50px;
     object-fit: contain;
@@ -1021,7 +1021,7 @@ footer .copyright {
 }
 
 #pro-details .single-pro-details h4 {
-    padding: 40px 0 20px 0;
+    padding: 20px 0 20px 0;
 }
 
 #pro-details .single-pro-details h2 {
@@ -1040,6 +1040,7 @@ footer .copyright {
     padding-left: 10px;
     font-size: 16px;
     margin-right: 10px;
+    margin-bottom: 20px;
 }
 
 #pro-details .single-pro-details input:focus {
@@ -1362,7 +1363,6 @@ marquee {
 #cart table {
     width: 100%;
     border-collapse: collapse;
-    white-space: nowrap;
     table-layout: fixed;
 }
 
@@ -1371,13 +1371,16 @@ marquee {
 }
 
 #cart table td:nth-child(1) {
-    width: 100px;
+    width: 80px;
     text-align: center;
 }
 
 #cart table td:nth-child(2) {
-    width: 150px;
+    width: 130px;
     text-align: center;
+    white-space: normal;
+    word-break: break-word;
+    min-width: 200px;
 }
 
 #cart table td:nth-child(3) {
@@ -1388,14 +1391,14 @@ marquee {
 #cart table td:nth-child(4),
 #cart table td:nth-child(5),
 #cart table td:nth-child(6) {
-    width: 150px;
+    width: 120px;
     text-align: center;
 }
 
 #cart table td:nth-child(5) input {
     width: 70px;
     padding: 10px;
-     display: block;
+    display: block;
     margin: 0 auto;
     text-align: center;
 }
@@ -1424,9 +1427,11 @@ marquee {
 #cart table tbody tr td {
     padding: 15px;
     border-bottom: 1px solid #e2e9e1;
+    vertical-align: middle;
 }
 
 #cart table tbody td {
+    vertical-align: middle;
     font-size: 20px;
 }
 

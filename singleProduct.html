@@ -100,22 +100,19 @@
             <h6>Home / T-Shirt</h6>
             <h4 id="product-name">Men's Fashion T-Shirt</h4>
             <h2 id="product-price">$139.00</h2>
-            <select id="product-size" name="">
-                <option>Select Size</option>
-                <option>S</option>
-                <option>M</option>
-                <option>L</option>
-                <option>XL</option>
-                <option>XXL</option>
-                <option>XXXL</option>
+            <select id="product-size" name="" onchange="updatePrice()">
+                <option value="Select Size">Select Size</option>
+                <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+                <option value="XL">XL</option>
+                <option value="XXL">XXL</option>
+                <option value="XXXL">XXXL</option>
             </select>
             <input id="product-quantity" type="number" value="1" min="1">
             <button class="normal" onclick="handleAddToCart()">Add to Cart</button>
             <h4>Product Details</h4>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officia tenetur, exercitationem velit maxime
-                sit beatae ea tempore a itaque natus placeat, neque fuga cumque aperiam nemo quia atque ducimus ipsam.
-            </p>
-
+            <p id="product-description">Loading product details...</p>
         </div>
         </div>
     </section>
@@ -125,7 +122,7 @@
         <p>Summer Collection New Morden Design</p>
 
         <!-- Dynamic Js container  {csritik-max }-->
-       <div class="pro-container" id="featured-container"></div>
+        <div class="pro-container" id="featured-container"></div>
         <!--   -->
     </section>
 
@@ -153,7 +150,8 @@
                 <div class="icon">
                     <a href="https://x.com/JanaviPandole"><i class="fab fa-twitter"></i></a>
                     <a href="https://github.com/janavipandole"><i class="fab fa-github"></i></a>
-                    <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank"
+                        rel="noopener noreferrer">
                         <i class="fab fa-linkedin"></i>
                     </a>
                     <a href="https://www.youtube.com/@JanaviPandole"><i class="fab fa-youtube"></i></a>
@@ -194,11 +192,56 @@
 
     <script src="products.js"></script>
     <script src="app.js"></script>
-<!-- csritik-max -->
-<div class="toast" id="toast">
-    <div class="toast-icon" id="toast-icon">✅</div>
-    <span id="toast-msg"></span>
-</div>
+
+    <script>
+        // --- Load product from URL ?id=N ---
+        const params = new URLSearchParams(window.location.search);
+        const productId = parseInt(params.get('id'));
+        const product = products.find(p => p.id === productId) || products[0];
+
+        // Populate page with product data
+        document.getElementById('product-name').textContent = product.name;
+        document.getElementById('product-description').textContent = product.description;
+        document.getElementById('MainImg').src = product.img;
+
+        // Store base price globally for size calculations
+        let basePrice = product.price;
+
+        // Set initial price display
+        document.getElementById('product-price').textContent = '$' + basePrice.toFixed(2);
+
+        // --- Dynamic size-based pricing ---
+        function updatePrice() {
+            const sizeSelect = document.getElementById('product-size');
+            const selectedSize = sizeSelect.value;
+            const surcharge = sizeSurcharge[selectedSize] || 0;
+            const finalPrice = basePrice + surcharge;
+            document.getElementById('product-price').textContent = '$' + finalPrice.toFixed(2);
+        }
+
+        // --- Add to Cart with correct size-adjusted price ---
+        function handleAddToCart() {
+            const sizeSelect = document.getElementById('product-size');
+            const selectedSize = sizeSelect.value;
+
+            if (selectedSize === 'Select Size') {
+                alert('Please select a size before adding to cart.');
+                return;
+            }
+
+            const surcharge = sizeSurcharge[selectedSize] || 0;
+            const finalPrice = basePrice + surcharge;
+            const quantity = parseInt(document.getElementById('product-quantity').value) || 1;
+
+            addToCart(product.name, '$' + finalPrice.toFixed(2), product.img, quantity, selectedSize);
+        }
+    </script>
+
+    <!-- csritik-max -->
+    <div class="toast" id="toast">
+        <div class="toast-icon" id="toast-icon">✅</div>
+        <span id="toast-msg"></span>
+    </div>
 </body>
 
 </html>
