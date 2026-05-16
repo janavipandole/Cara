@@ -101,8 +101,17 @@ function addToCart(productName, productPrice, productImage, quantity, size) {
 }
 
 function showToast(msg, isError = false) {
-    const toast = document.getElementById('toast');
-    if (!toast) return;
+    let toast = document.getElementById('toast');
+    
+    // Inject toast if it doesn't exist
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'toast';
+        toast.className = 'toast';
+        toast.innerHTML = `<div class="toast-icon" id="toast-icon">✅</div><span id="toast-msg"></span>`;
+        document.body.appendChild(toast);
+    }
+
     const icon = document.getElementById('toast-icon');
     icon.textContent = isError ? '⚠️' : '✅';
     document.getElementById('toast-msg').textContent = msg;
@@ -405,5 +414,70 @@ window.selectStyle = function(style) {
             product.style.display = 'none';
         }
     });
-    alert(`Showing ${style} style recommendations!`);
+    showToast(`Showing ${style} style recommendations!`);
 }
+
+/* --- START: AUTHENTICATION MANAGEMENT --- */
+
+function updateAuthUI() {
+    const loggedInUserEmail = localStorage.getItem('loggedInUser');
+    const navbar = document.getElementById('navbar');
+    
+    if (loggedInUserEmail) {
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+        const user = users.find(u => u.email === loggedInUserEmail);
+        const userName = user ? user.name : 'User';
+
+        // Update Navbar
+        if (navbar) {
+            const loginLinks = Array.from(navbar.querySelectorAll('a')).filter(a => 
+                a.getAttribute('href') === 'login.html' || a.id === 'auth-link'
+            );
+
+            loginLinks.forEach(loginLink => {
+                const li = loginLink.parentElement;
+                li.innerHTML = `
+                    <div class="user-profile-nav">
+                        <span class="user-name">Hi, ${userName}</span>
+                        <a href="#" id="logoutBtn" class="logout-link">Logout</a>
+                    </div>
+                `;
+            });
+            
+            // Re-attach event listener for the logout button (it might be newly created)
+            document.body.addEventListener('click', (e) => {
+                if (e.target && e.target.id === 'logoutBtn') {
+                    e.preventDefault();
+                    logoutUser();
+                }
+            });
+        }
+
+        // Update Footer / Other Login Links
+        document.querySelectorAll('a[href="login.html"]').forEach(link => {
+            if (!link.closest('#navbar')) {
+                link.textContent = 'Logout';
+                link.href = '#';
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    logoutUser();
+                });
+            }
+        });
+    }
+}
+
+function logoutUser() {
+    localStorage.removeItem('loggedInUser');
+    showToast('Logged out successfully!');
+    setTimeout(() => {
+        window.location.href = 'index.html';
+    }, 1000);
+}
+
+// Ensure auth UI updates on load
+document.addEventListener('DOMContentLoaded', () => {
+    updateAuthUI();
+});
+
+/* --- END: AUTHENTICATION MANAGEMENT --- */

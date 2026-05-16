@@ -37,9 +37,12 @@ document.addEventListener('DOMContentLoaded', function () {
         if (user) {
             // On successful login
             localStorage.setItem('loggedInUser', email);
-            window.location.href = 'index.html';
+            showToast('Login successful! Welcome back.');
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1000);
         } else {
-            alert('Invalid email or password.');
+            showToast('Invalid email or password.', true);
         }
     });
 });

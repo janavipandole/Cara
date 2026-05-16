@@ -23,8 +23,10 @@ document.addEventListener('DOMContentLoaded', function () {
         users.push({ name, email, password });
         localStorage.setItem('users', JSON.stringify(users));
         // On successful registration
-        alert('Signup successful! You are now logged in.');
+        showToast('Signup successful! Welcome to Cara.');
         localStorage.setItem('loggedInUser', email);
-        window.location.href = 'index.html';
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 1000);
     });
 });
