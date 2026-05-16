@@ -116,12 +116,12 @@
 
     <!-- Contact Form -->
     <section id="form-details">
-        <form action="">
+        <form >
             <span>LEAVE A MESSAGE</span>
             <h2>We’re excited to connect with you!</h2>
             <p>Fill out the form below and our team will get back to you as soon as possible.</p>
             <input type="text" placeholder="Your Name" required>
-            <input type="email" placeholder="Your Email" required>
+            <input type="email" placeholder="Your Email" required pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" title="Please enter a valid email (e.g., name@example.com)">
             <input type="text" placeholder="Subject">
             <textarea cols="30" rows="10" placeholder="Your Message" required></textarea>
             <button class="normal">Submit</button>
