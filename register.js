@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('registerForm');
-
+ //check email validity
     function isValidEmail(email) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) return false;
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
             alert('Please fill all fields.');
             return;
         }
-
+        //check for valid gmail addresses only
         if (!isValidEmail(email)) {
             alert('Enter a valid gmail address');
             return;
