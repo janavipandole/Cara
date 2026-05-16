@@ -886,6 +886,7 @@ footer {
     justify-content: space-between;
     background-color: var(--bg-secondary);
     transition: background-color 0.3s ease;
+    border-top: 1px solid var(--border-color);
 }
 
 footer .col {
