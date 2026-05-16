@@ -221,10 +221,17 @@ window.addEventListener('load', () => {
     updateThemeIcon(currentTheme);
 
     function updateThemeIcon(theme) {
-        const iconClass = theme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
-        if (themeIcon) themeIcon.className = iconClass;
-        if (themeIconMobile) themeIconMobile.className = iconClass;
-    }
+            console.log('Updating icons to:', theme);
+            const iconClass = theme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
+            if (themeIcon) themeIcon.className = iconClass;
+            if (themeIconMobile) themeIconMobile.className = iconClass;
+
+            // Swap logo based on theme
+            const siteLogo = document.getElementById('siteLogo');
+            if (siteLogo) {
+                siteLogo.src = theme === 'dark' ? 'images/Dlogo.png' : 'images/logo.png';
+            }
+        }
 
     function toggleTheme() {
         const currentTheme = html.getAttribute('data-theme');
