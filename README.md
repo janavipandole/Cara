@@ -1,5 +1,9 @@
 # 🛍️ Cara - E-commerce Platform
 
+> Officially participating in
+## GSSOC 2026
+## ELUSOC 2026
+
 <div align="center">
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -10,7 +14,9 @@
 
 **A modern, responsive e-commerce platform built with vanilla HTML, CSS, and JavaScript**
 
-[Live Demo](#) · [Report Bug](https://github.com/janavipandole/Cara/issues) · [Request Feature](https://github.com/janavipandole/Cara/issues)
+## 🚀 [Live Demo] (https://cara-seven-ashen.vercel.app/ )
+ [Report Bug](https://github.com/janavipandole/Cara/issues) 
+ [Request Feature](https://github.com/janavipandole/Cara/issues)
 
 </div>
 

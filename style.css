@@ -50,9 +50,9 @@
     --logo-filter: brightness(0) invert(1);
 }
 
-[data-theme="dark"] #header img {
+/* [data-theme="dark"] #header img {
     filter: invert(1) brightness(2);
-}
+} */
 
 /* ============================================
    BASE STYLES
@@ -326,6 +326,13 @@ button.white .ripple-effect {
 #header a img {
     filter: var(--logo-filter);
     transition: filter 0.3s ease;
+}
+
+#siteLogo {
+    
+    width: 120px;
+    height: 50px;
+    object-fit: contain;
 }
 
 #navbar {
@@ -1388,6 +1395,9 @@ marquee {
 #cart table td:nth-child(5) input {
     width: 70px;
     padding: 10px;
+     display: block;
+    margin: 0 auto;
+    text-align: center;
 }
 
 #cart table td:nth-child(5) input:focus {
