@@ -48,6 +48,10 @@
     --cart-icon-bg: #2d3748;
 }
 
+[data-theme="dark"] #header img {
+    filter: invert(1) brightness(2);
+}
+
 /* ============================================
    BASE STYLES
    ============================================ */
