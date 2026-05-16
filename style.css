@@ -440,7 +440,7 @@ button.white .ripple-effect {
     background: var(--accent);
     color: #fff !important;
     border: 0;
-    padding: 16px 45px;
+    padding: 16px 24px;
     cursor: pointer;
     font-size: 1rem;
     font-weight: 600;
@@ -467,7 +467,7 @@ button.white .ripple-effect {
     background: transparent;
     border: 2px solid var(--accent);
     color: var(--accent) !important;
-    margin-left: 15px;
+    
 }
 
 #hero button:nth-of-type(2):hover {
