@@ -440,6 +440,31 @@ p {
     transform: translateZ(20px) scale(0.98);
 }
 
+.password-group {
+    position: relative;
+}
+
+.toggle_password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: #00d4ff;
+    cursor: pointer;
+    font-size: 18px;
+    z-index: 5;
+    transition: 0.3s ease;
+}
+
+.toggle_password:hover {
+    color: #4ecdc4;
+}
+
+.toggle_password:focus {
+    outline: none;
+}
 .signup-link {
     text-align: center;
     margin-top: 20px;

@@ -1,5 +1,24 @@
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('loginForm');
+    const passwordInput = document.getElementById('loginPassword');
+    const togglePassword = document.getElementById('togglePassword');
+
+    if (passwordInput && togglePassword) {
+
+    togglePassword.addEventListener('click', function () {
+
+        const isPasswordHidden = passwordInput.type === 'password';
+
+        passwordInput.type = isPasswordHidden ? 'text' : 'password';
+
+        this.innerHTML = isPasswordHidden
+
+            ? '<i class="ri-eye-off-line"></i>'
+            : '<i class="ri-eye-line"></i>';
+    });
+    
+}
+
     if (!form) return;
 
     form.addEventListener('submit', function (e) {
