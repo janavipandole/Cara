@@ -1,5 +1,9 @@
 # 🛍️ Cara - E-commerce Platform
 
+> Officially participating in
+## GSSOC 2026
+## ELUSOC 2026
+
 <div align="center">
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
