@@ -62,7 +62,7 @@
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
                 <li><a href="login.html">Login</a></li>
-                <li><a href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
+                <li><a href="cart.html" id="lg-bag" class="cart-icon-wrapper"><i class="ri-shopping-bag-4-line"></i><span class="cart-count" id="desktopCartCount">0</span></a></li>
                 <li>
                     <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
                         <i class="ri-moon-line" id="themeIcon"></i>
@@ -72,7 +72,13 @@
             </ul>
         </div>
         <div class="mobile">
-            <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
+            <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
+                <i class="ri-moon-line" id="themeIconMobile"></i>
+            </button>
+            <a href="cart.html" id="mobile-cart-icon">
+                <i class="ri-shopping-bag-4-line"></i>
+                <span class="cart-count" id="mobileCartCount">0</span>
+            </a>
             <i class="fas fa-outdent" id="bar"></i>
         </div>
     </section>
@@ -80,6 +86,25 @@
     <section id="shop-hero">
         <h2>#stayhome</h2>
         <p>Save more with coupons & up to 70% off!</p>
+    </section>
+
+    <!-- Search and Filter Section -->
+    <section id="search-filter" class="section-p1">
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search products..." />
+            <button id="searchBtn" aria-label="Search">
+                <i class="ri-search-line"></i>
+            </button>
+        </div>
+        <div class="filter-container">
+            <label for="categoryFilter">Filter by Category:</label>
+            <select id="categoryFilter">
+                <option value="all">All Products</option>
+                <option value="street">Street Style</option>
+                <option value="minimal">Minimal</option>
+                <option value="formal">Formal</option>
+            </select>
+        </div>
     </section>
 
     <section id="product1" class="section-p1">
