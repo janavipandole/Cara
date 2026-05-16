@@ -1,0 +1,17 @@
+{
+  "name": "Cara — Modern E‑Commerce",
+  "short_name": "Cara",
+  "description": "Shop the latest trends on our e-commerce store.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#088178",
+  "icons": [
+    {
+      "src": "images/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
