@@ -85,7 +85,7 @@ function addToCart(productName, productPrice, productImage, quantity, size) {
         price: parseFloat(productPrice.replace('$', '')),
         image: productImage,
         quantity: parseInt(quantity),
-        size: size
+        size: size.replace('Size ', '')
     };
 
     let existingItem = cart.find(p => p.name === item.name && p.size === item.size);
