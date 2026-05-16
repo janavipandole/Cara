@@ -1960,6 +1960,52 @@ input:focus {
     color: var(--accent);
     ;
 }
+/* ================================
+   SCROLL BUTTONS STYLE
+================================ */
+
+#backToTop,
+#Toptoback {
+    position: fixed;
+    right: 25px;
+    width: 55px;
+    height: 55px;
+    border: none;
+    border-radius: 50%;
+    background: #facc15;
+    color: #ffffff; 
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    z-index: 999;
+}
+
+#backToTop {
+    bottom: 25px; 
+    
+}
+
+#Toptoback {
+    bottom: 95px;
+}
+
+#backToTop.show,
+#Toptoback.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+#backToTop:hover,
+#Toptoback:hover {
+    transform: scale(1.08);
+    background: #eab308;
+}
 
 /* ============================================
    RESPONSIVE DESIGN

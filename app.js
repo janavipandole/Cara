@@ -365,36 +365,39 @@ window.addEventListener('load', () => {
     showPage(1);
 })();
 
-// Back to Top Button Logic
 const backToTopBtn = document.getElementById("backToTop");
-if (backToTopBtn) {
-    window.addEventListener("scroll", () => {
-        if (window.scrollY > 100) {
-            backToTopBtn.classList.add("show");
-        } else {
-            backToTopBtn.classList.remove("show");
-        }
-    });
-    backToTopBtn.addEventListener("click", () => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-}
-
-// Top to Bottom Button Logic
 const ToptobackBtn = document.getElementById("Toptoback");
-if (ToptobackBtn) {
-    window.addEventListener("scroll", () => {
-        if (window.scrollY < 100) {
-            ToptobackBtn.classList.add("show");
-        } else {
-            ToptobackBtn.classList.remove("show");
-        }
-    });
-    ToptobackBtn.addEventListener("click", () => {
-        window.scrollTo({ top: 10000, behavior: "smooth" });
-    });
-}
 
+window.addEventListener("scroll", () => {
+
+    // SHOW DOWN BUTTON WHEN USER IS NEAR TOP
+    if (window.scrollY <= 300) {
+        ToptobackBtn.classList.add("show");
+        backToTopBtn.classList.remove("show");
+    }
+
+    // SHOW TOP BUTTON AFTER 300PX
+    else {
+        backToTopBtn.classList.add("show");
+        ToptobackBtn.classList.remove("show");
+    }
+});
+
+// BACK TO TOP
+backToTopBtn.addEventListener("click", () => {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+});
+
+// SCROLL TO BOTTOM
+ToptobackBtn.addEventListener("click", () => {
+    window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: "smooth"
+    });
+});
 // Style Quiz Functionality
 window.openQuiz = function () {
     document.getElementById('quiz-modal').style.display = 'flex';
