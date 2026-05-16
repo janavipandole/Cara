@@ -151,3 +151,54 @@
       }
 
     }
+
+    /* ===== Light Mode Override ===== */
+[data-theme="light"] body {
+  background: linear-gradient(to right, #f5f7fa, #e4ecf5);
+  color: #333;
+}
+
+[data-theme="light"] .container {
+  background: #ffffff;
+  border: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  backdrop-filter: none;
+}
+
+[data-theme="light"] .header h1 {
+  background: none;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: #088178;
+  color: #088178;
+}
+
+[data-theme="light"] .updated {
+  color: #666;
+}
+
+[data-theme="light"] .intro {
+  color: #555;
+}
+
+[data-theme="light"] .section {
+  background: #f9fbfc;
+  border: none;
+}
+
+[data-theme="light"] .section h2 {
+  color: #088178;
+}
+
+[data-theme="light"] .section p,
+[data-theme="light"] li {
+  color: #555;
+}
+
+[data-theme="light"] .footer {
+  color: #777;
+  border-top-color: #ddd;
+}
+
+[data-theme="light"] .bg-circle {
+  display: none;
+}
