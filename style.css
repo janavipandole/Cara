@@ -2006,3 +2006,7 @@ canvas {
   pointer-events: auto;
   transform: translateY(-10px) scale(1.08);
 }
+#page-header{
+    margin-top: 100px;
+    margin-left: 80px;
+}
