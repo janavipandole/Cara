@@ -1,26 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
   <title>Terms & Conditions</title>
 
   <!-- Google Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-      <link rel="stylesheet" href="./terms.css" >
 
-  <script>
-  (function () {
-    const theme = localStorage.getItem('theme') || 'light';
-    document.documentElement.setAttribute('data-theme', theme);
-  })();
-</script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./terms.css">
+
 </head>
 
 <body>
 
+  <!-- Floating Particles -->
+  <div class="particles">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- Theme Toggle -->
+  <button id="themeToggle">🌙</button>
+
+  <!-- Background Glow -->
   <div class="bg-circle circle1"></div>
   <div class="bg-circle circle2"></div>
 
@@ -38,7 +50,7 @@
     </p>
 
     <div class="section">
-      <h2><span>01.</span> Acceptance of Terms</h2>
+      <h2>📘 <span>01.</span> Acceptance of Terms</h2>
       <p>
         By accessing this website, you acknowledge that you have read,
         understood, and agreed to be bound by these terms and all applicable
@@ -47,7 +59,7 @@
     </div>
 
     <div class="section">
-      <h2><span>02.</span> Use of the Platform</h2>
+      <h2>⚡ <span>02.</span> Use of the Platform</h2>
       <p>
         Users must use the platform responsibly and lawfully. Any misuse,
         harmful activity, or unauthorized access attempt is strictly prohibited.
@@ -61,7 +73,7 @@
     </div>
 
     <div class="section">
-      <h2><span>03.</span> User Accounts</h2>
+      <h2>🔐 <span>03.</span> User Accounts</h2>
       <p>
         You are responsible for maintaining the confidentiality of your account
         credentials and for all activities performed under your account.
@@ -69,7 +81,7 @@
     </div>
 
     <div class="section">
-      <h2><span>04.</span> Intellectual Property</h2>
+      <h2>🎨 <span>04.</span> Intellectual Property</h2>
       <p>
         All content, branding, logos, graphics, and website materials are the
         property of Cara and may not be copied, distributed, or reused without
@@ -78,54 +90,47 @@
     </div>
 
     <div class="section">
-      <h2><span>05.</span> Privacy Policy</h2>
+      <h2>🛡️ <span>05.</span> Privacy Policy</h2>
       <p>
-        Your use of the platform is also governed by our Privacy Policy. By
-        using this website, you consent to the collection and use of
-        information as outlined there.
+        Your use of the platform is also governed by our Privacy Policy.
       </p>
     </div>
 
     <div class="section">
-      <h2><span>06.</span> Third-Party Services</h2>
+      <h2>🌐 <span>06.</span> Third-Party Services</h2>
       <p>
         Some features may include third-party integrations or external links.
-        Cara is not responsible for the policies, content, or practices of
-        those third-party services.
       </p>
     </div>
 
     <div class="section">
-      <h2><span>07.</span> Limitation of Liability</h2>
+      <h2>⚖️ <span>07.</span> Limitation of Liability</h2>
       <p>
         Cara shall not be held liable for any direct, indirect, or incidental
-        damages arising from the use or inability to use the website or its
-        services.
+        damages arising from the use of the platform.
       </p>
     </div>
 
     <div class="section">
-      <h2><span>08.</span> Updates to Terms</h2>
+      <h2>🔄 <span>08.</span> Updates to Terms</h2>
       <p>
-        We reserve the right to modify or update these Terms & Conditions at
-        any time. Continued use of the website after updates means you accept
-        the revised terms.
+        We reserve the right to modify or update these Terms & Conditions.
       </p>
     </div>
 
     <div class="section">
-      <h2><span>09.</span> Termination</h2>
+      <h2>⛔ <span>09.</span> Termination</h2>
       <p>
         We may suspend or terminate access to the platform for users who
-        violate these terms or engage in harmful activities.
+        violate these terms.
       </p>
     </div>
 
     <div class="section">
-      <h2><span>10.</span> Contact</h2>
+      <h2>📞 <span>10.</span> Contact</h2>
       <p>
-        If you have any questions regarding these Terms & Conditions, please
-        contact us through the official website support channels.
+        If you have any questions regarding these Terms & Conditions,
+        contact us through official support channels.
       </p>
     </div>
 
@@ -134,6 +139,74 @@
     </div>
 
   </div>
+
+  <!-- Back To Top -->
+  <button id="backToTop">↑</button>
+
+  <script>
+
+    /* DARK MODE */
+
+    const toggleBtn = document.getElementById("themeToggle");
+
+    toggleBtn.addEventListener("click", () => {
+
+      document.body.classList.toggle("light-mode");
+
+      if(document.body.classList.contains("light-mode")){
+        toggleBtn.innerHTML = "🌙";
+      } else {
+        toggleBtn.innerHTML = "☀️";
+      }
+
+    });
+
+    /* BACK TO TOP */
+
+    const backToTop = document.getElementById("backToTop");
+
+    window.addEventListener("scroll", () => {
+
+      if(window.scrollY > 300){
+        backToTop.classList.add("show");
+      } else {
+        backToTop.classList.remove("show");
+      }
+
+    });
+
+    backToTop.addEventListener("click", () => {
+
+      window.scrollTo({
+        top:0,
+        behavior:"smooth"
+      });
+
+    });
+
+    /* SECTION FADE */
+
+    const sections = document.querySelectorAll(".section");
+
+    const observer = new IntersectionObserver((entries) => {
+
+      entries.forEach((entry) => {
+
+        if(entry.isIntersecting){
+          entry.target.classList.add("visible");
+        }
+
+      });
+
+    }, {
+      threshold:0.1
+    });
+
+    sections.forEach((section) => {
+      observer.observe(section);
+    });
+
+  </script>
 
 </body>
 </html>
