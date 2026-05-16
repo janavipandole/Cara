@@ -305,7 +305,14 @@ p {
     text-shadow: 0 0 5px rgba(0, 212, 255, 0.5);
     letter-spacing: 1px;
 }
+.input-field::placeholder {
+    color: rgba(0, 212, 255, 0.7);
+    transition: opacity 0.3s ease;
+}
 
+.input-field:focus::placeholder {
+    opacity: 0;
+}
 .remember-forgot {
     display: flex;
     justify-content: space-between;

@@ -119,13 +119,20 @@
       width: 100%
     }
 
-    .icon-btn {
-      background: var(--glass);
-      padding: 8px;
-      border-radius: 10px;
-      border: 0;
-      cursor: pointer
-    }
+.icon-btn {
+    background: rgba(255,255,255,0.08);
+    padding: 8px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.08);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.icon-btn:hover {
+    background: rgba(255,255,255,0.14);
+    transform: scale(1.05);
+}
 
     /* Main content */
     .catalog {
@@ -226,6 +233,12 @@
       color: white;
       cursor: pointer
     }
+
+    .add:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 6px 18px rgba(124, 58, 237, 0.35);
+    transition: all 0.3s ease;
+}
 
     /* Sidebar / cart */
     .sidebar {
