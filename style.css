@@ -108,32 +108,114 @@ p {
     margin: 40px 0;
 }
 
+/* ============================================
+   BUTTON STYLES & INTERACTIVE HOVER EFFECTS
+   ============================================ */
+
 button.normal {
-    background-color: #fff;
-    color: #000;
-    border: none;
-    padding: 15px 30px;
+    background-color: var(--card-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 12px 24px;
+    min-width: 180px;
     text-decoration: none;
     font-weight: 600;
     font-size: 16px;
     cursor: pointer;
     border-radius: 4px;
     outline: none;
-    transition: 0.3s ease;
+    
+    /* Required for JavaScript ripple positioning */
+    position: relative;
+    overflow: hidden;
+    
+    /* Smooth transition handling */
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.2s ease;
+    will-change: transform, box-shadow;
+}
+
+/* Hover State for Normal Buttons */
+button.normal:hover {
+    background-color: var(--accent);
+    color: #ffffff; 
+    border-color: var(--accent);
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 6px 15px var(--shadow-hover);
+}
+
+/* Click/Active State for Normal Buttons */
+button.normal:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow: 0 2px 5px var(--shadow);
 }
 
 button.white {
     background-color: transparent;
-    color: #FFF;
-    border: none;
-    padding: 12px 22px;
+    color: var(--text-primary);
+    border: 1px solid var(--text-primary);
+    padding: 12px 24px;
+    min-width: 180px;
     text-decoration: none;
     font-weight: 600;
-    border: 1px solid white;
     font-size: 16px;
     cursor: pointer;
+    border-radius: 4px;
     outline: none;
-    transition: 0.3s linear;
+    
+    /* Required for JavaScript ripple positioning */
+    position: relative;
+    overflow: hidden;
+    
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.2s ease;
+    will-change: transform, box-shadow;
+}
+
+/* Hover State for White/Inverted Buttons */
+button.white:hover {
+    background-color: var(--text-primary);
+    color: var(--bg-primary);
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 6px 15px var(--shadow-hover);
+}
+
+/* Click/Active State for White/Inverted Buttons */
+button.white:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow: 0 2px 5px var(--shadow);
+}
+
+/* Keyboard Accessibility Focus Indicators */
+button.normal:focus-visible,
+button.white:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+}
+
+/* ============================================
+   JAVASCRIPT RIPPLE EFFECT GRAPHICS
+   ============================================ */
+
+.ripple-effect {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4); /* Light ripple for colored backgrounds */
+    transform: translate(-50%, -50%) scale(0);
+    animation: ripple-animation 0.6s ease-out;
+    pointer-events: none;
+    width: 200px;
+    height: 200px;
+}
+
+/* Darker ripple variant looks better inside light/transparent white buttons */
+button.white .ripple-effect {
+    background: rgba(0, 0, 0, 0.15);
+}
+
+@keyframes ripple-animation {
+    to {
+        transform: translate(-50%, -50%) scale(2.5);
+        opacity: 0;
+    }
 }
 
 /* ============================================
