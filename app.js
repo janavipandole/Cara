@@ -28,6 +28,23 @@ if (MainImg) {
 
 /* --- START: CART FUNCTIONALITY --- */
 
+// NEW: Function to toggle visibility of empty cart message
+function handleEmptyCartView() {
+    const cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+    const contentWrapper = document.getElementById('cart-content-wrapper');
+    const emptyContainer = document.getElementById('empty-cart-container');
+
+    if (window.location.pathname.includes('cart.html')) {
+        if (cart.length === 0) {
+            if (contentWrapper) contentWrapper.style.display = 'none';
+            if (emptyContainer) emptyContainer.style.display = 'block';
+        } else {
+            if (contentWrapper) contentWrapper.style.display = 'block';
+            if (emptyContainer) emptyContainer.style.display = 'none';
+        }
+    }
+}
+
 function addToCart(productName, productPrice, productImage, quantity, size) {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
     let item = {
@@ -47,10 +64,9 @@ function addToCart(productName, productPrice, productImage, quantity, size) {
     }
 
     localStorage.setItem('productsInCart', JSON.stringify(cart));
-    showToast(`${item.name} (Size: ${item.size}) added to cart!`); // ← changed {csritik-max}
+    showToast(`${item.name} (Size: ${item.size}) added to cart!`);
 }
 
-/* csritik-max */
 function showToast(msg, isError = false) {
     const toast = document.getElementById('toast');
     if (!toast) return;
@@ -96,6 +112,10 @@ window.handleAddToCart = function () {
 
 window.loadCart = function () {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+    
+    // First, check if we need to show the empty message
+    handleEmptyCartView();
+
     const tableBody = document.querySelector('#cart table tbody');
     if (!tableBody) return;
 
@@ -122,17 +142,13 @@ window.loadCart = function () {
 
     if (subtotalCell) subtotalCell.innerText = `$ ${total.toFixed(2)}`;
     if (totalCell) totalCell.innerText = `$ ${total.toFixed(2)}`;
-
-    if (cart.length === 0) {
-        tableBody.innerHTML = '<tr><td colspan="6" style="text-align: center;">Your cart is empty.</td></tr>';
-    }
 }
 
 window.removeItem = function (index) {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
     cart.splice(index, 1);
     localStorage.setItem('productsInCart', JSON.stringify(cart));
-    loadCart();
+    loadCart(); // This will re-trigger the check through handleEmptyCartView
 }
 
 window.updateQuantity = function (index, newQuantity) {
@@ -156,71 +172,40 @@ window.addEventListener('load', () => {
     }
 });
 
-
 /* --- END: CART FUNCTIONALITY --- */
 
 /* --- START: THEME TOGGLE FUNCTIONALITY --- */
 
 (function () {
-    console.log('Theme script starting...');
+    const themeToggle = document.getElementById('themeToggle');
+    const themeToggleMobile = document.getElementById('themeToggleMobile');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeIconMobile = document.getElementById('themeIconMobile');
+    const html = document.documentElement;
 
-    function initTheme() {
-        console.log('Initializing theme...');
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', currentTheme);
+    updateThemeIcon(currentTheme);
 
-        const themeToggle = document.getElementById('themeToggle');
-        const themeToggleMobile = document.getElementById('themeToggleMobile');
-        const themeIcon = document.getElementById('themeIcon');
-        const themeIconMobile = document.getElementById('themeIconMobile');
-        const html = document.documentElement;
-
-        console.log('Elements found:', {
-            themeToggle: !!themeToggle,
-            themeToggleMobile: !!themeToggleMobile,
-            themeIcon: !!themeIcon,
-            themeIconMobile: !!themeIconMobile
-        });
-
-        // Check for saved theme preference
-        const currentTheme = localStorage.getItem('theme') || 'light';
-        console.log('Current theme:', currentTheme);
-
-        html.setAttribute('data-theme', currentTheme);
-        updateThemeIcon(currentTheme);
-
-        function updateThemeIcon(theme) {
-            console.log('Updating icons to:', theme);
-            const iconClass = theme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
-            if (themeIcon) themeIcon.className = iconClass;
-            if (themeIconMobile) themeIconMobile.className = iconClass;
-        }
-
-        function toggleTheme() {
-            console.log('Toggle clicked!');
-            const currentTheme = html.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-            console.log('Switching from', currentTheme, 'to', newTheme);
-
-            html.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateThemeIcon(newTheme);
-        }
-
-        if (themeToggle) {
-            themeToggle.addEventListener('click', toggleTheme);
-            console.log('Desktop toggle listener added');
-        }
-        if (themeToggleMobile) {
-            themeToggleMobile.addEventListener('click', toggleTheme);
-            console.log('Mobile toggle listener added');
-        }
+    function updateThemeIcon(theme) {
+        const iconClass = theme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
+        if (themeIcon) themeIcon.className = iconClass;
+        if (themeIconMobile) themeIconMobile.className = iconClass;
     }
 
-    // Try multiple ways to ensure the script runs
+    function toggleTheme() {
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon(newTheme);
+    }
+
+    if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
+    if (themeToggleMobile) themeToggleMobile.addEventListener('click', toggleTheme);
+
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initTheme);
-    } else {
-        initTheme();
+        document.addEventListener('DOMContentLoaded', updateThemeIcon);
     }
 })();
 
@@ -333,40 +318,44 @@ window.addEventListener('load', () => {
 
 // Back to Top Button Logic
 const backToTopBtn = document.getElementById("backToTop");
-window.addEventListener("scroll", () => {
-    if (window.scrollY > 100) {
-        backToTopBtn.classList.add("show");
-    } else {
-         backToTopBtn.classList.remove("show");
-    }
-});
-backToTopBtn.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-});
+if(backToTopBtn) {
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 100) {
+            backToTopBtn.classList.add("show");
+        } else {
+             backToTopBtn.classList.remove("show");
+        }
+    });
+    backToTopBtn.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+}
 
-        //Top to Bottom Button Logic
+// Top to Bottom Button Logic
 const ToptobackBtn = document.getElementById("Toptoback");
-window.addEventListener("scroll", () => {
-    if (window.scrollY < 100) {
-        ToptobackBtn.classList.add("show");
-    } else {
-        ToptobackBtn.classList.remove("show");
-    }
-});
-ToptobackBtn.addEventListener("click", () => {
-    window.scrollTo({ top: 10000, behavior: "smooth" });
-});
+if(ToptobackBtn) {
+    window.addEventListener("scroll", () => {
+        if (window.scrollY < 100) {
+            ToptobackBtn.classList.add("show");
+        } else {
+            ToptobackBtn.classList.remove("show");
+        }
+    });
+    ToptobackBtn.addEventListener("click", () => {
+        window.scrollTo({ top: 10000, behavior: "smooth" });
+    });
+}
 
 // Style Quiz Functionality
-function openQuiz() {
+window.openQuiz = function() {
     document.getElementById('quiz-modal').style.display = 'flex';
 }
 
-function closeQuiz() {
+window.closeQuiz = function() {
     document.getElementById('quiz-modal').style.display = 'none';
 }
 
-function selectStyle(style) {
+window.selectStyle = function(style) {
     closeQuiz();
     const products = document.querySelectorAll('.pro');
     products.forEach(product => {
