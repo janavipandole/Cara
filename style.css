@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=League+Spartan:wght@100..900&display=swap');
 
 /* ============================================
    DARK THEME VARIABLES
@@ -24,6 +24,7 @@
     --input-bg: #ffffff;
     --footer-text: #222;
     --cart-icon-bg: #e8f6ea;
+    --logo-filter: none;
 }
 
 [data-theme="dark"] {
@@ -46,6 +47,11 @@
     --input-bg: #2d3748;
     --footer-text: #e6eef8;
     --cart-icon-bg: #2d3748;
+    --logo-filter: brightness(0) invert(1);
+}
+
+[data-theme="dark"] #header img {
+    filter: invert(1) brightness(2);
 }
 
 /* ============================================
@@ -53,7 +59,7 @@
    ============================================ */
 
 * {
-    font-family: "League Spartan", sans-serif;
+    font-family: "Outfit", sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -108,32 +114,114 @@ p {
     margin: 40px 0;
 }
 
+/* ============================================
+   BUTTON STYLES & INTERACTIVE HOVER EFFECTS
+   ============================================ */
+
 button.normal {
-    background-color: #fff;
-    color: #000;
-    border: none;
-    padding: 15px 30px;
+    background-color: var(--card-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 12px 24px;
+    min-width: 180px;
     text-decoration: none;
     font-weight: 600;
     font-size: 16px;
     cursor: pointer;
     border-radius: 4px;
     outline: none;
-    transition: 0.3s ease;
+    
+    /* Required for JavaScript ripple positioning */
+    position: relative;
+    overflow: hidden;
+    
+    /* Smooth transition handling */
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.2s ease;
+    will-change: transform, box-shadow;
+}
+
+/* Hover State for Normal Buttons */
+button.normal:hover {
+    background-color: var(--accent);
+    color: #ffffff; 
+    border-color: var(--accent);
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 6px 15px var(--shadow-hover);
+}
+
+/* Click/Active State for Normal Buttons */
+button.normal:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow: 0 2px 5px var(--shadow);
 }
 
 button.white {
     background-color: transparent;
-    color: #FFF;
-    border: none;
-    padding: 12px 22px;
+    color: var(--text-primary);
+    border: 1px solid var(--text-primary);
+    padding: 12px 24px;
+    min-width: 180px;
     text-decoration: none;
     font-weight: 600;
-    border: 1px solid white;
     font-size: 16px;
     cursor: pointer;
+    border-radius: 4px;
     outline: none;
-    transition: 0.3s linear;
+    
+    /* Required for JavaScript ripple positioning */
+    position: relative;
+    overflow: hidden;
+    
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.2s ease;
+    will-change: transform, box-shadow;
+}
+
+/* Hover State for White/Inverted Buttons */
+button.white:hover {
+    background-color: var(--text-primary);
+    color: var(--bg-primary);
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 6px 15px var(--shadow-hover);
+}
+
+/* Click/Active State for White/Inverted Buttons */
+button.white:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow: 0 2px 5px var(--shadow);
+}
+
+/* Keyboard Accessibility Focus Indicators */
+button.normal:focus-visible,
+button.white:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+}
+
+/* ============================================
+   JAVASCRIPT RIPPLE EFFECT GRAPHICS
+   ============================================ */
+
+.ripple-effect {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4); /* Light ripple for colored backgrounds */
+    transform: translate(-50%, -50%) scale(0);
+    animation: ripple-animation 0.6s ease-out;
+    pointer-events: none;
+    width: 200px;
+    height: 200px;
+}
+
+/* Darker ripple variant looks better inside light/transparent white buttons */
+button.white .ripple-effect {
+    background: rgba(0, 0, 0, 0.15);
+}
+
+@keyframes ripple-animation {
+    to {
+        transform: translate(-50%, -50%) scale(2.5);
+        opacity: 0;
+    }
 }
 
 /* ============================================
@@ -212,21 +300,31 @@ button.white {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 18px 80px;
+    padding: 20px 80px;
     background: var(--header-bg);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
     z-index: 999;
     position: fixed;
     top: 0;
     width: 100%;
-    border: none;
-    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="dark"] #header {
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.6);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 #header a {
     pointer-events: all;
+}
+
+#header a img {
+    filter: var(--logo-filter);
+    transition: filter 0.3s ease;
 }
 
 #navbar {
@@ -245,10 +343,11 @@ button.white {
     position: relative;
     pointer-events: all;
     text-decoration: none;
-    font-size: 22px;
+    font-size: 1.1rem;
     font-weight: 500;
     color: var(--text-primary);
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    padding: 10px 0;
 }
 
 #navbar li a:hover,
@@ -256,19 +355,25 @@ button.white {
     color: var(--accent);
 }
 
-.mobile,
-#close {
-    display: none;
-}
-
-#navbar li a.active::after {
+#navbar li a::after {
     content: '';
-    width: 100%;
+    width: 0;
     height: 2px;
     background: var(--accent);
     position: absolute;
-    bottom: -4px;
-    left: 2px;
+    bottom: 0;
+    left: 0;
+    transition: width 0.3s ease;
+}
+
+#navbar li a:hover::after,
+#navbar li a.active::after {
+    width: 100%;
+}
+
+.mobile,
+#close {
+    display: none;
 }
 
 /* ============================================
@@ -276,7 +381,7 @@ button.white {
    ============================================ */
 
 #hero {
-    background-image: url("images/hero4.png");
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 40%, rgba(255, 255, 255, 0) 100%), url("images/hero4.png");
     height: 100vh;
     width: 100%;
     background-size: cover;
@@ -288,34 +393,88 @@ button.white {
     flex-direction: column;
 }
 
-button a {
-    text-decoration: none;
-    color: black;
+[data-theme="dark"] #hero {
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.7) 50%, rgba(0, 0, 0, 0) 100%), url("images/hero4.png");
 }
 
 #hero h4 {
     padding-bottom: 15px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 1.2rem;
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+#hero h2 {
+    font-weight: 700;
+    margin-bottom: 5px;
+    animation: fadeInUp 0.8s ease forwards 0.2s;
+    opacity: 0;
 }
 
 #hero h1 {
+    font-weight: 800;
     color: var(--accent);
+    margin-bottom: 15px;
+    animation: fadeInUp 0.8s ease forwards 0.4s;
+    opacity: 0;
+}
+
+#hero p {
+    animation: fadeInUp 0.8s ease forwards 0.6s;
+    opacity: 0;
 }
 
 #hero button {
     pointer-events: all;
-    background-image: url("images/button.png");
-    background-color: transparent;
+    background: var(--accent);
+    color: #fff !important;
     border: 0;
-    padding: 14px 80px 14px 65px;
-    background-repeat: no-repeat;
+    padding: 16px 45px;
     cursor: pointer;
-    font-size: 15px;
-    font-weight: 700;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 50px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+    animation: fadeInUp 0.8s ease forwards 0.8s;
+    opacity: 0;
+}
+
+#hero button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(6, 182, 212, 0.3);
+    filter: brightness(1.1);
 }
 
 #hero button a {
     text-decoration: none;
-    color: var(--accent);
+    color: #fff !important;
+}
+
+#hero button:nth-of-type(2) {
+    background: transparent;
+    border: 2px solid var(--accent);
+    color: var(--accent) !important;
+    margin-left: 15px;
+}
+
+#hero button:nth-of-type(2):hover {
+    background: var(--accent);
+    color: #fff !important;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* ============================================
@@ -357,8 +516,15 @@ button a {
     line-height: 1;
     margin-top: 10px;
     border-radius: 4px;
-    color: #088178;
+    color: var(--accent);
     font-size: 16px;
+}
+[data-theme="dark"] #feature .fe-box h6 {
+    color: #ffffff;
+}
+
+[data-theme="dark"] #feature .fe-box h6 {
+    color: #ffffff;
 }
 
 #feature .fe-box:nth-child(1) h6 {
@@ -404,23 +570,30 @@ button a {
     position: relative;
     width: 23%;
     min-width: 250px;
-    padding: 10px 12px;
+    padding: 15px;
     border: 1px solid var(--border-color);
-    border-radius: 20px;
+    border-radius: 25px;
     cursor: pointer;
-    box-shadow: 20px 20px 30px var(--shadow);
+    box-shadow: 0 10px 30px var(--shadow);
     margin: 15px 0;
     background-color: var(--card-bg);
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 #product1 .pro:hover {
-    box-shadow: 10px 10px 50px var(--shadow-hover);
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px var(--shadow-hover);
+    border-color: var(--accent);
 }
 
 #product1 .pro img {
     width: 100%;
     border-radius: 20px;
+    transition: transform 0.5s ease;
+}
+
+#product1 .pro:hover img {
+    transform: scale(1.05);
 }
 
 #product1 .pro .des {
@@ -502,7 +675,7 @@ button a {
 
 #banner button:hover {
     color: #FFF;
-    background-color: #088178;
+    background-color: var(--accent);
 }
 
 #sm-banner {
@@ -649,7 +822,7 @@ button a {
 #newsletter .form button {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-    background-color: #088178;
+    background-color: var(--accent);
     color: #fff;
     white-space: nowrap;
 }
@@ -675,6 +848,8 @@ footer .col {
 
 footer .logo {
     margin-bottom: 30px;
+    filter: var(--logo-filter);
+    transition: filter 0.3s ease;
 }
 
 footer h4 {
@@ -709,7 +884,7 @@ footer .follow i {
 }
 
 footer .install .row img {
-    border: 1px solid #088178;
+    border: 1px solid var(--accent);
     border-radius: 6px;
 }
 
@@ -755,7 +930,7 @@ footer .copyright {
 
 #pagination a {
     text-decoration: none;
-    background-color: #088178;
+    background-color: var(--accent);
     padding: 15px 20px;
     border-radius: 4px;
     color: #fff;
@@ -824,7 +999,7 @@ footer .copyright {
 
 #pro-details .single-pro-details button {
     color: #fff;
-    background: #088178;
+    background: var(--accent);
 }
 
 /* ============================================
@@ -888,7 +1063,7 @@ footer .copyright {
 
 #blog .blog-details a {
     text-decoration: none;
-    color: #4b5563;
+    color: var(--text-primary);
     font-size: 11px;
     position: relative;
     font-weight: 700;
@@ -899,23 +1074,50 @@ footer .copyright {
     content: "";
     width: 50%;
     height: 1px;
-    background-color: #4b5563;
+    background-color: var(--text-primary);
     position: absolute;
     top: -4%;
     right: -60%;
 }
 
 #blog .blog-details a:hover {
-    color: #088178;
+    color: var(--accent);
 }
 
 #blog .blog-details a:hover::after {
-    background-color: #088178;
+    background-color: var(--accent);
 }
 
 /* ============================================
    ABOUT US
    ============================================ */
+
+#page-header, #about-head, #blog-head {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 120px 20px 60px 20px;
+    text-align: center;
+    background-size: cover;
+    background-position: center;
+    background-color: var(--bg-secondary);
+}
+
+#page-header h2, #page-header p,
+#about-head h2, #about-head p,
+#blog-head h2, #blog-head p {
+    color: var(--text-primary);
+}
+
+marquee {
+    background-color: var(--card-bg);
+    color: var(--text-primary);
+    padding: 12px 0;
+    font-weight: 500;
+    border-radius: 10px;
+    margin-top: 15px;
+}
 
 #about-head {
     background-image: url("images/about/banner.png");
@@ -1052,7 +1254,7 @@ footer .copyright {
 }
 
 #form-details form button {
-    background-color: #088178;
+    background-color: var(--accent);
     color: #fff;
 }
 
@@ -1077,15 +1279,25 @@ footer .copyright {
 
 #form-details .social-media div p span {
     display: block;
-    font-size: 20px;
-    font-weight: 600;
-    color: #000;
+    color: var(--text-primary);
 }
 
 /* ============================================
    CART PAGE
    ============================================ */
-
+.cartmain{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100px;
+}
+#page-header{
+    margin-left: 100px;
+}
+.seperator{
+    height: 1px;
+    background-color: #bfbfbf;
+}
 #cart {
     overflow-x: auto;
 }
@@ -1146,7 +1358,7 @@ footer .copyright {
 }
 
 #cart table thead td a i {
-    color: #000;
+    color: var(--text-primary);
 }
 
 #cart table tbody tr td {
@@ -1185,7 +1397,7 @@ footer .copyright {
 }
 
 #cart-add .coupon button {
-    background-color: #088178;
+    background-color: var(--accent);
     color: #fff;
     cursor: pointer;
 }
@@ -1211,10 +1423,17 @@ footer .copyright {
 }
 
 .subtotal button {
-    background-color: #088178;
+    background-color: var(--accent);
     color: #fff;
     cursor: pointer;
 }
+
+.normals{
+    margin:10px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
 
 /* Continue Shopping Button -{csritik-max}*/
 a.normal {
@@ -1393,9 +1612,9 @@ input::placeholder {
 input:focus {
     outline: 2px solid transparent;
     outline-offset: 2px;
-    border-color: #088178;
+    border-color: var(--accent);
     ;
-    box-shadow: 0 0 0 1px #088178, 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0 0 1px var(--accent), 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
 /* Input Grouping */
@@ -1413,7 +1632,7 @@ input:focus {
 
 #forgot-password-link a {
     font-weight: 500;
-    color: #088178;
+    color: var(--accent);
     text-decoration: none;
 }
 
@@ -1438,21 +1657,21 @@ input:focus {
     font-size: 0.875rem;
     font-weight: 500;
     color: #ffffff;
-    background-color: #088178;
+    background-color: var(--accent);
     ;
     cursor: pointer;
     transition: background-color 0.15s ease-in-out;
 }
 
 #submitButton:hover {
-    background-color: #088178;
+    background-color: var(--accent);
     ;
 }
 
 #submitButton:focus {
     outline: 2px solid transparent;
     outline-offset: 2px;
-    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #088178;
+    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px var(--accent);
     ;
 }
 
@@ -1465,13 +1684,13 @@ input:focus {
 
 .toggle-auth-footer a {
     font-weight: 500;
-    color: #088178;
+    color: var(--accent);
     ;
     text-decoration: none;
 }
 
 .toggle-auth-footer a:hover {
-    color: #088178;
+    color: var(--accent);
     ;
 }
 
@@ -1696,7 +1915,7 @@ input:focus {
     }
 
     #form-details form button {
-        background-color: #088178;
+        background-color: var(--accent);
         color: #fff;
     }
 
@@ -1825,7 +2044,7 @@ canvas {
 
 #pagination a {
     text-decoration: none;
-    background-color: #088178;
+    background-color: var(--accent);
     padding: 15px 20px;
     border-radius: 4px;
     color: #fff;
@@ -1935,6 +2154,137 @@ canvas {
 .quiz-options button:hover {
     background-color: #066a5c;
 }
+
+
+/*fix-homepage-navigation*/
+
+/* Hover effects for homepage banners */
+
+#sm-banner .banner-box,
+#banner3 .banner-box {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+/* Card hover animation */
+#sm-banner .banner-box:hover,
+#banner3 .banner-box:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* Smooth button animation */
+#sm-banner .banner-box button,
+#banner3 .banner-box button {
+    transition: all 0.3s ease;
+}
+
+/* Button hover effect */
+#sm-banner .banner-box button:hover,
+#banner3 .banner-box button:hover {
+    background-color: #088178;
+    color: #fff;
+    transform: scale(1.08);
+    border-color: #088178;
+}
+
+/* Banner text styling */
+
+#sm-banner .banner-box h4,
+#banner3 .banner-box h3 {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+#sm-banner .banner-box h2,
+#banner3 .banner-box h2 {
+    font-size: 38px;
+    font-weight: 800;
+    line-height: 1.2;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+#sm-banner .banner-box span {
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+/* Smooth text animation on hover */
+
+#sm-banner .banner-box h2,
+#sm-banner .banner-box h4,
+#sm-banner .banner-box span,
+#banner3 .banner-box h2,
+#banner3 .banner-box h3 {
+    transition: all 0.3s ease;
+}
+
+#sm-banner .banner-box:hover h2,
+#banner3 .banner-box:hover h2 {
+    transform: translateX(8px);
+    color: #fff;
+}
+
+#sm-banner .banner-box:hover h4,
+#banner3 .banner-box:hover h3 {
+    transform: translateX(5px);
+    color: #fdd835;
+}
+
+
+#sm-banner {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    padding: 20px 40px;
+}
+
+#sm-banner .banner-box {
+    flex: 1;
+    min-width: 650px;
+    height: 55vh;
+
+    padding: 40px;
+    background-size: cover;
+    background-position: center;
+
+    border-radius: 14px;
+    position: relative;
+}
+
+#banner3 {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    padding: 20px 40px;
+}
+
+#banner3 .banner-box {
+    flex: 1;
+    min-width: 420px;
+    height: 35vh;
+
+    padding: 30px;
+    background-size: cover;
+    background-position: center;
+
+    border-radius: 12px;
+    position: relative;
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#banner3 .banner-box:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+=======
 #Toptoback {
   position: fixed;
   bottom: 2.5rem;
@@ -1991,4 +2341,5 @@ canvas {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(-10px) scale(1.08);
+   main
 }
