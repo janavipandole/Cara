@@ -1414,6 +1414,9 @@ marquee {
 #cart table td:nth-child(5) input {
     width: 70px;
     padding: 10px;
+     display: block;
+    margin: 0 auto;
+    text-align: center;
 }
 
 #cart table td:nth-child(5) input:focus {
