@@ -1949,6 +1949,137 @@ canvas {
 .quiz-options button:hover {
     background-color: #066a5c;
 }
+
+
+/*fix-homepage-navigation*/
+
+/* Hover effects for homepage banners */
+
+#sm-banner .banner-box,
+#banner3 .banner-box {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+/* Card hover animation */
+#sm-banner .banner-box:hover,
+#banner3 .banner-box:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* Smooth button animation */
+#sm-banner .banner-box button,
+#banner3 .banner-box button {
+    transition: all 0.3s ease;
+}
+
+/* Button hover effect */
+#sm-banner .banner-box button:hover,
+#banner3 .banner-box button:hover {
+    background-color: #088178;
+    color: #fff;
+    transform: scale(1.08);
+    border-color: #088178;
+}
+
+/* Banner text styling */
+
+#sm-banner .banner-box h4,
+#banner3 .banner-box h3 {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+#sm-banner .banner-box h2,
+#banner3 .banner-box h2 {
+    font-size: 38px;
+    font-weight: 800;
+    line-height: 1.2;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+#sm-banner .banner-box span {
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+/* Smooth text animation on hover */
+
+#sm-banner .banner-box h2,
+#sm-banner .banner-box h4,
+#sm-banner .banner-box span,
+#banner3 .banner-box h2,
+#banner3 .banner-box h3 {
+    transition: all 0.3s ease;
+}
+
+#sm-banner .banner-box:hover h2,
+#banner3 .banner-box:hover h2 {
+    transform: translateX(8px);
+    color: #fff;
+}
+
+#sm-banner .banner-box:hover h4,
+#banner3 .banner-box:hover h3 {
+    transform: translateX(5px);
+    color: #fdd835;
+}
+
+
+#sm-banner {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    padding: 20px 40px;
+}
+
+#sm-banner .banner-box {
+    flex: 1;
+    min-width: 650px;
+    height: 55vh;
+
+    padding: 40px;
+    background-size: cover;
+    background-position: center;
+
+    border-radius: 14px;
+    position: relative;
+}
+
+#banner3 {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    padding: 20px 40px;
+}
+
+#banner3 .banner-box {
+    flex: 1;
+    min-width: 420px;
+    height: 35vh;
+
+    padding: 30px;
+    background-size: cover;
+    background-position: center;
+
+    border-radius: 12px;
+    position: relative;
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#banner3 .banner-box:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+=======
 #Toptoback {
   position: fixed;
   bottom: 2.5rem;
@@ -2005,4 +2136,5 @@ canvas {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(-10px) scale(1.08);
+   main
 }
