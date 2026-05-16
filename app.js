@@ -26,6 +26,39 @@ if (MainImg) {
     }
 }
 
+// buttons ripple effect
+document.addEventListener("DOMContentLoaded", () => {
+  
+  const buttons = document.querySelectorAll("button.normal, button.white");
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", function (e) {
+    
+      const rect = this.getBoundingClientRect();
+      
+      // Calculate coordinates relative to the button
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      // Create the ripple element
+      const ripple = document.createElement("span");
+      ripple.classList.add("ripple-effect");
+
+      // Set position
+      ripple.style.left = `${x}px`;
+      ripple.style.top = `${y}px`;
+
+      // Append to the button
+      this.appendChild(ripple);
+
+      // Remove the ripple element after the animation finishes to keep the DOM clean
+      ripple.addEventListener("animationend", () => {
+        ripple.remove();
+      });
+    });
+  });
+});
+
 /* --- START: CART FUNCTIONALITY --- */
 
 function addToCart(productName, productPrice, productImage, quantity, size) {
