@@ -127,3 +127,50 @@
         font-size: 20px;
       }
     }
+
+
+    /* ===== Dark Mode ===== */
+[data-theme="dark"] body {
+  background: linear-gradient(135deg, #0f172a, #111827, #1e293b);
+  color: #e2e8f0;
+}
+
+[data-theme="dark"] .policy-container {
+  background: rgba(17, 24, 39, 0.85);
+  border-top-color: #38bdf8;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] h1 {
+  color: #38bdf8;
+}
+
+[data-theme="dark"] h2 {
+  color: #38bdf8;
+}
+
+[data-theme="dark"] .subtitle {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] p {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] ul li {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .section {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+[data-theme="dark"] .section:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+}
+
+[data-theme="dark"] .footer-note {
+  color: #94a3b8;
+  border-top-color: rgba(255, 255, 255, 0.1);
+}

@@ -5,7 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Privacy Policy - Cara</title>
   <link rel="stylesheet" href="privacy.css" />
-  
+  <!-- Dark mode: read theme from localStorage before page renders -->
+<script>
+  (function () {
+    const theme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
 </head>
 <body>
 
