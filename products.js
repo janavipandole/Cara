@@ -20,23 +20,78 @@ const products = [
 function renderProducts(containerId, list) {
   const container = document.getElementById(containerId);
   if (!container) return;
-  container.innerHTML = list.map(p => `
-    <div class="pro" data-category="${p.category}" onclick="window.location.href='singleProduct.html';">
-      <img src="${p.img}" alt="${p.name}">
-      <div class="des">
-        <span>${p.brand}</span>
-        <h5>${p.name}</h5>
-        <div class="star">${'<i class="ri-star-fill"></i>'.repeat(p.rating)}</div>
-        <h4>$${p.price}</h4>
-      </div>
-      <a href="#" class="cart" onclick="event.stopPropagation(); addToCart('${p.name}', '$${p.price}', '${p.img}', 1, 'M'); return false;">
-        <i class="ri-shopping-cart-2-line"></i>
-      </a>
-      <button class="buy-now-btn" onclick="event.stopPropagation(); buyNow('${p.name}', '$${p.price}', '${p.img}', 1, 'M'); return false;">
-        Buy Now
-      </button>
-    </div>
-  `).join('');
+  container.innerHTML = '';
+
+  list.forEach(p => {
+    // Create product card container
+    const card = document.createElement('div');
+    card.className = 'pro';
+    card.dataset.category = p.category;
+    card.addEventListener('click', () => {
+      window.location.href = 'singleProduct.html';
+    });
+
+    // Product image (safe property assignment)
+    const img = document.createElement('img');
+    img.src = p.img;
+    img.alt = p.name;
+    card.appendChild(img);
+
+    // Description container
+    const des = document.createElement('div');
+    des.className = 'des';
+
+    const brandSpan = document.createElement('span');
+    brandSpan.textContent = p.brand;
+    des.appendChild(brandSpan);
+
+    const nameH5 = document.createElement('h5');
+    nameH5.textContent = p.name;
+    des.appendChild(nameH5);
+
+    // Star rating (static icon markup is safe — no user data involved)
+    const starDiv = document.createElement('div');
+    starDiv.className = 'star';
+    for (let i = 0; i < p.rating; i++) {
+      const starIcon = document.createElement('i');
+      starIcon.className = 'ri-star-fill';
+      starDiv.appendChild(starIcon);
+    }
+    des.appendChild(starDiv);
+
+    const priceH4 = document.createElement('h4');
+    priceH4.textContent = '$' + p.price;
+    des.appendChild(priceH4);
+
+    card.appendChild(des);
+
+    // Cart link (programmatic listener prevents string-breakout XSS)
+    const cartLink = document.createElement('a');
+    cartLink.href = '#';
+    cartLink.className = 'cart';
+    cartLink.addEventListener('click', (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      addToCart(p.name, '$' + p.price, p.img, 1, 'M');
+    });
+    const cartIcon = document.createElement('i');
+    cartIcon.className = 'ri-shopping-cart-2-line';
+    cartLink.appendChild(cartIcon);
+    card.appendChild(cartLink);
+
+    // Buy Now button (programmatic listener prevents string-breakout XSS)
+    const buyBtn = document.createElement('button');
+    buyBtn.className = 'buy-now-btn';
+    buyBtn.textContent = 'Buy Now';
+    buyBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      buyNow(p.name, '$' + p.price, p.img, 1, 'M');
+    });
+    card.appendChild(buyBtn);
+
+    container.appendChild(card);
+  });
 }
 
 // Initializing the renders

@@ -206,12 +206,54 @@ window.loadCart = function () {
 
         const newRow = tableBody.insertRow();
 
-        newRow.insertCell().innerHTML = `<a href="#" onclick="removeItem(${index}); return false;"><i class="fa-regular fa-circle-xmark"></i></a>`;
-        newRow.insertCell().innerHTML = `<img src="${item.image}" alt="${item.name}">`;
-        newRow.insertCell().innerHTML = `${item.name}<br><small>Size: ${item.size}</small>`;
-        newRow.insertCell().innerHTML = `$${itemPrice.toFixed(2)}`;
-        newRow.insertCell().innerHTML = `<input id="qty-${index}" type="number" value="${item.quantity}" min="1" onchange="updateQuantity(${index}, this.value)">`;
-        newRow.insertCell().innerHTML = `$${subtotal.toFixed(2)}`;
+        // Remove button cell (no user data, safe static markup via DOM)
+        const removeCell = newRow.insertCell();
+        const removeLink = document.createElement('a');
+        removeLink.href = '#';
+        removeLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            removeItem(index);
+        });
+        const removeIcon = document.createElement('i');
+        removeIcon.className = 'fa-regular fa-circle-xmark';
+        removeLink.appendChild(removeIcon);
+        removeCell.appendChild(removeLink);
+
+        // Product image cell (safe property assignment)
+        const imgCell = newRow.insertCell();
+        const img = document.createElement('img');
+        img.src = item.image;
+        img.alt = item.name;
+        imgCell.appendChild(img);
+
+        // Product name and size cell (textContent prevents HTML injection)
+        const nameCell = newRow.insertCell();
+        const nameText = document.createTextNode(item.name);
+        nameCell.appendChild(nameText);
+        nameCell.appendChild(document.createElement('br'));
+        const sizeSmall = document.createElement('small');
+        sizeSmall.textContent = 'Size: ' + item.size;
+        nameCell.appendChild(sizeSmall);
+
+        // Price cell (safe — toFixed returns a number string)
+        const priceCell = newRow.insertCell();
+        priceCell.textContent = '$' + itemPrice.toFixed(2);
+
+        // Quantity input cell (safe property and attribute assignment)
+        const qtyCell = newRow.insertCell();
+        const qtyInput = document.createElement('input');
+        qtyInput.id = 'qty-' + index;
+        qtyInput.type = 'number';
+        qtyInput.value = item.quantity;
+        qtyInput.min = '1';
+        qtyInput.addEventListener('change', function () {
+            updateQuantity(index, this.value);
+        });
+        qtyCell.appendChild(qtyInput);
+
+        // Subtotal cell (safe — toFixed returns a number string)
+        const subtotalCell = newRow.insertCell();
+        subtotalCell.textContent = '$' + subtotal.toFixed(2);
     });
 
     const subtotalCell = document.querySelector('.subtotal table tr:nth-child(1) td:nth-child(2)');
