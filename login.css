@@ -406,6 +406,22 @@ p {
     transition: 0.3s;
 }
 
+
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: #00d4ff;
+    font-size: 20px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.back-button:hover {
+    color: #4ecdc4;
+    transform: translateX(-4px);
+}
+
 .btn-glow {
     position: absolute;
     top: 0;
