@@ -1992,3 +1992,86 @@ canvas {
   pointer-events: auto;
   transform: translateY(-10px) scale(1.08);
 }
+.hero-buttons{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.hero-btn{
+    background-color: #e5d0bd;
+    color: black;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-btn:hover{
+    opacity: 0.9;
+}
+
+
+.hero-btn{
+    background: #e5d0bd !important;
+    color: black !important;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 180px;
+    height: 55px;
+}
+
+.hero-btn a{
+    color: black;
+    text-decoration: none;
+}
+
+.hero-buttons{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.hero-btn{
+    background: #e5d0bd;
+    color: black;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 180px;
+    height: 55px;
+
+    transition: all 0.3s ease;
+}
+
+.hero-btn:hover{
+    background: #088178;
+    color: white;
+    transform: scale(1.05);
+}
