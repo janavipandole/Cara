@@ -2343,3 +2343,92 @@ canvas {
   transform: translateY(-10px) scale(1.08);
    main
 }
+/* Cart Add-on & Coupon Section */
+/* --- ULTIMATE SIDEBAR RESET --- */
+
+#cart-add {
+    display: flex;
+    justify-content: flex-end;
+    padding: 40px 80px;
+}
+
+#cart-summary-sidebar {
+    width: 400px;
+    background-color: #fff !important; /* Forces the box to stay white */
+    border: 1px solid #e2e9e1;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+/* Coupon Styling */
+.coupon-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+
+#coupon-code {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    outline: none;
+}
+
+.coupon-row button {
+    background-color: #3b82f6 !important;
+    color: #fff !important;
+    padding: 8px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Spacing and Dividers */
+.divider {
+    height: 1px;
+    background-color: #eee;
+    margin: 20px 0;
+}
+
+.summary-total-line {
+    height: 1px;
+    background-color: #eee;
+    margin: 15px 0;
+}
+
+/* The Row Styling (Replaces Table Rows) */
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    font-size: 15px;
+    color: #444;
+    background: transparent !important; /* Absolute kill for gray bars */
+}
+
+.total-final {
+    font-size: 18px;
+    color: #222;
+}
+
+/* Proceed to Checkout Button */
+.checkout-btn {
+    width: 100%;
+    background-color: #088178;
+    color: #fff;
+    padding: 18px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+/* Force-hide any old table elements that might linger */
+#subtotal table {
+    display: none !important;
+}

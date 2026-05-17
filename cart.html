@@ -74,19 +74,52 @@
                             <td>Subtotal</td>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="cart-items-body">
                     </tbody>
                 </table>
             </section>
 
-            <section id="cart-actions" class="section-p1">
-                <div class="cart-buttons">
-                    <a href="shop.html" class="normal">Continue Shopping</a>
-                    <a href="checkout.html" class="normal" style="text-decoration: none;">Proceed to Checkout</a>
+            <section id="cart-add" class="section-p1" style="display: flex; justify-content: flex-end; gap: 40px; padding: 40px 80px;">
+                <div class="cart-left-space" style="flex: 1;">
+                    <a href="shop.html" class="normal" style="text-decoration: none; color: #088178; font-weight: 600;">← Continue Shopping</a>
+                </div>
+
+                <div id="cart-summary-sidebar" style="width: 400px; border: 1px solid #e2e9e1; padding: 30px; background-color: #fff !important; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05);">
+                    <div id="coupon">
+                        <h3 style="margin-bottom: 15px;">Apply Coupon</h3>
+                        <div class="coupon-row" style="display: flex; gap: 10px; margin-bottom: 10px;">
+                            <input type="text" id="coupon-code" placeholder="Coupon Code" style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 6px; outline: none; background: #fff;">
+                            <button class="normal" onclick="applyCoupon()" style="background-color: #3b82f6 !important; color: white !important; padding: 8px 15px; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 600;">Apply</button>
+                        </div>
+                        <p id="coupon-msg" style="font-size: 14px; margin-top: 5px;"></p>
+                    </div>
+
+                    <div class="divider" style="height: 1px; background: #eee !important; margin: 25px 0; border: none;"></div>
+
+                    <div id="subtotal">
+                        <h3 style="margin-bottom: 15px;">Order Summary</h3>
+                        
+                        <div style="display: flex; justify-content: space-between; padding: 10px 0; font-size: 15px;">
+                            <span>Cart Subtotal</span>
+                            <span id="cart-subtotal">$0.00</span>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; padding: 10px 0; font-size: 15px;">
+                            <span>Shipping</span>
+                            <span>Free</span>
+                        </div>
+
+                        <div style="height: 1px; background: #f4f4f4; margin: 10px 0;"></div>
+
+                        <div style="display: flex; justify-content: space-between; padding: 15px 0; font-size: 16px;">
+                            <strong>Total</strong>
+                            <strong id="final-total" style="font-size: 18px;">$0.00</strong>
+                        </div>
+
+                        <button class="normal checkout-btn" style="width: 100%; background-color: #088178; color: white; padding: 15px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 10px;" onclick="location.href='checkout.html'">Proceed to Checkout</button>
+                    </div>
                 </div>
             </section>
-
-            <div class="seperator"></div>
 
             <footer class="section-p1">
                 <div class="col">
