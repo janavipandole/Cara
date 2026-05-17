@@ -2,68 +2,68 @@
 
 /* Banner3 — solid white button with dark text for max contrast */
 #banner3 .banner-box button {
-  background: rgba(255, 255, 255, 0.92);
-  color: #111;
-  border: none;
-  font-weight: 700;
-  font-size: 14px;
-  padding: 12px 24px;
-  border-radius: 6px;
-  cursor: pointer;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
-  transition: all 0.3s ease;
-  margin-top: 12px;
-  position: relative;
-  z-index: 2;
+    background: rgba(255, 255, 255, 0.92);
+    color: #111;
+    border: none;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    transition: all 0.3s ease;
+    margin-top: 12px;
+    position: relative;
+    z-index: 2;
 }
 
 #banner3 .banner-box button:hover {
-  background: var(--accent);
-  color: #fff;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
-  transform: translateY(-2px);
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+    transform: translateY(-2px);
 }
 
 /* sm-banner buttons — same treatment */
 #sm-banner .banner-box button {
-  background: rgba(255, 255, 255, 0.92);
-  color: #111;
-  border: none;
-  font-weight: 700;
-  font-size: 14px;
-  padding: 12px 28px;
-  border-radius: 6px;
-  cursor: pointer;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
-  transition: all 0.3s ease;
-  position: relative;
-  z-index: 2;
+    background: rgba(255, 255, 255, 0.92);
+    color: #111;
+    border: none;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 12px 28px;
+    border-radius: 6px;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
 }
 
 #sm-banner .banner-box button:hover {
-  background: var(--accent);
-  color: #fff;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
-  transform: translateY(-2px);
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+    transform: translateY(-2px);
 }
 
 /* Dark theme adjustment */
 [data-theme="dark"] #banner3 .banner-box button,
 [data-theme="dark"] #sm-banner .banner-box button {
-  background: rgba(255, 255, 255, 0.15);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
 [data-theme="dark"] #banner3 .banner-box button:hover,
 [data-theme="dark"] #sm-banner .banner-box button:hover {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #fff;
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
 }
 
 /* ============================================
@@ -74,98 +74,100 @@
 /* ── Shared setup for both banner rows ── */
 #sm-banner .banner-box,
 #banner3 .banner-box {
-  overflow: hidden;          /* keeps zoomed bg clipped inside the card */
-  transition:
-    transform  0.35s cubic-bezier(0.25, 0.8, 0.25, 1),
-    box-shadow 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+    overflow: hidden;
+    /* keeps zoomed bg clipped inside the card */
+    transition:
+        transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1),
+        box-shadow 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 /* Background image lives on the pseudo-element so it can scale independently */
 #sm-banner .banner-box::before,
-#banner3  .banner-box::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: inherit;          /* picks up background-image from parent */
-  background-size: cover;
-  background-position: center;
-  transition: transform 0.55s cubic-bezier(0.25, 0.8, 0.25, 1);
-  z-index: 0;
+#banner3 .banner-box::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    /* picks up background-image from parent */
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.55s cubic-bezier(0.25, 0.8, 0.25, 1);
+    z-index: 0;
 }
 
 /* Make sure text / buttons sit above the pseudo-element */
-#sm-banner .banner-box > *,
-#banner3  .banner-box > * {
-  position: relative;
-  z-index: 1;
+#sm-banner .banner-box>*,
+#banner3 .banner-box>* {
+    position: relative;
+    z-index: 1;
 }
 
 /* ── Card lift + shadow on hover ── */
 #sm-banner .banner-box:hover,
-#banner3  .banner-box:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.22);
+#banner3 .banner-box:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.22);
 }
 
 /* ── Background zoom on hover ── */
 #sm-banner .banner-box:hover::before,
-#banner3  .banner-box:hover::before {
-  transform: scale(1.08);
+#banner3 .banner-box:hover::before {
+    transform: scale(1.08);
 }
 
 /* ── Subtle dark overlay that appears on hover ── */
 #sm-banner .banner-box::after,
-#banner3  .banner-box::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0);
-  transition: background 0.35s ease;
-  z-index: 0;
-  border-radius: inherit;
+#banner3 .banner-box::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0);
+    transition: background 0.35s ease;
+    z-index: 0;
+    border-radius: inherit;
 }
 
 #sm-banner .banner-box:hover::after,
-#banner3  .banner-box:hover::after {
-  background: rgba(0, 0, 0, 0.12);
+#banner3 .banner-box:hover::after {
+    background: rgba(0, 0, 0, 0.12);
 }
 
 /* ── Button animations inside banner cards ── */
 #sm-banner .banner-box button,
-#banner3  .banner-box button {
-  transition:
-    background-color 0.3s ease,
-    color            0.3s ease,
-    transform        0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
-    box-shadow       0.3s ease;
+#banner3 .banner-box button {
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+        box-shadow 0.3s ease;
 }
 
 #sm-banner .banner-box:hover button,
-#banner3  .banner-box:hover button {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+#banner3 .banner-box:hover button {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 /* ── Heading slide-up micro-animation ── */
 #sm-banner .banner-box h2,
 #sm-banner .banner-box h4,
-#banner3  .banner-box h2,
-#banner3  .banner-box h3 {
-  transition: transform 0.35s ease, letter-spacing 0.35s ease;
+#banner3 .banner-box h2,
+#banner3 .banner-box h3 {
+    transition: transform 0.35s ease, letter-spacing 0.35s ease;
 }
 
 #sm-banner .banner-box:hover h2,
 #sm-banner .banner-box:hover h4,
-#banner3  .banner-box:hover h2,
-#banner3  .banner-box:hover h3 {
-  transform: translateY(-4px);
-  letter-spacing: 0.5px;
+#banner3 .banner-box:hover h2,
+#banner3 .banner-box:hover h3 {
+    transform: translateY(-4px);
+    letter-spacing: 0.5px;
 }
 
 /* ── Dark-theme adjustments ── */
 [data-theme="dark"] #sm-banner .banner-box:hover,
-[data-theme="dark"] #banner3  .banner-box:hover {
-  box-shadow: 0 20px 45px rgba(6, 182, 212, 0.18);
+[data-theme="dark"] #banner3 .banner-box:hover {
+    box-shadow: 0 20px 45px rgba(6, 182, 212, 0.18);
 }
 
 
@@ -367,7 +369,7 @@ button.white:focus-visible {
     outline-offset: 3px;
 }
 
-.back-btn{
+.back-btn {
     position: absolute;
     right: 110px;
     top: 140px;
@@ -382,10 +384,11 @@ button.white:focus-visible {
     z-index: 1000;
 }
 
-.back-btn:hover{
+.back-btn:hover {
     opacity: 0.9;
     transform: translateY(-2px);
 }
+
 /* ============================================
    JAVASCRIPT RIPPLE EFFECT GRAPHICS
    ============================================ */
@@ -526,7 +529,7 @@ button.white .ripple-effect {
 }
 
 #siteLogo {
-    
+
     width: 120px;
     height: 50px;
     object-fit: contain;
@@ -587,10 +590,10 @@ button.white .ripple-effect {
 
 #hero {
 
-    background-image: linear-gradient(to right, 
-        rgba(255, 255, 255, 0.75) 0%, 
-        rgba(255, 255, 255, 0.45) 35%, 
-        rgba(255, 255, 255, 0) 65%), 
+    background-image: linear-gradient(to right,
+            rgba(255, 255, 255, 0.75) 0%,
+            rgba(255, 255, 255, 0.45) 35%,
+            rgba(255, 255, 255, 0) 65%),
         url("images/hero4.png");
 
     height: 100vh;
@@ -605,10 +608,10 @@ button.white .ripple-effect {
 }
 
 [data-theme="dark"] #hero {
-    background-image: linear-gradient(to right, 
-        rgba(0, 0, 0, 0.9) 0%, 
-        rgba(0, 0, 0, 0.7) 50%, 
-        rgba(0, 0, 0, 0) 100%), 
+    background-image: linear-gradient(to right,
+            rgba(0, 0, 0, 0.9) 0%,
+            rgba(0, 0, 0, 0.7) 50%,
+            rgba(0, 0, 0, 0) 100%),
         url("images/hero4.png");
 }
 
@@ -674,7 +677,7 @@ button.white .ripple-effect {
     background: transparent;
     border: 2px solid var(--accent);
     color: var(--accent) !important;
-    
+
 }
 
 #hero button:nth-of-type(2):hover {
@@ -778,7 +781,8 @@ button.white .ripple-effect {
 }
 
 #product1 .pro-container {
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 15px 2.66%;
     flex-wrap: wrap;
     padding-top: 20px;
     display: flex;
@@ -1307,7 +1311,8 @@ footer .copyright {
     color: var(--text-primary);
     padding: 0;
     margin: 0;
-    -moz-appearance: textfield; /* Firefox */
+    -moz-appearance: textfield;
+    /* Firefox */
 }
 
 #pro-details .single-pro-details .quantity-selector input::-webkit-outer-spin-button,
@@ -1888,7 +1893,7 @@ marquee {
 #cart table td:nth-child(5) input {
     width: 70px;
     padding: 10px;
-     display: block;
+    display: block;
     margin: 0 auto;
     text-align: center;
 }
@@ -2255,8 +2260,10 @@ input:focus {
     height: 55px;
     border: none;
     border-radius: 50%;
-    background: #facc15; /* yellow */
-    color: #ffffff; /* white arrow */
+    background: #facc15;
+    /* yellow */
+    color: #ffffff;
+    /* white arrow */
     font-size: 24px;
     font-weight: bold;
     cursor: pointer;
@@ -2291,6 +2298,7 @@ input:focus {
     transform: scale(1.08);
     background: #eab308;
 }
+
 /* ============================================
    RESPONSIVE DESIGN
    ============================================ */
@@ -2954,31 +2962,43 @@ canvas {
 .filter-container {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
 }
 
 .filter-container label {
     font-weight: 600;
     color: var(--text-primary);
     font-size: 15px;
+    letter-spacing: 0.2px;
 }
 
 .filter-container select {
-    padding: 10px 15px;
+    padding: 12px 40px 12px 20px;
     border: 2px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 25px;
     font-size: 15px;
     background-color: var(--input-bg);
     color: var(--text-primary);
     cursor: pointer;
     transition: all 0.3s ease;
-    min-width: 180px;
+    min-width: 200px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23888888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 18px center;
+    background-size: 14px;
+}
+
+.filter-container select:hover {
+    border-color: var(--accent);
 }
 
 .filter-container select:focus {
     outline: none;
     border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(8, 129, 120, 0.1);
+    box-shadow: 0 0 0 3px rgba(8, 129, 120, 0.15);
 }
 
 /* ============================================
@@ -3261,7 +3281,7 @@ canvas {
     color: #1a1a1a;
 }
 
-.team-card > p,
+.team-card>p,
 .faq-card p {
     margin: 0 0 25px;
     color: #666;
@@ -3411,4 +3431,47 @@ canvas {
         width: 60px;
         height: 60px;
     }
+}
+
+/* ============================================
+   NO RESULTS STATE (SHOP PAGE)
+   ============================================ */
+#no-results-message {
+    width: 100%;
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+    margin: 20px auto;
+    background: var(--card-bg);
+    border-radius: 16px;
+    border: 1px dashed var(--border-color);
+    transition: all 0.3s ease;
+}
+
+#no-results-message .no-results-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+#no-results-message i {
+    font-size: 48px;
+    color: var(--text-secondary);
+    opacity: 0.6;
+}
+
+#no-results-message h3 {
+    font-size: 22px;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+#no-results-message p {
+    font-size: 16px;
+    color: var(--text-secondary);
+    max-width: 400px;
+    margin: 0;
+    line-height: 1.5;
 }
