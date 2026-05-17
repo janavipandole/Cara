@@ -28,30 +28,21 @@ if (MainImg) {
 
 // buttons ripple effect
 document.addEventListener("DOMContentLoaded", () => {
-  
   const buttons = document.querySelectorAll("button.normal, button.white");
 
   buttons.forEach((button) => {
     button.addEventListener("click", function (e) {
-    
       const rect = this.getBoundingClientRect();
-      
-      // Calculate coordinates relative to the button
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
 
-      // Create the ripple element
       const ripple = document.createElement("span");
       ripple.classList.add("ripple-effect");
-
-      // Set position
       ripple.style.left = `${x}px`;
       ripple.style.top = `${y}px`;
 
-      // Append to the button
       this.appendChild(ripple);
 
-      // Remove the ripple element after the animation finishes to keep the DOM clean
       ripple.addEventListener("animationend", () => {
         ripple.remove();
       });
@@ -61,7 +52,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /* --- START: CART FUNCTIONALITY --- */
 
-// NEW: Function to toggle visibility of empty cart message
 function handleEmptyCartView() {
     const cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
     const contentWrapper = document.getElementById('cart-content-wrapper');
@@ -121,7 +111,6 @@ window.handleAddToCart = function () {
     const imageElement = document.getElementById('MainImg');
 
     if (!nameElement || !priceElement || !sizeSelect || !quantityInput || !imageElement) {
-        console.error("Missing product elements on page.");
         return;
     }
 
@@ -145,8 +134,6 @@ window.handleAddToCart = function () {
 
 window.loadCart = function () {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
-    
-    // First, check if we need to show the empty message
     handleEmptyCartView();
 
     const tableBody = document.querySelector('#cart table tbody');
@@ -161,7 +148,6 @@ window.loadCart = function () {
         total += subtotal;
 
         const newRow = tableBody.insertRow();
-
         newRow.insertCell().innerHTML = `<a href="#" onclick="removeItem(${index}); return false;"><i class="fa-regular fa-circle-xmark"></i></a>`;
         newRow.insertCell().innerHTML = `<img src="${item.image}" alt="${item.name}">`;
         newRow.insertCell().innerHTML = `${item.name}<br><small>Size: ${item.size}</small>`;
@@ -170,18 +156,19 @@ window.loadCart = function () {
         newRow.insertCell().innerHTML = `$${subtotal.toFixed(2)}`;
     });
 
-    const subtotalCell = document.querySelector('.subtotal table tr:nth-child(1) td:nth-child(2)');
-    const totalCell = document.querySelector('.subtotal table tr:nth-child(3) td:nth-child(2) strong');
+    // Unified IDs for subtotal and final total
+    const subtotalDisplay = document.getElementById('cart-subtotal');
+    const finalTotalDisplay = document.getElementById('final-total');
 
-    if (subtotalCell) subtotalCell.innerText = `$ ${total.toFixed(2)}`;
-    if (totalCell) totalCell.innerText = `$ ${total.toFixed(2)}`;
+    if (subtotalDisplay) subtotalDisplay.innerText = `$${total.toFixed(2)}`;
+    if (finalTotalDisplay) finalTotalDisplay.innerText = `$${total.toFixed(2)}`;
 }
 
 window.removeItem = function (index) {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
     cart.splice(index, 1);
     localStorage.setItem('productsInCart', JSON.stringify(cart));
-    loadCart(); // This will re-trigger the check through handleEmptyCartView
+    loadCart();
 }
 
 window.updateQuantity = function (index, newQuantity) {
@@ -198,6 +185,43 @@ window.updateQuantity = function (index, newQuantity) {
     loadCart();
 }
 
+// Function to apply the coupon discount
+window.applyCoupon = function() {
+    const couponInput = document.getElementById('coupon-code');
+    const couponMsg = document.getElementById('coupon-msg');
+    const finalTotalElement = document.getElementById('final-total');
+    const subtotalElement = document.getElementById('cart-subtotal');
+
+    if (!subtotalElement) return;
+
+    let subtotal = parseFloat(subtotalElement.innerText.replace('$', ''));
+
+    if (isNaN(subtotal) || subtotal <= 0) {
+        couponMsg.innerText = "Add items to your cart first!";
+        couponMsg.style.color = "red";
+        return;
+    }
+
+    if (couponInput.value.trim().toUpperCase() === "OFFER70") {
+        const discount = subtotal * 0.70;
+        const newTotal = subtotal - discount;
+
+        finalTotalElement.innerHTML = `
+            <span style="text-decoration: line-through; color: #999; font-size: 0.8em; margin-right: 8px;">
+                $${subtotal.toFixed(2)}
+            </span> 
+            $${newTotal.toFixed(2)}
+        `;
+        
+        couponMsg.innerText = "Success! 70% discount applied.";
+        couponMsg.style.color = "#088178";
+        couponInput.disabled = true; 
+    } else {
+        couponMsg.innerText = "Invalid code. Try 'OFFER70'";
+        couponMsg.style.color = "red";
+    }
+}
+
 window.addEventListener('load', () => {
     const cartElement = document.getElementById('cart');
     if (cartElement) {
@@ -211,9 +235,7 @@ window.addEventListener('load', () => {
 
 (function () {
     const themeToggle = document.getElementById('themeToggle');
-    const themeToggleMobile = document.getElementById('themeToggleMobile');
     const themeIcon = document.getElementById('themeIcon');
-    const themeIconMobile = document.getElementById('themeIconMobile');
     const html = document.documentElement;
 
     const currentTheme = localStorage.getItem('theme') || 'light';
@@ -223,7 +245,6 @@ window.addEventListener('load', () => {
     function updateThemeIcon(theme) {
         const iconClass = theme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
         if (themeIcon) themeIcon.className = iconClass;
-        if (themeIconMobile) themeIconMobile.className = iconClass;
     }
 
     function toggleTheme() {
@@ -235,15 +256,11 @@ window.addEventListener('load', () => {
     }
 
     if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
-    if (themeToggleMobile) themeToggleMobile.addEventListener('click', toggleTheme);
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', updateThemeIcon);
-    }
 })();
 
 /* --- END: THEME TOGGLE FUNCTIONALITY --- */
 
+/* --- START: PAGINATION --- */
 (function() {
     const paginationSection = document.getElementById('pagination');
     if (!paginationSection) return;
@@ -253,35 +270,19 @@ window.addEventListener('load', () => {
     if (!productSection) return;
 
     const productContainers = Array.from(productSection.querySelectorAll('.pro-container'));
-    
     let allProducts = [];
     productContainers.forEach(container => {
-        const products = Array.from(container.querySelectorAll('.pro'));
-        allProducts = allProducts.concat(products);
+        allProducts = allProducts.concat(Array.from(container.querySelectorAll('.pro')));
     });
 
     if (allProducts.length === 0) return;
 
-    let currentPage = 1;
-    const totalPages = Math.ceil(allProducts.length / productsPerPage);
-
-    if (productContainers.length > 1) {
-        productContainers.forEach((container, index) => {
-            if (index > 0) {
-                container.style.display = 'none';
-            }
-        });
-    }
+    let totalPages = Math.ceil(allProducts.length / productsPerPage);
 
     function showPage(pageNumber) {
-        allProducts.forEach(product => {
-            product.style.display = 'none';
-        });
-
+        allProducts.forEach(product => product.style.display = 'none');
         const startIndex = (pageNumber - 1) * productsPerPage;
-        const endIndex = startIndex + productsPerPage;
-
-        const productsToShow = allProducts.slice(startIndex, endIndex);
+        const productsToShow = allProducts.slice(startIndex, startIndex + productsPerPage);
         
         const firstContainer = productContainers[0];
         firstContainer.innerHTML = '';
@@ -292,111 +293,38 @@ window.addEventListener('load', () => {
             firstContainer.appendChild(product);
         });
 
-        productSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
         updatePaginationUI(pageNumber);
-        currentPage = pageNumber;
     }
 
     function updatePaginationUI(activePage) {
         paginationSection.innerHTML = '';
-
-        const prevArrow = document.createElement('a');
-        prevArrow.href = '#';
-        prevArrow.innerHTML = '<i class="fa-solid fa-arrow-left"></i>';
-        prevArrow.classList.add('pagination-arrow');
-        if (activePage === 1) {
-            prevArrow.classList.add('disabled');
-        }
-        prevArrow.addEventListener('click', (e) => {
-            e.preventDefault();
-            if (activePage > 1) {
-                showPage(activePage - 1);
-            }
-        });
-        paginationSection.appendChild(prevArrow);
-
         for (let i = 1; i <= totalPages; i++) {
             const pageLink = document.createElement('a');
             pageLink.href = '#';
             pageLink.textContent = i;
-            if (i === activePage) {
-                pageLink.classList.add('active');
-            }
-            pageLink.addEventListener('click', (e) => {
-                e.preventDefault();
-                showPage(i);
-            });
+            if (i === activePage) pageLink.classList.add('active');
+            pageLink.onclick = (e) => { e.preventDefault(); showPage(i); };
             paginationSection.appendChild(pageLink);
         }
-
-        const nextArrow = document.createElement('a');
-        nextArrow.href = '#';
-        nextArrow.innerHTML = '<i class="fa-solid fa-arrow-right"></i>';
-        nextArrow.classList.add('pagination-arrow');
-        if (activePage === totalPages) {
-            nextArrow.classList.add('disabled');
-        }
-        nextArrow.addEventListener('click', (e) => {
-            e.preventDefault();
-            if (activePage < totalPages) {
-                showPage(activePage + 1);
-            }
-        });
-        paginationSection.appendChild(nextArrow);
     }
-
     showPage(1);
 })();
 
-// Back to Top Button Logic
+// Back to Top and Top to Bottom
 const backToTopBtn = document.getElementById("backToTop");
 if(backToTopBtn) {
     window.addEventListener("scroll", () => {
-        if (window.scrollY > 100) {
-            backToTopBtn.classList.add("show");
-        } else {
-             backToTopBtn.classList.remove("show");
-        }
+        window.scrollY > 100 ? backToTopBtn.classList.add("show") : backToTopBtn.classList.remove("show");
     });
-    backToTopBtn.addEventListener("click", () => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    });
+    backToTopBtn.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-// Top to Bottom Button Logic
-const ToptobackBtn = document.getElementById("Toptoback");
-if(ToptobackBtn) {
-    window.addEventListener("scroll", () => {
-        if (window.scrollY < 100) {
-            ToptobackBtn.classList.add("show");
-        } else {
-            ToptobackBtn.classList.remove("show");
-        }
+// Quiz
+window.openQuiz = () => document.getElementById('quiz-modal').style.display = 'flex';
+window.closeQuiz = () => document.getElementById('quiz-modal').style.display = 'none';
+window.selectStyle = (style) => {
+    window.closeQuiz();
+    document.querySelectorAll('.pro').forEach(p => {
+        p.style.display = p.getAttribute('data-category') === style ? 'block' : 'none';
     });
-    ToptobackBtn.addEventListener("click", () => {
-        window.scrollTo({ top: 10000, behavior: "smooth" });
-    });
-}
-
-// Style Quiz Functionality
-window.openQuiz = function() {
-    document.getElementById('quiz-modal').style.display = 'flex';
-}
-
-window.closeQuiz = function() {
-    document.getElementById('quiz-modal').style.display = 'none';
-}
-
-window.selectStyle = function(style) {
-    closeQuiz();
-    const products = document.querySelectorAll('.pro');
-    products.forEach(product => {
-        if (product.getAttribute('data-category') === style) {
-            product.style.display = 'block';
-        } else {
-            product.style.display = 'none';
-        }
-    });
-    alert(`Showing ${style} style recommendations!`);
-}
+};
