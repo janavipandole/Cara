@@ -1160,6 +1160,37 @@ footer .install img {
     margin: 10px 0 15px 0;
 }
 
+.payment-icons {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.payment-icons a {
+  text-decoration: none;
+}
+
+.payment-icons i {
+  font-size: 37px;
+  color: #444444;
+  transition: 0.3s ease;
+  cursor: pointer;
+}
+
+.payment-icons i:hover {
+  color: #088178;
+  transform: scale(1.15);
+}
+
+[data-theme="dark"] .payment-icons i {
+    color: whitesmoke;
+}
+
+[data-theme="dark"] .payment-icons i:hover {
+    color: var(--accent);
+}
+
 footer .follow i:hover,
 footer a:hover {
     color: var(--accent);
