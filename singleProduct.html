@@ -109,8 +109,18 @@
                 <option>XXL</option>
                 <option>XXXL</option>
             </select>
-            <input id="product-quantity" type="number" value="1" min="1">
-            <button class="normal" onclick="handleAddToCart()">Add to Cart</button>
+            <div class="cart-action-group">
+                <div class="quantity-selector">
+                    <button type="button" class="qty-btn minus" onclick="updateQty(-1)" aria-label="Decrease quantity">
+                        <i class="fa-solid fa-minus"></i>
+                    </button>
+                    <input id="product-quantity" type="number" value="1" min="1" readonly>
+                    <button type="button" class="qty-btn plus" onclick="updateQty(1)" aria-label="Increase quantity">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                </div>
+                <button class="normal" onclick="handleAddToCart()">Add to Cart</button>
+            </div>
             <h4>Product Details</h4>
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officia tenetur, exercitationem velit maxime
                 sit beatae ea tempore a itaque natus placeat, neque fuga cumque aperiam nemo quia atque ducimus ipsam.
