@@ -57,6 +57,9 @@
 
     <div class="container">
         <div class="form-box">
+            <a href="index.html" class="back-button">
+                <i class="ri-arrow-left-line"></i>
+    </a>
             <h2>Login</h2>
             <p>Welcome Back!&#128522</p>
 
@@ -67,8 +70,9 @@
                     <div class="glow-line"></div>
                 </div>
 
-                <div class="input-group">
+                <div class="input-group password-group">
                    <input type="password" id="loginPassword" required class="input-field" placeholder="Enter your password">
+                   <button   type="button" id="togglePassword" class="toggle_password" aria-label="show password "><i class="ri-eye-line"></i></button>
                     <label for="loginPassword">Password</label>
                     <div class="glow-line"></div>
                 </div>
@@ -89,6 +93,27 @@
                 <div class="signup-link">
                     Don't have an account? <a href="register.html">Register</a>
                 </div>
+                <button onclick="history.back()" class="back-btn"> ← Back</button>
+                <style>
+                .back-btn{
+                position: absolute;
+                top: 440px;
+                left: 137px;
+                transform: translateX(-50%);
+                background: none;
+                border: none;
+                color: var(--accent);
+                font-size: 16px;
+                cursor: pointer;
+                transition: 0.3s ease;
+                 white-space: nowrap;
+                }
+
+                .back-btn:hover{
+                color: white;
+                text-shadow: 0 0 10px var(--accent);
+                }
+                </style>
             </form>
         </div>
     </div>

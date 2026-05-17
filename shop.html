@@ -62,7 +62,7 @@
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
                 <li><a href="login.html">Login</a></li>
-                <li><a href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
+                <li><a href="cart.html" id="lg-bag" class="cart-icon-wrapper"><i class="ri-shopping-bag-4-line"></i><span class="cart-count" id="desktopCartCount">0</span></a></li>
                 <li>
                     <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
                         <i class="ri-moon-line" id="themeIcon"></i>
@@ -72,12 +72,15 @@
             </ul>
         </div>
         <div class="mobile">
-    <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
-    <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
-        <i class="ri-moon-line" id="themeIconMobile"></i>
-    </button>
-    <i class="fas fa-outdent" id="bar"></i>
-</div>
+            <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
+                <i class="ri-moon-line" id="themeIconMobile"></i>
+            </button>
+            <a href="cart.html" id="mobile-cart-icon">
+                <i class="ri-shopping-bag-4-line"></i>
+                <span class="cart-count" id="mobileCartCount">0</span>
+            </a>
+            <i class="fas fa-outdent" id="bar"></i>
+        </div>
     </section>
 
     <section id="shop-hero">
@@ -85,523 +88,30 @@
         <p>Save more with coupons & up to 70% off!</p>
     </section>
 
+    <!-- Search and Filter Section -->
+    <section id="search-filter" class="section-p1">
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search products..." />
+            <button id="searchBtn" aria-label="Search">
+                <i class="ri-search-line"></i>
+            </button>
+        </div>
+        <div class="filter-container">
+            <label for="categoryFilter">Filter by Category:</label>
+            <select id="categoryFilter">
+                <option value="all">All Products</option>
+                <option value="street">Street Style</option>
+                <option value="minimal">Minimal</option>
+                <option value="formal">Formal</option>
+            </select>
+        </div>
+    </section>
+
     <section id="product1" class="section-p1">
         <div class="pro-container">
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
-                <img src="images/products/f1.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#" class="cart" onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/f1.jpg', 1, 'M')"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
-                <img src="images/products/f2.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#" class="cart" onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/f2.jpg', 1, 'M')"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
-                <img src="images/products/f3.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#" class="cart" onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/f3.jpg', 1, 'M')"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
-                <img src="images/products/f4.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#" class="cart" onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/f4.jpg', 1, 'M')"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
-                <img src="images/products/f5.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#" class="cart" onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/f5.jpg', 1, 'M')"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
-                <img src="images/products/f6.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#" class="cart" onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/f6.jpg', 1, 'M')"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
-                <img src="images/products/f7.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
-                <img src="images/products/f8.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
-                <img src="images/products/n1.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
-                <img src="images/products/n2.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
-                <img src="images/products/n3.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
-                <img src="images/products/n4.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
-                <img src="images/products/n5.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h4>$79</h4>
-                </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
-                <img src="images/products/n6.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
-                <img src="images/products/n7.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
-                <img src="images/products/n8.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-        </div>
-                <div class="pro-container">
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
-                <img src="images/products/f1.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
-                <img src="images/products/f2.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
-                <img src="images/products/f3.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
-                <img src="images/products/f4.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
-                <img src="images/products/f5.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
-                <img src="images/products/f6.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
-                <img src="images/products/f7.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
-                <img src="images/products/f8.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
-                <img src="images/products/n1.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
-                <img src="images/products/n2.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
-                <img src="images/products/n3.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
-                <img src="images/products/n4.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
-                <img src="images/products/n5.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
-                <img src="images/products/n6.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
-                <img src="images/products/n7.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
-                <img src="images/products/n8.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-        </div>
+
+            <!-- dynamic Js {csritik-max}-->
+            <div class="pro-container" id="shop-container"></div>
 
     </section>
 
@@ -615,6 +125,10 @@
             <button class="normal">Sign Up</button>
         </div>
     </section>
+
+    <!-- Back to Top and Scroll to Bottom Buttons -->
+    <button id="backToTop" title="Back to Top" aria-label="Back to top">⬆</button>
+    <button id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">⬇</button>
 
     <footer class="section-p1">
         <div class="col">
@@ -641,7 +155,7 @@
             <a href="about.html">About us</a>
             <a href="#">Delivery Information</a>
         <a href="privacy.html">Privacy Policy</a>           
-        <a href="#">Terms & Conditions</a>
+        <a href="./terms.html">Terms and Conditions</a>           
             <a href="contact.html">Contact Us</a>
         </div>
         <div class="col">
@@ -668,6 +182,8 @@
         </div>
     </footer>
 
+
+    <script src="products.js"></script>
     <script src="app.js"></script>
 <!-- csritik-max -->
 <div class="toast" id="toast">

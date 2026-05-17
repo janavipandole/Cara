@@ -406,6 +406,22 @@ p {
     transition: 0.3s;
 }
 
+
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: #00d4ff;
+    font-size: 20px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.back-button:hover {
+    color: #4ecdc4;
+    transform: translateX(-4px);
+}
+
 .btn-glow {
     position: absolute;
     top: 0;
@@ -440,6 +456,31 @@ p {
     transform: translateZ(20px) scale(0.98);
 }
 
+.password-group {
+    position: relative;
+}
+
+.toggle_password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: #00d4ff;
+    cursor: pointer;
+    font-size: 18px;
+    z-index: 5;
+    transition: 0.3s ease;
+}
+
+.toggle_password:hover {
+    color: #4ecdc4;
+}
+
+.toggle_password:focus {
+    outline: none;
+}
 .signup-link {
     text-align: center;
     margin-top: 20px;

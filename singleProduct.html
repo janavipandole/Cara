@@ -73,12 +73,10 @@
             </ul>
         </div>
         <div class="mobile">
-    <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
-    <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
-        <i class="ri-moon-line" id="themeIconMobile"></i>
-    </button>
-    <i class="fas fa-outdent" id="bar"></i>
-</div>
+            <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
+            <i class="fas fa-outdent" id="bar"></i>
+        </div>
+        <button onclick="history.back()" class="back-btn">Back</button>
     </section>
 
     <section id="pro-details" class="section-p1">
@@ -105,12 +103,12 @@
             <h2 id="product-price">$139.00</h2>
             <select id="product-size" name="">
                 <option>Select Size</option>
-                <option>Size S</option>
-                <option>Size M</option>
-                <option>Size L</option>
-                <option>Size XL</option>
-                <option>Size XXL</option>
-                <option>Size XXXL</option>
+                <option>S</option>
+                <option>M</option>
+                <option>L</option>
+                <option>XL</option>
+                <option>XXL</option>
+                <option>XXXL</option>
             </select>
             <input id="product-quantity" type="number" value="1" min="1">
             <button class="normal" onclick="handleAddToCart()">Add to Cart</button>
@@ -126,73 +124,10 @@
     <section id="product1" class="section-p1">
         <h2>Featured Product</h2>
         <p>Summer Collection New Morden Design</p>
-        <div class="pro-container">
-            <div class="pro">
-                <img src="images/products/n1.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#" class="cart" onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/n1.jpg', 1, 'M')"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-            <div class="pro">
-                <img src="images/products/n2.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#" class="cart" onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/n2.jpg', 1, 'M')"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-            <div class="pro">
-                <img src="images/products/n3.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#" class="cart" onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/n3.jpg', 1, 'M')"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-            <div class="pro">
-                <img src="images/products/n4.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#" class="cart" onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/n4.jpg', 1, 'M')"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-        </div>
 
+        <!-- Dynamic Js container  {csritik-max }-->
+        <div class="pro-container" id="featured-container"></div>
+        <!--   -->
     </section>
 
     <section id="newsletter" class="section-p1 section-m1">
@@ -219,7 +154,8 @@
                 <div class="icon">
                     <a href="https://x.com/JanaviPandole"><i class="fab fa-twitter"></i></a>
                     <a href="https://github.com/janavipandole"><i class="fab fa-github"></i></a>
-                    <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank"
+                        rel="noopener noreferrer">
                         <i class="fab fa-linkedin"></i>
                     </a>
                     <a href="https://www.youtube.com/@JanaviPandole"><i class="fab fa-youtube"></i></a>
@@ -258,12 +194,17 @@
         </div>
     </footer>
 
+    <script src="products.js"></script>
     <script src="app.js"></script>
-<!-- csritik-max -->
-<div class="toast" id="toast">
-    <div class="toast-icon" id="toast-icon">✅</div>
-    <span id="toast-msg"></span>
-</div>
+    <!-- csritik-max -->
+    <div class="toast" id="toast">
+        <div class="toast-icon" id="toast-icon">✅</div>
+        <span id="toast-msg"></span>
+    </div>
+    <script>
+        document.getElementById("MainImg").src =
+            localStorage.getItem("productImage") || "images/products/f1.jpg";
+    </script>
 </body>
 
 </html>
