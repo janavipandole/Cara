@@ -685,9 +685,20 @@ button.white .ripple-effect {
     padding: 10px 0;
 }
 
-#banner button:hover {
+#banner button {
     color: #FFF;
     background-color: var(--accent);
+    border: 1px solid var(--accent);
+    transition: all 0.3s ease;
+}
+
+#banner button a {
+    color: #FFF;
+}
+
+#banner button:hover {
+    filter: brightness(1.2);
+    transform: scale(1.03);
 }
 
 #sm-banner {
