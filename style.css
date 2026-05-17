@@ -408,7 +408,13 @@ button.white .ripple-effect {
    ============================================ */
 
 #hero {
-    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 40%, rgba(255, 255, 255, 0) 100%), url("images/hero4.png");
+
+    background-image: linear-gradient(to right, 
+        rgba(255, 255, 255, 0.75) 0%, 
+        rgba(255, 255, 255, 0.45) 35%, 
+        rgba(255, 255, 255, 0) 65%), 
+        url("images/hero4.png");
+
     height: 100vh;
     width: 100%;
     background-size: cover;
@@ -421,7 +427,11 @@ button.white .ripple-effect {
 }
 
 [data-theme="dark"] #hero {
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.7) 50%, rgba(0, 0, 0, 0) 100%), url("images/hero4.png");
+    background-image: linear-gradient(to right, 
+        rgba(0, 0, 0, 0.9) 0%, 
+        rgba(0, 0, 0, 0.7) 50%, 
+        rgba(0, 0, 0, 0) 100%), 
+        url("images/hero4.png");
 }
 
 #hero h4 {
