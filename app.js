@@ -145,6 +145,17 @@ function showToast(msg, isError = false) {
     setTimeout(() => toast.classList.remove('show'), 3000);
 }
 
+window.updateQty = function(change) {
+    const qtyInput = document.getElementById('product-quantity');
+    if (qtyInput) {
+        let currentValue = parseInt(qtyInput.value);
+        if (isNaN(currentValue)) currentValue = 1;
+        let newValue = currentValue + change;
+        if (newValue < 1) newValue = 1;
+        qtyInput.value = newValue;
+    }
+}
+
 window.handleAddToCart = function () {
     const nameElement = document.getElementById('product-name');
     const priceElement = document.getElementById('product-price');

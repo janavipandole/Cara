@@ -1177,21 +1177,91 @@ footer .copyright {
     margin-bottom: 10px;
 }
 
-#pro-details .single-pro-details input {
-    width: 50px;
-    height: 47px;
-    padding-left: 10px;
-    font-size: 16px;
-    margin-right: 10px;
+#pro-details .single-pro-details .cart-action-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 20px 0;
 }
 
-#pro-details .single-pro-details input:focus {
+#pro-details .single-pro-details .quantity-selector {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--input-bg, #f4f4f4);
+    border-radius: 50px;
+    overflow: hidden;
+    height: 50px;
+    border: 1px solid var(--border-color, #e1e1e1);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#pro-details .single-pro-details .quantity-selector:hover {
+    border-color: var(--accent);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+#pro-details .single-pro-details .qty-btn {
+    background: transparent;
+    color: var(--text-primary, #1a1a1a);
+    border: none;
+    width: 45px;
+    height: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+#pro-details .single-pro-details .qty-btn:hover {
+    background-color: var(--accent);
+    color: #fff;
+}
+
+#pro-details .single-pro-details .quantity-selector input {
+    width: 50px;
+    height: 100%;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    border: none;
+    background: transparent;
+    color: var(--text-primary);
+    padding: 0;
+    margin: 0;
+    -moz-appearance: textfield; /* Firefox */
+}
+
+#pro-details .single-pro-details .quantity-selector input::-webkit-outer-spin-button,
+#pro-details .single-pro-details .quantity-selector input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#pro-details .single-pro-details .quantity-selector input:focus {
     outline: none;
 }
 
-#pro-details .single-pro-details button {
+#pro-details .single-pro-details .cart-action-group button.normal {
     color: #fff;
     background: var(--accent);
+    height: 50px;
+    border-radius: 50px;
+    padding: 0 35px;
+    font-weight: 600;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(8, 129, 120, 0.2);
+}
+
+#pro-details .single-pro-details .cart-action-group button.normal:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(8, 129, 120, 0.4);
+    background: var(--accent-hover, #066b63);
 }
 
 /* ============================================
