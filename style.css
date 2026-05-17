@@ -197,6 +197,25 @@ button.white:focus-visible {
     outline-offset: 3px;
 }
 
+.back-btn{
+    position: absolute;
+    right: 110px;
+    top: 140px;
+    padding: 11px 24px;
+    border: none;
+    background: var(--accent);
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.3s;
+    z-index: 1000;
+}
+
+.back-btn:hover{
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
 /* ============================================
    JAVASCRIPT RIPPLE EFFECT GRAPHICS
    ============================================ */

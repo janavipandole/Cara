@@ -90,6 +90,27 @@
                 <div class="signup-link">
                     Don't have an account? <a href="register.html">Register</a>
                 </div>
+                <button onclick="history.back()" class="back-btn"> ← Back</button>
+                <style>
+                .back-btn{
+                position: absolute;
+                top: 440px;
+                left: 137px;
+                transform: translateX(-50%);
+                background: none;
+                border: none;
+                color: var(--accent);
+                font-size: 16px;
+                cursor: pointer;
+                transition: 0.3s ease;
+                 white-space: nowrap;
+                }
+
+                .back-btn:hover{
+                color: white;
+                text-shadow: 0 0 10px var(--accent);
+                }
+                </style>
             </form>
         </div>
     </div>
