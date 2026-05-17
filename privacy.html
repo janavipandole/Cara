@@ -5,15 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Privacy Policy - Cara</title>
   <link rel="stylesheet" href="privacy.css" />
-  <!-- Dark mode: read theme from localStorage before page renders -->
-<script>
-  (function () {
-    const theme = localStorage.getItem('theme') || 'light';
-    document.documentElement.setAttribute('data-theme', theme);
-  })();
-</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
 </head>
 <body>
+
+  <!-- Floating Background -->
+<div class="bg-animation">
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+<!-- Dark Mode Toggle -->
+<button id="theme-toggle">🌙</button>
 
   <div class="policy-container">
     <h1>Privacy Policy</h1>
@@ -25,7 +33,7 @@
     </p>
 
     <div class="section">
-    <h2>1. Information We Collect</h2>
+    <h2>📌 1. Information We Collect</h2>
     <p>
       We may collect personal information such as your name, email address, phone number,
       shipping address, and payment details when you place an order or contact us.
@@ -34,7 +42,7 @@
     </div>
 
     <div class="section">
-    <h2>2. How We Use Your Information</h2>
+    <h2>⚡ 2. How We Use Your Information</h2>
     <p>
       The information collected is used to:
     </p>
@@ -49,7 +57,7 @@
     </div>
 
     <div class="section">
-    <h2>3. Cookies</h2>
+    <h2>🍪 3. Cookies</h2>
     <p>
       Our website may use cookies to improve browsing experience and analyze website traffic.
       You can disable cookies through your browser settings if you prefer.
@@ -58,7 +66,7 @@
     </div>
 
     <div class="section">
-    <h2>4. Data Protection</h2>
+    <h2>🔒 4. Data Protection</h2>
     <p>
       We implement security measures to protect your personal data from unauthorized access,
       alteration, or disclosure.
@@ -67,7 +75,7 @@
     </div>
 
     <div class="section">
-    <h2>5. Third-Party Services</h2>
+    <h2>🌐 5. Third-Party Services</h2>
     <p>
       We may use trusted third-party services such as payment gateways and analytics tools.
       These services may collect information according to their own privacy policies.
@@ -76,7 +84,7 @@
     </div>
 
     <div class="section">
-    <h2>6. Your Rights</h2>
+    <h2>🛡️ 6. Your Rights</h2>
     <p>
       You have the right to access, update, or request deletion of your personal information.
       To make such requests, contact us using the details below.
@@ -85,7 +93,7 @@
     </div>
 
     <div class="section">
-    <h2>7. Contact Us</h2>
+    <h2>📞 7. Contact Us</h2>
     <p>
       If you have any questions regarding this Privacy Policy, please contact us at:
     </p>
@@ -102,7 +110,7 @@
     </div>
 
     <div class="section">
-    <h2>8. Updates to This Policy</h2>
+    <h2>🔄 8. Updates to This Policy</h2>
     <p>
       We may update this Privacy Policy from time to time. Changes will be posted on this page
       with the updated effective date.
@@ -114,6 +122,63 @@
       Last Updated: May 2026
     </div>
   </div>
+
+  <!-- Back To Top -->
+<button id="backToTop">↑</button>
+
+<script>
+
+const toggleBtn = document.getElementById("theme-toggle");
+const body = document.body;
+
+toggleBtn.addEventListener("click", () => {
+  body.classList.toggle("dark-mode");
+
+  if(body.classList.contains("dark-mode")){
+    toggleBtn.innerHTML = "☀️";
+  } else {
+    toggleBtn.innerHTML = "🌙";
+  }
+});
+
+/* Back To Top */
+
+const backToTop = document.getElementById("backToTop");
+
+window.addEventListener("scroll", () => {
+  if(window.scrollY > 300){
+    backToTop.classList.add("show");
+  } else {
+    backToTop.classList.remove("show");
+  }
+});
+
+backToTop.addEventListener("click", () => {
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+});
+
+/* Fade Animation */
+
+const sections = document.querySelectorAll(".section");
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add("visible");
+    }
+  });
+},{
+  threshold:0.1
+});
+
+sections.forEach(section => {
+  observer.observe(section);
+});
+
+</script>
 
 </body>
 </html>

@@ -197,6 +197,25 @@ button.white:focus-visible {
     outline-offset: 3px;
 }
 
+.back-btn{
+    position: absolute;
+    right: 110px;
+    top: 140px;
+    padding: 11px 24px;
+    border: none;
+    background: var(--accent);
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.3s;
+    z-index: 1000;
+}
+
+.back-btn:hover{
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
 /* ============================================
    JAVASCRIPT RIPPLE EFFECT GRAPHICS
    ============================================ */
@@ -440,7 +459,7 @@ button.white .ripple-effect {
     background: var(--accent);
     color: #fff !important;
     border: 0;
-    padding: 16px 45px;
+    padding: 16px 24px;
     cursor: pointer;
     font-size: 1rem;
     font-weight: 600;
@@ -467,7 +486,7 @@ button.white .ripple-effect {
     background: transparent;
     border: 2px solid var(--accent);
     color: var(--accent) !important;
-    margin-left: 15px;
+    
 }
 
 #hero button:nth-of-type(2):hover {
@@ -685,9 +704,20 @@ button.white .ripple-effect {
     padding: 10px 0;
 }
 
-#banner button:hover {
+#banner button {
     color: #FFF;
     background-color: var(--accent);
+    border: 1px solid var(--accent);
+    transition: all 0.3s ease;
+}
+
+#banner button a {
+    color: #FFF;
+}
+
+#banner button:hover {
+    filter: brightness(1.2);
+    transform: scale(1.03);
 }
 
 #sm-banner {
@@ -886,6 +916,7 @@ footer {
     justify-content: space-between;
     background-color: var(--bg-secondary);
     transition: background-color 0.3s ease;
+    border-top: 1px solid var(--border-color);
 }
 
 footer .col {
@@ -1336,6 +1367,210 @@ marquee {
     color: var(--text-primary);
 }
 
+#form-details {
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+    padding: 70px;
+    margin: 40px;
+    border-radius: 24px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 30px var(--shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+/* subtle glow effect */
+#form-details::before {
+    content: "";
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: var(--accent);
+    opacity: 0.08;
+    border-radius: 50%;
+    top: -120px;
+    right: -100px;
+    filter: blur(40px);
+}
+
+#form-details form {
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    z-index: 2;
+}
+
+#form-details form span {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 10px;
+}
+
+#form-details form h2 {
+    font-size: 38px;
+    line-height: 1.3;
+    color: var(--text-primary);
+    margin-bottom: 15px;
+}
+
+#form-details form p {
+    font-size: 17px;
+    line-height: 28px;
+    color: var(--text-secondary);
+    margin-bottom: 30px;
+}
+
+/* INPUT FIELDS */
+#form-details form input,
+#form-details form textarea {
+    width: 100%;
+    padding: 16px 18px;
+    margin-bottom: 22px;
+    font-size: 16px;
+    color: var(--text-primary);
+    background: var(--input-bg);
+    border: 1px solid transparent;
+    border-radius: 14px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px var(--shadow);
+}
+
+/* placeholder */
+#form-details form input::placeholder,
+#form-details form textarea::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.8;
+}
+
+/* focus effect */
+#form-details form input:focus,
+#form-details form textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(8, 129, 120, 0.15);
+    transform: translateY(-2px);
+}
+
+/* textarea */
+#form-details form textarea {
+    resize: none;
+    min-height: 180px;
+}
+
+/* SUBMIT BUTTON */
+#form-details form button {
+    padding: 15px 35px;
+    border: none;
+    border-radius: 14px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(8, 129, 120, 0.25);
+}
+
+#form-details form button:hover {
+    transform: translateY(-3px) scale(1.02);
+    opacity: 0.95;
+}
+
+/* ================================
+   SOCIAL / TEAM SECTION
+================================ */
+
+#form-details .social-media {
+    width: 32%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 22px;
+    position: relative;
+    z-index: 2;
+}
+
+#form-details .social-media div {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px;
+    border-radius: 18px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+#form-details .social-media div:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px var(--shadow-hover);
+}
+
+#form-details .social-media div img {
+    width: 72px;
+    height: 72px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--accent);
+}
+
+#form-details .social-media div p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 24px;
+    color: var(--text-secondary);
+}
+
+#form-details .social-media div p span {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+/* ================================
+   RESPONSIVE DESIGN
+================================ */
+
+@media (max-width: 992px) {
+    #form-details {
+        flex-direction: column;
+        padding: 40px;
+    }
+
+    #form-details form,
+    #form-details .social-media {
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    #form-details {
+        margin: 20px;
+        padding: 25px;
+        border-radius: 18px;
+    }
+
+    #form-details form h2 {
+        font-size: 28px;
+    }
+
+    #form-details form p {
+        font-size: 15px;
+    }
+
+    #form-details .social-media div {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
 /* ============================================
    CART PAGE
    ============================================ */
@@ -1754,6 +1989,50 @@ input:focus {
     ;
 }
 
+#backToTop,
+#Toptoback {
+    position: fixed;
+    right: 25px;
+    width: 55px;
+    height: 55px;
+    border: none;
+    border-radius: 50%;
+    background: #facc15; /* yellow */
+    color: #ffffff; /* white arrow */
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    z-index: 999;
+}
+
+/* individual positions */
+#backToTop {
+    bottom: 25px;
+}
+
+#Toptoback {
+    bottom: 95px;
+}
+
+/* show button */
+#backToTop.show,
+#Toptoback.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* hover effect */
+#backToTop:hover,
+#Toptoback:hover {
+    transform: scale(1.08);
+    background: #eab308;
+}
 /* ============================================
    RESPONSIVE DESIGN
    ============================================ */
@@ -2308,4 +2587,260 @@ canvas {
 
 #backToTop:hover {
     transform: scale(1.15);
+}
+
+/* ============================================
+   CART COUNT BADGE
+   ============================================ */
+
+.cart-icon-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.cart-count {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background-color: #ff4444;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    border: 2px solid var(--bg-primary);
+    transition: all 0.3s ease;
+}
+
+.cart-count.hidden {
+    display: none;
+}
+
+#mobile-cart-icon {
+    position: relative;
+    display: inline-block;
+}
+
+#mobile-cart-icon .cart-count {
+    top: -5px;
+    right: -8px;
+}
+
+/* ============================================
+   SEARCH AND FILTER SECTION
+   ============================================ */
+
+#search-filter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 20px 80px;
+    background-color: var(--bg-secondary);
+    border-radius: 8px;
+    margin: 20px 80px;
+}
+
+.search-container {
+    display: flex;
+    flex: 1;
+    max-width: 500px;
+    position: relative;
+}
+
+.search-container input {
+    flex: 1;
+    padding: 12px 50px 12px 20px;
+    border: 2px solid var(--border-color);
+    border-radius: 25px;
+    font-size: 15px;
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+}
+
+.search-container input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(8, 129, 120, 0.1);
+}
+
+.search-container button {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.search-container button:hover {
+    background-color: #066e66;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.filter-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter-container label {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 15px;
+}
+
+.filter-container select {
+    padding: 10px 15px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 15px;
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 180px;
+}
+
+.filter-container select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(8, 129, 120, 0.1);
+}
+
+/* ============================================
+   BUY NOW BUTTON
+   ============================================ */
+
+.buy-now-btn {
+    position: absolute;
+    bottom: 18px;
+    left: 10px;
+    padding: 8px 16px;
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+#product1 .pro:hover .buy-now-btn {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.buy-now-btn:hover {
+    background-color: #066e66;
+    transform: scale(1.05);
+}
+
+/* ============================================
+   CHECKOUT HEADER
+   ============================================ */
+
+.checkout-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.back-to-cart {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background-color: #f3f4f6;
+    color: #374151;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.back-to-cart:hover {
+    background-color: #e5e7eb;
+    transform: translateX(-5px);
+}
+
+.back-to-cart i {
+    font-size: 18px;
+}
+
+/* ============================================
+   MOBILE RESPONSIVE
+   ============================================ */
+
+@media (max-width: 799px) {
+    #search-filter {
+        flex-direction: column;
+        margin: 20px;
+        padding: 20px;
+    }
+
+    .search-container {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .filter-container {
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .filter-container select {
+        width: 100%;
+    }
+
+    .mobile {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    #themeToggleMobile {
+        display: flex;
+    }
+}
+
+@media (max-width: 477px) {
+    #search-filter {
+        padding: 15px;
+    }
+
+    .checkout-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+
+    .back-to-cart {
+        width: 100%;
+        justify-content: center;
+    }
 }

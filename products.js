@@ -23,7 +23,7 @@ function renderProducts(containerId, list) {
   const container = document.getElementById(containerId);
   if (!container) return;
   container.innerHTML = list.map(p => `
-    <div class="pro" onclick="window.location.href='singleProduct.html?id=${p.id}';">
+    <div class="pro" data-category="${p.category}" onclick="window.location.href='singleProduct.html';">
       <img src="${p.img}" alt="${p.name}">
       <div class="des">
         <span>${p.brand}</span>
@@ -31,9 +31,12 @@ function renderProducts(containerId, list) {
         <div class="star">${'<i class="ri-star-fill"></i>'.repeat(p.rating)}</div>
         <h4>$${p.price}</h4>
       </div>
-      <a href="#" class="cart" onclick="addToCart('${p.name}', '$${p.price}', '${p.img}', 1, 'M')">
+      <a href="#" class="cart" onclick="event.stopPropagation(); addToCart('${p.name}', '$${p.price}', '${p.img}', 1, 'M'); return false;">
         <i class="ri-shopping-cart-2-line"></i>
       </a>
+      <button class="buy-now-btn" onclick="event.stopPropagation(); buyNow('${p.name}', '$${p.price}', '${p.img}', 1, 'M'); return false;">
+        Buy Now
+      </button>
     </div>
   `).join('');
 }
