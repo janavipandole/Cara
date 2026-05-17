@@ -1,5 +1,71 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=League+Spartan:wght@100..900&display=swap');
 
+/* Banner3 — solid white button with dark text for max contrast */
+#banner3 .banner-box button {
+  background: rgba(255, 255, 255, 0.92);
+  color: #111;
+  border: none;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 12px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+  margin-top: 12px;
+  position: relative;
+  z-index: 2;
+}
+
+#banner3 .banner-box button:hover {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  transform: translateY(-2px);
+}
+
+/* sm-banner buttons — same treatment */
+#sm-banner .banner-box button {
+  background: rgba(255, 255, 255, 0.92);
+  color: #111;
+  border: none;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 12px 28px;
+  border-radius: 6px;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+
+#sm-banner .banner-box button:hover {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  transform: translateY(-2px);
+}
+
+/* Dark theme adjustment */
+[data-theme="dark"] #banner3 .banner-box button,
+[data-theme="dark"] #sm-banner .banner-box button {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+[data-theme="dark"] #banner3 .banner-box button:hover,
+[data-theme="dark"] #sm-banner .banner-box button:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
 /* ============================================
    BANNER CARD HOVER ANIMATIONS
    Add this block to the end of style.css
