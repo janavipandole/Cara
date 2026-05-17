@@ -132,17 +132,48 @@ function addToCart(productName, productPrice, productImage, quantity, size) {
     updateCartCount(); // Update badge
 }
 
-function showToast(msg, isError = false) {
-    const toast = document.getElementById('toast');
-    if (!toast) return;
-    const icon = document.getElementById('toast-icon');
-    icon.textContent = isError ? '⚠️' : '✅';
-    document.getElementById('toast-msg').textContent = msg;
-    toast.style.background = isError ? '#dc2626' : '#1e293b';
-    toast.classList.remove('show');
-    void toast.offsetWidth;
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 3000);
+function showToast(message, type) {
+    type = type || 'success';
+    // Ensure container exists (create if needed)
+    var container = document.getElementById('toast-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'toast-container';
+        document.body.appendChild(container);
+    }
+
+    // Icon map
+    var icons = {
+        success: 'fa-circle-check',
+        error: 'fa-circle-xmark',
+        warning: 'fa-triangle-exclamation',
+        info: 'fa-circle-info'
+    };
+
+    // Build toast element
+    var toast = document.createElement('div');
+    toast.className = 'toast toast-' + type;
+    toast.innerHTML =
+        '<i class="fa-solid ' + (icons[type] || icons.success) + ' toast-icon"></i>' +
+        '<span class="toast-msg">' + message + '</span>' +
+        '<button class="toast-close" aria-label="Close notification">&times;</button>' +
+        '<div class="toast-progress"></div>';
+
+    // Close button handler
+    toast.querySelector('.toast-close').addEventListener('click', function() {
+        dismissToast(toast);
+    });
+
+    container.appendChild(toast);
+
+    // Auto dismiss after 4 seconds
+    setTimeout(function() { dismissToast(toast); }, 4000);
+}
+
+function dismissToast(toast) {
+    if (!toast || toast.classList.contains('toast-hiding')) return;
+    toast.classList.add('toast-hiding');
+    toast.addEventListener('animationend', function() { toast.remove(); });
 }
 
 window.updateQty = function(change) {
@@ -175,11 +206,11 @@ window.handleAddToCart = function () {
     const image = imageElement.src;
 
     if (size === 'Select Size' || size === "") {
-        showToast('Please select a size before adding to cart!', true);
+        showToast('Please select a size before adding to cart!', 'warning');
         return;
     }
     if (quantity < 1 || isNaN(quantity)) {
-        showToast('Please enter a valid quantity.', true);
+        showToast('Please enter a valid quantity.', 'warning');
         return;
     }
 
@@ -265,10 +296,12 @@ window.loadCart = function () {
 
 window.removeItem = function (index) {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+    const removedName = cart[index] ? cart[index].name : 'Item';
     cart.splice(index, 1);
     localStorage.setItem('productsInCart', JSON.stringify(cart));
     loadCart(); // This will re-trigger the check through handleEmptyCartView
     updateCartCount(); // Update badge
+    showToast(removedName + ' removed from cart', 'error');
 }
 
 window.updateQuantity = function (index, newQuantity) {
@@ -284,6 +317,7 @@ window.updateQuantity = function (index, newQuantity) {
     localStorage.setItem('productsInCart', JSON.stringify(cart));
     loadCart();
     updateCartCount(); // Update badge
+    showToast('Quantity updated', 'info');
 }
 
 window.addEventListener('load', () => {
@@ -505,8 +539,10 @@ window.selectStyle = function (style) {
 window.buyNow = function(productName, productPrice, productImage, quantity, size) {
     // Add to cart first
     addToCart(productName, productPrice, productImage, quantity, size);
-    // Redirect to checkout
-    window.location.href = 'checkout.html';
+    // Brief delay so user sees the toast before redirect
+    setTimeout(function() {
+        window.location.href = 'checkout.html';
+    }, 1500);
 }
 
 /* --- START: SEARCH AND FILTER FUNCTIONALITY --- */

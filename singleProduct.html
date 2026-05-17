@@ -76,10 +76,14 @@
             <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
             <i class="fas fa-outdent" id="bar"></i>
         </div>
-        <button onclick="history.back()" class="back-btn">Back</button>
     </section>
 
     <section id="pro-details" class="section-p1">
+        <div class="back-btn-wrapper">
+            <button onclick="history.back()" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i> Back
+            </button>
+        </div>
         <div class="single-pro-image">
             <img src="images/products/f1.jpg" width="100%" id="MainImg">
             <div class="small-img-group">
@@ -213,10 +217,7 @@
     <script src="products.js"></script>
     <script src="app.js"></script>
     <!-- csritik-max -->
-    <div class="toast" id="toast">
-        <div class="toast-icon" id="toast-icon">✅</div>
-        <span id="toast-msg"></span>
-    </div>
+    <div id="toast-container"></div>
     <script>
         document.getElementById("MainImg").src =
             localStorage.getItem("productImage") || "images/products/f1.jpg";
