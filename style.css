@@ -367,30 +367,24 @@ button.white:focus-visible {
     outline-offset: 3px;
 }
 
-.back-btn-wrapper {
-    width: 100%;
-    margin-bottom: 20px;
-}
-
-.back-btn {
-    padding: 10px 22px;
+.back-btn{
+    position: absolute;
+    right: 110px;
+    top: 140px;
+    padding: 11px 24px;
     border: none;
     background: var(--accent);
     color: white;
-    border-radius: 8px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
+    font-size: 15px;
+    transition: 0.3s;
+    z-index: 1000;
 }
 
-.back-btn:hover {
+.back-btn:hover{
     opacity: 0.9;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(8, 129, 120, 0.3);
 }
 /* ============================================
    JAVASCRIPT RIPPLE EFFECT GRAPHICS
