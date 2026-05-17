@@ -85,7 +85,9 @@
       <div id="top">
         <div id="workingArea">
           <section id="header">
-            <a href="index.html"><img id="siteLogo" src="images/logo.png" alt="Cara Logo"></a>
+            <a href="index.html"
+              ><img id="siteLogo" src="images/logo.png" alt="Cara Logo"
+            /></a>
 
             <div>
               <ul id="navbar">
@@ -204,7 +206,18 @@
             "
             ><i class="ri-shopping-cart-2-line"></i
           ></a>
-          <button class="buy-now-btn" onclick="buyNow('Cartoon Astronaut T-Shirts', '$78', 'images/products/f1.jpg', 1, 'M')">
+          <button
+            class="buy-now-btn"
+            onclick="
+              buyNow(
+                'Cartoon Astronaut T-Shirts',
+                '$78',
+                'images/products/f1.jpg',
+                1,
+                'M',
+              )
+            "
+          >
             Buy Now
           </button>
         </div>
@@ -849,7 +862,7 @@
       </div>
       <div class="copyright">
         <p>
-          &copy; Cara 2025. All rights reserved. |
+          &copy; Cara <span id="year"></span>. All rights reserved. |
           <a href="license.html" style="color: #088178">MIT License</a>
         </p>
       </div>

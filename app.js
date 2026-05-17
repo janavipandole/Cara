@@ -518,3 +518,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// Dynamic copyright year
+document.getElementById("year").textContent = new Date().getFullYear();
