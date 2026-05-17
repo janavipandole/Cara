@@ -38,5 +38,6 @@ function renderProducts(containerId, list) {
   `).join('');
 }
 
+// Initializing the renders
 renderProducts('shop-container', products);
 renderProducts('featured-container', products.slice(0, 4));
