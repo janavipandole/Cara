@@ -253,3 +253,19 @@ form{
   }
 
 }
+@media (max-width: 799px) {
+    #cart table {
+        width: 100%;
+        overflow-x: auto;
+        display: block;
+    }
+
+    #cart-add {
+        flex-direction: column;
+    }
+
+    #coupon,
+    #subtotal {
+        width: 100%;
+    }
+}
