@@ -498,6 +498,15 @@ window.selectStyle = function (style) {
             product.style.display = 'none';
         }
     });
+        // Auto scroll to products section
+    const productSection = document.getElementById('product1');
+
+    if (productSection) {
+        productSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
     alert(`Showing ${style} style recommendations!`);
 }
 
