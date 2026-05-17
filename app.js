@@ -70,6 +70,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /* --- START: CART FUNCTIONALITY --- */
 
+// Update cart count badge
+function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    
+    const desktopCount = document.getElementById('desktopCartCount');
+    const mobileCount = document.getElementById('mobileCartCount');
+    
+    if (desktopCount) {
+        desktopCount.textContent = totalItems;
+        desktopCount.classList.toggle('hidden', totalItems === 0);
+    }
+    
+    if (mobileCount) {
+        mobileCount.textContent = totalItems;
+        mobileCount.classList.toggle('hidden', totalItems === 0);
+    }
+}
+
+// Call on page load
+document.addEventListener('DOMContentLoaded', updateCartCount);
+
 // NEW: Function to toggle visibility of empty cart message
 function handleEmptyCartView() {
     const cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
@@ -107,6 +129,7 @@ function addToCart(productName, productPrice, productImage, quantity, size) {
 
     localStorage.setItem('productsInCart', JSON.stringify(cart));
     showToast(`${item.name} (Size: ${item.size}) added to cart!`);
+    updateCartCount(); // Update badge
 }
 
 function showToast(msg, isError = false) {
@@ -150,6 +173,7 @@ window.handleAddToCart = function () {
     }
 
     addToCart(name, price, image, quantity, size);
+    updateCartCount(); // Update badge
 }
 
 window.loadCart = function () {
@@ -191,6 +215,7 @@ window.removeItem = function (index) {
     cart.splice(index, 1);
     localStorage.setItem('productsInCart', JSON.stringify(cart));
     loadCart(); // This will re-trigger the check through handleEmptyCartView
+    updateCartCount(); // Update badge
 }
 
 window.updateQuantity = function (index, newQuantity) {
@@ -205,6 +230,7 @@ window.updateQuantity = function (index, newQuantity) {
     cart[index].quantity = newQuantity;
     localStorage.setItem('productsInCart', JSON.stringify(cart));
     loadCart();
+    updateCartCount(); // Update badge
 }
 
 window.addEventListener('load', () => {
@@ -416,3 +442,63 @@ window.selectStyle = function (style) {
     });
     alert(`Showing ${style} style recommendations!`);
 }
+
+/* --- START: BUY NOW FUNCTIONALITY --- */
+window.buyNow = function(productName, productPrice, productImage, quantity, size) {
+    // Add to cart first
+    addToCart(productName, productPrice, productImage, quantity, size);
+    // Redirect to checkout
+    window.location.href = 'checkout.html';
+}
+
+/* --- START: SEARCH AND FILTER FUNCTIONALITY --- */
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn = document.getElementById('searchBtn');
+    const categoryFilter = document.getElementById('categoryFilter');
+
+    if (searchInput && searchBtn) {
+        // Search functionality
+        const performSearch = () => {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            const products = document.querySelectorAll('.pro');
+            
+            products.forEach(product => {
+                const productName = product.querySelector('h5')?.textContent.toLowerCase() || '';
+                const productBrand = product.querySelector('.des span')?.textContent.toLowerCase() || '';
+                const matchesSearch = productName.includes(searchTerm) || productBrand.includes(searchTerm);
+                
+                if (searchTerm === '' || matchesSearch) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        };
+
+        searchBtn.addEventListener('click', performSearch);
+        searchInput.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+    }
+
+    if (categoryFilter) {
+        // Category filter functionality
+        categoryFilter.addEventListener('change', function() {
+            const selectedCategory = this.value;
+            const products = document.querySelectorAll('.pro');
+            
+            products.forEach(product => {
+                const productCategory = product.getAttribute('data-category');
+                
+                if (selectedCategory === 'all' || productCategory === selectedCategory) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        });
+    }
+});
