@@ -163,7 +163,15 @@ button.white {
 }
 
 .mobile .theme-toggle {
-    margin-right: 10px;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-size: 22px;
+    cursor: pointer;
+    padding: 0;
+    margin-right: 5px;
+    transform: none !important;
+    transition: color 0.3s ease;
 }
 
 /* ============================================
