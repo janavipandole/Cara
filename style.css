@@ -2,68 +2,68 @@
 
 /* Banner3 — solid white button with dark text for max contrast */
 #banner3 .banner-box button {
-  background: rgba(255, 255, 255, 0.92);
-  color: #111;
-  border: none;
-  font-weight: 700;
-  font-size: 14px;
-  padding: 12px 24px;
-  border-radius: 6px;
-  cursor: pointer;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
-  transition: all 0.3s ease;
-  margin-top: 12px;
-  position: relative;
-  z-index: 2;
+    background: rgba(255, 255, 255, 0.92);
+    color: #111;
+    border: none;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    transition: all 0.3s ease;
+    margin-top: 12px;
+    position: relative;
+    z-index: 2;
 }
 
 #banner3 .banner-box button:hover {
-  background: var(--accent);
-  color: #fff;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
-  transform: translateY(-2px);
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+    transform: translateY(-2px);
 }
 
 /* sm-banner buttons — same treatment */
 #sm-banner .banner-box button {
-  background: rgba(255, 255, 255, 0.92);
-  color: #111;
-  border: none;
-  font-weight: 700;
-  font-size: 14px;
-  padding: 12px 28px;
-  border-radius: 6px;
-  cursor: pointer;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
-  transition: all 0.3s ease;
-  position: relative;
-  z-index: 2;
+    background: rgba(255, 255, 255, 0.92);
+    color: #111;
+    border: none;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 12px 28px;
+    border-radius: 6px;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
 }
 
 #sm-banner .banner-box button:hover {
-  background: var(--accent);
-  color: #fff;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
-  transform: translateY(-2px);
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+    transform: translateY(-2px);
 }
 
 /* Dark theme adjustment */
 [data-theme="dark"] #banner3 .banner-box button,
 [data-theme="dark"] #sm-banner .banner-box button {
-  background: rgba(255, 255, 255, 0.15);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
 [data-theme="dark"] #banner3 .banner-box button:hover,
 [data-theme="dark"] #sm-banner .banner-box button:hover {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #fff;
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
 }
 
 /* ============================================
@@ -74,98 +74,100 @@
 /* ── Shared setup for both banner rows ── */
 #sm-banner .banner-box,
 #banner3 .banner-box {
-  overflow: hidden;          /* keeps zoomed bg clipped inside the card */
-  transition:
-    transform  0.35s cubic-bezier(0.25, 0.8, 0.25, 1),
-    box-shadow 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+    overflow: hidden;
+    /* keeps zoomed bg clipped inside the card */
+    transition:
+        transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1),
+        box-shadow 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 /* Background image lives on the pseudo-element so it can scale independently */
 #sm-banner .banner-box::before,
-#banner3  .banner-box::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: inherit;          /* picks up background-image from parent */
-  background-size: cover;
-  background-position: center;
-  transition: transform 0.55s cubic-bezier(0.25, 0.8, 0.25, 1);
-  z-index: 0;
+#banner3 .banner-box::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    /* picks up background-image from parent */
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.55s cubic-bezier(0.25, 0.8, 0.25, 1);
+    z-index: 0;
 }
 
 /* Make sure text / buttons sit above the pseudo-element */
-#sm-banner .banner-box > *,
-#banner3  .banner-box > * {
-  position: relative;
-  z-index: 1;
+#sm-banner .banner-box>*,
+#banner3 .banner-box>* {
+    position: relative;
+    z-index: 1;
 }
 
 /* ── Card lift + shadow on hover ── */
 #sm-banner .banner-box:hover,
-#banner3  .banner-box:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.22);
+#banner3 .banner-box:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.22);
 }
 
 /* ── Background zoom on hover ── */
 #sm-banner .banner-box:hover::before,
-#banner3  .banner-box:hover::before {
-  transform: scale(1.08);
+#banner3 .banner-box:hover::before {
+    transform: scale(1.08);
 }
 
 /* ── Subtle dark overlay that appears on hover ── */
 #sm-banner .banner-box::after,
-#banner3  .banner-box::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0);
-  transition: background 0.35s ease;
-  z-index: 0;
-  border-radius: inherit;
+#banner3 .banner-box::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0);
+    transition: background 0.35s ease;
+    z-index: 0;
+    border-radius: inherit;
 }
 
 #sm-banner .banner-box:hover::after,
-#banner3  .banner-box:hover::after {
-  background: rgba(0, 0, 0, 0.12);
+#banner3 .banner-box:hover::after {
+    background: rgba(0, 0, 0, 0.12);
 }
 
 /* ── Button animations inside banner cards ── */
 #sm-banner .banner-box button,
-#banner3  .banner-box button {
-  transition:
-    background-color 0.3s ease,
-    color            0.3s ease,
-    transform        0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
-    box-shadow       0.3s ease;
+#banner3 .banner-box button {
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+        box-shadow 0.3s ease;
 }
 
 #sm-banner .banner-box:hover button,
-#banner3  .banner-box:hover button {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+#banner3 .banner-box:hover button {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 /* ── Heading slide-up micro-animation ── */
 #sm-banner .banner-box h2,
 #sm-banner .banner-box h4,
-#banner3  .banner-box h2,
-#banner3  .banner-box h3 {
-  transition: transform 0.35s ease, letter-spacing 0.35s ease;
+#banner3 .banner-box h2,
+#banner3 .banner-box h3 {
+    transition: transform 0.35s ease, letter-spacing 0.35s ease;
 }
 
 #sm-banner .banner-box:hover h2,
 #sm-banner .banner-box:hover h4,
-#banner3  .banner-box:hover h2,
-#banner3  .banner-box:hover h3 {
-  transform: translateY(-4px);
-  letter-spacing: 0.5px;
+#banner3 .banner-box:hover h2,
+#banner3 .banner-box:hover h3 {
+    transform: translateY(-4px);
+    letter-spacing: 0.5px;
 }
 
 /* ── Dark-theme adjustments ── */
 [data-theme="dark"] #sm-banner .banner-box:hover,
-[data-theme="dark"] #banner3  .banner-box:hover {
-  box-shadow: 0 20px 45px rgba(6, 182, 212, 0.18);
+[data-theme="dark"] #banner3 .banner-box:hover {
+    box-shadow: 0 20px 45px rgba(6, 182, 212, 0.18);
 }
 
 
@@ -367,7 +369,7 @@ button.white:focus-visible {
     outline-offset: 3px;
 }
 
-.back-btn{
+.back-btn {
     position: absolute;
     right: 110px;
     top: 140px;
@@ -382,10 +384,11 @@ button.white:focus-visible {
     z-index: 1000;
 }
 
-.back-btn:hover{
+.back-btn:hover {
     opacity: 0.9;
     transform: translateY(-2px);
 }
+
 /* ============================================
    JAVASCRIPT RIPPLE EFFECT GRAPHICS
    ============================================ */
@@ -526,7 +529,7 @@ button.white .ripple-effect {
 }
 
 #siteLogo {
-    
+
     width: 120px;
     height: 50px;
     object-fit: contain;
@@ -587,10 +590,10 @@ button.white .ripple-effect {
 
 #hero {
 
-    background-image: linear-gradient(to right, 
-        rgba(255, 255, 255, 0.75) 0%, 
-        rgba(255, 255, 255, 0.45) 35%, 
-        rgba(255, 255, 255, 0) 65%), 
+    background-image: linear-gradient(to right,
+            rgba(255, 255, 255, 0.75) 0%,
+            rgba(255, 255, 255, 0.45) 35%,
+            rgba(255, 255, 255, 0) 65%),
         url("images/hero4.png");
 
     height: 100vh;
@@ -605,10 +608,10 @@ button.white .ripple-effect {
 }
 
 [data-theme="dark"] #hero {
-    background-image: linear-gradient(to right, 
-        rgba(0, 0, 0, 0.9) 0%, 
-        rgba(0, 0, 0, 0.7) 50%, 
-        rgba(0, 0, 0, 0) 100%), 
+    background-image: linear-gradient(to right,
+            rgba(0, 0, 0, 0.9) 0%,
+            rgba(0, 0, 0, 0.7) 50%,
+            rgba(0, 0, 0, 0) 100%),
         url("images/hero4.png");
 }
 
@@ -674,7 +677,7 @@ button.white .ripple-effect {
     background: transparent;
     border: 2px solid var(--accent);
     color: var(--accent) !important;
-    
+
 }
 
 #hero button:nth-of-type(2):hover {
@@ -1161,26 +1164,26 @@ footer .install img {
 }
 
 .payment-icons {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
 }
 
 .payment-icons a {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 .payment-icons i {
-  font-size: 37px;
-  color: #444444;
-  transition: 0.3s ease;
-  cursor: pointer;
+    font-size: 37px;
+    color: #444444;
+    transition: 0.3s ease;
+    cursor: pointer;
 }
 
 .payment-icons i:hover {
-  color: #088178;
-  transform: scale(1.15);
+    color: #088178;
+    transform: scale(1.15);
 }
 
 [data-theme="dark"] .payment-icons i {
@@ -1338,7 +1341,8 @@ footer .copyright {
     color: var(--text-primary);
     padding: 0;
     margin: 0;
-    -moz-appearance: textfield; /* Firefox */
+    -moz-appearance: textfield;
+    /* Firefox */
 }
 
 #pro-details .single-pro-details .quantity-selector input::-webkit-outer-spin-button,
@@ -1919,7 +1923,7 @@ marquee {
 #cart table td:nth-child(5) input {
     width: 70px;
     padding: 10px;
-     display: block;
+    display: block;
     margin: 0 auto;
     text-align: center;
 }
@@ -2286,8 +2290,10 @@ input:focus {
     height: 55px;
     border: none;
     border-radius: 50%;
-    background: #facc15; /* yellow */
-    color: #ffffff; /* white arrow */
+    background: #facc15;
+    /* yellow */
+    color: #ffffff;
+    /* white arrow */
     font-size: 24px;
     font-weight: bold;
     cursor: pointer;
@@ -2322,6 +2328,7 @@ input:focus {
     transform: scale(1.08);
     background: #eab308;
 }
+
 /* ============================================
    RESPONSIVE DESIGN
    ============================================ */
@@ -3292,7 +3299,7 @@ canvas {
     color: #1a1a1a;
 }
 
-.team-card > p,
+.team-card>p,
 .faq-card p {
     margin: 0 0 25px;
     color: #666;
@@ -3441,5 +3448,232 @@ canvas {
     .team-member img {
         width: 60px;
         height: 60px;
+    }
+}
+
+#interactive-feature-wrapper {
+    width: 100%;
+    min-height: 550px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fcfbf7;
+    /* Complements existing soft light backdrops */
+    position: relative;
+    overflow: hidden;
+    padding: 40px 0;
+}
+
+.animation-container {
+    position: relative;
+    width: 100%;
+    max-width: 1100px;
+    height: 480px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Central Anchor Brand Tile */
+.brand-card {
+    position: relative;
+    width: 290px;
+    height: 160px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(8, 129, 120, 0.05));
+    border: 1px solid rgba(8, 129, 120, 0.25);
+    border-radius: 16px;
+    box-shadow:
+        0 15px 35px rgba(8, 129, 120, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 40;
+    /* Higher than sub-cards */
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s;
+}
+
+.brand-card:hover {
+    transform: scale(1.02);
+    border-color: rgba(8, 129, 120, 0.5);
+}
+
+.brand-card h1 {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 3.8rem;
+    letter-spacing: 0.15em;
+    text-indent: 0.15em;
+    font-weight: 700;
+    color: #222222;
+    background: linear-gradient(to bottom, #111111, #444444);
+
+    /* Vendor Prefixes & Standard Property for text-clip */
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.brand-card span {
+    font-size: 0.65rem;
+    color: #088178;
+    /* Matches Cara primary teal theme accent */
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-top: 4px;
+    font-weight: 600;
+}
+
+/* Sub-feature Display Cards */
+.sub-card {
+    position: absolute;
+    width: 260px;
+    padding: 16px;
+    background: #ffffff;
+    border: 1px solid #cce7e6;
+    /* Clean, light framing border color */
+    border-radius: 14px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    z-index: 10;
+
+    /* Centered base setup hidden beneath main tile */
+    opacity: 0;
+    transform: translate(0, 0) scale(0.6);
+
+    /* Smooth spring physics easing configuration */
+    transition:
+        transform 0.75s cubic-bezier(0.34, 1.56, 0.64, 1),
+        opacity 0.6s ease,
+        box-shadow 0.3s,
+        border-color 0.3s;
+}
+
+.sub-card:hover {
+    border-color: rgba(8, 129, 120, 0.4);
+    box-shadow: 0 15px 30px rgba(8, 129, 120, 0.12);
+}
+
+.sub-card .icon {
+    font-size: 1.8rem;
+}
+
+.sub-card h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #088178;
+    /* Theme primary text */
+    margin-bottom: 2px;
+}
+
+.sub-card p {
+    font-size: 0.75rem;
+    color: #64748b;
+    line-height: 1.3;
+}
+
+/* DEPLOYED GRID CALCULATIONS (Fanned Outwards Coordinates) */
+.animation-container.open .card-l1 {
+    transform: translate(-320px, -120px) scale(1);
+    opacity: 1;
+    transition-delay: 0.0s;
+}
+
+.animation-container.open .card-l2 {
+    transform: translate(-320px, 0px) scale(1);
+    opacity: 1;
+    transition-delay: 0.1s;
+}
+
+.animation-container.open .card-l3 {
+    transform: translate(-320px, 120px) scale(1);
+    opacity: 1;
+    transition-delay: 0.2s;
+}
+
+.animation-container.open .card-r1 {
+    transform: translate(320px, -120px) scale(1);
+    opacity: 1;
+    transition-delay: 0.3s;
+}
+
+.animation-container.open .card-r2 {
+    transform: translate(320px, 0px) scale(1);
+    opacity: 1;
+    transition-delay: 0.4s;
+}
+
+.animation-container.open .card-r3 {
+    transform: translate(320px, 120px) scale(1);
+    opacity: 1;
+    transition-delay: 0.5s;
+}
+
+/* Responsive adjustments for tablet viewports */
+@media (max-width: 999px) {
+    #interactive-feature-wrapper {
+        min-height: 650px;
+    }
+
+    .animation-container {
+        height: 550px;
+    }
+
+    .animation-container.open .card-l1 {
+        transform: translate(-200px, -150px);
+    }
+
+    .animation-container.open .card-l2 {
+        transform: translate(-200px, 0px);
+    }
+
+    .animation-container.open .card-l3 {
+        transform: translate(-200px, 150px);
+    }
+
+    .animation-container.open .card-r1 {
+        transform: translate(200px, -150px);
+    }
+
+    .animation-container.open .card-r2 {
+        transform: translate(200px, 0px);
+    }
+
+    .animation-container.open .card-r3 {
+        transform: translate(200px, 150px);
+    }
+}
+
+/* Standard scrollable layout fallback on small screens */
+@media (max-width: 680px) {
+    #interactive-feature-wrapper {
+        min-height: auto;
+        padding: 30px 20px;
+    }
+
+    .animation-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 15px;
+        height: auto;
+    }
+
+    .brand-card {
+        display: none;
+    }
+
+    .sub-card {
+        position: relative;
+        width: 100%;
+        opacity: 1;
+        transform: none !important;
+        transition: none;
     }
 }

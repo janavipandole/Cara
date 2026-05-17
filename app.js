@@ -74,15 +74,15 @@ document.addEventListener("DOMContentLoaded", () => {
 function updateCartCount() {
     const cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    
+
     const desktopCount = document.getElementById('desktopCartCount');
     const mobileCount = document.getElementById('mobileCartCount');
-    
+
     if (desktopCount) {
         desktopCount.textContent = totalItems;
         desktopCount.classList.toggle('hidden', totalItems === 0);
     }
-    
+
     if (mobileCount) {
         mobileCount.textContent = totalItems;
         mobileCount.classList.toggle('hidden', totalItems === 0);
@@ -145,7 +145,7 @@ function showToast(msg, isError = false) {
     setTimeout(() => toast.classList.remove('show'), 3000);
 }
 
-window.updateQty = function(change) {
+window.updateQty = function (change) {
     const qtyInput = document.getElementById('product-quantity');
     if (qtyInput) {
         let currentValue = parseInt(qtyInput.value);
@@ -502,7 +502,7 @@ window.selectStyle = function (style) {
 }
 
 /* --- START: BUY NOW FUNCTIONALITY --- */
-window.buyNow = function(productName, productPrice, productImage, quantity, size) {
+window.buyNow = function (productName, productPrice, productImage, quantity, size) {
     // Add to cart first
     addToCart(productName, productPrice, productImage, quantity, size);
     // Redirect to checkout
@@ -510,7 +510,7 @@ window.buyNow = function(productName, productPrice, productImage, quantity, size
 }
 
 /* --- START: SEARCH AND FILTER FUNCTIONALITY --- */
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const searchInput = document.getElementById('searchInput');
     const searchBtn = document.getElementById('searchBtn');
     const categoryFilter = document.getElementById('categoryFilter');
@@ -520,12 +520,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const performSearch = () => {
             const searchTerm = searchInput.value.toLowerCase().trim();
             const products = document.querySelectorAll('.pro');
-            
+
             products.forEach(product => {
                 const productName = product.querySelector('h5')?.textContent.toLowerCase() || '';
                 const productBrand = product.querySelector('.des span')?.textContent.toLowerCase() || '';
                 const matchesSearch = productName.includes(searchTerm) || productBrand.includes(searchTerm);
-                
+
                 if (searchTerm === '' || matchesSearch) {
                     product.style.display = 'block';
                 } else {
@@ -544,13 +544,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (categoryFilter) {
         // Category filter functionality
-        categoryFilter.addEventListener('change', function() {
+        categoryFilter.addEventListener('change', function () {
             const selectedCategory = this.value;
             const products = document.querySelectorAll('.pro');
-            
+
             products.forEach(product => {
                 const productCategory = product.getAttribute('data-category');
-                
+
                 if (selectedCategory === 'all' || productCategory === selectedCategory) {
                     product.style.display = 'block';
                 } else {
@@ -558,5 +558,45 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         });
+    }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const brandCard = document.getElementById('brandCard');
+    const cardContainer = document.getElementById('cardContainer');
+    const statusText = document.getElementById('statusText');
+    const featureSection = document.getElementById('interactive-feature-wrapper');
+
+    // 1. Manual Click Control
+    if (brandCard && cardContainer) {
+        brandCard.addEventListener('click', () => {
+            const isOpen = cardContainer.classList.toggle('open');
+            statusText.innerText = isOpen ? "Click to collapse" : "Click to expand";
+        });
+    }
+
+    // 2. Infinite Scroll-Based Activation Engine (Triggers every time)
+    if (featureSection && cardContainer) {
+        const observerOptions = {
+            root: null,
+            threshold: 0,
+            rootMargin: "0px 0px -10% 0px" 
+        };
+
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Open the cards smoothly when scrolling into view
+                    cardContainer.classList.add('open');
+                    if (statusText) statusText.innerText = "Click to collapse";
+                } else {
+                    cardContainer.classList.remove('open');
+                    if (statusText) statusText.innerText = "Click to expand";
+                }
+            });
+        }, observerOptions);
+
+        // Keep observing continuously without ever disconnecting
+        scrollObserver.observe(featureSection);
     }
 });
