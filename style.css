@@ -1,5 +1,175 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=League+Spartan:wght@100..900&display=swap');
 
+/* Banner3 — solid white button with dark text for max contrast */
+#banner3 .banner-box button {
+  background: rgba(255, 255, 255, 0.92);
+  color: #111;
+  border: none;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 12px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+  margin-top: 12px;
+  position: relative;
+  z-index: 2;
+}
+
+#banner3 .banner-box button:hover {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  transform: translateY(-2px);
+}
+
+/* sm-banner buttons — same treatment */
+#sm-banner .banner-box button {
+  background: rgba(255, 255, 255, 0.92);
+  color: #111;
+  border: none;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 12px 28px;
+  border-radius: 6px;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+
+#sm-banner .banner-box button:hover {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  transform: translateY(-2px);
+}
+
+/* Dark theme adjustment */
+[data-theme="dark"] #banner3 .banner-box button,
+[data-theme="dark"] #sm-banner .banner-box button {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+[data-theme="dark"] #banner3 .banner-box button:hover,
+[data-theme="dark"] #sm-banner .banner-box button:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+/* ============================================
+   BANNER CARD HOVER ANIMATIONS
+   Add this block to the end of style.css
+   ============================================ */
+
+/* ── Shared setup for both banner rows ── */
+#sm-banner .banner-box,
+#banner3 .banner-box {
+  overflow: hidden;          /* keeps zoomed bg clipped inside the card */
+  transition:
+    transform  0.35s cubic-bezier(0.25, 0.8, 0.25, 1),
+    box-shadow 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Background image lives on the pseudo-element so it can scale independently */
+#sm-banner .banner-box::before,
+#banner3  .banner-box::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: inherit;          /* picks up background-image from parent */
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.55s cubic-bezier(0.25, 0.8, 0.25, 1);
+  z-index: 0;
+}
+
+/* Make sure text / buttons sit above the pseudo-element */
+#sm-banner .banner-box > *,
+#banner3  .banner-box > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Card lift + shadow on hover ── */
+#sm-banner .banner-box:hover,
+#banner3  .banner-box:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.22);
+}
+
+/* ── Background zoom on hover ── */
+#sm-banner .banner-box:hover::before,
+#banner3  .banner-box:hover::before {
+  transform: scale(1.08);
+}
+
+/* ── Subtle dark overlay that appears on hover ── */
+#sm-banner .banner-box::after,
+#banner3  .banner-box::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
+  transition: background 0.35s ease;
+  z-index: 0;
+  border-radius: inherit;
+}
+
+#sm-banner .banner-box:hover::after,
+#banner3  .banner-box:hover::after {
+  background: rgba(0, 0, 0, 0.12);
+}
+
+/* ── Button animations inside banner cards ── */
+#sm-banner .banner-box button,
+#banner3  .banner-box button {
+  transition:
+    background-color 0.3s ease,
+    color            0.3s ease,
+    transform        0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+    box-shadow       0.3s ease;
+}
+
+#sm-banner .banner-box:hover button,
+#banner3  .banner-box:hover button {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* ── Heading slide-up micro-animation ── */
+#sm-banner .banner-box h2,
+#sm-banner .banner-box h4,
+#banner3  .banner-box h2,
+#banner3  .banner-box h3 {
+  transition: transform 0.35s ease, letter-spacing 0.35s ease;
+}
+
+#sm-banner .banner-box:hover h2,
+#sm-banner .banner-box:hover h4,
+#banner3  .banner-box:hover h2,
+#banner3  .banner-box:hover h3 {
+  transform: translateY(-4px);
+  letter-spacing: 0.5px;
+}
+
+/* ── Dark-theme adjustments ── */
+[data-theme="dark"] #sm-banner .banner-box:hover,
+[data-theme="dark"] #banner3  .banner-box:hover {
+  box-shadow: 0 20px 45px rgba(6, 182, 212, 0.18);
+}
+
+
+
 /* ============================================
    DARK THEME VARIABLES
    ============================================ */
@@ -271,7 +441,15 @@ button.white .ripple-effect {
 }
 
 .mobile .theme-toggle {
-    margin-right: 10px;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-size: 22px;
+    cursor: pointer;
+    padding: 0;
+    margin-right: 5px;
+    transform: none !important;
+    transition: color 0.3s ease;
 }
 
 /* ============================================
@@ -408,7 +586,13 @@ button.white .ripple-effect {
    ============================================ */
 
 #hero {
-    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 40%, rgba(255, 255, 255, 0) 100%), url("images/hero4.png");
+
+    background-image: linear-gradient(to right, 
+        rgba(255, 255, 255, 0.75) 0%, 
+        rgba(255, 255, 255, 0.45) 35%, 
+        rgba(255, 255, 255, 0) 65%), 
+        url("images/hero4.png");
+
     height: 100vh;
     width: 100%;
     background-size: cover;
@@ -421,7 +605,11 @@ button.white .ripple-effect {
 }
 
 [data-theme="dark"] #hero {
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.7) 50%, rgba(0, 0, 0, 0) 100%), url("images/hero4.png");
+    background-image: linear-gradient(to right, 
+        rgba(0, 0, 0, 0.9) 0%, 
+        rgba(0, 0, 0, 0.7) 50%, 
+        rgba(0, 0, 0, 0) 100%), 
+        url("images/hero4.png");
 }
 
 #hero h4 {
@@ -972,6 +1160,37 @@ footer .install img {
     margin: 10px 0 15px 0;
 }
 
+.payment-icons {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.payment-icons a {
+  text-decoration: none;
+}
+
+.payment-icons i {
+  font-size: 37px;
+  color: #444444;
+  transition: 0.3s ease;
+  cursor: pointer;
+}
+
+.payment-icons i:hover {
+  color: #088178;
+  transform: scale(1.15);
+}
+
+[data-theme="dark"] .payment-icons i {
+    color: whitesmoke;
+}
+
+[data-theme="dark"] .payment-icons i:hover {
+    color: var(--accent);
+}
+
 footer .follow i:hover,
 footer a:hover {
     color: var(--accent);
@@ -1065,21 +1284,91 @@ footer .copyright {
     margin-bottom: 10px;
 }
 
-#pro-details .single-pro-details input {
-    width: 50px;
-    height: 47px;
-    padding-left: 10px;
-    font-size: 16px;
-    margin-right: 10px;
+#pro-details .single-pro-details .cart-action-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 20px 0;
 }
 
-#pro-details .single-pro-details input:focus {
+#pro-details .single-pro-details .quantity-selector {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--input-bg, #f4f4f4);
+    border-radius: 50px;
+    overflow: hidden;
+    height: 50px;
+    border: 1px solid var(--border-color, #e1e1e1);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#pro-details .single-pro-details .quantity-selector:hover {
+    border-color: var(--accent);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+#pro-details .single-pro-details .qty-btn {
+    background: transparent;
+    color: var(--text-primary, #1a1a1a);
+    border: none;
+    width: 45px;
+    height: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+#pro-details .single-pro-details .qty-btn:hover {
+    background-color: var(--accent);
+    color: #fff;
+}
+
+#pro-details .single-pro-details .quantity-selector input {
+    width: 50px;
+    height: 100%;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    border: none;
+    background: transparent;
+    color: var(--text-primary);
+    padding: 0;
+    margin: 0;
+    -moz-appearance: textfield; /* Firefox */
+}
+
+#pro-details .single-pro-details .quantity-selector input::-webkit-outer-spin-button,
+#pro-details .single-pro-details .quantity-selector input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#pro-details .single-pro-details .quantity-selector input:focus {
     outline: none;
 }
 
-#pro-details .single-pro-details button {
+#pro-details .single-pro-details .cart-action-group button.normal {
     color: #fff;
     background: var(--accent);
+    height: 50px;
+    border-radius: 50px;
+    padding: 0 35px;
+    font-weight: 600;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(8, 129, 120, 0.2);
+}
+
+#pro-details .single-pro-details .cart-action-group button.normal:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(8, 129, 120, 0.4);
+    background: var(--accent-hover, #066b63);
 }
 
 /* ============================================
@@ -2842,5 +3131,315 @@ canvas {
     .back-to-cart {
         width: 100%;
         justify-content: center;
+    }
+}
+
+/* ==========================================
+   NEW CONTACT PAGE SECTION
+========================================== */
+
+#contact-section {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+    padding: 60px 80px;
+    background: #f8f9fa;
+}
+
+/* Left Column */
+.contact-left {
+    flex: 1 1 58%;
+}
+
+/* Right Column */
+.contact-right {
+    flex: 1 1 35%;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* Heading */
+.contact-heading span {
+    display: inline-block;
+    color: #088178;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.contact-heading h2 {
+    font-size: 38px;
+    line-height: 1.2;
+    margin: 0 0 15px;
+    color: #1a1a1a;
+}
+
+.contact-heading p {
+    margin: 0 0 30px;
+    color: #555;
+    line-height: 1.7;
+    max-width: 650px;
+}
+
+/* Quick Stats */
+.contact-stats {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 35px;
+}
+
+.stat-box {
+    flex: 1 1 180px;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    transition: 0.3s ease;
+}
+
+.stat-box:hover {
+    transform: translateY(-5px);
+}
+
+.stat-box i {
+    font-size: 24px;
+    color: #088178;
+    margin-bottom: 15px;
+}
+
+.stat-box h4 {
+    margin: 0 0 8px;
+    font-size: 18px;
+    color: #1a1a1a;
+}
+
+.stat-box p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Contact Form */
+.contact-form {
+    background: #ffffff;
+    padding: 35px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+.contact-form span {
+    display: inline-block;
+    color: #088178;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.contact-form h2 {
+    font-size: 30px;
+    line-height: 1.3;
+    margin-bottom: 25px;
+}
+
+.contact-form input,
+.contact-form textarea,
+.contact-form select {
+    width: 100%;
+    padding: 16px 18px;
+    margin-bottom: 18px;
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    outline: none;
+    font-size: 15px;
+    font-family: inherit;
+    background: #ffffff;
+    transition: 0.3s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus,
+.contact-form select:focus {
+    border-color: #088178;
+    box-shadow: 0 0 0 3px rgba(8, 129, 120, 0.10);
+}
+
+.contact-form textarea {
+    resize: vertical;
+    min-height: 160px;
+}
+
+/* Cards */
+.team-card,
+.office-card,
+.faq-card {
+    background: #ffffff;
+    padding: 28px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.team-card h3,
+.office-card h3,
+.faq-card h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #1a1a1a;
+}
+
+.team-card > p,
+.faq-card p {
+    margin: 0 0 25px;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Team Members */
+.team-member {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 25px;
+}
+
+.team-member:last-child {
+    margin-bottom: 0;
+}
+
+.team-member img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #eef7f6;
+}
+
+.member-info h4 {
+    margin: 0 0 5px;
+    font-size: 18px;
+    color: #1a1a1a;
+}
+
+.member-info span {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #088178;
+}
+
+.member-info a {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #088178;
+    text-decoration: none;
+}
+
+.member-info a:hover {
+    text-decoration: underline;
+}
+
+.member-info small {
+    display: block;
+    font-size: 13px;
+    color: #777;
+    margin-top: 5px;
+}
+
+/* Office Info */
+.office-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.office-item:last-child {
+    margin-bottom: 0;
+}
+
+.office-item i {
+    font-size: 18px;
+    color: #088178;
+    margin-top: 3px;
+}
+
+.office-item span {
+    font-size: 15px;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* FAQ Button */
+.faq-card a {
+    display: inline-block;
+    padding: 13px 28px;
+    background: #088178;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.faq-card a:hover {
+    background: #066b65;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+    #contact-section {
+        flex-direction: column;
+        padding: 50px 40px;
+    }
+
+    .contact-left,
+    .contact-right {
+        width: 100%;
+    }
+
+    .contact-heading h2 {
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 599px) {
+    #contact-section {
+        padding: 40px 20px;
+        gap: 30px;
+    }
+
+    .contact-heading h2 {
+        font-size: 28px;
+    }
+
+    .contact-stats {
+        flex-direction: column;
+    }
+
+    .contact-form {
+        padding: 25px;
+    }
+
+    .team-card,
+    .office-card,
+    .faq-card {
+        padding: 22px;
+    }
+
+    .team-member {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .team-member img {
+        width: 60px;
+        height: 60px;
     }
 }

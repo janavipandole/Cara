@@ -110,8 +110,18 @@
                 <option>XXL</option>
                 <option>XXXL</option>
             </select>
-            <input id="product-quantity" type="number" value="1" min="1">
-            <button class="normal" onclick="handleAddToCart()">Add to Cart</button>
+            <div class="cart-action-group">
+                <div class="quantity-selector">
+                    <button type="button" class="qty-btn minus" onclick="updateQty(-1)" aria-label="Decrease quantity">
+                        <i class="fa-solid fa-minus"></i>
+                    </button>
+                    <input id="product-quantity" type="number" value="1" min="1" readonly>
+                    <button type="button" class="qty-btn plus" onclick="updateQty(1)" aria-label="Increase quantity">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                </div>
+                <button class="normal" onclick="handleAddToCart()">Add to Cart</button>
+            </div>
             <h4>Product Details</h4>
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officia tenetur, exercitationem velit maxime
                 sit beatae ea tempore a itaque natus placeat, neque fuga cumque aperiam nemo quia atque ducimus ipsam.
@@ -186,7 +196,13 @@
                 <img src="images/pay/play.jpg" alt="">
             </div>
             <p>Secured Payment Gateways</p>
-            <img src="images/pay/pay.png" alt="">
+            <div class="payment-icons">
+                <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer" aria-label="Visa"><i class="fab fa-cc-visa"></i></a>
+                <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer" aria-label="Mastercard"><i class="fab fa-cc-mastercard"></i></a>
+                <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" aria-label="PayPal"><i class="fab fa-cc-paypal"></i></a>
+                <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer" aria-label="American Express"><i class="fab fa-cc-amex"></i></a>
+                <a href="https://stripe.com" target="_blank" rel="noopener noreferrer" aria-label="Stripe"><i class="fab fa-cc-stripe"></i></a>
+            </div>
         </div>
         <div class="copyright">
             <p> &copy; Cara 2025. All rights reserved. | <a href="license.html" style="color: #088178;">MIT License</a>

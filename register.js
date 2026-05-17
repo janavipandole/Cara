@@ -24,6 +24,28 @@ document.addEventListener('DOMContentLoaded', function () {
             alert('Enter a valid gmail address');
             return;
         }
+       if (!name || !email || !password) {
+    alert('Please fill all fields.');
+    return;
+}
+
+// Password validation
+const passwordRegex =
+/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
+
+if (!passwordRegex.test(password)) {
+
+    alert(
+        'Password must contain:\n' +
+        '- Minimum 8 characters\n' +
+        '- One uppercase letter\n' +
+        '- One lowercase letter\n' +
+        '- One number\n' +
+        '- One special character'
+    );
+
+    return;
+}
 
         let users = JSON.parse(localStorage.getItem('users') || '[]');
 
