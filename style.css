@@ -1,5 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=League+Spartan:wght@100..900&display=swap');
 
+/* ============================================
+   CONTACT PAGE HERO
+   Issue #318 — Unique hero banner
+   ============================================ */
+
+#contact-head {
+    background-image: url("images/banner/b15.png");
+    background-size: cover;
+    background-position: center;
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 14px;
+}
+
+#contact-head h2,
+#contact-head p {
+    color: #fff;
+    text-align: center;
+}
+
 /* Banner3 — solid white button with dark text for max contrast */
 #banner3 .banner-box button {
     background: rgba(255, 255, 255, 0.92);
