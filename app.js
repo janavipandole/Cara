@@ -2,17 +2,27 @@
 const bar = document.getElementById("bar");
 const nav = document.getElementById("navbar");
 const close = document.getElementById("close");
-//hjello guys
+
 if (bar) {
     bar.addEventListener("click", () => {
         nav.classList.add("active");
+        document.body.classList.add("nav-open");
     });
 }
 if (close) {
     close.addEventListener("click", () => {
         nav.classList.remove("active");
+        document.body.classList.remove("nav-open");
     });
 }
+
+// Close menu when clicking a nav link (for better mobile UX)
+document.querySelectorAll("#navbar li a").forEach(link => {
+    link.addEventListener("click", () => {
+        nav.classList.remove("active");
+        document.body.classList.remove("nav-open");
+    });
+});
 
 // Single Product Image Switching
 var MainImg = document.getElementById("MainImg");
