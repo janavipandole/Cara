@@ -1,18 +1,17 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     <!-- Character Encoding -->
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
 
     <!-- Viewport for Responsive Design -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Page Title -->
     <title>Contact Us | Cara — Modern E-Commerce</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
+    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
 
     <!-- SEO Meta Tags -->
     <meta name="description"
@@ -22,7 +21,7 @@
     <meta name="robots" content="index, follow">
 
     <!-- Language -->
-    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Language" content="en" />
 
     <!-- Open Graph Tags -->
     <meta property="og:title" content="Contact Us | Cara — Modern E-Commerce">
@@ -33,48 +32,83 @@
     <meta property="og:type" content="website">
 
     <!-- Twitter Card Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Contact Us | Cara — Modern E-Commerce">
-    <meta name="twitter:description" content="We’re here to help — contact Cara for assistance or feedback.">
-    <meta name="twitter:image" content="https://example.com/images/preview.jpg">
-    <meta name="twitter:site" content="@janavipandole">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Contact Us | Cara — Modern E-Commerce"
+    />
+    <meta
+      name="twitter:description"
+      content="We’re here to help — contact Cara for assistance or feedback."
+    />
+    <meta
+      name="twitter:image"
+      content="https://example.com/images/preview.jpg"
+    />
+    <meta name="twitter:site" content="@janavipandole" />
 
     <!-- Theme Color -->
-    <meta name="theme-color" content="#000000">
+    <meta name="theme-color" content="#000000" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
 
-<body>
+  <body>
     <!-- Header -->
     <section id="header">
-        <a href="index.html"><img src="images/logo.png" alt="Cara Logo"></a>
+      <a href="index.html"><img src="images/logo.png" alt="Cara Logo" /></a>
 
-        <div>
-            <ul id="navbar">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="shop.html">Shop</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a class="active" href="contact.html">Contact</a></li>
-                <li><a href="login.html">Login</a></li>
-                <li><a href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
-                <li>
-                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-                        <i class="ri-moon-line" id="themeIcon"></i>
-                    </button>
-                </li>
-                <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
-            </ul>
-        </div>
-        <div class="mobile">
-            <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
-            <i class="fas fa-outdent" id="bar"></i>
-        </div>
+      <div>
+        <ul id="navbar">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a class="active" href="contact.html">Contact</a></li>
+          <li><a href="login.html">Login</a></li>
+          <li>
+            <a href="cart.html" id="lg-bag" class="cart-icon-wrapper"
+              ><i class="ri-shopping-bag-4-line"></i
+              ><span class="cart-count" id="desktopCartCount">0</span></a
+            >
+          </li>
+          <li>
+            <button
+              class="theme-toggle"
+              id="themeToggle"
+              aria-label="Toggle dark mode"
+            >
+              <i class="ri-moon-line" id="themeIcon"></i>
+            </button>
+          </li>
+          <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+        </ul>
+      </div>
+      <div class="mobile">
+        <button
+          class="theme-toggle"
+          id="themeToggleMobile"
+          aria-label="Toggle dark mode"
+        >
+          <i class="ri-moon-line" id="themeIconMobile"></i>
+        </button>
+        <a href="cart.html" id="mobile-cart-icon">
+          <i class="ri-shopping-bag-4-line"></i>
+          <span class="cart-count" id="mobileCartCount">0</span>
+        </a>
+        <i class="fas fa-outdent" id="bar"></i>
+      </div>
     </section>
 
     <!-- Contact Header -->
@@ -84,51 +118,89 @@
             help.</p>
     </section>
 
-    <!-- Contact Details -->
-    <section id="contact-details" class="section-p1">
-        <div class="details">
-            <span>GET IN TOUCH</span>
-            <h2>Visit one of our offices or connect with us online</h2>
-            <h3>Head Office</h3>
-            <div>
-                <li>
-                    <i class="fa-regular fa-map"></i>
-                    <p>56 Glassford Street, Glasgow G1 1UL, New York</p>
-                </li>
-                <li>
-                    <i class="fa-regular fa-envelope"></i>
-                    <p>contact@example.com</p>
-                </li>
-                <li>
-                    <i class="fa-solid fa-phone"></i>
-                    <p>+1 (000) 123-7788</p>
-                </li>
-                <li>
-                    <i class="fa-regular fa-clock"></i>
-                    <p>Monday to Saturday — 9:00 AM to 6:00 PM</p>
-                </li>
-            </div>
+    <!-- Enhanced Contact Section -->
+    <section id="contact-section">
+      <!-- Left Column -->
+      <div class="contact-left">
+        <!-- Heading -->
+        <div class="contact-heading">
+          <span>GET IN TOUCH</span>
+          <h2>We're here to help you succeed</h2>
+          <p>
+            Have a question about orders, returns, partnerships, or product
+            recommendations? Send us a message and the right team member will
+            respond within one business day.
+          </p>
         </div>
 
-        <div class="map">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d79041.63809687465!2d-1.3299880336476733!3d51.750387492608276!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48713380adc41faf%3A0xc820dba8cb547402!2sOxford%2C%20UK!5e0!3m2!1sen!2sin!4v1730811271071!5m2!1sen!2sin"
-                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-        </div>
-    </section>
+        <!-- Quick Information Cards -->
+        <div class="contact-stats">
+          <div class="stat-box">
+            <i class="fa-regular fa-clock"></i>
+            <h4>Fast Response</h4>
+            <p>Replies within 24 business hours.</p>
+          </div>
 
-    <!-- Contact Form -->
-    <section id="form-details">
-        <form action="">
-            <span>LEAVE A MESSAGE</span>
-            <h2>We’re excited to connect with you!</h2>
-            <p>Fill out the form below and our team will get back to you as soon as possible.</p>
-            <input type="text" placeholder="Your Name" required>
-            <input type="email" placeholder="Your Email" required>
-            <input type="text" placeholder="Subject">
-            <textarea cols="30" rows="10" placeholder="Your Message" required></textarea>
-            <button class="normal">Submit</button>
+          <div class="stat-box">
+            <i class="fa-solid fa-headset"></i>
+            <h4>Dedicated Support</h4>
+            <p>Friendly assistance for every inquiry.</p>
+          </div>
+
+          <div class="stat-box">
+            <i class="fa-solid fa-shield-heart"></i>
+            <h4>Trusted Service</h4>
+            <p>Secure and confidential communication.</p>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <form class="contact-form">
+          <span>LEAVE A MESSAGE</span>
+          <h2>Tell us how we can help</h2>
+
+          <input
+            type="text"
+            name="name"
+            placeholder="Enter your full name"
+            required
+          />
+
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter your email address"
+            required
+            pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
+            title="Please enter a valid email address"
+          />
+
+          <input
+            type="text"
+            name="subject"
+            placeholder="What is this regarding?"
+          />
+
+          <select name="department">
+            <option value="">Choose a department</option>
+            <option value="orders">Orders & Shipping</option>
+            <option value="returns">Returns & Refunds</option>
+            <option value="products">Product Questions</option>
+            <option value="partnerships">Partnerships</option>
+            <option value="general">General Inquiry</option>
+          </select>
+
+          <textarea
+            name="message"
+            cols="30"
+            rows="8"
+            placeholder="Write your message here"
+            required
+          ></textarea>
+
+          <button type="submit" class="normal">Send Message</button>
         </form>
+      </div>
 
         <div class="social-media">
             <div>
@@ -141,24 +213,64 @@
                 <p><span>Jane Smith</span> Customer Relations <br> Phone: +000 123 111 44 55 <br> Email:
                     support@example.com</p>
             </div>
-            <div>
-                <img src="images/people/3.png" alt="Team Member 3">
-                <p><span>Mike Lee</span> Operations Lead <br> Phone: +000 123 222 99 00 <br> Email: help@example.com</p>
+          </div>
+
+          <div class="team-member">
+            <img src="images/people/3.png" alt="Technical Support Specialist" />
+            <div class="member-info">
+              <h4>Sophia Chen</h4>
+              <span>Technical Support</span>
+              <a href="mailto:tech@cara.com">tech@cara.com</a>
+              <a href="tel:+10009876543">+1 (000) 987-6543</a>
+              <small>Website issues and account assistance</small>
             </div>
+          </div>
         </div>
+
+        <!-- Office Information -->
+        <div class="office-card">
+          <h3>Head Office</h3>
+
+          <div class="office-item">
+            <i class="fa-regular fa-map"></i>
+            <span> 56 Glassford Street, Glasgow G1 1UL, New York </span>
+          </div>
+
+          <div class="office-item">
+            <i class="fa-regular fa-envelope"></i>
+            <span>hello@cara.com</span>
+          </div>
+
+          <div class="office-item">
+            <i class="fa-solid fa-phone"></i>
+            <span>+1 (000) 123-7788</span>
+          </div>
+
+          <div class="office-item">
+            <i class="fa-regular fa-clock"></i>
+            <span>Monday to Saturday — 9:00 AM to 6:00 PM</span>
+          </div>
+        </div>
+
+        <!-- FAQ Card -->
+        <div class="faq-card">
+          <h3>Need Quick Answers?</h3>
+          <p>
+            Visit our Help Center to find answers to common questions about
+            delivery, returns, payments, and account management.
+          </p>
+          <a href="contact.html">Visit Help Center</a>
+        </div>
+      </div>
     </section>
 
-    <!-- Newsletter -->
-    <section id="newsletter" class="section-p1 section-m1">
-        <div class="newstext">
-            <h4>Sign Up For Newsletters</h4>
-            <p>Get email updates about our latest shop and <span>special offers.</span></p>
-        </div>
-        <div class="form">
-            <input type="text" placeholder="Your email address">
-            <button class="normal">Sign Up</button>
-        </div>
-    </section>
+    <!-- Back to Top and Scroll to Bottom Buttons -->
+    <button id="backToTop" title="Back to Top" aria-label="Back to top">
+      ⬆
+    </button>
+    <button id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">
+      ⬇
+    </button>
 
     <!-- Footer -->
     <footer class="section-p1">
@@ -191,37 +303,74 @@
             <a href="#">Terms & Conditions</a>
             <a href="contact.html">Contact Us</a>
         </div>
+      </div>
 
-        <div class="col">
-            <h4>My Account</h4>
-            <a href="login.html">Sign In</a>
-            <a href="cart.html">View Cart</a>
-            <a href="#">My Wishlist</a>
-            <a href="cart.html">Track My Order</a>
-            <a href="contact.html">Help</a>
-        </div>
+      <!-- About Column -->
+      <div class="col">
+        <h4>About</h4>
+        <a href="about.html">About Us</a>
+        <a href="#">Delivery Information</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms and Conditions</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
 
-        <div class="col install">
-            <h4>Install App</h4>
-            <p>From App Store or Google Play</p>
-            <div class="row">
-                <img src="images/pay/app.jpg" alt="">
-                <img src="images/pay/play.jpg" alt="">
-            </div>
-            <p>Secured Payment Gateways</p>
-            <img src="images/pay/pay.png" alt="">
+      <!-- My Account Column -->
+      <div class="col">
+        <h4>My Account</h4>
+        <a href="login.html">Sign In</a>
+        <a href="cart.html">View Cart</a>
+        <a href="#">My Wishlist</a>
+        <a href="track-order.html">Track My Order</a>
+        <a href="contact.html">Help</a>
+      </div>
+
+      <!-- Newsletter Column -->
+      <div class="col newsletter-footer">
+        <h4>Newsletter</h4>
+        <p>
+          Get email updates about our latest shop and
+          <span>special offers.</span>
+        </p>
+
+        <form class="newsletter-form">
+          <input type="email" placeholder="Your email address" required />
+          <button type="submit" class="normal">Sign Up</button>
+        </form>
+      </div>
+
+      <!-- Install App Column -->
+      <div class="col install">
+        <h4>Install App</h4>
+        <p>From App Store or Google Play</p>
+
+        <div class="row">
+          <img src="images/pay/app.jpg" alt="Download from App Store" />
+          <img src="images/pay/play.jpg" alt="Get it on Google Play" />
         </div>
 
         <div class="copyright">
-            <p>&copy; Cara  <span id="Current-Year"></span>. All rights reserved. | <a href="license.html"
+            <p>&copy; Cara  <span class="Current-Year"></span>. All rights reserved. | <a href="license.html"
                     style="color: #088178;">MIT License</a></p>
         </div>
+      </div>
+
+      <!-- Copyright -->
+      <div class="copyright">
+        <p>
+          &copy; Cara <span class="Current-Year"></span>. All rights reserved. |
+          <a href="license.html" style="color: #088178"> MIT License </a>
+        </p>
+      </div>
     </footer>
 
     <script src="app.js"></script>
     <!-- Corrected  -->
     <script id="Current-Year">
-        document.getElementById("Current-Year").textContent = new Date().getFullYear();
+      const year=new Date().getFullYear();
+        for (let el of document.querySelectorAll(".current-year")) {
+  el.textContent = year;
+}
     </script>
 </body>
 

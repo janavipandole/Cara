@@ -6,10 +6,28 @@ document.addEventListener('DOMContentLoaded', function () {
         const email = document.getElementById('registerEmail').value.trim();
         const password = document.getElementById('registerPassword').value;
 
-        if (!name || !email || !password) {
-            alert('Please fill all fields.');
-            return;
-        }
+       if (!name || !email || !password) {
+    alert('Please fill all fields.');
+    return;
+}
+
+// Password validation
+const passwordRegex =
+/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
+
+if (!passwordRegex.test(password)) {
+
+    alert(
+        'Password must contain:\n' +
+        '- Minimum 8 characters\n' +
+        '- One uppercase letter\n' +
+        '- One lowercase letter\n' +
+        '- One number\n' +
+        '- One special character'
+    );
+
+    return;
+}
 
         let users = JSON.parse(localStorage.getItem('users') || '[]');
         if (users.find(u => u.email === email)) {
