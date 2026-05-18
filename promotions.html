@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cara — Promotions & Ambassador Program</title>
+    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Promotions specific styles */
+        #promo-header {
+            background-image: url("images/banner/b1.jpg");
+            width: 100%;
+            height: 40vh;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            flex-direction: column;
+            padding: 14px;
+        }
+
+        #promo-header h2, #promo-header p {
+            color: #fff;
+        }
+
+        .promo-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .promo-details {
+            flex: 1;
+        }
+
+        .promo-details h3 {
+            font-size: 28px;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        .perk-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px var(--shadow);
+        }
+
+        .perk-box h4 {
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .influencer-form {
+            flex: 1;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 5px 20px var(--shadow);
+        }
+
+        .influencer-form h3 {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            outline: none;
+            background: var(--input-bg);
+            color: var(--text-primary);
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--accent);
+        }
+
+        /* Discount Popup */
+        #discount-popup {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--accent);
+            color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 1000;
+            display: none;
+            max-width: 300px;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        #discount-popup h4 {
+            color: #fff;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        #discount-popup .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        
+        .copy-code {
+            background: #fff;
+            color: var(--accent);
+            padding: 8px 12px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            letter-spacing: 2px;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @media (max-width: 799px) {
+            .promo-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section id="header">
+        <a href="index.html"><img src="images/logo.png" alt="" id="siteLogo"></a>
+        <div>
+            <ul id="navbar">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="try-on.html">Try-On</a></li>
+                <li><a href="community.html">Community</a></li>
+                <li><a class="active" href="promotions.html">Promotions</a></li>
+                <li><a href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
+                <li>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                        <i class="ri-moon-line" id="themeIcon"></i>
+                    </button>
+                </li>
+                <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+            </ul>
+        </div>
+        <div class="mobile">
+            <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
+            <i class="fas fa-outdent" id="bar"></i>
+        </div>
+    </section>
+
+    <section id="promo-header">
+        <h2>#CaraAmbassador</h2>
+        <p>Join our community. Get freebies. Share your style.</p>
+    </section>
+
+    <section class="section-p1 promo-container">
+        <div class="promo-details">
+            <h3>Why join the Cara Community?</h3>
+            <p>We love working with creators and fashion enthusiasts. Apply for our ambassador program to unlock exclusive perks.</p>
+            
+            <div class="perk-box">
+                <h4><i class="ri-gift-line" style="color: var(--accent);"></i> Monthly Freebies</h4>
+                <p>Receive exclusive clothing items every month to style and share with your followers.</p>
+            </div>
+            
+            <div class="perk-box">
+                <h4><i class="ri-percent-line" style="color: var(--accent);"></i> Custom Discount Codes</h4>
+                <p>Get a unique discount code to share with your audience and earn commission on sales.</p>
+            </div>
+            
+            <div class="perk-box">
+                <h4><i class="ri-star-smile-line" style="color: var(--accent);"></i> Featured Spotlights</h4>
+                <p>Get featured on our official Instagram page and website homepage.</p>
+            </div>
+        </div>
+
+        <div class="influencer-form">
+            <h3>Apply for Freebies & Trials</h3>
+            <form id="ambassador-form">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" placeholder="Enter Name" required>
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" placeholder="Enter Email" required>
+                </div>
+                <div class="form-group">
+                    <label>Instagram Handle</label>
+                    <input type="text" placeholder="Enter Instagram Handle" required>
+                </div>
+                <div class="form-group">
+                    <label>Follower Count</label>
+                    <input type="number" placeholder="e.g. 15000" required>
+                </div>
+                <div class="form-group">
+                    <label>Why do you love Cara?</label>
+                    <textarea rows="4" placeholder="Tell us about your style..."></textarea>
+                </div>
+                <button type="submit" class="normal" style="background: var(--accent); color: white; width: 100%;">Submit Application</button>
+                <p id="form-success" style="display:none; color: var(--accent); margin-top: 15px; font-weight: bold; text-align: center;">Application Submitted! We will review it shortly.</p>
+            </form>
+        </div>
+    </section>
+
+    <!-- Discount Popup Element -->
+    <div id="discount-popup">
+        <i class="ri-close-line close-btn" onclick="document.getElementById('discount-popup').style.display='none'"></i>
+        <h4>Surprise Gift! 🎁</h4>
+        <p>Thanks for checking out our promotions. Use this code at checkout for 15% off your first order!</p>
+        <div class="copy-code" onclick="navigator.clipboard.writeText('CARA15'); this.innerText='COPIED!'">CARA15</div>
+    </div>
+
+    <footer class="section-p1">
+        <div class="col">
+            <img class="logo" src="images/logo.png" alt="">
+            <h4>Contact</h4>
+            <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
+        </div>
+        <div class="copyright">
+            <p>&copy; Cara 2025. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        // Form submission simulation
+        document.getElementById('ambassador-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('form-success').style.display = 'block';
+            this.reset();
+        });
+
+        // Trigger discount popup after 5 seconds of engagement
+        setTimeout(() => {
+            document.getElementById('discount-popup').style.display = 'block';
+        }, 5000);
+    </script>
+</body>
+</html>

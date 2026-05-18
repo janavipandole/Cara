@@ -137,6 +137,35 @@
 
     </section>
 
+    <script>
+    const toggleEyes = document.querySelectorAll(".toggle-eye");
+
+    toggleEyes.forEach((eye) => {
+
+        eye.addEventListener("click", () => {
+
+            const passwordInput = eye.previousElementSibling;
+
+            if (passwordInput.type === "password") {
+
+                passwordInput.type = "text";
+
+                eye.classList.remove("ri-eye-line");
+                eye.classList.add("ri-eye-off-line");
+
+            } else {
+
+                passwordInput.type = "password";
+
+                eye.classList.remove("ri-eye-off-line");
+                eye.classList.add("ri-eye-line");
+            }
+
+        });
+
+    });
+</script>
+
 </body>
 
 </html>

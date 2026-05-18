@@ -26,17 +26,17 @@ document.getElementById('forgotForm').addEventListener('submit', function (e) {
 
   /* validations */
   if (!email || !email.includes('@')) {
-    showToast('⚠️ Please enter a valid email!', true);
+    showToast('Please enter a valid email!', 'warning');
     return;
   }
 
   if (!newPass || newPass.length < 6) {
-    showToast('⚠️ Password must be at least 6 characters!', true);
+    showToast('Password must be at least 6 characters!', 'warning');
     return;
   }
 
   if (newPass !== confirmPass) {
-    showToast('⚠️ Passwords do not match!', true);
+    showToast('Passwords do not match!', 'warning');
     return;
   }
 
@@ -45,7 +45,7 @@ document.getElementById('forgotForm').addEventListener('submit', function (e) {
   const userIndex = users.findIndex(u => u.email === email);
 
   if (userIndex === -1) {
-    showToast('⚠️ No account found with this email!', true);
+    showToast('No account found with this email!', 'error');
     return;
   }
 
@@ -53,7 +53,7 @@ document.getElementById('forgotForm').addEventListener('submit', function (e) {
   users[userIndex].password = newPass;
   localStorage.setItem('users', JSON.stringify(users));
 
-  showToast('✅ Password reset successful! Redirecting to login...');
+  showToast('Password reset successful! Redirecting to login...', 'success');
 
   /* redirect to login after success */
   setTimeout(() => {
@@ -61,14 +61,39 @@ document.getElementById('forgotForm').addEventListener('submit', function (e) {
   }, 2000);
 });
 
-/* toast */
-function showToast(msg, isError = false) {
-  const toast = document.getElementById('toast');
-  if (!toast) return;
-  toast.textContent = msg;
-  toast.style.background = isError ? '#dc2626' : '#088178';
-  toast.classList.remove('show');
-  void toast.offsetWidth;
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 3000);
+/* toast function — self-contained for pages that don't load app.js */
+if (typeof showToast === 'undefined') {
+    function showToast(message, type) {
+        type = type || 'success';
+        var container = document.getElementById('toast-container');
+        if (!container) {
+            container = document.createElement('div');
+            container.id = 'toast-container';
+            document.body.appendChild(container);
+        }
+        var icons = {
+            success: 'fa-circle-check',
+            error: 'fa-circle-xmark',
+            warning: 'fa-triangle-exclamation',
+            info: 'fa-circle-info'
+        };
+        var toast = document.createElement('div');
+        toast.className = 'toast toast-' + type;
+        toast.innerHTML =
+            '<i class="fa-solid ' + (icons[type] || icons.success) + ' toast-icon"></i>' +
+            '<span class="toast-msg">' + message + '</span>' +
+            '<button class="toast-close" aria-label="Close notification">&times;</button>' +
+            '<div class="toast-progress"></div>';
+        toast.querySelector('.toast-close').addEventListener('click', function () {
+            dismissToast(toast);
+        });
+        container.appendChild(toast);
+        setTimeout(function () { dismissToast(toast); }, 4000);
+    }
+
+    function dismissToast(toast) {
+        if (!toast || toast.classList.contains('toast-hiding')) return;
+        toast.classList.add('toast-hiding');
+        toast.addEventListener('animationend', function () { toast.remove(); });
+    }
 }
