@@ -190,7 +190,6 @@ window.handleAddToCart = function () {
 window.loadCart = function () {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
 
-    // First, check if we need to show the empty message
     handleEmptyCartView();
 
     const tableBody = document.querySelector('#cart table tbody');
@@ -206,7 +205,7 @@ window.loadCart = function () {
 
         const newRow = tableBody.insertRow();
 
-        // Remove button cell (no user data, safe static markup via DOM)
+        // REMOVE BUTTON
         const removeCell = newRow.insertCell();
         const removeLink = document.createElement('a');
         removeLink.href = '#';
@@ -219,50 +218,54 @@ window.loadCart = function () {
         removeLink.appendChild(removeIcon);
         removeCell.appendChild(removeLink);
 
-        // Product image cell (safe property assignment)
+        // IMAGE
         const imgCell = newRow.insertCell();
         const img = document.createElement('img');
         img.src = item.image;
         img.alt = item.name;
         imgCell.appendChild(img);
 
-        // Product name and size cell (textContent prevents HTML injection)
+        // NAME
         const nameCell = newRow.insertCell();
-        const nameText = document.createTextNode(item.name);
-        nameCell.appendChild(nameText);
-        nameCell.appendChild(document.createElement('br'));
+        nameCell.textContent = item.name;
+
         const sizeSmall = document.createElement('small');
         sizeSmall.textContent = 'Size: ' + item.size;
+        nameCell.appendChild(document.createElement('br'));
         nameCell.appendChild(sizeSmall);
 
-        // Price cell (safe — toFixed returns a number string)
+        // PRICE
         const priceCell = newRow.insertCell();
         priceCell.textContent = '$' + itemPrice.toFixed(2);
 
-        // Quantity input cell (safe property and attribute assignment)
+        // QTY
         const qtyCell = newRow.insertCell();
         const qtyInput = document.createElement('input');
-        qtyInput.id = 'qty-' + index;
         qtyInput.type = 'number';
         qtyInput.value = item.quantity;
-        qtyInput.min = '1';
+        qtyInput.min = 1;
         qtyInput.addEventListener('change', function () {
             updateQuantity(index, this.value);
         });
         qtyCell.appendChild(qtyInput);
 
-        // Subtotal cell (safe — toFixed returns a number string)
+        // SUBTOTAL
         const subtotalCell = newRow.insertCell();
         subtotalCell.textContent = '$' + subtotal.toFixed(2);
     });
 
-    const subtotalCell = document.querySelector('.subtotal table tr:nth-child(1) td:nth-child(2)');
-    const totalCell = document.querySelector('.subtotal table tr:nth-child(3) td:nth-child(2) strong');
+    // ✅ TOTAL UPDATE MUST BE HERE (INSIDE FUNCTION, AFTER LOOP)
+   const subtotalDisplay = document.querySelector('.subtotal table tr:nth-child(1) td:nth-child(2)');
+ const totalDisplay = document.querySelector('.subtotal table tr:nth-child(3) td:nth-child(2) strong');
 
-    if (subtotalCell) subtotalCell.innerText = `$ ${total.toFixed(2)}`;
-    if (totalCell) totalCell.innerText = `$ ${total.toFixed(2)}`;
+if (subtotalDisplay) {
+    subtotalDisplay.innerText = `$${total.toFixed(2)}`;
 }
 
+if (totalDisplay) {
+    totalDisplay.innerText = `$${total.toFixed(2)}`;
+}
+};
 window.removeItem = function (index) {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
     cart.splice(index, 1);
@@ -333,8 +336,10 @@ window.addEventListener('load', () => {
     if (themeToggleMobile) themeToggleMobile.addEventListener('click', toggleTheme);
 
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', updateThemeIcon);
-    }
+    document.addEventListener('DOMContentLoaded', () => {
+        updateThemeIcon(currentTheme);
+    });
+}
 })();
 
 /* --- END: THEME TOGGLE FUNCTIONALITY --- */
@@ -450,34 +455,36 @@ const ToptobackBtn = document.getElementById("Toptoback");
 
 window.addEventListener("scroll", () => {
 
-    // SHOW DOWN BUTTON WHEN USER IS NEAR TOP
+    if (!backToTopBtn || !ToptobackBtn) return;
+
     if (window.scrollY <= 300) {
         ToptobackBtn.classList.add("show");
         backToTopBtn.classList.remove("show");
-    }
-
-    // SHOW TOP BUTTON AFTER 300PX
-    else {
+    } else {
         backToTopBtn.classList.add("show");
         ToptobackBtn.classList.remove("show");
     }
 });
 
 // BACK TO TOP
-backToTopBtn.addEventListener("click", () => {
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
+if (backToTopBtn) {
+    backToTopBtn.addEventListener("click", () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
     });
-});
+}
 
 // SCROLL TO BOTTOM
-ToptobackBtn.addEventListener("click", () => {
-    window.scrollTo({
-        top: document.body.scrollHeight,
-        behavior: "smooth"
+if (ToptobackBtn) {
+    ToptobackBtn.addEventListener("click", () => {
+        window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: "smooth"
+        });
     });
-});
+}
 
 // Style Quiz Functionality
 window.openQuiz = function () {
