@@ -14,26 +14,75 @@ if (close) {
     });
 }
 
-// Single Product Image Switching
-var MainImg = document.getElementById("MainImg");
-var smallImg = document.getElementsByClassName("small-img");
+// Dynamic Product Details Logic
+document.addEventListener("DOMContentLoaded", () => {
+    // 1. Remove inline onclick from all product cards
+    document.querySelectorAll('.pro').forEach(card => {
+        card.removeAttribute("onclick");
 
-document.querySelectorAll(".pro img").forEach((img) => {
-    img.addEventListener("click", function () {
+        // 2. Add delegated click event for the whole card
+        card.addEventListener('click', function(e) {
+            // Ignore if the user clicked the 'Add to Cart' icon
+            if (e.target.closest('.cart')) {
+                return;
+            }
 
-        localStorage.setItem("productImage", this.src);
+            // Extract product details from the card's DOM
+            const nameElement = this.querySelector("h5");
+            const priceElement = this.querySelector("h4");
+            const brandElement = this.querySelector(".des span");
+            const imageElement = this.querySelector("img");
 
-        window.location.href = "singleProduct.html";
+            const selectedProduct = {
+                name: nameElement ? nameElement.innerText : "Product",
+                price: priceElement ? priceElement.innerText : "$0.00",
+                brand: brandElement ? brandElement.innerText : "Brand",
+                image: imageElement ? imageElement.src : ""
+            };
+
+            // Store in localStorage
+            localStorage.setItem("selectedProduct", JSON.stringify(selectedProduct));
+
+            // Redirect to single product page
+            window.location.href = "singleProduct.html";
+        });
     });
-});
 
-if (MainImg) {
-    for (let i = 0; i < smallImg.length; i++) {
-        smallImg[i].onclick = function () {
-            MainImg.src = smallImg[i].src;
+    // 3. Dynamic Render on singleProduct.html
+    if (window.location.pathname.includes("singleProduct.html")) {
+        const storedProductJSON = localStorage.getItem("selectedProduct");
+        if (storedProductJSON) {
+            const product = JSON.parse(storedProductJSON);
+
+            const nameEl = document.getElementById("product-name");
+            const priceEl = document.getElementById("product-price");
+            const mainImgEl = document.getElementById("MainImg");
+            const breadcrumbEl = document.querySelector(".single-pro-details h6");
+            const smallImgs = document.querySelectorAll(".small-img");
+
+            if (nameEl) nameEl.innerText = product.name;
+            if (priceEl) priceEl.innerText = product.price;
+            if (mainImgEl) mainImgEl.src = product.image;
+            if (breadcrumbEl && product.brand) breadcrumbEl.innerText = `Home / ${product.brand} / T-Shirt`;
+
+            // Update first thumbnail to match the product image
+            if (smallImgs.length > 0 && product.image) {
+                smallImgs[0].src = product.image;
+            }
+        }
+
+        // Single Product Image Switching for thumbnails
+        const MainImg = document.getElementById("MainImg");
+        const smallImg = document.getElementsByClassName("small-img");
+        if (MainImg && smallImg) {
+            for (let i = 0; i < smallImg.length; i++) {
+                smallImg[i].onclick = function () {
+                    MainImg.src = smallImg[i].src;
+                }
+            }
         }
     }
-}
+});
 
 // buttons ripple effect
 document.addEventListener("DOMContentLoaded", () => {
