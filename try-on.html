@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cara — AI Virtual Try-On</title>
+    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        #try-on-section {
+            padding: 40px 80px;
+            display: flex;
+            gap: 40px;
+            margin-top: 80px;
+            min-height: 70vh;
+        }
+        
+        .controls {
+            flex: 1;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px var(--shadow);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .controls h2 {
+            font-size: 32px;
+            margin-bottom: 15px;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .controls h2 i {
+            font-size: 36px;
+        }
+        
+        .controls p {
+            font-size: 16px;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .clothing-list {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .clothing-item {
+            width: 90px;
+            height: 90px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            cursor: pointer;
+            object-fit: cover;
+            transition: 0.3s ease;
+        }
+
+        .clothing-item:hover, .clothing-item.selected {
+            border-color: var(--accent);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(8, 129, 120, 0.3);
+        }
+
+        .upload-btn {
+            background-color: var(--card-bg);
+            color: var(--text-primary);
+            padding: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 10px;
+            transition: 0.3s;
+            border: 2px dashed var(--accent);
+            margin-bottom: 30px;
+        }
+
+        .upload-btn i {
+            font-size: 30px;
+            color: var(--accent);
+        }
+
+        .upload-btn:hover {
+            background-color: var(--bg-secondary);
+        }
+
+        .upload-btn input {
+            display: none;
+        }
+
+        .action-btn {
+            background: var(--accent);
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .action-btn:hover {
+            background: #06665f;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(8, 129, 120, 0.4);
+        }
+
+        .action-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* AI Viewport */
+        .ai-viewport {
+            flex: 1.2;
+            background: var(--bg-secondary);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
+        }
+
+        .viewport-placeholder {
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .viewport-placeholder i {
+            font-size: 60px;
+            margin-bottom: 15px;
+            color: var(--border-color);
+        }
+
+        /* Scanning Animation */
+        .scanning-container {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            z-index: 10;
+        }
+
+        .scanner-line {
+            width: 100%;
+            height: 3px;
+            background: var(--accent);
+            position: absolute;
+            top: 0;
+            box-shadow: 0 0 15px 2px var(--accent);
+            animation: scan 2s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { top: 0; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        .ai-text {
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-top: 20px;
+            animation: pulse 1s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { opacity: 0.5; }
+            to { opacity: 1; }
+        }
+
+        .result-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+        .share-controls {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: none;
+            gap: 10px;
+        }
+
+        .share-btn {
+            background: white;
+            color: var(--accent);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .share-btn:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        @media (max-width: 900px) {
+            #try-on-section {
+                flex-direction: column;
+                padding: 40px 20px;
+            }
+            .ai-viewport {
+                min-height: 500px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <body>
+
+        <!-- HEADER -->
+        <section id="header">
+            <a href="index.html">
+            <img src="images/logo.png" alt="" id="siteLogo">
+            </a>
+
+            <!-- Navbar loads here -->
+            <div id="navbar-container"></div>
+
+            <div class="mobile">
+            <button class="theme-toggle" id="themeToggleMobile"
+                aria-label="Toggle dark mode">
+                <i class="ri-moon-line" id="themeIconMobile"></i>
+            </button>
+            <a href="cart.html" id="mobile-cart-icon">
+                <i class="ri-shopping-bag-4-line"></i>
+                <span class="cart-count" id="mobileCartCount">0</span>
+            </a>
+            <i class="fas fa-outdent" id="bar"></i>
+            </div>
+        </section>
+
+  <!-- ABOUT HEAD -->
+  <section id="about-head">
+    <h2>#KnowUs</h2>
+    <p>Read all case studies about Us!</p>
+  </section>
+    <section id="try-on-section">
+        <div class="controls">
+            <h2><i class="ri-magic-line"></i> AI Virtual Try-On</h2>
+            <p>Experience the future of fashion. Upload a photo and let our AI seamlessly warp and fit the clothing to your body shape and lighting.</p>
+            
+            <h4>1. Select Outfit</h4>
+            <div class="clothing-list">
+                <!-- Using placeholder products -->
+                <img src="images/products/f1.jpg" class="clothing-item" onclick="selectOutfit(this)" alt="Outfit 1">
+                <img src="images/products/f2.jpg" class="clothing-item" onclick="selectOutfit(this)" alt="Outfit 2">
+                <img src="images/products/n1.jpg" class="clothing-item" onclick="selectOutfit(this)" alt="Outfit 3">
+                <img src="images/products/n2.jpg" class="clothing-item" onclick="selectOutfit(this)" alt="Outfit 4">
+            </div>
+
+            <h4>2. Upload Your Photo</h4>
+            <label class="upload-btn">
+                <i class="ri-upload-cloud-2-line"></i>
+                <span id="upload-text">Click to upload full-body photo</span>
+                <input type="file" id="photo-upload" accept="image/*">
+            </label>
+
+            <div style="flex-grow: 1;"></div> <!-- Spacer -->
+
+            <button class="action-btn" id="generate-btn" disabled>
+                <i class="ri-sparkling-fill"></i> Generate AI Try-On
+            </button>
+        </div>
+
+        <div class="ai-viewport">
+            <div class="viewport-placeholder" id="placeholder">
+                <i class="ri-image-add-line"></i>
+                <h3>Your AI generated look will appear here</h3>
+            </div>
+            
+            <!-- Hidden Canvas for original uploaded image (Optional, for demo) -->
+            <img id="uploaded-preview" src="" style="width:100%; height:100%; object-fit:cover; display:none; filter: blur(2px) grayscale(50%);">
+
+            <!-- Scanning Animation -->
+            <div class="scanning-container" id="scanner">
+                <div class="scanner-line"></div>
+                <i class="ri-focus-3-line" style="font-size: 60px; color: var(--accent); animation: pulse 1s infinite alternate;"></i>
+                <div class="ai-text" id="ai-status">ANALYZING BODY SHAPE...</div>
+            </div>
+
+            <!-- Result -->
+            <img src="images/about/a1.png" class="result-image" id="result">
+            
+            <div class="share-controls" id="share-controls">
+                <button class="share-btn" onclick="shareInsta()"><i class="ri-instagram-line"></i> Share Look</button>
+                <button class="share-btn" onclick="resetTryOn()"><i class="ri-refresh-line"></i> Retry</button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="section-p1">
+        <div class="col">
+            <img class="logo" src="images/logo.png" alt="">
+            <h4>Contact</h4>
+            <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
+        </div>
+        <div class="copyright">
+            <p>&copy; Cara <span id="Current-Year"></span> All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="try-on.js"></script>
+    <script src="navbar.js"></script>
+<script>loadNavbar('tryon');</script>
+<script src="app.js"></script>
+        <script id="Current-Year">
+        document.getElementById("Current-Year").textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
