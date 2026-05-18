@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-/* ===== LOGIN / AUTH PAGE — matches Cara design system ===== */
 
 #login-section {
   min-height: calc(100vh - 200px);
@@ -254,9 +252,5 @@ body.dark .remember {
   .auth-card h2 {
     font-size: 26px;
   }
-=========
-/* =====================================================
-RESET
->>>>>>>>> Temporary merge branch 2
 }
-```
+
