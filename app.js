@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // 1. Remove inline onclick from all product cards
     document.querySelectorAll('.pro').forEach(card => {
         card.removeAttribute("onclick");
+        card.onclick = null; // Ensure property is also cleared
 
         // 2. Add delegated click event for the whole card
         card.addEventListener('click', function(e) {
@@ -34,9 +35,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const imageElement = this.querySelector("img");
 
             const selectedProduct = {
-                name: nameElement ? nameElement.innerText : "Product",
-                price: priceElement ? priceElement.innerText : "$0.00",
-                brand: brandElement ? brandElement.innerText : "Brand",
+                name: nameElement ? nameElement.textContent.trim() : "Product",
+                price: priceElement ? priceElement.textContent.trim() : "$0.00",
+                brand: brandElement ? brandElement.textContent.trim() : "Brand",
                 image: imageElement ? imageElement.src : ""
             };
 
@@ -60,10 +61,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const breadcrumbEl = document.querySelector(".single-pro-details h6");
             const smallImgs = document.querySelectorAll(".small-img");
 
-            if (nameEl) nameEl.innerText = product.name;
-            if (priceEl) priceEl.innerText = product.price;
+            if (nameEl) nameEl.textContent = product.name;
+            if (priceEl) priceEl.textContent = product.price;
             if (mainImgEl) mainImgEl.src = product.image;
-            if (breadcrumbEl && product.brand) breadcrumbEl.innerText = `Home / ${product.brand} / T-Shirt`;
+            if (breadcrumbEl && product.brand) breadcrumbEl.textContent = `Home / ${product.brand} / T-Shirt`;
 
             // Update first thumbnail to match the product image
             if (smallImgs.length > 0 && product.image) {
