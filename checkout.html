@@ -135,6 +135,44 @@
 
       </div>
 
+      <!-- COUPON / PROMO CODE -->
+      <div class="coupon-section">
+        <button type="button" class="coupon-toggle" id="couponToggle" aria-expanded="false">
+          <i class="ri-coupon-3-line"></i>
+          Have a promo code?
+          <i class="ri-arrow-down-s-line toggle-arrow" id="toggleArrow"></i>
+        </button>
+
+        <div class="coupon-body" id="couponBody">
+          <div class="coupon-input-row">
+            <input
+              type="text"
+              id="couponInput"
+              placeholder="Enter promo code (e.g. CARA10)"
+              autocomplete="off"
+              spellcheck="false"
+            />
+            <button type="button" class="apply-btn" id="applyBtn">Apply</button>
+          </div>
+          <div class="coupon-feedback" id="couponFeedback"></div>
+
+          <div class="order-summary" id="orderSummary">
+            <div class="summary-row">
+              <span>Subtotal</span>
+              <span id="summarySubtotal">—</span>
+            </div>
+            <div class="summary-row discount-row" id="discountRow" style="display:none;">
+              <span id="discountLabel">Discount</span>
+              <span id="summaryDiscount" class="discount-value">—</span>
+            </div>
+            <div class="summary-row total-row">
+              <span>Total</span>
+              <span id="summaryTotal">—</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <button type="submit" class="submit-btn">
         Place Your Order
       </button>

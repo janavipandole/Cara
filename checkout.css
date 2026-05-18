@@ -302,3 +302,163 @@ form{
     border-radius: 50%;
     animation: btn-spinner 0.6s linear infinite;
 }
+
+/* ── COUPON / PROMO CODE SECTION ─────────────────────────────────────────── */
+
+.coupon-section {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 1.5px dashed #c7d2fe;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #f5f7ff;
+}
+
+.coupon-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  color: #4f46e5;
+  font-family: 'Poppins', sans-serif;
+  text-align: left;
+}
+
+.coupon-toggle:hover {
+  background: #eef2ff;
+}
+
+.coupon-toggle .toggle-arrow {
+  margin-left: auto;
+  font-size: 20px;
+  transition: transform 0.3s ease;
+}
+
+.coupon-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+  padding: 0 20px;
+}
+
+.coupon-body.open {
+  max-height: 400px;
+  padding: 0 20px 20px;
+}
+
+.coupon-input-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.coupon-input-row input {
+  flex: 1;
+  padding: 13px 16px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 12px;
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  outline: none;
+  background: #fff;
+  letter-spacing: 1px;
+  transition: border-color 0.3s;
+}
+
+.coupon-input-row input:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 8px rgba(79, 70, 229, 0.15);
+}
+
+.coupon-input-row input:disabled {
+  background: #f3f4f6;
+  color: #6b7280;
+  cursor: not-allowed;
+}
+
+.apply-btn {
+  padding: 13px 22px;
+  border: none;
+  background: #4f46e5;
+  color: #fff;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  transition: background 0.3s, transform 0.2s;
+  white-space: nowrap;
+}
+
+.apply-btn:hover {
+  background: #4338ca;
+  transform: translateY(-1px);
+}
+
+.apply-btn.remove-mode {
+  background: #ef4444;
+}
+
+.apply-btn.remove-mode:hover {
+  background: #dc2626;
+}
+
+.coupon-feedback {
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: 8px;
+  min-height: 20px;
+  transition: all 0.2s;
+}
+
+.coupon-feedback.success {
+  color: #16a34a;
+}
+
+.coupon-feedback.error {
+  color: #dc2626;
+}
+
+/* Order Summary inside coupon section */
+.order-summary {
+  margin-top: 16px;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: #374151;
+}
+
+.summary-row.discount-row {
+  color: #16a34a;
+  font-weight: 500;
+}
+
+.summary-row.total-row {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+  border-top: 1px dashed #d1d5db;
+  padding-top: 10px;
+  margin-top: 4px;
+}
+
+.discount-value {
+  color: #16a34a;
+}
+
+/* ── END COUPON STYLES ──────────────────────────────────────────────────────*/

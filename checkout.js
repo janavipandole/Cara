@@ -133,6 +133,133 @@ paymentMethod.addEventListener("change", function () {
 
 });
 
+// ── COUPON / PROMO CODE ──────────────────────────────────────────────────────
+
+const PROMO_CODES = {
+  CARA10:  { type: 'percent', value: 10,  label: '10% off' },
+  SAVE20:  { type: 'percent', value: 20,  label: '20% off' },
+  FLAT50:  { type: 'flat',    value: 50,  label: '₹50 off' },
+  WELCOME: { type: 'percent', value: 15,  label: '15% off' },
+};
+
+let appliedCoupon = null;
+
+const couponToggle   = document.getElementById('couponToggle');
+const couponBody     = document.getElementById('couponBody');
+const toggleArrow    = document.getElementById('toggleArrow');
+const couponInput    = document.getElementById('couponInput');
+const applyBtn       = document.getElementById('applyBtn');
+const couponFeedback = document.getElementById('couponFeedback');
+const orderSummary   = document.getElementById('orderSummary');
+const summarySubtotal = document.getElementById('summarySubtotal');
+const summaryDiscount = document.getElementById('summaryDiscount');
+const summaryTotal   = document.getElementById('summaryTotal');
+const discountRow    = document.getElementById('discountRow');
+const discountLabel  = document.getElementById('discountLabel');
+
+// Toggle open/close
+couponToggle.addEventListener('click', function () {
+  const isOpen = couponBody.classList.toggle('open');
+  couponToggle.setAttribute('aria-expanded', isOpen);
+  toggleArrow.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+  if (isOpen) updateOrderSummary();
+});
+
+// Convert input to uppercase automatically
+couponInput.addEventListener('input', function () {
+  this.value = this.value.toUpperCase().replace(/\s/g, '');
+  clearCouponFeedback();
+});
+
+// Apply button
+applyBtn.addEventListener('click', applyCoupon);
+couponInput.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter') { e.preventDefault(); applyCoupon(); }
+});
+
+function getCartSubtotal() {
+  const cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+  return cart.reduce(function (sum, item) {
+    return sum + (parseFloat(item.price) || 0) * (parseInt(item.quantity) || 1);
+  }, 0);
+}
+
+function formatCurrency(amount) {
+  return '$' + amount.toFixed(2);
+}
+
+function updateOrderSummary() {
+  const subtotal = getCartSubtotal();
+  summarySubtotal.textContent = formatCurrency(subtotal);
+
+  if (appliedCoupon) {
+    let discount = 0;
+    if (appliedCoupon.type === 'percent') {
+      discount = subtotal * (appliedCoupon.value / 100);
+    } else {
+      discount = Math.min(appliedCoupon.value, subtotal);
+    }
+    const total = Math.max(0, subtotal - discount);
+
+    discountLabel.textContent = 'Discount (' + appliedCoupon.label + ')';
+    summaryDiscount.textContent = '− ' + formatCurrency(discount);
+    summaryTotal.textContent = formatCurrency(total);
+    discountRow.style.display = 'flex';
+  } else {
+    summaryTotal.textContent = formatCurrency(subtotal);
+    discountRow.style.display = 'none';
+  }
+}
+
+function setFeedback(message, type) {
+  couponFeedback.textContent = message;
+  couponFeedback.className = 'coupon-feedback ' + type;
+}
+
+function clearCouponFeedback() {
+  couponFeedback.textContent = '';
+  couponFeedback.className = 'coupon-feedback';
+}
+
+function applyCoupon() {
+  const code = couponInput.value.trim().toUpperCase();
+
+  if (!code) {
+    setFeedback('Please enter a promo code.', 'error');
+    return;
+  }
+
+  if (PROMO_CODES[code]) {
+    appliedCoupon = PROMO_CODES[code];
+    appliedCoupon.code = code;
+    setFeedback('✅ "' + code + '" applied — ' + appliedCoupon.label + '!', 'success');
+    applyBtn.textContent = 'Remove';
+    applyBtn.classList.add('remove-mode');
+    couponInput.disabled = true;
+    applyBtn.removeEventListener('click', applyCoupon);
+    applyBtn.addEventListener('click', removeCoupon);
+  } else {
+    appliedCoupon = null;
+    setFeedback('❌ Invalid promo code. Try CARA10 or SAVE20.', 'error');
+  }
+
+  updateOrderSummary();
+}
+
+function removeCoupon() {
+  appliedCoupon = null;
+  couponInput.value = '';
+  couponInput.disabled = false;
+  applyBtn.textContent = 'Apply';
+  applyBtn.classList.remove('remove-mode');
+  clearCouponFeedback();
+  applyBtn.removeEventListener('click', removeCoupon);
+  applyBtn.addEventListener('click', applyCoupon);
+  updateOrderSummary();
+}
+
+// ── END COUPON ───────────────────────────────────────────────────────────────
+
 // FORM SUBMIT
 const form = document.getElementById("checkoutForm");
 const popup = document.getElementById("successPopup");

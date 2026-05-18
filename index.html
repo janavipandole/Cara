@@ -129,7 +129,8 @@
             <h4>Trade-in-offer</h4>
             <h2>Super value deals</h2>
             <h1>On all products</h1>
-            <p>Save more with coupons & up to 70% off!</p>
+            <p>Save more with coupons &amp; up to 70% off!</p>
+            <p class="hero-promo">🏷️ Use code <strong>CARA10</strong> for 10% off your first order!</p>
             <button><a href="shop.html">Shop Now</a></button>
             <button onclick="openQuiz()">Take Style Quiz</button>
           </section>
@@ -555,10 +556,13 @@
         <h4>Sign Up For Newsletters</h4>
         <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
       </div>
-      <form class="form newsletter-form">
+      <form class="form newsletter-form" id="newsletterForm">
         <input type="email" placeholder="Your email address" required />
         <button type="submit" class="normal">Sign Up</button>
       </form>
+      <div id="newsletter-reward" style="display:none; margin-top:14px; background:#fff3cd; border:1px dashed #f0ad4e; border-radius:10px; padding:12px 20px; text-align:center;">
+        <p style="margin:0; font-size:15px; color:#856404;">🎉 Thanks for subscribing! Use code <strong style="letter-spacing:2px; background:#fff; padding:2px 10px; border-radius:6px; border:1px solid #f0ad4e;">WELCOME</strong> for <strong>15% off</strong> your order!</p>
+      </div>
     </section>
 
     <footer class="section-p1">
@@ -684,6 +688,36 @@
       top: 0,
       behavior: "smooth"
     });
+  });
+</script>
+<style>
+  .hero-promo {
+    display: inline-block;
+    margin-top: 6px;
+    background: rgba(255,255,255,0.18);
+    border: 1.5px dashed rgba(255,255,255,0.7);
+    border-radius: 30px;
+    padding: 6px 18px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    letter-spacing: 0.3px;
+  }
+  .hero-promo strong {
+    background: #fff;
+    color: #088178;
+    padding: 1px 8px;
+    border-radius: 6px;
+    font-size: 13px;
+    letter-spacing: 2px;
+    margin: 0 2px;
+  }
+</style>
+<script>
+  document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    document.getElementById('newsletter-reward').style.display = 'block';
+    this.reset();
   });
 </script>
   </body>
