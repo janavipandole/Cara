@@ -59,6 +59,15 @@ Cara is a fully responsive e-commerce website that provides users with a seamles
 - Quantity adjustment in cart
 - Dynamic cart total calculation
 
+### 🔗 Collaborative Wardrobe Share
+Share your curated cart with friends — no backend required!
+- **One-Click Share** — Click "Share Wardrobe" on the cart page to generate a shareable URL
+- **P2P URL Encoding** — Cart data is serialized into a Base64-encoded URL hash (`#share=...`), enabling zero-server sharing
+- **Interactive Preview Modal** — Recipients see a glassmorphic modal displaying shared product images, names, sizes, quantities, and total value
+- **Merge or Overwrite** — Recipients can merge shared items into their existing cart or overwrite it entirely
+- **Cross-Browser Compatible** — Works seamlessly across Chrome, Brave, Firefox, Edge, and Safari
+- **Light & Dark Mode Support** — Modal and toast notifications adapt to the active theme
+
 ### 📄 Multiple Pages
 - **Home** - Featured products and promotions
 - **Shop** - Complete product catalog
@@ -74,6 +83,7 @@ Cara is a fully responsive e-commerce website that provides users with a seamles
 - Hover effects and transitions
 - Mobile-first responsive design
 - Cross-browser compatibility
+- Dark mode theme toggle
 
 ### 🔧 Technical Features
 - Semantic HTML5 markup
@@ -188,6 +198,8 @@ Cart -
 - [x] Product detail pages
 - [x] About and contact pages
 - [x] Blog section
+- [x] **Dark Mode** - Theme toggle functionality
+- [x] **Collaborative Wardrobe Share** - P2P cart sharing via URL hash encoding
 
 ### Upcoming Features
 - [ ] **Product Search** - Search functionality with filters
@@ -196,7 +208,6 @@ Cart -
 - [ ] **Wishlist** - Save favorite products
 - [ ] **Product Reviews** - Customer ratings and reviews
 - [ ] **Order Tracking** - Track order status
-- [ ] **Dark Mode** - Theme toggle functionality
 - [ ] **Multi-language Support** - Internationalization
 - [ ] **Backend Integration** - Connect to API/database
 - [ ] **Payment Gateway** - Integrate payment processing

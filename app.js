@@ -448,36 +448,38 @@ window.addEventListener('load', () => {
 const backToTopBtn = document.getElementById("backToTop");
 const ToptobackBtn = document.getElementById("Toptoback");
 
-window.addEventListener("scroll", () => {
+if (backToTopBtn && ToptobackBtn) {
+    window.addEventListener("scroll", () => {
 
-    // SHOW DOWN BUTTON WHEN USER IS NEAR TOP
-    if (window.scrollY <= 300) {
-        ToptobackBtn.classList.add("show");
-        backToTopBtn.classList.remove("show");
-    }
+        // SHOW DOWN BUTTON WHEN USER IS NEAR TOP
+        if (window.scrollY <= 300) {
+            ToptobackBtn.classList.add("show");
+            backToTopBtn.classList.remove("show");
+        }
 
-    // SHOW TOP BUTTON AFTER 300PX
-    else {
-        backToTopBtn.classList.add("show");
-        ToptobackBtn.classList.remove("show");
-    }
-});
-
-// BACK TO TOP
-backToTopBtn.addEventListener("click", () => {
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
+        // SHOW TOP BUTTON AFTER 300PX
+        else {
+            backToTopBtn.classList.add("show");
+            ToptobackBtn.classList.remove("show");
+        }
     });
-});
 
-// SCROLL TO BOTTOM
-ToptobackBtn.addEventListener("click", () => {
-    window.scrollTo({
-        top: document.body.scrollHeight,
-        behavior: "smooth"
+    // BACK TO TOP
+    backToTopBtn.addEventListener("click", () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
     });
-});
+
+    // SCROLL TO BOTTOM
+    ToptobackBtn.addEventListener("click", () => {
+        window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: "smooth"
+        });
+    });
+}
 
 // Style Quiz Functionality
 window.openQuiz = function () {
@@ -609,3 +611,244 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollObserver.observe(featureSection);
     }
 });
+
+/* ========================================================
+   COLLABORATIVE WARDROBE SHARING ENGINE
+   ======================================================== */
+
+// Global state to store decoded incoming items
+window.pendingSharedCart = null;
+
+/**
+ * Encodes the cart, copies the share link to clipboard, and triggers a toast.
+ * Encoding pattern (from plan): btoa(unescape(encodeURIComponent(json)))
+ */
+window.shareWardrobe = function () {
+    var cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+    var btn = document.getElementById('share-cart-btn');
+
+    if (cart.length === 0) {
+        showToast("Your cart is empty! Add some items before sharing.", true);
+        return;
+    }
+
+    try {
+        // 1. Minimize fields to keep URLs short
+        var minimizedCart = cart.map(function (item) {
+            return {
+                n: item.name,
+                p: item.price,
+                i: item.image,
+                q: item.quantity,
+                s: item.size
+            };
+        });
+
+        // 2. Encode using the exact plan pattern: btoa(unescape(encodeURIComponent()))
+        var jsonStr = JSON.stringify(minimizedCart);
+        var base64Payload = btoa(unescape(encodeURIComponent(jsonStr)));
+
+        // 3. Build sharing URL
+        var shareUrl = window.location.origin + window.location.pathname + '#share=' + base64Payload;
+
+        // 4. Show toast + change button text as visual fallback
+        showToast("Wardrobe share link copied to clipboard!");
+        if (btn) {
+            var originalText = btn.innerHTML;
+            btn.innerHTML = '✅ Link Copied!';
+            btn.style.color = '#10b981';
+            setTimeout(function () {
+                btn.innerHTML = originalText;
+                btn.style.color = '';
+            }, 3000);
+        }
+
+        // 5. Copy to clipboard (best-effort, feedback already shown)
+        try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(shareUrl).catch(function () {
+                    fallbackCopyText(shareUrl);
+                });
+            } else {
+                fallbackCopyText(shareUrl);
+            }
+        } catch (clipErr) {
+            fallbackCopyText(shareUrl);
+        }
+
+    } catch (e) {
+        console.error("Failed to generate share link: ", e);
+        showToast("Oops, something went wrong generating the link.", true);
+    }
+};
+
+/**
+ * Fallback clipboard copy using a hidden textarea.
+ */
+function fallbackCopyText(text) {
+    try {
+        var textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed";
+        textArea.style.opacity = "0";
+        textArea.style.left = "-9999px";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+    } catch (err) {
+        console.error('Fallback copy failed', err);
+    }
+}
+
+/**
+ * Closes the preview modal and cleans the URL hash.
+ */
+window.closeShareModal = function () {
+    var modal = document.getElementById('share-modal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
+    // Remove hash from URL without reloading
+    if (window.history && window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.pathname);
+    } else {
+        window.location.hash = '';
+    }
+    window.pendingSharedCart = null;
+};
+
+/**
+ * On page load: checks URL hash for #share= payload and opens the preview modal.
+ * Decoding pattern (from plan): JSON.parse(decodeURIComponent(escape(atob(base64))))
+ */
+window.checkSharedWardrobe = function () {
+    var hash = window.location.hash;
+    if (!hash || hash.indexOf('#share=') !== 0) return;
+
+    try {
+        var base64Payload = hash.substring(7);
+        // Decode using the exact plan pattern: decodeURIComponent(escape(atob()))
+        var jsonStr = decodeURIComponent(escape(atob(base64Payload)));
+        var decodedCart = JSON.parse(jsonStr);
+
+        if (!Array.isArray(decodedCart) || decodedCart.length === 0) {
+            showToast("Invalid share link or empty shared collection.", true);
+            return;
+        }
+
+        // Map minimized keys back to standard schema
+        window.pendingSharedCart = decodedCart.map(function (item) {
+            return {
+                name: item.n || "Fashion Product",
+                price: parseFloat(item.p) || 0,
+                image: item.i || "images/products/f1.jpg",
+                quantity: parseInt(item.q) || 1,
+                size: item.s || "M"
+            };
+        });
+
+        // Render preview modal contents
+        var listContainer = document.getElementById('shared-items-list');
+        var totalPriceEl = document.getElementById('shared-total-price');
+        var modal = document.getElementById('share-modal');
+
+        if (!listContainer || !totalPriceEl || !modal) return;
+
+        listContainer.innerHTML = '';
+        var total = 0;
+
+        window.pendingSharedCart.forEach(function (item) {
+            var itemSubtotal = item.price * item.quantity;
+            total += itemSubtotal;
+
+            var row = document.createElement('div');
+            row.className = 'shared-item-row';
+
+            var img = document.createElement('img');
+            img.src = item.image;
+            img.className = 'shared-item-img';
+            img.alt = item.name;
+
+            var details = document.createElement('div');
+            details.className = 'shared-item-details';
+
+            var nameEl = document.createElement('h4');
+            nameEl.className = 'shared-item-name';
+            nameEl.textContent = item.name;
+
+            var meta = document.createElement('span');
+            meta.className = 'shared-item-meta';
+            meta.textContent = 'Size: ' + item.size + '  |  Qty: ' + item.quantity;
+
+            details.appendChild(nameEl);
+            details.appendChild(meta);
+
+            var priceEl = document.createElement('div');
+            priceEl.className = 'shared-item-price';
+            priceEl.textContent = '$' + itemSubtotal.toFixed(2);
+
+            row.appendChild(img);
+            row.appendChild(details);
+            row.appendChild(priceEl);
+            listContainer.appendChild(row);
+        });
+
+        totalPriceEl.textContent = '$' + total.toFixed(2);
+
+        // Show the modal
+        modal.style.display = 'flex';
+
+    } catch (err) {
+        console.error("Failed to parse shared wardrobe link:", err);
+        showToast("Could not read shared wardrobe link. It may be broken.", true);
+    }
+};
+
+/**
+ * Integrates the shared items into localStorage (merge or overwrite).
+ */
+window.applySharedCart = function (action) {
+    if (!window.pendingSharedCart || window.pendingSharedCart.length === 0) {
+        closeShareModal();
+        return;
+    }
+
+    var localCart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+
+    if (action === 'overwrite') {
+        localCart = window.pendingSharedCart.slice();
+        showToast("Cart replaced with shared wardrobe!");
+    } else if (action === 'merge') {
+        window.pendingSharedCart.forEach(function (sharedItem) {
+            var existing = localCart.find(function (item) {
+                return item.name === sharedItem.name && item.size === sharedItem.size;
+            });
+            if (existing) {
+                existing.quantity += sharedItem.quantity;
+            } else {
+                localCart.push(sharedItem);
+            }
+        });
+        showToast("Shared wardrobe merged into your cart!");
+    }
+
+    // Persist and close
+    localStorage.setItem('productsInCart', JSON.stringify(localCart));
+    closeShareModal();
+
+    // Rehydrate the page UI
+    if (typeof loadCart === 'function') {
+        loadCart();
+    }
+    if (typeof updateCartCount === 'function') {
+        updateCartCount();
+    }
+};
+
+// Check for incoming share link on page load
+document.addEventListener('DOMContentLoaded', function () {
+    setTimeout(window.checkSharedWardrobe, 150);
+});
+
