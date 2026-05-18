@@ -1055,7 +1055,7 @@ button.white .ripple-effect {
 
 /* ============================================
    NEWSLETTER
-   ============================================ */
+   ============================================ 
 
 #newsletter {
     display: flex;
@@ -1112,10 +1112,65 @@ button.white .ripple-effect {
     color: #fff;
     white-space: nowrap;
 }
+*/
 
 /* ============================================
    FOOTER
    ============================================ */
+footer .newsletter-footer {
+    flex: 1 1 320px;
+    max-width: 360px;
+}
+
+footer .newsletter-footer p {
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 10px 0 18px;
+    color: #465b52;
+}
+
+footer .newsletter-footer p span {
+    color: #088178;
+    font-weight: 600;
+}
+
+footer .newsletter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+footer .newsletter-form input {
+    width: 100%;
+    height: 44px;
+    padding: 0 15px;
+    border: 1px solid #d1d1d1;
+    border-radius: 6px;
+    outline: none;
+    font-size: 14px;
+}
+
+footer .newsletter-form button {
+    width: 100%;
+    height: 44px;
+    border-radius: 6px;
+}
+
+@media (min-width: 992px) {
+    footer .newsletter-form {
+        flex-direction: row;
+    }
+
+    footer .newsletter-form input {
+        flex: 1;
+    }
+
+    footer .newsletter-form button {
+        width: auto;
+        min-width: 110px;
+        white-space: nowrap;
+    }
+}
 
 footer {
     display: flex;
@@ -2989,6 +3044,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     display: flex;
     align-items: center;
     gap: 12px;
+}   
+
 [data-theme="dark"] #blog .blog-details a::after {
     background-color: var(--text-primary);
 }
