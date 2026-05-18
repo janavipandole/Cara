@@ -73,35 +73,33 @@
   </head>
 
   <body>
-    <section id="header">
-      <a href="index.html"><img src="images/logo.png" alt="" /></a>
+          <!-- HEADER -->
+          <section id="header">
+            <a href="index.html">
+              <img src="images/logo.png" alt="" id="siteLogo">
+            </a>
 
-      <div>
-        <ul id="navbar">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="shop.html">Shop</a></li>
-          <li><a href="blog.html">Blog</a></li>
-          <li><a class="active" href="about.html">About</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="login.html">Login</a></li>
-          <li>
-            <a href="cart.html" id="lg-bag" class="cart-icon-wrapper"
-              ><i class="ri-shopping-bag-4-line"></i
-              ><span class="cart-count" id="desktopCartCount">0</span></a
-            >
-          </li>
-          <li>
-            <button
-              class="theme-toggle"
-              id="themeToggle"
-              aria-label="Toggle dark mode"
-            >
-              <i class="ri-moon-line" id="themeIcon"></i>
-            </button>
-          </li>
-          <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
-        </ul>
-      </div>
+            <!-- Navbar loads here -->
+            <div id="navbar-container"></div>
+
+            <div class="mobile">
+              <button class="theme-toggle" id="themeToggleMobile"
+                aria-label="Toggle dark mode">
+                <i class="ri-moon-line" id="themeIconMobile"></i>
+              </button>
+              <a href="cart.html" id="mobile-cart-icon">
+                <i class="ri-shopping-bag-4-line"></i>
+                <span class="cart-count" id="mobileCartCount">0</span>
+              </a>
+              <i class="fas fa-outdent" id="bar"></i>
+            </div>
+          </section>
+
+          <!-- ABOUT HEAD -->
+          <section id="about-head">
+            <h2>#KnowUs</h2>
+            <p>Read all case studies about Us!</p>
+          </section>
       <div class="mobile">
         <button
           class="theme-toggle"
@@ -428,5 +426,8 @@
         }
       });
     </script>
+    <script src="navbar.js"></script>
+    <script>loadNavbar('about');</script>
+    <script src="app.js"></script>  
   </body>
 </html>
