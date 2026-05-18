@@ -51,6 +51,26 @@
     transform: translateY(-2px);
 }
 
+/* Scrollbar Customization */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--accent);
+    border-radius: 10px; 
+    border: 2px solid var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #06655e;
+}
+
 /* Dark theme adjustment */
 [data-theme="dark"] #banner3 .banner-box button,
 [data-theme="dark"] #sm-banner .banner-box button {
