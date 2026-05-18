@@ -1944,6 +1944,8 @@ footer .copyright {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(8, 129, 120, 0.4);
     background: var(--accent-hover, #066b63);
+}
+
 .normals {
     margin: 10px;
     text-decoration: none;
