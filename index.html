@@ -77,6 +77,33 @@
       .theme-toggle {
         pointer-events: all !important;
       }
+      #scrollTopBtn {
+    position: fixed;
+    bottom: 20px;
+    right:30px;
+    z-index: 999;
+
+    width: 50px;
+    height: 50px;
+
+    border: none;
+    border-radius: 50%;
+
+    background-color: #088178;
+    color: white;
+
+    font-size: 22px;
+    cursor: pointer;
+
+    display: none;
+
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+  }
+  #scrollTopBtn:hover {
+    background-color: #065f5b;
+    transform: scale(1.1);
+  }
     </style>
   </head>
 
@@ -618,6 +645,7 @@
           <a href="license.html" style="color: #088178"> MIT License </a>
         </p>
       </div>
+
     </footer>
     </footer>
 
@@ -637,5 +665,26 @@
         <script src="app.js"></script>
     <script src="navbar.js"></script>
     <script>loadNavbar('home');</script>
+    <button id="scrollTopBtn" title="Go to top" width="120px" height="120px">
+  ↑
+</button>
+<script>
+  const scrollBtn = document.getElementById("scrollTopBtn");
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) {
+      scrollBtn.style.display = "block";
+    } else {
+      scrollBtn.style.display = "none";
+    }
+  });
+
+  scrollBtn.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
+</script>
   </body>
 </html>
