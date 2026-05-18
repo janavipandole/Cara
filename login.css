@@ -7,6 +7,7 @@
   align-items: center;
   padding: 60px 20px;
   background: var(--bg, #f9f9f9);
+  padding-top: 100px;
 }
 
 .auth-card {
