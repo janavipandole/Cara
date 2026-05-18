@@ -132,17 +132,48 @@ function addToCart(productName, productPrice, productImage, quantity, size) {
     updateCartCount(); // Update badge
 }
 
-function showToast(msg, isError = false) {
-    const toast = document.getElementById('toast');
-    if (!toast) return;
-    const icon = document.getElementById('toast-icon');
-    icon.textContent = isError ? '⚠️' : '✅';
-    document.getElementById('toast-msg').textContent = msg;
-    toast.style.background = isError ? '#dc2626' : '#1e293b';
-    toast.classList.remove('show');
-    void toast.offsetWidth;
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 3000);
+function showToast(message, type) {
+    type = type || 'success';
+    // Ensure container exists (create if needed)
+    var container = document.getElementById('toast-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'toast-container';
+        document.body.appendChild(container);
+    }
+
+    // Icon map
+    var icons = {
+        success: 'fa-circle-check',
+        error: 'fa-circle-xmark',
+        warning: 'fa-triangle-exclamation',
+        info: 'fa-circle-info'
+    };
+
+    // Build toast element
+    var toast = document.createElement('div');
+    toast.className = 'toast toast-' + type;
+    toast.innerHTML =
+        '<i class="fa-solid ' + (icons[type] || icons.success) + ' toast-icon"></i>' +
+        '<span class="toast-msg">' + message + '</span>' +
+        '<button class="toast-close" aria-label="Close notification">&times;</button>' +
+        '<div class="toast-progress"></div>';
+
+    // Close button handler
+    toast.querySelector('.toast-close').addEventListener('click', function() {
+        dismissToast(toast);
+    });
+
+    container.appendChild(toast);
+
+    // Auto dismiss after 4 seconds
+    setTimeout(function() { dismissToast(toast); }, 4000);
+}
+
+function dismissToast(toast) {
+    if (!toast || toast.classList.contains('toast-hiding')) return;
+    toast.classList.add('toast-hiding');
+    toast.addEventListener('animationend', function() { toast.remove(); });
 }
 
 window.updateQty = function (change) {
@@ -175,11 +206,11 @@ window.handleAddToCart = function () {
     const image = imageElement.src;
 
     if (size === 'Select Size' || size === "") {
-        showToast('Please select a size before adding to cart!', true);
+        showToast('Please select a size before adding to cart!', 'warning');
         return;
     }
     if (quantity < 1 || isNaN(quantity)) {
-        showToast('Please enter a valid quantity.', true);
+        showToast('Please enter a valid quantity.', 'warning');
         return;
     }
 
@@ -265,10 +296,12 @@ window.loadCart = function () {
 
 window.removeItem = function (index) {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+    const removedName = cart[index] ? cart[index].name : 'Item';
     cart.splice(index, 1);
     localStorage.setItem('productsInCart', JSON.stringify(cart));
     loadCart(); // This will re-trigger the check through handleEmptyCartView
     updateCartCount(); // Update badge
+    showToast(removedName + ' removed from cart', 'error');
 }
 
 window.updateQuantity = function (index, newQuantity) {
@@ -284,6 +317,7 @@ window.updateQuantity = function (index, newQuantity) {
     localStorage.setItem('productsInCart', JSON.stringify(cart));
     loadCart();
     updateCartCount(); // Update badge
+    showToast('Quantity updated', 'info');
 }
 
 window.addEventListener('load', () => {
@@ -514,8 +548,10 @@ window.selectStyle = function (style) {
 window.buyNow = function (productName, productPrice, productImage, quantity, size) {
     // Add to cart first
     addToCart(productName, productPrice, productImage, quantity, size);
-    // Redirect to checkout
-    window.location.href = 'checkout.html';
+    // Brief delay so user sees the toast before redirect
+    setTimeout(function() {
+        window.location.href = 'checkout.html';
+    }, 1500);
 }
 
 /* --- START: SEARCH AND FILTER FUNCTIONALITY --- */
@@ -524,49 +560,86 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchBtn = document.getElementById('searchBtn');
     const categoryFilter = document.getElementById('categoryFilter');
 
-    if (searchInput && searchBtn) {
-        // Search functionality
+    if (searchInput) {
+        // Debounce helper to prevent input lag
+        function debounce(func, delay) {
+            let timeoutId;
+            return function (...args) {
+                if (timeoutId) clearTimeout(timeoutId);
+                timeoutId = setTimeout(() => {
+                    func.apply(this, args);
+                }, delay);
+            };
+        }
+
+        // Unified search and category filtering
         const performSearch = () => {
             const searchTerm = searchInput.value.toLowerCase().trim();
+            const selectedCategory = categoryFilter ? categoryFilter.value : 'all';
             const products = document.querySelectorAll('.pro');
-
+            let visibleCount = 0;
+            
             products.forEach(product => {
                 const productName = product.querySelector('h5')?.textContent.toLowerCase() || '';
                 const productBrand = product.querySelector('.des span')?.textContent.toLowerCase() || '';
-                const matchesSearch = productName.includes(searchTerm) || productBrand.includes(searchTerm);
-
-                if (searchTerm === '' || matchesSearch) {
+                const productCategory = product.getAttribute('data-category') || '';
+                
+                const matchesSearch = searchTerm === '' || productName.includes(searchTerm) || productBrand.includes(searchTerm);
+                const matchesCategory = selectedCategory === 'all' || productCategory === selectedCategory;
+                
+                if (matchesSearch && matchesCategory) {
                     product.style.display = 'block';
+                    visibleCount++;
                 } else {
                     product.style.display = 'none';
                 }
             });
+
+            // Handle "No matching products found" UI
+            let noResultsMsg = document.getElementById('no-results-message');
+            if (visibleCount === 0) {
+                if (!noResultsMsg) {
+                    noResultsMsg = document.createElement('div');
+                    noResultsMsg.id = 'no-results-message';
+                    noResultsMsg.innerHTML = `
+                        <div class="no-results-content">
+                            <i class="ri-search-line"></i>
+                            <h3>No matching products found</h3>
+                            <p>We couldn't find any products matching "${searchInput.value}". Please try a different search term or change your category filter.</p>
+                        </div>
+                    `;
+                    const container = document.getElementById('shop-container');
+                    if (container) {
+                        container.appendChild(noResultsMsg);
+                    }
+                } else {
+                    noResultsMsg.querySelector('p').textContent = `We couldn't find any products matching "${searchInput.value}". Please try a different search term or change your category filter.`;
+                    noResultsMsg.style.display = 'block';
+                }
+            } else {
+                if (noResultsMsg) {
+                    noResultsMsg.style.display = 'none';
+                }
+            }
         };
 
-        searchBtn.addEventListener('click', performSearch);
+        // Event listeners for real-time search
+        searchInput.addEventListener('input', debounce(performSearch, 150));
+        
+        // Immediate check on Enter key or Search button click
+        if (searchBtn) {
+            searchBtn.addEventListener('click', performSearch);
+        }
         searchInput.addEventListener('keyup', (e) => {
             if (e.key === 'Enter') {
                 performSearch();
             }
         });
-    }
 
-    if (categoryFilter) {
-        // Category filter functionality
-        categoryFilter.addEventListener('change', function () {
-            const selectedCategory = this.value;
-            const products = document.querySelectorAll('.pro');
-
-            products.forEach(product => {
-                const productCategory = product.getAttribute('data-category');
-
-                if (selectedCategory === 'all' || productCategory === selectedCategory) {
-                    product.style.display = 'block';
-                } else {
-                    product.style.display = 'none';
-                }
-            });
-        });
+        // Trigger search when category changes to respect the category filter
+        if (categoryFilter) {
+            categoryFilter.addEventListener('change', performSearch);
+        }
     }
 });
 
