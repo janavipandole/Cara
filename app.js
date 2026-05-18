@@ -348,7 +348,7 @@ backToTopBtn.addEventListener("click", () => {
 
         //Top to Bottom Button Logic
 const ToptobackBtn = document.getElementById("Toptoback");
-if (ToptobackBtn) {
+if(ToptobackBtn) {
 window.addEventListener("scroll", () => {
     if (window.scrollY < 100) {
         ToptobackBtn.classList.add("show");
