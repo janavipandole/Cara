@@ -139,7 +139,7 @@
         <p class="license-meta">This project is licensed under the <span class="highlight">MIT License</span></p>
 
         <h2>Copyright Notice</h2>
-        <p>Copyright © 2025 <strong>Janavi Pandole</strong></p>
+        <p>Copyright © <span class="Current-Year"></span> <strong>Janavi Pandole</strong></p>
 
         <div class="license-box">
             <p class="license-text">Permission is hereby granted, free of charge, to any person obtaining a copy of this
@@ -221,11 +221,19 @@
             <img src="images/pay/pay.png" alt="">
         </div>
         <div class="copyright">
-            <p>© Cara 2025. All rights reserved. | <a href="license.html" style="color: #088178;">MIT License</a></p>
+            <p>© Cara <span class="Current-Year"></span>. All rights reserved. | <a href="license.html" style="color: #088178;">MIT License</a></p>
         </div>
     </footer>
 
     <script src="app.js"></script>
+    <script>
+       const year = new Date().getFullYear();
+
+for (let el of document.querySelectorAll(".Current-Year")) {
+  el.textContent = year;
+}
+  
+    </script>
 </body>
 
 </html>
