@@ -317,7 +317,7 @@
 
       <div class="copyright">
         <p>
-          &copy; Cara 2025. All rights reserved. |
+          &copy; Cara <span class="Current-Year"></span>. All rights reserved. |
           <a href="license.html" style="color: #088178"> MIT License </a>
         </p>
       </div>
@@ -326,7 +326,14 @@
 
 
     <script src="app.js"></script>
-    <script src="navbar.js"></script>
-    <script>loadNavbar('home');</script>
-  </body>
+    <!-- Corrected  -->
+    <script>
+        const year= new Date().getFullYear();
+        for (let el of document.querySelectorAll(".Current-Year")) {
+  el.textContent = year;
+}
+    </script>
+
+</body>
+
 </html>
