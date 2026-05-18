@@ -2863,7 +2863,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 /* Mobile Responsive for the cart */
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
+
     #cart table thead {
         display: none;
     }
@@ -2876,7 +2877,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     }
 
     #cart table tr {
-        background: #fff;
+        background: #ffffff;
         border: 1px solid #e2e8f0;
         border-radius: 12px;
         padding: 16px;
@@ -2885,21 +2886,21 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         box-sizing: border-box;
     }
 
-    #cart table td {
+    #cart table tbody tr td {
         display: flex;
         justify-content: space-between;
         align-items: center;
         text-align: right;
-        padding: 8px 0;
+        padding: 10px 0;
         border: none;
         width: 100%;
         box-sizing: border-box;
         font-size: 14px;
     }
 
-    #cart table td:nth-child(2) {
+    #cart table tbody tr td:nth-child(2) {
         justify-content: center;
-        padding-bottom: 12px;
+        padding-bottom: 14px;
         border-bottom: 1px dashed #e2e8f0;
         margin-bottom: 8px;
     }
@@ -2907,6 +2908,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     #cart table td img {
         width: 100px;
         height: auto;
+        display: block;;
     }
 
     #cart table td:nth-child(1)::before { content: "Remove Item:"; font-weight: 600; color: #1a202c; }
@@ -2919,13 +2921,28 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         text-align: center;
         margin: 0;
     }
-    
-    #cart-add {
-        flex-direction: column;
-        gap: 20px;
-    }
-    
-    #coupon, #subtotal {
+
+    #cart-actions,
+    #cart-actions .cart-buttons {
+        display: flex;
+        flex-direction: column; 
+        align-items: center;    
+        gap: 12px;              
         width: 100%;
+        box-sizing: border-box;
+    }
+
+    #cart-actions .cart-buttons a.normal {
+        display: block;
+        width: 100%;             
+        text-align: center;
+        padding: 14px 24px;      
+        box-sizing: border-box;
+        text-decoration: none;   
+        background-color: #2563eb; 
+        color: #ffffff;          
+        border-radius: 4px;        
+        font-weight: 600;
+        font-size: 14px;
     }
 }
