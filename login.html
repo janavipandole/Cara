@@ -6,6 +6,8 @@
     <title>Login - Cara</title>
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <link rel="stylesheet" href="toast.css">
     <link rel="stylesheet" href="login.css">
 </head>
 <body>
@@ -19,7 +21,7 @@
         <h2>Welcome Back!</h2>
         <p class="subtitle">Please enter your details to sign in</p>
 
-        <form id="loginForm" class="login-form">
+        <form id="loginForm" class="login-form" novalidate>
             <div class="input-group">
                 <label for="loginEmail">Email Address</label>
                 <input type="email" id="loginEmail" class="input-field" placeholder="example@domain.com" required>
@@ -49,6 +51,7 @@
         </div>
     </div>
 
+    <script src="app.js"></script>
     <script src="login.js"></script>
 </body>
 </html>

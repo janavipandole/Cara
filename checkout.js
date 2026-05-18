@@ -146,10 +146,8 @@ form.addEventListener("submit", function (e) {
 
   // CHECK EMPTY CART
   if (cart.length === 0) {
-
-    alert("Your cart is empty!");
+    showToast("Your cart is empty!", "error");
     return;
-
   }
 
   if (!validateOnlinePayment()) {
