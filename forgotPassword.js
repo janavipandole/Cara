@@ -26,17 +26,17 @@ document.getElementById('forgotForm').addEventListener('submit', function (e) {
 
   /* validations */
   if (!email || !email.includes('@')) {
-    showToast('⚠️ Please enter a valid email!', true);
+    showToast('Please enter a valid email!', 'warning');
     return;
   }
 
   if (!newPass || newPass.length < 6) {
-    showToast('⚠️ Password must be at least 6 characters!', true);
+    showToast('Password must be at least 6 characters!', 'warning');
     return;
   }
 
   if (newPass !== confirmPass) {
-    showToast('⚠️ Passwords do not match!', true);
+    showToast('Passwords do not match!', 'warning');
     return;
   }
 
@@ -45,7 +45,7 @@ document.getElementById('forgotForm').addEventListener('submit', function (e) {
   const userIndex = users.findIndex(u => u.email === email);
 
   if (userIndex === -1) {
-    showToast('⚠️ No account found with this email!', true);
+    showToast('No account found with this email!', 'error');
     return;
   }
 
@@ -53,22 +53,11 @@ document.getElementById('forgotForm').addEventListener('submit', function (e) {
   users[userIndex].password = newPass;
   localStorage.setItem('users', JSON.stringify(users));
 
-  showToast('✅ Password reset successful! Redirecting to login...');
+  showToast('Password reset successful! Redirecting to login...', 'success');
 
   /* redirect to login after success */
   setTimeout(() => {
     window.location.href = 'login.html';
   }, 2000);
 });
-
-/* toast */
-function showToast(msg, isError = false) {
-  const toast = document.getElementById('toast');
-  if (!toast) return;
-  toast.textContent = msg;
-  toast.style.background = isError ? '#dc2626' : '#088178';
-  toast.classList.remove('show');
-  void toast.offsetWidth;
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 3000);
-}
+
