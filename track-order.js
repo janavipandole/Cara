@@ -14,12 +14,12 @@ if (copyrightYearEl) {
 // In a real app this would be a backend API call.
 // We use a demo entry so reviewers can test the UI immediately.
 const MOCK_ORDERS = {
-  "CARA-20251234": {
-    id: "CARA-20251234",
-    date: "May 14, 2025",
+  "CARA-20261234": {
+    id: "CARA-20261234",
+    date: "May 14, 2026",
     carrier: "FedEx Express",
     trackingNo: "7489 2091 3847",
-    estDelivery: "May 20, 2025",
+    estDelivery: "May 20, 2026",
     status: "In Transit",          // "Processing" | "Packed" | "Shipped" | "In Transit" | "Delivered"
     currentStep: "transit",        // ordered | packed | shipped | transit | delivered
     location: "Chicago, IL",
@@ -41,11 +41,11 @@ const MOCK_ORDERS = {
     ],
     total: "$234.00",
     timeline: {
-      ordered: { done: true,  date: "May 14, 2025 — 10:32 AM", note: "Your order has been confirmed and is being processed." },
-      packed:  { done: true,  date: "May 15, 2025 — 2:14 PM",  note: "Your items have been packed and are ready for pickup." },
-      shipped: { done: true,  date: "May 16, 2025 — 9:05 AM",  note: "Your package has been handed off to FedEx Express." },
-      transit: { done: false, date: "May 18, 2025 — 6:45 AM",  note: "Your package is on its way — currently in Chicago, IL.", active: true },
-      delivered:{ done: false,date: "Expected: May 20, 2025",   note: "Your package will be delivered to your door." },
+      ordered: { done: true,  date: "May 14, 2026 — 10:32 AM", note: "Your order has been confirmed and is being processed." },
+      packed:  { done: true,  date: "May 15, 2026 — 2:14 PM",  note: "Your items have been packed and are ready for pickup." },
+      shipped: { done: true,  date: "May 16, 2026 — 9:05 AM",  note: "Your package has been handed off to FedEx Express." },
+      transit: { done: false, date: "May 18, 2026 — 6:45 AM",  note: "Your package is on its way — currently in Chicago, IL.", active: true },
+      delivered:{ done: false,date: "Expected: May 20, 2026",   note: "Your package will be delivered to your door." },
     },
   },
 };
