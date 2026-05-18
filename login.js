@@ -4,9 +4,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const passwordInput = document.getElementById('loginPassword');
     const togglePassword = document.getElementById('togglePassword');
 
-    /* =========================
-       PASSWORD TOGGLE
-    ========================== */
 
     if (passwordInput && togglePassword) {
 
@@ -25,9 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    /* =========================
-       LOGIN FORM
-    ========================== */
+  //    LOGIN FORM
 
     if (form) {
 
@@ -99,10 +94,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    /* =========================
-       GOOGLE LOGIN
-    ========================== */
-
     const googleBtn =
         document.getElementById("googleLogin");
 
@@ -116,11 +107,6 @@ document.addEventListener('DOMContentLoaded', function () {
             );
         });
     }
-
-    /* =========================
-       GITHUB LOGIN
-    ========================== */
-
     const githubBtn =
         document.getElementById("githubLogin");
 
@@ -134,10 +120,6 @@ document.addEventListener('DOMContentLoaded', function () {
             );
         });
     }
-
-    /* =========================
-       DARK MODE TOGGLE
-    ========================== */
 
     const themeToggle =
         document.querySelector(".theme-toggle");
@@ -210,9 +192,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-/* =========================
-   CLICK OUTSIDE MODAL
-========================= */
+
 
 window.addEventListener("click", function (e) {
 
@@ -225,9 +205,7 @@ window.addEventListener("click", function (e) {
     }
 });
 
-/* =========================
-   OPEN MODAL
-========================= */
+
 
 function openForgotPassword() {
 
@@ -240,9 +218,7 @@ function openForgotPassword() {
     }
 }
 
-/* =========================
-   CLOSE MODAL
-========================= */
+
 
 function closeForgotPassword() {
 
@@ -255,9 +231,7 @@ function closeForgotPassword() {
     }
 }
 
-/* =========================
-   RESET PASSWORD
-========================= */
+
 
 function submitForgotPassword() {
 
