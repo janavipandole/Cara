@@ -209,3 +209,34 @@ h2 {
 .signup-link a:hover {
     text-decoration: underline;
 }
+
+/* ── Loading State for Submit Button ── */
+@keyframes btn-spinner {
+  to { transform: rotate(360deg); }
+}
+
+.login-btn.btn-loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.75;
+    cursor: not-allowed;
+}
+
+.login-btn.btn-loading span {
+    visibility: hidden;
+}
+
+.login-btn.btn-loading::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: btn-spinner 0.6s linear infinite;
+}

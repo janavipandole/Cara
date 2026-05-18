@@ -36,6 +36,13 @@ function renderProducts(containerId, list) {
     card.className = 'pro';
     card.dataset.category = p.category;
     card.addEventListener('click', () => {
+      const selectedProduct = {
+          name: p.name,
+          price: "$" + p.price,
+          brand: p.brand,
+          image: p.img
+      };
+      localStorage.setItem("selectedProduct", JSON.stringify(selectedProduct));
       window.location.href = 'singleProduct.html';
     });
 
