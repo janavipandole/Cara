@@ -38,8 +38,12 @@
     <meta name="twitter:image" content="https://example.com/images/preview.jpg">
     <meta name="twitter:site" content="@janavipandole">
 
-    <!-- Theme Color for Mobile Browser -->
+    <!-- Theme Color for Mobile Browser and platform fallbacks -->
     <meta name="theme-color" content="#000000">
+    <!-- Windows tile color -->
+    <meta name="msapplication-TileColor" content="#000000">
+    <!-- iOS Safari status bar style: default, black, or black-translucent -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css">
@@ -52,7 +56,7 @@
 
 <body>
     <section id="header">
-        <a href="index.html"><img src="images/logo.png" alt=""></a>
+        <a href="index.html"><img src="images/logo.png" alt="Cara e-commerce brand logo with elegant script and floral accent"></a>
 
         <div>
             <ul id="navbar">
@@ -91,10 +95,13 @@
     <!-- Search and Filter Section -->
     <section id="search-filter" class="section-p1">
         <div class="search-container">
-            <input type="text" id="searchInput" placeholder="Search products..." />
-            <button id="searchBtn" aria-label="Search">
-                <i class="ri-search-line"></i>
-            </button>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search products by name or brand..." autocomplete="off" aria-label="Search products" />
+                <button id="searchBtn" aria-label="Search">
+                    <i class="ri-search-line"></i>
+                </button>
+            </div>
+            <div id="searchSuggestions" class="search-suggestions" aria-live="polite"></div>
         </div>
         <div class="filter-container">
             <label for="categoryFilter">Filter by Category:</label>
@@ -105,14 +112,13 @@
                 <option value="formal">Formal</option>
             </select>
         </div>
+        <div class="search-summary">
+            <span id="searchCount">16 products</span>
+        </div>
     </section>
 
     <section id="product1" class="section-p1">
-        <div class="pro-container">
-
-            <!-- dynamic Js {csritik-max}-->
-            <div class="pro-container" id="shop-container"></div>
-
+        <div class="pro-container" id="shop-container"></div>
     </section>
 
     <section id="newsletter" class="section-p1 section-m1">
@@ -132,7 +138,7 @@
 
     <footer class="section-p1">
         <div class="col">
-            <img class="logo" src="images/logo.png" alt="">
+            <img class="logo" src="images/logo.png" alt="Cara e-commerce brand logo with elegant script and floral accent">
             <h4>Contact</h4>
             <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
             <p><strong>Phone:</strong> +01 2222 365 /(+91) 01 2345 6789</p>
@@ -170,11 +176,17 @@
             <h4>Install App</h4>
             <p>From App Store or Google Play</p>
             <div class="row">
-                <img src="images/pay/app.jpg" alt="">
-                <img src="images/pay/play.jpg" alt="">
+                <img src="images/pay/app.jpg" alt="Apple App Store download badge">
+                <img src="images/pay/play.jpg" alt="Google Play Store download badge">
             </div>
             <p>Secured Payment Gateways</p>
-            <img src="images/pay/pay.png" alt="">
+            <div class="payment-icons">
+                <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer" aria-label="Visa"><i class="fab fa-cc-visa"></i></a>
+                <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer" aria-label="Mastercard"><i class="fab fa-cc-mastercard"></i></a>
+                <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" aria-label="PayPal"><i class="fab fa-cc-paypal"></i></a>
+                <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer" aria-label="American Express"><i class="fab fa-cc-amex"></i></a>
+                <a href="https://stripe.com" target="_blank" rel="noopener noreferrer" aria-label="Stripe"><i class="fab fa-cc-stripe"></i></a>
+            </div>
         </div>
         <div class="copyright">
             <p> &copy; Cara 2025. All rights reserved. | <a href="license.html" style="color: #088178;">MIT License</a>
@@ -186,10 +198,7 @@
     <script src="products.js"></script>
     <script src="app.js"></script>
 <!-- csritik-max -->
-<div class="toast" id="toast">
-    <div class="toast-icon" id="toast-icon">✅</div>
-    <span id="toast-msg"></span>
-</div>
+<div id="toast-container"></div>
 </body>
 
 </html>
