@@ -94,28 +94,6 @@
               <i class="fas fa-outdent" id="bar"></i>
             </div>
           </section>
-
-          <!-- ABOUT HEAD -->
-          <section id="about-head">
-            <h2>#KnowUs</h2>
-            <p>Read all case studies about Us!</p>
-          </section>
-      <div class="mobile">
-        <button
-          class="theme-toggle"
-          id="themeToggleMobile"
-          aria-label="Toggle dark mode"
-        >
-          <i class="ri-moon-line" id="themeIconMobile"></i>
-        </button>
-        <a href="cart.html" id="mobile-cart-icon">
-          <i class="ri-shopping-bag-4-line"></i>
-          <span class="cart-count" id="mobileCartCount">0</span>
-        </a>
-        <i class="fas fa-outdent" id="bar"></i>
-      </div>
-    </section>
-
     <section id="about-head">
       <h2>#KnowUs</h2>
       <p>Read all case studies about Us!</p>
@@ -280,7 +258,6 @@
         <div class="col">
           <h4>My Account</h4>
           <a href="login.html">Sign In</a>
-          <a href="cart.html">View Cart</a>
           <a href="cart.html">View Cart</a> <a href="#">My Wishlist</a>
           <a href="track-order.html">Track My Order</a>
           <a href="contact.html">Help</a>
@@ -320,7 +297,7 @@
 
       <div class="copyright">
         <p>
-          &copy; Cara 2025. All rights reserved. |
+          &copy; Cara <span id="Current-Year"></span>. All rights reserved. |
           <a href="license.html" style="color: #088178"> MIT License </a>
         </p>
       </div>
@@ -328,42 +305,11 @@
       </footer>
 
     <script src="app.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const brandCard = document.getElementById("brandCard");
-        const cardContainer = document.getElementById("cardContainer");
-        const statusText = document.getElementById("statusText");
-        const featureSection = document.getElementById(
-          "interactive-feature-wrapper",
-        );
-
-        // 1. Manual Click Control
-        if (brandCard && cardContainer) {
-          brandCard.addEventListener("click", () => {
-            const isOpen = cardContainer.classList.toggle("open");
-            statusText.innerText = isOpen
-              ? "Click to collapse"
-              : "Click to expand";
-          });
-        }
-
-        // 2. Snappy Scroll-Based Activation Engine
-        if (featureSection && cardContainer) {
-          const observerOptions = {
-            root: null,
-            // Trigger as soon as even 1 pixel of the feature section enters the screen
-            threshold: 0,
-            // Shrink the invisible trigger box so it fires slightly before the section arrives
-            rootMargin: "0px 0px -10% 0px",
-          };
-
-          const scrollObserver = new IntersectionObserver(
-            (entries, observer) => {
-              entries.forEach((entry) => {
-                // If the section enters the screen from the bottom while scrolling down
-                if (entry.isIntersecting) {
-                  cardContainer.classList.add("open");
-                  if (statusText) statusText.innerText = "Click to collapse";
+    
+    <!-- Corrected -->
+   <script id="Current-Year">
+        document.getElementById("Current-Year").textContent = new Date().getFullYear();
+    </script>
 
                   // Disconnect observer so it doesn't run again
                   observer.unobserve(entry.target);

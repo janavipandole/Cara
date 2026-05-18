@@ -268,7 +268,7 @@
         <div class="col">
           <h4>About</h4>
           <a href="about.html">About us</a>
-          <a href="#">Delivery Information</a>
+         <a href="delivery.html">Delivery Information</a>
           <a href="privacy.html">Privacy Policy</a>
           <a href="terms.html">Terms & Conditions</a>
           <a href="contact.html">Contact Us</a>
@@ -277,7 +277,6 @@
         <div class="col">
           <h4>My Account</h4>
           <a href="login.html">Sign In</a>
-          <a href="cart.html">View Cart</a>
           <a href="cart.html">View Cart</a> <a href="#">My Wishlist</a>
           <a href="track-order.html">Track My Order</a>
           <a href="contact.html">Help</a>
@@ -317,7 +316,7 @@
 
       <div class="copyright">
         <p>
-          &copy; Cara 2025. All rights reserved. |
+          &copy; Cara <span class="Current-Year"></span>. All rights reserved. |
           <a href="license.html" style="color: #088178"> MIT License </a>
         </p>
       </div>
@@ -326,7 +325,14 @@
 
 
     <script src="app.js"></script>
-    <script src="navbar.js"></script>
-    <script>loadNavbar('home');</script>
-  </body>
+    <!-- Corrected  -->
+    <script>
+        const year= new Date().getFullYear();
+        for (let el of document.querySelectorAll(".Current-Year")) {
+  el.textContent = year;
+}
+    </script>
+
+</body>
+
 </html>
