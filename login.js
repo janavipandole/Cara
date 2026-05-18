@@ -43,6 +43,3 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
-
-
-document.addEventListener("DOMContentLoaded", () => { const googleBtn = document.getElementById("googleLogin"); if (googleBtn) { googleBtn.addEventListener("click", () => { showToast( "Google Login Coming Soon", "success" ); }); }  const githubBtn = document.getElementById("githubLogin"); if (githubBtn) { githubBtn.addEventListener("click", () => { showToast( "GitHub Login Coming Soon", "success" ); }); } });

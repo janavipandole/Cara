@@ -1,3 +1,6 @@
+/* ============================================
+   TOAST NOTIFICATION SYSTEM
+   ============================================ */
 #toast-container {
     position: fixed;
     top: 24px;
@@ -21,7 +24,7 @@
     color: #1e293b;
     font-size: 14px;
     font-weight: 500;
-    font-family: 'Outfit', 'Segoe UI', sans-serif;
+    font-family: 'Outfit', 'Poppins', 'Segoe UI', sans-serif;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
     border-left: 4px solid #088178;
     pointer-events: all;
