@@ -1,261 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <!-- Character Encoding -->
     <meta charset="UTF-8">
-
-    <!-- Viewport for Responsive Design -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Page Title -->
-    <title>Login | Cara</title>
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
-
-    <!-- SEO Meta Tags -->
-    <meta name="description"
-        content="Shop the latest trends on our e-commerce store. Dark theme supported for a better user experience.">
-    <meta name="keywords" content="e-commerce, shopping, online store, dark mode, buy online, latest fashion">
-    <meta name="author" content=" Cara">
-    <meta name="robots" content="index, follow">
-
-    <!-- Language -->
-    <meta http-equiv="Content-Language" content="en">
-
-    <!-- Open Graph (OG) Tags for Social Sharing -->
-    <meta property="og:title" content="E-commerce - Dark Theme Working">
-    <meta property="og:description" content="Shop the latest trends with our dark mode-enabled e-commerce experience.">
-    <meta property="og:image" content="https://example.com/images/preview.jpg">
-    <meta property="og:url" content="https://example.com/">
-    <meta property="og:type" content="website">
-
-    <!-- Twitter Card Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="E-commerce - Dark Theme Working">
-    <meta name="twitter:description" content="Dark theme e-commerce site with modern features.">
-    <meta name="twitter:image" content="https://example.com/images/preview.jpg">
-    <meta name="twitter:site" content="@janavipandole">
-
-    <!-- Theme Color for Mobile Browser -->
-    <meta name="theme-color" content="#000000">
-
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="style.css">
+    <title>Login - Cara</title>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <link rel="stylesheet" href="toast.css">
     <link rel="stylesheet" href="login.css">
-    <link rel="stylesheet" href="forgotPassword.css">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-
 </head>
-
 <body>
-    <div id="particles-js"></div>
 
-    <div class="container">
-        <div class="form-box">
-            <a href="index.html" class="back-button">
-                <i class="ri-arrow-left-line"></i>
-    </a>
-            <h2>Login</h2>
-            <p>Welcome Back!&#128522</p>
+    <div class="login-container">
+        <a href="index.html" class="back-button">&#8592; Back to Shop</a>
+        
+        <div class="logo-container">
+    <img src="images/logo.png" alt="Cara Logo" class="logo-img">
+</div>
+        <h2>Welcome Back!</h2>
+        <p class="subtitle">Please enter your details to sign in</p>
 
-            <form id="loginForm">
-                <div class="input-group">
-                   <input type="text" id="loginEmail" required class="input-field" placeholder="Enter your email">
-                    <label for="loginEmail">Email</label>
-                    <div class="glow-line"></div>
-                </div>
+        <form id="loginForm" class="login-form" novalidate>
+            <div class="input-group">
+                <label for="loginEmail">Email Address</label>
+                <input type="email" id="loginEmail" class="input-field" placeholder="example@domain.com" required>
+            </div>
 
-                <div class="input-group password-group">
-                   <input type="password" id="loginPassword" required class="input-field" placeholder="Enter your password">
-                   <button   type="button" id="togglePassword" class="toggle_password" aria-label="show password "><i class="ri-eye-line"></i></button>
-                    <label for="loginPassword">Password</label>
-                    <div class="glow-line"></div>
-                </div>
-
-                <div class="remember-forgot">
-                    <div class="remember">
-                        <input type="checkbox" id="remember">
-                        <label for="remember">Remember me</label>
-                    </div>
-                    <a href="#" class="forgot" onclick="openForgotPassword()">Forgot Password?</a>
-                </div>
-
-                <button type="submit" class="login-btn">
-                    <span>SIGN IN</span>
-                    <div class="btn-glow"></div>
+            <div class="input-group password-group">
+                <label for="loginPassword">Password</label>
+                <input type="password" id="loginPassword" class="input-field" placeholder="••••••••" required>
+                <button type="button" id="togglePassword" class="toggle_password">
+                    <i class="ri-eye-line"></i>
                 </button>
+            </div>
 
-                <div class="signup-link">
-                    Don't have an account? <a href="register.html">Register</a>
+            <div class="remember-forgot">
+                <div class="remember">
+                    <input type="checkbox" id="rememberMe">
+                    <label for="rememberMe">Remember me</label>
                 </div>
-                <button onclick="history.back()" class="back-btn"> ← Back</button>
-                <style>
-                .back-btn{
-                position: absolute;
-                top: 440px;
-                left: 137px;
-                transform: translateX(-50%);
-                background: none;
-                border: none;
-                color: var(--accent);
-                font-size: 16px;
-                cursor: pointer;
-                transition: 0.3s ease;
-                 white-space: nowrap;
-                }
+                <a href="#" class="forgot">Forgot Password?</a>
+            </div>
 
-                .back-btn:hover{
-                color: white;
-                text-shadow: 0 0 10px var(--accent);
-                }
-                </style>
-            </form>
+            <button type="submit" class="login-btn"><span>Sign In</span></button>
+        </form>
+
+        <div class="signup-link">
+            Don't have an account? <a href="register.html">Register</a>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            particlesJS('particles-js', {
-                "particles": {
-                    "number": {
-                        "value": 100,
-                        "density": {
-                            "enable": true,
-                            "value_area": 800
-                        }
-                    },
-                    "color": {
-                        "value": "#00d4ff"
-                    },
-                    "shape": {
-                        "type": "circle",
-                        "stroke": {
-                            "width": 0,
-                            "color": "#000000"
-                        },
-                        "polygon": {
-                            "nb_sides": 5
-                        }
-                    },
-                    "opacity": {
-                        "value": 0.8,
-                        "random": true,
-                        "anim": {
-                            "enable": true,
-                            "speed": 1,
-                            "opacity_min": 0.4,
-                            "sync": false
-                        }
-                    },
-                    "size": {
-                        "value": 5,
-                        "random": true,
-                        "anim": {
-                            "enable": true,
-                            "speed": 2,
-                            "size_min": 1,
-                            "sync": false
-                        }
-                    },
-                    "line_linked": {
-                        "enable": true,
-                        "distance": 150,
-                        "color": "#00d4ff",
-                        "opacity": 0.6,
-                        "width": 1.5
-                    },
-                    "move": {
-                        "enable": true,
-                        "speed": 2,
-                        "direction": "none",
-                        "random": true,
-                        "straight": false,
-                        "out_mode": "out",
-                        "bounce": false,
-                        "attract": {
-                            "enable": true,
-                            "rotateX": 600,
-                            "rotateY": 1200
-                        }
-                    }
-                },
-                "interactivity": {
-                    "detect_on": "canvas",
-                    "events": {
-                        "onhover": {
-                            "enable": true,
-                            "mode": "repulse"
-                        },
-                        "onclick": {
-                            "enable": true,
-                            "mode": "push"
-                        },
-                        "resize": true
-                    },
-                    "modes": {
-                        "grab": {
-                            "distance": 400,
-                            "line_linked": {
-                                "opacity": 1
-                            }
-                        },
-                        "bubble": {
-                            "distance": 400,
-                            "size": 40,
-                            "duration": 2,
-                            "opacity": 8,
-                            "speed": 3
-                        },
-                        "repulse": {
-                            "distance": 100,
-                            "duration": 0.4
-                        },
-                        "push": {
-                            "particles_nb": 4
-                        },
-                        "remove": {
-                            "particles_nb": 2
-                        }
-                    }
-                },
-                "retina_detect": true
-            });
-        });
-    </script>
-<!--csritik-max-->
-  <div class="fp-overlay" id="fp-overlay">
-        <div class="fp-modal">
-            <button class="fp-close" onclick="closeForgotPassword()">✕</button>
-            <h3>FORGOT PASSWORD</h3>
-            <p>Enter your registered email to reset your password.</p>
-            <div class="fp-input-group">
-                <input type="email" id="fp-email" placeholder="Enter your email" />
-                <div class="fp-glow-line"></div>
-            </div>
-            <div class="fp-input-group">
-                <input type="password" id="fp-newpass" placeholder="Enter new password" />
-                <div class="fp-glow-line"></div>
-            </div>
-            <button class="fp-submit" onclick="submitForgotPassword()">RESET PASSWORD</button>
-        </div>
-    </div>
-
-    <!-- TOAST HERE -->
-    <div class="toast" id="toast">
-        <div class="toast-icon" id="toast-icon">✅</div>
-        <span id="toast-msg"></span>
-    </div>
-
-<script src="forgotPassword.js"></script>
-<!--   -->
-
-<script src="login.js"></script>
+    <script src="app.js"></script>
+    <script src="login.js"></script>
 </body>
-
 </html>

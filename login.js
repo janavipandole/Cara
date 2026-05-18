@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const password = document.getElementById('loginPassword').value;
 
         if (!email || !password) {
-            alert('Please fill all fields.');
+            showToast('Please fill all fields.', 'warning');
             return;
         }
 
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
             localStorage.setItem('loggedInUser', email);
             window.location.href = 'index.html';
         } else {
-            alert('Invalid email or password.');
+            showToast("Invalid email or password", "error");
         }
     });
 });

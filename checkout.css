@@ -104,6 +104,11 @@ form{
   box-shadow:0 0 10px rgba(79,70,229,0.15);
 }
 
+.input-group input.input-error{
+  border-color:#dc2626;
+  box-shadow:0 0 0 3px rgba(220,38,38,0.12);
+}
+
 .row{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -252,4 +257,20 @@ form{
     font-size:26px;
   }
 
+}
+@media (max-width: 799px) {
+    #cart table {
+        width: 100%;
+        overflow-x: auto;
+        display: block;
+    }
+
+    #cart-add {
+        flex-direction: column;
+    }
+
+    #coupon,
+    #subtotal {
+        width: 100%;
+    }
 }

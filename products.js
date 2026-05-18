@@ -24,6 +24,14 @@ function renderProducts(containerId, list) {
   if (!container) return;
   container.innerHTML = '';
 
+  if (list.length === 0) {
+    const message = document.createElement('div');
+    message.className = 'no-results-message';
+    message.textContent = 'No products found. Try a different search or category.';
+    container.appendChild(message);
+    return;
+  }
+
   list.forEach(p => {
     // Create product card container
     const card = document.createElement('div');
@@ -96,6 +104,98 @@ function renderProducts(containerId, list) {
   });
 }
 
+// Search and filter helpers
+function updateSearchSummary(filteredCount) {
+  const countElement = document.getElementById('searchCount');
+  if (countElement) {
+    countElement.textContent = `${filteredCount} product${filteredCount === 1 ? '' : 's'}`;
+  }
+}
+
+function renderSearchSuggestions(query) {
+  const suggestionsElement = document.getElementById('searchSuggestions');
+  if (!suggestionsElement) return;
+
+  suggestionsElement.innerHTML = '';
+  if (!query.trim()) {
+    return;
+  }
+
+  const normalizedQuery = query.trim().toLowerCase();
+  const suggestions = products
+    .filter(p => p.name.toLowerCase().includes(normalizedQuery) || p.brand.toLowerCase().includes(normalizedQuery))
+    .slice(0, 5);
+
+  if (suggestions.length === 0) {
+    const none = document.createElement('p');
+    none.textContent = 'No products match your search.';
+    suggestionsElement.appendChild(none);
+    return;
+  }
+
+  suggestions.forEach(item => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.textContent = `${item.name} — ${item.brand}`;
+    button.addEventListener('click', () => {
+      const input = document.getElementById('searchInput');
+      if (input) {
+        input.value = item.name;
+        filterProducts();
+        input.focus();
+      }
+    });
+    suggestionsElement.appendChild(button);
+  });
+}
+
+function filterProducts() {
+  const input = document.getElementById('searchInput');
+  const categorySelect = document.getElementById('categoryFilter');
+
+  const query = input ? input.value.trim().toLowerCase() : '';
+  const category = categorySelect ? categorySelect.value : 'all';
+
+  const filteredProducts = products.filter(product => {
+    const matchesCategory = category === 'all' || product.category === category;
+    const matchesSearch = query === '' || product.name.toLowerCase().includes(query) || product.brand.toLowerCase().includes(query);
+    return matchesCategory && matchesSearch;
+  });
+
+  renderProducts('shop-container', filteredProducts);
+  updateSearchSummary(filteredProducts.length);
+  renderSearchSuggestions(query);
+}
+
+function attachSearchListeners() {
+  const input = document.getElementById('searchInput');
+  const categorySelect = document.getElementById('categoryFilter');
+  const searchBtn = document.getElementById('searchBtn');
+
+  if (input) {
+    input.addEventListener('input', filterProducts);
+    input.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        filterProducts();
+      }
+    });
+  }
+  if (categorySelect) {
+    categorySelect.addEventListener('change', filterProducts);
+  }
+  if (searchBtn) {
+    searchBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      filterProducts();
+      input && input.focus();
+    });
+  }
+}
+
 // Initializing the renders
 renderProducts('shop-container', products);
 renderProducts('featured-container', products.slice(0, 4));
+attachSearchListeners();
+updateSearchSummary(products.length);
+renderSearchSuggestions('');
