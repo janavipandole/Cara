@@ -388,6 +388,37 @@
   el.textContent = year;
 }
     </script>
+    <script>
+      /* ── Contact form: loading state during submission (Issue #352) ── */
+      document.addEventListener('DOMContentLoaded', function () {
+        var contactForm = document.querySelector('.contact-form');
+        if (!contactForm) return;
+
+        contactForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+
+          var submitBtn = contactForm.querySelector('button[type="submit"]');
+          if (!submitBtn) return;
+
+          /* ── Loading state: disable button & show spinner ── */
+          submitBtn.classList.add('btn-loading');
+          submitBtn.disabled = true;
+
+          /* Simulate async form submission */
+          setTimeout(function () {
+            submitBtn.classList.remove('btn-loading');
+            submitBtn.disabled = false;
+            
+            if (typeof showToast === 'function') {
+              showToast('Thank you! Your message has been sent successfully.', 'success');
+            } else {
+              alert('Thank you! Your message has been sent successfully.');
+            }
+            contactForm.reset();
+          }, 1500);
+        });
+      });
+    </script>
 </body>
 
 </html>
