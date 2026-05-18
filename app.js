@@ -50,25 +50,33 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // 3. Dynamic Render on singleProduct.html
-    if (window.location.pathname.includes("singleProduct.html")) {
+    if (window.location.pathname.includes("singleProduct")) {
+        console.log("On singleProduct page, attempting dynamic render.");
         const storedProductJSON = localStorage.getItem("selectedProduct");
+        console.log("Stored product JSON:", storedProductJSON);
+        
         if (storedProductJSON) {
-            const product = JSON.parse(storedProductJSON);
+            try {
+                const product = JSON.parse(storedProductJSON);
+                console.log("Parsed product:", product);
 
-            const nameEl = document.getElementById("product-name");
-            const priceEl = document.getElementById("product-price");
-            const mainImgEl = document.getElementById("MainImg");
-            const breadcrumbEl = document.querySelector(".single-pro-details h6");
-            const smallImgs = document.querySelectorAll(".small-img");
+                const nameEl = document.getElementById("product-name");
+                const priceEl = document.getElementById("product-price");
+                const mainImgEl = document.getElementById("MainImg");
+                const breadcrumbEl = document.querySelector(".single-pro-details h6");
+                const smallImgs = document.querySelectorAll(".small-img");
 
-            if (nameEl) nameEl.textContent = product.name;
-            if (priceEl) priceEl.textContent = product.price;
-            if (mainImgEl) mainImgEl.src = product.image;
-            if (breadcrumbEl && product.brand) breadcrumbEl.textContent = `Home / ${product.brand} / T-Shirt`;
+                if (nameEl) nameEl.textContent = product.name;
+                if (priceEl) priceEl.textContent = product.price;
+                if (mainImgEl) mainImgEl.src = product.image;
+                if (breadcrumbEl && product.brand) breadcrumbEl.textContent = `Home / ${product.brand} / T-Shirt`;
 
-            // Update first thumbnail to match the product image
-            if (smallImgs.length > 0 && product.image) {
-                smallImgs[0].src = product.image;
+                // Update first thumbnail to match the product image
+                if (smallImgs.length > 0 && product.image) {
+                    smallImgs[0].src = product.image;
+                }
+            } catch (error) {
+                console.error("Error parsing stored product:", error);
             }
         }
 
