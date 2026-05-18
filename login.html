@@ -1,331 +1,345 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
+    <head>
 
-    <!-- Character Encoding -->
-    <meta charset="UTF-8">
+        <!-- Character Encoding -->
+        <meta charset="UTF-8">
 
-    <!-- Responsive -->
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
+        <!-- Responsive -->
+        <meta name="viewport"
+            content="width=device-width, initial-scale=1.0">
 
-    <!-- Title -->
-    <title>Login | Cara</title>
+        <!-- Title -->
+        <title>Login | Cara</title>
 
-    <!-- Favicon -->
-    <link rel="icon"
-        type="image/jpg"
-        sizes="32x32"
-        href="images/favicon.jpg">
+        <!-- Favicon -->
+        <link rel="icon"
+            type="image/jpg"
+            sizes="32x32"
+            href="images/favicon.jpg">
 
-    <!-- SEO -->
-    <meta name="description"
-        content="Shop the latest trends on our e-commerce store.">
+        <!-- SEO -->
+        <meta name="description"
+            content="Shop the latest trends on our e-commerce store.">
 
-    <meta name="keywords"
-        content="e-commerce, shopping, online store, latest fashion">
+        <meta name="keywords"
+            content="e-commerce, shopping, online store, latest fashion">
 
-    <!-- Theme -->
-    <meta name="theme-color"
-        content="#000000">
+        <!-- Theme -->
+        <meta name="theme-color"
+            content="#000000">
 
-    <!-- CSS -->
-    <link rel="stylesheet"
-        href="style.css">
+        <!-- CSS -->
+        <link rel="stylesheet"
+            href="style.css">
 
-    <link rel="stylesheet"
-        href="login.css">
+        <link rel="stylesheet"
+            href="login.css">
 
-    <link rel="stylesheet"
-        href="forgotPassword.css">
+        <link rel="stylesheet"
+            href="forgotPassword.css">
 
-    <!-- Remix Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
-        rel="stylesheet" />
+        <!-- Remix Icons -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+            rel="stylesheet" />
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+        <!-- Font Awesome -->
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
 
-</head>
-<body>
+    </head>
+    <body>
 
-    <!-- PARTICLES -->
-    <div id="particles-js"></div>
+        <!-- PARTICLES -->
+        <div id="particles-js"></div>
 
-    <!-- LOGIN CONTAINER -->
-    <div class="container">
+        <section id="header">
 
-        <div class="form-box">
-
-            <!-- BACK BUTTON -->
-            <a href="index.html"
-                class="back-button">
-
-                <i class="ri-arrow-left-line"></i>
-
+            <a href="index.html">
+                <img src="images/logo.png"
+                    id="siteLogo"
+                    alt="Cara Logo">
             </a>
 
-            <!-- LOGO -->
-            <div class="auth-logo">
+            <button class="theme-toggle">
+                <i class="ri-moon-line"></i>
+            </button>
 
-                <h1>CARA</h1>
+        </section>
 
-            </div>
+        <!-- LOGIN CONTAINER -->
+        <div class="login-page">
 
-            <!-- TITLE -->
-            <h2>Welcome Back</h2>
+            <div class="auth-container">
 
-            <p class="subtitle">
-                Login to continue shopping
-            </p>
+                <!-- BACK BUTTON -->
+                <a href="index.html"
+                    class="back-button">
 
-            <!-- SOCIAL LOGIN -->
-            <div class="social-login">
+                    <i class="ri-arrow-left-line"></i>
 
-                <!-- GOOGLE -->
-                <button
-                    type="button"
-                    class="social-btn google-btn"
-                    id="googleLogin">
+                </a>
 
-                    <i class="ri-google-fill"></i>
+                <!-- LOGO -->
+                <div class="auth-logo">
 
-                    Continue with Google
-
-                </button>
-
-                <!-- GITHUB -->
-                <button
-                    type="button"
-                    class="social-btn github-btn"
-                    id="githubLogin">
-
-                    <i class="ri-github-fill"></i>
-
-                    Continue with GitHub
-
-                </button>
-
-            </div>
-
-            <!-- DIVIDER -->
-            <div class="divider">
-
-                <span>OR</span>
-
-            </div>
-
-            <!-- LOGIN FORM -->
-            <form id="loginForm">
-
-                <!-- EMAIL -->
-                <div class="input-group">
-
-                    <input
-                        type="email"
-                        id="loginEmail"
-                        required
-                        class="input-field"
-                        placeholder=" "
-                        aria-label="Email Address">
-
-                    <label for="loginEmail">
-                        Email Address
-                    </label>
-
-                    <div class="glow-line"></div>
+                    <h1>CARA</h1>
 
                 </div>
 
-                <!-- PASSWORD -->
-                <div class="input-group password-group">
+                <!-- TITLE -->
+                <h2>Welcome Back</h2>
 
-                    <input
-                        type="password"
-                        id="loginPassword"
-                        required
-                        class="input-field"
-                        placeholder=" "
-                        aria-label="Password">
+                <p class="subtitle">
+                    Login to continue shopping
+                </p>
 
+                <!-- SOCIAL LOGIN -->
+                <div class="social-login">
+
+                    <!-- GOOGLE -->
                     <button
                         type="button"
-                        id="togglePassword"
-                        class="toggle_password"
-                        aria-label="Toggle Password Visibility">
+                        class="social-btn google-btn"
+                        id="googleLogin">
 
-                        <i class="ri-eye-line"></i>
+                        <i class="ri-google-fill"></i>
+
+                        Continue with Google
 
                     </button>
 
-                    <label for="loginPassword">
-                        Password
-                    </label>
+                    <!-- GITHUB -->
+                    <button
+                        type="button"
+                        class="social-btn github-btn"
+                        id="githubLogin">
 
-                    <div class="glow-line"></div>
+                        <i class="ri-github-fill"></i>
+
+                        Continue with GitHub
+
+                    </button>
 
                 </div>
 
-                <!-- REMEMBER / FORGOT -->
-                <div class="remember-forgot">
+                <!-- DIVIDER -->
+                <div class="divider">
 
-                    <div class="remember">
+                    <span>OR</span>
+
+                </div>
+
+                <!-- LOGIN FORM -->
+                <form id="loginForm">
+
+                    <!-- EMAIL -->
+                    <div class="input-group">
+
+                        <label for="loginEmail">Email Address</label>
 
                         <input
-                            type="checkbox"
-                            id="remember">
-
-                        <label for="remember">
-                            Remember Me
-                        </label>
+                            type="email"
+                            id="loginEmail"
+                            required
+                            class="input-field"
+                            placeholder="Enter your email"
+                            aria-label="Email Address">
 
                     </div>
 
-                    <a href="#"
-                        class="forgot"
-                        onclick="openForgotPassword()">
+                    <!-- PASSWORD -->
+                    <div class="input-group password-group">
 
-                        Forgot Password?
+                        <label for="loginPassword">Password</label>
 
-                    </a>
+                        <input
+                            type="password"
+                            id="loginPassword"
+                            required
+                            class="input-field"
+                            placeholder="Enter your password"
+                            aria-label="Password">
+                        <button
+                            type="button"
+                            id="togglePassword"
+                            class="toggle_password"
+                            aria-label="Toggle Password Visibility">
 
-                </div>
+                            <i class="ri-eye-line"></i>
 
-                <!-- LOGIN BUTTON -->
+                        </button>
+
+                        <div class="glow-line"></div>
+
+                    </div>
+
+                    <!-- REMEMBER / FORGOT -->
+                    <div class="remember-forgot">
+
+                        <div class="remember">
+
+                            <input
+                                type="checkbox"
+                                id="remember">
+
+                            <label for="remember">
+                                Remember Me
+                            </label>
+
+                        </div>
+
+                        <a href="javascript:void(0)"
+                            class="forgot"
+                            onclick="openForgotPassword()">
+
+                            Forgot Password?
+
+                        </a>
+
+                    </div>
+
+                    <!-- LOGIN BUTTON -->
+                    <button
+                        type="submit"
+                        class="login-btn"
+                        id="loginBtn">
+
+                        <span id="btnText">
+
+                            SIGN IN
+
+                        </span>
+
+                        <div class="btn-glow"></div>
+
+                    </button>
+
+                    <!-- SIGNUP -->
+                    <div class="signup-link">
+
+                        Don't have an account?
+
+                        <a href="register.html">
+
+                            Register
+
+                        </a>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+        <!-- FORGOT PASSWORD MODAL -->
+        <div class="fp-overlay"
+            id="fp-overlay">
+
+            <div class="fp-modal">
+
                 <button
-                    type="submit"
-                    class="login-btn"
-                    id="loginBtn">
+                    class="fp-close"
+                    onclick="closeForgotPassword()">
 
-                    <span id="btnText">
-
-                        SIGN IN
-
-                    </span>
-
-                    <div class="btn-glow"></div>
+                    ✕
 
                 </button>
 
-                <!-- SIGNUP -->
-                <div class="signup-link">
+                <h3>FORGOT PASSWORD</h3>
 
-                    Don't have an account?
+                <p>
+                    Enter your registered email
+                    to reset your password.
+                </p>
 
-                    <a href="register.html">
+                <!-- EMAIL -->
+                <div class="fp-input-group">
 
-                        Register
+                    <input
+                        type="email"
+                        id="fp-email"
+                        placeholder="Enter your email">
 
-                    </a>
+                    <div class="fp-glow-line"></div>
 
                 </div>
 
-            </form>
+                <!-- NEW PASSWORD -->
+                <div class="fp-input-group">
 
-        </div>
+                    <input
+                        type="password"
+                        id="fp-newpass"
+                        placeholder="Enter new password">
 
-    </div>
+                    <div class="fp-glow-line"></div>
 
-    <!-- FORGOT PASSWORD MODAL -->
-    <div class="fp-overlay"
-        id="fp-overlay">
+                </div>
 
-        <div class="fp-modal">
+                <!-- RESET BUTTON -->
+                <button
+                    class="fp-submit"
+                    onclick="submitForgotPassword()">
 
-            <button
-                class="fp-close"
-                onclick="closeForgotPassword()">
+                    RESET PASSWORD
 
-                ✕
-
-            </button>
-
-            <h3>FORGOT PASSWORD</h3>
-
-            <p>
-                Enter your registered email
-                to reset your password.
-            </p>
-
-            <!-- EMAIL -->
-            <div class="fp-input-group">
-
-                <input
-                    type="email"
-                    id="fp-email"
-                    placeholder="Enter your email">
-
-                <div class="fp-glow-line"></div>
+                </button>
 
             </div>
 
-            <!-- NEW PASSWORD -->
-            <div class="fp-input-group">
+        </div>
 
-                <input
-                    type="password"
-                    id="fp-newpass"
-                    placeholder="Enter new password">
+        <!-- TOAST -->
+        <div class="toast"
+            id="toast">
 
-                <div class="fp-glow-line"></div>
+            <div class="toast-icon"
+                id="toast-icon">
+
+                ✅
 
             </div>
 
-            <!-- RESET BUTTON -->
-            <button
-                class="fp-submit"
-                onclick="submitForgotPassword()">
-
-                RESET PASSWORD
-
-            </button>
+            <span id="toast-msg"></span>
 
         </div>
+        <footer class="section-p1">
 
-    </div>
+            <div class="col">
+                <h4>About</h4>
+                <a href="about.html">About us</a>
+                <a href="#">Delivery Information</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms & Conditions</a>
+                <a href="contact.html">Contact Us</a>
+            </div>
 
-    <!-- TOAST -->
-    <div class="toast"
-        id="toast">
+            <div class="col">
+                <h4>My Account</h4>
+                <a href="login.html">Sign In</a>
+                <a href="cart.html">View Cart</a>
+                <a href="#">My Wishlist</a>
+                <a href="#">Track My Order</a>
+                <a href="#">Help</a>
+            </div>
 
-        <div class="toast-icon"
-            id="toast-icon">
+            <div class="copyright">
+                <p>© Cara 2025. All rights reserved. | MIT License</p>
+            </div>
 
-            ✅
+        </footer>
 
-        </div>
+        <!-- PARTICLES -->
+        <script
+            src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
-        <span id="toast-msg"></span>
-
-    </div>
-    <div class="col">
-      <h4>About</h4>
-      <a href="about.html">About us</a>
-      <a href="#">Delivery Information</a>
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms & Conditions</a>
-      <a href="contact.html">Contact Us</a>
-    </div>
-    <div class="col">
-      <h4>My Account</h4>
-      <a href="login.html">Sign In</a>
-      <a href="cart.html">View Cart</a>
-      <a href="#">My Wishlist</a>
-      <a href="#">Track My Order</a>
-      <a href="#">Help</a>
-    </div>
-    <div class="copyright">
-      <p>© Cara 2025. All rights reserved. | MIT License</p>
-    </div>
-  </footer>
-
-    <!-- PARTICLES -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-
-    <!-- PARTICLES CONFIG -->
-    <script>
+        <!-- PARTICLES CONFIG -->
+        <script>
 
         document.addEventListener(
             'DOMContentLoaded',
@@ -428,11 +442,11 @@
 
     </script>
 
-    <!-- JS -->
-    <script src="forgotPassword.js"></script>
+        <!-- JS -->
+        <script src="forgotPassword.js"></script>
 
-    <script src="login.js"></script>
+        <script src="login.js"></script>
 
-</body>
+    </body>
 
 </html>

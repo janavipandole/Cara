@@ -1,4 +1,970 @@
-/* =====================================================
-RESET
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=League+Spartan:wght@100..900&display=swap');
+
+/* ============================================
+   RESET
+   ============================================ */
+* {
+    font-family: "League Spartan", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
-```
+
+/* ============================================
+   CSS VARIABLES — matches main site exactly
+   ============================================ */
+:root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --text-primary: #222;
+    --text-secondary: #465b52;
+    --header-bg: rgba(255, 255, 255, 0.5);
+    --card-bg: #ffffff;
+    --border-color: #cce7d0;
+    --shadow: rgba(0, 0, 0, 0.02);
+    --shadow-hover: rgba(0, 0, 0, 0.25);
+    --accent: #088178;
+    --accent-hover: #066b63;
+    --input-bg: #ffffff;
+    --footer-text: #222;
+}
+
+[data-theme="dark"] {
+    --bg-primary: #0f1419;
+    --bg-secondary: #1a1f26;
+    --text-primary: #e6eef8;
+    --text-secondary: #94a3b8;
+    --header-bg: rgba(15, 20, 25, 0.85);
+    --card-bg: #1a1f26;
+    --border-color: #2d3748;
+    --shadow: rgba(0, 0, 0, 0.4);
+    --shadow-hover: rgba(6, 182, 212, 0.2);
+    --accent: #06b6d4;
+    --accent-hover: #0891b2;
+    --input-bg: #2d3748;
+    --footer-text: #e6eef8;
+}
+
+/* ============================================
+   BODY & PAGE LAYOUT
+   ============================================ */
+body {
+    width: 100%;
+    min-height: 100vh;
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    overflow-x: hidden;
+}
+
+/* ============================================
+   HEADER — identical to main site
+   ============================================ */
+#header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 80px;
+    background: var(--header-bg);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(20px) saturate(180%);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+#header a img {
+    transition: filter 0.3s ease;
+}
+
+#siteLogo {
+    width: 120px;
+    height: 50px;
+    object-fit: contain;
+}
+
+/* ============================================
+   THEME TOGGLE — matches main site
+   ============================================ */
+.theme-toggle {
+    background: transparent;
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-primary);
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    background-color: var(--accent);
+    border-color: var(--accent);
+    color: white;
+    transform: rotate(180deg);
+}
+
+
+#particles-js {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+}
+
+.auth-container {
+    position: relative;
+    z-index: 2;
+}
+
+.login-page {
+    position: relative;
+    z-index: 2;
+}
+/* ============================================
+   LOGIN PAGE WRAPPER
+   ============================================ */
+
+.login-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 100px 20px 60px;
+    background-color: var(--bg-secondary);
+    transition: background-color 0.3s ease;
+}
+
+/* ============================================
+   AUTH CARD — matches product card style from main site
+   ============================================ */
+.auth-container {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 48px 44px;
+    width: 100%;
+    max-width: 480px;
+    box-shadow: 20px 20px 60px var(--shadow);
+    transition: all 0.3s ease;
+}
+
+.auth-container:hover {
+    box-shadow: 10px 10px 74px var(--shadow-hover);
+}
+
+/* ============================================
+   AUTH LOGO / HEADING
+   ============================================ */
+.auth-logo {
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.auth-logo h1 {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    line-height: 1.1;
+}
+
+.auth-container h2 {
+    font-size: 26px;
+    font-weight: 700;
+    text-align: center;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+    transition: color 0.3s ease;
+}
+
+.subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 16px;
+    margin-bottom: 32px;
+    transition: color 0.3s ease;
+}
+
+/* ============================================
+   SOCIAL LOGIN BUTTONS
+   ============================================ */
+.social-login {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.social-btn {
+    width: 100%;
+    padding: 13px 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: "League Spartan", sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: var(--card-bg);
+    color: var(--text-primary);
+}
+
+.social-btn:hover {
+    border-color: var(--accent);
+    box-shadow: 0 4px 15px var(--shadow-hover);
+    transform: translateY(-2px);
+}
+
+.google-btn img,
+.github-btn img {
+    width: 18px;
+    height: 18px;
+}
+
+/* ============================================
+   DIVIDER
+   ============================================ */
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background-color: var(--border-color);
+    transition: background-color 0.3s ease;
+}
+
+.divider span {
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: color 0.3s ease;
+}
+
+/* ============================================
+   INPUT FIELDS — matches main site focus style
+   ============================================ */
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    transition: color 0.3s ease;
+}
+
+.input-field {
+    display: block;
+    width: 100%;
+    padding: 13px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+    font-family: "League Spartan", sans-serif;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.input-field::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+.input-field:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(8, 129, 120, 0.15);
+}
+
+[data-theme="dark"] .input-field:focus {
+    box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.15);
+}
+
+/* ============================================
+   PASSWORD TOGGLE
+   ============================================ */
+.password-group {
+    position: relative;
+}
+
+.password-group .input-field {
+    padding-right: 50px;
+}
+
+.toggle_password {
+    position: absolute;
+    right: 14px;
+    top: 30px;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 20px;
+    padding: 4px;
+    transition: color 0.3s ease;
+    min-width: unset;
+    min-height: unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+.toggle_password:hover {
+    color: var(--accent);
+}
+
+/* ============================================
+   REMEMBER / FORGOT
+   ============================================ */
+.remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    font-size: 15px;
+}
+
+.remember {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    color: var(--text-primary);
+}
+
+.remember input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent);
+    cursor: pointer;
+}
+
+.forgot {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.forgot:hover {
+    color: var(--accent-hover);
+    text-decoration: underline;
+}
+
+/* ============================================
+   SUBMIT / LOGIN BUTTON — matches main site's button.normal style
+   ============================================ */
+.submit-button-container {
+    margin-top: 4px;
+}
+
+#submitButton,
+.login-btn {
+    width: 100%;
+    padding: 14px 20px;
+    background-color: var(--accent);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-family: "League Spartan", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(8, 129, 120, 0.2);
+}
+
+#submitButton:hover,
+.login-btn:hover {
+    background-color: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(8, 129, 120, 0.35);
+}
+
+#submitButton:active,
+.login-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(8, 129, 120, 0.2);
+}
+
+#submitButton:focus-visible,
+.login-btn:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+}
+
+[data-theme="dark"] #submitButton,
+[data-theme="dark"] .login-btn {
+    box-shadow: 0 4px 15px rgba(6, 182, 212, 0.2);
+}
+
+[data-theme="dark"] #submitButton:hover,
+[data-theme="dark"] .login-btn:hover {
+    box-shadow: 0 6px 20px rgba(6, 182, 212, 0.35);
+}
+
+/* ============================================
+   TOGGLE AUTH FOOTER (sign up / sign in link)
+   ============================================ */
+.toggle-auth-footer,
+.signup-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 15px;
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
+}
+
+.toggle-auth-footer a,
+.signup-link a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.3s ease;
+}
+
+.toggle-auth-footer a:hover,
+.signup-link a:hover {
+    color: var(--accent-hover);
+    text-decoration: underline;
+}
+
+/* ============================================
+   MESSAGE / TOAST BOX
+   ============================================ */
+#signUpMessage {
+    position: fixed;
+    top: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 14px 20px;
+    font-size: 15px;
+    text-align: center;
+    color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    transition: opacity 0.5s ease-in-out;
+    background-color: #dc2626;
+    min-width: 300px;
+    display: none;
+    z-index: 10000;
+    font-family: "League Spartan", sans-serif;
+    font-weight: 600;
+}
+
+/* ============================================
+   FORGOT PASSWORD MODAL
+   ============================================ */
+.fp-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+}
+
+.fp-overlay.active {
+    display: flex;
+}
+
+.fp-modal {
+    width: 90%;
+    max-width: 420px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 40px 36px;
+    position: relative;
+    box-shadow: 20px 20px 60px var(--shadow);
+    animation: popup 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: background-color 0.3s ease;
+}
+
+.fp-modal h3 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.fp-modal p {
+    color: var(--text-secondary);
+    font-size: 15px;
+    margin-bottom: 24px;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.fp-input-group {
+    margin-bottom: 20px;
+}
+
+.fp-input-group input {
+    width: 100%;
+    padding: 13px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+    font-family: "League Spartan", sans-serif;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fp-input-group input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(8, 129, 120, 0.15);
+}
+
+.fp-submit {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--accent);
+    color: #ffffff;
+    font-family: "League Spartan", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(8, 129, 120, 0.2);
+}
+
+.fp-submit:hover {
+    background-color: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(8, 129, 120, 0.35);
+}
+
+.fp-close {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 22px;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.2s ease;
+    min-width: unset;
+    min-height: unset;
+    padding: 4px;
+}
+
+.fp-close:hover {
+    color: var(--accent);
+    transform: scale(1.2);
+}
+
+@keyframes popup {
+    from {
+        transform: scale(0.92);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ============================================
+   FOOTER — matches main site footer exactly
+   ============================================ */
+footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: var(--bg-secondary);
+    transition: background-color 0.3s ease;
+    padding: 40px 80px;
+}
+
+footer .col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+footer h4 {
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: var(--footer-text);
+    transition: color 0.3s ease;
+}
+
+footer p {
+    margin: 0 0 8px 0;
+    font-size: 16px;
+    color: var(--footer-text);
+    transition: color 0.3s ease;
+}
+
+footer a {
+    font-size: 15px;
+    text-decoration: none;
+    color: var(--footer-text);
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: var(--accent);
+}
+
+footer .follow {
+    margin-top: 20px;
+}
+
+footer .follow i {
+    color: var(--text-secondary);
+    padding-right: 4px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+footer .follow i:hover {
+    color: var(--accent);
+}
+
+footer .copyright {
+    text-align: center;
+    width: 100%;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    margin-top: 10px;
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+/* ============================================
+   BACK TO SITE BUTTON
+   ============================================ */
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--accent);
+    font-size: 22px;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.back-button:hover {
+    color: var(--accent-hover);
+    transform: translateX(-3px);
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 799px) {
+    #header {
+        padding: 12px 24px;
+    }
+
+    footer {
+        padding: 40px 24px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+    }
+
+    footer .copyright {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 600px) {
+    .login-page {
+        padding: 90px 16px 50px;
+    }
+
+    .auth-container {
+        padding: 32px 24px;
+        border-radius: 16px;
+    }
+
+    .auth-logo h1 {
+        font-size: 28px;
+    }
+
+    .auth-container h2 {
+        font-size: 22px;
+    }
+
+    .remember-forgot {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    footer {
+        grid-template-columns: 1fr;
+        padding: 30px 16px;
+    }
+}
+
+@media (max-width: 477px) {
+    #header {
+        padding: 10px 16px;
+    }
+
+    .auth-container {
+        padding: 28px 20px;
+    }
+}
+/* ============================================
+   EXTRA ALIGNMENT FIXES
+============================================ */
+
+#particles-js {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+}
+
+.login-page {
+    position: relative;
+    z-index: 2;
+}
+
+.auth-container {
+    position: relative;
+    overflow: hidden;
+}
+
+/* ============================================
+   MODERN POPUP TOAST
+============================================ */
+
+.toast {
+    position: fixed;
+    top: 90px;
+    right: 24px;
+
+    width: 340px;
+    max-width: calc(100% - 32px);
+
+    padding: 16px 18px;
+
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    border-radius: 18px;
+
+    background: rgba(20, 20, 20, 0.78);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.28),
+        0 2px 10px rgba(0, 0, 0, 0.08);
+
+    color: #ffffff;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform: translateY(-20px) scale(0.96);
+
+    transition:
+        opacity 0.35s ease,
+        transform 0.35s ease,
+        visibility 0.35s ease;
+
+    overflow: hidden;
+    z-index: 99999;
+}
+
+/* SHOW */
+
+.toast.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+/* SUCCESS TOAST */
+
+.toast.success {
+    background: linear-gradient(
+        135deg,
+        rgba(8, 129, 120, 0.96),
+        rgba(6, 182, 212, 0.92)
+    );
+}
+
+/* ERROR TOAST */
+
+.toast.error {
+    background: linear-gradient(
+        135deg,
+        rgba(220, 38, 38, 0.96),
+        rgba(239, 68, 68, 0.92)
+    );
+}
+
+/* TOAST ICON */
+
+.toast-icon {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.16);
+
+    font-size: 18px;
+
+    box-shadow:
+        inset 0 0 12px rgba(255,255,255,0.12);
+}
+
+/* TOAST MESSAGE */
+
+#toast-msg {
+    flex: 1;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    line-height: 1.5;
+    letter-spacing: 0.2px;
+
+    color: #ffffff;
+}
+
+/* PROGRESS BAR */
+
+.toast::after {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 4px;
+
+    background: rgba(255,255,255,0.45);
+
+    animation: toastProgress 3s linear forwards;
+}
+
+/* PROGRESS ANIMATION */
+
+@keyframes toastProgress {
+    from {
+        width: 100%;
+    }
+
+    to {
+        width: 0%;
+    }
+}
+
+/* MOBILE RESPONSIVE */
+
+@media (max-width: 600px) {
+    .toast {
+        top: 80px;
+        right: 12px;
+        left: 12px;
+
+        width: auto;
+        max-width: unset;
+
+        padding: 14px 16px;
+
+        border-radius: 16px;
+    }
+
+    .toast-icon {
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
+
+        font-size: 16px;
+    }
+
+    #toast-msg {
+        font-size: 14px;
+    }
+}
+
+
+/* Fix floating label overlap */
+
+.input-group label {
+    margin-bottom: 10px;
+    position: static;
+}
+
+.input-field::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.8;
+    font-size: 15px;
+}
