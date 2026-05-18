@@ -39,7 +39,10 @@ document.addEventListener('DOMContentLoaded', function () {
             localStorage.setItem('loggedInUser', email);
             window.location.href = 'index.html';
         } else {
-            alert('Invalid email or password.');
+            showToast("Invalid email or password", "error");
         }
     });
 });
+
+
+function showToast(message, type = "success") { const toast = document.getElementById("toast"); const toastMsg = document.getElementById("toast-msg"); const toastIcon = document.getElementById("toast-icon");  if (!toast) { alert(message); return; }  toastMsg.innerText = message; if (type === "success") { toastIcon.innerHTML = "✅"; } else { toastIcon.innerHTML = "❌"; } toast.className = `toast show ${type}`;  setTimeout(() => { toast.classList.remove("show"); }, 3000); }  document.addEventListener("DOMContentLoaded", () => { const googleBtn = document.getElementById("googleLogin"); if (googleBtn) { googleBtn.addEventListener("click", () => { showToast( "Google Login Coming Soon", "success" ); }); }  const githubBtn = document.getElementById("githubLogin"); if (githubBtn) { githubBtn.addEventListener("click", () => { showToast( "GitHub Login Coming Soon", "success" ); }); } });
