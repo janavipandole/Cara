@@ -95,7 +95,7 @@ function resetTryOn() {
 
 // 5. Share logic (Mockup)
 function shareInsta() {
-    alert("In a full implementation, this would generate a downloadable poster or trigger the Web Share API with the AI result!");
+    showToast("In a full implementation, this would generate a downloadable poster or trigger the Web Share API with the AI result!", 'info');
     if (navigator.share) {
         navigator.share({
             title: 'My Cara AI Look',

@@ -536,7 +536,7 @@ window.selectStyle = function (style) {
             block: 'start'
         });
     }
-    alert(`Showing ${style} style recommendations!`);
+    showToast(`Showing ${style} style recommendations!`, 'info');
 }
 
 /* --- START: BUY NOW FUNCTIONALITY --- */

@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const password = document.getElementById('registerPassword').value;
 
        if (!name || !email || !password) {
-    alert('Please fill all fields.');
+    showToast('Please fill all fields.', 'warning');
     return;
 }
 
@@ -17,13 +17,14 @@ const passwordRegex =
 
 if (!passwordRegex.test(password)) {
 
-    alert(
-        'Password must contain:\n' +
-        '- Minimum 8 characters\n' +
-        '- One uppercase letter\n' +
-        '- One lowercase letter\n' +
-        '- One number\n' +
-        '- One special character'
+    showToast(
+        'Password must contain:<br>' +
+        '- Minimum 8 characters<br>' +
+        '- One uppercase letter<br>' +
+        '- One lowercase letter<br>' +
+        '- One number<br>' +
+        '- One special character',
+        'warning'
     );
 
     return;
@@ -31,18 +32,20 @@ if (!passwordRegex.test(password)) {
 
         let users = JSON.parse(localStorage.getItem('users') || '[]');
         if (users.find(u => u.email === email)) {
-            alert('Email already registered.');
+            showToast('Email already registered.', 'error');
             return;
         }
         if (users.find(u => u.name.toLowerCase() === name.toLowerCase())) {
-        alert('Username already exists.');
+        showToast('Username already exists.', 'error');
         return;
         }
         users.push({ name, email, password });
         localStorage.setItem('users', JSON.stringify(users));
         // On successful registration
-        alert('Signup successful! You are now logged in.');
+        showToast('Signup successful! You are now logged in.', 'success');
         localStorage.setItem('loggedInUser', email);
-        window.location.href = 'index.html';
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 1500);
     });
 });

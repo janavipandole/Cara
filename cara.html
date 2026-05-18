@@ -697,10 +697,10 @@
 
     // checkout (demo)
     document.getElementById('checkout').addEventListener('click', () => {
-      if (!Object.keys(cart).length) { alert('Your cart is empty — add items to checkout.'); return; }
+      if (!Object.keys(cart).length) { showToast('Your cart is empty — add items to checkout.', 'warning'); return; }
       const items = Object.entries(cart).map(([id, q]) => ({ id, q }));
       // demo: show order summary; in production you'd call an API
-      alert('Checkout demo — ' + JSON.stringify({ items, subtotal: subtotalEl.textContent }));
+      showToast('Checkout demo — ' + JSON.stringify({ items, subtotal: subtotalEl.textContent }), 'success');
     });
 
     // init render
