@@ -137,6 +137,14 @@ function showToast(message, type) {
     // Ensure container exists (create if needed)
     var container = document.getElementById('toast-container');
     if (!container) {
+        // Also inject toast.css for standalone pages
+        if (!document.querySelector('link[href*="toast.css"]')) {
+            var link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = 'toast.css';
+            document.head.appendChild(link);
+        }
+
         container = document.createElement('div');
         container.id = 'toast-container';
         document.body.appendChild(container);
