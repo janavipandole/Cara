@@ -87,32 +87,34 @@
           alt="Cara e-commerce brand logo with elegant script and floral accent"
       /></a>
 
-      <div>
-        <ul id="navbar">
-          <li><a href="index.html">Home</a></li>
-          <li><a class="active" href="shop.html">Shop</a></li>
-          <li><a href="blog.html">Blog</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="login.html">Login</a></li>
-          <li>
-            <a href="cart.html" id="lg-bag" class="cart-icon-wrapper"
-              ><i class="ri-shopping-bag-4-line"></i
-              ><span class="cart-count" id="desktopCartCount">0</span></a
-            >
-          </li>
-          <li>
-            <button
-              class="theme-toggle"
-              id="themeToggle"
-              aria-label="Toggle dark mode"
-            >
-              <i class="ri-moon-line" id="themeIcon"></i>
-            </button>
-          </li>
-          <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
-        </ul>
-      </div>
+     <div>
+  <ul id="navbar">
+    <li><a href="index.html">Home</a></li>
+    <li><a class="active" href="shop.html">Shop</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="login.html">Login</a></li>
+    <li><a href="try-on.html">Try-On</a></li>
+    <li><a href="community.html">Community</a></li>
+    <li><a href="promotions.html">Promotions</a></li>
+    <li>
+      <a href="cart.html" id="lg-bag" class="cart-icon-wrapper">
+        <i class="ri-shopping-bag-4-line"></i>
+        <span class="cart-count" id="desktopCartCount">0</span>
+      </a>
+    </li>
+    <li>
+      <button class="theme-toggle" id="themeToggle" 
+        aria-label="Toggle dark mode">
+        <i class="ri-moon-line" id="themeIcon"></i>
+      </button>
+    </li>
+    <a href="#" id="close">
+      <i class="fa-solid fa-xmark"></i>
+    </a>
+  </ul>
+</div>
       <div class="mobile">
         <button
           class="theme-toggle"
@@ -286,5 +288,8 @@
     <script src="app.js"></script>
     <!-- csritik-max -->
     <div id="toast-container"></div>
+    <script src="app.js"></script>
+    <script src="navbar.js"></script>
+    <script>loadNavbar('home');</script>
   </body>
 </html>
