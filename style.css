@@ -436,6 +436,7 @@ button a {
 
 #product1 .pro:hover {
     box-shadow: 10px 10px 50px var(--shadow-hover);
+    transform: translateY(-8px);
 }
 
 #product1 .pro img {
@@ -693,6 +694,7 @@ button.normal {
     white-space: nowrap;
 }
 
+
 /* ============================================
    FOOTER
    ============================================ */
@@ -802,6 +804,10 @@ footer .copyright {
     border-radius: 4px;
     color: #fff;
     font-weight: 600;
+}
+
+#pagination a:hover {
+    transform: translateY(-3px);
 }
 
 /* ============================================
