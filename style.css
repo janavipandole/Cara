@@ -1427,6 +1427,9 @@ footer .copyright {
     width: 100%;
     aspect-ratio: 1/1;
     margin-bottom: 12px;
+}
+
+
 #pro-details .single-pro-details .quantity-selector input {
     width: 50px;
     height: 100%;
@@ -1923,7 +1926,10 @@ footer .copyright {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(8, 129, 120, 0.4);
     background: var(--accent-hover, #066b63);
-.normals {
+}
+
+
+    .normals {
     margin: 10px;
     text-decoration: none;
     font-size: 17px;
