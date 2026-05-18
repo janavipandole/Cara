@@ -14,26 +14,84 @@ if (close) {
     });
 }
 
-// Single Product Image Switching
-var MainImg = document.getElementById("MainImg");
-var smallImg = document.getElementsByClassName("small-img");
+// Dynamic Product Details Logic
+document.addEventListener("DOMContentLoaded", () => {
+    // 1. Remove inline onclick from all product cards
+    document.querySelectorAll('.pro').forEach(card => {
+        card.removeAttribute("onclick");
+        card.onclick = null; // Ensure property is also cleared
 
-document.querySelectorAll(".pro img").forEach((img) => {
-    img.addEventListener("click", function () {
+        // 2. Add delegated click event for the whole card
+        card.addEventListener('click', function(e) {
+            // Ignore if the user clicked the 'Add to Cart' icon
+            if (e.target.closest('.cart')) {
+                return;
+            }
 
-        localStorage.setItem("productImage", this.src);
+            // Extract product details from the card's DOM
+            const nameElement = this.querySelector("h5");
+            const priceElement = this.querySelector("h4");
+            const brandElement = this.querySelector(".des span");
+            const imageElement = this.querySelector("img");
 
-        window.location.href = "singleProduct.html";
+            const selectedProduct = {
+                name: nameElement ? nameElement.textContent.trim() : "Product",
+                price: priceElement ? priceElement.textContent.trim() : "$0.00",
+                brand: brandElement ? brandElement.textContent.trim() : "Brand",
+                image: imageElement ? imageElement.src : ""
+            };
+
+            // Store in localStorage
+            localStorage.setItem("selectedProduct", JSON.stringify(selectedProduct));
+
+            // Redirect to single product page
+            window.location.href = "singleProduct.html";
+        });
     });
-});
 
-if (MainImg) {
-    for (let i = 0; i < smallImg.length; i++) {
-        smallImg[i].onclick = function () {
-            MainImg.src = smallImg[i].src;
+    // 3. Dynamic Render on singleProduct.html
+    if (window.location.pathname.includes("singleProduct")) {
+        console.log("On singleProduct page, attempting dynamic render.");
+        const storedProductJSON = localStorage.getItem("selectedProduct");
+        console.log("Stored product JSON:", storedProductJSON);
+        
+        if (storedProductJSON) {
+            try {
+                const product = JSON.parse(storedProductJSON);
+                console.log("Parsed product:", product);
+
+                const nameEl = document.getElementById("product-name");
+                const priceEl = document.getElementById("product-price");
+                const mainImgEl = document.getElementById("MainImg");
+                const breadcrumbEl = document.querySelector(".single-pro-details h6");
+                const smallImgs = document.querySelectorAll(".small-img");
+
+                if (nameEl) nameEl.textContent = product.name;
+                if (priceEl) priceEl.textContent = product.price;
+                if (mainImgEl) mainImgEl.src = product.image;
+                if (breadcrumbEl && product.brand) breadcrumbEl.textContent = `Home / ${product.brand} / T-Shirt`;
+
+                // Update first thumbnail to match the product image
+                if (smallImgs.length > 0 && product.image) {
+                    smallImgs[0].src = product.image;
+                }
+            } catch (error) {
+                console.error("Error parsing stored product:", error);
+            }
+        }
+
+        // Single Product Image Switching for thumbnails
+        const MainImg = document.getElementById("MainImg");
+        const smallImg = document.getElementsByClassName("small-img");
+        if (MainImg && smallImg) {
+            for (let i = 0; i < smallImg.length; i++) {
+                smallImg[i].onclick = function () {
+                    MainImg.src = smallImg[i].src;
+                }
+            }
         }
     }
-}
+});
 
 // buttons ripple effect
 document.addEventListener("DOMContentLoaded", () => {
@@ -137,6 +195,14 @@ function showToast(message, type) {
     // Ensure container exists (create if needed)
     var container = document.getElementById('toast-container');
     if (!container) {
+        // Also inject toast.css for standalone pages
+        if (!document.querySelector('link[href*="toast.css"]')) {
+            var link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = 'toast.css';
+            document.head.appendChild(link);
+        }
+
         container = document.createElement('div');
         container.id = 'toast-container';
         document.body.appendChild(container);
