@@ -1447,6 +1447,7 @@ footer .copyright {
     width: 100%;
     aspect-ratio: 1/1;
     margin-bottom: 12px;
+}
 #pro-details .single-pro-details .quantity-selector input {
     width: 50px;
     height: 100%;
@@ -1948,7 +1949,7 @@ footer .copyright {
     text-decoration: none;
     font-size: 17px;
 }
-
+}
 
 /* Continue Shopping Button -{csritik-max}*/
 a.normal {
@@ -2610,6 +2611,7 @@ button.normal:hover {
     background-color: #088178;
     color: #fff;
     cursor: pointer;
+}
 }
 
 
@@ -5122,3 +5124,4 @@ select:focus-visible {
         font-size: 14px;
     }
 }
+
