@@ -5,9 +5,108 @@ const cardName = document.getElementById("cardName");
 const cardNumber = document.getElementById("cardNumber");
 const expiry = document.getElementById("expiry");
 const cvv = document.getElementById("cvv");
+const paymentFields = [cardName, cardNumber, expiry, cvv];
+
+function setFieldError(field, message) {
+  if (!field) return;
+
+  field.classList.add("input-error");
+  field.setCustomValidity(message);
+  field.reportValidity();
+}
+
+function clearFieldError(field) {
+  if (!field) return;
+
+  field.classList.remove("input-error");
+  field.setCustomValidity("");
+}
+
+function getDigits(value) {
+  return value.replace(/\D/g, "");
+}
+
+function formatCardNumber(value) {
+  return getDigits(value).slice(0, 16).replace(/(.{4})/g, "$1 ").trim();
+}
+
+function formatExpiry(value) {
+  const digits = getDigits(value).slice(0, 4);
+
+  if (digits.length <= 2) {
+    return digits;
+  }
+
+  return digits.slice(0, 2) + "/" + digits.slice(2);
+}
+
+function isValidExpiry(value) {
+  const match = value.match(/^(\d{2})\/(\d{2})$/);
+  if (!match) return false;
+
+  const month = Number(match[1]);
+  const year = Number("20" + match[2]);
+  if (month < 1 || month > 12) return false;
+
+  const currentDate = new Date();
+  const expiryDate = new Date(year, month);
+
+  return expiryDate > currentDate;
+}
+
+function validateOnlinePayment() {
+  if (paymentMethod.value !== "online") return true;
+
+  paymentFields.forEach(clearFieldError);
+
+  const cardNumberDigits = getDigits(cardNumber.value);
+  const cvvDigits = getDigits(cvv.value);
+
+  if (cardName.value.trim().length < 2) {
+    setFieldError(cardName, "Enter the card holder name.");
+    return false;
+  }
+
+  if (cardNumberDigits.length !== 16) {
+    setFieldError(cardNumber, "Enter a valid 16-digit card number.");
+    return false;
+  }
+
+  if (!isValidExpiry(expiry.value.trim())) {
+    setFieldError(expiry, "Enter a valid future expiry date in MM/YY format.");
+    return false;
+  }
+
+  if (!/^\d{3,4}$/.test(cvvDigits)) {
+    setFieldError(cvv, "Enter a valid 3 or 4 digit CVV.");
+    return false;
+  }
+
+  return true;
+}
+
+cardNumber.addEventListener("input", function () {
+  this.value = formatCardNumber(this.value);
+  clearFieldError(this);
+});
+
+expiry.addEventListener("input", function () {
+  this.value = formatExpiry(this.value);
+  clearFieldError(this);
+});
+
+cvv.addEventListener("input", function () {
+  this.value = getDigits(this.value).slice(0, 4);
+  clearFieldError(this);
+});
+
+cardName.addEventListener("input", function () {
+  clearFieldError(this);
+});
 
 // SHOW / HIDE CARD DETAILS
 paymentMethod.addEventListener("change", function () {
+  paymentFields.forEach(clearFieldError);
 
   if (this.value === "online") {
 
@@ -26,6 +125,9 @@ paymentMethod.addEventListener("change", function () {
     cardNumber.required = false;
     expiry.required = false;
     cvv.required = false;
+    paymentFields.forEach(function (field) {
+      field.value = "";
+    });
 
   }
 
@@ -48,6 +150,10 @@ form.addEventListener("submit", function (e) {
     alert("Your cart is empty!");
     return;
 
+  }
+
+  if (!validateOnlinePayment()) {
+    return;
   }
 
   // CLEAR CART AFTER SUCCESSFUL ORDER
