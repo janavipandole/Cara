@@ -2,6 +2,21 @@
 const bar = document.getElementById("bar");
 const nav = document.getElementById("navbar");
 const close = document.getElementById("close");
+
+function updateAuthUI() {
+    const loginBtn = document.getElementById("login-btn");
+    const loggedInUser = localStorage.getItem("loggedInUser");
+
+    if (!loginBtn) return;
+
+    if (loggedInUser) {
+        loginBtn.style.display = "none";
+    } else {
+        loginBtn.style.display = "block";
+    }
+}
+
+document.addEventListener("DOMContentLoaded", updateAuthUI);
 //hjello guys
 if (bar) {
     bar.addEventListener("click", () => {
