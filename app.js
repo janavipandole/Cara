@@ -2,7 +2,7 @@
 const bar = document.getElementById("bar");
 const nav = document.getElementById("navbar");
 const close = document.getElementById("close");
-//hjello guys
+
 if (bar) {
     bar.addEventListener("click", () => {
         nav.classList.add("active");
@@ -137,14 +137,6 @@ function showToast(message, type) {
     // Ensure container exists (create if needed)
     var container = document.getElementById('toast-container');
     if (!container) {
-        // Also inject toast.css for standalone pages
-        if (!document.querySelector('link[href*="toast.css"]')) {
-            var link = document.createElement('link');
-            link.rel = 'stylesheet';
-            link.href = 'toast.css';
-            document.head.appendChild(link);
-        }
-
         container = document.createElement('div');
         container.id = 'toast-container';
         document.body.appendChild(container);
@@ -168,20 +160,20 @@ function showToast(message, type) {
         '<div class="toast-progress"></div>';
 
     // Close button handler
-    toast.querySelector('.toast-close').addEventListener('click', function () {
+    toast.querySelector('.toast-close').addEventListener('click', function() {
         dismissToast(toast);
     });
 
     container.appendChild(toast);
 
     // Auto dismiss after 4 seconds
-    setTimeout(function () { dismissToast(toast); }, 4000);
+    setTimeout(function() { dismissToast(toast); }, 4000);
 }
 
 function dismissToast(toast) {
     if (!toast || toast.classList.contains('toast-hiding')) return;
     toast.classList.add('toast-hiding');
-    toast.addEventListener('animationend', function () { toast.remove(); });
+    toast.addEventListener('animationend', function() { toast.remove(); });
 }
 
 window.updateQty = function (change) {
@@ -418,17 +410,23 @@ document.addEventListener('DOMContentLoaded', () => {
 /* --- START: THEME TOGGLE FUNCTIONALITY --- */
 
 (function () {
+    const themeToggle = document.getElementById('themeToggle');
+    const themeToggleMobile = document.getElementById('themeToggleMobile');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeIconMobile = document.getElementById('themeIconMobile');
     const html = document.documentElement;
+
     const currentTheme = localStorage.getItem('theme') || 'light';
     html.setAttribute('data-theme', currentTheme);
+    updateThemeIcon(currentTheme);
 
     function updateThemeIcon(theme) {
-        const themeIcon = document.getElementById('themeIcon');
-        const themeIconMobile = document.getElementById('themeIconMobile');
+        console.log('Updating icons to:', theme);
         const iconClass = theme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
         if (themeIcon) themeIcon.className = iconClass;
         if (themeIconMobile) themeIconMobile.className = iconClass;
 
+        // Swap logo based on theme
         const siteLogo = document.getElementById('siteLogo');
         if (siteLogo) {
             siteLogo.src = theme === 'dark' ? 'images/Dlogo.png' : 'images/logo.png';
@@ -436,20 +434,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function toggleTheme() {
-        const current = html.getAttribute('data-theme');
-        const next = current === 'dark' ? 'light' : 'dark';
-        html.setAttribute('data-theme', next);
-        localStorage.setItem('theme', next);
-        updateThemeIcon(next);
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon(newTheme);
     }
 
-    window.addEventListener('load', function () {
-        updateThemeIcon(currentTheme);
-        const themeToggle = document.getElementById('themeToggle');
-        const themeToggleMobile = document.getElementById('themeToggleMobile');
-        if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
-        if (themeToggleMobile) themeToggleMobile.addEventListener('click', toggleTheme);
-    });
+    if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
+    if (themeToggleMobile) themeToggleMobile.addEventListener('click', toggleTheme);
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', updateThemeIcon);
+    }
 })();
 
 /* --- END: THEME TOGGLE FUNCTIONALITY --- */
@@ -563,30 +560,20 @@ document.addEventListener('DOMContentLoaded', () => {
 const backToTopBtn = document.getElementById("backToTop");
 const ToptobackBtn = document.getElementById("Toptoback");
 
-<<<<<<< HEAD
 if (backToTopBtn && ToptobackBtn) {
     window.addEventListener("scroll", () => {
 
         // SHOW DOWN BUTTON WHEN USER IS NEAR TOP
-=======
-window.addEventListener("scroll", () => {
-    // SHOW DOWN BUTTON WHEN USER IS NEAR TOP
-    if (ToptobackBtn && backToTopBtn) {
->>>>>>> b7aaee859d378b773dd49260b3a614d169ff0b0d
         if (window.scrollY <= 300) {
             ToptobackBtn.classList.add("show");
             backToTopBtn.classList.remove("show");
         }
-<<<<<<< HEAD
 
-=======
->>>>>>> b7aaee859d378b773dd49260b3a614d169ff0b0d
         // SHOW TOP BUTTON AFTER 300PX
         else {
             backToTopBtn.classList.add("show");
             ToptobackBtn.classList.remove("show");
         }
-<<<<<<< HEAD
     });
 
     // BACK TO TOP
@@ -604,29 +591,6 @@ window.addEventListener("scroll", () => {
             behavior: "smooth"
         });
     });
-=======
-    }
-});
-
-// BACK TO TOP
-if (backToTopBtn) {
-    backToTopBtn.addEventListener("click", () => {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-    });
-}
-
-// SCROLL TO BOTTOM
-if (ToptobackBtn) {
-    ToptobackBtn.addEventListener("click", () => {
-        window.scrollTo({
-            top: document.body.scrollHeight,
-            behavior: "smooth"
-        });
-    });
->>>>>>> b7aaee859d378b773dd49260b3a614d169ff0b0d
 }
 
 // Style Quiz Functionality
@@ -648,7 +612,7 @@ window.selectStyle = function (style) {
             product.style.display = 'none';
         }
     });
-    // Auto scroll to products section
+        // Auto scroll to products section
     const productSection = document.getElementById('product1');
 
     if (productSection) {
@@ -657,7 +621,7 @@ window.selectStyle = function (style) {
             block: 'start'
         });
     }
-    showToast(`Showing ${style} style recommendations!`, 'info');
+    alert(`Showing ${style} style recommendations!`);
 }
 
 /* --- START: BUY NOW FUNCTIONALITY --- */
@@ -665,7 +629,7 @@ window.buyNow = function (productName, productPrice, productImage, quantity, siz
     // Add to cart first
     addToCart(productName, productPrice, productImage, quantity, size);
     // Brief delay so user sees the toast before redirect
-    setTimeout(function () {
+    setTimeout(function() {
         window.location.href = 'checkout.html';
     }, 1500);
 }
@@ -694,15 +658,15 @@ document.addEventListener('DOMContentLoaded', function () {
             const selectedCategory = categoryFilter ? categoryFilter.value : 'all';
             const products = document.querySelectorAll('.pro');
             let visibleCount = 0;
-
+            
             products.forEach(product => {
                 const productName = product.querySelector('h5')?.textContent.toLowerCase() || '';
                 const productBrand = product.querySelector('.des span')?.textContent.toLowerCase() || '';
                 const productCategory = product.getAttribute('data-category') || '';
-
+                
                 const matchesSearch = searchTerm === '' || productName.includes(searchTerm) || productBrand.includes(searchTerm);
                 const matchesCategory = selectedCategory === 'all' || productCategory === selectedCategory;
-
+                
                 if (matchesSearch && matchesCategory) {
                     product.style.display = 'block';
                     visibleCount++;
@@ -741,7 +705,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Event listeners for real-time search
         searchInput.addEventListener('input', debounce(performSearch, 150));
-
+        
         // Immediate check on Enter key or Search button click
         if (searchBtn) {
             searchBtn.addEventListener('click', performSearch);
@@ -778,7 +742,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const observerOptions = {
             root: null,
             threshold: 0,
-            rootMargin: "0px 0px -10% 0px"
+            rootMargin: "0px 0px -10% 0px" 
         };
 
         const scrollObserver = new IntersectionObserver((entries) => {

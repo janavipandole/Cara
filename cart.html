@@ -54,32 +54,38 @@
   </head>
 
   <body>
-          <section id="header">
-        <a href="index.html">
-          <img src="images/logo.png" alt="" id="siteLogo">
-        </a>
+    <section id="header">
+      <a href="index.html">
+        <img src="images/logo.png" alt="" id="siteLogo">
+      </a>
 
-        <!-- Desktop navbar injects here -->
-        <div id="navbar-container"></div>
-
-        <!-- Mobile controls (outside navbar, always in DOM) -->
-        <div class="mobile">
-          <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
-            <i class="ri-moon-line" id="themeIconMobile"></i>
-          </button>
-          <a href="cart.html">
-            <i class="ri-shopping-bag-4-line"></i>
-            <span class="cart-count" id="mobileCartCount">0</span>
-          </a>
-          <i class="fas fa-outdent" id="bar"></i>
-        </div>
-      </section>
+      <div>
+        <ul id="navbar">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="login.html">Login</a></li>
+          <li><a href="try-on.html">Try-On</a></li>
+          <li><a href="community.html">Community</a></li>
+          <li><a href="promotions.html">Promotions</a></li>
+          <li>
+            <a href="cart.html" id="lg-bag" class="active">
+              <i class="ri-shopping-bag-4-line"></i>
+              <span class="cart-count" id="desktopCartCount">0</span>
+            </a>
+          </li>
+          <li>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+              <i class="ri-moon-line" id="themeIcon"></i>
+            </button>
+          </li>
+          <a href="#" id="close" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></a>
+        </ul>
+      </div>
       <div class="mobile">
-        <button
-          class="theme-toggle"
-          id="themeToggleMobile"
-          aria-label="Toggle dark mode"
-        >
+        <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
           <i class="ri-moon-line" id="themeIconMobile"></i>
         </button>
         <a href="cart.html" id="mobile-cart-icon">

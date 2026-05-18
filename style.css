@@ -1,195 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=League+Spartan:wght@100..900&display=swap');
 
-/* Banner3 — solid white button with dark text for max contrast */
-#banner3 .banner-box button {
-    background: rgba(255, 255, 255, 0.92);
-    color: #111;
-    border: none;
-    font-weight: 700;
-    font-size: 14px;
-    padding: 12px 24px;
-    border-radius: 6px;
-    cursor: pointer;
-    -webkit-backdrop-filter: blur(4px);
-    backdrop-filter: blur(4px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
-    transition: all 0.3s ease;
-    margin-top: 12px;
-    position: relative;
-    z-index: 2;
-}
-
-#banner3 .banner-box button:hover {
-    background: var(--accent);
-    color: #fff;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
-    transform: translateY(-2px);
-}
-
-/* sm-banner buttons — same treatment */
-#sm-banner .banner-box button {
-    background: rgba(255, 255, 255, 0.92);
-    color: #111;
-    border: none;
-    font-weight: 700;
-    font-size: 14px;
-    padding: 12px 28px;
-    border-radius: 6px;
-    cursor: pointer;
-    -webkit-backdrop-filter: blur(4px);
-    backdrop-filter: blur(4px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
-    transition: all 0.3s ease;
-    position: relative;
-    z-index: 2;
-}
-
-#sm-banner .banner-box button:hover {
-    background: var(--accent);
-    color: #fff;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
-    transform: translateY(-2px);
-}
-
-/* Scrollbar Customization */
-::-webkit-scrollbar {
-    width: 8px;
-    height: 10px;
-}
-
-::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: var(--accent);
-    border-radius: 10px; 
-    border: 2px solid var(--bg-primary);
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #06655e;
-}
-
-/* Dark theme adjustment */
-[data-theme="dark"] #banner3 .banner-box button,
-[data-theme="dark"] #sm-banner .banner-box button {
-    background: rgba(255, 255, 255, 0.15);
-    color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-}
-
-[data-theme="dark"] #banner3 .banner-box button:hover,
-[data-theme="dark"] #sm-banner .banner-box button:hover {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #fff;
-}
-
-/* ============================================
-   BANNER CARD HOVER ANIMATIONS
-   Add this block to the end of style.css
-   ============================================ */
-
-/* ── Shared setup for both banner rows ── */
-#sm-banner .banner-box,
-#banner3 .banner-box {
-    overflow: hidden;
-    /* keeps zoomed bg clipped inside the card */
-    transition:
-        transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1),
-        box-shadow 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-
-/* Background image lives on the pseudo-element so it can scale independently */
-#sm-banner .banner-box::before,
-#banner3 .banner-box::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: inherit;
-    /* picks up background-image from parent */
-    background-size: cover;
-    background-position: center;
-    transition: transform 0.55s cubic-bezier(0.25, 0.8, 0.25, 1);
-    z-index: 0;
-}
-
-/* Make sure text / buttons sit above the pseudo-element */
-#sm-banner .banner-box>*,
-#banner3 .banner-box>* {
-    position: relative;
-    z-index: 1;
-}
-
-/* ── Card lift + shadow on hover ── */
-#sm-banner .banner-box:hover,
-#banner3 .banner-box:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.22);
-}
-
-/* ── Background zoom on hover ── */
-#sm-banner .banner-box:hover::before,
-#banner3 .banner-box:hover::before {
-    transform: scale(1.08);
-}
-
-/* ── Subtle dark overlay that appears on hover ── */
-#sm-banner .banner-box::after,
-#banner3 .banner-box::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0);
-    transition: background 0.35s ease;
-    z-index: 0;
-    border-radius: inherit;
-}
-
-#sm-banner .banner-box:hover::after,
-#banner3 .banner-box:hover::after {
-    background: rgba(0, 0, 0, 0.12);
-}
-
-/* ── Button animations inside banner cards ── */
-#sm-banner .banner-box button,
-#banner3 .banner-box button {
-    transition:
-        background-color 0.3s ease,
-        color 0.3s ease,
-        transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
-        box-shadow 0.3s ease;
-}
-
-#sm-banner .banner-box:hover button,
-#banner3 .banner-box:hover button {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-}
-
-/* ── Heading slide-up micro-animation ── */
-#sm-banner .banner-box h2,
-#sm-banner .banner-box h4,
-#banner3 .banner-box h2,
-#banner3 .banner-box h3 {
-    transition: transform 0.35s ease, letter-spacing 0.35s ease;
-}
-
-#sm-banner .banner-box:hover h2,
-#sm-banner .banner-box:hover h4,
-#banner3 .banner-box:hover h2,
-#banner3 .banner-box:hover h3 {
-    transform: translateY(-4px);
-    letter-spacing: 0.5px;
-}
-
-/* ── Dark-theme adjustments ── */
-[data-theme="dark"] #sm-banner .banner-box:hover,
-[data-theme="dark"] #banner3 .banner-box:hover {
-    box-shadow: 0 20px 45px rgba(6, 182, 212, 0.18);
-}
-
 
 
 
@@ -202,7 +12,7 @@
     --bg-secondary: #f8f9fa;
     --text-primary: #222;
     --text-secondary: #465b52;
-    --header-bg: rgba(255, 255, 255, 0.5);
+    --header-bg: #ffffff;
     --card-bg: #ffffff;
     --border-color: #cce7d0;
     --shadow: rgba(0, 0, 0, 0.02);
@@ -225,7 +35,7 @@
     --bg-secondary: #1a1f26;
     --text-primary: #e6eef8;
     --text-secondary: #94a3b8;
-    --header-bg: rgba(15, 20, 25, 0.85);
+    --header-bg: #0f1419;
     --card-bg: #1a1f26;
     --border-color: #2d3748;
     --shadow: rgba(0, 0, 0, 0.4);
@@ -1730,22 +1540,6 @@ footer .copyright {
     aspect-ratio: 1/1;
     margin-bottom: 12px;
 }
-#pro-details .single-pro-details .quantity-selector input {
-    width: 50px;
-    height: 100%;
-    text-align: center;
-    font-size: 18px;
-    font-weight: 600;
-    border: none;
-    background: transparent;
-    color: var(--text-primary);
-    padding: 0;
-    margin: 0;
-    -moz-appearance: textfield;
-    appearance: textfield;
-    /* Firefox */
-}
-}
 
     #pro-details .single-pro-details .quantity-selector input {
         width: 50px;
@@ -2238,16 +2032,6 @@ footer .copyright {
         box-shadow: 0 4px 15px rgba(8, 129, 120, 0.2);
     }
 
-#pro-details .single-pro-details .cart-action-group button.normal:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(8, 129, 120, 0.4);
-    background: var(--accent-hover, #066b63);
-.normals {
-    margin: 10px;
-    text-decoration: none;
-    font-size: 17px;
-}
-}
     #pro-details .single-pro-details .cart-action-group button.normal:hover {
         transform: translateY(-2px);
         box-shadow: 0 6px 20px rgba(8, 129, 120, 0.4);
@@ -2317,7 +2101,6 @@ footer .copyright {
             box-shadow: none;
         }
 
-@import "toast.css";
         /* ============================================
    TOAST NOTIFICATION SYSTEM
    ============================================ */
@@ -2964,12 +2747,6 @@ footer .copyright {
                 border: 1px solid #c9cbce;
             }
 
-.subtotal button {
-    background-color: #088178;
-    color: #fff;
-    cursor: pointer;
-}
-}
             .subtotal button {
                 background-color: #088178;
                 color: #fff;
@@ -5505,14 +5282,6 @@ footer .copyright {
                     display: none;
                 }
 
-    .sub-card {
-        position: relative;
-        width: 100%;
-        opacity: 1;
-        transform: none !important;
-        transition: none;
-    }
-}
                 .sub-card {
                     position: relative;
                     width: 100%;
@@ -5523,20 +5292,6 @@ footer .copyright {
             }
         }
 
-/* ==========================================================================
-   NO RESULTS STATE (SHOP PAGE) 
-   ========================================================================== */
-#no-results-message {
-    width: 100%;
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 60px 20px;
-    margin: 20px auto;
-    background: var(--card-bg);
-    border-radius: 16px;
-    border: 1px dashed var(--border-color);
-    transition: all 0.3s ease;
-}
         /* ============================================
    NO RESULTS STATE (SHOP PAGE)
    ============================================ */
@@ -5571,99 +5326,6 @@ footer .copyright {
             color: var(--text-primary);
             margin: 0;
         }
-
-#no-results-message p {
-    font-size: 16px;
-    color: var(--text-secondary);
-    max-width: 400px;
-    margin: 0;
-    line-height: 1.5;
-}
-
-/* Mobile Responsive for the cart */
-@media screen and (max-width: 768px) {
-
-    #cart table thead {
-        display: none;
-    }
-
-    #cart table, 
-    #cart table tbody, 
-    #cart table tr {
-        display: block;
-        width: 100%;
-    }
-
-    #cart table tr {
-        background: #ffffff;
-        border: 1px solid #e2e8f0;
-        border-radius: 12px;
-        padding: 16px;
-        margin-bottom: 16px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-        box-sizing: border-box;
-    }
-
-    #cart table tbody tr td {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        text-align: right;
-        padding: 10px 0;
-        border: none;
-        width: 100%;
-        box-sizing: border-box;
-        font-size: 14px;
-    }
-
-    #cart table tbody tr td:nth-child(2) {
-        justify-content: center;
-        padding-bottom: 14px;
-        border-bottom: 1px dashed #e2e8f0;
-        margin-bottom: 8px;
-    }
-
-    #cart table td img {
-        width: 100px;
-        height: auto;
-        display: block;;
-    }
-
-    #cart table td:nth-child(1)::before { content: "Remove Item:"; font-weight: 600; color: #1a202c; }
-    #cart table td:nth-child(3)::before { content: "Product:"; font-weight: 600; color: #1a202c; }
-    #cart table td:nth-child(4)::before { content: "Price:"; font-weight: 600; color: #1a202c; }
-    #cart table td:nth-child(5)::before { content: "Quantity:"; font-weight: 600; color: #1a202c; }
-    #cart table td:nth-child(6)::before { content: "Subtotal:"; font-weight: 600; color: #1a202c; }
-
-    #cart table td input {
-        text-align: center;
-        margin: 0;
-    }
-
-    #cart-actions,
-    #cart-actions .cart-buttons {
-        display: flex;
-        flex-direction: column; 
-        align-items: center;    
-        gap: 12px;              
-        width: 100%;
-        box-sizing: border-box;
-    }
-
-    #cart-actions .cart-buttons a.normal {
-        display: block;
-        width: 100%;             
-        text-align: center;
-        padding: 14px 24px;      
-        box-sizing: border-box;
-        text-decoration: none;   
-        background-color: #2563eb; 
-        color: #ffffff;          
-        border-radius: 4px;        
-        font-weight: 600;
-        font-size: 14px;
-    }
-}
 
         #no-results-message p {
             font-size: 16px;
@@ -6255,4 +5917,4 @@ footer .copyright {
                 opacity: 1;
                 transform: translateY(0);
             }
-        }
+        }
