@@ -5,6 +5,9 @@
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
+html{
+    scroll-behavior: smooth;
+}
 
 :root {
     --primary-teal: #088178;       /* Cara's signature teal color */
