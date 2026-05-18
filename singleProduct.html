@@ -38,9 +38,6 @@
     <meta name="twitter:image" content="https://example.com/images/preview.jpg">
     <meta name="twitter:site" content="@janavipandole">
 
-    <!-- Theme Color for Mobile Browser -->
-    <meta name="theme-color" content="#000000">
-
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
@@ -52,7 +49,7 @@
 
 <body>
     <section id="header">
-        <a href="index.html"><img src="images/logo.png" alt=""></a>
+        <a href="index.html"><img src="images/logo.png" alt="Cara logo"></a>
 
         <div>
             <ul id="navbar">
@@ -62,6 +59,9 @@
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
                 <li><a href="login.html">Login</a></li>
+                <li><a href="try-on.html">Try-On</a></li>
+                <li><a href="community.html">Community</a></li>
+                <li><a href="promotions.html">Promotions</a></li>
                 <li><a href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
                 <li>
                     <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
@@ -81,19 +81,19 @@
 
     <section id="pro-details" class="section-p1">
         <div class="single-pro-image">
-            <img src="images/products/f1.jpg" width="100%" id="MainImg">
+            <img src="images/products/f1.jpg" width="100%" id="MainImg" alt="Main product image" title="Main product image">
             <div class="small-img-group">
                 <div class="small-img-col">
-                    <img src="images/products/f1.jpg" width="100%" class="small-img" alt="">
+                    <img src="images/products/f1.jpg" width="100%" class="small-img" alt="Product thumbnail 1" title="Product thumbnail 1">
                 </div>
                 <div class="small-img-col">
-                    <img src="images/products/f2.jpg" width="100%" class="small-img" alt="">
+                    <img src="images/products/f2.jpg" width="100%" class="small-img" alt="Product thumbnail 2" title="Product thumbnail 2">
                 </div>
                 <div class="small-img-col">
-                    <img src="images/products/f3.jpg" width="100%" class="small-img" alt="">
+                    <img src="images/products/f3.jpg" width="100%" class="small-img" alt="Product thumbnail 3" title="Product thumbnail 3">
                 </div>
                 <div class="small-img-col">
-                    <img src="images/products/f4.jpg" width="100%" class="small-img" alt="">
+                    <img src="images/products/f4.jpg" width="100%" class="small-img" alt="Product thumbnail 4" title="Product thumbnail 4">
                 </div>
             </div>
         </div>
@@ -101,7 +101,7 @@
             <h6>Home / T-Shirt</h6>
             <h4 id="product-name">Men's Fashion T-Shirt</h4>
             <h2 id="product-price">$139.00</h2>
-            <select id="product-size" name="">
+            <select id="product-size" name="product-size" aria-label="Select product size">
                 <option>Select Size</option>
                 <option>S</option>
                 <option>M</option>
@@ -110,8 +110,19 @@
                 <option>XXL</option>
                 <option>XXXL</option>
             </select>
-            <input id="product-quantity" type="number" value="1" min="1">
-            <button class="normal" onclick="handleAddToCart()">Add to Cart</button>
+            <div class="cart-action-group">
+                <div class="quantity-selector">
+                    <button type="button" class="qty-btn minus" onclick="updateQty(-1)" aria-label="Decrease quantity">
+                        <i class="fa-solid fa-minus"></i>
+                    </button>
+                    <input id="product-quantity" type="number" value="1" min="1" readonly title="Product quantity" aria-label="Product quantity">
+                    <button type="button" class="qty-btn plus" onclick="updateQty(1)" aria-label="Increase quantity">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                </div>
+                <button class="normal" onclick="handleAddToCart()">Add to Cart</button>
+                <button class="normal" style="background: var(--accent); color: white; margin-left: 10px;" onclick="window.location.href='try-on.html'">Try it On Virtually!</button>
+            </div>
             <h4>Product Details</h4>
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officia tenetur, exercitationem velit maxime
                 sit beatae ea tempore a itaque natus placeat, neque fuga cumque aperiam nemo quia atque ducimus ipsam.
@@ -186,7 +197,13 @@
                 <img src="images/pay/play.jpg" alt="">
             </div>
             <p>Secured Payment Gateways</p>
-            <img src="images/pay/pay.png" alt="">
+            <div class="payment-icons">
+                <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer" aria-label="Visa"><i class="fab fa-cc-visa"></i></a>
+                <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer" aria-label="Mastercard"><i class="fab fa-cc-mastercard"></i></a>
+                <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" aria-label="PayPal"><i class="fab fa-cc-paypal"></i></a>
+                <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer" aria-label="American Express"><i class="fab fa-cc-amex"></i></a>
+                <a href="https://stripe.com" target="_blank" rel="noopener noreferrer" aria-label="Stripe"><i class="fab fa-cc-stripe"></i></a>
+            </div>
         </div>
         <div class="copyright">
             <p> &copy; Cara 2025. All rights reserved. | <a href="license.html" style="color: #088178;">MIT License</a>
@@ -197,10 +214,7 @@
     <script src="products.js"></script>
     <script src="app.js"></script>
     <!-- csritik-max -->
-    <div class="toast" id="toast">
-        <div class="toast-icon" id="toast-icon">✅</div>
-        <span id="toast-msg"></span>
-    </div>
+    <div id="toast-container"></div>
     <script>
         document.getElementById("MainImg").src =
             localStorage.getItem("productImage") || "images/products/f1.jpg";
