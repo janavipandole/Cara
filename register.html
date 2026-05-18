@@ -9,6 +9,7 @@
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
 
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="toast.css">
     <link rel="stylesheet" href="register.css">
 
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
@@ -63,64 +64,50 @@
                 Create your account 😊
             </p>
 
-            <!-- FULL NAME -->
-            <div class="form-group">
-
-                <label>Full Name</label>
-
-                <input type="text"
-                    placeholder="Enter your full name">
-
-            </div>
-
-            <!-- EMAIL -->
-            <div class="form-group">
-
-                <label>Email</label>
-
-                <input type="email"
-                    placeholder="Enter your email">
-
-            </div>
-
-            <!-- PASSWORD -->
-            <div class="form-group">
-
-                <label>Password</label>
-
-                <div class="password-wrapper">
-
-                    <input type="password"
-                        placeholder="Enter your password"
-                        id="password">
-
-                    <i class="ri-eye-line toggle-eye"></i>
-
+            <form id="registerForm" novalidate>
+                <!-- FULL NAME -->
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text"
+                        id="registerUsername"
+                        placeholder="Enter your full name" required>
                 </div>
 
-            </div>
-
-            <!-- CONFIRM PASSWORD -->
-            <div class="form-group">
-
-                <label>Confirm Password</label>
-
-                <div class="password-wrapper">
-
-                    <input type="password"
-                        placeholder="Confirm your password"
-                        id="confirmPassword">
-
-                    <i class="ri-eye-line toggle-eye"></i>
-
+                <!-- EMAIL -->
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email"
+                        id="registerEmail"
+                        placeholder="Enter your email" required>
                 </div>
 
-            </div>
+                <!-- PASSWORD -->
+                <div class="form-group">
+                    <label>Password</label>
+                    <div class="password-wrapper">
+                        <input type="password"
+                            placeholder="Enter your password"
+                            id="registerPassword" required>
+                        <i class="ri-eye-line toggle-eye"></i>
+                    </div>
+                </div>
 
-            <!-- BUTTON -->
-            <button class="btn-primary">
-                CREATE ACCOUNT
-            </button>
+                <!-- CONFIRM PASSWORD -->
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <div class="password-wrapper">
+                        <input type="password"
+                            placeholder="Confirm your password"
+                            id="confirmPassword" required>
+                        <i class="ri-eye-line toggle-eye"></i>
+                    </div>
+                </div>
+
+                <!-- BUTTON -->
+                <button type="submit" class="btn-primary">
+                    CREATE ACCOUNT
+                </button>
+            </form>
 
             <!-- LOGIN LINK -->
             <div class="switch-auth">
@@ -137,6 +124,8 @@
 
     </section>
 
+    <script src="app.js"></script>
+    <script src="register.js"></script>
     <script>
     const toggleEyes = document.querySelectorAll(".toggle-eye");
 
@@ -166,6 +155,8 @@
     });
 </script>
 
+    <script src="app.js"></script>
+    <script src="register.js"></script>
 </body>
 
 </html>
