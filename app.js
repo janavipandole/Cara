@@ -681,3 +681,19 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollObserver.observe(featureSection);
     }
 });
+
+/* --- START: NEWSLETTER FORM FUNCTIONALITY --- */
+document.addEventListener('DOMContentLoaded', function () {
+  const newsletterForms = document.querySelectorAll('.newsletter-form');
+  newsletterForms.forEach(function (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const emailInput = form.querySelector('input[type="email"]');
+      if (emailInput && emailInput.value.trim()) {
+        showToast('Thanks for subscribing! 🎉', 'success');
+        emailInput.value = '';
+      }
+    });
+  });
+});
+/* --- END: NEWSLETTER FORM FUNCTIONALITY --- */
