@@ -95,15 +95,15 @@ document.addEventListener('DOMContentLoaded', updateCartCount);
 // NEW: Function to toggle visibility of empty cart message
 function handleEmptyCartView() {
     const cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
-    const contentWrapper = document.getElementById('cart-content-wrapper');
+    const cartGrid = document.getElementById('cart-container');
     const emptyContainer = document.getElementById('empty-cart-container');
 
     if (window.location.pathname.includes('cart.html')) {
         if (cart.length === 0) {
-            if (contentWrapper) contentWrapper.style.display = 'none';
-            if (emptyContainer) emptyContainer.style.display = 'block';
+            if (cartGrid) cartGrid.style.display = 'none';
+            if (emptyContainer) emptyContainer.style.display = 'flex';
         } else {
-            if (contentWrapper) contentWrapper.style.display = 'block';
+            if (cartGrid) cartGrid.style.display = 'block';
             if (emptyContainer) emptyContainer.style.display = 'none';
         }
     }
@@ -113,7 +113,7 @@ function addToCart(productName, productPrice, productImage, quantity, size) {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
     let item = {
         name: productName,
-        price: parseFloat(productPrice.replace('$', '')),
+        price: parseFloat(productPrice.replace(/[₹$,]/g, '')),
         image: productImage,
         quantity: parseInt(quantity),
         size: size.replace('Size ', '')
@@ -218,80 +218,167 @@ window.handleAddToCart = function () {
     updateCartCount(); // Update badge
 }
 
+window.appliedCoupon = localStorage.getItem('appliedCoupon') || null;
+
 window.loadCart = function () {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
 
     // First, check if we need to show the empty message
     handleEmptyCartView();
 
-    const tableBody = document.querySelector('#cart table tbody');
-    if (!tableBody) return;
+    const itemsContainer = document.getElementById('cart-items-container');
+    if (!itemsContainer) return;
 
-    tableBody.innerHTML = '';
-    let total = 0;
+    itemsContainer.innerHTML = '';
+    let subtotal = 0;
 
     cart.forEach((item, index) => {
         const itemPrice = item.price;
-        const subtotal = itemPrice * item.quantity;
-        total += subtotal;
+        const itemSubtotal = itemPrice * item.quantity;
+        subtotal += itemSubtotal;
 
-        const newRow = tableBody.insertRow();
-
-        // Remove button cell (no user data, safe static markup via DOM)
-        const removeCell = newRow.insertCell();
-        const removeLink = document.createElement('a');
-        removeLink.href = '#';
-        removeLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            removeItem(index);
-        });
-        const removeIcon = document.createElement('i');
-        removeIcon.className = 'fa-regular fa-circle-xmark';
-        removeLink.appendChild(removeIcon);
-        removeCell.appendChild(removeLink);
-
-        // Product image cell (safe property assignment)
-        const imgCell = newRow.insertCell();
-        const img = document.createElement('img');
-        img.src = item.image;
-        img.alt = item.name;
-        imgCell.appendChild(img);
-
-        // Product name and size cell (textContent prevents HTML injection)
-        const nameCell = newRow.insertCell();
-        const nameText = document.createTextNode(item.name);
-        nameCell.appendChild(nameText);
-        nameCell.appendChild(document.createElement('br'));
-        const sizeSmall = document.createElement('small');
-        sizeSmall.textContent = 'Size: ' + item.size;
-        nameCell.appendChild(sizeSmall);
-
-        // Price cell (safe — toFixed returns a number string)
-        const priceCell = newRow.insertCell();
-        priceCell.textContent = '$' + itemPrice.toFixed(2);
-
-        // Quantity input cell (safe property and attribute assignment)
-        const qtyCell = newRow.insertCell();
-        const qtyInput = document.createElement('input');
-        qtyInput.id = 'qty-' + index;
-        qtyInput.type = 'number';
-        qtyInput.value = item.quantity;
-        qtyInput.min = '1';
-        qtyInput.addEventListener('change', function () {
-            updateQuantity(index, this.value);
-        });
-        qtyCell.appendChild(qtyInput);
-
-        // Subtotal cell (safe — toFixed returns a number string)
-        const subtotalCell = newRow.insertCell();
-        subtotalCell.textContent = '$' + subtotal.toFixed(2);
+        // Modern Card Grid Row (Flexbox responsive card)
+        const row = document.createElement('div');
+        row.className = 'cart-item-row';
+        row.innerHTML = `
+            <div class="cart-item-left">
+                <div class="cart-item-img-wrap">
+                    <img src="${item.image}" alt="${item.name}" />
+                </div>
+                <div class="cart-item-details">
+                    <span class="cart-item-brand">${item.brand || 'Premium Brand'}</span>
+                    <h5 class="cart-item-title">${item.name}</h5>
+                    <span class="cart-item-size">Size: ${item.size}</span>
+                </div>
+            </div>
+            <div class="cart-item-right">
+                <div class="cart-item-price">₹${itemPrice.toLocaleString('en-IN')}</div>
+                <div class="qty-selector">
+                    <button class="qty-btn minus" aria-label="Decrease quantity" onclick="event.stopPropagation(); changeQuantity(${index}, -1)">
+                        <i class="ri-subtract-line"></i>
+                    </button>
+                    <input type="number" class="qty-input" value="${item.quantity}" readonly />
+                    <button class="qty-btn plus" aria-label="Increase quantity" onclick="event.stopPropagation(); changeQuantity(${index}, 1)">
+                        <i class="ri-add-line"></i>
+                    </button>
+                </div>
+                <div class="cart-item-subtotal">₹${itemSubtotal.toLocaleString('en-IN')}</div>
+                <button class="cart-item-remove" aria-label="Remove item" onclick="event.stopPropagation(); removeItem(${index})">
+                    <i class="ri-delete-bin-line"></i>
+                </button>
+            </div>
+        `;
+        itemsContainer.appendChild(row);
     });
 
-    const subtotalCell = document.querySelector('.subtotal table tr:nth-child(1) td:nth-child(2)');
-    const totalCell = document.querySelector('.subtotal table tr:nth-child(3) td:nth-child(2) strong');
+    // Update Summary Breakdowns
+    const subtotalEl = document.getElementById('summary-subtotal');
+    const taxEl = document.getElementById('summary-tax');
+    const shippingEl = document.getElementById('summary-shipping');
+    const discountRow = document.getElementById('summary-discount-row');
+    const discountEl = document.getElementById('summary-discount');
+    const totalEl = document.getElementById('summary-total');
 
-    if (subtotalCell) subtotalCell.innerText = `$ ${total.toFixed(2)}`;
-    if (totalCell) totalCell.innerText = `$ ${total.toFixed(2)}`;
+    if (subtotalEl) {
+        subtotalEl.innerText = `₹${subtotal.toLocaleString('en-IN')}`;
+    }
+
+    // Shipping calculations (free above 3000)
+    let shipping = 0;
+    if (subtotal > 0) {
+        shipping = subtotal >= 3000 ? 0 : 150;
+    }
+    if (shippingEl) {
+        shippingEl.innerText = shipping === 0 ? 'FREE' : `₹${shipping}`;
+        if (shipping === 0 && subtotal > 0) {
+            shippingEl.classList.add('shipping-free');
+        } else {
+            shippingEl.classList.remove('shipping-free');
+        }
+    }
+
+    // 18% tax calculation
+    const tax = Math.round(subtotal * 0.18);
+    if (taxEl) {
+        taxEl.innerText = `₹${tax.toLocaleString('en-IN')}`;
+    }
+
+    // Coupon / Discount calculation
+    let discount = 0;
+    if (window.appliedCoupon === 'CARA20' && subtotal > 0) {
+        discount = Math.round(subtotal * 0.20);
+    } else if (window.appliedCoupon === 'WELCOME10' && subtotal > 0) {
+        discount = Math.round(subtotal * 0.10);
+    }
+
+    if (discountRow && discountEl) {
+        if (discount > 0) {
+            discountRow.style.display = 'flex';
+            discountEl.innerText = `-₹${discount.toLocaleString('en-IN')}`;
+        } else {
+            discountRow.style.display = 'none';
+        }
+    }
+
+    // Grand total calculation
+    const grandTotal = Math.max(0, subtotal + tax + shipping - discount);
+    if (totalEl) {
+        totalEl.innerText = `₹${grandTotal.toLocaleString('en-IN')}`;
+    }
+
+    // Update promo input field state
+    const promoInput = document.getElementById('coupon-code');
+    const promoBtn = document.getElementById('apply-coupon-btn');
+    if (promoInput && promoBtn) {
+        if (window.appliedCoupon) {
+            promoInput.value = window.appliedCoupon;
+            promoInput.disabled = true;
+            promoBtn.innerText = 'Applied';
+            promoBtn.disabled = true;
+            promoBtn.classList.add('applied');
+        } else {
+            promoInput.value = '';
+            promoInput.disabled = false;
+            promoBtn.innerText = 'Apply';
+            promoBtn.disabled = false;
+            promoBtn.classList.remove('applied');
+        }
+    }
+}
+
+window.changeQuantity = function (index, change) {
+    let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+    if (!cart[index]) return;
+
+    let newQty = cart[index].quantity + change;
+    if (newQty < 1) newQty = 1;
+
+    cart[index].quantity = newQty;
+    localStorage.setItem('productsInCart', JSON.stringify(cart));
+    loadCart();
+    updateCartCount();
+}
+
+window.applyCoupon = function () {
+    const promoInput = document.getElementById('coupon-code');
+    if (!promoInput) return;
+
+    const code = promoInput.value.trim().toUpperCase();
+    if (code === 'CARA20') {
+        window.appliedCoupon = 'CARA20';
+        localStorage.setItem('appliedCoupon', 'CARA20');
+        showToast('CARA20 promo code applied! 20% discount added.', 'success');
+        loadCart();
+    } else if (code === 'WELCOME10') {
+        window.appliedCoupon = 'WELCOME10';
+        localStorage.setItem('appliedCoupon', 'WELCOME10');
+        showToast('WELCOME10 promo code applied! 10% discount added.', 'success');
+        loadCart();
+    } else if (code === '') {
+        showToast('Please enter a coupon code.', 'warning');
+    } else {
+        showToast('Invalid promo code. Try CARA20 for 20% off!', 'error');
+    }
 }
 
 window.removeItem = function (index) {
@@ -299,29 +386,20 @@ window.removeItem = function (index) {
     const removedName = cart[index] ? cart[index].name : 'Item';
     cart.splice(index, 1);
     localStorage.setItem('productsInCart', JSON.stringify(cart));
-    loadCart(); // This will re-trigger the check through handleEmptyCartView
-    updateCartCount(); // Update badge
-    showToast(removedName + ' removed from cart', 'error');
-}
-
-window.updateQuantity = function (index, newQuantity) {
-    let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
-    newQuantity = parseInt(newQuantity);
-
-    if (newQuantity < 1 || isNaN(newQuantity)) {
-        newQuantity = 1;
-        document.getElementById(`qty-${index}`).value = 1;
-    }
-
-    cart[index].quantity = newQuantity;
-    localStorage.setItem('productsInCart', JSON.stringify(cart));
     loadCart();
-    updateCartCount(); // Update badge
-    showToast('Quantity updated', 'info');
+    updateCartCount();
+    showToast(`${removedName} removed from cart`, 'error');
 }
 
-window.addEventListener('load', () => {
-    const cartElement = document.getElementById('cart');
+document.addEventListener('DOMContentLoaded', () => {
+    // Watch for click events on elements dynamically or directly
+    document.body.addEventListener('click', (e) => {
+        if (e.target && e.target.id === 'apply-coupon-btn') {
+            applyCoupon();
+        }
+    });
+
+    const cartElement = document.getElementById('cart-items-container');
     if (cartElement) {
         loadCart();
     }
@@ -482,36 +560,38 @@ window.addEventListener('load', () => {
 const backToTopBtn = document.getElementById("backToTop");
 const ToptobackBtn = document.getElementById("Toptoback");
 
-window.addEventListener("scroll", () => {
+if (backToTopBtn && ToptobackBtn) {
+    window.addEventListener("scroll", () => {
 
-    // SHOW DOWN BUTTON WHEN USER IS NEAR TOP
-    if (window.scrollY <= 300) {
-        ToptobackBtn.classList.add("show");
-        backToTopBtn.classList.remove("show");
-    }
+        // SHOW DOWN BUTTON WHEN USER IS NEAR TOP
+        if (window.scrollY <= 300) {
+            ToptobackBtn.classList.add("show");
+            backToTopBtn.classList.remove("show");
+        }
 
-    // SHOW TOP BUTTON AFTER 300PX
-    else {
-        backToTopBtn.classList.add("show");
-        ToptobackBtn.classList.remove("show");
-    }
-});
-
-// BACK TO TOP
-backToTopBtn.addEventListener("click", () => {
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
+        // SHOW TOP BUTTON AFTER 300PX
+        else {
+            backToTopBtn.classList.add("show");
+            ToptobackBtn.classList.remove("show");
+        }
     });
-});
 
-// SCROLL TO BOTTOM
-ToptobackBtn.addEventListener("click", () => {
-    window.scrollTo({
-        top: document.body.scrollHeight,
-        behavior: "smooth"
+    // BACK TO TOP
+    backToTopBtn.addEventListener("click", () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
     });
-});
+
+    // SCROLL TO BOTTOM
+    ToptobackBtn.addEventListener("click", () => {
+        window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: "smooth"
+        });
+    });
+}
 
 // Style Quiz Functionality
 window.openQuiz = function () {
@@ -682,3 +762,87 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollObserver.observe(featureSection);
     }
 });
+
+/* --- START: HERO SLIDER FUNCTIONALITY --- */
+function initHeroSlider() {
+    const slider = document.querySelector('.hero-slider');
+    // Null check to prevent errors on pages where the slider doesn't exist
+    if (!slider) return;
+
+    const slides = slider.querySelectorAll('.slide');
+    const prevBtn = slider.querySelector('.slider-btn.prev');
+    const nextBtn = slider.querySelector('.slider-btn.next');
+    const dots = slider.querySelectorAll('.slider-dots .dot');
+
+    if (slides.length === 0) return;
+
+    let currentSlide = 0;
+    let autoPlayInterval;
+    const intervalTime = 5000; // 5 seconds
+
+    function updateSlider() {
+        // Remove active class from all slides and dots
+        slides.forEach(slide => slide.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+
+        // Add active class to current slide and dot
+        slides[currentSlide].classList.add('active');
+        if (dots[currentSlide]) {
+            dots[currentSlide].classList.add('active');
+        }
+    }
+
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        updateSlider();
+    }
+
+    function prevSlide() {
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+        updateSlider();
+    }
+
+    function resetAutoPlay() {
+        clearInterval(autoPlayInterval);
+        startAutoPlay();
+    }
+
+    function startAutoPlay() {
+        autoPlayInterval = setInterval(nextSlide, intervalTime);
+    }
+
+    // Event Listeners for Arrows
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            nextSlide();
+            resetAutoPlay();
+        });
+    }
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            prevSlide();
+            resetAutoPlay();
+        });
+    }
+
+    // Event Listeners for Dots
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            currentSlide = index;
+            updateSlider();
+            resetAutoPlay();
+        });
+    });
+
+    // Initialize auto-play
+    startAutoPlay();
+}
+
+// Resilient initialization
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHeroSlider);
+} else {
+    initHeroSlider();
+}
+/* --- END: HERO SLIDER FUNCTIONALITY --- */
