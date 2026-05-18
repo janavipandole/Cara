@@ -3,7 +3,7 @@
 /* Banner3 — solid white button with dark text for max contrast */
 #banner3 .banner-box button {
     background: rgba(255, 255, 255, 0.92);
-    color: #111;
+color: #111;
     border: none;
     font-weight: 700;
     font-size: 14px;
@@ -86,10 +86,6 @@
     color: #fff;
 }
 
-/* ============================================
-   BANNER CARD HOVER ANIMATIONS
-   Add this block to the end of style.css
-   ============================================ */
 
 /* ── Shared setup for both banner rows ── */
 #sm-banner .banner-box,
@@ -192,10 +188,6 @@
 
 
 
-/* ============================================
-   DARK THEME VARIABLES
-   ============================================ */
-
 :root {
     --bg-primary: #ffffff;
     --bg-secondary: #f8f9fa;
@@ -242,9 +234,7 @@
     --feature-label-color: #ffffff;
 }
 
-/* ============================================
-   BASE STYLES
-   ============================================ */
+
 
 * {
     font-family: "League Spartan", sans-serif;
@@ -377,9 +367,7 @@ button.white:focus-visible {
     transform: translateY(-2px);
 }
 
-/* ============================================
-   JAVASCRIPT RIPPLE EFFECT GRAPHICS
-   ============================================ */
+
 
 .ripple-effect {
     position: absolute;
@@ -405,9 +393,6 @@ button.white .ripple-effect {
     }
 }
 
-/* ============================================
-   THEME TOGGLE BUTTON
-   ============================================ */
 
 .theme-toggle {
     background: transparent;
@@ -427,7 +412,7 @@ button.white .ripple-effect {
 .theme-toggle:hover {
     background-color: var(--accent);
     border-color: var(--accent);
-    color: white;
+    color: whitesmokes;
     transform: rotate(180deg);
 }
 
@@ -435,9 +420,6 @@ button.white .ripple-effect {
     margin-right: 10px;
 }
 
-/* ============================================
-   LAYOUT
-   ============================================ */
 
 #main {
     width: 100%;
@@ -473,9 +455,6 @@ button.white .ripple-effect {
     height: 100vh;
 }
 
-/* ============================================
-   HEADER
-   ============================================ */
 
 #header {
     display: flex;
@@ -552,9 +531,6 @@ button.white .ripple-effect {
     left: 2px;
 }
 
-/* ============================================
-   HERO SECTION
-   ============================================ */
 
 #hero {
 
@@ -605,19 +581,19 @@ button.white .ripple-effect {
 
 #hero button a {
     text-decoration: none;
-    color: #fff !important;
+    color: #fff;
 }
 
 #hero button:nth-of-type(2) {
     background: transparent;
     border: 2px solid var(--accent);
-    color: var(--accent) !important;
+    color: var(--accent) ;
 
 }
 
 #hero button:nth-of-type(2):hover {
     background: var(--accent);
-    color: #fff !important;
+    color: #fff ;
 }
 
 @keyframes fadeInUp {
@@ -632,9 +608,7 @@ button.white .ripple-effect {
     }
 }
 
-/* ============================================
-   FEATURES SECTION
-   ============================================ */
+
 
 #feature {
     display: flex;
@@ -705,9 +679,7 @@ button.white .ripple-effect {
     background-color: var(--feature-bg-6);
 }
 
-/* ============================================
-   PRODUCTS SECTION
-   ============================================ */
+
 
 #product1 {
     text-align: center;
@@ -946,9 +918,7 @@ button.white .ripple-effect {
     }
 }
 
-/* ============================================
-   BANNERS
-   ============================================ */
+
 
 #banner {
     background-image: url("images/banner/b2.jpg");
@@ -970,7 +940,7 @@ button.white .ripple-effect {
 }
 
 #banner span {
-    color: red;
+    color: reds;
 }
 
 #banner h2 {
@@ -1073,11 +1043,7 @@ button.white .ripple-effect {
     font-size: 22px;
 }
 
-/* ============================================
-   NEWSLETTER
-   ============================================ 
 
-#newsletter {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -1134,9 +1100,7 @@ button.white .ripple-effect {
 }
 */
 
-/* ============================================
-   FOOTER
-   ============================================ */
+
 footer .newsletter-footer {
     flex: 1 1 320px;
     max-width: 360px;
@@ -1275,7 +1239,7 @@ footer .install img {
 }
 
 [data-theme="dark"] .payment-icons i {
-    color: whitesmoke;
+    color: whitesmokes;
 }
 
 [data-theme="dark"] .payment-icons i:hover {
@@ -1292,9 +1256,6 @@ footer .copyright {
     width: 100%;
 }
 
-/* ============================================
-   SHOP PAGE
-   ============================================ */
 
 #shop-hero {
     background-image: url("images/banner/b1.jpg");
@@ -1327,9 +1288,7 @@ footer .copyright {
     font-weight: 600;
 }
 
-/* ============================================
-   TARGET 1: SHOP PAGE - SEARCH & FILTER
-   ============================================ */
+
 #search-filter {
     display: flex;
     flex-wrap: wrap;
@@ -1418,9 +1377,7 @@ footer .copyright {
     box-shadow: 0 6px 15px var(--shadow-hover);
 }
 
-/* ============================================
-   TARGET 2: SHOP PAGE - PRODUCT CARDS GRID
-   ============================================ */
+
 #product1 .pro {
     display: flex;
     flex-direction: column;
@@ -1534,9 +1491,7 @@ footer .copyright {
     color: #fff;
 }
 
-/* ============================================
-   TARGET 3: CONTACT PAGE - LAYOUT & FORM PANELS
-   ============================================ */
+
 #contact-section {
     display: flex;
     flex-wrap: wrap;
@@ -1793,12 +1748,10 @@ footer .copyright {
 
 .faq-card a:hover {
     background: var(--accent);
-    color: white;
+    color: whitesmoke;
 }
 
-/* ============================================
-   MOBILE RESPONSIVENESS TWEAKS
-   ============================================ */
+
 @media (max-width: 768px) {
     #contact-section {
         padding: 40px 20px;
@@ -1817,9 +1770,6 @@ footer .copyright {
 }
 
 
-/* ============================================
-   SINGLE PRODUCT
-   ============================================ */
 
 #pro-details {
     margin-top: 80px;
@@ -1880,9 +1830,6 @@ footer .copyright {
     background: #088178;
 }
 
-/* ============================================
-   BLOG PAGE
-   ============================================ */
 
 #blog-head {
     background-image: url("images/banner/b19.jpg");
@@ -2009,9 +1956,6 @@ button.normal:hover {
 
 @import "toast.css";
 
-/* ============================================
-   BLOG PAGE
-   ============================================ */
 
 #blog-head {
     background-image: url("images/banner/b19.jpg");
@@ -2095,9 +2039,6 @@ button.normal:hover {
     background-color: #088178;
 }
 
-/* ============================================
-   ABOUT US
-   ============================================ */
 
 #about-head {
     background-image: url("images/about/banner.png");
@@ -2150,9 +2091,6 @@ button.normal:hover {
     border-radius: 20px;
 }
 
-/* ============================================
-   CONTACT US
-   ============================================ */
 
 #contact-details {
     display: flex;
@@ -2264,9 +2202,7 @@ button.normal:hover {
     color: #000;
 }
 
-/* ============================================
-   CART PAGE
-   ============================================ */
+
 
 #cart {
     overflow-x: auto;
@@ -2421,9 +2357,7 @@ button.normal:hover {
 }
 
 
-/* ============================================
-   LOGIN 
-   ============================================ */
+
 /* login page */
 .login-page {
     display: flex;
@@ -2637,9 +2571,6 @@ input:focus {
     color: var(--accent);
 }
 
-/* ============================================
-   TOUCH TARGETS
-   ============================================ */
 
 button,
 .cart,
@@ -2648,17 +2579,11 @@ button,
     min-width: 44px;
 }
 
-/* ============================================
-   NAV TRANSITION
-   ============================================ */
 
 #navbar {
     transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ============================================
-   DESKTOP LARGE (≤ 1200px)
-   ============================================ */
 
 @media (max-width: 1200px) {
     #header {
@@ -2691,9 +2616,7 @@ button,
     }
 }
 
-/* ============================================
-   TABLET LANDSCAPE (≤ 1024px)
-   ============================================ */
+
 
 @media (max-width: 1024px) {
     #header {
@@ -2804,9 +2727,7 @@ button,
     }
 }
 
-/* ============================================
-   TABLET PORTRAIT + LARGE MOBILE (≤ 799px)
-   ============================================ */
+
 
 @media (max-width: 799px) {
 
@@ -3170,7 +3091,7 @@ button,
     input,
     textarea,
     select {
-        font-size: 16px !important;
+        font-size: 16px;
         border-radius: 6px;
     }
 
@@ -3189,11 +3110,8 @@ button,
     }
 }
 
-/* ============================================
-   TABLET 4 — PORTRAIT (768px–1024px)
-   ============================================ */
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 768px) (max-width: 1024px) {
     #header {
         padding: 14px 36px;
     }
@@ -3595,11 +3513,11 @@ button,
     input,
     textarea,
     select {
-        font-size: 16px !important;
+        font-size: 16px ;
     }
 }
 
-@media (min-width: 900px) and (max-width: 1024px) {
+@media (min-width: 900px) (max-width: 1024px) {
     #feature {
         grid-template-columns: repeat(6, 1fr);
     }
@@ -3622,9 +3540,7 @@ button,
     }
 }
 
-/* ============================================
-   MOBILE LARGE (≤ 600px)
-   ============================================ */
+
 
 @media (max-width: 600px) {
     h1 {
@@ -3710,9 +3626,6 @@ button,
     }
 }
 
-/* ============================================
-   MOBILE SMALL (≤ 477px)
-   ============================================ */
 
 @media (max-width: 477px) {
     #header {
@@ -3911,7 +3824,7 @@ button,
     .subtotal { width: 100%; }
 
     /* Forms: prevent iOS zoom */
-    input, textarea, select { font-size: 16px !important; border-radius: 6px; }
+    input, textarea, select { font-size: 16px; border-radius: 6px; }
 
     footer p {
         font-size: 14px;
@@ -4037,9 +3950,6 @@ button,
     }
 }
 
-/* ============================================
-   EXTRA SMALL (≤ 360px)
-   ============================================ */
 
 @media (max-width: 360px) {
     #header {
@@ -4093,11 +4003,6 @@ button,
     }
 }
 
-/* ============================================
-   MOBILE HERO + LAYOUT FIX (≤ 640px)
-   Fixes: #top position:absolute, #workingArea
-   height:100vh clipping hero on small screens
-   ============================================ */
 
 @media (max-width: 640px) {
     #main {
@@ -4106,13 +4011,13 @@ button,
     }
 
     #top {
-        position: relative !important;
-        height: auto !important;
+        position: relative;
+        height: auto;
         width: 100%;
     }
 
     #workingArea {
-        height: auto !important;
+        height: auto;
         min-height: 100svh;
     }
 
@@ -4121,79 +4026,77 @@ button,
     }
 
     #hero {
-        position: relative !important;
-        height: 100svh !important;
-        min-height: 480px !important;
-        width: 100% !important;
-        padding: 90px 20px 40px !important;
-        background-position: top center !important;
-        background-size: cover !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: flex-start !important;
-        justify-content: flex-start !important;
-        box-sizing: border-box !important;
+        position: relative;
+        height: 100svh ;
+        min-height: 480px;
+        width: 100% ;
+        padding: 90px 20px 40px ;
+        background-position: top center ;
+        background-size: cover ;
+        display: flex ;
+        flex-direction: column ;
+        align-items: flex-start ;
+        justify-content: flex-start ;
+        box-sizing: border-box ;
     }
 
     #hero h4 {
-        font-size: 14px !important;
-        padding-bottom: 6px !important;
+        font-size: 14px;
+        padding-bottom: 6px;
     }
 
     #hero h2 {
-        font-size: 24px !important;
-        line-height: 28px !important;
+        font-size: 24px ;
+        line-height: 28px ;
     }
 
     #hero h1 {
-        font-size: 30px !important;
-        line-height: 34px !important;
+        font-size: 30px ;
+        line-height: 34px;
     }
 
     #hero p {
-        font-size: 14px !important;
-        margin: 6px 0 14px !important;
+        font-size: 14px ;
+        margin: 6px 0 14px ;
     }
 
     /* Feature: kill the fixed 180px width */
     #feature {
-        display: grid !important;
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 12px !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-        padding: 0 !important;
+        display: grid ;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px ;
+        width: 100% ;
+        box-sizing: border-box ;
+        padding: 0 ;
     }
 
     #feature .fe-box,
     #feature>div {
-        width: 100% !important;
-        min-width: 0 !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        padding: 16px 10px !important;
-        box-sizing: border-box !important;
+        width: 100% ;
+        min-width: 0 ;
+        max-width: 100% ;
+        margin: 0 ;
+        padding: 16px 10px ;
+        box-sizing: border-box;
     }
 
     #feature .fe-box img {
-        width: 56px !important;
-        height: 56px !important;
-        object-fit: contain !important;
-        margin: 0 auto 8px !important;
-        display: block !important;
+        width: 56px ;
+        height: 56px ;
+        object-fit: contain ;
+        margin: 0 auto 8px ;
+        display: block ;
     }
 
     .section-p1 {
-        padding: 20px 16px !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-        overflow: hidden !important;
+        padding: 20px 16px ;
+        width: 100% ;
+        box-sizing: border-box ;
+        overflow: hidden;
     }
 }
 
-/* ============================================
-   CANVAS / QUIZ MODAL / PAGINATION
-   ============================================ */
+
 
 canvas {
     position: fixed;
@@ -4311,7 +4214,7 @@ canvas {
 .quiz-options button {
     padding: 10px;
     background-color: var(--accent);
-    color: white;
+    color: whites;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -4321,17 +4224,15 @@ canvas {
     background-color: #066a5c;
 }
 
-/* ============================================
-   ACCESSIBILITY
-   ============================================ */
+
 
 @media (prefers-reduced-motion: reduce) {
 
     *,
     *::before,
     *::after {
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms;
+        transition-duration: 0.01ms ;
     }
 }
 
@@ -4346,9 +4247,7 @@ select:focus-visible {
 }
 
 
-/* ============================================
-   TEXT COLOR FIXES
-   ============================================ */
+
 
 /* Feature badge text: dark mode needs white text
    because backgrounds are vivid (purple, green, etc.) */
@@ -4489,9 +4388,7 @@ select:focus-visible {
     transform: scale(1.05);
 }
 
-/* ============================================
-   CHECKOUT HEADER
-   ============================================ */
+
 
 .checkout-header {
     display: flex;
@@ -4798,14 +4695,11 @@ select:focus-visible {
         position: relative;
         width: 100%;
         opacity: 1;
-        transform: none !important;
+        transform: none ;
         transition: none;
     }
 }
 
-/* ==========================================================================
-   NO RESULTS STATE (SHOP PAGE) 
-   ========================================================================== */
 #no-results-message {
     width: 100%;
     grid-column: 1 / -1;
@@ -4846,7 +4740,6 @@ select:focus-visible {
     line-height: 1.5;
 }
 
-<<<<<<< HEAD
 /* CONTACT FORM FIX */
 
 #contact-section {
@@ -4955,7 +4848,6 @@ select:focus-visible {
     display: contents;
     text-decoration: none;
 }
-=======
 /* Mobile Responsive for the cart */
 @media screen and (max-width: 768px) {
 
@@ -5041,4 +4933,47 @@ select:focus-visible {
     }
 }
 
->>>>>>> b7aaee859d378b773dd49260b3a614d169ff0b0d
+
+
+
+@keyframes btn-spinner {
+  to { transform: rotate(360deg); }
+}
+
+.btn-loading {
+  position: relative;
+  pointer-events: none;
+  opacity: 0.75;
+  cursor: not-allowed !important;
+}
+
+.btn-loading .btn-text {
+  visibility: hidden;
+}
+
+.btn-loading::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: btn-spinner 0.6s linear infinite;
+}
+
+/* Contact form specific loading */
+.contact-form button.btn-loading {
+  color: transparent;
+}
+
+/* Newsletter form specific loading */
+.newsletter-form button.btn-loading {
+  color: transparent;
+}
+
+
