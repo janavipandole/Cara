@@ -560,49 +560,86 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchBtn = document.getElementById('searchBtn');
     const categoryFilter = document.getElementById('categoryFilter');
 
-    if (searchInput && searchBtn) {
-        // Search functionality
+    if (searchInput) {
+        // Debounce helper to prevent input lag
+        function debounce(func, delay) {
+            let timeoutId;
+            return function (...args) {
+                if (timeoutId) clearTimeout(timeoutId);
+                timeoutId = setTimeout(() => {
+                    func.apply(this, args);
+                }, delay);
+            };
+        }
+
+        // Unified search and category filtering
         const performSearch = () => {
             const searchTerm = searchInput.value.toLowerCase().trim();
+            const selectedCategory = categoryFilter ? categoryFilter.value : 'all';
             const products = document.querySelectorAll('.pro');
-
+            let visibleCount = 0;
+            
             products.forEach(product => {
                 const productName = product.querySelector('h5')?.textContent.toLowerCase() || '';
                 const productBrand = product.querySelector('.des span')?.textContent.toLowerCase() || '';
-                const matchesSearch = productName.includes(searchTerm) || productBrand.includes(searchTerm);
-
-                if (searchTerm === '' || matchesSearch) {
+                const productCategory = product.getAttribute('data-category') || '';
+                
+                const matchesSearch = searchTerm === '' || productName.includes(searchTerm) || productBrand.includes(searchTerm);
+                const matchesCategory = selectedCategory === 'all' || productCategory === selectedCategory;
+                
+                if (matchesSearch && matchesCategory) {
                     product.style.display = 'block';
+                    visibleCount++;
                 } else {
                     product.style.display = 'none';
                 }
             });
+
+            // Handle "No matching products found" UI
+            let noResultsMsg = document.getElementById('no-results-message');
+            if (visibleCount === 0) {
+                if (!noResultsMsg) {
+                    noResultsMsg = document.createElement('div');
+                    noResultsMsg.id = 'no-results-message';
+                    noResultsMsg.innerHTML = `
+                        <div class="no-results-content">
+                            <i class="ri-search-line"></i>
+                            <h3>No matching products found</h3>
+                            <p>We couldn't find any products matching "${searchInput.value}". Please try a different search term or change your category filter.</p>
+                        </div>
+                    `;
+                    const container = document.getElementById('shop-container');
+                    if (container) {
+                        container.appendChild(noResultsMsg);
+                    }
+                } else {
+                    noResultsMsg.querySelector('p').textContent = `We couldn't find any products matching "${searchInput.value}". Please try a different search term or change your category filter.`;
+                    noResultsMsg.style.display = 'block';
+                }
+            } else {
+                if (noResultsMsg) {
+                    noResultsMsg.style.display = 'none';
+                }
+            }
         };
 
-        searchBtn.addEventListener('click', performSearch);
+        // Event listeners for real-time search
+        searchInput.addEventListener('input', debounce(performSearch, 150));
+        
+        // Immediate check on Enter key or Search button click
+        if (searchBtn) {
+            searchBtn.addEventListener('click', performSearch);
+        }
         searchInput.addEventListener('keyup', (e) => {
             if (e.key === 'Enter') {
                 performSearch();
             }
         });
-    }
 
-    if (categoryFilter) {
-        // Category filter functionality
-        categoryFilter.addEventListener('change', function () {
-            const selectedCategory = this.value;
-            const products = document.querySelectorAll('.pro');
-
-            products.forEach(product => {
-                const productCategory = product.getAttribute('data-category');
-
-                if (selectedCategory === 'all' || productCategory === selectedCategory) {
-                    product.style.display = 'block';
-                } else {
-                    product.style.display = 'none';
-                }
-            });
-        });
+        // Trigger search when category changes to respect the category filter
+        if (categoryFilter) {
+            categoryFilter.addEventListener('change', performSearch);
+        }
     }
 });
 
