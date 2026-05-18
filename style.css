@@ -2861,3 +2861,71 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         transition: none;
     }
 }
+
+/* Mobile Responsive for the cart */
+@media (max-width: 768px) {
+    #cart table thead {
+        display: none;
+    }
+
+    #cart table, 
+    #cart table tbody, 
+    #cart table tr {
+        display: block;
+        width: 100%;
+    }
+
+    #cart table tr {
+        background: #fff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 16px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        box-sizing: border-box;
+    }
+
+    #cart table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: right;
+        padding: 8px 0;
+        border: none;
+        width: 100%;
+        box-sizing: border-box;
+        font-size: 14px;
+    }
+
+    #cart table td:nth-child(2) {
+        justify-content: center;
+        padding-bottom: 12px;
+        border-bottom: 1px dashed #e2e8f0;
+        margin-bottom: 8px;
+    }
+
+    #cart table td img {
+        width: 100px;
+        height: auto;
+    }
+
+    #cart table td:nth-child(1)::before { content: "Remove Item:"; font-weight: 600; color: #1a202c; }
+    #cart table td:nth-child(3)::before { content: "Product:"; font-weight: 600; color: #1a202c; }
+    #cart table td:nth-child(4)::before { content: "Price:"; font-weight: 600; color: #1a202c; }
+    #cart table td:nth-child(5)::before { content: "Quantity:"; font-weight: 600; color: #1a202c; }
+    #cart table td:nth-child(6)::before { content: "Subtotal:"; font-weight: 600; color: #1a202c; }
+
+    #cart table td input {
+        text-align: center;
+        margin: 0;
+    }
+    
+    #cart-add {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    #coupon, #subtotal {
+        width: 100%;
+    }
+}
