@@ -177,6 +177,9 @@ function filterProducts() {
   renderProducts('shop-container', filteredProducts);
   updateSearchSummary(filteredProducts.length);
   renderSearchSuggestions(query);
+  if (typeof window.initPagination === 'function') {
+    window.initPagination();
+  }
 }
 
 function attachSearchListeners() {
