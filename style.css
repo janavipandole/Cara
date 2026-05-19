@@ -1,5 +1,217 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=League+Spartan:wght@100..900&display=swap');
 
+/* ============================================
+   CONTACT PAGE HERO
+   Issue #318 — Unique hero banner
+   ============================================ */
+
+#contact-head {
+    background-image: url("images/banner/b15.png");
+    background-size: cover;
+    background-position: center;
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 14px;
+}
+
+#contact-head h2,
+#contact-head p {
+    color: #fff;
+    text-align: center;
+}
+
+/* Banner3 — solid white button with dark text for max contrast */
+#banner3 .banner-box button {
+    background: rgba(255, 255, 255, 0.92);
+    color: #111;
+    border: none;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    transition: all 0.3s ease;
+    margin-top: 12px;
+    position: relative;
+    z-index: 2;
+}
+
+#banner3 .banner-box button:hover {
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+    transform: translateY(-2px);
+}
+
+/* sm-banner buttons — same treatment */
+#sm-banner .banner-box button {
+    background: rgba(255, 255, 255, 0.92);
+    color: #111;
+    border: none;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 12px 28px;
+    border-radius: 6px;
+    cursor: pointer;
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+}
+
+#sm-banner .banner-box button:hover {
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+    transform: translateY(-2px);
+}
+
+/* Scrollbar Customization */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--accent);
+    border-radius: 10px; 
+    border: 2px solid var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #06655e;
+}
+
+/* Dark theme adjustment */
+[data-theme="dark"] #banner3 .banner-box button,
+[data-theme="dark"] #sm-banner .banner-box button {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+[data-theme="dark"] #banner3 .banner-box button:hover,
+[data-theme="dark"] #sm-banner .banner-box button:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+}
+
+/* ============================================
+   BANNER CARD HOVER ANIMATIONS
+   Add this block to the end of style.css
+   ============================================ */
+
+/* ── Shared setup for both banner rows ── */
+#sm-banner .banner-box,
+#banner3 .banner-box {
+    overflow: hidden;
+    /* keeps zoomed bg clipped inside the card */
+    transition:
+        transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1),
+        box-shadow 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Background image lives on the pseudo-element so it can scale independently */
+#sm-banner .banner-box::before,
+#banner3 .banner-box::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    /* picks up background-image from parent */
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.55s cubic-bezier(0.25, 0.8, 0.25, 1);
+    z-index: 0;
+}
+
+/* Make sure text / buttons sit above the pseudo-element */
+#sm-banner .banner-box>*,
+#banner3 .banner-box>* {
+    position: relative;
+    z-index: 1;
+}
+
+/* ── Card lift + shadow on hover ── */
+#sm-banner .banner-box:hover,
+#banner3 .banner-box:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.22);
+}
+
+/* ── Background zoom on hover ── */
+#sm-banner .banner-box:hover::before,
+#banner3 .banner-box:hover::before {
+    transform: scale(1.08);
+}
+
+/* ── Subtle dark overlay that appears on hover ── */
+#sm-banner .banner-box::after,
+#banner3 .banner-box::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0);
+    transition: background 0.35s ease;
+    z-index: 0;
+    border-radius: inherit;
+}
+
+#sm-banner .banner-box:hover::after,
+#banner3 .banner-box:hover::after {
+    background: rgba(0, 0, 0, 0.12);
+}
+
+/* ── Button animations inside banner cards ── */
+#sm-banner .banner-box button,
+#banner3 .banner-box button {
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+        box-shadow 0.3s ease;
+}
+
+#sm-banner .banner-box:hover button,
+#banner3 .banner-box:hover button {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* ── Heading slide-up micro-animation ── */
+#sm-banner .banner-box h2,
+#sm-banner .banner-box h4,
+#banner3 .banner-box h2,
+#banner3 .banner-box h3 {
+    transition: transform 0.35s ease, letter-spacing 0.35s ease;
+}
+
+#sm-banner .banner-box:hover h2,
+#sm-banner .banner-box:hover h4,
+#banner3 .banner-box:hover h2,
+#banner3 .banner-box:hover h3 {
+    transform: translateY(-4px);
+    letter-spacing: 0.5px;
+}
+
+/* ── Dark-theme adjustments ── */
+[data-theme="dark"] #sm-banner .banner-box:hover,
+[data-theme="dark"] #banner3 .banner-box:hover {
+    box-shadow: 0 20px 45px rgba(6, 182, 212, 0.18);
+}
 
 
 
