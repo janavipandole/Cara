@@ -1193,13 +1193,47 @@ footer .newsletter-form button {
 }
 
 footer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    padding: 40px 80px;
     background-color: var(--bg-secondary);
     transition: background-color 0.3s ease;
 }
 
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    width: 100%;
+}
+.footer-container .copyright {
+    grid-column: 1 / -1;
+    border-top: 1px solid var(--border-color);
+    padding-top: 20px;
+    margin-top: 10px;
+    text-align: center;
+}
+footer .col .logo {
+    margin-top: -66px;
+}
+footer, #newsletter {
+    border-top: 2px solid var(--border-color);
+}
+#newsletter {
+    margin-bottom: 60px;
+}
+footer {
+    padding-top: 50px; /* push content down so border clears the logo */
+    border-top: 1px solid var(--border-color);
+}
+#newsletter {
+    border-bottom: 1px solid var(--border-color);
+}
+
+footer {
+    border-top: none; 
+}
+footer .col .logo {
+    margin-top: -70px; 
+}
 footer .col {
     display: flex;
     flex-direction: column;
@@ -1290,6 +1324,10 @@ footer a:hover {
 footer .copyright {
     text-align: center;
     width: 100%;
+    grid-column: 1 / -1; /* spans all 4 columns */
+    border-top: 1px solid var(--border-color);
+    padding-top: 20px;
+    margin-top: 10px;
 }
 
 /* ============================================
@@ -3199,9 +3237,9 @@ button,
 
     footer {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 24px;
-        padding: 40px 24px;
+        grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
+        gap: 40px;
+        padding: 60px 80px 40px 80px;
     }
 
     footer .col {
@@ -3582,16 +3620,8 @@ button,
     }
 
     footer {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 28px;
-        padding: 48px 36px 32px;
-    }
-
-    footer .copyright {
-        grid-column: 1 / -1;
-        text-align: center;
-    }
+            grid-template-columns: repeat(2, 1fr);
+        }
 
     footer h4 {
         font-size: 17px;
