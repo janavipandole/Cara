@@ -608,7 +608,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* --- END: THEME TOGGLE FUNCTIONALITY --- */
 
-(function () {
+window.initPagination = function () {
     const paginationSection = document.getElementById('pagination');
     if (!paginationSection) return;
 
@@ -624,7 +624,10 @@ document.addEventListener('DOMContentLoaded', () => {
         allProducts = allProducts.concat(products);
     });
 
-    if (allProducts.length === 0) return;
+    if (allProducts.length === 0) {
+        paginationSection.innerHTML = '';
+        return;
+    }
 
     let currentPage = 1;
     const totalPages = Math.ceil(allProducts.length / productsPerPage);
@@ -711,7 +714,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     showPage(1);
-})();
+};
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', window.initPagination);
+} else {
+    window.initPagination();
+}
 
 // Back to Top Button Logic
 const backToTopBtn = document.getElementById("backToTop");
