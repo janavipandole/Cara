@@ -26,49 +26,53 @@ document.getElementById('forgotForm').addEventListener('submit', function (e) {
 
   /* validations */
   if (!email || !email.includes('@')) {
-    showToast('⚠️ Please enter a valid email!', true);
+    showToast('Please enter a valid email!', 'warning');
     return;
   }
 
   if (!newPass || newPass.length < 6) {
-    showToast('⚠️ Password must be at least 6 characters!', true);
+    showToast('Password must be at least 6 characters!', 'warning');
     return;
   }
 
   if (newPass !== confirmPass) {
-    showToast('⚠️ Passwords do not match!', true);
+    showToast('Passwords do not match!', 'warning');
     return;
   }
 
-  /* check if email exists in localStorage */
-  let users = JSON.parse(localStorage.getItem('users') || '[]');
-  const userIndex = users.findIndex(u => u.email === email);
-
-  if (userIndex === -1) {
-    showToast('⚠️ No account found with this email!', true);
-    return;
+  /* ── Loading state: disable button & show spinner ── */
+  const submitBtn = document.querySelector('#forgotForm button[type="submit"], #forgotForm .btn-primary');
+  if (submitBtn) {
+    submitBtn.classList.add('btn-loading');
+    submitBtn.disabled = true;
   }
 
-  /* update password */
-  users[userIndex].password = newPass;
-  localStorage.setItem('users', JSON.stringify(users));
+  /* Simulate async request */
+  setTimeout(function () {
+    /* check if email exists in localStorage */
+    let users = JSON.parse(localStorage.getItem('users') || '[]');
+    const userIndex = users.findIndex(u => u.email === email);
 
-  showToast('✅ Password reset successful! Redirecting to login...');
+    if (userIndex === -1) {
+      showToast('No account found with this email!', 'error');
+      /* Re-enable button on failure */
+      if (submitBtn) {
+        submitBtn.classList.remove('btn-loading');
+        submitBtn.disabled = false;
+      }
+      return;
+    }
 
-  /* redirect to login after success */
-  setTimeout(() => {
-    window.location.href = 'login.html';
-  }, 2000);
+    /* update password */
+    users[userIndex].password = newPass;
+    localStorage.setItem('users', JSON.stringify(users));
+
+    showToast('Password reset successful! Redirecting to login...', 'success');
+
+    /* redirect to login after success */
+    setTimeout(() => {
+      window.location.href = 'login.html';
+    }, 2000);
+  }, 1500);
 });
-
-/* toast */
-function showToast(msg, isError = false) {
-  const toast = document.getElementById('toast');
-  if (!toast) return;
-  toast.textContent = msg;
-  toast.style.background = isError ? '#dc2626' : '#088178';
-  toast.classList.remove('show');
-  void toast.offsetWidth;
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 3000);
-}
+
