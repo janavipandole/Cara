@@ -1452,160 +1452,247 @@ button.white .ripple-effect {
 /* ============================================
    FOOTER
    ============================================ */
-footer .newsletter-footer {
-    flex: 1 1 320px;
-    max-width: 360px;
+/* ==================== FOOTER ==================== */
+
+.main-footer {
+    background-color: var(--bg-secondary);
+    padding: 60px 80px 30px 80px;
+    transition: background-color 0.3s ease;
 }
 
-footer .newsletter-footer p {
+/* 1. Top Row Style Rules */
+.footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 25px;
+}
+
+.footer-logo {
+    max-height: 45px;
+    width: auto;
+}
+
+.footer-socials {
+    display: flex;
+    gap: 15px;
+}
+
+.footer-socials a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background-color: #2b2b2b; /* Sleek structural dark circle circles */
+    color: whitesmoke;
+    text-decoration: none;
+    font-size: 18px;
+    transition: 0.3s ease;
+}
+
+.footer-socials a:hover {
+    background-color: var(--accent);
+    color: #fff;
+    transform: translateY(-3px);
+}
+
+/* Elegant Accent Separator Line */
+.footer-divider {
+    border: 0;
+    height: 1px;
+    background-color: #3a3a3a;
+    margin: 0 0 40px 0;
+}
+
+/* 2. Middle Grid Configuration */
+.footer-middle {
+    display: grid;
+    grid-template-columns: 1.3fr 0.8fr 0.8fr 1.3fr;
+    gap: 40px;
+    padding-bottom: 40px;
+}
+
+.footer-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.footer-col h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--footer-text);
+    margin-bottom: 22px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.footer-col p {
     font-size: 14px;
     line-height: 1.6;
-    margin: 10px 0 18px;
-    color: #465b52;
+    color: var(--footer-text);
+    margin: 0 0 12px 0;
+    opacity: 0.85;
 }
 
-footer .newsletter-footer p span {
-    color: #088178;
+.footer-col p strong {
+    color: var(--footer-text);
+}
+
+.footer-col p span {
+    color: var(--accent);
     font-weight: 600;
 }
 
-footer .newsletter-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.footer-col a {
+    font-size: 14px;
+    text-decoration: none;
+    color: var(--footer-text);
+    margin-bottom: 14px;
+    opacity: 0.8;
+    transition: all 0.3s ease;
 }
 
-footer .newsletter-form input {
+.footer-col a:hover {
+    color: var(--accent);
+    opacity: 1;
+    padding-left: 5px; /* Interactive hover nudge */
+}
+
+/* Newsletter Input Form Layout */
+.newsletter-form {
+    display: flex;
     width: 100%;
-    height: 44px;
+    gap: 8px;
+    margin-bottom: 25px;
+}
+
+.newsletter-form input {
+    flex: 1;
+    height: 42px;
     padding: 0 15px;
-    border: 1px solid #d1d1d1;
-    border-radius: 6px;
+    border: 1px solid rgb(45, 43, 43);
+    background-color: rgb(45, 43, 43);
+    color: #fff;
+    border-radius: 4px;
     outline: none;
     font-size: 14px;
 }
 
-footer .newsletter-form button {
-    width: 100%;
-    height: 44px;
-    border-radius: 6px;
-}
-
-@media (min-width: 992px) {
-    footer .newsletter-form {
-        flex-direction: row;
-    }
-
-    footer .newsletter-form input {
-        flex: 1;
-    }
-
-    footer .newsletter-form button {
-        width: auto;
-        min-width: 110px;
-        white-space: nowrap;
-    }
-}
-
-footer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    background-color: var(--bg-secondary);
+.newsletter-form button {
+    height: 42px;
+    padding: 0 22px;
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
     transition: background-color 0.3s ease;
 }
 
-footer .col {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 20px;
+.newsletter-form button:hover {
+    background-color: #06655e;
 }
 
-footer .logo {
-    margin-bottom: 30px;
+/* Payment Gateway Section Alignment */
+.install-payment-box h4 {
+    font-size: 13px;
+    margin-top: 10px;
+    margin-bottom: 15px;
 }
-
-footer h4 {
-    margin-bottom: 20px;
-    font-size: 20px;
-    color: var(--footer-text);
-}
-
-footer p {
-    margin: 0 0 8px 0;
-    font-size: 20px;
-    color: var(--footer-text);
-}
-
-footer a {
-    font-size: 18px;
-    text-decoration: none;
-    color: var(--footer-text);
-    margin-bottom: 10px;
-    transition: color 0.3s ease;
-}
-
-footer .follow {
-    margin-top: 20px;
-}
-
-footer .follow i {
-    color: var(--text-secondary);
-    padding-right: 4px;
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-footer .install .row img {
-    border: 1px solid #088178;
-    border-radius: 6px;
-}
-
-footer .install img {
-    margin: 10px 0 15px 0;
+.install-payment-box a{
+    font-size: 35px;
 }
 
 .payment-icons {
     display: flex;
-    align-items: center;
-    gap: 5px;
-    margin-top: 10px;
+    gap: 12px;
+    width: 100%;
 }
 
 .payment-icons a {
-    text-decoration: none;
-}
-
-.payment-icons i {
-    font-size: 37px;
-    color: #444444;
+    color: rgb(60, 57, 57);
+    opacity: 0.7;
+    margin: 0;
     transition: 0.3s ease;
-    cursor: pointer;
+    
 }
-
-.payment-icons i:hover {
-    color: #088178;
-    transform: scale(1.15);
-}
-
-[data-theme="dark"] .payment-icons i {
-    color: whitesmoke;
-}
-
-[data-theme="dark"] .payment-icons i:hover {
+.payment-icons a:hover {
     color: var(--accent);
+    opacity: 1;
+    padding-left: 0; /* Prevents slide interaction on icons */
+    transform: scale(1.12);
 }
 
-footer .follow i:hover,
-footer a:hover {
+/* 3. Bottom Row / Alignment */
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 25px;
+    border-top: 1px solid #3a3a3a;
+}
+
+.footer-bottom p {
+    font-size: 13px;
+    color: var(--footer-text);
+    opacity: 0.7;
+    margin: 0;
+}
+
+.footer-legal-links a {
+    font-size: 13px;
+    color: var(--footer-text);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: color 0.3s ease;
+    
+}
+
+.footer-legal-links a:hover {
     color: var(--accent);
+    opacity: 1;
 }
-
-footer .copyright {
-    text-align: center;
+/* Install App Section Layout inside Column 4 */
+.footer-install-box {
     width: 100%;
+    margin-bottom: 20px;
 }
+
+.footer-install-box h4 {
+    font-size: 14px !important;
+    margin-bottom: 10px !important;
+     margin-top: 15px;
+}
+
+.footer-install-box p {
+    font-size: 13px;
+    margin-bottom: 12px;
+    opacity: 0.8;
+}
+
+.download-badges {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.download-badges img {
+    height: 40px; /* Forces exact uniform look matching your layout */
+    width: auto;
+    border: 1px solid var(--accent); /* Matches the fine border style from your screenshot */
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.download-badges img:hover {
+    transform: scale(1.05);
+}
+
 
 /* ============================================
    SHOP PAGE
