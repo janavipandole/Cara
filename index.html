@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Page Title -->
-  <title>Cara â€” Modern Eâ€‘Commerce</title>
+  <title> Cara | Modern E-Commerce</title>
 
   <!-- Favicon -->
   <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
@@ -62,36 +62,93 @@
     <div id="top">
       <div id="workingArea">
         <section id="header">
-          <a href="index.html"><img src="images/logo.png" alt="" /></a>
+  <!-- Logo -->
+  <a href="index.html">
+    <img src="images/logo.png" alt="Cara Logo" />
+  </a>
 
-          <div>
-            <ul id="navbar">
-              <li><a class="active" href="index.html">Home</a></li>
-              <li><a href="shop.html">Shop</a></li>
-              <li><a href="blog.html">Blog</a></li>
-              <li><a href="about.html">About</a></li>
-              <li><a href="contact.html">Contact</a></li>
-              <li><a href="login.html">Login</a></li>
-              <li><a href="try-on.html">Try-On</a></li>
-              <li><a href="community.html">Community</a></li>
-              <li><a href="promotions.html">Promotions</a></li>
-              <li>
-                <a href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a>
-              </li>
-              <li>
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-                  <i class="ri-moon-line" id="themeIcon"></i>
-                </button>
-              </li>
-              <a href="#" id="close" aria-label="Close menu" aria-hidden="false"><i class="fa-solid fa-xmark"></i></a>
-            </ul>
-          </div>
-          <div class="mobile">
-            <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
-            <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false"
-              tabindex="0"></i>
-          </div>
-        </section>
+  <div>
+    <ul id="navbar">
+
+      <!-- Main Navigation Links -->
+      <li><a class="active" href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="try-on.html">Try-On</a></li>
+      <li><a href="community.html">Community</a></li>
+      <li><a href="promotions.html">Promotions</a></li>
+
+      <!-- Contact Icon -->
+      <li class="nav-icon">
+        <a href="contact.html" aria-label="Contact">
+          <i class="ri-customer-service-2-line"></i>
+        </a>
+      </li>
+
+      <!-- Login Icon -->
+      <li class="nav-icon">
+        <a href="login.html" aria-label="Login">
+          <i class="ri-user-3-line"></i>
+        </a>
+      </li>
+
+      <!-- Cart Icon -->
+      <li class="nav-icon">
+        <a href="cart.html" id="lg-bag" aria-label="Cart">
+          <i class="ri-shopping-bag-4-line"></i>
+        </a>
+      </li>
+
+      <!-- Theme Toggle -->
+      <li class="nav-icon">
+        <button
+          class="theme-toggle"
+          id="themeToggle"
+          aria-label="Toggle dark mode"
+        >
+          <i class="ri-moon-line" id="themeIcon"></i>
+        </button>
+      </li>
+
+      <!-- Close Button -->
+      <a
+        href="#"
+        id="close"
+        aria-label="Close menu"
+        aria-hidden="false"
+      >
+        <i class="fa-solid fa-xmark"></i>
+      </a>
+
+    </ul>
+  </div>
+
+  <!-- Mobile Navbar -->
+  <div class="mobile">
+
+    <!-- Login Icon -->
+    <a href="login.html" aria-label="Login">
+      <i class="ri-user-3-line"></i>
+    </a>
+
+    <!-- Cart Icon -->
+    <a href="cart.html" aria-label="Cart">
+      <i class="ri-shopping-bag-4-line"></i>
+    </a>
+
+    <!-- Hamburger Menu -->
+    <i
+      class="fas fa-outdent"
+      id="bar"
+      role="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+      tabindex="0"
+    ></i>
+
+  </div>
+</section>
         <section id="hero" class="hero-slider">
           <div class="slide active" style="background-image: url('images/hero4.png');">
             <div class="slide-content">
@@ -171,7 +228,7 @@
     <p>Summer Collection New Modern Design</p>
     <div class="pro-container">
 
-      <div class="pro" data-category="minimal">
+      <div class="pro" data-category="street">
         <div class="pro-img-wrap"><img src="images/products/f1.jpg" alt="Cartoon Astronaut T-Shirts" /></div>
         <div class="des">
           <div class="pro-brand-row">
@@ -189,7 +246,7 @@
       </div>
 
       <div class="pro" data-category="minimal">
-        <div class="pro-img-wrap"><img src="images/products/f2.jpg" alt="Cartoon Astronaut T-Shirts" /></div>
+        <div class="pro-img-wrap"><img src="images/products/f2.jpg" alt="White Palm Leaf Casual Shirt" /></div>
         <div class="des">
           <div class="pro-brand-row">
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
@@ -290,7 +347,7 @@
         </div>
       </div>
 
-      <div class="pro">
+      <div class="pro" data-category="minimal">
         <div class="pro-img-wrap"><img src="images/products/f8.jpg" alt="Cat Print Long Sleeve Blouse" /></div>
         <div class="des">
           <div class="pro-brand-row">
@@ -310,15 +367,15 @@
     </div>
   </section>
 
-  <section id="banner" class="section-m1">
-    <h4>Repair Services</h4>
-    <h2>Up to <span>70% off</span> All t-Shirts &amp; Accessories</h2>
-    <button class="normal"><a href="shop.html">Explore More</a></button>
-  </section>
+    <section id="banner" class="section-m1">
+      <h4>Repair Services</h4>
+      <h2>Up to <span>70% off</span> All t-Shirts & Accessories</h2>
+      <button class="normal"><a href="shop.html">Explore More</a></button>
+    </section>
 
   <section id="product1" class="section-p1">
     <h2>New Arrivals</h2>
-    <p>Summer Collection New Morden Design</p>
+    <p>Summer Collection New Modern Design</p>
     <div class="pro-container">
 
       <div class="pro" data-category="formal">
@@ -457,6 +514,21 @@
         </div>
       </div>
 
+    </div>
+  </section>
+
+  <section id="sm-banner" class="section-p1">
+    <div class="banner-box">
+      <h4>crazy deals</h4>
+      <h2>buy 1 get 1 free</h2>
+      <span>The best classic dress is on sale at cara</span>
+      <button class="white">Learn More</button>
+    </div>
+    <div class="banner-box banner-box2">
+      <h4>upcoming season</h4>
+      <h2>winter collection</h2>
+      <span>The best classic dress is on sale at Cara</span>
+      <button class="white">Collection</button>
     </div>
   </section>
 
