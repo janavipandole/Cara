@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,344 +6,374 @@
     <!-- Character Encoding -->
     <meta charset="UTF-8">
 
-    <!-- Viewport for Responsive Design -->
+    <!-- Viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Page Title -->
-    <title>Cara — Modern E‑Commerce</title>
+    <!-- Title -->
+    <title>Cara — Modern E-Commerce</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
 
-    <!-- SEO Meta Tags -->
+    <!-- SEO -->
     <meta name="description"
         content="Shop the latest trends on our e-commerce store. Dark theme supported for a better user experience.">
-    <meta name="keywords" content="e-commerce, shopping, online store, dark mode, buy online, latest fashion">
-    <meta name="author" content=" Cara">
+
+    <meta name="keywords"
+        content="e-commerce, shopping, online store, dark mode, buy online, latest fashion">
+
+    <meta name="author" content="Cara">
+
     <meta name="robots" content="index, follow">
 
-    <!-- Language -->
-    <meta http-equiv="Content-Language" content="en">
-
-    <!-- Open Graph (OG) Tags for Social Sharing -->
-    <meta property="og:title" content="E-commerce - Dark Theme Working">
-    <meta property="og:description" content="Shop the latest trends with our dark mode-enabled e-commerce experience.">
-    <meta property="og:image" content="https://example.com/images/preview.jpg">
-    <meta property="og:url" content="https://example.com/">
-    <meta property="og:type" content="website">
-
-    <!-- Twitter Card Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="E-commerce - Dark Theme Working">
-    <meta name="twitter:description" content="Dark theme e-commerce site with modern features.">
-    <meta name="twitter:image" content="https://example.com/images/preview.jpg">
-    <meta name="twitter:site" content="@janavipandole">
-
-    <!-- Theme Color for Mobile Browser -->
+    <!-- Theme -->
     <meta name="theme-color" content="#000000">
 
-    <!-- Stylesheets -->
+    <!-- Styles -->
     <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+        rel="stylesheet" />
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
 
 </head>
 
 <body>
+
+    <!-- HEADER -->
     <section id="header">
-<a href="index.html">
-    <img 
-        src="images/logo.png" 
-        alt="Cara Logo"
-        loading="eager"
-        width="120"
-        height="40"
-    >
-</a>
+
+        <a href="index.html">
+            <img
+                src="images/logo.png"
+                alt="Cara Logo"
+                loading="eager"
+                width="120"
+                height="40">
+        </a>
+
         <div>
             <ul id="navbar">
+
                 <li><a href="index.html">Home</a></li>
+
                 <li><a href="shop.html">Shop</a></li>
+
                 <li><a href="blog.html">Blog</a></li>
+
                 <li><a class="active" href="about.html">About</a></li>
+
                 <li><a href="contact.html">Contact</a></li>
+
                 <li><a href="login.html">Login</a></li>
-                <li><a href="cart.html" id="lg-bag" class="cart-icon-wrapper"><i
-                            class="ri-shopping-bag-4-line"></i><span class="cart-count"
-                            id="desktopCartCount">0</span></a></li>
+
                 <li>
-                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-                        <i class="ri-moon-line" id="themeIcon"></i>
+                    <a href="cart.html"
+                        id="lg-bag"
+                        class="cart-icon-wrapper">
+
+                        <i class="ri-shopping-bag-4-line"></i>
+
+                        <span class="cart-count"
+                            id="desktopCartCount">0</span>
+
+                    </a>
+                </li>
+
+                <li>
+                    <button class="theme-toggle"
+                        id="themeToggle"
+                        aria-label="Toggle dark mode">
+
+                        <i class="ri-moon-line"
+                            id="themeIcon"></i>
+
                     </button>
                 </li>
-                <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+
+                <a href="#" id="close">
+                    <i class="fa-solid fa-xmark"></i>
+                </a>
+
             </ul>
         </div>
+
+        <!-- MOBILE -->
         <div class="mobile">
-            <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
-                <i class="ri-moon-line" id="themeIconMobile"></i>
+
+            <button class="theme-toggle"
+                id="themeToggleMobile"
+                aria-label="Toggle dark mode">
+
+                <i class="ri-moon-line"
+                    id="themeIconMobile"></i>
+
             </button>
+
             <a href="cart.html" id="mobile-cart-icon">
+
                 <i class="ri-shopping-bag-4-line"></i>
-                <span class="cart-count" id="mobileCartCount">0</span>
+
+                <span class="cart-count"
+                    id="mobileCartCount">0</span>
+
             </a>
-            <i class="fas fa-outdent" id="bar"></i>
+
+            <i class="fas fa-outdent"
+                id="bar"></i>
+
         </div>
+
     </section>
 
+    <!-- ABOUT HEADER -->
     <section id="about-head">
+
         <h2>#KnowUs</h2>
+
         <p>Read all case studies about Us!</p>
+
     </section>
 
-    <section id="about-us" class="section-p1">
-<img 
-    src="images/about/a6.jpg" 
-    alt="About Cara"
-    loading="lazy"
-    width="600"
-    height="500"
->        <div>
+    <!-- ABOUT -->
+    <section id="about-us"
+        class="section-p1">
+
+        <img
+            src="images/about/a6.jpg"
+            alt="About Cara"
+            loading="lazy"
+            width="600"
+            height="500">
+
+        <div>
+
             <h2>Who We Are</h2>
+
             <p>
-                Cara is a modern and user-friendly web platform designed to deliver a smooth, responsive, and visually
-                engaging digital experience for users across all devices.
-                Our focus is on combining clean design, fast performance, and interactive functionality to create a
-                seamless browsing experience that feels both modern and reliable.
-                We believe that great web applications should not only look attractive but also provide simplicity,
-                accessibility, and ease of use for everyone. Every section of this platform is
-                carefully crafted with attention to detail, ensuring better usability, elegant design structure, and
-                improved user interaction. Our goal is to continuously innovate and build meaningful
-                digital experiences that connect creativity with technology in the most effective way possible. At Cara,
-                we are committed to delivering quality, performance, and a modern web experience that users can enjoy
-                with confidence.
+                Cara is a modern and user-friendly web platform designed
+                to deliver a smooth, responsive, and visually engaging
+                digital experience for users across all devices.
             </p>
 
-            <abbr title="">Create stunning images with as much or as little control as you
-                like thanks to a choice of Basic and Creative modes.</abbr>
+            <abbr title="">
+                Create stunning images with as much or as little control
+                as you like thanks to a choice of Basic and Creative modes.
+            </abbr>
+
             <br><br>
-            <marquee loop="-1" scollamount="5" width="100%">Create stunning images with as much or as
-                little control as you like thanks to a choice of Basic and Creative modes. </marquee>
+
+            <marquee loop="-1"
+                scollamount="5"
+                width="100%">
+
+                Create stunning images with as much or as little control
+                as you like thanks to a choice of Basic and Creative modes.
+
+            </marquee>
+
         </div>
+
     </section>
 
+    <!-- APP -->
     <section id="about-app">
+
         <h1>Download Our <a href="#">App</a></h1>
+
         <div class="video">
-<video 
-    autoplay 
-    muted 
-    loop 
-    preload="metadata"
-    width="800"
-    height="500"
-    src="images/about/1.mp4">
-</video>
+
+            <video
+                autoplay
+                muted
+                loop
+                preload="metadata"
+                width="800"
+                height="500"
+                src="images/about/1.mp4">
+            </video>
+
         </div>
+
     </section>
 
+    <!-- FEATURES -->
     <section id="interactive-feature-wrapper">
-        <div class="animation-container" id="cardContainer">
 
-            <div class="sub-card card-l1">
-                <div class="icon">🛒</div>
-                <div>
-                    <h3>Free Shipping</h3>
-                    <p>On all standard regional custom retail updates.</p>
-                </div>
-            </div>
+        <div class="animation-container"
+            id="cardContainer">
 
-            <div class="sub-card card-l2">
-                <div class="icon">👤</div>
-                <div>
-                    <h3>Online Order</h3>
-                    <p>Quick dynamic electronic checkout confirmation system.</p>
-                </div>
-            </div>
+            <div class="brand-card"
+                id="brandCard">
 
-            <div class="sub-card card-l3">
-                <div class="icon">⚙️</div>
-                <div>
-                    <h3>Save Money</h3>
-                    <p>Incentive cashback loops on every wholesale purchase.</p>
-                </div>
-            </div>
-
-            <div class="sub-card card-r1">
-                <div class="icon">⭐</div>
-                <div>
-                    <h3>Promotions</h3>
-                    <p>Unlock seasonal drops & holiday campaign vouchers.</p>
-                </div>
-            </div>
-
-            <div class="sub-card card-r2">
-                <div class="icon">🚀</div>
-                <div>
-                    <h3>Happy Sell</h3>
-                    <p>Premium matching customer success feedback loops.</p>
-                </div>
-            </div>
-
-            <div class="sub-card card-r3">
-                <div class="icon">🌍</div>
-                <div>
-                    <h3>24/7 Support</h3>
-                    <p>Global infrastructure desk agents always responsive.</p>
-                </div>
-            </div>
-
-            <div class="brand-card" id="brandCard">
                 <h1>Cara</h1>
+
             </div>
 
         </div>
+
     </section>
 
-    <section id="newsletter" class="section-p1 section-m1">
+    <!-- NEWSLETTER -->
+    <section id="newsletter"
+        class="section-p1 section-m1">
+
         <div class="newstext">
+
             <h4>Sign Up For Newsletters</h4>
-            <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
+
+            <p>
+                Get E-mail updates about our latest shop
+                and <span>special offers.</span>
+            </p>
+
         </div>
+
         <div class="form">
-            <input type="text" placeholder="Your email address">
-            <button class="normal">Sign Up</button>
+
+            <input type="text"
+                placeholder="Your email address">
+
+            <button class="normal">
+                Sign Up
+            </button>
+
         </div>
+
     </section>
 
-    <button id="backToTop" title="Back to Top" aria-label="Back to top">⬆</button>
-    <button id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">⬇</button>
+    <!-- SCROLL BUTTONS -->
+    <button id="backToTop"
+        title="Back to Top"
+        aria-label="Back to top">
 
+        ⬆
+
+    </button>
+
+    <button id="Toptoback"
+        title="Top To Back"
+        aria-label="Scroll to bottom">
+
+        ⬇
+
+    </button>
+
+    <!-- FOOTER -->
     <footer class="section-p1">
-        <div class="col">
-<img 
-    class="logo"
-    src="images/logo.png" 
-    alt="Cara Logo"
-    loading="lazy"
-    width="120"
-    height="40"
->
-            <h4>Contact</h4>
-            <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
-            <p><strong>Phone:</strong> +01 2222 365 /(+91) 01 2345 6789</p>
-            <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
 
-            <div class="follow">
-                <h4>Follow us</h4>
-                <div class="icon">
-                    <a href="https://x.com/JanaviPandole"><i class="fab fa-twitter"></i></a>
-                    <a href="https://github.com/janavipandole"><i class="fab fa-github"></i></a>
-                    <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank"
-                        rel="noopener noreferrer">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="https://www.youtube.com/@JanaviPandole"><i class="fab fa-youtube"></i></a>
-                </div>
-            </div>
-        </div>
         <div class="col">
-            <h4>About</h4>
-            <a href="about.html">About us</a>
-            <a href="#">Delivery Information</a>
-            <a href="privacy.html">Privacy Policy</a>
-            <a href="./terms.html">Terms and Conditions</a>
-            <a href="contact.html">Contact Us</a>
-        </div>
-        <div class="col">
-            <h4>My Account</h4>
-            <a href="login.html">Sign In</a>
-            <a href="cart.html">View Cart</a>
-            <a href="#">My Wishlist</a>
-            <a href="cart.html">Track My Order</a>
-            <a href="contact.html">Help</a>
-        </div>
-        <div class="col install">
-            <h4>Install App</h4>
-            <p>From App Store or Google Play</p>
-            <div class="row">
-<img 
-    src="images/pay/app.jpg" 
-    alt="Download on App Store"
-    loading="lazy"
-    width="140"
-    height="50"
->
-<img 
-    src="images/pay/play.jpg" 
-    alt="Get it on Google Play"
-    loading="lazy"
-    width="140"
-    height="50"
->
-            </div>
-            <p>Secured Payment Gateways</p>
-            <div class="payment-icons">
-                <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer" aria-label="Visa"><i
-                        class="fab fa-cc-visa"></i></a>
-                <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer"
-                    aria-label="Mastercard"><i class="fab fa-cc-mastercard"></i></a>
-                <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" aria-label="PayPal"><i
-                        class="fab fa-cc-paypal"></i></a>
-                <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer"
-                    aria-label="American Express"><i class="fab fa-cc-amex"></i></a>
-                <a href="https://stripe.com" target="_blank" rel="noopener noreferrer" aria-label="Stripe"><i
-                        class="fab fa-cc-stripe"></i></a>
-            </div>
-        </div>
-        <div class="copyright">
-            <p> &copy; Cara 2025. All rights reserved. | <a href="license.html" style="color: #088178;">MIT License</a>
+
+            <img
+                class="logo"
+                src="images/logo.png"
+                alt="Cara Logo"
+                loading="lazy"
+                width="120"
+                height="40">
+
+            <h4>Contact</h4>
+
+            <p>
+                <strong>Address:</strong>
+                562 Wellington Road, Street 32, San Francisco
             </p>
+
+            <p>
+                <strong>Phone:</strong>
+                +01 2222 365 /(+91) 01 2345 6789
+            </p>
+
+            <p>
+                <strong>Hours:</strong>
+                10:00 - 18:00, Mon - Sat
+            </p>
+
         </div>
+
+        <!-- INSTALL -->
+        <div class="col install">
+
+            <h4>Install App</h4>
+
+            <p>From App Store or Google Play</p>
+
+            <div class="row">
+
+                <img
+                    src="images/pay/app.jpg"
+                    alt="Download on App Store"
+                    loading="lazy"
+                    width="140"
+                    height="50">
+
+                <img
+                    src="images/pay/play.jpg"
+                    alt="Get it on Google Play"
+                    loading="lazy"
+                    width="140"
+                    height="50">
+
+            </div>
+
+        </div>
+
+        <div class="copyright">
+
+            <p>
+                &copy; Cara 2025.
+                All rights reserved.
+            </p>
+
+        </div>
+
     </footer>
 
+    <!-- JS -->
     <script src="app.js"></script>
+
     <script>
+
         document.addEventListener('DOMContentLoaded', () => {
-            const brandCard = document.getElementById('brandCard');
-            const cardContainer = document.getElementById('cardContainer');
-            const statusText = document.getElementById('statusText');
-            const featureSection = document.getElementById('interactive-feature-wrapper');
 
-            // 1. Manual Click Control
+            const brandCard =
+                document.getElementById('brandCard');
+
+            const cardContainer =
+                document.getElementById('cardContainer');
+
+            const statusText =
+                document.getElementById('statusText');
+
+            const featureSection =
+                document.getElementById('interactive-feature-wrapper');
+
             if (brandCard && cardContainer) {
+
                 brandCard.addEventListener('click', () => {
-                    const isOpen = cardContainer.classList.toggle('open');
-if (statusText) {
-    statusText.innerText = isOpen ? "Click to collapse" : "Click to expand";
-}                });
-            }
 
-            // 2. Snappy Scroll-Based Activation Engine
-            if (featureSection && cardContainer) {
-                const observerOptions = {
-                    root: null,
-                    // Trigger as soon as even 1 pixel of the feature section enters the screen
-                    threshold: 0,
-                    // Shrink the invisible trigger box so it fires slightly before the section arrives
-                    rootMargin: "0px 0px -10% 0px"
-                };
+                    const isOpen =
+                        cardContainer.classList.toggle('open');
 
-                const scrollObserver = new IntersectionObserver((entries, observer) => {
-                    entries.forEach(entry => {
-                        // If the section enters the screen from the bottom while scrolling down
-                        if (entry.isIntersecting) {
-                            cardContainer.classList.add('open');
-                            if (statusText) statusText.innerText = "Click to collapse";
+                    if (statusText) {
 
-                            // Disconnect observer so it doesn't run again
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, observerOptions);
-
-                // Track the feature section itself instead of the app section
-                scrollObserver.observe(featureSection);
+                        statusText.innerText =
+                            isOpen
+                                ? "Click to collapse"
+                                : "Click to expand";
+                    }
+                });
             }
         });
+
     </script>
+
 </body>
 
 </html>
+```

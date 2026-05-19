@@ -1,112 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login | Cara</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="login.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Cara</title>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <link rel="stylesheet" href="toast.css">
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- HEADER (same as other pages) -->
-  <section id="header">
-    <a href="index.html"><img src="images/logo.png" class="logo" alt="Cara" /></a>
-    <div>
-      <ul id="navbar">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="shop.html">Shop</a></li>
-        <li><a href="blog.html">Blog</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a class="active" href="login.html">Login</a></li>
-      </ul>
-    </div>
-  </section>
-  <!-- LOGIN SECTION -->
-  <section id="login-section">
-    <div class="auth-card" id="authCard">
-      <h2>Login</h2>
-      <p class="subtitle">Welcome Back! <span>😊</span></p>
 
-      <form id="loginForm">
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" placeholder="Enter your email" required />
+        <section id="header">
+            <!-- Logo -->
+            <a href="index.html">
+                <img src="images/logo.png" alt="Cara Logo" />
+            </a>
+            
+            <div>
+                <ul id="navbar">
+
+                    <!-- Main Navigation Links -->
+                    <li><a class="active" href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="try-on.html">Try-On</a></li>
+                    <li><a href="community.html">Community</a></li>
+                    <li><a href="promotions.html">Promotions</a></li>
+                    
+                    <!-- Contact Icon -->
+                    <li class="nav-icon">
+                        <a href="contact.html" aria-label="Contact">
+                            <i class="ri-customer-service-2-line"></i>
+                        </a>
+                    </li>
+                    
+                    <!-- Login Icon -->
+                    <li class="nav-icon">
+                        <a href="login.html" aria-label="Login">
+                            <i class="ri-user-3-line"></i>
+                        </a>
+                    </li>
+                    
+                    <!-- Cart Icon -->
+                    <li class="nav-icon">
+                        <a href="cart.html" id="lg-bag" aria-label="Cart">
+                            <i class="ri-shopping-bag-4-line"></i>
+                        </a>
+                    </li>
+                    
+                    <!-- Theme Toggle -->
+                    <li class="nav-icon">
+                        <button
+                        class="theme-toggle"
+                        id="themeToggle"
+                        aria-label="Toggle dark mode"
+                        >
+                        <i class="ri-moon-line" id="themeIcon"></i>
+                    </button>
+                </li>
+                
+                <!-- Close Button -->
+                <a
+                href="#"
+                id="close"
+                aria-label="Close menu"
+                aria-hidden="false"
+                >
+                <i class="fa-solid fa-xmark"></i>
+            </a>
+            
+        </ul>
+    </div>
+    
+    <!-- Mobile Navbar -->
+    <div class="mobile">
+        
+        <!-- Login Icon -->
+        <a href="login.html" aria-label="Login">
+            <i class="ri-user-3-line"></i>
+        </a>
+        
+        <!-- Cart Icon -->
+        <a href="cart.html" aria-label="Cart">
+            <i class="ri-shopping-bag-4-line"></i>
+        </a>
+        
+        <!-- Hamburger Menu -->
+        <i
+        class="fas fa-outdent"
+        id="bar"
+        role="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+        tabindex="0"
+        ></i>
+        
+    </div>
+</section>
+
+<div class="login-container">
+    <a href="index.html" class="back-button">&#8592; Back to Shop</a>
+    
+    <div class="logo-container">
+        <img src="images/logo.png" alt="Cara Logo" class="logo-img">
+    </div>
+    <h2>Welcome Back!</h2>
+    <p class="subtitle">Please enter your details to sign in</p>
+    
+    <form id="loginForm" class="login-form" novalidate>
+        <div class="input-group">
+            <label for="loginEmail">Email Address</label>
+            <input type="email" id="loginEmail" class="input-field" placeholder="example@domain.com" required>
         </div>
-
-        <div class="form-group">
-          <label for="password">Password</label>
-          <div class="password-wrapper">
-            <input type="password" id="password" placeholder="Enter your password" required />
-            <i class="ri-eye-line toggle-eye" id="togglePassword"></i>
-          </div>
+        
+        <div class="input-group password-group">
+            <label for="loginPassword">Password</label>
+            <input type="password" id="loginPassword" class="input-field" placeholder="••••••••" required>
+            <button type="button" id="togglePassword" class="toggle_password">
+                <i class="ri-eye-line"></i>
+            </button>
         </div>
-
-        <div class="form-options">
-          <label class="remember"><input type="checkbox" id="remember" /> Remember me</label>
-         <a href="forgotPassword.html" class="forgot-link">Forgot Password?</a>
+        
+        <div class="remember-forgot">
+            <div class="remember">
+                <input type="checkbox" id="rememberMe">
+                <label for="rememberMe">Remember me</label>
+            </div>
+            <a href="forgotPassword.html" class="forgot">Forgot Password?</a>
         </div>
-
-        <button type="submit" class="btn-primary">SIGN IN</button>
-
-        <p class="switch-auth">Don't have an account? <a href="register.html">Register</a></p>
-      </form>
+        
+        <button type="submit" class="login-btn"><span>Sign In</span></button>
+    </form>
+    
+    <div class="signup-link">
+        Don't have an account? <a href="register.html">Register</a>
     </div>
-  </section>
+</div>
 
-  <!-- FORGOT PASSWORD MODAL -->
-  <div id="forgotModal" class="modal-overlay">
-    <div class="auth-card modal-card" id="forgotCard">
-      <button class="modal-close" id="closeForgot"><i class="ri-close-line"></i></button>
-      <h2>Reset Password</h2>
-      <p class="subtitle">Enter your email and we'll send you a reset link 🔐</p>
-      <form id="forgotForm">
-        <div class="form-group">
-          <label for="forgotEmail">Email</label>
-          <input type="email" id="forgotEmail" placeholder="Enter your email" required />
-        </div>
-        <button type="submit" class="btn-primary">SEND RESET LINK</button>
-        <p class="switch-auth"><a href="#" id="backToLogin">← Back to Login</a></p>
-      </form>
-    </div>
-  </div>
-
-  <!-- TOAST -->
-  <div id="toast" class="toast"></div>
-
-  <!-- FOOTER (same as other pages) -->
-  <footer class="section-p1">
-    <div class="col">
-      <img class="logo" src="images/logo.png" alt="" />
-      <h4>Contact</h4>
-      <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
-      <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
-      <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
-    </div>
-    <div class="col">
-      <h4>About</h4>
-      <a href="about.html">About us</a>
-      <a href="#">Delivery Information</a>
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms & Conditions</a>
-      <a href="contact.html">Contact Us</a>
-    </div>
-    <div class="col">
-      <h4>My Account</h4>
-      <a href="login.html">Sign In</a>
-      <a href="cart.html">View Cart</a>
-      <a href="#">My Wishlist</a>
-      <a href="#">Track My Order</a>
-      <a href="#">Help</a>
-    </div>
-    <div class="copyright">
-      <p>© Cara 2025. All rights reserved. | MIT License</p>
-    </div>
-  </footer>
-
-  <script src="script.js"></script>
-  <script src="login.js"></script>
+<script src="app.js?v=1779120917216"></script>
+<script src="login.js"></script>
 </body>
 </html>

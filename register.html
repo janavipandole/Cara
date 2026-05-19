@@ -9,6 +9,7 @@
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
 
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="toast.css">
     <link rel="stylesheet" href="register.css">
 
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
@@ -22,35 +23,56 @@
     <!-- HEADER -->
     <section id="header">
 
-        <a href="index.html">
-            <img src="images/logo.png" alt="Cara Logo">
-        </a>
+    <!-- Logo -->
+    <a href="index.html">
+        <img src="images/logo.png" alt="Cara Logo">
+    </a>
 
-        <div>
-            <ul id="navbar">
+    <div>
+        <ul id="navbar">
 
-                <li><a href="index.html">Home</a></li>
-                <li><a href="shop.html">Shop</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
+            <!-- Main Nav Links -->
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="about.html">About</a></li>
 
-                <li>
-                    <a href="login.html" class="active">
-                        Login
-                    </a>
-                </li>
+            <!-- Contact Icon -->
+            <li class="nav-icon">
+                <a href="contact.html" aria-label="Contact">
+                    <i class="ri-customer-service-2-line"></i>
+                </a>
+            </li>
 
-                <li>
-                    <a href="cart.html" id="lg-bag">
-                        <i class="ri-shopping-bag-4-line"></i>
-                    </a>
-                </li>
+            <!-- Login Icon -->
+            <li class="nav-icon">
+                <a href="login.html" class="active" aria-label="Login">
+                    <i class="ri-user-3-line"></i>
+                </a>
+            </li>
 
-            </ul>
-        </div>
+            <!-- Cart Icon -->
+            <li class="nav-icon">
+                <a href="cart.html" id="lg-bag" aria-label="Cart">
+                    <i class="ri-shopping-bag-4-line"></i>
+                </a>
+            </li>
 
-    </section>
+            <!-- Theme Toggle -->
+            <li class="nav-icon">
+                <button
+                    class="theme-toggle"
+                    id="themeToggle"
+                    aria-label="Toggle dark mode"
+                >
+                    <i class="ri-moon-line" id="themeIcon"></i>
+                </button>
+            </li>
+
+        </ul>
+    </div>
+
+</section>
 
     <!-- REGISTER SECTION -->
     <section id="register-section">
@@ -63,64 +85,50 @@
                 Create your account 😊
             </p>
 
-            <!-- FULL NAME -->
-            <div class="form-group">
-
-                <label>Full Name</label>
-
-                <input type="text"
-                    placeholder="Enter your full name">
-
-            </div>
-
-            <!-- EMAIL -->
-            <div class="form-group">
-
-                <label>Email</label>
-
-                <input type="email"
-                    placeholder="Enter your email">
-
-            </div>
-
-            <!-- PASSWORD -->
-            <div class="form-group">
-
-                <label>Password</label>
-
-                <div class="password-wrapper">
-
-                    <input type="password"
-                        placeholder="Enter your password"
-                        id="password">
-
-                    <i class="ri-eye-line toggle-eye"></i>
-
+            <form id="registerForm" novalidate>
+                <!-- FULL NAME -->
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text"
+                        id="registerUsername"
+                        placeholder="Enter your full name" required>
                 </div>
 
-            </div>
-
-            <!-- CONFIRM PASSWORD -->
-            <div class="form-group">
-
-                <label>Confirm Password</label>
-
-                <div class="password-wrapper">
-
-                    <input type="password"
-                        placeholder="Confirm your password"
-                        id="confirmPassword">
-
-                    <i class="ri-eye-line toggle-eye"></i>
-
+                <!-- EMAIL -->
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email"
+                        id="registerEmail"
+                        placeholder="Enter your email" required>
                 </div>
 
-            </div>
+                <!-- PASSWORD -->
+                <div class="form-group">
+                    <label>Password</label>
+                    <div class="password-wrapper">
+                        <input type="password"
+                            placeholder="Enter your password"
+                            id="registerPassword" required>
+                        <i class="ri-eye-line toggle-eye"></i>
+                    </div>
+                </div>
 
-            <!-- BUTTON -->
-            <button class="btn-primary">
-                CREATE ACCOUNT
-            </button>
+                <!-- CONFIRM PASSWORD -->
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <div class="password-wrapper">
+                        <input type="password"
+                            placeholder="Confirm your password"
+                            id="confirmPassword" required>
+                        <i class="ri-eye-line toggle-eye"></i>
+                    </div>
+                </div>
+
+                <!-- BUTTON -->
+                <button type="submit" class="btn-primary">
+                    CREATE ACCOUNT
+                </button>
+            </form>
 
             <!-- LOGIN LINK -->
             <div class="switch-auth">
@@ -166,6 +174,8 @@
     });
 </script>
 
+    <script src="app.js?v=1779120917218"></script>
+    <script src="register.js"></script>
 </body>
 
 </html>

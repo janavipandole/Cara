@@ -1,255 +1,246 @@
-/* ===== LOGIN / AUTH PAGE — matches Cara design system ===== */
-
-#login-section {
-  min-height: calc(100vh - 200px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 60px 20px;
-  background: var(--bg, #f9f9f9);
+/* Core Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+html{
+    scroll-behavior: smooth;
 }
 
-.auth-card {
-  width: 100%;
-  max-width: 480px;
-  background: var(--card-bg, #ffffff);
-  border-radius: 16px;
-  padding: 48px 40px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(8, 129, 120, 0.08);
-
-  /* 🔑 Slide-up animation on page load */
-  opacity: 0;
-  transform: translateY(80px);
-  animation: slideUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+:root {
+    --primary-teal: #088178;       /* Cara's signature teal color */
+    --primary-hover: #06655e;      /* Darker shade for crisp hover interactions */
+    --bg-surface: #f4f6f6;         /* Soft canvas background */
+    --text-main: #1a1a1a;          /* Deep rich dark for headers */
+    --text-muted: #666666;         /* Gentle grey for labels and captions */
+    --border-color: #e1e1e1;
 }
 
-@keyframes slideUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--bg-surface);
+    padding: 20px;
 }
 
-.auth-card h2 {
-  font-family: 'Spartan', sans-serif;
-  font-size: 32px;
-  text-align: center;
-  color: var(--text, #222);
-  margin-bottom: 8px;
-  font-weight: 700;
+/* Elegant Light Card Container */
+.login-container {
+    background: #ffffff;
+    width: 100%;
+    max-width: 400px;
+    padding: 40px 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+    text-align: center;
+    position: relative;
 }
 
-.auth-card .subtitle {
-  text-align: center;
-  color: #777;
-  font-size: 15px;
-  margin-bottom: 32px;
+/* Back Button */
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    color: var(--text-muted);
+    font-size: 14px;
+    text-decoration: none;
+    font-weight: 500;
+    margin-bottom: 20px;
+    float: left;
+    transition: color 0.3s ease;
 }
 
-.form-group {
-  margin-bottom: 20px;
+.back-button:hover {
+    color: var(--primary-teal);
 }
 
-.form-group label {
-  display: block;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text, #222);
-  margin-bottom: 8px;
+/* Logo Container & Image Styling */
+.logo-container {
+    clear: both;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px; 
 }
 
-.form-group input {
-  width: 100%;
-  padding: 14px 16px;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 15px;
-  font-family: inherit;
-  background: transparent;
-  color: var(--text, #222);
-  transition: border-color 0.25s, box-shadow 0.25s;
+.logo-img {
+    max-height: 45px;    
+    width: auto;         
+    object-fit: contain;
+    transform: translateX(28px); 
+}
+h2 {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 24px;
+    color: var(--text-main);
+    font-weight: 600;
+    margin-bottom: 6px;
 }
 
-.form-group input:focus {
-  outline: none;
-  border-color: #088178;
-  box-shadow: 0 0 0 3px rgba(8, 129, 120, 0.12);
+.subtitle {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 30px;
 }
 
-.password-wrapper {
-  position: relative;
+.input-group {
+    text-align: left;
+    margin-bottom: 22px;
+    position: relative;
 }
 
-.password-wrapper input {
-  padding-right: 44px;
+.input-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-main);
+    margin-bottom: 8px;
 }
 
-.toggle-eye {
-  position: absolute;
-  right: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #888;
-  cursor: pointer;
-  font-size: 18px;
+.input-field {
+    width: 100%;
+    padding: 12px 18px;
+    border: 1px solid var(--border-color);
+    border-radius: 25px; /* Pill layout matching homepage buttons */
+    font-size: 14px;
+    background-color: #fafafa;
+    color: var(--text-main);
+    outline: none;
+    transition: all 0.3s ease;
 }
 
-.form-options {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 20px 0 28px;
-  font-size: 14px;
+.input-field:focus {
+    border-color: var(--primary-teal);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(8, 129, 120, 0.1);
+}
+
+/* Password Group Modifications for the Eye Icon */
+.password-group {
+    position: relative;
+}
+
+.toggle_password {
+    position: absolute;
+    right: 16px;
+    bottom: 12px; /* Centers cleanly within the input container */
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+.toggle_password:hover {
+    color: var(--primary-teal);
+}
+
+/* Options Bar: Remember Me & Forgot link */
+.remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    font-size: 13px;
 }
 
 .remember {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #555;
-  cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    color: var(--text-muted);
 }
 
-.forgot-link {
-  color: #088178;
-  font-weight: 600;
-  text-decoration: none;
-  transition: color 0.2s;
+.remember input {
+    accent-color: var(--primary-teal);
+    cursor: pointer;
 }
 
-.forgot-link:hover {
-  color: #1c706c;
+.forgot {
+    color: var(--primary-teal);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
 }
 
-.btn-primary {
-  width: 100%;
-  padding: 15px;
-  background: #088178;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  cursor: pointer;
-  transition: background 0.25s, transform 0.15s;
+.forgot:hover {
+    text-decoration: underline;
+    color: var(--primary-hover);
 }
 
-.btn-primary:hover {
-  background: #218077;
-  transform: translateY(-1px);
+/* Submission Button - Custom tailored to match Cara's "Shop Now" element */
+.login-btn {
+    width: 100%;
+    background-color: var(--primary-teal);
+    color: #ffffff;
+    border: none;
+    padding: 14px 0;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(8, 129, 120, 0.2);
+    transition: all 0.3s ease;
 }
 
-.switch-auth {
-  text-align: center;
-  margin-top: 24px;
-  font-size: 14px;
-  color: #666;
+.login-btn:hover {
+    background-color: var(--primary-hover);
+    box-shadow: 0 6px 20px rgba(8, 129, 120, 0.3);
 }
 
-.switch-auth a {
-  color: #088178;
-  font-weight: 700;
-  text-decoration: none;
+/* Bottom Footer Redirection Link */
+.signup-link {
+    margin-top: 25px;
+    font-size: 13px;
+    color: var(--text-muted);
 }
 
-.switch-auth a:hover {
-  color: #067d61;
+.signup-link a {
+    color: var(--primary-teal);
+    text-decoration: none;
+    font-weight: 600;
 }
 
-/* ===== FORGOT PASSWORD MODAL — same card styling ===== */
-
-.modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.55);
-  z-index: 9999;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  backdrop-filter: blur(4px);
+.signup-link a:hover {
+    text-decoration: underline;
 }
 
-.modal-overlay.active {
-  display: flex;
+/* ── Loading State for Submit Button ── */
+@keyframes btn-spinner {
+  to { transform: rotate(360deg); }
 }
 
-.modal-card {
-  position: relative;
-  animation: slideUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+.login-btn.btn-loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.75;
+    cursor: not-allowed;
 }
 
-.modal-close {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background: none;
-  border: none;
-  font-size: 24px;
-  color: #777;
-  cursor: pointer;
-  transition: color 0.2s;
+.login-btn.btn-loading span {
+    visibility: hidden;
 }
 
-.modal-close:hover {
-  color: #206762ca;
+.login-btn.btn-loading::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: btn-spinner 0.6s linear infinite;
 }
-
-/* ===== TOAST ===== */
-.toast {
-  position: fixed;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%) translateY(100px);
-  background: #088178;
-  color: #fff;
-  padding: 14px 24px;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 600;
-  opacity: 0;
-  transition: all 0.4s ease;
-  z-index: 10000;
-}
-
-.toast.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
-/* ===== DARK MODE ===== */
-body.dark #login-section {
-  background: #1a1a1a;
-}
-
-body.dark .auth-card {
-  background: #242424;
-  border-color: rgba(8, 129, 120, 0.2);
-}
-
-body.dark .auth-card h2,
-body.dark .form-group label {
-  color: #f0f0f0;
-}
-
-body.dark .form-group input {
-  background: #1a1a1a;
-  border-color: #3a3a3a;
-  color: #f0f0f0;
-}
-
-body.dark .remember {
-  color: #bbb;
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 540px) {
-  .auth-card {
-    padding: 36px 24px;
-  }
-  .auth-card h2 {
-    font-size: 26px;
-  }
+.login-page{
+    display: flex;
+    flex-direction: column;
 }
