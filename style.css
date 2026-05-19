@@ -888,18 +888,17 @@ button.white .ripple-effect {
 }
 
 #product1 .pro-container {
-    justify-content: flex-start;
-    gap: 20px 2.5%;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
     padding-top: 20px;
-    display: flex;
 }
 
 /* ── Card container ── */
 #product1 .pro {
     position: relative;
-    width: 23%;
-    min-width: 240px;
+    width: 100%;
+    min-width: 0;
     padding: 12px 12px 14px;
     border: 1.5px solid var(--border-color);
     border-radius: 16px;
@@ -1037,6 +1036,8 @@ button.white .ripple-effect {
     transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
     text-align: center;
     white-space: nowrap;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .pro-buy-btn:hover {
@@ -1611,7 +1612,7 @@ footer .copyright {
    ============================================ */
 
 #shop-hero {
-    background-image: url("images/banner/b1.jpg");
+    background-image: url("images/banner/b2.png");
     background-size: cover;
     background-position: center;
     height: 50vh;
@@ -5238,3 +5239,94 @@ canvas {
         padding-top: 30px;
     }
 
+/* --- Sort by Price Dropdown Styles --- */
+.sort-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 14px;
+    padding: 0 80px 20px 80px;
+    flex-wrap: wrap;
+}
+
+.sort-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: 0.02em;
+}
+
+.sort-label i {
+    color: var(--accent);
+    font-size: 18px;
+}
+
+.sort-select-wrap {
+    position: relative;
+    min-width: 230px;
+}
+
+#sort-price {
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 13px 48px 13px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    font-family: "League Spartan", sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 249, 250, 0.95));
+    cursor: pointer;
+    outline: none;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+}
+
+.sort-chevron {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: var(--text-secondary);
+    font-size: 22px;
+    transition: color 0.25s ease;
+}
+
+.sort-select-wrap:hover #sort-price,
+#sort-price:focus {
+    border-color: var(--accent);
+    box-shadow: 0 10px 26px rgba(8, 129, 120, 0.16);
+    transform: translateY(-1px);
+}
+
+.sort-select-wrap:hover .sort-chevron,
+#sort-price:focus + .sort-chevron {
+    color: var(--accent);
+}
+
+/* Adjust padding for mobile screens */
+@media (max-width: 799px) {
+    .sort-container {
+        justify-content: space-between;
+        padding: 0 40px 20px 40px;
+    }
+}
+@media (max-width: 477px) {
+    .sort-container {
+        justify-content: stretch;
+        align-items: stretch;
+        padding: 0 20px 20px 20px;
+    }
+
+    .sort-select-wrap {
+        min-width: 0;
+        width: 100%;
+    }
+}

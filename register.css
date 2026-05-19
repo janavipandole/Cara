@@ -1,43 +1,32 @@
-/* ===== REGISTER PAGE — SAME AS LOGIN ===== */
+/* ===== REGISTER PAGE — DARK MODE AWARE ===== */
 
 #register-section {
-  min-height: calc(100vh - 200px);
-
+  min-height: calc(100vh - 80px);
   display: flex;
   justify-content: center;
   align-items: center;
-
-  padding: 60px 20px;
-
-  background: var(--bg, #f9f9f9);
+  padding: 100px 20px 60px;
+  background: var(--bg-secondary);
+  transition: background-color 0.3s ease;
 }
 
 /* CARD */
 .auth-card {
-
   width: 100%;
   max-width: 480px;
-
-  background: var(--card-bg, #ffffff);
-
+  background: var(--card-bg);
   border-radius: 16px;
-
   padding: 48px 40px;
-
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-
-  border: 1px solid rgba(8, 129, 120, 0.08);
-
+  box-shadow: 0 10px 40px var(--shadow);
+  border: 1px solid var(--border-color);
   opacity: 0;
-
   transform: translateY(80px);
-
   animation: slideUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 /* ANIMATION */
 @keyframes slideUp {
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -46,30 +35,22 @@
 
 /* TITLE */
 .auth-card h2 {
-
-  font-family: 'Spartan', sans-serif;
-
+  font-family: 'League Spartan', sans-serif;
   font-size: 32px;
-
   text-align: center;
-
-  color: var(--text, #222);
-
+  color: var(--text-primary);
   margin-bottom: 8px;
-
   font-weight: 700;
+  transition: color 0.3s ease;
 }
 
 /* SUBTITLE */
 .auth-card .subtitle {
-
   text-align: center;
-
-  color: #777;
-
+  color: var(--text-secondary);
   font-size: 15px;
-
   margin-bottom: 32px;
+  transition: color 0.3s ease;
 }
 
 /* FORM GROUP */
@@ -79,52 +60,48 @@
 
 /* LABEL */
 .form-group label {
-
   display: block;
-
   font-size: 14px;
-
   font-weight: 600;
-
-  color: var(--text, #222);
-
+  color: var(--text-primary);
   margin-bottom: 8px;
+  transition: color 0.3s ease;
 }
 
 /* INPUT */
 .form-group input {
-
   width: 100%;
-
   padding: 14px 16px;
-
-  border: 1px solid #e0e0e0;
-
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-
   font-size: 15px;
-
   font-family: inherit;
+  background: var(--input-bg);
+  color: var(--text-primary);
+  transition: border-color 0.25s ease,
+              box-shadow 0.25s ease,
+              background-color 0.3s ease,
+              color 0.3s ease;
+}
 
-  background: transparent;
-
-  color: var(--text, #222);
-
-  transition: border-color 0.25s,
-              box-shadow 0.25s;
+/* PLACEHOLDER */
+.form-group input::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.75;
 }
 
 /* INPUT FOCUS */
 .form-group input:focus {
-
   outline: none;
-
-  border-color: #088178;
-
-  box-shadow: 0 0 0 3px rgba(8, 129, 120, 0.12);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(8, 129, 120, 0.15);
 }
 
-/* PASSWORD */
+[data-theme="dark"] .form-group input:focus {
+  box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.18);
+}
+
+/* PASSWORD WRAPPER */
 .password-wrapper {
   position: relative;
 }
@@ -135,89 +112,73 @@
 
 /* EYE ICON */
 .toggle-eye {
-
   position: absolute;
-
   right: 14px;
-
   top: 50%;
-
   transform: translateY(-50%);
-
-  color: #888;
-
+  color: var(--text-secondary);
   cursor: pointer;
-
   font-size: 18px;
+  transition: color 0.2s ease;
+}
+
+.toggle-eye:hover {
+  color: var(--accent);
 }
 
 /* BUTTON */
 .btn-primary {
-
   width: 100%;
-
   padding: 15px;
-
-  background: #088178;
-
+  background: var(--accent);
   color: #fff;
-
   border: none;
-
   border-radius: 8px;
-
   font-size: 15px;
-
   font-weight: 700;
-
   letter-spacing: 1px;
-
   cursor: pointer;
-
-  transition: background 0.25s,
-              transform 0.15s;
+  transition: background 0.25s ease,
+              transform 0.15s ease,
+              box-shadow 0.25s ease;
 }
 
-/* BUTTON HOVER */
 .btn-primary:hover {
-
-  background: #297e72;
-
+  background: #066b63;
   transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(8, 129, 120, 0.3);
 }
 
-/* LOGIN LINK */
+[data-theme="dark"] .btn-primary:hover {
+  background: #0891b2;
+  box-shadow: 0 6px 20px rgba(6, 182, 212, 0.3);
+}
+
+/* SWITCH AUTH */
 .switch-auth {
-
   text-align: center;
-
   margin-top: 24px;
-
   font-size: 14px;
-
-  color: #666;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
 }
 
 .switch-auth a {
-
-  color: #088178;
-
+  color: var(--accent);
   font-weight: 700;
-
   text-decoration: none;
+  transition: opacity 0.2s ease;
 }
 
 .switch-auth a:hover {
-  color: #237367;
+  opacity: 0.8;
 }
 
 /* RESPONSIVE */
 @media (max-width: 540px) {
-
   .auth-card {
     padding: 36px 24px;
   }
-
   .auth-card h2 {
     font-size: 26px;
   }
