@@ -5000,7 +5000,11 @@ select:focus-visible {
     color: #000;
     margin-left: 45px;
 }
-
+#addn{
+    font-size: larger;
+    color: black;
+    margin-left: 650px;
+}
 .social{
     font-size: large;
     color:black;
@@ -5010,4 +5014,81 @@ select:focus-visible {
     display: flex;
     justify-content: space-between;
     
+}
+/* Navbar container */
+#navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+
+  background:#06655e;   /* Navbar background color */
+  padding: 20px 30px;    /* Increases height */
+  min-height: 120px;      /* Extra navbar height */
+
+  list-style: none;
+  margin: 0;
+}
+
+/* Navbar links */
+#navbar li a {
+  color: white;
+  text-decoration: none;
+  font-size: 17px;
+  font-weight: 500;
+
+  padding: 10px 14px;
+  border-radius: 6px;
+
+  transition: 0.3s ease;
+}
+
+/* Hover effect */
+#navbar li a:hover {
+  background: #ff6b6b;
+  color: white;
+}
+
+/* Active page */
+#navbar li a.active {
+  background: #4caf50;
+  color: white;
+}
+
+/* Cart icon */
+.cart-icon-wrapper {
+  position: relative;
+  font-size: 22px;
+  color: white;
+}
+
+/* Cart count */
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+
+  background: red;
+  color: white;
+
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+}
+
+/* Theme toggle button */
+.theme-toggle {
+  background: #333;
+  color: white;
+
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.theme-toggle:hover {
+  background: #555;
 }
