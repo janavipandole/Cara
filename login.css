@@ -240,3 +240,7 @@ h2 {
     border-radius: 50%;
     animation: btn-spinner 0.6s linear infinite;
 }
+.login-page{
+    display: flex;
+    flex-direction: column;
+}
