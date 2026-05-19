@@ -1,3 +1,48 @@
+/* --- START: THEME TOGGLE FUNCTIONALITY --- */
+
+(function () {
+    const themeToggle = document.getElementById('themeToggle');
+    const themeToggleMobile = document.getElementById('themeToggleMobile');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeIconMobile = document.getElementById('themeIconMobile');
+    const html = document.documentElement;
+
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', currentTheme);
+    updateThemeIcon(currentTheme);
+
+    function updateThemeIcon(theme) {
+        console.log('Updating icons to:', theme);
+        const iconClass = theme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
+        if (themeIcon) themeIcon.className = iconClass;
+        if (themeIconMobile) themeIconMobile.className = iconClass;
+
+        // Swap logo based on theme
+        const siteLogo = document.getElementById('siteLogo');
+        if (siteLogo) {
+            siteLogo.src = theme === 'dark' ? 'images/Dlogo.png' : 'images/logo.png';
+        }
+    }
+
+    function toggleTheme() {
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon(newTheme);
+    }
+
+    if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
+    if (themeToggleMobile) themeToggleMobile.addEventListener('click', toggleTheme);
+
+    if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        updateThemeIcon(currentTheme);
+    });
+}
+})();
+
+/* --- END: THEME TOGGLE FUNCTIONALITY --- */
 // Mobile menu functionality
 const bar = document.getElementById("bar");
 const nav = document.getElementById("navbar");
@@ -399,7 +444,7 @@ window.loadCart = function () {
         // SUBTOTAL
         const subtotalCell = newRow.insertCell();
         subtotalCell.textContent = '$' + subtotal.toFixed(2);
-    });
+    };
 
     // ✅ TOTAL UPDATE MUST BE HERE (INSIDE FUNCTION, AFTER LOOP)
    const subtotalDisplay = document.querySelector('.subtotal table tr:nth-child(1) td:nth-child(2)');
@@ -412,7 +457,7 @@ if (subtotalDisplay) {
 if (totalDisplay) {
     totalDisplay.innerText = `$${total.toFixed(2)}`;
 }
-};
+
 window.removeItem = function (index) {
     if (subtotalEl) {
         subtotalEl.innerText = `₹${subtotal.toLocaleString('en-IN')}`;
@@ -542,51 +587,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* --- END: CART FUNCTIONALITY --- */
 
-/* --- START: THEME TOGGLE FUNCTIONALITY --- */
-
-(function () {
-    const themeToggle = document.getElementById('themeToggle');
-    const themeToggleMobile = document.getElementById('themeToggleMobile');
-    const themeIcon = document.getElementById('themeIcon');
-    const themeIconMobile = document.getElementById('themeIconMobile');
-    const html = document.documentElement;
-
-    const currentTheme = localStorage.getItem('theme') || 'light';
-    html.setAttribute('data-theme', currentTheme);
-    updateThemeIcon(currentTheme);
-
-    function updateThemeIcon(theme) {
-        console.log('Updating icons to:', theme);
-        const iconClass = theme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
-        if (themeIcon) themeIcon.className = iconClass;
-        if (themeIconMobile) themeIconMobile.className = iconClass;
-
-        // Swap logo based on theme
-        const siteLogo = document.getElementById('siteLogo');
-        if (siteLogo) {
-            siteLogo.src = theme === 'dark' ? 'images/Dlogo.png' : 'images/logo.png';
-        }
-    }
-
-    function toggleTheme() {
-        const currentTheme = html.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        html.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        updateThemeIcon(newTheme);
-    }
-
-    if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
-    if (themeToggleMobile) themeToggleMobile.addEventListener('click', toggleTheme);
-
-    if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        updateThemeIcon(currentTheme);
-    });
-}
-})();
-
-/* --- END: THEME TOGGLE FUNCTIONALITY --- */
 
 (function () {
     const paginationSection = document.getElementById('pagination');
@@ -724,7 +724,7 @@ if (backToTopBtn) {
             backToTopBtn.classList.add("show");
             ToptobackBtn.classList.remove("show");
         }
-    });
+    };
 
     // BACK TO TOP
     backToTopBtn.addEventListener("click", () => {
@@ -1011,3 +1011,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 /* --- END: CURRENT YEAR FUNCTIONALITY --- */
+/* --- Sort by Price Logic --- */
+document.addEventListener('DOMContentLoaded', () => {
+    const sortMenu = document.getElementById('sort-price');
+    const proContainer = document.querySelector('.pro-container');
+
+    if (sortMenu && proContainer) {
+        const originalProducts = Array.from(proContainer.querySelectorAll('.pro'));
+        sortMenu.addEventListener('change', (e) => {
+            const sortValue = e.target.value;
+            let productsToAppend;
+
+            if (sortValue === 'default') {
+                productsToAppend = originalProducts;
+            } else {
+                productsToAppend = [...originalProducts].sort((a, b) => {
+                    const priceA = parseFloat(a.querySelector('h4').innerText.replace('$', '').trim());
+                    const priceB = parseFloat(b.querySelector('h4').innerText.replace('$', '').trim());
+
+                    if (sortValue === 'low-high') return priceA - priceB;
+                    if (sortValue === 'high-low') return priceB - priceA;
+                });
+            }
+            productsToAppend.forEach(product => {
+                proContainer.appendChild(product);
+            });
+        });
+    }
+});
