@@ -4963,22 +4963,32 @@ footer .copyright {
 
             .quiz-options {
                 display: flex;
-                flex-direction: column;
-                gap: 10px;
-                margin-top: 20px;
+                flex-direction: row;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 12px;
+                margin-top: 24px;
             }
 
             .quiz-options button {
-                padding: 10px;
-                background-color: var(--accent);
-                color: white;
-                border: none;
-                border-radius: 4px;
+                padding: 10px 24px;
+                background-color: var(--bg-secondary);
+                color: var(--text-primary);
+                border: 1.5px solid var(--border-color);
+                border-radius: 30px;
+                font-weight: 600;
+                font-size: 14px;
                 cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 8px var(--shadow);
             }
 
             .quiz-options button:hover {
-                background-color: #066a5c;
+                background-color: var(--accent);
+                color: #ffffff;
+                border-color: var(--accent);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(8, 129, 120, 0.25);
             }
 
             /* ============================================
