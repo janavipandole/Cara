@@ -15,41 +15,32 @@ if (close) {
 }
 
 // Dynamic Product Details Logic
+// Global capturing click listener for all product cards (static and dynamic)
+document.addEventListener("click", function (e) {
+    const proCard = e.target.closest(".pro");
+    if (!proCard) return;
+
+    // Ignore clicks on cart icon or buy now button inside the card
+    if (e.target.closest(".cart") || e.target.closest(".buy-now-btn")) return;
+
+    const nameElement = proCard.querySelector("h5");
+    const priceElement = proCard.querySelector("h4");
+    const brandElement = proCard.querySelector(".des span");
+    const imageElement = proCard.querySelector("img");
+
+    const selectedProduct = {
+        name: nameElement ? nameElement.textContent.trim() : "Product",
+        price: priceElement ? priceElement.textContent.trim() : "$0.00",
+        brand: brandElement ? brandElement.textContent.trim() : "Brand",
+        image: imageElement ? imageElement.src : ""
+    };
+
+    localStorage.setItem("selectedProduct", JSON.stringify(selectedProduct));
+    window.location.href = "singleProduct.html";
+}, true);
+
+// Dynamic Render on singleProduct.html
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Remove inline onclick from all product cards
-    document.querySelectorAll('.pro').forEach(card => {
-        card.removeAttribute("onclick");
-        card.onclick = null; // Ensure property is also cleared
-
-        // 2. Add delegated click event for the whole card
-        card.addEventListener('click', function(e) {
-            // Ignore if the user clicked the 'Add to Cart' icon
-            if (e.target.closest('.cart')) {
-                return;
-            }
-
-            // Extract product details from the card's DOM
-            const nameElement = this.querySelector("h5");
-            const priceElement = this.querySelector("h4");
-            const brandElement = this.querySelector(".des span");
-            const imageElement = this.querySelector("img");
-
-            const selectedProduct = {
-                name: nameElement ? nameElement.textContent.trim() : "Product",
-                price: priceElement ? priceElement.textContent.trim() : "$0.00",
-                brand: brandElement ? brandElement.textContent.trim() : "Brand",
-                image: imageElement ? imageElement.src : ""
-            };
-
-            // Store in localStorage
-            localStorage.setItem("selectedProduct", JSON.stringify(selectedProduct));
-
-            // Redirect to single product page
-            window.location.href = "singleProduct.html";
-        });
-    });
-
-    // 3. Dynamic Render on singleProduct.html
     if (window.location.pathname.includes("singleProduct")) {
         console.log("On singleProduct page, attempting dynamic render.");
         const storedProductJSON = localStorage.getItem("selectedProduct");
@@ -69,7 +60,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (nameEl) nameEl.textContent = product.name;
                 if (priceEl) priceEl.textContent = product.price;
                 if (mainImgEl) mainImgEl.src = product.image;
-                if (breadcrumbEl && product.brand) breadcrumbEl.textContent = `Home / ${product.brand} / T-Shirt`;
+
+                if (breadcrumbEl && product.brand) {
+                    // Dynamically determine product type from name (e.g. Trousers, Shorts, Shirt)
+                    let productType = "T-Shirt";
+                    if (product.name.toLowerCase().includes("trousers")) productType = "Trousers";
+                    else if (product.name.toLowerCase().includes("shorts")) productType = "Shorts";
+                    else if (product.name.toLowerCase().includes("blouse")) productType = "Blouse";
+                    else if (product.name.toLowerCase().includes("shirt")) productType = "Shirt";
+
+                    breadcrumbEl.textContent = `Home / ${product.brand} / ${productType}`;
+                }
 
                 // Update first thumbnail to match the product image
                 if (smallImgs.length > 0 && product.image) {
