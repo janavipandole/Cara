@@ -1,326 +1,448 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     <!-- Character Encoding -->
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
 
     <!-- Viewport for Responsive Design -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Page Title -->
     <title>Contact Us | Cara — Modern E-Commerce</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
+    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
 
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Get in touch with Cara. We'd love to hear from you — contact our support team for inquiries or collaborations.">
-    <meta name="keywords" content="contact, support, Cara, help, e-commerce, reach us, Cara store">
-    <meta name="author" content="Cara">
-    <meta name="robots" content="index, follow">
+    <meta
+      name="description"
+      content="Get in touch with Cara. We'd love to hear from you — contact our support team for inquiries or collaborations."
+    />
+    <meta
+      name="keywords"
+      content="contact, support, Cara, help, e-commerce, reach us, Cara store"
+    />
+    <meta name="author" content="Cara" />
+    <meta name="robots" content="index, follow" />
 
     <!-- Language -->
-    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Language" content="en" />
 
     <!-- Open Graph Tags -->
-    <meta property="og:title" content="Contact Us | Cara — Modern E-Commerce">
-    <meta property="og:description" content="Reach out to Cara — our team is here to help with any questions or feedback.">
-    <meta property="og:image" content="https://example.com/images/preview.jpg">
-    <meta property="og:url" content="https://example.com/contact">
-    <meta property="og:type" content="website">
+    <meta property="og:title" content="Contact Us | Cara — Modern E-Commerce" />
+    <meta
+      property="og:description"
+      content="Reach out to Cara — our team is here to help with any questions or feedback."
+    />
+    <meta
+      property="og:image"
+      content="https://example.com/images/preview.jpg"
+    />
+    <meta property="og:url" content="https://example.com/contact" />
+    <meta property="og:type" content="website" />
 
     <!-- Twitter Card Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Contact Us | Cara — Modern E-Commerce">
-    <meta name="twitter:description" content="We’re here to help — contact Cara for assistance or feedback.">
-    <meta name="twitter:image" content="https://example.com/images/preview.jpg">
-    <meta name="twitter:site" content="@janavipandole">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Contact Us | Cara — Modern E-Commerce"
+    />
+    <meta
+      name="twitter:description"
+      content="We’re here to help — contact Cara for assistance or feedback."
+    />
+    <meta
+      name="twitter:image"
+      content="https://example.com/images/preview.jpg"
+    />
+    <meta name="twitter:site" content="@janavipandole" />
 
     <!-- Theme Color -->
-    <meta name="theme-color" content="#000000">
+    <meta name="theme-color" content="#000000" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
 
-<body>
+  <body>
     <!-- Header -->
     <section id="header">
-        <a href="index.html"><img src="images/logo.png" alt="Cara Logo"></a>
+      <a href="index.html"><img src="images/logo.png" alt="Cara Logo" /></a>
 
-        <div>
-            <ul id="navbar">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="shop.html">Shop</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a class="active" href="contact.html">Contact</a></li>
-                <li><a href="login.html">Login</a></li>
-                <li><a href="cart.html" id="lg-bag" class="cart-icon-wrapper"><i class="ri-shopping-bag-4-line"></i><span class="cart-count" id="desktopCartCount">0</span></a></li>
-                <li>
-                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-                        <i class="ri-moon-line" id="themeIcon"></i>
-                    </button>
-                </li>
-                <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
-            </ul>
-        </div>
-        <div class="mobile">
-            <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
-                <i class="ri-moon-line" id="themeIconMobile"></i>
+      <div>
+        <ul id="navbar">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a class="active" href="contact.html">Contact</a></li>
+          <li><a href="login.html">Login</a></li>
+          <li>
+            <a href="cart.html" id="lg-bag" class="cart-icon-wrapper"
+              ><i class="ri-shopping-bag-4-line"></i
+              ><span class="cart-count" id="desktopCartCount">0</span></a
+            >
+          </li>
+          <li>
+            <button
+              class="theme-toggle"
+              id="themeToggle"
+              aria-label="Toggle dark mode"
+            >
+              <i class="ri-moon-line" id="themeIcon"></i>
             </button>
-            <a href="cart.html" id="mobile-cart-icon">
-                <i class="ri-shopping-bag-4-line"></i>
-                <span class="cart-count" id="mobileCartCount">0</span>
-            </a>
-            <i class="fas fa-outdent" id="bar"></i>
-        </div>
+          </li>
+          <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+        </ul>
+      </div>
+      <div class="mobile">
+        <button
+          class="theme-toggle"
+          id="themeToggleMobile"
+          aria-label="Toggle dark mode"
+        >
+          <i class="ri-moon-line" id="themeIconMobile"></i>
+        </button>
+        <a href="cart.html" id="mobile-cart-icon">
+          <i class="ri-shopping-bag-4-line"></i>
+          <span class="cart-count" id="mobileCartCount">0</span>
+        </a>
+        <i class="fas fa-outdent" id="bar"></i>
+      </div>
     </section>
 
     <!-- Contact Header -->
     <section id="about-head">
-        <h2>#Let's_Talk</h2>
-        <p>
-            We’d love to hear from you! Whether you have a question, feedback,
-            or partnership idea — our team is here to help.
-        </p>
+      <h2>#Let's_Talk</h2>
+      <p>
+        We’d love to hear from you! Whether you have a question, feedback, or
+        partnership idea — our team is here to help.
+      </p>
     </section>
 
     <!-- Enhanced Contact Section -->
     <section id="contact-section">
-
-        <!-- Left Column -->
-        <div class="contact-left">
-
-            <!-- Heading -->
-            <div class="contact-heading">
-                <span>GET IN TOUCH</span>
-                <h2>We're here to help you succeed</h2>
-                <p>
-                    Have a question about orders, returns, partnerships, or product
-                    recommendations? Send us a message and the right team member
-                    will respond within one business day.
-                </p>
-            </div>
-
-            <!-- Quick Information Cards -->
-            <div class="contact-stats">
-                <div class="stat-box">
-                    <i class="fa-regular fa-clock"></i>
-                    <h4>Fast Response</h4>
-                    <p>Replies within 24 business hours.</p>
-                </div>
-
-                <div class="stat-box">
-                    <i class="fa-solid fa-headset"></i>
-                    <h4>Dedicated Support</h4>
-                    <p>Friendly assistance for every inquiry.</p>
-                </div>
-
-                <div class="stat-box">
-                    <i class="fa-solid fa-shield-heart"></i>
-                    <h4>Trusted Service</h4>
-                    <p>Secure and confidential communication.</p>
-                </div>
-            </div>
-
-            <!-- Contact Form -->
-            <form class="contact-form">
-                <span>LEAVE A MESSAGE</span>
-                <h2>Tell us how we can help</h2>
-
-                <input
-                    type="text"
-                    name="name"
-                    placeholder="Enter your full name"
-                    required
-                >
-
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Enter your email address"
-                    required
-                    pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
-                    title="Please enter a valid email address"
-                >
-
-                <input
-                    type="text"
-                    name="subject"
-                    placeholder="What is this regarding?"
-                >
-
-                <select name="department">
-                    <option value="">Choose a department</option>
-                    <option value="orders">Orders & Shipping</option>
-                    <option value="returns">Returns & Refunds</option>
-                    <option value="products">Product Questions</option>
-                    <option value="partnerships">Partnerships</option>
-                    <option value="general">General Inquiry</option>
-                </select>
-
-                <textarea
-                    name="message"
-                    cols="30"
-                    rows="8"
-                    placeholder="Write your message here"
-                    required
-                ></textarea>
-
-                <button type="submit" class="normal">Send Message</button>
-            </form>
+      <!-- Left Column -->
+      <div class="contact-left">
+        <!-- Heading -->
+        <div class="contact-heading">
+          <span>GET IN TOUCH</span>
+          <h2>We're here to help you succeed</h2>
+          <p>
+            Have a question about orders, returns, partnerships, or product
+            recommendations? Send us a message and the right team member will
+            respond within one business day.
+          </p>
         </div>
 
-        <!-- Right Column -->
-        <div class="contact-right">
+        <!-- Quick Information Cards -->
+        <div class="contact-stats">
+          <div class="stat-box">
+            <i class="fa-regular fa-clock"></i>
+            <h4>Fast Response</h4>
+            <p>Replies within 24 business hours.</p>
+          </div>
 
-            <!-- Team Contacts -->
-            <div class="team-card">
-                <h3>Talk to Our Team</h3>
-                <p>
-                    Reach out directly to the team member best suited to help you.
-                </p>
+          <div class="stat-box">
+            <i class="fa-solid fa-headset"></i>
+            <h4>Dedicated Support</h4>
+            <p>Friendly assistance for every inquiry.</p>
+          </div>
 
-                <div class="team-member">
-                    <img src="images/people/2.png" alt="Business Partnerships Manager">
-                    <div class="member-info">
-                        <h4>Daniel Carter</h4>
-                        <span>Customer Support Lead</span>
-                        <a href="mailto:support@cara.com">support@cara.com</a>
-                        <a href="tel:+10001234567">+1 (000) 123-4567</a>
-                        <small>Orders, shipping, and returns</small>
-                    </div>
-                </div>
-
-                <div class="team-member">
-                    <img src="images/people/3.png" alt="Technical Support Specialist">
-                    <div class="member-info">
-                        <h4>Sophia Chen</h4>
-                        <span>Technical Support</span>
-                        <a href="mailto:tech@cara.com">tech@cara.com</a>
-                        <a href="tel:+10009876543">+1 (000) 987-6543</a>
-                        <small>Website issues and account assistance</small>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Office Information -->
-            <div class="office-card">
-                <h3>Head Office</h3>
-
-                <div class="office-item">
-                    <i class="fa-regular fa-map"></i>
-                    <span>
-                        56 Glassford Street, Glasgow G1 1UL, New York
-                    </span>
-                </div>
-
-                <div class="office-item">
-                    <i class="fa-regular fa-envelope"></i>
-                    <span>hello@cara.com</span>
-                </div>
-
-                <div class="office-item">
-                    <i class="fa-solid fa-phone"></i>
-                    <span>+1 (000) 123-7788</span>
-                </div>
-
-                <div class="office-item">
-                    <i class="fa-regular fa-clock"></i>
-                    <span>Monday to Saturday — 9:00 AM to 6:00 PM</span>
-                </div>
-            </div>
-
-            <!-- FAQ Card -->
-            <div class="faq-card">
-                <h3>Need Quick Answers?</h3>
-                <p>
-                    Visit our Help Center to find answers to common questions about
-                    delivery, returns, payments, and account management.
-                </p>
-                <a href="contact.html">Visit Help Center</a>
-            </div>
+          <div class="stat-box">
+            <i class="fa-solid fa-shield-heart"></i>
+            <h4>Trusted Service</h4>
+            <p>Secure and confidential communication.</p>
+          </div>
         </div>
-    </section>
 
-    <!-- Newsletter -->
-    <section id="newsletter" class="section-p1 section-m1">
-        <div class="newstext">
-            <h4>Sign Up For Newsletters</h4>
-            <p>Get email updates about our latest shop and <span>special offers.</span></p>
+        <!-- Contact Form -->
+        <form class="contact-form">
+          <span>LEAVE A MESSAGE</span>
+          <h2>Tell us how we can help</h2>
+
+          <input
+            type="text"
+            name="name"
+            placeholder="Enter your full name"
+            required
+          />
+
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter your email address"
+            required
+            pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
+            title="Please enter a valid email address"
+          />
+
+          <input
+            type="text"
+            name="subject"
+            placeholder="What is this regarding?"
+          />
+
+          <select name="department">
+            <option value="">Choose a department</option>
+            <option value="orders">Orders & Shipping</option>
+            <option value="returns">Returns & Refunds</option>
+            <option value="products">Product Questions</option>
+            <option value="partnerships">Partnerships</option>
+            <option value="general">General Inquiry</option>
+          </select>
+
+          <textarea
+            name="message"
+            cols="30"
+            rows="8"
+            placeholder="Write your message here"
+            required
+          ></textarea>
+
+          <button type="submit" class="normal">Send Message</button>
+        </form>
+      </div>
+
+      <!-- Right Column -->
+      <div class="contact-right">
+        <!-- Team Contacts -->
+        <div class="team-card">
+          <h3>Talk to Our Team</h3>
+          <p>Reach out directly to the team member best suited to help you.</p>
+
+          <div class="team-member">
+            <img
+              src="images/people/2.png"
+              alt="Business Partnerships Manager"
+            />
+            <div class="member-info">
+              <h4>Daniel Carter</h4>
+              <span>Customer Support Lead</span>
+              <a href="mailto:support@cara.com">support@cara.com</a>
+              <a href="tel:+10001234567">+1 (000) 123-4567</a>
+              <small>Orders, shipping, and returns</small>
+            </div>
+          </div>
+
+          <div class="team-member">
+            <img src="images/people/3.png" alt="Technical Support Specialist" />
+            <div class="member-info">
+              <h4>Sophia Chen</h4>
+              <span>Technical Support</span>
+              <a href="mailto:tech@cara.com">tech@cara.com</a>
+              <a href="tel:+10009876543">+1 (000) 987-6543</a>
+              <small>Website issues and account assistance</small>
+            </div>
+          </div>
         </div>
-        <div class="form">
-            <input type="email" placeholder="Your email address">
-            <button class="normal">Sign Up</button>
+
+        <!-- Office Information -->
+        <div class="office-card">
+          <h3>Head Office</h3>
+
+          <div class="office-item">
+            <i class="fa-regular fa-map"></i>
+            <span> 56 Glassford Street, Glasgow G1 1UL, New York </span>
+          </div>
+
+          <div class="office-item">
+            <i class="fa-regular fa-envelope"></i>
+            <span>hello@cara.com</span>
+          </div>
+
+          <div class="office-item">
+            <i class="fa-solid fa-phone"></i>
+            <span>+1 (000) 123-7788</span>
+          </div>
+
+          <div class="office-item">
+            <i class="fa-regular fa-clock"></i>
+            <span>Monday to Saturday — 9:00 AM to 6:00 PM</span>
+          </div>
         </div>
+
+        <!-- FAQ Card -->
+        <div class="faq-card">
+          <h3>Need Quick Answers?</h3>
+          <p>
+            Visit our Help Center to find answers to common questions about
+            delivery, returns, payments, and account management.
+          </p>
+          <a href="contact.html">Visit Help Center</a>
+        </div>
+      </div>
     </section>
 
     <!-- Back to Top and Scroll to Bottom Buttons -->
-    <button id="backToTop" title="Back to Top" aria-label="Back to top">⬆</button>
-    <button id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">⬇</button>
+    <button id="backToTop" title="Back to Top" aria-label="Back to top">
+      ⬆
+    </button>
+    <button id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">
+      ⬇
+    </button>
 
     <!-- Footer -->
     <footer class="section-p1">
-        <div class="col">
-            <img class="logo" src="images/logo.png" alt="Cara Logo">
-            <h4>Contact</h4>
-            <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
-            <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
-            <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
+      <!-- Contact Column -->
+      <div class="col">
+        <img class="logo" src="images/logo.png" alt="Cara Logo" />
+        <h4>Contact</h4>
+        <p>
+          <strong>Address:</strong> 562 Wellington Road, Street 32, San
+          Francisco
+        </p>
+        <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
+        <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
 
-            <div class="follow">
-                <h4>Follow us</h4>
-                <div class="icon">
-                    <a href="https://x.com/JanaviPandole"><i class="fab fa-twitter"></i></a>
-                    <a href="https://github.com/janavipandole"><i class="fab fa-github"></i></a>
-                    <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="https://www.youtube.com/@JanaviPandole"><i class="fab fa-youtube"></i></a>
-                </div>
-            </div>
+        <div class="follow">
+          <h4>Follow us</h4>
+          <div class="icon">
+            <a
+              href="https://x.com/JanaviPandole"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a
+              href="https://github.com/janavipandole"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fab fa-github"></i>
+            </a>
+            <a
+              href="https://www.linkedin.com/in/janavi-pandole-80a7b2290"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fab fa-linkedin"></i>
+            </a>
+            <a
+              href="https://www.youtube.com/@JanaviPandole"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fab fa-youtube"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- About Column -->
+      <div class="col">
+        <h4>About</h4>
+        <a href="about.html">About Us</a>
+        <a href="#">Delivery Information</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms and Conditions</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+
+      <!-- My Account Column -->
+      <div class="col">
+        <h4>My Account</h4>
+        <a href="login.html">Sign In</a>
+        <a href="cart.html">View Cart</a>
+        <a href="#">My Wishlist</a>
+        <a href="track-order.html">Track My Order</a>
+        <a href="contact.html">Help</a>
+      </div>
+
+      <!-- Newsletter Column -->
+      <div class="col newsletter-footer">
+        <h4>Newsletter</h4>
+        <p>
+          Get email updates about our latest shop and
+          <span>special offers.</span>
+        </p>
+
+        <form class="newsletter-form">
+          <input type="email" placeholder="Your email address" required />
+          <button type="submit" class="normal">Sign Up</button>
+        </form>
+      </div>
+
+      <!-- Install App Column -->
+      <div class="col install">
+        <h4>Install App</h4>
+        <p>From App Store or Google Play</p>
+
+        <div class="row">
+          <img src="images/pay/app.jpg" alt="Download from App Store" />
+          <img src="images/pay/play.jpg" alt="Get it on Google Play" />
         </div>
 
-        <div class="col">
-            <h4>About</h4>
-            <a href="about.html">About us</a>
-            <a href="#">Delivery Information</a>
-        <a href="privacy.html">Privacy Policy</a>            
-        <a href="./terms.html">Terms and Conditions</a>           
-            <a href="contact.html">Contact Us</a>
-        </div>
+        <p>Secured Payment Gateways</p>
 
-        <div class="col">
-            <h4>My Account</h4>
-            <a href="login.html">Sign In</a>
-            <a href="cart.html">View Cart</a>
-            <a href="#">My Wishlist</a>
-            <a href="cart.html">Track My Order</a>
-            <a href="contact.html">Help</a>
-        </div>
+        <div class="payment-icons">
+          <a
+            href="https://www.visa.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visa"
+          >
+            <i class="fab fa-cc-visa"></i>
+          </a>
 
-        <div class="col install">
-            <h4>Install App</h4>
-            <p>From App Store or Google Play</p>
-            <div class="row">
-                <img src="images/pay/app.jpg" alt="">
-                <img src="images/pay/play.jpg" alt="">
-            </div>
-            <p>Secured Payment Gateways</p>
-            <img src="images/pay/pay.png" alt="">
-        </div>
+          <a
+            href="https://www.mastercard.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Mastercard"
+          >
+            <i class="fab fa-cc-mastercard"></i>
+          </a>
 
-        <div class="copyright">
-            <p>&copy; Cara 2025. All rights reserved. | <a href="license.html" style="color: #088178;">MIT License</a></p>
+          <a
+            href="https://www.paypal.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="PayPal"
+          >
+            <i class="fab fa-cc-paypal"></i>
+          </a>
+
+          <a
+            href="https://www.americanexpress.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="American Express"
+          >
+            <i class="fab fa-cc-amex"></i>
+          </a>
+
+          <a
+            href="https://stripe.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Stripe"
+          >
+            <i class="fab fa-cc-stripe"></i>
+          </a>
         </div>
+      </div>
+
+      <!-- Copyright -->
+      <div class="copyright">
+        <p>
+          &copy; Cara 2025. All rights reserved. |
+          <a href="license.html" style="color: #088178"> MIT License </a>
+        </p>
+      </div>
     </footer>
 
     <script src="app.js"></script>
-</body>
-
+  </body>
 </html>

@@ -2,212 +2,181 @@
 <html lang="en">
 
 <head>
-    <!-- Character Encoding -->
     <meta charset="UTF-8">
-
-    <!-- Viewport for Responsive Design -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | Cara</title>
 
-    <!-- Page Title -->
-    <title>Cara — Modern E‑Commerce</title>
-
-    <!-- Favicon -->
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
 
-    <!-- SEO Meta Tags -->
-    <meta name="description"
-        content="Shop the latest trends on our e-commerce store. Dark theme supported for a better user experience.">
-    <meta name="keywords" content="e-commerce, shopping, online store, dark mode, buy online, latest fashion">
-    <meta name="author" content=" Cara">
-    <meta name="robots" content="index, follow">
-
-    <!-- Language -->
-    <meta http-equiv="Content-Language" content="en">
-
-    <!-- Open Graph (OG) Tags for Social Sharing -->
-    <meta property="og:title" content="E-commerce - Dark Theme Working">
-    <meta property="og:description" content="Shop the latest trends with our dark mode-enabled e-commerce experience.">
-    <meta property="og:image" content="https://example.com/images/preview.jpg">
-    <meta property="og:url" content="https://example.com/">
-    <meta property="og:type" content="website">
-
-    <!-- Twitter Card Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="E-commerce - Dark Theme Working">
-    <meta name="twitter:description" content="Dark theme e-commerce site with modern features.">
-    <meta name="twitter:image" content="https://example.com/images/preview.jpg">
-    <meta name="twitter:site" content="@janavipandole">
-
-    <!-- Theme Color for Mobile Browser -->
-    <meta name="theme-color" content="#000000">
-
-    <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="login.css">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="register.css">
 
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
 </head>
 
 <body>
-    <div id="particles-js"></div>
 
-    <div class="container">
-        <div class="form-box">
-            <h2>Register</h2>
-            <p>Namaste!!&#128075</p>
+    <!-- HEADER -->
+    <section id="header">
 
-            <form id="registerForm">
-                <div class="input-group">
-                    <input type="text" id="registerUsername" required class="input-field">
-                    <label for="registerUsername">Username</label>
-                    <div class="glow-line"></div>
-                </div>
-                <div class="input-group">
-                    <input type="text" id="registerEmail" required class="input-field">
-                    <label for="registerEmail">Email</label>
-                    <div class="glow-line"></div>
-                </div>
-                <div class="input-group">
-                    <input type="password" id="registerPassword" required class="input-field">
-                    <label for="registerPassword">Password</label>
-                    <div class="glow-line"></div>
-                </div>
-                <div class="input-group">
-                    <input type="password" id="registerConfirmPassword" required class="input-field">
-                    <label for="registerConfirmPassword">Confirm Password</label>
-                    <div class="glow-line"></div>
-                </div>
-                <div class="remember-forgot">
-                    <div class="remember">
-                        <input type="checkbox" id="remember">
-                        <label for="remember">Remember me</label>
-                    </div>
-                </div>
-                <button type="submit" class="login-btn">
-                    <span> REGISTER</span>
-                    <div class="btn-glow"></div>
-                </button>
-                <div class="signup-link">
-                    Already have an account? <a href="login.html">Login</a>
-                </div>
-            </form>
+        <a href="index.html">
+            <img src="images/logo.png" alt="Cara Logo">
+        </a>
+
+        <div>
+            <ul id="navbar">
+
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+
+                <li>
+                    <a href="login.html">
+                        Login
+                    </a>
+                </li>
+
+                <li>
+                    <a href="cart.html" id="lg-bag">
+                        <i class="ri-shopping-bag-4-line"></i>
+                    </a>
+                </li>
+
+            </ul>
         </div>
-    </div>
 
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            particlesJS('particles-js', {
-                "particles": {
-                    "number": {
-                        "value": 100,
-                        "density": {
-                            "enable": true,
-                            "value_area": 800
-                        }
-                    },
-                    "color": {
-                        "value": "#00d4ff"
-                    },
-                    "shape": {
-                        "type": "circle",
-                        "stroke": {
-                            "width": 0,
-                            "color": "#000000"
-                        },
-                        "polygon": {
-                            "nb_sides": 5
-                        }
-                    },
-                    "opacity": {
-                        "value": 0.8,
-                        "random": true,
-                        "anim": {
-                            "enable": true,
-                            "speed": 1,
-                            "opacity_min": 0.4,
-                            "sync": false
-                        }
-                    },
-                    "size": {
-                        "value": 5,
-                        "random": true,
-                        "anim": {
-                            "enable": true,
-                            "speed": 2,
-                            "size_min": 1,
-                            "sync": false
-                        }
-                    },
-                    "line_linked": {
-                        "enable": true,
-                        "distance": 150,
-                        "color": "#00d4ff",
-                        "opacity": 0.6,
-                        "width": 1.5
-                    },
-                    "move": {
-                        "enable": true,
-                        "speed": 2,
-                        "direction": "none",
-                        "random": true,
-                        "straight": false,
-                        "out_mode": "out",
-                        "bounce": false,
-                        "attract": {
-                            "enable": true,
-                            "rotateX": 600,
-                            "rotateY": 1200
-                        }
-                    }
-                },
-                "interactivity": {
-                    "detect_on": "canvas",
-                    "events": {
-                        "onhover": {
-                            "enable": true,
-                            "mode": "repulse"
-                        },
-                        "onclick": {
-                            "enable": true,
-                            "mode": "push"
-                        },
-                        "resize": true
-                    },
-                    "modes": {
-                        "grab": {
-                            "distance": 400,
-                            "line_linked": {
-                                "opacity": 1
-                            }
-                        },
-                        "bubble": {
-                            "distance": 400,
-                            "size": 40,
-                            "duration": 2,
-                            "opacity": 8,
-                            "speed": 3
-                        },
-                        "repulse": {
-                            "distance": 100,
-                            "duration": 0.4
-                        },
-                        "push": {
-                            "particles_nb": 4
-                        },
-                        "remove": {
-                            "particles_nb": 2
-                        }
-                    }
-                },
-                "retina_detect": true
-            });
-        });
-    </script>
+    </section>
+
+    <!-- REGISTER SECTION -->
+    <section id="register-section">
+
+        <form id="registerForm">
+
+        <div class="auth-card">
+
+            <h2>Register</h2>
+
+            <p class="subtitle">
+                Create your account 😊
+            </p>
+
+            <!-- FULL NAME -->
+            <div class="form-group">
+
+                <label>Full Name</label>
+
+                <input type="text"
+                    id="registerUsername"
+                    placeholder="Enter your full name"
+                    required>
+
+            </div>
+
+            <!-- EMAIL -->
+            <div class="form-group">
+
+                <label>Email</label>
+
+                <input type="email"
+                    id="registerEmail"
+                    placeholder="Enter your email"
+                    required>
+
+            </div>
+
+            <!-- PASSWORD -->
+            <div class="form-group">
+
+                <label>Password</label>
+
+                <div class="password-wrapper">
+
+                    <input type="password"
+                        placeholder="Enter your password"
+                        id="registerPassword"
+                        required>
+
+                    <i class="ri-eye-line toggle-eye"></i>
+
+                </div>
+
+            </div>
+
+            <!-- CONFIRM PASSWORD -->
+            <div class="form-group">
+
+                <label>Confirm Password</label>
+
+                <div class="password-wrapper">
+
+                    <input type="password"
+                        placeholder="Confirm your password"
+                        id="registerConfirmPassword"
+                        required>
+
+                    <i class="ri-eye-line toggle-eye"></i>
+
+                </div>
+
+            </div>
+
+            <!-- BUTTON -->
+            <button type="submit" class="btn-primary">
+                CREATE ACCOUNT
+            </button>
+
+            <!-- LOGIN LINK -->
+            <div class="switch-auth">
+
+                Already have an account?
+
+                <a href="login.html">
+                    Login
+                </a>
+
+            </div>
+
+        </div>
+
+        </form>
+
+    </section>
+
     <script src="register.js"></script>
+    <script>
+    const toggleEyes = document.querySelectorAll(".toggle-eye");
+
+    toggleEyes.forEach((eye) => {
+
+        eye.addEventListener("click", () => {
+
+            const passwordInput = eye.previousElementSibling;
+
+            if (passwordInput.type === "password") {
+
+                passwordInput.type = "text";
+
+                eye.classList.remove("ri-eye-line");
+                eye.classList.add("ri-eye-off-line");
+
+            } else {
+
+                passwordInput.type = "password";
+
+                eye.classList.remove("ri-eye-off-line");
+                eye.classList.add("ri-eye-line");
+            }
+
+        });
+
+    });
+</script>
+
 </body>
 
 </html>

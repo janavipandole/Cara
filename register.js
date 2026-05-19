@@ -7,36 +7,28 @@ document.addEventListener('DOMContentLoaded', function () {
         const password = document.getElementById('registerPassword').value;
         const confirmPassword = document.getElementById('registerConfirmPassword').value;
 
-       if (!name || !email || !password) {
-    alert('Please fill all fields.');
-    return;
-}
+       if (!name || !email || !password || !confirmPassword) {
+            alert('Please fill all fields.');
+            return;
+        }
 
-// Password validation
-const passwordRegex =
-/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
-
-if (!passwordRegex.test(password)) {
-
-    alert(
-        'Password must contain:\n' +
-        '- Minimum 8 characters\n' +
-        '- One uppercase letter\n' +
-        '- One lowercase letter\n' +
-        '- One number\n' +
-        '- One special character'
-    );
-
-    return;
-}
-
+        // Check password match first (better UX)
         if (password !== confirmPassword) {
             alert('Passwords do not match.');
             return;
         }
 
-        if (password.length < 6) {
-            alert('Password must be at least 6 characters.');
+        // Password strength validation
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
+        if (!passwordRegex.test(password)) {
+            alert(
+                'Password must contain:\n' +
+                '- Minimum 8 characters\n' +
+                '- One uppercase letter\n' +
+                '- One lowercase letter\n' +
+                '- One number\n' +
+                '- One special character (@$!%*?&)'
+            );
             return;
         }
 
