@@ -1764,22 +1764,50 @@ footer .copyright {
     margin-bottom: 12px;
 }
 
-    #pro-details .single-pro-details .quantity-selector input {
-        width: 50px;
-        height: 100%;
-        text-align: center;
-        font-size: 18px;
-        font-weight: 600;
-        border: none;
-        background: transparent;
-        color: var(--text-primary);
-        padding: 0;
-        margin: 0;
-        -moz-appearance: textfield;
-        appearance: textfield;
-        /* Firefox */
-    }
+    /* ── QUANTITY SELECTOR FIX (Issue: buttons stacking vertically) ── */
+#pro-details .single-pro-details .quantity-selector {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
 
+#pro-details .single-pro-details .qty-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    border-radius: 50%;
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background 0.2s ease;
+}
+
+#pro-details .single-pro-details .qty-btn:hover {
+    background-color: #066b63;
+}
+
+#pro-details .single-pro-details .quantity-selector input {
+    width: 50px;
+    height: 38px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--text-primary);
+    padding: 0;
+    margin: 0;
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
     #product1 .pro .des {
         padding: 0 5px;
         display: flex;
