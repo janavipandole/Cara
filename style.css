@@ -6140,4 +6140,24 @@ footer .copyright {
                 transform: translateY(0);
             }
         }
+@media (max-width: 768px) {
+  #blog .blog-box {
+    position: relative !important;
+  }
 
+  #blog img {
+    height: 250px !important;
+    object-fit: cover;
+  }
+
+  #blog .blog-box h1 {
+    position: absolute !important;
+    top: 10px !important;
+    left: 10px !important;
+    font-size: 2rem !important;
+    color: white !important;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.9) !important;
+    opacity: 0.2 !important;
+    z-index: 999 !important;
+  }
+}
