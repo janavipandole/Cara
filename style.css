@@ -1,5 +1,227 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=League+Spartan:wght@100..900&display=swap');
 
+/* ============================================
+   ADD-TO-CART BUTTON HOVER ANIMATION
+   Issue #316 — Hover micro-interactions
+   ============================================ */
+
+#product1 .pro .cart {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+#product1 .pro .cart:hover {
+  background-color: #088178;
+  color: #fff;
+  transform: scale(1.12) translateY(-2px);
+  box-shadow: 0 4px 12px rgba(8, 129, 120, 0.35);
+  border-color: #088178;
+}
+
+#product1 .pro .cart i {
+  transition: transform 0.3s ease;
+}
+
+#product1 .pro .cart:hover i {
+  transform: rotate(-10deg) scale(1.1);
+}
+
+/* Dark theme variant */
+[data-theme="dark"] #product1 .pro .cart:hover {
+  background-color: var(--accent);
+  box-shadow: 0 4px 12px rgba(6, 182, 212, 0.35);
+  border-color: var(--accent);
+}
+
+/* Banner3 — solid white button with dark text for max contrast */
+#banner3 .banner-box button {
+    background: rgba(255, 255, 255, 0.92);
+    color: #111;
+    border: none;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    transition: all 0.3s ease;
+    margin-top: 12px;
+    position: relative;
+    z-index: 2;
+}
+
+#banner3 .banner-box button:hover {
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+    transform: translateY(-2px);
+}
+
+/* sm-banner buttons — same treatment */
+#sm-banner .banner-box button {
+    background: rgba(255, 255, 255, 0.92);
+    color: #111;
+    border: none;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 12px 28px;
+    border-radius: 6px;
+    cursor: pointer;
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+}
+
+#sm-banner .banner-box button:hover {
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+    transform: translateY(-2px);
+}
+
+/* Scrollbar Customization */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--accent);
+    border-radius: 10px; 
+    border: 2px solid var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #06655e;
+}
+
+/* Dark theme adjustment */
+[data-theme="dark"] #banner3 .banner-box button,
+[data-theme="dark"] #sm-banner .banner-box button {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+[data-theme="dark"] #banner3 .banner-box button:hover,
+[data-theme="dark"] #sm-banner .banner-box button:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+}
+
+/* ============================================
+   BANNER CARD HOVER ANIMATIONS
+   Add this block to the end of style.css
+   ============================================ */
+
+/* ── Shared setup for both banner rows ── */
+#sm-banner .banner-box,
+#banner3 .banner-box {
+    overflow: hidden;
+    /* keeps zoomed bg clipped inside the card */
+    transition:
+        transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1),
+        box-shadow 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Background image lives on the pseudo-element so it can scale independently */
+#sm-banner .banner-box::before,
+#banner3 .banner-box::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    /* picks up background-image from parent */
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.55s cubic-bezier(0.25, 0.8, 0.25, 1);
+    z-index: 0;
+}
+
+/* Make sure text / buttons sit above the pseudo-element */
+#sm-banner .banner-box>*,
+#banner3 .banner-box>* {
+    position: relative;
+    z-index: 1;
+}
+
+/* ── Card lift + shadow on hover ── */
+#sm-banner .banner-box:hover,
+#banner3 .banner-box:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.22);
+}
+
+/* ── Background zoom on hover ── */
+#sm-banner .banner-box:hover::before,
+#banner3 .banner-box:hover::before {
+    transform: scale(1.08);
+}
+
+/* ── Subtle dark overlay that appears on hover ── */
+#sm-banner .banner-box::after,
+#banner3 .banner-box::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0);
+    transition: background 0.35s ease;
+    z-index: 0;
+    border-radius: inherit;
+}
+
+#sm-banner .banner-box:hover::after,
+#banner3 .banner-box:hover::after {
+    background: rgba(0, 0, 0, 0.12);
+}
+
+/* ── Button animations inside banner cards ── */
+#sm-banner .banner-box button,
+#banner3 .banner-box button {
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+        box-shadow 0.3s ease;
+}
+
+#sm-banner .banner-box:hover button,
+#banner3 .banner-box:hover button {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* ── Heading slide-up micro-animation ── */
+#sm-banner .banner-box h2,
+#sm-banner .banner-box h4,
+#banner3 .banner-box h2,
+#banner3 .banner-box h3 {
+    transition: transform 0.35s ease, letter-spacing 0.35s ease;
+}
+
+#sm-banner .banner-box:hover h2,
+#sm-banner .banner-box:hover h4,
+#banner3 .banner-box:hover h2,
+#banner3 .banner-box:hover h3 {
+    transform: translateY(-4px);
+    letter-spacing: 0.5px;
+}
+
+/* ── Dark-theme adjustments ── */
+[data-theme="dark"] #sm-banner .banner-box:hover,
+[data-theme="dark"] #banner3 .banner-box:hover {
+    box-shadow: 0 20px 45px rgba(6, 182, 212, 0.18);
+}
 
 
 
@@ -666,18 +888,17 @@ button.white .ripple-effect {
 }
 
 #product1 .pro-container {
-    justify-content: flex-start;
-    gap: 20px 2.5%;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
     padding-top: 20px;
-    display: flex;
 }
 
 /* ── Card container ── */
 #product1 .pro {
     position: relative;
-    width: 23%;
-    min-width: 240px;
+    width: 100%;
+    min-width: 0;
     padding: 12px 12px 14px;
     border: 1.5px solid var(--border-color);
     border-radius: 16px;
@@ -815,6 +1036,8 @@ button.white .ripple-effect {
     transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
     text-align: center;
     white-space: nowrap;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .pro-buy-btn:hover {
@@ -1663,6 +1886,8 @@ footer .copyright {
         cursor: pointer;
         transition: all 0.3s ease;
         box-shadow: 0 4px 12px rgba(8, 129, 120, 0.2);
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
     #product1 .pro .buy-now-btn:hover {
@@ -3091,8 +3316,11 @@ footer .copyright {
                     margin: 20px;
                 }
 
+                #product1 .pro-container {
+                    grid-template-columns: repeat(3, 1fr);
+                }
                 #product1 .pro {
-                    width: 30%;
+                    width: 100%;
                 }
             }
 
@@ -3144,14 +3372,13 @@ footer .copyright {
                     margin-top: 70px;
                 }
 
-                #product1 .pro {
-                    width: 45%;
-                    min-width: 220px;
-                }
-
                 #product1 .pro-container {
+                    grid-template-columns: repeat(2, 1fr);
                     gap: 20px;
-                    justify-content: center;
+                }
+                #product1 .pro {
+                    width: 100%;
+                    min-width: 0;
                 }
 
                 #sm-banner .banner-box {
@@ -4813,22 +5040,32 @@ footer .copyright {
 
             .quiz-options {
                 display: flex;
-                flex-direction: column;
-                gap: 10px;
-                margin-top: 20px;
+                flex-direction: row;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 12px;
+                margin-top: 24px;
             }
 
             .quiz-options button {
-                padding: 10px;
-                background-color: var(--accent);
-                color: white;
-                border: none;
-                border-radius: 4px;
+                padding: 10px 24px;
+                background-color: var(--bg-secondary);
+                color: var(--text-primary);
+                border: 1.5px solid var(--border-color);
+                border-radius: 30px;
+                font-weight: 600;
+                font-size: 14px;
                 cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 8px var(--shadow);
             }
 
             .quiz-options button:hover {
-                background-color: #066a5c;
+                background-color: var(--accent);
+                color: #ffffff;
+                border-color: var(--accent);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(8, 129, 120, 0.25);
             }
 
             /* ============================================
@@ -5037,6 +5274,8 @@ footer .copyright {
                 transition: all 0.3s ease;
                 opacity: 0;
                 transform: translateY(10px);
+                max-width: 100%;
+                box-sizing: border-box;
             }
 
             #product1 .pro:hover .buy-now-btn {
@@ -5997,3 +6236,94 @@ footer .copyright {
             }
         }
 
+/* --- Sort by Price Dropdown Styles --- */
+.sort-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 14px;
+    padding: 0 80px 20px 80px;
+    flex-wrap: wrap;
+}
+
+.sort-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: 0.02em;
+}
+
+.sort-label i {
+    color: var(--accent);
+    font-size: 18px;
+}
+
+.sort-select-wrap {
+    position: relative;
+    min-width: 230px;
+}
+
+#sort-price {
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 13px 48px 13px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    font-family: "League Spartan", sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 249, 250, 0.95));
+    cursor: pointer;
+    outline: none;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+}
+
+.sort-chevron {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: var(--text-secondary);
+    font-size: 22px;
+    transition: color 0.25s ease;
+}
+
+.sort-select-wrap:hover #sort-price,
+#sort-price:focus {
+    border-color: var(--accent);
+    box-shadow: 0 10px 26px rgba(8, 129, 120, 0.16);
+    transform: translateY(-1px);
+}
+
+.sort-select-wrap:hover .sort-chevron,
+#sort-price:focus + .sort-chevron {
+    color: var(--accent);
+}
+
+/* Adjust padding for mobile screens */
+@media (max-width: 799px) {
+    .sort-container {
+        justify-content: space-between;
+        padding: 0 40px 20px 40px;
+    }
+}
+@media (max-width: 477px) {
+    .sort-container {
+        justify-content: stretch;
+        align-items: stretch;
+        padding: 0 20px 20px 20px;
+    }
+
+    .sort-select-wrap {
+        min-width: 0;
+        width: 100%;
+    }
+}
