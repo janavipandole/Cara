@@ -299,11 +299,11 @@ window.loadCart = function () {
 
     handleEmptyCartView();
 
-    const itemsContainer = document.getElementById('cart-items-container');
-    if (!itemsContainer) return;
+    const cartContainer = document.querySelector('#cart-items-container');
+    if (!cartContainer) return;
 
-    itemsContainer.innerHTML = '';
-    let subtotal = 0;
+    cartContainer.innerHTML = '';
+    let total = 0;
 
     cart.forEach((item, index) => {
         const itemPrice = item.price;
@@ -344,62 +344,99 @@ window.loadCart = function () {
         itemsContainer.appendChild(row);
     });
 
-    // Update Summary Breakdowns
-    const subtotalEl = document.getElementById('summary-subtotal');
-    const taxEl = document.getElementById('summary-tax');
-    const shippingEl = document.getElementById('summary-shipping');
-    const discountRow = document.getElementById('summary-discount-row');
-    const discountEl = document.getElementById('summary-discount');
-    const totalEl = document.getElementById('summary-total');
+        // Create cart item card
+        const cartCard = document.createElement('div');
+        cartCard.className = 'cart-item-card';
 
-        // REMOVE BUTTON
-        const removeCell = newRow.insertCell();
-        const removeLink = document.createElement('a');
-        removeLink.href = '#';
-        removeLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            removeItem(index);
-        });
-        const removeIcon = document.createElement('i');
-        removeIcon.className = 'fa-regular fa-circle-xmark';
-        removeLink.appendChild(removeIcon);
-        removeCell.appendChild(removeLink);
-
-        // IMAGE
-        const imgCell = newRow.insertCell();
+        // Left section: Image
+        const imageSection = document.createElement('div');
+        imageSection.className = 'cart-item-image';
         const img = document.createElement('img');
         img.src = item.image;
         img.alt = item.name;
-        imgCell.appendChild(img);
+        imageSection.appendChild(img);
+        cartCard.appendChild(imageSection);
 
-        // NAME
-        const nameCell = newRow.insertCell();
-        nameCell.textContent = item.name;
+        // Middle section: Product details
+        const detailsSection = document.createElement('div');
+        detailsSection.className = 'cart-item-details';
 
-        const sizeSmall = document.createElement('small');
-        sizeSmall.textContent = 'Size: ' + item.size;
-        nameCell.appendChild(document.createElement('br'));
-        nameCell.appendChild(sizeSmall);
+        // Product name
+        const nameDiv = document.createElement('div');
+        nameDiv.className = 'cart-item-name';
+        nameDiv.textContent = item.name;
+        detailsSection.appendChild(nameDiv);
 
-        // PRICE
-        const priceCell = newRow.insertCell();
-        priceCell.textContent = '$' + itemPrice.toFixed(2);
+        // Size
+        const sizeDiv = document.createElement('div');
+        sizeDiv.className = 'cart-item-size';
+        sizeDiv.textContent = 'Size: ' + item.size;
+        detailsSection.appendChild(sizeDiv);
 
-        // QTY
-        const qtyCell = newRow.insertCell();
+        // Price and Quantity row
+        const priceQtyDiv = document.createElement('div');
+        priceQtyDiv.className = 'cart-item-price-qty';
+
+        const priceLabel = document.createElement('span');
+        priceLabel.className = 'cart-item-price-label';
+        priceLabel.textContent = 'Price: ';
+        const priceValue = document.createElement('span');
+        priceValue.className = 'cart-item-price-value';
+        priceValue.textContent = '$' + itemPrice.toFixed(2);
+        priceLabel.appendChild(priceValue);
+        priceQtyDiv.appendChild(priceLabel);
+
+        const qtyLabel = document.createElement('span');
+        qtyLabel.className = 'cart-item-qty-label';
+        qtyLabel.textContent = 'Quantity: ';
         const qtyInput = document.createElement('input');
         qtyInput.type = 'number';
+        qtyInput.className = 'cart-item-qty-input';
         qtyInput.value = item.quantity;
         qtyInput.min = 1;
         qtyInput.addEventListener('change', function () {
             updateQuantity(index, this.value);
         });
-        qtyCell.appendChild(qtyInput);
+        qtyLabel.appendChild(qtyInput);
+        priceQtyDiv.appendChild(qtyLabel);
 
-        // SUBTOTAL
-        const subtotalCell = newRow.insertCell();
-        subtotalCell.textContent = '$' + subtotal.toFixed(2);
-    };
+        detailsSection.appendChild(priceQtyDiv);
+        cartCard.appendChild(detailsSection);
+
+        // Right section: Subtotal and remove button
+        const actionSection = document.createElement('div');
+        actionSection.className = 'cart-item-action';
+
+        // Subtotal
+        const subtotalDiv = document.createElement('div');
+        subtotalDiv.className = 'cart-item-subtotal';
+        const subtotalLabel = document.createElement('span');
+        subtotalLabel.className = 'subtotal-label';
+        subtotalLabel.textContent = 'Subtotal: ';
+        const subtotalValue = document.createElement('span');
+        subtotalValue.className = 'subtotal-value';
+        subtotalValue.textContent = '$' + subtotal.toFixed(2);
+        subtotalDiv.appendChild(subtotalLabel);
+        subtotalDiv.appendChild(subtotalValue);
+        actionSection.appendChild(subtotalDiv);
+
+        // Remove button
+        const removeBtn = document.createElement('button');
+        removeBtn.className = 'cart-item-remove-btn';
+        removeBtn.setAttribute('aria-label', 'Remove item from cart');
+        removeBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            removeItem(index);
+        });
+        const removeIcon = document.createElement('i');
+        removeIcon.className = 'fa-regular fa-circle-xmark';
+        removeBtn.appendChild(removeIcon);
+        removeBtn.appendChild(document.createTextNode(' Remove'));
+        actionSection.appendChild(removeBtn);
+
+        cartCard.appendChild(actionSection);
+        cartContainer.appendChild(cartCard);
+    });
 
     // ✅ TOTAL UPDATE MUST BE HERE (INSIDE FUNCTION, AFTER LOOP)
    const subtotalDisplay = document.querySelector('.subtotal table tr:nth-child(1) td:nth-child(2)');
