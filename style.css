@@ -1037,6 +1037,8 @@ button.white .ripple-effect {
     transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
     text-align: center;
     white-space: nowrap;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .pro-buy-btn:hover {
@@ -1817,6 +1819,8 @@ footer .copyright {
         cursor: pointer;
         transition: all 0.3s ease;
         box-shadow: 0 4px 12px rgba(8, 129, 120, 0.2);
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
     #product1 .pro .buy-now-btn:hover {
@@ -5197,6 +5201,8 @@ footer .copyright {
                 transition: all 0.3s ease;
                 opacity: 0;
                 transform: translateY(10px);
+                max-width: 100%;
+                box-sizing: border-box;
             }
 
             #product1 .pro:hover .buy-now-btn {
