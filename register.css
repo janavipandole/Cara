@@ -14,7 +14,6 @@
 
 /* CARD */
 .auth-card {
-
   width: 100%;
   max-width: 480px;
 
@@ -37,7 +36,6 @@
 
 /* ANIMATION */
 @keyframes slideUp {
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -46,7 +44,6 @@
 
 /* TITLE */
 .auth-card h2 {
-
   font-family: 'Spartan', sans-serif;
 
   font-size: 32px;
@@ -62,7 +59,6 @@
 
 /* SUBTITLE */
 .auth-card .subtitle {
-
   text-align: center;
 
   color: #777;
@@ -79,7 +75,6 @@
 
 /* LABEL */
 .form-group label {
-
   display: block;
 
   font-size: 14px;
@@ -93,7 +88,6 @@
 
 /* INPUT */
 .form-group input {
-
   width: 100%;
 
   padding: 14px 16px;
@@ -110,13 +104,13 @@
 
   color: var(--text, #222);
 
-  transition: border-color 0.25s,
-              box-shadow 0.25s;
+  transition:
+    border-color 0.25s,
+    box-shadow 0.25s;
 }
 
 /* INPUT FOCUS */
 .form-group input:focus {
-
   outline: none;
 
   border-color: #088178;
@@ -135,7 +129,6 @@
 
 /* EYE ICON */
 .toggle-eye {
-
   position: absolute;
 
   right: 14px;
@@ -153,7 +146,6 @@
 
 /* BUTTON */
 .btn-primary {
-
   width: 100%;
 
   padding: 15px;
@@ -174,13 +166,13 @@
 
   cursor: pointer;
 
-  transition: background 0.25s,
-              transform 0.15s;
+  transition:
+    background 0.25s,
+    transform 0.15s;
 }
 
 /* BUTTON HOVER */
 .btn-primary:hover {
-
   background: #297e72;
 
   transform: translateY(-1px);
@@ -188,7 +180,6 @@
 
 /* LOGIN LINK */
 .switch-auth {
-
   text-align: center;
 
   margin-top: 24px;
@@ -199,7 +190,6 @@
 }
 
 .switch-auth a {
-
   color: #088178;
 
   font-weight: 700;
@@ -213,7 +203,6 @@
 
 /* RESPONSIVE */
 @media (max-width: 540px) {
-
   .auth-card {
     padding: 36px 24px;
   }
