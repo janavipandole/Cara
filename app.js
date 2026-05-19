@@ -399,7 +399,7 @@ window.loadCart = function () {
         // SUBTOTAL
         const subtotalCell = newRow.insertCell();
         subtotalCell.textContent = '$' + subtotal.toFixed(2);
-    });
+    };
 
     // ✅ TOTAL UPDATE MUST BE HERE (INSIDE FUNCTION, AFTER LOOP)
    const subtotalDisplay = document.querySelector('.subtotal table tr:nth-child(1) td:nth-child(2)');
@@ -412,7 +412,7 @@ if (subtotalDisplay) {
 if (totalDisplay) {
     totalDisplay.innerText = `$${total.toFixed(2)}`;
 }
-};
+
 window.removeItem = function (index) {
     if (subtotalEl) {
         subtotalEl.innerText = `₹${subtotal.toLocaleString('en-IN')}`;
@@ -724,7 +724,7 @@ if (backToTopBtn) {
             backToTopBtn.classList.add("show");
             ToptobackBtn.classList.remove("show");
         }
-    });
+    };
 
     // BACK TO TOP
     backToTopBtn.addEventListener("click", () => {
@@ -1011,3 +1011,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 /* --- END: CURRENT YEAR FUNCTIONALITY --- */
+/* --- Sort by Price Logic --- */
+document.addEventListener('DOMContentLoaded', () => {
+    const sortMenu = document.getElementById('sort-price');
+    const proContainer = document.querySelector('.pro-container');
+
+    if (sortMenu && proContainer) {
+        const originalProducts = Array.from(proContainer.querySelectorAll('.pro'));
+        sortMenu.addEventListener('change', (e) => {
+            const sortValue = e.target.value;
+            let productsToAppend;
+
+            if (sortValue === 'default') {
+                productsToAppend = originalProducts;
+            } else {
+                productsToAppend = [...originalProducts].sort((a, b) => {
+                    const priceA = parseFloat(a.querySelector('h4').innerText.replace('$', '').trim());
+                    const priceB = parseFloat(b.querySelector('h4').innerText.replace('$', '').trim());
+
+                    if (sortValue === 'low-high') return priceA - priceB;
+                    if (sortValue === 'high-low') return priceB - priceA;
+                });
+            }
+            productsToAppend.forEach(product => {
+                proContainer.appendChild(product);
+            });
+        });
+    }
+});
