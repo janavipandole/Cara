@@ -274,3 +274,31 @@ form{
         width: 100%;
     }
 }
+
+/* ── Loading State for Submit Button ── */
+@keyframes btn-spinner {
+  to { transform: rotate(360deg); }
+}
+
+.submit-btn.btn-loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.75;
+    cursor: not-allowed;
+    color: transparent;
+}
+
+.submit-btn.btn-loading::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 22px;
+    height: 22px;
+    margin-top: -11px;
+    margin-left: -11px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: btn-spinner 0.6s linear infinite;
+}
