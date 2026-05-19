@@ -807,12 +807,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const scrollObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    // Open the cards smoothly when scrolling into view
                     cardContainer.classList.add('open');
-                    if (statusText) statusText.innerText = "Click to collapse";
-                } else {
-                    cardContainer.classList.remove('open');
-                    if (statusText) statusText.innerText = "Click to expand";
+                
+                    if (statusText) {
+                        statusText.innerText = "Click to collapse";
+                    }
+                
+                    // Stop observing after opening once
+                    scrollObserver.unobserve(featureSection);
                 }
             });
         }, observerOptions);
