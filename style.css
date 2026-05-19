@@ -888,18 +888,17 @@ button.white .ripple-effect {
 }
 
 #product1 .pro-container {
-    justify-content: flex-start;
-    gap: 20px 2.5%;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
     padding-top: 20px;
-    display: flex;
 }
 
 /* ── Card container ── */
 #product1 .pro {
     position: relative;
-    width: 23%;
-    min-width: 240px;
+    width: 100%;
+    min-width: 0;
     padding: 12px 12px 14px;
     border: 1.5px solid var(--border-color);
     border-radius: 16px;
@@ -1037,6 +1036,8 @@ button.white .ripple-effect {
     transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
     text-align: center;
     white-space: nowrap;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .pro-buy-btn:hover {
@@ -1611,7 +1612,7 @@ footer .copyright {
    ============================================ */
 
 #shop-hero {
-    background-image: url("images/banner/b1.jpg");
+    background-image: url("images/banner/b2.png");
     background-size: cover;
     background-position: center;
     height: 50vh;
@@ -1817,6 +1818,8 @@ footer .copyright {
         cursor: pointer;
         transition: all 0.3s ease;
         box-shadow: 0 4px 12px rgba(8, 129, 120, 0.2);
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
     #product1 .pro .buy-now-btn:hover {
@@ -3241,8 +3244,11 @@ footer .copyright {
                     margin: 20px;
                 }
 
+                #product1 .pro-container {
+                    grid-template-columns: repeat(3, 1fr);
+                }
                 #product1 .pro {
-                    width: 30%;
+                    width: 100%;
                 }
             }
 
@@ -3294,14 +3300,13 @@ footer .copyright {
                     margin-top: 70px;
                 }
 
-                #product1 .pro {
-                    width: 45%;
-                    min-width: 220px;
-                }
-
                 #product1 .pro-container {
+                    grid-template-columns: repeat(2, 1fr);
                     gap: 20px;
-                    justify-content: center;
+                }
+                #product1 .pro {
+                    width: 100%;
+                    min-width: 0;
                 }
 
                 #sm-banner .banner-box {
@@ -4963,22 +4968,32 @@ footer .copyright {
 
             .quiz-options {
                 display: flex;
-                flex-direction: column;
-                gap: 10px;
-                margin-top: 20px;
+                flex-direction: row;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 12px;
+                margin-top: 24px;
             }
 
             .quiz-options button {
-                padding: 10px;
-                background-color: var(--accent);
-                color: white;
-                border: none;
-                border-radius: 4px;
+                padding: 10px 24px;
+                background-color: var(--bg-secondary);
+                color: var(--text-primary);
+                border: 1.5px solid var(--border-color);
+                border-radius: 30px;
+                font-weight: 600;
+                font-size: 14px;
                 cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 8px var(--shadow);
             }
 
             .quiz-options button:hover {
-                background-color: #066a5c;
+                background-color: var(--accent);
+                color: #ffffff;
+                border-color: var(--accent);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(8, 129, 120, 0.25);
             }
 
             /* ============================================
@@ -5187,6 +5202,8 @@ footer .copyright {
                 transition: all 0.3s ease;
                 opacity: 0;
                 transform: translateY(10px);
+                max-width: 100%;
+                box-sizing: border-box;
             }
 
             #product1 .pro:hover .buy-now-btn {
@@ -6140,4 +6157,24 @@ footer .copyright {
                 transform: translateY(0);
             }
         }
+@media (max-width: 768px) {
+  #blog .blog-box {
+    position: relative !important;
+  }
 
+  #blog img {
+    height: 250px !important;
+    object-fit: cover;
+  }
+
+  #blog .blog-box h1 {
+    position: absolute !important;
+    top: 10px !important;
+    left: 10px !important;
+    font-size: 2rem !important;
+    color: white !important;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.9) !important;
+    opacity: 0.2 !important;
+    z-index: 999 !important;
+  }
+}
