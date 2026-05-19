@@ -140,6 +140,22 @@
     </section>
 
     <section id="product1" class="section-p1">
+      <!-- Sort by Price Dropdown -->
+      <div class="sort-container" aria-label="Sort products by price">
+        <label class="sort-label" for="sort-price">
+          <i class="ri-sorting-asc"></i>
+          Sort by price
+        </label>
+        <div class="sort-select-wrap">
+          <select id="sort-price">
+            <option value="default">Default Sorting</option>
+            <option value="low-high">Price: Low to High</option>
+            <option value="high-low">Price: High to Low</option>
+          </select>
+          <i class="ri-arrow-down-s-line sort-chevron" aria-hidden="true"></i>
+        </div>
+      </div>
+
       <div class="pro-container" id="shop-container"></div>
     </section>
 

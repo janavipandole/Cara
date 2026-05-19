@@ -409,27 +409,52 @@
 <body>
 
   <!-- NAVBAR -->
-  <nav id="navbar">
-    <div class="logo">
-      <a href="index.html">
-        <img src="images/logo.png" alt="Cara Logo" />
-      </a>
-    </div>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="shop.html">Shop</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="login.html" id="login-btn">Login</a></li>
-    </ul>
-    <div class="navbar-icons">
-      <a href="cart.html" class="cart-icon">
-        <i class="fa-solid fa-bag-shopping"></i>
-        <span>0</span>
-      </a>
-    </div>
-  </nav>
+<nav id="navbar">
+  <!-- Logo -->
+  <div class="logo">
+    <a href="index.html">
+      <img src="images/logo.png" alt="Cara Logo" />
+    </a>
+  </div>
+
+  <!-- Nav Links -->
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+
+  <!-- Right Side Icons -->
+  <div class="navbar-icons">
+
+    <!-- Contact Icon -->
+    <a href="contact.html" class="nav-icon" aria-label="Contact">
+      <i class="fa-solid fa-headset"></i>
+    </a>
+
+    <!-- Login Icon -->
+    <a href="login.html" class="nav-icon" aria-label="Login">
+      <i class="fa-regular fa-user"></i>
+    </a>
+
+    <!-- Cart Icon -->
+    <a href="cart.html" class="cart-icon" aria-label="Cart">
+      <i class="fa-solid fa-bag-shopping"></i>
+      <span>0</span>
+    </a>
+
+    <!-- Theme Toggle -->
+    <button
+      class="theme-toggle"
+      id="themeToggle"
+      aria-label="Toggle dark mode"
+    >
+      <i class="fa-solid fa-moon"></i>
+    </button>
+
+  </div>
+</nav>
 
   <!-- BACK BUTTON -->
   <div class="back-btn-wrap">
