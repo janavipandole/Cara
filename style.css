@@ -1857,3 +1857,116 @@ canvas {
 .quiz-options button:hover {
     background-color: #066a5c;
 }
+
+/* ============================================
+   PAGE HEADER
+   ============================================ */
+
+#page-header {
+    margin-top: 90px;
+    background-image: linear-gradient(rgba(0,0,0,0.45),
+    rgba(0,0,0,0.45)),
+    url("images/banner/b1.jpg");
+    width: 100%;
+    height: 35vh;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+#page-header h2 {
+    color: #fff;
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+#page-header p {
+    color: #fff;
+    font-size: 20px;
+}
+
+/* ============================================
+   CART ACTIONS
+   ============================================ */
+
+#cart-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.cart-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+.cart-buttons .normal,
+.cart-buttons button {
+    background: #088178;
+    color: #fff;
+    padding: 14px 24px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 18px;
+    transition: 0.3s ease;
+}
+
+.cart-buttons .normal:hover,
+.cart-buttons button:hover {
+    background: #066e66;
+}
+
+/* ============================================
+   EMPTY CART FIX
+   ============================================ */
+
+#cart {
+    margin-top: 20px;
+    min-height: 250px;
+}
+
+#cart table {
+    background: var(--bg-primary);
+}
+
+#cart table thead {
+    background: var(--bg-secondary);
+}
+
+#cart table thead td {
+    color: var(--text-primary);
+}
+
+/* ============================================
+   MOBILE FIX
+   ============================================ */
+
+@media (max-width: 799px) {
+
+    #page-header {
+        height: 25vh;
+    }
+
+    #page-header h2 {
+        font-size: 34px;
+    }
+
+    .cart-buttons {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .cart-buttons .normal,
+    .cart-buttons button {
+        width: 100%;
+        text-align: center;
+    }
+}
