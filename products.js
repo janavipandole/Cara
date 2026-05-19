@@ -204,6 +204,25 @@ function attachSearchListeners() {
     });
   }
 }
+function addToCart(name, price, img, quantity, size) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  const product = {
+    name,
+    price,
+    img,
+    quantity,
+    size
+  };
+
+  cart.push(product);
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  console.log("Cart Updated:", cart);
+
+  alert("Product added to cart!");
+}
 
 // Initializing the renders
 renderProducts('shop-container', products);
