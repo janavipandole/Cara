@@ -21,7 +21,7 @@ function renderProducts(containerId, list) {
   const container = document.getElementById(containerId);
   if (!container) return;
   container.innerHTML = '';
-
+ 
   if (list.length === 0) {
     const message = document.createElement('div');
     message.className = 'no-results-message';

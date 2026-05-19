@@ -682,3 +682,25 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollObserver.observe(featureSection);
     }
 });
+
+
+/* ============================================
+   MOBILE DROPDOWN TOGGLE
+============================================ */
+
+const dropdowns = document.querySelectorAll(".dropdown");
+
+dropdowns.forEach(dropdown => {
+
+    const toggle = dropdown.querySelector(".dropbtn");
+
+    toggle.addEventListener("click", (e) => {
+
+        if (window.innerWidth <= 799) {
+
+            e.preventDefault();
+
+            dropdown.classList.toggle("active");
+        }
+    });
+});

@@ -517,6 +517,8 @@ button.white .ripple-effect {
     color: var(--accent);
 }
 
+
+
 .mobile,
 #close {
     display: none;
@@ -2989,6 +2991,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     display: flex;
     align-items: center;
     gap: 12px;
+}
+
 [data-theme="dark"] #blog .blog-details a::after {
     background-color: var(--text-primary);
 }
@@ -3415,4 +3419,124 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     max-width: 400px;
     margin: 0;
     line-height: 1.5;
+}
+
+/* ============================================
+   SHOP DROPDOWN FINAL FIX
+============================================ */
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+/* Desktop dropdown */
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 220px;
+    background: var(--card-bg);
+    border-radius: 10px;
+    padding: 10px 0;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    z-index: 9999;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.25s ease;
+}
+
+.dropdown-menu li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown-menu li a {
+    display: block;
+    padding: 12px 20px;
+    white-space: nowrap;
+}
+
+/* Desktop hover */
+
+@media (min-width: 800px) {
+
+    .dropdown:hover .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+}
+
+/* Mobile */
+
+@media (max-width: 799px) {
+
+    .dropdown-menu {
+        position: static;
+        width: 100%;
+        background: transparent;
+        box-shadow: none;
+        padding-left: 15px;
+        margin-top: 10px;
+
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+
+        display: none;
+    }
+
+    .dropdown.active .dropdown-menu {
+        display: block;
+    }
+
+}
+
+#categories {
+    text-align: center;
+}
+
+.category-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.category-box {
+    height: 180px;
+    background: #e3e6f3;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #1a1a1a;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.category-box h3 {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.category-box:hover {
+    background: #088178;
+    color: white;
+    transform: translateY(-5px);
 }

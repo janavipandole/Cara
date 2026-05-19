@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Character Encoding -->
+    <meta charset="UTF-8">
+
+    <!-- Viewport for Responsive Design -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Page Title -->
+    <title>Cara — Modern E‑Commerce</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Shop the latest trends on our e-commerce store. Dark theme supported for a better user experience.">
+    <meta name="keywords" content="e-commerce, shopping, online store, dark mode, buy online, latest fashion">
+    <meta name="author" content=" Cara">
+    <meta name="robots" content="index, follow">
+
+    <!-- Language -->
+    <meta http-equiv="Content-Language" content="en">
+
+    <!-- Open Graph (OG) Tags for Social Sharing -->
+    <meta property="og:title" content="E-commerce - Dark Theme Working">
+    <meta property="og:description" content="Shop the latest trends with our dark mode-enabled e-commerce experience.">
+    <meta property="og:image" content="https://example.com/images/preview.jpg">
+    <meta property="og:url" content="https://example.com/">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="E-commerce - Dark Theme Working">
+    <meta name="twitter:description" content="Dark theme e-commerce site with modern features.">
+    <meta name="twitter:image" content="https://example.com/images/preview.jpg">
+    <meta name="twitter:site" content="@janavipandole">
+
+    <!-- Theme Color for Mobile Browser and platform fallbacks -->
+    <meta name="theme-color" content="#000000">
+    <!-- Windows tile color -->
+    <meta name="msapplication-TileColor" content="#000000">
+    <!-- iOS Safari status bar style: default, black, or black-translucent -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+
+<body>
+    <section id="header">
+        <a href="index.html"><img src="images/logo.png" alt="Cara e-commerce brand logo with elegant script and floral accent"></a>
+
+        <div>
+            <ul id="navbar">
+                <li><a href="index.html">Home</a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-toggle">
+                        Shop <i class="fas fa-chevron-down"></i>
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li><a href="tshirts.html">T-Shirts</a></li>
+                        <li><a href="shirts.html">Shirts</a></li>
+                        <li><a href="kurtis.html">Kurtis</a></li>
+                        <li><a href="jeans.html">Jeans</a></li>
+                        <li><a href="kids_cloth.html">Kids Clothing</a></li>
+                        <li><a href="shoes.html">Shoes</a></li>
+                        <li><a href="accessories.html">Accessories</a></li>
+                        <li><a href="dresses.html">Dresses</a></li>
+                    </ul>
+                </li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="cart.html" id="lg-bag" class="cart-icon-wrapper"><i class="ri-shopping-bag-4-line"></i><span class="cart-count" id="desktopCartCount">0</span></a></li>
+                <li>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                        <i class="ri-moon-line" id="themeIcon"></i>
+                    </button>
+                </li>
+                <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+            </ul>
+        </div>
+        <div class="mobile">
+            <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
+                <i class="ri-moon-line" id="themeIconMobile"></i>
+            </button>
+            <a href="cart.html" id="mobile-cart-icon">
+                <i class="ri-shopping-bag-4-line"></i>
+                <span class="cart-count" id="mobileCartCount">0</span>
+            </a>
+            <i class="fas fa-outdent" id="bar"></i>
+        </div>
+    </section>
+
+    <section id="shop-hero">
+        <h2>#stayhome</h2>
+        <p>Save more with coupons & up to 70% off!</p>
+    </section>
+
+    <!-- Search and Filter Section -->
+    <section id="search-filter" class="section-p1">
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search products by name or brand..." autocomplete="off" aria-label="Search products" />
+                <button id="searchBtn" aria-label="Search">
+                    <i class="ri-search-line"></i>
+                </button>
+            </div>
+            <div id="searchSuggestions" class="search-suggestions" aria-live="polite"></div>
+        </div>
+        <div class="filter-container">
+            <label for="categoryFilter">Filter by Category:</label>
+            <select id="categoryFilter">
+                <option value="all">All Products</option>
+                <option value="street">Street Style</option>
+                <option value="minimal">Minimal</option>
+                <option value="formal">Formal</option>
+                <option value="chequered">Chequered</option>
+            </select>
+        </div>
+        <div class="search-summary">
+            <span id="searchCount">16 products</span>
+        </div>
+    </section>
+
+    <section id="product1" class="section-p1">
+        <div class="pro-container" id="shop-container"></div>
+    </section>
+
+    <section id="newsletter" class="section-p1 section-m1">
+        <div class="newstext">
+            <h4>Sign Up For Newsletters</h4>
+            <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
+        </div>
+        <div class="form">
+            <input type="text" placeholder="Your email address">
+            <button class="normal">Sign Up</button>
+        </div>
+    </section>
+
+    <!-- Back to Top and Scroll to Bottom Buttons -->
+    <button id="backToTop" title="Back to Top" aria-label="Back to top">⬆</button>
+    <button id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">⬇</button>
+
+    <footer class="section-p1">
+        <div class="col">
+            <img class="logo" src="images/logo.png" alt="Cara e-commerce brand logo with elegant script and floral accent">
+            <h4>Contact</h4>
+            <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
+            <p><strong>Phone:</strong> +01 2222 365 /(+91) 01 2345 6789</p>
+            <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
+
+            <div class="follow">
+                <h4>Follow us</h4>
+                <div class="icon">
+                    <a href="https://x.com/JanaviPandole"><i class="fab fa-twitter"></i></a>
+                    <a href="https://github.com/janavipandole"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://www.youtube.com/@JanaviPandole"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <h4>About</h4>
+            <a href="about.html">About us</a>
+            <a href="#">Delivery Information</a>
+        <a href="privacy.html">Privacy Policy</a>           
+        <a href="./terms.html">Terms and Conditions</a>           
+            <a href="contact.html">Contact Us</a>
+        </div>
+        <div class="col">
+            <h4>My Account</h4>
+            <a href="login.html">Sign In</a>
+            <a href="cart.html">View Cart</a>
+            <a href="#">My Wishlist</a>
+            <a href="cart.html">Track My Order</a>
+            <a href="contact.html">Help</a>
+        </div>
+        <div class="col install">
+            <h4>Install App</h4>
+            <p>From App Store or Google Play</p>
+            <div class="row">
+                <img src="images/pay/app.jpg" alt="Apple App Store download badge">
+                <img src="images/pay/play.jpg" alt="Google Play Store download badge">
+            </div>
+            <p>Secured Payment Gateways</p>
+            <div class="payment-icons">
+                <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer" aria-label="Visa"><i class="fab fa-cc-visa"></i></a>
+                <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer" aria-label="Mastercard"><i class="fab fa-cc-mastercard"></i></a>
+                <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" aria-label="PayPal"><i class="fab fa-cc-paypal"></i></a>
+                <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer" aria-label="American Express"><i class="fab fa-cc-amex"></i></a>
+                <a href="https://stripe.com" target="_blank" rel="noopener noreferrer" aria-label="Stripe"><i class="fab fa-cc-stripe"></i></a>
+            </div>
+        </div>
+        <div class="copyright">
+            <p> &copy; Cara 2025. All rights reserved. | <a href="license.html" style="color: #088178;">MIT License</a>
+            </p>
+        </div>
+    </footer>
+
+
+    <script src="shirts.js"></script>
+    <script src="app.js"></script>
+<!-- csritik-max -->
+<div id="toast-container"></div>
+</body>
+
+</html>
