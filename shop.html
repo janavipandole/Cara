@@ -80,6 +80,26 @@
   </head>
 
   <body>
+
+    <!-- PROMO ANNOUNCEMENT BAR -->
+    <div id="promo-bar" style="background:#088178; color:#fff; text-align:center; padding:10px 16px; font-size:13px; font-weight:500; position:relative; z-index:999;">
+      🏷️ Limited time: Use <span onclick="copyBarCode()" id="bar-code" style="background:rgba(255,255,255,0.2); border:1px dashed rgba(255,255,255,0.7); border-radius:6px; padding:2px 10px; letter-spacing:2px; cursor:pointer; font-weight:700; margin:0 4px;">SAVE20</span> for 20% off sitewide &nbsp;·&nbsp; <a href="promotions.html" style="color:#fff; text-decoration:underline; font-weight:600;">See all codes →</a>
+      <button onclick="document.getElementById('promo-bar').style.display='none'" style="position:absolute; right:14px; top:50%; transform:translateY(-50%); background:transparent; border:none; color:#fff; font-size:18px; cursor:pointer; line-height:1;" aria-label="Dismiss">×</button>
+    </div>
+    <style>
+      #bar-code:hover { background: rgba(255,255,255,0.35); }
+      #bar-code.copied-bar { background: #22c55e; border-color: #22c55e; }
+    </style>
+    <script>
+      function copyBarCode() {
+        const el = document.getElementById('bar-code');
+        navigator.clipboard.writeText('SAVE20').catch(() => {});
+        el.textContent = 'COPIED!';
+        el.classList.add('copied-bar');
+        setTimeout(() => { el.textContent = 'SAVE20'; el.classList.remove('copied-bar'); }, 2000);
+      }
+    </script>
+
     <section id="header">
       <a href="index.html"
         ><img
@@ -664,20 +684,6 @@
                 </div>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
-    <!-- Search and Filter Section -->
-    <section id="search-filter" class="section-p1">
-      <div class="search-container">
-        <div class="search-box">
-          <input
-            type="text"
-            id="searchInput"
-            placeholder="Search products by name or brand..."
-            autocomplete="off"
-            aria-label="Search products"
-          />
-          <button id="searchBtn" aria-label="Search">
-            <i class="ri-search-line"></i>
-          </button>
         </div>
         <div
           id="searchSuggestions"
@@ -821,6 +827,5 @@
             el.textContent = year;
         }
     </script>
-    <div id="toast-container"></div>
   </body>
 </html>

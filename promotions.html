@@ -174,6 +174,89 @@
         <p>Join our community. Get freebies. Share your style.</p>
     </section>
 
+    <!-- PROMO CODES SECTION -->
+    <section class="section-p1" style="max-width:900px; margin:0 auto; padding:50px 20px;">
+      <div style="text-align:center; margin-bottom:36px;">
+        <h2 style="font-size:28px; color:var(--text-primary);">🏷️ Active Promo Codes</h2>
+        <p style="color:var(--text-secondary); margin-top:8px;">Copy a code and use it at checkout to save instantly.</p>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:20px;">
+
+        <div class="promo-code-card">
+          <div class="promo-badge">10% OFF</div>
+          <div class="promo-code" onclick="copyCode(this,'CARA10')">CARA10</div>
+          <p class="promo-desc">Sitewide — new &amp; returning shoppers</p>
+          <span class="copy-hint">Click to copy</span>
+        </div>
+
+        <div class="promo-code-card">
+          <div class="promo-badge" style="background:#e8f5e9; color:#2e7d32;">20% OFF</div>
+          <div class="promo-code" onclick="copyCode(this,'SAVE20')">SAVE20</div>
+          <p class="promo-desc">Sitewide sale — limited time offer</p>
+          <span class="copy-hint">Click to copy</span>
+        </div>
+
+        <div class="promo-code-card">
+          <div class="promo-badge" style="background:#fff3e0; color:#e65100;">$50 FLAT</div>
+          <div class="promo-code" onclick="copyCode(this,'FLAT50')">FLAT50</div>
+          <p class="promo-desc">Flat $50 off on orders above $100</p>
+          <span class="copy-hint">Click to copy</span>
+        </div>
+
+        <div class="promo-code-card">
+          <div class="promo-badge" style="background:#f3e5f5; color:#6a1b9a;">15% OFF</div>
+          <div class="promo-code" onclick="copyCode(this,'WELCOME')">WELCOME</div>
+          <p class="promo-desc">Newsletter subscribers — welcome gift</p>
+          <span class="copy-hint">Click to copy</span>
+        </div>
+
+      </div>
+      <p style="text-align:center; margin-top:28px; font-size:13px; color:var(--text-secondary);">Codes are valid at <a href="checkout.html" style="color:#088178; font-weight:600;">checkout</a>. One code per order.</p>
+    </section>
+
+    <style>
+      .promo-code-card {
+        background: var(--card-bg, #fff);
+        border: 1px solid var(--border-color, #e5e7eb);
+        border-radius: 14px;
+        padding: 24px 20px;
+        text-align: center;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        transition: transform 0.2s;
+      }
+      .promo-code-card:hover { transform: translateY(-3px); }
+      .promo-badge {
+        display: inline-block;
+        background: #e8f4f2;
+        color: #088178;
+        font-size: 12px;
+        font-weight: 700;
+        padding: 4px 14px;
+        border-radius: 20px;
+        letter-spacing: 1px;
+        margin-bottom: 12px;
+      }
+      .promo-code {
+        font-size: 22px;
+        font-weight: 800;
+        letter-spacing: 4px;
+        color: var(--text-primary, #111);
+        background: var(--input-bg, #f5f7ff);
+        border: 1.5px dashed #088178;
+        border-radius: 10px;
+        padding: 10px 14px;
+        cursor: pointer;
+        user-select: all;
+        transition: background 0.2s, color 0.2s;
+        margin-bottom: 10px;
+      }
+      .promo-code:hover { background: #088178; color: #fff; }
+      .promo-code.copied { background: #22c55e; color: #fff; border-color: #22c55e; }
+      .promo-desc { font-size: 13px; color: var(--text-secondary, #6b7280); margin-bottom: 6px; }
+      .copy-hint { font-size: 11px; color: #9ca3af; }
+    </style>
+
+    <!-- ORIGINAL AMBASSADOR SECTION — restored below promo codes -->
     <section class="section-p1 promo-container">
         <div class="promo-details">
             <h3>Why join the Cara Community?</h3>
@@ -245,6 +328,16 @@
 
     <script src="app.js?v=1779120917217"></script>
     <script>
+        function copyCode(el, code) {
+          navigator.clipboard.writeText(code).catch(() => {});
+          el.textContent = 'COPIED!';
+          el.classList.add('copied');
+          setTimeout(() => {
+            el.textContent = code;
+            el.classList.remove('copied');
+          }, 2000);
+        }
+
         // Form submission simulation
         document.getElementById('ambassador-form').addEventListener('submit', function(e) {
             e.preventDefault();
