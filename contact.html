@@ -403,11 +403,17 @@ footer .copyright {
 }
 
 #navbar-container {
-  display: none;
+  display: block;
 }
 
-#navbar-container.active {
-  display: block;
+@media (max-width: 799px) {
+  #navbar-container {
+    display: none;
+  }
+
+  #navbar-container.active {
+    display: block;
+  }
 }
 
 
@@ -734,9 +740,9 @@ footer .copyright {
       </div>
     </footer>
 
-    <script src="app.js"></script>
     <script src="navbar.js"></script>
     <script>loadNavbar('contact');</script>
+    <script src="app.js"></script>
     <script src="app.js?v=1779120917212"></script>
 <script>
 
