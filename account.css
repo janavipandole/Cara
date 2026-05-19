@@ -1,0 +1,104 @@
+/* ===== ACCOUNT PAGE STYLING ===== */
+
+body {
+    background: #f5f7fa;
+}
+
+/* Main section */
+.account-page {
+    max-width: 900px;
+    margin: 120px auto 60px;
+    padding: 20px;
+}
+
+/* Title */
+.account-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 25px;
+}
+
+/* Account Info Card */
+.account-box {
+    background: #ffffff;
+    padding: 25px 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+    transition: 0.3s ease;
+}
+
+.account-box:hover {
+    transform: translateY(-3px);
+}
+
+/* Text inside card */
+.account-box p {
+    font-size: 16px;
+    margin: 12px 0;
+    color: #333;
+}
+
+.account-box strong {
+    color: #088178; /* CARA theme color */
+    margin-right: 5px;
+}
+
+/* Orders Section */
+.orders-section {
+    margin-top: 40px;
+}
+
+.orders-section h3 {
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: #1a1a1a;
+}
+
+/* Order Cards */
+#ordersContainer div {
+    background: #fff;
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border-left: 4px solid #088178;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+    transition: 0.3s;
+}
+
+#ordersContainer div:hover {
+    transform: scale(1.02);
+}
+
+/* Logout Button */
+#logoutBtn {
+    margin-top: 30px;
+    padding: 12px 25px;
+    background: #088178;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s ease;
+}
+
+#logoutBtn:hover {
+    background: #066e6b;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .account-page {
+        margin: 100px 15px;
+        padding: 15px;
+    }
+
+    .account-title {
+        font-size: 26px;
+    }
+
+    .account-box {
+        padding: 20px;
+    }
+}
