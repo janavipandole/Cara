@@ -21,34 +21,27 @@ document.addEventListener("DOMContentLoaded", updateAuthUI);
 if (bar) {
     bar.addEventListener("click", () => {
         nav.classList.add("active");
+        document.body.classList.add("nav-open");
     });
 }
 if (close) {
     close.addEventListener("click", () => {
         nav.classList.remove("active");
+        document.body.classList.remove("nav-open");
     });
 }
 
-// Dynamic Product Details Logic
-// Global capturing click listener for all product cards (static and dynamic)
-document.addEventListener("click", function (e) {
-    const proCard = e.target.closest(".pro");
-    if (!proCard) return;
+// Close menu when clicking a nav link (for better mobile UX)
+document.querySelectorAll("#navbar li a").forEach(link => {
+    link.addEventListener("click", () => {
+        nav.classList.remove("active");
+        document.body.classList.remove("nav-open");
+    });
+});
 
-    // Ignore clicks on cart icon or buy now button inside the card
-    if (e.target.closest(".cart") || e.target.closest(".buy-now-btn")) return;
-
-    const nameElement = proCard.querySelector("h5");
-    const priceElement = proCard.querySelector("h4");
-    const brandElement = proCard.querySelector(".des span");
-    const imageElement = proCard.querySelector("img");
-
-    const selectedProduct = {
-        name: nameElement ? nameElement.textContent.trim() : "Product",
-        price: priceElement ? priceElement.textContent.trim() : "$0.00",
-        brand: brandElement ? brandElement.textContent.trim() : "Brand",
-        image: imageElement ? imageElement.src : ""
-    };
+// Single Product Image Switching
+var MainImg = document.getElementById("MainImg");
+var smallImg = document.getElementsByClassName("small-img");
 
     localStorage.setItem("selectedProduct", JSON.stringify(selectedProduct));
     window.location.href = "singleProduct.html";
