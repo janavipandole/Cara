@@ -1,18 +1,23 @@
 // Mobile menu functionality
-const bar = document.getElementById("bar");
-const nav = document.getElementById("navbar");
-const close = document.getElementById("close");
+document.addEventListener("click", function (e) {
 
-if (bar) {
-    bar.addEventListener("click", () => {
-        nav.classList.add("active");
-    });
-}
-if (close) {
-    close.addEventListener("click", () => {
-        nav.classList.remove("active");
-    });
-}
+    // OPEN MENU
+    if (e.target.id === "bar") {
+        const nav = document.getElementById("navbar");
+        if (nav) {
+            nav.classList.add("active");
+        }
+    }
+
+    // CLOSE MENU
+    if (e.target.closest("#close")) {
+        e.preventDefault();
+        const nav = document.getElementById("navbar");
+        if (nav) {
+            nav.classList.remove("active");
+        }
+    }
+});
 
 // Dynamic Product Details Logic
 // Global capturing click listener for all product cards (static and dynamic)
