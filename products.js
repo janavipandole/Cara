@@ -35,7 +35,10 @@ function renderProducts(containerId, list) {
     const card = document.createElement('div');
     card.className = 'pro';
     card.dataset.category = p.category;
+    
+    // UPDATED: Tracks the product click into browsing history right before navigating
     card.addEventListener('click', () => {
+      trackRecentlyViewed(p.id);
       window.location.href = 'singleProduct.html';
     });
 
@@ -91,6 +94,7 @@ function renderProducts(containerId, list) {
     buyBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       e.preventDefault();
+      trackRecentlyViewed(p.id); // Tracks choice on CTA click too
       buyNow(p.name, '₹' + p.price, p.img, 1, 'M');
     });
     actionBar.appendChild(buyBtn);
@@ -211,3 +215,54 @@ renderProducts('featured-container', products.slice(0, 4));
 attachSearchListeners();
 updateSearchSummary(products.length);
 renderSearchSuggestions('');
+
+// =========================================================================
+// RECENTLY VIEWED PRODUCTS RUNTIME ENGINE
+// =========================================================================
+
+function trackRecentlyViewed(productId) {
+  let viewedItems = JSON.parse(localStorage.getItem('recentlyViewed')) || [];
+  
+  viewedItems = viewedItems.filter(id => id !== productId);
+  viewedItems.unshift(productId);
+  
+  if (viewedItems.length > 4) {
+    viewedItems.pop();
+  }
+  
+  localStorage.setItem('recentlyViewed', JSON.stringify(viewedItems));
+}
+
+function renderRecentlyViewed() {
+  const container = document.getElementById('recently-viewed-container');
+  const section = document.getElementById('recently-viewed-section');
+  if (!container || !section) return;
+
+  const viewedIds = JSON.parse(localStorage.getItem('recentlyViewed')) || [];
+  
+  if (viewedIds.length === 0) {
+    section.style.display = 'none';
+    return;
+  }
+
+  section.style.display = 'block';
+  const viewedProducts = viewedIds.map(id => products.find(p => p.id === Number(id))).filter(Boolean);
+
+  container.innerHTML = viewedProducts.map(p => `
+    <div class="pro" style="width: 220px; margin: 10px 0; cursor: pointer;" onclick="trackRecentlyViewed(${p.id}); window.location.href='singleProduct.html';">
+      <div class="pro-img-wrap">
+        <img src="${p.img}" alt="${p.name}" style="width: 100%; border-radius: 12px;">
+      </div>
+      <div class="des" style="padding: 10px 0;">
+        <div class="pro-brand-row">
+          <span>${p.brand}</span>
+        </div>
+        <h5 style="font-size: 14px; padding-top: 4px; color: #1a1a1a; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${p.name}</h5>
+        <h4 style="font-size: 15px; font-weight: 700; color: #088178; padding-top: 4px;">₹${p.price.toLocaleString('en-IN')}</h4>
+      </div>
+    </div>
+  `).join('');
+}
+
+// Automatically trigger layout evaluation on page initialization
+renderRecentlyViewed();

@@ -2,43 +2,34 @@
 <html lang="en">
 
 <head>
-    <!-- Character Encoding -->
     <meta charset="UTF-8">
 
-    <!-- Viewport for Responsive Design -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Page Title -->
     <title>Cara — Modern E‑Commerce</title>
 
-    <!-- Favicon -->
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
 
-    <!-- SEO Meta Tags -->
     <meta name="description"
         content="Shop the latest trends on our e-commerce store. Dark theme supported for a better user experience.">
     <meta name="keywords" content="e-commerce, shopping, online store, dark mode, buy online, latest fashion">
     <meta name="author" content=" Cara">
     <meta name="robots" content="index, follow">
 
-    <!-- Language -->
     <meta http-equiv="Content-Language" content="en">
 
-    <!-- Open Graph (OG) Tags for Social Sharing -->
     <meta property="og:title" content="E-commerce - Dark Theme Working">
     <meta property="og:description" content="Shop the latest trends with our dark mode-enabled e-commerce experience.">
     <meta property="og:image" content="https://example.com/images/preview.jpg">
     <meta property="og:url" content="https://example.com/">
     <meta property="og:type" content="website">
 
-    <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="E-commerce - Dark Theme Working">
     <meta name="twitter:description" content="Dark theme e-commerce site with modern features.">
     <meta name="twitter:image" content="https://example.com/images/preview.jpg">
     <meta name="twitter:site" content="@janavipandole">
 
-    <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
@@ -98,7 +89,7 @@
             </div>
         </div>
         <div class="single-pro-details">
-            <h6>Home / T-Shirt</h6>
+            <h6 id="product-brand-path">Home / T-Shirt</h6>
             <h4 id="product-name">Men's Fashion T-Shirt</h4>
             <h2 id="product-price">$139.00</h2>
             <select id="product-size" name="product-size" aria-label="Select product size">
@@ -124,32 +115,23 @@
                 <button class="normal" style="background: var(--accent); color: white; margin-left: 10px;" onclick="window.location.href='try-on.html'">Try it On Virtually!</button>
             </div>
             <h4>Product Details</h4>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officia tenetur, exercitationem velit maxime
-                sit beatae ea tempore a itaque natus placeat, neque fuga cumque aperiam nemo quia atque ducimus ipsam.
-            </p>
-
-        </div>
+            <p>Step up your style with this premium design. Engineered using ultra-breathable, light fabric perfect for versatile styling requirements. Features precise tailored stitching, a clean structured fit, and rich print durability built to last through consistent seasonal wear.</p>
         </div>
     </section>
 
     <section id="product1" class="section-p1">
         <h2>Featured Product</h2>
-        <p>Summer Collection New Morden Design</p>
+        <p>Summer Collection New Modern Design</p>
 
-        <!-- Dynamic Js container  {csritik-max }-->
         <div class="pro-container" id="featured-container"></div>
-        <!--   -->
     </section>
 
-    <!-- Footer -->
     <footer class="section-p1">
-      <!-- Contact Column -->
       <div class="col">
         <img class="logo" src="images/logo.png" alt="Cara Logo" />
         <h4>Contact</h4>
         <p>
-          <strong>Address:</strong> 562 Wellington Road, Street 32, San
-          Francisco
+          <strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco
         </p>
         <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
         <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
@@ -157,39 +139,22 @@
         <div class="follow">
           <h4>Follow us</h4>
           <div class="icon">
-            <a
-              href="https://x.com/JanaviPandole"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer">
               <i class="fab fa-twitter"></i>
             </a>
-            <a
-              href="https://github.com/janavipandole"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
               <i class="fab fa-github"></i>
             </a>
-            <a
-              href="https://www.linkedin.com/in/janavi-pandole-80a7b2290"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
               <i class="fab fa-linkedin"></i>
             </a>
-            <a
-              href="https://www.youtube.com/@JanaviPandole"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer">
               <i class="fab fa-youtube"></i>
             </a>
           </div>
         </div>
       </div>
 
-      <!-- About Column -->
       <div class="col">
         <h4>About</h4>
         <a href="about.html">About Us</a>
@@ -199,7 +164,6 @@
         <a href="contact.html">Contact Us</a>
       </div>
 
-      <!-- My Account Column -->
       <div class="col">
         <h4>My Account</h4>
         <a href="login.html">Sign In</a>
@@ -209,13 +173,15 @@
         <a href="contact.html">Help</a>
       </div>
 
-      <!-- Newsletter Column -->
+      <div class="col" id="recently-viewed-section" style="display: none; min-width: 240px;">
+        <h4>Recently Viewed</h4>
+        <div class="pro-container" id="recently-viewed-container" style="display: flex; gap: 10px; flex-wrap: wrap;">
+          </div>
+      </div>
+
       <div class="col newsletter-footer">
         <h4>Newsletter</h4>
-        <p>
-          Get email updates about our latest shop and
-          <span>special offers.</span>
-        </p>
+        <p>Get email updates about our latest shop and <span>special offers.</span></p>
 
         <form class="newsletter-form">
           <input type="email" placeholder="Your email address" required />
@@ -223,7 +189,6 @@
         </form>
       </div>
 
-      <!-- Install App Column -->
       <div class="col install">
         <h4>Install App</h4>
         <p>From App Store or Google Play</p>
@@ -236,72 +201,68 @@
         <p>Secured Payment Gateways</p>
 
         <div class="payment-icons">
-          <a
-            href="https://www.visa.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Visa"
-          >
+          <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer" aria-label="Visa">
             <i class="fab fa-cc-visa"></i>
           </a>
-
-          <a
-            href="https://www.mastercard.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Mastercard"
-          >
+          <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer" aria-label="Mastercard">
             <i class="fab fa-cc-mastercard"></i>
           </a>
-
-          <a
-            href="https://www.paypal.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="PayPal"
-          >
+          <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" aria-label="PayPal">
             <i class="fab fa-cc-paypal"></i>
           </a>
-
-          <a
-            href="https://www.americanexpress.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="American Express"
-          >
+          <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer" aria-label="American Express">
             <i class="fab fa-cc-amex"></i>
           </a>
-
-          <a
-            href="https://stripe.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Stripe"
-          >
+          <a href="https://stripe.com" target="_blank" rel="noopener noreferrer" aria-label="Stripe">
             <i class="fab fa-cc-stripe"></i>
           </a>
         </div>
       </div>
 
-      <!-- Copyright -->
       <div class="copyright">
         <p>
-          &copy; Cara <span class="Current-Year"></span>. All rights reserved. |
+          &copy; Cara <span id="Current-Year"></span>. All rights reserved. |
           <a href="license.html" style="color: #088178"> MIT License </a>
         </p>
       </div>
     </footer>
 
+    <div class="toast" id="toast">
+        <div class="toast-icon" id="toast-icon">✅</div>
+        <span id="toast-msg"></span>
+    </div>
+
     <script src="products.js?v=1779120917220"></script>
     <script src="app.js?v=1779120917220"></script>
-<!-- csritik-max -->
-<div class="toast" id="toast">
-    <div class="toast-icon" id="toast-icon">✅</div>
-    <span id="toast-msg"></span>
-</div>
-<script>
-    document.getElementById("Current-Year").textContent=new Date().getFullYear();
-</script>
+
+    <script>
+        document.getElementById("Current-Year").textContent = new Date().getFullYear();
+
+        // Dynamically parse selected product parameters from tracking history
+        document.addEventListener("DOMContentLoaded", () => {
+            const viewedIds = JSON.parse(localStorage.getItem('recentlyViewed')) || [];
+            if (viewedIds.length > 0) {
+                const activeId = Number(viewedIds[0]);
+                const activeProduct = products.find(p => p.id === activeId);
+                
+                if (activeProduct) {
+                    document.getElementById('MainImg').src = activeProduct.img;
+                    document.getElementById('product-brand-path').textContent = `Home / ${activeProduct.brand}`;
+                    document.getElementById('product-name').textContent = activeProduct.name;
+                    document.getElementById('product-price').textContent = '₹' + activeProduct.price.toLocaleString('en-IN');
+                }
+            }
+        });
+
+        // Quantity Selector Helper Utility
+        function updateQty(change) {
+            const qtyInput = document.getElementById('product-quantity');
+            let currentQty = parseInt(qtyInput.value) || 1;
+            currentQty += change;
+            if (currentQty < 1) currentQty = 1;
+            qtyInput.value = currentQty;
+        }
+    </script>
 </body>
 
 </html>
