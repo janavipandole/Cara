@@ -888,18 +888,17 @@ button.white .ripple-effect {
 }
 
 #product1 .pro-container {
-    justify-content: flex-start;
-    gap: 20px 2.5%;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
     padding-top: 20px;
-    display: flex;
 }
 
 /* ── Card container ── */
 #product1 .pro {
     position: relative;
-    width: 23%;
-    min-width: 240px;
+    width: 100%;
+    min-width: 0;
     padding: 12px 12px 14px;
     border: 1.5px solid var(--border-color);
     border-radius: 16px;
@@ -3241,8 +3240,11 @@ footer .copyright {
                     margin: 20px;
                 }
 
+                #product1 .pro-container {
+                    grid-template-columns: repeat(3, 1fr);
+                }
                 #product1 .pro {
-                    width: 30%;
+                    width: 100%;
                 }
             }
 
@@ -3294,14 +3296,13 @@ footer .copyright {
                     margin-top: 70px;
                 }
 
-                #product1 .pro {
-                    width: 45%;
-                    min-width: 220px;
-                }
-
                 #product1 .pro-container {
+                    grid-template-columns: repeat(2, 1fr);
                     gap: 20px;
-                    justify-content: center;
+                }
+                #product1 .pro {
+                    width: 100%;
+                    min-width: 0;
                 }
 
                 #sm-banner .banner-box {
