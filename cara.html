@@ -398,6 +398,115 @@
         opacity: 1
       }
     }
+
+    /* Toast Notifications styling inside cara.html */
+    #toast-container {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 10000;
+      pointer-events: none;
+    }
+    .toast {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 300px;
+      max-width: 420px;
+      padding: 14px 18px;
+      border-radius: 12px;
+      background: #0b1220;
+      color: #e6eef8;
+      font-size: 14px;
+      font-weight: 500;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.2);
+      border-left: 4px solid var(--accent);
+      border: 1px solid rgba(255,255,255,0.05);
+      pointer-events: all;
+      position: relative;
+      overflow: hidden;
+      animation: toastSlideIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    .toast-hiding {
+      animation: toastSlideOut 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    .toast-msg {
+      flex: 1;
+      line-height: 1.4;
+    }
+    .toast-close {
+      background: none;
+      border: none;
+      font-size: 18px;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 0;
+      line-height: 1;
+      transition: color 0.2s, transform 0.2s;
+    }
+    .toast-close:hover {
+      color: #ffffff;
+      transform: scale(1.1);
+    }
+    .toast-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      background: var(--accent);
+      animation: toastProgress 4s linear forwards;
+    }
+    .toast-success { border-left-color: var(--accent-2); }
+    .toast-success .toast-progress { background: var(--accent-2); }
+    .toast-error { border-left-color: #dc2626; }
+    .toast-error .toast-progress { background: #dc2626; }
+    @keyframes toastSlideIn {
+      from { opacity: 0; transform: translateX(100%); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes toastSlideOut {
+      from { opacity: 1; transform: translateX(0); }
+      to { opacity: 0; transform: translateX(100%); }
+    }
+    @keyframes toastProgress {
+      from { width: 100%; }
+      to { width: 0%; }
+    }
+    /* Scroll To Top Button */
+
+#scrollTopBtn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;   /* keeps button on right side */
+
+  width: 55px;
+  height: 55px;
+
+  border: none;
+  border-radius: 50%;
+
+  background-color: #088178;
+  color: white;
+
+  font-size: 24px;
+  font-weight: bold;
+
+  cursor: pointer;
+  z-index: 999;
+
+  display: none;
+
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+}
+
+#scrollTopBtn:hover {
+  background-color: #065f5b;
+  transform: scale(1.1);
+}
   </style>
 </head>
 
@@ -488,6 +597,9 @@
       </div>
     </aside>
   </main>
+  <button id="scrollTopBtn" title="Go to top">
+  ↑
+</button>
 
   <!-- Quick view modal (hidden by default) -->
   <div id="modalRoot" style="display:none"></div>
@@ -695,12 +807,41 @@
     // clear cart
     document.getElementById('clearCart').addEventListener('click', () => { cart = {}; saveCart(); renderCart(); });
 
+    // toast notification system helper
+    function showToast(message, type = 'success') {
+      let container = document.getElementById('toast-container');
+      if (!container) {
+        container = document.createElement('div');
+        container.id = 'toast-container';
+        document.body.appendChild(container);
+      }
+      const toast = document.createElement('div');
+      toast.className = `toast toast-${type}`;
+      toast.innerHTML = `
+        <span class="toast-msg">${message}</span>
+        <button class="toast-close" aria-label="Close notification">&times;</button>
+        <div class="toast-progress"></div>
+      `;
+      toast.querySelector('.toast-close').addEventListener('click', () => {
+        dismissToast(toast);
+      });
+      container.appendChild(toast);
+      setTimeout(() => { dismissToast(toast); }, 4000);
+    }
+    function dismissToast(toast) {
+      if (!toast || toast.classList.contains('toast-hiding')) return;
+      toast.classList.add('toast-hiding');
+      toast.addEventListener('animationend', () => { toast.remove(); });
+    }
+
     // checkout (demo)
     document.getElementById('checkout').addEventListener('click', () => {
-      if (!Object.keys(cart).length) { alert('Your cart is empty — add items to checkout.'); return; }
+      if (!Object.keys(cart).length) {
+        showToast('Your cart is empty — add items to checkout.', 'error');
+        return;
+      }
       const items = Object.entries(cart).map(([id, q]) => ({ id, q }));
-      // demo: show order summary; in production you'd call an API
-      alert('Checkout demo — ' + JSON.stringify({ items, subtotal: subtotalEl.textContent }));
+      showToast('Checkout successful! Demo order processed.', 'success');
     });
 
     // init render
@@ -720,6 +861,24 @@
     // expose functions for debugging in console
     window.__cara = { products, cart, addToCart, removeFromCart };
   </script>
+  <script>
+  const scrollBtn = document.getElementById("scrollTopBtn");
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) {
+      scrollBtn.style.display = "block";
+    } else {
+      scrollBtn.style.display = "none";
+    }
+  });
+
+  scrollBtn.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
+</script>
 </body>
 
 </html>

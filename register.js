@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let users = JSON.parse(localStorage.getItem('users') || '[]');
 
         if (users.find(u => u.email === email)) {
-            alert('Email already registered.');
+            showToast('Email already registered.', 'error');
             return;
         }
 
