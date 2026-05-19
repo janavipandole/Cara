@@ -54,32 +54,38 @@
   </head>
 
   <body>
-          <section id="header">
-        <a href="index.html">
-          <img src="images/logo.png" alt="" id="siteLogo">
-        </a>
+    <section id="header">
+      <a href="index.html">
+        <img src="images/logo.png" alt="" id="siteLogo">
+      </a>
 
-        <!-- Desktop navbar injects here -->
-        <div id="navbar-container"></div>
-
-        <!-- Mobile controls (outside navbar, always in DOM) -->
-        <div class="mobile">
-          <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
-            <i class="ri-moon-line" id="themeIconMobile"></i>
-          </button>
-          <a href="cart.html">
-            <i class="ri-shopping-bag-4-line"></i>
-            <span class="cart-count" id="mobileCartCount">0</span>
-          </a>
-          <i class="fas fa-outdent" id="bar"></i>
-        </div>
-      </section>
+      <div>
+        <ul id="navbar">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="login.html">Login</a></li>
+          <li><a href="try-on.html">Try-On</a></li>
+          <li><a href="community.html">Community</a></li>
+          <li><a href="promotions.html">Promotions</a></li>
+          <li>
+            <a href="cart.html" id="lg-bag" class="active">
+              <i class="ri-shopping-bag-4-line"></i>
+              <span class="cart-count" id="desktopCartCount">0</span>
+            </a>
+          </li>
+          <li>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+              <i class="ri-moon-line" id="themeIcon"></i>
+            </button>
+          </li>
+          <a href="#" id="close" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></a>
+        </ul>
+      </div>
       <div class="mobile">
-        <button
-          class="theme-toggle"
-          id="themeToggleMobile"
-          aria-label="Toggle dark mode"
-        >
+        <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
           <i class="ri-moon-line" id="themeIconMobile"></i>
         </button>
         <a href="cart.html" id="mobile-cart-icon">
@@ -91,36 +97,139 @@
     </section>
 
     <div id="cart-content-wrapper">
+        <div class="cartmain">
+            <section id="page-header">
+                <h2>Your Cart</h2>
+                <p>Review and manage your selected items</p>
+            </section>
+
+            <section id="cart" class="section-p1">
+                <table width="100%">
+                    <thead>
+                        <tr>
+                            <td>Remove</td>
+                            <td>Image</td>
+                            <td>Product</td>
+                            <td>Price</td>
+                            <td>Quantity</td>
+                            <td>Subtotal</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="cart-add" class="section-p1">
+    <div class="subtotal">
+        <h3>Cart Totals</h3>
+
+        <table>
+            <tr>
+                <td>Cart Subtotal</td>
+                <td>$0.00</td>
+            </tr>
+
+            <tr>
+                <td>Shipping</td>
+                <td>Free</td>
+            </tr>
+            
+            <tr>
+                <td><strong>Total</strong></td>
+                <td><strong>$0.00</strong></td>
+            </tr>
+        </table>
+
+        <a href="checkout.html" class="normal">
+            Proceed to Checkout
+        </a>
+         </div>
       <div class="cartmain">
-        <section id="page-header">
-          <h2>Your Cart</h2>
-          <p>Review and manage your selected items</p>
+        <section id="page-header" class="about-header" style="background-image: url('images/about/banner.png');">
+          <h2>#cart</h2>
+          <p>Review & manage your selected items with premium details</p>
         </section>
 
-        <section id="cart" class="section-p1">
-          <table width="100%">
-            <thead>
-              <tr>
-                <td>Remove</td>
-                <td>Image</td>
-                <td>Product</td>
-                <td>Price</td>
-                <td>Quantity</td>
-                <td>Subtotal</td>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </section>
+        <section id="cart-container" class="section-p1">
+          <div class="cart-grid-layout">
+            <!-- Left Column: Cart Items -->
+            <div class="cart-items-column">
+              <div class="cart-column-header">
+                <span>Product</span>
+                <span class="header-price">Price</span>
+                <span class="header-qty">Quantity</span>
+                <span class="header-subtotal">Subtotal</span>
+                <span class="header-action"></span>
+              </div>
+              <div id="cart-items-container">
+                <!-- Dynamically loaded modern cart items go here -->
+              </div>
+              <div class="cart-actions-bottom">
+                <a href="shop.html" class="continue-shopping-btn">
+                  <i class="ri-arrow-left-line"></i> Continue Shopping
+                </a>
+              </div>
+            </div>
 
-        <section id="cart-actions" class="section-p1">
-          <div class="cart-buttons">
-            <a href="shop.html" class="normal">Continue Shopping</a>
-            <a href="checkout.html" class="normal" style="text-decoration: none"
-              >Proceed to Checkout</a
-            >
+            <!-- Right Column: Order Summary -->
+            <div class="cart-summary-column">
+              <div class="sticky-summary-card">
+                <h3>Order Summary</h3>
+                
+                <div class="coupon-section">
+                  <p>Have a promotional coupon?</p>
+                  <div class="coupon-input-group">
+                    <input type="text" id="coupon-code" placeholder="Enter coupon (e.g. CARA20)" />
+                    <button id="apply-coupon-btn">Apply</button>
+                  </div>
+                </div>
+
+                <div class="summary-breakdown">
+                  <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="summary-subtotal">₹0</span>
+                  </div>
+                  <div class="summary-row">
+                    <span>Estimated Tax (18% GST)</span>
+                    <span id="summary-tax">₹0</span>
+                  </div>
+                  <div class="summary-row" id="summary-discount-row" style="display: none;">
+                    <span>Discount</span>
+                    <span id="summary-discount" class="discount-value">-₹0</span>
+                  </div>
+                  <div class="summary-row">
+                    <span>Shipping</span>
+                    <span id="summary-shipping">FREE</span>
+                  </div>
+                  <hr class="summary-divider" />
+                  <div class="summary-row grand-total-row">
+                    <span>Grand Total</span>
+                    <span id="summary-total">₹0</span>
+                  </div>
+                </div>
+
+                <button class="checkout-btn" onclick="window.location.href='checkout.html'">
+                  PROCEED TO CHECKOUT <i class="ri-arrow-right-line"></i>
+                </button>
+              </div>
+            </div>
           </div>
         </section>
+
+        <!-- Empty Cart State UI (now nicely positioned inside main content flow) -->
+        <div id="empty-cart-container" class="empty-cart-view" style="display: none;">
+          <div class="empty-cart-card">
+            <div class="empty-cart-icon">
+              <i class="ri-shopping-bag-3-line"></i>
+            </div>
+            <h2>Your Cart is Empty!</h2>
+            <p>Looks like you haven't added anything to your cart yet. Let's find some amazing products!</p>
+            <a href="shop.html" class="return-shop-btn">Return to Shop</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
         <!-- Footer -->
         <footer class="section-p1">
@@ -153,7 +262,7 @@
           <div class="col">
             <h4>About</h4>
             <a href="about.html">About Us</a>
-            <a href="#">Delivery Information</a>
+          <a href="delivery.html">Delivery Information</a>
             <a href="privacy.html">Privacy Policy</a>
             <a href="terms.html">Terms and Conditions</a>
             <a href="contact.html">Contact Us</a>
@@ -205,31 +314,9 @@
       </div>
     </div>
 
-    <div
-      id="empty-cart-container"
-      style="display: none; text-align: center; padding: 100px 20px"
-    >
-      <div style="font-size: 80px; margin-bottom: 20px">🛒</div>
-      <h2 style="font-size: 32px; margin-bottom: 10px">Your Cart is Empty!</h2>
-      <p style="color: #747d8c; font-size: 18px; margin-bottom: 30px">
-        Looks like you haven't added anything to your cart yet.
-      </p>
-      <a
-        href="shop.html"
-        class="normal"
-        style="
-          background-color: #088178;
-          color: white;
-          padding: 15px 30px;
-          text-decoration: none;
-          border-radius: 4px;
-          font-weight: 600;
-        "
-        >Return to Shop</a
-      >
-    </div>
 
-    <script src="app.js"></script>
+
+    <script src="app.js?v=1779120917210"></script>
     <!-- Corrected  -->
     <script>
         document.getElementById("Current-Year").textContent = new Date().getFullYear();

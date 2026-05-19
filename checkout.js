@@ -154,16 +154,32 @@ form.addEventListener("submit", function (e) {
     return;
   }
 
-  // CLEAR CART AFTER SUCCESSFUL ORDER
-  localStorage.removeItem("productsInCart");
+  // ── Loading state: disable button & show spinner ──
+  const submitBtn = form.querySelector(".submit-btn");
+  if (submitBtn) {
+    submitBtn.classList.add("btn-loading");
+    submitBtn.disabled = true;
+  }
 
-  // SHOW SUCCESS POPUP
-  popup.classList.add("active");
+  // Simulate async order processing (replace with real API call)
+  setTimeout(function () {
+    // CLEAR CART AFTER SUCCESSFUL ORDER
+    localStorage.removeItem("productsInCart");
 
-  form.reset();
+    // Re-enable button
+    if (submitBtn) {
+      submitBtn.classList.remove("btn-loading");
+      submitBtn.disabled = false;
+    }
 
-  // HIDE CARD DETAILS AGAIN
-  cardDetails.style.display = "none";
+    // SHOW SUCCESS POPUP
+    popup.classList.add("active");
+
+    form.reset();
+
+    // HIDE CARD DETAILS AGAIN
+    cardDetails.style.display = "none";
+  }, 1500);
 
 });
 
