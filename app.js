@@ -3,6 +3,21 @@ const bar = document.getElementById("bar");
 const nav = document.getElementById("navbar");
 const close = document.getElementById("close");
 
+function updateAuthUI() {
+    const loginBtn = document.getElementById("login-btn");
+    const loggedInUser = localStorage.getItem("loggedInUser");
+
+    if (!loginBtn) return;
+
+    if (loggedInUser) {
+        loginBtn.style.display = "none";
+    } else {
+        loginBtn.style.display = "block";
+    }
+}
+
+document.addEventListener("DOMContentLoaded", updateAuthUI);
+//hjello guys
 if (bar) {
     bar.addEventListener("click", () => {
         nav.classList.add("active");
@@ -282,7 +297,6 @@ window.appliedCoupon = localStorage.getItem('appliedCoupon') || null;
 window.loadCart = function () {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
 
-    // First, check if we need to show the empty message
     handleEmptyCartView();
 
     const itemsContainer = document.getElementById('cart-items-container');
@@ -338,6 +352,68 @@ window.loadCart = function () {
     const discountEl = document.getElementById('summary-discount');
     const totalEl = document.getElementById('summary-total');
 
+        // REMOVE BUTTON
+        const removeCell = newRow.insertCell();
+        const removeLink = document.createElement('a');
+        removeLink.href = '#';
+        removeLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            removeItem(index);
+        });
+        const removeIcon = document.createElement('i');
+        removeIcon.className = 'fa-regular fa-circle-xmark';
+        removeLink.appendChild(removeIcon);
+        removeCell.appendChild(removeLink);
+
+        // IMAGE
+        const imgCell = newRow.insertCell();
+        const img = document.createElement('img');
+        img.src = item.image;
+        img.alt = item.name;
+        imgCell.appendChild(img);
+
+        // NAME
+        const nameCell = newRow.insertCell();
+        nameCell.textContent = item.name;
+
+        const sizeSmall = document.createElement('small');
+        sizeSmall.textContent = 'Size: ' + item.size;
+        nameCell.appendChild(document.createElement('br'));
+        nameCell.appendChild(sizeSmall);
+
+        // PRICE
+        const priceCell = newRow.insertCell();
+        priceCell.textContent = '$' + itemPrice.toFixed(2);
+
+        // QTY
+        const qtyCell = newRow.insertCell();
+        const qtyInput = document.createElement('input');
+        qtyInput.type = 'number';
+        qtyInput.value = item.quantity;
+        qtyInput.min = 1;
+        qtyInput.addEventListener('change', function () {
+            updateQuantity(index, this.value);
+        });
+        qtyCell.appendChild(qtyInput);
+
+        // SUBTOTAL
+        const subtotalCell = newRow.insertCell();
+        subtotalCell.textContent = '$' + subtotal.toFixed(2);
+    });
+
+    // ✅ TOTAL UPDATE MUST BE HERE (INSIDE FUNCTION, AFTER LOOP)
+   const subtotalDisplay = document.querySelector('.subtotal table tr:nth-child(1) td:nth-child(2)');
+ const totalDisplay = document.querySelector('.subtotal table tr:nth-child(3) td:nth-child(2) strong');
+
+if (subtotalDisplay) {
+    subtotalDisplay.innerText = `$${total.toFixed(2)}`;
+}
+
+if (totalDisplay) {
+    totalDisplay.innerText = `$${total.toFixed(2)}`;
+}
+};
+window.removeItem = function (index) {
     if (subtotalEl) {
         subtotalEl.innerText = `₹${subtotal.toLocaleString('en-IN')}`;
     }
@@ -504,8 +580,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (themeToggleMobile) themeToggleMobile.addEventListener('click', toggleTheme);
 
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', updateThemeIcon);
-    }
+    document.addEventListener('DOMContentLoaded', () => {
+        updateThemeIcon(currentTheme);
+    });
+}
 })();
 
 /* --- END: THEME TOGGLE FUNCTIONALITY --- */
@@ -622,6 +700,19 @@ const ToptobackBtn = document.getElementById("Toptoback");
 if (backToTopBtn && ToptobackBtn) {
     window.addEventListener("scroll", () => {
 
+    if (!backToTopBtn || !ToptobackBtn) return;
+
+    if (window.scrollY <= 300) {
+        ToptobackBtn.classList.add("show");
+        backToTopBtn.classList.remove("show");
+    } else {
+        backToTopBtn.classList.add("show");
+        ToptobackBtn.classList.remove("show");
+    }
+});
+
+// BACK TO TOP
+if (backToTopBtn) {
         // SHOW DOWN BUTTON WHEN USER IS NEAR TOP
         if (window.scrollY <= 300) {
             ToptobackBtn.classList.add("show");
@@ -642,6 +733,10 @@ if (backToTopBtn && ToptobackBtn) {
             behavior: "smooth"
         });
     });
+}
+
+// SCROLL TO BOTTOM
+if (ToptobackBtn) {
 
     // SCROLL TO BOTTOM
     ToptobackBtn.addEventListener("click", () => {
@@ -807,12 +902,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const scrollObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    // Open the cards smoothly when scrolling into view
                     cardContainer.classList.add('open');
-                    if (statusText) statusText.innerText = "Click to collapse";
-                } else {
-                    cardContainer.classList.remove('open');
-                    if (statusText) statusText.innerText = "Click to expand";
+                
+                    if (statusText) {
+                        statusText.innerText = "Click to collapse";
+                    }
+                
+                    // Stop observing after opening once
+                    scrollObserver.unobserve(featureSection);
                 }
             });
         }, observerOptions);
@@ -905,3 +1002,12 @@ if (document.readyState === 'loading') {
     initHeroSlider();
 }
 /* --- END: HERO SLIDER FUNCTIONALITY --- */
+
+/* --- START: CURRENT YEAR FUNCTIONALITY --- */
+document.addEventListener('DOMContentLoaded', () => {
+    const year = new Date().getFullYear();
+    document.querySelectorAll(".Current-Year").forEach(el => {
+        el.textContent = year;
+    });
+});
+/* --- END: CURRENT YEAR FUNCTIONALITY --- */
