@@ -10,7 +10,7 @@ function loadNavbar(activePage) {
         <li><a ${activePage === 'tryon' ? 'class="active"' : ''} href="try-on.html">Try-On</a></li>
         <li><a ${activePage === 'community' ? 'class="active"' : ''} href="community.html">Community</a></li>
         <li><a ${activePage === 'promotions' ? 'class="active"' : ''} href="promotions.html">Promotions</a></li>
-        <li><a ${activePage === 'login' ? 'class="active"' : ''} href="login.html">Login</a></li>
+        <li><a ${activePage === 'login' ? 'class="active"' : ''} href="login.html" id="login-btn">Login</a></li>
         <li>
           <a href="cart.html" id="lg-bag" class="cart-icon-wrapper">
             <i class="ri-shopping-bag-4-line"></i>

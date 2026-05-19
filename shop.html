@@ -664,6 +664,20 @@
                 </div>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
+    <!-- Search and Filter Section -->
+    <section id="search-filter" class="section-p1">
+      <div class="search-container">
+        <div class="search-box">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search products by name or brand..."
+            autocomplete="off"
+            aria-label="Search products"
+          />
+          <button id="searchBtn" aria-label="Search">
+            <i class="ri-search-line"></i>
+          </button>
         </div>
         <div
           id="searchSuggestions"
@@ -807,5 +821,6 @@
             el.textContent = year;
         }
     </script>
+    <div id="toast-container"></div>
   </body>
 </html>

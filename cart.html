@@ -54,32 +54,38 @@
   </head>
 
   <body>
-          <section id="header">
-        <a href="index.html">
-          <img src="images/logo.png" alt="" id="siteLogo">
-        </a>
+    <section id="header">
+      <a href="index.html">
+        <img src="images/logo.png" alt="" id="siteLogo">
+      </a>
 
-        <!-- Desktop navbar injects here -->
-        <div id="navbar-container"></div>
-
-        <!-- Mobile controls (outside navbar, always in DOM) -->
-        <div class="mobile">
-          <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
-            <i class="ri-moon-line" id="themeIconMobile"></i>
-          </button>
-          <a href="cart.html">
-            <i class="ri-shopping-bag-4-line"></i>
-            <span class="cart-count" id="mobileCartCount">0</span>
-          </a>
-          <i class="fas fa-outdent" id="bar"></i>
-        </div>
-      </section>
+      <div>
+        <ul id="navbar">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="login.html">Login</a></li>
+          <li><a href="try-on.html">Try-On</a></li>
+          <li><a href="community.html">Community</a></li>
+          <li><a href="promotions.html">Promotions</a></li>
+          <li>
+            <a href="cart.html" id="lg-bag" class="active">
+              <i class="ri-shopping-bag-4-line"></i>
+              <span class="cart-count" id="desktopCartCount">0</span>
+            </a>
+          </li>
+          <li>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+              <i class="ri-moon-line" id="themeIcon"></i>
+            </button>
+          </li>
+          <a href="#" id="close" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></a>
+        </ul>
+      </div>
       <div class="mobile">
-        <button
-          class="theme-toggle"
-          id="themeToggleMobile"
-          aria-label="Toggle dark mode"
-        >
+        <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
           <i class="ri-moon-line" id="themeIconMobile"></i>
         </button>
         <a href="cart.html" id="mobile-cart-icon">
@@ -91,10 +97,58 @@
     </section>
 
     <div id="cart-content-wrapper">
+        <div class="cartmain">
+            <section id="page-header">
+                <h2>Your Cart</h2>
+                <p>Review and manage your selected items</p>
+            </section>
+
+            <section id="cart" class="section-p1">
+                <table width="100%">
+                    <thead>
+                        <tr>
+                            <td>Remove</td>
+                            <td>Image</td>
+                            <td>Product</td>
+                            <td>Price</td>
+                            <td>Quantity</td>
+                            <td>Subtotal</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="cart-add" class="section-p1">
+    <div class="subtotal">
+        <h3>Cart Totals</h3>
+
+        <table>
+            <tr>
+                <td>Cart Subtotal</td>
+                <td>$0.00</td>
+            </tr>
+
+            <tr>
+                <td>Shipping</td>
+                <td>Free</td>
+            </tr>
+            
+            <tr>
+                <td><strong>Total</strong></td>
+                <td><strong>$0.00</strong></td>
+            </tr>
+        </table>
+
+        <a href="checkout.html" class="normal">
+            Proceed to Checkout
+        </a>
+         </div>
       <div class="cartmain">
-        <section id="page-header">
-          <h2>Your Cart</h2>
-          <p>Review and manage your selected items</p>
+        <section id="page-header" class="about-header" style="background-image: url('images/about/banner.png');">
+          <h2>#cart</h2>
+          <p>Review & manage your selected items with premium details</p>
         </section>
 
         <section id="cart" class="section-p1">
@@ -103,14 +157,27 @@
           </div>
         </section>
 
-        <section id="cart-actions" class="section-p1">
-          <div class="cart-buttons">
-            <a href="shop.html" class="normal">Continue Shopping</a>
-            <a href="checkout.html" class="normal" style="text-decoration: none"
-              >Proceed to Checkout</a
-            >
+                <button class="checkout-btn" onclick="window.location.href='checkout.html'">
+                  PROCEED TO CHECKOUT <i class="ri-arrow-right-line"></i>
+                </button>
+              </div>
+            </div>
           </div>
         </section>
+
+        <!-- Empty Cart State UI (now nicely positioned inside main content flow) -->
+        <div id="empty-cart-container" class="empty-cart-view" style="display: none;">
+          <div class="empty-cart-card">
+            <div class="empty-cart-icon">
+              <i class="ri-shopping-bag-3-line"></i>
+            </div>
+            <h2>Your Cart is Empty!</h2>
+            <p>Looks like you haven't added anything to your cart yet. Let's find some amazing products!</p>
+            <a href="shop.html" class="return-shop-btn">Return to Shop</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
         <!-- Footer -->
         <footer class="section-p1">
@@ -195,29 +262,7 @@
       </div>
     </div>
 
-    <div
-      id="empty-cart-container"
-      style="display: none; text-align: center; padding: 100px 20px"
-    >
-      <div style="font-size: 80px; margin-bottom: 20px">🛒</div>
-      <h2 style="font-size: 32px; margin-bottom: 10px">Your Cart is Empty!</h2>
-      <p style="color: #747d8c; font-size: 18px; margin-bottom: 30px">
-        Looks like you haven't added anything to your cart yet.
-      </p>
-      <a
-        href="shop.html"
-        class="normal"
-        style="
-          background-color: #088178;
-          color: white;
-          padding: 15px 30px;
-          text-decoration: none;
-          border-radius: 4px;
-          font-weight: 600;
-        "
-        >Return to Shop</a
-      >
-    </div>
+
 
     <script src="app.js?v=1779120917210"></script>
     <!-- Corrected  -->
