@@ -603,10 +603,11 @@
     </footer>
     <script src="try-on.js"></script>
     <script src="navbar.js"></script>
-<script>loadNavbar('tryon');</script>
-<script src="app.js?v=1779120917221"></script>
-        <script id="Current-Year">
-        document.getElementById("Current-Year").textContent = new Date().getFullYear();
+    <script>loadNavbar('tryon');</script>
+    <script src="app.js"></script>
+    <script>
+        const yearEl = document.getElementById("Current-Year");
+        if (yearEl) yearEl.textContent = new Date().getFullYear();
     </script>
 </body>
 </html>

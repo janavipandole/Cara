@@ -458,29 +458,13 @@
   ↑
 </button>
 
-    <script src="app.js?v=1779120917201"></script>
-    
-    <!-- Corrected -->
-   <script id="Current-Year">
-        document.getElementById("Current-Year").textContent = new Date().getFullYear();
-    </script>
-
-                  // Disconnect observer so it doesn't run again
-                  observer.unobserve(entry.target);
-                }
-              });
-            },
-            observerOptions,
-          );
-
-          // Track the feature section itself instead of the app section
-          scrollObserver.observe(featureSection);
-        }
-      });
-    </script>
     <script src="navbar.js"></script>
     <script>loadNavbar('about');</script>
-    <script src="app.js"></script>  
+    <script src="app.js"></script>
+    <script>
+        const yearEl = document.getElementById("Current-Year");
+        if (yearEl) yearEl.textContent = new Date().getFullYear();
+    </script>
     <script>
   const scrollBtn = document.getElementById("scrollTopBtn");
 

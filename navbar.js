@@ -37,33 +37,4 @@ function loadNavbar(activePage) {
     return;
   }
 
-  initDarkMode();
-}
-
-function initDarkMode() {
-  const themeToggle = document.getElementById('themeToggle');
-  const themeIcon = document.getElementById('themeIcon');
-  const themeToggleMobile = document.getElementById('themeToggleMobile');
-  const themeIconMobile = document.getElementById('themeIconMobile');
-
-  // Apply saved theme on load
-  const isDarkSaved = localStorage.getItem('theme') === 'dark';
-  if (isDarkSaved) {
-    document.body.classList.add('dark');
-    if (themeIcon) themeIcon.classList.replace('ri-moon-line', 'ri-sun-line');
-    if (themeIconMobile) themeIconMobile.classList.replace('ri-moon-line', 'ri-sun-line');
-  }
-
-  function handleToggle() {
-    document.body.classList.toggle('dark');
-    const isDark = document.body.classList.contains('dark');
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    const next = isDark ? 'ri-sun-line' : 'ri-moon-line';
-    const prev = isDark ? 'ri-moon-line' : 'ri-sun-line';
-    if (themeIcon) themeIcon.classList.replace(prev, next);
-    if (themeIconMobile) themeIconMobile.classList.replace(prev, next);
-  }
-
-  if (themeToggle) themeToggle.addEventListener('click', handleToggle);
-  if (themeToggleMobile) themeToggleMobile.addEventListener('click', handleToggle);
 }
