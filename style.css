@@ -1641,96 +1641,7 @@ footer .copyright {
     font-weight: 600;
 }
 
-/* ============================================
-   TARGET 1: SHOP PAGE - SEARCH & FILTER
-   ============================================ */
-#search-filter {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-    padding: 30px 80px;
-    background-color: var(--card-bg);
-    border-bottom: 1px solid var(--border-color);
-}
 
-.search-container {
-    display: flex;
-    align-items: center;
-    background: var(--input-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 50px;
-    padding: 6px 20px;
-    width: 100%;
-    max-width: 450px;
-    box-shadow: 0 4px 10px var(--shadow);
-    transition: all 0.3s ease;
-}
-
-.search-container:focus-within {
-    border-color: var(--accent);
-    box-shadow: 0 6px 15px var(--shadow-hover);
-}
-
-#searchInput {
-    flex: 1;
-    border: none;
-    background: transparent;
-    padding: 10px 5px;
-    font-size: 16px;
-    color: var(--text-primary);
-    outline: none;
-}
-
-#searchBtn {
-    background: transparent;
-    border: none;
-    color: var(--text-secondary);
-    font-size: 20px;
-    cursor: pointer;
-    transition: color 0.3s ease;
-    padding: 5px;
-}
-
-#searchBtn:hover {
-    color: var(--accent);
-}
-
-.filter-container {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.filter-container label {
-    font-weight: 600;
-    color: var(--text-primary);
-    font-size: 16px;
-}
-
-#categoryFilter {
-    padding: 12px 40px 12px 20px;
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-    background-color: var(--input-bg);
-    color: var(--text-primary);
-    font-size: 16px;
-    cursor: pointer;
-    outline: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 10px var(--shadow);
-    appearance: none;
-    background-image: url('data:image/svg+xml;utf8,<svg fill="%23088178" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-}
-
-#categoryFilter:focus,
-#categoryFilter:hover {
-    border-color: var(--accent);
-    box-shadow: 0 6px 15px var(--shadow-hover);
-}
 
 /* ============================================
    TARGET 2: SHOP PAGE - PRODUCT CARDS GRID
@@ -2120,15 +2031,6 @@ footer .copyright {
             flex-direction: column;
         }
 
-        #search-filter {
-            flex-direction: column;
-            align-items: stretch;
-            padding: 20px;
-        }
-
-        .search-container {
-            max-width: 100%;
-        }
     }
 
 
