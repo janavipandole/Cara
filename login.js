@@ -43,11 +43,12 @@ document.addEventListener('DOMContentLoaded', function () {
             const users = JSON.parse(localStorage.getItem('users') || '[]');
             const user = users.find(u => u.email === email && u.password === password);
 
-            if (user) {
-                // On successful login
-                localStorage.setItem('loggedInUser', email);
-                window.location.href = 'index.html';
-            } else {
+           if (user) {
+    // Store FULL user object, not just email
+    localStorage.setItem('loggedInUser', JSON.stringify(user));
+
+    window.location.href = 'account.html'; 
+}else {
                 showToast("Invalid email or password", "error");
                 // ── Re-enable button on failure ──
                 if (submitBtn) {
