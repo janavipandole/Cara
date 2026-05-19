@@ -907,3 +907,12 @@ if (document.readyState === 'loading') {
     initHeroSlider();
 }
 /* --- END: HERO SLIDER FUNCTIONALITY --- */
+
+/* --- START: CURRENT YEAR FUNCTIONALITY --- */
+document.addEventListener('DOMContentLoaded', () => {
+    const year = new Date().getFullYear();
+    document.querySelectorAll(".Current-Year").forEach(el => {
+        el.textContent = year;
+    });
+});
+/* --- END: CURRENT YEAR FUNCTIONALITY --- */
