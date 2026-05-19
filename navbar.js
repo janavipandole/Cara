@@ -39,6 +39,7 @@ function loadNavbar(activePage) {
 
   initDarkMode();
 }
+window.loadNavbar = loadNavbar;
 
 function initDarkMode() {
   const themeToggle = document.getElementById('themeToggle');

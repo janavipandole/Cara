@@ -20,8 +20,8 @@ document.getElementById('toggleConfirmPass').addEventListener('click', function 
 document.getElementById('forgotForm').addEventListener('submit', function (e) {
   e.preventDefault();
 
-  const email       = document.getElementById('forgotEmail').value.trim();
-  const newPass     = document.getElementById('forgotNewPass').value;
+  const email = document.getElementById('forgotEmail').value.trim();
+  const newPass = document.getElementById('forgotNewPass').value;
   const confirmPass = document.getElementById('forgotConfirmPass').value;
 
   /* validations */
@@ -41,7 +41,9 @@ document.getElementById('forgotForm').addEventListener('submit', function (e) {
   }
 
   /* ── Loading state: disable button & show spinner ── */
-  const submitBtn = document.querySelector('#forgotForm button[type="submit"], #forgotForm .btn-primary');
+  const submitBtn = document.querySelector(
+    '#forgotForm button[type="submit"], #forgotForm .btn-primary'
+  );
   if (submitBtn) {
     submitBtn.classList.add('btn-loading');
     submitBtn.disabled = true;
@@ -51,7 +53,7 @@ document.getElementById('forgotForm').addEventListener('submit', function (e) {
   setTimeout(function () {
     /* check if email exists in localStorage */
     let users = JSON.parse(localStorage.getItem('users') || '[]');
-    const userIndex = users.findIndex(u => u.email === email);
+    const userIndex = users.findIndex((u) => u.email === email);
 
     if (userIndex === -1) {
       showToast('No account found with this email!', 'error');
@@ -75,4 +77,3 @@ document.getElementById('forgotForm').addEventListener('submit', function (e) {
     }, 2000);
   }, 1500);
 });
-

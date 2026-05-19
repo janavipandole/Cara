@@ -1,0 +1,33 @@
+{
+  "name": "cara",
+  "version": "1.0.0",
+  "description": "> Officially participating in ## GSSOC 2026 ## ELUSOC 2026",
+  "main": "app.js",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SATYAM-PRATIBHAN/Cara.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/SATYAM-PRATIBHAN/Cara/issues"
+  },
+  "homepage": "https://github.com/SATYAM-PRATIBHAN/Cara#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.39.4",
+    "eslint": "^9.39.4",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "globals": "^17.6.0",
+    "prettier": "^3.8.3"
+  }
+}
