@@ -450,13 +450,6 @@ window.loadCart = function () {
    const subtotalDisplay = document.querySelector('.subtotal table tr:nth-child(1) td:nth-child(2)');
  const totalDisplay = document.querySelector('.subtotal table tr:nth-child(3) td:nth-child(2) strong');
 
-if (subtotalDisplay) {
-    subtotalDisplay.innerText = `$${total.toFixed(2)}`;
-}
-
-if (totalDisplay) {
-    totalDisplay.innerText = `$${total.toFixed(2)}`;
-}
 
 window.removeItem = function (index) {
     if (subtotalEl) {

@@ -211,3 +211,20 @@ renderProducts('featured-container', products.slice(0, 4));
 attachSearchListeners();
 updateSearchSummary(products.length);
 renderSearchSuggestions('');
+function addToCart(name, price, img, quantity, size) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  const product = {
+    name,
+    price,
+    img,
+    quantity,
+    size
+  };
+
+  cart.push(product);
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  alert("Product added to cart!");
+}

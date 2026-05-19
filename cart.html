@@ -367,6 +367,20 @@
     <!-- Corrected  -->
     <script>
         document.getElementById("Current-Year").textContent = new Date().getFullYear();
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+const cartContainer = document.getElementById("cart-items-container");
+
+cart.forEach((item) => {
+  cartContainer.innerHTML += `
+    <div class="cart-item">
+      <img src="${item.img}" width="100">
+      <h3>${item.name}</h3>
+      <p>${item.price}</p>
+      <p>Quantity: ${item.quantity}</p>
+    </div>
+  `;
+});
     </script>
 
 </body>
