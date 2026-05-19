@@ -5,46 +5,45 @@ document.addEventListener('DOMContentLoaded', function () {
         const name = document.getElementById('registerUsername').value.trim();
         const email = document.getElementById('registerEmail').value.trim();
         const password = document.getElementById('registerPassword').value;
-        const confirmPassword = document.getElementById('registerConfirmPassword').value;
 
-       if (!name || !email || !password || !confirmPassword) {
-            alert('Please fill all fields.');
+        if (!name || !email || !password) {
+            showToast('Please fill all fields.', 'warning');
             return;
         }
 
-        // Check password match first (better UX)
-        if (password !== confirmPassword) {
-            alert('Passwords do not match.');
-            return;
-        }
-
-        // Password strength validation
+        // Password validation
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
+
         if (!passwordRegex.test(password)) {
-            alert(
-                'Password must contain:\n' +
-                '- Minimum 8 characters\n' +
-                '- One uppercase letter\n' +
-                '- One lowercase letter\n' +
-                '- One number\n' +
-                '- One special character (@$!%*?&)'
-            );
+            showToast('Password must have 8+ chars, 1 uppercase, 1 lowercase, 1 number, and 1 special character.', 'warning');
+            return;
+        }
+
+        // Confirm Password validation
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        if (password !== confirmPassword) {
+            showToast('Passwords do not match.', 'warning');
             return;
         }
 
         let users = JSON.parse(localStorage.getItem('users') || '[]');
         if (users.find(u => u.email === email)) {
-            alert('Email already registered.');
+            showToast('Email already registered.', 'error');
             return;
         }
         if (users.find(u => u.name.toLowerCase() === name.toLowerCase())) {
-        alert('Username already exists.');
-        return;
+            showToast('Username already exists.', 'error');
+            return;
         }
+
         users.push({ name, email, password });
         localStorage.setItem('users', JSON.stringify(users));
-        alert('Signup successful! You are now logged in.');
+
+        // On successful registration
+        showToast('Signup successful! Welcome to Cara.', 'success');
         localStorage.setItem('loggedInUser', email);
-        window.location.href = 'index.html';
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 1500);
     });
 });

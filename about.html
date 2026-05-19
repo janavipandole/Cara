@@ -70,54 +70,64 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <style>
+
+    
+#scrollTopBtn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;   /* keeps button on right side */
+
+  width: 55px;
+  height: 55px;
+
+  border: none;
+  border-radius: 50%;
+
+  background-color: #088178;
+  color: white;
+
+  font-size: 24px;
+  font-weight: bold;
+
+  cursor: pointer;
+  z-index: 999;
+
+  display: none;
+
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+}
+
+#scrollTopBtn:hover {
+  background-color: #065f5b;
+  transform: scale(1.1);
+}
+</style>
   </head>
 
   <body>
-    <section id="header">
-      <a href="index.html"><img src="images/logo.png" alt="" /></a>
+          <!-- HEADER -->
+          <section id="header">
+            <a href="index.html">
+              <img src="images/logo.png" alt="" id="siteLogo">
+            </a>
 
-      <div>
-        <ul id="navbar">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="shop.html">Shop</a></li>
-          <li><a href="blog.html">Blog</a></li>
-          <li><a class="active" href="about.html">About</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="login.html">Login</a></li>
-          <li>
-            <a href="cart.html" id="lg-bag" class="cart-icon-wrapper"
-              ><i class="ri-shopping-bag-4-line"></i
-              ><span class="cart-count" id="desktopCartCount">0</span></a
-            >
-          </li>
-          <li>
-            <button
-              class="theme-toggle"
-              id="themeToggle"
-              aria-label="Toggle dark mode"
-            >
-              <i class="ri-moon-line" id="themeIcon"></i>
-            </button>
-          </li>
-          <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
-        </ul>
-      </div>
-      <div class="mobile">
-        <button
-          class="theme-toggle"
-          id="themeToggleMobile"
-          aria-label="Toggle dark mode"
-        >
-          <i class="ri-moon-line" id="themeIconMobile"></i>
-        </button>
-        <a href="cart.html" id="mobile-cart-icon">
-          <i class="ri-shopping-bag-4-line"></i>
-          <span class="cart-count" id="mobileCartCount">0</span>
-        </a>
-        <i class="fas fa-outdent" id="bar"></i>
-      </div>
-    </section>
+            <!-- Navbar loads here -->
+            <div id="navbar-container"></div>
 
+            <div class="mobile">
+              <button class="theme-toggle" id="themeToggleMobile"
+                aria-label="Toggle dark mode">
+                <i class="ri-moon-line" id="themeIconMobile"></i>
+              </button>
+              <a href="cart.html" id="mobile-cart-icon">
+                <i class="ri-shopping-bag-4-line"></i>
+                <span class="cart-count" id="mobileCartCount">0</span>
+              </a>
+              <i class="fas fa-outdent" id="bar"></i>
+            </div>
+          </section>
     <section id="about-head">
       <h2>#KnowUs</h2>
       <p>Read all case studies about Us!</p>
@@ -371,49 +381,21 @@
       <!-- Copyright -->
       <div class="copyright">
         <p>
-          &copy; Cara 2025. All rights reserved. |
+          &copy; Cara <span class="Current-Year"></span>. All rights reserved. |
           <a href="license.html" style="color: #088178"> MIT License </a>
         </p>
       </div>
     </footer>
+          <button id="scrollTopBtn" title="Go to top" width="120px" height="120px">
+  ↑
+</button>
 
-    <script src="app.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const brandCard = document.getElementById("brandCard");
-        const cardContainer = document.getElementById("cardContainer");
-        const statusText = document.getElementById("statusText");
-        const featureSection = document.getElementById(
-          "interactive-feature-wrapper",
-        );
-
-        // 1. Manual Click Control
-        if (brandCard && cardContainer) {
-          brandCard.addEventListener("click", () => {
-            const isOpen = cardContainer.classList.toggle("open");
-            statusText.innerText = isOpen
-              ? "Click to collapse"
-              : "Click to expand";
-          });
-        }
-
-        // 2. Snappy Scroll-Based Activation Engine
-        if (featureSection && cardContainer) {
-          const observerOptions = {
-            root: null,
-            // Trigger as soon as even 1 pixel of the feature section enters the screen
-            threshold: 0,
-            // Shrink the invisible trigger box so it fires slightly before the section arrives
-            rootMargin: "0px 0px -10% 0px",
-          };
-
-          const scrollObserver = new IntersectionObserver(
-            (entries, observer) => {
-              entries.forEach((entry) => {
-                // If the section enters the screen from the bottom while scrolling down
-                if (entry.isIntersecting) {
-                  cardContainer.classList.add("open");
-                  if (statusText) statusText.innerText = "Click to collapse";
+    <script src="app.js?v=1779120917201"></script>
+    
+    <!-- Corrected -->
+   <script id="Current-Year">
+        document.getElementById("Current-Year").textContent = new Date().getFullYear();
+    </script>
 
                   // Disconnect observer so it doesn't run again
                   observer.unobserve(entry.target);
@@ -428,5 +410,26 @@
         }
       });
     </script>
+    <script src="navbar.js"></script>
+    <script>loadNavbar('about');</script>
+    <script src="app.js"></script>  
+    <script>
+  const scrollBtn = document.getElementById("scrollTopBtn");
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) {
+      scrollBtn.style.display = "block";
+    } else {
+      scrollBtn.style.display = "none";
+    }
+  });
+
+  scrollBtn.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
+</script>
   </body>
 </html>

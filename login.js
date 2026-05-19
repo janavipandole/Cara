@@ -27,22 +27,34 @@ document.addEventListener('DOMContentLoaded', function () {
         const password = document.getElementById('loginPassword').value;
 
         if (!email || !password) {
-            alert('Please fill all fields.');
+            showToast('Please fill all fields.', 'warning');
             return;
         }
 
-        const users = JSON.parse(localStorage.getItem('users') || '[]');
-        const user = users.find(u => u.email === email && u.password === password);
-
-        if (user) {
-            // On successful login
-            localStorage.setItem('loggedInUser', email);
-            window.location.href = 'index.html';
-        } else {
-            showToast("Invalid email or password", "error");
+        // ── Loading state: disable button & show spinner ──
+        const submitBtn = form.querySelector('.login-btn');
+        if (submitBtn) {
+            submitBtn.classList.add('btn-loading');
+            submitBtn.disabled = true;
         }
+
+        // Simulate async request (replace with real API call)
+        setTimeout(function () {
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const user = users.find(u => u.email === email && u.password === password);
+
+            if (user) {
+                // On successful login
+                localStorage.setItem('loggedInUser', email);
+                window.location.href = 'index.html';
+            } else {
+                showToast("Invalid email or password", "error");
+                // ── Re-enable button on failure ──
+                if (submitBtn) {
+                    submitBtn.classList.remove('btn-loading');
+                    submitBtn.disabled = false;
+                }
+            }
+        }, 1500);
     });
 });
-
-
-function showToast(message, type = "success") { const toast = document.getElementById("toast"); const toastMsg = document.getElementById("toast-msg"); const toastIcon = document.getElementById("toast-icon");  if (!toast) { alert(message); return; }  toastMsg.innerText = message; if (type === "success") { toastIcon.innerHTML = "✅"; } else { toastIcon.innerHTML = "❌"; } toast.className = `toast show ${type}`;  setTimeout(() => { toast.classList.remove("show"); }, 3000); }  document.addEventListener("DOMContentLoaded", () => { const googleBtn = document.getElementById("googleLogin"); if (googleBtn) { googleBtn.addEventListener("click", () => { showToast( "Google Login Coming Soon", "success" ); }); }  const githubBtn = document.getElementById("githubLogin"); if (githubBtn) { githubBtn.addEventListener("click", () => { showToast( "GitHub Login Coming Soon", "success" ); }); } });
