@@ -1,8 +1,68 @@
+/* --- START: THEME TOGGLE FUNCTIONALITY --- */
+
+(function () {
+    const themeToggle = document.getElementById('themeToggle');
+    const themeToggleMobile = document.getElementById('themeToggleMobile');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeIconMobile = document.getElementById('themeIconMobile');
+    const html = document.documentElement;
+
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', currentTheme);
+    updateThemeIcon(currentTheme);
+
+    function updateThemeIcon(theme) {
+        console.log('Updating icons to:', theme);
+        const iconClass = theme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
+        if (themeIcon) themeIcon.className = iconClass;
+        if (themeIconMobile) themeIconMobile.className = iconClass;
+
+        // Swap logo based on theme
+        const siteLogo = document.getElementById('siteLogo');
+        if (siteLogo) {
+            siteLogo.src = theme === 'dark' ? 'images/Dlogo.png' : 'images/logo.png';
+        }
+    }
+
+    function toggleTheme() {
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon(newTheme);
+    }
+
+    if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
+    if (themeToggleMobile) themeToggleMobile.addEventListener('click', toggleTheme);
+
+    if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        updateThemeIcon(currentTheme);
+    });
+}
+})();
+
+/* --- END: THEME TOGGLE FUNCTIONALITY --- */
 // Mobile menu functionality
 const bar = document.getElementById("bar");
 const nav = document.getElementById("navbar");
 const close = document.getElementById("close");
 
+function updateAuthUI() {
+    const loginBtn = document.getElementById("login-btn");
+    const loggedInUser = localStorage.getItem("loggedInUser");
+
+    if (!loginBtn) return;
+
+    if (loggedInUser) {
+        loginBtn.style.display = "none";
+    } else {
+        loginBtn.style.display = "block";
+    }
+}
+
+document.addEventListener("DOMContentLoaded", updateAuthUI);
+//hjello guys
 if (bar) {
     bar.addEventListener("click", () => {
         nav.classList.add("active");
@@ -282,7 +342,6 @@ window.appliedCoupon = localStorage.getItem('appliedCoupon') || null;
 window.loadCart = function () {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
 
-    // First, check if we need to show the empty message
     handleEmptyCartView();
 
     const itemsContainer = document.getElementById('cart-items-container');
@@ -338,6 +397,68 @@ window.loadCart = function () {
     const discountEl = document.getElementById('summary-discount');
     const totalEl = document.getElementById('summary-total');
 
+        // REMOVE BUTTON
+        const removeCell = newRow.insertCell();
+        const removeLink = document.createElement('a');
+        removeLink.href = '#';
+        removeLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            removeItem(index);
+        });
+        const removeIcon = document.createElement('i');
+        removeIcon.className = 'fa-regular fa-circle-xmark';
+        removeLink.appendChild(removeIcon);
+        removeCell.appendChild(removeLink);
+
+        // IMAGE
+        const imgCell = newRow.insertCell();
+        const img = document.createElement('img');
+        img.src = item.image;
+        img.alt = item.name;
+        imgCell.appendChild(img);
+
+        // NAME
+        const nameCell = newRow.insertCell();
+        nameCell.textContent = item.name;
+
+        const sizeSmall = document.createElement('small');
+        sizeSmall.textContent = 'Size: ' + item.size;
+        nameCell.appendChild(document.createElement('br'));
+        nameCell.appendChild(sizeSmall);
+
+        // PRICE
+        const priceCell = newRow.insertCell();
+        priceCell.textContent = '$' + itemPrice.toFixed(2);
+
+        // QTY
+        const qtyCell = newRow.insertCell();
+        const qtyInput = document.createElement('input');
+        qtyInput.type = 'number';
+        qtyInput.value = item.quantity;
+        qtyInput.min = 1;
+        qtyInput.addEventListener('change', function () {
+            updateQuantity(index, this.value);
+        });
+        qtyCell.appendChild(qtyInput);
+
+        // SUBTOTAL
+        const subtotalCell = newRow.insertCell();
+        subtotalCell.textContent = '$' + subtotal.toFixed(2);
+    };
+
+    // ✅ TOTAL UPDATE MUST BE HERE (INSIDE FUNCTION, AFTER LOOP)
+   const subtotalDisplay = document.querySelector('.subtotal table tr:nth-child(1) td:nth-child(2)');
+ const totalDisplay = document.querySelector('.subtotal table tr:nth-child(3) td:nth-child(2) strong');
+
+if (subtotalDisplay) {
+    subtotalDisplay.innerText = `$${total.toFixed(2)}`;
+}
+
+if (totalDisplay) {
+    totalDisplay.innerText = `$${total.toFixed(2)}`;
+}
+
+window.removeItem = function (index) {
     if (subtotalEl) {
         subtotalEl.innerText = `₹${subtotal.toLocaleString('en-IN')}`;
     }
@@ -466,49 +587,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* --- END: CART FUNCTIONALITY --- */
 
-/* --- START: THEME TOGGLE FUNCTIONALITY --- */
-
-(function () {
-    const themeToggle = document.getElementById('themeToggle');
-    const themeToggleMobile = document.getElementById('themeToggleMobile');
-    const themeIcon = document.getElementById('themeIcon');
-    const themeIconMobile = document.getElementById('themeIconMobile');
-    const html = document.documentElement;
-
-    const currentTheme = localStorage.getItem('theme') || 'light';
-    html.setAttribute('data-theme', currentTheme);
-    updateThemeIcon(currentTheme);
-
-    function updateThemeIcon(theme) {
-        console.log('Updating icons to:', theme);
-        const iconClass = theme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
-        if (themeIcon) themeIcon.className = iconClass;
-        if (themeIconMobile) themeIconMobile.className = iconClass;
-
-        // Swap logo based on theme
-        const siteLogo = document.getElementById('siteLogo');
-        if (siteLogo) {
-            siteLogo.src = theme === 'dark' ? 'images/Dlogo.png' : 'images/logo.png';
-        }
-    }
-
-    function toggleTheme() {
-        const currentTheme = html.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        html.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        updateThemeIcon(newTheme);
-    }
-
-    if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
-    if (themeToggleMobile) themeToggleMobile.addEventListener('click', toggleTheme);
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', updateThemeIcon);
-    }
-})();
-
-/* --- END: THEME TOGGLE FUNCTIONALITY --- */
 
 (function () {
     const paginationSection = document.getElementById('pagination');
@@ -622,6 +700,19 @@ const ToptobackBtn = document.getElementById("Toptoback");
 if (backToTopBtn && ToptobackBtn) {
     window.addEventListener("scroll", () => {
 
+    if (!backToTopBtn || !ToptobackBtn) return;
+
+    if (window.scrollY <= 300) {
+        ToptobackBtn.classList.add("show");
+        backToTopBtn.classList.remove("show");
+    } else {
+        backToTopBtn.classList.add("show");
+        ToptobackBtn.classList.remove("show");
+    }
+});
+
+// BACK TO TOP
+if (backToTopBtn) {
         // SHOW DOWN BUTTON WHEN USER IS NEAR TOP
         if (window.scrollY <= 300) {
             ToptobackBtn.classList.add("show");
@@ -633,7 +724,7 @@ if (backToTopBtn && ToptobackBtn) {
             backToTopBtn.classList.add("show");
             ToptobackBtn.classList.remove("show");
         }
-    });
+    };
 
     // BACK TO TOP
     backToTopBtn.addEventListener("click", () => {
@@ -642,6 +733,10 @@ if (backToTopBtn && ToptobackBtn) {
             behavior: "smooth"
         });
     });
+}
+
+// SCROLL TO BOTTOM
+if (ToptobackBtn) {
 
     // SCROLL TO BOTTOM
     ToptobackBtn.addEventListener("click", () => {
@@ -907,3 +1002,40 @@ if (document.readyState === 'loading') {
     initHeroSlider();
 }
 /* --- END: HERO SLIDER FUNCTIONALITY --- */
+
+/* --- START: CURRENT YEAR FUNCTIONALITY --- */
+document.addEventListener('DOMContentLoaded', () => {
+    const year = new Date().getFullYear();
+    document.querySelectorAll(".Current-Year").forEach(el => {
+        el.textContent = year;
+    });
+});
+/* --- END: CURRENT YEAR FUNCTIONALITY --- */
+/* --- Sort by Price Logic --- */
+document.addEventListener('DOMContentLoaded', () => {
+    const sortMenu = document.getElementById('sort-price');
+    const proContainer = document.querySelector('.pro-container');
+
+    if (sortMenu && proContainer) {
+        const originalProducts = Array.from(proContainer.querySelectorAll('.pro'));
+        sortMenu.addEventListener('change', (e) => {
+            const sortValue = e.target.value;
+            let productsToAppend;
+
+            if (sortValue === 'default') {
+                productsToAppend = originalProducts;
+            } else {
+                productsToAppend = [...originalProducts].sort((a, b) => {
+                    const priceA = parseFloat(a.querySelector('h4').innerText.replace('$', '').trim());
+                    const priceB = parseFloat(b.querySelector('h4').innerText.replace('$', '').trim());
+
+                    if (sortValue === 'low-high') return priceA - priceB;
+                    if (sortValue === 'high-low') return priceB - priceA;
+                });
+            }
+            productsToAppend.forEach(product => {
+                proContainer.appendChild(product);
+            });
+        });
+    }
+});
