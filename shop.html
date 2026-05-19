@@ -849,7 +849,7 @@
       </div>
     </footer>
     </footer>
-
+    <button id="scrollTopBtn" onclick="scrollToTop()">↑</button>
     <script src="products.js"></script>
     <script src="app.js"></script>
     <!-- Corrected  -->
@@ -857,11 +857,31 @@
          const year=new Date().getFullYear();
         for (let el of document.querySelectorAll(".current-year")) {
   el.textContent = year;
+        }
+        // Show/hide button on scroll
+window.addEventListener("scroll", function () {
+    const btn = document.getElementById("scrollTopBtn");
+
+    if (window.scrollY > 300) {
+        btn.style.display = "block";
+    } else {
+        btn.style.display = "none";
+    }
+});
+
+// Scroll to top function
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
     </script>
 
 </body>
 
 </html>
+<body>
     <!-- csritik-max -->
     <div id="toast-container"></div>
     <script src="app.js"></script>

@@ -681,3 +681,21 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollObserver.observe(featureSection);
     }
 });
+const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+// show button when user scrolls down
+window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) {
+        scrollTopBtn.style.display = "block";
+    } else {
+        scrollTopBtn.style.display = "none";
+    }
+});
+
+// scroll to top on click
+scrollTopBtn.addEventListener("click", () => {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+});

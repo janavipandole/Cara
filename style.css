@@ -1460,6 +1460,7 @@ footer .copyright {
     margin: 0;
     -moz-appearance: textfield;
     appearance: textfield;
+}
     /* Firefox */
 }
 
@@ -2288,6 +2289,7 @@ button.normal:hover {
         z-index: 999;
         overflow-y: auto;
     }
+}
 
 #cart table {
     width: 100%;
@@ -4927,4 +4929,33 @@ select:focus-visible {
         font-weight: 600;
         font-size: 14px;
     }
+}
+}
+#scrollTopBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+
+    width: 45px;
+    height: 45px;
+
+    border: none;
+    border-radius: 50%;
+
+    background-color: #6b3e26;
+    color: white;
+
+    font-size: 20px;
+    cursor: pointer;
+
+    display: none;
+    z-index: 9999;
+
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+#scrollTopBtn:hover {
+    background-color: #5876b7;
+    transform: scale(1.1);
 }
