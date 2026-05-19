@@ -52,8 +52,15 @@
 
 <body>
     <section id="header">
-        <a href="index.html"><img src="images/logo.png" alt=""></a>
-
+<a href="index.html">
+    <img 
+        src="images/logo.png" 
+        alt="Cara Logo"
+        loading="eager"
+        width="120"
+        height="40"
+    >
+</a>
         <div>
             <ul id="navbar">
                 <li><a href="index.html">Home</a></li>
@@ -91,8 +98,13 @@
     </section>
 
     <section id="about-us" class="section-p1">
-        <img src="images/about/a6.jpg" alt="">
-        <div>
+<img 
+    src="images/about/a6.jpg" 
+    alt="About Cara"
+    loading="lazy"
+    width="600"
+    height="500"
+>        <div>
             <h2>Who We Are</h2>
             <p>
                 Cara is a modern and user-friendly web platform designed to deliver a smooth, responsive, and visually
@@ -119,7 +131,15 @@
     <section id="about-app">
         <h1>Download Our <a href="#">App</a></h1>
         <div class="video">
-            <video autoplay muted loop src="images/about/1.mp4"></video>
+<video 
+    autoplay 
+    muted 
+    loop 
+    preload="metadata"
+    width="800"
+    height="500"
+    src="images/about/1.mp4">
+</video>
         </div>
     </section>
 
@@ -197,7 +217,14 @@
 
     <footer class="section-p1">
         <div class="col">
-            <img class="logo" src="images/logo.png" alt="">
+<img 
+    class="logo"
+    src="images/logo.png" 
+    alt="Cara Logo"
+    loading="lazy"
+    width="120"
+    height="40"
+>
             <h4>Contact</h4>
             <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
             <p><strong>Phone:</strong> +01 2222 365 /(+91) 01 2345 6789</p>
@@ -236,8 +263,20 @@
             <h4>Install App</h4>
             <p>From App Store or Google Play</p>
             <div class="row">
-                <img src="images/pay/app.jpg" alt="">
-                <img src="images/pay/play.jpg" alt="">
+<img 
+    src="images/pay/app.jpg" 
+    alt="Download on App Store"
+    loading="lazy"
+    width="140"
+    height="50"
+>
+<img 
+    src="images/pay/play.jpg" 
+    alt="Get it on Google Play"
+    loading="lazy"
+    width="140"
+    height="50"
+>
             </div>
             <p>Secured Payment Gateways</p>
             <div class="payment-icons">
@@ -271,8 +310,9 @@
             if (brandCard && cardContainer) {
                 brandCard.addEventListener('click', () => {
                     const isOpen = cardContainer.classList.toggle('open');
-                    statusText.innerText = isOpen ? "Click to collapse" : "Click to expand";
-                });
+if (statusText) {
+    statusText.innerText = isOpen ? "Click to collapse" : "Click to expand";
+}                });
             }
 
             // 2. Snappy Scroll-Based Activation Engine

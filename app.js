@@ -221,10 +221,19 @@ window.loadCart = function () {
 
         // Product image cell (safe property assignment)
         const imgCell = newRow.insertCell();
-        const img = document.createElement('img');
-        img.src = item.image;
-        img.alt = item.name;
-        imgCell.appendChild(img);
+const img = document.createElement('img');
+
+img.src = item.image;
+img.alt = item.name;
+
+/* Performance Optimization */
+img.loading = "lazy";
+
+/* Prevent layout shift */
+img.width = 80;
+img.height = 80;
+
+imgCell.appendChild(img);
 
         // Product name and size cell (textContent prevents HTML injection)
         const nameCell = newRow.insertCell();
@@ -309,7 +318,6 @@ window.addEventListener('load', () => {
     updateThemeIcon(currentTheme);
 
     function updateThemeIcon(theme) {
-        console.log('Updating icons to:', theme);
         const iconClass = theme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
         if (themeIcon) themeIcon.className = iconClass;
         if (themeIconMobile) themeIconMobile.className = iconClass;
@@ -333,8 +341,10 @@ window.addEventListener('load', () => {
     if (themeToggleMobile) themeToggleMobile.addEventListener('click', toggleTheme);
 
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', updateThemeIcon);
-    }
+document.addEventListener('DOMContentLoaded', () => {
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    updateThemeIcon(currentTheme);
+});    }
 })();
 
 /* --- END: THEME TOGGLE FUNCTIONALITY --- */
@@ -450,34 +460,36 @@ const ToptobackBtn = document.getElementById("Toptoback");
 
 window.addEventListener("scroll", () => {
 
-    // SHOW DOWN BUTTON WHEN USER IS NEAR TOP
+    if (!backToTopBtn || !ToptobackBtn) return;
+
     if (window.scrollY <= 300) {
         ToptobackBtn.classList.add("show");
         backToTopBtn.classList.remove("show");
-    }
-
-    // SHOW TOP BUTTON AFTER 300PX
-    else {
+    } else {
         backToTopBtn.classList.add("show");
         ToptobackBtn.classList.remove("show");
     }
 });
 
 // BACK TO TOP
-backToTopBtn.addEventListener("click", () => {
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
+if (backToTopBtn) {
+    backToTopBtn.addEventListener("click", () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
     });
-});
+}
 
 // SCROLL TO BOTTOM
-ToptobackBtn.addEventListener("click", () => {
-    window.scrollTo({
-        top: document.body.scrollHeight,
-        behavior: "smooth"
+if (ToptobackBtn) {
+    ToptobackBtn.addEventListener("click", () => {
+        window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: "smooth"
+        });
     });
-});
+}
 
 // Style Quiz Functionality
 window.openQuiz = function () {
@@ -580,8 +592,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (brandCard && cardContainer) {
         brandCard.addEventListener('click', () => {
             const isOpen = cardContainer.classList.toggle('open');
-            statusText.innerText = isOpen ? "Click to collapse" : "Click to expand";
-        });
+if (statusText) {
+    statusText.innerText = isOpen ? "Click to collapse" : "Click to expand";
+}        });
     }
 
     // 2. Infinite Scroll-Based Activation Engine (Triggers every time)

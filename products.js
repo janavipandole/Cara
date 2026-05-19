@@ -32,10 +32,19 @@ function renderProducts(containerId, list) {
     });
 
     // Product image (safe property assignment)
-    const img = document.createElement('img');
-    img.src = p.img;
-    img.alt = p.name;
-    card.appendChild(img);
+const img = document.createElement('img');
+
+img.src = p.img;
+img.alt = p.name;
+
+/* Performance Optimization */
+img.loading = "lazy";
+
+/* Reduce layout shift */
+img.width = 250;
+img.height = 300;
+
+card.appendChild(img);
 
     // Description container
     const des = document.createElement('div');
