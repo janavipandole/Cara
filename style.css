@@ -5234,3 +5234,47 @@ button#share-cart-btn:hover {
 .toast-icon {
     font-size: 16px;
 }
+/* ============================================
+   LOADING STATE FOR FORM SUBMIT BUTTONS
+   Issue #352 — Prevents duplicate submissions
+   ============================================ */
+
+@keyframes btn-spinner {
+  to { transform: rotate(360deg); }
+}
+
+.btn-loading {
+  position: relative;
+  pointer-events: none;
+  opacity: 0.75;
+  cursor: not-allowed !important;
+}
+
+.btn-loading .btn-text {
+  visibility: hidden;
+}
+
+.btn-loading::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: btn-spinner 0.6s linear infinite;
+}
+
+/* Contact form specific loading */
+.contact-form button.btn-loading {
+  color: transparent;
+}
+
+/* Newsletter form specific loading */
+.newsletter-form button.btn-loading {
+  color: transparent;
+}
