@@ -1043,7 +1043,7 @@ button.white .ripple-effect {
    ============================================ */
 
 #banner {
-    background-image: url("images/banner/b2.jpg");
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.4)), url("images/banner/b2.png");
     height: 40vh;
     width: 100%;
     background-size: cover;
@@ -1054,21 +1054,28 @@ button.white .ripple-effect {
     color: #FFF;
     text-align: center;
     flex-direction: column;
+    box-shadow: inset 0 0 100px rgba(0,0,0,0.6);
 }
 
 #banner h4 {
-    color: #ffffffde;
+    color: #f0f0f0;
     font-size: 28px;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+    font-weight: 600;
 }
 
 #banner span {
-    color: red;
+    color: #ff3b30;
+    text-shadow: 0 0 20px rgba(255, 59, 48, 0.4), 2px 2px 10px rgba(0, 0, 0, 0.9);
+    font-weight: 800;
 }
 
 #banner h2 {
-    color: #ffffffde;
+    color: #ffffff;
     font-size: 45px;
     padding: 10px 0;
+    text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.8);
+    font-weight: 700;
 }
 
 #banner button:hover {
@@ -1146,7 +1153,7 @@ button.white .ripple-effect {
 }
 
 #banner3 .banner-box2 {
-    background-image: url("images/banner/b4.jpg");
+    background-image: url("images/banner/b5.jpg");
 }
 
 #banner3 .banner-box3 {
@@ -1389,7 +1396,7 @@ footer .copyright {
    ============================================ */
 
 #shop-hero {
-    background-image: url("images/banner/b1.jpg");
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.35)), url("images/banner/b1.png");
     background-size: cover;
     background-position: center;
     height: 50vh;
@@ -1398,11 +1405,23 @@ footer .copyright {
     justify-content: center;
     flex-direction: column;
     padding: 14px;
+    box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.55);
 }
 
-#shop-hero h2,
-#shop-hero p {
+#shop-hero h2 {
     color: #fff;
+    font-size: 50px;
+    font-weight: 800;
+    text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.8);
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+#shop-hero p {
+    color: #f0f0f0;
+    font-size: 20px;
+    font-weight: 500;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
     text-align: center;
 }
 
@@ -1541,20 +1560,69 @@ footer .copyright {
     margin-bottom: 12px;
 }
 
+    #pro-details .cart-action-group {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin: 25px 0;
+        flex-wrap: wrap;
+    }
+
+    #pro-details .quantity-selector {
+        display: inline-flex;
+        align-items: center;
+        border: 2px solid var(--border-color);
+        border-radius: 30px;
+        padding: 4px;
+        background: var(--bg-primary);
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 10px var(--shadow);
+    }
+
+    #pro-details .quantity-selector:hover {
+        border-color: var(--accent);
+        box-shadow: 0 6px 15px rgba(8, 129, 120, 0.15);
+    }
+
+    #pro-details .quantity-selector .qty-btn {
+        background: transparent;
+        border: none;
+        width: 38px;
+        height: 38px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        color: var(--text-primary);
+        font-size: 16px;
+        transition: all 0.3s ease;
+    }
+
+    #pro-details .quantity-selector .qty-btn:hover {
+        background-color: var(--accent);
+        color: #fff;
+        transform: scale(1.1);
+    }
+
+    #pro-details .quantity-selector .qty-btn:active {
+        transform: scale(0.95);
+    }
+
     #pro-details .single-pro-details .quantity-selector input {
         width: 50px;
-        height: 100%;
+        height: 38px;
         text-align: center;
         font-size: 18px;
-        font-weight: 600;
+        font-weight: 700;
         border: none;
         background: transparent;
         color: var(--text-primary);
         padding: 0;
-        margin: 0;
+        margin: 0 6px;
+        outline: none;
         -moz-appearance: textfield;
         appearance: textfield;
-        /* Firefox */
     }
 
     #product1 .pro .des {
@@ -1956,21 +2024,54 @@ footer .copyright {
         margin-bottom: 10px;
     }
 
-    #pro-details .single-pro-details input {
-        width: 50px;
-        height: 47px;
-        padding-left: 10px;
+    #pro-details .quantity-selector .qty-btn {
+        background: transparent;
+        border: none;
+        width: 38px;
+        height: 38px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        color: var(--text-primary);
         font-size: 16px;
-        margin-right: 10px;
+        transition: all 0.3s ease;
     }
 
-    #pro-details .single-pro-details input:focus {
-        outline: none;
-    }
-
-    #pro-details .single-pro-details button {
+    #pro-details .quantity-selector .qty-btn:hover {
+        background-color: var(--accent);
         color: #fff;
-        background: #088178;
+        transform: scale(1.1);
+    }
+
+    #pro-details .quantity-selector .qty-btn:active {
+        transform: scale(0.95);
+    }
+
+    #pro-details .single-pro-details .quantity-selector input {
+        width: 50px;
+        height: 38px;
+        text-align: center;
+        font-size: 18px;
+        font-weight: 700;
+        border: none;
+        background: transparent;
+        color: var(--text-primary);
+        padding: 0;
+        margin: 0 6px;
+        outline: none;
+        -moz-appearance: textfield;
+    }
+
+    #pro-details .single-pro-details .quantity-selector input::-webkit-outer-spin-button,
+    #pro-details .single-pro-details .quantity-selector input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    #pro-details .single-pro-details .quantity-selector input:focus {
+        outline: none;
     }
 
     /* ============================================
@@ -1987,35 +2088,6 @@ footer .copyright {
         justify-content: center;
         font-size: 14px;
         transition: all 0.3s ease;
-    }
-
-    #pro-details .single-pro-details .qty-btn:hover {
-        background-color: var(--accent);
-        color: #fff;
-    }
-
-    #pro-details .single-pro-details .quantity-selector input {
-        width: 50px;
-        height: 100%;
-        text-align: center;
-        font-size: 18px;
-        font-weight: 600;
-        border: none;
-        background: transparent;
-        color: var(--text-primary);
-        padding: 0;
-        margin: 0;
-        -moz-appearance: textfield;
-    }
-
-    #pro-details .single-pro-details .quantity-selector input::-webkit-outer-spin-button,
-    #pro-details .single-pro-details .quantity-selector input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
-
-    #pro-details .single-pro-details .quantity-selector input:focus {
-        outline: none;
     }
 
     #pro-details .single-pro-details .cart-action-group button.normal {
@@ -5530,44 +5602,50 @@ footer .copyright {
             display: flex;
             align-items: center;
             border: 1.5px solid var(--border-color);
-            border-radius: 20px;
-            overflow: hidden;
+            border-radius: 24px;
             width: fit-content;
             background: var(--bg-primary);
-            padding: 2px;
-            transition: border-color 0.25s ease;
+            padding: 3px;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
         }
 
         .qty-selector:hover {
             border-color: var(--accent);
+            box-shadow: 0 4px 12px rgba(8, 129, 120, 0.12);
         }
 
         .qty-btn {
             background: transparent;
             border: none;
-            width: 30px;
-            height: 30px;
+            width: 32px;
+            height: 32px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 15px;
             color: var(--text-primary);
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            transition: background-color 0.2s ease, color 0.2s ease;
+            transition: all 0.25s ease;
         }
 
         .qty-btn:hover {
-            background-color: var(--border-color);
-            color: var(--accent);
+            background-color: var(--accent);
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        .qty-btn:active {
+            transform: scale(0.93);
         }
 
         .qty-input {
-            width: 32px;
+            width: 36px;
             text-align: center;
             border: none;
             background: transparent;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 700;
             color: var(--text-primary);
             pointer-events: none;

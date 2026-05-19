@@ -401,16 +401,6 @@ footer .copyright {
     width: 100%;
   }
 }
-
-#navbar-container {
-  display: none;
-}
-
-#navbar-container.active {
-  display: block;
-}
-
-
   </style>
 
   <body>
@@ -676,20 +666,10 @@ footer .copyright {
 
 
  <!-- Javascript -->
-    <script src="app.js?v=1779120917212"></script>
+    <script src="navbar.js"></script>
+    <script>loadNavbar('contact');</script>
+    <script src="app.js"></script>
 <script>
-
-/* =========================
-   MOBILE NAVBAR TOGGLE
-========================= */
-const bar = document.getElementById("bar");
-const navbar = document.getElementById("navbar-container");
-
-if (bar) {
-  bar.addEventListener("click", () => {
-    navbar.classList.toggle("active");
-  });
-}
 
 
 /* =========================

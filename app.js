@@ -1,18 +1,23 @@
-// Mobile menu functionality
-const bar = document.getElementById("bar");
-const nav = document.getElementById("navbar");
-const close = document.getElementById("close");
+// Mobile menu functionality using event delegation
+document.addEventListener("click", (e) => {
+    const bar = e.target.closest("#bar");
+    const close = e.target.closest("#close");
 
-if (bar) {
-    bar.addEventListener("click", () => {
-        nav.classList.add("active");
-    });
-}
-if (close) {
-    close.addEventListener("click", () => {
-        nav.classList.remove("active");
-    });
-}
+    if (bar) {
+        const nav = document.getElementById("navbar");
+        if (nav) {
+            nav.classList.add("active");
+        }
+    }
+
+    if (close) {
+        const nav = document.getElementById("navbar");
+        if (nav) {
+            nav.classList.remove("active");
+        }
+        e.preventDefault();
+    }
+});
 
 // Dynamic Product Details Logic
 // Global capturing click listener for all product cards (static and dynamic)
@@ -129,6 +134,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /* --- START: CART FUNCTIONALITY --- */
 
+// Robust price parser: strips all currency symbols, commas, HTML entities, and whitespace
+function parsePriceString(priceStr) {
+    if (typeof priceStr === 'number') return isFinite(priceStr) ? priceStr : 0;
+    if (!priceStr) return 0;
+    // Remove ₹, $, commas, whitespace, and HTML entities like &#8377;
+    var cleaned = String(priceStr).replace(/[₹$,\s]/g, '').replace(/&#?\w+;/g, '');
+    var num = parseFloat(cleaned);
+    return isFinite(num) ? num : 0;
+}
+
+// Consistent currency formatter
+function formatCurrency(amount) {
+    var num = typeof amount === 'number' ? amount : parsePriceString(amount);
+    if (!isFinite(num)) num = 0;
+    return '₹' + Math.round(num).toLocaleString('en-IN');
+}
+
 // Update cart count badge
 function updateCartCount() {
     const cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
@@ -170,11 +192,13 @@ function handleEmptyCartView() {
 
 function addToCart(productName, productPrice, productImage, quantity, size) {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+    let parsedQty = parseInt(quantity);
+    if (isNaN(parsedQty) || parsedQty < 1) parsedQty = 1;
     let item = {
         name: productName,
-        price: parseFloat(productPrice.replace(/[₹$,]/g, '')),
+        price: parsePriceString(productPrice),
         image: productImage,
-        quantity: parseInt(quantity),
+        quantity: parsedQty,
         size: size.replace('Size ', '')
     };
 
@@ -292,8 +316,10 @@ window.loadCart = function () {
     let subtotal = 0;
 
     cart.forEach((item, index) => {
-        const itemPrice = item.price;
-        const itemSubtotal = itemPrice * item.quantity;
+        // Ensure price is a valid number (defensive: localStorage may have string or NaN)
+        const itemPrice = parsePriceString(item.price);
+        const itemQty = parseInt(item.quantity) || 1;
+        const itemSubtotal = itemPrice * itemQty;
         subtotal += itemSubtotal;
 
         // Modern Card Grid Row (Flexbox responsive card)
@@ -311,17 +337,17 @@ window.loadCart = function () {
                 </div>
             </div>
             <div class="cart-item-right">
-                <div class="cart-item-price">₹${itemPrice.toLocaleString('en-IN')}</div>
+                <div class="cart-item-price">${formatCurrency(itemPrice)}</div>
                 <div class="qty-selector">
                     <button class="qty-btn minus" aria-label="Decrease quantity" onclick="event.stopPropagation(); changeQuantity(${index}, -1)">
                         <i class="ri-subtract-line"></i>
                     </button>
-                    <input type="number" class="qty-input" value="${item.quantity}" readonly />
+                    <input type="number" class="qty-input" value="${itemQty}" readonly />
                     <button class="qty-btn plus" aria-label="Increase quantity" onclick="event.stopPropagation(); changeQuantity(${index}, 1)">
                         <i class="ri-add-line"></i>
                     </button>
                 </div>
-                <div class="cart-item-subtotal">₹${itemSubtotal.toLocaleString('en-IN')}</div>
+                <div class="cart-item-subtotal">${formatCurrency(itemSubtotal)}</div>
                 <button class="cart-item-remove" aria-label="Remove item" onclick="event.stopPropagation(); removeItem(${index})">
                     <i class="ri-delete-bin-line"></i>
                 </button>
@@ -339,7 +365,7 @@ window.loadCart = function () {
     const totalEl = document.getElementById('summary-total');
 
     if (subtotalEl) {
-        subtotalEl.innerText = `₹${subtotal.toLocaleString('en-IN')}`;
+        subtotalEl.innerText = formatCurrency(subtotal);
     }
 
     // Shipping calculations (free above 3000)
@@ -348,7 +374,7 @@ window.loadCart = function () {
         shipping = subtotal >= 3000 ? 0 : 150;
     }
     if (shippingEl) {
-        shippingEl.innerText = shipping === 0 ? 'FREE' : `₹${shipping}`;
+        shippingEl.innerText = shipping === 0 ? 'FREE' : formatCurrency(shipping);
         if (shipping === 0 && subtotal > 0) {
             shippingEl.classList.add('shipping-free');
         } else {
@@ -359,7 +385,7 @@ window.loadCart = function () {
     // 18% tax calculation
     const tax = Math.round(subtotal * 0.18);
     if (taxEl) {
-        taxEl.innerText = `₹${tax.toLocaleString('en-IN')}`;
+        taxEl.innerText = formatCurrency(tax);
     }
 
     // Coupon / Discount calculation
@@ -373,7 +399,7 @@ window.loadCart = function () {
     if (discountRow && discountEl) {
         if (discount > 0) {
             discountRow.style.display = 'flex';
-            discountEl.innerText = `-₹${discount.toLocaleString('en-IN')}`;
+            discountEl.innerText = '-' + formatCurrency(discount);
         } else {
             discountRow.style.display = 'none';
         }
@@ -382,7 +408,7 @@ window.loadCart = function () {
     // Grand total calculation
     const grandTotal = Math.max(0, subtotal + tax + shipping - discount);
     if (totalEl) {
-        totalEl.innerText = `₹${grandTotal.toLocaleString('en-IN')}`;
+        totalEl.innerText = formatCurrency(grandTotal);
     }
 
     // Update promo input field state
@@ -469,19 +495,29 @@ document.addEventListener('DOMContentLoaded', () => {
 /* --- START: THEME TOGGLE FUNCTIONALITY --- */
 
 (function () {
-    const themeToggle = document.getElementById('themeToggle');
-    const themeToggleMobile = document.getElementById('themeToggleMobile');
-    const themeIcon = document.getElementById('themeIcon');
-    const themeIconMobile = document.getElementById('themeIconMobile');
     const html = document.documentElement;
 
+    // Apply saved theme on load
     const currentTheme = localStorage.getItem('theme') || 'light';
     html.setAttribute('data-theme', currentTheme);
-    updateThemeIcon(currentTheme);
+    if (currentTheme === 'dark') {
+        document.body.classList.add('dark');
+    } else {
+        document.body.classList.remove('dark');
+    }
+
+    // Run dynamic icon and logo updates
+    setTimeout(() => {
+        updateThemeIcon(currentTheme);
+    }, 0);
 
     function updateThemeIcon(theme) {
-        console.log('Updating icons to:', theme);
         const iconClass = theme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
+        
+        // Find elements dynamically since they could be injected after this runs
+        const themeIcon = document.getElementById('themeIcon');
+        const themeIconMobile = document.getElementById('themeIconMobile');
+        
         if (themeIcon) themeIcon.className = iconClass;
         if (themeIconMobile) themeIconMobile.className = iconClass;
 
@@ -495,17 +531,39 @@ document.addEventListener('DOMContentLoaded', () => {
     function toggleTheme() {
         const currentTheme = html.getAttribute('data-theme');
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
         html.setAttribute('data-theme', newTheme);
+        if (newTheme === 'dark') {
+            document.body.classList.add('dark');
+        } else {
+            document.body.classList.remove('dark');
+        }
+        
         localStorage.setItem('theme', newTheme);
         updateThemeIcon(newTheme);
     }
 
-    if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
-    if (themeToggleMobile) themeToggleMobile.addEventListener('click', toggleTheme);
+    // Event Delegation: Automatically listens to clicks on static AND dynamic buttons!
+    document.addEventListener('click', (e) => {
+        if (e.target && (e.target.closest('#themeToggle') || e.target.closest('#themeToggleMobile'))) {
+            e.preventDefault();
+            toggleTheme();
+        }
+    });
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', updateThemeIcon);
+    // Watch for dynamic navbar insertions (MutationObserver) to instantly apply correct icon and logo styles
+    if (typeof MutationObserver !== 'undefined') {
+        const observer = new MutationObserver(() => {
+            const activeTheme = html.getAttribute('data-theme') || 'light';
+            updateThemeIcon(activeTheme);
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
     }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const activeTheme = html.getAttribute('data-theme') || 'light';
+        updateThemeIcon(activeTheme);
+    });
 })();
 
 /* --- END: THEME TOGGLE FUNCTIONALITY --- */
