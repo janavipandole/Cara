@@ -863,6 +863,38 @@
     </footer>
 
     <div id="toast-container"></div>
+    <!-- Fix for GSSoC Issue #522 (Prices on Shop page showing $ instead of ₹) -->
+    <script>
+      (function() {
+        const pricesInINR = [
+          "2499", "1299", "3490", "2799", "1999", "2299", "3990", "2699",
+          "4499", "6999", "5499", "3990", "2799", "2499", "3499", "1799",
+          "2499", "1299", "3490", "2799", "1999", "2299", "3990", "2699",
+          "4499", "6999", "5499", "3990", "2799", "2499", "3499", "1799"
+        ];
+        const hardcodedContainer = document.querySelector("#product1 .pro-container:not(#shop-container)");
+        if (hardcodedContainer) {
+          const cards = hardcodedContainer.querySelectorAll(".pro");
+          cards.forEach((card, index) => {
+            if (index < pricesInINR.length) {
+              const priceElement = card.querySelector("h4");
+              if (priceElement) {
+                priceElement.textContent = "₹" + Number(pricesInINR[index]).toLocaleString('en-IN');
+              }
+              const cartBtn = card.querySelector(".cart");
+              if (cartBtn) {
+                const onclickAttr = cartBtn.getAttribute("onclick");
+                if (onclickAttr) {
+                  const formattedPrice = "₹" + Number(pricesInINR[index]).toLocaleString('en-IN');
+                  const newOnclick = onclickAttr.replace("'$78'", `'${formattedPrice}'`);
+                  cartBtn.setAttribute("onclick", newOnclick);
+                }
+              }
+            }
+          });
+        }
+      })();
+    </script>
     <script src="products.js?v=1779120917219"></script>
     <script src="app.js?v=1779120917219"></script>
     <script src="navbar.js"></script>
