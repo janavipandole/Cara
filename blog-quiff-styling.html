@@ -162,6 +162,34 @@
             .article-container h1 { font-size: 26px; }
             .article-hero img { height: 260px; }
         }
+        #scrollTopBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+
+    width: 45px;
+    height: 45px;
+
+    border: none;
+    border-radius: 50%;
+
+    background-color: #6b3e26;
+    color: white;
+
+    font-size: 20px;
+    cursor: pointer;
+
+    display: none;
+    z-index: 9999;
+
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+#scrollTopBtn:hover {
+    background-color: #8b5a3c;
+    transform: scale(1.1);
+}
     </style>
 </head>
 
@@ -306,7 +334,7 @@
         <div class="col">
             <h4>About</h4>
             <a href="about.html">About us</a>
-            <a href="delivery.html">Delivery Information</a>
+            <a href="#">Delivery Information</a>
             <a href="privacy.html">Privacy Policy</a>
             <a href="./terms.html">Terms and Conditions</a>
             <a href="contact.html">Contact Us</a>
@@ -339,8 +367,8 @@
             <p>&copy; Cara 2025. All rights reserved. | <a href="license.html" style="color: #088178;">MIT License</a></p>
         </div>
     </footer>
-
-    <script src="app.js?v=1779120917205"></script>
+    
+    <script src="app.js"></script>
 </body>
 
 </html>
