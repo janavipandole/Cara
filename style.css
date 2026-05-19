@@ -1507,13 +1507,47 @@ footer .newsletter-form button {
 }
 
 footer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    padding: 40px 80px;
     background-color: var(--bg-secondary);
     transition: background-color 0.3s ease;
 }
 
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    width: 100%;
+}
+.footer-container .copyright {
+    grid-column: 1 / -1;
+    border-top: 1px solid var(--border-color);
+    padding-top: 20px;
+    margin-top: 10px;
+    text-align: center;
+}
+footer .col .logo {
+    margin-top: -66px;
+}
+footer, #newsletter {
+    border-top: 2px solid var(--border-color);
+}
+#newsletter {
+    margin-bottom: 60px;
+}
+footer {
+    padding-top: 50px; /* push content down so border clears the logo */
+    border-top: 1px solid var(--border-color);
+}
+#newsletter {
+    border-bottom: 1px solid var(--border-color);
+}
+
+footer {
+    border-top: none; 
+}
+footer .col .logo {
+    margin-top: -70px; 
+}
 footer .col {
     display: flex;
     flex-direction: column;
@@ -1604,6 +1638,10 @@ footer a:hover {
 footer .copyright {
     text-align: center;
     width: 100%;
+    grid-column: 1 / -1; /* spans all 4 columns */
+    border-top: 1px solid var(--border-color);
+    padding-top: 20px;
+    margin-top: 10px;
 }
 
 /* ============================================
@@ -1772,11 +1810,207 @@ footer .copyright {
         border: none;
         background: transparent;
         color: var(--text-primary);
-        padding: 0;
-        margin: 0;
-        -moz-appearance: textfield;
-        appearance: textfield;
-        /* Firefox */
+        font-size: 24px;
+        padding-left: 20px;
+    }
+
+    #lg-bag {
+        display: none;
+    }
+
+    #header {
+        padding: 12px 24px;
+    }
+
+    /* Features 3 columns */
+    #feature {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        justify-items: center;
+    }
+
+    #feature .fe-box {
+        width: 100%;
+        max-width: 180px;
+        margin: 12px 0;
+        margin-top: 0;
+        padding: 20px 12px;
+    }
+
+    /* Products 2 columns */
+    #product1 .pro-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        justify-items: center;
+    }
+
+    #product1 .pro {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .section-p1 {
+        padding: 24px;
+    }
+
+    #banner h4 {
+        font-size: 22px;
+    }
+
+    #banner h2 {
+        font-size: 30px;
+        padding: 8px 0;
+    }
+
+    #banner {
+        height: 25vh;
+    }
+
+    #sm-banner .banner-box {
+        min-width: 100%;
+        height: 45vh;
+        margin: 6px 0;
+    }
+
+    #banner3 {
+        justify-content: space-around;
+        flex-wrap: wrap;
+        padding: 0 20px;
+        gap: 16px;
+    }
+
+    #banner3 .banner-box {
+        width: 45%;
+        margin: 10px;
+    }
+
+    #banner3 .banner-box2 {
+        width: 100%;
+    }
+
+    #banner3 .banner-box3 {
+        width: 45%;
+    }
+
+    #newsletter {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+        padding: 40px 24px;
+        height: auto;
+    }
+
+    #newsletter h4 {
+        font-size: 26px;
+    }
+
+    #newsletter p {
+        font-size: 16px;
+    }
+
+    #newsletter .form {
+        width: 100%;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #newsletter .form input {
+        border-radius: 4px;
+        width: 100%;
+    }
+
+    #newsletter .form button {
+        border-radius: 4px;
+        width: 100%;
+        padding: 14px;
+    }
+
+    footer {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
+        gap: 40px;
+        padding: 60px 80px 40px 80px;
+    }
+
+    footer .col {
+        margin-bottom: 0;
+    }
+
+    footer .copyright {
+        grid-column: 1 / -1;
+    }
+
+    footer h4 {
+        font-size: 15px;
+    }
+
+    footer p {
+        font-size: 15px;
+    }
+
+    footer a {
+        font-size: 15px;
+    }
+
+    #pro-details {
+        margin-top: 80px;
+        pointer-events: all;
+        flex-direction: column;
+        display: flex;
+        gap: 30px;
+    }
+
+    #pro-details .single-pro-image {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    #pro-details .single-pro-details {
+        width: 100%;
+        padding-top: 30px;
+    }
+
+    #blog {
+        padding: 60px 24px 0;
+    }
+
+    #blog .blog-box {
+        flex-direction: column;
+    }
+
+    #blog .blog-img {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    #blog img {
+        width: 100%;
+        height: 400px;
+        object-position: center;
+    }
+
+    #blog .blog-details {
+        margin-top: 30px;
+        width: 100%;
+    }
+
+    #blog .blog-box h1 {
+        top: -7%;
+    }
+
+    #about-us {
+        flex-direction: column;
+    }
+
+    #about-us img {
+        width: 100%;
+    }
+
+    #about-us div {
+        width: 100%;
+        padding: 20px;
     }
 
     #product1 .pro .des {
@@ -1893,22 +2127,43 @@ footer .copyright {
         color: var(--text-secondary);
     }
 
-    .contact-stats {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 20px;
-        margin: 40px 0;
+    #newsletter {
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: nowrap;
+        padding: 40px 36px;
+        gap: 24px;
+        height: auto;
     }
 
-    .stat-box {
-        background: var(--card-bg);
-        padding: 25px 20px;
-        border-radius: 12px;
-        border: 1px solid var(--border-color);
-        text-align: center;
-        box-shadow: 0 4px 15px var(--shadow);
-        transition: transform 0.3s ease;
+    #newsletter h4 {
+        font-size: 26px;
     }
+
+    #newsletter p {
+        font-size: 16px;
+    }
+
+    #newsletter .form {
+        width: 46%;
+        flex-shrink: 0;
+        flex-direction: row;
+    }
+
+    #newsletter .form input {
+        border-radius: 4px 0 0 4px;
+    }
+
+    #newsletter .form button {
+        border-radius: 0 4px 4px 0;
+        white-space: nowrap;
+        padding: 0 18px;
+        width: auto;
+    }
+
+    footer {
+            grid-template-columns: repeat(2, 1fr);
+        }
 
     .stat-box:hover {
         transform: translateY(-5px);
