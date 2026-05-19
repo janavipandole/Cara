@@ -5340,7 +5340,7 @@ footer .copyright {
                 /* Complements existing soft light backdrops */
                 position: relative;
                 overflow: hidden;
-                padding: 40px 0;
+                padding: 40px 20px;
             }
 
             .animation-container {
@@ -5413,7 +5413,7 @@ footer .copyright {
             .sub-card {
                 position: absolute;
                 width: 260px;
-                padding: 16px;
+                padding: 24px;
                 background: #ffffff;
                 border: 1px solid #cce7e6;
                 /* Clean, light framing border color */
@@ -5443,6 +5443,10 @@ footer .copyright {
 
             .sub-card .icon {
                 font-size: 1.8rem;
+                margin-right: 8px;
+                display: inline-flex;
+                align-items: center;
+                vertical-align: middle;
             }
 
             .sub-card h3 {
