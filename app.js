@@ -713,40 +713,55 @@ document.addEventListener('DOMContentLoaded', () => {
     showPage(1);
 })();
 
-// Back to Top Button Logic
+// New Animated SVG Scroll Progress Back to Top Button
 const backToTopBtn = document.getElementById("backToTop");
 const ToptobackBtn = document.getElementById("Toptoback");
 
-if (backToTopBtn && ToptobackBtn) {
-    window.addEventListener("scroll", () => {
-
-    if (!backToTopBtn || !ToptobackBtn) return;
-
-    if (window.scrollY <= 300) {
-        ToptobackBtn.classList.add("show");
-        backToTopBtn.classList.remove("show");
-    } else {
-        backToTopBtn.classList.add("show");
-        ToptobackBtn.classList.remove("show");
-    }
-});
-
-// BACK TO TOP
 if (backToTopBtn) {
-        // SHOW DOWN BUTTON WHEN USER IS NEAR TOP
-        if (window.scrollY <= 300) {
-            ToptobackBtn.classList.add("show");
-            backToTopBtn.classList.remove("show");
+    // Inject SVG and icon dynamically
+    backToTopBtn.innerHTML = `
+        <svg class="progress-ring" viewBox="0 0 100 100">
+            <circle class="progress-ring__circle-bg" cx="50" cy="50" r="45"></circle>
+            <circle class="progress-ring__circle" cx="50" cy="50" r="45"></circle>
+        </svg>
+        <i class="ri-arrow-up-line"></i>
+    `;
+    
+    const circle = backToTopBtn.querySelector('.progress-ring__circle');
+    const radius = circle.r.baseVal.value;
+    const circumference = radius * 2 * Math.PI;
+    
+    circle.style.strokeDasharray = `${circumference} ${circumference}`;
+    circle.style.strokeDashoffset = circumference;
+    
+    window.addEventListener("scroll", () => {
+        const scrollTop = window.scrollY;
+        // Calculate document height accurately cross-browser
+        const docHeight = Math.max(
+            document.body.scrollHeight, document.documentElement.scrollHeight,
+            document.body.offsetHeight, document.documentElement.offsetHeight,
+            document.body.clientHeight, document.documentElement.clientHeight
+        ) - document.documentElement.clientHeight;
+        
+        let scrollPercent = 0;
+        if (docHeight > 0) {
+             scrollPercent = scrollTop / docHeight;
         }
-
-        // SHOW TOP BUTTON AFTER 300PX
-        else {
+        
+        // Update SVG progress offset
+        const offset = circumference - (scrollPercent * circumference);
+        circle.style.strokeDashoffset = offset;
+        
+        // Show/hide button logic
+        if (scrollTop > 300) {
             backToTopBtn.classList.add("show");
-            ToptobackBtn.classList.remove("show");
+            if (ToptobackBtn) ToptobackBtn.classList.remove("show");
+        } else {
+            backToTopBtn.classList.remove("show");
+            if (ToptobackBtn) ToptobackBtn.classList.add("show");
         }
-    };
+    });
 
-    // BACK TO TOP
     backToTopBtn.addEventListener("click", () => {
         window.scrollTo({
             top: 0,
