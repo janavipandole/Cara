@@ -71,228 +71,289 @@
       referrerpolicy="no-referrer"
     />
     <style>
+      #scrollTopBtn {
+        position: fixed;
+        bottom: 30px;
+        right: 30px; /* keeps button on right side */
 
-    
-#scrollTopBtn {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;   /* keeps button on right side */
+        width: 55px;
+        height: 55px;
 
-  width: 55px;
-  height: 55px;
+        border: none;
+        border-radius: 50%;
 
-  border: none;
-  border-radius: 50%;
+        background-color: #088178;
+        color: white;
 
-  background-color: #088178;
-  color: white;
+        font-size: 24px;
+        font-weight: bold;
 
-  font-size: 24px;
-  font-weight: bold;
+        cursor: pointer;
+        z-index: 999;
 
-  cursor: pointer;
-  z-index: 999;
+        display: none;
 
-  display: none;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+      }
 
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  transition: all 0.3s ease;
-}
-
-#scrollTopBtn:hover {
-  background-color: #065f5b;
-  transform: scale(1.1);
-}
-</style>
+      #scrollTopBtn:hover {
+        background-color: #065f5b;
+        transform: scale(1.1);
+      }
+    </style>
   </head>
 
   <body>
-          <!-- HEADER -->
-          <section id="header">
-  <!-- Logo -->
-  <a href="index.html">
-    <img src="images/logo.png" alt="Cara Logo" />
-  </a>
-
-  <div>
-    <ul id="navbar">
-
-      <!-- Main Navigation Links -->
-      <li><a class="active" href="index.html">Home</a></li>
-      <li><a href="shop.html">Shop</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="try-on.html">Try-On</a></li>
-      <li><a href="community.html">Community</a></li>
-      <li><a href="promotions.html">Promotions</a></li>
-
-      <!-- Contact Icon -->
-      <li class="nav-icon">
-        <a href="contact.html" aria-label="Contact">
-          <i class="ri-customer-service-2-line"></i>
-        </a>
-      </li>
-
-      <!-- Login Icon -->
-      <li class="nav-icon">
-        <a href="login.html" aria-label="Login">
-          <i class="ri-user-3-line"></i>
-        </a>
-      </li>
-
-      <!-- Cart Icon -->
-      <li class="nav-icon">
-        <a href="cart.html" id="lg-bag" aria-label="Cart">
-          <i class="ri-shopping-bag-4-line"></i>
-        </a>
-      </li>
-
-      <!-- Theme Toggle -->
-      <li class="nav-icon">
-        <button
-          class="theme-toggle"
-          id="themeToggle"
-          aria-label="Toggle dark mode"
-        >
-          <i class="ri-moon-line" id="themeIcon"></i>
-        </button>
-      </li>
-
-      <!-- Close Button -->
-      <a
-        href="#"
-        id="close"
-        aria-label="Close menu"
-        aria-hidden="false"
-      >
-        <i class="fa-solid fa-xmark"></i>
+    <!-- HEADER -->
+    <section id="header">
+      <a href="index.html">
+        <img src="images/logo.png" alt="" id="siteLogo" />
       </a>
 
-    </ul>
-  </div>
+      <!-- Navbar loads here -->
+      <div id="navbar-container"></div>
 
-  <!-- Mobile Navbar -->
-  <div class="mobile">
-
-    <!-- Login Icon -->
-    <a href="login.html" aria-label="Login">
-      <i class="ri-user-3-line"></i>
-    </a>
-
-    <!-- Cart Icon -->
-    <a href="cart.html" aria-label="Cart">
-      <i class="ri-shopping-bag-4-line"></i>
-    </a>
-
-    <!-- Hamburger Menu -->
-    <i
-      class="fas fa-outdent"
-      id="bar"
-      role="button"
-      aria-label="Open menu"
-      aria-expanded="false"
-      tabindex="0"
-    ></i>
-
-  </div>
-</section>
-    <section id="about-head">
-      <h2>#KnowUs</h2>
-      <p>Read all case studies about Us!</p>
+      <div class="mobile">
+        <button
+          class="theme-toggle"
+          id="themeToggleMobile"
+          aria-label="Toggle dark mode"
+        >
+          <i class="ri-moon-line" id="themeIconMobile"></i>
+        </button>
+        <a href="cart.html" id="mobile-cart-icon">
+          <i class="ri-shopping-bag-4-line"></i>
+          <span class="cart-count" id="mobileCartCount">0</span>
+        </a>
+        <i class="fas fa-outdent" id="bar"></i>
+      </div>
     </section>
 
+    <!-- ============================================
+     PREMIUM ABOUT SECTION (Improved HTML)
+     Replace ONLY the About page content section.
+     Keep your existing header and footer unchanged.
+============================================ -->
+
+    <!-- HERO SECTION -->
+    <section id="about-head">
+      <span class="hero-badge">
+        <i class="ri-sparkling-2-line"></i>
+        About Cara
+      </span>
+
+      <h1>
+        Redefining
+        <span>Online Shopping</span>
+      </h1>
+
+      <p>
+        We create elegant, high-performance shopping experiences that blend
+        creativity, technology, and customer-first innovation.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#about-us" class="hero-btn primary-btn">
+          Explore Our Story
+          <i class="ri-arrow-right-line"></i>
+        </a>
+
+        <a href="contact.html" class="hero-btn secondary-btn"> Contact Us </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-item">
+          <h3>50K+</h3>
+          <p>Happy Customers</p>
+        </div>
+
+        <div class="stat-item">
+          <h3>10K+</h3>
+          <p>Products Sold</p>
+        </div>
+
+        <div class="stat-item">
+          <h3>24/7</h3>
+          <p>Customer Support</p>
+        </div>
+      </div>
+
+      <div class="scroll-indicator">
+        <span></span>
+      </div>
+    </section>
+
+    <!-- ABOUT CONTENT -->
     <section id="about-us" class="section-p1">
-      <img src="images/about/a6.jpg" alt="" />
-      <div>
-        <h2>Who We Are</h2>
-        <p>
-          Cara is a modern and user-friendly web platform designed to deliver a
-          smooth, responsive, and visually engaging digital experience for users
-          across all devices. Our focus is on combining clean design, fast
-          performance, and interactive functionality to create a seamless
-          browsing experience that feels both modern and reliable. We believe
-          that great web applications should not only look attractive but also
-          provide simplicity, accessibility, and ease of use for everyone. Every
-          section of this platform is carefully crafted with attention to
-          detail, ensuring better usability, elegant design structure, and
-          improved user interaction. Our goal is to continuously innovate and
-          build meaningful digital experiences that connect creativity with
-          technology in the most effective way possible. At Cara, we are
-          committed to delivering quality, performance, and a modern web
-          experience that users can enjoy with confidence.
+      <!-- LEFT IMAGE SIDE -->
+      <div class="about-image-wrapper">
+        <img
+          src="images/about/a6.jpg"
+          alt="Cara team working together"
+          class="about-main-image"
+        />
+
+        <!-- Experience Badge -->
+        <div class="experience-badge">
+          <div class="badge-number">5+</div>
+          <div class="badge-text">
+            Years of
+            <br />
+            Innovation
+          </div>
+        </div>
+
+        <!-- Customer Review Card -->
+        <div class="floating-review-card">
+          <div class="review-stars">
+            <i class="ri-star-fill"></i>
+            <i class="ri-star-fill"></i>
+            <i class="ri-star-fill"></i>
+            <i class="ri-star-fill"></i>
+            <i class="ri-star-fill"></i>
+          </div>
+          <p>Trusted by thousands of shoppers worldwide.</p>
+        </div>
+      </div>
+
+      <!-- RIGHT CONTENT SIDE -->
+      <div class="about-content-card">
+        <span class="section-label">
+          <i class="ri-building-4-line"></i>
+          Who We Are
+        </span>
+
+        <h2>
+          Where Design Meets
+          <span>Digital Commerce</span>
+        </h2>
+
+        <p class="lead-text">
+          Cara is a premium e-commerce platform built to deliver seamless,
+          responsive, and visually engaging shopping experiences across all
+          devices.
         </p>
 
-        <abbr title=""
-          >Create stunning images with as much or as little control as you like
-          thanks to a choice of Basic and Creative modes.</abbr
-        >
-        <br /><br />
-        <marquee loop="-1" scollamount="5" width="100%">
-          Create stunning images with as much or as little control as you like
-          thanks to a choice of Basic and Creative modes.
-        </marquee>
-      </div>
-    </section>
+        <p>
+          Our mission is to simplify online shopping through intuitive design,
+          lightning-fast performance, and meaningful interactions that customers
+          genuinely enjoy.
+        </p>
 
-    <section id="about-app">
-      <h1>Download Our <a href="#">App</a></h1>
-      <div class="video">
-        <video autoplay muted loop src="images/about/1.mp4"></video>
-      </div>
-    </section>
+        <p>
+          Every detail is crafted with accessibility, trust, and usability in
+          mind, ensuring a modern and reliable experience for every visitor.
+        </p>
 
-    <section id="interactive-feature-wrapper">
-      <div class="animation-container" id="cardContainer">
-        <div class="sub-card card-l1">
-          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-               <div class="icon">🛒</div>
-               <h3>Free Shipping</h3>
+        <!-- Quote -->
+        <blockquote class="about-quote">
+          <i class="ri-double-quotes-l"></i>
+          Great design is not only about appearance — it is about creating
+          experiences that feel effortless.
+        </blockquote>
+
+        <!-- Highlights -->
+        <div class="about-highlights">
+          <div class="highlight-item">
+            <div class="highlight-icon">
+              <i class="ri-truck-line"></i>
+            </div>
+            <div>
+              <h4>Fast Delivery</h4>
+              <p>Reliable shipping with real-time tracking.</p>
+            </div>
           </div>
-          <p>On all standard regional custom retail updates.</p>
+
+          <div class="highlight-item">
+            <div class="highlight-icon">
+              <i class="ri-shield-check-line"></i>
+            </div>
+            <div>
+              <h4>Secure Checkout</h4>
+              <p>Protected payments with trusted gateways.</p>
+            </div>
+          </div>
+
+          <div class="highlight-item">
+            <div class="highlight-icon">
+              <i class="ri-customer-service-2-line"></i>
+            </div>
+            <div>
+              <h4>24/7 Support</h4>
+              <p>Dedicated help whenever you need it.</p>
+            </div>
+          </div>
+
+          <div class="highlight-item">
+            <div class="highlight-icon">
+              <i class="ri-price-tag-3-line"></i>
+            </div>
+            <div>
+              <h4>Exclusive Offers</h4>
+              <p>Special discounts and member-only deals.</p>
+            </div>
+          </div>
         </div>
 
-        <div class="sub-card card-l2">
-        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-             <div class="icon">👤</div>
-             <h3>Online Order</h3>
-        </div>
-        <p>Quick dynamic electronic checkout confirmation system.</p>
-        </div>
-
-        <div class="sub-card card-l3">
-        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-            <div class="icon">⚙️</div>
-            <h3>Save Money</h3>
-        </div>
-        <p>Incentive cashback loops on every wholesale purchase.</p>
+        <!-- CTA -->
+        <div class="about-cta">
+          <a href="shop.html" class="primary-btn">
+            Start Shopping
+            <i class="ri-arrow-right-line"></i>
+          </a>
         </div>
 
-        <div class="sub-card card-r1">
-        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-            <div class="icon">⭐</div>
-            <h3>Promotions</h3>
+        <!-- Ticker -->
+        <div class="premium-ticker">
+          <div class="ticker-track">
+            Free Shipping • Secure Checkout • Exclusive Offers • Fast Delivery •
+            24/7 Support • Free Shipping • Secure Checkout • Exclusive Offers •
+            Fast Delivery • 24/7 Support •
+          </div>
         </div>
-        <p>Unlock seasonal drops & holiday campaign vouchers.</p>
+      </div>
+    </section>
+
+    <!-- APP SHOWCASE -->
+    <section id="about-app" class="section-p1">
+      <span class="section-label">
+        <i class="ri-smartphone-line"></i>
+        Mobile Experience
+      </span>
+
+      <h2>
+        Download Our
+        <a href="#">App</a>
+      </h2>
+
+      <p>
+        Shop anytime, anywhere with a fast, secure, and beautifully designed
+        mobile application built for convenience.
+      </p>
+
+      <div class="video">
+        <video autoplay muted loop playsinline>
+          <source src="images/about/1.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      <!-- App Features -->
+      <div class="app-benefits">
+        <div class="benefit-item">
+          <i class="ri-notification-3-line"></i>
+          <span>Instant Notifications</span>
         </div>
 
-        <div class="sub-card card-r2">
-        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-            <div class="icon">🚀</div>
-            <h3>Happy Sell</h3>
-        </div>
-        <p>Premium matching customer success feedback loops.</p>
+        <div class="benefit-item">
+          <i class="ri-coupon-3-line"></i>
+          <span>Exclusive App Deals</span>
         </div>
 
-        <div class="sub-card card-r3">
-        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-            <div class="icon">🌍</div>
-            <h3>24/7 Support</h3>
-        </div>
-        <p>Global infrastructure desk agents always responsive.</p>
-        </div>
-
-        <div class="brand-card" id="brandCard">
-          <h1>Cara</h1>
+        <div class="benefit-item">
+          <i class="ri-fingerprint-line"></i>
+          <span>Secure Login</span>
         </div>
       </div>
     </section>
@@ -454,38 +515,38 @@
         </p>
       </div>
     </footer>
-          <button id="scrollTopBtn" title="Go to top" width="120px" height="120px">
-  ↑
-</button>
+    <button id="scrollTopBtn" title="Go to top" width="120px" height="120px">
+      ↑
+    </button>
 
     <script src="navbar.js"></script>
     <script>
       loadNavbar('about');
     </script>
-    
+
     <script src="app.js"></script>
-    
+
     <script>
-      document.querySelector(".Current-Year").textContent =
+      document.querySelector('.Current-Year').textContent =
         new Date().getFullYear();
     </script>
     <script>
-  const scrollBtn = document.getElementById("scrollTopBtn");
+      const scrollBtn = document.getElementById('scrollTopBtn');
 
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 300) {
-      scrollBtn.style.display = "block";
-    } else {
-      scrollBtn.style.display = "none";
-    }
-  });
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+          scrollBtn.style.display = 'block';
+        } else {
+          scrollBtn.style.display = 'none';
+        }
+      });
 
-  scrollBtn.addEventListener("click", () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-  });
-</script>
+      scrollBtn.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+      });
+    </script>
   </body>
 </html>
