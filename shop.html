@@ -3,28 +3,35 @@
 
 <head>
     <!-- Character Encoding -->
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
 
-    <!-- Viewport for Responsive Design -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Page Title -->
+    <!-- Title -->
     <title>Cara — Shop Categories</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
+    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
 
-    <!-- SEO Meta Tags -->
+    <!-- SEO -->
     <meta name="description"
-        content="Browse categories like T-Shirts, Shirts, Kurtis, Jeans, Shoes and more.">
-    <meta name="keywords" content="e-commerce, categories, shopping, fashion">
-    <meta name="author" content="Cara">
-    <meta name="robots" content="index, follow">
+        content="Browse categories like T-Shirts, Shirts, Kurtis, Jeans, Shoes and more." />
 
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="style.css">
+    <meta name="keywords"
+        content="e-commerce, shopping, fashion, categories, online store" />
 
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <meta name="author" content="Cara" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Theme -->
+    <meta name="theme-color" content="#088178" />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css" />
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+        rel="stylesheet" />
 
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
@@ -37,18 +44,24 @@
 
     <!-- Header -->
     <section id="header">
+
+        <!-- Logo -->
         <a href="index.html">
-            <img src="images/logo.png"
-                alt="Cara e-commerce brand logo">
+            <img src="images/logo.png" alt="Cara Logo" />
         </a>
 
+        <!-- Navbar -->
         <div>
             <ul id="navbar">
+
                 <li><a href="index.html">Home</a></li>
 
+                <!-- Shop Dropdown -->
                 <li class="dropdown">
-                    <a href="javascript:void(0)" class="dropdown-toggle">
-                        Shop <i class="fas fa-chevron-down"></i>
+
+                    <a href="javascript:void(0)" class="dropdown-toggle active">
+                        Shop
+                        <i class="fas fa-chevron-down"></i>
                     </a>
 
                     <ul class="dropdown-menu">
@@ -61,53 +74,68 @@
                         <li><a href="accessories.html">Accessories</a></li>
                         <li><a href="dresses.html">Dresses</a></li>
                     </ul>
+
                 </li>
 
                 <li><a href="blog.html">Blog</a></li>
+
                 <li><a href="about.html">About</a></li>
+
                 <li><a href="contact.html">Contact</a></li>
+
                 <li><a href="login.html">Login</a></li>
 
+                <!-- Cart -->
                 <li>
-                    <a href="cart.html" id="lg-bag" class="cart-icon-wrapper">
+                    <a href="cart.html" id="lg-bag">
                         <i class="ri-shopping-bag-4-line"></i>
-                        <span class="cart-count" id="desktopCartCount">0</span>
                     </a>
                 </li>
 
+                <!-- Theme Toggle -->
                 <li>
-                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <button class="theme-toggle"
+                        id="themeToggle"
+                        aria-label="Toggle Dark Mode">
+
                         <i class="ri-moon-line" id="themeIcon"></i>
+
                     </button>
                 </li>
 
+                <!-- Close -->
                 <a href="#" id="close">
                     <i class="fa-solid fa-xmark"></i>
                 </a>
+
             </ul>
         </div>
 
+        <!-- Mobile -->
         <div class="mobile">
-            <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
-                <i class="ri-moon-line" id="themeIconMobile"></i>
-            </button>
 
-            <a href="cart.html" id="mobile-cart-icon">
+            <a href="cart.html">
                 <i class="ri-shopping-bag-4-line"></i>
-                <span class="cart-count" id="mobileCartCount">0</span>
             </a>
 
             <i class="fas fa-outdent" id="bar"></i>
+
         </div>
+
     </section>
 
     <!-- Hero -->
     <section id="shop-hero">
+
         <h2>#shopbycategory</h2>
-        <p>Choose your favorite category and start shopping!</p>
+
+        <p>
+            Choose your favorite category and start shopping!
+        </p>
+
     </section>
 
-    <!-- Categories Section -->
+    <!-- Categories -->
     <section id="categories" class="section-p1">
 
         <div class="category-container">
@@ -150,135 +178,212 @@
 
     <!-- Newsletter -->
     <section id="newsletter" class="section-p1 section-m1">
+
         <div class="newstext">
+
             <h4>Sign Up For Newsletters</h4>
+
             <p>
                 Get E-mail updates about our latest shop and
                 <span>special offers.</span>
             </p>
+
         </div>
 
         <div class="form">
-            <input type="text" placeholder="Your email address">
-            <button class="normal">Sign Up</button>
+
+            <input type="text"
+                placeholder="Your email address" />
+
+            <button class="normal">
+                Sign Up
+            </button>
+
         </div>
+
     </section>
 
     <!-- Buttons -->
-    <button id="backToTop" title="Back to Top" aria-label="Back to top">⬆</button>
+    <button id="backToTop"
+        title="Back to Top"
+        aria-label="Back to top">
 
-    <button id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">⬇</button>
+        ⬆
+
+    </button>
+
+    <button id="Toptoback"
+        title="Scroll To Bottom"
+        aria-label="Scroll to bottom">
+
+        ⬇
+
+    </button>
 
     <!-- Footer -->
     <footer class="section-p1">
 
-        <div class="col">
-            <img class="logo"
-                src="images/logo.png"
-                alt="Cara e-commerce logo">
+        <div class="footer-container">
 
-            <h4>Contact</h4>
+            <!-- Contact -->
+            <div class="col">
 
-            <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
+                <img class="logo"
+                    src="images/logo.png"
+                    alt="Cara Logo" />
 
-            <p><strong>Phone:</strong> +01 2222 365 /(+91) 01 2345 6789</p>
+                <h4>Contact</h4>
 
-            <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
+                <p>
+                    <strong>Address:</strong>
+                    562 Wellington Road, Street 32, San Francisco
+                </p>
 
-            <div class="follow">
-                <h4>Follow us</h4>
+                <p>
+                    <strong>Phone:</strong>
+                    +01 2222 365 / (+91) 01 2345 6789
+                </p>
 
-                <div class="icon">
-                    <a href="https://x.com/JanaviPandole">
-                        <i class="fab fa-twitter"></i>
-                    </a>
+                <p>
+                    <strong>Hours:</strong>
+                    10:00 - 18:00, Mon - Sat
+                </p>
 
-                    <a href="https://github.com/janavipandole">
-                        <i class="fab fa-github"></i>
-                    </a>
+                <div class="follow">
 
-                    <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290"
-                        target="_blank"
-                        rel="noopener noreferrer">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
+                    <h4>Follow us</h4>
 
-                    <a href="https://www.youtube.com/@JanaviPandole">
-                        <i class="fab fa-youtube"></i>
-                    </a>
+                    <div class="icon">
+
+                        <a href="https://x.com/JanaviPandole">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+
+                        <a href="https://github.com/janavipandole">
+                            <i class="fab fa-github"></i>
+                        </a>
+
+                        <a href="https://www.linkedin.com">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+
+                        <a href="https://youtube.com">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+
+                    </div>
+
                 </div>
-            </div>
-        </div>
 
-        <div class="col">
-            <h4>About</h4>
-
-            <a href="about.html">About us</a>
-            <a href="#">Delivery Information</a>
-            <a href="privacy.html">Privacy Policy</a>
-            <a href="terms.html">Terms and Conditions</a>
-            <a href="contact.html">Contact Us</a>
-        </div>
-
-        <div class="col">
-            <h4>My Account</h4>
-
-            <a href="login.html">Sign In</a>
-            <a href="cart.html">View Cart</a>
-            <a href="#">My Wishlist</a>
-            <a href="cart.html">Track My Order</a>
-            <a href="contact.html">Help</a>
-        </div>
-
-        <div class="col install">
-            <h4>Install App</h4>
-
-            <p>From App Store or Google Play</p>
-
-            <div class="row">
-                <img src="images/pay/app.jpg" alt="App Store">
-                <img src="images/pay/play.jpg" alt="Google Play">
             </div>
 
-            <p>Secured Payment Gateways</p>
+            <!-- About -->
+            <div class="col">
 
-            <div class="payment-icons">
-                <a href="https://www.visa.com">
-                    <i class="fab fa-cc-visa"></i>
-                </a>
+                <h4>About</h4>
 
-                <a href="https://www.mastercard.com">
-                    <i class="fab fa-cc-mastercard"></i>
-                </a>
+                <a href="about.html">About us</a>
 
-                <a href="https://www.paypal.com">
-                    <i class="fab fa-cc-paypal"></i>
-                </a>
+                <a href="#">Delivery Information</a>
 
-                <a href="https://www.americanexpress.com">
-                    <i class="fab fa-cc-amex"></i>
-                </a>
+                <a href="privacy.html">Privacy Policy</a>
 
-                <a href="https://stripe.com">
-                    <i class="fab fa-cc-stripe"></i>
-                </a>
+                <a href="terms.html">Terms & Conditions</a>
+
+                <a href="contact.html">Contact Us</a>
+
             </div>
+
+            <!-- Account -->
+            <div class="col">
+
+                <h4>My Account</h4>
+
+                <a href="login.html">Sign In</a>
+
+                <a href="cart.html">View Cart</a>
+
+                <a href="#">My Wishlist</a>
+
+                <a href="cart.html">Track My Order</a>
+
+                <a href="contact.html">Help</a>
+
+            </div>
+
+            <!-- Install -->
+            <div class="col install">
+
+                <h4>Install App</h4>
+
+                <p>From App Store or Google Play</p>
+
+                <div class="row">
+
+                    <img src="images/pay/app.jpg"
+                        alt="App Store" />
+
+                    <img src="images/pay/play.jpg"
+                        alt="Google Play" />
+
+                </div>
+
+                <p>Secured Payment Gateways</p>
+
+                <div class="payment-icons">
+
+                    <a href="https://www.visa.com">
+                        <i class="fab fa-cc-visa"></i>
+                    </a>
+
+                    <a href="https://www.mastercard.com">
+                        <i class="fab fa-cc-mastercard"></i>
+                    </a>
+
+                    <a href="https://www.paypal.com">
+                        <i class="fab fa-cc-paypal"></i>
+                    </a>
+
+                    <a href="https://www.americanexpress.com">
+                        <i class="fab fa-cc-amex"></i>
+                    </a>
+
+                    <a href="https://stripe.com">
+                        <i class="fab fa-cc-stripe"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
         </div>
 
+        <!-- Copyright -->
         <div class="copyright">
+
             <p>
-                &copy; Cara 2025. All rights reserved. |
-                <a href="license.html" style="color:#088178;">
-                    MIT License
-                </a>
+                &copy; Cara
+                <span class="Current-Year"></span>.
+                All rights reserved.
             </p>
+
         </div>
 
     </footer>
 
+    <!-- Toast -->
+    <div id="toast-container"></div>
+
+    <!-- Scripts -->
     <script src="app.js"></script>
 
-    <div id="toast-container"></div>
+    <script>
+        const year = new Date().getFullYear();
+
+        for (let el of document.querySelectorAll(".Current-Year")) {
+            el.textContent = year;
+        }
+    </script>
 
 </body>
 

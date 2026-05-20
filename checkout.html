@@ -8,7 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  <link rel="stylesheet" href="toast.css">
   <link rel="stylesheet" href="checkout.css">
 </head>
 <body>
@@ -88,25 +89,46 @@
         </div>
 
         <div class="input-group">
-          <label>Card Holder Name</label>
-          <input type="text" id="cardName" placeholder="Card holder name">
+          <label for="cardName">Card Holder Name</label>
+          <input type="text" id="cardName" placeholder="Card holder name" autocomplete="cc-name">
         </div>
 
         <div class="input-group">
-          <label>Card Number</label>
-          <input type="text" id="cardNumber" placeholder="XXXX XXXX XXXX XXXX">
+          <label for="cardNumber">Card Number</label>
+          <input
+            type="text"
+            id="cardNumber"
+            placeholder="XXXX XXXX XXXX XXXX"
+            inputmode="numeric"
+            autocomplete="cc-number"
+            maxlength="19"
+          >
         </div>
 
         <div class="row">
 
           <div class="input-group">
-            <label>Expiry Date</label>
-            <input type="text" id="expiry" placeholder="MM/YY">
+            <label for="expiry">Expiry Date</label>
+            <input
+              type="text"
+              id="expiry"
+              placeholder="MM/YY"
+              inputmode="numeric"
+              autocomplete="cc-exp"
+              maxlength="5"
+            >
           </div>
 
           <div class="input-group">
-            <label>CVV</label>
-            <input type="password" id="cvv" placeholder="***">
+            <label for="cvv">CVV</label>
+            <input
+              type="password"
+              id="cvv"
+              placeholder="***"
+              inputmode="numeric"
+              autocomplete="cc-csc"
+              maxlength="4"
+            >
           </div>
 
         </div>
@@ -133,6 +155,7 @@
     </div>
   </div>
 
+  <script src="app.js?v=1779120917211"></script>
   <script src="checkout.js"></script>
 
 </body>

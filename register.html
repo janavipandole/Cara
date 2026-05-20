@@ -2,19 +2,25 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Register | Cara</title>
 
-    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
+    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
 
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="register.css">
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="toast.css" />
+    <link rel="stylesheet" href="register.css" />
 
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link
+        href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+        rel="stylesheet"
+    />
 
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
 </head>
 
 <body>
@@ -22,14 +28,20 @@
     <!-- HEADER -->
     <section id="header">
 
+        <!-- Logo -->
         <a href="index.html">
-            <img src="images/logo.png" alt="Cara Logo">
+            <img src="images/logo.png" alt="Cara Logo" />
         </a>
 
         <div>
             <ul id="navbar">
 
-                <li><a href="index.html">Home</a></li>
+                <!-- Home -->
+                <li>
+                    <a href="index.html">Home</a>
+                </li>
+
+                <!-- Shop Dropdown -->
                 <li class="dropdown">
                     <a href="javascript:void(0)" class="dropdown-toggle">
                         Shop <i class="fas fa-chevron-down"></i>
@@ -46,23 +58,74 @@
                         <li><a href="dresses.html">Dresses</a></li>
                     </ul>
                 </li>
+
+                <!-- Other Links -->
                 <li><a href="blog.html">Blog</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
 
-                <li>
-                    <a href="login.html" class="active">
-                        Login
+                <!-- Contact Icon -->
+                <li class="nav-icon">
+                    <a href="contact.html" aria-label="Contact">
+                        <i class="ri-customer-service-2-line"></i>
                     </a>
                 </li>
 
-                <li>
-                    <a href="cart.html" id="lg-bag">
+                <!-- Login Icon -->
+                <li class="nav-icon">
+                    <a href="login.html" class="active" aria-label="Login">
+                        <i class="ri-user-3-line"></i>
+                    </a>
+                </li>
+
+                <!-- Cart Icon -->
+                <li class="nav-icon">
+                    <a href="cart.html" id="lg-bag" aria-label="Cart">
                         <i class="ri-shopping-bag-4-line"></i>
                     </a>
                 </li>
 
+                <!-- Theme Toggle -->
+                <li class="nav-icon">
+                    <button
+                        class="theme-toggle"
+                        id="themeToggle"
+                        aria-label="Toggle dark mode"
+                    >
+                        <i class="ri-moon-line" id="themeIcon"></i>
+                    </button>
+                </li>
+
+                <!-- Close Button -->
+                <a href="#" id="close">
+                    <i class="fa-solid fa-xmark"></i>
+                </a>
+
             </ul>
+        </div>
+
+        <!-- Mobile Navbar -->
+        <div class="mobile">
+
+            <!-- Login -->
+            <a href="login.html" aria-label="Login">
+                <i class="ri-user-3-line"></i>
+            </a>
+
+            <!-- Cart -->
+            <a href="cart.html" aria-label="Cart">
+                <i class="ri-shopping-bag-4-line"></i>
+            </a>
+
+            <!-- Hamburger -->
+            <i
+                class="fas fa-outdent"
+                id="bar"
+                role="button"
+                aria-label="Open menu"
+                aria-expanded="false"
+                tabindex="0"
+            ></i>
+
         </div>
 
     </section>
@@ -78,64 +141,74 @@
                 Create your account 😊
             </p>
 
-            <!-- FULL NAME -->
-            <div class="form-group">
+            <form id="registerForm" novalidate>
 
-                <label>Full Name</label>
+                <!-- FULL NAME -->
+                <div class="form-group">
+                    <label for="registerUsername">Full Name</label>
 
-                <input type="text"
-                    placeholder="Enter your full name">
-
-            </div>
-
-            <!-- EMAIL -->
-            <div class="form-group">
-
-                <label>Email</label>
-
-                <input type="email"
-                    placeholder="Enter your email">
-
-            </div>
-
-            <!-- PASSWORD -->
-            <div class="form-group">
-
-                <label>Password</label>
-
-                <div class="password-wrapper">
-
-                    <input type="password"
-                        placeholder="Enter your password"
-                        id="password">
-
-                    <i class="ri-eye-line toggle-eye"></i>
-
+                    <input
+                        type="text"
+                        id="registerUsername"
+                        placeholder="Enter your full name"
+                        required
+                    />
                 </div>
 
-            </div>
+                <!-- EMAIL -->
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
 
-            <!-- CONFIRM PASSWORD -->
-            <div class="form-group">
-
-                <label>Confirm Password</label>
-
-                <div class="password-wrapper">
-
-                    <input type="password"
-                        placeholder="Confirm your password"
-                        id="confirmPassword">
-
-                    <i class="ri-eye-line toggle-eye"></i>
-
+                    <input
+                        type="email"
+                        id="registerEmail"
+                        placeholder="Enter your email"
+                        required
+                    />
                 </div>
 
-            </div>
+                <!-- PASSWORD -->
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
 
-            <!-- BUTTON -->
-            <button class="btn-primary">
-                CREATE ACCOUNT
-            </button>
+                    <div class="password-wrapper">
+
+                        <input
+                            type="password"
+                            id="registerPassword"
+                            placeholder="Enter your password"
+                            required
+                        />
+
+                        <i class="ri-eye-line toggle-eye"></i>
+
+                    </div>
+                </div>
+
+                <!-- CONFIRM PASSWORD -->
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+
+                    <div class="password-wrapper">
+
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            placeholder="Confirm your password"
+                            required
+                        />
+
+                        <i class="ri-eye-line toggle-eye"></i>
+
+                    </div>
+                </div>
+
+                <!-- SUBMIT BUTTON -->
+                <button type="submit" class="btn-primary">
+                    CREATE ACCOUNT
+                </button>
+
+            </form>
 
             <!-- LOGIN LINK -->
             <div class="switch-auth">
@@ -152,34 +225,38 @@
 
     </section>
 
+    <!-- PASSWORD TOGGLE SCRIPT -->
     <script>
-    const toggleEyes = document.querySelectorAll(".toggle-eye");
+        const toggleEyes = document.querySelectorAll(".toggle-eye");
 
-    toggleEyes.forEach((eye) => {
+        toggleEyes.forEach((eye) => {
 
-        eye.addEventListener("click", () => {
+            eye.addEventListener("click", () => {
 
-            const passwordInput = eye.previousElementSibling;
+                const passwordInput = eye.previousElementSibling;
 
-            if (passwordInput.type === "password") {
+                if (passwordInput.type === "password") {
 
-                passwordInput.type = "text";
+                    passwordInput.type = "text";
 
-                eye.classList.remove("ri-eye-line");
-                eye.classList.add("ri-eye-off-line");
+                    eye.classList.remove("ri-eye-line");
+                    eye.classList.add("ri-eye-off-line");
 
-            } else {
+                } else {
 
-                passwordInput.type = "password";
+                    passwordInput.type = "password";
 
-                eye.classList.remove("ri-eye-off-line");
-                eye.classList.add("ri-eye-line");
-            }
+                    eye.classList.remove("ri-eye-off-line");
+                    eye.classList.add("ri-eye-line");
+                }
+
+            });
 
         });
+    </script>
 
-    });
-</script>
+    <script src="app.js?v=1779120917218"></script>
+    <script src="register.js"></script>
 
 </body>
 

@@ -1,191 +1,364 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Cart | Cara</title>
-    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
-    <meta name="description" content="Shop the latest trends on our e-commerce store. Dark theme supported for a better user experience.">
-    <meta name="keywords" content="e-commerce, shopping, online store, dark mode, buy online, latest fashion">
-    <meta name="author" content=" Cara">
-    <meta name="robots" content="index, follow">
-    <meta http-equiv="Content-Language" content="en">
-    <meta property="og:title" content="E-commerce - Dark Theme Working">
-    <meta property="og:description" content="Shop the latest trends with our dark mode-enabled e-commerce experience.">
-    <meta property="og:image" content="https://example.com/images/preview.jpg">
-    <meta property="og:url" content="https://example.com/">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="E-commerce - Dark Theme Working">
-    <meta name="twitter:description" content="Dark theme e-commerce site with modern features.">
-    <meta name="twitter:image" content="https://example.com/images/preview.jpg">
-    <meta name="twitter:site" content="@janavipandole">
-    <meta name="theme-color" content="#000000">
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Your Cart | Cara</title>
+
+  <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
+
+  <meta name="description"
+    content="Shop the latest trends on our e-commerce store. Dark theme supported for a better user experience." />
+  <meta name="keywords"
+    content="e-commerce, shopping, online store, dark mode, buy online, latest fashion" />
+  <meta name="author" content="Cara" />
+  <meta name="robots" content="index, follow" />
+  <meta http-equiv="Content-Language" content="en" />
+
+  <meta property="og:title" content="Cara Shopping Cart" />
+  <meta property="og:description"
+    content="Review and manage your selected items before checkout." />
+  <meta property="og:image" content="https://example.com/images/preview.jpg" />
+  <meta property="og:url" content="https://example.com/" />
+  <meta property="og:type" content="website" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Cara Shopping Cart" />
+  <meta name="twitter:description"
+    content="Manage your cart and checkout securely on Cara." />
+  <meta name="twitter:image"
+    content="https://example.com/images/preview.jpg" />
+
+  <meta name="theme-color" content="#000000" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Remix Icons -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+    rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer" />
 </head>
 
 <body>
-    <section id="header">
-        <a href="index.html"><img src="images/logo.png" alt=""></a>
-        <div>
-            <ul id="navbar">
-                <li><a href="index.html">Home</a></li>
-                <li class="dropdown">
-                    <a href="javascript:void(0)" class="dropdown-toggle">
-                        Shop <i class="fas fa-chevron-down"></i>
-                    </a>
 
-                    <ul class="dropdown-menu">
-                        <li><a href="tshirts.html">T-Shirts</a></li>
-                        <li><a href="shirts.html">Shirts</a></li>
-                        <li><a href="kurtis.html">Kurtis</a></li>
-                        <li><a href="jeans.html">Jeans</a></li>
-                        <li><a href="kids_cloth.html">Kids Clothing</a></li>
-                        <li><a href="shoes.html">Shoes</a></li>
-                        <li><a href="accessories.html">Accessories</a></li>
-                        <li><a href="dresses.html">Dresses</a></li>
-                    </ul>
-                </li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="login.html">Login</a></li>
-                <li><a class="active" href="cart.html" id="lg-bag" class="cart-icon-wrapper"><i class="ri-shopping-bag-4-line"></i><span class="cart-count" id="desktopCartCount">0</span></a></li>
-                <li>
-                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-                        <i class="ri-moon-line" id="themeIcon"></i>
-                    </button>
-                </li>
-                <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
-            </ul>
-        </div>
-        <div class="mobile">
-            <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
-                <i class="ri-moon-line" id="themeIconMobile"></i>
-            </button>
-            <a href="cart.html" id="mobile-cart-icon">
-                <i class="ri-shopping-bag-4-line"></i>
-                <span class="cart-count" id="mobileCartCount">0</span>
-            </a>
-            <i class="fas fa-outdent" id="bar"></i>
-        </div>
-    </section>
+  <!-- HEADER -->
+  <section id="header">
 
-    <div id="cart-content-wrapper">
-        <div class="cartmain">
-            <section id="page-header">
-                <h2>Your Cart</h2>
-                <p>Review and manage your selected items</p>
-            </section>
+    <!-- Logo -->
+    <a href="index.html">
+      <img src="images/logo.png" alt="Cara Logo" id="siteLogo" />
+    </a>
 
-            <section id="cart" class="section-p1">
-                <table width="100%">
-                    <thead>
-                        <tr>
-                            <td>Remove</td>
-                            <td>Image</td>
-                            <td>Product</td>
-                            <td>Price</td>
-                            <td>Quantity</td>
-                            <td>Subtotal</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </section>
+    <div>
+      <ul id="navbar">
 
-            <section id="cart-actions" class="section-p1">
-                <div class="cart-buttons">
-                    <a href="shop.html" class="normal">Continue Shopping</a>
-                    <a href="checkout.html" class="normal" style="text-decoration: none;">Proceed to Checkout</a>
-                </div>
-            </section>
+        <!-- Navigation -->
+        <li><a href="index.html">Home</a></li>
 
-            <section id="newsletter" class="section-p1 section-m1">
-                <div class="newstext">
-                    <h4>Sign Up For Newsletters</h4>
-                        <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
-                </div>
-                <div class="form">
-                     <input type="text" placeholder="Your email address">
-                    <button class="normal">Sign Up</button>
-                </div>
-            </section>
+        <!-- Shop Dropdown -->
+        <li class="dropdown">
+          <a href="shop.html" class="dropbtn">
+            Shop <i class="fas fa-chevron-down"></i>
+          </a>
 
-            <footer class="section-p1">
-                <div class="col">
-                    <img class="logo" src="images/logo.png" alt="">
-                    <h4>Contact</h4>
-                    <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
-                    <p><strong>Phone:</strong> +01 2222 365 /(+91) 01 2345 6789</p>
-                    <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
-                    <div class="follow">
-                        <h4>Follow us</h4>
-                        <div class="icon">
-                            <a href="https://x.com/JanaviPandole"><i class="fab fa-twitter"></i></a>
-                            <a href="https://github.com/janavipandole"><i class="fab fa-github"></i></a>
-                            <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
-                                <i class="fab fa-linkedin"></i>
-                            </a>
-                            <a href="https://www.youtube.com/@JanaviPandole"><i class="fab fa-youtube"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <h4>About</h4>
-                    <a href="about.html">About us</a>
-                    <a href="#">Delivery Information</a>
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms & Conditions</a>
-                    <a href="contact.html">Contact Us</a>
-                </div>
-                <div class="col">
-                    <h4>My Account</h4>
-                    <a href="login.html">Sign In</a>
-                    <a href="cart.html">View Cart</a>
-                    <a href="#">My Wishlist</a>
-                    <a href="cart.html">Track My Order</a>
-                    <a href="contact.html">Help</a>
-                </div>
-                <div class="col install">
-                    <h4>Install App</h4>
-                    <p>From App Store or Google Play</p>
-                    <div class="row">
-                        <img src="images/pay/app.jpg" alt="">
-                        <img src="images/pay/play.jpg" alt="">
-                    </div>
-                    <p>Secured Payment Gateways</p>
-                    <div class="payment-icons">
-                        <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer" aria-label="Visa"><i class="fab fa-cc-visa"></i></a>
-                        <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer" aria-label="Mastercard"><i class="fab fa-cc-mastercard"></i></a>
-                        <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" aria-label="PayPal"><i class="fab fa-cc-paypal"></i></a>
-                        <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer" aria-label="American Express"><i class="fab fa-cc-amex"></i></a>
-                        <a href="https://stripe.com" target="_blank" rel="noopener noreferrer" aria-label="Stripe"><i class="fab fa-cc-stripe"></i></a>
-                    </div>
-                </div>
-                <div class="copyright">
-                    <p> &copy; Cara 2025. All rights reserved. | <a href="license.html" style="color: #088178;">MIT License</a>
-                    </p>
-                </div>
-            </footer>
-        </div>
+          <ul class="dropdown-menu">
+            <li><a href="tshirts.html">T-Shirts</a></li>
+            <li><a href="shirts.html">Shirts</a></li>
+            <li><a href="kurtis.html">Kurtis</a></li>
+            <li><a href="jeans.html">Jeans</a></li>
+            <li><a href="kids_cloth.html">Kids Clothing</a></li>
+            <li><a href="shoes.html">Shoes</a></li>
+            <li><a href="accessories.html">Accessories</a></li>
+            <li><a href="dresses.html">Dresses</a></li>
+          </ul>
+        </li>
+
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+
+        <!-- Login -->
+        <li id="login-btn">
+          <a href="login.html">Login</a>
+        </li>
+
+        <!-- Cart -->
+        <li>
+          <a class="active cart-icon-wrapper" href="cart.html" id="lg-bag">
+            <i class="ri-shopping-bag-4-line"></i>
+            <span class="cart-count hidden" id="desktopCartCount">0</span>
+          </a>
+        </li>
+
+        <!-- Theme Toggle -->
+        <li>
+          <button
+            class="theme-toggle"
+            id="themeToggle"
+            aria-label="Toggle dark mode">
+            <i class="ri-moon-line" id="themeIcon"></i>
+          </button>
+        </li>
+
+        <!-- Close Menu -->
+        <a href="#" id="close">
+          <i class="fa-solid fa-xmark"></i>
+        </a>
+
+      </ul>
     </div>
 
-    <div id="empty-cart-container" style="display: none; text-align: center; padding: 100px 20px;">
-        <div style="font-size: 80px; margin-bottom: 20px;">🛒</div>
-        <h2 style="font-size: 32px; margin-bottom: 10px;">Your Cart is Empty!</h2>
-        <p style="color: #747d8c; font-size: 18px; margin-bottom: 30px;">Looks like you haven't added anything to your cart yet.</p>
-        <a href="shop.html" class="normal" style="background-color: #088178; color: white; padding: 15px 30px; text-decoration: none; border-radius: 4px; font-weight: 600;">Return to Shop</a>
+    <!-- Mobile Nav -->
+    <div class="mobile">
+
+      <a href="cart.html" class="cart-icon-wrapper">
+        <i class="ri-shopping-bag-4-line"></i>
+        <span class="cart-count hidden" id="mobileCartCount">0</span>
+      </a>
+
+      <button
+        class="theme-toggle"
+        id="themeToggleMobile"
+        aria-label="Toggle dark mode">
+        <i class="ri-moon-line" id="themeIconMobile"></i>
+      </button>
+
+      <i class="fas fa-outdent" id="bar"></i>
+    </div>
+  </section>
+
+  <!-- PAGE HEADER -->
+  <section id="page-header" class="about-header">
+    <h2>#cart</h2>
+    <p>Review your items before checkout</p>
+  </section>
+
+  <!-- EMPTY CART -->
+  <section id="empty-cart-container" style="display: none;">
+    <div class="empty-cart-content">
+      <i class="ri-shopping-cart-line"></i>
+      <h2>Your Cart is Empty</h2>
+      <p>Looks like you haven't added anything yet.</p>
+
+      <a href="shop.html" class="normal">
+        Continue Shopping
+      </a>
+    </div>
+  </section>
+
+  <!-- CART -->
+  <section id="cart-container" class="section-p1">
+
+    <!-- CART ITEMS -->
+    <div id="cart-items-container">
+      <!-- Dynamic cart items load here -->
     </div>
 
-    <script src="app.js"></script>
-    <div id="toast-container"></div>
+    <!-- SUMMARY -->
+    <div class="cart-summary">
+
+      <h3>Order Summary</h3>
+
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <span id="summary-subtotal">₹0</span>
+      </div>
+
+      <div class="summary-row">
+        <span>Tax (18%)</span>
+        <span id="summary-tax">₹0</span>
+      </div>
+
+      <div class="summary-row">
+        <span>Shipping</span>
+        <span id="summary-shipping">FREE</span>
+      </div>
+
+      <div
+        class="summary-row"
+        id="summary-discount-row"
+        style="display: none;">
+
+        <span>Discount</span>
+        <span id="summary-discount">-₹0</span>
+      </div>
+
+      <hr />
+
+      <div class="summary-row total">
+        <span>Total</span>
+        <span id="summary-total">₹0</span>
+      </div>
+
+      <!-- Coupon -->
+      <div class="coupon-box">
+        <input
+          type="text"
+          id="coupon-code"
+          placeholder="Enter coupon code" />
+
+        <button id="apply-coupon-btn">
+          Apply
+        </button>
+      </div>
+
+      <!-- Checkout -->
+      <a href="checkout.html" class="normal checkout-btn">
+        Proceed to Checkout
+      </a>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="section-p1">
+
+    <!-- Contact -->
+    <div class="col">
+      <img class="logo" src="images/logo.png" alt="Cara Logo" />
+
+      <h4>Contact</h4>
+
+      <p>
+        <strong>Address:</strong>
+        562 Wellington Road, Street 32, San Francisco
+      </p>
+
+      <p>
+        <strong>Phone:</strong>
+        +01 2222 365 / (+91) 01 2345 6789
+      </p>
+
+      <p>
+        <strong>Hours:</strong>
+        10:00 - 18:00, Mon - Sat
+      </p>
+
+      <div class="follow">
+        <h4>Follow us</h4>
+
+        <div class="icon">
+          <a href="https://x.com/JanaviPandole" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+
+          <a href="https://github.com/janavipandole" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+
+          <a
+            href="https://www.linkedin.com/in/janavi-pandole-80a7b2290"
+            target="_blank">
+            <i class="fab fa-linkedin"></i>
+          </a>
+
+          <a
+            href="https://www.youtube.com/@JanaviPandole"
+            target="_blank">
+            <i class="fab fa-youtube"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- About -->
+    <div class="col">
+      <h4>About</h4>
+
+      <a href="about.html">About Us</a>
+      <a href="delivery.html">Delivery Information</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms and Conditions</a>
+      <a href="contact.html">Contact Us</a>
+    </div>
+
+    <!-- Account -->
+    <div class="col">
+      <h4>My Account</h4>
+
+      <a href="login.html">Sign In</a>
+      <a href="cart.html">View Cart</a>
+      <a href="#">My Wishlist</a>
+      <a href="track-order.html">Track My Order</a>
+      <a href="contact.html">Help</a>
+    </div>
+
+    <!-- Newsletter -->
+    <div class="col newsletter-footer">
+
+      <h4>Newsletter</h4>
+
+      <p>
+        Get email updates about our latest shop and
+        <span>special offers.</span>
+      </p>
+
+      <form class="newsletter-form">
+        <input
+          type="email"
+          placeholder="Your email address"
+          required />
+
+        <button type="submit" class="normal">
+          Sign Up
+        </button>
+      </form>
+    </div>
+
+    <!-- Install App -->
+    <div class="col install">
+
+      <h4>Install App</h4>
+
+      <p>From App Store or Google Play</p>
+
+      <div class="row">
+        <img src="images/pay/app.jpg" alt="App Store" />
+        <img src="images/pay/play.jpg" alt="Google Play" />
+      </div>
+
+      <p>Secured Payment Gateways</p>
+
+      <img src="images/pay/pay.png" alt="Payment Methods" />
+    </div>
+
+    <!-- Copyright -->
+    <div class="copyright">
+      <p>
+        &copy; Cara
+        <span class="Current-Year"></span>.
+        All rights reserved. |
+        <a href="license.html" style="color: #088178;">
+          MIT License
+        </a>
+      </p>
+    </div>
+
+  </footer>
+
+  <!-- APP JS -->
+  <script src="app.js?v=1779120917210"></script>
+
+  <!-- CURRENT YEAR -->
+  <script>
+    const year = new Date().getFullYear();
+
+    document.querySelectorAll(".Current-Year").forEach(el => {
+      el.textContent = year;
+    });
+  </script>
+
 </body>
 
 </html>
