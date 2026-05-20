@@ -36,6 +36,14 @@ function renderProducts(containerId, list) {
     card.className = 'pro';
     card.dataset.category = p.category;
     card.addEventListener('click', () => {
+      const selectedProduct = {
+          id: p.id,
+          name: p.name,
+          price: "$" + p.price,
+          brand: p.brand,
+          image: p.img
+      };
+      localStorage.setItem("selectedProduct", JSON.stringify(selectedProduct));
       window.location.href = 'singleProduct.html';
     });
 
@@ -164,15 +172,23 @@ function renderSearchSuggestions(query) {
 function filterProducts() {
   const input = document.getElementById('searchInput');
   const categorySelect = document.getElementById('categoryFilter');
+  const sortSelect = document.getElementById('sort-price');
 
   const query = input ? input.value.trim().toLowerCase() : '';
   const category = categorySelect ? categorySelect.value : 'all';
+  const sortValue = sortSelect ? sortSelect.value : 'default';
 
-  const filteredProducts = products.filter(product => {
+  let filteredProducts = products.filter(product => {
     const matchesCategory = category === 'all' || product.category === category;
     const matchesSearch = query === '' || product.name.toLowerCase().includes(query) || product.brand.toLowerCase().includes(query);
     return matchesCategory && matchesSearch;
   });
+
+  if (sortValue === 'low-high') {
+    filteredProducts.sort((a, b) => a.price - b.price);
+  } else if (sortValue === 'high-low') {
+    filteredProducts.sort((a, b) => b.price - a.price);
+  }
 
   renderProducts('shop-container', filteredProducts);
   updateSearchSummary(filteredProducts.length);
@@ -182,6 +198,7 @@ function filterProducts() {
 function attachSearchListeners() {
   const input = document.getElementById('searchInput');
   const categorySelect = document.getElementById('categoryFilter');
+  const sortSelect = document.getElementById('sort-price');
   const searchBtn = document.getElementById('searchBtn');
 
   if (input) {
@@ -196,6 +213,9 @@ function attachSearchListeners() {
   if (categorySelect) {
     categorySelect.addEventListener('change', filterProducts);
   }
+  if (sortSelect) {
+    sortSelect.addEventListener('change', filterProducts);
+  }
   if (searchBtn) {
     searchBtn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -205,9 +225,11 @@ function attachSearchListeners() {
   }
 }
 
-// Initializing the renders
-renderProducts('shop-container', products);
-renderProducts('featured-container', products.slice(0, 4));
-attachSearchListeners();
-updateSearchSummary(products.length);
-renderSearchSuggestions('');
+// Initializing the renders from local array
+document.addEventListener('DOMContentLoaded', () => {
+    renderProducts('shop-container', products);
+    renderProducts('featured-container', products.slice(0, 4));
+    attachSearchListeners();
+    updateSearchSummary(products.length);
+    renderSearchSuggestions('');
+});
