@@ -834,9 +834,12 @@ button.white .ripple-effect {
     box-shadow: 10px 10px 74px var(--shadow-hover);
 }
 
-#feature.fe-box img {
+#feature .fe-box img {
     width: 100%;
     margin-bottom: 10px;
+    height: 120px;
+    display: block;
+    object-fit: contain;
 }
 
 #feature .fe-box h6 {
@@ -2831,20 +2834,134 @@ footer .copyright {
 
         #cart {
             overflow-x: auto;
+            margin-top: 20px;
+            padding-top: 0;
+            width: 100%;
+        }
+        
+       /* ============================================
+        DESKTOP CART FIX
+   ============================================ */
+
+        #cart table {
+            width: 100%;
+            border-collapse: collapse;
+             table-layout: auto;
         }
 
-        /* ── Cart rows: black background on ALL screen sizes ── */
+        #cart table td,
+        #cart table thead td {
+           text-align: center;
+           vertical-align: middle;
+        }
+
+    /* Better desktop widths */
+        #cart table td:nth-child(1) {
+            width: 80px;
+        }
+
+        #cart table td:nth-child(2) {
+           width: 120px;
+        }
+
+        #cart table td:nth-child(3) {
+            width: auto;
+        }
+
+        #cart table td:nth-child(4),
+        #cart table td:nth-child(5),
+        #cart table td:nth-child(6) {
+            width: 120px;
+        }
+
+        #cart table img {
+            width: 90px;
+            height: auto;
+            object-fit: cover;
+        }
+        
+         /* ── Cart rows: black background on ALL screen sizes ── */
         #cart table tbody tr td,
         #cart table tbody td {
             background-color: #000000 !important;
             color: #ffffff !important;
             transition: background-color 0.25s ease, box-shadow 0.25s ease;
+            padding: 15px;
+            border-bottom: 1px solid #333;
+            vertical-align: middle;
         }
 
         #cart table tbody tr:hover td {
             background-color: #1a1a1a !important;
             box-shadow: inset 3px 0 0 #088178;
         }
+
+        #cart-add {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        #cart-add .coupon,
+        .subtotal {
+            flex: 1;
+            min-width: 320px;
+        }
+
+        .subtotal {
+            border: 1px solid #c9cbce;
+            padding: 30px;
+            box-sizing: border-box;
+            background: var(--bg-primary);
+        }
+
+        .subtotal table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .subtotal table td {
+            padding: 12px 10px;
+            font-size: 16px;
+            border: 1px solid #c9cbce;
+        }
+
+        .subtotal button {
+            width: 100%;
+            padding: 14px 20px;
+            background-color: #088178;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        #page-header {
+            padding: 40px 80px;
+            text-align: center;
+            min-height: auto;
+        }
+
+        #page-header h2 {
+            margin-bottom: 10px;
+        }
+        #page-header p {
+           margin: 0;
+           opacity: 0.8;
+        }
+
+        #cart.section-p1{
+            padding-top: 10px;
+            padding-bottom: 30px;
+        }
+        #cart-add.section-p1 {
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+
 
 
         @media (max-width: 799px) {
@@ -2870,12 +2987,14 @@ footer .copyright {
             #cart table {
                 width: 100%;
                 border-collapse: collapse;
-                white-space: nowrap;
-                table-layout: fixed;
+                 margin-top: 0;
+                white-space: normal;
             }
 
             #cart table img {
                 width: 150px;
+                height: auto;
+                object-fit: cover;
             }
 
             #cart table td:nth-child(1) {
@@ -2889,7 +3008,8 @@ footer .copyright {
             }
 
             #cart table td:nth-child(3) {
-                width: 250px;
+                min-width: 200px;
+                width: auto;
                 text-align: center;
             }
 
@@ -2906,6 +3026,7 @@ footer .copyright {
                 display: block;
                 margin: 0 auto;
                 text-align: center;
+                border: 1px solid #ccc;
             }
 
             #cart table td:nth-child(5) input:focus {
@@ -2947,11 +3068,16 @@ footer .copyright {
                 background-color: #1a1a1a;
                 box-shadow: inset 3px 0 0 #088178;
             }
+            #cart table td {
+                word-break: break-word;
+            }
 
             #cart-add {
                 display: flex;
                 justify-content: space-between;
                 flex-wrap: wrap;
+                gap: 30px;
+                margin-top: 30px;
             }
 
             #cart-add .coupon {
