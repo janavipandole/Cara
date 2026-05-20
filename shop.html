@@ -78,7 +78,112 @@
       referrerpolicy="no-referrer"
     />
   </head>
+  <style>
+    /* Newsletter Section Styling */
+#newsletter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 
+  max-width: 900px;
+  margin: 60px auto;
+  padding: 50px 30px;
+
+  background: #ffffff;
+  border-radius: 20px;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  gap: 20px;
+}
+
+#newsletter .newstext h4 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 10px;
+}
+
+#newsletter .newstext p {
+  font-size: 16px;
+  color: #555;
+}
+
+#newsletter .newstext span {
+  color: #088178;
+  font-weight: 600;
+}
+
+#newsletter .newsletter-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+#newsletter input {
+  width: 320px;
+  max-width: 100%;
+  padding: 14px 18px;
+
+  border: 1px solid #ccc;
+  border-radius: 10px;
+
+  font-size: 15px;
+  outline: none;
+
+  transition: 0.3s ease;
+}
+
+#newsletter input:focus {
+  border-color: #088178;
+  box-shadow: 0 0 8px rgba(8, 129, 120, 0.2);
+}
+
+#newsletter button.normal {
+  padding: 14px 24px;
+  border: none;
+  border-radius: 10px;
+
+  background: #088178;
+  color: #fff;
+
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: 0.3s ease;
+}
+
+#newsletter button.normal:hover {
+  background: #066b65;
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  #newsletter {
+    padding: 40px 20px;
+    margin: 40px 15px;
+  }
+
+  #newsletter .newstext h4 {
+    font-size: 26px;
+  }
+
+  #newsletter .newsletter-form {
+    flex-direction: column;
+  }
+
+  #newsletter input,
+  #newsletter button.normal {
+    width: 100%;
+  }
+}
+  </style>
   <body>
     <section id="header">
   <!-- Logo -->
@@ -235,87 +340,153 @@
       </form>
     </section>
 
+   
+    <!-- Footer -->
     <footer class="section-p1">
-      <div class="footer-container">
-        
-        <div class="col">
-          <img class="logo" src="images/logo.png" alt="Cara Logo" />
-          <h4>Contact</h4>
-          <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
-          <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
-          <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
+      <!-- Contact Column -->
+      <div class="col">
+        <img class="logo" src="images/logo.png" alt="Cara Logo" />
+        <h4>Contact</h4>
+        <p>
+          <strong>Address:</strong> 562 Wellington Road, Street 32, San
+          Francisco
+        </p>
+        <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
+        <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
 
-          <div class="follow">
-            <h4>Follow us</h4>
-            <div class="icon">
-              <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer">
-                <i class="fab fa-twitter"></i>
-              </a>
-              <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
-                <i class="fab fa-github"></i>
-              </a>
-              <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
-                <i class="fab fa-linkedin"></i>
-              </a>
-              <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer">
-                <i class="fab fa-youtube"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="col">
-          <h4>About</h4>
-          <a href="about.html">About us</a>
-          <a href="delivery.html">Delivery Information</a>
-          <a href="privacy.html">Privacy Policy</a>
-          <a href="terms.html">Terms & Conditions</a>
-          <a href="contact.html">Contact Us</a>
-        </div>
-
-        <div class="col">
-          <h4>My Account</h4>
-          <a href="login.html">Sign In</a>
-          <a href="cart.html">View Cart</a> <a href="#">My Wishlist</a>
-          <a href="track-order.html">Track My Order</a>
-          <a href="contact.html">Help</a>
-        </div>
-
-        <div class="col install">
-          <h4>Install App</h4>
-          <p>From App Store or Google Play</p>
-
-          <div class="row">
-            <img src="images/pay/app.jpg" alt="Download from App Store" />
-            <img src="images/pay/play.jpg" alt="Get it on Google Play" />
-          </div>
-
-          <p>Secured Payment Gateways</p>
-
-          <div class="payment-icons">
-            <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer" aria-label="Visa">
-              <i class="fab fa-cc-visa"></i>
+        <div class="follow">
+          <h4>Follow us</h4>
+          <div class="icon">
+            <a
+              href="https://x.com/JanaviPandole"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fab fa-twitter"></i>
             </a>
-            <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer" aria-label="Mastercard">
-              <i class="fab fa-cc-mastercard"></i>
+            <a
+              href="https://github.com/janavipandole"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fab fa-github"></i>
             </a>
-            <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" aria-label="PayPal">
-              <i class="fab fa-cc-paypal"></i>
+            <a
+              href="https://www.linkedin.com/in/janavi-pandole-80a7b2290"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fab fa-linkedin"></i>
             </a>
-            <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer" aria-label="American Express">
-              <i class="fab fa-cc-amex"></i>
-            </a>
-            <a href="https://stripe.com" target="_blank" rel="noopener noreferrer" aria-label="Stripe">
-              <i class="fab fa-cc-stripe"></i>
+            <a
+              href="https://www.youtube.com/@JanaviPandole"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fab fa-youtube"></i>
             </a>
           </div>
         </div>
-
       </div>
 
+      <!-- About Column -->
+      <div class="col">
+        <h4>About</h4>
+        <a href="about.html">About Us</a>
+        <a href="#">Delivery Information</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms and Conditions</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+
+      <!-- My Account Column -->
+      <div class="col">
+        <h4>My Account</h4>
+        <a href="login.html">Sign In</a>
+        <a href="cart.html">View Cart</a>
+        <a href="#">My Wishlist</a>
+        <a href="cart.html">Track My Order</a>
+        <a href="contact.html">Help</a>
+      </div>
+
+      <!-- Newsletter Column -->
+      <div class="col newsletter-footer">
+        <h4>Newsletter</h4>
+        <p>
+          Get email updates about our latest shop and
+          <span>special offers.</span>
+        </p>
+
+        <form class="newsletter-form">
+          <input type="email" placeholder="Your email address" required />
+          <button type="submit" class="normal">Sign Up</button>
+        </form>
+      </div>
+
+      <!-- Install App Column -->
+      <div class="col install">
+        <h4>Install App</h4>
+        <p>From App Store or Google Play</p>
+
+        <div class="row">
+          <img src="images/pay/app.jpg" alt="Download from App Store" />
+          <img src="images/pay/play.jpg" alt="Get it on Google Play" />
+        </div>
+
+        <p>Secured Payment Gateways</p>
+
+        <div class="payment-icons">
+          <a
+            href="https://www.visa.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visa"
+          >
+            <i class="fab fa-cc-visa"></i>
+          </a>
+
+          <a
+            href="https://www.mastercard.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Mastercard"
+          >
+            <i class="fab fa-cc-mastercard"></i>
+          </a>
+
+          <a
+            href="https://www.paypal.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="PayPal"
+          >
+            <i class="fab fa-cc-paypal"></i>
+          </a>
+
+          <a
+            href="https://www.americanexpress.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="American Express"
+          >
+            <i class="fab fa-cc-amex"></i>
+          </a>
+
+          <a
+            href="https://stripe.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Stripe"
+          >
+            <i class="fab fa-cc-stripe"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Copyright -->
       <div class="copyright">
         <p>
-          &copy; Cara  <span class="Current-Year"></span>. All rights reserved. |
+          &copy; Cara <span class="Current-Year"></span>. All rights reserved. |
           <a href="license.html" style="color: #088178"> MIT License </a>
         </p>
       </div>
