@@ -834,12 +834,9 @@ button.white .ripple-effect {
     box-shadow: 10px 10px 74px var(--shadow-hover);
 }
 
-#feature .fe-box img {
+#feature.fe-box img {
     width: 100%;
     margin-bottom: 10px;
-    height: 120px;
-    display: block;
-    object-fit: contain;
 }
 
 #feature .fe-box h6 {
@@ -891,17 +888,18 @@ button.white .ripple-effect {
 }
 
 #product1 .pro-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    justify-content: flex-start;
+    gap: 20px 2.5%;
+    flex-wrap: wrap;
     padding-top: 20px;
+    display: flex;
 }
 
 /* ── Card container ── */
 #product1 .pro {
     position: relative;
-    width: 100%;
-    min-width: 0;
+    width: 23%;
+    min-width: 240px;
     padding: 12px 12px 14px;
     border: 1.5px solid var(--border-color);
     border-radius: 16px;
@@ -1039,8 +1037,6 @@ button.white .ripple-effect {
     transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
     text-align: center;
     white-space: nowrap;
-    max-width: 100%;
-    box-sizing: border-box;
 }
 
 .pro-buy-btn:hover {
@@ -1615,7 +1611,7 @@ footer .copyright {
    ============================================ */
 
 #shop-hero {
-    background-image: url("images/banner/b2.png");
+    background-image: url("images/banner/b1.jpg");
     background-size: cover;
     background-position: center;
     height: 50vh;
@@ -1767,50 +1763,22 @@ footer .copyright {
     margin-bottom: 12px;
 }
 
-    /* ── QUANTITY SELECTOR FIX (Issue: buttons stacking vertically) ── */
-#pro-details .single-pro-details .quantity-selector {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 10px;
-}
+    #pro-details .single-pro-details .quantity-selector input {
+        width: 50px;
+        height: 100%;
+        text-align: center;
+        font-size: 18px;
+        font-weight: 600;
+        border: none;
+        background: transparent;
+        color: var(--text-primary);
+        padding: 0;
+        margin: 0;
+        -moz-appearance: textfield;
+        appearance: textfield;
+        /* Firefox */
+    }
 
-#pro-details .single-pro-details .qty-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 38px;
-    height: 38px;
-    min-width: 38px;
-    border-radius: 50%;
-    background-color: var(--accent);
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 13px;
-    transition: background 0.2s ease;
-}
-
-#pro-details .single-pro-details .qty-btn:hover {
-    background-color: #066b63;
-}
-
-#pro-details .single-pro-details .quantity-selector input {
-    width: 50px;
-    height: 38px;
-    text-align: center;
-    font-size: 18px;
-    font-weight: 600;
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    background: transparent;
-    color: var(--text-primary);
-    padding: 0;
-    margin: 0;
-    -moz-appearance: textfield;
-    appearance: textfield;
-}
     #product1 .pro .des {
         padding: 0 5px;
         display: flex;
@@ -1849,8 +1817,6 @@ footer .copyright {
         cursor: pointer;
         transition: all 0.3s ease;
         box-shadow: 0 4px 12px rgba(8, 129, 120, 0.2);
-        max-width: 100%;
-        box-sizing: border-box;
     }
 
     #product1 .pro .buy-now-btn:hover {
@@ -2834,134 +2800,20 @@ footer .copyright {
 
         #cart {
             overflow-x: auto;
-            margin-top: 20px;
-            padding-top: 0;
-            width: 100%;
-        }
-        
-       /* ============================================
-        DESKTOP CART FIX
-   ============================================ */
-
-        #cart table {
-            width: 100%;
-            border-collapse: collapse;
-             table-layout: auto;
         }
 
-        #cart table td,
-        #cart table thead td {
-           text-align: center;
-           vertical-align: middle;
-        }
-
-    /* Better desktop widths */
-        #cart table td:nth-child(1) {
-            width: 80px;
-        }
-
-        #cart table td:nth-child(2) {
-           width: 120px;
-        }
-
-        #cart table td:nth-child(3) {
-            width: auto;
-        }
-
-        #cart table td:nth-child(4),
-        #cart table td:nth-child(5),
-        #cart table td:nth-child(6) {
-            width: 120px;
-        }
-
-        #cart table img {
-            width: 90px;
-            height: auto;
-            object-fit: cover;
-        }
-        
-         /* ── Cart rows: black background on ALL screen sizes ── */
+        /* ── Cart rows: black background on ALL screen sizes ── */
         #cart table tbody tr td,
         #cart table tbody td {
             background-color: #000000 !important;
             color: #ffffff !important;
             transition: background-color 0.25s ease, box-shadow 0.25s ease;
-            padding: 15px;
-            border-bottom: 1px solid #333;
-            vertical-align: middle;
         }
 
         #cart table tbody tr:hover td {
             background-color: #1a1a1a !important;
             box-shadow: inset 3px 0 0 #088178;
         }
-
-        #cart-add {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            align-items: flex-start;
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        #cart-add .coupon,
-        .subtotal {
-            flex: 1;
-            min-width: 320px;
-        }
-
-        .subtotal {
-            border: 1px solid #c9cbce;
-            padding: 30px;
-            box-sizing: border-box;
-            background: var(--bg-primary);
-        }
-
-        .subtotal table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-
-        .subtotal table td {
-            padding: 12px 10px;
-            font-size: 16px;
-            border: 1px solid #c9cbce;
-        }
-
-        .subtotal button {
-            width: 100%;
-            padding: 14px 20px;
-            background-color: #088178;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-        }
-
-        #page-header {
-            padding: 40px 80px;
-            text-align: center;
-            min-height: auto;
-        }
-
-        #page-header h2 {
-            margin-bottom: 10px;
-        }
-        #page-header p {
-           margin: 0;
-           opacity: 0.8;
-        }
-
-        #cart.section-p1{
-            padding-top: 10px;
-            padding-bottom: 30px;
-        }
-        #cart-add.section-p1 {
-            padding-top: 20px;
-            padding-bottom: 20px;
-        }
-
 
 
         @media (max-width: 799px) {
@@ -2987,14 +2839,12 @@ footer .copyright {
             #cart table {
                 width: 100%;
                 border-collapse: collapse;
-                 margin-top: 0;
-                white-space: normal;
+                white-space: nowrap;
+                table-layout: fixed;
             }
 
             #cart table img {
                 width: 150px;
-                height: auto;
-                object-fit: cover;
             }
 
             #cart table td:nth-child(1) {
@@ -3008,8 +2858,7 @@ footer .copyright {
             }
 
             #cart table td:nth-child(3) {
-                min-width: 200px;
-                width: auto;
+                width: 250px;
                 text-align: center;
             }
 
@@ -3026,7 +2875,6 @@ footer .copyright {
                 display: block;
                 margin: 0 auto;
                 text-align: center;
-                border: 1px solid #ccc;
             }
 
             #cart table td:nth-child(5) input:focus {
@@ -3068,16 +2916,11 @@ footer .copyright {
                 background-color: #1a1a1a;
                 box-shadow: inset 3px 0 0 #088178;
             }
-            #cart table td {
-                word-break: break-word;
-            }
 
             #cart-add {
                 display: flex;
                 justify-content: space-between;
                 flex-wrap: wrap;
-                gap: 30px;
-                margin-top: 30px;
             }
 
             #cart-add .coupon {
@@ -3398,11 +3241,8 @@ footer .copyright {
                     margin: 20px;
                 }
 
-                #product1 .pro-container {
-                    grid-template-columns: repeat(3, 1fr);
-                }
                 #product1 .pro {
-                    width: 100%;
+                    width: 30%;
                 }
             }
 
@@ -3454,13 +3294,14 @@ footer .copyright {
                     margin-top: 70px;
                 }
 
-                #product1 .pro-container {
-                    grid-template-columns: repeat(2, 1fr);
-                    gap: 20px;
-                }
                 #product1 .pro {
-                    width: 100%;
-                    min-width: 0;
+                    width: 45%;
+                    min-width: 220px;
+                }
+
+                #product1 .pro-container {
+                    gap: 20px;
+                    justify-content: center;
                 }
 
                 #sm-banner .banner-box {
@@ -5122,32 +4963,22 @@ footer .copyright {
 
             .quiz-options {
                 display: flex;
-                flex-direction: row;
-                justify-content: center;
-                flex-wrap: wrap;
-                gap: 12px;
-                margin-top: 24px;
+                flex-direction: column;
+                gap: 10px;
+                margin-top: 20px;
             }
 
             .quiz-options button {
-                padding: 10px 24px;
-                background-color: var(--bg-secondary);
-                color: var(--text-primary);
-                border: 1.5px solid var(--border-color);
-                border-radius: 30px;
-                font-weight: 600;
-                font-size: 14px;
+                padding: 10px;
+                background-color: var(--accent);
+                color: white;
+                border: none;
+                border-radius: 4px;
                 cursor: pointer;
-                transition: all 0.3s ease;
-                box-shadow: 0 2px 8px var(--shadow);
             }
 
             .quiz-options button:hover {
-                background-color: var(--accent);
-                color: #ffffff;
-                border-color: var(--accent);
-                transform: translateY(-2px);
-                box-shadow: 0 4px 12px rgba(8, 129, 120, 0.25);
+                background-color: #066a5c;
             }
 
             /* ============================================
@@ -5356,8 +5187,6 @@ footer .copyright {
                 transition: all 0.3s ease;
                 opacity: 0;
                 transform: translateY(10px);
-                max-width: 100%;
-                box-sizing: border-box;
             }
 
             #product1 .pro:hover .buy-now-btn {
@@ -6325,7 +6154,7 @@ footer .copyright {
     position: absolute !important;
     top: 10px !important;
     left: 10px !important;
-    font-size: 2rem !important;
+    font-size: 2git statusrem !important;
     color: white !important;
     text-shadow: 2px 2px 5px rgba(0,0,0,0.9) !important;
     opacity: 0.2 !important;
