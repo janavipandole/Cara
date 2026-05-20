@@ -1,8 +1,8 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
     <!-- Character Encoding -->
     <meta charset="UTF-8">
 
@@ -49,15 +49,18 @@
     <section id="header">
 
         <a href="index.html">
+
             <img
                 src="images/logo.png"
                 alt="Cara Logo"
                 loading="eager"
                 width="120"
                 height="40">
+
         </a>
 
         <div>
+
             <ul id="navbar">
 
                 <li><a href="index.html">Home</a></li>
@@ -73,6 +76,7 @@
                 <li><a href="login.html">Login</a></li>
 
                 <li>
+
                     <a href="cart.html"
                         id="lg-bag"
                         class="cart-icon-wrapper">
@@ -83,9 +87,11 @@
                             id="desktopCartCount">0</span>
 
                     </a>
+
                 </li>
 
                 <li>
+
                     <button class="theme-toggle"
                         id="themeToggle"
                         aria-label="Toggle dark mode">
@@ -94,13 +100,17 @@
                             id="themeIcon"></i>
 
                     </button>
+
                 </li>
 
                 <a href="#" id="close">
+
                     <i class="fa-solid fa-xmark"></i>
+
                 </a>
 
             </ul>
+
         </div>
 
         <!-- MOBILE -->
@@ -208,8 +218,104 @@
         <div class="animation-container"
             id="cardContainer">
 
-            <div class="brand-card"
-                id="brandCard">
+            <div class="sub-card card-l1">
+
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+
+                    <div class="icon">🛒</div>
+
+                    <h3>Free Shipping</h3>
+
+                </div>
+
+                <p>
+                    On all standard regional custom retail updates.
+                </p>
+
+            </div>
+
+            <div class="sub-card card-l2">
+
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+
+                    <div class="icon">👤</div>
+
+                    <h3>Online Order</h3>
+
+                </div>
+
+                <p>
+                    Quick dynamic electronic checkout confirmation system.
+                </p>
+
+            </div>
+
+            <div class="sub-card card-l3">
+
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+
+                    <div class="icon">⚙️</div>
+
+                    <h3>Save Money</h3>
+
+                </div>
+
+                <p>
+                    Incentive cashback loops on every wholesale purchase.
+                </p>
+
+            </div>
+
+            <div class="sub-card card-r1">
+
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+
+                    <div class="icon">⭐</div>
+
+                    <h3>Promotions</h3>
+
+                </div>
+
+                <p>
+                    Unlock seasonal drops & holiday campaign vouchers.
+                </p>
+
+            </div>
+
+            <div class="sub-card card-r2">
+
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+
+                    <div class="icon">🚀</div>
+
+                    <h3>Happy Sell</h3>
+
+                </div>
+
+                <p>
+                    Premium matching customer success feedback loops.
+                </p>
+
+            </div>
+
+            <div class="sub-card card-r3">
+
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+
+                    <div class="icon">🌍</div>
+
+                    <h3>24/7 Support</h3>
+
+                </div>
+
+                <p>
+                    Global infrastructure desk agents always responsive.
+                </p>
+
+            </div>
+
+            <!-- BRAND CARD -->
+            <div class="brand-card" id="brandCard">
 
                 <h1>Cara</h1>
 
@@ -228,8 +334,8 @@
             <h4>Sign Up For Newsletters</h4>
 
             <p>
-                Get E-mail updates about our latest shop
-                and <span>special offers.</span>
+                Get E-mail updates about our latest shop and
+                <span>special offers.</span>
             </p>
 
         </div>
@@ -240,7 +346,9 @@
                 placeholder="Your email address">
 
             <button class="normal">
+
                 Sign Up
+
             </button>
 
         </div>
@@ -350,9 +458,6 @@
             const statusText =
                 document.getElementById('statusText');
 
-            const featureSection =
-                document.getElementById('interactive-feature-wrapper');
-
             if (brandCard && cardContainer) {
 
                 brandCard.addEventListener('click', () => {
@@ -367,8 +472,11 @@
                                 ? "Click to collapse"
                                 : "Click to expand";
                     }
+
                 });
+
             }
+
         });
 
     </script>
@@ -376,4 +484,3 @@
 </body>
 
 </html>
-```
