@@ -593,7 +593,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!paginationSection) return;
 
     const productsPerPage = 16;
-    const productSection = document.getElementById('product1');
+    const productSection = document.getElementById('shop-products') || document.getElementById('product1');
     if (!productSection) return;
 
     const productContainers = Array.from(productSection.querySelectorAll('.pro-container'));
@@ -810,7 +810,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const performSearch = () => {
             const searchTerm = searchInput.value.toLowerCase().trim();
             const selectedCategory = categoryFilter ? categoryFilter.value : 'all';
-            const products = document.querySelectorAll('.pro');
+            const shopProductsSection = document.getElementById('shop-products');
+            const products = shopProductsSection
+                ? shopProductsSection.querySelectorAll('.pro')
+                : document.querySelectorAll('.pro');
             let visibleCount = 0;
             
             products.forEach(product => {
