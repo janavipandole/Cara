@@ -590,8 +590,12 @@ button.white .ripple-effect {
    ============================================ */
 
 #hero.hero-slider {
-    /* ... keep your existing properties ... */
-    background-color: #1a1a1a; /* Prevents background flashing during crossfade */
+    height: 100vh;
+    min-height: 500px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    padding: 0;
 }
 
 .hero-slider .slide {
@@ -601,34 +605,21 @@ button.white .ripple-effect {
     width: 100%;
     height: 100%;
     background-size: cover;
-    background-position: center; 
-    background-repeat: no-repeat;
-    
+    background-position: top 25% right 0;
     opacity: 0;
+    transition: opacity 0.6s ease-in-out;
     z-index: 0;
-    transition: opacity 0.8s ease-in-out;
     display: flex;
     align-items: start;
     justify-content: center;
     flex-direction: column;
 }
 
-/* Keeps the old slide visible in the background to prevent flashing */
-.hero-slider .slide.outgoing {
-    opacity: 1;
-    z-index: 1; 
-}
-
-/* Instantly hides the text of the outgoing slide so it doesn't overlap the new text */
-.hero-slider .slide.outgoing .slide-content > * {
-    opacity: 0; 
-}
-
-/* The new slide fades in securely on top */
 .hero-slider .slide.active {
     opacity: 1;
-    z-index: 2; 
+    z-index: 1;
 }
+
 /* Gradient Overlays */
 .hero-slider .slide::before {
     content: '';
@@ -658,21 +649,6 @@ button.white .ripple-effect {
     z-index: 2;
 }
 
-/* ── Aesthetic Text Animations ── */
-/* Hides elements initially, then applies your fadeInUp animation when the slide is active */
-.hero-slider .slide.active .slide-content > * {
-    opacity: 0; 
-    animation: fadeInUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-}
-
-/* Staggered animation delays for a smooth, cascading entrance effect */
-.hero-slider .slide.active .slide-content h4 { animation-delay: 0.2s; }
-.hero-slider .slide.active .slide-content h2 { animation-delay: 0.4s; }
-.hero-slider .slide.active .slide-content h1 { animation-delay: 0.6s; }
-.hero-slider .slide.active .slide-content p { animation-delay: 0.7s; }
-.hero-slider .slide.active .slide-content .btn-shop-now { animation-delay: 0.8s; }
-.hero-slider .slide.active .slide-content button { animation-delay: 0.9s; }
-
 /* Slider Controls */
 .slider-btn {
     position: absolute;
@@ -687,7 +663,7 @@ button.white .ripple-effect {
     font-size: 1px;
     cursor: pointer;
     z-index: 3;
-    transition: background 0.3s ease, color 0.3s ease;
+    transition: background 0.2s ease, color 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -725,7 +701,7 @@ button.white .ripple-effect {
     border-radius: 50%;
     background: rgba(0, 0, 0, 0.45);
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: all 0.3s ease;
     border: 2px solid transparent;
 }
 
@@ -735,7 +711,7 @@ button.white .ripple-effect {
 
 .slider-dots .dot.active {
     background: #000000;
-    transform: scale(1.4);
+    transform: scale(1.3);
     border-color: rgba(255, 255, 255, 0.4);
 }
 
@@ -765,7 +741,7 @@ button.white .ripple-effect {
     font-weight: 700;
     cursor: pointer;
     transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    margin: 12px 12px 12px 0; /* Fixed margin for better alignment next to quiz button */
+    margin: 12px;
     box-shadow: 0 4px 15px rgba(8, 129, 120, 0.35);
 }
 
@@ -823,11 +799,13 @@ button.white .ripple-effect {
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
+
 /* ============================================
    FEATURES SECTION
    ============================================ */
@@ -856,10 +834,8 @@ button.white .ripple-effect {
     box-shadow: 10px 10px 74px var(--shadow-hover);
 }
 
-#feature .fe-box img {
-    width: 120px;
-    height: 120px;
-    object-fit: contain;
+#feature.fe-box img {
+    width: 100%;
     margin-bottom: 10px;
 }
 
@@ -914,7 +890,7 @@ button.white .ripple-effect {
 #product1 .pro-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-gap: 20px 30px;
+    gap: 20px;
     padding-top: 20px;
 }
 
@@ -1290,8 +1266,7 @@ button.white .ripple-effect {
    ============================================ */
 
 #banner {
-    background-image: url("images/banner/b2.png");
-    background-color: #041e42;
+    background-image: url("images/banner/b2.jpg");
     height: 40vh;
     width: 100%;
     background-size: cover;
@@ -1331,6 +1306,7 @@ button.white .ripple-effect {
 }
 
 #sm-banner .banner-box {
+    background-image: url("images/banner/b17.jpg");
     height: 50vh;
     min-width: 660px;
     background-size: cover;
@@ -1343,6 +1319,9 @@ button.white .ripple-effect {
     padding: 30px;
 }
 
+#sm-banner .banner-box2 {
+    background-image: url("images/banner/b10.jpg");
+}
 
 #sm-banner h4 {
     color: #ffffff;
@@ -1473,247 +1452,160 @@ button.white .ripple-effect {
 /* ============================================
    FOOTER
    ============================================ */
-/* ==================== FOOTER ==================== */
-
-.main-footer {
-    background-color: var(--bg-secondary);
-    padding: 60px 80px 30px 80px;
-    transition: background-color 0.3s ease;
+footer .newsletter-footer {
+    flex: 1 1 320px;
+    max-width: 360px;
 }
 
-/* 1. Top Row Style Rules */
-.footer-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 25px;
-}
-
-.footer-logo {
-    max-height: 45px;
-    width: auto;
-}
-
-.footer-socials {
-    display: flex;
-    gap: 15px;
-}
-
-.footer-socials a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    background-color: #2b2b2b; /* Sleek structural dark circle circles */
-    color: whitesmoke;
-    text-decoration: none;
-    font-size: 18px;
-    transition: 0.3s ease;
-}
-
-.footer-socials a:hover {
-    background-color: var(--accent);
-    color: #fff;
-    transform: translateY(-3px);
-}
-
-/* Elegant Accent Separator Line */
-.footer-divider {
-    border: 0;
-    height: 1px;
-    background-color: #3a3a3a;
-    margin: 0 0 40px 0;
-}
-
-/* 2. Middle Grid Configuration */
-.footer-middle {
-    display: grid;
-    grid-template-columns: 1.3fr 0.8fr 0.8fr 1.3fr;
-    gap: 40px;
-    padding-bottom: 40px;
-}
-
-.footer-col {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.footer-col h4 {
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--footer-text);
-    margin-bottom: 22px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.footer-col p {
+footer .newsletter-footer p {
     font-size: 14px;
     line-height: 1.6;
-    color: var(--footer-text);
-    margin: 0 0 12px 0;
-    opacity: 0.85;
+    margin: 10px 0 18px;
+    color: #465b52;
 }
 
-.footer-col p strong {
-    color: var(--footer-text);
-}
-
-.footer-col p span {
-    color: var(--accent);
+footer .newsletter-footer p span {
+    color: #088178;
     font-weight: 600;
 }
 
-.footer-col a {
-    font-size: 14px;
-    text-decoration: none;
-    color: var(--footer-text);
-    margin-bottom: 14px;
-    opacity: 0.8;
-    transition: all 0.3s ease;
-}
-
-.footer-col a:hover {
-    color: var(--accent);
-    opacity: 1;
-    padding-left: 5px; /* Interactive hover nudge */
-}
-
-/* Newsletter Input Form Layout */
-.newsletter-form {
+footer .newsletter-form {
     display: flex;
-    width: 100%;
-    gap: 8px;
-    margin-bottom: 25px;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.newsletter-form input {
-    flex: 1;
-    height: 42px;
+footer .newsletter-form input {
+    width: 100%;
+    height: 44px;
     padding: 0 15px;
-    border: 1px solid rgb(45, 43, 43);
-    background-color: rgb(45, 43, 43);
-    color: #fff;
-    border-radius: 4px;
+    border: 1px solid #d1d1d1;
+    border-radius: 6px;
     outline: none;
     font-size: 14px;
 }
 
-.newsletter-form button {
-    height: 42px;
-    padding: 0 22px;
-    background-color: var(--accent);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: 600;
+footer .newsletter-form button {
+    width: 100%;
+    height: 44px;
+    border-radius: 6px;
+}
+
+@media (min-width: 992px) {
+    footer .newsletter-form {
+        flex-direction: row;
+    }
+
+    footer .newsletter-form input {
+        flex: 1;
+    }
+
+    footer .newsletter-form button {
+        width: auto;
+        min-width: 110px;
+        white-space: nowrap;
+    }
+}
+
+footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: var(--bg-secondary);
     transition: background-color 0.3s ease;
 }
 
-.newsletter-form button:hover {
-    background-color: #06655e;
+footer .col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
 }
 
-/* Payment Gateway Section Alignment */
-.install-payment-box h4 {
-    font-size: 13px;
-    margin-top: 10px;
-    margin-bottom: 15px;
+footer .logo {
+    margin-bottom: 30px;
 }
-.install-payment-box a{
-    font-size: 35px;
+
+footer h4 {
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: var(--footer-text);
+}
+
+footer p {
+    margin: 0 0 8px 0;
+    font-size: 20px;
+    color: var(--footer-text);
+}
+
+footer a {
+    font-size: 18px;
+    text-decoration: none;
+    color: var(--footer-text);
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+}
+
+footer .follow {
+    margin-top: 20px;
+}
+
+footer .follow i {
+    color: var(--text-secondary);
+    padding-right: 4px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+footer .install .row img {
+    border: 1px solid #088178;
+    border-radius: 6px;
+}
+
+footer .install img {
+    margin: 10px 0 15px 0;
 }
 
 .payment-icons {
     display: flex;
-    gap: 12px;
-    width: 100%;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
 }
 
 .payment-icons a {
-    color: rgb(60, 57, 57);
-    opacity: 0.7;
-    margin: 0;
-    transition: 0.3s ease;
-    
-}
-.payment-icons a:hover {
-    color: var(--accent);
-    opacity: 1;
-    padding-left: 0; /* Prevents slide interaction on icons */
-    transform: scale(1.12);
-}
-
-/* 3. Bottom Row / Alignment */
-.footer-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 25px;
-    border-top: 1px solid #3a3a3a;
-}
-
-.footer-bottom p {
-    font-size: 13px;
-    color: var(--footer-text);
-    opacity: 0.7;
-    margin: 0;
-}
-
-.footer-legal-links a {
-    font-size: 13px;
-    color: var(--footer-text);
     text-decoration: none;
-    opacity: 0.7;
-    transition: color 0.3s ease;
-    
 }
 
-.footer-legal-links a:hover {
-    color: var(--accent);
-    opacity: 1;
-}
-/* Install App Section Layout inside Column 4 */
-.footer-install-box {
-    width: 100%;
-    margin-bottom: 20px;
-}
-
-.footer-install-box h4 {
-    font-size: 14px !important;
-    margin-bottom: 10px !important;
-     margin-top: 15px;
-}
-
-.footer-install-box p {
-    font-size: 13px;
-    margin-bottom: 12px;
-    opacity: 0.8;
-}
-
-.download-badges {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.download-badges img {
-    height: 40px; /* Forces exact uniform look matching your layout */
-    width: auto;
-    border: 1px solid var(--accent); /* Matches the fine border style from your screenshot */
-    border-radius: 6px;
+.payment-icons i {
+    font-size: 37px;
+    color: #444444;
+    transition: 0.3s ease;
     cursor: pointer;
-    transition: transform 0.3s ease;
 }
 
-.download-badges img:hover {
-    transform: scale(1.05);
+.payment-icons i:hover {
+    color: #088178;
+    transform: scale(1.15);
 }
 
+[data-theme="dark"] .payment-icons i {
+    color: whitesmoke;
+}
+
+[data-theme="dark"] .payment-icons i:hover {
+    color: var(--accent);
+}
+
+footer .follow i:hover,
+footer a:hover {
+    color: var(--accent);
+}
+
+footer .copyright {
+    text-align: center;
+    width: 100%;
+}
 
 /* ============================================
    SHOP PAGE
@@ -2367,7 +2259,6 @@ button.white .ripple-effect {
         padding: 0;
         margin: 0;
         -moz-appearance: textfield;
-        appearance: textfield;
     }
 
     #pro-details .single-pro-details .quantity-selector input::-webkit-outer-spin-button,
@@ -2940,20 +2831,134 @@ button.white .ripple-effect {
 
         #cart {
             overflow-x: auto;
+            margin-top: 20px;
+            padding-top: 0;
+            width: 100%;
+        }
+        
+       /* ============================================
+        DESKTOP CART FIX
+   ============================================ */
+
+        #cart table {
+            width: 100%;
+            border-collapse: collapse;
+             table-layout: auto;
         }
 
-        /* ── Cart rows: black background on ALL screen sizes ── */
+        #cart table td,
+        #cart table thead td {
+           text-align: center;
+           vertical-align: middle;
+        }
+
+    /* Better desktop widths */
+        #cart table td:nth-child(1) {
+            width: 80px;
+        }
+
+        #cart table td:nth-child(2) {
+           width: 120px;
+        }
+
+        #cart table td:nth-child(3) {
+            width: auto;
+        }
+
+        #cart table td:nth-child(4),
+        #cart table td:nth-child(5),
+        #cart table td:nth-child(6) {
+            width: 120px;
+        }
+
+        #cart table img {
+            width: 90px;
+            height: auto;
+            object-fit: cover;
+        }
+        
+         /* ── Cart rows: black background on ALL screen sizes ── */
         #cart table tbody tr td,
         #cart table tbody td {
             background-color: #000000 !important;
             color: #ffffff !important;
             transition: background-color 0.25s ease, box-shadow 0.25s ease;
+            padding: 15px;
+            border-bottom: 1px solid #333;
+            vertical-align: middle;
         }
 
         #cart table tbody tr:hover td {
             background-color: #1a1a1a !important;
             box-shadow: inset 3px 0 0 #088178;
         }
+
+        #cart-add {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        #cart-add .coupon,
+        .subtotal {
+            flex: 1;
+            min-width: 320px;
+        }
+
+        .subtotal {
+            border: 1px solid #c9cbce;
+            padding: 30px;
+            box-sizing: border-box;
+            background: var(--bg-primary);
+        }
+
+        .subtotal table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .subtotal table td {
+            padding: 12px 10px;
+            font-size: 16px;
+            border: 1px solid #c9cbce;
+        }
+
+        .subtotal button {
+            width: 100%;
+            padding: 14px 20px;
+            background-color: #088178;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        #page-header {
+            padding: 40px 80px;
+            text-align: center;
+            min-height: auto;
+        }
+
+        #page-header h2 {
+            margin-bottom: 10px;
+        }
+        #page-header p {
+           margin: 0;
+           opacity: 0.8;
+        }
+
+        #cart.section-p1{
+            padding-top: 10px;
+            padding-bottom: 30px;
+        }
+        #cart-add.section-p1 {
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+
 
 
         @media (max-width: 799px) {
@@ -2979,12 +2984,14 @@ button.white .ripple-effect {
             #cart table {
                 width: 100%;
                 border-collapse: collapse;
-                white-space: nowrap;
-                table-layout: fixed;
+                 margin-top: 0;
+                white-space: normal;
             }
 
             #cart table img {
                 width: 150px;
+                height: auto;
+                object-fit: cover;
             }
 
             #cart table td:nth-child(1) {
@@ -2998,7 +3005,8 @@ button.white .ripple-effect {
             }
 
             #cart table td:nth-child(3) {
-                width: 250px;
+                min-width: 200px;
+                width: auto;
                 text-align: center;
             }
 
@@ -3015,6 +3023,7 @@ button.white .ripple-effect {
                 display: block;
                 margin: 0 auto;
                 text-align: center;
+                border: 1px solid #ccc;
             }
 
             #cart table td:nth-child(5) input:focus {
@@ -3056,11 +3065,16 @@ button.white .ripple-effect {
                 background-color: #1a1a1a;
                 box-shadow: inset 3px 0 0 #088178;
             }
+            #cart table td {
+                word-break: break-word;
+            }
 
             #cart-add {
                 display: flex;
                 justify-content: space-between;
                 flex-wrap: wrap;
+                gap: 30px;
+                margin-top: 30px;
             }
 
             #cart-add .coupon {
@@ -5449,7 +5463,7 @@ button.white .ripple-effect {
                 /* Complements existing soft light backdrops */
                 position: relative;
                 overflow: hidden;
-                padding: 40px 20px;
+                padding: 40px 0;
             }
 
             .animation-container {
@@ -5522,7 +5536,7 @@ button.white .ripple-effect {
             .sub-card {
                 position: absolute;
                 width: 260px;
-                padding: 24px;
+                padding: 16px;
                 background: #ffffff;
                 border: 1px solid #cce7e6;
                 /* Clean, light framing border color */
@@ -5552,10 +5566,6 @@ button.white .ripple-effect {
 
             .sub-card .icon {
                 font-size: 1.8rem;
-                margin-right: 8px;
-                display: inline-flex;
-                align-items: center;
-                vertical-align: middle;
             }
 
             .sub-card h3 {
@@ -5953,58 +5963,12 @@ button.white .ripple-effect {
             pointer-events: none;
             -moz-appearance: textfield;
         }
+
         .qty-input::-webkit-outer-spin-button,
         .qty-input::-webkit-inner-spin-button {
             -webkit-appearance: none;
             margin: 0;
         }
-        .product-back-container {
-    padding: 100px 80px 0 80px; 
-    background-color: var(--bg-primary); 
-    display: flex;             
-    justify-content: flex-end; 
-    width: 100%;
-}
-     
-
-
-.product-back-btn {
-    background-color: #088178; 
-    color: white;
-    border: 2px solid #088178; 
-    padding: 10px 24px;
-    font-size: 14px;
-    font-weight: 600;
-    text-transform: uppercase; 
-    letter-spacing: 1px; 
-    border-radius: 50px; 
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    box-shadow: 0 4px 15px rgba(8, 129, 120, 0.2); 
-    transition: all 0.4s ease;
-}
-
-.product-back-btn:hover {
-    background-color: transparent; 
-    color: #088178; 
-    box-shadow: 0 6px 20px rgba(8, 129, 120, 0.4); 
-    transform: translateY(-3px); 
-}
-
-@media (max-width: 477px) {
-    .product-back-container {
-        padding: 100px 20px 0 20px; 
-    }
-    .product-back-btn {
-        padding: 8px 18px;
-        font-size: 13px;
-    }
-}
-
-
-
- 
 
         @media (min-width: 768px) {
             .qty-selector {
@@ -6365,5 +6329,3 @@ button.white .ripple-effect {
     z-index: 999 !important;
   }
 }
-
-
