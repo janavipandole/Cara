@@ -31,15 +31,30 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        const users = JSON.parse(localStorage.getItem('users') || '[]');
-        const user = users.find(u => u.email === email && u.password === password);
-
-        if (user) {
-            // On successful login
-            localStorage.setItem('loggedInUser', email);
-            window.location.href = 'index.html';
-        } else {
-            showToast("Invalid email or password", "error");
+        // ── Loading state: disable button & show spinner ──
+        const submitBtn = form.querySelector('.login-btn');
+        if (submitBtn) {
+            submitBtn.classList.add('btn-loading');
+            submitBtn.disabled = true;
         }
+
+        // Simulate async request (replace with real API call)
+        setTimeout(function () {
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const user = users.find(u => u.email === email && u.password === password);
+
+            if (user) {
+                // On successful login
+                localStorage.setItem('loggedInUser', email);
+                window.location.href = 'index.html';
+            } else {
+                showToast("Invalid email or password", "error");
+                // ── Re-enable button on failure ──
+                if (submitBtn) {
+                    submitBtn.classList.remove('btn-loading');
+                    submitBtn.disabled = false;
+                }
+            }
+        }, 1500);
     });
 });
