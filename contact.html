@@ -15,26 +15,41 @@
   <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
 
   <!-- SEO -->
-  <meta name="description"
-    content="Get in touch with Cara. We'd love to hear from you — contact our support team for inquiries or collaborations." />
-  <meta name="keywords" content="contact, support, Cara, help, e-commerce, reach us, Cara store" />
+  <meta
+    name="description"
+    content="Get in touch with Cara. We'd love to hear from you — contact our support team for inquiries or collaborations."
+  />
+  <meta
+    name="keywords"
+    content="contact, support, Cara, help, e-commerce, reach us, Cara store"
+  />
   <meta name="author" content="Cara" />
   <meta name="robots" content="index, follow" />
 
   <!-- Open Graph -->
   <meta property="og:title" content="Contact Us | Cara — Modern E-Commerce" />
-  <meta property="og:description"
-    content="Reach out to Cara — our team is here to help with any questions or feedback." />
+  <meta
+    property="og:description"
+    content="Reach out to Cara — our team is here to help with any questions or feedback."
+  />
   <meta property="og:image" content="https://example.com/images/preview.jpg" />
   <meta property="og:url" content="https://example.com/contact" />
   <meta property="og:type" content="website" />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Contact Us | Cara — Modern E-Commerce" />
-  <meta name="twitter:description"
-    content="We’re here to help — contact Cara for assistance or feedback." />
-  <meta name="twitter:image" content="https://example.com/images/preview.jpg" />
+  <meta
+    name="twitter:title"
+    content="Contact Us | Cara — Modern E-Commerce"
+  />
+  <meta
+    name="twitter:description"
+    content="We’re here to help — contact Cara for assistance or feedback."
+  />
+  <meta
+    name="twitter:image"
+    content="https://example.com/images/preview.jpg"
+  />
 
   <!-- Theme -->
   <meta name="theme-color" content="#000000" />
@@ -43,14 +58,34 @@
   <link rel="stylesheet" href="style.css" />
 
   <!-- Remix Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+    rel="stylesheet"
+  />
 
   <!-- Font Awesome -->
-  <link rel="stylesheet"
+  <link
+    rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
 
   <style>
+    /* ===============================
+       HEADER FIX
+    =============================== */
+    #header {
+      position: sticky;
+      top: 0;
+      z-index: 9999;
+      background: #fff;
+      width: 100%;
+    }
+
+    /* ===============================
+       FEATURES
+    =============================== */
     .features {
       display: flex;
       justify-content: center;
@@ -69,6 +104,11 @@
       padding: 30px 25px;
       text-align: center;
       transition: 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
     }
 
     .feature-card i {
@@ -90,11 +130,9 @@
       line-height: 1.6;
     }
 
-    .feature-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
-    }
-
+    /* ===============================
+       CONTACT SECTION
+    =============================== */
     .contact-container {
       display: grid;
       grid-template-columns: 2fr 1fr;
@@ -174,14 +212,40 @@
       }
     }
 
-    .contact-right>div {
+    .contact-right > div {
       margin-bottom: 20px;
     }
 
-    #navbar-container {
-      display: block;
+    /* ===============================
+       BUTTONS
+    =============================== */
+    #backToTop,
+    #Toptoback {
+      position: fixed;
+      right: 20px;
+      z-index: 999;
+      border: none;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: #088178;
+      color: #fff;
+      cursor: pointer;
+      display: none;
+      font-size: 18px;
     }
 
+    #backToTop {
+      bottom: 80px;
+    }
+
+    #Toptoback {
+      bottom: 20px;
+    }
+
+    /* ===============================
+       RESPONSIVE
+    =============================== */
     @media (max-width: 992px) {
       .contact-container {
         grid-template-columns: 1fr;
@@ -197,14 +261,6 @@
         width: 100%;
         max-width: 350px;
       }
-
-      #navbar-container {
-        display: none;
-      }
-
-      #navbar-container.active {
-        display: block;
-      }
     }
   </style>
 </head>
@@ -214,23 +270,94 @@
   <!-- HEADER -->
   <section id="header">
 
+    <!-- Logo -->
     <a href="index.html">
       <img src="images/logo.png" alt="Cara Logo" id="siteLogo" />
     </a>
 
-    <!-- NAVBAR -->
-    <div id="navbar-container"></div>
+    <div>
+      <ul id="navbar">
 
-    <!-- MOBILE -->
+        <!-- Home -->
+        <li><a href="index.html">Home</a></li>
+
+        <!-- Shop Dropdown -->
+        <li class="dropdown">
+          <a href="shop.html" class="dropbtn">
+            Shop <i class="fas fa-chevron-down"></i>
+          </a>
+
+          <ul class="dropdown-menu">
+            <li><a href="tshirts.html">T-Shirts</a></li>
+            <li><a href="shirts.html">Shirts</a></li>
+            <li><a href="kurtis.html">Kurtis</a></li>
+            <li><a href="jeans.html">Jeans</a></li>
+            <li><a href="kids_cloth.html">Kids Clothing</a></li>
+            <li><a href="shoes.html">Shoes</a></li>
+            <li><a href="accessories.html">Accessories</a></li>
+            <li><a href="dresses.html">Dresses</a></li>
+          </ul>
+        </li>
+
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="try-on.html">Try-On</a></li>
+        <li><a href="community.html">Community</a></li>
+        <li><a href="promotions.html">Promotions</a></li>
+
+        <!-- Contact -->
+        <li class="nav-icon">
+          <a class="active" href="contact.html" aria-label="Contact">
+            <i class="ri-customer-service-2-line"></i>
+          </a>
+        </li>
+
+        <!-- Login -->
+        <li class="nav-icon">
+          <a href="login.html" aria-label="Login">
+            <i class="ri-user-3-line"></i>
+          </a>
+        </li>
+
+        <!-- Cart -->
+        <li class="nav-icon">
+          <a href="cart.html" id="lg-bag" aria-label="Cart">
+            <i class="ri-shopping-bag-4-line"></i>
+          </a>
+        </li>
+
+        <!-- Theme Toggle -->
+        <li class="nav-icon">
+          <button
+            class="theme-toggle"
+            id="themeToggle"
+            aria-label="Toggle dark mode"
+          >
+            <i class="ri-moon-line" id="themeIcon"></i>
+          </button>
+        </li>
+
+        <!-- Close -->
+        <a href="#" id="close">
+          <i class="fa-solid fa-xmark"></i>
+        </a>
+
+      </ul>
+    </div>
+
+    <!-- Mobile -->
     <div class="mobile">
 
-      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
+      <button
+        class="theme-toggle"
+        id="themeToggleMobile"
+        aria-label="Toggle dark mode"
+      >
         <i class="ri-moon-line" id="themeIconMobile"></i>
       </button>
 
-      <a href="cart.html" id="mobile-cart-icon">
+      <a href="cart.html">
         <i class="ri-shopping-bag-4-line"></i>
-        <span class="cart-count" id="mobileCartCount">0</span>
       </a>
 
       <i class="fas fa-outdent" id="bar"></i>
@@ -302,10 +429,18 @@
           <input id="name" type="text" placeholder="Enter your full name" />
 
           <label for="email">Email</label>
-          <input id="email" type="email" placeholder="Enter your email address" />
+          <input
+            id="email"
+            type="email"
+            placeholder="Enter your email address"
+          />
 
           <label for="subject">Subject</label>
-          <input id="subject" type="text" placeholder="What is this regarding?" />
+          <input
+            id="subject"
+            type="text"
+            placeholder="What is this regarding?"
+          />
 
           <label for="department">Department</label>
 
@@ -320,8 +455,11 @@
 
           <label for="message">Message</label>
 
-          <textarea id="message" rows="6"
-            placeholder="Write your message here"></textarea>
+          <textarea
+            id="message"
+            rows="6"
+            placeholder="Write your message here"
+          ></textarea>
 
           <button type="submit" class="normal">
             Send Message
@@ -342,7 +480,7 @@
             <img src="images/people/1.png" alt="John Doe" />
 
             <p>
-              <span>John Doe</span>
+              <span>John Doe</span><br />
               Senior Marketing Manager <br />
               Phone: +000 123 000 77 88 <br />
               Email: contact@example.com
@@ -353,7 +491,7 @@
             <img src="images/people/2.png" alt="Jane Smith" />
 
             <p>
-              <span>Jane Smith</span>
+              <span>Jane Smith</span><br />
               Customer Relations <br />
               Phone: +000 123 111 44 55 <br />
               Email: support@example.com
@@ -461,29 +599,20 @@
 
   </footer>
 
+  <!-- APP JS -->
+  <script src="app.js?v=1779120917212"></script>
+
   <!-- SCRIPTS -->
-  <script src="navbar.js"></script>
-
   <script>
-    loadNavbar('contact');
-  </script>
 
-  <script src="app.js"></script>
-
-  <script>
-    const bar = document.getElementById("bar");
-    const navbar = document.getElementById("navbar-container");
-
-    if (bar) {
-      bar.addEventListener("click", () => {
-        navbar.classList.toggle("active");
-      });
-    }
-
+    /* =========================
+       BACK TO TOP / BOTTOM
+    ========================= */
     const backToTop = document.getElementById("backToTop");
     const toBottom = document.getElementById("Toptoback");
 
     window.addEventListener("scroll", () => {
+
       if (window.scrollY > 200) {
         backToTop.style.display = "block";
         toBottom.style.display = "block";
@@ -491,6 +620,7 @@
         backToTop.style.display = "none";
         toBottom.style.display = "none";
       }
+
     });
 
     backToTop.onclick = () => {
@@ -507,6 +637,9 @@
       });
     };
 
+    /* =========================
+       FORM VALIDATION
+    ========================= */
     const form = document.querySelector(".contact-form");
 
     form.addEventListener("submit", function (e) {
@@ -530,7 +663,6 @@
         const error = document.createElement("div");
 
         error.className = "error-msg";
-
         error.innerText = msg;
 
         input.classList.add("input-error");
@@ -552,7 +684,10 @@
       }
 
       if (message.value.trim().length < 10) {
-        showError(message, "Message must be at least 10 characters");
+        showError(
+          message,
+          "Message must be at least 10 characters"
+        );
       }
 
       if (isValid) {
@@ -571,11 +706,18 @@
             .innerText = "✅ Message sent successfully!";
 
         }, 1500);
+
       }
+
     });
 
-    document.querySelector(".Current-Year").textContent =
-      new Date().getFullYear();
+    /* =========================
+       CURRENT YEAR
+    ========================= */
+    document.querySelectorAll(".Current-Year").forEach(el => {
+      el.textContent = new Date().getFullYear();
+    });
+
   </script>
 
 </body>

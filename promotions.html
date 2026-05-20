@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <script>
         // Immediately apply saved theme to prevent flash
         (function () {
@@ -9,25 +11,35 @@
         })();
     </script>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Meta -->
+    <meta charset="UTF-8" />
 
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    />
+
+    <!-- Title -->
     <title>Cara — Promotions & Ambassador Program</title>
 
+    <!-- Favicon -->
     <link
         rel="icon"
         type="image/jpg"
         sizes="32x32"
         href="images/favicon.jpg"
-    >
+    />
 
-    <link rel="stylesheet" href="style.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css" />
 
+    <!-- Remix Icons -->
     <link
         href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
         rel="stylesheet"
     />
 
+    <!-- Font Awesome -->
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
@@ -37,7 +49,10 @@
     />
 
     <style>
-        /* Promotions specific styles */
+
+        /* ============================================
+           PROMOTIONS PAGE
+        ============================================ */
 
         #promo-header {
             background-image: url("images/banner/b1.jpg");
@@ -190,11 +205,14 @@
         }
 
         @media (max-width: 799px) {
+
             .promo-container {
                 flex-direction: column;
             }
         }
+
     </style>
+
 </head>
 
 <body>
@@ -205,62 +223,129 @@
 
         <!-- Logo -->
         <a href="index.html">
-            <img src="images/logo.png" alt="Cara Logo" id="siteLogo">
+            <img
+                src="images/logo.png"
+                alt="Cara Logo"
+                id="siteLogo"
+            />
         </a>
 
+        <!-- Navbar -->
         <div>
+
             <ul id="navbar">
 
-                <!-- Main Navigation Links -->
-                <li><a href="index.html">Home</a></li>
+                <!-- Home -->
+                <li>
+                    <a href="index.html">Home</a>
+                </li>
 
                 <!-- Shop Dropdown -->
                 <li class="dropdown">
-                    <a href="javascript:void(0)" class="dropdown-toggle">
+
+                    <a
+                        href="javascript:void(0)"
+                        class="dropdown-toggle"
+                    >
                         Shop
                         <i class="fas fa-chevron-down"></i>
                     </a>
 
                     <ul class="dropdown-menu">
-                        <li><a href="tshirts.html">T-Shirts</a></li>
-                        <li><a href="shirts.html">Shirts</a></li>
-                        <li><a href="kurtis.html">Kurtis</a></li>
-                        <li><a href="jeans.html">Jeans</a></li>
-                        <li><a href="kids_cloth.html">Kids Clothing</a></li>
-                        <li><a href="shoes.html">Shoes</a></li>
-                        <li><a href="accessories.html">Accessories</a></li>
-                        <li><a href="dresses.html">Dresses</a></li>
+
+                        <li>
+                            <a href="tshirts.html">T-Shirts</a>
+                        </li>
+
+                        <li>
+                            <a href="shirts.html">Shirts</a>
+                        </li>
+
+                        <li>
+                            <a href="kurtis.html">Kurtis</a>
+                        </li>
+
+                        <li>
+                            <a href="jeans.html">Jeans</a>
+                        </li>
+
+                        <li>
+                            <a href="kids_cloth.html">
+                                Kids Clothing
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="shoes.html">Shoes</a>
+                        </li>
+
+                        <li>
+                            <a href="accessories.html">
+                                Accessories
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="dresses.html">Dresses</a>
+                        </li>
+
                     </ul>
+
                 </li>
 
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="try-on.html">Try-On</a></li>
-                <li><a href="community.html">Community</a></li>
-
-                <!-- Active Promotions -->
+                <!-- Other Links -->
                 <li>
-                    <a class="active" href="promotions.html">
+                    <a href="blog.html">Blog</a>
+                </li>
+
+                <li>
+                    <a href="about.html">About</a>
+                </li>
+
+                <li>
+                    <a href="try-on.html">Try-On</a>
+                </li>
+
+                <li>
+                    <a href="community.html">Community</a>
+                </li>
+
+                <li>
+                    <a
+                        class="active"
+                        href="promotions.html"
+                    >
                         Promotions
                     </a>
                 </li>
 
-                <!-- Contact Icon -->
+                <!-- Contact -->
                 <li class="nav-icon">
-                    <a href="contact.html" aria-label="Contact">
+
+                    <a
+                        href="contact.html"
+                        aria-label="Contact"
+                    >
                         <i class="ri-customer-service-2-line"></i>
                     </a>
+
                 </li>
 
-                <!-- Login Icon -->
+                <!-- Login -->
                 <li class="nav-icon">
-                    <a href="login.html" aria-label="Login">
+
+                    <a
+                        href="login.html"
+                        aria-label="Login"
+                    >
                         <i class="ri-user-3-line"></i>
                     </a>
+
                 </li>
 
-                <!-- Cart Icon -->
+                <!-- Cart -->
                 <li class="nav-icon">
+
                     <a
                         href="cart.html"
                         id="lg-bag"
@@ -268,30 +353,36 @@
                     >
                         <i class="ri-shopping-bag-4-line"></i>
                     </a>
+
                 </li>
 
                 <!-- Theme Toggle -->
                 <li class="nav-icon">
+
                     <button
                         class="theme-toggle"
                         id="themeToggle"
                         aria-label="Toggle dark mode"
                     >
-                        <i class="ri-moon-line" id="themeIcon"></i>
+                        <i
+                            class="ri-moon-line"
+                            id="themeIcon"
+                        ></i>
                     </button>
+
                 </li>
 
-                <!-- Close Button -->
+                <!-- Close -->
                 <a
                     href="#"
                     id="close"
                     aria-label="Close menu"
-                    aria-hidden="false"
                 >
                     <i class="fa-solid fa-xmark"></i>
                 </a>
 
             </ul>
+
         </div>
 
         <!-- Mobile Navbar -->
@@ -299,19 +390,19 @@
         <div class="mobile">
 
             <!-- Login -->
-            <a href="login.html" aria-label="Login">
+            <a
+                href="login.html"
+                aria-label="Login"
+            >
                 <i class="ri-user-3-line"></i>
             </a>
 
             <!-- Cart -->
-            <a href="cart.html" aria-label="Cart">
+            <a
+                href="cart.html"
+                aria-label="Cart"
+            >
                 <i class="ri-shopping-bag-4-line"></i>
-                <span
-                    class="cart-count"
-                    id="mobileCartCount"
-                >
-                    0
-                </span>
             </a>
 
             <!-- Theme Toggle -->
@@ -320,7 +411,10 @@
                 id="themeToggleMobile"
                 aria-label="Toggle dark mode"
             >
-                <i class="ri-moon-line" id="themeIconMobile"></i>
+                <i
+                    class="ri-moon-line"
+                    id="themeIconMobile"
+                ></i>
             </button>
 
             <!-- Hamburger -->
@@ -340,8 +434,13 @@
     <!-- HERO -->
 
     <section id="promo-header">
+
         <h2>#CaraAmbassador</h2>
-        <p>Join our community. Get freebies. Share your style.</p>
+
+        <p>
+            Join our community. Get freebies. Share your style.
+        </p>
+
     </section>
 
     <!-- MAIN CONTENT -->
@@ -360,51 +459,63 @@
             </p>
 
             <div class="perk-box">
+
                 <h4>
+
                     <i
                         class="ri-gift-line"
                         style="color: var(--accent);"
                     ></i>
 
                     Monthly Freebies
+
                 </h4>
 
                 <p>
                     Receive exclusive clothing items every month to
                     style and share with your followers.
                 </p>
+
             </div>
 
             <div class="perk-box">
+
                 <h4>
+
                     <i
                         class="ri-percent-line"
                         style="color: var(--accent);"
                     ></i>
 
                     Custom Discount Codes
+
                 </h4>
 
                 <p>
                     Get a unique discount code to share with your
                     audience and earn commission on sales.
                 </p>
+
             </div>
 
             <div class="perk-box">
+
                 <h4>
+
                     <i
                         class="ri-star-smile-line"
                         style="color: var(--accent);"
                     ></i>
 
                     Featured Spotlights
+
                 </h4>
 
                 <p>
                     Get featured on our official Instagram page and
                     website homepage.
                 </p>
+
             </div>
 
         </div>
@@ -418,52 +529,62 @@
             <form id="ambassador-form">
 
                 <div class="form-group">
+
                     <label>Full Name</label>
 
                     <input
                         type="text"
                         placeholder="Enter Name"
                         required
-                    >
+                    />
+
                 </div>
 
                 <div class="form-group">
+
                     <label>Email Address</label>
 
                     <input
                         type="email"
                         placeholder="Enter Email"
                         required
-                    >
+                    />
+
                 </div>
 
                 <div class="form-group">
+
                     <label>Instagram Handle</label>
 
                     <input
                         type="text"
                         placeholder="Enter Instagram Handle"
                         required
-                    >
+                    />
+
                 </div>
 
                 <div class="form-group">
+
                     <label>Follower Count</label>
 
                     <input
                         type="number"
                         placeholder="e.g. 15000"
                         required
-                    >
+                    />
+
                 </div>
 
                 <div class="form-group">
+
                     <label>Why do you love Cara?</label>
 
                     <textarea
                         rows="4"
                         placeholder="Tell us about your style..."
                     ></textarea>
+
                 </div>
 
                 <button
@@ -530,7 +651,7 @@
 
     <footer class="section-p1">
 
-        <!-- Contact Column -->
+        <!-- Contact -->
 
         <div class="col">
 
@@ -538,7 +659,7 @@
                 class="logo"
                 src="images/logo.png"
                 alt="Cara Logo"
-            >
+            />
 
             <h4>Contact</h4>
 
@@ -646,9 +767,12 @@
                     type="email"
                     placeholder="Your email address"
                     required
-                >
+                />
 
-                <button type="submit" class="normal">
+                <button
+                    type="submit"
+                    class="normal"
+                >
                     Sign Up
                 </button>
 
@@ -669,12 +793,12 @@
                 <img
                     src="images/pay/app.jpg"
                     alt="Download from App Store"
-                >
+                />
 
                 <img
                     src="images/pay/play.jpg"
                     alt="Get it on Google Play"
-                >
+                />
 
             </div>
 
@@ -750,12 +874,15 @@
 
     </footer>
 
-    <!-- SCRIPTS -->
+    <!-- SCRIPT -->
 
     <script src="app.js?v=1779120917217"></script>
 
     <script>
-        // Form submission simulation
+
+        // ============================================
+        // FORM SUBMISSION
+        // ============================================
 
         document
             .getElementById('ambassador-form')
@@ -770,14 +897,20 @@
                 this.reset();
             });
 
-        // Trigger popup after 5 seconds
+        // ============================================
+        // DISCOUNT POPUP
+        // ============================================
 
         setTimeout(() => {
+
             document.getElementById(
                 'discount-popup'
             ).style.display = 'block';
+
         }, 5000);
+
     </script>
 
 </body>
+
 </html>

@@ -73,6 +73,7 @@
         referrerpolicy="no-referrer"
     />
 
+
     <style>
         #scrollTopBtn {
             position: fixed;
@@ -108,16 +109,55 @@
         <!-- Logo -->
         <a href="index.html">
             <img src="images/logo.png" alt="Cara Logo" />
-        </a>
 
-        <div>
-            <ul id="navbar">
+    
+#scrollTopBtn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;   /* keeps button on right side */
 
-                <!-- Main Navigation Links -->
-                <li><a href="index.html">Home</a></li>
+  width: 55px;
+  height: 55px;
 
-                <!-- Dropdown Shop -->
-                <li class="dropdown">
+  border: none;
+  border-radius: 50%;
+
+  background-color: #088178;
+  color: white;
+
+  font-size: 24px;
+  font-weight: bold;
+
+  cursor: pointer;
+  z-index: 999;
+
+  display: none;
+
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+}
+
+#scrollTopBtn:hover {
+  background-color: #065f5b;
+  transform: scale(1.1);
+}
+</style>
+  </head>
+
+  <body>
+          <!-- HEADER -->
+          <section id="header">
+  <!-- Logo -->
+  <a href="index.html">
+    <img src="images/logo.png" alt="Cara Logo" />
+  </a>
+
+  <div>
+    <ul id="navbar">
+
+      <!-- Main Navigation Links -->
+      <li><a href="index.html">Home</a></li>
+      <li class="dropdown">
                     <a href="javascript:void(0)" class="dropdown-toggle">
                         Shop <i class="fas fa-chevron-down"></i>
                     </a>
@@ -133,17 +173,16 @@
                         <li><a href="dresses.html">Dresses</a></li>
                     </ul>
                 </li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a class="active" href="about.html">About</a></li>
+      <li><a href="try-on.html">Try-On</a></li>
+      <li><a href="community.html">Community</a></li>
+      <li><a href="promotions.html">Promotions</a></li>
 
-                <li><a href="blog.html">Blog</a></li>
-                <li><a class="active" href="about.html">About</a></li>
-                <li><a href="try-on.html">Try-On</a></li>
-                <li><a href="community.html">Community</a></li>
-                <li><a href="promotions.html">Promotions</a></li>
-
-                <!-- Contact Icon -->
-                <li class="nav-icon">
-                    <a href="contact.html" aria-label="Contact">
-                        <i class="ri-customer-service-2-line"></i>
+      <!-- Contact Icon -->
+      <li class="nav-icon">
+        <a href="contact.html" aria-label="Contact">
+          <i class="ri-customer-service-2-line"></i>
                     </a>
                 </li>
 

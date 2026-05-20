@@ -2,25 +2,48 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Meta -->
+    <meta charset="UTF-8" />
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    />
+
+    <!-- Title -->
     <title>Cara — AI Virtual Try-On</title>
 
-    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
+    <!-- Favicon -->
+    <link
+        rel="icon"
+        type="image/jpg"
+        sizes="32x32"
+        href="images/favicon.jpg"
+    />
 
-    <link rel="stylesheet" href="style.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css" />
 
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <!-- Remix Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+        rel="stylesheet"
+    />
 
-    <link rel="stylesheet"
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         crossorigin="anonymous"
-        referrerpolicy="no-referrer" />
+        referrerpolicy="no-referrer"
+    />
 
     <!-- MediaPipe -->
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js"></script>
 
     <style>
@@ -257,7 +280,7 @@
             position: absolute;
             top: 45px;
             left: 45px;
-            background: rgba(0,0,0,0.75);
+            background: rgba(0, 0, 0, 0.75);
             color: white;
             padding: 12px 16px;
             border-radius: 10px;
@@ -294,9 +317,11 @@
                 flex-wrap: wrap;
                 gap: 15px;
             }
+
         }
 
     </style>
+
 </head>
 
 <body>
@@ -304,35 +329,199 @@
     <!-- HEADER -->
     <section id="header">
 
+        <!-- Logo -->
         <a href="index.html">
-            <img src="images/logo.png" alt="" id="siteLogo">
+            <img
+                src="images/logo.png"
+                alt="Cara Logo"
+            />
         </a>
 
-        <div id="navbar-container"></div>
+        <!-- Navbar -->
+        <div>
 
+            <ul id="navbar">
+
+                <!-- Home -->
+                <li>
+                    <a href="index.html">Home</a>
+                </li>
+
+                <!-- Shop -->
+                <li class="dropdown">
+
+                    <a
+                        href="javascript:void(0)"
+                        class="dropdown-toggle"
+                    >
+                        Shop
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+
+                    <ul class="dropdown-menu">
+
+                        <li>
+                            <a href="tshirts.html">T-Shirts</a>
+                        </li>
+
+                        <li>
+                            <a href="shirts.html">Shirts</a>
+                        </li>
+
+                        <li>
+                            <a href="kurtis.html">Kurtis</a>
+                        </li>
+
+                        <li>
+                            <a href="jeans.html">Jeans</a>
+                        </li>
+
+                        <li>
+                            <a href="kids_cloth.html">
+                                Kids Clothing
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="shoes.html">Shoes</a>
+                        </li>
+
+                        <li>
+                            <a href="accessories.html">
+                                Accessories
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="dresses.html">Dresses</a>
+                        </li>
+
+                    </ul>
+
+                </li>
+
+                <!-- Other Links -->
+                <li>
+                    <a href="blog.html">Blog</a>
+                </li>
+
+                <li>
+                    <a href="about.html">About</a>
+                </li>
+
+                <li>
+                    <a
+                        class="active"
+                        href="try-on.html"
+                    >
+                        Try-On
+                    </a>
+                </li>
+
+                <li>
+                    <a href="community.html">Community</a>
+                </li>
+
+                <li>
+                    <a href="promotions.html">
+                        Promotions
+                    </a>
+                </li>
+
+                <!-- Contact -->
+                <li class="nav-icon">
+
+                    <a
+                        href="contact.html"
+                        aria-label="Contact"
+                    >
+                        <i class="ri-customer-service-2-line"></i>
+                    </a>
+
+                </li>
+
+                <!-- Login -->
+                <li class="nav-icon">
+
+                    <a
+                        href="login.html"
+                        aria-label="Login"
+                    >
+                        <i class="ri-user-3-line"></i>
+                    </a>
+
+                </li>
+
+                <!-- Cart -->
+                <li class="nav-icon">
+
+                    <a
+                        href="cart.html"
+                        id="lg-bag"
+                        aria-label="Cart"
+                    >
+                        <i class="ri-shopping-bag-4-line"></i>
+                    </a>
+
+                </li>
+
+                <!-- Theme Toggle -->
+                <li class="nav-icon">
+
+                    <button
+                        class="theme-toggle"
+                        id="themeToggle"
+                        aria-label="Toggle dark mode"
+                    >
+                        <i
+                            class="ri-moon-line"
+                            id="themeIcon"
+                        ></i>
+                    </button>
+
+                </li>
+
+                <!-- Close -->
+                <a
+                    href="#"
+                    id="close"
+                    aria-label="Close menu"
+                >
+                    <i class="fa-solid fa-xmark"></i>
+                </a>
+
+            </ul>
+
+        </div>
+
+        <!-- Mobile Navbar -->
         <div class="mobile">
 
-            <button class="theme-toggle"
-                id="themeToggleMobile"
-                aria-label="Toggle dark mode">
-
-                <i class="ri-moon-line"
-                    id="themeIconMobile"></i>
-
-            </button>
-
-            <a href="cart.html"
-                id="mobile-cart-icon">
-
-                <i class="ri-shopping-bag-4-line"></i>
-
-                <span class="cart-count"
-                    id="mobileCartCount">0</span>
-
+            <!-- Login -->
+            <a
+                href="login.html"
+                aria-label="Login"
+            >
+                <i class="ri-user-3-line"></i>
             </a>
 
-            <i class="fas fa-outdent"
-                id="bar"></i>
+            <!-- Cart -->
+            <a
+                href="cart.html"
+                aria-label="Cart"
+            >
+                <i class="ri-shopping-bag-4-line"></i>
+            </a>
+
+            <!-- Hamburger -->
+            <i
+                class="fas fa-outdent"
+                id="bar"
+                role="button"
+                aria-label="Open menu"
+                aria-expanded="false"
+                tabindex="0"
+            ></i>
 
         </div>
 
@@ -344,8 +533,10 @@
         <!-- STEP FLOW -->
         <div class="step-flow">
 
-            <div class="step-indicator active"
-                id="step1">
+            <div
+                class="step-indicator active"
+                id="step1"
+            >
 
                 <div class="step-num">1</div>
 
@@ -357,8 +548,10 @@
 
             <div class="step-divider"></div>
 
-            <div class="step-indicator"
-                id="step2">
+            <div
+                class="step-indicator"
+                id="step2"
+            >
 
                 <div class="step-num">2</div>
 
@@ -370,8 +563,10 @@
 
             <div class="step-divider"></div>
 
-            <div class="step-indicator"
-                id="step3">
+            <div
+                class="step-indicator"
+                id="step3"
+            >
 
                 <div class="step-num">3</div>
 
@@ -385,7 +580,7 @@
 
         <div class="tryon-layout">
 
-            <!-- LEFT CONTROLS -->
+            <!-- LEFT -->
             <div class="controls">
 
                 <h2>
@@ -404,18 +599,22 @@
 
                 <div class="mode-toggle">
 
-                    <button class="mode-btn active"
+                    <button
+                        class="mode-btn active"
                         id="btn-camera"
-                        onclick="switchMode('camera')">
+                        onclick="switchMode('camera')"
+                    >
 
                         <i class="ri-camera-line"></i>
                         Camera
 
                     </button>
 
-                    <button class="mode-btn"
+                    <button
+                        class="mode-btn"
                         id="btn-upload"
-                        onclick="switchMode('upload')">
+                        onclick="switchMode('upload')"
+                    >
 
                         <i class="ri-upload-cloud-2-line"></i>
                         Upload
@@ -425,40 +624,44 @@
                 </div>
 
                 <!-- CAMERA -->
-                <div class="camera-area visible"
-                    id="camera-area">
+                <div
+                    class="camera-area visible"
+                    id="camera-area"
+                >
 
-                    <button class="camera-btn"
+                    <button
+                        class="camera-btn"
                         id="open-camera-btn"
-                        onclick="openCamera()">
-
+                        onclick="openCamera()"
+                    >
                         Open Camera
-
                     </button>
 
-                    <button class="camera-btn capture"
+                    <button
+                        class="camera-btn capture"
                         id="capture-btn"
                         style="display:none;"
-                        onclick="capturePhoto()">
-
+                        onclick="capturePhoto()"
+                    >
                         Capture Photo
-
                     </button>
 
-                    <button class="camera-btn"
+                    <button
+                        class="camera-btn"
                         id="stop-camera-btn"
                         style="display:none;"
-                        onclick="stopCamera()">
-
+                        onclick="stopCamera()"
+                    >
                         Stop Camera
-
                     </button>
 
                 </div>
 
                 <!-- UPLOAD -->
-                <div class="upload-area"
-                    id="upload-area">
+                <div
+                    class="upload-area"
+                    id="upload-area"
+                >
 
                     <label class="upload-btn">
 
@@ -468,9 +671,11 @@
                             Upload Full Body Photo
                         </span>
 
-                        <input type="file"
+                        <input
+                            type="file"
                             id="photo-upload"
-                            accept="image/*">
+                            accept="image/*"
+                        />
 
                     </label>
 
@@ -479,48 +684,63 @@
                 <!-- OUTFITS -->
                 <h4>2. Select Outfit</h4>
 
-                <div class="clothing-list"
-                    id="clothing-list">
+                <div
+                    class="clothing-list"
+                    id="clothing-list"
+                >
 
-                    <img src="images/products/f1.jpg"
+                    <img
+                        src="images/products/f1.jpg"
                         class="clothing-item"
                         onclick="selectOutfit(this)"
-                        alt="Outfit">
+                        alt="Outfit 1"
+                    />
 
-                    <img src="images/products/f2.jpg"
+                    <img
+                        src="images/products/f2.jpg"
                         class="clothing-item"
                         onclick="selectOutfit(this)"
-                        alt="Outfit">
+                        alt="Outfit 2"
+                    />
 
-                    <img src="images/products/n1.jpg"
+                    <img
+                        src="images/products/n1.jpg"
                         class="clothing-item"
                         onclick="selectOutfit(this)"
-                        alt="Outfit">
+                        alt="Outfit 3"
+                    />
 
-                    <img src="images/products/n2.jpg"
+                    <img
+                        src="images/products/n2.jpg"
                         class="clothing-item"
                         onclick="selectOutfit(this)"
-                        alt="Outfit">
+                        alt="Outfit 4"
+                    />
 
                 </div>
 
-                <button class="action-btn"
+                <!-- Generate -->
+                <button
+                    class="action-btn"
                     id="generate-btn"
-                    disabled>
+                    disabled
+                >
 
                     <i class="ri-sparkling-fill"></i>
-
                     Generate AI Try-On
 
                 </button>
 
             </div>
 
-            <!-- RIGHT PREVIEW -->
+            <!-- RIGHT -->
             <div class="ai-viewport">
 
-                <div class="viewport-placeholder"
-                    id="placeholder">
+                <!-- Placeholder -->
+                <div
+                    class="viewport-placeholder"
+                    id="placeholder"
+                >
 
                     <i class="ri-body-scan-line"></i>
 
@@ -530,49 +750,57 @@
 
                 </div>
 
-                <!-- VIDEO -->
+                <!-- Video -->
                 <div class="video-wrapper">
 
-                    <video id="webcam-video"
+                    <video
+                        id="webcam-video"
                         autoplay
-                        playsinline></video>
+                        playsinline
+                    ></video>
 
                     <canvas id="output-canvas"></canvas>
 
                 </div>
 
-                <!-- UPLOADED IMAGE -->
-                <img id="uploaded-preview"
+                <!-- Uploaded Image -->
+                <img
+                    id="uploaded-preview"
                     src=""
-                    alt="">
+                    alt="Uploaded Preview"
+                />
 
-                <!-- BODY INFO -->
-                <div class="body-info"
-                    id="body-info"></div>
+                <!-- Body Info -->
+                <div
+                    class="body-info"
+                    id="body-info"
+                ></div>
 
-                <!-- SHARE -->
-                <div class="share-controls"
-                    id="share-controls">
+                <!-- Share -->
+                <div
+                    class="share-controls"
+                    id="share-controls"
+                >
 
-                    <button class="share-btn"
-                        onclick="downloadResult()">
-
+                    <button
+                        class="share-btn"
+                        onclick="downloadResult()"
+                    >
                         Download
-
                     </button>
 
-                    <button class="share-btn"
-                        onclick="shareResult()">
-
+                    <button
+                        class="share-btn"
+                        onclick="shareResult()"
+                    >
                         Share
-
                     </button>
 
-                    <button class="share-btn"
-                        onclick="resetTryOn()">
-
+                    <button
+                        class="share-btn"
+                        onclick="resetTryOn()"
+                    >
                         Retry
-
                     </button>
 
                 </div>
@@ -589,20 +817,15 @@
         <div class="copyright">
 
             <p>
-                © Cara 2025. All rights reserved.
+                © Cara 2026. All rights reserved.
             </p>
 
         </div>
 
     </footer>
 
+    <!-- Scripts -->
     <script src="try-on.js"></script>
-
-    <script src="navbar.js"></script>
-
-    <script>
-        loadNavbar('tryon');
-    </script>
 
     <script src="app.js"></script>
 
