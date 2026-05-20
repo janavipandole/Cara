@@ -1,3 +1,4 @@
+let products = [];
 const products = [
   { id: 1,  brand: "Nike",          name: "Tropical Hibiscus Summer Shirt",   price: 2499, img: "images/products/f1.jpg", rating: 5, category: "street" },
   { id: 2,  brand: "H&M",           name: "White Palm Leaf Casual Shirt",     price: 1299, img: "images/products/f2.jpg", rating: 5, category: "minimal" },
@@ -36,6 +37,14 @@ function renderProducts(containerId, list) {
     card.className = 'pro';
     card.dataset.category = p.category;
     card.addEventListener('click', () => {
+      const selectedProduct = {
+          id: p.id,
+          name: p.name,
+          price: "$" + p.price,
+          brand: p.brand,
+          image: p.img
+      };
+      localStorage.setItem("selectedProduct", JSON.stringify(selectedProduct));
       window.location.href = 'singleProduct.html';
     });
 
@@ -205,9 +214,18 @@ function attachSearchListeners() {
   }
 }
 
-// Initializing the renders
-renderProducts('shop-container', products);
-renderProducts('featured-container', products.slice(0, 4));
-attachSearchListeners();
-updateSearchSummary(products.length);
-renderSearchSuggestions('');
+// Initializing the renders from API
+fetch('http://localhost:8000/api/products')
+  .then(res => res.json())
+  .then(data => {
+    products = data;
+    renderProducts('shop-container', products);
+    renderProducts('featured-container', products.slice(0, 4));
+    attachSearchListeners();
+    updateSearchSummary(products.length);
+    renderSearchSuggestions('');
+  })
+  .catch(err => {
+    console.error("Error fetching products:", err);
+    renderProducts('shop-container', []);
+  });

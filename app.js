@@ -306,7 +306,6 @@ window.appliedCoupon = localStorage.getItem('appliedCoupon') || null;
 window.loadCart = function () {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
 
-    // First, check if we need to show the empty message
     handleEmptyCartView();
 
     const itemsContainer = document.getElementById('cart-items-container');
@@ -364,6 +363,68 @@ window.loadCart = function () {
     const discountEl = document.getElementById('summary-discount');
     const totalEl = document.getElementById('summary-total');
 
+        // REMOVE BUTTON
+        const removeCell = newRow.insertCell();
+        const removeLink = document.createElement('a');
+        removeLink.href = '#';
+        removeLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            removeItem(index);
+        });
+        const removeIcon = document.createElement('i');
+        removeIcon.className = 'fa-regular fa-circle-xmark';
+        removeLink.appendChild(removeIcon);
+        removeCell.appendChild(removeLink);
+
+        // IMAGE
+        const imgCell = newRow.insertCell();
+        const img = document.createElement('img');
+        img.src = item.image;
+        img.alt = item.name;
+        imgCell.appendChild(img);
+
+        // NAME
+        const nameCell = newRow.insertCell();
+        nameCell.textContent = item.name;
+
+        const sizeSmall = document.createElement('small');
+        sizeSmall.textContent = 'Size: ' + item.size;
+        nameCell.appendChild(document.createElement('br'));
+        nameCell.appendChild(sizeSmall);
+
+        // PRICE
+        const priceCell = newRow.insertCell();
+        priceCell.textContent = '$' + itemPrice.toFixed(2);
+
+        // QTY
+        const qtyCell = newRow.insertCell();
+        const qtyInput = document.createElement('input');
+        qtyInput.type = 'number';
+        qtyInput.value = item.quantity;
+        qtyInput.min = 1;
+        qtyInput.addEventListener('change', function () {
+            updateQuantity(index, this.value);
+        });
+        qtyCell.appendChild(qtyInput);
+
+        // SUBTOTAL
+        const subtotalCell = newRow.insertCell();
+        subtotalCell.textContent = '$' + subtotal.toFixed(2);
+    };
+
+    // ✅ TOTAL UPDATE MUST BE HERE (INSIDE FUNCTION, AFTER LOOP)
+   const subtotalDisplay = document.querySelector('.subtotal table tr:nth-child(1) td:nth-child(2)');
+ const totalDisplay = document.querySelector('.subtotal table tr:nth-child(3) td:nth-child(2) strong');
+
+if (subtotalDisplay) {
+    subtotalDisplay.innerText = `$${total.toFixed(2)}`;
+}
+
+if (totalDisplay) {
+    totalDisplay.innerText = `$${total.toFixed(2)}`;
+}
+
+window.removeItem = function (index) {
     if (subtotalEl) {
         subtotalEl.innerText = formatCurrency(subtotal);
     }
@@ -680,6 +741,19 @@ const ToptobackBtn = document.getElementById("Toptoback");
 if (backToTopBtn && ToptobackBtn) {
     window.addEventListener("scroll", () => {
 
+    if (!backToTopBtn || !ToptobackBtn) return;
+
+    if (window.scrollY <= 300) {
+        ToptobackBtn.classList.add("show");
+        backToTopBtn.classList.remove("show");
+    } else {
+        backToTopBtn.classList.add("show");
+        ToptobackBtn.classList.remove("show");
+    }
+});
+
+// BACK TO TOP
+if (backToTopBtn) {
         // SHOW DOWN BUTTON WHEN USER IS NEAR TOP
         if (window.scrollY <= 300) {
             ToptobackBtn.classList.add("show");
@@ -691,7 +765,7 @@ if (backToTopBtn && ToptobackBtn) {
             backToTopBtn.classList.add("show");
             ToptobackBtn.classList.remove("show");
         }
-    });
+    };
 
     // BACK TO TOP
     backToTopBtn.addEventListener("click", () => {
@@ -700,6 +774,10 @@ if (backToTopBtn && ToptobackBtn) {
             behavior: "smooth"
         });
     });
+}
+
+// SCROLL TO BOTTOM
+if (ToptobackBtn) {
 
     // SCROLL TO BOTTOM
     ToptobackBtn.addEventListener("click", () => {
@@ -865,12 +943,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const scrollObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    // Open the cards smoothly when scrolling into view
                     cardContainer.classList.add('open');
-                    if (statusText) statusText.innerText = "Click to collapse";
-                } else {
-                    cardContainer.classList.remove('open');
-                    if (statusText) statusText.innerText = "Click to expand";
+                
+                    if (statusText) {
+                        statusText.innerText = "Click to collapse";
+                    }
+                
+                    // Stop observing after opening once
+                    scrollObserver.unobserve(featureSection);
                 }
             });
         }, observerOptions);
@@ -898,15 +978,26 @@ function initHeroSlider() {
     const intervalTime = 5000; // 5 seconds
 
     function updateSlider() {
-        // Remove active class from all slides and dots
-        slides.forEach(slide => slide.classList.remove('active'));
-        dots.forEach(dot => dot.classList.remove('active'));
+        // 1. Handle the old slide fading out
+        const currentActiveSlide = slider.querySelector('.slide.active');
+        if (currentActiveSlide) {
+            currentActiveSlide.classList.remove('active');
+            currentActiveSlide.classList.add('outgoing'); // Mark it as leaving
+            
+            // Wait for the CSS transition (800ms) before completely hiding it
+            setTimeout(() => {
+                currentActiveSlide.classList.remove('outgoing');
+            }, 800);
+        }
 
-        // Add active class to current slide and dot
-        slides[currentSlide].classList.add('active');
+        // 2. Handle Dots
+        dots.forEach(dot => dot.classList.remove('active'));
         if (dots[currentSlide]) {
             dots[currentSlide].classList.add('active');
         }
+
+        // 3. Handle the new incoming slide
+        slides[currentSlide].classList.add('active');
     }
 
     function nextSlide() {
@@ -963,3 +1054,40 @@ if (document.readyState === 'loading') {
     initHeroSlider();
 }
 /* --- END: HERO SLIDER FUNCTIONALITY --- */
+
+/* --- START: CURRENT YEAR FUNCTIONALITY --- */
+document.addEventListener('DOMContentLoaded', () => {
+    const year = new Date().getFullYear();
+    document.querySelectorAll(".Current-Year").forEach(el => {
+        el.textContent = year;
+    });
+});
+/* --- END: CURRENT YEAR FUNCTIONALITY --- */
+/* --- Sort by Price Logic --- */
+document.addEventListener('DOMContentLoaded', () => {
+    const sortMenu = document.getElementById('sort-price');
+    const proContainer = document.querySelector('.pro-container');
+
+    if (sortMenu && proContainer) {
+        const originalProducts = Array.from(proContainer.querySelectorAll('.pro'));
+        sortMenu.addEventListener('change', (e) => {
+            const sortValue = e.target.value;
+            let productsToAppend;
+
+            if (sortValue === 'default') {
+                productsToAppend = originalProducts;
+            } else {
+                productsToAppend = [...originalProducts].sort((a, b) => {
+                    const priceA = parseFloat(a.querySelector('h4').innerText.replace('$', '').trim());
+                    const priceB = parseFloat(b.querySelector('h4').innerText.replace('$', '').trim());
+
+                    if (sortValue === 'low-high') return priceA - priceB;
+                    if (sortValue === 'high-low') return priceB - priceA;
+                });
+            }
+            productsToAppend.forEach(product => {
+                proContainer.appendChild(product);
+            });
+        });
+    }
+});
