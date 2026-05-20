@@ -856,8 +856,10 @@ button.white .ripple-effect {
     box-shadow: 10px 10px 74px var(--shadow-hover);
 }
 
-#feature.fe-box img {
-    width: 100%;
+#feature .fe-box img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
     margin-bottom: 10px;
 }
 
