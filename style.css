@@ -1801,12 +1801,22 @@ footer .copyright {
     align-items: center;
     justify-content: center;
     font-size: 14px;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
 }
 
 #pro-details .single-pro-details .qty-btn:hover {
     background-color: var(--accent);
     color: #fff;
+}
+
+#pro-details .single-pro-details .qty-btn:active {
+    transform: scale(0.90);
+}
+
+#pro-details .single-pro-details .qty-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    pointer-events: none;
 }
 
 #pro-details .single-pro-details .quantity-selector input {
