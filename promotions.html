@@ -11,6 +11,49 @@
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
+
+        /* Discount Popup */
+        #discount-popup {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--accent);
+            color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 1000;
+            display: none;
+            max-width: 300px;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        #discount-popup h4 {
+            color: #fff;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        #discount-popup .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        
+        .copy-code {
+            background: #fff;
+            color: var(--accent);
+            padding: 8px 12px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            letter-spacing: 2px;
+        }
+        
         /* Promotions specific styles */
         #promo-header {
             background-image: url("images/banner/b1.jpg");
@@ -97,48 +140,6 @@
 
         .form-group input:focus, .form-group textarea:focus {
             border-color: var(--accent);
-        }
-
-        /* Discount Popup */
-        #discount-popup {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: var(--accent);
-            color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            z-index: 1000;
-            display: none;
-            max-width: 300px;
-            animation: slideUp 0.5s ease-out;
-        }
-
-        #discount-popup h4 {
-            color: #fff;
-            margin-bottom: 10px;
-            font-size: 20px;
-        }
-
-        #discount-popup .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            cursor: pointer;
-            font-size: 20px;
-        }
-        
-        .copy-code {
-            background: #fff;
-            color: var(--accent);
-            padding: 8px 12px;
-            border-radius: 5px;
-            display: inline-block;
-            margin-top: 10px;
-            font-weight: bold;
-            cursor: pointer;
-            letter-spacing: 2px;
         }
 
         @keyframes slideUp {
