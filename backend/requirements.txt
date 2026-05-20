@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+sqlalchemy
+pydantic
+transformers
+faiss-cpu
+pillow
+numpy
+scikit-learn
+cors
+python-multipart

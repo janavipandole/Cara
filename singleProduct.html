@@ -76,8 +76,13 @@
             <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
             <i class="fas fa-outdent" id="bar"></i>
         </div>
-        <button onclick="history.back()" class="back-btn">Back</button>
+        
     </section>
+   <div class="product-back-container">
+    <button onclick="history.back()" class="product-back-btn">
+        Back
+    </button>
+</div>
 
     <section id="pro-details" class="section-p1">
         <div class="single-pro-image">
@@ -139,6 +144,59 @@
         <!-- Dynamic Js container  {csritik-max }-->
         <div class="pro-container" id="featured-container"></div>
         <!--   -->
+    </section>
+
+    <section id="ai-recommendations" class="section-p1">
+        <h2>✨ Complete the Look</h2>
+        <p>AI-Powered Outfit Recommendations just for you</p>
+        <div class="pro-container" id="recommendations-container">
+            <div class="no-results-message">Loading recommendations...</div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const selectedProductStr = localStorage.getItem('selectedProduct');
+            if (selectedProductStr) {
+                const product = JSON.parse(selectedProductStr);
+                if (product.id) {
+                    fetch('http://localhost:8000/api/outfit/recommend', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ product_id: product.id, limit: 4 })
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        const container = document.getElementById('recommendations-container');
+                        if (data && data.length > 0) {
+                            container.innerHTML = ''; // clear loading
+                            // Reuse the renderProducts from products.js but only for this container.
+                            // We can manually render since products.js handles the global render
+                            if (typeof renderProducts === 'function') {
+                                renderProducts('recommendations-container', data);
+                            }
+                        } else {
+                            container.innerHTML = '<div class="no-results-message">No recommendations available for this style yet.</div>';
+                        }
+                    })
+                    .catch(err => {
+                        console.error('Failed to load recommendations', err);
+                        document.getElementById('recommendations-container').innerHTML = '<div class="no-results-message">Recommendations currently unavailable.</div>';
+                    });
+                }
+            }
+        });
+    </script>
+
+    <section id="newsletter" class="section-p1 section-m1">
+        <div class="newstext">
+            <h4>Sign Up For Newsletters</h4>
+            <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
+        </div>
+        <div class="form">
+            <input type="text" placeholder="Your email address">
+            <button class="normal">Sign Up</button>
+        </div>
     </section>
 
     <!-- Footer -->
@@ -205,7 +263,7 @@
         <a href="login.html">Sign In</a>
         <a href="cart.html">View Cart</a>
         <a href="#">My Wishlist</a>
-        <a href="track-order.html">Track My Order</a>
+        <a href="cart.html">Track My Order</a>
         <a href="contact.html">Help</a>
       </div>
 
