@@ -1543,7 +1543,6 @@ footer .copyright {
     gap: 50px;
     padding: 60px 80px;
     background-color: var(--bg-primary);
-    align-items: flex-start;
 }
 
 .contact-left,
@@ -1695,51 +1694,6 @@ footer .copyright {
     border-radius: 16px;
     border: 1px solid var(--border-color);
     box-shadow: 0 10px 30px var(--shadow);
-}
-
-.team-card {
-    overflow: hidden;
-}
-
-.team-card p {
-    font-size: 15px;
-    line-height: 1.6;
-    margin-bottom: 22px;
-}
-
-.contact-right .social-media {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    margin: 22px 0 10px;
-}
-
-.contact-right .social-media div {
-    display: flex;
-    align-items: flex-start;
-    gap: 15px;
-}
-
-.contact-right .social-media div img {
-    width: 65px;
-    height: 65px;
-    border-radius: 50%;
-    object-fit: cover;
-    flex-shrink: 0;
-}
-
-.contact-right .social-media div p {
-    margin: 0;
-    font-size: 14px;
-    line-height: 1.55;
-}
-
-.contact-right .social-media div p span {
-    display: block;
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: 2px;
 }
 
 .team-card h3,
@@ -4602,15 +4556,6 @@ select:focus-visible {
 
     .contact-form {
         padding: 25px;
-    }
-
-    .contact-right .social-media div {
-        flex-direction: column;
-    }
-
-    .contact-right .social-media div img {
-        width: 60px;
-        height: 60px;
     }
 
     .team-card,
