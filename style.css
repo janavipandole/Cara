@@ -1331,6 +1331,7 @@ button.white .ripple-effect {
 }
 
 #sm-banner .banner-box {
+    background-image: url("images/banner/b17.jpg");
     height: 50vh;
     min-width: 660px;
     background-size: cover;
@@ -1343,6 +1344,9 @@ button.white .ripple-effect {
     padding: 30px;
 }
 
+n#sm-banner .banner-box2 {
+    background-image: url("images/banner/b10.jpg");
+}
 
 #sm-banner h4 {
     color: #ffffff;
