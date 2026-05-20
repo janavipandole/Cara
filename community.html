@@ -48,42 +48,80 @@
 
         /* Upload Section */
         #upload-look {
-            text-align: center;
-            padding: 50px 80px;
-            background: var(--card-bg);
-            border-bottom: 1px solid var(--border-color);
-        }
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
 
-        #upload-look h3 {
-            font-size: 32px;
-            color: var(--accent);
-            margin-bottom: 15px;
-        }
+#upload-look h3 {
+    color: #008080;
+    margin-bottom: 8px;
+    font-size: 24px;
+}
 
-        .upload-area {
-            max-width: 600px;
-            margin: 0 auto;
-            border: 2px dashed var(--accent);
-            padding: 40px;
-            border-radius: 10px;
-            background: var(--bg-secondary);
-            cursor: pointer;
-            transition: 0.3s;
-        }
+.upload-subtitle {
+    color: #555;
+    margin-bottom: 24px;
+    font-size: 14px;
+}
 
-        .upload-area:hover {
-            background: var(--card-bg);
-            box-shadow: 0 10px 20px var(--shadow);
-        }
+/* Isolated Upload Box */
+.cara-upload-box {
+    display: block; /* Forces it to act as a block element container */
+    border: 2px dashed #008080;
+    border-radius: 8px;
+    padding: 30px 20px;
+    width: 100%;
+    max-width: 380px;
+    margin: 0 auto;
+    cursor: pointer;
+    background-color: #f9fbfb;
+    box-sizing: border-box;
+}
 
-        .upload-area i {
-            font-size: 50px;
-            color: var(--accent);
-        }
+/* Inner Wrapper to strictly control vertical alignment */
+.cara-upload-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
 
-        .upload-area input {
-            display: none;
-        }
+/* Strict Icon Sizing */
+.cara-icon {
+    font-size: 44px;
+    color: #008080;
+    margin: 0 0 12px 0;
+    line-height: 1;
+    display: inline-block;
+}
+
+/* Strict Text Controls */
+.cara-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #222;
+    margin: 0 0 6px 0;
+    line-height: 1.2;
+}
+
+.cara-text {
+    font-size: 13px;
+    color: #777;
+    margin: 0;
+    line-height: 1.2;
+}
+
+/* Hidden input file element */
+#community-upload {
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+}
 
         /* Gallery Grid */
         #gallery {
@@ -156,7 +194,7 @@
     </style>
 </head>
 <body>
-        <section id="header">
+    <section id="header">
         <a href="index.html">
             <img src="images/logo.png" alt="" id="siteLogo">
         </a>
@@ -175,7 +213,7 @@
             </a>
             <i class="fas fa-outdent" id="bar"></i>
         </div>
-        </section>
+    </section>
 
     <section id="community-header">
         <h2>#CaraCommunity</h2>
@@ -183,16 +221,18 @@
     </section>
 
     <section id="upload-look">
-        <h3>Showcase Your Look!</h3>
-        <p>Used our Virtual Try-On? Got a stunning Cara outfit? Upload your poster to be featured on our Trending feed!</p>
-        <label class="upload-area">
-            <i class="ri-camera-lens-fill"></i>
-            <h4>Click to Upload Photo</h4>
-            <p>PNG, JPG up to 5MB</p>
-            <input type="file" id="community-upload" accept="image/*">
-        </label>
-        <p id="upload-success" style="display:none; color: var(--accent); font-weight:bold; margin-top:15px;">Thanks for sharing! Your look is under review.</p>
-    </section>
+    <h3>Showcase Your Look!</h3>
+    <p class="upload-subtitle">Used our Virtual Try-On? Got a stunning Cara outfit? Upload your poster to be featured on our Trending feed!</p>
+    
+    <label class="cara-upload-box" for="community-upload">
+        <div class="cara-upload-content">
+            <i class="ri-camera-lens-fill cara-icon"></i>
+            <h4 class="cara-title">Click to Upload Photo</h4>
+            <p class="cara-text">PNG, JPG up to 5MB</p>
+        </div>
+        <input type="file" id="community-upload" accept="image/*">
+    </label>
+</section>
 
     <section id="gallery">
         <h2>Trending Outfits & Inspiration</h2>
@@ -258,17 +298,117 @@
     </section>
 
     <footer class="section-p1">
-        <div class="col">
-            <img class="logo" src="images/logo.png" alt="">
-            <h4>Contact</h4>
-            <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
-        </div>
-        <div class="copyright">
-            <p>&copy; Cara 2025. All rights reserved.</p>
-        </div>
-    </footer>
+    <!-- Contact Column -->
+    <div class="col">
+      <img class="logo" src="images/logo.png" alt="Cara Logo">
+      <h4>Contact</h4>
+      <p>
+        <strong>Address:</strong> 562 Wellington Road, Street 32, San
+        Francisco
+      </p>
+      <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
+      <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
 
-    <script src="app.js"></script>
+      <div class="follow">
+        <h4>Follow us</h4>
+        <div class="icon">
+          <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-youtube"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- About Column -->
+    <div class="col">
+      <h4>About</h4>
+      <a href="about.html">About Us</a>
+      <a href="#">Delivery Information</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms and Conditions</a>
+      <a href="contact.html">Contact Us</a>
+    </div>
+
+    <!-- My Account Column -->
+    <div class="col">
+      <h4>My Account</h4>
+      <a href="login.html">Sign In</a>
+      <a href="cart.html">View Cart</a>
+      <a href="#">My Wishlist</a>
+      <a href="cart.html">Track My Order</a>
+      <a href="contact.html">Help</a>
+    </div>
+
+    <!-- Newsletter Column -->
+    <div class="col newsletter-footer">
+      <h4>Newsletter</h4>
+      <p>
+        Get email updates about our latest shop and
+        <span>special offers.</span>
+      </p>
+
+      <form class="newsletter-form">
+        <input type="email" placeholder="Your email address" required="">
+        <button type="submit" class="normal">Sign Up</button>
+      </form>
+    </div>
+
+    <!-- Install App Column -->
+    <div class="col install">
+      <h4>Install App</h4>
+      <p>From App Store or Google Play</p>
+
+      <div class="row">
+        <img src="images/pay/app.jpg" alt="Download from App Store">
+        <img src="images/pay/play.jpg" alt="Get it on Google Play">
+      </div>
+
+      <p>Secured Payment Gateways</p>
+
+      <div class="payment-icons">
+        <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer" aria-label="Visa">
+          <i class="fab fa-cc-visa"></i>
+        </a>
+
+        <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer" aria-label="Mastercard">
+          <i class="fab fa-cc-mastercard"></i>
+        </a>
+
+        <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" aria-label="PayPal">
+          <i class="fab fa-cc-paypal"></i>
+        </a>
+
+        <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer" aria-label="American Express">
+          <i class="fab fa-cc-amex"></i>
+        </a>
+
+        <a href="https://stripe.com" target="_blank" rel="noopener noreferrer" aria-label="Stripe">
+          <i class="fab fa-cc-stripe"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="copyright">
+      <p>
+        © Cara 2025. All rights reserved. |
+        <a href="license.html" style="color: #088178"> MIT License </a>
+      </p>
+    </div>
+  </footer>
+    <script src="navbar.js"></script>
+    <script>loadNavbar('community');</script>  
+
+    <script src="app.js?v=1779120917211"></script>
     <script>
         document.getElementById('community-upload').addEventListener('change', function(e) {
             if(e.target.files.length > 0) {
@@ -279,8 +419,6 @@
             }
         });
     </script>
-    <script src="app.js"></script>      
-    <script src="navbar.js"></script>
-    <script>loadNavbar('community');</script>  
+    <!-- <script src="app.js?v=1779120917211"></script>       -->
 </body>
 </html>
