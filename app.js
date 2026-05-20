@@ -301,6 +301,36 @@ window.handleAddToCart = function () {
     updateCartCount(); // Update badge
 }
 
+window.handleBuyNow = function () {
+    const nameElement = document.getElementById('product-name');
+    const priceElement = document.getElementById('product-price');
+    const sizeSelect = document.getElementById('product-size');
+    const quantityInput = document.getElementById('product-quantity');
+    const imageElement = document.getElementById('MainImg');
+
+    if (!nameElement || !priceElement || !sizeSelect || !quantityInput || !imageElement) {
+        console.error("Missing product elements on page.");
+        return;
+    }
+
+    const name = nameElement.innerText;
+    const price = priceElement.innerText;
+    const size = sizeSelect.value;
+    const quantity = parseInt(quantityInput.value);
+    const image = imageElement.src;
+
+    if (size === 'Select Size' || size === '') {
+        showToast('Please select a size before proceeding!', 'warning');
+        return;
+    }
+    if (quantity < 1 || isNaN(quantity)) {
+        showToast('Please enter a valid quantity.', 'warning');
+        return;
+    }
+
+    buyNow(name, price, image, quantity, size);
+}
+
 window.appliedCoupon = localStorage.getItem('appliedCoupon') || null;
 
 window.loadCart = function () {
@@ -978,26 +1008,15 @@ function initHeroSlider() {
     const intervalTime = 5000; // 5 seconds
 
     function updateSlider() {
-        // 1. Handle the old slide fading out
-        const currentActiveSlide = slider.querySelector('.slide.active');
-        if (currentActiveSlide) {
-            currentActiveSlide.classList.remove('active');
-            currentActiveSlide.classList.add('outgoing'); // Mark it as leaving
-            
-            // Wait for the CSS transition (800ms) before completely hiding it
-            setTimeout(() => {
-                currentActiveSlide.classList.remove('outgoing');
-            }, 800);
-        }
-
-        // 2. Handle Dots
+        // Remove active class from all slides and dots
+        slides.forEach(slide => slide.classList.remove('active'));
         dots.forEach(dot => dot.classList.remove('active'));
+
+        // Add active class to current slide and dot
+        slides[currentSlide].classList.add('active');
         if (dots[currentSlide]) {
             dots[currentSlide].classList.add('active');
         }
-
-        // 3. Handle the new incoming slide
-        slides[currentSlide].classList.add('active');
     }
 
     function nextSlide() {

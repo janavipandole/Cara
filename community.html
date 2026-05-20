@@ -195,25 +195,93 @@
 </head>
 <body>
     <section id="header">
-        <a href="index.html">
-            <img src="images/logo.png" alt="" id="siteLogo">
+  <!-- Logo -->
+  <a href="index.html">
+    <img src="images/logo.png" alt="Cara Logo" />
+  </a>
+
+  <div>
+    <ul id="navbar">
+
+      <!-- Main Navigation Links -->
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="try-on.html">Try-On</a></li>
+      <li><a  class="active" href="community.html">Community</a></li>
+      <li><a href="promotions.html">Promotions</a></li>
+
+      <!-- Contact Icon -->
+      <li class="nav-icon">
+        <a href="contact.html" aria-label="Contact">
+          <i class="ri-customer-service-2-line"></i>
         </a>
+      </li>
 
-        <!-- Desktop navbar injects here -->
-        <div id="navbar-container"></div>
+      <!-- Login Icon -->
+      <li class="nav-icon">
+        <a href="login.html" aria-label="Login">
+          <i class="ri-user-3-line"></i>
+        </a>
+      </li>
 
-        <!-- Mobile controls (outside navbar, always in DOM) -->
-        <div class="mobile">
-            <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
-            <i class="ri-moon-line" id="themeIconMobile"></i>
-            </button>
-            <a href="cart.html">
-            <i class="ri-shopping-bag-4-line"></i>
-            <span class="cart-count" id="mobileCartCount">0</span>
-            </a>
-            <i class="fas fa-outdent" id="bar"></i>
-        </div>
-    </section>
+      <!-- Cart Icon -->
+      <li class="nav-icon">
+        <a href="cart.html" id="lg-bag" aria-label="Cart">
+          <i class="ri-shopping-bag-4-line"></i>
+        </a>
+      </li>
+
+      <!-- Theme Toggle -->
+      <li class="nav-icon">
+        <button
+          class="theme-toggle"
+          id="themeToggle"
+          aria-label="Toggle dark mode"
+        >
+          <i class="ri-moon-line" id="themeIcon"></i>
+        </button>
+      </li>
+
+      <!-- Close Button -->
+      <a
+        href="#"
+        id="close"
+        aria-label="Close menu"
+        aria-hidden="false"
+      >
+        <i class="fa-solid fa-xmark"></i>
+      </a>
+
+    </ul>
+  </div>
+
+  <!-- Mobile Navbar -->
+  <div class="mobile">
+
+    <!-- Login Icon -->
+    <a href="login.html" aria-label="Login">
+      <i class="ri-user-3-line"></i>
+    </a>
+
+    <!-- Cart Icon -->
+    <a href="cart.html" aria-label="Cart">
+      <i class="ri-shopping-bag-4-line"></i>
+    </a>
+
+    <!-- Hamburger Menu -->
+    <i
+      class="fas fa-outdent"
+      id="bar"
+      role="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+      tabindex="0"
+    ></i>
+
+  </div>
+</section>
 
     <section id="community-header">
         <h2>#CaraCommunity</h2>
@@ -405,8 +473,8 @@
       </p>
     </div>
   </footer>
-    <script src="navbar.js"></script>
-    <script>loadNavbar('community');</script>  
+    <!-- <script src="navbar.js"></script>
+    <script>loadNavbar('community');</script>   -->
 
     <script src="navbar.js"></script>
     <script>loadNavbar('community');</script>
