@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        // Immediately apply saved theme to prevent flash
+        (function() {
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', currentTheme);
+        })();
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cara — Promotions & Ambassador Program</title>
@@ -259,6 +266,5 @@
             document.getElementById('discount-popup').style.display = 'block';
         }, 5000);
     </script>
-    <!-- <script src="app.js?v=1779120917217"></script>     -->
 </body>
 </html>
