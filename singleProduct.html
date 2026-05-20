@@ -146,6 +146,59 @@
         <!--   -->
     </section>
 
+    <section id="ai-recommendations" class="section-p1">
+        <h2>✨ Complete the Look</h2>
+        <p>AI-Powered Outfit Recommendations just for you</p>
+        <div class="pro-container" id="recommendations-container">
+            <div class="no-results-message">Loading recommendations...</div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const selectedProductStr = localStorage.getItem('selectedProduct');
+            if (selectedProductStr) {
+                const product = JSON.parse(selectedProductStr);
+                if (product.id) {
+                    fetch('http://localhost:8000/api/outfit/recommend', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ product_id: product.id, limit: 4 })
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        const container = document.getElementById('recommendations-container');
+                        if (data && data.length > 0) {
+                            container.innerHTML = ''; // clear loading
+                            // Reuse the renderProducts from products.js but only for this container.
+                            // We can manually render since products.js handles the global render
+                            if (typeof renderProducts === 'function') {
+                                renderProducts('recommendations-container', data);
+                            }
+                        } else {
+                            container.innerHTML = '<div class="no-results-message">No recommendations available for this style yet.</div>';
+                        }
+                    })
+                    .catch(err => {
+                        console.error('Failed to load recommendations', err);
+                        document.getElementById('recommendations-container').innerHTML = '<div class="no-results-message">Recommendations currently unavailable.</div>';
+                    });
+                }
+            }
+        });
+    </script>
+
+    <section id="newsletter" class="section-p1 section-m1">
+        <div class="newstext">
+            <h4>Sign Up For Newsletters</h4>
+            <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
+        </div>
+        <div class="form">
+            <input type="text" placeholder="Your email address">
+            <button class="normal">Sign Up</button>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="section-p1">
       <!-- Contact Column -->
