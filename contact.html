@@ -62,7 +62,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-  </head>
+  
   <style>
 
   
@@ -402,10 +402,11 @@ footer .copyright {
   }
 }
 
+/* Desktop */
 #navbar-container {
   display: block;
 }
-
+/* Mobile */
 @media (max-width: 799px) {
   #navbar-container {
     display: none;
@@ -416,9 +417,36 @@ footer .copyright {
   }
 }
 
+<style>
+
+/* your existing CSS */
+
+/* existing CSS ends here */
+
+
+/* FIX NAVBAR VISIBILITY */
+#header {
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  background: white;
+  width: 100%;
+}
+
+#navbar-container {
+  position: relative;
+  z-index: 9999;
+}
+
+#about-head {
+  position: relative;
+  z-index: 1;
+}
+
+</style>
 
   </style>
-
+</head>
   <body>
     <!-- HEADER -->
   <section id="header">
@@ -825,19 +853,17 @@ footer .copyright {
     <script>loadNavbar('contact');</script> -->
     <script src="app.js"></script>
     <script src="app.js?v=1779120917212"></script>
+    <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    loadNavbar('contact');
+  });
+</script>
 <script>
 
 /* =========================
    MOBILE NAVBAR TOGGLE
 ========================= */
-const bar = document.getElementById("bar");
-const navbar = document.getElementById("navbar-container");
 
-if (bar) {
-  bar.addEventListener("click", () => {
-    navbar.classList.toggle("active");
-  });
-}
 
 
 /* =========================
@@ -934,6 +960,11 @@ document.addEventListener("DOMContentLoaded", function () {
 ========================= */
 document.querySelector(".Current-Year").textContent = new Date().getFullYear();
 
+</script>
+<script src="navbar.js"></script>
+
+<script>
+  loadNavbar('contact');
 </script>
 </body>
 

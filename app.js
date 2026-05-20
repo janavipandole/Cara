@@ -1,33 +1,23 @@
 // Mobile menu functionality
-const bar = document.getElementById("bar");
-const nav = document.getElementById("navbar");
-const close = document.getElementById("close");
+document.addEventListener("click", function (e) {
 
-function updateAuthUI() {
-    const loginBtn = document.getElementById("login-btn");
-    const loggedInUser = localStorage.getItem("loggedInUser");
-
-    if (!loginBtn) return;
-
-    if (loggedInUser) {
-        loginBtn.style.display = "none";
-    } else {
-        loginBtn.style.display = "block";
+    // OPEN MENU
+    if (e.target.id === "bar") {
+        const nav = document.getElementById("navbar");
+        if (nav) {
+            nav.classList.add("active");
+        }
     }
-}
 
-document.addEventListener("DOMContentLoaded", updateAuthUI);
-//hjello guys
-if (bar) {
-    bar.addEventListener("click", () => {
-        nav.classList.add("active");
-    });
-}
-if (close) {
-    close.addEventListener("click", () => {
-        nav.classList.remove("active");
-    });
-}
+    // CLOSE MENU
+    if (e.target.closest("#close")) {
+        e.preventDefault();
+        const nav = document.getElementById("navbar");
+        if (nav) {
+            nav.classList.remove("active");
+        }
+    }
+});
 
 // Dynamic Product Details Logic
 // Global capturing click listener for all product cards (static and dynamic)
