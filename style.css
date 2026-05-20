@@ -1579,6 +1579,9 @@ footer .install img {
 .payment-icons a {
     text-decoration: none;
 }
+.main-footer{
+    margin-top: 20px;
+}
 
 .payment-icons i {
     font-size: 37px;
@@ -5129,6 +5132,7 @@ footer .copyright {
                 margin-top: 24px;
             }
 
+
             .quiz-options button {
                 padding: 10px 24px;
                 background-color: var(--bg-secondary);
@@ -6332,3 +6336,464 @@ footer .copyright {
     z-index: 999 !important;
   }
 }
+/* Added styling for better buttons on footer
+*/
+.quiz-options {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.quiz-options button {
+    padding: 10px 24px;
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1.5px solid var(--border-color);
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px var(--shadow);
+}
+
+.quiz-options button:hover {
+    background-color: var(--accent);
+    color: #ffffff;
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(8, 129, 120, 0.25);
+}
+/* ============================================
+   FOOTER COMPLETE REDESIGN
+   Add at the bottom of style.css
+   ============================================ */
+
+footer.main-footer {
+    background-color: var(--bg-secondary);
+    padding: 0;
+    display: block;
+    font-family: "League Spartan", sans-serif;
+}
+
+/* ── Top bar: logo + socials ── */
+.footer-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 80px 20px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.footer-logo-box .footer-logo {
+    width: 110px;
+    height: auto;
+    object-fit: contain;
+}
+
+.footer-socials {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.footer-socials a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-size: 16px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-bottom: 0;
+}
+
+.footer-socials a:hover {
+    background-color: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* ── Divider ── */
+.footer-divider {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 0 80px;
+}
+
+/* ── Middle: four columns ── */
+.footer-middle {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.6fr;
+    gap: 40px;
+    padding: 40px 80px;
+}
+
+.footer-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.footer-col h4 {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+}
+
+.footer-col p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin: 0 0 6px;
+}
+
+.footer-col p strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.footer-col a {
+    font-size: 14px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    margin-bottom: 2px;
+    transition: color 0.25s ease, transform 0.2s ease;
+    display: inline-block;
+}
+
+.footer-col a:hover {
+    color: var(--accent);
+    transform: translateX(3px);
+}
+
+/* ── Newsletter column ── */
+.footer-col.newsletter-footer p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin: 0 0 14px;
+    line-height: 1.5;
+}
+
+.footer-col.newsletter-footer p span {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.newsletter-form {
+    display: flex;
+    width: 100%;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--input-bg);
+    transition: border-color 0.25s ease;
+}
+
+.newsletter-form:focus-within {
+    border-color: var(--accent);
+}
+
+.newsletter-form input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 11px 14px;
+    font-size: 13px;
+    color: var(--text-primary);
+    outline: none;
+    min-width: 0;
+}
+
+.newsletter-form input::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+.newsletter-form button {
+    background-color: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 0 18px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.25s ease;
+    border-radius: 0;
+    min-height: unset;
+    min-width: unset;
+    width: auto;
+}
+
+.newsletter-form button:hover {
+    background-color: #066b63;
+}
+
+/* ── Payment icons ── */
+.install-payment-box {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.install-payment-box h4 {
+    font-size: 12px !important;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    margin-bottom: 10px !important;
+}
+
+.payment-icons {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 0;
+}
+
+.payment-icons a {
+    font-size: 0;
+    margin-bottom: 0;
+}
+
+.payment-icons i {
+    font-size: 30px;
+    color: var(--text-secondary);
+    transition: color 0.25s ease, transform 0.2s ease;
+    cursor: pointer;
+}
+
+.payment-icons i:hover {
+    color: var(--accent);
+    transform: scale(1.15);
+}
+
+[data-theme="dark"] .payment-icons i {
+    color: #94a3b8;
+}
+
+[data-theme="dark"] .payment-icons i:hover {
+    color: var(--accent);
+}
+
+/* ── Install App row ── */
+.footer-install-box {
+    padding: 0 80px 30px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    border-top: 1px solid var(--border-color);
+    padding-top: 24px;
+}
+
+.footer-install-box h4 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    margin: 0;
+    white-space: nowrap;
+}
+
+.footer-install-box p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin: 0;
+    white-space: nowrap;
+}
+
+.download-badges {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.download-badges img {
+    height: 36px;
+    width: auto;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    object-fit: contain;
+    transition: opacity 0.25s ease;
+}
+
+.download-badges img:hover {
+    opacity: 0.85;
+}
+
+/* ── Bottom: copyright ── */
+.footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 18px 80px;
+    border-top: 1px solid var(--border-color);
+    background-color: var(--bg-primary);
+    transition: background-color 0.3s ease;
+}
+
+.footer-bottom .copyright {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin: 0;
+    text-align: left;
+    width: auto;
+}
+
+.footer-legal-links {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.footer-legal-links a,
+.license-link {
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.25s ease;
+    margin-bottom: 0;
+}
+
+.footer-legal-links a:hover,
+.license-link:hover {
+    color: var(--accent);
+}
+
+/* ── Dark mode adjustments ── */
+[data-theme="dark"] .footer-socials a {
+    border-color: var(--border-color);
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .newsletter-form {
+    background: var(--input-bg);
+}
+
+[data-theme="dark"] .download-badges img {
+    border-color: var(--border-color);
+    filter: brightness(0.85);
+}
+
+/* ── Responsive: tablet ── */
+@media (max-width: 1024px) {
+    .footer-top,
+    .footer-divider,
+    .footer-middle,
+    .footer-install-box,
+    .footer-bottom {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    .footer-divider {
+        margin: 0 40px;
+    }
+
+    .footer-middle {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+    }
+}
+
+/* ── Responsive: mobile ── */
+@media (max-width: 600px) {
+    .footer-top,
+    .footer-middle,
+    .footer-install-box,
+    .footer-bottom {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .footer-divider {
+        margin: 0 20px;
+    }
+
+    .footer-middle {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        padding-top: 28px;
+        padding-bottom: 28px;
+    }
+
+    .footer-top {
+        padding-top: 20px;
+        padding-bottom: 16px;
+    }
+
+    .footer-install-box {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+    }
+
+    .newsletter-form {
+        flex-direction: column;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .newsletter-form input {
+        border-bottom: 1px solid var(--border-color);
+        padding: 12px 14px;
+    }
+
+    .newsletter-form button {
+        padding: 12px;
+        width: 100%;
+        text-align: center;
+    }
+}
+/* ============================================
+   MODAL STYLES (FOR CART & CHECKOUT)
+   */
+            .modal {
+             
+                position: fixed;
+                z-index: 1000;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                justify-content: center;
+                align-items: center;
+            }
+
+            .modal-content {
+                background-color: var(--bg-primary);
+                padding: 20px;
+                border-radius: 8px;
+                width: 90%;
+                max-width: 400px;
+                text-align: center;
+                position: relative;
+            }
