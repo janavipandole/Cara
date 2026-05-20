@@ -109,25 +109,93 @@
   <body>
           <!-- HEADER -->
           <section id="header">
-            <a href="index.html">
-              <img src="images/logo.png" alt="" id="siteLogo">
-            </a>
+  <!-- Logo -->
+  <a href="index.html">
+    <img src="images/logo.png" alt="Cara Logo" />
+  </a>
 
-            <!-- Navbar loads here -->
-            <div id="navbar-container"></div>
+  <div>
+    <ul id="navbar">
 
-            <div class="mobile">
-              <button class="theme-toggle" id="themeToggleMobile"
-                aria-label="Toggle dark mode">
-                <i class="ri-moon-line" id="themeIconMobile"></i>
-              </button>
-              <a href="cart.html" id="mobile-cart-icon">
-                <i class="ri-shopping-bag-4-line"></i>
-                <span class="cart-count" id="mobileCartCount">0</span>
-              </a>
-              <i class="fas fa-outdent" id="bar"></i>
-            </div>
-          </section>
+      <!-- Main Navigation Links -->
+      <li><a class="active" href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="try-on.html">Try-On</a></li>
+      <li><a href="community.html">Community</a></li>
+      <li><a href="promotions.html">Promotions</a></li>
+
+      <!-- Contact Icon -->
+      <li class="nav-icon">
+        <a href="contact.html" aria-label="Contact">
+          <i class="ri-customer-service-2-line"></i>
+        </a>
+      </li>
+
+      <!-- Login Icon -->
+      <li class="nav-icon">
+        <a href="login.html" aria-label="Login">
+          <i class="ri-user-3-line"></i>
+        </a>
+      </li>
+
+      <!-- Cart Icon -->
+      <li class="nav-icon">
+        <a href="cart.html" id="lg-bag" aria-label="Cart">
+          <i class="ri-shopping-bag-4-line"></i>
+        </a>
+      </li>
+
+      <!-- Theme Toggle -->
+      <li class="nav-icon">
+        <button
+          class="theme-toggle"
+          id="themeToggle"
+          aria-label="Toggle dark mode"
+        >
+          <i class="ri-moon-line" id="themeIcon"></i>
+        </button>
+      </li>
+
+      <!-- Close Button -->
+      <a
+        href="#"
+        id="close"
+        aria-label="Close menu"
+        aria-hidden="false"
+      >
+        <i class="fa-solid fa-xmark"></i>
+      </a>
+
+    </ul>
+  </div>
+
+  <!-- Mobile Navbar -->
+  <div class="mobile">
+
+    <!-- Login Icon -->
+    <a href="login.html" aria-label="Login">
+      <i class="ri-user-3-line"></i>
+    </a>
+
+    <!-- Cart Icon -->
+    <a href="cart.html" aria-label="Cart">
+      <i class="ri-shopping-bag-4-line"></i>
+    </a>
+
+    <!-- Hamburger Menu -->
+    <i
+      class="fas fa-outdent"
+      id="bar"
+      role="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+      tabindex="0"
+    ></i>
+
+  </div>
+</section>
     <section id="about-head">
       <h2>#KnowUs</h2>
       <p>Read all case studies about Us!</p>
@@ -176,51 +244,51 @@
     <section id="interactive-feature-wrapper">
       <div class="animation-container" id="cardContainer">
         <div class="sub-card card-l1">
-          <div class="icon">🛒</div>
-          <div>
-            <h3>Free Shipping</h3>
-            <p>On all standard regional custom retail updates.</p>
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+               <div class="icon">🛒</div>
+               <h3>Free Shipping</h3>
           </div>
+          <p>On all standard regional custom retail updates.</p>
         </div>
 
         <div class="sub-card card-l2">
-          <div class="icon">👤</div>
-          <div>
-            <h3>Online Order</h3>
-            <p>Quick dynamic electronic checkout confirmation system.</p>
-          </div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+             <div class="icon">👤</div>
+             <h3>Online Order</h3>
+        </div>
+        <p>Quick dynamic electronic checkout confirmation system.</p>
         </div>
 
         <div class="sub-card card-l3">
-          <div class="icon">⚙️</div>
-          <div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+            <div class="icon">⚙️</div>
             <h3>Save Money</h3>
-            <p>Incentive cashback loops on every wholesale purchase.</p>
-          </div>
+        </div>
+        <p>Incentive cashback loops on every wholesale purchase.</p>
         </div>
 
         <div class="sub-card card-r1">
-          <div class="icon">⭐</div>
-          <div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+            <div class="icon">⭐</div>
             <h3>Promotions</h3>
-            <p>Unlock seasonal drops & holiday campaign vouchers.</p>
-          </div>
+        </div>
+        <p>Unlock seasonal drops & holiday campaign vouchers.</p>
         </div>
 
         <div class="sub-card card-r2">
-          <div class="icon">🚀</div>
-          <div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+            <div class="icon">🚀</div>
             <h3>Happy Sell</h3>
-            <p>Premium matching customer success feedback loops.</p>
-          </div>
+        </div>
+        <p>Premium matching customer success feedback loops.</p>
         </div>
 
         <div class="sub-card card-r3">
-          <div class="icon">🌍</div>
-          <div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+            <div class="icon">🌍</div>
             <h3>24/7 Support</h3>
-            <p>Global infrastructure desk agents always responsive.</p>
-          </div>
+        </div>
+        <p>Global infrastructure desk agents always responsive.</p>
         </div>
 
         <div class="brand-card" id="brandCard">
@@ -390,29 +458,17 @@
   ↑
 </button>
 
-    <script src="app.js?v=1779120917201"></script>
-    
-    <!-- Corrected -->
-   <script id="Current-Year">
-        document.getElementById("Current-Year").textContent = new Date().getFullYear();
-    </script>
-
-                  // Disconnect observer so it doesn't run again
-                  observer.unobserve(entry.target);
-                }
-              });
-            },
-            observerOptions,
-          );
-
-          // Track the feature section itself instead of the app section
-          scrollObserver.observe(featureSection);
-        }
-      });
-    </script>
     <script src="navbar.js"></script>
-    <script>loadNavbar('about');</script>
-    <script src="app.js"></script>  
+    <script>
+      loadNavbar('about');
+    </script>
+    
+    <script src="app.js"></script>
+    
+    <script>
+      document.querySelector(".Current-Year").textContent =
+        new Date().getFullYear();
+    </script>
     <script>
   const scrollBtn = document.getElementById("scrollTopBtn");
 
