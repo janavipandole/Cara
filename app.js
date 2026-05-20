@@ -937,15 +937,26 @@ function initHeroSlider() {
     const intervalTime = 5000; // 5 seconds
 
     function updateSlider() {
-        // Remove active class from all slides and dots
-        slides.forEach(slide => slide.classList.remove('active'));
-        dots.forEach(dot => dot.classList.remove('active'));
+        // 1. Handle the old slide fading out
+        const currentActiveSlide = slider.querySelector('.slide.active');
+        if (currentActiveSlide) {
+            currentActiveSlide.classList.remove('active');
+            currentActiveSlide.classList.add('outgoing'); // Mark it as leaving
+            
+            // Wait for the CSS transition (800ms) before completely hiding it
+            setTimeout(() => {
+                currentActiveSlide.classList.remove('outgoing');
+            }, 800);
+        }
 
-        // Add active class to current slide and dot
-        slides[currentSlide].classList.add('active');
+        // 2. Handle Dots
+        dots.forEach(dot => dot.classList.remove('active'));
         if (dots[currentSlide]) {
             dots[currentSlide].classList.add('active');
         }
+
+        // 3. Handle the new incoming slide
+        slides[currentSlide].classList.add('active');
     }
 
     function nextSlide() {

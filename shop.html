@@ -90,8 +90,8 @@
     <ul id="navbar">
 
       <!-- Main Navigation Links -->
-      <li><a class="active" href="index.html">Home</a></li>
-      <li><a href="shop.html">Shop</a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a class="active" href="shop.html">Shop</a></li>
       <li><a href="blog.html">Blog</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="try-on.html">Try-On</a></li>
@@ -863,7 +863,7 @@
     </footer>
 
     <div id="toast-container"></div>
-    <!-- Fix for GSSoC Issue #522 (Prices on Shop page showing $ instead of ₹) -->
+    <!-- Fix for GSSoC Issue #522 (Prices on Shop page showing $ instead of ₹) & Issue #523 (Product names, brands, categories) -->
     <script>
       (function() {
         const pricesInINR = [
@@ -871,6 +871,28 @@
           "4499", "6999", "5499", "3990", "2799", "2499", "3499", "1799",
           "2499", "1299", "3490", "2799", "1999", "2299", "3990", "2699",
           "4499", "6999", "5499", "3990", "2799", "2499", "3499", "1799"
+        ];
+        const names = [
+          "Tropical Hibiscus Summer Shirt", "White Palm Leaf Casual Shirt", "Vintage Rose Garden Shirt", "Sakura Blossom Floral Shirt",
+          "Pink Peony Patterned Shirt", "Dual-Tone Corduroy Shirt", "Embroidered Linen Trousers", "Cat Print Long Sleeve Blouse",
+          "Sky Blue Mandarin Collar Shirt", "Navy Textured Formal Shirt", "Classic White Cotton Shirt", "Sandstone Tactical Utility Shirt",
+          "Denim Blue Everyday Shirt", "Vertical Stripe Chino Shorts", "Khaki Safari Work Shirt", "Deep Charcoal Casual Shirt",
+          "Tropical Hibiscus Summer Shirt", "White Palm Leaf Casual Shirt", "Vintage Rose Garden Shirt", "Sakura Blossom Floral Shirt",
+          "Pink Peony Patterned Shirt", "Dual-Tone Corduroy Shirt", "Embroidered Linen Trousers", "Cat Print Long Sleeve Blouse",
+          "Sky Blue Mandarin Collar Shirt", "Navy Textured Formal Shirt", "Classic White Cotton Shirt", "Sandstone Tactical Utility Shirt",
+          "Denim Blue Everyday Shirt", "Vertical Stripe Chino Shorts", "Khaki Safari Work Shirt", "Deep Charcoal Casual Shirt"
+        ];
+        const brands = [
+          "Nike", "H&M", "Zara", "Levi's", "Puma", "Gap", "Uniqlo", "Mango",
+          "Tommy Hilfiger", "Ralph Lauren", "Calvin Klein", "Zara", "Nike", "Levi's", "Uniqlo", "Puma",
+          "Nike", "H&M", "Zara", "Levi's", "Puma", "Gap", "Uniqlo", "Mango",
+          "Tommy Hilfiger", "Ralph Lauren", "Calvin Klein", "Zara", "Nike", "Levi's", "Uniqlo", "Puma"
+        ];
+        const categories = [
+          "street", "minimal", "minimal", "minimal", "street", "street", "street", "minimal",
+          "formal", "formal", "formal", "formal", "minimal", "minimal", "minimal", "minimal",
+          "street", "minimal", "minimal", "minimal", "street", "street", "street", "minimal",
+          "formal", "formal", "formal", "formal", "minimal", "minimal", "minimal", "minimal"
         ];
         const hardcodedContainer = document.querySelector("#product1 .pro-container:not(#shop-container)");
         if (hardcodedContainer) {
@@ -881,14 +903,31 @@
               if (priceElement) {
                 priceElement.textContent = "₹" + Number(pricesInINR[index]).toLocaleString('en-IN');
               }
-              const cartBtn = card.querySelector(".cart");
-              if (cartBtn) {
-                const onclickAttr = cartBtn.getAttribute("onclick");
-                if (onclickAttr) {
-                  const formattedPrice = "₹" + Number(pricesInINR[index]).toLocaleString('en-IN');
-                  const newOnclick = onclickAttr.replace("'$78'", `'${formattedPrice}'`);
-                  cartBtn.setAttribute("onclick", newOnclick);
+            }
+            if (index < names.length) {
+              const nameElement = card.querySelector("h5");
+              if (nameElement) {
+                nameElement.textContent = names[index];
+              }
+              const brandElement = card.querySelector(".des span");
+              if (brandElement) {
+                brandElement.textContent = brands[index];
+              }
+              card.setAttribute("data-category", categories[index]);
+            }
+            const cartBtn = card.querySelector(".cart");
+            if (cartBtn) {
+              const onclickAttr = cartBtn.getAttribute("onclick");
+              if (onclickAttr) {
+                let newOnclick = onclickAttr;
+                if (index < names.length) {
+                  newOnclick = newOnclick.replace("'Cartoon Astronaut T-Shirts'", `'${names[index]}'`);
                 }
+                if (index < pricesInINR.length) {
+                  const formattedPrice = "₹" + Number(pricesInINR[index]).toLocaleString('en-IN');
+                  newOnclick = newOnclick.replace("'$78'", `'${formattedPrice}'`);
+                }
+                cartBtn.setAttribute("onclick", newOnclick);
               }
             }
           });
@@ -898,7 +937,7 @@
     <script src="products.js?v=1779120917219"></script>
     <script src="app.js?v=1779120917219"></script>
     <script src="navbar.js"></script>
-    <script>loadNavbar('home');</script>
+    <script>loadNavbar('shop');</script>
     <!-- Corrected  -->
     <script id="Current-Year">
         const year = new Date().getFullYear();
