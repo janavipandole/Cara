@@ -900,7 +900,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (brandCard && cardContainer) {
     brandCard.addEventListener('click', () => {
       const isOpen = cardContainer.classList.toggle('open');
-      statusText.innerText = isOpen ? 'Click to collapse' : 'Click to expand';
+      if (statusText) {
+        statusText.innerText = isOpen ? 'Click to collapse' : 'Click to expand';
+      }
     });
   }
 
