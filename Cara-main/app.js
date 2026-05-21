@@ -1026,8 +1026,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 productsToAppend = originalProducts;
             } else {
                 productsToAppend = [...originalProducts].sort((a, b) => {
-                    const priceA = parseFloat(a.querySelector('h4').innerText.replace('$', '').trim());
-                    const priceB = parseFloat(b.querySelector('h4').innerText.replace('$', '').trim());
+                    const priceA = parseFloat(a.querySelector('h4').innerText.replace(/[₹$,]/g, '').trim());
+                    const priceB = parseFloat(b.querySelector('h4').innerText.replace(/[₹$,]/g, '').trim());
 
                     if (sortValue === 'low-high') return priceA - priceB;
                     if (sortValue === 'high-low') return priceB - priceA;
