@@ -114,3 +114,112 @@ function loadNavbar() {
   }
 
 }
+  initDarkMode();
+  initMobileNavbar();
+  }
+  function initMobileNavbar() {
+
+  const bar = document.getElementById("bar");
+  const close = document.getElementById("close");
+  const navbar = document.getElementById("navbar");
+
+  if (!bar || !navbar) return;
+
+  // Open menu
+  function openMenu() {
+    navbar.classList.add("active");
+    bar.setAttribute("aria-expanded", "true");
+    document.body.style.overflow = "hidden";
+  }
+
+  // Close menu
+  function closeMenu() {
+    navbar.classList.remove("active");
+    bar.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+  }
+
+  // Open handlers
+  bar.addEventListener("click", openMenu);
+
+  bar.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      openMenu();
+    }
+  });
+
+  // Close handlers
+  if (close) {
+    close.addEventListener("click", (e) => {
+      e.preventDefault();
+      closeMenu();
+    });
+  }
+
+  // Close on outside click
+  document.addEventListener("click", (e) => {
+
+    const clickedInsideNavbar = navbar.contains(e.target);
+    const clickedBar = bar.contains(e.target);
+
+    if (
+      navbar.classList.contains("active") &&
+      !clickedInsideNavbar &&
+      !clickedBar
+    ) {
+      closeMenu();
+    }
+  });
+
+  // Close on ESC key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closeMenu();
+    }
+  });
+
+  // Close menu after clicking nav links on mobile
+  const navLinks = navbar.querySelectorAll("a");
+
+  navLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      closeMenu();
+    });
+  });
+ }
+
+
+function initDarkMode() {
+  const themeToggle = document.getElementById("themeToggle");
+  const themeIcon = document.getElementById("themeIcon");
+
+  const isDarkSaved = localStorage.getItem("theme") === "dark";
+
+  if (isDarkSaved) {
+    document.body.classList.add("dark");
+
+    if (themeIcon) {
+      themeIcon.classList.replace("ri-moon-line", "ri-sun-line");
+    }
+  }
+
+  function handleToggle() {
+    document.body.classList.toggle("dark");
+
+    const isDark = document.body.classList.contains("dark");
+
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+
+    if (themeIcon) {
+      themeIcon.classList.replace(
+        isDark ? "ri-moon-line" : "ri-sun-line",
+        isDark ? "ri-sun-line" : "ri-moon-line"
+      );
+    }
+  }
+
+  if (themeToggle) {
+    themeToggle.addEventListener("click", handleToggle);
+  }
+}
