@@ -189,7 +189,6 @@ function loadNavbar() {
   });
  }
 
-
 function initDarkMode() {
   const themeToggle = document.getElementById("themeToggle");
   const themeIcon = document.getElementById("themeIcon");
@@ -198,9 +197,15 @@ function initDarkMode() {
 
   if (isDarkSaved) {
     document.body.classList.add("dark");
+  }
 
-    if (themeIcon) {
-      themeIcon.classList.replace("ri-moon-line", "ri-sun-line");
+  if (themeIcon) {
+    if (document.body.classList.contains("dark")) {
+      themeIcon.classList.remove("ri-sun-line");
+      themeIcon.classList.add("ri-moon-line");
+    } else {
+      themeIcon.classList.remove("ri-moon-line");
+      themeIcon.classList.add("ri-sun-line");
     }
   }
 
@@ -212,10 +217,13 @@ function initDarkMode() {
     localStorage.setItem("theme", isDark ? "dark" : "light");
 
     if (themeIcon) {
-      themeIcon.classList.replace(
-        isDark ? "ri-moon-line" : "ri-sun-line",
-        isDark ? "ri-sun-line" : "ri-moon-line"
-      );
+      if (isDark) {
+        themeIcon.classList.remove("ri-sun-line");
+        themeIcon.classList.add("ri-moon-line");
+      } else {
+        themeIcon.classList.remove("ri-moon-line");
+        themeIcon.classList.add("ri-sun-line");
+      }
     }
   }
 
