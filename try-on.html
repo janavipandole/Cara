@@ -18,6 +18,14 @@
 
 
         <style>
+
+            :root {
+    --accent: #088178;
+    --text-primary: #333;
+    --bg-secondary: #f5f5f5;
+    --card-bg: #ffffff;
+    --border-color: #ddd;
+}
         /* ============================================
            VIRTUAL TRY-ON PAGE STYLES
            ============================================ */
@@ -142,6 +150,13 @@
             gap: 8px;
             transition: 0.3s ease;
         }
+        .mode-toggle {
+          min-height: 48px;
+             }
+
+         .mode-btn {
+         min-height: 48px;
+         }
 
         .mode-btn.active {
             background: var(--accent);
@@ -469,22 +484,104 @@
                 max-height: none;
             }
         }
-
+        
     </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <body>
 
         <!-- HEADER -->
-        <section id="header">
-            <a href="index.html">
-            <img src="images/logo.png" alt="" id="siteLogo">
-            </a>
+        <!-- <section id="header"> -->
+            <section id="header">
+  <!-- Logo -->
+  <a href="index.html">
+    <img src="images/logo.png" alt="Cara Logo" />
+  </a>
 
-            <!-- Navbar loads here -->
-            <div id="navbar-container"></div>
+  <div>
+    <ul id="navbar">
 
-            <div class="mobile">
+      <!-- Main Navigation Links -->
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a class="active" href="try-on.html">Try-On</a></li>
+      <li><a href="community.html">Community</a></li>
+      <li><a href="promotions.html">Promotions</a></li>
+
+      <!-- Contact Icon -->
+      <li class="nav-icon">
+        <a href="contact.html" aria-label="Contact">
+          <i class="ri-customer-service-2-line"></i>
+        </a>
+      </li>
+
+      <!-- Login Icon -->
+      <li class="nav-icon">
+        <a href="login.html" aria-label="Login">
+          <i class="ri-user-3-line"></i>
+        </a>
+      </li>
+
+      <!-- Cart Icon -->
+      <li class="nav-icon">
+        <a href="cart.html" id="lg-bag" aria-label="Cart">
+          <i class="ri-shopping-bag-4-line"></i>
+        </a>
+      </li>
+
+      <!-- Theme Toggle -->
+      <li class="nav-icon">
+        <button
+          class="theme-toggle"
+          id="themeToggle"
+          aria-label="Toggle dark mode"
+        >
+          <i class="ri-moon-line" id="themeIcon"></i>
+        </button>
+      </li>
+
+      <!-- Close Button -->
+      <a
+        href="#"
+        id="close"
+        aria-label="Close menu"
+        aria-hidden="false"
+      >
+        <i class="fa-solid fa-xmark"></i>
+      </a>
+
+    </ul>
+  </div>
+
+  <!-- Mobile Navbar -->
+  <div class="mobile">
+
+    <!-- Login Icon -->
+    <a href="login.html" aria-label="Login">
+      <i class="ri-user-3-line"></i>
+    </a>
+
+    <!-- Cart Icon -->
+    <a href="cart.html" aria-label="Cart">
+      <i class="ri-shopping-bag-4-line"></i>
+    </a>
+
+    <!-- Hamburger Menu -->
+    <i
+      class="fas fa-outdent"
+      id="bar"
+      role="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+      tabindex="0"
+    ></i>
+
+  </div>
+</section>
+
+            <!-- <div class="mobile">
             <button class="theme-toggle" id="themeToggleMobile"
                 aria-label="Toggle dark mode">
                 <i class="ri-moon-line" id="themeIconMobile"></i>
@@ -494,8 +591,8 @@
                 <span class="cart-count" id="mobileCartCount">0</span>
             </a>
             <i class="fas fa-outdent" id="bar"></i>
-            </div>
-        </section>
+            </div> -->
+        <!-- </section> -->
     <section id="try-on-section">
 
         <!-- Step Progress -->
@@ -585,13 +682,10 @@
     <canvas id="output-canvas"></canvas>
 </div>
 
-<img id="uploaded-preview" src="" alt="">
-
                 <!-- Hidden uploaded image -->
                 <img id="uploaded-preview" src="" alt="">
 
-                <!-- Main output canvas -->
-                <canvas id="output-canvas"></canvas>
+
 
                 <!-- Body info badge -->
                 <div class="body-info" id="body-info"></div>
@@ -721,10 +815,9 @@
       </p>
     </div>
   </footer>
-    <script src="try-on.js"></script>
+     <script src="try-on.js"></script> 
     <script src="navbar.js"></script>
-<script>loadNavbar('tryon');</script>
-<script src="app.js?v=1779120917221"></script>
+<!-- <script>loadNavbar('tryon');</script> -->
         <script id="Current-Year">
         document.getElementById("Current-Year").textContent = new Date().getFullYear();
     </script>

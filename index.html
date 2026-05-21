@@ -74,62 +74,7 @@
     <img src="images/logo.png" alt="Cara Logo" />
   </a>
 
-  <div>
-    <ul id="navbar">
-
-      <!-- Main Navigation Links -->
-      <li><a class="active" href="index.html">Home</a></li>
-      <li><a href="shop.html">Shop</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="try-on.html">Try-On</a></li>
-      <li><a href="community.html">Community</a></li>
-      <li><a href="promotions.html">Promotions</a></li>
-
-      <!-- Contact Icon -->
-      <li class="nav-icon">
-        <a href="contact.html" aria-label="Contact">
-          <i class="ri-customer-service-2-line"></i>
-        </a>
-      </li>
-
-      <!-- Login Icon -->
-      <li class="nav-icon">
-        <a href="login.html" aria-label="Login">
-          <i class="ri-user-3-line"></i>
-        </a>
-      </li>
-
-      <!-- Cart Icon -->
-      <li class="nav-icon">
-        <a href="cart.html" id="lg-bag" aria-label="Cart">
-          <i class="ri-shopping-bag-4-line"></i>
-        </a>
-      </li>
-
-      <!-- Theme Toggle -->
-      <li class="nav-icon">
-        <button
-          class="theme-toggle"
-          id="themeToggle"
-          aria-label="Toggle dark mode"
-        >
-          <i class="ri-moon-line" id="themeIcon"></i>
-        </button>
-      </li>
-
-      <!-- Close Button -->
-      <a
-        href="#"
-        id="close"
-        aria-label="Close menu"
-        aria-hidden="false"
-      >
-        <i class="fa-solid fa-xmark"></i>
-      </a>
-
-    </ul>
-  </div>
+ <div id="navbar-container"></div>
 
   <!-- Mobile Navbar -->
   <div class="mobile">
@@ -202,31 +147,32 @@
       </div>
     </div>
   </div>
-
+  <!-- Fix: Added descriptive alt text to all feature images for accessibility.
+     Also fixed typo: 'F24/7 Support' corrected to '24/7 Support' -->
   <section id="feature" class="section-p1">
     <div class="fe-box">
-      <img src="images/feature/f1.png" alt="" />
+      <img src="images/feature/f1.png" alt="Free Shipping" />
       <h6>Free Shipping</h6>
     </div>
     <div class="fe-box">
-      <img src="images/feature/f2.png" alt="" />
+      <img src="images/feature/f2.png" alt="Online Order" />
       <h6>Online Order</h6>
     </div>
     <div class="fe-box">
-      <img src="images/feature/f3.png" alt="" />
+      <img src="images/feature/f3.png" alt="Save Money" />
       <h6>Save Money</h6>
     </div>
     <div class="fe-box">
-      <img src="images/feature/f4.png" alt="" />
+      <img src="images/feature/f4.png" alt="Promotions" />
       <h6>Promotions</h6>
     </div>
     <div class="fe-box">
-      <img src="images/feature/f5.png" alt="" />
+      <img src="images/feature/f5.png" alt="Happy Sell" />
       <h6>Happy Sell</h6>
     </div>
     <div class="fe-box">
-      <img src="images/feature/f6.png" alt="" />
-      <h6>F24/7 Support</h6>
+      <img src="images/feature/f6.png" alt="24/7 Support" />
+      <h6>24/7 Support</h6>
     </div>
   </section>
 
@@ -375,8 +321,8 @@
   </section>
 
     <section id="banner" class="section-m1">
-      <h4>Repair Services</h4>
-      <h2>Up to <span>70% off</span> All t-Shirts & Accessories</h2>
+      <h4 style="color:black ;">Repair Services</h4>
+      <h2 style="color:black">Up to <span>70% off</span> All t-Shirts & Accessories</h2>
       <button class="normal"><a href="shop.html" style="color: #ffffff; text-decoration: none;">Explore More</a></button>
     </section>
 
@@ -529,13 +475,13 @@
       <h4>crazy deals</h4>
       <h2>buy 1 get 1 free</h2>
       <span>The best classic dress is on sale at cara</span>
-      <button class="white">Learn More</button>
+      <a href="crazy-deals.html"><button class="white">Learn More</button></a>
     </div>
     <div class="banner-box banner-box2">
       <h4>upcoming season</h4>
       <h2>winter collection</h2>
       <span>The best classic dress is on sale at Cara</span>
-      <button class="white">Collection</button>
+      <a href="winter-collection.html"><button class="white">Collection</button></a>
     </div>
   </section>
 
@@ -544,8 +490,8 @@
   <!-- Style Quiz Modal -->
   <div id="quiz-modal" class="modal">
     <div class="modal-content">
-      <span class="close" onclick="closeQuiz()">&times;</span>
-      <h2>What's Your Style?</h2>
+      <span class="close" onclick="closeQuiz()" style="background-color: red; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: medium;">&times;</span>
+      <h2 >What's Your Style ?</h2>
       <div class="quiz-options">
         <button onclick="selectStyle('minimal')">Minimal</button>
         <button onclick="selectStyle('street')">Street</button>
@@ -592,7 +538,7 @@
             <h4>MY ACCOUNT</h4>
             <a href="login.html">Sign In</a>
             <a href="cart.html">View Cart</a>
-            <a href="#">My Wishlist</a>
+            <a href="cart.html">My Wishlist</a>
             <a href="cart.html">Track My Order</a>
             <a href="contact.html">Help</a>
         </div>
@@ -602,7 +548,7 @@
             <p>Get email updates about our latest shop and <span>special offers.</span></p>
             <form class="newsletter-form">
                 <input type="email" placeholder="Your email address" required>
-                <button type="submit">Sign Up</button>
+                <button type="submit" style="background-color: #088178; color: white; border: none; padding: 10px 20px; cursor: pointer;">Sign Up</button>
             </form>
             
             <div class="install-payment-box">
@@ -636,7 +582,12 @@
 </footer>
 
   <div id="toast-container"></div>
-  <script src="app.js"></script>
+<script src="navbar.js"></script>
+<script>
+  loadNavbar();
+</script>
+
+<script src="app.js"></script>  
 </body>
 
 </html>

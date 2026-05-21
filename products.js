@@ -1,21 +1,148 @@
-let products = [];
 const products = [
-  { id: 1,  brand: "Nike",          name: "Tropical Hibiscus Summer Shirt",   price: 2499, img: "images/products/f1.jpg", rating: 5, category: "street" },
-  { id: 2,  brand: "H&M",           name: "White Palm Leaf Casual Shirt",     price: 1299, img: "images/products/f2.jpg", rating: 5, category: "minimal" },
-  { id: 3,  brand: "Zara",          name: "Vintage Rose Garden Shirt",        price: 3490, img: "images/products/f3.jpg", rating: 5, category: "minimal" },
-  { id: 4,  brand: "Levi's",        name: "Sakura Blossom Floral Shirt",      price: 2799, img: "images/products/f4.jpg", rating: 5, category: "minimal" },
-  { id: 5,  brand: "Puma",          name: "Pink Peony Patterned Shirt",       price: 1999, img: "images/products/f5.jpg", rating: 5, category: "street" },
-  { id: 6,  brand: "Gap",           name: "Dual-Tone Corduroy Shirt",         price: 2299, img: "images/products/f6.jpg", rating: 5, category: "street" },
-  { id: 7,  brand: "Uniqlo",        name: "Embroidered Linen Trousers",       price: 3990, img: "images/products/f7.jpg", rating: 5, category: "street" },
-  { id: 8,  brand: "Mango",         name: "Cat Print Long Sleeve Blouse",     price: 2699, img: "images/products/f8.jpg", rating: 5, category: "minimal" },
-  { id: 9,  brand: "Tommy Hilfiger",name: "Sky Blue Mandarin Collar Shirt",   price: 4499, img: "images/products/n1.jpg", rating: 5, category: "formal" },
-  { id: 10, brand: "Ralph Lauren",  name: "Navy Textured Formal Shirt",       price: 6999, img: "images/products/n2.jpg", rating: 5, category: "formal" },
-  { id: 11, brand: "Calvin Klein",  name: "Classic White Cotton Shirt",       price: 5499, img: "images/products/n3.jpg", rating: 5, category: "formal" },
-  { id: 12, brand: "Zara",          name: "Sandstone Tactical Utility Shirt", price: 3990, img: "images/products/n4.jpg", rating: 5, category: "formal" },
-  { id: 13, brand: "Nike",          name: "Denim Blue Everyday Shirt",        price: 2799, img: "images/products/n5.jpg", rating: 5, category: "minimal" },
-  { id: 14, brand: "Levi's",        name: "Vertical Stripe Chino Shorts",     price: 2499, img: "images/products/n6.jpg", rating: 5, category: "minimal" },
-  { id: 15, brand: "Uniqlo",        name: "Khaki Safari Work Shirt",          price: 3499, img: "images/products/n7.jpg", rating: 5, category: "minimal" },
-  { id: 16, brand: "Puma",          name: "Deep Charcoal Casual Shirt",       price: 1799, img: "images/products/n8.jpg", rating: 5, category: "minimal" },
+  {
+    id: 1,
+    brand: 'Nike',
+    name: 'Tropical Hibiscus Summer Shirt',
+    price: 2499,
+    img: 'images/products/f1.jpg',
+    rating: 5,
+    category: 'street',
+  },
+  {
+    id: 2,
+    brand: 'H&M',
+    name: 'White Palm Leaf Casual Shirt',
+    price: 1299,
+    img: 'images/products/f2.jpg',
+    rating: 5,
+    category: 'minimal',
+  },
+  {
+    id: 3,
+    brand: 'Zara',
+    name: 'Vintage Rose Garden Shirt',
+    price: 3490,
+    img: 'images/products/f3.jpg',
+    rating: 5,
+    category: 'minimal',
+  },
+  {
+    id: 4,
+    brand: "Levi's",
+    name: 'Sakura Blossom Floral Shirt',
+    price: 2799,
+    img: 'images/products/f4.jpg',
+    rating: 5,
+    category: 'minimal',
+  },
+  {
+    id: 5,
+    brand: 'Puma',
+    name: 'Pink Peony Patterned Shirt',
+    price: 1999,
+    img: 'images/products/f5.jpg',
+    rating: 5,
+    category: 'street',
+  },
+  {
+    id: 6,
+    brand: 'Gap',
+    name: 'Dual-Tone Corduroy Shirt',
+    price: 2299,
+    img: 'images/products/f6.jpg',
+    rating: 5,
+    category: 'street',
+  },
+  {
+    id: 7,
+    brand: 'Uniqlo',
+    name: 'Embroidered Linen Trousers',
+    price: 3990,
+    img: 'images/products/f7.jpg',
+    rating: 5,
+    category: 'street',
+  },
+  {
+    id: 8,
+    brand: 'Mango',
+    name: 'Cat Print Long Sleeve Blouse',
+    price: 2699,
+    img: 'images/products/f8.jpg',
+    rating: 5,
+    category: 'minimal',
+  },
+  {
+    id: 9,
+    brand: 'Tommy Hilfiger',
+    name: 'Sky Blue Mandarin Collar Shirt',
+    price: 4499,
+    img: 'images/products/n1.jpg',
+    rating: 5,
+    category: 'formal',
+  },
+  {
+    id: 10,
+    brand: 'Ralph Lauren',
+    name: 'Navy Textured Formal Shirt',
+    price: 6999,
+    img: 'images/products/n2.jpg',
+    rating: 5,
+    category: 'formal',
+  },
+  {
+    id: 11,
+    brand: 'Calvin Klein',
+    name: 'Classic White Cotton Shirt',
+    price: 5499,
+    img: 'images/products/n3.jpg',
+    rating: 5,
+    category: 'formal',
+  },
+  {
+    id: 12,
+    brand: 'Zara',
+    name: 'Sandstone Tactical Utility Shirt',
+    price: 3990,
+    img: 'images/products/n4.jpg',
+    rating: 5,
+    category: 'formal',
+  },
+  {
+    id: 13,
+    brand: 'Nike',
+    name: 'Denim Blue Everyday Shirt',
+    price: 2799,
+    img: 'images/products/n5.jpg',
+    rating: 5,
+    category: 'minimal',
+  },
+  {
+    id: 14,
+    brand: "Levi's",
+    name: 'Vertical Stripe Chino Shorts',
+    price: 2499,
+    img: 'images/products/n6.jpg',
+    rating: 5,
+    category: 'minimal',
+  },
+  {
+    id: 15,
+    brand: 'Uniqlo',
+    name: 'Khaki Safari Work Shirt',
+    price: 3499,
+    img: 'images/products/n7.jpg',
+    rating: 5,
+    category: 'minimal',
+  },
+  {
+    id: 16,
+    brand: 'Puma',
+    name: 'Deep Charcoal Casual Shirt',
+    price: 1799,
+    img: 'images/products/n8.jpg',
+    rating: 5,
+    category: 'minimal',
+  },
 ];
 
 function renderProducts(containerId, list) {
@@ -24,27 +151,35 @@ function renderProducts(containerId, list) {
   container.innerHTML = '';
 
   if (list.length === 0) {
-    const message = document.createElement('div');
-    message.className = 'no-results-message';
-    message.textContent = 'No products found. Try a different search or category.';
-    container.appendChild(message);
+    const searchInput = document.getElementById('searchInput');
+    const searchTerm = searchInput ? searchInput.value : '';
+
+    container.innerHTML = `
+        <div id="no-results-message" style="width: 100%; text-align: center; padding: 60px 20px;">
+            <div class="no-results-content">
+                <i class="ri-search-line" style="font-size: 3rem; color: #888; margin-bottom: 15px; display: block;"></i>
+                <h3 style="font-size: 1.5rem; margin-bottom: 10px;">No matching products found</h3>
+                <p style="color: #666;">We couldn't find any products matching "${searchTerm}". Please try a different search term or change your category filter.</p>
+            </div>
+        </div>
+    `;
     return;
   }
 
-  list.forEach(p => {
+  list.forEach((p) => {
     // Create product card container
     const card = document.createElement('div');
     card.className = 'pro';
     card.dataset.category = p.category;
     card.addEventListener('click', () => {
       const selectedProduct = {
-          id: p.id,
-          name: p.name,
-          price: "$" + p.price,
-          brand: p.brand,
-          image: p.img
+        id: p.id,
+        name: p.name,
+        price: '$' + p.price,
+        brand: p.brand,
+        image: p.img,
       };
-      localStorage.setItem("selectedProduct", JSON.stringify(selectedProduct));
+      localStorage.setItem('selectedProduct', JSON.stringify(selectedProduct));
       window.location.href = 'singleProduct.html';
     });
 
@@ -144,7 +279,11 @@ function renderSearchSuggestions(query) {
 
   const normalizedQuery = query.trim().toLowerCase();
   const suggestions = products
-    .filter(p => p.name.toLowerCase().includes(normalizedQuery) || p.brand.toLowerCase().includes(normalizedQuery))
+    .filter(
+      (p) =>
+        p.name.toLowerCase().includes(normalizedQuery) ||
+        p.brand.toLowerCase().includes(normalizedQuery)
+    )
     .slice(0, 5);
 
   if (suggestions.length === 0) {
@@ -154,7 +293,7 @@ function renderSearchSuggestions(query) {
     return;
   }
 
-  suggestions.forEach(item => {
+  suggestions.forEach((item) => {
     const button = document.createElement('button');
     button.type = 'button';
     button.textContent = `${item.name} — ${item.brand}`;
@@ -173,15 +312,26 @@ function renderSearchSuggestions(query) {
 function filterProducts() {
   const input = document.getElementById('searchInput');
   const categorySelect = document.getElementById('categoryFilter');
+  const sortSelect = document.getElementById('sort-price');
 
   const query = input ? input.value.trim().toLowerCase() : '';
   const category = categorySelect ? categorySelect.value : 'all';
+  const sortValue = sortSelect ? sortSelect.value : 'default';
 
-  const filteredProducts = products.filter(product => {
+  let filteredProducts = products.filter((product) => {
     const matchesCategory = category === 'all' || product.category === category;
-    const matchesSearch = query === '' || product.name.toLowerCase().includes(query) || product.brand.toLowerCase().includes(query);
+    const matchesSearch =
+      query === '' ||
+      product.name.toLowerCase().includes(query) ||
+      product.brand.toLowerCase().includes(query);
     return matchesCategory && matchesSearch;
   });
+
+  if (sortValue === 'low-high') {
+    filteredProducts.sort((a, b) => a.price - b.price);
+  } else if (sortValue === 'high-low') {
+    filteredProducts.sort((a, b) => b.price - a.price);
+  }
 
   renderProducts('shop-container', filteredProducts);
   updateSearchSummary(filteredProducts.length);
@@ -191,6 +341,7 @@ function filterProducts() {
 function attachSearchListeners() {
   const input = document.getElementById('searchInput');
   const categorySelect = document.getElementById('categoryFilter');
+  const sortSelect = document.getElementById('sort-price');
   const searchBtn = document.getElementById('searchBtn');
 
   if (input) {
@@ -205,6 +356,9 @@ function attachSearchListeners() {
   if (categorySelect) {
     categorySelect.addEventListener('change', filterProducts);
   }
+  if (sortSelect) {
+    sortSelect.addEventListener('change', filterProducts);
+  }
   if (searchBtn) {
     searchBtn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -214,18 +368,51 @@ function attachSearchListeners() {
   }
 }
 
-// Initializing the renders from API
-fetch('http://localhost:8000/api/products')
-  .then(res => res.json())
-  .then(data => {
-    products = data;
-    renderProducts('shop-container', products);
-    renderProducts('featured-container', products.slice(0, 4));
-    attachSearchListeners();
-    updateSearchSummary(products.length);
-    renderSearchSuggestions('');
-  })
-  .catch(err => {
-    console.error("Error fetching products:", err);
-    renderProducts('shop-container', []);
-  });
+// Add to Cart function
+function addToCart(name, price, img, quantity, size) {
+  let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+
+  const product = {
+    name,
+    price,
+    img,
+    quantity,
+    size,
+    id: Date.now(),
+  };
+
+  cart.push(product);
+  localStorage.setItem('productsInCart', JSON.stringify(cart));
+
+  if (typeof showToast === 'function') {
+    showToast(name + ' added to cart!', 'success');
+  }
+}
+
+// Buy Now function
+function buyNow(name, price, img, quantity, size) {
+  let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+
+  const product = {
+    name,
+    price,
+    img,
+    quantity,
+    size,
+    id: Date.now(),
+  };
+
+  cart.push(product);
+  localStorage.setItem('productsInCart', JSON.stringify(cart));
+
+  window.location.href = 'checkout.html';
+}
+
+// Initializing the renders from local array
+document.addEventListener('DOMContentLoaded', () => {
+  renderProducts('shop-container', products);
+  renderProducts('featured-container', products.slice(0, 4));
+  attachSearchListeners();
+  updateSearchSummary(products.length);
+  renderSearchSuggestions('');
+});
