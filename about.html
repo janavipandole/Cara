@@ -36,9 +36,9 @@
     />
     <meta
       property="og:image"
-      content="https://example.com/images/preview.jpg"
+      content="https://cara-seven-ashen.vercel.app/images/logo.png"
     />
-    <meta property="og:url" content="https://example.com/" />
+    <meta property="og:url" content="https://cara-seven-ashen.vercel.app/" />
     <meta property="og:type" content="website" />
 
     <!-- Twitter Card Tags -->
@@ -50,7 +50,7 @@
     />
     <meta
       name="twitter:image"
-      content="https://example.com/images/preview.jpg"
+      content="https://cara-seven-ashen.vercel.app/images/logo.png"
     />
     <meta name="twitter:site" content="@janavipandole" />
 
@@ -243,6 +243,10 @@
 
     <section id="interactive-feature-wrapper">
       <div class="animation-container" id="cardContainer">
+        <div class="brand-card" id="brandCard">
+          <h1>Cara</h1>
+        </div>
+
         <div class="sub-card card-l1">
           <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
                <div class="icon">🛒</div>
@@ -290,19 +294,9 @@
         </div>
         <p>Global infrastructure desk agents always responsive.</p>
         </div>
-
-        <div class="brand-card" id="brandCard">
-          <h1>Cara</h1>
-        </div>
       </div>
     </section>
 
-    <button id="backToTop" title="Back to Top" aria-label="Back to top">
-      ⬆
-    </button>
-    <button id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">
-      ⬇
-    </button>
 
     <!-- Footer -->
     <footer class="section-p1">
@@ -449,7 +443,7 @@
       <!-- Copyright -->
       <div class="copyright">
         <p>
-          &copy; Cara <span class="Current-Year"></span>. All rights reserved. |
+          © Cara 2026. All rights reserved. |
           <a href="license.html" style="color: #088178"> MIT License </a>
         </p>
       </div>
@@ -459,15 +453,11 @@
 </button>
 
     <script src="navbar.js"></script>
-    <script>
-      loadNavbar('about');
-    </script>
-    
+    <script>loadNavbar('about');</script>
     <script src="app.js"></script>
-    
     <script>
-      document.querySelector(".Current-Year").textContent =
-        new Date().getFullYear();
+        const yearEl = document.getElementById("Current-Year");
+        if (yearEl) yearEl.textContent = new Date().getFullYear();
     </script>
     <script>
   const scrollBtn = document.getElementById("scrollTopBtn");
