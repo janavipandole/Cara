@@ -11,6 +11,36 @@
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
+      body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.8;
+    }
+
+    .content {
+      height: 2000px;
+    }
+
+    /* Scroll Button */
+    #topBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: none;
+      background-color: #088178;
+      color: white;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      transition: 0.3s;
+    }
+
+    #topBtn:hover {
+      background-color: #555;
+    }
         /* Community Page Specific Styles */
         #community-header {
             background-image: url("images/hero4.png");
@@ -468,16 +498,37 @@
     <!-- Copyright -->
     <div class="copyright">
       <p>
-        © Cara 2025. All rights reserved. |
+        © Cara 2026. All rights reserved. |
         <a href="license.html" style="color: #088178"> MIT License </a>
       </p>
     </div>
   </footer>
+   <button id="topBtn">↑</button>
     <!-- <script src="navbar.js"></script>
     <script>loadNavbar('community');</script>   -->
 
-    <script src="app.js?v=1779120917211"></script>
+    <script src="navbar.js"></script>
+    <script>loadNavbar('community');</script>
+    <script src="app.js"></script>
     <script>
+      const topBtn = document.getElementById("topBtn");
+
+    // Show button when user scrolls down
+    window.onscroll = function () {
+      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        topBtn.style.display = "block";
+      } else {
+        topBtn.style.display = "none";
+      }
+    };
+
+    // Scroll to top smoothly
+    topBtn.addEventListener("click", function () {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
         document.getElementById('community-upload').addEventListener('change', function(e) {
             if(e.target.files.length > 0) {
                 document.getElementById('upload-success').style.display = 'block';
@@ -487,6 +538,5 @@
             }
         });
     </script>
-    <!-- <script src="app.js?v=1779120917211"></script>       -->
 </body>
 </html>

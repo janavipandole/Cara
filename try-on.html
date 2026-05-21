@@ -18,6 +18,36 @@
 
 
         <style>
+            body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.8;
+    }
+
+    .content {
+      height: 2000px;
+    }
+
+    /* Scroll Button */
+    #topBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: none;
+      background-color:#088178;
+      color: white;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      transition: 0.3s;
+    }
+
+    #topBtn:hover {
+      background-color: #555;
+    }
 
             :root {
     --accent: #088178;
@@ -810,11 +840,12 @@
     <!-- Copyright -->
     <div class="copyright">
       <p>
-        © Cara 2025. All rights reserved. |
+        © Cara 2026. All rights reserved. |
         <a href="license.html" style="color: #088178"> MIT License </a>
       </p>
     </div>
   </footer>
+   <button id="topBtn">↑</button>
      <script src="try-on.js"></script> 
     <script src="navbar.js"></script>
 <!-- <script>loadNavbar('tryon');</script> -->
