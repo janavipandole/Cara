@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=League+Spartan:wght@100..900&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=League+Spartan:wght@100..900&display=swap');
 
 /* ============================================
    ADD-TO-CART BUTTON HOVER ANIMATION
-   Issue #316 — Hover micro-interactions
+   Issue #316 ΓÇö Hover micro-interactions
    ============================================ */
 
 #product1 .pro .cart {
@@ -33,7 +33,7 @@
   border-color: var(--accent);
 }
 
-/* Banner3 — solid white button with dark text for max contrast */
+/* Banner3 ΓÇö solid white button with dark text for max contrast */
 #banner3 .banner-box button {
     background: rgba(255, 255, 255, 0.92);
     color: #111;
@@ -59,7 +59,7 @@
     transform: translateY(-2px);
 }
 
-/* sm-banner buttons — same treatment */
+/* sm-banner buttons ΓÇö same treatment */
 #sm-banner .banner-box button {
     background: rgba(255, 255, 255, 0.92);
     color: #111;
@@ -124,7 +124,7 @@
    Add this block to the end of style.css
    ============================================ */
 
-/* ── Shared setup for both banner rows ── */
+/* ΓöÇΓöÇ Shared setup for both banner rows ΓöÇΓöÇ */
 #sm-banner .banner-box,
 #banner3 .banner-box {
     overflow: hidden;
@@ -155,20 +155,20 @@
     z-index: 1;
 }
 
-/* ── Card lift + shadow on hover ── */
+/* ΓöÇΓöÇ Card lift + shadow on hover ΓöÇΓöÇ */
 #sm-banner .banner-box:hover,
 #banner3 .banner-box:hover {
     transform: translateY(-8px) scale(1.02);
     box-shadow: 0 20px 45px rgba(0, 0, 0, 0.22);
 }
 
-/* ── Background zoom on hover ── */
+/* ΓöÇΓöÇ Background zoom on hover ΓöÇΓöÇ */
 #sm-banner .banner-box:hover::before,
 #banner3 .banner-box:hover::before {
     transform: scale(1.08);
 }
 
-/* ── Subtle dark overlay that appears on hover ── */
+/* ΓöÇΓöÇ Subtle dark overlay that appears on hover ΓöÇΓöÇ */
 #sm-banner .banner-box::after,
 #banner3 .banner-box::after {
     content: "";
@@ -185,7 +185,7 @@
     background: rgba(0, 0, 0, 0.12);
 }
 
-/* ── Button animations inside banner cards ── */
+/* ΓöÇΓöÇ Button animations inside banner cards ΓöÇΓöÇ */
 #sm-banner .banner-box button,
 #banner3 .banner-box button {
     transition:
@@ -201,7 +201,7 @@
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* ── Heading slide-up micro-animation ── */
+/* ΓöÇΓöÇ Heading slide-up micro-animation ΓöÇΓöÇ */
 #sm-banner .banner-box h2,
 #sm-banner .banner-box h4,
 #banner3 .banner-box h2,
@@ -217,7 +217,7 @@
     letter-spacing: 0.5px;
 }
 
-/* ── Dark-theme adjustments ── */
+/* ΓöÇΓöÇ Dark-theme adjustments ΓöÇΓöÇ */
 [data-theme="dark"] #sm-banner .banner-box:hover,
 [data-theme="dark"] #banner3 .banner-box:hover {
     box-shadow: 0 20px 45px rgba(6, 182, 212, 0.18);
@@ -728,7 +728,7 @@ button.white .ripple-effect {
     color: var(--accent);
 }
 
-/* Shop Now CTA — filled accent button */
+/* Shop Now CTA ΓÇö filled accent button */
 .btn-shop-now {
     pointer-events: auto;
     display: inline-block;
@@ -751,7 +751,7 @@ button.white .ripple-effect {
     box-shadow: 0 8px 24px rgba(8, 129, 120, 0.5);
 }
 
-/* Take Style Quiz — outlined variant */
+/* Take Style Quiz ΓÇö outlined variant */
 #hero button {
     pointer-events: all;
     background: transparent;
@@ -771,7 +771,7 @@ button.white .ripple-effect {
     transform: translateY(-2px);
 }
 
-/* ── Slider nav buttons: override the generic #hero button rule above ── */
+/* ΓöÇΓöÇ Slider nav buttons: override the generic #hero button rule above ΓöÇΓöÇ */
 #hero .slider-btn {
     background: #000000 !important;
     color: #ffffff !important;
@@ -791,7 +791,7 @@ button.white .ripple-effect {
     background: #2a2a2a !important;
     color: #ffffff !important;
     opacity: 0.9;
-    transform: translateY(-50%) !important; /* LOCKED — no downward movement on hover */
+    transform: translateY(-50%) !important; /* LOCKED ΓÇö no downward movement on hover */
 }
 
 @keyframes fadeInUp {
@@ -894,7 +894,7 @@ button.white .ripple-effect {
     padding-top: 20px;
 }
 
-/* ── Card container ── */
+/* ΓöÇΓöÇ Card container ΓöÇΓöÇ */
 #product1 .pro {
     position: relative;
     width: 100%;
@@ -916,7 +916,7 @@ button.white .ripple-effect {
     transform: translateY(-3px);
 }
 
-/* ── Image wrapper ── */
+/* ΓöÇΓöÇ Image wrapper ΓöÇΓöÇ */
 .pro-img-wrap {
     width: 100%;
     background: #f5f5f5;
@@ -944,7 +944,7 @@ button.white .ripple-effect {
     transform: scale(1.04);
 }
 
-/* ── Description area ── */
+/* ΓöÇΓöÇ Description area ΓöÇΓöÇ */
 #product1 .pro .des {
     text-align: start;
     padding: 10px 2px 0;
@@ -954,7 +954,7 @@ button.white .ripple-effect {
     flex: 1;
 }
 
-/* ── Brand row: logo + name ── */
+/* ΓöÇΓöÇ Brand row: logo + name ΓöÇΓöÇ */
 .pro-brand-row {
     display: flex;
     align-items: center;
@@ -981,7 +981,7 @@ button.white .ripple-effect {
     color: #aaa;
 }
 
-/* ── Product title ── */
+/* ΓöÇΓöÇ Product title ΓöÇΓöÇ */
 #product1 .pro .des h5 {
     color: var(--text-primary);
     font-weight: 600;
@@ -993,7 +993,7 @@ button.white .ripple-effect {
     text-overflow: ellipsis;
 }
 
-/* ── Star rating ── */
+/* ΓöÇΓöÇ Star rating ΓöÇΓöÇ */
 #product1 .pro .des .star {
     display: flex;
     gap: 2px;
@@ -1004,7 +1004,7 @@ button.white .ripple-effect {
     font-size: 12px;
 }
 
-/* ── Price ── */
+/* ΓöÇΓöÇ Price ΓöÇΓöÇ */
 #product1 .pro .des h4 {
     color: var(--accent);
     font-size: 17px;
@@ -1012,7 +1012,7 @@ button.white .ripple-effect {
     margin: 2px 0 6px;
 }
 
-/* ── Action bar: BUY NOW + cart icon ── */
+/* ΓöÇΓöÇ Action bar: BUY NOW + cart icon ΓöÇΓöÇ */
 .pro-action-bar {
     display: flex;
     align-items: center;
@@ -1071,7 +1071,7 @@ button.white .ripple-effect {
     box-shadow: 0 0 0 2px rgba(8, 129, 120, 0.3);
 }
 
-/* Legacy .cart class — keep for any static HTML cards on index.html */
+/* Legacy .cart class ΓÇö keep for any static HTML cards on index.html */
 #product1 .pro .cart {
     width: 36px;
     height: 36px;
@@ -2892,7 +2892,7 @@ footer .copyright {
             overflow-x: auto;
         }
 
-        /* ── Cart rows: black background on ALL screen sizes ── */
+        /* ΓöÇΓöÇ Cart rows: black background on ALL screen sizes ΓöÇΓöÇ */
         #cart table tbody tr td,
         #cart table tbody td {
             background-color: #000000 !important;
@@ -3302,7 +3302,7 @@ footer .copyright {
             }
 
             /* ============================================
-   DESKTOP LARGE (≤ 1200px)
+   DESKTOP LARGE (Γëñ 1200px)
    ============================================ */
 
             @media (max-width: 1200px) {
@@ -3340,7 +3340,7 @@ footer .copyright {
             }
 
             /* ============================================
-   TABLET LANDSCAPE (≤ 1024px)
+   TABLET LANDSCAPE (Γëñ 1024px)
    ============================================ */
 
             @media (max-width: 1024px) {
@@ -3452,7 +3452,7 @@ footer .copyright {
             }
 
             /* ============================================
-   TABLET PORTRAIT + LARGE MOBILE (≤ 799px)
+   TABLET PORTRAIT + LARGE MOBILE (Γëñ 799px)
    ============================================ */
 
             @media (max-width: 799px) {
@@ -3840,7 +3840,7 @@ footer .copyright {
             }
 
             /* ============================================
-   TABLET 4 — PORTRAIT (768px–1024px)
+   TABLET 4 ΓÇö PORTRAIT (768pxΓÇô1024px)
    ============================================ */
 
             @media (min-width: 768px) and (max-width: 1024px) {
@@ -4273,7 +4273,7 @@ footer .copyright {
             }
 
             /* ============================================
-   MOBILE LARGE (≤ 600px)
+   MOBILE LARGE (Γëñ 600px)
    ============================================ */
 
             @media (max-width: 600px) {
@@ -4361,7 +4361,7 @@ footer .copyright {
             }
 
             /* ============================================
-   MOBILE SMALL (≤ 477px)
+   MOBILE SMALL (Γëñ 477px)
    ============================================ */
 
             @media (max-width: 477px) {
@@ -4790,7 +4790,7 @@ footer .copyright {
             }
 
             /* ============================================
-   EXTRA SMALL (≤ 360px)
+   EXTRA SMALL (Γëñ 360px)
    ============================================ */
 
             @media (max-width: 360px) {
@@ -4846,7 +4846,7 @@ footer .copyright {
             }
 
             /* ============================================
-   MOBILE HERO + LAYOUT FIX (≤ 640px)
+   MOBILE HERO + LAYOUT FIX (Γëñ 640px)
    Fixes: #top position:absolute, #workingArea
    height:100vh clipping hero on small screens
    ============================================ */
@@ -5122,7 +5122,7 @@ footer .copyright {
                 color: var(--text-primary);
             }
 
-            /* Hero section — ensure text is always visible */
+            /* Hero section ΓÇö ensure text is always visible */
             #hero h4,
             #hero h2,
             #hero p {
@@ -5169,7 +5169,7 @@ footer .copyright {
                 color: var(--text-primary);
             }
 
-            /* ── Dark theme: full product card overrides ── */
+            /* ΓöÇΓöÇ Dark theme: full product card overrides ΓöÇΓöÇ */
             [data-theme="dark"] #product1 .pro {
                 border-color: #333;
                 box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
@@ -5206,7 +5206,7 @@ footer .copyright {
                 box-shadow: 0 6px 18px rgba(255, 255, 255, 0.15);
             }
 
-            /* Circular cart button on dark card — keep black, consistent with light theme */
+            /* Circular cart button on dark card ΓÇö keep black, consistent with light theme */
             [data-theme="dark"] .pro-cart-btn {
                 background: #000000;
                 border-color: #333;
@@ -5688,7 +5688,7 @@ footer .copyright {
            MODERN RESPONSIVE CART SYSTEM STYLING
            ========================================================================== */
         
-        /* ── Page Grid Architecture ── */
+        /* ΓöÇΓöÇ Page Grid Architecture ΓöÇΓöÇ */
         .cart-grid-layout {
             display: grid;
             grid-template-columns: 1fr;
@@ -5703,7 +5703,7 @@ footer .copyright {
             }
         }
 
-        /* ── Left Column: Items List ── */
+        /* ΓöÇΓöÇ Left Column: Items List ΓöÇΓöÇ */
         .cart-items-column {
             display: flex;
             flex-direction: column;
@@ -5851,7 +5851,7 @@ footer .copyright {
             }
         }
 
-        /* ── Custom Quantity Selector Component ── */
+        /* ΓöÇΓöÇ Custom Quantity Selector Component ΓöÇΓöÇ */
         .qty-selector {
             display: flex;
             align-items: center;
@@ -5957,7 +5957,7 @@ footer .copyright {
             }
         }
 
-        /* ── Continue Shopping Bar ── */
+        /* ΓöÇΓöÇ Continue Shopping Bar ΓöÇΓöÇ */
         .cart-actions-bottom {
             margin-top: 15px;
         }
@@ -5983,7 +5983,7 @@ footer .copyright {
             transform: translateX(-3px);
         }
 
-        /* ── Right Column: Sticky Summary Panel ── */
+        /* ΓöÇΓöÇ Right Column: Sticky Summary Panel ΓöÇΓöÇ */
         .cart-summary-column {
             position: relative;
         }
@@ -6165,7 +6165,7 @@ footer .copyright {
             color: #ffffff;
         }
 
-        /* ── Empty Cart State UI ── */
+        /* ΓöÇΓöÇ Empty Cart State UI ΓöÇΓöÇ */
         .empty-cart-view {
             display: flex;
             align-items: center;
@@ -6239,7 +6239,7 @@ footer .copyright {
             box-shadow: 0 6px 20px rgba(8, 129, 120, 0.25);
         }
 
-        /* ── ANIMATIONS ── */
+        /* ΓöÇΓöÇ ANIMATIONS ΓöÇΓöÇ */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -6292,7 +6292,7 @@ footer .copyright {
 
 /* ============================================
    ADD-TO-CART BUTTON HOVER ANIMATION
-   Issue #316 — Hover micro-interactions
+   Issue #316 ΓÇö Hover micro-interactions
    ============================================ */
 
 #product1 .pro .cart {
@@ -6323,7 +6323,7 @@ footer .copyright {
   border-color: var(--accent);
 }
 
-/* Banner3 — solid white button with dark text for max contrast */
+/* Banner3 ΓÇö solid white button with dark text for max contrast */
 #banner3 .banner-box button {
     background: rgba(255, 255, 255, 0.92);
     color: #111;
@@ -6349,7 +6349,7 @@ footer .copyright {
     transform: translateY(-2px);
 }
 
-/* sm-banner buttons — same treatment */
+/* sm-banner buttons ΓÇö same treatment */
 #sm-banner .banner-box button {
     background: rgba(255, 255, 255, 0.92);
     color: #111;
@@ -6414,7 +6414,7 @@ footer .copyright {
    Add this block to the end of style.css
    ============================================ */
 
-/* ── Shared setup for both banner rows ── */
+/* ΓöÇΓöÇ Shared setup for both banner rows ΓöÇΓöÇ */
 #sm-banner .banner-box,
 #banner3 .banner-box {
     overflow: hidden;
@@ -6445,20 +6445,20 @@ footer .copyright {
     z-index: 1;
 }
 
-/* ── Card lift + shadow on hover ── */
+/* ΓöÇΓöÇ Card lift + shadow on hover ΓöÇΓöÇ */
 #sm-banner .banner-box:hover,
 #banner3 .banner-box:hover {
     transform: translateY(-8px) scale(1.02);
     box-shadow: 0 20px 45px rgba(0, 0, 0, 0.22);
 }
 
-/* ── Background zoom on hover ── */
+/* ΓöÇΓöÇ Background zoom on hover ΓöÇΓöÇ */
 #sm-banner .banner-box:hover::before,
 #banner3 .banner-box:hover::before {
     transform: scale(1.08);
 }
 
-/* ── Subtle dark overlay that appears on hover ── */
+/* ΓöÇΓöÇ Subtle dark overlay that appears on hover ΓöÇΓöÇ */
 #sm-banner .banner-box::after,
 #banner3 .banner-box::after {
     content: "";
@@ -6475,7 +6475,7 @@ footer .copyright {
     background: rgba(0, 0, 0, 0.12);
 }
 
-/* ── Button animations inside banner cards ── */
+/* ΓöÇΓöÇ Button animations inside banner cards ΓöÇΓöÇ */
 #sm-banner .banner-box button,
 #banner3 .banner-box button {
     transition:
@@ -6491,7 +6491,7 @@ footer .copyright {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* ── Heading slide-up micro-animation ── */
+/* ΓöÇΓöÇ Heading slide-up micro-animation ΓöÇΓöÇ */
 #sm-banner .banner-box h2,
 #sm-banner .banner-box h4,
 #banner3 .banner-box h2,
@@ -6507,7 +6507,7 @@ footer .copyright {
     letter-spacing: 0.5px;
 }
 
-/* ── Dark-theme adjustments ── */
+/* ΓöÇΓöÇ Dark-theme adjustments ΓöÇΓöÇ */
 [data-theme="dark"] #sm-banner .banner-box:hover,
 [data-theme="dark"] #banner3 .banner-box:hover {
     box-shadow: 0 20px 45px rgba(6, 182, 212, 0.18);
@@ -7467,7 +7467,7 @@ button.white .ripple-effect {
     color: var(--accent);
 }
 
-/* Shop Now CTA — filled accent button */
+/* Shop Now CTA ΓÇö filled accent button */
 .btn-shop-now {
     pointer-events: auto;
     display: inline-block;
@@ -7490,7 +7490,7 @@ button.white .ripple-effect {
     box-shadow: 0 8px 24px rgba(8, 129, 120, 0.5);
 }
 
-/* Take Style Quiz — outlined variant */
+/* Take Style Quiz ΓÇö outlined variant */
 #hero button {
     pointer-events: all;
     background: transparent;
@@ -7510,7 +7510,7 @@ button.white .ripple-effect {
     transform: translateY(-2px);
 }
 
-/* ── Slider nav buttons: override the generic #hero button rule above ── */
+/* ΓöÇΓöÇ Slider nav buttons: override the generic #hero button rule above ΓöÇΓöÇ */
 #hero .slider-btn {
     background: #000000 !important;
     color: #ffffff !important;
@@ -7530,7 +7530,7 @@ button.white .ripple-effect {
     background: #2a2a2a !important;
     color: #ffffff !important;
     opacity: 0.9;
-    transform: translateY(-50%) !important; /* LOCKED — no downward movement on hover */
+    transform: translateY(-50%) !important; /* LOCKED ΓÇö no downward movement on hover */
 }
 
 @keyframes fadeInUp {
@@ -7636,7 +7636,7 @@ button.white .ripple-effect {
     padding-top: 20px;
 }
 
-/* ── Card container ── */
+/* ΓöÇΓöÇ Card container ΓöÇΓöÇ */
 #product1 .pro {
     position: relative;
     width: 100%;
@@ -7658,7 +7658,7 @@ button.white .ripple-effect {
     transform: translateY(-3px);
 }
 
-/* ── Image wrapper ── */
+/* ΓöÇΓöÇ Image wrapper ΓöÇΓöÇ */
 .pro-img-wrap {
     width: 100%;
     background: #f5f5f5;
@@ -7731,7 +7731,7 @@ button.white .ripple-effect {
     transform: scale(1.08);
 }
 
-/* ── Description area ── */
+/* ΓöÇΓöÇ Description area ΓöÇΓöÇ */
 #product1 .pro .des {
     text-align: start;
     padding: 10px 2px 0;
@@ -7741,7 +7741,7 @@ button.white .ripple-effect {
     flex: 1;
 }
 
-/* ── Brand row: logo + name ── */
+/* ΓöÇΓöÇ Brand row: logo + name ΓöÇΓöÇ */
 .pro-brand-row {
     display: flex;
     align-items: center;
@@ -7768,7 +7768,7 @@ button.white .ripple-effect {
     color: #aaa;
 }
 
-/* ── Product title ── */
+/* ΓöÇΓöÇ Product title ΓöÇΓöÇ */
 #product1 .pro .des h5 {
     color: var(--text-primary);
     font-weight: 600;
@@ -7780,7 +7780,7 @@ button.white .ripple-effect {
     text-overflow: ellipsis;
 }
 
-/* ── Star rating ── */
+/* ΓöÇΓöÇ Star rating ΓöÇΓöÇ */
 #product1 .pro .des .star {
     display: flex;
     gap: 2px;
@@ -7791,7 +7791,7 @@ button.white .ripple-effect {
     font-size: 12px;
 }
 
-/* ── Price ── */
+/* ΓöÇΓöÇ Price ΓöÇΓöÇ */
 #product1 .pro .des h4 {
     color: var(--accent);
     font-size: 17px;
@@ -7799,7 +7799,7 @@ button.white .ripple-effect {
     margin: 2px 0 6px;
 }
 
-/* ── Action bar: BUY NOW + cart icon ── */
+/* ΓöÇΓöÇ Action bar: BUY NOW + cart icon ΓöÇΓöÇ */
 .pro-action-bar {
     display: flex;
     align-items: center;
@@ -7858,7 +7858,7 @@ button.white .ripple-effect {
     box-shadow: 0 0 0 2px rgba(8, 129, 120, 0.3);
 }
 
-/* Legacy .cart class — keep for any static HTML cards on index.html */
+/* Legacy .cart class ΓÇö keep for any static HTML cards on index.html */
 #product1 .pro .cart {
     width: 36px;
     height: 36px;
@@ -8574,7 +8574,7 @@ footer .copyright {
     margin-bottom: 12px;
 }
 
-    /* ── QUANTITY SELECTOR FIX (Issue: buttons stacking vertically) ── */
+    /* ΓöÇΓöÇ QUANTITY SELECTOR FIX (Issue: buttons stacking vertically) ΓöÇΓöÇ */
 #pro-details .single-pro-details .quantity-selector {
     display: flex;
     flex-direction: row;
@@ -9830,7 +9830,7 @@ footer .copyright {
             object-fit: cover;
         }
         
-         /* ── Cart rows: black background on ALL screen sizes ── */
+         /* ΓöÇΓöÇ Cart rows: black background on ALL screen sizes ΓöÇΓöÇ */
         #cart table tbody tr td,
         #cart table tbody td {
             background-color: #000000 !important;
@@ -10319,7 +10319,7 @@ footer .copyright {
             }
 
             /* ============================================
-   DESKTOP LARGE (≤ 1200px)
+   DESKTOP LARGE (Γëñ 1200px)
    ============================================ */
 
             @media (max-width: 1200px) {
@@ -10357,7 +10357,7 @@ footer .copyright {
             }
 
             /* ============================================
-   TABLET LANDSCAPE (≤ 1024px)
+   TABLET LANDSCAPE (Γëñ 1024px)
    ============================================ */
 
             @media (max-width: 1024px) {
@@ -10469,7 +10469,7 @@ footer .copyright {
             }
 
             /* ============================================
-   TABLET PORTRAIT + LARGE MOBILE (≤ 799px)
+   TABLET PORTRAIT + LARGE MOBILE (Γëñ 799px)
    ============================================ */
 
             @media (max-width: 799px) {
@@ -10862,7 +10862,7 @@ footer .copyright {
             }
 
             /* ============================================
-   TABLET 4 — PORTRAIT (768px–1024px)
+   TABLET 4 ΓÇö PORTRAIT (768pxΓÇô1024px)
    ============================================ */
 
             @media (min-width: 768px) and (max-width: 1024px) {
@@ -11295,7 +11295,7 @@ footer .copyright {
             }
 
             /* ============================================
-   MOBILE LARGE (≤ 600px)
+   MOBILE LARGE (Γëñ 600px)
    ============================================ */
 
             @media (max-width: 600px) {
@@ -11383,7 +11383,7 @@ footer .copyright {
             }
 
             /* ============================================
-   MOBILE SMALL (≤ 477px)
+   MOBILE SMALL (Γëñ 477px)
    ============================================ */
 
             @media (max-width: 477px) {
@@ -11812,7 +11812,7 @@ footer .copyright {
             }
 
             /* ============================================
-   EXTRA SMALL (≤ 360px)
+   EXTRA SMALL (Γëñ 360px)
    ============================================ */
 
             @media (max-width: 360px) {
@@ -11868,7 +11868,7 @@ footer .copyright {
             }
 
             /* ============================================
-   MOBILE HERO + LAYOUT FIX (≤ 640px)
+   MOBILE HERO + LAYOUT FIX (Γëñ 640px)
    Fixes: #top position:absolute, #workingArea
    height:100vh clipping hero on small screens
    ============================================ */
@@ -12145,7 +12145,7 @@ footer .copyright {
                 color: var(--text-primary);
             }
 
-            /* Hero section — ensure text is always visible */
+            /* Hero section ΓÇö ensure text is always visible */
             #hero h4,
             #hero h2,
             #hero p {
@@ -12192,7 +12192,7 @@ footer .copyright {
                 color: var(--text-primary);
             }
 
-            /* ── Dark theme: full product card overrides ── */
+            /* ΓöÇΓöÇ Dark theme: full product card overrides ΓöÇΓöÇ */
             [data-theme="dark"] #product1 .pro {
                 border-color: #333;
                 box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
@@ -12229,7 +12229,7 @@ footer .copyright {
                 box-shadow: 0 6px 18px rgba(255, 255, 255, 0.15);
             }
 
-            /* Circular cart button on dark card — keep black, consistent with light theme */
+            /* Circular cart button on dark card ΓÇö keep black, consistent with light theme */
             [data-theme="dark"] .pro-cart-btn {
                 background: #000000;
                 border-color: #333;
@@ -12711,7 +12711,7 @@ footer .copyright {
            MODERN RESPONSIVE CART SYSTEM STYLING
            ========================================================================== */
         
-        /* ── Page Grid Architecture ── */
+        /* ΓöÇΓöÇ Page Grid Architecture ΓöÇΓöÇ */
         .cart-grid-layout {
             display: grid;
             grid-template-columns: 1fr;
@@ -12726,7 +12726,7 @@ footer .copyright {
             }
         }
 
-        /* ── Left Column: Items List ── */
+        /* ΓöÇΓöÇ Left Column: Items List ΓöÇΓöÇ */
         .cart-items-column {
             display: flex;
             flex-direction: column;
@@ -12760,7 +12760,7 @@ footer .copyright {
             }
         }
 
-/* Modern animation-container overrides — placed at end to ensure precedence */
+/* Modern animation-container overrides ΓÇö placed at end to ensure precedence */
 /* Static + colorful grid (no open/close animation), using existing teal theme */
 #interactive-feature-wrapper .animation-container {
     width: 100%;
@@ -12980,7 +12980,7 @@ footer .copyright {
             }
         }
 
-        /* ── Custom Quantity Selector Component ── */
+        /* ΓöÇΓöÇ Custom Quantity Selector Component ΓöÇΓöÇ */
         .qty-selector {
             display: flex;
             align-items: center;
@@ -13080,7 +13080,7 @@ footer .copyright {
             }
         }
 
-        /* ── Continue Shopping Bar ── */
+        /* ΓöÇΓöÇ Continue Shopping Bar ΓöÇΓöÇ */
         .cart-actions-bottom {
             margin-top: 15px;
         }
@@ -13106,7 +13106,7 @@ footer .copyright {
             transform: translateX(-3px);
         }
 
-        /* ── Right Column: Sticky Summary Panel ── */
+        /* ΓöÇΓöÇ Right Column: Sticky Summary Panel ΓöÇΓöÇ */
         .cart-summary-column {
             position: relative;
         }
@@ -13288,7 +13288,7 @@ footer .copyright {
             color: #ffffff;
         }
 
-        /* ── Empty Cart State UI ── */
+        /* ΓöÇΓöÇ Empty Cart State UI ΓöÇΓöÇ */
         .empty-cart-view {
             display: flex;
             align-items: center;
@@ -13362,7 +13362,7 @@ footer .copyright {
             box-shadow: 0 6px 20px rgba(8, 129, 120, 0.25);
         }
 
-        /* ── ANIMATIONS ── */
+        /* ΓöÇΓöÇ ANIMATIONS ΓöÇΓöÇ */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -13437,7 +13437,7 @@ footer.main-footer {
     font-family: "League Spartan", sans-serif;
 }
 
-/* ── Top bar: logo + socials ── */
+/* ΓöÇΓöÇ Top bar: logo + socials ΓöÇΓöÇ */
 .footer-top {
     display: flex;
     align-items: center;
@@ -13481,14 +13481,14 @@ footer.main-footer {
     transform: translateY(-2px);
 }
 
-/* ── Divider ── */
+/* ΓöÇΓöÇ Divider ΓöÇΓöÇ */
 .footer-divider {
     border: none;
     border-top: 1px solid var(--border-color);
     margin: 0 80px;
 }
 
-/* ── Middle: four columns ── */
+/* ΓöÇΓöÇ Middle: four columns ΓöÇΓöÇ */
 .footer-middle {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 1.6fr;
@@ -13538,7 +13538,7 @@ footer.main-footer {
     transform: translateX(3px);
 }
 
-/* ── Newsletter column ── */
+/* ΓöÇΓöÇ Newsletter column ΓöÇΓöÇ */
 .footer-col.newsletter-footer p {
     font-size: 13px;
     color: var(--text-secondary);
@@ -13601,7 +13601,7 @@ footer.main-footer {
     background-color: #066b63;
 }
 
-/* ── Payment icons ── */
+/* ΓöÇΓöÇ Payment icons ΓöÇΓöÇ */
 .install-payment-box {
     margin-top: 20px;
     width: 100%;
@@ -13649,7 +13649,7 @@ footer.main-footer {
     color: var(--accent);
 }
 
-/* ── Install App row ── */
+/* ΓöÇΓöÇ Install App row ΓöÇΓöÇ */
 .footer-install-box {
     padding: 0 80px 30px;
     display: flex;
@@ -13696,7 +13696,7 @@ footer.main-footer {
     opacity: 0.85;
 }
 
-/* ── Bottom: copyright ── */
+/* ΓöÇΓöÇ Bottom: copyright ΓöÇΓöÇ */
 .footer-bottom {
     display: flex;
     align-items: center;
@@ -13737,7 +13737,7 @@ footer.main-footer {
     color: var(--accent);
 }
 
-/* ── Dark mode adjustments ── */
+/* ΓöÇΓöÇ Dark mode adjustments ΓöÇΓöÇ */
 [data-theme="dark"] .footer-socials a {
     border-color: var(--border-color);
     color: var(--text-secondary);
@@ -13752,7 +13752,7 @@ footer.main-footer {
     filter: brightness(0.85);
 }
 
-/* ── Responsive: tablet ── */
+/* ΓöÇΓöÇ Responsive: tablet ΓöÇΓöÇ */
 @media (max-width: 1024px) {
     .footer-top,
     .footer-divider,
@@ -13773,7 +13773,7 @@ footer.main-footer {
     }
 }
 
-/* ── Responsive: mobile ── */
+/* ΓöÇΓöÇ Responsive: mobile ΓöÇΓöÇ */
 @media (max-width: 600px) {
     .footer-top,
     .footer-middle,
@@ -13855,3 +13855,328 @@ footer.main-footer {
                 text-align: center;
                 position: relative;
             }
+
+/* ============================================
+   PRODUCT QUICK-VIEW MODAL AND OVERLAY STYLES
+   ============================================ */
+.pro-img-wrap {
+    position: relative;
+}
+
+/* Quick View Overlay styling */
+.pro-quick-view-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 12px;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.pro:hover .pro-quick-view-overlay {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.pro-quick-view-btn {
+    background: #ffffff;
+    color: #088178;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+    pointer-events: auto;
+}
+
+.pro-quick-view-btn i {
+    font-size: 1.1rem;
+    vertical-align: middle;
+}
+
+.pro-quick-view-btn:hover {
+    transform: scale(1.05);
+    background: #088178;
+    color: #ffffff;
+}
+
+[data-theme="dark"] .pro-quick-view-btn {
+    background: #2a2a2a;
+    color: #ffffff;
+}
+[data-theme="dark"] .pro-quick-view-btn:hover {
+    background: #088178;
+    color: #ffffff;
+}
+
+/* Quick View Modal Container */
+.quickview-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.quickview-modal.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.quickview-content {
+    background: var(--bg-secondary, #ffffff);
+    color: var(--text-primary, #1a1a1a);
+    width: 90%;
+    max-width: 800px;
+    border-radius: 16px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    transform: translateY(20px) scale(0.95);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    max-height: 90vh;
+}
+
+.quickview-modal.active .quickview-content {
+    transform: translateY(0) scale(1);
+}
+
+.quickview-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    color: var(--text-muted, #777);
+    cursor: pointer;
+    background: none;
+    border: none;
+    transition: color 0.2s ease, transform 0.2s ease;
+    z-index: 10;
+}
+
+.quickview-close:hover {
+    color: #d9534f;
+    transform: scale(1.1);
+}
+
+/* Modal layout split */
+.quickview-left {
+    flex: 1;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+[data-theme="dark"] .quickview-left {
+    background: #2a2a2a;
+}
+
+.quickview-left img {
+    max-width: 100%;
+    max-height: 380px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.quickview-right {
+    flex: 1.2;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.quickview-brand {
+    font-size: 0.9rem;
+    color: #088178;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 5px;
+    display: inline-block;
+}
+
+.quickview-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.quickview-stars {
+    color: #ffb800;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    display: flex;
+    gap: 2px;
+}
+
+.quickview-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #088178;
+    margin-bottom: 20px;
+}
+
+/* Form selectors inside quickview */
+.quickview-selects {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.quickview-select-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.quickview-select-wrap label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted, #666);
+}
+
+.quickview-select-wrap select {
+    padding: 10px;
+    border: 1px solid var(--border-color, #e1e1e1);
+    border-radius: 6px;
+    background: var(--bg-primary, #ffffff);
+    color: var(--text-primary, #1a1a1a);
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.quickview-select-wrap select:focus {
+    border-color: #088178;
+}
+
+/* Quantity input inside quickview */
+.quickview-qty-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--border-color, #e1e1e1);
+    border-radius: 6px;
+    width: fit-content;
+    background: var(--bg-primary, #ffffff);
+}
+
+.quickview-qty-btn {
+    background: none;
+    border: none;
+    padding: 10px 14px;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--text-primary);
+    font-weight: 700;
+    transition: color 0.2s;
+}
+
+.quickview-qty-btn:hover {
+    color: #088178;
+}
+
+.quickview-qty-input {
+    width: 40px;
+    text-align: center;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    background: none;
+    color: var(--text-primary);
+    outline: none;
+}
+
+/* Action buttons */
+.quickview-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.quickview-btn {
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s, color 0.2s;
+    border: none;
+    font-size: 0.9rem;
+}
+
+.quickview-btn.cart-btn {
+    background: #088178;
+    color: white;
+    flex: 1;
+}
+
+.quickview-btn.cart-btn:hover {
+    background: #06655e;
+}
+
+.quickview-btn.buy-btn {
+    background: #facc15;
+    color: #1a1a1a;
+    flex: 1;
+}
+
+.quickview-btn.buy-btn:hover {
+    background: #eab308;
+}
+
+.quickview-btn:active {
+    transform: scale(0.98);
+}
+
+/* Responsive Modal */
+@media (max-width: 768px) {
+    .quickview-content {
+        flex-direction: column;
+        max-height: 85vh;
+        overflow-y: auto;
+    }
+    
+    .quickview-left {
+        padding: 15px;
+    }
+    
+    .quickview-left img {
+        max-height: 200px;
+    }
+    
+    .quickview-right {
+        padding: 20px;
+    }
+    
+    .quickview-title {
+        font-size: 1.3rem;
+    }
+}
