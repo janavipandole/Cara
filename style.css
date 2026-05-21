@@ -6271,3 +6271,20 @@ footer .copyright {
     z-index: 999 !important;
   }
 }
+
+/* ANTI-GRAVITY */
+@keyframes anti-gravity {0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}} .anti-gravity-active{animation:anti-gravity 3s ease-in-out infinite;will-change:transform} @media (prefers-reduced-motion: reduce){.anti-gravity-active{animation:none;transform:translateY(-4px)}}
+
+/* --- PHASE 2 REFACTOR --- */
+#product1 .pro-container { display: grid !important; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)) !important; gap: 20px !important; }
+#product1 .pro { width: 100% !important; display: flex !important; flex-direction: column !important; justify-content: space-between !important; height: 100% !important; }
+.pro-img-wrap { width: 100% !important; aspect-ratio: 1/1 !important; overflow: hidden !important; }
+.pro-img-wrap img { width: 100% !important; height: 100% !important; object-fit: cover !important; }
+/* --- GRID/LIST VIEW --- */
+.view-toggle-container { display: flex; gap: 10px; margin-bottom: 20px; justify-content: flex-end; }
+.view-btn { padding: 8px 12px; border: 1px solid #ccc; background: transparent; cursor: pointer; font-size: 1.2rem; }
+.view-btn.active { background: #088178; color: #fff; border-color: #088178; }
+.list-view { grid-template-columns: 1fr !important; }
+.list-view .pro { flex-direction: row !important; text-align: left; align-items: center; }
+.list-view .pro-img-wrap { width: 250px !important; height: 250px !important; flex-shrink: 0; }
+.list-view .des { flex: 1; padding-left: 20px; }

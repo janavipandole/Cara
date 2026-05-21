@@ -20,11 +20,18 @@
     display: flex;
     justify-content: space-between;
     margin-top: 15px;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    gap: 10px;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 5px;
 }
 
 .small-img-col {
-    flex-basis: 24%;
+    flex: 0 0 24%;
     cursor: pointer;
+    scroll-snap-align: start;
 }
 
 #pro-details .single-pro-details {

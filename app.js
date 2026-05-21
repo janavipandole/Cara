@@ -1080,3 +1080,66 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+/* --- START: ANTI-GRAVITY EFFECT --- */
+document.addEventListener("DOMContentLoaded", () => {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('anti-gravity-active');
+            } else {
+                entry.target.classList.remove('anti-gravity-active');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    function observeElements() {
+        const targets = document.querySelectorAll('.pro:not(.ag-observed), .banner-box:not(.ag-observed)');
+        targets.forEach(target => {
+            target.classList.add('ag-observed');
+            observer.observe(target);
+        });
+    }
+
+    observeElements();
+    
+    // Watch for dynamically added products
+    const mutationObserver = new MutationObserver(() => {
+        observeElements();
+    });
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
+});
+/* --- END: ANTI-GRAVITY EFFECT --- */
+
+/* --- START: GRID/LIST VIEW TOGGLE --- */
+document.addEventListener("DOMContentLoaded", () => {
+    const searchFilterDiv = document.getElementById('search-filter');
+    if (searchFilterDiv) {
+        // Create toggle button container
+        const toggleContainer = document.createElement('div');
+        toggleContainer.className = 'view-toggle-container';
+        toggleContainer.innerHTML = `
+            <button id="gridViewBtn" class="view-btn active" aria-label="Grid View"><i class="fa-solid fa-border-all"></i></button>
+            <button id="listViewBtn" class="view-btn" aria-label="List View"><i class="fa-solid fa-list"></i></button>
+        `;
+        searchFilterDiv.appendChild(toggleContainer);
+
+        const proContainer = document.querySelector('.pro-container');
+        const gridBtn = document.getElementById('gridViewBtn');
+        const listBtn = document.getElementById('listViewBtn');
+
+        if (proContainer && gridBtn && listBtn) {
+            gridBtn.addEventListener('click', () => {
+                proContainer.classList.remove('list-view');
+                gridBtn.classList.add('active');
+                listBtn.classList.remove('active');
+            });
+            listBtn.addEventListener('click', () => {
+                proContainer.classList.add('list-view');
+                listBtn.classList.add('active');
+                gridBtn.classList.remove('active');
+            });
+        }
+    }
+});
+/* --- END: GRID/LIST VIEW TOGGLE --- */
