@@ -588,7 +588,9 @@ button.white .ripple-effect {
 /* ============================================
    HERO SECTION
    ============================================ */
-
+#hero{
+  z-index: 1;
+}
 #hero.hero-slider {
     height: 100vh;
     min-height: 500px;
