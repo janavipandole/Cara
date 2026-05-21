@@ -120,7 +120,7 @@ document.addEventListener("click", function (e) {
    DYNAMIC PRODUCT DETAILS LOGIC
 ========================================================= */
 
-// Global click listener for all product cards
+// Global capturing click listener for all product cards (static and dynamic)
 document.addEventListener("click", function (e) {
 
     const proCard =
