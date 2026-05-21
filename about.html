@@ -36,9 +36,9 @@
     />
     <meta
       property="og:image"
-      content="https://example.com/images/preview.jpg"
+      content="https://cara-seven-ashen.vercel.app/images/logo.png"
     />
-    <meta property="og:url" content="https://example.com/" />
+    <meta property="og:url" content="https://cara-seven-ashen.vercel.app/" />
     <meta property="og:type" content="website" />
 
     <!-- Twitter Card Tags -->
@@ -50,7 +50,7 @@
     />
     <meta
       name="twitter:image"
-      content="https://example.com/images/preview.jpg"
+      content="https://cara-seven-ashen.vercel.app/images/logo.png"
     />
     <meta name="twitter:site" content="@janavipandole" />
 
@@ -118,10 +118,10 @@
     <ul id="navbar">
 
       <!-- Main Navigation Links -->
-      <li><a class="active" href="index.html">Home</a></li>
+      <li><a href="index.html">Home</a></li>
       <li><a href="shop.html">Shop</a></li>
       <li><a href="blog.html">Blog</a></li>
-      <li><a href="about.html">About</a></li>
+      <li><a class="active" href="about.html">About</a></li>
       <li><a href="try-on.html">Try-On</a></li>
       <li><a href="community.html">Community</a></li>
       <li><a href="promotions.html">Promotions</a></li>
@@ -243,66 +243,60 @@
 
     <section id="interactive-feature-wrapper">
       <div class="animation-container" id="cardContainer">
+        <div class="brand-card" id="brandCard">
+          <h1>Cara</h1>
+        </div>
+
         <div class="sub-card card-l1">
-          <div class="icon">🛒</div>
-          <div>
-            <h3>Free Shipping</h3>
-            <p>On all standard regional custom retail updates.</p>
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+               <div class="icon">🛒</div>
+               <h3>Free Shipping</h3>
           </div>
+          <p>On all standard regional custom retail updates.</p>
         </div>
 
         <div class="sub-card card-l2">
-          <div class="icon">👤</div>
-          <div>
-            <h3>Online Order</h3>
-            <p>Quick dynamic electronic checkout confirmation system.</p>
-          </div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+             <div class="icon">👤</div>
+             <h3>Online Order</h3>
+        </div>
+        <p>Quick dynamic electronic checkout confirmation system.</p>
         </div>
 
         <div class="sub-card card-l3">
-          <div class="icon">⚙️</div>
-          <div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+            <div class="icon">⚙️</div>
             <h3>Save Money</h3>
-            <p>Incentive cashback loops on every wholesale purchase.</p>
-          </div>
+        </div>
+        <p>Incentive cashback loops on every wholesale purchase.</p>
         </div>
 
         <div class="sub-card card-r1">
-          <div class="icon">⭐</div>
-          <div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+            <div class="icon">⭐</div>
             <h3>Promotions</h3>
-            <p>Unlock seasonal drops & holiday campaign vouchers.</p>
-          </div>
+        </div>
+        <p>Unlock seasonal drops & holiday campaign vouchers.</p>
         </div>
 
         <div class="sub-card card-r2">
-          <div class="icon">🚀</div>
-          <div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+            <div class="icon">🚀</div>
             <h3>Happy Sell</h3>
-            <p>Premium matching customer success feedback loops.</p>
-          </div>
+        </div>
+        <p>Premium matching customer success feedback loops.</p>
         </div>
 
         <div class="sub-card card-r3">
-          <div class="icon">🌍</div>
-          <div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+            <div class="icon">🌍</div>
             <h3>24/7 Support</h3>
-            <p>Global infrastructure desk agents always responsive.</p>
-          </div>
         </div>
-
-        <div class="brand-card" id="brandCard">
-          <h1>Cara</h1>
+        <p>Global infrastructure desk agents always responsive.</p>
         </div>
       </div>
     </section>
 
-    <button id="backToTop" title="Back to Top" aria-label="Back to top">
-      ⬆
-    </button>
-    <button id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">
-      ⬇
-    </button>
 
     <!-- Footer -->
     <footer class="section-p1">
@@ -449,7 +443,7 @@
       <!-- Copyright -->
       <div class="copyright">
         <p>
-          &copy; Cara <span class="Current-Year"></span>. All rights reserved. |
+          © Cara 2026. All rights reserved. |
           <a href="license.html" style="color: #088178"> MIT License </a>
         </p>
       </div>
@@ -458,29 +452,13 @@
   ↑
 </button>
 
-    <script src="app.js?v=1779120917201"></script>
-    
-    <!-- Corrected -->
-   <script id="Current-Year">
-        document.getElementById("Current-Year").textContent = new Date().getFullYear();
-    </script>
-
-                  // Disconnect observer so it doesn't run again
-                  observer.unobserve(entry.target);
-                }
-              });
-            },
-            observerOptions,
-          );
-
-          // Track the feature section itself instead of the app section
-          scrollObserver.observe(featureSection);
-        }
-      });
-    </script>
     <script src="navbar.js"></script>
     <script>loadNavbar('about');</script>
-    <script src="app.js"></script>  
+    <script src="app.js"></script>
+    <script>
+        const yearEl = document.getElementById("Current-Year");
+        if (yearEl) yearEl.textContent = new Date().getFullYear();
+    </script>
     <script>
   const scrollBtn = document.getElementById("scrollTopBtn");
 

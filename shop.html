@@ -90,8 +90,8 @@
     <ul id="navbar">
 
       <!-- Main Navigation Links -->
-      <li><a class="active" href="index.html">Home</a></li>
-      <li><a href="shop.html">Shop</a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a class="active" href="shop.html">Shop</a></li>
       <li><a href="blog.html">Blog</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="try-on.html">Try-On</a></li>
@@ -459,8 +459,6 @@
                 </div>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
-        </div>
-        <div class="pro-container">
             <div class="pro" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/f1.jpg" alt="">
                 <div class="des">
@@ -717,45 +715,59 @@
                 </div>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
-    <!-- Search and Filter Section -->
-    <section id="search-filter" class="section-p1">
-      <div class="search-container">
-        <div class="search-box">
-          <input
-            type="text"
-            id="searchInput"
-            placeholder="Search products by name or brand..."
-            autocomplete="off"
-            aria-label="Search products"
-          />
-          <button id="searchBtn" aria-label="Search">
-            <i class="ri-search-line"></i>
-          </button>
         </div>
-        <div
-          id="searchSuggestions"
-          class="search-suggestions"
-          aria-live="polite"
-        ></div>
-      </div>
-      <div class="filter-container">
-        <label for="categoryFilter">Filter by Category:</label>
-        <select id="categoryFilter">
-          <option value="all">All Products</option>
-          <option value="street">Street Style</option>
-          <option value="minimal">Minimal</option>
-          <option value="formal">Formal</option>
-        </select>
-      </div>
-      <div class="search-summary">
-        <span id="searchCount">16 products</span>
-      </div>
-    </section>
+        <section id="product1" class="section-p1">
+          <div class="pro-container" id="shop-container"></div>
+        </section>   
+    
+        <!-- Search and Filter Section -->
+    <div class="top-section">
 
-    <section id="product1" class="section-p1">
-      <div class="pro-container" id="shop-container"></div>
-    </section>
+      <section id="search-filter" class="section-p1">
+        <div class="search-container">
+          <div class="search-box">
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Search products by name or brand..."
+              autocomplete="off"
+              aria-label="Search products"
+            />
+            <button id="searchBtn" aria-label="Search">
+              <i class="ri-search-line"></i>
+            </button>
+          </div>
+          <div
+            id="searchSuggestions"
+            class="search-suggestions"
+            aria-live="polite"
+          ></div>
+        </div>
+        <div class="filter-container">
+          <label for="categoryFilter">Filter by Category:</label>
+          <select id="categoryFilter">
+            <option value="all">All Products</option>
+            <option value="street">Street Style</option>
+            <option value="minimal">Minimal</option>
+            <option value="formal">Formal</option>
+          </select>
+        </div>
+        <div class="search-summary">
+          <span id="searchCount">16 products</span>
+        </div>
+      </section>
 
+      <section id="newsletter" class="section-p1">
+        <div class="newstext">
+          <h4>Sign Up For Newsletters</h4>
+          <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
+        </div>
+        <form class="form newsletter-form">
+          <input type="email" placeholder="Your email address" required />
+          <button type="submit" class="normal">Sign Up</button>
+        </form>
+      </section>
+    </div>
     <!-- Back to Top and Scroll to Bottom Buttons -->
     <button id="backToTop" title="Back to Top" aria-label="Back to top">
       ⬆
@@ -765,17 +777,6 @@
     </button>
 
     <!-- Footer -->
-    <section id="newsletter" class="section-p1">
-      <div class="newstext">
-        <h4>Sign Up For Newsletters</h4>
-        <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
-      </div>
-      <form class="form newsletter-form">
-        <input type="email" placeholder="Your email address" required />
-        <button type="submit" class="normal">Sign Up</button>
-      </form>
-    </section>
-
     <footer class="section-p1">
       <div class="footer-container">
         
@@ -863,10 +864,11 @@
     </footer>
 
     <div id="toast-container"></div>
+    <!-- Dynamic products and search logic -->
     <script src="products.js?v=1779120917219"></script>
     <script src="app.js?v=1779120917219"></script>
     <script src="navbar.js"></script>
-    <script>loadNavbar('home');</script>
+    <script>loadNavbar('shop');</script>
     <!-- Corrected  -->
     <script id="Current-Year">
         const year = new Date().getFullYear();

@@ -1,32 +1,68 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <script>
+      // Immediately apply saved theme to prevent flash
+      (function () {
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cara — Promotions & Ambassador Program</title>
-    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <style>
         /* Promotions specific styles */
         #promo-header {
-            background-image: url("images/banner/b1.jpg");
+            background-image: url("images/banner/b_person.png");
             width: 100%;
-            height: 40vh;
+            height: 45vh;
             background-size: cover;
+            background-position: center;
             display: flex;
             justify-content: center;
-            text-align: center;
+            text-align: left;
             flex-direction: column;
-            padding: 14px;
+            padding: 0 80px;
             margin-top: 90px;
         }
 
-        #promo-header h2, #promo-header p {
+        [data-theme="dark"] #promo-header {
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0.75) 30%, rgba(0, 0, 0, 0.3) 60%, rgba(0, 0, 0, 0)), url("images/banner/b_person.png");
+        }
+
+        #promo-header h2 {
+            color: #000;
+            font-size: 40px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        #promo-header p {
+            color: #222;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        [data-theme="dark"] #promo-header h2 {
             color: #fff;
+        }
+
+        [data-theme="dark"] #promo-header p {
+            color: #ddd;
         }
 
         .promo-container {
@@ -35,230 +71,559 @@
             gap: 40px;
         }
 
-        .promo-details {
-            flex: 1;
-        }
+    #topBtn:hover {
+      background-color: #555;
+    }
+      /* Promotions specific styles */
+      #promo-header {
+        background-image: url('images/banner/b1.jpg');
+        width: 100%;
+        height: 40vh;
+        background-size: cover;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        flex-direction: column;
+        padding: 14px;
+        margin-top: 90px;
+      }
 
-        .promo-details h3 {
-            font-size: 28px;
-            color: var(--accent);
-            margin-bottom: 15px;
-        }
+      #promo-header h2,
+      #promo-header p {
+        color: #fff;
+      }
+      #promo-text {
+        color: var(--text-primary);
+      }
 
-        .perk-box {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 10px var(--shadow);
-        }
+      .promo-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 40px;
+      }
 
-        .perk-box h4 {
-            color: var(--text-primary);
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+      .promo-details {
+        flex: 1;
+      }
 
-        .influencer-form {
-            flex: 1;
-            background: var(--card-bg);
-            padding: 40px;
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 5px 20px var(--shadow);
-        }
+      .promo-details h3 {
+        font-size: 28px;
+        color: var(--accent);
+        margin-bottom: 15px;
+      }
 
-        .influencer-form h3 {
-            margin-bottom: 20px;
-        }
+      .perk-box {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 10px var(--shadow);
+      }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+      .perk-box h4 {
+        color: var(--text-primary);
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
+      .influencer-form {
+        flex: 1;
+        background: var(--card-bg);
+        padding: 40px;
+        border-radius: 10px;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 5px 20px var(--shadow);
+      }
 
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            outline: none;
-            background: var(--input-bg);
-            color: var(--text-primary);
-        }
+      .influencer-form h3 {
+        margin-bottom: 20px;
+      }
 
-        .form-group input:focus, .form-group textarea:focus {
-            border-color: var(--accent);
-        }
+      .form-group {
+        margin-bottom: 20px;
+      }
 
-        /* Discount Popup */
-        #discount-popup {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: var(--accent);
-            color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            z-index: 1000;
-            display: none;
-            max-width: 300px;
-            animation: slideUp 0.5s ease-out;
-        }
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+      }
 
-        #discount-popup h4 {
-            color: #fff;
-            margin-bottom: 10px;
-            font-size: 20px;
-        }
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid var(--border-color);
+        border-radius: 5px;
+        outline: none;
+        background: var(--input-bg);
+        color: var(--text-primary);
+      }
 
-        #discount-popup .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            cursor: pointer;
-            font-size: 20px;
-        }
-        
-        .copy-code {
-            background: #fff;
-            color: var(--accent);
-            padding: 8px 12px;
-            border-radius: 5px;
-            display: inline-block;
-            margin-top: 10px;
-            font-weight: bold;
-            cursor: pointer;
-            letter-spacing: 2px;
-        }
+      .form-group input:focus,
+      .form-group textarea:focus {
+        border-color: var(--accent);
+      }
 
-        @keyframes slideUp {
-            from { transform: translateY(100px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+      /* Discount Popup */
+      #discount-popup {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: var(--accent);
+        color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+        display: none;
+        max-width: 300px;
+        animation: slideUp 0.5s ease-out;
+      }
+
+      #discount-popup h4 {
+        color: #fff;
+        margin-bottom: 10px;
+        font-size: 20px;
+      }
+
+      #discount-popup .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        cursor: pointer;
+        font-size: 20px;
+      }
+
+      .copy-code {
+        background: #fff;
+        color: var(--accent);
+        padding: 8px 12px;
+        border-radius: 5px;
+        display: inline-block;
+        margin-top: 10px;
+        font-weight: bold;
+        cursor: pointer;
+        letter-spacing: 2px;
+      }
+
+      @keyframes slideUp {
+        from {
+          transform: translateY(100px);
+          opacity: 0;
         }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
 
         @media (max-width: 799px) {
+            #promo-header {
+                padding: 0 20px;
+                text-align: center;
+                background-image: linear-gradient(rgba(247, 181, 56, 0.85), rgba(247, 181, 56, 0.85)), url("images/banner/b_person.png");
+            }
+            [data-theme="dark"] #promo-header {
+                background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), url("images/banner/b_person.png");
+            }
             .promo-container {
                 flex-direction: column;
             }
         }
+      }
     </style>
-</head>
-<body>
-            <section id="header">
-        <a href="index.html"><img src="images/logo.png" alt="" id="siteLogo"></a>
-        <div id="navbar-container"></div>
-        <div class="mobile">
-            <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
-            <i class="ri-moon-line" id="themeIconMobile"></i>
-            </button>
-            <a href="cart.html">
-            <i class="ri-shopping-bag-4-line"></i>
-            <span class="cart-count" id="mobileCartCount">0</span>
+  </head>
+  <body>
+    <section id="header">
+      <!-- Logo -->
+      <a href="index.html">
+        <img src="images/logo.png" alt="Cara Logo" />
+      </a>
+
+      <div>
+        <ul id="navbar">
+          <!-- Main Navigation Links -->
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="try-on.html">Try-On</a></li>
+          <li><a href="community.html">Community</a></li>
+          <li><a class="active" href="promotions.html">Promotions</a></li>
+
+          <!-- Contact Icon -->
+          <li class="nav-icon">
+            <a href="contact.html" aria-label="Contact">
+              <i class="ri-customer-service-2-line"></i>
             </a>
-            <i class="fas fa-outdent" id="bar"></i>
-        </div>
-        </section>
+          </li>
+
+          <!-- Login Icon -->
+          <li class="nav-icon">
+            <a href="login.html" aria-label="Login">
+              <i class="ri-user-3-line"></i>
+            </a>
+          </li>
+
+          <!-- Cart Icon -->
+          <li class="nav-icon">
+            <a href="cart.html" id="lg-bag" aria-label="Cart">
+              <i class="ri-shopping-bag-4-line"></i>
+            </a>
+          </li>
+
+          <!-- Theme Toggle -->
+          <li class="nav-icon">
+            <button
+              class="theme-toggle"
+              id="themeToggle"
+              aria-label="Toggle dark mode"
+            >
+              <i class="ri-moon-line" id="themeIcon"></i>
+            </button>
+          </li>
+
+          <!-- Close Button -->
+          <a href="#" id="close" aria-label="Close menu" aria-hidden="false">
+            <i class="fa-solid fa-xmark"></i>
+          </a>
+        </ul>
+      </div>
+
+      <!-- Mobile Navbar -->
+      <div class="mobile">
+        <!-- Login Icon -->
+        <a href="login.html" aria-label="Login">
+          <i class="ri-user-3-line"></i>
+        </a>
+
+        <!-- Cart Icon -->
+        <a href="cart.html" aria-label="Cart">
+          <i class="ri-shopping-bag-4-line"></i>
+        </a>
+
+        <!-- Hamburger Menu -->
+        <i
+          class="fas fa-outdent"
+          id="bar"
+          role="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+          tabindex="0"
+        ></i>
+      </div>
+    </section>
 
     <section id="promo-header">
-        <h2>#CaraAmbassador</h2>
-        <p>Join our community. Get freebies. Share your style.</p>
+      <h2>#CaraAmbassador</h2>
+      <p>Join our community. Get freebies. Share your style.</p>
     </section>
 
     <section class="section-p1 promo-container">
-        <div class="promo-details">
-            <h3>Why join the Cara Community?</h3>
-            <p>We love working with creators and fashion enthusiasts. Apply for our ambassador program to unlock exclusive perks.</p>
-            
-            <div class="perk-box">
-                <h4><i class="ri-gift-line" style="color: var(--accent);"></i> Monthly Freebies</h4>
-                <p>Receive exclusive clothing items every month to style and share with your followers.</p>
-            </div>
-            
-            <div class="perk-box">
-                <h4><i class="ri-percent-line" style="color: var(--accent);"></i> Custom Discount Codes</h4>
-                <p>Get a unique discount code to share with your audience and earn commission on sales.</p>
-            </div>
-            
-            <div class="perk-box">
-                <h4><i class="ri-star-smile-line" style="color: var(--accent);"></i> Featured Spotlights</h4>
-                <p>Get featured on our official Instagram page and website homepage.</p>
-            </div>
+      <div class="promo-details">
+        <h3>Why join the Cara Community?</h3>
+        <p>
+          We love working with creators and fashion enthusiasts. Apply for our
+          ambassador program to unlock exclusive perks.
+        </p>
+
+        <div class="perk-box">
+          <h4>
+            <i class="ri-gift-line" style="color: var(--accent)"></i> Monthly
+            Freebies
+          </h4>
+          <p>
+            Receive exclusive clothing items every month to style and share with
+            your followers.
+          </p>
         </div>
 
-        <div class="influencer-form">
-            <h3>Apply for Freebies & Trials</h3>
-            <form id="ambassador-form">
-                <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" placeholder="Enter Name" required>
-                </div>
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" placeholder="Enter Email" required>
-                </div>
-                <div class="form-group">
-                    <label>Instagram Handle</label>
-                    <input type="text" placeholder="Enter Instagram Handle" required>
-                </div>
-                <div class="form-group">
-                    <label>Follower Count</label>
-                    <input type="number" placeholder="e.g. 15000" required>
-                </div>
-                <div class="form-group">
-                    <label>Why do you love Cara?</label>
-                    <textarea rows="4" placeholder="Tell us about your style..."></textarea>
-                </div>
-                <button type="submit" class="normal" style="background: var(--accent); color: white; width: 100%;">Submit Application</button>
-                <p id="form-success" style="display:none; color: var(--accent); margin-top: 15px; font-weight: bold; text-align: center;">Application Submitted! We will review it shortly.</p>
-            </form>
+        <div class="perk-box">
+          <h4>
+            <i class="ri-percent-line" style="color: var(--accent)"></i> Custom
+            Discount Codes
+          </h4>
+          <p>
+            Get a unique discount code to share with your audience and earn
+            commission on sales.
+          </p>
         </div>
+
+        <div class="perk-box">
+          <h4>
+            <i class="ri-star-smile-line" style="color: var(--accent)"></i>
+            Featured Spotlights
+          </h4>
+          <p>
+            Get featured on our official Instagram page and website homepage.
+          </p>
+        </div>
+      </div>
+
+      <div class="influencer-form">
+        <h3>Apply for Freebies & Trials</h3>
+        <form id="ambassador-form">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" placeholder="Enter Name" required />
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" placeholder="Enter Email" required />
+          </div>
+          <div class="form-group">
+            <label>Instagram Handle</label>
+            <input type="text" placeholder="Enter Instagram Handle" required />
+          </div>
+          <div class="form-group">
+            <label>Follower Count</label>
+            <input type="number" placeholder="e.g. 15000" required />
+          </div>
+          <div class="form-group">
+            <label>Why do you love Cara?</label>
+            <textarea
+              rows="4"
+              placeholder="Tell us about your style..."
+            ></textarea>
+          </div>
+          <button
+            type="submit"
+            class="normal"
+            style="background: var(--accent); color: white; width: 100%"
+          >
+            Submit Application
+          </button>
+          <p
+            id="form-success"
+            style="
+              display: none;
+              color: var(--accent);
+              margin-top: 15px;
+              font-weight: bold;
+              text-align: center;
+            "
+          >
+            Application Submitted! We will review it shortly.
+          </p>
+        </form>
+      </div>
     </section>
 
     <!-- Discount Popup Element -->
     <div id="discount-popup">
-        <i class="ri-close-line close-btn" onclick="document.getElementById('discount-popup').style.display='none'"></i>
-        <h4>Surprise Gift! 🎁</h4>
-        <p>Thanks for checking out our promotions. Use this code at checkout for 15% off your first order!</p>
-        <div class="copy-code" onclick="navigator.clipboard.writeText('CARA15'); this.innerText='COPIED!'">CARA15</div>
+      <i
+        class="ri-close-line close-btn"
+        onclick="
+          document.getElementById('discount-popup').style.display = 'none'
+        "
+      ></i>
+      <h4>Surprise Gift! 🎁</h4>
+      <p id="promo-text">
+        Thanks for checking out our promotions. Use this code at checkout for
+        15% off your first order!
+      </p>
+      <div
+        class="copy-code"
+        onclick="
+          navigator.clipboard.writeText('CARA15');
+          this.innerText = 'COPIED!';
+        "
+      >
+        CARA15
+      </div>
     </div>
 
     <footer class="section-p1">
-        <div class="col">
-            <img class="logo" src="images/logo.png" alt="">
-            <h4>Contact</h4>
-            <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
+      <!-- Contact Column -->
+      <div class="col">
+        <img class="logo" src="images/logo.png" alt="Cara Logo" />
+        <h4>Contact</h4>
+        <p>
+          <strong>Address:</strong> 562 Wellington Road, Street 32, San
+          Francisco
+        </p>
+        <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
+        <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
+
+        <div class="follow">
+          <h4>Follow us</h4>
+          <div class="icon">
+            <a
+              href="https://x.com/JanaviPandole"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a
+              href="https://github.com/janavipandole"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fab fa-github"></i>
+            </a>
+            <a
+              href="https://www.linkedin.com/in/janavi-pandole-80a7b2290"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fab fa-linkedin"></i>
+            </a>
+            <a
+              href="https://www.youtube.com/@JanaviPandole"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fab fa-youtube"></i>
+            </a>
+          </div>
         </div>
-        <div class="copyright">
-            <p>&copy; Cara 2025. All rights reserved.</p>
+      </div>
+
+      <!-- About Column -->
+      <div class="col">
+        <h4>About</h4>
+        <a href="about.html">About Us</a>
+        <a href="#">Delivery Information</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms and Conditions</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+
+      <!-- My Account Column -->
+      <div class="col">
+        <h4>My Account</h4>
+        <a href="login.html">Sign In</a>
+        <a href="cart.html">View Cart</a>
+        <a href="#">My Wishlist</a>
+        <a href="cart.html">Track My Order</a>
+        <a href="contact.html">Help</a>
+      </div>
+
+      <!-- Newsletter Column -->
+      <div class="col newsletter-footer">
+        <h4>Newsletter</h4>
+        <p>
+          Get email updates about our latest shop and
+          <span>special offers.</span>
+        </p>
+
+        <form class="newsletter-form">
+          <input type="email" placeholder="Your email address" required="" />
+          <button type="submit" class="normal">Sign Up</button>
+        </form>
+      </div>
+
+      <!-- Install App Column -->
+      <div class="col install">
+        <h4>Install App</h4>
+        <p>From App Store or Google Play</p>
+
+        <div class="row">
+          <img src="images/pay/app.jpg" alt="Download from App Store" />
+          <img src="images/pay/play.jpg" alt="Get it on Google Play" />
         </div>
+
+        <p>Secured Payment Gateways</p>
+
+        <div class="payment-icons">
+          <a
+            href="https://www.visa.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visa"
+          >
+            <i class="fab fa-cc-visa"></i>
+          </a>
+
+          <a
+            href="https://www.mastercard.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Mastercard"
+          >
+            <i class="fab fa-cc-mastercard"></i>
+          </a>
+
+          <a
+            href="https://www.paypal.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="PayPal"
+          >
+            <i class="fab fa-cc-paypal"></i>
+          </a>
+
+          <a
+            href="https://www.americanexpress.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="American Express"
+          >
+            <i class="fab fa-cc-amex"></i>
+          </a>
+
+          <a
+            href="https://stripe.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Stripe"
+          >
+            <i class="fab fa-cc-stripe"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Copyright -->
+      <div class="copyright">
+        <p>
+          © Cara 2026. All rights reserved. |
+          <a href="license.html" style="color: #088178"> MIT License </a>
+        </p>
+      </div>
     </footer>
+    <button id="topBtn">↑</button>
 
     <script src="navbar.js"></script>
     <script>loadNavbar('promotions');</script> 
-    <script src="app.js?v=1779120917217"></script>
+    <script src="app.js"></script>
     <script>
-        // Form submission simulation
-        document.getElementById('ambassador-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            document.getElementById('form-success').style.display = 'block';
-            this.reset();
+      const topBtn = document.getElementById("topBtn");
+
+    // Show button when user scrolls down
+    window.onscroll = function () {
+      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        topBtn.style.display = "block";
+      } else {
+        topBtn.style.display = "none";
+      }
+    };
+
+    // Scroll to top smoothly
+    topBtn.addEventListener("click", function () {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
+       
+      // Form submission simulation
+      document
+        .getElementById('ambassador-form')
+        .addEventListener('submit', function (e) {
+          e.preventDefault();
+          document.getElementById('form-success').style.display = 'block';
+          this.reset();
         });
 
-        // Trigger discount popup after 5 seconds of engagement
-        setTimeout(() => {
-            document.getElementById('discount-popup').style.display = 'block';
-        }, 5000);
+      // Trigger discount popup after 5 seconds of engagement
+      setTimeout(() => {
+        document.getElementById('discount-popup').style.display = 'block';
+      }, 5000);
     </script>
-    <!-- <script src="app.js?v=1779120917217"></script>     -->
 </body>
 </html>

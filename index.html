@@ -27,15 +27,22 @@
   <!-- Open Graph (OG) Tags for Social Sharing -->
   <meta property="og:title" content="E-commerce - Dark Theme Working" />
   <meta property="og:description" content="Shop the latest trends with our dark mode-enabled e-commerce experience." />
-  <meta property="og:image" content="https://example.com/images/preview.jpg" />
-  <meta property="og:url" content="https://example.com/" />
+  <meta
+      property="og:image"
+      content="https://cara-seven-ashen.vercel.app/images/logo.png"
+    />
+  <meta property="og:url" 
+  content="https://cara-seven-ashen.vercel.app/" />
   <meta property="og:type" content="website" />
 
   <!-- Twitter Card Tags -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="E-commerce - Dark Theme Working" />
   <meta name="twitter:description" content="Dark theme e-commerce site with modern features." />
-  <meta name="twitter:image" content="https://example.com/images/preview.jpg" />
+  <meta
+      name="twitter:image"
+      content="https://cara-seven-ashen.vercel.app/images/logo.png"
+    />
   <meta name="twitter:site" content="@janavipandole" />
 
   <!-- Theme Color for Mobile Browser -->
@@ -50,6 +57,36 @@
 
   <!-- Inline Critical CSS -->
   <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.8;
+    }
+
+    .content {
+      height: 2000px;
+    }
+
+    /* Scroll Button */
+    #topBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: none;
+      background-color: #088178;
+      color: white;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      transition: 0.3s;
+    }
+
+    #topBtn:hover {
+      background-color: #555;
+    }
     /* Critical Fix */
     .theme-toggle {
       pointer-events: all !important;
@@ -62,93 +99,39 @@
     <div id="top">
       <div id="workingArea">
         <section id="header">
-  <!-- Logo -->
-  <a href="index.html">
-    <img src="images/logo.png" alt="Cara Logo" />
-  </a>
+          <a href="index.html"><img src="images/logo.png" alt="" /></a>
 
-  <div>
-    <ul id="navbar">
-
-      <!-- Main Navigation Links -->
-      <li><a class="active" href="index.html">Home</a></li>
-      <li><a href="shop.html">Shop</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="try-on.html">Try-On</a></li>
-      <li><a href="community.html">Community</a></li>
-      <li><a href="promotions.html">Promotions</a></li>
-
-      <!-- Contact Icon -->
-      <li class="nav-icon">
-        <a href="contact.html" aria-label="Contact">
-          <i class="ri-customer-service-2-line"></i>
-        </a>
-      </li>
-
-      <!-- Login Icon -->
-      <li class="nav-icon">
-        <a href="login.html" aria-label="Login">
-          <i class="ri-user-3-line"></i>
-        </a>
-      </li>
-
-      <!-- Cart Icon -->
-      <li class="nav-icon">
-        <a href="cart.html" id="lg-bag" aria-label="Cart">
-          <i class="ri-shopping-bag-4-line"></i>
-        </a>
-      </li>
-
-      <!-- Theme Toggle -->
-      <li class="nav-icon">
-        <button
-          class="theme-toggle"
-          id="themeToggle"
-          aria-label="Toggle dark mode"
-        >
-          <i class="ri-moon-line" id="themeIcon"></i>
-        </button>
-      </li>
-
-      <!-- Close Button -->
-      <a
-        href="#"
-        id="close"
-        aria-label="Close menu"
-        aria-hidden="false"
-      >
-        <i class="fa-solid fa-xmark"></i>
-      </a>
-
-    </ul>
-  </div>
-
-  <!-- Mobile Navbar -->
-  <div class="mobile">
-
-    <!-- Login Icon -->
-    <a href="login.html" aria-label="Login">
-      <i class="ri-user-3-line"></i>
-    </a>
-
-    <!-- Cart Icon -->
-    <a href="cart.html" aria-label="Cart">
-      <i class="ri-shopping-bag-4-line"></i>
-    </a>
-
-    <!-- Hamburger Menu -->
-    <i
-      class="fas fa-outdent"
-      id="bar"
-      role="button"
-      aria-label="Open menu"
-      aria-expanded="false"
-      tabindex="0"
-    ></i>
-
-  </div>
-</section>
+          <div>
+            <ul id="navbar">
+              <li><a class="active" href="index.html">Home</a></li>
+              <li><a href="shop.html">Shop</a></li>
+              <li><a href="blog.html">Blog</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="login.html">Login</a></li>
+              <li><a href="try-on.html">Try-On</a></li>
+              <li><a href="community.html">Community</a></li>
+              <li><a href="promotions.html">Promotions</a></li>
+              <li>
+                <a href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a>
+              </li>
+              <li>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                  <i class="ri-moon-line" id="themeIcon"></i>
+                </button>
+              </li>
+              <a href="#" id="close" aria-label="Close menu" aria-hidden="false"><i class="fa-solid fa-xmark"></i></a>
+            </ul>
+          </div>
+          <div class="mobile">
+            <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
+              <i class="ri-moon-line" id="themeIconMobile"></i>
+            </button>
+            <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
+            <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false"
+              tabindex="0"></i>
+          </div>
+        </section>
         <section id="hero" class="hero-slider">
           <div class="slide active" style="background-image: url('images/hero4.png');">
             <div class="slide-content">
@@ -180,46 +163,204 @@
               <a href="shop.html" class="btn-shop-now">Grab the Deal</a>
             </div>
           </div>
+  <!-- Logo -->
+  <a href="index.html">
+    <img src="images/logo.png" alt="Cara Logo" />
+  </a>
 
-          <!-- Slider Controls -->
-          <button class="slider-btn prev" aria-label="Previous Slide"><i class="fa-solid fa-chevron-left"></i></button>
-          <button class="slider-btn next" aria-label="Next Slide"><i class="fa-solid fa-chevron-right"></i></button>
+ <div id="navbar-container"></div>
 
-          <!-- Slider Indicators -->
-          <div class="slider-dots">
-            <span class="dot active" data-slide="0"></span>
-            <span class="dot" data-slide="1"></span>
-            <span class="dot" data-slide="2"></span>
-          </div>
-        </section>
+  <!-- Mobile Navbar -->
+  <div class="mobile">
+
+    <!-- Login Icon -->
+    <a href="login.html" aria-label="Login">
+      <i class="ri-user-3-line"></i>
+    </a>
+
+    <!-- Cart Icon -->
+    <a href="cart.html" aria-label="Cart">
+      <i class="ri-shopping-bag-4-line"></i>
+    </a>
+
+    <!-- Hamburger Menu -->
+    <i
+      class="fas fa-outdent"
+      id="bar"
+      role="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+      tabindex="0"
+    ></i>
+
+  </div>
+</section>
+<section id="hero" class="hero-slider">
+
+  <!-- Slide 1 -->
+  <div class="slide active" style="background-image: url('images/hero4.png');">
+    
+    <div class="slide-content">
+
+      <div class="hero-badge">
+        Trending Fashion 2025
       </div>
+
+      <h4>Trade-in-offer</h4>
+
+      <h2>Super Value Deals</h2>
+
+      <h1>On All Products</h1>
+
+      <p>
+        Save more with coupons & up to 70% off on premium
+        fashion collections.
+      </p>
+
+      <div class="hero-tags">
+        <span>Streetwear</span>
+        <span>Premium</span>
+        <span>Trending</span>
+      </div>
+
+      <div class="hero-btn-group">
+
+        <a href="shop.html" class="btn-shop-now">
+          Shop Now
+        </a>
+
+        <button onclick="openQuiz()">
+          Take Style Quiz
+        </button>
+
+      </div>
+
     </div>
   </div>
 
+  <!-- Slide 2 -->
+  <div class="slide" style="background-image: url('images/banner/b1.png');">
+
+    <div class="slide-content">
+
+      <div class="hero-badge">
+        New Collection
+      </div>
+
+      <h4>New Arrivals</h4>
+
+      <h2>Summer Collection</h2>
+
+      <h1>Explore Trends</h1>
+
+      <p>
+        Discover fresh styles designed to elevate your
+        wardrobe this season.
+      </p>
+
+      <div class="hero-tags">
+        <span>Summer</span>
+        <span>Minimal</span>
+        <span>Luxury</span>
+      </div>
+
+      <div class="hero-btn-group">
+
+        <a href="shop.html" class="btn-shop-now">
+          Explore Collection
+        </a>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Slide 3 -->
+  <div class="slide" style="background-image: url('images/banner/b2.png');">
+
+    <div class="slide-content">
+
+      <div class="hero-badge">
+        Limited Offer
+      </div>
+
+      <h4>Seasonal Sale</h4>
+
+      <h2>Up to 50% Off</h2>
+
+      <h1>Exclusive Deals</h1>
+
+      <p>
+        Don't miss the biggest sale of the season with
+        exclusive discounts.
+      </p>
+
+      <div class="hero-tags">
+        <span>Sale</span>
+        <span>Fashion</span>
+        <span>Exclusive</span>
+      </div>
+
+      <div class="hero-btn-group">
+
+        <a href="shop.html" class="btn-shop-now">
+          Grab the Deal
+        </a>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Slider Controls -->
+  <button class="slider-btn prev" aria-label="Previous Slide">
+    <i class="fa-solid fa-chevron-left"></i>
+  </button>
+
+  <button class="slider-btn next" aria-label="Next Slide">
+    <i class="fa-solid fa-chevron-right"></i>
+  </button>
+
+  <!-- Slider Indicators -->
+  <div class="slider-dots">
+
+    <span class="dot active" data-slide="0"></span>
+
+    <span class="dot" data-slide="1"></span>
+
+    <span class="dot" data-slide="2"></span>
+
+  </div>
+
+</section>      </div>
+    </div>
+  </div>
+  <!-- Fix: Added descriptive alt text to all feature images for accessibility.
+     Also fixed typo: 'F24/7 Support' corrected to '24/7 Support' -->
   <section id="feature" class="section-p1">
     <div class="fe-box">
-      <img src="images/feature/f1.png" alt="" />
+      <img src="images/feature/f1.png" alt="Free Shipping" />
       <h6>Free Shipping</h6>
     </div>
     <div class="fe-box">
-      <img src="images/feature/f2.png" alt="" />
+      <img src="images/feature/f2.png" alt="Online Order" />
       <h6>Online Order</h6>
     </div>
     <div class="fe-box">
-      <img src="images/feature/f3.png" alt="" />
+      <img src="images/feature/f3.png" alt="Save Money" />
       <h6>Save Money</h6>
     </div>
     <div class="fe-box">
-      <img src="images/feature/f4.png" alt="" />
+      <img src="images/feature/f4.png" alt="Promotions" />
       <h6>Promotions</h6>
     </div>
     <div class="fe-box">
-      <img src="images/feature/f5.png" alt="" />
+      <img src="images/feature/f5.png" alt="Happy Sell" />
       <h6>Happy Sell</h6>
     </div>
     <div class="fe-box">
-      <img src="images/feature/f6.png" alt="" />
-      <h6>F24/7 Support</h6>
+      <img src="images/feature/f6.png" alt="24/7 Support" />
+      <h6>24/7 Support</h6>
     </div>
   </section>
 
@@ -368,9 +509,9 @@
   </section>
 
     <section id="banner" class="section-m1">
-      <h4>Repair Services</h4>
-      <h2>Up to <span>70% off</span> All t-Shirts & Accessories</h2>
-      <button class="normal"><a href="shop.html">Explore More</a></button>
+      <h4 >Repair Services</h4>
+      <h2 >Up to <span>70% off</span> All t-Shirts & Accessories</h2>
+      <button class="normal"><a href="shop.html" style="color: #ffffff; text-decoration: none;">Explore More</a></button>
     </section>
 
   <section id="product1" class="section-p1">
@@ -522,13 +663,13 @@
       <h4>crazy deals</h4>
       <h2>buy 1 get 1 free</h2>
       <span>The best classic dress is on sale at cara</span>
-      <button class="white">Learn More</button>
+      <a href="crazy-deals.html"><button class="white">Learn More</button></a>
     </div>
     <div class="banner-box banner-box2">
       <h4>upcoming season</h4>
       <h2>winter collection</h2>
       <span>The best classic dress is on sale at Cara</span>
-      <button class="white">Collection</button>
+      <a href="winter-collection.html"><button class="white">Collection</button></a>
     </div>
   </section>
 
@@ -537,8 +678,8 @@
   <!-- Style Quiz Modal -->
   <div id="quiz-modal" class="modal">
     <div class="modal-content">
-      <span class="close" onclick="closeQuiz()">&times;</span>
-      <h2>What's Your Style?</h2>
+      <span class="close" onclick="closeQuiz()" style="background-color: red; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: medium;">&times;</span>
+      <h2 >What's Your Style ?</h2>
       <div class="quiz-options">
         <button onclick="selectStyle('minimal')">Minimal</button>
         <button onclick="selectStyle('street')">Street</button>
@@ -548,118 +689,94 @@
   </div>
 
   <!-- Footer -->
-  <footer class="section-p1">
-    <!-- Contact Column -->
-    <div class="col">
-      <img class="logo" src="images/logo.png" alt="Cara Logo" />
-      <h4>Contact</h4>
-      <p>
-        <strong>Address:</strong> 562 Wellington Road, Street 32, San
-        Francisco
-      </p>
-      <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
-      <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
-
-      <div class="follow">
-        <h4>Follow us</h4>
-        <div class="icon">
-          <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-twitter"></i>
-          </a>
-          <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-github"></i>
-          </a>
-          <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-linkedin"></i>
-          </a>
-          <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-youtube"></i>
-          </a>
+  <footer class="main-footer">
+    <div class="footer-top">
+        <div class="footer-logo-box">
+            <img class="footer-logo" src="images/logo.png" alt="Cara Logo" />
         </div>
-      </div>
+        <div class="footer-socials">
+            <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+            <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+        </div>
     </div>
 
-    <!-- About Column -->
-    <div class="col">
-      <h4>About</h4>
-      <a href="about.html">About Us</a>
-      <a href="#">Delivery Information</a>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms and Conditions</a>
-      <a href="contact.html">Contact Us</a>
+    <hr class="footer-divider">
+
+    <div class="footer-middle">
+        <div class="footer-col brand-info">
+            <h4>ABOUT US</h4>
+            <p>Cara E-Commerce – Redefining your style with premium apparel, expert curation, and an absolute commitment to fashion excellence.</p>
+            <p><strong>Address: </strong>562 Wellington Road, Street 32, San Francisco</p>
+            <p><strong>Phone: </strong>+01 2222 365 / (+91) 01 2345 6789</p>
+            <p><strong>Hours: </strong>10:00 - 18:00, Mon - Sat</p>
+        </div>
+
+        <div class="footer-col">
+            <h4>QUICK LINKS</h4>
+            <a href="about.html">About Us</a>
+            <a href="#">Delivery Information</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms and Conditions</a>
+            <a href="contact.html">Contact Us</a>
+        </div>
+
+        <div class="footer-col">
+            <h4>MY ACCOUNT</h4>
+            <a href="login.html">Sign In</a>
+            <a href="cart.html">View Cart</a>
+            <a href="cart.html">My Wishlist</a>
+            <a href="cart.html">Track My Order</a>
+            <a href="contact.html">Help</a>
+        </div>
+
+        <div class="footer-col newsletter-footer">
+            <h4>NEWSLETTER</h4>
+            <p>Get email updates about our latest shop and <span>special offers.</span></p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Your email address" required>
+                <button type="submit" style="background-color: #088178; color: white; border: none; padding: 10px 20px; cursor: pointer;">Sign Up</button>
+            </form>
+            
+            <div class="install-payment-box">
+                <h4>SECURED PAYMENT GATEWAYS</h4>
+                <div class="payment-icons">
+                    <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer" aria-label="Visa"><i class="fab fa-cc-visa"></i></a>
+                    <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer" aria-label="Mastercard"><i class="fab fa-cc-mastercard"></i></a>
+                    <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" aria-label="PayPal"><i class="fab fa-cc-paypal"></i></a>
+                    <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer" aria-label="American Express"><i class="fab fa-cc-amex"></i></a>
+                    <a href="https://www.stripe.com" target="_blank" rel="noopener noreferrer" aria-label="Stripe"><i class="fab fa-cc-stripe"></i></a>
+                </div>
+            </div>
+        </div>
     </div>
+    
+    <div class="footer-install-box">
+                <h4>INSTALL APP</h4>
+                <p>From App Store or Google Play</p>
+                <div class="download-badges">
+                    <img src="images/pay/app.jpg" alt="Download from App Store" />
+                    <img src="images/pay/play.jpg" alt="Get it on Google Play" />
+                </div>
+            </div>
 
-    <!-- My Account Column -->
-    <div class="col">
-      <h4>My Account</h4>
-      <a href="login.html">Sign In</a>
-      <a href="cart.html">View Cart</a>
-      <a href="#">My Wishlist</a>
-      <a href="cart.html">Track My Order</a>
-      <a href="contact.html">Help</a>
+    <div class="footer-bottom">
+        <p class="copyright">© Cara 2026. All rights reserved.</p>
+        <div class="footer-legal-links">
+            <a href="license.html" class="license-link">MIT License</a>
+        </div>
     </div>
-
-    <!-- Newsletter Column -->
-    <div class="col newsletter-footer">
-      <h4>Newsletter</h4>
-      <p>
-        Get email updates about our latest shop and
-        <span>special offers.</span>
-      </p>
-
-      <form class="newsletter-form">
-        <input type="email" placeholder="Your email address" required />
-        <button type="submit" class="normal">Sign Up</button>
-      </form>
-    </div>
-
-    <!-- Install App Column -->
-    <div class="col install">
-      <h4>Install App</h4>
-      <p>From App Store or Google Play</p>
-
-      <div class="row">
-        <img src="images/pay/app.jpg" alt="Download from App Store" />
-        <img src="images/pay/play.jpg" alt="Get it on Google Play" />
-      </div>
-
-      <p>Secured Payment Gateways</p>
-
-      <div class="payment-icons">
-        <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer" aria-label="Visa">
-          <i class="fab fa-cc-visa"></i>
-        </a>
-
-        <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer" aria-label="Mastercard">
-          <i class="fab fa-cc-mastercard"></i>
-        </a>
-
-        <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" aria-label="PayPal">
-          <i class="fab fa-cc-paypal"></i>
-        </a>
-
-        <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer"
-          aria-label="American Express">
-          <i class="fab fa-cc-amex"></i>
-        </a>
-
-        <a href="https://stripe.com" target="_blank" rel="noopener noreferrer" aria-label="Stripe">
-          <i class="fab fa-cc-stripe"></i>
-        </a>
-      </div>
-    </div>
-
-    <!-- Copyright -->
-    <div class="copyright">
-      <p>
-        &copy; Cara 2025. All rights reserved. |
-        <a href="license.html" style="color: #088178"> MIT License </a>
-      </p>
-    </div>
-  </footer>
+</footer>
 
   <div id="toast-container"></div>
-  <script src="app.js"></script>
+   <button id="topBtn">↑</button>
+<script src="navbar.js"></script>
+<script>
+  loadNavbar();
+</script>
+
+<script src="app.js"></script>  
 </body>
 
 </html>
