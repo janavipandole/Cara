@@ -190,6 +190,30 @@ function renderProducts(containerId, list) {
     img.src = p.img;
     img.alt = p.name;
     imgWrap.appendChild(img);
+
+    // Quick View Overlay inside imgWrap
+    const qvOverlay = document.createElement('div');
+    qvOverlay.className = 'pro-quick-view-overlay';
+    const qvBtn = document.createElement('button');
+    qvBtn.className = 'pro-quick-view-btn';
+    qvBtn.type = 'button';
+    qvBtn.innerHTML = '<i class="ri-eye-line"></i> Quick View';
+    qvBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      if (typeof window.openQuickViewModal === 'function') {
+        window.openQuickViewModal({
+          name: p.name,
+          price: '₹' + p.price,
+          brand: p.brand,
+          img: p.img,
+          rating: p.rating
+        });
+      }
+    });
+    qvOverlay.appendChild(qvBtn);
+    imgWrap.appendChild(qvOverlay);
+
     card.appendChild(imgWrap);
 
     // ── Description container ──

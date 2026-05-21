@@ -1042,3 +1042,205 @@ const topBtn = document.getElementById("topBtn");
         behavior: "smooth"
       });
     });
+
+/* --- START: PRODUCT QUICK-VIEW MODAL FUNCTIONALITY --- */
+(function() {
+    // 1. Inject the Quick View Modal HTML structure into body
+    const modalHTML = `
+        <div id="quickViewModal" class="quickview-modal" role="dialog" aria-modal="true" aria-hidden="true">
+            <div class="quickview-content">
+                <button class="quickview-close" aria-label="Close modal">&times;</button>
+                <div class="quickview-left">
+                    <img id="qvModalImg" src="" alt="Product Image">
+                </div>
+                <div class="quickview-right">
+                    <span id="qvModalBrand" class="quickview-brand"></span>
+                    <h3 id="qvModalTitle" class="quickview-title"></h3>
+                    <div id="qvModalStars" class="quickview-stars"></div>
+                    <div id="qvModalPrice" class="quickview-price"></div>
+                    
+                    <div class="quickview-selects">
+                        <div class="quickview-select-wrap">
+                            <label for="qvModalSize">Select Size</label>
+                            <select id="qvModalSize">
+                                <option value="S">S</option>
+                                <option value="M" selected>M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
+                                <option value="XXL">XXL</option>
+                            </select>
+                        </div>
+                        <div class="quickview-select-wrap">
+                            <label>Quantity</label>
+                            <div class="quickview-qty-container">
+                                <button type="button" class="quickview-qty-btn minus" id="qvQtyMinus">-</button>
+                                <input type="number" class="quickview-qty-input" id="qvQtyInput" value="1" min="1" readonly>
+                                <button type="button" class="quickview-qty-btn plus" id="qvQtyPlus">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="quickview-actions">
+                        <button type="button" class="quickview-btn cart-btn" id="qvAddToCartBtn">ADD TO CART</button>
+                        <button type="button" class="quickview-btn buy-btn" id="qvBuyNowBtn">BUY NOW</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.addEventListener("DOMContentLoaded", () => {
+        // Insert modal into DOM
+        const div = document.createElement("div");
+        div.innerHTML = modalHTML;
+        document.body.appendChild(div.firstElementChild);
+
+        const modal = document.getElementById("quickViewModal");
+        const closeBtn = modal.querySelector(".quickview-close");
+        const qtyInput = document.getElementById("qvQtyInput");
+        const qtyMinus = document.getElementById("qvQtyMinus");
+        const qtyPlus = document.getElementById("qvQtyPlus");
+
+        // Close handlers
+        const closeModal = () => {
+            modal.classList.remove("active");
+            modal.setAttribute("aria-hidden", "true");
+        };
+
+        closeBtn.addEventListener("click", closeModal);
+        modal.addEventListener("click", (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        // ESC key close
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && modal.classList.contains("active")) {
+                closeModal();
+            }
+        });
+
+        // Quantity handlers
+        qtyMinus.addEventListener("click", () => {
+            let val = parseInt(qtyInput.value);
+            if (val > 1) qtyInput.value = val - 1;
+        });
+        qtyPlus.addEventListener("click", () => {
+            let val = parseInt(qtyInput.value);
+            qtyInput.value = val + 1;
+        });
+
+        // Add Quick View overlay triggers dynamically to all static .pro cards
+        injectQuickViewOverlays();
+        
+        // Sometimes content loads dynamically or scripts modify the DOM, so watch for changes or run it
+        // on a slight timeout to ensure all cards have it
+        setTimeout(injectQuickViewOverlays, 500);
+        setTimeout(injectQuickViewOverlays, 1500);
+    });
+
+    function injectQuickViewOverlays() {
+        const proCards = document.querySelectorAll(".pro");
+        proCards.forEach(card => {
+            const imgWrap = card.querySelector(".pro-img-wrap");
+            if (imgWrap && !imgWrap.querySelector(".pro-quick-view-overlay")) {
+                const qvOverlay = document.createElement('div');
+                qvOverlay.className = 'pro-quick-view-overlay';
+                const qvBtn = document.createElement('button');
+                qvBtn.className = 'pro-quick-view-btn';
+                qvBtn.type = 'button';
+                qvBtn.innerHTML = '<i class="ri-eye-line"></i> Quick View';
+                
+                // Add event listener to trigger modal open
+                qvBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    
+                    // Extract details from static card
+                    const name = card.querySelector("h5") ? card.querySelector("h5").textContent.trim() : "";
+                    const priceText = card.querySelector("h4") ? card.querySelector("h4").textContent.trim() : "";
+                    const brand = card.querySelector(".pro-brand-row span") ? card.querySelector(".pro-brand-row span").textContent.trim() : 
+                                  (card.querySelector(".des span") ? card.querySelector(".des span").textContent.trim() : "");
+                    const img = card.querySelector("img") ? card.querySelector("img").src : "";
+                    
+                    // Calculate rating based on filled stars
+                    const rating = card.querySelectorAll(".star i.ri-star-fill").length || 
+                                   card.querySelectorAll(".star i.fa-star").length || 5;
+                    
+                    window.openQuickViewModal({
+                        name: name,
+                        price: priceText,
+                        brand: brand,
+                        img: img,
+                        rating: rating
+                    });
+                });
+                
+                qvOverlay.appendChild(qvBtn);
+                imgWrap.appendChild(qvOverlay);
+            }
+        });
+    }
+
+    // 2. Define global window function to open and populate the modal
+    window.openQuickViewModal = function(product) {
+        const modal = document.getElementById("quickViewModal");
+        if (!modal) return;
+
+        // Reset quantity
+        document.getElementById("qvQtyInput").value = "1";
+
+        // Populate elements
+        document.getElementById("qvModalImg").src = product.img;
+        document.getElementById("qvModalImg").alt = product.name;
+        document.getElementById("qvModalBrand").textContent = product.brand;
+        document.getElementById("qvModalTitle").textContent = product.name;
+        
+        // Clean and format price
+        document.getElementById("qvModalPrice").textContent = product.price;
+
+        // Populate stars
+        const starsContainer = document.getElementById("qvModalStars");
+        starsContainer.innerHTML = "";
+        const rating = product.rating || 5;
+        for (let i = 0; i < rating; i++) {
+            const star = document.createElement("i");
+            star.className = "ri-star-fill";
+            starsContainer.appendChild(star);
+        }
+
+        // Setup Actions
+        const addToCartBtn = document.getElementById("qvAddToCartBtn");
+        const buyNowBtn = document.getElementById("qvBuyNowBtn");
+
+        // Remove old listeners to avoid multiple fires
+        const newAddToCart = addToCartBtn.cloneNode(true);
+        const newBuyNow = buyNowBtn.cloneNode(true);
+
+        addToCartBtn.parentNode.replaceChild(newAddToCart, addToCartBtn);
+        buyNowBtn.parentNode.replaceChild(newBuyNow, buyNowBtn);
+
+        // Add fresh listeners
+        newAddToCart.addEventListener("click", () => {
+            const size = document.getElementById("qvModalSize").value;
+            const qty = parseInt(document.getElementById("qvQtyInput").value);
+            if (typeof addToCart === 'function') {
+                addToCart(product.name, product.price, product.img, qty, size);
+                modal.classList.remove("active");
+            }
+        });
+
+        newBuyNow.addEventListener("click", () => {
+            const size = document.getElementById("qvModalSize").value;
+            const qty = parseInt(document.getElementById("qvQtyInput").value);
+            if (typeof buyNow === 'function') {
+                modal.classList.remove("active");
+                buyNow(product.name, product.price, product.img, qty, size);
+            }
+        });
+
+        // Show modal
+        modal.classList.add("active");
+        modal.setAttribute("aria-hidden", "false");
+    };
+})();
+/* --- END: PRODUCT QUICK-VIEW MODAL FUNCTIONALITY --- */
