@@ -24,6 +24,7 @@
   <meta name="twitter:site" content="@janavipandole" />
   <meta name="theme-color" content="#000000" />
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="toast.css" />
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
@@ -112,24 +113,19 @@
       </section>
 
       <section id="cart" class="section-p1">
-        <table width="100%">
-          <thead>
-            <tr>
-              <td>Remove</td>
-              <td>Image</td>
-              <td>Product</td>
-              <td>Price</td>
-              <td>Quantity</td>
-              <td>Subtotal</td>
-            </tr>
-          </thead>
-          <tbody>
-      
-          </tbody>
-        </table>
+        <div id="cart-items-container" class="cart-items-container">
+          <!-- Cart items will be dynamically populated here -->
+        </div>
       </section>
 
-      <section id="cart-add" class="section-p1">
+      <section id="cart-actions" class="section-p1">
+        <div class="cart-buttons">
+          <a href="shop.html" class="normal">Continue Shopping</a>
+          <a href="checkout.html" class="normal" style="text-decoration: none">Proceed to Checkout</a>
+        </div>
+      </section>
+
+      <section id="cart-add" class="section-p1" style="display: none;">
         <div class="subtotal">
           <h3>Cart Totals</h3>
 
@@ -149,10 +145,6 @@
               <td><strong>$0.00</strong></td>
             </tr>
           </table>
-
-          <a href="checkout.html" class="normal">
-            Proceed to Checkout
-          </a>
         </div>
       </section>
 
@@ -236,6 +228,30 @@
         </div>
       </footer>
     </div>
+  </div>
+
+  <div
+    id="empty-cart-container"
+    style="display: none; text-align: center; padding: 100px 20px"
+  >
+    <div style="font-size: 80px; margin-bottom: 20px">🛒</div>
+    <h2 style="font-size: 32px; margin-bottom: 10px">Your Cart is Empty!</h2>
+    <p style="color: #747d8c; font-size: 18px; margin-bottom: 30px">
+      Looks like you haven't added anything to your cart yet.
+    </p>
+    <a
+      href="shop.html"
+      class="normal"
+      style="
+        background-color: #088178;
+        color: white;
+        padding: 15px 30px;
+        text-decoration: none;
+        border-radius: 4px;
+        font-weight: 600;
+      "
+      >Return to Shop</a
+    >
   </div>
 
 

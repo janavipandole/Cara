@@ -214,28 +214,32 @@ document.addEventListener('DOMContentLoaded', updateCartCount);
 // NEW: Function to toggle visibility of empty cart message
 function handleEmptyCartView() {
     const cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
-    const cartGrid = document.getElementById('cart-container');
+    const contentWrapper = document.getElementById('cart-content-wrapper');
     const emptyContainer = document.getElementById('empty-cart-container');
 
     if (window.location.pathname.includes('cart.html')) {
         if (cart.length === 0) {
-            if (cartGrid) cartGrid.style.display = 'none';
-            if (emptyContainer) emptyContainer.style.display = 'flex';
+            if (contentWrapper) contentWrapper.style.display = 'none';
+            if (emptyContainer) emptyContainer.style.display = 'block';
         } else {
-            if (cartGrid) cartGrid.style.display = 'block';
+            if (contentWrapper) contentWrapper.style.display = 'block';
             if (emptyContainer) emptyContainer.style.display = 'none';
         }
     }
 }
 
-function addToCart(productName, productPrice, productImage, quantity, size) {
+window.addToCart = function(productName, productPrice, productImage, quantity, size) {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+    
+    // Normalize size - handle both 'M' and 'Size M' formats
+    let normalizedSize = String(size).replace('Size ', '').trim();
+    
     let item = {
         name: productName,
-        price: parseFloat(productPrice.replace(/[₹$,]/g, '')),
+        price: parseFloat(String(productPrice).replace(/[₹$,]/g, '')),
         image: productImage,
-        quantity: parseInt(quantity),
-        size: size.replace('Size ', '')
+        quantity: parseInt(quantity) || 1,
+        size: normalizedSize
     };
 
     let existingItem = cart.find(p => p.name === item.name && p.size === item.size);
@@ -344,221 +348,117 @@ window.loadCart = function () {
 
     handleEmptyCartView();
 
-    const itemsContainer = document.getElementById('cart-items-container');
-    if (!itemsContainer) return;
+    const cartContainer = document.querySelector('#cart-items-container');
+    if (!cartContainer) return;
 
-    itemsContainer.innerHTML = '';
-    let subtotal = 0;
+    cartContainer.innerHTML = '';
+    let total = 0;
 
     cart.forEach((item, index) => {
         const itemPrice = item.price;
-        const itemSubtotal = itemPrice * item.quantity;
-        subtotal += itemSubtotal;
+        const subtotal = itemPrice * item.quantity;
+        total += subtotal;
 
-        // Modern Card Grid Row (Flexbox responsive card)
-        const row = document.createElement('div');
-        row.className = 'cart-item-row';
-        row.innerHTML = `
-            <div class="cart-item-left">
-                <div class="cart-item-img-wrap">
-                    <img src="${item.image}" alt="${item.name}" />
-                </div>
-                <div class="cart-item-details">
-                    <span class="cart-item-brand">${item.brand || 'Premium Brand'}</span>
-                    <h5 class="cart-item-title">${item.name}</h5>
-                    <span class="cart-item-size">Size: ${item.size}</span>
-                </div>
-            </div>
-            <div class="cart-item-right">
-                <div class="cart-item-price">₹${itemPrice.toLocaleString('en-IN')}</div>
-                <div class="qty-selector">
-                    <button class="qty-btn minus" aria-label="Decrease quantity" onclick="event.stopPropagation(); changeQuantity(${index}, -1)">
-                        <i class="ri-subtract-line"></i>
-                    </button>
-                    <input type="number" class="qty-input" value="${item.quantity}" readonly />
-                    <button class="qty-btn plus" aria-label="Increase quantity" onclick="event.stopPropagation(); changeQuantity(${index}, 1)">
-                        <i class="ri-add-line"></i>
-                    </button>
-                </div>
-                <div class="cart-item-subtotal">₹${itemSubtotal.toLocaleString('en-IN')}</div>
-                <button class="cart-item-remove" aria-label="Remove item" onclick="event.stopPropagation(); removeItem(${index})">
-                    <i class="ri-delete-bin-line"></i>
-                </button>
-            </div>
-        `;
-        itemsContainer.appendChild(row);
-    });
+        // Create cart item card
+        const cartCard = document.createElement('div');
+        cartCard.className = 'cart-item-card';
 
-    // Update Summary Breakdowns
-    const subtotalEl = document.getElementById('summary-subtotal');
-    const taxEl = document.getElementById('summary-tax');
-    const shippingEl = document.getElementById('summary-shipping');
-    const discountRow = document.getElementById('summary-discount-row');
-    const discountEl = document.getElementById('summary-discount');
-    const totalEl = document.getElementById('summary-total');
+        // Left section: Image
+        const imageSection = document.createElement('div');
+        imageSection.className = 'cart-item-image';
+        const img = document.createElement('img');
+        img.src = item.image;
+        img.alt = item.name;
+        imageSection.appendChild(img);
+        cartCard.appendChild(imageSection);
 
-        // REMOVE BUTTON
-        const removeCell = newRow.insertCell();
-        const removeLink = document.createElement('a');
-        removeLink.href = '#';
-        removeLink.addEventListener('click', (e) => {
+        // Middle section: Product details
+        const detailsSection = document.createElement('div');
+        detailsSection.className = 'cart-item-details';
+
+        // Product name
+        const nameDiv = document.createElement('div');
+        nameDiv.className = 'cart-item-name';
+        nameDiv.textContent = item.name;
+        detailsSection.appendChild(nameDiv);
+
+        // Size
+        const sizeDiv = document.createElement('div');
+        sizeDiv.className = 'cart-item-size';
+        sizeDiv.textContent = 'Size: ' + item.size;
+        detailsSection.appendChild(sizeDiv);
+
+        // Price and Quantity row
+        const priceQtyDiv = document.createElement('div');
+        priceQtyDiv.className = 'cart-item-price-qty';
+
+        const priceLabel = document.createElement('span');
+        priceLabel.className = 'cart-item-price-label';
+        priceLabel.textContent = 'Price: ';
+        const priceValue = document.createElement('span');
+        priceValue.className = 'cart-item-price-value';
+        priceValue.textContent = '$' + itemPrice.toFixed(2);
+        priceLabel.appendChild(priceValue);
+        priceQtyDiv.appendChild(priceLabel);
+
+        const qtyLabel = document.createElement('span');
+        qtyLabel.className = 'cart-item-qty-label';
+        qtyLabel.textContent = 'Quantity: ';
+        const qtyInput = document.createElement('input');
+        qtyInput.id = 'qty-' + index;
+        qtyInput.type = 'number';
+        qtyInput.className = 'cart-item-qty-input';
+        qtyInput.value = item.quantity;
+        qtyInput.min = '1';
+        qtyInput.addEventListener('change', function () {
+            updateQuantity(index, this.value);
+        });
+        qtyLabel.appendChild(qtyInput);
+        priceQtyDiv.appendChild(qtyLabel);
+
+        detailsSection.appendChild(priceQtyDiv);
+        cartCard.appendChild(detailsSection);
+
+        // Right section: Subtotal and remove button
+        const actionSection = document.createElement('div');
+        actionSection.className = 'cart-item-action';
+
+        // Subtotal
+        const subtotalDiv = document.createElement('div');
+        subtotalDiv.className = 'cart-item-subtotal';
+        const subtotalLabel = document.createElement('span');
+        subtotalLabel.className = 'subtotal-label';
+        subtotalLabel.textContent = 'Subtotal: ';
+        const subtotalValue = document.createElement('span');
+        subtotalValue.className = 'subtotal-value';
+        subtotalValue.textContent = '$' + subtotal.toFixed(2);
+        subtotalDiv.appendChild(subtotalLabel);
+        subtotalDiv.appendChild(subtotalValue);
+        actionSection.appendChild(subtotalDiv);
+
+        // Remove button
+        const removeBtn = document.createElement('button');
+        removeBtn.className = 'cart-item-remove-btn';
+        removeBtn.setAttribute('aria-label', 'Remove item from cart');
+        removeBtn.addEventListener('click', (e) => {
             e.preventDefault();
             removeItem(index);
         });
         const removeIcon = document.createElement('i');
         removeIcon.className = 'fa-regular fa-circle-xmark';
-        removeLink.appendChild(removeIcon);
-        removeCell.appendChild(removeLink);
+        removeBtn.appendChild(removeIcon);
+        removeBtn.appendChild(document.createTextNode(' Remove'));
+        actionSection.appendChild(removeBtn);
 
-        // IMAGE
-        const imgCell = newRow.insertCell();
-        const img = document.createElement('img');
-        img.src = item.image;
-        img.alt = item.name;
-        imgCell.appendChild(img);
+        cartCard.appendChild(actionSection);
+        cartContainer.appendChild(cartCard);
+    });
 
-        // NAME
-        const nameCell = newRow.insertCell();
-        nameCell.textContent = item.name;
+    const subtotalCell = document.querySelector('.subtotal table tr:nth-child(1) td:nth-child(2)');
+    const totalCell = document.querySelector('.subtotal table tr:nth-child(3) td:nth-child(2) strong');
 
-        const sizeSmall = document.createElement('small');
-        sizeSmall.textContent = 'Size: ' + item.size;
-        nameCell.appendChild(document.createElement('br'));
-        nameCell.appendChild(sizeSmall);
-
-        // PRICE
-        const priceCell = newRow.insertCell();
-        priceCell.textContent = '$' + itemPrice.toFixed(2);
-
-        // QTY
-        const qtyCell = newRow.insertCell();
-        const qtyInput = document.createElement('input');
-        qtyInput.type = 'number';
-        qtyInput.value = item.quantity;
-        qtyInput.min = 1;
-        qtyInput.addEventListener('change', function () {
-            updateQuantity(index, this.value);
-        });
-        qtyCell.appendChild(qtyInput);
-
-        // SUBTOTAL
-        const subtotalCell = newRow.insertCell();
-        subtotalCell.textContent = '$' + subtotal.toFixed(2);
-    };
-
-    // ✅ TOTAL UPDATE MUST BE HERE (INSIDE FUNCTION, AFTER LOOP)
-   const subtotalDisplay = document.querySelector('.subtotal table tr:nth-child(1) td:nth-child(2)');
- const totalDisplay = document.querySelector('.subtotal table tr:nth-child(3) td:nth-child(2) strong');
-
-if (subtotalDisplay) {
-    subtotalDisplay.innerText = `$${total.toFixed(2)}`;
-}
-
-if (totalDisplay) {
-    totalDisplay.innerText = `$${total.toFixed(2)}`;
-}
-
-window.removeItem = function (index) {
-    if (subtotalEl) {
-        subtotalEl.innerText = `₹${subtotal.toLocaleString('en-IN')}`;
-    }
-
-    // Shipping calculations (free above 3000)
-    let shipping = 0;
-    if (subtotal > 0) {
-        shipping = subtotal >= 3000 ? 0 : 150;
-    }
-    if (shippingEl) {
-        shippingEl.innerText = shipping === 0 ? 'FREE' : `₹${shipping}`;
-        if (shipping === 0 && subtotal > 0) {
-            shippingEl.classList.add('shipping-free');
-        } else {
-            shippingEl.classList.remove('shipping-free');
-        }
-    }
-
-    // 18% tax calculation
-    const tax = Math.round(subtotal * 0.18);
-    if (taxEl) {
-        taxEl.innerText = `₹${tax.toLocaleString('en-IN')}`;
-    }
-
-    // Coupon / Discount calculation
-    let discount = 0;
-    if (window.appliedCoupon === 'CARA20' && subtotal > 0) {
-        discount = Math.round(subtotal * 0.20);
-    } else if (window.appliedCoupon === 'WELCOME10' && subtotal > 0) {
-        discount = Math.round(subtotal * 0.10);
-    }
-
-    if (discountRow && discountEl) {
-        if (discount > 0) {
-            discountRow.style.display = 'flex';
-            discountEl.innerText = `-₹${discount.toLocaleString('en-IN')}`;
-        } else {
-            discountRow.style.display = 'none';
-        }
-    }
-
-    // Grand total calculation
-    const grandTotal = Math.max(0, subtotal + tax + shipping - discount);
-    if (totalEl) {
-        totalEl.innerText = `₹${grandTotal.toLocaleString('en-IN')}`;
-    }
-
-    // Update promo input field state
-    const promoInput = document.getElementById('coupon-code');
-    const promoBtn = document.getElementById('apply-coupon-btn');
-    if (promoInput && promoBtn) {
-        if (window.appliedCoupon) {
-            promoInput.value = window.appliedCoupon;
-            promoInput.disabled = true;
-            promoBtn.innerText = 'Applied';
-            promoBtn.disabled = true;
-            promoBtn.classList.add('applied');
-        } else {
-            promoInput.value = '';
-            promoInput.disabled = false;
-            promoBtn.innerText = 'Apply';
-            promoBtn.disabled = false;
-            promoBtn.classList.remove('applied');
-        }
-    }
-}
-
-window.changeQuantity = function (index, change) {
-    let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
-    if (!cart[index]) return;
-
-    let newQty = cart[index].quantity + change;
-    if (newQty < 1) newQty = 1;
-
-    cart[index].quantity = newQty;
-    localStorage.setItem('productsInCart', JSON.stringify(cart));
-    loadCart();
-    updateCartCount();
-}
-
-window.applyCoupon = function () {
-    const promoInput = document.getElementById('coupon-code');
-    if (!promoInput) return;
-
-    const code = promoInput.value.trim().toUpperCase();
-    if (code === 'CARA20') {
-        window.appliedCoupon = 'CARA20';
-        localStorage.setItem('appliedCoupon', 'CARA20');
-        showToast('CARA20 promo code applied! 20% discount added.', 'success');
-        loadCart();
-    } else if (code === 'WELCOME10') {
-        window.appliedCoupon = 'WELCOME10';
-        localStorage.setItem('appliedCoupon', 'WELCOME10');
-        showToast('WELCOME10 promo code applied! 10% discount added.', 'success');
-        loadCart();
-    } else if (code === '') {
-        showToast('Please enter a coupon code.', 'warning');
-    } else {
-        showToast('Invalid promo code. Try CARA20 for 20% off!', 'error');
-    }
+    if (subtotalCell) subtotalCell.innerText = `$ ${total.toFixed(2)}`;
+    if (totalCell) totalCell.innerText = `$ ${total.toFixed(2)}`;
 }
 
 window.removeItem = function (index) {
@@ -569,6 +469,22 @@ window.removeItem = function (index) {
     loadCart();
     updateCartCount();
     showToast(`${removedName} removed from cart`, 'error');
+}
+
+window.updateQuantity = function (index, newQuantity) {
+    let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+    newQuantity = parseInt(newQuantity);
+
+    if (newQuantity < 1 || isNaN(newQuantity)) {
+        newQuantity = 1;
+        document.getElementById(`qty-${index}`).value = 1;
+    }
+
+    cart[index].quantity = newQuantity;
+    localStorage.setItem('productsInCart', JSON.stringify(cart));
+    loadCart();
+    updateCartCount();
+    showToast('Quantity updated', 'info');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -582,6 +498,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const cartElement = document.getElementById('cart-items-container');
     if (cartElement) {
         loadCart();
+    }
+});
+
+// Also load cart when page is fully loaded
+window.addEventListener('load', () => {
+    const cartElement = document.getElementById('cart-items-container');
+    if (cartElement) {
+        loadCart();
+    }
+});
+
+// Ensure cart loads on page visibility (when user navigates back to cart page)
+document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) {
+        const cartElement = document.getElementById('cart-items-container');
+        if (cartElement) {
+            loadCart();
+        }
     }
 });
 
