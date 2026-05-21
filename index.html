@@ -57,6 +57,36 @@
 
   <!-- Inline Critical CSS -->
   <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.8;
+    }
+
+    .content {
+      height: 2000px;
+    }
+
+    /* Scroll Button */
+    #topBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: none;
+      background-color: #088178;
+      color: white;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      transition: 0.3s;
+    }
+
+    #topBtn:hover {
+      background-color: #555;
+    }
     /* Critical Fix */
     .theme-toggle {
       pointer-events: all !important;
@@ -74,62 +104,7 @@
     <img src="images/logo.png" alt="Cara Logo" />
   </a>
 
-  <div>
-    <ul id="navbar">
-
-      <!-- Main Navigation Links -->
-      <li><a class="active" href="index.html">Home</a></li>
-      <li><a href="shop.html">Shop</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="try-on.html">Try-On</a></li>
-      <li><a href="community.html">Community</a></li>
-      <li><a href="promotions.html">Promotions</a></li>
-
-      <!-- Contact Icon -->
-      <li class="nav-icon">
-        <a href="contact.html" aria-label="Contact">
-          <i class="ri-customer-service-2-line"></i>
-        </a>
-      </li>
-
-      <!-- Login Icon -->
-      <li class="nav-icon">
-        <a href="login.html" aria-label="Login">
-          <i class="ri-user-3-line"></i>
-        </a>
-      </li>
-
-      <!-- Cart Icon -->
-      <li class="nav-icon">
-        <a href="cart.html" id="lg-bag" aria-label="Cart">
-          <i class="ri-shopping-bag-4-line"></i>
-        </a>
-      </li>
-
-      <!-- Theme Toggle -->
-      <li class="nav-icon">
-        <button
-          class="theme-toggle"
-          id="themeToggle"
-          aria-label="Toggle dark mode"
-        >
-          <i class="ri-moon-line" id="themeIcon"></i>
-        </button>
-      </li>
-
-      <!-- Close Button -->
-      <a
-        href="#"
-        id="close"
-        aria-label="Close menu"
-        aria-hidden="false"
-      >
-        <i class="fa-solid fa-xmark"></i>
-      </a>
-
-    </ul>
-  </div>
+ <div id="navbar-container"></div>
 
   <!-- Mobile Navbar -->
   <div class="mobile">
@@ -376,8 +351,8 @@
   </section>
 
     <section id="banner" class="section-m1">
-      <h4>Repair Services</h4>
-      <h2>Up to <span>70% off</span> All t-Shirts & Accessories</h2>
+      <h4 >Repair Services</h4>
+      <h2 >Up to <span>70% off</span> All t-Shirts & Accessories</h2>
       <button class="normal"><a href="shop.html" style="color: #ffffff; text-decoration: none;">Explore More</a></button>
     </section>
 
@@ -545,8 +520,8 @@
   <!-- Style Quiz Modal -->
   <div id="quiz-modal" class="modal">
     <div class="modal-content">
-      <span class="close" onclick="closeQuiz()">&times;</span>
-      <h2>What's Your Style?</h2>
+      <span class="close" onclick="closeQuiz()" style="background-color: red; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: medium;">&times;</span>
+      <h2 >What's Your Style ?</h2>
       <div class="quiz-options">
         <button onclick="selectStyle('minimal')">Minimal</button>
         <button onclick="selectStyle('street')">Street</button>
@@ -593,7 +568,7 @@
             <h4>MY ACCOUNT</h4>
             <a href="login.html">Sign In</a>
             <a href="cart.html">View Cart</a>
-            <a href="#">My Wishlist</a>
+            <a href="cart.html">My Wishlist</a>
             <a href="cart.html">Track My Order</a>
             <a href="contact.html">Help</a>
         </div>
@@ -603,7 +578,7 @@
             <p>Get email updates about our latest shop and <span>special offers.</span></p>
             <form class="newsletter-form">
                 <input type="email" placeholder="Your email address" required>
-                <button type="submit">Sign Up</button>
+                <button type="submit" style="background-color: #088178; color: white; border: none; padding: 10px 20px; cursor: pointer;">Sign Up</button>
             </form>
             
             <div class="install-payment-box">
@@ -637,7 +612,13 @@
 </footer>
 
   <div id="toast-container"></div>
-  <script src="app.js"></script>
+   <button id="topBtn">↑</button>
+<script src="navbar.js"></script>
+<script>
+  loadNavbar();
+</script>
+
+<script src="app.js"></script>  
 </body>
 
 </html>
