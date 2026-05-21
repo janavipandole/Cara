@@ -81,7 +81,7 @@ document.addEventListener("click", function (e) {
     if (!proCard) return;
 
     // Ignore clicks on cart icon or buy now button inside the card
-    if (e.target.closest(".cart") || e.target.closest(".buy-now-btn")) return;
+    if (e.target.closest(".pro-cart-btn") || e.target.closest(".pro-buy-btn")) return;
 
     const nameElement = proCard.querySelector("h5");
     const priceElement = proCard.querySelector("h4");
