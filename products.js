@@ -175,7 +175,7 @@ function renderProducts(containerId, list) {
       const selectedProduct = {
         id: p.id,
         name: p.name,
-        price: '$' + p.price,
+        price: '₹' + p.price,
         brand: p.brand,
         image: p.img,
       };
