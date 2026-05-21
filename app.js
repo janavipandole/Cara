@@ -80,7 +80,7 @@ document.addEventListener(
 
     const selectedProduct = {
       name: nameElement ? nameElement.textContent.trim() : 'Product',
-      price: priceElement ? priceElement.textContent.trim() : '$0.00',
+      price: priceElement ? priceElement.textContent.trim() : '₹0',
       brand: brandElement ? brandElement.textContent.trim() : 'Brand',
       image: imageElement ? imageElement.src : '',
     };
@@ -443,72 +443,6 @@ window.loadCart = function () {
   const discountEl = document.getElementById('summary-discount');
   const totalEl = document.getElementById('summary-total');
 
-  // REMOVE BUTTON
-  const removeCell = newRow.insertCell();
-  const removeLink = document.createElement('a');
-  removeLink.href = '#';
-  removeLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    removeItem(index);
-  });
-  const removeIcon = document.createElement('i');
-  removeIcon.className = 'fa-regular fa-circle-xmark';
-  removeLink.appendChild(removeIcon);
-  removeCell.appendChild(removeLink);
-
-  // IMAGE
-  const imgCell = newRow.insertCell();
-  const img = document.createElement('img');
-  img.src = item.image;
-  img.alt = item.name;
-  imgCell.appendChild(img);
-
-  // NAME
-  const nameCell = newRow.insertCell();
-  nameCell.textContent = item.name;
-
-  const sizeSmall = document.createElement('small');
-  sizeSmall.textContent = 'Size: ' + item.size;
-  nameCell.appendChild(document.createElement('br'));
-  nameCell.appendChild(sizeSmall);
-
-  // PRICE
-  const priceCell = newRow.insertCell();
-  priceCell.textContent = '$' + itemPrice.toFixed(2);
-
-  // QTY
-  const qtyCell = newRow.insertCell();
-  const qtyInput = document.createElement('input');
-  qtyInput.type = 'number';
-  qtyInput.value = item.quantity;
-  qtyInput.min = 1;
-  qtyInput.addEventListener('change', function () {
-    updateQuantity(index, this.value);
-  });
-  qtyCell.appendChild(qtyInput);
-
-  // SUBTOTAL
-  const subtotalCell = newRow.insertCell();
-  subtotalCell.textContent = '$' + subtotal.toFixed(2);
-};
-
-// ✅ TOTAL UPDATE MUST BE HERE (INSIDE FUNCTION, AFTER LOOP)
-const subtotalDisplay = document.querySelector(
-  '.subtotal table tr:nth-child(1) td:nth-child(2)'
-);
-const totalDisplay = document.querySelector(
-  '.subtotal table tr:nth-child(3) td:nth-child(2) strong'
-);
-
-if (subtotalDisplay) {
-  subtotalDisplay.innerText = `$${total.toFixed(2)}`;
-}
-
-if (totalDisplay) {
-  totalDisplay.innerText = `$${total.toFixed(2)}`;
-}
-
-window.removeItem = function (index) {
   if (subtotalEl) {
     subtotalEl.innerText = `₹${subtotal.toLocaleString('en-IN')}`;
   }
@@ -1024,21 +958,24 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 /* --- END: CURRENT YEAR FUNCTIONALITY --- */
-const topBtn = document.getElementById("topBtn");
+const topBtn = document.getElementById('topBtn');
 
-    // Show button when user scrolls down
-    window.onscroll = function () {
-      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-        topBtn.style.display = "block";
-      } else {
-        topBtn.style.display = "none";
-      }
-    };
+// Show button when user scrolls down
+window.onscroll = function () {
+  if (
+    document.body.scrollTop > 200 ||
+    document.documentElement.scrollTop > 200
+  ) {
+    topBtn.style.display = 'block';
+  } else {
+    topBtn.style.display = 'none';
+  }
+};
 
-    // Scroll to top smoothly
-    topBtn.addEventListener("click", function () {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-    });
+// Scroll to top smoothly
+topBtn.addEventListener('click', function () {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  });
+});
