@@ -6,8 +6,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 80px;
-    gap: 40px;
+    padding: 60px;
+    gap: 32px;
 }
 
 #contact-details .details {
@@ -23,9 +23,9 @@
 
 #contact-details .details h2,
 #contact-section .form-details h2 {
-    font-size: 26px;
-    line-height: 35px;
-    padding: 20px 0;
+    font-size: 32px;
+    line-height: 40px;
+    padding: 18px 0;
     color: var(--text-primary);
 }
 
@@ -52,8 +52,8 @@
 
 #contact-details .map {
     width: 55%;
-    height: 400px;
-    border-radius: 8px;
+    height: 500px;
+    border-radius: 10px;
     overflow: hidden;
 }
 
@@ -90,7 +90,16 @@
     border: 1px solid var(--border-color);
     background-color: var(--input-bg);
     color: var(--text-primary);
-    border-radius: 4px;
+    border-radius: 6px;
+    transition: border-color 180ms ease, box-shadow 180ms ease, transform 120ms ease;
+}
+
+/* focus style for better accessibility */
+#contact-section form input:focus,
+#contact-section form textarea:focus {
+    border-color: #06665f;
+    box-shadow: 0 6px 18px rgba(6,102,95,0.07);
+    transform: translateY(-1px);
 }
 
 #contact-section form button {
@@ -98,14 +107,16 @@
     color: #fff;
     padding: 14px 30px;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
-    font-weight: 600;
-    transition: all 0.3s ease;
+    font-weight: 700;
+    transition: background-color 220ms ease, transform 120ms ease, box-shadow 220ms ease;
 }
 
 #contact-section form button:hover {
     background-color: #06665f;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(6,102,95,0.12);
 }
 
 #contact-section .people {
