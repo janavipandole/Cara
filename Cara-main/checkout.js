@@ -165,7 +165,7 @@ form.addEventListener("submit", function (e) {
   setTimeout(function () {
     // CLEAR CART AFTER SUCCESSFUL ORDER
     localStorage.removeItem("productsInCart");
-
+    localStorage.removeItem("appliedCoupon");
     // Re-enable button
     if (submitBtn) {
       submitBtn.classList.remove("btn-loading");

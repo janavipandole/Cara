@@ -18,6 +18,44 @@
 
 
         <style>
+            body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.8;
+    }
+
+    .content {
+      height: 2000px;
+    }
+
+    /* Scroll Button */
+    #topBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: none;
+      background-color:#088178;
+      color: white;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      transition: 0.3s;
+    }
+
+    #topBtn:hover {
+      background-color: #555;
+    }
+
+            :root {
+    --accent: #088178;
+    --text-primary: #333;
+    --bg-secondary: #f5f5f5;
+    --card-bg: #ffffff;
+    --border-color: #ddd;
+}
         /* ============================================
            VIRTUAL TRY-ON PAGE STYLES
            ============================================ */
@@ -142,6 +180,13 @@
             gap: 8px;
             transition: 0.3s ease;
         }
+        .mode-toggle {
+          min-height: 48px;
+             }
+
+         .mode-btn {
+         min-height: 48px;
+         }
 
         .mode-btn.active {
             background: var(--accent);
@@ -474,7 +519,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <body>
 
         <!-- HEADER -->
         <!-- <section id="header"> -->
@@ -668,13 +712,10 @@
     <canvas id="output-canvas"></canvas>
 </div>
 
-<img id="uploaded-preview" src="" alt="">
-
                 <!-- Hidden uploaded image -->
                 <img id="uploaded-preview" src="" alt="">
 
-                <!-- Main output canvas -->
-                <canvas id="output-canvas"></canvas>
+
 
                 <!-- Body info badge -->
                 <div class="body-info" id="body-info"></div>
@@ -778,7 +819,6 @@
     <!-- <script src="try-on.js"></script> -->
     <script src="navbar.js"></script>
 <!-- <script>loadNavbar('tryon');</script> -->
-<script src="app.js?v=1779120917221"></script>
         <script id="Current-Year">
         document.getElementById("Current-Year").textContent = new Date().getFullYear();
     </script>
