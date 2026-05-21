@@ -391,191 +391,170 @@ window.loadCart = function () {
   handleEmptyCartView();
 
   const itemsContainer = document.getElementById('cart-items-container');
+
   if (!itemsContainer) return;
 
   itemsContainer.innerHTML = '';
+
   let subtotal = 0;
 
   cart.forEach((item, index) => {
     const itemPrice = item.price;
     const itemSubtotal = itemPrice * item.quantity;
+
     subtotal += itemSubtotal;
 
-    // Modern Card Grid Row (Flexbox responsive card)
     const row = document.createElement('div');
+
     row.className = 'cart-item-row';
+
     row.innerHTML = `
-            <div class="cart-item-left">
-                <div class="cart-item-img-wrap">
-                    <img src="${item.image}" alt="${item.name}" />
-                </div>
-                <div class="cart-item-details">
-                    <span class="cart-item-brand">${item.brand || 'Premium Brand'}</span>
-                    <h5 class="cart-item-title">${item.name}</h5>
-                    <span class="cart-item-size">Size: ${item.size}</span>
-                </div>
-            </div>
-            <div class="cart-item-right">
-                <div class="cart-item-price">₹${itemPrice.toLocaleString('en-IN')}</div>
-                <div class="qty-selector">
-                    <button class="qty-btn minus" aria-label="Decrease quantity" onclick="event.stopPropagation(); changeQuantity(${index}, -1)">
-                        <i class="ri-subtract-line"></i>
-                    </button>
-                    <input type="number" class="qty-input" value="${item.quantity}" readonly />
-                    <button class="qty-btn plus" aria-label="Increase quantity" onclick="event.stopPropagation(); changeQuantity(${index}, 1)">
-                        <i class="ri-add-line"></i>
-                    </button>
-                </div>
-                <div class="cart-item-subtotal">₹${itemSubtotal.toLocaleString('en-IN')}</div>
-                <button class="cart-item-remove" aria-label="Remove item" onclick="event.stopPropagation(); removeItem(${index})">
-                    <i class="ri-delete-bin-line"></i>
-                </button>
-            </div>
-        `;
+      <div class="cart-item-left">
+
+        <div class="cart-item-img-wrap">
+          <img src="${item.image}" alt="${item.name}" />
+        </div>
+
+        <div class="cart-item-details">
+
+          <span class="cart-item-brand">
+            ${item.brand || 'Premium Brand'}
+          </span>
+
+          <h5 class="cart-item-title">
+            ${item.name}
+          </h5>
+
+          <span class="cart-item-size">
+            Size: ${item.size}
+          </span>
+
+        </div>
+      </div>
+
+      <div class="cart-item-right">
+
+        <div class="cart-item-price">
+          ₹${itemPrice.toLocaleString('en-IN')}
+        </div>
+
+        <div class="qty-selector">
+
+          <button
+            class="qty-btn minus"
+            aria-label="Decrease quantity"
+            onclick="changeQuantity(${index}, -1)"
+          >
+            <i class="ri-subtract-line"></i>
+          </button>
+
+          <input
+            type="number"
+            class="qty-input"
+            value="${item.quantity}"
+            readonly
+          />
+
+          <button
+            class="qty-btn plus"
+            aria-label="Increase quantity"
+            onclick="changeQuantity(${index}, 1)"
+          >
+            <i class="ri-add-line"></i>
+          </button>
+
+        </div>
+
+        <div class="cart-item-subtotal">
+          ₹${itemSubtotal.toLocaleString('en-IN')}
+        </div>
+
+        <button
+          class="cart-item-remove"
+          aria-label="Remove item"
+          onclick="removeItem(${index})"
+        >
+          <i class="ri-delete-bin-line"></i>
+        </button>
+
+      </div>
+    `;
+
     itemsContainer.appendChild(row);
   });
 
-  // Update Summary Breakdowns
-  const subtotalEl = document.getElementById('summary-subtotal');
-  const taxEl = document.getElementById('summary-tax');
-  const shippingEl = document.getElementById('summary-shipping');
-  const discountRow = document.getElementById('summary-discount-row');
-  const discountEl = document.getElementById('summary-discount');
-  const totalEl = document.getElementById('summary-total');
+  // SUMMARY ELEMENTS
+  // CART TOTALS TABLE UPDATE
 
-  // REMOVE BUTTON
-  const removeCell = newRow.insertCell();
-  const removeLink = document.createElement('a');
-  removeLink.href = '#';
-  removeLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    removeItem(index);
-  });
-  const removeIcon = document.createElement('i');
-  removeIcon.className = 'fa-regular fa-circle-xmark';
-  removeLink.appendChild(removeIcon);
-  removeCell.appendChild(removeLink);
-
-  // IMAGE
-  const imgCell = newRow.insertCell();
-  const img = document.createElement('img');
-  img.src = item.image;
-  img.alt = item.name;
-  imgCell.appendChild(img);
-
-  // NAME
-  const nameCell = newRow.insertCell();
-  nameCell.textContent = item.name;
-
-  const sizeSmall = document.createElement('small');
-  sizeSmall.textContent = 'Size: ' + item.size;
-  nameCell.appendChild(document.createElement('br'));
-  nameCell.appendChild(sizeSmall);
-
-  // PRICE
-  const priceCell = newRow.insertCell();
-  priceCell.textContent = '$' + itemPrice.toFixed(2);
-
-  // QTY
-  const qtyCell = newRow.insertCell();
-  const qtyInput = document.createElement('input');
-  qtyInput.type = 'number';
-  qtyInput.value = item.quantity;
-  qtyInput.min = 1;
-  qtyInput.addEventListener('change', function () {
-    updateQuantity(index, this.value);
-  });
-  qtyCell.appendChild(qtyInput);
-
-  // SUBTOTAL
-  const subtotalCell = newRow.insertCell();
-  subtotalCell.textContent = '$' + subtotal.toFixed(2);
-};
-
-// ✅ TOTAL UPDATE MUST BE HERE (INSIDE FUNCTION, AFTER LOOP)
 const subtotalDisplay = document.querySelector(
   '.subtotal table tr:nth-child(1) td:nth-child(2)'
 );
+
+const shippingDisplay = document.querySelector(
+  '.subtotal table tr:nth-child(2) td:nth-child(2)'
+);
+
 const totalDisplay = document.querySelector(
   '.subtotal table tr:nth-child(3) td:nth-child(2) strong'
 );
 
+// SHIPPING
+let shipping = 0;
+
+if (subtotal > 0) {
+  shipping = subtotal >= 3000 ? 0 : 150;
+}
+
+// FINAL TOTAL
+const grandTotal = subtotal + shipping;
+
+// UPDATE UI
 if (subtotalDisplay) {
-  subtotalDisplay.innerText = `$${total.toFixed(2)}`;
+  subtotalDisplay.innerText =
+    `₹${subtotal.toLocaleString('en-IN')}`;
+}
+
+if (shippingDisplay) {
+  shippingDisplay.innerText =
+    shipping === 0 ? 'Free' : `₹${shipping}`;
 }
 
 if (totalDisplay) {
-  totalDisplay.innerText = `$${total.toFixed(2)}`;
+  totalDisplay.innerText =
+    `₹${grandTotal.toLocaleString('en-IN')}`;
 }
-
-window.removeItem = function (index) {
-  if (subtotalEl) {
-    subtotalEl.innerText = `₹${subtotal.toLocaleString('en-IN')}`;
-  }
-
-  // Shipping calculations (free above 3000)
-  let shipping = 0;
-  if (subtotal > 0) {
-    shipping = subtotal >= 3000 ? 0 : 150;
-  }
-  if (shippingEl) {
-    shippingEl.innerText = shipping === 0 ? 'FREE' : `₹${shipping}`;
-    if (shipping === 0 && subtotal > 0) {
-      shippingEl.classList.add('shipping-free');
-    } else {
-      shippingEl.classList.remove('shipping-free');
-    }
-  }
-
-  // 18% tax calculation
-  const tax = Math.round(subtotal * 0.18);
-  if (taxEl) {
-    taxEl.innerText = `₹${tax.toLocaleString('en-IN')}`;
-  }
-
-  // Coupon / Discount calculation
-  let discount = 0;
-  if (window.appliedCoupon === 'CARA20' && subtotal > 0) {
-    discount = Math.round(subtotal * 0.2);
-  } else if (window.appliedCoupon === 'WELCOME10' && subtotal > 0) {
-    discount = Math.round(subtotal * 0.1);
-  }
-
-  if (discountRow && discountEl) {
-    if (discount > 0) {
-      discountRow.style.display = 'flex';
-      discountEl.innerText = `-₹${discount.toLocaleString('en-IN')}`;
-    } else {
-      discountRow.style.display = 'none';
-    }
-  }
-
-  // Grand total calculation
-  const grandTotal = Math.max(0, subtotal + tax + shipping - discount);
-  if (totalEl) {
-    totalEl.innerText = `₹${grandTotal.toLocaleString('en-IN')}`;
-  }
-
-  // Update promo input field state
+  // PROMO FIELD
   const promoInput = document.getElementById('coupon-code');
   const promoBtn = document.getElementById('apply-coupon-btn');
+
   if (promoInput && promoBtn) {
+
     if (window.appliedCoupon) {
+
       promoInput.value = window.appliedCoupon;
+
       promoInput.disabled = true;
+
       promoBtn.innerText = 'Applied';
+
       promoBtn.disabled = true;
+
       promoBtn.classList.add('applied');
+
     } else {
+
       promoInput.value = '';
+
       promoInput.disabled = false;
+
       promoBtn.innerText = 'Apply';
+
       promoBtn.disabled = false;
+
       promoBtn.classList.remove('applied');
     }
   }
 };
-
 window.changeQuantity = function (index, change) {
   let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
   if (!cart[index]) return;
