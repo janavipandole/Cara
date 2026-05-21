@@ -2,10 +2,13 @@
    MOBILE NAVBAR FUNCTIONALITY
 ========================================================= */
 
-document.addEventListener("click", function (e) {
+document.addEventListener("click", (e) => {
+
+    const bar = e.target.closest("#bar");
+    const close = e.target.closest("#close");
 
     // OPEN MENU
-    if (e.target.id === "bar") {
+    if (bar) {
 
         const nav =
             document.getElementById("navbar");
@@ -16,7 +19,7 @@ document.addEventListener("click", function (e) {
     }
 
     // CLOSE MENU
-    if (e.target.closest("#close")) {
+    if (close) {
 
         e.preventDefault();
 
@@ -52,7 +55,6 @@ document.addEventListener("click", function (e) {
     const html =
         document.documentElement;
 
-    // Load saved theme
     const currentTheme =
         localStorage.getItem("theme") || "light";
 
@@ -75,7 +77,6 @@ document.addEventListener("click", function (e) {
             themeIconMobile.className = iconClass;
         }
 
-        // Optional logo switch
         const siteLogo =
             document.getElementById("siteLogo");
 
@@ -120,7 +121,6 @@ document.addEventListener("click", function (e) {
    DYNAMIC PRODUCT DETAILS LOGIC
 ========================================================= */
 
-// Global capturing click listener for all product cards (static and dynamic)
 document.addEventListener("click", function (e) {
 
     const proCard =
@@ -128,7 +128,6 @@ document.addEventListener("click", function (e) {
 
     if (!proCard) return;
 
-    // Ignore cart & buy buttons
     if (
         e.target.closest(".cart") ||
         e.target.closest(".buy-now-btn")
@@ -275,7 +274,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-        // Thumbnail switching
         const MainImg =
             document.getElementById("MainImg");
 
@@ -293,280 +291,3 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 });
-
-
-/* =========================================================
-   BUTTON RIPPLE EFFECT
-========================================================= */
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    const buttons =
-        document.querySelectorAll(
-            "button.normal, button.white"
-        );
-
-    buttons.forEach((button) => {
-
-        button.addEventListener("click", function (e) {
-
-            const rect =
-                this.getBoundingClientRect();
-
-            const x =
-                e.clientX - rect.left;
-
-            const y =
-                e.clientY - rect.top;
-
-            const ripple =
-                document.createElement("span");
-
-            ripple.classList.add("ripple-effect");
-
-            ripple.style.left = `${x}px`;
-            ripple.style.top = `${y}px`;
-
-            this.appendChild(ripple);
-
-            ripple.addEventListener("animationend", () => {
-                ripple.remove();
-            });
-
-        });
-
-    });
-
-});
-
-
-/* =========================================================
-   BACK TO TOP BUTTON LOGIC
-========================================================= */
-
-const backToTopBtn =
-    document.getElementById("backToTop");
-
-const ToptobackBtn =
-    document.getElementById("Toptoback");
-
-if (backToTopBtn && ToptobackBtn) {
-
-    window.addEventListener("scroll", () => {
-
-        if (window.scrollY <= 300) {
-
-            ToptobackBtn.classList.add("show");
-
-            backToTopBtn.classList.remove("show");
-
-        } else {
-
-            backToTopBtn.classList.add("show");
-
-            ToptobackBtn.classList.remove("show");
-        }
-
-    });
-
-    // BACK TO TOP
-    backToTopBtn.addEventListener("click", () => {
-
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-
-    });
-
-    // SCROLL TO BOTTOM
-    ToptobackBtn.addEventListener("click", () => {
-
-        window.scrollTo({
-            top: document.body.scrollHeight,
-            behavior: "smooth"
-        });
-
-    });
-
-}
-
-
-/* =========================================================
-   BUY NOW FUNCTIONALITY
-========================================================= */
-
-window.buyNow = function (
-    productName,
-    productPrice,
-    productImage,
-    quantity,
-    size
-) {
-
-    addToCart(
-        productName,
-        productPrice,
-        productImage,
-        quantity,
-        size
-    );
-
-    setTimeout(function () {
-
-        window.location.href =
-            "checkout.html";
-
-    }, 1500);
-
-};
-
-
-/* =========================================================
-   CURRENT YEAR FUNCTIONALITY
-========================================================= */
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    const year =
-        new Date().getFullYear();
-
-    document
-        .querySelectorAll(".Current-Year")
-        .forEach(el => {
-
-            el.textContent = year;
-
-        });
-
-});
-
-
-/* =========================================================
-   HERO SLIDER FUNCTIONALITY
-========================================================= */
-
-function initHeroSlider() {
-
-    const slider =
-        document.querySelector(".hero-slider");
-
-    if (!slider) return;
-
-    const slides =
-        slider.querySelectorAll(".slide");
-
-    const prevBtn =
-        slider.querySelector(".slider-btn.prev");
-
-    const nextBtn =
-        slider.querySelector(".slider-btn.next");
-
-    const dots =
-        slider.querySelectorAll(".slider-dots .dot");
-
-    if (slides.length === 0) return;
-
-    let currentSlide = 0;
-
-    let autoPlayInterval;
-
-    const intervalTime = 5000;
-
-    function updateSlider() {
-
-        slides.forEach(slide =>
-            slide.classList.remove("active")
-        );
-
-        dots.forEach(dot =>
-            dot.classList.remove("active")
-        );
-
-        slides[currentSlide].classList.add("active");
-
-        if (dots[currentSlide]) {
-            dots[currentSlide].classList.add("active");
-        }
-    }
-
-    function nextSlide() {
-
-        currentSlide =
-            (currentSlide + 1) % slides.length;
-
-        updateSlider();
-    }
-
-    function prevSlide() {
-
-        currentSlide =
-            (currentSlide - 1 + slides.length) %
-            slides.length;
-
-        updateSlider();
-    }
-
-    function resetAutoPlay() {
-
-        clearInterval(autoPlayInterval);
-
-        startAutoPlay();
-    }
-
-    function startAutoPlay() {
-
-        autoPlayInterval =
-            setInterval(nextSlide, intervalTime);
-    }
-
-    if (nextBtn) {
-
-        nextBtn.addEventListener("click", () => {
-
-            nextSlide();
-
-            resetAutoPlay();
-
-        });
-    }
-
-    if (prevBtn) {
-
-        prevBtn.addEventListener("click", () => {
-
-            prevSlide();
-
-            resetAutoPlay();
-
-        });
-    }
-
-    dots.forEach((dot, index) => {
-
-        dot.addEventListener("click", () => {
-
-            currentSlide = index;
-
-            updateSlider();
-
-            resetAutoPlay();
-
-        });
-
-    });
-
-    startAutoPlay();
-}
-
-if (document.readyState === "loading") {
-
-    document.addEventListener(
-        "DOMContentLoaded",
-        initHeroSlider
-    );
-
-} else {
-
-    initHeroSlider();
-}

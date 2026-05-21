@@ -14,42 +14,77 @@
     <title>Cara — Modern E-Commerce</title>
 
     <!-- Favicon -->
-    <link rel="icon"
-        type="image/jpg"
-        sizes="32x32"
-        href="images/favicon.jpg">
+<link rel="icon"
+    type="image/jpg"
+    sizes="32x32"
+    href="images/favicon.jpg">
 
-    <!-- SEO -->
-    <meta name="description"
-        content="Shop the latest trends on our e-commerce store. Dark theme supported for a better user experience.">
+<!-- SEO -->
+<meta name="description"
+    content="Shop the latest trends on our e-commerce store. Dark theme supported for a better user experience.">
 
-    <meta name="keywords"
-        content="e-commerce, shopping, online store, dark mode, buy online, latest fashion">
+<meta name="keywords"
+    content="e-commerce, shopping, online store, dark mode, buy online, latest fashion">
 
-    <meta name="author"
-        content="Cara">
+<meta name="author"
+    content="Cara">
 
-    <meta name="robots"
-        content="index, follow">
+<meta name="robots"
+    content="index, follow">
 
-    <!-- Theme -->
-    <meta name="theme-color"
-        content="#000000">
+<meta http-equiv="Content-Language"
+    content="en">
 
-    <!-- Styles -->
-    <link rel="stylesheet"
-        href="style.css">
+<meta name="theme-color"
+    content="#000000">
 
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
-        rel="stylesheet" />
+<!-- Open Graph -->
+<meta property="og:title"
+    content="E-commerce - Dark Theme Working">
 
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer" />
+<meta property="og:description"
+    content="Shop the latest trends with our dark mode-enabled e-commerce experience.">
 
-</head>
+<meta property="og:image"
+    content="https://cara-seven-ashen.vercel.app/images/logo.png">
+
+<meta property="og:url"
+    content="https://cara-seven-ashen.vercel.app/">
+
+<meta property="og:type"
+    content="website">
+
+<!-- Twitter -->
+<meta name="twitter:card"
+    content="summary_large_image">
+
+<meta name="twitter:title"
+    content="E-commerce - Dark Theme Working">
+
+<meta name="twitter:description"
+    content="Dark theme e-commerce site with modern features.">
+
+<meta name="twitter:image"
+    content="https://cara-seven-ashen.vercel.app/images/logo.png">
+
+<meta name="twitter:site"
+    content="@janavipandole">
+
+<!-- Styles -->
+<link rel="stylesheet"
+    href="style.css">
+
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+    rel="stylesheet" />
+
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer" />
+  
+  </head>
+
 
 <body>
 
@@ -223,24 +258,25 @@
     </section>
 
     <!-- FEATURES -->
-    <section id="interactive-feature-wrapper">
+<section id="interactive-feature-wrapper">
 
-        <div class="animation-container"
-            id="cardContainer">
+    <div class="animation-container"
+        id="cardContainer">
 
-            <div class="sub-card card-l1">
+        <div class="sub-card card-l1">
 
-                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
 
-                    <div class="icon">🛒</div>
+                <div class="icon">🛒</div>
 
-                    <h3>Free Shipping</h3>
-
-                </div>
-
-                <p>On all standard regional custom retail updates.</p>
+                <h3>Free Shipping</h3>
 
             </div>
+
+            <p>On all standard regional custom retail updates.</p>
+
+        </div>
+
 
             <div class="sub-card card-l2">
 
@@ -441,44 +477,52 @@
 
     </footer>
 
-    <!-- JS -->
-    <script src="app.js"></script>
+<!-- JS -->
+<script src="navbar.js"></script>
+<script>loadNavbar('about');</script>
+<script src="app.js"></script>
 
-    <script>
+<script>
 
-        document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', () => {
 
-            const brandCard =
-                document.getElementById('brandCard');
+        const brandCard =
+            document.getElementById('brandCard');
 
-            const cardContainer =
-                document.getElementById('cardContainer');
+        const cardContainer =
+            document.getElementById('cardContainer');
 
-            const statusText =
-                document.getElementById('statusText');
+        const statusText =
+            document.getElementById('statusText');
 
-            if (brandCard && cardContainer) {
+        if (brandCard && cardContainer) {
 
-                brandCard.addEventListener('click', () => {
+            brandCard.addEventListener('click', () => {
 
-                    const isOpen =
-                        cardContainer.classList.toggle('open');
+                const isOpen =
+                    cardContainer.classList.toggle('open');
 
-                    if (statusText) {
+                if (statusText) {
 
-                        statusText.innerText =
-                            isOpen
-                                ? "Click to collapse"
-                                : "Click to expand";
-                    }
+                    statusText.innerText =
+                        isOpen
+                            ? "Click to collapse"
+                            : "Click to expand";
+                }
 
-                });
+            });
 
-            }
+        }
 
-        });
+        const yearEl = document.getElementById("Current-Year");
 
-    </script>
+        if (yearEl) {
+            yearEl.textContent = new Date().getFullYear();
+        }
+
+    });
+
+</script>
 
 </body>
 
