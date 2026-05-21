@@ -570,9 +570,132 @@ button.white .ripple-effect {
     color: var(--accent);
 }
 
-.mobile,
+.mobile {
+    display: flex !important;
+    align-items: center;
+    gap: 16px;
+}
+
 #close {
     display: none;
+}
+
+#bar {
+    display: block !important;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* ============================================
+   NAVBAR ACCESSIBILITY + RESPONSIVENESS
+   ============================================ */
+
+#navbar li a,
+.theme-toggle,
+#bar,
+#close {
+    transition:
+        color 0.3s ease,
+        background-color 0.3s ease,
+        transform 0.2s ease;
+}
+
+/* Keyboard accessibility focus states */
+#navbar li a:focus-visible,
+.theme-toggle:focus-visible,
+#bar:focus-visible,
+#close:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 4px;
+    border-radius: 6px;
+}
+
+/* Better touch targets */
+#navbar li a,
+.theme-toggle {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+}
+
+/* Mobile navbar improvements */
+@media (max-width: 799px) {
+
+    #header {
+        padding: 16px 24px;
+    }
+
+    #navbar {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+
+        position: fixed;
+        top: 0;
+        right: -320px;
+
+        height: 100vh;
+        width: 300px;
+
+        background: var(--header-bg);
+
+        box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+
+        padding: 90px 24px 24px;
+
+        transition: right 0.35s ease;
+
+        z-index: 1000;
+    }
+
+    #navbar.active {
+        right: 0;
+    }
+
+    #navbar li {
+        margin-bottom: 18px;
+        width: 100%;
+        padding: 0;
+    }
+
+    #navbar li a {
+        width: 100%;
+        padding: 12px 0;
+        font-size: 20px;
+    }
+
+    .mobile {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .mobile i {
+        font-size: 24px;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+    }
+
+    .mobile i:hover {
+        transform: scale(1.08);
+    }
+
+    #bar {
+        display: block;
+    }
+
+    #close {
+        display: initial;
+        position: absolute;
+        top: 30px;
+        left: 30px;
+        font-size: 24px;
+    }
+
+    #close i {
+        font-size: 24px;
+    }
 }
 
 #navbar li a.active::after {
