@@ -1,4 +1,5 @@
-// ============================================
+document.addEventListener("DOMContentLoaded",()=>{
+    // ============================================
 // CARA VIRTUAL TRY-ON — Full Implementation
 // Uses MediaPipe Pose (BlazePose) for body detection
 // Canvas-based garment overlay with background removal
@@ -75,7 +76,7 @@ pose.onResults(onPoseResults);
 // ============================================
 // MODE SWITCHING (Camera / Upload)
 // ============================================
-function switchMode(mode) {
+window.switchMode = function(mode) {
     currentMode = mode;
     document.getElementById('btn-camera').classList.toggle('active', mode === 'camera');
     document.getElementById('btn-upload').classList.toggle('active', mode === 'upload');
@@ -91,16 +92,17 @@ function switchMode(mode) {
 // ============================================
 // CAMERA HANDLING
 // ============================================
-async function openCamera() {
-    try {
-        cameraStream = await navigator.mediaDevices.getUserMedia({
-            video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 } }
-        });
-        webcamVideo.srcObject = cameraStream;
+window.openCamera = function () {
+    navigator.mediaDevices.getUserMedia({
+        video: { facingMode: 'user' }
+    })
+    .then(stream => {
+        cameraStream = stream;
+
+        webcamVideo.srcObject = stream;
         webcamVideo.style.display = 'block';
         placeholder.style.display = 'none';
 
-        // Show canvas for live drawing
         resultCanvas.style.display = 'block';
         resultCanvas.width = 640;
         resultCanvas.height = 480;
@@ -110,16 +112,13 @@ async function openCamera() {
         document.getElementById('stop-camera-btn').style.display = 'flex';
 
         isLiveMode = true;
-
-        // Start MediaPipe camera loop for live detection
         startLiveDetection();
-
-    } catch (err) {
+    })
+    .catch(err => {
         console.error('Camera error:', err);
-        alert('Could not access camera. Please check permissions or try Upload mode.');
-    }
+        alert('Camera access failed');
+    });
 }
-
 function startLiveDetection() {
     if (!isLiveMode) return;
 
@@ -156,7 +155,7 @@ function startLiveDetection() {
     }
 }
 
-function capturePhoto() {
+window.capturePhoto=function() {
     if (!cameraStream) return;
 
     // Capture current frame from the canvas
@@ -187,7 +186,7 @@ function capturePhoto() {
     updateStep(2);
 }
 
-function stopCamera() {
+window.stopCamera=function() {
     isLiveMode = false;
     if (cameraStream) {
         cameraStream.getTracks().forEach(t => t.stop());
@@ -680,3 +679,24 @@ function shareResult() {
         downloadResult();
     }
 }
+
+switchMode("camera");
+})
+const topBtn = document.getElementById("topBtn");
+
+    // Show button when user scrolls down
+    window.onscroll = function () {
+      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        topBtn.style.display = "block";
+      } else {
+        topBtn.style.display = "none";
+      }
+    };
+
+    // Scroll to top smoothly
+    topBtn.addEventListener("click", function () {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
