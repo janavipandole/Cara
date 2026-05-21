@@ -1606,13 +1606,21 @@ button.white .ripple-effect {
 #search-filter .search-container,
 #search-filter .filter-container,
 #search-filter .search-summary {
-    width: 100%;
+    width: 80%;
+}
+.top-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+    padding: 40px;
 }
 
 .search-box {
     display: flex;
     width: 100%;
     gap: 8px;
+    padding-left: 40px;
 }
 
 #searchInput {
@@ -1665,7 +1673,8 @@ button.white .ripple-effect {
 }
 
 .search-suggestions button {
-    width: 100%;
+    width: 10
+    +0%;
     text-align: left;
     border: none;
     background: transparent;
@@ -1896,9 +1905,9 @@ button.white .ripple-effect {
     font-size: 22px;
 }
 
-/* ============================================
+/*============================================
    NEWSLETTER
-   ============================================ 
+============================================ 
 
 #newsletter {
     display: flex;
@@ -1910,12 +1919,12 @@ button.white .ripple-effect {
     background-position: 20% 30%;
     background-repeat: no-repeat;
     background-color: #041e42;
-}
+}*/
 
 #newsletter h4 {
     font-size: 32px;
     font-weight: 700;
-    color: #ffffffea;
+    color: #68b2e6ea;
 }
 
 #newsletter p {
@@ -1937,10 +1946,10 @@ button.white .ripple-effect {
     height: 3.125rem;
     padding: 1.25rem;
     font-size: 16px;
-    width: 100%;
-    border: 1px solid transparent;
+    width: 200px;
+    border: 1px solid rgb(190, 189, 189);
     outline: none;
-    border-radius: 4px;
+    border-radius: 12px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     background-color: var(--input-bg);
@@ -1955,7 +1964,7 @@ button.white .ripple-effect {
     color: #fff;
     white-space: nowrap;
 }
-*/
+
 
 /* ============================================
    FOOTER
@@ -2200,8 +2209,8 @@ footer .copyright {
 #searchBtn {
     background: transparent;
     border: none;
-    color: var(--text-secondary);
-    font-size: 20px;
+    color: rgb(7, 73, 73);
+    font-size: 25px;
     cursor: pointer;
     transition: color 0.3s ease;
     padding: 5px;
@@ -3970,10 +3979,10 @@ footer .copyright {
 
             #backToTop,
             #Toptoback {
-                position: fixed;
+                position:fixed;
                 right: 25px;
-                width: 55px;
-                height: 55px;
+                width: px;
+                height: 60px;
                 border: none;
                 border-radius: 50%;
                 background: #facc15;
