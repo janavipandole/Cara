@@ -520,3 +520,92 @@ ul{
     }
 
 }
+
+/* Accessible dark styling keeps legal copy readable on low-light surfaces. */
+:root {
+    --bg-dark: #121212;
+    --dark-bg-secondary: #1e1e1e;
+    --dark-text-primary: #f5f5f5;
+    --dark-text-secondary: #d1d1d1;
+    --accent-color: #4da3ff;
+    --dark-border-color: #333;
+}
+
+body,
+.container,
+.section,
+.header h1,
+.updated,
+.intro,
+.section h2,
+.section p,
+li,
+.footer {
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+html[data-theme="dark"] body:not(.light-mode) {
+    background: linear-gradient(135deg, var(--bg-dark), var(--dark-bg-secondary), #252525);
+    color: var(--dark-text-primary);
+}
+
+html[data-theme="dark"] .container {
+    background: rgba(30, 30, 30, 0.9);
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+html[data-theme="dark"] .section {
+    background: #1a1a1a;
+    border-color: rgba(77, 163, 255, 0.18);
+}
+
+html[data-theme="dark"] .updated,
+html[data-theme="dark"] .intro,
+html[data-theme="dark"] .section p,
+html[data-theme="dark"] li,
+html[data-theme="dark"] .footer {
+    color: var(--dark-text-secondary);
+}
+
+html[data-theme="dark"] .section h2,
+html[data-theme="dark"] .section h2 span {
+    color: var(--accent-color);
+}
+
+html[data-theme="dark"] .footer {
+    border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+@media (prefers-color-scheme: dark) {
+    html:not([data-theme="light"]) body:not(.light-mode) {
+        background: linear-gradient(135deg, var(--bg-dark), var(--dark-bg-secondary), #252525);
+        color: var(--dark-text-primary);
+    }
+
+    html:not([data-theme="light"]) .container {
+        background: rgba(30, 30, 30, 0.9);
+        border-color: rgba(255, 255, 255, 0.08);
+    }
+
+    html:not([data-theme="light"]) .section {
+        background: #1a1a1a;
+        border-color: rgba(77, 163, 255, 0.18);
+    }
+
+    html:not([data-theme="light"]) .updated,
+    html:not([data-theme="light"]) .intro,
+    html:not([data-theme="light"]) .section p,
+    html:not([data-theme="light"]) li,
+    html:not([data-theme="light"]) .footer {
+        color: var(--dark-text-secondary);
+    }
+
+    html:not([data-theme="light"]) .section h2,
+    html:not([data-theme="light"]) .section h2 span {
+        color: var(--accent-color);
+    }
+}

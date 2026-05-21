@@ -499,3 +499,109 @@ h2{
 .section:hover::before{
     width:100%;
 }
+
+/* Accessibility pass: match privacy text and cards to the shared dark palette. */
+:root {
+    --bg-dark: #121212;
+    --dark-bg-secondary: #1e1e1e;
+    --dark-text-primary: #f5f5f5;
+    --dark-text-secondary: #d1d1d1;
+    --accent-color: #4da3ff;
+    --dark-border-color: #333;
+}
+
+body,
+.policy-container,
+.section,
+h1,
+h2,
+p,
+ul li,
+a,
+.footer-note {
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+html[data-theme="dark"] body,
+.dark-mode {
+    background: linear-gradient(135deg, var(--bg-dark), var(--dark-bg-secondary));
+    color: var(--dark-text-primary);
+}
+
+html[data-theme="dark"] .policy-container,
+.dark-mode .policy-container {
+    background: rgba(30, 30, 30, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--dark-text-primary);
+}
+
+html[data-theme="dark"] .section,
+.dark-mode .section {
+    background: #1a1a1a;
+    border-left-color: var(--accent-color);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.24);
+}
+
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2,
+.dark-mode h1,
+.dark-mode h2 {
+    color: var(--accent-color);
+}
+
+html[data-theme="dark"] p,
+html[data-theme="dark"] ul li,
+html[data-theme="dark"] .subtitle,
+html[data-theme="dark"] .footer-note,
+.dark-mode p,
+.dark-mode ul li,
+.dark-mode .subtitle,
+.dark-mode .footer-note {
+    color: var(--dark-text-secondary);
+}
+
+html[data-theme="dark"] a,
+.dark-mode a {
+    color: var(--accent-color);
+}
+
+html[data-theme="dark"] .footer-note,
+.dark-mode .footer-note {
+    border-top-color: var(--dark-border-color);
+}
+
+@media (prefers-color-scheme: dark) {
+    html:not([data-theme="light"]) body:not(.light-mode) {
+        background: linear-gradient(135deg, var(--bg-dark), var(--dark-bg-secondary));
+        color: var(--dark-text-primary);
+    }
+
+    html:not([data-theme="light"]) .policy-container {
+        background: rgba(30, 30, 30, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: var(--dark-text-primary);
+    }
+
+    html:not([data-theme="light"]) .section {
+        background: #1a1a1a;
+        border-left-color: var(--accent-color);
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.24);
+    }
+
+    html:not([data-theme="light"]) h1,
+    html:not([data-theme="light"]) h2,
+    html:not([data-theme="light"]) a {
+        color: var(--accent-color);
+    }
+
+    html:not([data-theme="light"]) p,
+    html:not([data-theme="light"]) ul li,
+    html:not([data-theme="light"]) .subtitle,
+    html:not([data-theme="light"]) .footer-note {
+        color: var(--dark-text-secondary);
+    }
+}

@@ -302,3 +302,144 @@ form{
     border-radius: 50%;
     animation: btn-spinner 0.6s linear infinite;
 }
+
+/* Shared checkout tokens keep dark mode legible on every field and card. */
+:root {
+  --bg-dark: #121212;
+  --dark-bg-secondary: #1e1e1e;
+  --dark-text-primary: #f5f5f5;
+  --dark-text-secondary: #d1d1d1;
+  --accent-color: #4da3ff;
+  --dark-border-color: #333;
+  --checkout-bg: linear-gradient(135deg,#eef2ff,#294364);
+  --checkout-surface: #f1f7fb;
+  --checkout-card: #ffffff;
+  --checkout-heading: #111827;
+  --checkout-muted: #6b7280;
+  --checkout-border: #d1d5db;
+  --checkout-panel: #f9fafb;
+  --checkout-primary: #514bc8;
+  --checkout-primary-hover: #4338ca;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --bg-secondary: #1e1e1e;
+  --text-primary: #f5f5f5;
+  --text-secondary: #d1d1d1;
+  --border-color: #333;
+  --checkout-bg: linear-gradient(135deg, #121212, #1e1e1e);
+  --checkout-surface: #1e1e1e;
+  --checkout-card: #181818;
+  --checkout-heading: #f5f5f5;
+  --checkout-muted: #d1d1d1;
+  --checkout-border: #333;
+  --checkout-panel: #202020;
+  --checkout-primary: #4da3ff;
+  --checkout-primary-hover: #7abcff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg-secondary: #1e1e1e;
+    --text-primary: #f5f5f5;
+    --text-secondary: #d1d1d1;
+    --border-color: #333;
+    --checkout-bg: linear-gradient(135deg, #121212, #1e1e1e);
+    --checkout-surface: #1e1e1e;
+    --checkout-card: #181818;
+    --checkout-heading: #f5f5f5;
+    --checkout-muted: #d1d1d1;
+    --checkout-border: #333;
+    --checkout-panel: #202020;
+    --checkout-primary: #4da3ff;
+    --checkout-primary-hover: #7abcff;
+  }
+}
+
+body,
+.checkout-container,
+.title h2,
+.title p,
+.input-group label,
+.input-group input,
+.input-group textarea,
+.input-group select,
+.payment-box,
+.payment-title,
+.submit-btn,
+.popup-box,
+.popup-box h2,
+.popup-box p,
+.popup-box button {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+body {
+  background: var(--checkout-bg);
+  color: var(--checkout-heading);
+}
+
+.checkout-container {
+  background: var(--checkout-surface);
+  color: var(--checkout-heading);
+}
+
+.title h2,
+.input-group label,
+.payment-title,
+.popup-box h2 {
+  color: var(--checkout-heading);
+}
+
+.title p,
+.popup-box p {
+  color: var(--checkout-muted);
+}
+
+.input-group input,
+.input-group textarea,
+.input-group select,
+.popup-box {
+  background: var(--checkout-card);
+  color: var(--checkout-heading);
+  border-color: var(--checkout-border);
+}
+
+.input-group input::placeholder,
+.input-group textarea::placeholder {
+  color: var(--checkout-muted);
+  opacity: 0.85;
+}
+
+.input-group input:focus,
+.input-group textarea:focus,
+.input-group select:focus {
+  border-color: var(--checkout-primary);
+  box-shadow: 0 0 0 3px rgba(77, 163, 255, 0.16);
+}
+
+.payment-box {
+  background: var(--checkout-panel);
+  border-color: var(--checkout-border);
+}
+
+.submit-btn,
+.popup-box button {
+  background: var(--checkout-primary);
+  color: #fff;
+}
+
+.submit-btn:hover,
+.popup-box button:hover {
+  background: var(--checkout-primary-hover);
+}
+
+.success-popup {
+  background: rgba(0, 0, 0, 0.68);
+}

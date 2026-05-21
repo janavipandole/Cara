@@ -193,3 +193,42 @@
         }
     }
 }
+
+/* Dark toast fallback keeps alerts readable even before manual theme selection. */
+:root {
+    --bg-dark: #121212;
+    --dark-bg-secondary: #1e1e1e;
+    --dark-text-primary: #f5f5f5;
+    --dark-text-secondary: #d1d1d1;
+    --accent-color: #4da3ff;
+}
+
+html[data-theme="dark"] .toast {
+    background: var(--dark-bg-secondary);
+    color: var(--dark-text-primary);
+    border-left-color: var(--accent-color);
+}
+
+html[data-theme="dark"] .toast-close {
+    color: var(--dark-text-secondary);
+}
+
+html[data-theme="dark"] .toast-close:hover {
+    color: var(--dark-text-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+    html:not([data-theme="light"]) .toast {
+        background: var(--dark-bg-secondary);
+        color: var(--dark-text-primary);
+        border-left-color: var(--accent-color);
+    }
+
+    html:not([data-theme="light"]) .toast-close {
+        color: var(--dark-text-secondary);
+    }
+
+    html:not([data-theme="light"]) .toast-close:hover {
+        color: var(--dark-text-primary);
+    }
+}

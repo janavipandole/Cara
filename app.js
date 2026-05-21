@@ -645,8 +645,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const themeIcon = document.getElementById('themeIcon');
   const themeIconMobile = document.getElementById('themeIconMobile');
   const html = document.documentElement;
-
-  const currentTheme = localStorage.getItem('theme') || 'light';
+  const themeMediaQuery =
+    window.matchMedia &&
+    window.matchMedia('(prefers-color-scheme: dark)');
+  const storedTheme = localStorage.getItem('theme');
+  const currentTheme =
+    storedTheme || (themeMediaQuery && themeMediaQuery.matches ? 'dark' : 'light');
   html.setAttribute('data-theme', currentTheme);
   updateThemeIcon(currentTheme);
 
@@ -656,10 +660,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (themeIcon) themeIcon.className = iconClass;
     if (themeIconMobile) themeIconMobile.className = iconClass;
 
-    // Swap logo based on theme
-    const siteLogo = document.getElementById('siteLogo');
+    // Swap the header logo even on pages that do not set id="siteLogo".
+    const siteLogo =
+      document.getElementById('siteLogo') ||
+      document.querySelector('#header > a img');
+
     if (siteLogo) {
       siteLogo.src = theme === 'dark' ? 'images/Dlogo.png' : 'images/logo.png';
+      siteLogo.alt = 'Cara Logo';
     }
   }
 
@@ -674,6 +682,15 @@ document.addEventListener('DOMContentLoaded', () => {
   if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
   if (themeToggleMobile)
     themeToggleMobile.addEventListener('click', toggleTheme);
+
+  // Respect system theme changes until a manual choice is saved.
+  if (themeMediaQuery && !storedTheme) {
+    themeMediaQuery.addEventListener('change', (event) => {
+      const systemTheme = event.matches ? 'dark' : 'light';
+      html.setAttribute('data-theme', systemTheme);
+      updateThemeIcon(systemTheme);
+    });
+  }
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {

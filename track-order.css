@@ -756,3 +756,173 @@ body.dark-theme .demo-hint {
     border-bottom: 1px solid #f0f0f0;
   }
 }
+
+/* Dark-mode compatibility: support shared html[data-theme] and improve contrast. */
+:root {
+  --bg-dark: #121212;
+  --dark-bg-secondary: #1e1e1e;
+  --dark-text-primary: #f5f5f5;
+  --dark-text-secondary: #d1d1d1;
+  --accent-color: #4da3ff;
+  --dark-border-color: #333;
+}
+
+html[data-theme="dark"] .track-form-card,
+html[data-theme="dark"] .track-result-card,
+html[data-theme="dark"] .track-error-card,
+html[data-theme="dark"] .faq-item {
+  background: var(--dark-bg-secondary);
+  border-color: var(--dark-border-color);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.32);
+}
+
+html[data-theme="dark"] .track-form-header h2,
+html[data-theme="dark"] .step-content h4,
+html[data-theme="dark"] .order-meta strong,
+html[data-theme="dark"] .detail-value,
+html[data-theme="dark"] .item-info h4,
+html[data-theme="dark"] .order-total-row strong,
+html[data-theme="dark"] .track-error-card h3,
+html[data-theme="dark"] #track-faq h2,
+html[data-theme="dark"] .faq-question {
+  color: var(--dark-text-primary);
+}
+
+html[data-theme="dark"] .track-form-header p,
+html[data-theme="dark"] .form-group label,
+html[data-theme="dark"] .field-hint,
+html[data-theme="dark"] .step-content p,
+html[data-theme="dark"] .item-info span,
+html[data-theme="dark"] .track-error-card p,
+html[data-theme="dark"] .faq-answer,
+html[data-theme="dark"] .detail-label,
+html[data-theme="dark"] .order-total-row,
+html[data-theme="dark"] .demo-hint {
+  color: var(--dark-text-secondary);
+}
+
+html[data-theme="dark"] .form-group input {
+  background: #181818;
+  border-color: var(--dark-border-color);
+  color: var(--dark-text-primary);
+}
+
+html[data-theme="dark"] .form-group input:focus {
+  border-color: var(--accent-color);
+  background: #202020;
+  box-shadow: 0 0 0 3px rgba(77, 163, 255, 0.16);
+}
+
+html[data-theme="dark"] .form-group input::placeholder {
+  color: var(--dark-text-secondary);
+  opacity: 0.8;
+}
+
+html[data-theme="dark"] .detail-item,
+html[data-theme="dark"] .timeline-section,
+html[data-theme="dark"] .order-items-section,
+html[data-theme="dark"] .order-item,
+html[data-theme="dark"] .faq-question,
+html[data-theme="dark"] .faq-answer {
+  border-color: var(--dark-border-color);
+}
+
+html[data-theme="dark"] .detail-item:hover,
+html[data-theme="dark"] .order-item:hover,
+html[data-theme="dark"] .faq-question:hover {
+  background: #232323;
+}
+
+html[data-theme="dark"] .timeline::before {
+  background: var(--dark-border-color);
+}
+
+html[data-theme="dark"] .step-icon {
+  background: #252525;
+  border-color: #3a3a3a;
+  color: #c7c7c7;
+}
+
+html[data-theme="dark"] .timeline-step:not(.completed):not(.active) .step-content h4 {
+  color: #d1d1d1;
+}
+
+html[data-theme="dark"] .timeline-step:not(.completed):not(.active) .step-content p,
+html[data-theme="dark"] .timeline-step:not(.completed):not(.active) .step-content time {
+  color: #b8b8b8;
+}
+
+html[data-theme="dark"] .action-btn.secondary {
+  background: #232323;
+  color: var(--dark-text-primary);
+  border: 1px solid var(--dark-border-color);
+}
+
+html[data-theme="dark"] .action-btn.secondary:hover {
+  background: #2b2b2b;
+}
+
+html[data-theme="dark"] .faq-answer a,
+html[data-theme="dark"] .detail-item > i,
+html[data-theme="dark"] .item-price,
+html[data-theme="dark"] .demo-hint i {
+  color: var(--accent-color);
+}
+
+html[data-theme="dark"] .track-btn,
+html[data-theme="dark"] .action-btn.primary {
+  background: var(--accent-color);
+  color: #fff;
+}
+
+html[data-theme="dark"] .track-btn:hover,
+html[data-theme="dark"] .action-btn.primary:hover {
+  background: #7abcff;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) .track-form-card,
+  html:not([data-theme="light"]) .track-result-card,
+  html:not([data-theme="light"]) .track-error-card,
+  html:not([data-theme="light"]) .faq-item {
+    background: var(--dark-bg-secondary);
+    border-color: var(--dark-border-color);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.32);
+  }
+
+  html:not([data-theme="light"]) .track-form-header h2,
+  html:not([data-theme="light"]) .step-content h4,
+  html:not([data-theme="light"]) .order-meta strong,
+  html:not([data-theme="light"]) .detail-value,
+  html:not([data-theme="light"]) .item-info h4,
+  html:not([data-theme="light"]) .order-total-row strong,
+  html:not([data-theme="light"]) .track-error-card h3,
+  html:not([data-theme="light"]) #track-faq h2,
+  html:not([data-theme="light"]) .faq-question {
+    color: var(--dark-text-primary);
+  }
+
+  html:not([data-theme="light"]) .track-form-header p,
+  html:not([data-theme="light"]) .form-group label,
+  html:not([data-theme="light"]) .field-hint,
+  html:not([data-theme="light"]) .step-content p,
+  html:not([data-theme="light"]) .item-info span,
+  html:not([data-theme="light"]) .track-error-card p,
+  html:not([data-theme="light"]) .faq-answer,
+  html:not([data-theme="light"]) .detail-label,
+  html:not([data-theme="light"]) .order-total-row,
+  html:not([data-theme="light"]) .demo-hint {
+    color: var(--dark-text-secondary);
+  }
+
+  html:not([data-theme="light"]) .form-group input {
+    background: #181818;
+    border-color: var(--dark-border-color);
+    color: var(--dark-text-primary);
+  }
+
+  html:not([data-theme="light"]) .form-group input::placeholder {
+    color: var(--dark-text-secondary);
+    opacity: 0.8;
+  }
+}

@@ -244,3 +244,137 @@ h2 {
     display: flex;
     flex-direction: column;
 }
+
+/* Accessible dark auth tokens keep the login surface readable. */
+:root {
+    --bg-dark: #121212;
+    --dark-bg-secondary: #1e1e1e;
+    --dark-text-primary: #f5f5f5;
+    --dark-text-secondary: #d1d1d1;
+    --accent-color: #4da3ff;
+    --dark-border-color: #333;
+}
+
+body,
+.login-container,
+.back-button,
+h2,
+.subtitle,
+.input-group label,
+.input-field,
+.toggle_password,
+.remember,
+.forgot,
+.login-btn,
+.signup-link,
+.signup-link a {
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+html[data-theme="dark"] body {
+    background: linear-gradient(160deg, var(--bg-dark) 0%, var(--dark-bg-secondary) 100%);
+}
+
+html[data-theme="dark"] .login-container {
+    background: var(--dark-bg-secondary);
+    border: 1px solid var(--dark-border-color);
+    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.34);
+}
+
+html[data-theme="dark"] h2,
+html[data-theme="dark"] .input-group label {
+    color: var(--dark-text-primary);
+}
+
+html[data-theme="dark"] .subtitle,
+html[data-theme="dark"] .back-button,
+html[data-theme="dark"] .remember,
+html[data-theme="dark"] .signup-link,
+html[data-theme="dark"] .toggle_password {
+    color: var(--dark-text-secondary);
+}
+
+html[data-theme="dark"] .back-button:hover,
+html[data-theme="dark"] .forgot,
+html[data-theme="dark"] .signup-link a,
+html[data-theme="dark"] .toggle_password:hover {
+    color: var(--accent-color);
+}
+
+html[data-theme="dark"] .input-field {
+    background: #181818;
+    color: var(--dark-text-primary);
+    border-color: var(--dark-border-color);
+}
+
+html[data-theme="dark"] .input-field::placeholder {
+    color: var(--dark-text-secondary);
+    opacity: 0.78;
+}
+
+html[data-theme="dark"] .input-field:focus {
+    border-color: var(--accent-color);
+    background: #202020;
+    box-shadow: 0 0 0 4px rgba(77, 163, 255, 0.18);
+}
+
+html[data-theme="dark"] .login-btn {
+    background: var(--accent-color);
+    box-shadow: 0 8px 22px rgba(77, 163, 255, 0.22);
+}
+
+html[data-theme="dark"] .login-btn:hover {
+    background: #7abcff;
+    box-shadow: 0 10px 24px rgba(77, 163, 255, 0.26);
+}
+
+@media (prefers-color-scheme: dark) {
+    html:not([data-theme="light"]) body {
+        background: linear-gradient(160deg, var(--bg-dark) 0%, var(--dark-bg-secondary) 100%);
+    }
+
+    html:not([data-theme="light"]) .login-container {
+        background: var(--dark-bg-secondary);
+        border: 1px solid var(--dark-border-color);
+        box-shadow: 0 18px 36px rgba(0, 0, 0, 0.34);
+    }
+
+    html:not([data-theme="light"]) h2,
+    html:not([data-theme="light"]) .input-group label {
+        color: var(--dark-text-primary);
+    }
+
+    html:not([data-theme="light"]) .subtitle,
+    html:not([data-theme="light"]) .back-button,
+    html:not([data-theme="light"]) .remember,
+    html:not([data-theme="light"]) .signup-link,
+    html:not([data-theme="light"]) .toggle_password {
+        color: var(--dark-text-secondary);
+    }
+
+    html:not([data-theme="light"]) .input-field {
+        background: #181818;
+        color: var(--dark-text-primary);
+        border-color: var(--dark-border-color);
+    }
+
+    html:not([data-theme="light"]) .input-field::placeholder {
+        color: var(--dark-text-secondary);
+        opacity: 0.78;
+    }
+
+    html:not([data-theme="light"]) .input-field:focus {
+        border-color: var(--accent-color);
+        background: #202020;
+        box-shadow: 0 0 0 4px rgba(77, 163, 255, 0.18);
+    }
+
+    html:not([data-theme="light"]) .login-btn {
+        background: var(--accent-color);
+        box-shadow: 0 8px 22px rgba(77, 163, 255, 0.22);
+    }
+}

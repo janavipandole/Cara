@@ -183,3 +183,48 @@
     font-size: 26px;
   }
 }
+
+/* Major fix: align register card contrast with the shared dark theme. */
+html[data-theme="dark"] #register-section {
+  background: linear-gradient(180deg, var(--bg-primary), var(--bg-secondary));
+}
+
+html[data-theme="dark"] .auth-card {
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.34);
+}
+
+html[data-theme="dark"] .form-group input {
+  border-color: var(--border-color);
+}
+
+html[data-theme="dark"] .form-group input::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.85;
+}
+
+html[data-theme="dark"] .btn-primary {
+  box-shadow: 0 8px 22px rgba(77, 163, 255, 0.22);
+}
+
+html[data-theme="dark"] .btn-primary:hover {
+  background: #7abcff;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) #register-section {
+    background: linear-gradient(180deg, var(--bg-primary), var(--bg-secondary));
+  }
+
+  html:not([data-theme="light"]) .auth-card {
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.34);
+  }
+
+  html:not([data-theme="light"]) .form-group input::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.85;
+  }
+
+  html:not([data-theme="light"]) .btn-primary {
+    box-shadow: 0 8px 22px rgba(77, 163, 255, 0.22);
+  }
+}
