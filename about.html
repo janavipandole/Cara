@@ -453,15 +453,11 @@
 </button>
 
     <script src="navbar.js"></script>
-    <script>
-      loadNavbar('about');
-    </script>
-    
+    <script>loadNavbar('about');</script>
     <script src="app.js"></script>
-    
     <script>
-      document.querySelector(".Current-Year").textContent =
-        new Date().getFullYear();
+        const yearEl = document.getElementById("Current-Year");
+        if (yearEl) yearEl.textContent = new Date().getFullYear();
     </script>
     <script>
   const scrollBtn = document.getElementById("scrollTopBtn");

@@ -113,6 +113,7 @@ function loadNavbar() {
     return;
   }
 
+}
   initDarkMode();
   initMobileNavbar();
   }
