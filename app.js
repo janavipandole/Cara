@@ -2168,3 +2168,155 @@ const topBtn = document.getElementById("topBtn");
         behavior: "smooth"
       });
     });
+
+/* ========================================================
+   COLLABORATIVE WARDROBE SHARING ENGINE
+   ======================================================== */
+
+window.pendingSharedCart = null;
+
+window.showToast = function (msg, isError) {
+    var toast = document.getElementById('toast');
+    var toastMsg = document.getElementById('toast-msg');
+    var toastIcon = document.getElementById('toast-icon');
+    if (!toast || !toastMsg) return;
+    toastMsg.textContent = msg;
+    if (toastIcon) toastIcon.textContent = isError ? '⚠️' : '✅';
+    toast.classList.add('show');
+    setTimeout(function () { toast.classList.remove('show'); }, 3500);
+};
+
+window.shareWardrobe = function () {
+    var cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+    var btn = document.getElementById('share-cart-btn');
+    if (cart.length === 0) {
+        showToast("Your cart is empty! Add some items before sharing.", true);
+        return;
+    }
+    try {
+        var minimizedCart = cart.map(function (item) {
+            return { n: item.name, p: item.price, i: item.image, q: item.quantity, s: item.size };
+        });
+        var jsonStr = JSON.stringify(minimizedCart);
+        var base64Payload = btoa(unescape(encodeURIComponent(jsonStr)));
+        var shareUrl = window.location.origin + window.location.pathname + '#share=' + base64Payload;
+        showToast("Wardrobe share link copied to clipboard!");
+        if (btn) {
+            var originalText = btn.innerHTML;
+            btn.innerHTML = '✅ Link Copied!';
+            btn.style.color = '#10b981';
+            setTimeout(function () { btn.innerHTML = originalText; btn.style.color = ''; }, 3000);
+        }
+        try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(shareUrl).catch(function () { fallbackCopyText(shareUrl); });
+            } else { fallbackCopyText(shareUrl); }
+        } catch (clipErr) { fallbackCopyText(shareUrl); }
+    } catch (e) {
+        console.error("Failed to generate share link: ", e);
+        showToast("Oops, something went wrong generating the link.", true);
+    }
+};
+
+function fallbackCopyText(text) {
+    try {
+        var textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed";
+        textArea.style.opacity = "0";
+        textArea.style.left = "-9999px";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+    } catch (err) { console.error('Fallback copy failed', err); }
+}
+
+window.closeShareModal = function () {
+    var modal = document.getElementById('share-modal');
+    if (modal) modal.style.display = 'none';
+    if (window.history && window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.pathname);
+    } else { window.location.hash = ''; }
+    window.pendingSharedCart = null;
+};
+
+window.checkSharedWardrobe = function () {
+    var hash = window.location.hash;
+    if (!hash || hash.indexOf('#share=') !== 0) return;
+    try {
+        var base64Payload = hash.substring(7);
+        var jsonStr = decodeURIComponent(escape(atob(base64Payload)));
+        var decodedCart = JSON.parse(jsonStr);
+        if (!Array.isArray(decodedCart) || decodedCart.length === 0) {
+            showToast("Invalid share link or empty shared collection.", true);
+            return;
+        }
+        window.pendingSharedCart = decodedCart.map(function (item) {
+            return {
+                name: item.n || "Fashion Product", price: parseFloat(item.p) || 0,
+                image: item.i || "images/products/f1.jpg", quantity: parseInt(item.q) || 1,
+                size: item.s || "M"
+            };
+        });
+        var listContainer = document.getElementById('shared-items-list');
+        var totalPriceEl = document.getElementById('shared-total-price');
+        var modal = document.getElementById('share-modal');
+        if (!listContainer || !totalPriceEl || !modal) return;
+        listContainer.innerHTML = '';
+        var total = 0;
+        window.pendingSharedCart.forEach(function (item) {
+            var itemSubtotal = item.price * item.quantity;
+            total += itemSubtotal;
+            var row = document.createElement('div');
+            row.className = 'shared-item-row';
+            var img = document.createElement('img');
+            img.src = item.image; img.className = 'shared-item-img'; img.alt = item.name;
+            var details = document.createElement('div');
+            details.className = 'shared-item-details';
+            var nameEl = document.createElement('h4');
+            nameEl.className = 'shared-item-name'; nameEl.textContent = item.name;
+            var meta = document.createElement('span');
+            meta.className = 'shared-item-meta';
+            meta.textContent = 'Size: ' + item.size + '  |  Qty: ' + item.quantity;
+            details.appendChild(nameEl); details.appendChild(meta);
+            var priceEl = document.createElement('div');
+            priceEl.className = 'shared-item-price';
+            priceEl.textContent = '$' + itemSubtotal.toFixed(2);
+            row.appendChild(img); row.appendChild(details); row.appendChild(priceEl);
+            listContainer.appendChild(row);
+        });
+        totalPriceEl.textContent = '$' + total.toFixed(2);
+        modal.style.display = 'flex';
+    } catch (err) {
+        console.error("Failed to parse shared wardrobe link:", err);
+        showToast("Could not read shared wardrobe link. It may be broken.", true);
+    }
+};
+
+window.applySharedCart = function (action) {
+    if (!window.pendingSharedCart || window.pendingSharedCart.length === 0) { closeShareModal(); return; }
+    var localCart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+    if (action === 'overwrite') {
+        localCart = window.pendingSharedCart.slice();
+        showToast("Cart replaced with shared wardrobe!");
+    } else if (action === 'merge') {
+        window.pendingSharedCart.forEach(function (sharedItem) {
+            var existing = localCart.find(function (item) {
+                return item.name === sharedItem.name && item.size === sharedItem.size;
+            });
+            if (existing) { existing.quantity += sharedItem.quantity; }
+            else { localCart.push(sharedItem); }
+        });
+        showToast("Shared wardrobe merged into your cart!");
+    }
+    localStorage.setItem('productsInCart', JSON.stringify(localCart));
+    closeShareModal();
+    if (typeof loadCart === 'function') loadCart();
+    if (typeof updateCartCount === 'function') updateCartCount();
+};
+
+document.addEventListener('DOMContentLoaded', function () {
+    setTimeout(window.checkSharedWardrobe, 150);
+});
