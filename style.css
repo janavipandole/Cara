@@ -900,14 +900,14 @@ button.white .ripple-effect {
 /* ── Card container ── */
 #product1 .pro {
     position: relative;
-    width: 100%;
-    min-width: 0;
+    width: 23%;
+    min-width: 250px;
     padding: 12px 12px 14px;
     border: 1.5px solid var(--border-color);
     border-radius: 16px;
     cursor: pointer;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    margin: 10px 0;
+    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.02);
+    margin: 15px 0;
     background-color: var(--card-bg);
     transition: box-shadow 0.3s ease, transform 0.25s ease;
     display: flex;
@@ -1101,32 +1101,123 @@ button.white .ripple-effect {
 }
 
 #search-filter {
-    display: grid;
-    grid-template-columns: 1.8fr 1fr 0.6fr;
-    gap: 24px;
-    align-items: flex-end;
-    margin-bottom: 32px;
-}
-
-#search-filter .search-container,
-#search-filter .filter-container,
-#search-filter .search-summary {
-    width: 100%;
-}
-
-.search-box {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    padding: 40px 80px 10px 80px;
     width: 100%;
-    gap: 8px;
+    box-sizing: border-box;
+    border: none;
 }
 
+
+#search-filter .search-box {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border: 1px solid var(--border-color, #cce7d0); 
+    border-radius: 2px;
+    padding: 2px 12px;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+
+#search-filter .search-container {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+/* 2. Row Alignment for Sorting & Filtering Dropdowns */
+#search-filter .filter-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* Keeps baseline elements level */
+    gap: 40px;
+    width: 100%;
+    max-width: 600px;
+    flex-wrap: wrap;
+}
+
+
+#search-filter .search-box input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 10px;
+    font-size: 14px;
+    background: transparent;
+}
 #searchInput {
     width: 100%;
     padding: 14px 18px;
     border: 1px solid var(--border-color);
     border-radius: 12px;
     font-size: 16px;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+   
+}
+
+#search-filter select,
+.sort-select-wrap select {
+    padding: 10px 15px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #fff;
+    cursor: pointer;
+    outline: none;
+    min-width: 180px;
+    
+}
+
+#search-filter select,
+.sort-select-wrap select,
+#categoryFilter {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color, #e2e8f0);
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: var(--input-bg, #fff);
+    color: var(--text-primary, #222);
+    cursor: pointer;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23088178" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+}
+.sort-label, 
+#search-filter .filter-container label,
+.filter-container label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-align: left;
+    color: var(--text-primary, #222); 
+}
+/* 3. Balance the Search Summary Count Row */
+.search-summary {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 15px;
+}
+
+#searchCount {
+    background-color: #f0f5f3;
+    color: #088178;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
 }
 
 #searchInput:focus {
@@ -1205,32 +1296,17 @@ button.white .ripple-effect {
     justify-content: center;
 }
 
-#search-filter label,
-#search-filter select,
-#search-filter .search-summary {
-    display: block;
-}
-
-#search-filter select {
-    width: 100%;
-    padding: 14px 16px;
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    font-size: 15px;
-    background: var(--body-bg);
-}
-
-.search-summary {
-    text-align: right;
-    font-size: 15px;
-    color: var(--text-secondary);
-}
-
-#searchCount {
-    display: inline-block;
-    padding: 10px 16px;
-    background: rgba(8, 129, 120, 0.08);
-    border-radius: 999px;
+#search-filter .search-box button {
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: #088178;
+    font-size: 18px;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 @media (max-width: 900px) {
@@ -1273,6 +1349,18 @@ button.white .ripple-effect {
         padding: 14px;
     }
 }
+
+@media (max-width: 799px) {
+    #search-filter {
+        padding: 20px 40px;
+    }
+    #search-filter .search-box {
+        width: 100%;
+    }
+    #search-filter .filter-container {
+        justify-content: space-between;
+        gap: 15px;
+    }}
 
 /* ============================================
    BANNERS
@@ -1661,60 +1749,7 @@ footer .copyright {
 /* ============================================
    TARGET 1: SHOP PAGE - SEARCH & FILTER
    ============================================ */
-#search-filter {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-    padding: 30px 80px;
-    background-color: var(--card-bg);
-    border-bottom: 1px solid var(--border-color);
-}
 
-.search-container {
-    position: relative; /* Anchors the floating dropdown */
-    display: flex;
-    align-items: center;
-    background: var(--input-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 50px;
-    padding: 6px 20px;
-    width: 100%;
-    max-width: 450px;
-    height: 48px; /* Lock the height */
-    box-shadow: 0 4px 10px var(--shadow);
-    transition: all 0.3s ease;
-}
-
-.search-container:focus-within {
-    border-color: var(--accent);
-    box-shadow: 0 6px 15px var(--shadow-hover);
-}
-
-#searchInput {
-    flex: 1;
-    border: none;
-    background: transparent;
-    padding: 10px 5px;
-    font-size: 16px;
-    color: var(--text-primary);
-    outline: none;
-}
-
-#searchBtn {
-    background: transparent;
-    border: none;
-    color: var(--text-secondary);
-    font-size: 20px;
-    cursor: pointer;
-    transition: color 0.3s ease;
-    padding: 5px;
-}
-
-#searchBtn:hover {
-    color: var(--accent);
-}
 
 .filter-container {
     display: flex;
