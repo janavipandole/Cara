@@ -25,6 +25,55 @@
       referrerpolicy="no-referrer"
     />
     <style>
+        /* Promotions specific styles */
+        #promo-header {
+            background-image: url("images/banner/b_person.png");
+            width: 100%;
+            height: 45vh;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            text-align: left;
+            flex-direction: column;
+            padding: 0 80px;
+            margin-top: 90px;
+        }
+
+        [data-theme="dark"] #promo-header {
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0.75) 30%, rgba(0, 0, 0, 0.3) 60%, rgba(0, 0, 0, 0)), url("images/banner/b_person.png");
+        }
+
+        #promo-header h2 {
+            color: #000;
+            font-size: 40px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        #promo-header p {
+            color: #222;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        [data-theme="dark"] #promo-header h2 {
+            color: #fff;
+        }
+
+        [data-theme="dark"] #promo-header p {
+            color: #ddd;
+        }
+
+        .promo-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+    #topBtn:hover {
+      background-color: #555;
+    }
       /* Promotions specific styles */
       #promo-header {
         background-image: url('images/banner/b1.jpg');
@@ -172,9 +221,18 @@
         }
       }
 
-      @media (max-width: 799px) {
-        .promo-container {
-          flex-direction: column;
+        @media (max-width: 799px) {
+            #promo-header {
+                padding: 0 20px;
+                text-align: center;
+                background-image: linear-gradient(rgba(247, 181, 56, 0.85), rgba(247, 181, 56, 0.85)), url("images/banner/b_person.png");
+            }
+            [data-theme="dark"] #promo-header {
+                background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), url("images/banner/b_person.png");
+            }
+            .promo-container {
+                flex-direction: column;
+            }
         }
       }
     </style>
@@ -523,16 +581,36 @@
       <!-- Copyright -->
       <div class="copyright">
         <p>
-          © Cara 2025. All rights reserved. |
+          © Cara 2026. All rights reserved. |
           <a href="license.html" style="color: #088178"> MIT License </a>
         </p>
       </div>
     </footer>
+    <button id="topBtn">↑</button>
 
-    <!-- <script src="navbar.js"></script>
-    <script>loadNavbar('promotions');</script>  -->
-    <script src="app.js?v=1779120917217"></script>
+    <script src="navbar.js"></script>
+    <script>loadNavbar('promotions');</script> 
+    <script src="app.js"></script>
     <script>
+      const topBtn = document.getElementById("topBtn");
+
+    // Show button when user scrolls down
+    window.onscroll = function () {
+      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        topBtn.style.display = "block";
+      } else {
+        topBtn.style.display = "none";
+      }
+    };
+
+    // Scroll to top smoothly
+    topBtn.addEventListener("click", function () {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
+       
       // Form submission simulation
       document
         .getElementById('ambassador-form')
@@ -547,5 +625,5 @@
         document.getElementById('discount-popup').style.display = 'block';
       }, 5000);
     </script>
-  </body>
+</body>
 </html>

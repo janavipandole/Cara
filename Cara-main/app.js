@@ -81,7 +81,7 @@ document.addEventListener("click", function (e) {
     if (!proCard) return;
 
     // Ignore clicks on cart icon or buy now button inside the card
-    if (e.target.closest(".cart") || e.target.closest(".buy-now-btn")) return;
+    if (e.target.closest(".pro-cart-btn") || e.target.closest(".pro-buy-btn")) return;
 
     const nameElement = proCard.querySelector("h5");
     const priceElement = proCard.querySelector("h4");
@@ -1026,8 +1026,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 productsToAppend = originalProducts;
             } else {
                 productsToAppend = [...originalProducts].sort((a, b) => {
-                    const priceA = parseFloat(a.querySelector('h4').innerText.replace('$', '').trim());
-                    const priceB = parseFloat(b.querySelector('h4').innerText.replace('$', '').trim());
+                    const priceA = parseFloat(a.querySelector('h4').innerText.replace(/[₹$,]/g, '').trim());
+                    const priceB = parseFloat(b.querySelector('h4').innerText.replace(/[₹$,]/g, '').trim());
 
                     if (sortValue === 'low-high') return priceA - priceB;
                     if (sortValue === 'high-low') return priceB - priceA;
@@ -1038,4 +1038,14 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+});
+document.addEventListener('DOMContentLoaded', () => {
+  const newsletterForm = document.querySelector('.newsletter-form');
+  if (newsletterForm) {
+    newsletterForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const email = this.querySelector('input[type="email"]').value.trim();
+      if (email) showToast('Thanks for subscribing!', 'success');
+    });
+  }
 });
