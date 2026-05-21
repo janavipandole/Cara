@@ -6809,3 +6809,65 @@ footer.main-footer {
                 text-align: center;
                 position: relative;
             }
+/* About Features Layout */
+.about-features {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 40px 80px;
+}
+
+.about-features .feature-item {
+    width: 180px;
+    text-align: center;
+    padding: 25px 15px;
+    box-shadow: 20px 20px 30px var(--shadow);
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    margin: 15px 0;
+    background-color: var(--card-bg);
+    transition: all 0.3s ease;
+}
+
+.about-features .feature-item:hover {
+    box-shadow: 10px 10px 74px var(--shadow-hover);
+}
+
+.about-features .feature-item img {
+    width: 100%;
+    margin-bottom: 10px;
+    height: 120px;
+    display: block;
+    object-fit: contain;
+}
+
+.about-features .feature-item h6 {
+    display: inline-block;
+    padding: 9px 8px 6px 8px;
+    line-height: 1;
+    margin-top: 10px;
+    border-radius: 4px;
+    color: var(--feature-label-color);
+    font-size: 16px;
+    font-weight: 700;
+}
+
+/* Backgrounds for the labels to look like the homepage ones */
+.about-features .feature-item:nth-child(1) h6 { background-color: var(--feature-bg-1); }
+.about-features .feature-item:nth-child(2) h6 { background-color: var(--feature-bg-2); }
+.about-features .feature-item:nth-child(3) h6 { background-color: var(--feature-bg-3); }
+.about-features .feature-item:nth-child(4) h6 { background-color: var(--feature-bg-4); }
+.about-features .feature-item:nth-child(5) h6 { background-color: var(--feature-bg-5); }
+.about-features .feature-item:nth-child(6) h6 { background-color: var(--feature-bg-6); }
+
+@media (max-width: 768px) {
+    .about-features {
+        padding: 20px 20px;
+        justify-content: center;
+        gap: 15px;
+    }
+    .about-features .feature-item {
+        width: 150px;
+    }
+}
