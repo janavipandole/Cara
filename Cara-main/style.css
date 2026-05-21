@@ -6240,7 +6240,7 @@ footer .copyright {
 
     /* Slide 3 */
     .hero-slider .slide:nth-child(3) {
-        background-position: 58% center !important;
+        background-position: 40% center !important;
     }
 
 }
@@ -6257,7 +6257,7 @@ footer .copyright {
     }
 
     .hero-slider .slide:nth-child(3) {
-        background-position: 80% center !important;
+        background-position: 50% center !important;
     }
 
 }
