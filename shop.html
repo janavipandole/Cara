@@ -81,107 +81,110 @@
 
   <body>
     <section id="header">
-  <!-- Logo -->
-  <a href="index.html">
-    <img src="images/logo.png" alt="Cara Logo" />
-  </a>
+      <!-- Logo -->
+      <a href="index.html">
+        <img src="images/logo.png" alt="Cara Logo" />
+      </a>
 
-  <div>
-    <ul id="navbar">
+      <div>
+        <ul id="navbar">
+          <!-- Main Navigation Links -->
+          <li><a href="index.html">Home</a></li>
+          <li><a class="active" href="shop.html">Shop</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="try-on.html">Try-On</a></li>
+          <li><a href="community.html">Community</a></li>
+          <li><a href="promotions.html">Promotions</a></li>
 
-      <!-- Main Navigation Links -->
-      <li><a href="index.html">Home</a></li>
-      <li><a class="active" href="shop.html">Shop</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="try-on.html">Try-On</a></li>
-      <li><a href="community.html">Community</a></li>
-      <li><a href="promotions.html">Promotions</a></li>
+          <!-- Contact Icon -->
+          <li class="nav-icon">
+            <a href="contact.html" aria-label="Contact">
+              <i class="ri-customer-service-2-line"></i>
+            </a>
+          </li>
 
-      <!-- Contact Icon -->
-      <li class="nav-icon">
-        <a href="contact.html" aria-label="Contact">
-          <i class="ri-customer-service-2-line"></i>
-        </a>
-      </li>
+          <!-- Login Icon -->
+          <li class="nav-icon">
+            <a href="login.html" aria-label="Login">
+              <i class="ri-user-3-line"></i>
+            </a>
+          </li>
 
-      <!-- Login Icon -->
-      <li class="nav-icon">
+          <!-- Cart Icon -->
+          <li class="nav-icon">
+            <a href="cart.html" id="lg-bag" aria-label="Cart">
+              <i class="ri-shopping-bag-4-line"></i>
+            </a>
+          </li>
+
+          <!-- Theme Toggle -->
+          <li class="nav-icon">
+            <button
+              class="theme-toggle"
+              id="themeToggle"
+              aria-label="Toggle dark mode"
+            >
+              <i class="ri-moon-line" id="themeIcon"></i>
+            </button>
+          </li>
+
+          <!-- Close Button -->
+          <a href="#" id="close" aria-label="Close menu" aria-hidden="false">
+            <i class="fa-solid fa-xmark"></i>
+          </a>
+        </ul>
+      </div>
+
+      <!-- Mobile Navbar -->
+      <div class="mobile">
+        <!-- Login Icon -->
         <a href="login.html" aria-label="Login">
           <i class="ri-user-3-line"></i>
         </a>
-      </li>
 
-      <!-- Cart Icon -->
-      <li class="nav-icon">
-        <a href="cart.html" id="lg-bag" aria-label="Cart">
+        <!-- Cart Icon -->
+        <a href="cart.html" aria-label="Cart">
           <i class="ri-shopping-bag-4-line"></i>
         </a>
-      </li>
 
-      <!-- Theme Toggle -->
-      <li class="nav-icon">
-        <button
-          class="theme-toggle"
-          id="themeToggle"
-          aria-label="Toggle dark mode"
-        >
-          <i class="ri-moon-line" id="themeIcon"></i>
-        </button>
-      </li>
-
-      <!-- Close Button -->
-      <a
-        href="#"
-        id="close"
-        aria-label="Close menu"
-        aria-hidden="false"
-      >
-        <i class="fa-solid fa-xmark"></i>
-      </a>
-
-    </ul>
-  </div>
-
-  <!-- Mobile Navbar -->
-  <div class="mobile">
-
-    <!-- Login Icon -->
-    <a href="login.html" aria-label="Login">
-      <i class="ri-user-3-line"></i>
-    </a>
-
-    <!-- Cart Icon -->
-    <a href="cart.html" aria-label="Cart">
-      <i class="ri-shopping-bag-4-line"></i>
-    </a>
-
-    <!-- Hamburger Menu -->
-    <i
-      class="fas fa-outdent"
-      id="bar"
-      role="button"
-      aria-label="Open menu"
-      aria-expanded="false"
-      tabindex="0"
-    ></i>
-
-  </div>
-</section>
+        <!-- Hamburger Menu -->
+        <i
+          class="fas fa-outdent"
+          id="bar"
+          role="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+          tabindex="0"
+        ></i>
+      </div>
+    </section>
 
     <section id="shop-hero">
       <h2>#stayhome</h2>
       <p>Save more with coupons & up to 70% off!</p>
     </section>
 
-        <!-- Search and Filter Section -->
+    <!-- Search and Filter Section -->
     <section id="search-filter" class="section-p1">
       <div class="search-container">
         <div class="search-box">
-          <input type="text" id="searchInput" placeholder="Search products by name or brand..." autocomplete="off" aria-label="Search products" />
-          <button id="searchBtn" aria-label="Search"><i class="ri-search-line"></i></button>
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search products by name or brand..."
+            autocomplete="off"
+            aria-label="Search products"
+          />
+          <button id="searchBtn" aria-label="Search">
+            <i class="ri-search-line"></i>
+          </button>
         </div>
-        <div id="searchSuggestions" class="search-suggestions" aria-live="polite"></div>
+        <div
+          id="searchSuggestions"
+          class="search-suggestions"
+          aria-live="polite"
+        ></div>
       </div>
       <div class="filter-container">
         <label for="categoryFilter">Filter by Category:</label>
@@ -232,7 +235,10 @@
     <section id="newsletter" class="section-p1">
       <div class="newstext">
         <h4>Sign Up For Newsletters</h4>
-        <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
+        <p>
+          Get E-mail updates about our latest shop and
+          <span>special offers.</span>
+        </p>
       </div>
       <form class="form newsletter-form">
         <input type="email" placeholder="Your email address" required />
@@ -242,27 +248,45 @@
 
     <footer class="section-p1">
       <div class="footer-container">
-        
         <div class="col">
           <img class="logo" src="images/logo.png" alt="Cara Logo" />
           <h4>Contact</h4>
-          <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
+          <p>
+            <strong>Address:</strong> 562 Wellington Road, Street 32, San
+            Francisco
+          </p>
           <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
           <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
 
           <div class="follow">
             <h4>Follow us</h4>
             <div class="icon">
-              <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://x.com/JanaviPandole"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <i class="fab fa-twitter"></i>
               </a>
-              <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://github.com/janavipandole"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <i class="fab fa-github"></i>
               </a>
-              <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://www.linkedin.com/in/janavi-pandole-80a7b2290"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <i class="fab fa-linkedin"></i>
               </a>
-              <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://www.youtube.com/@JanaviPandole"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <i class="fab fa-youtube"></i>
               </a>
             </div>
@@ -298,29 +322,53 @@
           <p>Secured Payment Gateways</p>
 
           <div class="payment-icons">
-            <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer" aria-label="Visa">
+            <a
+              href="https://www.visa.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visa"
+            >
               <i class="fab fa-cc-visa"></i>
             </a>
-            <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer" aria-label="Mastercard">
+            <a
+              href="https://www.mastercard.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Mastercard"
+            >
               <i class="fab fa-cc-mastercard"></i>
             </a>
-            <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" aria-label="PayPal">
+            <a
+              href="https://www.paypal.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="PayPal"
+            >
               <i class="fab fa-cc-paypal"></i>
             </a>
-            <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer" aria-label="American Express">
+            <a
+              href="https://www.americanexpress.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="American Express"
+            >
               <i class="fab fa-cc-amex"></i>
             </a>
-            <a href="https://stripe.com" target="_blank" rel="noopener noreferrer" aria-label="Stripe">
+            <a
+              href="https://stripe.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Stripe"
+            >
               <i class="fab fa-cc-stripe"></i>
             </a>
           </div>
         </div>
-
       </div>
 
       <div class="copyright">
         <p>
-          &copy; Cara  <span class="Current-Year"></span>. All rights reserved. |
+          &copy; Cara <span class="Current-Year"></span>. All rights reserved. |
           <a href="license.html" style="color: #088178"> MIT License </a>
         </p>
       </div>
@@ -331,13 +379,15 @@
     <script src="products.js?v=1779120917219"></script>
     <script src="app.js?v=1779120917219"></script>
     <script src="navbar.js"></script>
-    <script>loadNavbar('shop');</script>
+    <script>
+      loadNavbar('shop');
+    </script>
     <!-- Corrected  -->
     <script id="Current-Year">
-        const year = new Date().getFullYear();
-        for (let el of document.querySelectorAll(".Current-Year")) {
-            el.textContent = year;
-        }
+      const year = new Date().getFullYear();
+      for (let el of document.querySelectorAll('.Current-Year')) {
+        el.textContent = year;
+      }
     </script>
     <div id="toast-container"></div>
   </body>
