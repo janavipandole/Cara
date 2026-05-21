@@ -1293,7 +1293,7 @@ button.white .ripple-effect {
 }
 
 #banner h4 {
-    color: #ffffffde;
+    color: var(--text-primary);
     font-size: 28px;
 }
 
@@ -1302,7 +1302,7 @@ button.white .ripple-effect {
 }
 
 #banner h2 {
-    color: #ffffffde;
+    color: var(--text-primary);
     font-size: 45px;
     padding: 10px 0;
 }
