@@ -5,33 +5,19 @@
 
     <!-- Meta -->
     <meta charset="UTF-8" />
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Title -->
     <title>Cara — AI Virtual Try-On</title>
 
     <!-- Favicon -->
-    <link
-        rel="icon"
-        type="image/jpg"
-        sizes="32x32"
-        href="images/favicon.jpg"
-    />
+    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
 
     <!-- CSS -->
     <link rel="stylesheet" href="style.css" />
 
-    <!-- Remix Icons -->
-    <link
-        href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
-        rel="stylesheet"
-    />
-
-    <!-- Font Awesome -->
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
@@ -41,12 +27,24 @@
 
     <!-- MediaPipe -->
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js"></script>
 
+    <!-- INLINE STYLES (kept from main + cleaned) -->
     <style>
+        :root {
+            --accent: #088178;
+            --text-primary: #333;
+            --bg-secondary: #f5f5f5;
+            --card-bg: #ffffff;
+            --border-color: #ddd;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
         #try-on-section {
             padding: 40px 80px;
@@ -66,7 +64,6 @@
             align-items: center;
             gap: 12px;
             opacity: 0.4;
-            transition: opacity 0.4s ease;
         }
 
         .step-indicator.active {
@@ -85,22 +82,15 @@
             font-weight: 700;
         }
 
-        .step-label {
-            font-size: 16px;
-            font-weight: 600;
-        }
-
         .step-divider {
             width: 60px;
             height: 2px;
             background: var(--border-color);
-            align-self: center;
         }
 
         .tryon-layout {
             display: flex;
             gap: 30px;
-            min-height: 65vh;
         }
 
         .controls {
@@ -109,34 +99,13 @@
             padding: 30px;
             border-radius: 15px;
             border: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            box-shadow: 0 5px 15px var(--shadow);
-        }
-
-        .controls h2 {
-            font-size: 28px;
-            color: var(--accent);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .controls p {
-            font-size: 15px;
-            line-height: 1.6;
-        }
-
-        .controls h4 {
-            font-size: 18px;
         }
 
         .mode-toggle {
             display: flex;
+            border: 2px solid var(--accent);
             border-radius: 10px;
             overflow: hidden;
-            border: 2px solid var(--accent);
         }
 
         .mode-btn {
@@ -144,10 +113,7 @@
             padding: 12px;
             border: none;
             background: transparent;
-            font-size: 15px;
-            font-weight: 600;
             cursor: pointer;
-            transition: 0.3s;
         }
 
         .mode-btn.active {
@@ -167,44 +133,10 @@
             gap: 10px;
         }
 
-        .camera-btn,
-        .action-btn {
-            padding: 14px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 15px;
-            font-weight: 600;
-            transition: 0.3s;
-        }
-
-        .camera-btn {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-        }
-
-        .camera-btn.capture,
-        .action-btn {
-            background: var(--accent);
-            color: white;
-        }
-
-        .upload-btn {
-            border: 2px dashed var(--accent);
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            cursor: pointer;
-        }
-
-        .upload-btn input {
-            display: none;
-        }
-
         .clothing-list {
             display: flex;
+            gap: 10px;
             flex-wrap: wrap;
-            gap: 12px;
         }
 
         .clothing-item {
@@ -212,15 +144,8 @@
             height: 80px;
             object-fit: cover;
             border-radius: 10px;
-            border: 2px solid var(--border-color);
             cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .clothing-item:hover,
-        .clothing-item.selected {
-            border-color: var(--accent);
-            transform: scale(1.05);
+            border: 2px solid var(--border-color);
         }
 
         .ai-viewport {
@@ -230,29 +155,15 @@
             border: 1px solid var(--border-color);
             padding: 30px;
             position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-shadow: 0 5px 15px var(--shadow);
-        }
-
-        .viewport-placeholder {
-            text-align: center;
-            color: var(--text-secondary);
-        }
-
-        .viewport-placeholder i {
-            font-size: 60px;
         }
 
         .video-wrapper {
             position: relative;
             width: 100%;
-            max-width: 680px;
-            aspect-ratio: 4 / 3;
-            overflow: hidden;
-            border-radius: 12px;
+            aspect-ratio: 4/3;
             background: black;
+            border-radius: 12px;
+            overflow: hidden;
         }
 
         .video-wrapper video,
@@ -261,65 +172,28 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            top: 0;
-            left: 0;
-        }
-
-        .video-wrapper video {
-            transform: scaleX(-1);
         }
 
         #uploaded-preview {
             display: none;
             width: 100%;
-            max-width: 680px;
             border-radius: 12px;
         }
 
-        .body-info {
-            position: absolute;
-            top: 45px;
-            left: 45px;
-            background: rgba(0, 0, 0, 0.75);
-            color: white;
-            padding: 12px 16px;
-            border-radius: 10px;
-            display: none;
-        }
-
+        .body-info,
         .share-controls {
-            position: absolute;
-            bottom: 45px;
-            right: 45px;
             display: none;
-            gap: 10px;
-        }
-
-        .share-btn {
-            padding: 10px 18px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
         }
 
         @media (max-width: 900px) {
-
             #try-on-section {
-                padding: 20px 15px;
+                padding: 20px;
             }
 
             .tryon-layout {
                 flex-direction: column;
             }
-
-            .step-flow {
-                flex-wrap: wrap;
-                gap: 15px;
-            }
-
         }
-
     </style>
 
 </head>
@@ -328,254 +202,59 @@
 
     <!-- HEADER -->
     <section id="header">
-
-        <!-- Logo -->
         <a href="index.html">
-            <img
-                src="images/logo.png"
-                alt="Cara Logo"
-            />
+            <img src="images/logo.png" alt="Cara Logo" />
         </a>
 
-        <!-- Navbar -->
         <div>
-
             <ul id="navbar">
+                <li><a href="index.html">Home</a></li>
 
-                <!-- Home -->
-                <li>
-                    <a href="index.html">Home</a>
-                </li>
-
-                <!-- Shop -->
                 <li class="dropdown">
-
-                    <a
-                        href="javascript:void(0)"
-                        class="dropdown-toggle"
-                    >
-                        Shop
-                        <i class="fas fa-chevron-down"></i>
-                    </a>
-
+                    <a href="javascript:void(0)">Shop <i class="fas fa-chevron-down"></i></a>
                     <ul class="dropdown-menu">
-
-                        <li>
-                            <a href="tshirts.html">T-Shirts</a>
-                        </li>
-
-                        <li>
-                            <a href="shirts.html">Shirts</a>
-                        </li>
-
-                        <li>
-                            <a href="kurtis.html">Kurtis</a>
-                        </li>
-
-                        <li>
-                            <a href="jeans.html">Jeans</a>
-                        </li>
-
-                        <li>
-                            <a href="kids_cloth.html">
-                                Kids Clothing
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="shoes.html">Shoes</a>
-                        </li>
-
-                        <li>
-                            <a href="accessories.html">
-                                Accessories
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="dresses.html">Dresses</a>
-                        </li>
-
+                        <li><a href="tshirts.html">T-Shirts</a></li>
+                        <li><a href="shirts.html">Shirts</a></li>
+                        <li><a href="kurtis.html">Kurtis</a></li>
+                        <li><a href="jeans.html">Jeans</a></li>
+                        <li><a href="kids_cloth.html">Kids Clothing</a></li>
+                        <li><a href="shoes.html">Shoes</a></li>
+                        <li><a href="accessories.html">Accessories</a></li>
+                        <li><a href="dresses.html">Dresses</a></li>
                     </ul>
-
                 </li>
 
-                <!-- Other Links -->
-                <li>
-                    <a href="blog.html">Blog</a>
-                </li>
-
-                <li>
-                    <a href="about.html">About</a>
-                </li>
-
-                <li>
-                    <a
-                        class="active"
-                        href="try-on.html"
-                    >
-                        Try-On
-                    </a>
-                </li>
-
-                <li>
-                    <a href="community.html">Community</a>
-                </li>
-
-                <li>
-                    <a href="promotions.html">
-                        Promotions
-                    </a>
-                </li>
-
-                <!-- Contact -->
-                <li class="nav-icon">
-
-                    <a
-                        href="contact.html"
-                        aria-label="Contact"
-                    >
-                        <i class="ri-customer-service-2-line"></i>
-                    </a>
-
-                </li>
-
-                <!-- Login -->
-                <li class="nav-icon">
-
-                    <a
-                        href="login.html"
-                        aria-label="Login"
-                    >
-                        <i class="ri-user-3-line"></i>
-                    </a>
-
-                </li>
-
-                <!-- Cart -->
-                <li class="nav-icon">
-
-                    <a
-                        href="cart.html"
-                        id="lg-bag"
-                        aria-label="Cart"
-                    >
-                        <i class="ri-shopping-bag-4-line"></i>
-                    </a>
-
-                </li>
-
-                <!-- Theme Toggle -->
-                <li class="nav-icon">
-
-                    <button
-                        class="theme-toggle"
-                        id="themeToggle"
-                        aria-label="Toggle dark mode"
-                    >
-                        <i
-                            class="ri-moon-line"
-                            id="themeIcon"
-                        ></i>
-                    </button>
-
-                </li>
-
-                <!-- Close -->
-                <a
-                    href="#"
-                    id="close"
-                    aria-label="Close menu"
-                >
-                    <i class="fa-solid fa-xmark"></i>
-                </a>
-
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a class="active" href="try-on.html">Try-On</a></li>
+                <li><a href="community.html">Community</a></li>
+                <li><a href="promotions.html">Promotions</a></li>
             </ul>
-
         </div>
-
-        <!-- Mobile Navbar -->
-        <div class="mobile">
-
-            <!-- Login -->
-            <a
-                href="login.html"
-                aria-label="Login"
-            >
-                <i class="ri-user-3-line"></i>
-            </a>
-
-            <!-- Cart -->
-            <a
-                href="cart.html"
-                aria-label="Cart"
-            >
-                <i class="ri-shopping-bag-4-line"></i>
-            </a>
-
-            <!-- Hamburger -->
-            <i
-                class="fas fa-outdent"
-                id="bar"
-                role="button"
-                aria-label="Open menu"
-                aria-expanded="false"
-                tabindex="0"
-            ></i>
-
-        </div>
-
     </section>
 
     <!-- TRY ON SECTION -->
     <section id="try-on-section">
 
-        <!-- STEP FLOW -->
         <div class="step-flow">
-
-            <div
-                class="step-indicator active"
-                id="step1"
-            >
-
+            <div class="step-indicator active">
                 <div class="step-num">1</div>
-
-                <span class="step-label">
-                    Your Photo
-                </span>
-
+                <span>Your Photo</span>
             </div>
 
             <div class="step-divider"></div>
 
-            <div
-                class="step-indicator"
-                id="step2"
-            >
-
+            <div class="step-indicator">
                 <div class="step-num">2</div>
-
-                <span class="step-label">
-                    Select Outfit
-                </span>
-
+                <span>Select Outfit</span>
             </div>
 
             <div class="step-divider"></div>
 
-            <div
-                class="step-indicator"
-                id="step3"
-            >
-
+            <div class="step-indicator">
                 <div class="step-num">3</div>
-
-                <span class="step-label">
-                    Try On
-                </span>
-
+                <span>Try On</span>
             </div>
-
         </div>
 
         <div class="tryon-layout">
@@ -583,226 +262,51 @@
             <!-- LEFT -->
             <div class="controls">
 
-                <h2>
-                    <i class="ri-magic-line"></i>
-                    AI Virtual Try-On
-                </h2>
-
-                <p>
-                    Use your camera or upload a photo.
-                    Our AI detects your body shape
-                    and fits the clothing on you.
-                </p>
-
-                <!-- MODE -->
-                <h4>1. Choose Input</h4>
+                <h2>AI Virtual Try-On</h2>
+                <p>Use camera or upload a photo to try outfits virtually.</p>
 
                 <div class="mode-toggle">
-
-                    <button
-                        class="mode-btn active"
-                        id="btn-camera"
-                        onclick="switchMode('camera')"
-                    >
-
-                        <i class="ri-camera-line"></i>
-                        Camera
-
-                    </button>
-
-                    <button
-                        class="mode-btn"
-                        id="btn-upload"
-                        onclick="switchMode('upload')"
-                    >
-
-                        <i class="ri-upload-cloud-2-line"></i>
-                        Upload
-
-                    </button>
-
+                    <button class="mode-btn active" onclick="switchMode('camera')">Camera</button>
+                    <button class="mode-btn" onclick="switchMode('upload')">Upload</button>
                 </div>
 
-                <!-- CAMERA -->
-                <div
-                    class="camera-area visible"
-                    id="camera-area"
-                >
-
-                    <button
-                        class="camera-btn"
-                        id="open-camera-btn"
-                        onclick="openCamera()"
-                    >
-                        Open Camera
-                    </button>
-
-                    <button
-                        class="camera-btn capture"
-                        id="capture-btn"
-                        style="display:none;"
-                        onclick="capturePhoto()"
-                    >
-                        Capture Photo
-                    </button>
-
-                    <button
-                        class="camera-btn"
-                        id="stop-camera-btn"
-                        style="display:none;"
-                        onclick="stopCamera()"
-                    >
-                        Stop Camera
-                    </button>
-
+                <div class="camera-area visible" id="camera-area">
+                    <button onclick="openCamera()">Open Camera</button>
+                    <button onclick="capturePhoto()">Capture</button>
+                    <button onclick="stopCamera()">Stop</button>
                 </div>
 
-                <!-- UPLOAD -->
-                <div
-                    class="upload-area"
-                    id="upload-area"
-                >
-
-                    <label class="upload-btn">
-
-                        <i class="ri-upload-cloud-2-line"></i>
-
-                        <span>
-                            Upload Full Body Photo
-                        </span>
-
-                        <input
-                            type="file"
-                            id="photo-upload"
-                            accept="image/*"
-                        />
-
-                    </label>
-
+                <div class="upload-area" id="upload-area">
+                    <input type="file" id="photo-upload" accept="image/*" />
                 </div>
 
-                <!-- OUTFITS -->
-                <h4>2. Select Outfit</h4>
-
-                <div
-                    class="clothing-list"
-                    id="clothing-list"
-                >
-
-                    <img
-                        src="images/products/f1.jpg"
-                        class="clothing-item"
-                        onclick="selectOutfit(this)"
-                        alt="Outfit 1"
-                    />
-
-                    <img
-                        src="images/products/f2.jpg"
-                        class="clothing-item"
-                        onclick="selectOutfit(this)"
-                        alt="Outfit 2"
-                    />
-
-                    <img
-                        src="images/products/n1.jpg"
-                        class="clothing-item"
-                        onclick="selectOutfit(this)"
-                        alt="Outfit 3"
-                    />
-
-                    <img
-                        src="images/products/n2.jpg"
-                        class="clothing-item"
-                        onclick="selectOutfit(this)"
-                        alt="Outfit 4"
-                    />
-
+                <h4>Select Outfit</h4>
+                <div class="clothing-list">
+                    <img src="images/products/f1.jpg" class="clothing-item" onclick="selectOutfit(this)" />
+                    <img src="images/products/f2.jpg" class="clothing-item" onclick="selectOutfit(this)" />
+                    <img src="images/products/n1.jpg" class="clothing-item" onclick="selectOutfit(this)" />
                 </div>
 
-                <!-- Generate -->
-                <button
-                    class="action-btn"
-                    id="generate-btn"
-                    disabled
-                >
-
-                    <i class="ri-sparkling-fill"></i>
-                    Generate AI Try-On
-
-                </button>
+                <button id="generate-btn">Generate Try-On</button>
 
             </div>
 
             <!-- RIGHT -->
             <div class="ai-viewport">
 
-                <!-- Placeholder -->
-                <div
-                    class="viewport-placeholder"
-                    id="placeholder"
-                >
-
-                    <i class="ri-body-scan-line"></i>
-
-                    <h3>
-                        Open your camera or upload a photo
-                    </h3>
-
-                </div>
-
-                <!-- Video -->
                 <div class="video-wrapper">
-
-                    <video
-                        id="webcam-video"
-                        autoplay
-                        playsinline
-                    ></video>
-
+                    <video id="webcam-video" autoplay playsinline></video>
                     <canvas id="output-canvas"></canvas>
-
                 </div>
 
-                <!-- Uploaded Image -->
-                <img
-                    id="uploaded-preview"
-                    src=""
-                    alt="Uploaded Preview"
-                />
+                <img id="uploaded-preview" />
 
-                <!-- Body Info -->
-                <div
-                    class="body-info"
-                    id="body-info"
-                ></div>
+                <div class="body-info" id="body-info"></div>
 
-                <!-- Share -->
-                <div
-                    class="share-controls"
-                    id="share-controls"
-                >
-
-                    <button
-                        class="share-btn"
-                        onclick="downloadResult()"
-                    >
-                        Download
-                    </button>
-
-                    <button
-                        class="share-btn"
-                        onclick="shareResult()"
-                    >
-                        Share
-                    </button>
-
-                    <button
-                        class="share-btn"
-                        onclick="resetTryOn()"
-                    >
-                        Retry
-                    </button>
-
+                <div class="share-controls" id="share-controls">
+                    <button onclick="downloadResult()">Download</button>
+                    <button onclick="shareResult()">Share</button>
+                    <button onclick="resetTryOn()">Retry</button>
                 </div>
 
             </div>
@@ -811,24 +315,14 @@
 
     </section>
 
-    <!-- FOOTER -->
     <footer class="section-p1">
-
         <div class="copyright">
-
-            <p>
-                © Cara 2026. All rights reserved.
-            </p>
-
+            <p>© Cara 2026. All rights reserved.</p>
         </div>
-
     </footer>
 
-    <!-- Scripts -->
     <script src="try-on.js"></script>
-
     <script src="app.js"></script>
 
 </body>
-
 </html>

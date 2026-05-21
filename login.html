@@ -16,13 +16,12 @@
         rel="stylesheet"
     />
 
-    <!-- Remix Icons -->
+    <!-- Icons -->
     <link
         href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
         rel="stylesheet"
     />
 
-    <!-- Font Awesome -->
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
@@ -40,159 +39,66 @@
     <!-- HEADER -->
     <section id="header">
 
-        <!-- Logo -->
         <a href="index.html">
-            <img
-                src="images/logo.png"
-                class="logo"
-                alt="Cara Logo"
-            />
+            <img src="images/logo.png" class="logo" alt="Cara Logo" />
         </a>
 
-        <!-- Navbar -->
         <div>
 
             <ul id="navbar">
 
-                <!-- Home -->
-                <li>
-                    <a href="index.html">Home</a>
-                </li>
+                <li><a href="index.html">Home</a></li>
 
-                <!-- Shop Dropdown -->
                 <li class="dropdown">
 
-                    <a
-                        href="javascript:void(0)"
-                        class="dropdown-toggle"
-                    >
-                        Shop
-                        <i class="fas fa-chevron-down"></i>
+                    <a href="javascript:void(0)" class="dropdown-toggle">
+                        Shop <i class="fas fa-chevron-down"></i>
                     </a>
 
                     <ul class="dropdown-menu">
-
-                        <li>
-                            <a href="tshirts.html">T-Shirts</a>
-                        </li>
-
-                        <li>
-                            <a href="shirts.html">Shirts</a>
-                        </li>
-
-                        <li>
-                            <a href="kurtis.html">Kurtis</a>
-                        </li>
-
-                        <li>
-                            <a href="jeans.html">Jeans</a>
-                        </li>
-
-                        <li>
-                            <a href="kids_cloth.html">
-                                Kids Clothing
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="shoes.html">Shoes</a>
-                        </li>
-
-                        <li>
-                            <a href="accessories.html">
-                                Accessories
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="dresses.html">Dresses</a>
-                        </li>
-
+                        <li><a href="tshirts.html">T-Shirts</a></li>
+                        <li><a href="shirts.html">Shirts</a></li>
+                        <li><a href="kurtis.html">Kurtis</a></li>
+                        <li><a href="jeans.html">Jeans</a></li>
+                        <li><a href="kids_cloth.html">Kids Clothing</a></li>
+                        <li><a href="shoes.html">Shoes</a></li>
+                        <li><a href="accessories.html">Accessories</a></li>
+                        <li><a href="dresses.html">Dresses</a></li>
                     </ul>
 
                 </li>
 
-                <!-- Other Links -->
-                <li>
-                    <a href="blog.html">Blog</a>
-                </li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="try-on.html">Try-On</a></li>
+                <li><a href="community.html">Community</a></li>
+                <li><a href="promotions.html">Promotions</a></li>
 
-                <li>
-                    <a href="about.html">About</a>
-                </li>
-
-                <li>
-                    <a href="try-on.html">Try-On</a>
-                </li>
-
-                <li>
-                    <a href="community.html">Community</a>
-                </li>
-
-                <li>
-                    <a href="promotions.html">Promotions</a>
-                </li>
-
-                <!-- Contact -->
                 <li class="nav-icon">
-
-                    <a
-                        href="contact.html"
-                        aria-label="Contact"
-                    >
+                    <a href="contact.html" aria-label="Contact">
                         <i class="ri-customer-service-2-line"></i>
                     </a>
-
                 </li>
 
-                <!-- Login -->
                 <li class="nav-icon">
-
-                    <a
-                        class="active"
-                        href="login.html"
-                        aria-label="Login"
-                    >
+                    <a class="active" href="login.html" aria-label="Login">
                         <i class="ri-user-3-line"></i>
                     </a>
-
                 </li>
 
-                <!-- Cart -->
                 <li class="nav-icon">
-
-                    <a
-                        href="cart.html"
-                        id="lg-bag"
-                        aria-label="Cart"
-                    >
+                    <a href="cart.html" aria-label="Cart">
                         <i class="ri-shopping-bag-4-line"></i>
                     </a>
-
                 </li>
 
-                <!-- Theme Toggle -->
                 <li class="nav-icon">
-
-                    <button
-                        class="theme-toggle"
-                        id="themeToggle"
-                        aria-label="Toggle dark mode"
-                    >
-                        <i
-                            class="ri-moon-line"
-                            id="themeIcon"
-                        ></i>
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="ri-moon-line" id="themeIcon"></i>
                     </button>
-
                 </li>
 
-                <!-- Close -->
-                <a
-                    href="#"
-                    id="close"
-                    aria-label="Close menu"
-                >
+                <a href="#" id="close">
                     <i class="fa-solid fa-xmark"></i>
                 </a>
 
@@ -200,161 +106,78 @@
 
         </div>
 
-        <!-- Mobile Navbar -->
+        <!-- Mobile -->
         <div class="mobile">
 
-            <!-- Login -->
-            <a
-                href="login.html"
-                aria-label="Login"
-            >
+            <a href="login.html">
                 <i class="ri-user-3-line"></i>
             </a>
 
-            <!-- Cart -->
-            <a
-                href="cart.html"
-                aria-label="Cart"
-            >
+            <a href="cart.html">
                 <i class="ri-shopping-bag-4-line"></i>
             </a>
 
-            <!-- Hamburger -->
-            <i
-                class="fas fa-outdent"
-                id="bar"
-                role="button"
-                aria-label="Open menu"
-                aria-expanded="false"
-                tabindex="0"
-            ></i>
+            <i class="fas fa-outdent" id="bar"></i>
 
         </div>
 
     </section>
 
-    <!-- LOGIN CONTAINER -->
+    <!-- LOGIN -->
     <div class="login-container">
 
-        <!-- Back Button -->
-        <a
-            href="index.html"
-            class="back-button"
-        >
-            &#8592; Back to Shop
+        <a href="index.html" class="back-button">
+            ← Back to Shop
         </a>
 
-        <!-- Logo -->
         <div class="logo-container">
-
-            <img
-                src="images/logo.png"
-                alt="Cara Logo"
-                class="logo-img"
-            />
-
+            <img src="images/logo.png" alt="Cara Logo" class="logo-img" />
         </div>
 
-        <!-- Heading -->
         <h2>Welcome Back!</h2>
+        <p class="subtitle">Please enter your details to sign in</p>
 
-        <p class="subtitle">
-            Please enter your details to sign in
-        </p>
+        <form id="loginForm" class="login-form" novalidate>
 
-        <!-- Login Form -->
-        <form
-            id="loginForm"
-            class="login-form"
-            novalidate
-        >
-
-            <!-- Email -->
             <div class="input-group">
-
-                <label for="loginEmail">
-                    Email Address
-                </label>
-
-                <input
-                    type="email"
-                    id="loginEmail"
-                    class="input-field"
-                    placeholder="example@domain.com"
-                    required
-                />
-
+                <label for="loginEmail">Email Address</label>
+                <input type="email" id="loginEmail" placeholder="example@domain.com" required />
             </div>
 
-            <!-- Password -->
             <div class="input-group password-group">
 
-                <label for="loginPassword">
-                    Password
-                </label>
+                <label for="loginPassword">Password</label>
 
-                <input
-                    type="password"
-                    id="loginPassword"
-                    class="input-field"
-                    placeholder="••••••••"
-                    required
-                />
+                <input type="password" id="loginPassword" placeholder="••••••••" required />
 
-                <button
-                    type="button"
-                    id="togglePassword"
-                    class="toggle_password"
-                >
+                <button type="button" id="togglePassword" class="toggle_password">
                     <i class="ri-eye-line"></i>
                 </button>
 
             </div>
 
-            <!-- Remember + Forgot -->
             <div class="remember-forgot">
 
                 <div class="remember">
-
-                    <input
-                        type="checkbox"
-                        id="rememberMe"
-                    />
-
-                    <label for="rememberMe">
-                        Remember me
-                    </label>
-
+                    <input type="checkbox" id="rememberMe" />
+                    <label for="rememberMe">Remember me</label>
                 </div>
 
-                <a
-                    href="forgotPassword.html"
-                    class="forgot"
-                >
+                <a href="forgotPassword.html" class="forgot">
                     Forgot Password?
                 </a>
 
             </div>
 
-            <!-- Login Button -->
-            <button
-                type="submit"
-                class="login-btn"
-            >
+            <button type="submit" class="login-btn">
                 <span>Sign In</span>
             </button>
 
         </form>
 
-        <!-- Register -->
         <div class="signup-link">
-
             Don't have an account?
-
-            <a href="register.html">
-                Register
-            </a>
-
+            <a href="register.html">Register</a>
         </div>
 
     </div>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,26 +7,18 @@
 
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
 
-    <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="toast.css" />
     <link rel="stylesheet" href="register.css" />
+    <link rel="stylesheet" href="style.css" />
 
-    <link
-        href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
-        rel="stylesheet"
-    />
-
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" />
 </head>
 
 <body>
 
     <!-- HEADER -->
     <section id="header">
-
         <!-- Logo -->
         <a href="index.html">
             <img src="images/logo.png" alt="Cara Logo" />
@@ -36,98 +27,58 @@
         <div>
             <ul id="navbar">
 
-                <!-- Home -->
-                <li>
-                    <a href="index.html">Home</a>
-                </li>
-
-                <!-- Shop Dropdown -->
-                <li class="dropdown">
-                    <a href="javascript:void(0)" class="dropdown-toggle">
-                        Shop <i class="fas fa-chevron-down"></i>
-                    </a>
-
-                    <ul class="dropdown-menu">
-                        <li><a href="tshirts.html">T-Shirts</a></li>
-                        <li><a href="shirts.html">Shirts</a></li>
-                        <li><a href="kurtis.html">Kurtis</a></li>
-                        <li><a href="jeans.html">Jeans</a></li>
-                        <li><a href="kids_cloth.html">Kids Clothing</a></li>
-                        <li><a href="shoes.html">Shoes</a></li>
-                        <li><a href="accessories.html">Accessories</a></li>
-                        <li><a href="dresses.html">Dresses</a></li>
-                    </ul>
-                </li>
-
-                <!-- Other Links -->
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
                 <li><a href="blog.html">Blog</a></li>
                 <li><a href="about.html">About</a></li>
+                <li><a href="try-on.html">Try-On</a></li>
+                <li><a href="community.html">Community</a></li>
+                <li><a href="promotions.html">Promotions</a></li>
 
-                <!-- Contact Icon -->
                 <li class="nav-icon">
                     <a href="contact.html" aria-label="Contact">
                         <i class="ri-customer-service-2-line"></i>
                     </a>
                 </li>
 
-                <!-- Login Icon -->
                 <li class="nav-icon">
                     <a href="login.html" class="active" aria-label="Login">
                         <i class="ri-user-3-line"></i>
                     </a>
                 </li>
 
-                <!-- Cart Icon -->
                 <li class="nav-icon">
-                    <a href="cart.html" id="lg-bag" aria-label="Cart">
+                    <a href="cart.html" aria-label="Cart">
                         <i class="ri-shopping-bag-4-line"></i>
                     </a>
                 </li>
 
-                <!-- Theme Toggle -->
                 <li class="nav-icon">
-                    <button
-                        class="theme-toggle"
-                        id="themeToggle"
-                        aria-label="Toggle dark mode"
-                    >
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
                         <i class="ri-moon-line" id="themeIcon"></i>
                     </button>
                 </li>
 
-                <!-- Close Button -->
-                <a href="#" id="close">
+                <a href="#" id="close" aria-label="Close menu">
                     <i class="fa-solid fa-xmark"></i>
                 </a>
 
             </ul>
         </div>
 
-        <!-- Mobile Navbar -->
         <div class="mobile">
 
-            <!-- Login -->
             <a href="login.html" aria-label="Login">
                 <i class="ri-user-3-line"></i>
             </a>
 
-            <!-- Cart -->
             <a href="cart.html" aria-label="Cart">
                 <i class="ri-shopping-bag-4-line"></i>
             </a>
 
-            <!-- Hamburger -->
-            <i
-                class="fas fa-outdent"
-                id="bar"
-                role="button"
-                aria-label="Open menu"
-                aria-expanded="false"
-                tabindex="0"
-            ></i>
+            <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu"></i>
 
         </div>
-
     </section>
 
     <!-- REGISTER SECTION -->
@@ -136,128 +87,119 @@
         <div class="auth-card">
 
             <h2>Register</h2>
-
-            <p class="subtitle">
-                Create your account 😊
-            </p>
+            <p class="subtitle">Create your account 😊</p>
 
             <form id="registerForm" novalidate>
 
-                <!-- FULL NAME -->
                 <div class="form-group">
                     <label for="registerUsername">Full Name</label>
-
-                    <input
-                        type="text"
-                        id="registerUsername"
-                        placeholder="Enter your full name"
-                        required
-                    />
+                    <input type="text" id="registerUsername" placeholder="Enter your full name" required />
                 </div>
 
-                <!-- EMAIL -->
                 <div class="form-group">
                     <label for="registerEmail">Email</label>
-
-                    <input
-                        type="email"
-                        id="registerEmail"
-                        placeholder="Enter your email"
-                        required
-                    />
+                    <input type="email" id="registerEmail" placeholder="Enter your email" required />
                 </div>
 
-                <!-- PASSWORD -->
                 <div class="form-group">
                     <label for="registerPassword">Password</label>
-
                     <div class="password-wrapper">
-
-                        <input
-                            type="password"
-                            id="registerPassword"
-                            placeholder="Enter your password"
-                            required
-                        />
-
+                        <input type="password" id="registerPassword" placeholder="Enter your password" required />
                         <i class="ri-eye-line toggle-eye"></i>
-
                     </div>
                 </div>
 
-                <!-- CONFIRM PASSWORD -->
                 <div class="form-group">
                     <label for="confirmPassword">Confirm Password</label>
-
                     <div class="password-wrapper">
-
-                        <input
-                            type="password"
-                            id="confirmPassword"
-                            placeholder="Confirm your password"
-                            required
-                        />
-
+                        <input type="password" id="confirmPassword" placeholder="Confirm your password" required />
                         <i class="ri-eye-line toggle-eye"></i>
-
                     </div>
                 </div>
 
-                <!-- SUBMIT BUTTON -->
                 <button type="submit" class="btn-primary">
                     CREATE ACCOUNT
                 </button>
 
             </form>
 
-            <!-- LOGIN LINK -->
             <div class="switch-auth">
-
                 Already have an account?
-
-                <a href="login.html">
-                    Login
-                </a>
-
+                <a href="login.html">Login</a>
             </div>
 
         </div>
 
     </section>
 
+    <!-- FOOTER -->
+    <footer class="main-footer">
+
+        <div class="footer-middle">
+
+            <div class="footer-col brand-info">
+                <h4>ABOUT US</h4>
+                <p>Cara E-Commerce – Redefining your style with premium apparel and fashion excellence.</p>
+                <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
+                <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
+                <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>QUICK LINKS</h4>
+                <a href="about.html">About Us</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms and Conditions</a>
+                <a href="contact.html">Contact Us</a>
+            </div>
+
+            <div class="footer-col">
+                <h4>MY ACCOUNT</h4>
+                <a href="login.html">Sign In</a>
+                <a href="cart.html">View Cart</a>
+                <a href="cart.html">Track Order</a>
+                <a href="contact.html">Help</a>
+            </div>
+
+            <div class="footer-col newsletter-footer">
+                <h4>NEWSLETTER</h4>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email address" required />
+                    <button type="submit" class="normal">Sign Up</button>
+                </form>
+            </div>
+
+        </div>
+
+        <div class="copyright">
+            <p>© Cara 2026. All rights reserved.</p>
+        </div>
+
+    </footer>
+
     <!-- PASSWORD TOGGLE SCRIPT -->
     <script>
         const toggleEyes = document.querySelectorAll(".toggle-eye");
 
         toggleEyes.forEach((eye) => {
-
             eye.addEventListener("click", () => {
+                const input = eye.previousElementSibling;
 
-                const passwordInput = eye.previousElementSibling;
-
-                if (passwordInput.type === "password") {
-
-                    passwordInput.type = "text";
-
+                if (input.type === "password") {
+                    input.type = "text";
                     eye.classList.remove("ri-eye-line");
                     eye.classList.add("ri-eye-off-line");
-
                 } else {
-
-                    passwordInput.type = "password";
-
+                    input.type = "password";
                     eye.classList.remove("ri-eye-off-line");
                     eye.classList.add("ri-eye-line");
                 }
-
             });
-
         });
     </script>
 
-    <script src="app.js?v=1779120917218"></script>
+    <script src="app.js"></script>
     <script src="register.js"></script>
 
 </body>
-
 </html>

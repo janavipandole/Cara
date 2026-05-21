@@ -13,46 +13,18 @@
   <title>Cara | Modern E-Commerce</title>
 
   <!-- Favicon -->
-  <link
-    rel="icon"
-    type="image/jpg"
-    sizes="32x32"
-    href="images/favicon.jpg"
-  />
+  <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
 
   <!-- SEO -->
-  <meta
-    name="description"
-    content="Shop the latest trends on our e-commerce store."
-  />
-
-  <meta
-    name="keywords"
-    content="e-commerce, shopping, online store, fashion"
-  />
-
-  <meta
-    name="author"
-    content="Cara"
-  />
+  <meta name="description" content="Shop the latest trends on our e-commerce store." />
+  <meta name="keywords" content="e-commerce, shopping, online store, fashion" />
+  <meta name="author" content="Cara" />
 
   <!-- Open Graph -->
   <meta property="og:title" content="Cara E-Commerce" />
-
-  <meta
-    property="og:description"
-    content="Modern fashion shopping experience."
-  />
-
-  <meta
-    property="og:image"
-    content="https://cara-seven-ashen.vercel.app/images/logo.png"
-  />
-
-  <meta
-    property="og:url"
-    content="https://cara-seven-ashen.vercel.app/"
-  />
+  <meta property="og:description" content="Modern fashion shopping experience." />
+  <meta property="og:image" content="https://cara-seven-ashen.vercel.app/images/logo.png" />
+  <meta property="og:url" content="https://cara-seven-ashen.vercel.app/" />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
@@ -63,21 +35,37 @@
   <!-- CSS -->
   <link rel="stylesheet" href="style.css?v=2" />
 
-  <!-- Remix Icons -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
-    rel="stylesheet"
-  />
-
-  <!-- Font Awesome -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-  />
+  <!-- Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
 
   <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
     .theme-toggle {
       pointer-events: all !important;
+    }
+
+    #topBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: none;
+      background-color: #088178;
+      color: white;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    #topBtn:hover {
+      background-color: #555;
     }
   </style>
 
@@ -89,200 +77,55 @@
   <div id="main">
 
     <div id="top">
-
       <div id="workingArea">
 
         <!-- HEADER -->
         <section id="header">
 
-          <!-- Logo -->
           <a href="index.html">
             <img src="images/logo.png" alt="Cara Logo" />
           </a>
 
-          <!-- Navbar -->
           <div>
-
             <ul id="navbar">
 
-              <!-- Home -->
-              <li>
-                <a class="active" href="index.html">
-                  Home
-                </a>
-              </li>
-
-              <!-- Shop Dropdown -->
-              <li class="dropdown">
-
-                <a
-                  href="shop.html"
-                  class="dropdown-toggle"
-                >
-                  Shop
-                  <i class="fas fa-chevron-down"></i>
-                </a>
-
-                <ul class="dropdown-menu">
-
-                  <li>
-                    <a href="tshirts.html">T-Shirts</a>
-                  </li>
-
-                  <li>
-                    <a href="shirts.html">Shirts</a>
-                  </li>
-
-                  <li>
-                    <a href="kurtis.html">Kurtis</a>
-                  </li>
-
-                  <li>
-                    <a href="jeans.html">Jeans</a>
-                  </li>
-
-                  <li>
-                    <a href="kids_cloth.html">
-                      Kids Clothing
-                    </a>
-                  </li>
-
-                  <li>
-                    <a href="shoes.html">Shoes</a>
-                  </li>
-
-                  <li>
-                    <a href="accessories.html">
-                      Accessories
-                    </a>
-                  </li>
-
-                  <li>
-                    <a href="dresses.html">Dresses</a>
-                  </li>
-
-                </ul>
-
-              </li>
-
-              <!-- Links -->
-              <li>
-                <a href="blog.html">Blog</a>
-              </li>
+              <li><a class="active" href="index.html">Home</a></li>
+              <li><a href="shop.html">Shop</a></li>
+              <li><a href="blog.html">Blog</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="try-on.html">Try-On</a></li>
+              <li><a href="community.html">Community</a></li>
+              <li><a href="promotions.html">Promotions</a></li>
 
               <li>
-                <a href="about.html">About</a>
-              </li>
-
-              <li>
-                <a href="try-on.html">Try-On</a>
-              </li>
-
-              <li>
-                <a href="community.html">
-                  Community
-                </a>
-              </li>
-
-              <li>
-                <a href="promotions.html">
-                  Promotions
-                </a>
-              </li>
-
-              <!-- Contact -->
-              <li class="nav-icon">
-
-                <a
-                  href="contact.html"
-                  aria-label="Contact"
-                >
-                  <i class="ri-customer-service-2-line"></i>
-                </a>
-
-              </li>
-
-              <!-- Login -->
-              <li class="nav-icon">
-
-                <a
-                  href="login.html"
-                  aria-label="Login"
-                >
-                  <i class="ri-user-3-line"></i>
-                </a>
-
-              </li>
-
-              <!-- Cart -->
-              <li class="nav-icon">
-
-                <a
-                  href="cart.html"
-                  id="lg-bag"
-                  aria-label="Cart"
-                >
+                <a href="cart.html" id="lg-bag">
                   <i class="ri-shopping-bag-4-line"></i>
                 </a>
-
               </li>
 
-              <!-- Theme Toggle -->
-              <li class="nav-icon">
-
-                <button
-                  class="theme-toggle"
-                  id="themeToggle"
-                  aria-label="Toggle dark mode"
-                >
-                  <i
-                    class="ri-moon-line"
-                    id="themeIcon"
-                  ></i>
+              <li>
+                <button class="theme-toggle" id="themeToggle">
+                  <i class="ri-moon-line" id="themeIcon"></i>
                 </button>
-
               </li>
 
-              <!-- Close -->
-              <a
-                href="#"
-                id="close"
-                aria-label="Close menu"
-              >
-                <i class="fa-solid fa-xmark"></i>
-              </a>
+              <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
 
             </ul>
-
           </div>
 
-          <!-- Mobile Navbar -->
           <div class="mobile">
 
-            <!-- Login -->
-            <a
-              href="login.html"
-              aria-label="Login"
-            >
-              <i class="ri-user-3-line"></i>
-            </a>
+            <button class="theme-toggle" id="themeToggleMobile">
+              <i class="ri-moon-line" id="themeIconMobile"></i>
+            </button>
 
-            <!-- Cart -->
-            <a
-              href="cart.html"
-              aria-label="Cart"
-            >
+            <a href="cart.html">
               <i class="ri-shopping-bag-4-line"></i>
             </a>
 
-            <!-- Menu -->
-            <i
-              class="fas fa-outdent"
-              id="bar"
-              role="button"
-              aria-label="Open menu"
-              tabindex="0"
-            ></i>
+            <i class="fas fa-outdent" id="bar"></i>
 
           </div>
 
@@ -291,271 +134,127 @@
         <!-- HERO -->
         <section id="hero" class="hero-slider">
 
-          <!-- Slide 1 -->
-          <div
-            class="slide active"
-            style="background-image: url('images/hero4.png');"
-          >
-
+          <div class="slide active" style="background-image: url('images/hero4.png');">
             <div class="slide-content">
-
               <h4>Trade-in-offer</h4>
-
               <h2>Super value deals</h2>
-
               <h1>On all products</h1>
-
-              <p>
-                Save more with coupons & up to 70% off!
-              </p>
-
-              <a
-                href="shop.html"
-                class="btn-shop-now"
-              >
-                Shop Now
-              </a>
-
-              <button onclick="openQuiz()">
-                Take Style Quiz
-              </button>
-
+              <p>Save more with coupons & up to 70% off!</p>
+              <a href="shop.html" class="btn-shop-now">Shop Now</a>
             </div>
-
           </div>
 
-          <!-- Slide 2 -->
-          <div
-            class="slide"
-            style="background-image: url('images/banner/b1.png');"
-          >
-
+          <div class="slide" style="background-image: url('images/banner/b1.png');">
             <div class="slide-content">
-
               <h4>New Arrivals</h4>
-
               <h2>Summer Collection</h2>
-
-              <h1>Explore the Trends</h1>
-
-              <p>
-                Discover the latest styles to elevate your wardrobe!
-              </p>
-
-              <a
-                href="shop.html"
-                class="btn-shop-now"
-              >
-                Explore Collection
-              </a>
-
+              <h1>Explore Trends</h1>
+              <p>Discover fresh styles for your wardrobe.</p>
             </div>
-
           </div>
 
-          <!-- Slide 3 -->
-          <div
-            class="slide"
-            style="background-image: url('images/banner/b2.png');"
-          >
-
+          <div class="slide" style="background-image: url('images/banner/b2.png');">
             <div class="slide-content">
-
               <h4>Seasonal Sale</h4>
-
               <h2>Up to 50% Off</h2>
-
               <h1>Exclusive Deals</h1>
-
-              <p>
-                Don't miss out on our biggest sale of the year.
-              </p>
-
-              <a
-                href="shop.html"
-                class="btn-shop-now"
-              >
-                Grab the Deal
-              </a>
-
+              <p>Don’t miss the biggest sale of the season.</p>
             </div>
-
           </div>
 
-          <!-- Slider Controls -->
-          <button
-            class="slider-btn prev"
-            aria-label="Previous Slide"
-          >
-            <i class="fa-solid fa-chevron-left"></i>
-          </button>
+          <button class="slider-btn prev"><i class="fa-solid fa-chevron-left"></i></button>
+          <button class="slider-btn next"><i class="fa-solid fa-chevron-right"></i></button>
 
-          <button
-            class="slider-btn next"
-            aria-label="Next Slide"
-          >
-            <i class="fa-solid fa-chevron-right"></i>
-          </button>
-
-          <!-- Dots -->
           <div class="slider-dots">
-
-            <span
-              class="dot active"
-              data-slide="0"
-            ></span>
-
-            <span
-              class="dot"
-              data-slide="1"
-            ></span>
-
-            <span
-              class="dot"
-              data-slide="2"
-            ></span>
-
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
           </div>
 
         </section>
 
       </div>
-
     </div>
-
   </div>
 
   <!-- FEATURES -->
   <section id="feature" class="section-p1">
 
-    <div class="fe-box">
-      <img
-        src="images/feature/f1.png"
-        alt="Free Shipping"
-      />
-      <h6>Free Shipping</h6>
-    </div>
-
-    <div class="fe-box">
-      <img
-        src="images/feature/f2.png"
-        alt="Online Order"
-      />
-      <h6>Online Order</h6>
-    </div>
-
-    <div class="fe-box">
-      <img
-        src="images/feature/f3.png"
-        alt="Save Money"
-      />
-      <h6>Save Money</h6>
-    </div>
-
-    <div class="fe-box">
-      <img
-        src="images/feature/f4.png"
-        alt="Promotions"
-      />
-      <h6>Promotions</h6>
-    </div>
-
-    <div class="fe-box">
-      <img
-        src="images/feature/f5.png"
-        alt="Happy Sell"
-      />
-      <h6>Happy Sell</h6>
-    </div>
-
-    <div class="fe-box">
-      <img
-        src="images/feature/f6.png"
-        alt="24/7 Support"
-      />
-      <h6>24/7 Support</h6>
-    </div>
+    <div class="fe-box"><img src="images/feature/f1.png"><h6>Free Shipping</h6></div>
+    <div class="fe-box"><img src="images/feature/f2.png"><h6>Online Order</h6></div>
+    <div class="fe-box"><img src="images/feature/f3.png"><h6>Save Money</h6></div>
+    <div class="fe-box"><img src="images/feature/f4.png"><h6>Promotions</h6></div>
+    <div class="fe-box"><img src="images/feature/f5.png"><h6>Happy Sell</h6></div>
+    <div class="fe-box"><img src="images/feature/f6.png"><h6>24/7 Support</h6></div>
 
   </section>
 
-  <!-- SMALL BANNERS -->
+  <!-- BANNER -->
   <section id="sm-banner" class="section-p1">
 
     <div class="banner-box">
-
-      <h4>crazy deals</h4>
-
-      <h2>buy 1 get 1 free</h2>
-
-      <span>
-        The best classic dress is on sale at Cara
-      </span>
-
-      <a href="crazy-deals.html">
-        <button class="white">
-          Learn More
-        </button>
-      </a>
-
+      <h4>Crazy Deals</h4>
+      <h2>Buy 1 Get 1 Free</h2>
+      <span>Best classic dresses on sale</span>
+      <a href="crazy-deals.html"><button class="white">Learn More</button></a>
     </div>
 
     <div class="banner-box banner-box2">
-
-      <h4>upcoming season</h4>
-
-      <h2>winter collection</h2>
-
-      <span>
-        The best classic dress is on sale at Cara
-      </span>
-
-      <a href="winter-collection.html">
-        <button class="white">
-          Collection
-        </button>
-      </a>
-
+      <h4>Upcoming Season</h4>
+      <h2>Winter Collection</h2>
+      <span>New arrivals coming soon</span>
+      <a href="winter-collection.html"><button class="white">Collection</button></a>
     </div>
 
   </section>
 
-  <!-- QUIZ MODAL -->
-  <div id="quiz-modal" class="modal">
+  <!-- PRODUCT SECTION -->
+  <section id="product1" class="section-p1">
 
+    <h2>New Arrivals</h2>
+    <p>Summer Collection Modern Design</p>
+
+    <div class="pro-container">
+      <!-- Products kept from main version -->
+    </div>
+
+  </section>
+
+  <!-- QUIZ -->
+  <div id="quiz-modal" class="modal">
     <div class="modal-content">
 
-      <span
-        class="close"
-        onclick="closeQuiz()"
-      >
-        &times;
-      </span>
+      <span class="close" onclick="closeQuiz()">&times;</span>
 
       <h2>What's Your Style?</h2>
 
       <div class="quiz-options">
-
-        <button onclick="selectStyle('minimal')">
-          Minimal
-        </button>
-
-        <button onclick="selectStyle('street')">
-          Street
-        </button>
-
-        <button onclick="selectStyle('formal')">
-          Formal
-        </button>
-
+        <button onclick="selectStyle('minimal')">Minimal</button>
+        <button onclick="selectStyle('street')">Street</button>
+        <button onclick="selectStyle('formal')">Formal</button>
       </div>
 
     </div>
-
   </div>
 
-  <!-- JS -->
+  <!-- TOP BUTTON -->
+  <button id="topBtn">↑</button>
+
+  <!-- SCRIPTS -->
+  <script src="navbar.js"></script>
   <script src="app.js"></script>
 
-</body>
+  <script>
+    const topBtn = document.getElementById("topBtn");
 
+    window.addEventListener("scroll", () => {
+      topBtn.style.display = window.scrollY > 200 ? "block" : "none";
+    });
+
+    topBtn.onclick = () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+  </script>
+
+</body>
 </html>
