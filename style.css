@@ -931,6 +931,51 @@ button.white .ripple-effect {
     aspect-ratio: 1 / 1;
 }
 
+/* Ribbon badge */
+.ribbon {
+    position: absolute;
+    top: 12px;
+    left: -30px;
+    width: 120px;
+    background: var(--accent);
+    color: #fff;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    transform: rotate(-45deg);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    pointer-events: none;
+    z-index: 2;
+}
+
+.ribbon::before {
+    content: '';
+    position: absolute;
+    right: 100%;
+    top: 0;
+    border-top: 30px solid var(--accent);
+    border-right: 30px solid transparent;
+}
+
+.ribbon::after {
+    content: '';
+    position: absolute;
+    left: 100%;
+    bottom: 0;
+    border-bottom: 30px solid var(--accent);
+    border-left: 30px solid transparent;
+}
+.pro-img-wrap {
+    width: 100%;
+    background: #f5f5f5;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1 / 1;
+}
+
 [data-theme="dark"] .pro-img-wrap {
     background: #2a2a2a;
 }
@@ -944,7 +989,7 @@ button.white .ripple-effect {
 }
 
 #product1 .pro:hover .pro-img-wrap img {
-    transform: scale(1.04);
+    transform: scale(1.08);
 }
 
 /* ── Description area ── */
