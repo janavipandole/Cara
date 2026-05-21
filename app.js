@@ -558,8 +558,8 @@ document.addEventListener('DOMContentLoaded', () => {
 (function () {
     const html = document.documentElement;
 
-    // Apply saved theme on load
-    const currentTheme = localStorage.getItem('theme') || 'light';
+    // Apply saved theme on load; default to dark mode for first-time visitors.
+    const currentTheme = localStorage.getItem('theme') || 'dark';
     html.setAttribute('data-theme', currentTheme);
     if (currentTheme === 'dark') {
         document.body.classList.add('dark');
@@ -604,7 +604,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateThemeIcon(newTheme);
     }
 
-    // Event Delegation: Automatically listens to clicks on static AND dynamic buttons!
+    // Keep one delegated listener so desktop/mobile theme buttons do not toggle twice.
     document.addEventListener('click', (e) => {
         if (e.target && (e.target.closest('#themeToggle') || e.target.closest('#themeToggleMobile'))) {
             e.preventDefault();
@@ -615,14 +615,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Watch for dynamic navbar insertions (MutationObserver) to instantly apply correct icon and logo styles
     if (typeof MutationObserver !== 'undefined') {
         const observer = new MutationObserver(() => {
-            const activeTheme = html.getAttribute('data-theme') || 'light';
+            const activeTheme = html.getAttribute('data-theme') || 'dark';
             updateThemeIcon(activeTheme);
         });
         observer.observe(document.body, { childList: true, subtree: true });
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        const activeTheme = html.getAttribute('data-theme') || 'light';
+        const activeTheme = html.getAttribute('data-theme') || 'dark';
         updateThemeIcon(activeTheme);
     });
 })();
@@ -1761,53 +1761,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* --- END: CART FUNCTIONALITY --- */
 
-/* --- START: THEME TOGGLE FUNCTIONALITY --- */
-
-(function () {
-  const themeToggle = document.getElementById('themeToggle');
-  const themeToggleMobile = document.getElementById('themeToggleMobile');
-  const themeIcon = document.getElementById('themeIcon');
-  const themeIconMobile = document.getElementById('themeIconMobile');
-  const html = document.documentElement;
-
-  const currentTheme = localStorage.getItem('theme') || 'light';
-  html.setAttribute('data-theme', currentTheme);
-  updateThemeIcon(currentTheme);
-
-  function updateThemeIcon(theme) {
-    console.log('Updating icons to:', theme);
-    const iconClass = theme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
-    if (themeIcon) themeIcon.className = iconClass;
-    if (themeIconMobile) themeIconMobile.className = iconClass;
-
-    // Swap logo based on theme
-    const siteLogo = document.getElementById('siteLogo');
-    if (siteLogo) {
-      siteLogo.src = theme === 'dark' ? 'images/Dlogo.png' : 'images/logo.png';
-    }
-  }
-
-  function toggleTheme() {
-    const currentTheme = html.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    html.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    updateThemeIcon(newTheme);
-  }
-
-  if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
-  if (themeToggleMobile)
-    themeToggleMobile.addEventListener('click', toggleTheme);
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      updateThemeIcon(currentTheme);
-    });
-  }
-})();
-
-/* --- END: THEME TOGGLE FUNCTIONALITY --- */
-
 (function () {
   const paginationSection = document.getElementById('pagination');
   if (!paginationSection) return;
@@ -1915,7 +1868,8 @@ document.addEventListener('DOMContentLoaded', () => {
   showPage(1);
 })();
 
-// Back to Top Button Logic
+// Scoped because an older duplicate back-to-top block still declares the same constants.
+{
 const backToTopBtn = document.getElementById('backToTop');
 const ToptobackBtn = document.getElementById('Toptoback');
 
@@ -1965,6 +1919,7 @@ if (ToptobackBtn) {
       behavior: 'smooth',
     });
   });
+}
 }
 
 // Style Quiz Functionality

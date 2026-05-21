@@ -570,9 +570,11 @@ button.white .ripple-effect {
     color: var(--accent);
 }
 
-.mobile,
-#close {
-    display: none;
+/* Desktop uses the navbar controls; hide the separate mobile control row. */
+@media (min-width: 800px) {
+  .mobile {
+    display: none !important;
+  }
 }
 
 #navbar li a.active::after {
@@ -6860,10 +6862,11 @@ button.white .ripple-effect {
     color: var(--accent);
 }
 
-.mobile {
-    display: flex !important;
-    align-items: center;
-    gap: 16px;
+/* Mobile uses the header theme button, so hide the duplicate one inside the slide-out nav. */
+@media (max-width: 799px) {
+  #navbar #themeToggle {
+    display: none;
+  }
 }
 
 #close {
@@ -13834,8 +13837,8 @@ footer.main-footer {
    MODAL STYLES (FOR CART & CHECKOUT)
    */
             .modal {
-             
-                position: fixed;
+                /* Display remains controlled by the earlier .modal rule and open/close JS. */
+                position: relative;
                 z-index: 1000;
                 left: 0;
                 top: 0;

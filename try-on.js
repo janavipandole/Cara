@@ -1,4 +1,38 @@
 document.addEventListener("DOMContentLoaded",()=>{
+    // Try-On does not load app.js, so it needs its own copy of the shared theme behavior.
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    html.setAttribute('data-theme', savedTheme);
+    document.body.classList.toggle('dark', savedTheme === 'dark');
+    updateTryOnThemeIcons(savedTheme);
+
+    function updateTryOnThemeIcons(theme) {
+        const iconClass = theme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
+        const themeIcon = document.getElementById('themeIcon');
+        const themeIconMobile = document.getElementById('themeIconMobile');
+        const siteLogo = document.getElementById('siteLogo');
+
+        if (themeIcon) themeIcon.className = iconClass;
+        if (themeIconMobile) themeIconMobile.className = iconClass;
+        if (siteLogo) siteLogo.src = theme === 'dark' ? 'images/Dlogo.png' : 'images/logo.png';
+    }
+
+    function toggleTryOnTheme() {
+        const nextTheme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', nextTheme);
+        document.body.classList.toggle('dark', nextTheme === 'dark');
+        localStorage.setItem('theme', nextTheme);
+        updateTryOnThemeIcons(nextTheme);
+    }
+
+    // One delegated listener supports both desktop and mobile Try-On theme buttons.
+    document.addEventListener('click', (event) => {
+        if (event.target.closest('#themeToggle') || event.target.closest('#themeToggleMobile')) {
+            event.preventDefault();
+            toggleTryOnTheme();
+        }
+    });
+
     // ============================================
 // CARA VIRTUAL TRY-ON — Full Implementation
 // Uses MediaPipe Pose (BlazePose) for body detection
