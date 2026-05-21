@@ -6809,3 +6809,21 @@ footer.main-footer {
                 text-align: center;
                 position: relative;
             }
+#CaraAmbassador {
+    background-image: url('images/banner/b1.jpg');
+    background-color: #111; /* Dark fallback background color to prevent text invisibility in light mode */
+    width: 100%;
+    height: 40vh;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    padding: 14px;
+    margin-top: 90px;
+}
+
+#CaraAmbassador h2,
+#CaraAmbassador p {
+    color: #fff !important;
+}
