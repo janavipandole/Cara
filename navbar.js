@@ -116,7 +116,6 @@ function loadNavbar() {
 }
   initDarkMode();
   initMobileNavbar();
-  }
   function initMobileNavbar() {
 
   const bar = document.getElementById("bar");
