@@ -1,5 +1,82 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Cart | Cara</title>
+    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
+    <meta
+      name="description"
+      content="Shop the latest trends on our e-commerce store. Dark theme supported for a better user experience."
+    />
+    <meta
+      name="keywords"
+      content="e-commerce, shopping, online store, dark mode, buy online, latest fashion"
+    />
+    <meta name="author" content=" Cara" />
+    <meta name="robots" content="index, follow" />
+    <meta http-equiv="Content-Language" content="en" />
+    <meta property="og:title" content="E-commerce - Dark Theme Working" />
+    <meta
+      property="og:description"
+      content="Shop the latest trends with our dark mode-enabled e-commerce experience."
+    />
+    <meta
+      property="og:image"
+      content="https://example.com/images/preview.jpg"
+    />
+    <meta property="og:url" content="https://example.com/" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="E-commerce - Dark Theme Working" />
+    <meta
+      name="twitter:description"
+      content="Dark theme e-commerce site with modern features."
+    />
+    <meta
+      name="twitter:image"
+      content="https://example.com/images/preview.jpg"
+    />
+    <meta name="twitter:site" content="@janavipandole" />
+    <meta name="theme-color" content="#000000" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="cart.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+
+  <body>
+    <section id="header">
+  <!-- Logo -->
+  <a href="index.html">
+    <img src="images/logo.png" alt="Cara Logo" />
+  </a>
+
+  <div>
+    <ul id="navbar">
+
+      <!-- Main Navigation Links -->
+      <li><a class="active" href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="try-on.html">Try-On</a></li>
+      <li><a href="community.html">Community</a></li>
+      <li><a href="promotions.html">Promotions</a></li>
+
+      <!-- Contact Icon -->
+      <li class="nav-icon">
+        <a href="contact.html" aria-label="Contact">
+          <i class="ri-customer-service-2-line"></i>
 
 <head>
   <meta charset="UTF-8" />
@@ -14,13 +91,13 @@
   <meta http-equiv="Content-Language" content="en" />
   <meta property="og:title" content="E-commerce - Dark Theme Working" />
   <meta property="og:description" content="Shop the latest trends with our dark mode-enabled e-commerce experience." />
-  <meta property="og:image" content="https://example.com/images/preview.jpg" />
-  <meta property="og:url" content="https://example.com/" />
+  <meta property="og:image" content="https://cara-seven-ashen.vercel.app/images/logo.png" />
+  <meta property="og:url" content="https://cara-seven-ashen.vercel.app/" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="E-commerce - Dark Theme Working" />
   <meta name="twitter:description" content="Dark theme e-commerce site with modern features." />
-  <meta name="twitter:image" content="https://example.com/images/preview.jpg" />
+  <meta name="twitter:image" content="https://cara-seven-ashen.vercel.app/images/logo.png" />
   <meta name="twitter:site" content="@janavipandole" />
   <meta name="theme-color" content="#000000" />
   <link rel="stylesheet" href="style.css" />
@@ -112,22 +189,21 @@
       </section>
 
       <section id="cart" class="section-p1">
-        <table width="100%">
-          <thead>
-            <tr>
-              <td>Remove</td>
-              <td>Image</td>
-              <td>Product</td>
-              <td>Price</td>
-              <td>Quantity</td>
-              <td>Subtotal</td>
-            </tr>
-          </thead>
-          <tbody id="cart-items">
-      
-          </tbody>
-        </table>
-      </section>
+
+  <div class="cart-header">
+
+    <span>Product</span>
+    <span>Price</span>
+    <span>Quantity</span>
+    <span>Subtotal</span>
+
+  </div>
+
+  <div id="cart-items-container">
+
+  </div>
+
+</section>
 
       <section id="cart-add" class="section-p1">
         <div class="subtotal">
@@ -230,7 +306,7 @@
           <img src="images/pay/pay.png" alt="">
         </div>
         <div class="copyright">
-          <p> &copy; Cara <span id="Current-Year"></span> . All rights reserved. | <a href="license.html"
+          <p> © Cara 2026. All rights reserved. | <a href="license.html"
               style="color: #088178;">MIT License</a>
           </p>
         </div>
@@ -240,11 +316,11 @@
 
 
 
-  <script src="app.js?v=1779120917210"></script>
-  <!-- Corrected  -->
-  <script>
-    document.getElementById("Current-Year").textContent = new Date().getFullYear();
-  </script>
+    <script src="app.js"></script>
+    <!-- Corrected  -->
+    <script>
+        document.getElementById("Current-Year").textContent = new Date().getFullYear();
+    </script>
 
 </body>
 
