@@ -114,7 +114,80 @@ function loadNavbar() {
   }
 
   initDarkMode();
-}
+  initMobileNavbar();
+  }
+  function initMobileNavbar() {
+
+  const bar = document.getElementById("bar");
+  const close = document.getElementById("close");
+  const navbar = document.getElementById("navbar");
+
+  if (!bar || !navbar) return;
+
+  // Open menu
+  function openMenu() {
+    navbar.classList.add("active");
+    bar.setAttribute("aria-expanded", "true");
+    document.body.style.overflow = "hidden";
+  }
+
+  // Close menu
+  function closeMenu() {
+    navbar.classList.remove("active");
+    bar.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+  }
+
+  // Open handlers
+  bar.addEventListener("click", openMenu);
+
+  bar.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      openMenu();
+    }
+  });
+
+  // Close handlers
+  if (close) {
+    close.addEventListener("click", (e) => {
+      e.preventDefault();
+      closeMenu();
+    });
+  }
+
+  // Close on outside click
+  document.addEventListener("click", (e) => {
+
+    const clickedInsideNavbar = navbar.contains(e.target);
+    const clickedBar = bar.contains(e.target);
+
+    if (
+      navbar.classList.contains("active") &&
+      !clickedInsideNavbar &&
+      !clickedBar
+    ) {
+      closeMenu();
+    }
+  });
+
+  // Close on ESC key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closeMenu();
+    }
+  });
+
+  // Close menu after clicking nav links on mobile
+  const navLinks = navbar.querySelectorAll("a");
+
+  navLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      closeMenu();
+    });
+  });
+ }
+
 
 function initDarkMode() {
   const themeToggle = document.getElementById("themeToggle");
