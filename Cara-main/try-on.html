@@ -16,46 +16,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js" crossorigin="anonymous"></script>
 
-
-        <style>
-            body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-      line-height: 1.8;
-    }
-
-    .content {
-      height: 2000px;
-    }
-
-    /* Scroll Button */
-    #topBtn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      display: none;
-      background-color:#088178;
-      color: white;
-      border: none;
-      padding: 12px 16px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 18px;
-      transition: 0.3s;
-    }
-
-    #topBtn:hover {
-      background-color: #555;
-    }
-
-            :root {
-    --accent: #088178;
-    --text-primary: #333;
-    --bg-secondary: #f5f5f5;
-    --card-bg: #ffffff;
-    --border-color: #ddd;
-}
+    <style>
         /* ============================================
            VIRTUAL TRY-ON PAGE STYLES
            ============================================ */
@@ -180,13 +141,6 @@
             gap: 8px;
             transition: 0.3s ease;
         }
-        .mode-toggle {
-          min-height: 48px;
-             }
-
-         .mode-btn {
-         min-height: 48px;
-         }
 
         .mode-btn.active {
             background: var(--accent);
@@ -332,18 +286,20 @@
             box-shadow: none;
         }
 
-        /* ---- Right Panel: AI Viewport Container ---- */
+        /* ---- Right: AI Viewport ---- */
         .ai-viewport {
-            flex: 1.5; /* Isse video ki horizontal space left block ke same lagegi */
-            background: var(--card-bg);
+            flex: 1.3;
+            background: var(--bg-secondary);
             border-radius: 15px;
             border: 1px solid var(--border-color);
-            padding: 30px;
+            overflow: hidden;
+            position: relative;
             display: flex;
             flex-direction: column;
+            justify-content: center;
             align-items: center;
-            box-shadow: 0 5px 15px var(--shadow);
-            position: relative;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
+            min-height: 500px;
         }
 
         .viewport-placeholder {
@@ -357,37 +313,22 @@
             color: var(--border-color);
         }
 
-        /* ---- Camera & Canvas Master Box ---- */
-        .video-wrapper {
-            position: relative;
-            width: 100%;       
-            max-width: 680px; /* Ab left box ke barabar mast look dega */
-            border-radius: 12px;
-            overflow: hidden;
-            aspect-ratio: 4 / 3; 
-            background: #000;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
+        /* Hidden webcam video element */
+        #webcam-video {
+            display: none;
         }
 
-        /* Live camera video configuration */
-        .video-wrapper video {
-            width: 100% !important;
-            height: 100% !important;
-            object-fit: cover !important; 
-            display: block !important;
-            transform: scaleX(-1); /* Mirror view */
-        }
-
-        /* 🌟 Main Canvas (Absolute hokar video ke theek UPAR bethega) 🌟 */
-        .video-wrapper #output-canvas {
-            position: absolute !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 100% !important;
-            height: 100% !important;
-            object-fit: cover !important;
-            z-index: 10 !important; /* Isse dono merge ho jayenge, double nahi dikhega */
-            pointer-events: none;
+        /* The main output canvas */
+        #output-canvas {
+            position: relative !important;
+            top: auto !important;
+            left: auto !important;
+            z-index: 1 !important;
+            pointer-events: auto !important;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: none;
         }
 
         /* Hidden image for uploads */
@@ -398,15 +339,15 @@
         /* ---- Body Info Badge ---- */
         .body-info {
             position: absolute;
-            top: 45px;
-            left: 45px;
+            top: 15px;
+            left: 15px;
             background: rgba(0,0,0,0.75);
             color: #fff;
             padding: 12px 16px;
             border-radius: 10px;
             font-size: 13px;
             line-height: 1.6;
-            z-index: 20;
+            z-index: 5;
             display: none;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255,255,255,0.1);
@@ -427,7 +368,7 @@
             align-items: center;
             background: rgba(0,0,0,0.8);
             color: white;
-            z-index: 30;
+            z-index: 10;
         }
 
         .scanner-line {
@@ -463,11 +404,11 @@
         /* ---- Share / Action Controls ---- */
         .share-controls {
             position: absolute;
-            bottom: 45px;
-            right: 45px;
+            bottom: 15px;
+            right: 15px;
             display: none;
             gap: 10px;
-            z-index: 20;
+            z-index: 5;
         }
 
         .share-btn {
@@ -514,104 +455,21 @@
                 max-height: none;
             }
         }
-        
     </style>
-    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <body>
 
         <!-- HEADER -->
-        <!-- <section id="header"> -->
-            <section id="header">
-  <!-- Logo -->
-  <a href="index.html">
-    <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
-  </a>
+        <section id="header">
+            <a href="index.html">
+            <img id="siteLogo" src="images/logo.png" alt="" id="siteLogo">
+            </a>
 
-  <div>
-    <ul id="navbar">
+            <!-- Navbar loads here -->
+            <div id="navbar-container"></div>
 
-      <!-- Main Navigation Links -->
-      <li><a href="index.html">Home</a></li>
-      <li><a href="shop.html">Shop</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a class="active" href="try-on.html">Try-On</a></li>
-      <li><a href="community.html">Community</a></li>
-      <li><a href="promotions.html">Promotions</a></li>
-
-      <!-- Contact Icon -->
-      <li class="nav-icon">
-        <a href="contact.html" aria-label="Contact">
-          <i class="ri-customer-service-2-line"></i>
-        </a>
-      </li>
-
-      <!-- Login Icon -->
-      <li class="nav-icon">
-        <a href="login.html" aria-label="Login">
-          <i class="ri-user-3-line"></i>
-        </a>
-      </li>
-
-      <!-- Cart Icon -->
-      <li class="nav-icon">
-        <a href="cart.html" id="lg-bag" aria-label="Cart">
-          <i class="ri-shopping-bag-4-line"></i>
-        </a>
-      </li>
-
-      <!-- Theme Toggle -->
-      <li class="nav-icon">
-        <button
-          class="theme-toggle"
-          id="themeToggle"
-          aria-label="Toggle dark mode"
-        >
-          <i class="ri-moon-line" id="themeIcon"></i>
-        </button>
-      </li>
-
-      <!-- Close Button -->
-      <a
-        href="#"
-        id="close"
-        aria-label="Close menu"
-        aria-hidden="false"
-      >
-        <i class="fa-solid fa-xmark"></i>
-      </a>
-
-    </ul>
-  </div>
-
-  <!-- Mobile Navbar -->
-  <div class="mobile">
-
-    <!-- Login Icon -->
-    <a href="login.html" aria-label="Login">
-      <i class="ri-user-3-line"></i>
-    </a>
-
-    <!-- Cart Icon -->
-    <a href="cart.html" aria-label="Cart">
-      <i class="ri-shopping-bag-4-line"></i>
-    </a>
-
-    <!-- Hamburger Menu -->
-    <i
-      class="fas fa-outdent"
-      id="bar"
-      role="button"
-      aria-label="Open menu"
-      aria-expanded="false"
-      tabindex="0"
-    ></i>
-
-  </div>
-</section>
-
-            <!-- <div class="mobile">
+            <div class="mobile">
             <button class="theme-toggle" id="themeToggleMobile"
                 aria-label="Toggle dark mode">
                 <i class="ri-moon-line" id="themeIconMobile"></i>
@@ -621,8 +479,8 @@
                 <span class="cart-count" id="mobileCartCount">0</span>
             </a>
             <i class="fas fa-outdent" id="bar"></i>
-            </div> -->
-        <!-- </section> -->
+            </div>
+        </section>
     <section id="try-on-section">
 
         <!-- Step Progress -->
@@ -697,25 +555,21 @@
             </div>
 
             <!-- Right: Viewport -->
-            <div class="ai-viewport preview-container">
+            <div class="ai-viewport">
                 <div class="viewport-placeholder" id="placeholder">
-                    <i class="ri-body-scan-line">
-                    </i>
-                
+                    <i class="ri-body-scan-line"></i>
                     <h3>Open your camera or upload a photo</h3>
                     <p style="font-size:14px; margin-top:8px;">We'll detect your body shape automatically</p>
                 </div>
 
                 <!-- Hidden webcam feed -->
-             <div class="video-wrapper">
-    <video id="webcam-video" autoplay playsinline></video>
-    <canvas id="output-canvas"></canvas>
-</div>
+                <video id="webcam-video" autoplay playsinline></video>
 
                 <!-- Hidden uploaded image -->
                 <img id="uploaded-preview" src="" alt="">
 
-
+                <!-- Main output canvas -->
+                <canvas id="output-canvas"></canvas>
 
                 <!-- Body info badge -->
                 <div class="body-info" id="body-info"></div>
@@ -738,117 +592,19 @@
     </section>
 
     <footer class="section-p1">
-    <!-- Contact Column -->
-    <div class="col">
-      <img class="logo" src="images/logo.png" alt="Cara Logo">
-      <h4>Contact</h4>
-      <p>
-        <strong>Address:</strong> 562 Wellington Road, Street 32, San
-        Francisco
-      </p>
-      <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
-      <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
-
-      <div class="follow">
-        <h4>Follow us</h4>
-        <div class="icon">
-          <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-twitter"></i>
-          </a>
-          <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-github"></i>
-          </a>
-          <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-linkedin"></i>
-          </a>
-          <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-youtube"></i>
-          </a>
+        <div class="col">
+            <img class="logo" src="images/logo.png" alt="">
+            <h4>Contact</h4>
+            <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
         </div>
-      </div>
-    </div>
-
-    <!-- About Column -->
-    <div class="col">
-      <h4>About</h4>
-      <a href="about.html">About Us</a>
-      <a href="#">Delivery Information</a>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms and Conditions</a>
-      <a href="contact.html">Contact Us</a>
-    </div>
-
-    <!-- My Account Column -->
-    <div class="col">
-      <h4>My Account</h4>
-      <a href="login.html">Sign In</a>
-      <a href="cart.html">View Cart</a>
-      <a href="#">My Wishlist</a>
-      <a href="track-order.html">Track My Order</a>
-      <a href="contact.html">Help</a>
-    </div>
-
-    <!-- Newsletter Column -->
-    <div class="col newsletter-footer">
-      <h4>Newsletter</h4>
-      <p>
-        Get email updates about our latest shop and
-        <span>special offers.</span>
-      </p>
-
-      <form class="newsletter-form">
-        <input type="email" placeholder="Your email address" required="">
-        <button type="submit" class="normal">Sign Up</button>
-      </form>
-    </div>
-
-    <!-- Install App Column -->
-    <div class="col install">
-      <h4>Install App</h4>
-      <p>From App Store or Google Play</p>
-
-      <div class="row">
-        <img src="images/pay/app.jpg" alt="Download from App Store">
-        <img src="images/pay/play.jpg" alt="Get it on Google Play">
-      </div>
-
-      <p>Secured Payment Gateways</p>
-
-      <div class="payment-icons">
-        <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer" aria-label="Visa">
-          <i class="fab fa-cc-visa"></i>
-        </a>
-
-        <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer" aria-label="Mastercard">
-          <i class="fab fa-cc-mastercard"></i>
-        </a>
-
-        <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" aria-label="PayPal">
-          <i class="fab fa-cc-paypal"></i>
-        </a>
-
-        <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer" aria-label="American Express">
-          <i class="fab fa-cc-amex"></i>
-        </a>
-
-        <a href="https://stripe.com" target="_blank" rel="noopener noreferrer" aria-label="Stripe">
-          <i class="fab fa-cc-stripe"></i>
-        </a>
-      </div>
-    </div>
-
-    <!-- Copyright -->
-    <div class="copyright">
-      <p>
-        © Cara 2026. All rights reserved. |
-        <a href="license.html" style="color: #088178"> MIT License </a>
-      </p>
-    </div>
-  </footer>
-   <button id="topBtn">↑</button>
-     <script src="try-on.js"></script> 
+        <div class="copyright">
+            <p>&copy; Cara <span id="Current-Year"></span> All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="try-on.js"></script>
     <script src="navbar.js"></script>
-<!-- <script>loadNavbar('tryon');</script> -->
+<script>loadNavbar('tryon');</script>
+<script src="app.js?v=1779120917221"></script>
         <script id="Current-Year">
         document.getElementById("Current-Year").textContent = new Date().getFullYear();
     </script>

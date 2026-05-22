@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 <!DOCTYPE html>
 <html lang="en">
@@ -315,3 +316,311 @@
 
 </html>
 
+=======
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Character Encoding -->
+    <meta charset="UTF-8">
+
+    <!-- Viewport for Responsive Design -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Page Title -->
+    <title>Cara — Modern E‑Commerce</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Shop the latest trends on our e-commerce store. Dark theme supported for a better user experience.">
+    <meta name="keywords" content="e-commerce, shopping, online store, dark mode, buy online, latest fashion">
+    <meta name="author" content=" Cara">
+    <meta name="robots" content="index, follow">
+
+    <!-- Language -->
+    <meta http-equiv="Content-Language" content="en">
+
+    <!-- Open Graph (OG) Tags for Social Sharing -->
+    <meta property="og:title" content="E-commerce - Dark Theme Working">
+    <meta property="og:description" content="Shop the latest trends with our dark mode-enabled e-commerce experience.">
+    <meta property="og:image" content="https://cara-seven-ashen.vercel.app/images/logo.png">
+    <meta property="og:url" content="https://cara-seven-ashen.vercel.app/">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="E-commerce - Dark Theme Working">
+    <meta name="twitter:description" content="Dark theme e-commerce site with modern features.">
+    <meta name="twitter:image" content="https://cara-seven-ashen.vercel.app/images/logo.png">
+    <meta name="twitter:site" content="@janavipandole">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="singleProduct.css" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+
+<body>
+    <section id="header">
+        <a id="siteLogo" href="index.html"><img src="images/logo.png" alt="Cara logo"></a>
+
+        <div>
+            <ul id="navbar">
+                <li><a href="index.html">Home</a></li>
+                <li><a class="active" href="shop.html">Shop</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="login.html" id="login-btn">Login</a></li>
+                <li><a href="try-on.html">Try-On</a></li>
+                <li><a href="community.html">Community</a></li>
+                <li><a href="promotions.html">Promotions</a></li>
+                <li><a href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
+                <li>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                        <i class="ri-moon-line" id="themeIcon"></i>
+                    </button>
+                </li>
+
+                <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+            </ul>
+        </div>
+        <div class="mobile">
+            <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
+            <i class="fas fa-outdent" id="bar"></i>
+        </div>
+        <button onclick="history.back()" class="back-btn">Back</button>
+    </section>
+
+    <section id="pro-details" class="section-p1">
+        <div class="single-pro-image">
+            <img src="images/products/f1.jpg" width="100%" id="MainImg" alt="Main product image" title="Main product image">
+            <div class="small-img-group">
+                <div class="small-img-col">
+                    <img src="images/products/f1.jpg" width="100%" class="small-img" alt="Product thumbnail 1" title="Product thumbnail 1">
+                </div>
+                <div class="small-img-col">
+                    <img src="images/products/f2.jpg" width="100%" class="small-img" alt="Product thumbnail 2" title="Product thumbnail 2">
+                </div>
+                <div class="small-img-col">
+                    <img src="images/products/f3.jpg" width="100%" class="small-img" alt="Product thumbnail 3" title="Product thumbnail 3">
+                </div>
+                <div class="small-img-col">
+                    <img src="images/products/f4.jpg" width="100%" class="small-img" alt="Product thumbnail 4" title="Product thumbnail 4">
+                </div>
+            </div>
+        </div>
+        <div class="single-pro-details">
+            <h6>Home / T-Shirt</h6>
+            <h4 id="product-name">Men's Fashion T-Shirt</h4>
+            <h2 id="product-price">$139.00</h2>
+            <select id="product-size" name="product-size" aria-label="Select product size">
+                <option>Select Size</option>
+                <option>S</option>
+                <option>M</option>
+                <option>L</option>
+                <option>XL</option>
+                <option>XXL</option>
+                <option>XXXL</option>
+            </select>
+            <div class="cart-action-group">
+                <div class="quantity-selector">
+                    <button type="button" class="qty-btn minus" onclick="updateQty(-1)" aria-label="Decrease quantity">
+                        <i class="fa-solid fa-minus"></i>
+                    </button>
+                    <input id="product-quantity" type="number" value="1" min="1" readonly title="Product quantity" aria-label="Product quantity">
+                    <button type="button" class="qty-btn plus" onclick="updateQty(1)" aria-label="Increase quantity">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                </div>
+                <button class="normal" onclick="handleAddToCart()">Add to Cart</button>
+                <button class="normal" style="background: #088178; color: white; margin-left: 10px;" onclick="handleBuyNow()">Buy Now</button>
+                <button class="normal" style="background: var(--accent); color: white; margin-left: 10px;" onclick="window.location.href='try-on.html'">Try it On Virtually!</button>
+            </div>
+            <h4>Product Details</h4>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officia tenetur, exercitationem velit maxime
+                sit beatae ea tempore a itaque natus placeat, neque fuga cumque aperiam nemo quia atque ducimus ipsam.
+            </p>
+
+        </div>
+        </div>
+    </section>
+
+    <section id="product1" class="section-p1">
+        <h2>Featured Product</h2>
+        <p>Summer Collection New Morden Design</p>
+
+        <!-- Dynamic Js container  {csritik-max }-->
+        <div class="pro-container" id="featured-container"></div>
+        <!--   -->
+    </section>
+
+    <!-- Footer -->
+    <footer class="section-p1">
+      <!-- Contact Column -->
+      <div class="col">
+        <img class="logo" src="images/logo.png" alt="Cara Logo" />
+        <h4>Contact</h4>
+        <p>
+          <strong>Address:</strong> 562 Wellington Road, Street 32, San
+          Francisco
+        </p>
+        <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
+        <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
+
+        <div class="follow">
+          <h4>Follow us</h4>
+          <div class="icon">
+            <a
+              href="https://x.com/JanaviPandole"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a
+              href="https://github.com/janavipandole"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fab fa-github"></i>
+            </a>
+            <a
+              href="https://www.linkedin.com/in/janavi-pandole-80a7b2290"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fab fa-linkedin"></i>
+            </a>
+            <a
+              href="https://www.youtube.com/@JanaviPandole"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fab fa-youtube"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- About Column -->
+      <div class="col">
+        <h4>About</h4>
+        <a href="about.html">About Us</a>
+        <a href="#">Delivery Information</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms and Conditions</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+
+      <!-- My Account Column -->
+      <div class="col">
+        <h4>My Account</h4>
+        <a href="login.html">Sign In</a>
+        <a href="cart.html">View Cart</a>
+        <a href="#">My Wishlist</a>
+        <a href="cart.html">Track My Order</a>
+        <a href="contact.html">Help</a>
+      </div>
+
+      <!-- Newsletter Column -->
+      <div class="col newsletter-footer">
+        <h4>Newsletter</h4>
+        <p>
+          Get email updates about our latest shop and
+          <span>special offers.</span>
+        </p>
+
+        <form class="newsletter-form">
+          <input type="email" placeholder="Your email address" required />
+          <button type="submit" class="normal">Sign Up</button>
+        </form>
+      </div>
+
+      <!-- Install App Column -->
+      <div class="col install">
+        <h4>Install App</h4>
+        <p>From App Store or Google Play</p>
+
+        <div class="row">
+          <img src="images/pay/app.jpg" alt="Download from App Store" />
+          <img src="images/pay/play.jpg" alt="Get it on Google Play" />
+        </div>
+
+        <p>Secured Payment Gateways</p>
+
+        <div class="payment-icons">
+          <a
+            href="https://www.visa.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visa"
+          >
+            <i class="fab fa-cc-visa"></i>
+          </a>
+
+          <a
+            href="https://www.mastercard.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Mastercard"
+          >
+            <i class="fab fa-cc-mastercard"></i>
+          </a>
+
+          <a
+            href="https://www.paypal.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="PayPal"
+          >
+            <i class="fab fa-cc-paypal"></i>
+          </a>
+
+          <a
+            href="https://www.americanexpress.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="American Express"
+          >
+            <i class="fab fa-cc-amex"></i>
+          </a>
+
+          <a
+            href="https://stripe.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Stripe"
+          >
+            <i class="fab fa-cc-stripe"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Copyright -->
+      <div class="copyright">
+        <p>
+          © Cara 2026. All rights reserved. |
+          <a href="license.html" style="color: #088178"> MIT License </a>
+        </p>
+      </div>
+    </footer>
+
+    <script src="products.js?v=1779120917220"></script>
+    <script src="app.js"></script>
+<!-- csritik-max -->
+
+<script>
+    document.getElementById("Current-Year").textContent=new Date().getFullYear();
+</script>
+</body>
+
+</html>
+>>>>>>> origin/main
