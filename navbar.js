@@ -104,19 +104,24 @@ function loadNavbar() {
     </div>
   `;
 
-  const container = document.getElementById("navbar-container");
+const container = document.getElementById("navbar-container");
 
-  if (container) {
-    container.innerHTML = navbarHTML;
-  } else {
-    console.error("navbar-container not found!");
-    return;
+if (container) {
+  container.innerHTML = navbarHTML;
+
+  // NOW elements exist
+  const menuBtn = document.getElementById("menu-btn");
+
+  if (menuBtn) {
+    menuBtn.addEventListener("click", () => {
+      console.log("clicked");
+    });
   }
-
+}
 }
   initDarkMode();
   initMobileNavbar();
-  }
+  
   function initMobileNavbar() {
 
   const bar = document.getElementById("bar");
