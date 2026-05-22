@@ -71,131 +71,120 @@
       referrerpolicy="no-referrer"
     />
     <style>
+      #scrollTopBtn {
+        position: fixed;
+        bottom: 30px;
+        right: 30px; /* keeps button on right side */
 
-    
-#scrollTopBtn {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;   /* keeps button on right side */
+        width: 55px;
+        height: 55px;
 
-  width: 55px;
-  height: 55px;
+        border: none;
+        border-radius: 50%;
 
-  border: none;
-  border-radius: 50%;
+        background-color: #088178;
+        color: white;
 
-  background-color: #088178;
-  color: white;
+        font-size: 24px;
+        font-weight: bold;
 
-  font-size: 24px;
-  font-weight: bold;
+        cursor: pointer;
+        z-index: 999;
 
-  cursor: pointer;
-  z-index: 999;
+        display: none;
 
-  display: none;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+      }
 
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  transition: all 0.3s ease;
-}
-
-#scrollTopBtn:hover {
-  background-color: #065f5b;
-  transform: scale(1.1);
-}
-</style>
+      #scrollTopBtn:hover {
+        background-color: #065f5b;
+        transform: scale(1.1);
+      }
+    </style>
   </head>
 
   <body>
-          <!-- HEADER -->
-          <section id="header">
-  <!-- Logo -->
-  <a href="index.html">
-    <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
-  </a>
+    <!-- HEADER -->
+    <section id="header">
+      <!-- Logo -->
+      <a href="index.html">
+        <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
+      </a>
 
-  <div>
-    <ul id="navbar">
+      <div>
+        <ul id="navbar">
+          <!-- Main Navigation Links -->
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a class="active" href="about.html">About</a></li>
+          <li><a href="try-on.html">Try-On</a></li>
+          <li><a href="community.html">Community</a></li>
+          <li><a href="promotions.html">Promotions</a></li>
 
-      <!-- Main Navigation Links -->
-      <li><a href="index.html">Home</a></li>
-      <li><a href="shop.html">Shop</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a class="active" href="about.html">About</a></li>
-      <li><a href="try-on.html">Try-On</a></li>
-      <li><a href="community.html">Community</a></li>
-      <li><a href="promotions.html">Promotions</a></li>
+          <!-- Contact Icon -->
+          <li class="nav-icon">
+            <a href="contact.html" aria-label="Contact">
+              <i class="ri-customer-service-2-line"></i>
+            </a>
+          </li>
 
-      <!-- Contact Icon -->
-      <li class="nav-icon">
-        <a href="contact.html" aria-label="Contact">
-          <i class="ri-customer-service-2-line"></i>
-        </a>
-      </li>
+          <!-- Login Icon -->
+          <li class="nav-icon">
+            <a href="login.html" aria-label="Login">
+              <i class="ri-user-3-line"></i>
+            </a>
+          </li>
 
-      <!-- Login Icon -->
-      <li class="nav-icon">
+          <!-- Cart Icon -->
+          <li class="nav-icon">
+            <a href="cart.html" id="lg-bag" aria-label="Cart">
+              <i class="ri-shopping-bag-4-line"></i>
+            </a>
+          </li>
+
+          <!-- Theme Toggle -->
+          <li class="nav-icon">
+            <button
+              class="theme-toggle"
+              id="themeToggle"
+              aria-label="Toggle dark mode"
+            >
+              <i class="ri-moon-line" id="themeIcon"></i>
+            </button>
+          </li>
+
+          <!-- Close Button -->
+          <a href="#" id="close" aria-label="Close menu" aria-hidden="false">
+            <i class="fa-solid fa-xmark"></i>
+          </a>
+        </ul>
+      </div>
+
+      <!-- Mobile Navbar -->
+      <div class="mobile">
+        <!-- Login Icon -->
         <a href="login.html" aria-label="Login">
           <i class="ri-user-3-line"></i>
         </a>
-      </li>
 
-      <!-- Cart Icon -->
-      <li class="nav-icon">
-        <a href="cart.html" id="lg-bag" aria-label="Cart">
+        <!-- Cart Icon -->
+        <a href="cart.html" aria-label="Cart">
           <i class="ri-shopping-bag-4-line"></i>
         </a>
-      </li>
 
-      <!-- Theme Toggle -->
-      <li class="nav-icon">
-        <button
-          class="theme-toggle"
-          id="themeToggle"
-          aria-label="Toggle dark mode"
-        >
-          <i class="ri-moon-line" id="themeIcon"></i>
-        </button>
-      </li>
-
-      <!-- Close Button -->
-      <a
-        href="#"
-        id="close"
-        aria-label="Close menu"
-        aria-hidden="false"
-      >
-        <i class="fa-solid fa-xmark"></i>
-      </a>
-
-    </ul>
-  </div>
-
-  <!-- Mobile Navbar -->
-  <div class="mobile">
-
-    <!-- Login Icon -->
-    <a href="login.html" aria-label="Login">
-      <i class="ri-user-3-line"></i>
-    </a>
-
-    <!-- Cart Icon -->
-    <a href="cart.html" aria-label="Cart">
-      <i class="ri-shopping-bag-4-line"></i>
-    </a>
-
-    <!-- Hamburger Menu -->
-    <i
-      class="fas fa-outdent"
-      id="bar"
-      role="button"
-      aria-label="Open menu"
-      aria-expanded="false"
-      tabindex="0"
-    ></i>
-
-  </div>
-</section>
+        <!-- Hamburger Menu -->
+        <i
+          class="fas fa-outdent"
+          id="bar"
+          role="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+          tabindex="0"
+        ></i>
+      </div>
+    </section>
     <section id="about-head">
       <h2>#KnowUs</h2>
       <p>Read all case studies about Us!</p>
@@ -242,61 +231,44 @@
     </section>
 
     <section id="interactive-feature-wrapper">
-      <div class="animation-container" id="cardContainer">
-        <div class="brand-card" id="brandCard">
-          <h1>Cara</h1>
-        </div>
-
-        <div class="sub-card card-l1">
-          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-               <div class="icon">🛒</div>
-               <h3>Free Shipping</h3>
-          </div>
+      <div id="feature-container">
+        <div class="feature-box">
+          <div class="icon">🛒</div>
+          <h3>Free Shipping</h3>
           <p>On all standard regional custom retail updates.</p>
         </div>
 
-        <div class="sub-card card-l2">
-        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-             <div class="icon">👤</div>
-             <h3>Online Order</h3>
-        </div>
-        <p>Quick dynamic electronic checkout confirmation system.</p>
+        <div class="feature-box">
+          <div class="icon">👤</div>
+          <h3>Online Order</h3>
+          <p>Quick dynamic electronic checkout confirmation system.</p>
         </div>
 
-        <div class="sub-card card-l3">
-        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-            <div class="icon">⚙️</div>
-            <h3>Save Money</h3>
-        </div>
-        <p>Incentive cashback loops on every wholesale purchase.</p>
+        <div class="feature-box">
+          <div class="icon">⚙️</div>
+          <h3>Save Money</h3>
+          <p>Incentive cashback loops on every wholesale purchase.</p>
         </div>
 
-        <div class="sub-card card-r1">
-        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-            <div class="icon">⭐</div>
-            <h3>Promotions</h3>
-        </div>
-        <p>Unlock seasonal drops & holiday campaign vouchers.</p>
+        <div class="feature-box">
+          <div class="icon">⭐</div>
+          <h3>Promotions</h3>
+          <p>Unlock seasonal drops & holiday campaign vouchers.</p>
         </div>
 
-        <div class="sub-card card-r2">
-        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-            <div class="icon">🚀</div>
-            <h3>Happy Sell</h3>
-        </div>
-        <p>Premium matching customer success feedback loops.</p>
+        <div class="feature-box">
+          <div class="icon">🚀</div>
+          <h3>Happy Sell</h3>
+          <p>Premium matching customer success feedback loops.</p>
         </div>
 
-        <div class="sub-card card-r3">
-        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-            <div class="icon">🌍</div>
-            <h3>24/7 Support</h3>
-        </div>
-        <p>Global infrastructure desk agents always responsive.</p>
+        <div class="feature-box">
+          <div class="icon">🌍</div>
+          <h3>24/7 Support</h3>
+          <p>Global infrastructure desk agents always responsive.</p>
         </div>
       </div>
     </section>
-
 
     <!-- Footer -->
     <footer class="section-p1">
@@ -448,34 +420,36 @@
         </p>
       </div>
     </footer>
-          <button id="scrollTopBtn" title="Go to top" width="120px" height="120px">
-  ↑
-</button>
+    <button id="scrollTopBtn" title="Go to top" width="120px" height="120px">
+      ↑
+    </button>
 
     <script src="navbar.js"></script>
-    <script>loadNavbar('about');</script>
+    <script>
+      loadNavbar('about');
+    </script>
     <script src="app.js"></script>
     <script>
-        const yearEl = document.getElementById("Current-Year");
-        if (yearEl) yearEl.textContent = new Date().getFullYear();
+      const yearEl = document.getElementById('Current-Year');
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
     </script>
     <script>
-  const scrollBtn = document.getElementById("scrollTopBtn");
+      const scrollBtn = document.getElementById('scrollTopBtn');
 
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 300) {
-      scrollBtn.style.display = "block";
-    } else {
-      scrollBtn.style.display = "none";
-    }
-  });
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+          scrollBtn.style.display = 'block';
+        } else {
+          scrollBtn.style.display = 'none';
+        }
+      });
 
-  scrollBtn.addEventListener("click", () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-  });
-</script>
+      scrollBtn.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+      });
+    </script>
   </body>
 </html>
