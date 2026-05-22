@@ -794,7 +794,9 @@ window.openQuiz = function () {
 }
 
 window.closeQuiz = function () {
+    document.querySelector('.close').addEventListener('click', () => {
     document.getElementById('quiz-modal').style.display = 'none';
+});
 }
 
 window.selectStyle = function (style) {
@@ -1916,8 +1918,8 @@ document.addEventListener('DOMContentLoaded', () => {
 })();
 
 // Back to Top Button Logic
-const backToTopBtn = document.getElementById('backToTop');
-const ToptobackBtn = document.getElementById('Toptoback');
+
+
 
 if (backToTopBtn && ToptobackBtn) {
   window.addEventListener('scroll', () => {
