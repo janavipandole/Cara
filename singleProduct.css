@@ -178,3 +178,74 @@
         width: 100%;
     }
 }
+#size-chart-btn {
+
+    padding: 12px 24px;
+
+    font-size: 16px;
+
+    font-weight: 400;
+
+    border: none;
+
+    border-radius: 6px;
+
+    background-color: #088178;
+
+    color: white;
+
+    cursor: pointer;
+
+    margin-top: 12px;
+
+    transition: 0.3s ease;
+}
+
+
+#size-chart-btn:hover {
+
+    background-color: #066c63;
+}
+.size-chart {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 25px;
+    table-layout: fixed;
+}
+
+.size-chart thead tr {
+    border-bottom: 2px solid #e5e5e5;
+}
+
+.size-chart th {
+
+    padding: 16px 20px;
+
+    text-align: center;
+
+    font-size: 20px;
+
+    font-weight: 600;
+
+    color: #222;
+}
+
+.size-chart td {
+
+    padding: 18px 20px;
+
+    text-align: center;
+
+    font-size: 18px;
+
+    color: #444;
+
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.size-chart tbody tr:hover {
+
+    background-color: #fafafa;
+
+    transition: 0.2s ease;
+}
