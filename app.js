@@ -2054,87 +2054,87 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* --- START: HERO SLIDER FUNCTIONALITY --- */
-function initHeroSlider() {
-  const slider = document.querySelector('.hero-slider');
-  // Null check to prevent errors on pages where the slider doesn't exist
-  if (!slider) return;
+// function initHeroSlider() {
+//   const slider = document.querySelector('.hero-slider');
+//   // Null check to prevent errors on pages where the slider doesn't exist
+//   if (!slider) return;
 
-  const slides = slider.querySelectorAll('.slide');
-  const prevBtn = slider.querySelector('.slider-btn.prev');
-  const nextBtn = slider.querySelector('.slider-btn.next');
-  const dots = slider.querySelectorAll('.slider-dots .dot');
+//   const slides = slider.querySelectorAll('.slide');
+//   const prevBtn = slider.querySelector('.slider-btn.prev');
+//   const nextBtn = slider.querySelector('.slider-btn.next');
+//   const dots = slider.querySelectorAll('.slider-dots .dot');
 
-  if (slides.length === 0) return;
+//   if (slides.length === 0) return;
 
-  let currentSlide = 0;
-  let autoPlayInterval;
-  const intervalTime = 5000; // 5 seconds
+//   let currentSlide = 0;
+//   let autoPlayInterval;
+//   const intervalTime = 5000; // 5 seconds
 
-  function updateSlider() {
-    // Remove active class from all slides and dots
-    slides.forEach((slide) => slide.classList.remove('active'));
-    dots.forEach((dot) => dot.classList.remove('active'));
+//   function updateSlider() {
+//     // Remove active class from all slides and dots
+//     slides.forEach((slide) => slide.classList.remove('active'));
+//     dots.forEach((dot) => dot.classList.remove('active'));
 
-    // Add active class to current slide and dot
-    slides[currentSlide].classList.add('active');
-    if (dots[currentSlide]) {
-      dots[currentSlide].classList.add('active');
-    }
-  }
+//     // Add active class to current slide and dot
+//     slides[currentSlide].classList.add('active');
+//     if (dots[currentSlide]) {
+//       dots[currentSlide].classList.add('active');
+//     }
+//   }
 
-  function nextSlide() {
-    currentSlide = (currentSlide + 1) % slides.length;
-    updateSlider();
-  }
+//   function nextSlide() {
+//     currentSlide = (currentSlide + 1) % slides.length;
+//     updateSlider();
+//   }
 
-  function prevSlide() {
-    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-    updateSlider();
-  }
+//   function prevSlide() {
+//     currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+//     updateSlider();
+//   }
 
-  function resetAutoPlay() {
-    clearInterval(autoPlayInterval);
-    startAutoPlay();
-  }
+//   function resetAutoPlay() {
+//     clearInterval(autoPlayInterval);
+//     startAutoPlay();
+//   }
 
-  function startAutoPlay() {
-    autoPlayInterval = setInterval(nextSlide, intervalTime);
-  }
+//   function startAutoPlay() {
+//     autoPlayInterval = setInterval(nextSlide, intervalTime);
+//   }
 
-  // Event Listeners for Arrows
-  if (nextBtn) {
-    nextBtn.addEventListener('click', () => {
-      nextSlide();
-      resetAutoPlay();
-    });
-  }
+//   // Event Listeners for Arrows
+//   if (nextBtn) {
+//     nextBtn.addEventListener('click', () => {
+//       nextSlide();
+//       resetAutoPlay();
+//     });
+//   }
 
-  if (prevBtn) {
-    prevBtn.addEventListener('click', () => {
-      prevSlide();
-      resetAutoPlay();
-    });
-  }
+//   if (prevBtn) {
+//     prevBtn.addEventListener('click', () => {
+//       prevSlide();
+//       resetAutoPlay();
+//     });
+//   }
 
-  // Event Listeners for Dots
-  dots.forEach((dot, index) => {
-    dot.addEventListener('click', () => {
-      currentSlide = index;
-      updateSlider();
-      resetAutoPlay();
-    });
-  });
+//   // Event Listeners for Dots
+//   dots.forEach((dot, index) => {
+//     dot.addEventListener('click', () => {
+//       currentSlide = index;
+//       updateSlider();
+//       resetAutoPlay();
+//     });
+//   });
 
-  // Initialize auto-play
-  startAutoPlay();
-}
+//   // Initialize auto-play
+//   startAutoPlay();
+// }
 
-// Resilient initialization
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initHeroSlider);
-} else {
-  initHeroSlider();
-}
+// // Resilient initialization
+// if (document.readyState === 'loading') {
+//   document.addEventListener('DOMContentLoaded', initHeroSlider);
+// } else {
+//   initHeroSlider();
+// }
 /* --- END: HERO SLIDER FUNCTIONALITY --- */
 
 /* --- START: CURRENT YEAR FUNCTIONALITY --- */

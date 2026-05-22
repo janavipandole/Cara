@@ -34694,3 +34694,28 @@ button#share-cart-btn:hover {
 }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 .toast-icon { font-size: 16px; }
+
+/* Fix: hide mobile navbar on desktop */
+.mobile {
+    display: none !important;
+}
+
+#bar {
+    display: none !important;
+}
+
+@media (max-width: 799px) {
+    .mobile {
+        display: flex !important;
+        align-items: center;
+        gap: 16px;
+    }
+
+    #bar {
+        display: block !important;
+    }
+
+    #lg-bag {
+        display: none !important;
+    }
+}
