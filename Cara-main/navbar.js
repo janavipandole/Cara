@@ -51,7 +51,8 @@ function initDarkMode() {
   if (isDarkSaved) {
     document.body.classList.add('dark');
     if (themeIcon) themeIcon.classList.replace('ri-moon-line', 'ri-sun-line');
-    if (themeIconMobile) themeIconMobile.classList.replace('ri-moon-line', 'ri-sun-line');
+    if (themeIconMobile)
+      themeIconMobile.classList.replace('ri-moon-line', 'ri-sun-line');
   }
 
   function handleToggle() {
@@ -65,5 +66,6 @@ function initDarkMode() {
   }
 
   if (themeToggle) themeToggle.addEventListener('click', handleToggle);
-  if (themeToggleMobile) themeToggleMobile.addEventListener('click', handleToggle);
+  if (themeToggleMobile)
+    themeToggleMobile.addEventListener('click', handleToggle);
 }

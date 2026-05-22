@@ -113,10 +113,9 @@ function loadNavbar() {
     return;
   }
 
-}
   initDarkMode();
   initMobileNavbar();
-  }
+}
   function initMobileNavbar() {
 
   const bar = document.getElementById("bar");

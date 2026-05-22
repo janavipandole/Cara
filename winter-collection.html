@@ -1,447 +1,727 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <!-- Character Encoding -->
+    <meta charset="UTF-8" />
 
-<head>
-  <!-- Character Encoding -->
-  <meta charset="UTF-8" />
+    <!-- Viewport for Responsive Design -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Viewport for Responsive Design -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Page Title -->
+    <title>Winter Collection — Cara</title>
 
-  <!-- Page Title -->
-  <title>Winter Collection — Cara</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css?v=2" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
 
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="style.css?v=2" />
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Simple page-specific styling -->
+    <style>
+      /* Campaign Page Head Styling */
+      #campaign-head {
+        background-image:
+          linear-gradient(
+            135deg,
+            rgba(2, 132, 199, 0.9),
+            rgba(56, 189, 248, 0.8)
+          ),
+          url('images/banner/b10.jpg');
+        background-size: cover;
+        background-position: center;
+        width: 100%;
+        height: 35vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: #fff;
+        padding: 14px;
+      }
 
-  <!-- Simple page-specific styling -->
-  <style>
-    /* Campaign Page Head Styling */
-    #campaign-head {
-      background-image: linear-gradient(135deg, rgba(2, 132, 199, 0.9), rgba(56, 189, 248, 0.8)), url('images/banner/b10.jpg');
-      background-size: cover;
-      background-position: center;
-      width: 100%;
-      height: 35vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      color: #fff;
-      padding: 14px;
-    }
+      #campaign-head h2 {
+        font-size: 45px;
+        font-weight: 800;
+        text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
 
-    #campaign-head h2 {
-      font-size: 45px;
-      font-weight: 800;
-      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
+      #campaign-head p {
+        font-size: 18px;
+        font-weight: 500;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
 
-    #campaign-head p {
-      font-size: 18px;
-      font-weight: 500;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    }
+      /* Campaign Layout */
+      .campaign-content {
+        padding: 60px 8%;
+        text-align: center;
+      }
 
-    /* Campaign Layout */
-    .campaign-content {
-      padding: 60px 8%;
-      text-align: center;
-    }
+      .badge-deal {
+        display: inline-block;
+        background-color: #0284c7;
+        color: #fff;
+        font-weight: 700;
+        font-size: 13px;
+        padding: 6px 16px;
+        border-radius: 50px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 20px;
+      }
 
-    .badge-deal {
-      display: inline-block;
-      background-color: #0284c7;
-      color: #fff;
-      font-weight: 700;
-      font-size: 13px;
-      padding: 6px 16px;
-      border-radius: 50px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 20px;
-    }
+      .campaign-content h1 {
+        font-size: 36px;
+        font-weight: 700;
+        margin-bottom: 12px;
+        color: #1a1a1a;
+      }
 
-    .campaign-content h1 {
-      font-size: 36px;
-      font-weight: 700;
-      margin-bottom: 12px;
-      color: #1a1a1a;
-    }
+      [data-theme='dark'] .campaign-content h1 {
+        color: #f8fafc;
+      }
 
-    [data-theme="dark"] .campaign-content h1 {
-      color: #f8fafc;
-    }
+      .campaign-content p.lead-text {
+        font-size: 16px;
+        color: #666;
+        max-width: 600px;
+        margin: 0 auto 50px auto;
+        line-height: 1.6;
+      }
 
-    .campaign-content p.lead-text {
-      font-size: 16px;
-      color: #666;
-      max-width: 600px;
-      margin: 0 auto 50px auto;
-      line-height: 1.6;
-    }
+      [data-theme='dark'] .campaign-content p.lead-text {
+        color: #cbd5e1;
+      }
 
-    [data-theme="dark"] .campaign-content p.lead-text {
-      color: #cbd5e1;
-    }
+      /* Actions Bar */
+      .action-group {
+        display: flex;
+        gap: 15px;
+        margin-top: 40px;
+        justify-content: center;
+      }
 
-    /* Actions Bar */
-    .action-group {
-      display: flex;
-      gap: 15px;
-      margin-top: 40px;
-      justify-content: center;
-    }
+      .btn-action {
+        font-size: 15px;
+        font-weight: 700;
+        padding: 12px 28px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        text-decoration: none;
+        display: inline-block;
+      }
 
-    .btn-action {
-      font-size: 15px;
-      font-weight: 700;
-      padding: 12px 28px;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-transform: uppercase;
-      text-decoration: none;
-      display: inline-block;
-    }
+      .btn-primary {
+        background-color: #088178;
+        color: #fff;
+        border: none;
+      }
 
-    .btn-primary {
-      background-color: #088178;
-      color: #fff;
-      border: none;
-    }
+      .btn-primary:hover {
+        background-color: #06655e;
+      }
 
-    .btn-primary:hover {
-      background-color: #06655e;
-    }
+      .btn-secondary {
+        background-color: transparent;
+        border: 1px solid #ccc;
+        color: #333;
+      }
 
-    .btn-secondary {
-      background-color: transparent;
-      border: 1px solid #ccc;
-      color: #333;
-    }
+      [data-theme='dark'] .btn-secondary {
+        color: #f8fafc;
+        border-color: #475569;
+      }
 
-    [data-theme="dark"] .btn-secondary {
-      color: #f8fafc;
-      border-color: #475569;
-    }
+      .btn-secondary:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+      }
 
-    .btn-secondary:hover {
-      background-color: rgba(0, 0, 0, 0.05);
-    }
+      [data-theme='dark'] .btn-secondary:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+      }
 
-    [data-theme="dark"] .btn-secondary:hover {
-      background-color: rgba(255, 255, 255, 0.05);
-    }
+      /* Scroll To Top Buttons */
+      #scrollTopBtn {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 55px;
+        height: 55px;
+        border: none;
+        border-radius: 50%;
+        background-color: #088178;
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+        z-index: 999;
+        display: none;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+      }
 
-    /* Scroll To Top Buttons */
-    #scrollTopBtn {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      width: 55px;
-      height: 55px;
-      border: none;
-      border-radius: 50%;
-      background-color: #088178;
-      color: white;
-      font-size: 24px;
-      font-weight: bold;
-      cursor: pointer;
-      z-index: 999;
-      display: none;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-      transition: all 0.3s ease;
-    }
+      #scrollTopBtn:hover {
+        background-color: #065f5b;
+        transform: scale(1.1);
+      }
+    </style>
+  </head>
 
-    #scrollTopBtn:hover {
-      background-color: #065f5b;
-      transform: scale(1.1);
-    }
-  </style>
-</head>
+  <body>
+    <div id="main">
+      <div id="top">
+        <div id="workingArea">
+          <section id="header">
+            <!-- Logo -->
+            <a href="index.html">
+              <img
+                id="siteLogo"
+                src="images/logo.png"
+                alt="Cara Logo"
+                id="siteLogo"
+              />
+            </a>
 
-<body>
-  <div id="main">
-    <div id="top">
-      <div id="workingArea">
-        <section id="header">
-          <!-- Logo -->
-          <a href="index.html">
-            <img id="siteLogo" src="images/logo.png" alt="Cara Logo" id="siteLogo" />
-          </a>
+            <div>
+              <ul id="navbar">
+                <!-- Main Navigation Links -->
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html" class="active">Shop</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="try-on.html">Try-On</a></li>
+                <li><a href="community.html">Community</a></li>
+                <li><a href="promotions.html">Promotions</a></li>
 
-          <div>
-            <ul id="navbar">
-              <!-- Main Navigation Links -->
-              <li><a href="index.html">Home</a></li>
-              <li><a href="shop.html" class="active">Shop</a></li>
-              <li><a href="blog.html">Blog</a></li>
-              <li><a href="about.html">About</a></li>
-              <li><a href="try-on.html">Try-On</a></li>
-              <li><a href="community.html">Community</a></li>
-              <li><a href="promotions.html">Promotions</a></li>
+                <!-- Contact Icon -->
+                <li class="nav-icon">
+                  <a href="contact.html" aria-label="Contact">
+                    <i class="ri-customer-service-2-line"></i>
+                  </a>
+                </li>
 
-              <!-- Contact Icon -->
-              <li class="nav-icon">
-                <a href="contact.html" aria-label="Contact">
-                  <i class="ri-customer-service-2-line"></i>
+                <!-- Login Icon -->
+                <li class="nav-icon">
+                  <a href="login.html" aria-label="Login">
+                    <i class="ri-user-3-line"></i>
+                  </a>
+                </li>
+
+                <!-- Cart Icon -->
+                <li class="nav-icon">
+                  <a href="cart.html" id="lg-bag" aria-label="Cart">
+                    <i class="ri-shopping-bag-4-line"></i>
+                  </a>
+                </li>
+
+                <!-- Theme Toggle -->
+                <li class="nav-icon">
+                  <button
+                    class="theme-toggle"
+                    id="themeToggle"
+                    aria-label="Toggle dark mode"
+                  >
+                    <i class="ri-moon-line" id="themeIcon"></i>
+                  </button>
+                </li>
+
+                <!-- Close Button -->
+                <a
+                  href="#"
+                  id="close"
+                  aria-label="Close menu"
+                  aria-hidden="false"
+                >
+                  <i class="fa-solid fa-xmark"></i>
                 </a>
-              </li>
+              </ul>
+            </div>
 
+            <!-- Mobile Navbar -->
+            <div class="mobile">
               <!-- Login Icon -->
-              <li class="nav-icon">
-                <a href="login.html" aria-label="Login">
-                  <i class="ri-user-3-line"></i>
-                </a>
-              </li>
+              <a href="login.html" aria-label="Login">
+                <i class="ri-user-3-line"></i>
+              </a>
 
               <!-- Cart Icon -->
-              <li class="nav-icon">
-                <a href="cart.html" id="lg-bag" aria-label="Cart">
-                  <i class="ri-shopping-bag-4-line"></i>
-                </a>
-              </li>
-
-              <!-- Theme Toggle -->
-              <li class="nav-icon">
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-                  <i class="ri-moon-line" id="themeIcon"></i>
-                </button>
-              </li>
-
-              <!-- Close Button -->
-              <a href="#" id="close" aria-label="Close menu" aria-hidden="false">
-                <i class="fa-solid fa-xmark"></i>
+              <a href="cart.html" aria-label="Cart">
+                <i class="ri-shopping-bag-4-line"></i>
               </a>
-            </ul>
-          </div>
 
-          <!-- Mobile Navbar -->
-          <div class="mobile">
-            <!-- Login Icon -->
-            <a href="login.html" aria-label="Login">
-              <i class="ri-user-3-line"></i>
-            </a>
-
-            <!-- Cart Icon -->
-            <a href="cart.html" aria-label="Cart">
-              <i class="ri-shopping-bag-4-line"></i>
-            </a>
-
-            <!-- Hamburger Menu -->
-            <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
-          </div>
-        </section>
-
-        <!-- Subpage Banner Head -->
-        <section id="campaign-head">
-          <h2>#WinterCozy</h2>
-          <p>Uncompromising style for the cold season!</p>
-        </section>
-      </div>
-    </div>
-  </div>
-
-  <section class="campaign-content">
-    <div class="badge-deal">Seasonal Showcase</div>
-    <h1>Premium Cozy Essentials</h1>
-    <p class="lead-text">Discover our latest arrivals designed specifically to provide optimal warmth without sacrificing contemporary style. From heavyweight tactical shirts to beautifully knit formal wear, find your new cold-weather favorite today.</p>
-
-    <!-- Product Grid for Winter Arrivals -->
-    <div id="product1" class="section-p1" style="width: 100%; padding: 0;">
-      <div class="pro-container">
-
-        <div class="pro" data-category="formal">
-          <div class="pro-img-wrap"><img src="images/products/n2.jpg" alt="Navy Textured Formal Shirt" /></div>
-          <div class="des">
-            <div class="pro-brand-row">
-              <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
-              <span>Ralph Lauren</span>
+              <!-- Hamburger Menu -->
+              <i
+                class="fas fa-outdent"
+                id="bar"
+                role="button"
+                aria-label="Open menu"
+                aria-expanded="false"
+                tabindex="0"
+              ></i>
             </div>
-            <h5>Navy Textured Formal Shirt</h5>
-            <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
-            <h4>&#8377;6,999</h4>
-            <div class="pro-action-bar">
-              <button class="pro-buy-btn" onclick="event.stopPropagation(); buyNow('Navy Textured Formal Shirt','₹6,999','images/products/n2.jpg',1,'M')">BUY NOW</button>
-              <a href="#" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation(); addToCart('Navy Textured Formal Shirt','₹6,999','images/products/n2.jpg',1,'M'); return false;"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-          </div>
-        </div>
+          </section>
 
-        <div class="pro" data-category="formal">
-          <div class="pro-img-wrap"><img src="images/products/n4.jpg" alt="Sandstone Tactical Utility Shirt" /></div>
-          <div class="des">
-            <div class="pro-brand-row">
-              <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
-              <span>Zara</span>
-            </div>
-            <h5>Sandstone Tactical Utility Shirt</h5>
-            <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
-            <h4>&#8377;3,990</h4>
-            <div class="pro-action-bar">
-              <button class="pro-buy-btn" onclick="event.stopPropagation(); buyNow('Sandstone Tactical Utility Shirt','₹3,990','images/products/n4.jpg',1,'M')">BUY NOW</button>
-              <a href="#" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation(); addToCart('Sandstone Tactical Utility Shirt','₹3,990','images/products/n4.jpg',1,'M'); return false;"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-          </div>
-        </div>
-
-        <div class="pro" data-category="minimal">
-          <div class="pro-img-wrap"><img src="images/products/n8.jpg" alt="Deep Charcoal Casual Shirt" /></div>
-          <div class="des">
-            <div class="pro-brand-row">
-              <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
-              <span>Puma</span>
-            </div>
-            <h5>Deep Charcoal Casual Shirt</h5>
-            <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
-            <h4>&#8377;1,799</h4>
-            <div class="pro-action-bar">
-              <button class="pro-buy-btn" onclick="event.stopPropagation(); buyNow('Deep Charcoal Casual Shirt','₹1,799','images/products/n8.jpg',1,'M')">BUY NOW</button>
-              <a href="#" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation(); addToCart('Deep Charcoal Casual Shirt','₹1,799','images/products/n8.jpg',1,'M'); return false;"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-          </div>
-        </div>
-
-        <div class="pro" data-category="formal">
-          <div class="pro-img-wrap"><img src="images/products/n3.jpg" alt="Classic White Cotton Shirt" /></div>
-          <div class="des">
-            <div class="pro-brand-row">
-              <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
-              <span>Calvin Klein</span>
-            </div>
-            <h5>Classic White Cotton Shirt</h5>
-            <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
-            <h4>&#8377;5,499</h4>
-            <div class="pro-action-bar">
-              <button class="pro-buy-btn" onclick="event.stopPropagation(); buyNow('Classic White Cotton Shirt','₹5,499','images/products/n3.jpg',1,'M')">BUY NOW</button>
-              <a href="#" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation(); addToCart('Classic White Cotton Shirt','₹5,499','images/products/n3.jpg',1,'M'); return false;"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Navigation CTAs -->
-    <div class="action-group">
-      <a href="shop.html" class="btn-action btn-primary">Shop The Collection</a>
-      <a href="index.html" class="btn-action btn-secondary">Back To Home</a>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="main-footer">
-    <div class="footer-top">
-      <div class="footer-logo-box">
-        <img class="footer-logo" src="images/logo.png" alt="Cara Logo" />
-      </div>
-      <div class="footer-socials">
-        <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
-        <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
-        <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
-        <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
-      </div>
-    </div>
-
-    <hr class="footer-divider">
-
-    <div class="footer-middle">
-      <div class="footer-col brand-info">
-        <h4>ABOUT US</h4>
-        <p>Cara E-Commerce – Redefining your style with premium apparel, expert curation, and an absolute commitment to fashion excellence.</p>
-        <p><strong>Address: </strong>562 Wellington Road, Street 32, San Francisco</p>
-        <p><strong>Phone: </strong>+01 2222 365 / (+91) 01 2345 6789</p>
-        <p><strong>Hours: </strong>10:00 - 18:00, Mon - Sat</p>
-      </div>
-
-      <div class="footer-col">
-        <h4>QUICK LINKS</h4>
-        <a href="about.html">About Us</a>
-        <a href="#">Delivery Information</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="terms.html">Terms and Conditions</a>
-        <a href="contact.html">Contact Us</a>
-      </div>
-
-      <div class="footer-col">
-        <h4>MY ACCOUNT</h4>
-        <a href="login.html">Sign In</a>
-        <a href="cart.html">View Cart</a>
-        <a href="#">My Wishlist</a>
-        <a href="cart.html">Track My Order</a>
-        <a href="contact.html">Help</a>
-      </div>
-
-      <div class="footer-col newsletter-footer">
-        <h4>NEWSLETTER</h4>
-        <p>Get email updates about our latest shop and <span>special offers.</span></p>
-        <form class="newsletter-form">
-          <input type="email" placeholder="Your email address" required>
-          <button type="submit">Sign Up</button>
-        </form>
-
-        <div class="install-payment-box">
-          <h4>SECURED PAYMENT GATEWAYS</h4>
-          <div class="payment-icons">
-            <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer" aria-label="Visa"><i class="fab fa-cc-visa"></i></a>
-            <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer" aria-label="Mastercard"><i class="fab fa-cc-mastercard"></i></a>
-            <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" aria-label="PayPal"><i class="fab fa-cc-paypal"></i></a>
-            <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer" aria-label="American Express"><i class="fab fa-cc-amex"></i></a>
-            <a href="https://www.stripe.com" target="_blank" rel="noopener noreferrer" aria-label="Stripe"><i class="fab fa-cc-stripe"></i></a>
-          </div>
+          <!-- Subpage Banner Head -->
+          <section id="campaign-head">
+            <h2>#WinterCozy</h2>
+            <p>Uncompromising style for the cold season!</p>
+          </section>
         </div>
       </div>
     </div>
 
-    <div class="footer-install-box">
-      <h4>INSTALL APP</h4>
-      <p>From App Store or Google Play</p>
-      <div class="download-badges">
-        <img src="images/pay/app.jpg" alt="Download from App Store" />
-        <img src="images/pay/play.jpg" alt="Get it on Google Play" />
+    <section class="campaign-content">
+      <div class="badge-deal">Seasonal Showcase</div>
+      <h1>Premium Cozy Essentials</h1>
+      <p class="lead-text">
+        Discover our latest arrivals designed specifically to provide optimal
+        warmth without sacrificing contemporary style. From heavyweight tactical
+        shirts to beautifully knit formal wear, find your new cold-weather
+        favorite today.
+      </p>
+
+      <!-- Product Grid for Winter Arrivals -->
+      <div id="product1" class="section-p1" style="width: 100%; padding: 0">
+        <div class="pro-container">
+          <div class="pro" data-category="formal">
+            <div class="pro-img-wrap">
+              <img
+                src="images/products/n2.jpg"
+                alt="Navy Textured Formal Shirt"
+              />
+            </div>
+            <div class="des">
+              <div class="pro-brand-row">
+                <svg
+                  class="pro-brand-logo"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z" />
+                </svg>
+                <span>Ralph Lauren</span>
+              </div>
+              <h5>Navy Textured Formal Shirt</h5>
+              <div class="star">
+                <i class="ri-star-fill"></i><i class="ri-star-fill"></i
+                ><i class="ri-star-fill"></i><i class="ri-star-fill"></i
+                ><i class="ri-star-fill"></i>
+              </div>
+              <h4>&#8377;6,999</h4>
+              <div class="pro-action-bar">
+                <button
+                  class="pro-buy-btn"
+                  onclick="
+                    event.stopPropagation();
+                    buyNow(
+                      'Navy Textured Formal Shirt',
+                      '₹6,999',
+                      'images/products/n2.jpg',
+                      1,
+                      'M'
+                    );
+                  "
+                >
+                  BUY NOW
+                </button>
+                <a
+                  href="#"
+                  class="pro-cart-btn"
+                  aria-label="Add to cart"
+                  onclick="
+                    event.stopPropagation();
+                    addToCart(
+                      'Navy Textured Formal Shirt',
+                      '₹6,999',
+                      'images/products/n2.jpg',
+                      1,
+                      'M'
+                    );
+                    return false;
+                  "
+                  ><i class="ri-shopping-cart-2-line"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="pro" data-category="formal">
+            <div class="pro-img-wrap">
+              <img
+                src="images/products/n4.jpg"
+                alt="Sandstone Tactical Utility Shirt"
+              />
+            </div>
+            <div class="des">
+              <div class="pro-brand-row">
+                <svg
+                  class="pro-brand-logo"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z" />
+                </svg>
+                <span>Zara</span>
+              </div>
+              <h5>Sandstone Tactical Utility Shirt</h5>
+              <div class="star">
+                <i class="ri-star-fill"></i><i class="ri-star-fill"></i
+                ><i class="ri-star-fill"></i><i class="ri-star-fill"></i
+                ><i class="ri-star-fill"></i>
+              </div>
+              <h4>&#8377;3,990</h4>
+              <div class="pro-action-bar">
+                <button
+                  class="pro-buy-btn"
+                  onclick="
+                    event.stopPropagation();
+                    buyNow(
+                      'Sandstone Tactical Utility Shirt',
+                      '₹3,990',
+                      'images/products/n4.jpg',
+                      1,
+                      'M'
+                    );
+                  "
+                >
+                  BUY NOW
+                </button>
+                <a
+                  href="#"
+                  class="pro-cart-btn"
+                  aria-label="Add to cart"
+                  onclick="
+                    event.stopPropagation();
+                    addToCart(
+                      'Sandstone Tactical Utility Shirt',
+                      '₹3,990',
+                      'images/products/n4.jpg',
+                      1,
+                      'M'
+                    );
+                    return false;
+                  "
+                  ><i class="ri-shopping-cart-2-line"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="pro" data-category="minimal">
+            <div class="pro-img-wrap">
+              <img
+                src="images/products/n8.jpg"
+                alt="Deep Charcoal Casual Shirt"
+              />
+            </div>
+            <div class="des">
+              <div class="pro-brand-row">
+                <svg
+                  class="pro-brand-logo"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z" />
+                </svg>
+                <span>Puma</span>
+              </div>
+              <h5>Deep Charcoal Casual Shirt</h5>
+              <div class="star">
+                <i class="ri-star-fill"></i><i class="ri-star-fill"></i
+                ><i class="ri-star-fill"></i><i class="ri-star-fill"></i
+                ><i class="ri-star-fill"></i>
+              </div>
+              <h4>&#8377;1,799</h4>
+              <div class="pro-action-bar">
+                <button
+                  class="pro-buy-btn"
+                  onclick="
+                    event.stopPropagation();
+                    buyNow(
+                      'Deep Charcoal Casual Shirt',
+                      '₹1,799',
+                      'images/products/n8.jpg',
+                      1,
+                      'M'
+                    );
+                  "
+                >
+                  BUY NOW
+                </button>
+                <a
+                  href="#"
+                  class="pro-cart-btn"
+                  aria-label="Add to cart"
+                  onclick="
+                    event.stopPropagation();
+                    addToCart(
+                      'Deep Charcoal Casual Shirt',
+                      '₹1,799',
+                      'images/products/n8.jpg',
+                      1,
+                      'M'
+                    );
+                    return false;
+                  "
+                  ><i class="ri-shopping-cart-2-line"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="pro" data-category="formal">
+            <div class="pro-img-wrap">
+              <img
+                src="images/products/n3.jpg"
+                alt="Classic White Cotton Shirt"
+              />
+            </div>
+            <div class="des">
+              <div class="pro-brand-row">
+                <svg
+                  class="pro-brand-logo"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z" />
+                </svg>
+                <span>Calvin Klein</span>
+              </div>
+              <h5>Classic White Cotton Shirt</h5>
+              <div class="star">
+                <i class="ri-star-fill"></i><i class="ri-star-fill"></i
+                ><i class="ri-star-fill"></i><i class="ri-star-fill"></i
+                ><i class="ri-star-fill"></i>
+              </div>
+              <h4>&#8377;5,499</h4>
+              <div class="pro-action-bar">
+                <button
+                  class="pro-buy-btn"
+                  onclick="
+                    event.stopPropagation();
+                    buyNow(
+                      'Classic White Cotton Shirt',
+                      '₹5,499',
+                      'images/products/n3.jpg',
+                      1,
+                      'M'
+                    );
+                  "
+                >
+                  BUY NOW
+                </button>
+                <a
+                  href="#"
+                  class="pro-cart-btn"
+                  aria-label="Add to cart"
+                  onclick="
+                    event.stopPropagation();
+                    addToCart(
+                      'Classic White Cotton Shirt',
+                      '₹5,499',
+                      'images/products/n3.jpg',
+                      1,
+                      'M'
+                    );
+                    return false;
+                  "
+                  ><i class="ri-shopping-cart-2-line"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="footer-bottom">
-      <p class="copyright">© Cara 2026. All rights reserved.</p>
-      <div class="footer-legal-links">
-        <a href="license.html" class="license-link">MIT License</a>
+      <!-- Navigation CTAs -->
+      <div class="action-group">
+        <a href="shop.html" class="btn-action btn-primary"
+          >Shop The Collection</a
+        >
+        <a href="index.html" class="btn-action btn-secondary">Back To Home</a>
       </div>
-    </div>
-  </footer>
+    </section>
 
-  <button id="scrollTopBtn" title="Go to top">↑</button>
+    <!-- Footer -->
+    <footer class="main-footer">
+      <div class="footer-top">
+        <div class="footer-logo-box">
+          <img class="footer-logo" src="images/logo.png" alt="Cara Logo" />
+        </div>
+        <div class="footer-socials">
+          <a
+            href="https://x.com/JanaviPandole"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fab fa-twitter"></i
+          ></a>
+          <a
+            href="https://github.com/janavipandole"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fab fa-github"></i
+          ></a>
+          <a
+            href="https://www.linkedin.com/in/janavi-pandole-80a7b2290"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fab fa-linkedin"></i
+          ></a>
+          <a
+            href="https://www.youtube.com/@JanaviPandole"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fab fa-youtube"></i
+          ></a>
+        </div>
+      </div>
 
-  <div id="toast-container"></div>
-  <script src="app.js"></script>
+      <hr class="footer-divider" />
 
-  <!-- Simple script for Scroll To Top and core behavior -->
-  <script>
-    // Scroll to Top buttons
-    const scrollTopBtn = document.getElementById("scrollTopBtn");
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 300) {
-        scrollTopBtn.style.display = "block";
-      } else {
-        scrollTopBtn.style.display = "none";
-      }
-    });
-    scrollTopBtn.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-  </script>
-</body>
+      <div class="footer-middle">
+        <div class="footer-col brand-info">
+          <h4>ABOUT US</h4>
+          <p>
+            Cara E-Commerce – Redefining your style with premium apparel, expert
+            curation, and an absolute commitment to fashion excellence.
+          </p>
+          <p>
+            <strong>Address: </strong>562 Wellington Road, Street 32, San
+            Francisco
+          </p>
+          <p><strong>Phone: </strong>+01 2222 365 / (+91) 01 2345 6789</p>
+          <p><strong>Hours: </strong>10:00 - 18:00, Mon - Sat</p>
+        </div>
 
+        <div class="footer-col">
+          <h4>QUICK LINKS</h4>
+          <a href="about.html">About Us</a>
+          <a href="#">Delivery Information</a>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms and Conditions</a>
+          <a href="contact.html">Contact Us</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>MY ACCOUNT</h4>
+          <a href="login.html">Sign In</a>
+          <a href="cart.html">View Cart</a>
+          <a href="#">My Wishlist</a>
+          <a href="cart.html">Track My Order</a>
+          <a href="contact.html">Help</a>
+        </div>
+
+        <div class="footer-col newsletter-footer">
+          <h4>NEWSLETTER</h4>
+          <p>
+            Get email updates about our latest shop and
+            <span>special offers.</span>
+          </p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Your email address" required />
+            <button type="submit">Sign Up</button>
+          </form>
+
+          <div class="install-payment-box">
+            <h4>SECURED PAYMENT GATEWAYS</h4>
+            <div class="payment-icons">
+              <a
+                href="https://www.visa.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visa"
+                ><i class="fab fa-cc-visa"></i
+              ></a>
+              <a
+                href="https://www.mastercard.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Mastercard"
+                ><i class="fab fa-cc-mastercard"></i
+              ></a>
+              <a
+                href="https://www.paypal.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="PayPal"
+                ><i class="fab fa-cc-paypal"></i
+              ></a>
+              <a
+                href="https://www.americanexpress.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="American Express"
+                ><i class="fab fa-cc-amex"></i
+              ></a>
+              <a
+                href="https://www.stripe.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Stripe"
+                ><i class="fab fa-cc-stripe"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-install-box">
+        <h4>INSTALL APP</h4>
+        <p>From App Store or Google Play</p>
+        <div class="download-badges">
+          <img src="images/pay/app.jpg" alt="Download from App Store" />
+          <img src="images/pay/play.jpg" alt="Get it on Google Play" />
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="copyright">© Cara 2026. All rights reserved.</p>
+        <div class="footer-legal-links">
+          <a href="license.html" class="license-link">MIT License</a>
+        </div>
+      </div>
+    </footer>
+
+    <button id="scrollTopBtn" title="Go to top">↑</button>
+
+    <div id="toast-container"></div>
+    <script src="app.js"></script>
+
+    <!-- Simple script for Scroll To Top and core behavior -->
+    <script>
+      // Scroll to Top buttons
+      const scrollTopBtn = document.getElementById('scrollTopBtn');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+          scrollTopBtn.style.display = 'block';
+        } else {
+          scrollTopBtn.style.display = 'none';
+        }
+      });
+      scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    </script>
+  </body>
 </html>

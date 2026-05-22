@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 
@@ -154,111 +155,13 @@
               tabindex="0"></i>
           </div>
         </section>
-        <section id="hero" class="hero-slider">
-          <div class="slide active" style="background-image: url('images/hero4.png');">
-            <div class="slide-content">
-              <h4>Trade-in-offer</h4>
-              <h2>Super value deals</h2>
-              <h1>On all products</h1>
-              <p>Save more with coupons & up to 70% off!</p>
-              <a href="shop.html" class="btn-shop-now">Shop Now</a>
-              <button onclick="openQuiz()">Take Style Quiz</button>
-            </div>
-          </div>
-          
-          <div class="slide" style="background-image: url('images/banner/b1.png');">
-            <div class="slide-content">
-              <h4>New Arrivals</h4>
-              <h2>Summer Collection</h2>
-              <h1>Explore the Trends</h1>
-              <p>Discover the latest styles to elevate your wardrobe!</p>
-              <a href="shop.html" class="btn-shop-now">Explore Collection</a>
-            </div>
-          </div>
-          
-          <div class="slide" style="background-image: url('images/banner/b2.png');">
-            <div class="slide-content">
-              <h4>Seasonal Sale</h4>
-              <h2>Up to 50% Off</h2>
-              <h1>Exclusive Deals</h1>
-              <p>Don't miss out on our biggest sale of the year.</p>
-              <a href="shop.html" class="btn-shop-now">Grab the Deal</a>
-            </div>
-          </div>
-  <!-- Logo -->
-  <a href="index.html">
-    <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
-  </a>
-
- <div id="navbar-container"></div>
-
-  <!-- Mobile Navbar -->
-  <div class="mobile">
-
-    <!-- Login Icon -->
-    <a href="login.html" aria-label="Login">
-      <i class="ri-user-3-line"></i>
-    </a>
-
-    <!-- Cart Icon -->
-    <a href="cart.html" aria-label="Cart">
-      <i class="ri-shopping-bag-4-line"></i>
-    </a>
-
-    <!-- Hamburger Menu -->
-    <i
-      class="fas fa-outdent"
-      id="bar"
-      role="button"
-      aria-label="Open menu"
-      aria-expanded="false"
-      tabindex="0"
-    ></i>
-
-  </div>
-</section>
-</section>
-
-<div class="search-container">
-  <input 
-    type="text"
-    id="searchBar"
-    placeholder="Search products..."
-  >
-</div>
-
-<section id="hero" class="hero-slider">
-        <section id="hero" class="hero-slider">
-          <div class="slide active" style="background-image: url('images/hero4.png');">
-            <div class="slide-content">
-              <h4>Trade-in-offer</h4>
-              <h2>Super value deals</h2>
-              <h1>On all products</h1>
-              <p>Save more with coupons & up to 70% off!</p>
-              <a href="shop.html" class="btn-shop-now">Shop Now</a>
-              <button onclick="openQuiz()">Take Style Quiz</button>
-            </div>
-          </div>
-          
-          <div class="slide" style="background-image: url('images/banner/b1.png');">
-            <div class="slide-content">
-              <h4>New Arrivals</h4>
-              <h2>Summer Collection</h2>
-              <h1>Explore the Trends</h1>
-              <p>Discover the latest styles to elevate your wardrobe!</p>
-              <a href="shop.html" class="btn-shop-now">Explore Collection</a>
-            </div>
-          </div>
-          
-          <div class="slide" style="background-image: url('images/banner/b2.png');">
-            <div class="slide-content">
-              <h4>Seasonal Sale</h4>
-              <h2>Up to 50% Off</h2>
-              <h1>Exclusive Deals</h1>
-              <p>Don't miss out on our biggest sale of the year.</p>
-              <a href="shop.html" class="btn-shop-now">Grab the Deal</a>
-            </div>
-          </div>
+        <div class="search-container">
+          <input 
+            type="text"
+            id="searchBar"
+            placeholder="Search products..."
+          />
+        </div>
 <section id="hero" class="hero-slider">
 
   <!-- Slide 1 -->
@@ -870,6 +773,333 @@ searchBar.addEventListener("keyup", function() {
 });
 
 </script>
+
+  <!-- STYLE QUIZ MODAL IMPROVEMENTS (Centering, Responsiveness, Once-a-day logic) -->
+  <style>
+    /* Premium Search Bar overrides to fix overlap and centering */
+    .search-container {
+      width: 100% !important;
+      max-width: 600px !important;
+      margin: 110px auto 20px auto !important;
+      padding: 0 20px !important;
+      background: transparent !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      position: relative !important;
+      z-index: 99 !important;
+      box-sizing: border-box !important;
+      display: flex !important;
+      justify-content: center !important;
+    }
+
+    #searchBar {
+      width: 100% !important;
+      max-width: 500px !important;
+      padding: 12px 24px !important;
+      border: 2px solid #088178 !important;
+      border-radius: 30px !important;
+      font-size: 16px !important;
+      outline: none !important;
+      box-sizing: border-box !important;
+      background: var(--bg-primary, #ffffff) !important;
+      color: var(--text-primary, #222222) !important;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+      transition: all 0.3s ease !important;
+    }
+
+    #searchBar:focus {
+      border-color: #2dd4bf !important;
+      box-shadow: 0 6px 20px rgba(8, 129, 120, 0.15) !important;
+    }
+
+    /* Premium Centering and Responsiveness for Style Quiz Modal */
+    #quiz-modal {
+      display: none !important; /* Hidden by default, controlled via JS active class */
+      position: fixed !important;
+      z-index: 99999 !important; /* Ensure it is above all headers and buttons */
+      left: 0 !important;
+      top: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      background: rgba(15, 23, 42, 0.6) !important; /* Modern slate background with opacity */
+      backdrop-filter: blur(12px) !important; /* Premium glassmorphism blur */
+      -webkit-backdrop-filter: blur(12px) !important;
+      justify-content: center !important;
+      align-items: center !important;
+      opacity: 0 !important;
+      transition: opacity 0.3s ease !important;
+    }
+
+    #quiz-modal.active {
+      display: flex !important;
+      opacity: 1 !important;
+    }
+
+    /* Beautiful Premium Card Design */
+    #quiz-modal .modal-content {
+      background: var(--bg-primary, #ffffff) !important;
+      border: 1px solid var(--border-color, #e2e8f0) !important;
+      border-radius: 24px !important;
+      padding: 40px 30px !important;
+      width: 90% !important;
+      max-width: 450px !important;
+      text-align: center !important;
+      position: relative !important;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4) !important;
+      transform: scale(0.9) translateY(20px) !important;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+      overflow: hidden !important;
+    }
+
+    #quiz-modal.active .modal-content {
+      transform: scale(1) translateY(0) !important;
+    }
+
+    /* Add a subtle top accent bar */
+    #quiz-modal .modal-content::before {
+      content: '' !important;
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      height: 6px !important;
+      background: linear-gradient(90deg, var(--accent, #088178), #2dd4bf) !important;
+    }
+
+    /* Redesigned Close Button (Sleek Circle) */
+    #quiz-modal .close {
+      background-color: var(--bg-secondary, #f8f9fa) !important;
+      width: 36px !important;
+      height: 36px !important;
+      color: var(--text-secondary, #475569) !important;
+      border: 1px solid var(--border-color, #e2e8f0) !important;
+      border-radius: 50% !important;
+      font-size: 22px !important;
+      position: absolute !important;
+      top: 20px !important;
+      right: 20px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      cursor: pointer !important;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+      line-height: 1 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    #quiz-modal .close:hover {
+      background-color: #ef4444 !important; /* Premium red accent */
+      color: #ffffff !important;
+      border-color: #ef4444 !important;
+      transform: rotate(90deg) scale(1.05) !important;
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3) !important;
+    }
+
+    /* Quiz Title */
+    #quiz-modal h2 {
+      font-family: 'Outfit', 'League Spartan', sans-serif !important;
+      font-size: 32px !important;
+      font-weight: 800 !important;
+      margin-top: 15px !important;
+      margin-bottom: 12px !important;
+      background: linear-gradient(135deg, var(--text-primary, #1e293b), var(--accent, #088178)) !important;
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      letter-spacing: -0.5px !important;
+    }
+
+    /* Options Container */
+    #quiz-modal .quiz-options {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 14px !important;
+      margin-top: 28px !important;
+    }
+
+    /* Beautiful Option Buttons */
+    #quiz-modal .quiz-options button {
+      background: var(--bg-secondary, #f8f9fa) !important;
+      border: 2px solid var(--border-color, #e2e8f0) !important;
+      color: var(--text-primary, #1e293b) !important;
+      font-size: 18px !important;
+      font-weight: 600 !important;
+      padding: 15px 24px !important;
+      border-radius: 14px !important;
+      cursor: pointer !important;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      width: 100% !important;
+      outline: none !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 12px !important;
+      position: relative !important;
+      overflow: hidden !important;
+    }
+
+    #quiz-modal .quiz-options button:hover {
+      background: var(--accent, #088178) !important;
+      color: #ffffff !important;
+      border-color: var(--accent, #088178) !important;
+      transform: translateY(-3px) !important;
+      box-shadow: 0 10px 20px rgba(8, 129, 120, 0.2) !important;
+    }
+
+    #quiz-modal .quiz-options button:active {
+      transform: translateY(-1px) !important;
+    }
+
+    /* Search Bar Custom UI & Responsive Centering Overrides */
+    .search-container {
+      position: absolute !important;
+      top: 110px !important; /* Float just below header on desktop */
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      width: 100% !important;
+      max-width: 600px !important;
+      padding: 0 20px !important;
+      background: transparent !important;
+      display: flex !important;
+      justify-content: center !important;
+      z-index: 100 !important; /* Float above the slider elements */
+      margin: 0 !important;
+      box-sizing: border-box !important;
+    }
+
+    #searchBar {
+      width: 100% !important;
+      max-width: 500px !important;
+      padding: 12px 24px !important;
+      border: 2px solid var(--accent, #088178) !important;
+      border-radius: 50px !important;
+      font-size: 16px !important;
+      outline: none !important;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15) !important;
+      transition: all 0.3s ease !important;
+      background: var(--bg-primary, #ffffff) !important;
+      color: var(--text-primary, #222222) !important;
+    }
+
+    #searchBar:focus {
+      border-color: #06655e !important;
+      box-shadow: 0 8px 25px rgba(8, 129, 120, 0.25) !important;
+      transform: translateY(-1px) !important;
+    }
+
+    /* Push the slide card content down so it starts below the floating search bar */
+    .hero-slider .slide-content {
+      margin-top: 110px !important;
+    }
+
+    /* Make sure header doesn't overlap search bar and content on mobile */
+    @media (max-width: 799px) {
+      .search-container {
+        position: absolute !important;
+        top: 90px !important;
+        margin: 0 !important;
+      }
+      .hero-slider .slide-content {
+        margin-top: 80px !important;
+      }
+    }
+  </style>
+
+  <script>
+    (function() {
+      const quizModal = document.getElementById('quiz-modal');
+      if (!quizModal) return;
+
+      // Clean inline styles and update content to look amazing with subtext and emojis
+      const modalContent = quizModal.querySelector('.modal-content');
+      if (modalContent) {
+        modalContent.innerHTML = `
+          <span class="close" onclick="closeQuiz()">&times;</span>
+          <h2>What's Your Style?</h2>
+          <p style="font-size: 16px; color: var(--text-secondary, #475569); margin-bottom: 25px; line-height: 1.6; font-family: 'Outfit', 'League Spartan', sans-serif;">Select your preferred fashion vibe to curate your personalized style recommendations.</p>
+          <div class="quiz-options">
+            <button onclick="selectStyle('minimal')">✨ Minimal</button>
+            <button onclick="selectStyle('street')">🔥 Street</button>
+            <button onclick="selectStyle('formal')">💼 Formal</button>
+          </div>
+        `;
+      }
+
+      // Track if the modal was closed today
+      function isQuizClosedToday() {
+        return localStorage.getItem('quiz_closed_today') === new Date().toDateString();
+      }
+
+      function markQuizAsClosed() {
+        localStorage.setItem('quiz_closed_today', new Date().toDateString());
+      }
+
+      // Override openQuiz to show with animation
+      window.openQuiz = function () {
+        quizModal.style.display = 'flex';
+        // Allow display property to apply, then transition opacity/scale
+        setTimeout(function() {
+          quizModal.classList.add('active');
+        }, 10);
+      };
+
+      // Override closeQuiz to hide with animation and save to local storage
+      window.closeQuiz = function () {
+        quizModal.classList.remove('active');
+        markQuizAsClosed();
+        setTimeout(function() {
+          if (!quizModal.classList.contains('active')) {
+            quizModal.style.display = 'none';
+          }
+        }, 300);
+      };
+
+      // Override selectStyle to apply choice, close and scroll
+      window.selectStyle = function (style) {
+        closeQuiz();
+        const products = document.querySelectorAll('.pro');
+        products.forEach((product) => {
+          if (product.getAttribute('data-category') === style) {
+            product.style.display = 'block';
+          } else {
+            product.style.display = 'none';
+          }
+        });
+
+        const productSection = document.getElementById('product1');
+        if (productSection) {
+          productSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+          });
+        }
+
+        if (typeof showToast === 'function') {
+          showToast('Showing ' + style.charAt(0).toUpperCase() + style.slice(1) + ' style recommendations!', 'success');
+        } else {
+          alert('Showing ' + style + ' style recommendations!');
+        }
+      };
+
+      // Click outside overlay to close
+      quizModal.addEventListener('click', function(event) {
+        if (event.target === quizModal) {
+          closeQuiz();
+        }
+      });
+
+      // Auto-show style quiz modal on page load after a 1-second delay, but ONLY if not closed today
+      setTimeout(function() {
+        if (!isQuizClosedToday()) {
+          openQuiz();
+        } else {
+          quizModal.style.display = 'none';
+        }
+      }, 1000);
+    })();
+  </script>
 </body>
+
 
 </html>

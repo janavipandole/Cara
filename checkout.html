@@ -1,162 +1,160 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Modern Checkout Form</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modern Checkout Form</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
-  <link rel="stylesheet" href="toast.css">
-  <link rel="stylesheet" href="checkout.css">
-</head>
-<body>
-
-  <div class="checkout-container">
-
-    <div class="checkout-header">
-      <button class="back-to-cart" onclick="window.location.href='cart.html'" aria-label="Back to cart">
-        <i class="ri-arrow-left-line"></i> Back to Cart
-      </button>
-      <div class="logo">
-        <span>Cara</span>
-      </div>
-    </div>
-
-    <div class="title">
-      <h2>Checkout Your Order</h2>
-      <p>Fill all details to complete your order</p>
-    </div>
-
-    <form id="checkoutForm">
-
-      <div class="input-group">
-        <label>Full Name</label>
-        <input type="text" placeholder="Enter your full name" required>
-      </div>
-
-      <div class="row">
-
-        <div class="input-group">
-          <label>Email Address</label>
-          <input type="email" placeholder="Enter your email" required>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="toast.css" />
+    <link rel="stylesheet" href="checkout.css" />
+  </head>
+  <body>
+    <div class="checkout-container">
+      <div class="checkout-header">
+        <button
+          class="back-to-cart"
+          onclick="window.location.href = 'cart.html'"
+          aria-label="Back to cart"
+        >
+          <i class="ri-arrow-left-line"></i> Back to Cart
+        </button>
+        <div class="logo">
+          <span>Cara</span>
         </div>
-
-        <div class="input-group">
-          <label>Phone Number</label>
-          <input type="tel" placeholder="Enter phone number" required>
-        </div>
-
       </div>
 
-      <div class="input-group">
-        <label>Delivery Address</label>
-        <textarea placeholder="Enter full address" required></textarea>
+      <div class="title">
+        <h2>Checkout Your Order</h2>
+        <p>Fill all details to complete your order</p>
       </div>
 
-      <div class="row">
-
+      <form id="checkoutForm">
         <div class="input-group">
-          <label>City</label>
-          <input type="text" placeholder="Enter city" required>
-        </div>
-
-        <div class="input-group">
-          <label>ZIP Code</label>
-          <input type="text" placeholder="ZIP Code" required>
-        </div>
-
-      </div>
-
-      <!-- PAYMENT METHOD -->
-      <div class="input-group">
-        <label>Select Payment Method</label>
-
-        <select id="paymentMethod" required>
-          <option value="">Choose Payment Method</option>
-          <option value="cod">Cash On Delivery</option>
-          <option value="online">Online Payment</option>
-        </select>
-      </div>
-
-      <!-- CARD DETAILS -->
-      <div class="payment-box" id="cardDetails">
-
-        <div class="payment-title">
-          Card Details
-        </div>
-
-        <div class="input-group">
-          <label for="cardName">Card Holder Name</label>
-          <input type="text" id="cardName" placeholder="Card holder name" autocomplete="cc-name">
-        </div>
-
-        <div class="input-group">
-          <label for="cardNumber">Card Number</label>
-          <input
-            type="text"
-            id="cardNumber"
-            placeholder="XXXX XXXX XXXX XXXX"
-            inputmode="numeric"
-            autocomplete="cc-number"
-            maxlength="19"
-          >
+          <label>Full Name</label>
+          <input type="text" placeholder="Enter your full name" required />
         </div>
 
         <div class="row">
-
           <div class="input-group">
-            <label for="expiry">Expiry Date</label>
-            <input
-              type="text"
-              id="expiry"
-              placeholder="MM/YY"
-              inputmode="numeric"
-              autocomplete="cc-exp"
-              maxlength="5"
-            >
+            <label>Email Address</label>
+            <input type="email" placeholder="Enter your email" required />
           </div>
 
           <div class="input-group">
-            <label for="cvv">CVV</label>
-            <input
-              type="password"
-              id="cvv"
-              placeholder="***"
-              inputmode="numeric"
-              autocomplete="cc-csc"
-              maxlength="4"
-            >
+            <label>Phone Number</label>
+            <input type="tel" placeholder="Enter phone number" required />
           </div>
-
         </div>
 
-      </div>
+        <div class="input-group">
+          <label>Delivery Address</label>
+          <textarea placeholder="Enter full address" required></textarea>
+        </div>
 
-      <button type="submit" class="submit-btn">
-        Place Your Order
-      </button>
+        <div class="row">
+          <div class="input-group">
+            <label>City</label>
+            <input type="text" placeholder="Enter city" required />
+          </div>
 
-    </form>
+          <div class="input-group">
+            <label>ZIP Code</label>
+            <input type="text" placeholder="ZIP Code" required />
+          </div>
+        </div>
 
-  </div>
+        <!-- PAYMENT METHOD -->
+        <div class="input-group">
+          <label>Select Payment Method</label>
 
-  <!-- SUCCESS MESSAGE -->
-  <div class="success-popup" id="successPopup">
-    <div class="popup-box">
-      <div class="check-icon">
-        ✓
-      </div>
-      <h2>Order Successful!</h2>
-      <p>Your Order has been completed successfully.</p>
-      <a href="shop.html" > <button>Continue to Shopping </button></a>
+          <select id="paymentMethod" required>
+            <option value="">Choose Payment Method</option>
+            <option value="cod">Cash On Delivery</option>
+            <option value="online">Online Payment</option>
+          </select>
+        </div>
+
+        <!-- CARD DETAILS -->
+        <div class="payment-box" id="cardDetails">
+          <div class="payment-title">Card Details</div>
+
+          <div class="input-group">
+            <label for="cardName">Card Holder Name</label>
+            <input
+              type="text"
+              id="cardName"
+              placeholder="Card holder name"
+              autocomplete="cc-name"
+            />
+          </div>
+
+          <div class="input-group">
+            <label for="cardNumber">Card Number</label>
+            <input
+              type="text"
+              id="cardNumber"
+              placeholder="XXXX XXXX XXXX XXXX"
+              inputmode="numeric"
+              autocomplete="cc-number"
+              maxlength="19"
+            />
+          </div>
+
+          <div class="row">
+            <div class="input-group">
+              <label for="expiry">Expiry Date</label>
+              <input
+                type="text"
+                id="expiry"
+                placeholder="MM/YY"
+                inputmode="numeric"
+                autocomplete="cc-exp"
+                maxlength="5"
+              />
+            </div>
+
+            <div class="input-group">
+              <label for="cvv">CVV</label>
+              <input
+                type="password"
+                id="cvv"
+                placeholder="***"
+                inputmode="numeric"
+                autocomplete="cc-csc"
+                maxlength="4"
+              />
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-btn">Place Your Order</button>
+      </form>
     </div>
-  </div>
 
-  <script src="app.js"></script>
-  <script src="checkout.js"></script>
+    <!-- SUCCESS MESSAGE -->
+    <div class="success-popup" id="successPopup">
+      <div class="popup-box">
+        <div class="check-icon">✓</div>
+        <h2>Order Successful!</h2>
+        <p>Your Order has been completed successfully.</p>
+        <a href="shop.html"> <button>Continue to Shopping</button></a>
+      </div>
+    </div>
 
-</body>
+    <script src="app.js"></script>
+    <script src="checkout.js"></script>
+  </body>
 </html>
