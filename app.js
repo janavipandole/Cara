@@ -786,15 +786,20 @@ window.openQuiz = function () {
     document.getElementById('quiz-modal').style.display = 'flex';
 }
 
-window.closeQuiz = function () {
-    document.querySelector('.close').addEventListener('click', () => {
+window.closeQuiz = function () {{
     document.getElementById('quiz-modal').style.display = 'none';
-});
 }
 
 window.selectStyle = function (style) {
-    closeQuiz();
+
+  if (!selectedGender || !selectedAge) {
+    alert("Please select gender and age group first.");
+    return;
+}
+  closeQuiz();
+
     const products = document.querySelectorAll('.pro');
+
     products.forEach(product => {
         if (product.getAttribute('data-category') === style) {
             product.style.display = 'block';
@@ -802,6 +807,18 @@ window.selectStyle = function (style) {
             product.style.display = 'none';
         }
     });
+
+    const productSection = document.getElementById('product1');
+
+    if (productSection) {
+        productSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
+
+    console.log(`Selected style: ${style}`);
+}
         // Auto scroll to products section
     const productSection = document.getElementById('product1');
 
@@ -811,7 +828,7 @@ window.selectStyle = function (style) {
             block: 'start'
         });
     }
-    alert(`Showing ${style} style recommendations!`);
+    
 }
 
 /* --- START: BUY NOW FUNCTIONALITY --- */
@@ -1976,7 +1993,7 @@ window.selectStyle = function (style) {
   const products = document.querySelectorAll('.pro');
   products.forEach((product) => {
     if (product.getAttribute('data-category') === style) {
-      product.style.display = 'block';
+      product.style.display = '';
     } else {
       product.style.display = 'none';
     }
@@ -1990,7 +2007,7 @@ window.selectStyle = function (style) {
       block: 'start',
     });
   }
-  alert(`Showing ${style} style recommendations!`);
+  
 };
 
 /* --- START: BUY NOW FUNCTIONALITY --- */
@@ -2314,4 +2331,32 @@ window.applySharedCart = function (action) {
 
 document.addEventListener('DOMContentLoaded', function () {
     setTimeout(window.checkSharedWardrobe, 150);
+});
+
+let selectedGender = "";
+let selectedAge = "";
+
+const preferenceButtons = document.querySelectorAll(".pref-btn");
+
+preferenceButtons.forEach((button) => {
+
+    button.addEventListener("click", () => {
+
+        const parent = button.parentElement;
+
+        parent.querySelectorAll(".pref-btn").forEach((btn) => {
+            btn.classList.remove("active-pref");
+        });
+
+        button.classList.add("active-pref");
+
+        if (parent.classList.contains("gender-options")) {
+            selectedGender = button.innerText;
+        }
+
+        if (parent.classList.contains("age-options")) {
+            selectedAge = button.innerText;
+        }
+    });
+
 });

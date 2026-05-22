@@ -775,7 +775,7 @@ window.selectStyle = function (style) {
             block: 'start'
         });
     }
-    alert(`Showing ${style} style recommendations!`);
+    
 }
 
 /* --- START: BUY NOW FUNCTIONALITY --- */

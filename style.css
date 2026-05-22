@@ -5120,13 +5120,13 @@ footer .copyright {
             }
 
             .modal-content {
-                background-color: var(--bg-primary);
-                padding: 20px;
-                border-radius: 8px;
-                width: 90%;
-                max-width: 400px;
-                text-align: center;
-                position: relative;
+            background-color: var(--bg-primary);
+            padding: 35px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            position: relative;
             }
 
             .close {
@@ -6800,6 +6800,7 @@ footer.main-footer {
                 background-color: rgba(0, 0, 0, 0.5);
                 justify-content: center;
                 align-items: center;
+                padding: 20px;
             }
 
             .modal-content {
@@ -34694,3 +34695,67 @@ button#share-cart-btn:hover {
 }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 .toast-icon { font-size: 16px; }
+
+
+
+/* Quiz Preference Section */
+
+.preference-section {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 20px;
+}
+
+.preference-section h4 {
+    margin-bottom: 10px;
+    color: var(--text-primary);
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.gender-options,
+.age-options,
+.quiz-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.pref-btn,
+.quiz-options button {
+    padding: 12px 22px;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--accent);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    font-size: 15px;
+    min-width: 110px;
+}
+
+.pref-btn:hover,
+.quiz-options button:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+.modal-content h2 {
+    margin-bottom: 10px;
+    color: var(--text-primary);
+}
+
+.modal.show {
+    display: flex;
+}
+
+.active-pref {
+    background-color: #000 !important;
+    color: #fff !important;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}

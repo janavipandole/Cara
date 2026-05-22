@@ -743,12 +743,36 @@
   <div id="quiz-modal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeQuiz()" style="background-color: red; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: medium;">&times;</span>
-      <h2 >What's Your Style ?</h2>
-      <div class="quiz-options">
-        <button onclick="selectStyle('minimal')">Minimal</button>
-        <button onclick="selectStyle('street')">Street</button>
-        <button onclick="selectStyle('formal')">Formal</button>
-      </div>
+      <h2>What's Your Style?</h2>
+
+<div class="preference-section">
+
+  <h4>Select Gender</h4>
+
+  <div class="gender-options">
+    <button class="pref-btn">Men</button>
+    <button class="pref-btn">Women</button>
+    <button class="pref-btn">Kids</button>
+  </div>
+
+  <h4>Select Age Group</h4>
+
+  <div class="age-options">
+    <button class="pref-btn">13-17</button>
+    <button class="pref-btn">18-25</button>
+    <button class="pref-btn">26-40</button>
+    <button class="pref-btn">40+</button>
+  </div>
+
+  <h4>Select Style</h4>
+
+  <div class="quiz-options">
+    <button onclick="selectStyle('minimal')">Minimal</button>
+    <button onclick="selectStyle('street')">Street</button>
+    <button onclick="selectStyle('formal')">Formal</button>
+  </div>
+
+</div>
     </div>
   </div>
 
