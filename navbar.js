@@ -93,13 +93,6 @@ function loadNavbar() {
           </button>
         </li>
 
-        <!-- Close Button -->
-        <li>
-          <a href="#" id="close" aria-label="Close menu">
-            <i class="fa-solid fa-xmark"></i>
-          </a>
-        </li>
-
       </ul>
     </div>
   `;

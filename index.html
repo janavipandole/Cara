@@ -105,69 +105,40 @@
   </a>
 
  <div id="navbar-container"></div>
-
-  <!-- Mobile Navbar -->
-  <div class="mobile">
-
-    <!-- Login Icon -->
-    <a href="login.html" aria-label="Login">
-      <i class="ri-user-3-line"></i>
-    </a>
-
-    <!-- Cart Icon -->
-    <a href="cart.html" aria-label="Cart">
-      <i class="ri-shopping-bag-4-line"></i>
-    </a>
-
-    <!-- Hamburger Menu -->
-    <i
-      class="fas fa-outdent"
-      id="bar"
-      role="button"
-      aria-label="Open menu"
-      aria-expanded="false"
-      tabindex="0"
-    ></i>
-
-  </div>
 </section>
 <section id="hero" class="hero-slider">
 
   <!-- Slide 1 -->
-  <div class="slide active" style="background-image: url('images/hero4.png');">
-    
+  <div class="slide active" style="background-image: url('images/banner/b1.png');">
+
     <div class="slide-content">
 
       <div class="hero-badge">
-        Trending Fashion 2025
+        New Collection
       </div>
 
-      <h4>Trade-in-offer</h4>
+      <h4>New Arrivals</h4>
 
-      <h2>Super Value Deals</h2>
+      <h2>Summer Collection</h2>
 
-      <h1>On All Products</h1>
+      <h1>Explore Trends</h1>
 
       <p>
-        Save more with coupons & up to 70% off on premium
-        fashion collections.
+        Discover fresh styles designed to elevate your
+        wardrobe this season.
       </p>
 
       <div class="hero-tags">
-        <span>Streetwear</span>
-        <span>Premium</span>
-        <span>Trending</span>
+        <span>Summer</span>
+        <span>Minimal</span>
+        <span>Luxury</span>
       </div>
 
       <div class="hero-btn-group">
 
         <a href="shop.html" class="btn-shop-now">
-          Shop Now
+          Explore Collection
         </a>
-
-        <button onclick="openQuiz()">
-          Take Style Quiz
-        </button>
 
       </div>
 
@@ -175,7 +146,7 @@
   </div>
 
   <!-- Slide 2 -->
-  <div class="slide" style="background-image: url('images/banner/b1.png');">
+  <div class="slide" style="background-image: url('images/banner/b2.png');">
 
     <div class="slide-content">
 
@@ -264,8 +235,6 @@
 
     <span class="dot" data-slide="1"></span>
 
-    <span class="dot" data-slide="2"></span>
-
   </div>
 
 </section>      </div>
@@ -274,29 +243,54 @@
   <!-- Fix: Added descriptive alt text to all feature images for accessibility.
      Also fixed typo: 'F24/7 Support' corrected to '24/7 Support' -->
   <section id="feature" class="section-p1">
-    <div class="fe-box">
-      <img src="images/feature/f1.png" alt="Free Shipping" />
-      <h6>Free Shipping</h6>
+    <div class="feature-header">
+      <span>Why Choose Us</span>
+      <h2>Professional service, delivered with confidence</h2>
+      <p>Experience a seamless shopping journey with premium delivery, exclusive savings, and 24/7 support tailored for modern customers.</p>
     </div>
-    <div class="fe-box">
-      <img src="images/feature/f2.png" alt="Online Order" />
-      <h6>Online Order</h6>
-    </div>
-    <div class="fe-box">
-      <img src="images/feature/f3.png" alt="Save Money" />
-      <h6>Save Money</h6>
-    </div>
-    <div class="fe-box">
-      <img src="images/feature/f4.png" alt="Promotions" />
-      <h6>Promotions</h6>
-    </div>
-    <div class="fe-box">
-      <img src="images/feature/f5.png" alt="Happy Sell" />
-      <h6>Happy Sell</h6>
-    </div>
-    <div class="fe-box">
-      <img src="images/feature/f6.png" alt="24/7 Support" />
-      <h6>24/7 Support</h6>
+    <div class="feature-grid">
+      <article class="fe-box">
+        <div class="fe-icon">
+          <img src="images/feature/f1.png" alt="Free Shipping" />
+        </div>
+        <h6>Free Shipping</h6>
+        <p>Fast, reliable delivery on every order for a premium experience.</p>
+      </article>
+      <article class="fe-box">
+        <div class="fe-icon">
+          <img src="images/feature/f2.png" alt="Online Order" />
+        </div>
+        <h6>Online Order</h6>
+        <p>Secure checkout and easy ordering from any device.</p>
+      </article>
+      <article class="fe-box">
+        <div class="fe-icon">
+          <img src="images/feature/f3.png" alt="Save Money" />
+        </div>
+        <h6>Save Money</h6>
+        <p>Exclusive offers and value deals designed to keep you within budget.</p>
+      </article>
+      <article class="fe-box">
+        <div class="fe-icon">
+          <img src="images/feature/f4.png" alt="Promotions" />
+        </div>
+        <h6>Promotions</h6>
+        <p>Regular campaigns and curated savings for loyal customers.</p>
+      </article>
+      <article class="fe-box">
+        <div class="fe-icon">
+          <img src="images/feature/f5.png" alt="Happy Sell" />
+        </div>
+        <h6>Happy Sell</h6>
+        <p>Quality products and satisfied customers are our top priority.</p>
+      </article>
+      <article class="fe-box">
+        <div class="fe-icon">
+          <img src="images/feature/f6.png" alt="24/7 Support" />
+        </div>
+        <h6>24/7 Support</h6>
+        <p>Always-on assistance so you can shop with confidence anytime.</p>
+      </article>
     </div>
   </section>
 
@@ -309,7 +303,7 @@
         <div class="pro-img-wrap"><img src="images/products/f1.jpg" alt="Cartoon Astronaut T-Shirts" /></div>
         <div class="des">
           <div class="pro-brand-row">
-            <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
+            <svg class="pro-brand-logo" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#000000"/><text x="12" y="16" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="12" fill="#ffffff" font-weight="700">N</text></svg>
             <span>Nike</span>
           </div>
           <h5>Cartoon Astronaut T-Shirts</h5>
@@ -326,7 +320,7 @@
         <div class="pro-img-wrap"><img src="images/products/f2.jpg" alt="White Palm Leaf Casual Shirt" /></div>
         <div class="des">
           <div class="pro-brand-row">
-            <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
+            <svg class="pro-brand-logo" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#444444"/><text x="12" y="16" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="12" fill="#ffffff" font-weight="700">H</text></svg>
             <span>H&amp;M</span>
           </div>
           <h5>White Palm Leaf Casual Shirt</h5>
@@ -343,7 +337,7 @@
         <div class="pro-img-wrap"><img src="images/products/f3.jpg" alt="Vintage Rose Garden Shirt" /></div>
         <div class="des">
           <div class="pro-brand-row">
-            <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
+            <svg class="pro-brand-logo" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#111111"/><text x="12" y="16" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="12" fill="#ffffff" font-weight="700">Z</text></svg>
             <span>Zara</span>
           </div>
           <h5>Vintage Rose Garden Shirt</h5>
@@ -360,7 +354,7 @@
         <div class="pro-img-wrap"><img src="images/products/f4.jpg" alt="Sakura Blossom Floral Shirt" /></div>
         <div class="des">
           <div class="pro-brand-row">
-            <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
+            <svg class="pro-brand-logo" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#c50000"/><text x="12" y="16" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="12" fill="#ffffff" font-weight="700">L</text></svg>
             <span>Levi's</span>
           </div>
           <h5>Sakura Blossom Floral Shirt</h5>
@@ -377,7 +371,7 @@
         <div class="pro-img-wrap"><img src="images/products/f5.jpg" alt="Pink Peony Patterned Shirt" /></div>
         <div class="des">
           <div class="pro-brand-row">
-            <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
+            <svg class="pro-brand-logo" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#ff6f00"/><text x="12" y="16" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="12" fill="#ffffff" font-weight="700">P</text></svg>
             <span>Puma</span>
           </div>
           <h5>Pink Peony Patterned Shirt</h5>
@@ -394,7 +388,7 @@
         <div class="pro-img-wrap"><img src="images/products/f6.jpg" alt="Dual-Tone Corduroy Shirt" /></div>
         <div class="des">
           <div class="pro-brand-row">
-            <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
+            <svg class="pro-brand-logo" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#003366"/><text x="12" y="16" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="12" fill="#ffffff" font-weight="700">G</text></svg>
             <span>Gap</span>
           </div>
           <h5>Dual-Tone Corduroy Shirt</h5>
@@ -411,7 +405,7 @@
         <div class="pro-img-wrap"><img src="images/products/f7.jpg" alt="Embroidered Linen Trousers" /></div>
         <div class="des">
           <div class="pro-brand-row">
-            <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
+            <svg class="pro-brand-logo" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#e60012"/><text x="12" y="16" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="12" fill="#ffffff" font-weight="700">U</text></svg>
             <span>Uniqlo</span>
           </div>
           <h5>Embroidered Linen Trousers</h5>
@@ -428,7 +422,7 @@
         <div class="pro-img-wrap"><img src="images/products/f8.jpg" alt="Cat Print Long Sleeve Blouse" /></div>
         <div class="des">
           <div class="pro-brand-row">
-            <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
+            <svg class="pro-brand-logo" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#ff9800"/><text x="12" y="16" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="12" fill="#ffffff" font-weight="700">M</text></svg>
             <span>Mango</span>
           </div>
           <h5>Cat Print Long Sleeve Blouse</h5>
@@ -459,7 +453,7 @@
         <div class="pro-img-wrap"><img src="images/products/n1.jpg" alt="Sky Blue Mandarin Collar Shirt" /></div>
         <div class="des">
           <div class="pro-brand-row">
-            <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
+            <svg class="pro-brand-logo" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#003366"/><text x="12" y="16" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="10" fill="#ffffff" font-weight="700">TH</text></svg>
             <span>Tommy Hilfiger</span>
           </div>
           <h5>Sky Blue Mandarin Collar Shirt</h5>
@@ -476,7 +470,7 @@
         <div class="pro-img-wrap"><img src="images/products/n2.jpg" alt="Navy Textured Formal Shirt" /></div>
         <div class="des">
           <div class="pro-brand-row">
-            <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
+            <svg class="pro-brand-logo" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#003366"/><text x="12" y="16" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="10" fill="#ffffff" font-weight="700">RL</text></svg>
             <span>Ralph Lauren</span>
           </div>
           <h5>Navy Textured Formal Shirt</h5>
@@ -493,7 +487,7 @@
         <div class="pro-img-wrap"><img src="images/products/n3.jpg" alt="Classic White Cotton Shirt" /></div>
         <div class="des">
           <div class="pro-brand-row">
-            <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
+            <svg class="pro-brand-logo" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#333333"/><text x="12" y="16" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="10" fill="#ffffff" font-weight="700">CK</text></svg>
             <span>Calvin Klein</span>
           </div>
           <h5>Classic White Cotton Shirt</h5>
@@ -510,7 +504,7 @@
         <div class="pro-img-wrap"><img src="images/products/n4.jpg" alt="Sandstone Tactical Utility Shirt" /></div>
         <div class="des">
           <div class="pro-brand-row">
-            <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
+            <svg class="pro-brand-logo" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#111111"/><text x="12" y="16" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="12" fill="#ffffff" font-weight="700">Z</text></svg>
             <span>Zara</span>
           </div>
           <h5>Sandstone Tactical Utility Shirt</h5>
@@ -527,7 +521,7 @@
         <div class="pro-img-wrap"><img src="images/products/n5.jpg" alt="Denim Blue Everyday Shirt" /></div>
         <div class="des">
           <div class="pro-brand-row">
-            <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
+            <svg class="pro-brand-logo" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#000000"/><text x="12" y="16" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="12" fill="#ffffff" font-weight="700">N</text></svg>
             <span>Nike</span>
           </div>
           <h5>Denim Blue Everyday Shirt</h5>
@@ -544,7 +538,7 @@
         <div class="pro-img-wrap"><img src="images/products/n6.jpg" alt="Vertical Stripe Chino Shorts" /></div>
         <div class="des">
           <div class="pro-brand-row">
-            <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
+            <svg class="pro-brand-logo" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#c50000"/><text x="12" y="16" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="12" fill="#ffffff" font-weight="700">L</text></svg>
             <span>Levi's</span>
           </div>
           <h5>Vertical Stripe Chino Shorts</h5>
@@ -561,7 +555,7 @@
         <div class="pro-img-wrap"><img src="images/products/n7.jpg" alt="Khaki Safari Work Shirt" /></div>
         <div class="des">
           <div class="pro-brand-row">
-            <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
+            <svg class="pro-brand-logo" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#e60012"/><text x="12" y="16" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="12" fill="#ffffff" font-weight="700">U</text></svg>
             <span>Uniqlo</span>
           </div>
           <h5>Khaki Safari Work Shirt</h5>
@@ -578,7 +572,7 @@
         <div class="pro-img-wrap"><img src="images/products/n8.jpg" alt="Deep Charcoal Casual Shirt" /></div>
         <div class="des">
           <div class="pro-brand-row">
-            <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
+            <svg class="pro-brand-logo" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#ff6f00"/><text x="12" y="16" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="12" fill="#ffffff" font-weight="700">P</text></svg>
             <span>Puma</span>
           </div>
           <h5>Deep Charcoal Casual Shirt</h5>

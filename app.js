@@ -313,14 +313,13 @@ window.updateQty = function (change) {
 window.handleAddToCart = function () {
   const nameElement = document.getElementById('product-name');
   const priceElement = document.getElementById('product-price');
-  const sizeSelect = document.getElementById('product-size');
+  const sizeInput = document.querySelector('input[name="product-size"]:checked');
   const quantityInput = document.getElementById('product-quantity');
   const imageElement = document.getElementById('MainImg');
 
   if (
     !nameElement ||
     !priceElement ||
-    !sizeSelect ||
     !quantityInput ||
     !imageElement
   ) {
@@ -330,11 +329,11 @@ window.handleAddToCart = function () {
 
   const name = nameElement.innerText;
   const price = priceElement.innerText;
-  const size = sizeSelect.value;
+  const size = sizeInput ? sizeInput.value : '';
   const quantity = parseInt(quantityInput.value);
   const image = imageElement.src;
 
-  if (size === 'Select Size' || size === '') {
+  if (!size) {
     showToast('Please select a size before adding to cart!', 'warning');
     return;
   }
@@ -350,14 +349,13 @@ window.handleAddToCart = function () {
 window.handleBuyNow = function () {
   const nameElement = document.getElementById('product-name');
   const priceElement = document.getElementById('product-price');
-  const sizeSelect = document.getElementById('product-size');
+  const sizeInput = document.querySelector('input[name="product-size"]:checked');
   const quantityInput = document.getElementById('product-quantity');
   const imageElement = document.getElementById('MainImg');
 
   if (
     !nameElement ||
     !priceElement ||
-    !sizeSelect ||
     !quantityInput ||
     !imageElement
   ) {
@@ -367,11 +365,11 @@ window.handleBuyNow = function () {
 
   const name = nameElement.innerText;
   const price = priceElement.innerText;
-  const size = sizeSelect.value;
+  const size = sizeInput ? sizeInput.value : '';
   const quantity = parseInt(quantityInput.value);
   const image = imageElement.src;
 
-  if (size === 'Select Size' || size === '') {
+  if (!size) {
     showToast('Please select a size before proceeding!', 'warning');
     return;
   }
@@ -435,7 +433,7 @@ window.loadCart = function () {
       <div class="cart-item-right">
 
         <div class="cart-item-price">
-          ₹${itemPrice.toLocaleString('en-IN')}
+          $${itemPrice.toLocaleString('en-US')}
         </div>
 
         <div class="qty-selector">
@@ -466,7 +464,7 @@ window.loadCart = function () {
         </div>
 
         <div class="cart-item-subtotal">
-          ₹${itemSubtotal.toLocaleString('en-IN')}
+          $${itemSubtotal.toLocaleString('en-US')}
         </div>
 
         <button
@@ -511,17 +509,17 @@ const grandTotal = subtotal + shipping;
 // UPDATE UI
 if (subtotalDisplay) {
   subtotalDisplay.innerText =
-    `₹${subtotal.toLocaleString('en-IN')}`;
+    `$${subtotal.toLocaleString('en-US')}`;
 }
 
 if (shippingDisplay) {
   shippingDisplay.innerText =
-    shipping === 0 ? 'Free' : `₹${shipping}`;
+    shipping === 0 ? 'Free' : `$${shipping.toLocaleString('en-US')}`;
 }
 
 if (totalDisplay) {
   totalDisplay.innerText =
-    `₹${grandTotal.toLocaleString('en-IN')}`;
+    `$${grandTotal.toLocaleString('en-US')}`;
 }
   // PROMO FIELD
   const promoInput = document.getElementById('coupon-code');
@@ -619,23 +617,26 @@ document.addEventListener('DOMContentLoaded', () => {
 /* --- START: THEME TOGGLE FUNCTIONALITY --- */
 
 (function () {
-  const themeToggle = document.getElementById('themeToggle');
-  const themeToggleMobile = document.getElementById('themeToggleMobile');
-  const themeIcon = document.getElementById('themeIcon');
-  const themeIconMobile = document.getElementById('themeIconMobile');
+  const themeButtons = Array.from(
+    document.querySelectorAll('.theme-toggle, .theme-toggle-btn')
+  );
+  const themeIcons = Array.from(
+    document.querySelectorAll('#themeIcon, .theme-toggle-btn i')
+  );
   const html = document.documentElement;
 
   const currentTheme = localStorage.getItem('theme') || 'light';
   html.setAttribute('data-theme', currentTheme);
   updateThemeIcon(currentTheme);
+  window.toggleTheme = toggleTheme;
 
   function updateThemeIcon(theme) {
-    console.log('Updating icons to:', theme);
     const iconClass = theme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
-    if (themeIcon) themeIcon.className = iconClass;
-    if (themeIconMobile) themeIconMobile.className = iconClass;
+    themeIcons.forEach((icon) => {
+      if (!icon) return;
+      icon.className = iconClass;
+    });
 
-    // Swap logo based on theme
     const siteLogo = document.getElementById('siteLogo');
     if (siteLogo) {
       siteLogo.src = theme === 'dark' ? 'images/Dlogo.png' : 'images/logo.png';
@@ -650,9 +651,9 @@ document.addEventListener('DOMContentLoaded', () => {
     updateThemeIcon(newTheme);
   }
 
-  if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
-  if (themeToggleMobile)
-    themeToggleMobile.addEventListener('click', toggleTheme);
+  themeButtons.forEach((button) => {
+    button.addEventListener('click', toggleTheme);
+  });
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
@@ -824,11 +825,13 @@ if (ToptobackBtn) {
 
 // Style Quiz Functionality
 window.openQuiz = function () {
-  document.getElementById('quiz-modal').style.display = 'flex';
+  const modal = document.getElementById('quiz-modal');
+  if (modal) modal.classList.add('active');
 };
 
 window.closeQuiz = function () {
-  document.getElementById('quiz-modal').style.display = 'none';
+  const modal = document.getElementById('quiz-modal');
+  if (modal) modal.classList.remove('active');
 };
 
 window.selectStyle = function (style) {
@@ -1023,3 +1026,26 @@ const topBtn = document.getElementById("topBtn");
         behavior: "smooth"
       });
     });
+
+/* ── Dark Theme Support ── */
+window.initTheme = function () {
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+};
+
+window.toggleTheme = function () {
+  const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+  const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('theme', newTheme);
+};
+
+// Initialize theme on page load
+document.addEventListener('DOMContentLoaded', function () {
+  window.initTheme();
+});
+
+// Also initialize immediately in case DOMContentLoaded already fired
+if (document.readyState !== 'loading') {
+  window.initTheme();
+}

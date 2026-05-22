@@ -101,15 +101,35 @@
             <h6>Home / T-Shirt</h6>
             <h4 id="product-name">Men's Fashion T-Shirt</h4>
             <h2 id="product-price">$139.00</h2>
-            <select id="product-size" name="product-size" aria-label="Select product size">
-                <option>Select Size</option>
-                <option>S</option>
-                <option>M</option>
-                <option>L</option>
-                <option>XL</option>
-                <option>XXL</option>
-                <option>XXXL</option>
-            </select>
+            <div class="size-selection">
+                <span class="size-label">Select size</span>
+                <div class="size-options" role="group" aria-label="Product size options">
+                    <label class="size-option">
+                        <input type="radio" name="product-size" value="S" />
+                        <span>S</span>
+                    </label>
+                    <label class="size-option">
+                        <input type="radio" name="product-size" value="M" />
+                        <span>M</span>
+                    </label>
+                    <label class="size-option">
+                        <input type="radio" name="product-size" value="L" />
+                        <span>L</span>
+                    </label>
+                    <label class="size-option">
+                        <input type="radio" name="product-size" value="XL" />
+                        <span>XL</span>
+                    </label>
+                    <label class="size-option">
+                        <input type="radio" name="product-size" value="XXL" />
+                        <span>XXL</span>
+                    </label>
+                    <label class="size-option">
+                        <input type="radio" name="product-size" value="XXXL" />
+                        <span>XXXL</span>
+                    </label>
+                </div>
+            </div>
             <div class="cart-action-group">
                 <div class="quantity-selector">
                     <button type="button" class="qty-btn minus" onclick="updateQty(-1)" aria-label="Decrease quantity">

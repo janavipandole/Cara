@@ -188,3 +188,37 @@ function closePopup() {
   popup.classList.remove("active");
 
 }
+
+(function () {
+  const html = document.documentElement;
+  const themeToggleBtn = document.getElementById('checkoutThemeToggle');
+  const themeIcon = themeToggleBtn?.querySelector('i');
+
+  function updateThemeState(theme) {
+    html.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    if (themeIcon) {
+      themeIcon.className = theme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
+    }
+  }
+
+  function refreshTheme() {
+    const storedTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', storedTheme);
+    if (themeIcon) {
+      themeIcon.className = storedTheme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
+    }
+  }
+
+  window.toggleTheme = function () {
+    const currentTheme = html.getAttribute('data-theme') || 'light';
+    const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    updateThemeState(nextTheme);
+  };
+
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', window.toggleTheme);
+  }
+
+  refreshTheme();
+})();
