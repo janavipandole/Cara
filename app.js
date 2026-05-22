@@ -601,6 +601,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('click', (e) => {
         if (e.target && (e.target.closest('#themeToggle') || e.target.closest('#themeToggleMobile'))) {
             e.preventDefault();
+            if (e.themeHandled) return;
+            e.themeHandled = true;
             toggleTheme();
         }
     });

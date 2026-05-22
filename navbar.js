@@ -113,10 +113,9 @@ function loadNavbar() {
     return;
   }
 
-}
   initDarkMode();
   initMobileNavbar();
-  }
+}
   function initMobileNavbar() {
 
   const bar = document.getElementById("bar");
@@ -191,35 +190,60 @@ function loadNavbar() {
 
 
 function initDarkMode() {
+  const html = document.documentElement;
   const themeToggle = document.getElementById("themeToggle");
+  const themeToggleMobile = document.getElementById("themeToggleMobile");
   const themeIcon = document.getElementById("themeIcon");
+  const themeIconMobile = document.getElementById("themeIconMobile");
 
   const isDarkSaved = localStorage.getItem("theme") === "dark";
 
   if (isDarkSaved) {
     document.body.classList.add("dark");
-
-    if (themeIcon) {
-      themeIcon.classList.replace("ri-moon-line", "ri-sun-line");
+    html.setAttribute("data-theme", "dark");
+    const iconClass = "ri-sun-line";
+    if (themeIcon) themeIcon.className = iconClass;
+    if (themeIconMobile) themeIconMobile.className = iconClass;
+    const siteLogo = document.getElementById("siteLogo");
+    if (siteLogo) {
+      siteLogo.src = "images/Dlogo.png";
+    }
+  } else {
+    document.body.classList.remove("dark");
+    html.setAttribute("data-theme", "light");
+    const iconClass = "ri-moon-line";
+    if (themeIcon) themeIcon.className = iconClass;
+    if (themeIconMobile) themeIconMobile.className = iconClass;
+    const siteLogo = document.getElementById("siteLogo");
+    if (siteLogo) {
+      siteLogo.src = "images/logo.png";
     }
   }
 
-  function handleToggle() {
+  function handleToggle(e) {
+    if (e) {
+      if (e.themeHandled) return;
+      e.themeHandled = true;
+    }
     document.body.classList.toggle("dark");
-
     const isDark = document.body.classList.contains("dark");
-
+    html.setAttribute("data-theme", isDark ? "dark" : "light");
     localStorage.setItem("theme", isDark ? "dark" : "light");
 
-    if (themeIcon) {
-      themeIcon.classList.replace(
-        isDark ? "ri-moon-line" : "ri-sun-line",
-        isDark ? "ri-sun-line" : "ri-moon-line"
-      );
+    const iconClass = isDark ? "ri-sun-line" : "ri-moon-line";
+    if (themeIcon) themeIcon.className = iconClass;
+    if (themeIconMobile) themeIconMobile.className = iconClass;
+
+    const siteLogo = document.getElementById("siteLogo");
+    if (siteLogo) {
+      siteLogo.src = isDark ? "images/Dlogo.png" : "images/logo.png";
     }
   }
 
   if (themeToggle) {
     themeToggle.addEventListener("click", handleToggle);
+  }
+  if (themeToggleMobile) {
+    themeToggleMobile.addEventListener("click", handleToggle);
   }
 }
