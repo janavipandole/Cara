@@ -1,5 +1,17 @@
 from pydantic import BaseModel
 from typing import Optional, List
+class UserCreate(BaseModel):
+    name: str
+    email: str
+    password: str
+
+class UserResponse(BaseModel):
+    id: int
+    name: str
+    email: str
+
+    class Config:
+        from_attributes = True
 
 class ProductBase(BaseModel):
     brand: str

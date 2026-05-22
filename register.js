@@ -26,8 +26,15 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
+        const emailErrorEl = document.getElementById('emailError');
+        if (emailErrorEl) emailErrorEl.style.display = 'none';
+
         let users = JSON.parse(localStorage.getItem('users') || '[]');
-        if (users.find(u => u.email === email)) {
+        if (users.find(u => u.email.toLowerCase() === email.toLowerCase())) {
+            if (emailErrorEl) {
+                emailErrorEl.textContent = 'Email already registered.';
+                emailErrorEl.style.display = 'block';
+            }
             showToast('Email already registered.', 'error');
             return;
         }
