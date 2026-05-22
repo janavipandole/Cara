@@ -6206,3 +6206,58 @@ footer .copyright {
     z-index: 999 !important;
   }
 }
+
+/* Mobile Hero Image*/
+@media screen and (max-width: 768px) {
+
+    .hero-slider .slide:nth-child(1) {
+        background-position: 75% center !important;
+    }
+
+    .hero-slider .slide:nth-child(2) {
+        background-position: 80% center !important;
+    }
+
+    .hero-slider .slide:nth-child(3) {
+        background-position: 50% center !important;
+    }
+
+}
+
+/* Mobile & Tablet Hero Image Position Fix */
+
+@media screen and (max-width: 1024px) {
+
+    /* Slide 1 */
+    .hero-slider .slide:nth-child(1) {
+        background-position: 72% center !important;
+    }
+
+    /* Slide 2 */
+    .hero-slider .slide:nth-child(2) {
+        background-position: 68% center !important;
+    }
+
+    /* Slide 3 */
+    .hero-slider .slide:nth-child(3) {
+        background-position: 40% center !important;
+    }
+
+}
+
+/* Small Mobile Devices */
+@media screen and (max-width: 768px) {
+
+    .hero-slider .slide:nth-child(1) {
+        background-position: 78% center !important;
+    }
+
+    .hero-slider .slide:nth-child(2) {
+        background-position: 73% center !important;
+    }
+
+    .hero-slider .slide:nth-child(3) {
+        background-position: 50% center !important;
+    }
+
+}
