@@ -1026,6 +1026,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 productsToAppend = originalProducts;
             } else {
                 productsToAppend = [...originalProducts].sort((a, b) => {
+                    
                     const priceA = parseFloat(a.querySelector('h4').innerText.replace(/[₹$,]/g, '').trim());
                     const priceB = parseFloat(b.querySelector('h4').innerText.replace(/[₹$,]/g, '').trim());
 
