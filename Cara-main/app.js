@@ -13,7 +13,7 @@
 
     function updateThemeIcon(theme) {
         console.log('Updating icons to:', theme);
-        const iconClass = theme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
+        const iconClass = theme === 'dark' ? 'ri-moon-line' : 'ri-sun-line';
         if (themeIcon) themeIcon.className = iconClass;
         if (themeIconMobile) themeIconMobile.className = iconClass;
 
