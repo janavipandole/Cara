@@ -19,31 +19,6 @@ document.addEventListener("click", (e) => {
     }
 });
 
-// Dynamic Product Details Logic
-// Global capturing click listener for all product cards (static and dynamic)
-document.addEventListener("click", function (e) {
-    const proCard = e.target.closest(".pro");
-    if (!proCard) return;
-
-    // Ignore clicks on cart icon or buy now button inside the card
-    if (e.target.closest(".cart") || e.target.closest(".buy-now-btn")) return;
-
-    const nameElement = proCard.querySelector("h5");
-    const priceElement = proCard.querySelector("h4");
-    const brandElement = proCard.querySelector(".des span");
-    const imageElement = proCard.querySelector("img");
-
-    const selectedProduct = {
-        name: nameElement ? nameElement.textContent.trim() : "Product",
-        price: priceElement ? priceElement.textContent.trim() : "$0.00",
-        brand: brandElement ? brandElement.textContent.trim() : "Brand",
-        image: imageElement ? imageElement.src : ""
-    };
-
-    localStorage.setItem("selectedProduct", JSON.stringify(selectedProduct));
-    window.location.href = "singleProduct.html";
-}, true);
-
 // Dynamic Render on singleProduct.html
 document.addEventListener("DOMContentLoaded", () => {
     if (window.location.pathname.includes("singleProduct")) {
@@ -151,10 +126,11 @@ function formatCurrency(amount) {
     return '₹' + Math.round(num).toLocaleString('en-IN');
 }
 
-// Update cart count badge
 function updateCartCount() {
     const cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const totalItems = cart.reduce(function (sum, item) {
+        return sum + (parseInt(item.quantity) || 0);
+    }, 0);
 
     const desktopCount = document.getElementById('desktopCartCount');
     const mobileCount = document.getElementById('mobileCartCount');
@@ -416,13 +392,6 @@ window.loadCart = function () {
    const subtotalDisplay = document.querySelector('.subtotal table tr:nth-child(1) td:nth-child(2)');
  const totalDisplay = document.querySelector('.subtotal table tr:nth-child(3) td:nth-child(2) strong');
 
-if (subtotalDisplay) {
-    subtotalDisplay.innerText = `$${total.toFixed(2)}`;
-}
-
-if (totalDisplay) {
-    totalDisplay.innerText = `$${total.toFixed(2)}`;
-}
 
 window.removeItem = function (index) {
     if (subtotalEl) {
@@ -794,7 +763,9 @@ window.openQuiz = function () {
 }
 
 window.closeQuiz = function () {
+    document.querySelector('.close').addEventListener('click', () => {
     document.getElementById('quiz-modal').style.display = 'none';
+});
 }
 
 window.selectStyle = function (style) {
@@ -960,10 +931,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-/* --- START: HERO SLIDER FUNCTIONALITY --- */
 function initHeroSlider() {
     const slider = document.querySelector('.hero-slider');
-    // Null check to prevent errors on pages where the slider doesn't exist
     if (!slider) return;
 
     const slides = slider.querySelectorAll('.slide');
@@ -975,14 +944,11 @@ function initHeroSlider() {
 
     let currentSlide = 0;
     let autoPlayInterval;
-    const intervalTime = 5000; // 5 seconds
+    const intervalTime = 5000;
 
     function updateSlider() {
-        // Remove active class from all slides and dots
-        slides.forEach(slide => slide.classList.remove('active'));
-        dots.forEach(dot => dot.classList.remove('active'));
-
-        // Add active class to current slide and dot
+        slides.forEach((slide) => slide.classList.remove('active'));
+        dots.forEach((dot) => dot.classList.remove('active'));
         slides[currentSlide].classList.add('active');
         if (dots[currentSlide]) {
             dots[currentSlide].classList.add('active');
@@ -1008,7 +974,6 @@ function initHeroSlider() {
         autoPlayInterval = setInterval(nextSlide, intervalTime);
     }
 
-    // Event Listeners for Arrows
     if (nextBtn) {
         nextBtn.addEventListener('click', () => {
             nextSlide();
@@ -1023,7 +988,6 @@ function initHeroSlider() {
         });
     }
 
-    // Event Listeners for Dots
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
             currentSlide = index;
@@ -1032,7 +996,7 @@ function initHeroSlider() {
         });
     });
 
-    // Initialize auto-play
+    updateSlider();
     startAutoPlay();
 }
 
@@ -1143,66 +1107,154 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 /* --- END: GRID/LIST VIEW TOGGLE --- */
-// Mobile menu functionality
-// Add to Cart function (imported from products.js or defined globally)
-window.addToCart =
-  window.addToCart ||
-  function (name, price, img, quantity, size) {
-    let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+/* ========================================================
+   COLLABORATIVE WARDROBE SHARING ENGINE
+   ======================================================== */
 
-    const product = {
-      name,
-      price,
-      img,
-      quantity,
-      size,
-      id: Date.now(),
-    };
+window.pendingSharedCart = null;
 
-    cart.push(product);
-    localStorage.setItem('productsInCart', JSON.stringify(cart));
+window.showToast = function (msg, isError) {
+    var toast = document.getElementById('toast');
+    var toastMsg = document.getElementById('toast-msg');
+    var toastIcon = document.getElementById('toast-icon');
+    if (!toast || !toastMsg) return;
+    toastMsg.textContent = msg;
+    if (toastIcon) toastIcon.textContent = isError ? '⚠️' : '✅';
+    toast.classList.add('show');
+    setTimeout(function () { toast.classList.remove('show'); }, 3500);
+};
 
-    if (typeof showToast === 'function') {
-      showToast(name + ' added to cart!', 'success');
+window.shareWardrobe = function () {
+    var cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+    var btn = document.getElementById('share-cart-btn');
+    if (cart.length === 0) {
+        showToast("Your cart is empty! Add some items before sharing.", true);
+        return;
     }
-  };
-
-// Buy Now function (imported from products.js or defined globally)
-window.buyNow =
-  window.buyNow ||
-  function (name, price, img, quantity, size) {
-    let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
-
-    const product = {
-      name,
-      price,
-      img,
-      quantity,
-      size,
-      id: Date.now(),
-    };
-
-    cart.push(product);
-    localStorage.setItem('productsInCart', JSON.stringify(cart));
-
-    window.location.href = 'checkout.html';
-  };
-
-document.addEventListener('click', function (e) {
-  // OPEN MENU
-  if (e.target.id === 'bar') {
-    const nav = document.getElementById('navbar');
-    if (nav) {
-      nav.classList.add('active');
+    try {
+        var minimizedCart = cart.map(function (item) {
+            return { n: item.name, p: item.price, i: item.image, q: item.quantity, s: item.size };
+        });
+        var jsonStr = JSON.stringify(minimizedCart);
+        var base64Payload = btoa(unescape(encodeURIComponent(jsonStr)));
+        var shareUrl = window.location.origin + window.location.pathname + '#share=' + base64Payload;
+        showToast("Wardrobe share link copied to clipboard!");
+        if (btn) {
+            var originalText = btn.innerHTML;
+            btn.innerHTML = '✅ Link Copied!';
+            btn.style.color = '#10b981';
+            setTimeout(function () { btn.innerHTML = originalText; btn.style.color = ''; }, 3000);
+        }
+        try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(shareUrl).catch(function () { fallbackCopyText(shareUrl); });
+            } else { fallbackCopyText(shareUrl); }
+        } catch (clipErr) { fallbackCopyText(shareUrl); }
+    } catch (e) {
+        console.error("Failed to generate share link: ", e);
+        showToast("Oops, something went wrong generating the link.", true);
     }
-  }
+};
 
-  // CLOSE MENU
-  if (e.target.closest('#close')) {
-    e.preventDefault();
-    const nav = document.getElementById('navbar');
-    if (nav) {
-      nav.classList.remove('active');
+function fallbackCopyText(text) {
+    try {
+        var textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed";
+        textArea.style.opacity = "0";
+        textArea.style.left = "-9999px";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+    } catch (err) { console.error('Fallback copy failed', err); }
+}
+
+window.closeShareModal = function () {
+    var modal = document.getElementById('share-modal');
+    if (modal) modal.style.display = 'none';
+    if (window.history && window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.pathname);
+    } else { window.location.hash = ''; }
+    window.pendingSharedCart = null;
+};
+
+window.checkSharedWardrobe = function () {
+    var hash = window.location.hash;
+    if (!hash || hash.indexOf('#share=') !== 0) return;
+    try {
+        var base64Payload = hash.substring(7);
+        var jsonStr = decodeURIComponent(escape(atob(base64Payload)));
+        var decodedCart = JSON.parse(jsonStr);
+        if (!Array.isArray(decodedCart) || decodedCart.length === 0) {
+            showToast("Invalid share link or empty shared collection.", true);
+            return;
+        }
+        window.pendingSharedCart = decodedCart.map(function (item) {
+            return {
+                name: item.n || "Fashion Product", price: parseFloat(item.p) || 0,
+                image: item.i || "images/products/f1.jpg", quantity: parseInt(item.q) || 1,
+                size: item.s || "M"
+            };
+        });
+        var listContainer = document.getElementById('shared-items-list');
+        var totalPriceEl = document.getElementById('shared-total-price');
+        var modal = document.getElementById('share-modal');
+        if (!listContainer || !totalPriceEl || !modal) return;
+        listContainer.innerHTML = '';
+        var total = 0;
+        window.pendingSharedCart.forEach(function (item) {
+            var itemSubtotal = item.price * item.quantity;
+            total += itemSubtotal;
+            var row = document.createElement('div');
+            row.className = 'shared-item-row';
+            var img = document.createElement('img');
+            img.src = item.image; img.className = 'shared-item-img'; img.alt = item.name;
+            var details = document.createElement('div');
+            details.className = 'shared-item-details';
+            var nameEl = document.createElement('h4');
+            nameEl.className = 'shared-item-name'; nameEl.textContent = item.name;
+            var meta = document.createElement('span');
+            meta.className = 'shared-item-meta';
+            meta.textContent = 'Size: ' + item.size + '  |  Qty: ' + item.quantity;
+            details.appendChild(nameEl); details.appendChild(meta);
+            var priceEl = document.createElement('div');
+            priceEl.className = 'shared-item-price';
+            priceEl.textContent = '$' + itemSubtotal.toFixed(2);
+            row.appendChild(img); row.appendChild(details); row.appendChild(priceEl);
+            listContainer.appendChild(row);
+        });
+        totalPriceEl.textContent = '$' + total.toFixed(2);
+        modal.style.display = 'flex';
+    } catch (err) {
+        console.error("Failed to parse shared wardrobe link:", err);
+        showToast("Could not read shared wardrobe link. It may be broken.", true);
     }
-  }
+};
+
+window.applySharedCart = function (action) {
+    if (!window.pendingSharedCart || window.pendingSharedCart.length === 0) { closeShareModal(); return; }
+    var localCart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+    if (action === 'overwrite') {
+        localCart = window.pendingSharedCart.slice();
+        showToast("Cart replaced with shared wardrobe!");
+    } else if (action === 'merge') {
+        window.pendingSharedCart.forEach(function (sharedItem) {
+            var existing = localCart.find(function (item) {
+                return item.name === sharedItem.name && item.size === sharedItem.size;
+            });
+            if (existing) { existing.quantity += sharedItem.quantity; }
+            else { localCart.push(sharedItem); }
+        });
+        showToast("Shared wardrobe merged into your cart!");
+    }
+    localStorage.setItem('productsInCart', JSON.stringify(localCart));
+    closeShareModal();
+    if (typeof loadCart === 'function') loadCart();
+    if (typeof updateCartCount === 'function') updateCartCount();
+};
+
+document.addEventListener('DOMContentLoaded', function () {
+    setTimeout(window.checkSharedWardrobe, 150);
 });
