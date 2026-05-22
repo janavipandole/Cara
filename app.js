@@ -88,14 +88,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Single Product Image Switching for thumbnails
         const MainImg = document.getElementById("MainImg");
-        const smallImg = document.getElementsByClassName("small-img");
-        if (MainImg && smallImg) {
-            for (let i = 0; i < smallImg.length; i++) {
-                smallImg[i].onclick = function () {
-                    MainImg.src = smallImg[i].src;
-                }
-            }
-        }
+const smallImg = document.getElementsByClassName("small-img");
+
+if (MainImg && smallImg) {
+    for (let i = 0; i < smallImg.length; i++) {
+        smallImg[i].onclick = function () {
+
+            // Prevent unnecessary reload
+            if (MainImg.src === smallImg[i].src) return;
+
+            // Smooth fade transition
+            MainImg.style.opacity = "0.4";
+
+            const tempImg = new Image();
+
+            tempImg.src = smallImg[i].src;
+
+            tempImg.onload = function () {
+                MainImg.src = tempImg.src;
+
+                requestAnimationFrame(() => {
+                    MainImg.style.opacity = "1";
+                });
+            };
+        };
+    }
+}
     }
 });
 
