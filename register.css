@@ -183,3 +183,35 @@
     font-size: 26px;
   }
 }
+
+/* PASSWORD STRENGTH METER */
+.password-strength-meter {
+  height: 6px;
+  background-color: var(--border-color);
+  border-radius: 3px;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+.strength-bar {
+  height: 100%;
+  width: 0%;
+  transition: width 0.3s ease, background-color 0.3s ease;
+  border-radius: 3px;
+}
+
+.strength-bar.weak { background-color: #ff4d4f; width: 33.33%; }
+.strength-bar.medium { background-color: #faad14; width: 66.66%; }
+.strength-bar.strong { background-color: #52c41a; width: 100%; }
+
+.strength-text {
+  display: inline-block;
+  font-size: 13px;
+  margin-top: 6px;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.strength-text.weak { color: #ff4d4f; }
+.strength-text.medium { color: #faad14; }
+.strength-text.strong { color: #52c41a; }
