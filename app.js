@@ -265,8 +265,23 @@ window.updateQty = function (change) {
         let currentValue = parseInt(qtyInput.value);
         if (isNaN(currentValue)) currentValue = 1;
         let newValue = currentValue + change;
+        
+        // Clamp quantity between 1 and 99
         if (newValue < 1) newValue = 1;
+        if (newValue > 99) newValue = 99;
+        
         qtyInput.value = newValue;
+
+        // Dynamically update minus and plus button disabled states
+        const minusBtn = document.querySelector('.qty-btn.minus');
+        const plusBtn = document.querySelector('.qty-btn.plus');
+        
+        if (minusBtn) {
+            minusBtn.disabled = (newValue <= 1);
+        }
+        if (plusBtn) {
+            plusBtn.disabled = (newValue >= 99);
+        }
     }
 }
 
@@ -1445,8 +1460,23 @@ window.updateQty = function (change) {
     let currentValue = parseInt(qtyInput.value);
     if (isNaN(currentValue)) currentValue = 1;
     let newValue = currentValue + change;
+    
+    // Clamp quantity between 1 and 99
     if (newValue < 1) newValue = 1;
+    if (newValue > 99) newValue = 99;
+    
     qtyInput.value = newValue;
+
+    // Dynamically update minus and plus button disabled states
+    const minusBtn = document.querySelector('.qty-btn.minus');
+    const plusBtn = document.querySelector('.qty-btn.plus');
+    
+    if (minusBtn) {
+      minusBtn.disabled = (newValue <= 1);
+    }
+    if (plusBtn) {
+      plusBtn.disabled = (newValue >= 99);
+    }
   }
 };
 
