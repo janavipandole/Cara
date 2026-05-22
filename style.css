@@ -34694,3 +34694,7 @@ button#share-cart-btn:hover {
 }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 .toast-icon { font-size: 16px; }
+/* Performance optimization */
+img {
+    image-rendering: auto;
+}
