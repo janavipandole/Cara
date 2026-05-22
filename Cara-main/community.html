@@ -1,286 +1,646 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cara — Community & Inspiration</title>
-    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <style>
-        /* Community Page Specific Styles */
-        #community-header {
-            background-image: url("images/hero4.png");
-            background-size: cover;
-            background-position: center;
-            width: 100%;
-            height: 40vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            flex-direction: column;
-            color: #fff;
-            position: relative;
-            margin-top: 90px;
-        }
+      /* Community Page Specific Styles */
+      #community-header {
+        background-image: url('images/hero4.png');
+        background-size: cover;
+        background-position: center;
+        width: 100%;
+        height: 40vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        flex-direction: column;
+        color: #fff;
+        position: relative;
+        margin-top: 90px;
+      }
 
-        #community-header::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1;
-        }
+      #community-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1;
+      }
 
-        #community-header > * {
-            z-index: 2;
-            position: relative;
-        }
+      #community-header > * {
+        z-index: 2;
+        position: relative;
+      }
 
-        #community-header h2 {
-            color: #fff;
-            margin-bottom: 10px;
-        }
+      #community-header h2 {
+        color: #fff;
+        margin-bottom: 10px;
+      }
 
-        /* Upload Section */
-        #upload-look {
-            text-align: center;
-            padding: 50px 80px;
-            background: var(--card-bg);
-            border-bottom: 1px solid var(--border-color);
-        }
+      /* Upload Section */
+      #upload-look {
+        text-align: center;
+        padding: 50px 80px;
+        background: var(--card-bg);
+        border-bottom: 1px solid var(--border-color);
+      }
 
-        #upload-look h3 {
-            font-size: 32px;
-            color: var(--accent);
-            margin-bottom: 15px;
-        }
+      #upload-look h3 {
+        font-size: 32px;
+        color: var(--accent);
+        margin-bottom: 15px;
+      }
 
-        .upload-area {
-            max-width: 600px;
-            margin: 0 auto;
-            border: 2px dashed var(--accent);
-            padding: 40px;
-            border-radius: 10px;
-            background: var(--bg-secondary);
-            cursor: pointer;
-            transition: 0.3s;
-        }
+      .upload-area {
+        max-width: 600px;
+        margin: 0 auto;
+        border: 2px dashed var(--accent);
+        padding: 40px;
+        border-radius: 10px;
+        background: var(--bg-secondary);
+        cursor: pointer;
+        transition: 0.3s;
+      }
 
-        .upload-area:hover {
-            background: var(--card-bg);
-            box-shadow: 0 10px 20px var(--shadow);
-        }
+      .upload-area:hover {
+        background: var(--card-bg);
+        box-shadow: 0 10px 20px var(--shadow);
+      }
 
-        .upload-area i {
-            font-size: 50px;
-            color: var(--accent);
-        }
+      .upload-area i {
+        font-size: 50px;
+        color: var(--accent);
+      }
 
-        .upload-area input {
-            display: none;
-        }
+      .upload-area input {
+        display: none;
+      }
 
-        /* Gallery Grid */
+      /* Gallery Grid */
+      #gallery {
+        padding: 50px 80px;
+        text-align: center;
+      }
+
+      #gallery h2 {
+        margin-bottom: 40px;
+      }
+
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+      }
+
+      .gallery-item {
+        position: relative;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px var(--shadow);
+        aspect-ratio: 1;
+      }
+
+      .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+      }
+
+      .gallery-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        color: #fff;
+        padding: 15px;
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+        text-align: left;
+      }
+
+      .gallery-item:hover img {
+        transform: scale(1.1);
+      }
+
+      .gallery-item:hover .gallery-overlay {
+        transform: translateY(0);
+      }
+
+      .gallery-overlay h5 {
+        color: #fff;
+        margin-bottom: 5px;
+      }
+
+      .gallery-overlay p {
+        color: var(--accent);
+        font-size: 14px;
+        margin: 0;
+      }
+
+      @media (max-width: 799px) {
+        #upload-look,
         #gallery {
-            padding: 50px 80px;
-            text-align: center;
+          padding: 40px 20px;
         }
-
-        #gallery h2 {
-            margin-bottom: 40px;
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .gallery-item {
-            position: relative;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px var(--shadow);
-            aspect-ratio: 1;
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-
-        .gallery-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(0,0,0,0.7);
-            color: #fff;
-            padding: 15px;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-            text-align: left;
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.1);
-        }
-
-        .gallery-item:hover .gallery-overlay {
-            transform: translateY(0);
-        }
-
-        .gallery-overlay h5 {
-            color: #fff;
-            margin-bottom: 5px;
-        }
-
-        .gallery-overlay p {
-            color: var(--accent);
-            font-size: 14px;
-            margin: 0;
-        }
-
-        @media (max-width: 799px) {
-            #upload-look, #gallery {
-                padding: 40px 20px;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+    <link rel="stylesheet" href="cursor.css" />
+    `n
+  </head>
+  <body>
     <section id="header">
-        <a href="index.html">
-            <img id="siteLogo" src="images/logo.png" alt="" id="siteLogo">
+      <a href="index.html">
+        <img id="siteLogo" src="images/logo.png" alt="" id="siteLogo" />
+      </a>
+
+      <!-- Desktop navbar injects here -->
+      <div id="navbar-container"></div>
+
+      <!-- Mobile controls (outside navbar, always in DOM) -->
+      <div class="mobile">
+        <button
+          class="theme-toggle"
+          id="themeToggleMobile"
+          aria-label="Toggle dark mode"
+        >
+          <i class="ri-moon-line" id="themeIconMobile"></i>
+        </button>
+        <a href="cart.html">
+          <i class="ri-shopping-bag-4-line"></i>
+          <span class="cart-count" id="mobileCartCount">0</span>
         </a>
-
-        <!-- Desktop navbar injects here -->
-        <div id="navbar-container"></div>
-
-        <!-- Mobile controls (outside navbar, always in DOM) -->
-        <div class="mobile">
-            <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
-            <i class="ri-moon-line" id="themeIconMobile"></i>
-            </button>
-            <a href="cart.html">
-            <i class="ri-shopping-bag-4-line"></i>
-            <span class="cart-count" id="mobileCartCount">0</span>
-            </a>
-            <i class="fas fa-outdent" id="bar"></i>
-        </div>
+        <i class="fas fa-outdent" id="bar"></i>
+      </div>
     </section>
 
     <section id="community-header">
-        <h2>#CaraCommunity</h2>
-        <p>Your Style, Your Rules. Get inspired by fashion lovers worldwide.</p>
+      <h2>#CaraCommunity</h2>
+      <p>Your Style, Your Rules. Get inspired by fashion lovers worldwide.</p>
     </section>
 
     <section id="upload-look">
-        <h3>Showcase Your Look!</h3>
-        <p>Used our Virtual Try-On? Got a stunning Cara outfit? Upload your poster to be featured on our Trending feed!</p>
-        <label class="upload-area">
-            <i class="ri-camera-lens-fill"></i>
-            <h4>Click to Upload Photo</h4>
-            <p>PNG, JPG up to 5MB</p>
-            <input type="file" id="community-upload" accept="image/*">
-        </label>
-        <p id="upload-success" style="display:none; color: var(--accent); font-weight:bold; margin-top:15px;">Thanks for sharing! Your look is under review.</p>
+      <h3>Showcase Your Look!</h3>
+      <p>
+        Used our Virtual Try-On? Got a stunning Cara outfit? Upload your poster
+        to be featured on our Trending feed!
+      </p>
+      <label class="upload-area">
+        <i class="ri-camera-lens-fill"></i>
+        <h4>Click to Upload Photo</h4>
+        <p>PNG, JPG up to 5MB</p>
+        <input type="file" id="community-upload" accept="image/*" />
+      </label>
+      <p
+        id="upload-success"
+        style="
+          display: none;
+          color: var(--accent);
+          font-weight: bold;
+          margin-top: 15px;
+        "
+      >
+        Thanks for sharing! Your look is under review.
+      </p>
     </section>
 
     <section id="gallery">
-        <h2>Trending Outfits & Inspiration</h2>
-        <div class="gallery-grid">
-            <!-- Dummy content representing community uploads -->
-            <div class="gallery-item">
-                <img src="images/products/f1.jpg" alt="User Look 1">
-                <div class="gallery-overlay">
-                    <h5>@fashion_guru</h5>
-                    <p>#CaraFashion #SummerVibes</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="images/products/f2.jpg" alt="User Look 2">
-                <div class="gallery-overlay">
-                    <h5>@style_icon</h5>
-                    <p>#MyCaraLook #OOTD</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="images/products/f3.jpg" alt="User Look 3">
-                <div class="gallery-overlay">
-                    <h5>@trendsetter99</h5>
-                    <p>#Streetwear #Cara</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="images/products/f4.jpg" alt="User Look 4">
-                <div class="gallery-overlay">
-                    <h5>@chic_daily</h5>
-                    <p>#CaraTryOn #LoveIt</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="images/products/n1.jpg" alt="User Look 5">
-                <div class="gallery-overlay">
-                    <h5>@minimal_aesthetic</h5>
-                    <p>#CaraFashion #Minimalist</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="images/products/n2.jpg" alt="User Look 6">
-                <div class="gallery-overlay">
-                    <h5>@vintage_soul</h5>
-                    <p>#Retro #CaraCommunity</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="images/products/n3.jpg" alt="User Look 7">
-                <div class="gallery-overlay">
-                    <h5>@urban_outfits</h5>
-                    <p>#CityStyle #MyCaraLook</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="images/products/n4.jpg" alt="User Look 8">
-                <div class="gallery-overlay">
-                    <h5>@glam_life</h5>
-                    <p>#CaraFashion #PartyReady</p>
-                </div>
-            </div>
+      <h2>Trending Outfits & Inspiration</h2>
+      <div class="gallery-grid">
+        <!-- Dummy content representing community uploads -->
+        <div class="gallery-item">
+          <img src="images/products/f1.jpg" alt="User Look 1" />
+          <div class="gallery-overlay">
+            <h5>@fashion_guru</h5>
+            <p>#CaraFashion #SummerVibes</p>
+          </div>
         </div>
+        <div class="gallery-item">
+          <img src="images/products/f2.jpg" alt="User Look 2" />
+          <div class="gallery-overlay">
+            <h5>@style_icon</h5>
+            <p>#MyCaraLook #OOTD</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/products/f3.jpg" alt="User Look 3" />
+          <div class="gallery-overlay">
+            <h5>@trendsetter99</h5>
+            <p>#Streetwear #Cara</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/products/f4.jpg" alt="User Look 4" />
+          <div class="gallery-overlay">
+            <h5>@chic_daily</h5>
+            <p>#CaraTryOn #LoveIt</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/products/n1.jpg" alt="User Look 5" />
+          <div class="gallery-overlay">
+            <h5>@minimal_aesthetic</h5>
+            <p>#CaraFashion #Minimalist</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/products/n2.jpg" alt="User Look 6" />
+          <div class="gallery-overlay">
+            <h5>@vintage_soul</h5>
+            <p>#Retro #CaraCommunity</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/products/n3.jpg" alt="User Look 7" />
+          <div class="gallery-overlay">
+            <h5>@urban_outfits</h5>
+            <p>#CityStyle #MyCaraLook</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/products/n4.jpg" alt="User Look 8" />
+          <div class="gallery-overlay">
+            <h5>@glam_life</h5>
+            <p>#CaraFashion #PartyReady</p>
+          </div>
+        </div>
+      </div>
     </section>
 
     <footer class="section-p1">
-        <div class="col">
-            <img class="logo" src="images/logo.png" alt="">
-            <h4>Contact</h4>
-            <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
-        </div>
-        <div class="copyright">
-            <p>&copy; Cara 2025. All rights reserved.</p>
-        </div>
+      <div class="col">
+        <img class="logo" src="images/logo.png" alt="" />
+        <h4>Contact</h4>
+        <p>
+          <strong>Address:</strong> 562 Wellington Road, Street 32, San
+          Francisco
+        </p>
+      </div>
+      <div class="copyright">
+        <p>&copy; Cara 2025. All rights reserved.</p>
+      </div>
     </footer>
     <script src="navbar.js"></script>
-    <script>loadNavbar('community');</script>  
+    <script>
+      loadNavbar('community');
+    </script>
 
     <script src="app.js?v=1779120917211"></script>
     <script>
-        document.getElementById('community-upload').addEventListener('change', function(e) {
-            if(e.target.files.length > 0) {
-                document.getElementById('upload-success').style.display = 'block';
-                setTimeout(() => {
-                    document.getElementById('upload-success').style.display = 'none';
-                }, 4000);
-            }
+      document
+        .getElementById('community-upload')
+        .addEventListener('change', function (e) {
+          if (e.target.files.length > 0) {
+            document.getElementById('upload-success').style.display = 'block';
+            setTimeout(() => {
+              document.getElementById('upload-success').style.display = 'none';
+            }, 4000);
+          }
         });
     </script>
     <!-- <script src="app.js?v=1779120917211"></script>       -->
+    <script src="cursor.js"></script>
+    `n
+ <!-- Custom Cursor Effect with Multi-Trail -->
+<style>
+    * {
+        cursor: none !important;
+    }
+    
+    /* Main cursor circle */
+    .custom-cursor {
+        width: 28px;
+        height: 28px;
+        background: radial-gradient(circle, #006d6d, #008b74, #00a88a);
+        border-radius: 50%;
+        position: fixed;
+        pointer-events: none;
+        z-index: 999999;
+        transform: translate(-50%, -50%);
+        transition: width 0.15s cubic-bezier(0.2, 0.9, 0.4, 1.1), height 0.15s cubic-bezier(0.2, 0.9, 0.4, 1.1), background 0.2s;
+        box-shadow: 0 0 30px rgba(0, 141, 116, 0.9), 0 0 60px rgba(0, 109, 109, 0.5);
+        mix-blend-mode: screen;
+    }
+    
+    /* Trail dots following the cursor */
+    .cursor-trail {
+        width: 14px;
+        height: 14px;
+        background: radial-gradient(circle, #00a88a, #006d6d);
+        border-radius: 50%;
+        position: fixed;
+        pointer-events: none;
+        z-index: 999998;
+        transform: translate(-50%, -50%);
+        filter: blur(3px);
+        opacity: 0.7;
+        transition: 0.03s linear;
+    }
+    
+    /* Sparkle particles */
+    .cursor-sparkle {
+        position: fixed;
+        pointer-events: none;
+        z-index: 999999;
+        width: 4px;
+        height: 4px;
+        background: #fff;
+        border-radius: 50%;
+        opacity: 0;
+        transform: translate(-50%, -50%);
+    }
+    
+    /* Hover effect for interactive elements */
+    a:hover ~ .custom-cursor,
+    button:hover ~ .custom-cursor,
+    .product:hover ~ .custom-cursor,
+    .add-to-cart:hover ~ .custom-cursor {
+        width: 44px !important;
+        height: 44px !important;
+        background: radial-gradient(circle, #005f73, #008b74, #00a88a) !important;
+        box-shadow: 0 0 45px rgba(0, 95, 115, 1), 0 0 90px rgba(0, 141, 116, 0.8) !important;
+        filter: brightness(1.3);
+        mix-blend-mode: screen !important;
+    }
+    
+    /* Ripple ring effect on click */
+    .click-ring {
+        position: fixed;
+        pointer-events: none;
+        z-index: 999999;
+        border-radius: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0.6;
+        transition: transform 0.15s ease-out, opacity 0.15s ease-out;
+    }
+</style>
+
+<script>
+    (function() {
+        /* Create main cursor element */
+        const cursor = document.createElement('div');
+        cursor.className = 'custom-cursor';
+        document.body.appendChild(cursor);
+        
+        /* Create trail elements */
+        const trails = [];
+        const trailCount = 18;
+        
+        for (let i = 0; i < trailCount; i++) {
+            const trail = document.createElement('div');
+            trail.className = 'cursor-trail';
+            const size = 16 - (i * 0.8);
+            trail.style.width = Math.max(3, size) + 'px';
+            trail.style.height = Math.max(3, size) + 'px';
+            trail.style.opacity = 0.9 - (i * 0.045);
+            trail.style.filter = `blur(${Math.min(4, i * 0.25)}px)`;
+            const colors = ['#006d6d', '#008b74', '#00a88a', '#005f6b'];
+            trail.style.background = `radial-gradient(circle, ${colors[i % 4]}, ${colors[(i+2) % 4]})`;
+            document.body.appendChild(trail);
+            trails.push(trail);
+        }
+        
+        /* Create sparkle particle with animation */
+        function createSparkle(x, y, size = null, color = null) {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'cursor-sparkle';
+            sparkle.style.left = x + 'px';
+            sparkle.style.top = y + 'px';
+            const sparkSize = size || Math.random() * 8 + 2;
+            sparkle.style.width = sparkSize + 'px';
+            sparkle.style.height = sparkSize + 'px';
+            const colors = ['#006d6d', '#008b74', '#00a88a', '#005f6b', '#ffffff'];
+            sparkle.style.background = color || `radial-gradient(circle, ${colors[Math.floor(Math.random() * colors.length)]}, #006d6d)`;
+            sparkle.style.boxShadow = '0 0 10px rgba(0, 141, 116, 0.8)';
+            document.body.appendChild(sparkle);
+            
+            let opacity = 1;
+            let currentSize = sparkSize;
+            let dx = (Math.random() - 0.5) * 6;
+            let dy = (Math.random() - 0.5) * 6;
+            let xPos = x;
+            let yPos = y;
+            
+            const interval = setInterval(() => {
+                opacity -= 0.07;
+                currentSize -= 0.25;
+                xPos += dx;
+                yPos += dy;
+                sparkle.style.opacity = opacity;
+                sparkle.style.width = Math.max(0, currentSize) + 'px';
+                sparkle.style.height = sparkle.style.width;
+                sparkle.style.left = xPos + 'px';
+                sparkle.style.top = yPos + 'px';
+                
+                if (opacity <= 0) {
+                    clearInterval(interval);
+                    sparkle.remove();
+                }
+            }, 20);
+        }
+        
+        let mouseX = 0, mouseY = 0;
+        let velocity = 0;
+        let lastX = 0, lastY = 0;
+        let prevPositions = Array(trailCount).fill().map(() => ({ x: 0, y: 0 }));
+        
+        /* Track mouse movement and generate velocity-based sparkles */
+        document.addEventListener('mousemove', (e) => {
+            const dx = e.clientX - lastX;
+            const dy = e.clientY - lastY;
+            velocity = Math.sqrt(dx * dx + dy * dy);
+            
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            cursor.style.left = mouseX + 'px';
+            cursor.style.top = mouseY + 'px';
+            
+            /* Fast movement sparkles */
+            if (velocity > 20 && Math.random() > 0.5) {
+                const sparkleCount = Math.min(Math.floor(velocity / 15), 5);
+                for (let i = 0; i < sparkleCount; i++) {
+                    setTimeout(() => {
+                        createSparkle(mouseX + (Math.random() - 0.5) * velocity * 0.5, mouseY + (Math.random() - 0.5) * velocity * 0.5, Math.random() * 6 + 2);
+                    }, i * 30);
+                }
+            }
+            
+            /* Directional sparkles on very fast movement */
+            if (velocity > 40 && Math.random() > 0.7) {
+                const angle = Math.atan2(dy, dx);
+                for (let i = 0; i < 3; i++) {
+                    const offsetX = Math.cos(angle + (i - 1) * 0.5) * 15;
+                    const offsetY = Math.sin(angle + (i - 1) * 0.5) * 15;
+                    createSparkle(mouseX + offsetX, mouseY + offsetY, Math.random() * 5 + 2, '#00a88a');
+                }
+            }
+            
+            lastX = mouseX;
+            lastY = mouseY;
+        });
+        
+        /* Animate trail positions with easing */
+        function animateTrail() {
+            for (let i = 0; i < trailCount; i++) {
+                const easing = 0.35 - (i * 0.015);
+                const targetX = i === 0 ? mouseX : prevPositions[i-1].x;
+                const targetY = i === 0 ? mouseY : prevPositions[i-1].y;
+                
+                prevPositions[i].x += (targetX - prevPositions[i].x) * Math.max(0.08, easing);
+                prevPositions[i].y += (targetY - prevPositions[i].y) * Math.max(0.08, easing);
+                
+                const angleOffset = i * 0.2;
+                const radius = Math.sin(Date.now() * 0.005 + i) * (velocity / 30);
+                const offsetX = Math.cos(angleOffset) * radius;
+                const offsetY = Math.sin(angleOffset) * radius;
+                
+                trails[i].style.left = (prevPositions[i].x + offsetX) + 'px';
+                trails[i].style.top = (prevPositions[i].y + offsetY) + 'px';
+                
+                if (velocity > 30) {
+                    trails[i].style.transform = `translate(-50%, -50%) scale(${1 + velocity / 100})`;
+                } else {
+                    trails[i].style.transform = 'translate(-50%, -50%) scale(1)';
+                }
+            }
+            
+            requestAnimationFrame(animateTrail);
+        }
+        
+        for (let i = 0; i < trailCount; i++) {
+            prevPositions[i] = { x: mouseX, y: mouseY };
+        }
+        
+        animateTrail();
+        
+        /* Hide cursor when leaving window */
+        document.addEventListener('mouseleave', () => {
+            cursor.style.opacity = '0';
+            trails.forEach(trail => trail.style.opacity = '0');
+        });
+        
+        /* Show cursor when entering window */
+        document.addEventListener('mouseenter', () => {
+            cursor.style.opacity = '1';
+            trails.forEach(trail => trail.style.opacity = '0.7');
+        });
+        
+        /* Click effect with rings and sparkles */
+        document.addEventListener('mousedown', (e) => {
+            cursor.style.transform = 'translate(-50%, -50%) scale(0.85)';
+            
+            /* Create two ripple rings */
+            for (let r = 0; r < 2; r++) {
+                const ring = document.createElement('div');
+                ring.className = 'click-ring';
+                ring.style.left = e.clientX + 'px';
+                ring.style.top = e.clientY + 'px';
+                ring.style.width = (15 + r * 8) + 'px';
+                ring.style.height = (15 + r * 8) + 'px';
+                ring.style.border = `2px solid ${r === 0 ? '#00a88a' : '#55efc4'}`;
+                ring.style.opacity = 0.7 - r * 0.2;
+                document.body.appendChild(ring);
+                
+                setTimeout(() => {
+                    ring.style.transform = 'translate(-50%, -50%) scale(2.5)';
+                    ring.style.opacity = '0';
+                }, 10);
+                
+                setTimeout(() => {
+                    ring.remove();
+                }, 150);
+            }
+            
+            /* Directional sparkle burst */
+            for (let i = 0; i < 16; i++) {
+                setTimeout(() => {
+                    const angle = (i * 22.5) * Math.PI / 180;
+                    const radius = 15;
+                    const offsetX = Math.cos(angle) * radius;
+                    const offsetY = Math.sin(angle) * radius;
+                    createSparkle(e.clientX + offsetX, e.clientY + offsetY, Math.random() * 6 + 2);
+                }, i * 6);
+            }
+            
+            /* Random scattered sparkles */
+            for (let i = 0; i < 12; i++) {
+                setTimeout(() => {
+                    const angle = Math.random() * Math.PI * 2;
+                    const radius = 10 + Math.random() * 20;
+                    const offsetX = Math.cos(angle) * radius;
+                    const offsetY = Math.sin(angle) * radius;
+                    const colors = ['#006d6d', '#008b74', '#00a88a', '#55efc4'];
+                    createSparkle(e.clientX + offsetX, e.clientY + offsetY, Math.random() * 5 + 2, colors[Math.floor(Math.random() * colors.length)]);
+                }, i * 8);
+            }
+        });
+        
+        /* Reset cursor scale on mouse up */
+        document.addEventListener('mouseup', () => {
+            cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+        });
+        
+        /* Hover effects for all interactive elements */
+        const interactiveElements = document.querySelectorAll('a, button, .product, .add-to-cart, .cta-button, .cart-item, input[type="submit"], .shop-item, .blog-card, .nav-link');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.width = '44px';
+                cursor.style.height = '44px';
+                cursor.style.background = 'radial-gradient(circle, #005f73, #008b74, #00a88a)';
+                cursor.style.filter = 'brightness(1.3)';
+                
+                /* Sparkles on hover */
+                for (let i = 0; i < 8; i++) {
+                    setTimeout(() => {
+                        const rect = el.getBoundingClientRect();
+                        const x = rect.left + Math.random() * rect.width;
+                        const y = rect.top + Math.random() * rect.height;
+                        createSparkle(x, y, Math.random() * 5 + 2, '#00a88a');
+                    }, i * 25);
+                }
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                cursor.style.width = '28px';
+                cursor.style.height = '28px';
+                cursor.style.background = 'radial-gradient(circle, #006d6d, #008b74, #00a88a)';
+                cursor.style.filter = 'none';
+            });
+        });
+        
+        /* Ambient sparkles when mouse is idle */
+        setInterval(() => {
+            if (velocity < 15 && Math.random() > 0.94) {
+                const x = mouseX + (Math.random() - 0.5) * 80;
+                const y = mouseY + (Math.random() - 0.5) * 80;
+                createSparkle(x, y, Math.random() * 4 + 1, '#008b74');
+            }
+        }, 300);
+        
+        /* Hide default cursor */
+        document.body.style.cursor = 'none';
+    })();
+</script>
 </body>
 </html>

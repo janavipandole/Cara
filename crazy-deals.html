@@ -1,459 +1,1124 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <!-- Character Encoding -->
+    <meta charset="UTF-8" />
 
-<head>
-  <!-- Character Encoding -->
-  <meta charset="UTF-8" />
+    <!-- Viewport for Responsive Design -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Viewport for Responsive Design -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Page Title -->
+    <title>Crazy Deals — Cara</title>
 
-  <!-- Page Title -->
-  <title>Crazy Deals — Cara</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css?v=2" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
 
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="style.css?v=2" />
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Simple page-specific styling -->
+    <style>
+      /* Campaign Page Head Styling */
+      #campaign-head {
+        background-image:
+          linear-gradient(
+            135deg,
+            rgba(239, 68, 68, 0.95),
+            rgba(245, 158, 11, 0.9)
+          ),
+          url('images/banner/b17.jpg');
+        background-size: cover;
+        background-position: center;
+        width: 100%;
+        height: 35vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: #fff;
+        padding: 14px;
+      }
 
-  <!-- Simple page-specific styling -->
-  <style>
-    /* Campaign Page Head Styling */
-    #campaign-head {
-      background-image: linear-gradient(135deg, rgba(239, 68, 68, 0.95), rgba(245, 158, 11, 0.9)), url('images/banner/b17.jpg');
-      background-size: cover;
-      background-position: center;
-      width: 100%;
-      height: 35vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      color: #fff;
-      padding: 14px;
-    }
+      #campaign-head h2 {
+        font-size: 45px;
+        font-weight: 800;
+        text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
 
-    #campaign-head h2 {
-      font-size: 45px;
-      font-weight: 800;
-      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
+      #campaign-head p {
+        font-size: 18px;
+        font-weight: 500;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
 
-    #campaign-head p {
-      font-size: 18px;
-      font-weight: 500;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    }
+      /* Campaign Layout */
+      .campaign-content {
+        padding: 60px 8%;
+        text-align: center;
+      }
 
-    /* Campaign Layout */
-    .campaign-content {
-      padding: 60px 8%;
-      text-align: center;
-    }
+      .badge-deal {
+        display: inline-block;
+        background-color: #ef4444;
+        color: #fff;
+        font-weight: 700;
+        font-size: 13px;
+        padding: 6px 16px;
+        border-radius: 50px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 20px;
+      }
 
-    .badge-deal {
-      display: inline-block;
-      background-color: #ef4444;
-      color: #fff;
-      font-weight: 700;
-      font-size: 13px;
-      padding: 6px 16px;
-      border-radius: 50px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 20px;
-    }
+      .campaign-content h1 {
+        font-size: 36px;
+        font-weight: 700;
+        margin-bottom: 12px;
+        color: #1a1a1a;
+      }
 
-    .campaign-content h1 {
-      font-size: 36px;
-      font-weight: 700;
-      margin-bottom: 12px;
-      color: #1a1a1a;
-    }
+      [data-theme='dark'] .campaign-content h1 {
+        color: #f8fafc;
+      }
 
-    [data-theme="dark"] .campaign-content h1 {
-      color: #f8fafc;
-    }
+      .campaign-content p.lead-text {
+        font-size: 16px;
+        color: #666;
+        max-width: 600px;
+        margin: 0 auto 50px auto;
+        line-height: 1.6;
+      }
 
-    .campaign-content p.lead-text {
-      font-size: 16px;
-      color: #666;
-      max-width: 600px;
-      margin: 0 auto 50px auto;
-      line-height: 1.6;
-    }
+      [data-theme='dark'] .campaign-content p.lead-text {
+        color: #cbd5e1;
+      }
 
-    [data-theme="dark"] .campaign-content p.lead-text {
-      color: #cbd5e1;
-    }
+      /* Actions Bar */
+      .action-group {
+        display: flex;
+        gap: 15px;
+        margin-top: 40px;
+        justify-content: center;
+      }
 
-    /* Actions Bar */
-    .action-group {
-      display: flex;
-      gap: 15px;
-      margin-top: 40px;
-      justify-content: center;
-    }
+      .btn-action {
+        font-size: 15px;
+        font-weight: 700;
+        padding: 12px 28px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        text-decoration: none;
+        display: inline-block;
+      }
 
-    .btn-action {
-      font-size: 15px;
-      font-weight: 700;
-      padding: 12px 28px;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-transform: uppercase;
-      text-decoration: none;
-      display: inline-block;
-    }
+      .btn-primary {
+        background-color: #088178;
+        color: #fff;
+        border: none;
+      }
 
-    .btn-primary {
-      background-color: #088178;
-      color: #fff;
-      border: none;
-    }
+      .btn-primary:hover {
+        background-color: #06655e;
+      }
 
-    .btn-primary:hover {
-      background-color: #06655e;
-    }
+      .btn-secondary {
+        background-color: transparent;
+        border: 1px solid #ccc;
+        color: #333;
+      }
 
-    .btn-secondary {
-      background-color: transparent;
-      border: 1px solid #ccc;
-      color: #333;
-    }
+      [data-theme='dark'] .btn-secondary {
+        color: #f8fafc;
+        border-color: #475569;
+      }
 
-    [data-theme="dark"] .btn-secondary {
-      color: #f8fafc;
-      border-color: #475569;
-    }
+      .btn-secondary:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+      }
 
-    .btn-secondary:hover {
-      background-color: rgba(0, 0, 0, 0.05);
-    }
+      [data-theme='dark'] .btn-secondary:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+      }
 
-    [data-theme="dark"] .btn-secondary:hover {
-      background-color: rgba(255, 255, 255, 0.05);
-    }
+      /* Scroll To Top Buttons */
+      #scrollTopBtn {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 55px;
+        height: 55px;
+        border: none;
+        border-radius: 50%;
+        background-color: #088178;
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+        z-index: 999;
+        display: none;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+      }
 
-    /* Scroll To Top Buttons */
-    #scrollTopBtn {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      width: 55px;
-      height: 55px;
-      border: none;
-      border-radius: 50%;
-      background-color: #088178;
-      color: white;
-      font-size: 24px;
-      font-weight: bold;
-      cursor: pointer;
-      z-index: 999;
-      display: none;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-      transition: all 0.3s ease;
-    }
+      #scrollTopBtn:hover {
+        background-color: #065f5b;
+        transform: scale(1.1);
+      }
+    </style>
+    <link rel="stylesheet" href="cursor.css" />
+    `n
+  </head>
 
-    #scrollTopBtn:hover {
-      background-color: #065f5b;
-      transform: scale(1.1);
-    }
-  </style>
-</head>
+  <body>
+    <div id="main">
+      <div id="top">
+        <div id="workingArea">
+          <section id="header">
+            <!-- Logo -->
+            <a href="index.html">
+              <img
+                id="siteLogo"
+                src="images/logo.png"
+                alt="Cara Logo"
+                id="siteLogo"
+              />
+            </a>
 
-<body>
-  <div id="main">
-    <div id="top">
-      <div id="workingArea">
-        <section id="header">
-          <!-- Logo -->
-          <a href="index.html">
-            <img id="siteLogo" src="images/logo.png" alt="Cara Logo" id="siteLogo" />
-          </a>
+            <div>
+              <ul id="navbar">
+                <!-- Main Navigation Links -->
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html" class="active">Shop</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="try-on.html">Try-On</a></li>
+                <li><a href="community.html">Community</a></li>
+                <li><a href="promotions.html">Promotions</a></li>
 
-          <div>
-            <ul id="navbar">
-              <!-- Main Navigation Links -->
-              <li><a href="index.html">Home</a></li>
-              <li><a href="shop.html" class="active">Shop</a></li>
-              <li><a href="blog.html">Blog</a></li>
-              <li><a href="about.html">About</a></li>
-              <li><a href="try-on.html">Try-On</a></li>
-              <li><a href="community.html">Community</a></li>
-              <li><a href="promotions.html">Promotions</a></li>
+                <!-- Contact Icon -->
+                <li class="nav-icon">
+                  <a href="contact.html" aria-label="Contact">
+                    <i class="ri-customer-service-2-line"></i>
+                  </a>
+                </li>
 
-              <!-- Contact Icon -->
-              <li class="nav-icon">
-                <a href="contact.html" aria-label="Contact">
-                  <i class="ri-customer-service-2-line"></i>
+                <!-- Login Icon -->
+                <li class="nav-icon">
+                  <a href="login.html" aria-label="Login">
+                    <i class="ri-user-3-line"></i>
+                  </a>
+                </li>
+
+                <!-- Cart Icon -->
+                <li class="nav-icon">
+                  <a href="cart.html" id="lg-bag" aria-label="Cart">
+                    <i class="ri-shopping-bag-4-line"></i>
+                  </a>
+                </li>
+
+                <!-- Theme Toggle -->
+                <li class="nav-icon">
+                  <button
+                    class="theme-toggle"
+                    id="themeToggle"
+                    aria-label="Toggle dark mode"
+                  >
+                    <i class="ri-moon-line" id="themeIcon"></i>
+                  </button>
+                </li>
+
+                <!-- Close Button -->
+                <a
+                  href="#"
+                  id="close"
+                  aria-label="Close menu"
+                  aria-hidden="false"
+                >
+                  <i class="fa-solid fa-xmark"></i>
                 </a>
-              </li>
+              </ul>
+            </div>
 
+            <!-- Mobile Navbar -->
+            <div class="mobile">
               <!-- Login Icon -->
-              <li class="nav-icon">
-                <a href="login.html" aria-label="Login">
-                  <i class="ri-user-3-line"></i>
-                </a>
-              </li>
+              <a href="login.html" aria-label="Login">
+                <i class="ri-user-3-line"></i>
+              </a>
 
               <!-- Cart Icon -->
-              <li class="nav-icon">
-                <a href="cart.html" id="lg-bag" aria-label="Cart">
-                  <i class="ri-shopping-bag-4-line"></i>
-                </a>
-              </li>
-
-              <!-- Theme Toggle -->
-              <li class="nav-icon">
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-                  <i class="ri-moon-line" id="themeIcon"></i>
-                </button>
-              </li>
-
-              <!-- Close Button -->
-              <a href="#" id="close" aria-label="Close menu" aria-hidden="false">
-                <i class="fa-solid fa-xmark"></i>
+              <a href="cart.html" aria-label="Cart">
+                <i class="ri-shopping-bag-4-line"></i>
               </a>
-            </ul>
-          </div>
 
-          <!-- Mobile Navbar -->
-          <div class="mobile">
-            <!-- Login Icon -->
-            <a href="login.html" aria-label="Login">
-              <i class="ri-user-3-line"></i>
-            </a>
-
-            <!-- Cart Icon -->
-            <a href="cart.html" aria-label="Cart">
-              <i class="ri-shopping-bag-4-line"></i>
-            </a>
-
-            <!-- Hamburger Menu -->
-            <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
-          </div>
-        </section>
-
-        <!-- Subpage Banner Head -->
-        <section id="campaign-head">
-          <h2>#CrazyDeals</h2>
-          <p>Double the satisfaction, half the cost!</p>
-        </section>
-      </div>
-    </div>
-  </div>
-
-  <section class="campaign-content">
-    <div class="badge-deal">BOGO Promotion</div>
-    <h1>Buy 1 Get 1 Free</h1>
-    <p class="lead-text">Unlock incredible savings on our top-selling apparel collection. Select any two qualifying items below, and the lower-priced item is automatically free at checkout! Use coupon code <strong>CARA20</strong> at cart for an extra 20% off.</p>
-
-    <!-- Product Grid for Deals -->
-    <div id="product1" class="section-p1" style="width: 100%; padding: 0;">
-      <div class="pro-container">
-
-        <div class="pro" data-category="street">
-          <div class="pro-img-wrap"><img src="images/products/f1.jpg" alt="Cartoon Astronaut T-Shirts" /></div>
-          <div class="des">
-            <div class="pro-brand-row">
-              <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
-              <span>Nike</span>
+              <!-- Hamburger Menu -->
+              <i
+                class="fas fa-outdent"
+                id="bar"
+                role="button"
+                aria-label="Open menu"
+                aria-expanded="false"
+                tabindex="0"
+              ></i>
             </div>
-            <h5>Cartoon Astronaut T-Shirts</h5>
-            <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
-            <h4 style="display: flex; gap: 10px; justify-content: center; align-items: center;">
-              <span style="color: #ef4444;">&#8377;1,249</span>
-              <span style="text-decoration: line-through; font-size: 14px; color: #888; font-weight: normal;">&#8377;2,499</span>
-            </h4>
-            <div class="pro-action-bar">
-              <button class="pro-buy-btn" onclick="event.stopPropagation(); buyNow('Cartoon Astronaut T-Shirts','₹1,249','images/products/f1.jpg',1,'M')">BUY NOW</button>
-              <a href="#" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation(); addToCart('Cartoon Astronaut T-Shirts','₹1,249','images/products/f1.jpg',1,'M'); return false;"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-          </div>
-        </div>
+          </section>
 
-        <div class="pro" data-category="minimal">
-          <div class="pro-img-wrap"><img src="images/products/f2.jpg" alt="White Palm Leaf Casual Shirt" /></div>
-          <div class="des">
-            <div class="pro-brand-row">
-              <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
-              <span>H&amp;M</span>
-            </div>
-            <h5>White Palm Leaf Casual Shirt</h5>
-            <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
-            <h4 style="display: flex; gap: 10px; justify-content: center; align-items: center;">
-              <span style="color: #ef4444;">&#8377;649</span>
-              <span style="text-decoration: line-through; font-size: 14px; color: #888; font-weight: normal;">&#8377;1,299</span>
-            </h4>
-            <div class="pro-action-bar">
-              <button class="pro-buy-btn" onclick="event.stopPropagation(); buyNow('White Palm Leaf Casual Shirt','₹649','images/products/f2.jpg',1,'M')">BUY NOW</button>
-              <a href="#" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation(); addToCart('White Palm Leaf Casual Shirt','₹649','images/products/f2.jpg',1,'M'); return false;"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-          </div>
-        </div>
-
-        <div class="pro" data-category="street">
-          <div class="pro-img-wrap"><img src="images/products/f5.jpg" alt="Pink Peony Patterned Shirt" /></div>
-          <div class="des">
-            <div class="pro-brand-row">
-              <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
-              <span>Puma</span>
-            </div>
-            <h5>Pink Peony Patterned Shirt</h5>
-            <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
-            <h4 style="display: flex; gap: 10px; justify-content: center; align-items: center;">
-              <span style="color: #ef4444;">&#8377;999</span>
-              <span style="text-decoration: line-through; font-size: 14px; color: #888; font-weight: normal;">&#8377;1,999</span>
-            </h4>
-            <div class="pro-action-bar">
-              <button class="pro-buy-btn" onclick="event.stopPropagation(); buyNow('Pink Peony Patterned Shirt','₹999','images/products/f5.jpg',1,'M')">BUY NOW</button>
-              <a href="#" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation(); addToCart('Pink Peony Patterned Shirt','₹999','images/products/f5.jpg',1,'M'); return false;"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-          </div>
-        </div>
-
-        <div class="pro" data-category="street">
-          <div class="pro-img-wrap"><img src="images/products/f6.jpg" alt="Dual-Tone Corduroy Shirt" /></div>
-          <div class="des">
-            <div class="pro-brand-row">
-              <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
-              <span>Gap</span>
-            </div>
-            <h5>Dual-Tone Corduroy Shirt</h5>
-            <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
-            <h4 style="display: flex; gap: 10px; justify-content: center; align-items: center;">
-              <span style="color: #ef4444;">&#8377;1,149</span>
-              <span style="text-decoration: line-through; font-size: 14px; color: #888; font-weight: normal;">&#8377;2,299</span>
-            </h4>
-            <div class="pro-action-bar">
-              <button class="pro-buy-btn" onclick="event.stopPropagation(); buyNow('Dual-Tone Corduroy Shirt','₹1,149','images/products/f6.jpg',1,'M')">BUY NOW</button>
-              <a href="#" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation(); addToCart('Dual-Tone Corduroy Shirt','₹1,149','images/products/f6.jpg',1,'M'); return false;"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Navigation CTAs -->
-    <div class="action-group">
-      <a href="shop.html" class="btn-action btn-primary">Shop The Collection</a>
-      <a href="index.html" class="btn-action btn-secondary">Back To Home</a>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="main-footer">
-    <div class="footer-top">
-      <div class="footer-logo-box">
-        <img class="footer-logo" src="images/logo.png" alt="Cara Logo" />
-      </div>
-      <div class="footer-socials">
-        <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
-        <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
-        <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
-        <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
-      </div>
-    </div>
-
-    <hr class="footer-divider">
-
-    <div class="footer-middle">
-      <div class="footer-col brand-info">
-        <h4>ABOUT US</h4>
-        <p>Cara E-Commerce – Redefining your style with premium apparel, expert curation, and an absolute commitment to fashion excellence.</p>
-        <p><strong>Address: </strong>562 Wellington Road, Street 32, San Francisco</p>
-        <p><strong>Phone: </strong>+01 2222 365 / (+91) 01 2345 6789</p>
-        <p><strong>Hours: </strong>10:00 - 18:00, Mon - Sat</p>
-      </div>
-
-      <div class="footer-col">
-        <h4>QUICK LINKS</h4>
-        <a href="about.html">About Us</a>
-        <a href="#">Delivery Information</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="terms.html">Terms and Conditions</a>
-        <a href="contact.html">Contact Us</a>
-      </div>
-
-      <div class="footer-col">
-        <h4>MY ACCOUNT</h4>
-        <a href="login.html">Sign In</a>
-        <a href="cart.html">View Cart</a>
-        <a href="#">My Wishlist</a>
-        <a href="cart.html">Track My Order</a>
-        <a href="contact.html">Help</a>
-      </div>
-
-      <div class="footer-col newsletter-footer">
-        <h4>NEWSLETTER</h4>
-        <p>Get email updates about our latest shop and <span>special offers.</span></p>
-        <form class="newsletter-form">
-          <input type="email" placeholder="Your email address" required>
-          <button type="submit">Sign Up</button>
-        </form>
-
-        <div class="install-payment-box">
-          <h4>SECURED PAYMENT GATEWAYS</h4>
-          <div class="payment-icons">
-            <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer" aria-label="Visa"><i class="fab fa-cc-visa"></i></a>
-            <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer" aria-label="Mastercard"><i class="fab fa-cc-mastercard"></i></a>
-            <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" aria-label="PayPal"><i class="fab fa-cc-paypal"></i></a>
-            <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer" aria-label="American Express"><i class="fab fa-cc-amex"></i></a>
-            <a href="https://www.stripe.com" target="_blank" rel="noopener noreferrer" aria-label="Stripe"><i class="fab fa-cc-stripe"></i></a>
-          </div>
+          <!-- Subpage Banner Head -->
+          <section id="campaign-head">
+            <h2>#CrazyDeals</h2>
+            <p>Double the satisfaction, half the cost!</p>
+          </section>
         </div>
       </div>
     </div>
 
-    <div class="footer-install-box">
-      <h4>INSTALL APP</h4>
-      <p>From App Store or Google Play</p>
-      <div class="download-badges">
-        <img src="images/pay/app.jpg" alt="Download from App Store" />
-        <img src="images/pay/play.jpg" alt="Get it on Google Play" />
+    <section class="campaign-content">
+      <div class="badge-deal">BOGO Promotion</div>
+      <h1>Buy 1 Get 1 Free</h1>
+      <p class="lead-text">
+        Unlock incredible savings on our top-selling apparel collection. Select
+        any two qualifying items below, and the lower-priced item is
+        automatically free at checkout! Use coupon code
+        <strong>CARA20</strong> at cart for an extra 20% off.
+      </p>
+
+      <!-- Product Grid for Deals -->
+      <div id="product1" class="section-p1" style="width: 100%; padding: 0">
+        <div class="pro-container">
+          <div class="pro" data-category="street">
+            <div class="pro-img-wrap">
+              <img
+                src="images/products/f1.jpg"
+                alt="Cartoon Astronaut T-Shirts"
+              />
+            </div>
+            <div class="des">
+              <div class="pro-brand-row">
+                <svg
+                  class="pro-brand-logo"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z" />
+                </svg>
+                <span>Nike</span>
+              </div>
+              <h5>Cartoon Astronaut T-Shirts</h5>
+              <div class="star">
+                <i class="ri-star-fill"></i><i class="ri-star-fill"></i
+                ><i class="ri-star-fill"></i><i class="ri-star-fill"></i
+                ><i class="ri-star-fill"></i>
+              </div>
+              <h4
+                style="
+                  display: flex;
+                  gap: 10px;
+                  justify-content: center;
+                  align-items: center;
+                "
+              >
+                <span style="color: #ef4444">&#8377;1,249</span>
+                <span
+                  style="
+                    text-decoration: line-through;
+                    font-size: 14px;
+                    color: #888;
+                    font-weight: normal;
+                  "
+                  >&#8377;2,499</span
+                >
+              </h4>
+              <div class="pro-action-bar">
+                <button
+                  class="pro-buy-btn"
+                  onclick="
+                    event.stopPropagation();
+                    buyNow(
+                      'Cartoon Astronaut T-Shirts',
+                      '₹1,249',
+                      'images/products/f1.jpg',
+                      1,
+                      'M'
+                    );
+                  "
+                >
+                  BUY NOW
+                </button>
+                <a
+                  href="#"
+                  class="pro-cart-btn"
+                  aria-label="Add to cart"
+                  onclick="
+                    event.stopPropagation();
+                    addToCart(
+                      'Cartoon Astronaut T-Shirts',
+                      '₹1,249',
+                      'images/products/f1.jpg',
+                      1,
+                      'M'
+                    );
+                    return false;
+                  "
+                  ><i class="ri-shopping-cart-2-line"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="pro" data-category="minimal">
+            <div class="pro-img-wrap">
+              <img
+                src="images/products/f2.jpg"
+                alt="White Palm Leaf Casual Shirt"
+              />
+            </div>
+            <div class="des">
+              <div class="pro-brand-row">
+                <svg
+                  class="pro-brand-logo"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z" />
+                </svg>
+                <span>H&amp;M</span>
+              </div>
+              <h5>White Palm Leaf Casual Shirt</h5>
+              <div class="star">
+                <i class="ri-star-fill"></i><i class="ri-star-fill"></i
+                ><i class="ri-star-fill"></i><i class="ri-star-fill"></i
+                ><i class="ri-star-fill"></i>
+              </div>
+              <h4
+                style="
+                  display: flex;
+                  gap: 10px;
+                  justify-content: center;
+                  align-items: center;
+                "
+              >
+                <span style="color: #ef4444">&#8377;649</span>
+                <span
+                  style="
+                    text-decoration: line-through;
+                    font-size: 14px;
+                    color: #888;
+                    font-weight: normal;
+                  "
+                  >&#8377;1,299</span
+                >
+              </h4>
+              <div class="pro-action-bar">
+                <button
+                  class="pro-buy-btn"
+                  onclick="
+                    event.stopPropagation();
+                    buyNow(
+                      'White Palm Leaf Casual Shirt',
+                      '₹649',
+                      'images/products/f2.jpg',
+                      1,
+                      'M'
+                    );
+                  "
+                >
+                  BUY NOW
+                </button>
+                <a
+                  href="#"
+                  class="pro-cart-btn"
+                  aria-label="Add to cart"
+                  onclick="
+                    event.stopPropagation();
+                    addToCart(
+                      'White Palm Leaf Casual Shirt',
+                      '₹649',
+                      'images/products/f2.jpg',
+                      1,
+                      'M'
+                    );
+                    return false;
+                  "
+                  ><i class="ri-shopping-cart-2-line"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="pro" data-category="street">
+            <div class="pro-img-wrap">
+              <img
+                src="images/products/f5.jpg"
+                alt="Pink Peony Patterned Shirt"
+              />
+            </div>
+            <div class="des">
+              <div class="pro-brand-row">
+                <svg
+                  class="pro-brand-logo"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z" />
+                </svg>
+                <span>Puma</span>
+              </div>
+              <h5>Pink Peony Patterned Shirt</h5>
+              <div class="star">
+                <i class="ri-star-fill"></i><i class="ri-star-fill"></i
+                ><i class="ri-star-fill"></i><i class="ri-star-fill"></i
+                ><i class="ri-star-fill"></i>
+              </div>
+              <h4
+                style="
+                  display: flex;
+                  gap: 10px;
+                  justify-content: center;
+                  align-items: center;
+                "
+              >
+                <span style="color: #ef4444">&#8377;999</span>
+                <span
+                  style="
+                    text-decoration: line-through;
+                    font-size: 14px;
+                    color: #888;
+                    font-weight: normal;
+                  "
+                  >&#8377;1,999</span
+                >
+              </h4>
+              <div class="pro-action-bar">
+                <button
+                  class="pro-buy-btn"
+                  onclick="
+                    event.stopPropagation();
+                    buyNow(
+                      'Pink Peony Patterned Shirt',
+                      '₹999',
+                      'images/products/f5.jpg',
+                      1,
+                      'M'
+                    );
+                  "
+                >
+                  BUY NOW
+                </button>
+                <a
+                  href="#"
+                  class="pro-cart-btn"
+                  aria-label="Add to cart"
+                  onclick="
+                    event.stopPropagation();
+                    addToCart(
+                      'Pink Peony Patterned Shirt',
+                      '₹999',
+                      'images/products/f5.jpg',
+                      1,
+                      'M'
+                    );
+                    return false;
+                  "
+                  ><i class="ri-shopping-cart-2-line"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="pro" data-category="street">
+            <div class="pro-img-wrap">
+              <img
+                src="images/products/f6.jpg"
+                alt="Dual-Tone Corduroy Shirt"
+              />
+            </div>
+            <div class="des">
+              <div class="pro-brand-row">
+                <svg
+                  class="pro-brand-logo"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z" />
+                </svg>
+                <span>Gap</span>
+              </div>
+              <h5>Dual-Tone Corduroy Shirt</h5>
+              <div class="star">
+                <i class="ri-star-fill"></i><i class="ri-star-fill"></i
+                ><i class="ri-star-fill"></i><i class="ri-star-fill"></i
+                ><i class="ri-star-fill"></i>
+              </div>
+              <h4
+                style="
+                  display: flex;
+                  gap: 10px;
+                  justify-content: center;
+                  align-items: center;
+                "
+              >
+                <span style="color: #ef4444">&#8377;1,149</span>
+                <span
+                  style="
+                    text-decoration: line-through;
+                    font-size: 14px;
+                    color: #888;
+                    font-weight: normal;
+                  "
+                  >&#8377;2,299</span
+                >
+              </h4>
+              <div class="pro-action-bar">
+                <button
+                  class="pro-buy-btn"
+                  onclick="
+                    event.stopPropagation();
+                    buyNow(
+                      'Dual-Tone Corduroy Shirt',
+                      '₹1,149',
+                      'images/products/f6.jpg',
+                      1,
+                      'M'
+                    );
+                  "
+                >
+                  BUY NOW
+                </button>
+                <a
+                  href="#"
+                  class="pro-cart-btn"
+                  aria-label="Add to cart"
+                  onclick="
+                    event.stopPropagation();
+                    addToCart(
+                      'Dual-Tone Corduroy Shirt',
+                      '₹1,149',
+                      'images/products/f6.jpg',
+                      1,
+                      'M'
+                    );
+                    return false;
+                  "
+                  ><i class="ri-shopping-cart-2-line"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="footer-bottom">
-      <p class="copyright">© Cara 2026. All rights reserved.</p>
-      <div class="footer-legal-links">
-        <a href="license.html" class="license-link">MIT License</a>
+      <!-- Navigation CTAs -->
+      <div class="action-group">
+        <a href="shop.html" class="btn-action btn-primary"
+          >Shop The Collection</a
+        >
+        <a href="index.html" class="btn-action btn-secondary">Back To Home</a>
       </div>
-    </div>
-  </footer>
+    </section>
 
-  <button id="scrollTopBtn" title="Go to top">↑</button>
+    <!-- Footer -->
+    <footer class="main-footer">
+      <div class="footer-top">
+        <div class="footer-logo-box">
+          <img class="footer-logo" src="images/logo.png" alt="Cara Logo" />
+        </div>
+        <div class="footer-socials">
+          <a
+            href="https://x.com/JanaviPandole"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fab fa-twitter"></i
+          ></a>
+          <a
+            href="https://github.com/janavipandole"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fab fa-github"></i
+          ></a>
+          <a
+            href="https://www.linkedin.com/in/janavi-pandole-80a7b2290"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fab fa-linkedin"></i
+          ></a>
+          <a
+            href="https://www.youtube.com/@JanaviPandole"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fab fa-youtube"></i
+          ></a>
+        </div>
+      </div>
 
-  <div id="toast-container"></div>
-  <script src="app.js"></script>
+      <hr class="footer-divider" />
 
-  <!-- Simple script for Scroll To Top and core behavior -->
-  <script>
-    // Scroll to Top buttons
-    const scrollTopBtn = document.getElementById("scrollTopBtn");
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 300) {
-        scrollTopBtn.style.display = "block";
-      } else {
-        scrollTopBtn.style.display = "none";
-      }
-    });
-    scrollTopBtn.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-  </script>
+      <div class="footer-middle">
+        <div class="footer-col brand-info">
+          <h4>ABOUT US</h4>
+          <p>
+            Cara E-Commerce – Redefining your style with premium apparel, expert
+            curation, and an absolute commitment to fashion excellence.
+          </p>
+          <p>
+            <strong>Address: </strong>562 Wellington Road, Street 32, San
+            Francisco
+          </p>
+          <p><strong>Phone: </strong>+01 2222 365 / (+91) 01 2345 6789</p>
+          <p><strong>Hours: </strong>10:00 - 18:00, Mon - Sat</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>QUICK LINKS</h4>
+          <a href="about.html">About Us</a>
+          <a href="#">Delivery Information</a>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms and Conditions</a>
+          <a href="contact.html">Contact Us</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>MY ACCOUNT</h4>
+          <a href="login.html">Sign In</a>
+          <a href="cart.html">View Cart</a>
+          <a href="#">My Wishlist</a>
+          <a href="cart.html">Track My Order</a>
+          <a href="contact.html">Help</a>
+        </div>
+
+        <div class="footer-col newsletter-footer">
+          <h4>NEWSLETTER</h4>
+          <p>
+            Get email updates about our latest shop and
+            <span>special offers.</span>
+          </p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Your email address" required />
+            <button type="submit">Sign Up</button>
+          </form>
+
+          <div class="install-payment-box">
+            <h4>SECURED PAYMENT GATEWAYS</h4>
+            <div class="payment-icons">
+              <a
+                href="https://www.visa.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visa"
+                ><i class="fab fa-cc-visa"></i
+              ></a>
+              <a
+                href="https://www.mastercard.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Mastercard"
+                ><i class="fab fa-cc-mastercard"></i
+              ></a>
+              <a
+                href="https://www.paypal.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="PayPal"
+                ><i class="fab fa-cc-paypal"></i
+              ></a>
+              <a
+                href="https://www.americanexpress.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="American Express"
+                ><i class="fab fa-cc-amex"></i
+              ></a>
+              <a
+                href="https://www.stripe.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Stripe"
+                ><i class="fab fa-cc-stripe"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-install-box">
+        <h4>INSTALL APP</h4>
+        <p>From App Store or Google Play</p>
+        <div class="download-badges">
+          <img src="images/pay/app.jpg" alt="Download from App Store" />
+          <img src="images/pay/play.jpg" alt="Get it on Google Play" />
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="copyright">© Cara 2026. All rights reserved.</p>
+        <div class="footer-legal-links">
+          <a href="license.html" class="license-link">MIT License</a>
+        </div>
+      </div>
+    </footer>
+
+    <button id="scrollTopBtn" title="Go to top">↑</button>
+
+    <div id="toast-container"></div>
+    <script src="app.js"></script>
+
+    <!-- Simple script for Scroll To Top and core behavior -->
+    <script>
+      // Scroll to Top buttons
+      const scrollTopBtn = document.getElementById('scrollTopBtn');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+          scrollTopBtn.style.display = 'block';
+        } else {
+          scrollTopBtn.style.display = 'none';
+        }
+      });
+      scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    </script>
+    <script src="cursor.js"></script>
+    `n
+ <!-- Custom Cursor Effect with Multi-Trail -->
+<style>
+    * {
+        cursor: none !important;
+    }
+    
+    /* Main cursor circle */
+    .custom-cursor {
+        width: 28px;
+        height: 28px;
+        background: radial-gradient(circle, #006d6d, #008b74, #00a88a);
+        border-radius: 50%;
+        position: fixed;
+        pointer-events: none;
+        z-index: 999999;
+        transform: translate(-50%, -50%);
+        transition: width 0.15s cubic-bezier(0.2, 0.9, 0.4, 1.1), height 0.15s cubic-bezier(0.2, 0.9, 0.4, 1.1), background 0.2s;
+        box-shadow: 0 0 30px rgba(0, 141, 116, 0.9), 0 0 60px rgba(0, 109, 109, 0.5);
+        mix-blend-mode: screen;
+    }
+    
+    /* Trail dots following the cursor */
+    .cursor-trail {
+        width: 14px;
+        height: 14px;
+        background: radial-gradient(circle, #00a88a, #006d6d);
+        border-radius: 50%;
+        position: fixed;
+        pointer-events: none;
+        z-index: 999998;
+        transform: translate(-50%, -50%);
+        filter: blur(3px);
+        opacity: 0.7;
+        transition: 0.03s linear;
+    }
+    
+    /* Sparkle particles */
+    .cursor-sparkle {
+        position: fixed;
+        pointer-events: none;
+        z-index: 999999;
+        width: 4px;
+        height: 4px;
+        background: #fff;
+        border-radius: 50%;
+        opacity: 0;
+        transform: translate(-50%, -50%);
+    }
+    
+    /* Hover effect for interactive elements */
+    a:hover ~ .custom-cursor,
+    button:hover ~ .custom-cursor,
+    .product:hover ~ .custom-cursor,
+    .add-to-cart:hover ~ .custom-cursor {
+        width: 44px !important;
+        height: 44px !important;
+        background: radial-gradient(circle, #005f73, #008b74, #00a88a) !important;
+        box-shadow: 0 0 45px rgba(0, 95, 115, 1), 0 0 90px rgba(0, 141, 116, 0.8) !important;
+        filter: brightness(1.3);
+        mix-blend-mode: screen !important;
+    }
+    
+    /* Ripple ring effect on click */
+    .click-ring {
+        position: fixed;
+        pointer-events: none;
+        z-index: 999999;
+        border-radius: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0.6;
+        transition: transform 0.15s ease-out, opacity 0.15s ease-out;
+    }
+</style>
+
+<script>
+    (function() {
+        /* Create main cursor element */
+        const cursor = document.createElement('div');
+        cursor.className = 'custom-cursor';
+        document.body.appendChild(cursor);
+        
+        /* Create trail elements */
+        const trails = [];
+        const trailCount = 18;
+        
+        for (let i = 0; i < trailCount; i++) {
+            const trail = document.createElement('div');
+            trail.className = 'cursor-trail';
+            const size = 16 - (i * 0.8);
+            trail.style.width = Math.max(3, size) + 'px';
+            trail.style.height = Math.max(3, size) + 'px';
+            trail.style.opacity = 0.9 - (i * 0.045);
+            trail.style.filter = `blur(${Math.min(4, i * 0.25)}px)`;
+            const colors = ['#006d6d', '#008b74', '#00a88a', '#005f6b'];
+            trail.style.background = `radial-gradient(circle, ${colors[i % 4]}, ${colors[(i+2) % 4]})`;
+            document.body.appendChild(trail);
+            trails.push(trail);
+        }
+        
+        /* Create sparkle particle with animation */
+        function createSparkle(x, y, size = null, color = null) {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'cursor-sparkle';
+            sparkle.style.left = x + 'px';
+            sparkle.style.top = y + 'px';
+            const sparkSize = size || Math.random() * 8 + 2;
+            sparkle.style.width = sparkSize + 'px';
+            sparkle.style.height = sparkSize + 'px';
+            const colors = ['#006d6d', '#008b74', '#00a88a', '#005f6b', '#ffffff'];
+            sparkle.style.background = color || `radial-gradient(circle, ${colors[Math.floor(Math.random() * colors.length)]}, #006d6d)`;
+            sparkle.style.boxShadow = '0 0 10px rgba(0, 141, 116, 0.8)';
+            document.body.appendChild(sparkle);
+            
+            let opacity = 1;
+            let currentSize = sparkSize;
+            let dx = (Math.random() - 0.5) * 6;
+            let dy = (Math.random() - 0.5) * 6;
+            let xPos = x;
+            let yPos = y;
+            
+            const interval = setInterval(() => {
+                opacity -= 0.07;
+                currentSize -= 0.25;
+                xPos += dx;
+                yPos += dy;
+                sparkle.style.opacity = opacity;
+                sparkle.style.width = Math.max(0, currentSize) + 'px';
+                sparkle.style.height = sparkle.style.width;
+                sparkle.style.left = xPos + 'px';
+                sparkle.style.top = yPos + 'px';
+                
+                if (opacity <= 0) {
+                    clearInterval(interval);
+                    sparkle.remove();
+                }
+            }, 20);
+        }
+        
+        let mouseX = 0, mouseY = 0;
+        let velocity = 0;
+        let lastX = 0, lastY = 0;
+        let prevPositions = Array(trailCount).fill().map(() => ({ x: 0, y: 0 }));
+        
+        /* Track mouse movement and generate velocity-based sparkles */
+        document.addEventListener('mousemove', (e) => {
+            const dx = e.clientX - lastX;
+            const dy = e.clientY - lastY;
+            velocity = Math.sqrt(dx * dx + dy * dy);
+            
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            cursor.style.left = mouseX + 'px';
+            cursor.style.top = mouseY + 'px';
+            
+            /* Fast movement sparkles */
+            if (velocity > 20 && Math.random() > 0.5) {
+                const sparkleCount = Math.min(Math.floor(velocity / 15), 5);
+                for (let i = 0; i < sparkleCount; i++) {
+                    setTimeout(() => {
+                        createSparkle(mouseX + (Math.random() - 0.5) * velocity * 0.5, mouseY + (Math.random() - 0.5) * velocity * 0.5, Math.random() * 6 + 2);
+                    }, i * 30);
+                }
+            }
+            
+            /* Directional sparkles on very fast movement */
+            if (velocity > 40 && Math.random() > 0.7) {
+                const angle = Math.atan2(dy, dx);
+                for (let i = 0; i < 3; i++) {
+                    const offsetX = Math.cos(angle + (i - 1) * 0.5) * 15;
+                    const offsetY = Math.sin(angle + (i - 1) * 0.5) * 15;
+                    createSparkle(mouseX + offsetX, mouseY + offsetY, Math.random() * 5 + 2, '#00a88a');
+                }
+            }
+            
+            lastX = mouseX;
+            lastY = mouseY;
+        });
+        
+        /* Animate trail positions with easing */
+        function animateTrail() {
+            for (let i = 0; i < trailCount; i++) {
+                const easing = 0.35 - (i * 0.015);
+                const targetX = i === 0 ? mouseX : prevPositions[i-1].x;
+                const targetY = i === 0 ? mouseY : prevPositions[i-1].y;
+                
+                prevPositions[i].x += (targetX - prevPositions[i].x) * Math.max(0.08, easing);
+                prevPositions[i].y += (targetY - prevPositions[i].y) * Math.max(0.08, easing);
+                
+                const angleOffset = i * 0.2;
+                const radius = Math.sin(Date.now() * 0.005 + i) * (velocity / 30);
+                const offsetX = Math.cos(angleOffset) * radius;
+                const offsetY = Math.sin(angleOffset) * radius;
+                
+                trails[i].style.left = (prevPositions[i].x + offsetX) + 'px';
+                trails[i].style.top = (prevPositions[i].y + offsetY) + 'px';
+                
+                if (velocity > 30) {
+                    trails[i].style.transform = `translate(-50%, -50%) scale(${1 + velocity / 100})`;
+                } else {
+                    trails[i].style.transform = 'translate(-50%, -50%) scale(1)';
+                }
+            }
+            
+            requestAnimationFrame(animateTrail);
+        }
+        
+        for (let i = 0; i < trailCount; i++) {
+            prevPositions[i] = { x: mouseX, y: mouseY };
+        }
+        
+        animateTrail();
+        
+        /* Hide cursor when leaving window */
+        document.addEventListener('mouseleave', () => {
+            cursor.style.opacity = '0';
+            trails.forEach(trail => trail.style.opacity = '0');
+        });
+        
+        /* Show cursor when entering window */
+        document.addEventListener('mouseenter', () => {
+            cursor.style.opacity = '1';
+            trails.forEach(trail => trail.style.opacity = '0.7');
+        });
+        
+        /* Click effect with rings and sparkles */
+        document.addEventListener('mousedown', (e) => {
+            cursor.style.transform = 'translate(-50%, -50%) scale(0.85)';
+            
+            /* Create two ripple rings */
+            for (let r = 0; r < 2; r++) {
+                const ring = document.createElement('div');
+                ring.className = 'click-ring';
+                ring.style.left = e.clientX + 'px';
+                ring.style.top = e.clientY + 'px';
+                ring.style.width = (15 + r * 8) + 'px';
+                ring.style.height = (15 + r * 8) + 'px';
+                ring.style.border = `2px solid ${r === 0 ? '#00a88a' : '#55efc4'}`;
+                ring.style.opacity = 0.7 - r * 0.2;
+                document.body.appendChild(ring);
+                
+                setTimeout(() => {
+                    ring.style.transform = 'translate(-50%, -50%) scale(2.5)';
+                    ring.style.opacity = '0';
+                }, 10);
+                
+                setTimeout(() => {
+                    ring.remove();
+                }, 150);
+            }
+            
+            /* Directional sparkle burst */
+            for (let i = 0; i < 16; i++) {
+                setTimeout(() => {
+                    const angle = (i * 22.5) * Math.PI / 180;
+                    const radius = 15;
+                    const offsetX = Math.cos(angle) * radius;
+                    const offsetY = Math.sin(angle) * radius;
+                    createSparkle(e.clientX + offsetX, e.clientY + offsetY, Math.random() * 6 + 2);
+                }, i * 6);
+            }
+            
+            /* Random scattered sparkles */
+            for (let i = 0; i < 12; i++) {
+                setTimeout(() => {
+                    const angle = Math.random() * Math.PI * 2;
+                    const radius = 10 + Math.random() * 20;
+                    const offsetX = Math.cos(angle) * radius;
+                    const offsetY = Math.sin(angle) * radius;
+                    const colors = ['#006d6d', '#008b74', '#00a88a', '#55efc4'];
+                    createSparkle(e.clientX + offsetX, e.clientY + offsetY, Math.random() * 5 + 2, colors[Math.floor(Math.random() * colors.length)]);
+                }, i * 8);
+            }
+        });
+        
+        /* Reset cursor scale on mouse up */
+        document.addEventListener('mouseup', () => {
+            cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+        });
+        
+        /* Hover effects for all interactive elements */
+        const interactiveElements = document.querySelectorAll('a, button, .product, .add-to-cart, .cta-button, .cart-item, input[type="submit"], .shop-item, .blog-card, .nav-link');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.width = '44px';
+                cursor.style.height = '44px';
+                cursor.style.background = 'radial-gradient(circle, #005f73, #008b74, #00a88a)';
+                cursor.style.filter = 'brightness(1.3)';
+                
+                /* Sparkles on hover */
+                for (let i = 0; i < 8; i++) {
+                    setTimeout(() => {
+                        const rect = el.getBoundingClientRect();
+                        const x = rect.left + Math.random() * rect.width;
+                        const y = rect.top + Math.random() * rect.height;
+                        createSparkle(x, y, Math.random() * 5 + 2, '#00a88a');
+                    }, i * 25);
+                }
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                cursor.style.width = '28px';
+                cursor.style.height = '28px';
+                cursor.style.background = 'radial-gradient(circle, #006d6d, #008b74, #00a88a)';
+                cursor.style.filter = 'none';
+            });
+        });
+        
+        /* Ambient sparkles when mouse is idle */
+        setInterval(() => {
+            if (velocity < 15 && Math.random() > 0.94) {
+                const x = mouseX + (Math.random() - 0.5) * 80;
+                const y = mouseY + (Math.random() - 0.5) * 80;
+                createSparkle(x, y, Math.random() * 4 + 1, '#008b74');
+            }
+        }, 300);
+        
+        /* Hide default cursor */
+        document.body.style.cursor = 'none';
+    })();
+</script>
 </body>
-
 </html>
