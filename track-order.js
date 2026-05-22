@@ -141,7 +141,7 @@ function renderResult(order) {
     itemsList.innerHTML = order.items.map(function (item) {
       return `
         <div class="order-item">
-          <img src="${item.img}" alt="${item.name}" />
+          <img src="${item.img}" alt="${item.name}" loading="lazy" />
           <div class="item-info">
             <h4>${item.name}</h4>
             <span>Size: ${item.size} &nbsp;|&nbsp; Qty: ${item.qty}</span>

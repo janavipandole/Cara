@@ -327,7 +327,7 @@ window.loadCart = function () {
         row.innerHTML = `
             <div class="cart-item-left">
                 <div class="cart-item-img-wrap">
-                    <img src="${item.image}" alt="${item.name}" />
+                    <img src="${item.image}" alt="${item.name}" loading="lazy" />
                 </div>
                 <div class="cart-item-details">
                     <span class="cart-item-brand">${item.brand || 'Premium Brand'}</span>
@@ -1552,7 +1552,7 @@ window.loadCart = function () {
       <div class="cart-item-left">
 
         <div class="cart-item-img-wrap">
-          <img src="${item.image}" alt="${item.name}" />
+          <img src="${item.image}" alt="${item.name}" loading="lazy" />
         </div>
 
         <div class="cart-item-details">

@@ -299,12 +299,12 @@
           <p>From App Store or Google Play</p>
 
           <div class="row">
-            <img src="images/pay/app.jpg" alt="Download from App Store" />
-            <img src="images/pay/play.jpg" alt="Get it on Google Play" />
+            <img  src="images/pay/app.jpg" alt="Download from App Store"  loading="lazy" />
+            <img  src="images/pay/play.jpg" alt="Get it on Google Play"  loading="lazy" />
           </div>
 
           <p>Secured Payment Gateways</p>
-          <img src="images/pay/pay.png" alt="">
+          <img  src="images/pay/pay.png" alt="" loading="lazy">
         </div>
         <div class="copyright">
           <p> © Cara 2026. All rights reserved. | <a href="license.html"
@@ -356,7 +356,7 @@ const cartContainer = document.getElementById("cart-items-container");
 cart.forEach((item) => {
   cartContainer.innerHTML += `
     <div class="cart-item">
-      <img src="${item.img}" width="100">
+      <img  src="${item.img}" width="100" loading="lazy">
       <h3>${item.name}</h3>
       <p>${item.price}</p>
       <p>Quantity: ${item.quantity}</p>
