@@ -116,7 +116,7 @@ function loadNavbar() {
 }
   initDarkMode();
   initMobileNavbar();
-  }
+  
   function initMobileNavbar() {
 
   const bar = document.getElementById("bar");
@@ -197,7 +197,7 @@ function initDarkMode() {
   const isDarkSaved = localStorage.getItem("theme") === "dark";
 
   if (isDarkSaved) {
-    document.body.classList.add("dark");
+    document.documentElement.setAttribute('data-theme', 'dark');
 
     if (themeIcon) {
       themeIcon.classList.replace("ri-moon-line", "ri-sun-line");
@@ -205,16 +205,17 @@ function initDarkMode() {
   }
 
   function handleToggle() {
-    document.body.classList.toggle("dark");
-
-    const isDark = document.body.classList.contains("dark");
-
-    localStorage.setItem("theme", isDark ? "dark" : "light");
+    const current = document.documentElement.getAttribute('data-theme');
+    const newTheme = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem("theme", newTheme);
+    const next = newTheme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
+    const prev = newTheme === 'dark' ? 'ri-moon-line' : 'ri-sun-line';
 
     if (themeIcon) {
       themeIcon.classList.replace(
-        isDark ? "ri-moon-line" : "ri-sun-line",
-        isDark ? "ri-sun-line" : "ri-moon-line"
+        prev,
+        next
       );
     }
   }
