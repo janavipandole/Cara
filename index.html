@@ -302,6 +302,20 @@
     </div>
   </section>
 
+  <section id="search-filter" aria-label="Product search">
+    <div class="search-container">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search products..."
+        aria-label="Search products"
+      />
+      <button type="button" id="searchBtn" aria-label="Search">
+        <i class="ri-search-line"></i>
+      </button>
+    </div>
+  </section>
+
   <section id="product1" class="section-p1">
     <h2>Featured Product</h2>
     <p>Summer Collection New Modern Design</p>
@@ -714,7 +728,24 @@
   loadNavbar();
 </script>
 
-<script src="app.js"></script>  
+<script src="app.js"></script>
+<script>
+  const searchInput = document.getElementById('searchInput');
+  const searchBtn = document.getElementById('searchBtn');
+
+  function filterHomeProducts() {
+    const query = searchInput.value.trim().toLowerCase();
+    document.querySelectorAll('#product1 .pro').forEach((product) => {
+      const productName = product.querySelector('h5')?.textContent.toLowerCase() || '';
+      product.style.display = productName.includes(query) ? '' : 'none';
+    });
+  }
+
+  if (searchInput && searchBtn) {
+    searchInput.addEventListener('input', filterHomeProducts);
+    searchBtn.addEventListener('click', filterHomeProducts);
+  }
+</script>
 </body>
 
 </html>
