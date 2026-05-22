@@ -35,8 +35,9 @@ document.addEventListener('DOMContentLoaded', function () {
             showToast('Username already exists.', 'error');
             return;
         }
-
-        users.push({ name, email, password });
+        
+        const hashedPassword = await hashPassword(password);
+        users.push({ name, email, password: hashedPassword });
         localStorage.setItem('users', JSON.stringify(users));
 
         // On successful registration

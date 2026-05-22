@@ -64,7 +64,7 @@ document.getElementById('forgotForm').addEventListener('submit', function (e) {
     }
 
     /* update password */
-    users[userIndex].password = newPass;
+    users[userIndex].password = await hashPassword(newPass); 
     localStorage.setItem('users', JSON.stringify(users));
 
     showToast('Password reset successful! Redirecting to login...', 'success');
@@ -75,4 +75,4 @@ document.getElementById('forgotForm').addEventListener('submit', function (e) {
     }, 2000);
   }, 1500);
 });
-
+

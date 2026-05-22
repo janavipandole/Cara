@@ -1010,6 +1010,12 @@ document.addEventListener('DOMContentLoaded', () => {
         el.textContent = year;
     });
 });
+async function hashPassword(password) {
+      const msgBuffer = new TextEncoder().encode(password);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+      return Array.from(new Uint8Array(hashBuffer))
+        .map(b => b.toString(16).padStart(2, '0')).join('');
+}
 /* --- END: CURRENT YEAR FUNCTIONALITY --- */
 /* --- Sort by Price Logic --- */
 document.addEventListener('DOMContentLoaded', () => {

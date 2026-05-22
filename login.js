@@ -41,7 +41,8 @@ document.addEventListener('DOMContentLoaded', function () {
         // Simulate async request (replace with real API call)
         setTimeout(function () {
             const users = JSON.parse(localStorage.getItem('users') || '[]');
-            const user = users.find(u => u.email === email && u.password === password);
+            const hashedPassword = await hashPassword(password);
+            const user = users.find(u => u.email === email && u.password === hashedPassword);
 
             if (user) {
                 // On successful login
