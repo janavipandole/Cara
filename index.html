@@ -91,6 +91,30 @@
     .theme-toggle {
       pointer-events: all !important;
     }
+    .search-container{
+  width: 100%;
+  background: white;
+  padding: 15px 20px;
+  box-sizing: border-box;
+  margin-top: 120px;
+  position: relative;
+  z-index: 9999;
+  margin-left: 500px;
+}
+
+#searchBar{
+  width: 100%;
+  padding: 15px 20px;
+  border: 2px solid #088178;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+  box-sizing: border-box;
+  background: white;
+  position: relative;
+  z-index: 99999;
+  pointer-events: auto;
+}
   </style>
 </head>
 
@@ -124,9 +148,7 @@
             </ul>
           </div>
           <div class="mobile">
-            <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
-              <i class="ri-moon-line" id="themeIconMobile"></i>
-            </button>
+           
             <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
             <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false"
               tabindex="0"></i>
@@ -165,7 +187,7 @@
           </div>
   <!-- Logo -->
   <a href="index.html">
-    <img src="images/logo.png" alt="Cara Logo" />
+    <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
   </a>
 
  <div id="navbar-container"></div>
@@ -195,6 +217,48 @@
 
   </div>
 </section>
+</section>
+
+<div class="search-container">
+  <input 
+    type="text"
+    id="searchBar"
+    placeholder="Search products..."
+  >
+</div>
+
+<section id="hero" class="hero-slider">
+        <section id="hero" class="hero-slider">
+          <div class="slide active" style="background-image: url('images/hero4.png');">
+            <div class="slide-content">
+              <h4>Trade-in-offer</h4>
+              <h2>Super value deals</h2>
+              <h1>On all products</h1>
+              <p>Save more with coupons & up to 70% off!</p>
+              <a href="shop.html" class="btn-shop-now">Shop Now</a>
+              <button onclick="openQuiz()">Take Style Quiz</button>
+            </div>
+          </div>
+          
+          <div class="slide" style="background-image: url('images/banner/b1.png');">
+            <div class="slide-content">
+              <h4>New Arrivals</h4>
+              <h2>Summer Collection</h2>
+              <h1>Explore the Trends</h1>
+              <p>Discover the latest styles to elevate your wardrobe!</p>
+              <a href="shop.html" class="btn-shop-now">Explore Collection</a>
+            </div>
+          </div>
+          
+          <div class="slide" style="background-image: url('images/banner/b2.png');">
+            <div class="slide-content">
+              <h4>Seasonal Sale</h4>
+              <h2>Up to 50% Off</h2>
+              <h1>Exclusive Deals</h1>
+              <p>Don't miss out on our biggest sale of the year.</p>
+              <a href="shop.html" class="btn-shop-now">Grab the Deal</a>
+            </div>
+          </div>
 <section id="hero" class="hero-slider">
 
   <!-- Slide 1 -->
@@ -777,6 +841,35 @@
 </script>
 
 <script src="app.js"></script>  
+<script>
+
+const searchBar = document.getElementById("searchBar");
+
+searchBar.addEventListener("keyup", function() {
+
+  const input = searchBar.value.toLowerCase();
+
+  const products = document.querySelectorAll(".pro");
+
+  products.forEach(function(product){
+
+    const productName = product
+      .querySelector("h5")
+      .textContent
+      .toLowerCase();
+
+    if(productName.includes(input)){
+      product.style.display = "block";
+    }
+    else{
+      product.style.display = "none";
+    }
+
+  });
+
+});
+
+</script>
 </body>
 
 </html>

@@ -13,6 +13,7 @@
     <title>Cara — Promotions & Ambassador Program</title>
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="promotions.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
       rel="stylesheet"
@@ -24,275 +25,16 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <style>
-        /* Promotions specific styles */
-        #promo-header {
-            background-image: url("images/banner/b_person.png");
-            width: 100%;
-            height: 45vh;
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            justify-content: center;
-            text-align: left;
-            flex-direction: column;
-            padding: 0 80px;
-            margin-top: 90px;
-        }
-
-        [data-theme="dark"] #promo-header {
-            background-image: linear-gradient(to right, rgba(0, 0, 0, 0.75) 30%, rgba(0, 0, 0, 0.3) 60%, rgba(0, 0, 0, 0)), url("images/banner/b_person.png");
-        }
-
-        #promo-header h2 {
-            color: #000;
-            font-size: 40px;
-            font-weight: 800;
-            margin-bottom: 10px;
-        }
-
-        #promo-header p {
-            color: #222;
-            font-size: 18px;
-            font-weight: 500;
-        }
-
-        [data-theme="dark"] #promo-header h2 {
-            color: #fff;
-        }
-
-        [data-theme="dark"] #promo-header p {
-            color: #ddd;
-        }
-
-        .promo-container {
-            display: flex;
-            justify-content: space-between;
-            gap: 40px;
-        }
-
-    #topBtn:hover {
-      background-color: #555;
-    }
-      /* Promotions specific styles */
-      #promo-header {
-        background-image: url('images/banner/b1.jpg');
-        width: 100%;
-        height: 40vh;
-        background-size: cover;
-        display: flex;
-        justify-content: center;
-        text-align: center;
-        flex-direction: column;
-        padding: 14px;
-        margin-top: 90px;
-      }
-
-      #promo-header h2,
-      #promo-header p {
-        color: #fff;
-      }
-      #promo-text {
-        color: var(--text-primary);
-      }
-
-      .promo-container {
-        display: flex;
-        justify-content: space-between;
-        gap: 40px;
-      }
-
-      .promo-details {
-        flex: 1;
-      }
-
-      .promo-details h3 {
-        font-size: 28px;
-        color: var(--accent);
-        margin-bottom: 15px;
-      }
-
-      .perk-box {
-        background: var(--card-bg);
-        border: 1px solid var(--border-color);
-        padding: 20px;
-        border-radius: 8px;
-        margin-bottom: 20px;
-        box-shadow: 0 4px 10px var(--shadow);
-      }
-
-      .perk-box h4 {
-        color: var(--text-primary);
-        margin-bottom: 10px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .influencer-form {
-        flex: 1;
-        background: var(--card-bg);
-        padding: 40px;
-        border-radius: 10px;
-        border: 1px solid var(--border-color);
-        box-shadow: 0 5px 20px var(--shadow);
-      }
-
-      .influencer-form h3 {
-        margin-bottom: 20px;
-      }
-
-      .form-group {
-        margin-bottom: 20px;
-      }
-
-      .form-group label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: 600;
-      }
-
-      .form-group input,
-      .form-group textarea {
-        width: 100%;
-        padding: 12px;
-        border: 1px solid var(--border-color);
-        border-radius: 5px;
-        outline: none;
-        background: var(--input-bg);
-        color: var(--text-primary);
-      }
-
-      .form-group input:focus,
-      .form-group textarea:focus {
-        border-color: var(--accent);
-      }
-
-      /* Discount Popup */
-      #discount-popup {
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        background: var(--accent);
-        color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        z-index: 1000;
-        display: none;
-        max-width: 300px;
-        animation: slideUp 0.5s ease-out;
-      }
-
-      #discount-popup h4 {
-        color: #fff;
-        margin-bottom: 10px;
-        font-size: 20px;
-      }
-
-      #discount-popup .close-btn {
-        position: absolute;
-        top: 10px;
-        right: 15px;
-        cursor: pointer;
-        font-size: 20px;
-      }
-
-      .copy-code {
-        background: #fff;
-        color: var(--accent);
-        padding: 8px 12px;
-        border-radius: 5px;
-        display: inline-block;
-        margin-top: 10px;
-        font-weight: bold;
-        cursor: pointer;
-        letter-spacing: 2px;
-      }
-
-      @keyframes slideUp {
-        from {
-          transform: translateY(100px);
-          opacity: 0;
-        }
-        to {
-          transform: translateY(0);
-          opacity: 1;
-        }
-      }
-
-        @media (max-width: 799px) {
-            #promo-header {
-                padding: 0 20px;
-                text-align: center;
-                background-image: linear-gradient(rgba(247, 181, 56, 0.85), rgba(247, 181, 56, 0.85)), url("images/banner/b_person.png");
-            }
-            [data-theme="dark"] #promo-header {
-                background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), url("images/banner/b_person.png");
-            }
-            .promo-container {
-                flex-direction: column;
-            }
-        }
-      }
-    </style>
+    <!-- Promotions-specific styles moved to promotions.css -->
   </head>
   <body>
     <section id="header">
       <!-- Logo -->
       <a href="index.html">
-        <img src="images/logo.png" alt="Cara Logo" />
+        <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
       </a>
 
-      <div>
-        <ul id="navbar">
-          <!-- Main Navigation Links -->
-          <li><a href="index.html">Home</a></li>
-          <li><a href="shop.html">Shop</a></li>
-          <li><a href="blog.html">Blog</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="try-on.html">Try-On</a></li>
-          <li><a href="community.html">Community</a></li>
-          <li><a class="active" href="promotions.html">Promotions</a></li>
-
-          <!-- Contact Icon -->
-          <li class="nav-icon">
-            <a href="contact.html" aria-label="Contact">
-              <i class="ri-customer-service-2-line"></i>
-            </a>
-          </li>
-
-          <!-- Login Icon -->
-          <li class="nav-icon">
-            <a href="login.html" aria-label="Login">
-              <i class="ri-user-3-line"></i>
-            </a>
-          </li>
-
-          <!-- Cart Icon -->
-          <li class="nav-icon">
-            <a href="cart.html" id="lg-bag" aria-label="Cart">
-              <i class="ri-shopping-bag-4-line"></i>
-            </a>
-          </li>
-
-          <!-- Theme Toggle -->
-          <li class="nav-icon">
-            <button
-              class="theme-toggle"
-              id="themeToggle"
-              aria-label="Toggle dark mode"
-            >
-              <i class="ri-moon-line" id="themeIcon"></i>
-            </button>
-          </li>
-
-          <!-- Close Button -->
-          <a href="#" id="close" aria-label="Close menu" aria-hidden="false">
-            <i class="fa-solid fa-xmark"></i>
-          </a>
-        </ul>
-      </div>
+      <div id="navbar-container"></div>
 
       <!-- Mobile Navbar -->
       <div class="mobile">
@@ -517,9 +259,25 @@
     </div>
 </footer>
 
+<<<<<<< HEAD
     <!-- <script src="navbar.js"></script>
     <script>loadNavbar('promotions');</script>  -->
     <script src="app.js?v=1779120917217"></script>
+=======
+      <!-- Copyright -->
+      <div class="copyright">
+        <p>
+          © Cara 2026. All rights reserved. |
+          <a href="license.html" style="color: #088178"> MIT License </a>
+        </p>
+      </div>
+    </footer>
+    <button id="topBtn">↑</button>
+
+    <script src="navbar.js"></script>
+    <script>loadNavbar();</script>
+    <script src="app.js"></script>
+>>>>>>> upstream/main
     <script>
       const topBtn = document.getElementById("topBtn");
 
