@@ -2199,6 +2199,13 @@ footer .copyright {
         flex-basis: 24%;
         cursor: pointer;
     }
+    #MainImg {
+    width: 100%;
+    transition: opacity 0.3s ease-in-out;
+    will-change: opacity;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
 
     #pro-details .single-pro-details {
         width: 50%;
@@ -2233,7 +2240,7 @@ footer .copyright {
 
     #pro-details .single-pro-details button {
         color: #fff;
-        background: #088178;
+        background: #0881362a;
     }
 
     /* ============================================
