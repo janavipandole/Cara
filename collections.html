@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cara — Upcoming Collection</title>
+
+    <link rel="icon" type="image/jpg" href="images/favicon.jpg">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <style>
+        .collection-hero {
+            min-height: 78vh;
+            background: linear-gradient(120deg, #fdf2f8, #eef2ff);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 80px 9%;
+            gap: 40px;
+        }
+
+        .collection-content {
+            max-width: 560px;
+        }
+
+        .collection-badge {
+            display: inline-block;
+            background: #fff;
+            color: #088178;
+            padding: 12px 26px;
+            border-radius: 40px;
+            font-weight: 900;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .collection-content h1 {
+            font-size: 62px;
+            font-weight: 900;
+            color: #111827;
+            line-height: 1.1;
+            margin-bottom: 22px;
+        }
+
+        .collection-content h1 span {
+            color: #088178;
+        }
+
+        .collection-content p {
+            font-size: 21px;
+            font-weight: 700;
+            color: #374151;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .collection-btn {
+            display: inline-block;
+            background: #111827;
+            color: #fff;
+            padding: 16px 36px;
+            border-radius: 10px;
+            font-weight: 800;
+            text-decoration: none;
+            transition: 0.3s ease;
+        }
+
+        .collection-btn:hover {
+            background: #088178;
+            transform: translateY(-5px);
+        }
+
+        .collection-visual img {
+            width: 470px;
+            max-width: 100%;
+            border-radius: 30px;
+            box-shadow: 0 25px 55px rgba(0,0,0,0.18);
+        }
+
+        .collection-features {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            padding: 55px 8%;
+            background: #fff;
+        }
+
+        .collection-card {
+            width: 260px;
+            padding: 30px;
+            text-align: center;
+            border-radius: 20px;
+            background: #fff;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+            transition: 0.3s ease;
+        }
+
+        .collection-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .collection-card i {
+            font-size: 40px;
+            color: #088178;
+        }
+
+        .collection-card h3 {
+            margin: 15px 0 8px;
+            color: #111827;
+            font-size: 22px;
+        }
+
+        .section-heading {
+            text-align: center;
+            padding: 45px 20px 10px;
+        }
+
+        .section-heading span {
+            color: #088178;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .section-heading h2 {
+            font-size: 38px;
+            color: #111827;
+            margin: 10px 0;
+        }
+
+        .new-tag {
+            position: absolute;
+            top: 18px;
+            left: 18px;
+            background: #088178;
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        #product1 .pro {
+            position: relative;
+            transition: 0.3s ease;
+        }
+
+        #product1 .pro:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .back-shop {
+            text-align: center;
+            margin: 30px 0 60px;
+        }
+
+        .back-shop a {
+            background: #088178;
+            color: #fff;
+            padding: 14px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 800;
+        }
+
+        @media (max-width: 900px) {
+            .collection-hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .collection-content h1 {
+                font-size: 42px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<section id="header">
+    <a href="index.html"><img src="images/logo.png" alt="Cara Logo"></a>
+
+    <div>
+        <ul id="navbar">
+            <li><a href="index.html">Home</a></li>
+            <li><a class="active" href="shop.html">Shop</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
+            <li>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <i class="ri-moon-line" id="themeIcon"></i>
+                </button>
+            </li>
+            <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+        </ul>
+    </div>
+
+    <div class="mobile">
+        <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
+        <i class="fas fa-outdent" id="bar"></i>
+    </div>
+</section>
+
+<section class="collection-hero">
+    <div class="collection-content">
+        <span class="collection-badge">SPRING / SUMMER 2026</span>
+        <h1>Upcoming <span>Season</span> Collection</h1>
+        <p>Explore fresh arrivals, premium outfits, soft colors, trendy prints, and modern fashion styles made for the new season.</p>
+        <a href="#collection-products" class="collection-btn">Explore Collection →</a>
+    </div>
+
+    <div class="collection-visual">
+        <img src="images/products/n1.jpg" alt="Upcoming Collection">
+    </div>
+</section>
+
+<section class="collection-features">
+    <div class="collection-card">
+        <i class="ri-sparkling-line"></i>
+        <h3>Fresh Arrivals</h3>
+        <p>New styles designed for the upcoming season.</p>
+    </div>
+
+    <div class="collection-card">
+        <i class="ri-t-shirt-line"></i>
+        <h3>Trendy Fits</h3>
+        <p>Modern outfits with premium comfort.</p>
+    </div>
+
+    <div class="collection-card">
+        <i class="ri-palette-line"></i>
+        <h3>Soft Colors</h3>
+        <p>Elegant seasonal shades and prints.</p>
+    </div>
+
+    <div class="collection-card">
+        <i class="ri-shopping-bag-line"></i>
+        <h3>Easy Shopping</h3>
+        <p>Quickly explore and shop your favourites.</p>
+    </div>
+</section>
+
+<section class="section-heading">
+    <span>NEW COLLECTION</span>
+    <h2>Fresh Picks For The New Season</h2>
+    <p>Discover stylish arrivals curated for everyday fashion.</p>
+</section>
+
+<section id="product1" class="section-p1">
+    <div id="collection-products" class="pro-container">
+
+        <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <span class="new-tag">NEW</span>
+            <img src="images/products/n1.jpg" alt="">
+            <div class="des">
+                <span>Cara</span>
+                <h5>Seasonal Blue Shirt</h5>
+                <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
+                <h4>$79</h4>
+            </div>
+            <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+        </div>
+
+        <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <span class="new-tag">NEW</span>
+            <img src="images/products/n2.jpg" alt="">
+            <div class="des">
+                <span>Cara</span>
+                <h5>Classic White Shirt</h5>
+                <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
+                <h4>$75</h4>
+            </div>
+            <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+        </div>
+
+        <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <span class="new-tag">NEW</span>
+            <img src="images/products/n3.jpg" alt="">
+            <div class="des">
+                <span>Cara</span>
+                <h5>Premium Cotton Shirt</h5>
+                <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
+                <h4>$82</h4>
+            </div>
+            <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+        </div>
+
+        <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <span class="new-tag">NEW</span>
+            <img src="images/products/n4.jpg" alt="">
+            <div class="des">
+                <span>Cara</span>
+                <h5>Modern Printed Shirt</h5>
+                <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
+                <h4>$78</h4>
+            </div>
+            <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+        </div>
+
+    </div>
+</section>
+
+<div class="back-shop">
+    <a href="shop.html">Back to Shop</a>
+</div>
+
+<section id="newsletter" class="section-p1 section-m1">
+    <div class="newstext">
+        <h4>Sign Up For Newsletters</h4>
+        <p>Get E-mail updates about latest arrivals and <span>special offers.</span></p>
+    </div>
+    <div class="form">
+        <input type="email" placeholder="Your email address">
+        <button class="normal">Sign Up</button>
+    </div>
+</section>
+
+<footer class="section-p1">
+    <div class="col">
+        <img class="logo" src="images/logo.png" alt="">
+        <h4>Contact</h4>
+        <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
+        <p><strong>Phone:</strong> +01 2222 365 /(+91) 01 2345 6789</p>
+        <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
+    </div>
+
+    <div class="col">
+        <h4>About</h4>
+        <a href="about.html">About us</a>
+        <a href="#">Delivery Information</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms & Conditions</a>
+        <a href="contact.html">Contact Us</a>
+    </div>
+
+    <div class="col">
+        <h4>My Account</h4>
+        <a href="login.html">Sign In</a>
+        <a href="cart.html">View Cart</a>
+        <a href="#">My Wishlist</a>
+        <a href="cart.html">Track My Order</a>
+        <a href="contact.html">Help</a>
+    </div>
+
+    <div class="copyright">
+        <p>&copy; Cara 2025. All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
