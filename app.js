@@ -1917,7 +1917,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function showPage(pageNumber) {
+  window._showShopPage = function showPage(pageNumber) {
     allProducts.forEach((product) => {
       product.style.display = 'none';
     });
