@@ -34673,3 +34673,31 @@ button#share-cart-btn:hover {
 }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 .toast-icon { font-size: 16px; }
+/* ============================================
+   IMAGE LOADING OPTIMIZATION
+   ============================================ */
+
+img {
+    max-width: 100%;
+    display: block;
+    transition: opacity 0.3s ease;
+}
+
+/* Smooth rendering */
+#product1 .pro img,
+#banner img,
+#sm-banner img {
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+/* Prevent layout shifting */
+#product1 .pro {
+    overflow: hidden;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
