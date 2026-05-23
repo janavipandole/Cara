@@ -767,49 +767,34 @@ document.addEventListener('DOMContentLoaded', () => {
 })();
 
 // Back to Top Button Logic
+// Back to Top Button Logic
+
 const backToTopBtn = document.getElementById("backToTop");
 const ToptobackBtn = document.getElementById("Toptoback");
 
 if (backToTopBtn && ToptobackBtn) {
+
+    // SHOW BUTTONS ON SCROLL
     window.addEventListener("scroll", () => {
 
-    if (!backToTopBtn || !ToptobackBtn) return;
-
-    if (window.scrollY <= 300) {
-        ToptobackBtn.classList.add("show");
-        backToTopBtn.classList.remove("show");
-    } else {
-        backToTopBtn.classList.add("show");
-        ToptobackBtn.classList.remove("show");
-    }
-});
-
-// BACK TO TOP
-if (backToTopBtn) {
-        // SHOW DOWN BUTTON WHEN USER IS NEAR TOP
         if (window.scrollY <= 300) {
             ToptobackBtn.classList.add("show");
             backToTopBtn.classList.remove("show");
-        }
-
-        // SHOW TOP BUTTON AFTER 300PX
+        } 
+        
         else {
             backToTopBtn.classList.add("show");
             ToptobackBtn.classList.remove("show");
         }
-    };
+    });
 
-    // BACK TO TOP
+    // SCROLL TO TOP
     backToTopBtn.addEventListener("click", () => {
         window.scrollTo({
             top: 0,
             behavior: "smooth"
         });
     });
-}
-
-// SCROLL TO BOTTOM
-if (ToptobackBtn) {
 
     // SCROLL TO BOTTOM
     ToptobackBtn.addEventListener("click", () => {
