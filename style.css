@@ -35124,3 +35124,8 @@ html {
         font-size: 1.3rem;
     }
 }
+
+/* Keep the navbar brand readable on dark backgrounds. */
+[data-theme="dark"] #siteLogo {
+    filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(255, 255, 255, 0.25));
+}
