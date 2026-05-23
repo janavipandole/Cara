@@ -341,6 +341,39 @@
     box-shadow: 0 6px 15px var(--shadow-hover);
 }
 
+/* Custom styling for product sorting dropdown */
+.sort-dropdown {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    padding: 10px 20px;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    font-size: 15px;
+    background-color: var(--body-bg);
+    color: var(--text-primary);
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%236b7280"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px 16px;
+    transition: all 0.3s ease;
+}
+
+.sort-dropdown:focus,
+.sort-dropdown:hover {
+    border-color: #088178;
+    box-shadow: 0 6px 15px rgba(8, 129, 120, 0.12);
+    outline: none;
+    /* change arrow color on hover/focus */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23088178"><path d="M7 10l5 5 5-5z"/></svg>');
+}
+
+/* hide the extra chevron icon when present to avoid duplicate arrows */
+.sort-select-wrap .sort-chevron {
+    display: none;
+}
+
 /* ============================================
    TARGET 2: SHOP PAGE - PRODUCT CARDS GRID
    ============================================ */
