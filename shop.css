@@ -460,3 +460,40 @@
             line-height: 1.5;
         }
 
+    /* ============================================
+       SHOP PAGE FOOTER LAYOUT
+       Keep the footer columns in a row on desktop
+       ============================================ */
+    footer .footer-container {
+        display: grid;
+        grid-template-columns: minmax(260px, 1.25fr) repeat(2, minmax(150px, 0.9fr)) minmax(240px, 1.2fr);
+        gap: 48px;
+        width: 100%;
+        align-items: start;
+    }
+
+    footer .footer-container .col {
+        margin-bottom: 0;
+        min-width: 0;
+    }
+
+    footer .footer-container .install .row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    @media (max-width: 1024px) {
+        footer .footer-container {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 32px 24px;
+        }
+    }
+
+    @media (max-width: 640px) {
+        footer .footer-container {
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+    }
+
