@@ -1,4 +1,6 @@
 @echo off
+:: Ensure the console uses UTF-8 encoding to render emojis and special characters properly
+chcp 65001 > nul
 echo ===================================================
 echo   🛍️  Starting Cara E-commerce Platform  🛍️
 echo ===================================================
