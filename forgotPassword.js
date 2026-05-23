@@ -1,69 +1,81 @@
-/* csritik-max - forgotPassword.js */
+/* ===== FORGOT PASSWORD JS ===== */
 
-/* opens the modal */
-function openForgotPassword() {
-    document.getElementById('fp-overlay').classList.add('active');
-    document.getElementById('fp-email').value = '';
-    document.getElementById('fp-newpass').value = '';
-}
+/* toggle new password visibility */
+const form = document.getElementById('forgotForm');
+if (!form) return;
 
-/* closes the modal */
-function closeForgotPassword() {
-    document.getElementById('fp-overlay').classList.remove('active');
-}
-
-/* close modal when clicking outside */
-document.addEventListener('DOMContentLoaded', function () {
-    const overlay = document.getElementById('fp-overlay');
-    if (overlay) {
-        overlay.addEventListener('click', function (e) {
-            if (e.target === this) closeForgotPassword();
-        });
-    }
+document.getElementById('toggleNewPass').addEventListener('click', function () {
+  const pwd = document.getElementById('forgotNewPass');
+  pwd.type = pwd.type === 'password' ? 'text' : 'password';
+  this.classList.toggle('ri-eye-line');
+  this.classList.toggle('ri-eye-off-line');
 });
 
-/* main reset logic */
-function submitForgotPassword() {
-    const email = document.getElementById('fp-email').value.trim();
-    const newPass = document.getElementById('fp-newpass').value;
+/* toggle confirm password visibility */
+document.getElementById('toggleConfirmPass').addEventListener('click', function () {
+  const pwd = document.getElementById('forgotConfirmPass');
+  pwd.type = pwd.type === 'password' ? 'text' : 'password';
+  this.classList.toggle('ri-eye-line');
+  this.classList.toggle('ri-eye-off-line');
+});
 
-    /* validation */
-    if (!email || !email.includes('@')) {
-        showToast('⚠️ Please enter a valid email!', true);
-        return;
-    }
-    if (!newPass || newPass.length < 6) {
-        showToast('⚠️ Password must be at least 6 characters!', true);
-        return;
-    }
+/* form submit */
+form.addEventListener('submit', function (e) {
+  e.preventDefault();
 
+  const email       = document.getElementById('forgotEmail').value.trim();
+  const newPass     = document.getElementById('forgotNewPass').value;
+  const confirmPass = document.getElementById('forgotConfirmPass').value;
+
+  /* validations */
+  if (!email || !email.includes('@')) {
+    showToast('Please enter a valid email!', 'warning');
+    return;
+  }
+
+  if (!newPass || newPass.length < 6) {
+    showToast('Password must be at least 6 characters!', 'warning');
+    return;
+  }
+
+  if (newPass !== confirmPass) {
+    showToast('Passwords do not match!', 'warning');
+    return;
+  }
+
+  /* ── Loading state: disable button & show spinner ── */
+  const submitBtn = document.querySelector('#forgotForm button[type="submit"], #forgotForm .btn-primary');
+  if (submitBtn) {
+    submitBtn.classList.add('btn-loading');
+    submitBtn.disabled = true;
+  }
+
+  /* Simulate async request */
+  setTimeout(function () {
     /* check if email exists in localStorage */
     let users = JSON.parse(localStorage.getItem('users') || '[]');
     const userIndex = users.findIndex(u => u.email === email);
 
     if (userIndex === -1) {
-        showToast('⚠️ No account found with this email!', true);
-        return;
+      showToast('No account found with this email!', 'error');
+      /* Re-enable button on failure */
+      if (submitBtn) {
+        submitBtn.classList.remove('btn-loading');
+        submitBtn.disabled = false;
+      }
+      return;
     }
 
     /* update password */
     users[userIndex].password = newPass;
     localStorage.setItem('users', JSON.stringify(users));
 
-    closeForgotPassword();
-    showToast('✅ Password reset successful! Please login.');
-}
+    showToast('Password reset successful! Redirecting to login...', 'success');
 
-/* toast function */
-function showToast(msg, isError = false) {
-    const toast = document.getElementById('toast');
-    if (!toast) return;
-    const icon = document.getElementById('toast-icon');
-    if (icon) icon.textContent = isError ? '⚠️' : '✅';
-    document.getElementById('toast-msg').textContent = msg;
-    toast.style.background = isError ? '#dc2626' : '#1e293b';
-    toast.classList.remove('show');
-    void toast.offsetWidth;
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 3000);
-}
+    /* redirect to login after success */
+    setTimeout(() => {
+      window.location.href = 'login.html';
+    }, 2000);
+  }, 1500);
+});
+
