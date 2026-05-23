@@ -2357,3 +2357,15 @@ canvas {
   font-size: 12px;
   font-weight: 600;
 }
+
+.reward-box {
+  background: #fff3cd;
+  color: #ff6b00;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}

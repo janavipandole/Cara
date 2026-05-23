@@ -183,7 +183,8 @@ function renderProducts(containerId, list) {
           ? `<span class="fast-selling">🔥 Fast Selling</span>` 
           : ""}
       </div>
-      <a href="#" class="cart" onclick="addToCart('${p.name}', '$${p.price}', '${p.img}', 1, 'M')">
+      <a href="#" class="cart" onclick="addToCart(
+      '${p.name}', '$${p.price}', '${p.img}', 1, 'M')">
         <i class="ri-shopping-cart-2-line"></i>
       </a>
     </div>
@@ -192,3 +193,8 @@ function renderProducts(containerId, list) {
 
 renderProducts('shop-container', products);
 renderProducts('featured-container', products.slice(0, 4));
+const rewardElement = document.getElementById("reward-points");
+
+if (rewardElement) {
+  rewardElement.innerText = localStorage.getItem("rewardPoints") || 0;
+}

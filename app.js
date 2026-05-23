@@ -141,6 +141,18 @@ window.handleAddToCart = function () {
     }
 
     addToCart(name, price, image, quantity, size);
+    let rewardPoints = localStorage.getItem("rewardPoints") || 0;
+
+    rewardPoints = parseInt(rewardPoints) + 10;
+
+    localStorage.setItem("rewardPoints", rewardPoints);
+    const rewardElement = document.getElementById("reward-points");
+
+    if (rewardElement) {
+    rewardElement.innerText = rewardPoints;
+    }
+
+    showToast(`🎉 You earned 10 reward points! Total: ${rewardPoints}`);
 }
 
 window.loadCart = function () {
