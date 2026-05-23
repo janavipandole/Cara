@@ -1,427 +1,364 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <!-- Character Encoding -->
     <meta charset="UTF-8">
-
-    <!-- Viewport for Responsive Design -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cara — Buy 1 Get 1 Free</title>
 
-    <!-- Page Title -->
-    <title>Cara — Deals
-    </title>
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
-
-    <!-- SEO Meta Tags -->
-    <meta name="description"
-        content="Shop the latest trends on our e-commerce store. Dark theme supported for a better user experience.">
-    <meta name="keywords" content="e-commerce, shopping, online store, dark mode, buy online, latest fashion">
-    <meta name="author" content=" Cara">
-    <meta name="robots" content="index, follow">
-
-    <!-- Language -->
-    <meta http-equiv="Content-Language" content="en">
-
-    <!-- Open Graph (OG) Tags for Social Sharing -->
-    <meta property="og:title" content="E-commerce - Dark Theme Working">
-    <meta property="og:description" content="Shop the latest trends with our dark mode-enabled e-commerce experience.">
-    <meta property="og:image" content="https://example.com/images/preview.jpg">
-    <meta property="og:url" content="https://example.com/">
-    <meta property="og:type" content="website">
-
-    <!-- Twitter Card Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="E-commerce - Dark Theme Working">
-    <meta name="twitter:description" content="Dark theme e-commerce site with modern features.">
-    <meta name="twitter:image" content="https://example.com/images/preview.jpg">
-    <meta name="twitter:site" content="@janavipandole">
-
-    <!-- Theme Color for Mobile Browser -->
-    <meta name="theme-color" content="#000000">
-
-    <!-- Stylesheets -->
+    <link rel="icon" type="image/jpg" href="images/favicon.jpg">
     <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
+    <style>
+        .deals-hero {
+            min-height: 78vh;
+            background: linear-gradient(120deg, #fff7ed, #ecfeff);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 80px 9%;
+            gap: 40px;
+        }
+
+        .deals-content {
+            max-width: 580px;
+        }
+
+        .deals-badge {
+            display: inline-block;
+            background: #fff;
+            color: #e11d48;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 900;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .deals-content h1 {
+            font-size: 64px;
+            font-weight: 900;
+            color: #111827;
+            line-height: 1.1;
+            margin-bottom: 22px;
+        }
+
+        .deals-content h1 span {
+            color: #e11d48;
+        }
+
+        .deals-content p {
+            font-size: 21px;
+            font-weight: 700;
+            color: #374151;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .deals-btn {
+            display: inline-block;
+            background: #111827;
+            color: #fff;
+            padding: 16px 38px;
+            border-radius: 10px;
+            font-weight: 800;
+            text-decoration: none;
+            transition: 0.3s ease;
+        }
+
+        .deals-btn:hover {
+            background: #e11d48;
+            transform: translateY(-5px);
+        }
+
+        .deals-visual img {
+            width: 470px;
+            max-width: 100%;
+            border-radius: 30px;
+            box-shadow: 0 25px 55px rgba(0,0,0,0.18);
+        }
+
+        .deals-features {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            padding: 55px 8%;
+            background: #fff;
+        }
+
+        .deal-card {
+            width: 260px;
+            padding: 30px;
+            text-align: center;
+            border-radius: 20px;
+            background: #fff;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+            transition: 0.3s ease;
+        }
+
+        .deal-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .deal-card i {
+            font-size: 40px;
+            color: #e11d48;
+        }
+
+        .deal-card h3 {
+            margin: 15px 0 8px;
+            color: #111827;
+            font-size: 22px;
+        }
+
+        .section-heading {
+            text-align: center;
+            padding: 45px 20px 10px;
+        }
+
+        .section-heading span {
+            color: #e11d48;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .section-heading h2 {
+            font-size: 38px;
+            color: #111827;
+            margin: 10px 0;
+        }
+
+        .bogo-tag {
+            position: absolute;
+            top: 18px;
+            left: 18px;
+            background: #e11d48;
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .old-price {
+            color: #999;
+            text-decoration: line-through;
+            font-size: 14px;
+            margin-left: 8px;
+        }
+
+        #product1 .pro {
+            position: relative;
+            transition: 0.3s ease;
+        }
+
+        #product1 .pro:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .back-shop {
+            text-align: center;
+            margin: 30px 0 60px;
+        }
+
+        .back-shop a {
+            background: #e11d48;
+            color: #fff;
+            padding: 14px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 800;
+        }
+
+        @media (max-width: 900px) {
+            .deals-hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .deals-content h1 {
+                font-size: 42px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <section id="header">
-        <a href="index.html"><img src="images/logo.png" alt=""></a>
 
-        <div>
-            <ul id="navbar">
-                <li><a href="index.html">Home</a></li>
-                <li><a class="active" href="shop.html">Shop</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="login.html">Login</a></li>
-                <li><a href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
-                <li>
-                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-                        <i class="ri-moon-line" id="themeIcon"></i>
-                    </button>
-                </li>
-                <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
-            </ul>
-        </div>
-        <div class="mobile">
-            <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
-            <i class="fas fa-outdent" id="bar"></i>
-        </div>
-    </section>
+<section id="header">
+    <a href="index.html"><img src="images/logo.png" alt="Cara Logo"></a>
+    <div>
+        <ul id="navbar">
+            <li><a href="index.html">Home</a></li>
+            <li><a class="active" href="shop.html">Shop</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
+            <li>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <i class="ri-moon-line" id="themeIcon"></i>
+                </button>
+            </li>
+            <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+        </ul>
+    </div>
+    <div class="mobile">
+        <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
+        <i class="fas fa-outdent" id="bar"></i>
+    </div>
+</section>
 
-    <section class="bogo-hero">
-        <div class="bogo-content">
-            <span class="offer-badge">LIMITED TIME DEAL</span>
-            <h1>Buy 1 Get 1 Free</h1>
-            <p>Grab your favourite fashion picks and get another one absolutely free.</p>
-            <a href="#bogo-products" class="deal-btn">Shop Deals</a>
-        </div>
-    </section>
+<section class="deals-hero">
+    <div class="deals-content">
+        <span class="deals-badge">LIMITED TIME OFFER</span>
+        <h1>Buy 1 Get <span>1 Free</span></h1>
+        <p>Grab your favorite fashion picks and get another one absolutely free. Limited period combo deals are waiting for you.</p>
+        <a href="#deals-products" class="deals-btn">Shop Deals →</a>
+    </div>
 
-    <section class="bogo-info">
-        <div class="info-card">
-            <i class="ri-shopping-bag-line"></i>
-            <h3>Choose Any Product</h3>
-            <p>Select your favourite item from the offer collection.</p>
-        </div>
+    <div class="deals-visual">
+        <img src="images/products/f1.jpg" alt="Buy 1 Get 1 Free">
+    </div>
+</section>
 
-        <div class="info-card">
-            <i class="ri-gift-line"></i>
-            <h3>Get One Free</h3>
-            <p>Add another eligible product and enjoy the free deal.</p>
-        </div>
+<section class="deals-features">
+    <div class="deal-card">
+        <i class="ri-shopping-bag-line"></i>
+        <h3>Pick One</h3>
+        <p>Select your favourite product from the offer collection.</p>
+    </div>
 
-        <div class="info-card">
-            <i class="ri-truck-line"></i>
-            <h3>Fast Delivery</h3>
-            <p>Enjoy quick delivery on all combo offers.</p>
-        </div>
-    </section>
+    <div class="deal-card">
+        <i class="ri-gift-line"></i>
+        <h3>Get One Free</h3>
+        <p>Add another eligible product and enjoy the free deal.</p>
+    </div>
 
-    <section id="bogo-products">
-        <!-- <section id="shop-hero">
-        <h2>Buy 1 Get 1 Free</h2>
-        <p>Exclusive combo offers and crazy deals on fashion products! Limited time only.</p>
-    </section> -->
+    <div class="deal-card">
+        <i class="ri-price-tag-3-line"></i>
+        <h3>Best Value</h3>
+        <p>Save more with special combo offers on selected items.</p>
+    </div>
 
-        <section id="product1" class="section-p1">
-            <div class="pro-container">
-                <div class="pro" onclick="window.location.href='singleProduct.html';">
-                    <img src="images/products/f1.jpg" alt="">
-                    <div class="des">
-                        <span>adidas</span>
-                        <h5>Cartoon Astronaut T-Shirts</h5>
-                        <div class="star">
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                        </div>
-                        <h4>$78</h4>
-                    </div>
-                    <a href="#" class="cart"
-                        onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/f1.jpg', 1, 'M')"><i
-                            class="ri-shopping-cart-2-line"></i></a>
-                </div>
-                <div class="pro" onclick="window.location.href='singleProduct.html';">
-                    <img src="images/products/f2.jpg" alt="">
-                    <div class="des">
-                        <span>adidas</span>
-                        <h5>Cartoon Astronaut T-Shirts</h5>
-                        <div class="star">
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                        </div>
-                        <h4>$78</h4>
-                    </div>
-                    <a href="#" class="cart"
-                        onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/f2.jpg', 1, 'M')"><i
-                            class="ri-shopping-cart-2-line"></i></a>
-                </div>
-                <div class="pro" onclick="window.location.href='singleProduct.html';">
-                    <img src="images/products/f3.jpg" alt="">
-                    <div class="des">
-                        <span>adidas</span>
-                        <h5>Cartoon Astronaut T-Shirts</h5>
-                        <div class="star">
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                        </div>
-                        <h4>$78</h4>
-                    </div>
-                    <a href="#" class="cart"
-                        onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/f3.jpg', 1, 'M')"><i
-                            class="ri-shopping-cart-2-line"></i></a>
-                </div>
-                <div class="pro" onclick="window.location.href='singleProduct.html';">
-                    <img src="images/products/f4.jpg" alt="">
-                    <div class="des">
-                        <span>adidas</span>
-                        <h5>Cartoon Astronaut T-Shirts</h5>
-                        <div class="star">
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                        </div>
-                        <h4>$78</h4>
-                    </div>
-                    <a href="#" class="cart"
-                        onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/f4.jpg', 1, 'M')"><i
-                            class="ri-shopping-cart-2-line"></i></a>
-                </div>
-                <div class="pro" onclick="window.location.href='singleProduct.html';">
-                    <img src="images/products/f5.jpg" alt="">
-                    <div class="des">
-                        <span>adidas</span>
-                        <h5>Cartoon Astronaut T-Shirts</h5>
-                        <div class="star">
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                        </div>
-                        <h4>$78</h4>
-                    </div>
-                    <a href="#" class="cart"
-                        onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/f5.jpg', 1, 'M')"><i
-                            class="ri-shopping-cart-2-line"></i></a>
-                </div>
-                <div class="pro" onclick="window.location.href='singleProduct.html';">
-                    <img src="images/products/f6.jpg" alt="">
-                    <div class="des">
-                        <span>adidas</span>
-                        <h5>Cartoon Astronaut T-Shirts</h5>
-                        <div class="star">
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                        </div>
-                        <h4>$78</h4>
-                    </div>
-                    <a href="#" class="cart"
-                        onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/f6.jpg', 1, 'M')"><i
-                            class="ri-shopping-cart-2-line"></i></a>
-                </div>
-                <div class="pro" onclick="window.location.href='singleProduct.html';">
-                    <img src="images/products/f8.jpg" alt="">
-                    <div class="des">
-                        <span>adidas</span>
-                        <h5>Cartoon Astronaut T-Shirts</h5>
-                        <div class="star">
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                        </div>
-                        <h4>$78</h4>
-                    </div>
-                    <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
-                </div>
+    <div class="deal-card">
+        <i class="ri-truck-line"></i>
+        <h3>Fast Delivery</h3>
+        <p>Quick delivery with safe packaging and easy checkout.</p>
+    </div>
+</section>
 
-                <div class="pro-container">
-                    <div class="pro" onclick="window.location.href='singleProduct.html';">
-                        <img src="images/products/f1.jpg" alt="">
-                        <div class="des">
-                            <span>adidas</span>
-                            <h5>Cartoon Astronaut T-Shirts</h5>
-                            <div class="star">
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                            </div>
-                            <h4>$78</h4>
-                        </div>
-                        <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
-                    </div>
-                    <div class="pro" onclick="window.location.href='singleProduct.html';">
-                        <img src="images/products/f2.jpg" alt="">
-                        <div class="des">
-                            <span>adidas</span>
-                            <h5>Cartoon Astronaut T-Shirts</h5>
-                            <div class="star">
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                            </div>
-                            <h4>$78</h4>
-                        </div>
-                        <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
-                    </div>
-                    <div class="pro" onclick="window.location.href='singleProduct.html';">
-                        <img src="images/products/f3.jpg" alt="">
-                        <div class="des">
-                            <span>adidas</span>
-                            <h5>Cartoon Astronaut T-Shirts</h5>
-                            <div class="star">
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                            </div>
-                            <h4>$78</h4>
-                        </div>
-                        <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
-                    </div>
-                    <div class="pro" onclick="window.location.href='singleProduct.html';">
-                        <img src="images/products/f4.jpg" alt="">
-                        <div class="des">
-                            <span>adidas</span>
-                            <h5>Cartoon Astronaut T-Shirts</h5>
-                            <div class="star">
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                            </div>
-                            <h4>$78</h4>
-                        </div>
-                        <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
-                    </div>
+<section class="section-heading">
+    <span>BOGO DEALS</span>
+    <h2>Buy 1 Get 1 Free Products</h2>
+    <p>Explore selected products available under the combo offer.</p>
+</section>
 
-                    <div class="pro" onclick="window.location.href='singleProduct.html';">
-                        <img src="images/products/n5.jpg" alt="">
-                        <div class="des">
-                            <span>adidas</span>
-                            <h5>Cartoon Astronaut T-Shirts</h5>
-                            <div class="star">
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                            </div>
-                            <h4>$78</h4>
-                        </div>
-                        <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
-                    </div>
-                    <div class="pro" onclick="window.location.href='singleProduct.html';">
-                        <img src="images/products/n7.jpg" alt="">
-                        <div class="des">
-                            <span>adidas</span>
-                            <h5>Cartoon Astronaut T-Shirts</h5>
-                            <div class="star">
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                            </div>
-                            <h4>$78</h4>
-                        </div>
-                        <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
-                    </div>
-                    <div class="pro" onclick="window.location.href='singleProduct.html';">
-                        <img src="images/products/n8.jpg" alt="">
-                        <div class="des">
-                            <span>adidas</span>
-                            <h5>Cartoon Astronaut T-Shirts</h5>
-                            <div class="star">
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                            </div>
-                            <h4>$78</h4>
-                        </div>
-                        <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
-                    </div>
-                </div>
+<section id="product1" class="section-p1">
+    <div id="deals-products" class="pro-container">
 
-        </section>
-    </section>
-
-    <section id="newsletter" class="section-p1 section-m1">
-        <div class="newstext">
-            <h4>Sign Up For Newsletters</h4>
-            <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
-        </div>
-        <div class="form">
-            <input type="text" placeholder="Your email address">
-            <button class="normal">Sign Up</button>
-        </div>
-    </section>
-
-    <footer class="section-p1">
-        <div class="col">
-            <img class="logo" src="images/logo.png" alt="">
-            <h4>Contact</h4>
-            <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
-            <p><strong>Phone:</strong> +01 2222 365 /(+91) 01 2345 6789</p>
-            <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
-
-            <div class="follow">
-                <h4>Follow us</h4>
-                <div class="icon">
-                    <a href="https://x.com/JanaviPandole"><i class="fab fa-twitter"></i></a>
-                    <a href="https://github.com/janavipandole"><i class="fab fa-github"></i></a>
-                    <a href="www.linkedin.com/in/janavi-pandole-80a7b2290"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://www.youtube.com/@JanaviPandole"><i class="fab fa-youtube"></i></a>
-                </div>
+        <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <span class="bogo-tag">BOGO</span>
+            <img src="images/products/f1.jpg" alt="">
+            <div class="des">
+                <span>Cara</span>
+                <h5>Floral Summer Shirt Combo</h5>
+                <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
+                <h4>$78 <span class="old-price">$120</span></h4>
             </div>
+            <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
         </div>
-        <div class="col">
-            <h4>About</h4>
-            <a href="about.html">About us</a>
-            <a href="#">Delivery Information</a>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms & Conditions</a>
-            <a href="contact.html">Contact Us</a>
-        </div>
-        <div class="col">
-            <h4>My Account</h4>
-            <a href="login.html">Sign In</a>
-            <a href="cart.html">View Cart</a>
-            <a href="#">My Wishlist</a>
-            <a href="cart.html">Track My Order</a>
-            <a href="contact.html">Help</a>
-        </div>
-        <div class="col install">
-            <h4>Install App</h4>
-            <p>From App Store ro Google Play</p>
-            <div class="row">
-                <img src="images/pay/app.jpg" alt="">
-                <img src="images/pay/play.jpg" alt="">
+
+        <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <span class="bogo-tag">BOGO</span>
+            <img src="images/products/f2.jpg" alt="">
+            <div class="des">
+                <span>Cara</span>
+                <h5>Printed Casual Shirt Deal</h5>
+                <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
+                <h4>$82 <span class="old-price">$130</span></h4>
             </div>
-            <p>Secured Payment Gateways</p>
-            <img src="images/pay/pay.png" alt="">
+            <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
         </div>
-        <div class="copyright">
-            <p> &copy; Cara 2025. All rights reserved. | <a href="license.html" style="color: #088178;">MIT License</a>
-            </p>
+
+        <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <span class="bogo-tag">BOGO</span>
+            <img src="images/products/f3.jpg" alt="">
+            <div class="des">
+                <span>Cara</span>
+                <h5>Classic Floral Combo</h5>
+                <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
+                <h4>$75 <span class="old-price">$115</span></h4>
+            </div>
+            <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
         </div>
-    </footer>
 
-    <script src="app.js"></script>
+        <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <span class="bogo-tag">BOGO</span>
+            <img src="images/products/f4.jpg" alt="">
+            <div class="des">
+                <span>Cara</span>
+                <h5>Premium White Shirt Offer</h5>
+                <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
+                <h4>$79 <span class="old-price">$125</span></h4>
+            </div>
+            <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+        </div>
 
+    </div>
+</section>
+
+<div class="back-shop">
+    <a href="shop.html">Back to Shop</a>
+</div>
+
+<section id="newsletter" class="section-p1 section-m1">
+    <div class="newstext">
+        <h4>Sign Up For Newsletters</h4>
+        <p>Get E-mail updates about latest deals and <span>special offers.</span></p>
+    </div>
+    <div class="form">
+        <input type="email" placeholder="Your email address">
+        <button class="normal">Sign Up</button>
+    </div>
+</section>
+
+<footer class="section-p1">
+    <div class="col">
+        <img class="logo" src="images/logo.png" alt="">
+        <h4>Contact</h4>
+        <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
+        <p><strong>Phone:</strong> +01 2222 365 /(+91) 01 2345 6789</p>
+        <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
+    </div>
+
+    <div class="col">
+        <h4>About</h4>
+        <a href="about.html">About us</a>
+        <a href="#">Delivery Information</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms & Conditions</a>
+        <a href="contact.html">Contact Us</a>
+    </div>
+
+    <div class="col">
+        <h4>My Account</h4>
+        <a href="login.html">Sign In</a>
+        <a href="cart.html">View Cart</a>
+        <a href="#">My Wishlist</a>
+        <a href="cart.html">Track My Order</a>
+        <a href="contact.html">Help</a>
+    </div>
+
+    <div class="copyright">
+        <p>&copy; Cara 2025. All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="app.js"></script>
 </body>
-
 </html>
