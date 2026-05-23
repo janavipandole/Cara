@@ -8,8 +8,12 @@
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#000000" />
   <title>Delivery Information | Cara — Modern E-Commerce</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
 
   <style>
     :root {
@@ -48,62 +52,7 @@
     a { text-decoration: none; color: inherit; }
     ul { list-style: none; }
 
-    /* ── NAVBAR ── */
-    #navbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 60px;
-      background: var(--background-color);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-      position: sticky;
-      top: 0;
-      z-index: 999;
-    }
 
-    #navbar .logo img { width: 120px; }
-
-    #navbar ul {
-      display: flex;
-      align-items: center;
-      gap: 28px;
-    }
-
-    #navbar ul li a {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text-color);
-      transition: color 0.2s;
-    }
-
-    #navbar ul li a:hover { color: var(--primary-color); }
-
-    .navbar-icons { display: flex; align-items: center; gap: 18px; }
-
-    .navbar-icons a {
-      font-size: 20px;
-      color: var(--text-color);
-      transition: color 0.2s;
-    }
-
-    .navbar-icons a:hover { color: var(--primary-color); }
-
-    .cart-icon { position: relative; }
-
-    .cart-icon span {
-      position: absolute;
-      top: -8px;
-      right: -8px;
-      background: var(--primary-color);
-      color: #fff;
-      font-size: 10px;
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
 
     /* ── BACK BUTTON ── */
     .back-btn-wrap { padding: 20px 60px 0; }
@@ -390,7 +339,6 @@
     @media (max-width: 900px) {
       .delivery-cards { grid-template-columns: 1fr 1fr; }
       .footer-top { grid-template-columns: 1fr 1fr; }
-      #navbar { padding: 14px 24px; }
       .page-hero { padding: 44px 24px 36px; }
       .delivery-section { padding: 0 20px; }
       footer { padding: 40px 24px 20px; }
@@ -400,7 +348,6 @@
     @media (max-width: 600px) {
       .delivery-cards { grid-template-columns: 1fr; }
       .footer-top { grid-template-columns: 1fr; gap: 28px; }
-      #navbar ul { display: none; }
       .page-hero h2 { font-size: 26px; }
       .shipping-table { font-size: 12px; }
     }
@@ -408,28 +355,25 @@
 </head>
 <body>
 
-  <!-- NAVBAR -->
-  <nav id="navbar">
-    <div class="logo">
-      <a href="index.html">
-        <img src="images/logo.png" alt="Cara Logo" />
+  <!-- HEADER -->
+  <section id="header">
+    <a href="index.html">
+      <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
+    </a>
+
+    <div id="navbar-container"></div>
+
+    <!-- Mobile Navbar -->
+    <div class="mobile">
+      <a href="login.html" aria-label="Login">
+        <i class="ri-user-3-line"></i>
       </a>
-    </div>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="shop.html">Shop</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="login.html">Login</a></li>
-    </ul>
-    <div class="navbar-icons">
-      <a href="cart.html" class="cart-icon">
-        <i class="fa-solid fa-bag-shopping"></i>
-        <span>0</span>
+      <a href="cart.html" aria-label="Cart">
+        <i class="ri-shopping-bag-4-line"></i>
       </a>
+      <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
     </div>
-  </nav>
+  </section>
 
   <!-- BACK BUTTON -->
   <div class="back-btn-wrap">
@@ -606,7 +550,7 @@
         <ul>
           <li><a href="login.html">Sign In</a></li>
           <li><a href="cart.html">View Cart</a></li>
-          <li><a href="wishlist.html">My Wishlist</a></li>
+          <li><a href="#">My Wishlist</a></li>
           <li><a href="cart.html">Track My Order</a></li>
           <li><a href="contact.html">Help</a></li>
         </ul>
@@ -627,7 +571,7 @@
 
     </div>
     <div class="footer-bottom">
-      <p>© Cara 2025. All rights reserved. | <a href="license.html">MIT License</a></p>
+      <p>© Cara 2026. All rights reserved. | <a href="license.html">MIT License</a></p>
     </div>
   </footer>
 
@@ -646,5 +590,10 @@
     });
   </script>
 
+  <script src="navbar.js"></script>
+  <script>
+    loadNavbar();
+  </script>
+  <script src="app.js"></script>
 </body>
 </html>

@@ -1,6 +1,9 @@
 /* ===== FORGOT PASSWORD JS ===== */
 
 /* toggle new password visibility */
+const form = document.getElementById('forgotForm');
+if (!form) return;
+
 document.getElementById('toggleNewPass').addEventListener('click', function () {
   const pwd = document.getElementById('forgotNewPass');
   pwd.type = pwd.type === 'password' ? 'text' : 'password';
@@ -17,7 +20,7 @@ document.getElementById('toggleConfirmPass').addEventListener('click', function 
 });
 
 /* form submit */
-document.getElementById('forgotForm').addEventListener('submit', function (e) {
+form.addEventListener('submit', function (e) {
   e.preventDefault();
 
   const email       = document.getElementById('forgotEmail').value.trim();
@@ -40,24 +43,39 @@ document.getElementById('forgotForm').addEventListener('submit', function (e) {
     return;
   }
 
-  /* check if email exists in localStorage */
-  let users = JSON.parse(localStorage.getItem('users') || '[]');
-  const userIndex = users.findIndex(u => u.email === email);
-
-  if (userIndex === -1) {
-    showToast('No account found with this email!', 'error');
-    return;
+  /* ── Loading state: disable button & show spinner ── */
+  const submitBtn = document.querySelector('#forgotForm button[type="submit"], #forgotForm .btn-primary');
+  if (submitBtn) {
+    submitBtn.classList.add('btn-loading');
+    submitBtn.disabled = true;
   }
 
-  /* update password */
-  users[userIndex].password = newPass;
-  localStorage.setItem('users', JSON.stringify(users));
+  /* Simulate async request */
+  setTimeout(function () {
+    /* check if email exists in localStorage */
+    let users = JSON.parse(localStorage.getItem('users') || '[]');
+    const userIndex = users.findIndex(u => u.email === email);
 
-  showToast('Password reset successful! Redirecting to login...', 'success');
+    if (userIndex === -1) {
+      showToast('No account found with this email!', 'error');
+      /* Re-enable button on failure */
+      if (submitBtn) {
+        submitBtn.classList.remove('btn-loading');
+        submitBtn.disabled = false;
+      }
+      return;
+    }
 
-  /* redirect to login after success */
-  setTimeout(() => {
-    window.location.href = 'login.html';
-  }, 2000);
+    /* update password */
+    users[userIndex].password = newPass;
+    localStorage.setItem('users', JSON.stringify(users));
+
+    showToast('Password reset successful! Redirecting to login...', 'success');
+
+    /* redirect to login after success */
+    setTimeout(() => {
+      window.location.href = 'login.html';
+    }, 2000);
+  }, 1500);
 });
-
+
