@@ -353,14 +353,29 @@ button.white .ripple-effect {
     display: none;
 }
 
-#navbar li a.active::after {
+#navbar li:not(.nav-icon) a::after {
     content: '';
-    width: 100%;
-    height: 2px;
-    background: var(--accent);
     position: absolute;
+    left: 0;
     bottom: -4px;
-    left: 2px;
+    height: 2px;
+    width: 0%;
+    background: var(--accent);
+    transition: width 260ms cubic-bezier(.2,.8,.2,1);
+    will-change: width;
+}
+
+/* expand underline on hover or when link is active */
+#navbar li:not(.nav-icon) a:hover::after,
+#navbar li:not(.nav-icon) a.active::after {
+    width: 100%;
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    #navbar li:not(.nav-icon) a::after {
+        transition: none;
+    }
 }
 
 /* ============================================
