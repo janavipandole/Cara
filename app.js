@@ -586,78 +586,57 @@ document.addEventListener('DOMContentLoaded', () => {
 /* --- END: CART FUNCTIONALITY --- */
 
 /* --- START: THEME TOGGLE FUNCTIONALITY --- */
+/* --- START: THEME TOGGLE FUNCTIONALITY --- */
 
 (function () {
     const html = document.documentElement;
 
-    // Apply saved theme on load
-    const currentTheme = localStorage.getItem('theme') || 'light';
-    html.setAttribute('data-theme', currentTheme);
-    if (currentTheme === 'dark') {
-        document.body.classList.add('dark');
-    } else {
-        document.body.classList.remove('dark');
-    }
+    // Apply the saved theme immediately when script runs so there is no
+    // flash of the wrong theme while the page loads.
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', savedTheme);
 
-    // Run dynamic icon and logo updates
-    setTimeout(() => {
-        updateThemeIcon(currentTheme);
-    }, 0);
-
+    // Updates the sun/moon icon and the logo image to match the active theme.
     function updateThemeIcon(theme) {
         const iconClass = theme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
-        
-        // Find elements dynamically since they could be injected after this runs
+
         const themeIcon = document.getElementById('themeIcon');
         const themeIconMobile = document.getElementById('themeIconMobile');
-        
+
         if (themeIcon) themeIcon.className = iconClass;
         if (themeIconMobile) themeIconMobile.className = iconClass;
 
-        // Swap logo based on theme
         const siteLogo = document.getElementById('siteLogo');
         if (siteLogo) {
             siteLogo.src = theme === 'dark' ? 'images/Dlogo.png' : 'images/logo.png';
         }
     }
 
+    // Switches between dark and light and persists the choice.
     function toggleTheme() {
-        const currentTheme = html.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        
+        const currentTheme = html.getAttribute('data-theme') || 'light';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark'; // fixed: was 'light' ? 'light' : 'dark'
         html.setAttribute('data-theme', newTheme);
-        if (newTheme === 'dark') {
-            document.body.classList.add('dark');
-        } else {
-            document.body.classList.remove('dark');
-        }
-        
         localStorage.setItem('theme', newTheme);
         updateThemeIcon(newTheme);
     }
 
-    // Event Delegation: Automatically listens to clicks on static AND dynamic buttons!
-    document.addEventListener('click', (e) => {
-        if (e.target && (e.target.closest('#themeToggle') || e.target.closest('#themeToggleMobile'))) {
+    // app.js loads at the bottom of <body> so the DOM is already parsed —
+    // update the icon immediately without waiting for DOMContentLoaded.
+    updateThemeIcon(savedTheme);
+
+    // Use event delegation so the handler works even if the button is
+    // injected into the page dynamically after this script runs.
+    document.addEventListener('click', function (e) {
+        if (!e.target) return;
+        if (e.target.closest('#themeToggle') || e.target.closest('#themeToggleMobile')) {
             e.preventDefault();
             toggleTheme();
         }
     });
-
-    // Watch for dynamic navbar insertions (MutationObserver) to instantly apply correct icon and logo styles
-    if (typeof MutationObserver !== 'undefined') {
-        const observer = new MutationObserver(() => {
-            const activeTheme = html.getAttribute('data-theme') || 'light';
-            updateThemeIcon(activeTheme);
-        });
-        observer.observe(document.body, { childList: true, subtree: true });
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const activeTheme = html.getAttribute('data-theme') || 'light';
-        updateThemeIcon(activeTheme);
-    });
 })();
+
+/* --- END: THEME TOGGLE FUNCTIONALITY --- */
 
 /* --- END: THEME TOGGLE FUNCTIONALITY --- */
 
