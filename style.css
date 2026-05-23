@@ -2325,3 +2325,35 @@ canvas {
 #backToTop:hover {
     transform: scale(1.15);
 }
+
+.low-stock {
+  color: #ff3b30;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+.limited-stock {
+  color: #ff9500;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+.in-stock {
+  color: #34c759;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+.fast-selling {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  background: #fff3cd;
+  color: #ff6b00;
+  font-size: 12px;
+  font-weight: 600;
+}
