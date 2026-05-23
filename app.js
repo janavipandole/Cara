@@ -870,6 +870,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const performSearch = () => {
             const searchTerm = searchInput.value.toLowerCase().trim();
             const selectedCategory = categoryFilter ? categoryFilter.value : 'all';
+           
+            // Reset all products visible before filtering the full set
+           
+            document.querySelectorAll('.pro').forEach(p => p.style.display = 'block');
             const products = document.querySelectorAll('.pro');
             let visibleCount = 0;
             
@@ -887,6 +891,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 } else {
                     product.style.display = 'none';
                 }
+
+                // Reset to page 1 so filtered results start from beginning
+                if (typeof window._showShopPage === 'function') {
+                window._showShopPage(1);
+                }
+
             });
 
             // Handle "No matching products found" UI
