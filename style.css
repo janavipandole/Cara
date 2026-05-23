@@ -33,57 +33,6 @@
   border-color: var(--accent);
 }
 
-/* Banner3 — solid white button with dark text for max contrast */
-#banner3 .banner-box button {
-    background: rgba(255, 255, 255, 0.92);
-    color: #111;
-    border: none;
-    font-weight: 700;
-    font-size: 14px;
-    padding: 12px 24px;
-    border-radius: 6px;
-    cursor: pointer;
-    -webkit-backdrop-filter: blur(4px);
-    backdrop-filter: blur(4px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
-    transition: all 0.3s ease;
-    margin-top: 12px;
-    position: relative;
-    z-index: 2;
-}
-
-#banner3 .banner-box button:hover {
-    background: var(--accent);
-    color: #fff;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
-    transform: translateY(-2px);
-}
-
-/* sm-banner buttons — same treatment */
-#sm-banner .banner-box button {
-    background: rgba(255, 255, 255, 0.92);
-    color: #111;
-    border: none;
-    font-weight: 700;
-    font-size: 14px;
-    padding: 12px 28px;
-    border-radius: 6px;
-    cursor: pointer;
-    -webkit-backdrop-filter: blur(4px);
-    backdrop-filter: blur(4px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
-    transition: all 0.3s ease;
-    position: relative;
-    z-index: 2;
-}
-
-#sm-banner .banner-box button:hover {
-    background: var(--accent);
-    color: #fff;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
-    transform: translateY(-2px);
-}
-
 /* Scrollbar Customization */
 ::-webkit-scrollbar {
     width: 8px;
@@ -104,125 +53,6 @@
     background: #06655e;
 }
 
-/* Dark theme adjustment */
-[data-theme="dark"] #banner3 .banner-box button,
-[data-theme="dark"] #sm-banner .banner-box button {
-    background: rgba(255, 255, 255, 0.15);
-    color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-}
-
-[data-theme="dark"] #banner3 .banner-box button:hover,
-[data-theme="dark"] #sm-banner .banner-box button:hover {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #fff;
-}
-
-/* ============================================
-   BANNER CARD HOVER ANIMATIONS
-   Add this block to the end of style.css
-   ============================================ */
-
-/* ── Shared setup for both banner rows ── */
-#sm-banner .banner-box,
-#banner3 .banner-box {
-    overflow: hidden;
-    /* keeps zoomed bg clipped inside the card */
-    transition:
-        transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1),
-        box-shadow 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-
-/* Background image lives on the pseudo-element so it can scale independently */
-#sm-banner .banner-box::before,
-#banner3 .banner-box::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: inherit;
-    /* picks up background-image from parent */
-    background-size: cover;
-    background-position: center;
-    transition: transform 0.55s cubic-bezier(0.25, 0.8, 0.25, 1);
-    z-index: 0;
-}
-
-/* Make sure text / buttons sit above the pseudo-element */
-#sm-banner .banner-box>*,
-#banner3 .banner-box>* {
-    position: relative;
-    z-index: 1;
-}
-
-/* ── Card lift + shadow on hover ── */
-#sm-banner .banner-box:hover,
-#banner3 .banner-box:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.22);
-}
-
-/* ── Background zoom on hover ── */
-#sm-banner .banner-box:hover::before,
-#banner3 .banner-box:hover::before {
-    transform: scale(1.08);
-}
-
-/* ── Subtle dark overlay that appears on hover ── */
-#sm-banner .banner-box::after,
-#banner3 .banner-box::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0);
-    transition: background 0.35s ease;
-    z-index: 0;
-    border-radius: inherit;
-}
-
-#sm-banner .banner-box:hover::after,
-#banner3 .banner-box:hover::after {
-    background: rgba(0, 0, 0, 0.12);
-}
-
-/* ── Button animations inside banner cards ── */
-#sm-banner .banner-box button,
-#banner3 .banner-box button {
-    transition:
-        background-color 0.3s ease,
-        color 0.3s ease,
-        transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
-        box-shadow 0.3s ease;
-}
-
-#sm-banner .banner-box:hover button,
-#banner3 .banner-box:hover button {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-}
-
-/* ── Heading slide-up micro-animation ── */
-#sm-banner .banner-box h2,
-#sm-banner .banner-box h4,
-#banner3 .banner-box h2,
-#banner3 .banner-box h3 {
-    transition: transform 0.35s ease, letter-spacing 0.35s ease;
-}
-
-#sm-banner .banner-box:hover h2,
-#sm-banner .banner-box:hover h4,
-#banner3 .banner-box:hover h2,
-#banner3 .banner-box:hover h3 {
-    transform: translateY(-4px);
-    letter-spacing: 0.5px;
-}
-
-/* ── Dark-theme adjustments ── */
-[data-theme="dark"] #sm-banner .banner-box:hover,
-[data-theme="dark"] #banner3 .banner-box:hover {
-    box-shadow: 0 20px 45px rgba(6, 182, 212, 0.18);
-}
-
 
 
 /* ============================================
@@ -240,16 +70,9 @@
     --shadow: rgba(0, 0, 0, 0.02);
     --shadow-hover: rgba(0, 0, 0, 0.25);
     --accent: #088178;
-    --feature-bg-1: #fddde4;
-    --feature-bg-2: #cdebbc;
-    --feature-bg-3: #d1e8f2;
-    --feature-bg-4: #cdd4f6;
-    --feature-bg-5: #f6dbf6;
-    --feature-bg-6: #fff2e5;
     --input-bg: #ffffff;
     --footer-text: #222;
     --cart-icon-bg: #e8f6ea;
-    --feature-label-color: #088178;
 }
 
 [data-theme="dark"] {
@@ -263,16 +86,9 @@
     --shadow: rgba(0, 0, 0, 0.4);
     --shadow-hover: rgba(124, 58, 237, 0.3);
     --accent: #06b6d4;
-    --feature-bg-1: #7c3aed;
-    --feature-bg-2: #10b981;
-    --feature-bg-3: #3b82f6;
-    --feature-bg-4: #8b5cf6;
-    --feature-bg-5: #ec4899;
-    --feature-bg-6: #f59e0b;
     --input-bg: #2d3748;
     --footer-text: #e6eef8;
     --cart-icon-bg: #2d3748;
-    --feature-label-color: #ffffff;
 }
 
 /* ============================================
@@ -346,7 +162,14 @@ button.normal {
     cursor: pointer;
     border-radius: 4px;
     outline: none;
-    transition: 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button.normal:hover {
+    background-color: var(--accent);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px var(--shadow-hover);
 }
 
 button.white {
@@ -462,6 +285,12 @@ button.white .ripple-effect {
     border-color: var(--accent);
     color: white;
     transform: rotate(180deg);
+}
+
+.theme-toggle:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 50%;
 }
 
 .mobile .theme-toggle {
@@ -613,6 +442,8 @@ button.white .ripple-effect {
     align-items: start;
     justify-content: center;
     flex-direction: column;
+    will-change: opacity;
+    backface-visibility: hidden;
 }
 
 .hero-slider .slide.active {
@@ -810,74 +641,7 @@ button.white .ripple-effect {
    FEATURES SECTION
    ============================================ */
 
-#feature {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
 
-#feature .fe-box {
-    width: 180px;
-    text-align: center;
-    padding: 25px 15px;
-    box-shadow: 20px 20px 30px var(--shadow);
-    border-radius: 4px;
-    border: 1px solid var(--border-color);
-    margin: 35px 0;
-    margin-top: 100px;
-    background-color: var(--card-bg);
-    transition: all 0.3s ease;
-}
-
-#feature .fe-box:hover {
-    box-shadow: 10px 10px 74px var(--shadow-hover);
-}
-
-#feature.fe-box img {
-    width: 100%;
-    margin-bottom: 10px;
-}
-
-#feature .fe-box h6 {
-    display: inline-block;
-    padding: 9px 8px 6px 8px;
-    line-height: 1;
-    margin-top: 10px;
-    border-radius: 4px;
-    color: var(--feature-label-color);
-    font-size: 16px;
-    font-weight: 700;
-}
-
-[data-theme="dark"] #feature .fe-box h6 {
-    color: #ffffff !important;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
-}
-
-#feature .fe-box:nth-child(1) h6 {
-    background-color: var(--feature-bg-1);
-}
-
-#feature .fe-box:nth-child(2) h6 {
-    background-color: var(--feature-bg-2);
-}
-
-#feature .fe-box:nth-child(3) h6 {
-    background-color: var(--feature-bg-3);
-}
-
-#feature .fe-box:nth-child(4) h6 {
-    background-color: var(--feature-bg-4);
-}
-
-#feature .fe-box:nth-child(5) h6 {
-    background-color: var(--feature-bg-5);
-}
-
-#feature .fe-box:nth-child(6) h6 {
-    background-color: var(--feature-bg-6);
-}
 
 /* ============================================
    PRODUCTS SECTION
@@ -904,7 +668,6 @@ button.white .ripple-effect {
     border-radius: 16px;
     cursor: pointer;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    margin: 10px 0;
     background-color: var(--card-bg);
     transition: box-shadow 0.3s ease, transform 0.25s ease;
     display: flex;
@@ -988,7 +751,9 @@ button.white .ripple-effect {
     font-size: 14px;
     line-height: 1.35;
     margin: 2px 0;
-    white-space: nowrap;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -1044,6 +809,11 @@ button.white .ripple-effect {
     background: #1a1a1a;
     transform: scale(1.02);
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+.pro-buy-btn:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
 }
 
 /* Circular cart icon button */
@@ -1306,155 +1076,9 @@ button.white .ripple-effect {
     background-color: #088178;
 }
 
-#sm-banner {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
-
-#sm-banner .banner-box {
-    background-image: url("images/banner/b17.jpg");
-    height: 50vh;
-    min-width: 660px;
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    color: #FFF;
-    flex-direction: column;
-    padding: 30px;
-}
-
-#sm-banner .banner-box2 {
-    background-image: url("images/banner/b10.jpg");
-}
-
-#sm-banner h4 {
-    color: #ffffff;
-    font-size: 30px;
-    font-weight: 300;
-}
-
-#sm-banner h2 {
-    color: #ffffff;
-    font-size: 40px;
-    font-weight: 700;
-}
-
-#sm-banner span {
-    color: #ffffff;
-    font-size: 23px;
-    font-weight: 500;
-    padding-bottom: 15px;
-}
-
-#sm-banner .banner-box:hover button {
-    color: #000;
-    background-color: #1ea59c;
-}
-
-#banner3 {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    padding: 0 80px;
-}
-
-#banner3 .banner-box {
-    background-image: url("images/banner/b7.jpg");
-    height: 30vh;
-    min-width: 30%;
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    flex-direction: column;
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
-#banner3 .banner-box2 {
-    background-image: url("images/banner/b5.jpg");
-}
-
-#banner3 .banner-box3 {
-    background-image: url("images/banner/b18.jpg");
-}
-
-#banner3 h2 {
-    color: #FFF;
-    font-weight: 900;
-    font-size: 30px;
-}
-
-#banner3 h3 {
-    color: #ec544e;
-    font-weight: 700;
-    font-size: 22px;
-}
-
-/* ============================================
-   NEWSLETTER
-   ============================================ 
-
-#newsletter {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    align-items: center;
-    background-image: url("images/banner/b14.png");
-    background-size: cover;
-    background-position: 20% 30%;
-    background-repeat: no-repeat;
-    background-color: #041e42;
-}
-
-#newsletter h4 {
-    font-size: 32px;
-    font-weight: 700;
-    color: #ffffffea;
-}
-
-#newsletter p {
-    font-size: 20px;
-    font-weight: 600;
-    color: #818ea0;
-}
-
-#newsletter p span {
-    color: #ffbd27;
-}
-
-#newsletter .form {
-    display: flex;
-    width: 40%;
-}
-
-#newsletter .form input {
-    height: 3.125rem;
-    padding: 1.25rem;
-    font-size: 16px;
-    width: 100%;
-    border: 1px solid transparent;
-    outline: none;
-    border-radius: 4px;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    background-color: var(--input-bg);
-    color: var(--text-primary);
-    transition: all 0.3s ease;
-}
-
-#newsletter .form button {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    background-color: #088178;
-    color: #fff;
-    white-space: nowrap;
-}
-*/
+/* ==============================
+   NEWSLETTER (REMOVED)
+   ============================== */
 
 /* ============================================
    FOOTER
@@ -3318,10 +2942,6 @@ footer .copyright {
                     padding: 40px 60px;
                 }
 
-                #banner3 {
-                    padding: 0 60px;
-                }
-
                 #blog {
                     padding: 120px 100px 0 100px;
                 }
@@ -3382,11 +3002,6 @@ footer .copyright {
                     padding: 30px 40px;
                 }
 
-                #feature .fe-box {
-                    width: 160px;
-                    margin-top: 70px;
-                }
-
                 #product1 .pro-container {
                     grid-template-columns: repeat(2, 1fr);
                     gap: 20px;
@@ -3394,23 +3009,6 @@ footer .copyright {
                 #product1 .pro {
                     width: 100%;
                     min-width: 0;
-                }
-
-                #sm-banner .banner-box {
-                    min-width: 48%;
-                    height: 40vh;
-                }
-
-                #banner3 {
-                    padding: 0 40px;
-                }
-
-                #banner3 .banner-box {
-                    min-width: 30%;
-                }
-
-                #newsletter .form {
-                    width: 50%;
                 }
 
                 #blog {
@@ -3471,7 +3069,7 @@ footer .copyright {
                     background-color: var(--card-bg);
                     box-shadow: 0 40px 60px rgba(0, 0, 0, 0.1);
                     padding: 80px 0 40px 20px;
-                    z-index: 999;
+                    z-index: 9999;
                     overflow-y: auto;
                     -webkit-overflow-scrolling: touch;
                 }
@@ -3505,11 +3103,8 @@ footer .copyright {
                 /* Mobile overlay when nav open */
                 body.nav-open {
                     overflow: hidden;
-                }
-
-                /* Mobile overlay when nav open */
-                body.nav-open {
-                    overflow: hidden;
+                    position: relative;
+                    width: 100%;
                 }
 
                 body.nav-open::after {
@@ -3548,22 +3143,6 @@ footer .copyright {
                     padding: 12px 24px;
                 }
 
-                /* Features 3 columns */
-                #feature {
-                    display: grid;
-                    grid-template-columns: repeat(3, 1fr);
-                    gap: 16px;
-                    justify-items: center;
-                }
-
-                #feature .fe-box {
-                    width: 100%;
-                    max-width: 180px;
-                    margin: 12px 0;
-                    margin-top: 0;
-                    padding: 20px 12px;
-                }
-
                 /* Products 2 columns */
                 #product1 .pro-container {
                     display: grid;
@@ -3592,65 +3171,6 @@ footer .copyright {
 
                 #banner {
                     height: 25vh;
-                }
-
-                #sm-banner .banner-box {
-                    min-width: 100%;
-                    height: 45vh;
-                    margin: 6px 0;
-                }
-
-                #banner3 {
-                    justify-content: space-around;
-                    flex-wrap: wrap;
-                    padding: 0 20px;
-                    gap: 16px;
-                }
-
-                #banner3 .banner-box {
-                    width: 45%;
-                    margin: 10px;
-                }
-
-                #banner3 .banner-box2 {
-                    width: 100%;
-                }
-
-                #banner3 .banner-box3 {
-                    width: 45%;
-                }
-
-                #newsletter {
-                    flex-direction: column;
-                    align-items: flex-start;
-                    gap: 20px;
-                    padding: 40px 24px;
-                    height: auto;
-                }
-
-                #newsletter h4 {
-                    font-size: 26px;
-                }
-
-                #newsletter p {
-                    font-size: 16px;
-                }
-
-                #newsletter .form {
-                    width: 100%;
-                    flex-direction: column;
-                    gap: 10px;
-                }
-
-                #newsletter .form input {
-                    border-radius: 4px;
-                    width: 100%;
-                }
-
-                #newsletter .form button {
-                    border-radius: 4px;
-                    width: 100%;
-                    padding: 14px;
                 }
 
                 footer {
@@ -3827,7 +3347,6 @@ footer .copyright {
                 button.normal,
                 button.white,
                 #form-details form button,
-                #newsletter .form button,
                 #cart-add .coupon button,
                 .subtotal button {
                     width: 100%;
@@ -3907,25 +3426,6 @@ footer .copyright {
                     padding: 13px 70px 13px 55px;
                 }
 
-                #feature {
-                    display: grid;
-                    grid-template-columns: repeat(3, 1fr);
-                    gap: 18px;
-                    justify-items: center;
-                }
-
-                #feature .fe-box {
-                    width: 100%;
-                    max-width: 200px;
-                    margin: 16px 0;
-                    margin-top: 50px;
-                    padding: 22px 14px;
-                }
-
-                #feature .fe-box h6 {
-                    font-size: 14px;
-                }
-
                 #product1 .pro-container {
                     display: grid;
                     grid-template-columns: repeat(2, 1fr);
@@ -3956,85 +3456,6 @@ footer .copyright {
                 #banner h2 {
                     font-size: 36px;
                     padding: 8px 0;
-                }
-
-                #sm-banner {
-                    flex-direction: row;
-                    flex-wrap: nowrap;
-                }
-
-                #sm-banner .banner-box {
-                    min-width: 50%;
-                    height: 44vh;
-                    padding: 28px 24px;
-                }
-
-                #sm-banner h4 {
-                    font-size: 26px;
-                }
-
-                #sm-banner h2 {
-                    font-size: 34px;
-                }
-
-                #sm-banner span {
-                    font-size: 20px;
-                }
-
-                #banner3 {
-                    padding: 0 36px;
-                    gap: 16px;
-                    flex-wrap: nowrap;
-                }
-
-                #banner3 .banner-box {
-                    min-width: 0;
-                    flex: 1;
-                    height: 28vh;
-                    min-height: 200px;
-                    margin-bottom: 0;
-                }
-
-                #banner3 h2 {
-                    font-size: 22px;
-                }
-
-                #banner3 h3 {
-                    font-size: 17px;
-                }
-
-                #newsletter {
-                    flex-direction: row;
-                    align-items: center;
-                    flex-wrap: nowrap;
-                    padding: 40px 36px;
-                    gap: 24px;
-                    height: auto;
-                }
-
-                #newsletter h4 {
-                    font-size: 26px;
-                }
-
-                #newsletter p {
-                    font-size: 16px;
-                }
-
-                #newsletter .form {
-                    width: 46%;
-                    flex-shrink: 0;
-                    flex-direction: row;
-                }
-
-                #newsletter .form input {
-                    border-radius: 4px 0 0 4px;
-                }
-
-                #newsletter .form button {
-                    border-radius: 0 4px 4px 0;
-                    white-space: nowrap;
-                    padding: 0 18px;
-                    width: auto;
                 }
 
                 footer {
@@ -4250,21 +3671,8 @@ footer .copyright {
             }
 
             @media (min-width: 900px) and (max-width: 1024px) {
-                #feature {
-                    grid-template-columns: repeat(6, 1fr);
-                }
-
-                #feature .fe-box {
-                    max-width: 160px;
-                    margin-top: 80px;
-                }
-
                 #product1 .pro-container {
                     grid-template-columns: repeat(3, 1fr);
-                }
-
-                #newsletter .form {
-                    width: 42%;
                 }
 
                 footer {
@@ -4295,15 +3703,6 @@ footer .copyright {
                     font-size: 16px;
                 }
 
-                #feature {
-                    grid-template-columns: repeat(2, 1fr);
-                    gap: 12px;
-                }
-
-                #feature .fe-box {
-                    max-width: 100%;
-                }
-
                 #product1 .pro-container {
                     grid-template-columns: 1fr;
                     gap: 16px;
@@ -4328,23 +3727,6 @@ footer .copyright {
                     font-size: 24px;
                 }
 
-                #sm-banner .banner-box {
-                    height: 40vh;
-                    padding: 20px;
-                }
-
-                #sm-banner h4 {
-                    font-size: 22px;
-                }
-
-                #sm-banner h2 {
-                    font-size: 28px;
-                }
-
-                #sm-banner span {
-                    font-size: 18px;
-                }
-
                 #blog {
                     padding: 50px 20px 0;
                 }
@@ -4365,6 +3747,10 @@ footer .copyright {
    ============================================ */
 
             @media (max-width: 477px) {
+                body {
+                    overflow-x: hidden;
+                }
+
                 #header {
                     padding: 10px 16px;
                 }
@@ -4418,20 +3804,6 @@ footer .copyright {
                     margin-top: 8px;
                 }
 
-                #feature {
-                    grid-template-columns: repeat(2, 1fr);
-                    gap: 10px;
-                }
-
-                #feature .fe-box {
-                    padding: 16px 8px;
-                    margin: 0;
-                }
-
-                #feature .fe-box h6 {
-                    font-size: 13px;
-                }
-
                 #product1 .pro {
                     max-width: 100%;
                     margin: 0;
@@ -4452,71 +3824,6 @@ footer .copyright {
                 #banner button {
                     font-size: 13px;
                     padding: 10px 18px;
-                }
-
-                #sm-banner .banner-box {
-                    height: 50vh;
-                    padding: 0 20px;
-                    width: 100%;
-                    margin: 10px;
-                }
-
-                #sm-banner h4 {
-                    font-size: 18px;
-                }
-
-                #sm-banner h2 {
-                    font-size: 22px;
-                }
-
-                #sm-banner span {
-                    font-size: 15px;
-                    padding-bottom: 10px;
-                }
-
-                #banner3 {
-                    padding: 0 16px;
-                    gap: 10px;
-                }
-
-                #banner3 .banner-box {
-                    width: 100%;
-                    margin: 10px;
-                    height: 22vh;
-                    min-height: 160px;
-                }
-
-                #banner3 .banner-box2 {
-                    width: 100%;
-                }
-
-                #banner3 .banner-box3 {
-                    width: 100%;
-                }
-
-                #banner3 h2 {
-                    font-size: 20px;
-                }
-
-                #banner3 h3 {
-                    font-size: 16px;
-                }
-
-                #newsletter {
-                    padding: 30px 16px;
-                    height: auto;
-                }
-
-                #newsletter h4 {
-                    font-size: 20px;
-                }
-
-                #newsletter p {
-                    font-size: 14px;
-                }
-
-                #newsletter .form {
-                    width: 100%;
                 }
 
                 footer {
@@ -4802,6 +4109,15 @@ footer .copyright {
                     height: 30px;
                 }
 
+                #navbar {
+                    width: 85vw;
+                    right: -85vw;
+                }
+
+                #navbar.active {
+                    right: 0;
+                }
+
                 h1 {
                     font-size: 28px;
                     line-height: 32px;
@@ -4818,21 +4134,6 @@ footer .copyright {
 
                 #hero {
                     padding: 0 12px;
-                }
-
-                #feature {
-                    grid-template-columns: repeat(2, 1fr);
-                    gap: 8px;
-                }
-
-                #feature .fe-box {
-                    padding: 12px 6px;
-                }
-
-                #newsletter .form input,
-                #newsletter .form button {
-                    padding: 10px;
-                    font-size: 14px;
                 }
 
                 #form-details {
@@ -4905,34 +4206,6 @@ footer .copyright {
                 #hero p {
                     font-size: 14px !important;
                     margin: 6px 0 14px !important;
-                }
-
-                /* Feature: kill the fixed 180px width */
-                #feature {
-                    display: grid !important;
-                    grid-template-columns: repeat(2, 1fr) !important;
-                    gap: 12px !important;
-                    width: 100% !important;
-                    box-sizing: border-box !important;
-                    padding: 0 !important;
-                }
-
-                #feature .fe-box,
-                #feature>div {
-                    width: 100% !important;
-                    min-width: 0 !important;
-                    max-width: 100% !important;
-                    margin: 0 !important;
-                    padding: 16px 10px !important;
-                    box-sizing: border-box !important;
-                }
-
-                #feature .fe-box img {
-                    width: 56px !important;
-                    height: 56px !important;
-                    object-fit: contain !important;
-                    margin: 0 auto 8px !important;
-                    display: block !important;
                 }
 
                 .section-p1 {
@@ -5025,7 +4298,7 @@ footer .copyright {
             .modal {
                 display: none;
                 position: fixed;
-                z-index: 1000;
+                z-index: 10000;
                 left: 0;
                 top: 0;
                 width: 100%;
@@ -5033,54 +4306,6 @@ footer .copyright {
                 background-color: rgba(0, 0, 0, 0.5);
                 justify-content: center;
                 align-items: center;
-            }
-
-            .modal-content {
-                background-color: var(--bg-primary);
-                padding: 20px;
-                border-radius: 8px;
-                width: 90%;
-                max-width: 400px;
-                text-align: center;
-                position: relative;
-            }
-
-            .close {
-                position: absolute;
-                top: 10px;
-                right: 15px;
-                font-size: 24px;
-                cursor: pointer;
-            }
-
-            .quiz-options {
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-                flex-wrap: wrap;
-                gap: 12px;
-                margin-top: 24px;
-            }
-
-            .quiz-options button {
-                padding: 10px 24px;
-                background-color: var(--bg-secondary);
-                color: var(--text-primary);
-                border: 1.5px solid var(--border-color);
-                border-radius: 30px;
-                font-weight: 600;
-                font-size: 14px;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                box-shadow: 0 2px 8px var(--shadow);
-            }
-
-            .quiz-options button:hover {
-                background-color: var(--accent);
-                color: #ffffff;
-                border-color: var(--accent);
-                transform: translateY(-2px);
-                box-shadow: 0 4px 12px rgba(8, 129, 120, 0.25);
             }
 
             /* ============================================
@@ -5115,12 +4340,6 @@ footer .copyright {
             /* Feature badge text: dark mode needs white text
    because backgrounds are vivid (purple, green, etc.) */
 
-
-            /* Feature box title text in dark mode */
-            [data-theme="dark"] #feature .fe-box img+h6,
-            [data-theme="dark"] #feature .fe-box p {
-                color: var(--text-primary);
-            }
 
             /* Hero section — ensure text is always visible */
             #hero h4,
@@ -5334,14 +4553,6 @@ footer .copyright {
             /* Cart table text */
             [data-theme="dark"] #cart table thead td a i {
                 color: var(--text-primary);
-            }
-
-            /* Feature box name text (the p or span under the image) */
-            #feature .fe-box p,
-            #feature .fe-box span {
-                color: var(--text-secondary);
-                font-size: 14px;
-                margin: 6px 0 0;
             }
 
             /* All section headings always readable */
@@ -6275,11 +5486,11 @@ footer .copyright {
 /* ANTI-GRAVITY */
 @keyframes anti-gravity {0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}} .anti-gravity-active{animation:anti-gravity 3s ease-in-out infinite;will-change:transform} @media (prefers-reduced-motion: reduce){.anti-gravity-active{animation:none;transform:translateY(-4px)}}
 
-/* --- PHASE 2 REFACTOR --- */
-#product1 .pro-container { display: grid !important; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)) !important; gap: 20px !important; }
-#product1 .pro { width: 100% !important; display: flex !important; flex-direction: column !important; justify-content: space-between !important; height: 100% !important; }
-.pro-img-wrap { width: 100% !important; aspect-ratio: 1/1 !important; overflow: hidden !important; }
-.pro-img-wrap img { width: 100% !important; height: 100% !important; object-fit: cover !important; }
+/* --- GRID: equal-height cards --- */
+#product1 .pro-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+#product1 .pro { width: 100%; display: flex; flex-direction: column; height: 100%; min-height: 0; }
+.pro-img-wrap { width: 100%; aspect-ratio: 1/1; overflow: hidden; }
+.pro-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
 /* --- GRID/LIST VIEW --- */
 .view-toggle-container { display: flex; gap: 10px; margin-bottom: 20px; justify-content: flex-end; }
 .view-btn { padding: 8px 12px; border: 1px solid #ccc; background: transparent; cursor: pointer; font-size: 1.2rem; }

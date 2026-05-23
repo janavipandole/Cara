@@ -54,6 +54,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="preload" as="image" href="images/hero4.png" />
+  <link rel="preload" as="image" href="images/banner/b1.png" />
+  <link rel="preload" as="image" href="images/banner/b2.png" />
 
   <!-- Inline Critical CSS -->
   <style>
@@ -112,15 +115,17 @@
               <li><a href="try-on.html">Try-On</a></li>
               <li><a href="community.html">Community</a></li>
               <li><a href="promotions.html">Promotions</a></li>
-              <li>
-                <a href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a>
+              <li class="nav-icon">
+                <a href="cart.html" id="lg-bag" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a>
               </li>
-              <li>
+              <li class="nav-icon">
                 <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
                   <i class="ri-moon-line" id="themeIcon"></i>
                 </button>
               </li>
-              <a href="#" id="close" aria-label="Close menu" aria-hidden="false"><i class="fa-solid fa-xmark"></i></a>
+              <li>
+                <a href="#" id="close" aria-label="Close menu" aria-hidden="false"><i class="fa-solid fa-xmark"></i></a>
+              </li>
             </ul>
           </div>
           <div class="mobile">
@@ -140,7 +145,6 @@
               <h1>On all products</h1>
               <p>Save more with coupons & up to 70% off!</p>
               <a href="shop.html" class="btn-shop-now">Shop Now</a>
-              <button onclick="openQuiz()">Take Style Quiz</button>
             </div>
           </div>
           
@@ -178,35 +182,6 @@
       </div>
     </div>
   </div>
-  <!-- Fix: Added descriptive alt text to all feature images for accessibility.
-     Also fixed typo: 'F24/7 Support' corrected to '24/7 Support' -->
-  <section id="feature" class="section-p1">
-    <div class="fe-box">
-      <img src="images/feature/f1.png" alt="Free Shipping" />
-      <h6>Free Shipping</h6>
-    </div>
-    <div class="fe-box">
-      <img src="images/feature/f2.png" alt="Online Order" />
-      <h6>Online Order</h6>
-    </div>
-    <div class="fe-box">
-      <img src="images/feature/f3.png" alt="Save Money" />
-      <h6>Save Money</h6>
-    </div>
-    <div class="fe-box">
-      <img src="images/feature/f4.png" alt="Promotions" />
-      <h6>Promotions</h6>
-    </div>
-    <div class="fe-box">
-      <img src="images/feature/f5.png" alt="Happy Sell" />
-      <h6>Happy Sell</h6>
-    </div>
-    <div class="fe-box">
-      <img src="images/feature/f6.png" alt="24/7 Support" />
-      <h6>24/7 Support</h6>
-    </div>
-  </section>
-
   <section id="product1" class="section-p1">
     <h2>Featured Product</h2>
     <p>Summer Collection New Modern Design</p>
@@ -501,36 +476,6 @@
     </div>
   </section>
 
-  <section id="sm-banner" class="section-p1">
-    <div class="banner-box">
-      <h4>crazy deals</h4>
-      <h2>buy 1 get 1 free</h2>
-      <span>The best classic dress is on sale at cara</span>
-      <a href="crazy-deals.html"><button class="white">Learn More</button></a>
-    </div>
-    <div class="banner-box banner-box2">
-      <h4>upcoming season</h4>
-      <h2>winter collection</h2>
-      <span>The best classic dress is on sale at Cara</span>
-      <a href="winter-collection.html"><button class="white">Collection</button></a>
-    </div>
-  </section>
-
-
-
-  <!-- Style Quiz Modal -->
-  <div id="quiz-modal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeQuiz()" style="background-color: red; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: medium;">&times;</span>
-      <h2 >What's Your Style ?</h2>
-      <div class="quiz-options">
-        <button onclick="selectStyle('minimal')">Minimal</button>
-        <button onclick="selectStyle('street')">Street</button>
-        <button onclick="selectStyle('formal')">Formal</button>
-      </div>
-    </div>
-  </div>
-
   <!-- Footer -->
   <footer class="main-footer">
     <div class="footer-top">
@@ -614,11 +559,6 @@
 
   <div id="toast-container"></div>
    <button id="topBtn">↑</button>
-<script src="navbar.js"></script>
-<script>
-  loadNavbar();
-</script>
-
 <script src="app.js"></script>  
 </body>
 

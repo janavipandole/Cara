@@ -2,20 +2,32 @@
 document.addEventListener("click", (e) => {
     const bar = e.target.closest("#bar");
     const close = e.target.closest("#close");
+    const nav = document.getElementById("navbar");
 
     if (bar) {
-        const nav = document.getElementById("navbar");
         if (nav) {
             nav.classList.add("active");
         }
+        document.body.classList.add("nav-open");
     }
 
     if (close) {
-        const nav = document.getElementById("navbar");
         if (nav) {
             nav.classList.remove("active");
         }
+        document.body.classList.remove("nav-open");
         e.preventDefault();
+    }
+});
+
+// Close mobile nav on backdrop / overlay click
+document.addEventListener("click", (e) => {
+    const nav = document.getElementById("navbar");
+    if (nav && nav.classList.contains("active")) {
+        if (!nav.contains(e.target) && !e.target.closest("#bar") && !e.target.closest(".mobile")) {
+            nav.classList.remove("active");
+            document.body.classList.remove("nav-open");
+        }
     }
 });
 
@@ -788,36 +800,6 @@ if (ToptobackBtn) {
     });
 }
 
-// Style Quiz Functionality
-window.openQuiz = function () {
-    document.getElementById('quiz-modal').style.display = 'flex';
-}
-
-window.closeQuiz = function () {
-    document.getElementById('quiz-modal').style.display = 'none';
-}
-
-window.selectStyle = function (style) {
-    closeQuiz();
-    const products = document.querySelectorAll('.pro');
-    products.forEach(product => {
-        if (product.getAttribute('data-category') === style) {
-            product.style.display = 'block';
-        } else {
-            product.style.display = 'none';
-        }
-    });
-        // Auto scroll to products section
-    const productSection = document.getElementById('product1');
-
-    if (productSection) {
-        productSection.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-        });
-    }
-    alert(`Showing ${style} style recommendations!`);
-}
 
 /* --- START: BUY NOW FUNCTIONALITY --- */
 window.buyNow = function (productName, productPrice, productImage, quantity, size) {
@@ -978,15 +960,17 @@ function initHeroSlider() {
     const intervalTime = 5000; // 5 seconds
 
     function updateSlider() {
-        // Remove active class from all slides and dots
         slides.forEach(slide => slide.classList.remove('active'));
         dots.forEach(dot => dot.classList.remove('active'));
 
-        // Add active class to current slide and dot
-        slides[currentSlide].classList.add('active');
-        if (dots[currentSlide]) {
-            dots[currentSlide].classList.add('active');
-        }
+        // Separate into next frame to prevent simultaneous opacity transitions
+        // that cause the z-index snap to create a visible flash
+        requestAnimationFrame(() => {
+            slides[currentSlide].classList.add('active');
+            if (dots[currentSlide]) {
+                dots[currentSlide].classList.add('active');
+            }
+        });
     }
 
     function nextSlide() {
