@@ -34,7 +34,8 @@
 }
 
 /* Banner3 — solid white button with dark text for max contrast */
-#banner3 .banner-box button {
+/* Reusable banner button */
+.banner-btn {
     background: rgba(255, 255, 255, 0.92);
     color: #111;
     border: none;
@@ -43,13 +44,17 @@
     padding: 12px 24px;
     border-radius: 6px;
     cursor: pointer;
-    -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
     transition: all 0.3s ease;
-    margin-top: 12px;
     position: relative;
     z-index: 2;
+}
+
+.banner-btn:hover {
+    background: var(--accent);
+    color: #fff;
+    transform: translateY(-2px);
 }
 
 #banner3 .banner-box button:hover {
@@ -60,21 +65,27 @@
 }
 
 /* sm-banner buttons — same treatment */
-#sm-banner .banner-box button {
+/* Reusable banner button */
+.banner-btn {
     background: rgba(255, 255, 255, 0.92);
     color: #111;
     border: none;
     font-weight: 700;
     font-size: 14px;
-    padding: 12px 28px;
+    padding: 12px 24px;
     border-radius: 6px;
     cursor: pointer;
-    -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
     transition: all 0.3s ease;
     position: relative;
     z-index: 2;
+}
+
+.banner-btn:hover {
+    background: var(--accent);
+    color: #fff;
+    transform: translateY(-2px);
 }
 
 #sm-banner .banner-box button:hover {
@@ -1281,7 +1292,7 @@ button.white .ripple-effect {
    ============================================ */
 
 #banner {
-    background-image: url("images/banner/b2.jpg");
+    background-image: url("images/banner/b2.png");
     height: 40vh;
     width: 100%;
     background-size: cover;
@@ -1321,7 +1332,7 @@ button.white .ripple-effect {
 }
 
 #sm-banner .banner-box {
-    background-image: url("images/banner/b17.jpg");
+    background-image: url("images/banner/b18.jpg");
     height: 50vh;
     min-width: 660px;
     background-size: cover;
@@ -1660,19 +1671,6 @@ footer .copyright {
     font-weight: 600;
 }
 
-/* ============================================
-   TARGET 1: SHOP PAGE - SEARCH & FILTER
-   ============================================ */
-#search-filter {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-    padding: 30px 80px;
-    background-color: var(--card-bg);
-    border-bottom: 1px solid var(--border-color);
-}
 
 .search-container {
     position: relative; /* Anchors the floating dropdown */
@@ -2171,15 +2169,7 @@ footer .copyright {
             flex-direction: column;
         }
 
-        #search-filter {
-            flex-direction: column;
-            align-items: stretch;
-            padding: 20px;
-        }
 
-        .search-container {
-            max-width: 100%;
-        }
     }
 
 
@@ -2209,6 +2199,13 @@ footer .copyright {
         flex-basis: 24%;
         cursor: pointer;
     }
+    #MainImg {
+    width: 100%;
+    transition: opacity 0.3s ease-in-out;
+    will-change: opacity;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
 
     #pro-details .single-pro-details {
         width: 50%;
@@ -2243,7 +2240,7 @@ footer .copyright {
 
     #pro-details .single-pro-details button {
         color: #fff;
-        background: #088178;
+        background: #0881362a;
     }
 
     /* ============================================
@@ -8126,7 +8123,7 @@ button.white .ripple-effect {
 }
 
 #sm-banner .banner-box {
-    background-image: url("images/banner/b17.jpg");
+    background-image: url("images/banner/b18.jpg");
     height: 50vh;
     min-width: 660px;
     background-size: cover;
@@ -14885,7 +14882,7 @@ button.white .ripple-effect {
    ============================================ */
 
 #banner {
-    background-image: url("images/banner/b2.jpg");
+    background-image: url("images/banner/b2.png");
     height: 40vh;
     width: 100%;
     background-size: cover;
@@ -14925,7 +14922,7 @@ button.white .ripple-effect {
 }
 
 #sm-banner .banner-box {
-    background-image: url("images/banner/b17.jpg");
+    background-image: url("images/banner/b18.jpg");
     height: 50vh;
     min-width: 660px;
     background-size: cover;
@@ -17838,65 +17835,145 @@ footer .copyright {
                     font-size: 17px;
                 }
 
-                #newsletter {
-                    flex-direction: row;
-                    align-items: center;
-                    flex-wrap: nowrap;
-                    padding: 40px 36px;
-                    gap: 24px;
-                    height: auto;
-                }
+                /* ============================================
+   ISSUE #586
+   Newsletter & Footer Responsiveness Improvements
+   ============================================ */
 
-                #newsletter h4 {
-                    font-size: 26px;
-                }
+#newsletter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    padding: 50px 80px;
+    background-color: #041e42;
+    border-radius: 12px;
+}
 
-                #newsletter p {
-                    font-size: 16px;
-                }
+#newsletter .newstext {
+    flex: 1;
+    min-width: 260px;
+}
 
-                #newsletter .form {
-                    width: 46%;
-                    flex-shrink: 0;
-                    flex-direction: row;
-                }
+#newsletter h4 {
+    font-size: 32px;
+    line-height: 1.3;
+    margin-bottom: 10px;
+}
 
-                #newsletter .form input {
-                    border-radius: 4px 0 0 4px;
-                }
+#newsletter p {
+    font-size: 18px;
+    line-height: 1.6;
+}
 
-                #newsletter .form button {
-                    border-radius: 0 4px 4px 0;
-                    white-space: nowrap;
-                    padding: 0 18px;
-                    width: auto;
-                }
+#newsletter .form {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    max-width: 500px;
+}
 
-                footer {
-                    display: grid;
-                    grid-template-columns: repeat(3, 1fr);
-                    gap: 28px;
-                    padding: 48px 36px 32px;
-                }
+#newsletter .form input {
+    flex: 1;
+    height: 52px;
+    padding: 0 18px;
+    border-radius: 8px;
+    border: none;
+}
 
-                footer .copyright {
-                    grid-column: 1 / -1;
-                    text-align: center;
-                }
+#newsletter .form button {
+    height: 52px;
+    padding: 0 24px;
+    border-radius: 8px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
 
-                footer h4 {
-                    font-size: 17px;
-                    margin-bottom: 14px;
-                }
+#newsletter .form button:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
 
-                footer p {
-                    font-size: 15px;
-                }
+/* Footer Improvements */
 
-                footer a {
-                    font-size: 15px;
-                }
+footer {
+    gap: 30px;
+    padding: 60px 80px 30px;
+}
 
+footer .col {
+    min-width: 200px;
+}
+
+footer h4 {
+    margin-bottom: 18px;
+}
+
+footer p,
+footer a {
+    line-height: 1.7;
+}
+
+/* Mobile Responsiveness */
+
+@media (max-width: 799px) {
+
+    #newsletter {
+        padding: 40px 25px;
+        text-align: center;
+    }
+
+    #newsletter .form {
+        flex-direction: column;
+        max-width: 100%;
+    }
+
+    #newsletter .form button {
+        width: 100%;
+    }
+
+    footer {
+        padding: 40px 25px;
+        gap: 25px;
+    }
+
+    footer .col {
+        width: 100%;
+    }
+}
+
+@media (max-width: 477px) {
+
+    #newsletter h4 {
+        font-size: 24px;
+    }
+
+    #newsletter p {
+        font-size: 15px;
+    }
+
+    #newsletter {
+        padding: 30px 18px;
+    }
+
+    footer {
+        padding: 30px 18px;
+    }
+
+    footer h4 {
+        font-size: 18px;
+    }
+
+    footer p,
+    footer a {
+        font-size: 14px;
+    }
+}
                 #pro-details {
                     flex-direction: row;
                     gap: 32px;
@@ -21993,7 +22070,7 @@ button.white .ripple-effect {
 }
 
 #sm-banner .banner-box {
-    background-image: url("images/banner/b17.jpg");
+    background-image: url("images/banner/b18.jpg");
     height: 50vh;
     min-width: 660px;
     background-size: cover;
@@ -28752,7 +28829,7 @@ button.white .ripple-effect {
    ============================================ */
 
 #banner {
-    background-image: url("images/banner/b2.jpg");
+    background-image: url("images/banner/b2.png");
     height: 40vh;
     width: 100%;
     background-size: cover;
@@ -28792,7 +28869,7 @@ button.white .ripple-effect {
 }
 
 #sm-banner .banner-box {
-    background-image: url("images/banner/b17.jpg");
+    background-image: url("images/banner/b18.jpg");
     height: 50vh;
     min-width: 660px;
     background-size: cover;
@@ -34694,3 +34771,361 @@ button#share-cart-btn:hover {
 }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 .toast-icon { font-size: 16px; }
+/* ============================================
+   IMAGE LOADING OPTIMIZATION
+   ============================================ */
+
+img {
+    max-width: 100%;
+    display: block;
+    transition: opacity 0.3s ease;
+}
+
+/* Smooth rendering */
+#product1 .pro img,
+#banner img,
+#sm-banner img {
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+/* Prevent layout shifting */
+#product1 .pro {
+    overflow: hidden;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* ============================================
+   PRODUCT QUICK-VIEW MODAL AND OVERLAY STYLES
+   ============================================ */
+.pro-img-wrap {
+    position: relative;
+}
+
+/* Quick View Overlay styling */
+.pro-quick-view-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 12px;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.pro:hover .pro-quick-view-overlay {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.pro-quick-view-btn {
+    background: #ffffff;
+    color: #088178;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+    pointer-events: auto;
+}
+
+.pro-quick-view-btn i {
+    font-size: 1.1rem;
+    vertical-align: middle;
+}
+
+.pro-quick-view-btn:hover {
+    transform: scale(1.05);
+    background: #088178;
+    color: #ffffff;
+}
+
+[data-theme="dark"] .pro-quick-view-btn {
+    background: #2a2a2a;
+    color: #ffffff;
+}
+[data-theme="dark"] .pro-quick-view-btn:hover {
+    background: #088178;
+    color: #ffffff;
+}
+
+/* Quick View Modal Container */
+.quickview-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.quickview-modal.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.quickview-content {
+    background: var(--bg-secondary, #ffffff);
+    color: var(--text-primary, #1a1a1a);
+    width: 90%;
+    max-width: 800px;
+    border-radius: 16px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    transform: translateY(20px) scale(0.95);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    max-height: 90vh;
+}
+
+.quickview-modal.active .quickview-content {
+    transform: translateY(0) scale(1);
+}
+
+.quickview-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    color: var(--text-muted, #777);
+    cursor: pointer;
+    background: none;
+    border: none;
+    transition: color 0.2s ease, transform 0.2s ease;
+    z-index: 10;
+}
+
+.quickview-close:hover {
+    color: #d9534f;
+    transform: scale(1.1);
+}
+
+/* Modal layout split */
+.quickview-left {
+    flex: 1;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+[data-theme="dark"] .quickview-left {
+    background: #2a2a2a;
+}
+
+.quickview-left img {
+    max-width: 100%;
+    max-height: 380px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.quickview-right {
+    flex: 1.2;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.quickview-brand {
+    font-size: 0.9rem;
+    color: #088178;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 5px;
+    display: inline-block;
+}
+
+.quickview-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.quickview-stars {
+    color: #ffb800;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    display: flex;
+    gap: 2px;
+}
+
+.quickview-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #088178;
+    margin-bottom: 20px;
+}
+
+/* Form selectors inside quickview */
+.quickview-selects {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.quickview-select-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.quickview-select-wrap label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted, #666);
+}
+
+.quickview-select-wrap select {
+    padding: 10px;
+    border: 1px solid var(--border-color, #e1e1e1);
+    border-radius: 6px;
+    background: var(--bg-primary, #ffffff);
+    color: var(--text-primary, #1a1a1a);
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.quickview-select-wrap select:focus {
+    border-color: #088178;
+}
+
+/* Quantity input inside quickview */
+.quickview-qty-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--border-color, #e1e1e1);
+    border-radius: 6px;
+    width: fit-content;
+    background: var(--bg-primary, #ffffff);
+}
+
+.quickview-qty-btn {
+    background: none;
+    border: none;
+    padding: 10px 14px;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--text-primary);
+    font-weight: 700;
+    transition: color 0.2s;
+}
+
+.quickview-qty-btn:hover {
+    color: #088178;
+}
+
+.quickview-qty-input {
+    width: 40px;
+    text-align: center;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    background: none;
+    color: var(--text-primary);
+    outline: none;
+}
+
+/* Action buttons */
+.quickview-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.quickview-btn {
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s, color 0.2s;
+    border: none;
+    font-size: 0.9rem;
+}
+
+.quickview-btn.cart-btn {
+    background: #088178;
+    color: white;
+    flex: 1;
+}
+
+.quickview-btn.cart-btn:hover {
+    background: #06655e;
+}
+
+.quickview-btn.buy-btn {
+    background: #facc15;
+    color: #1a1a1a;
+    flex: 1;
+}
+
+.quickview-btn.buy-btn:hover {
+    background: #eab308;
+}
+
+.quickview-btn:active {
+    transform: scale(0.98);
+}
+
+/* Responsive Modal */
+@media (max-width: 768px) {
+    .quickview-content {
+        flex-direction: column;
+        max-height: 85vh;
+        overflow-y: auto;
+    }
+    
+    .quickview-left {
+        padding: 15px;
+    }
+    
+    .quickview-left img {
+        max-height: 200px;
+    }
+    
+    .quickview-right {
+        padding: 20px;
+    }
+    
+    .quickview-title {
+        font-size: 1.3rem;
+    }
+}
+
+/* Keep the navbar brand readable on dark backgrounds. */
+[data-theme="dark"] #siteLogo {
+    filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(255, 255, 255, 0.25));
+}
