@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // Mobile menu functionality using event delegation
 document.addEventListener("click", (e) => {
     const bar = e.target.closest("#bar");
@@ -18,6 +19,83 @@ document.addEventListener("click", (e) => {
         e.preventDefault();
     }
 });
+=======
+/* --- START: THEME TOGGLE FUNCTIONALITY --- */
+
+(function () {
+    const themeToggle = document.getElementById('themeToggle');
+    const themeToggleMobile = document.getElementById('themeToggleMobile');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeIconMobile = document.getElementById('themeIconMobile');
+    const html = document.documentElement;
+
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', currentTheme);
+    updateThemeIcon(currentTheme);
+
+    function updateThemeIcon(theme) {
+        console.log('Updating icons to:', theme);
+        const iconClass = theme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
+        if (themeIcon) themeIcon.className = iconClass;
+        if (themeIconMobile) themeIconMobile.className = iconClass;
+
+        // Swap logo based on theme
+        const siteLogo = document.getElementById('siteLogo');
+        if (siteLogo) {
+            siteLogo.src = theme === 'dark' ? 'images/Dlogo.png' : 'images/logo.png';
+        }
+    }
+
+    function toggleTheme() {
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon(newTheme);
+    }
+
+    if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
+    if (themeToggleMobile) themeToggleMobile.addEventListener('click', toggleTheme);
+
+    if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        updateThemeIcon(currentTheme);
+    });
+}
+})();
+
+/* --- END: THEME TOGGLE FUNCTIONALITY --- */
+// Mobile menu functionality
+const bar = document.getElementById("bar");
+const nav = document.getElementById("navbar");
+const close = document.getElementById("close");
+
+function updateAuthUI() {
+    const loginBtn = document.getElementById("login-btn");
+    const loggedInUser = localStorage.getItem("loggedInUser");
+
+    if (!loginBtn) return;
+
+    if (loggedInUser) {
+        loginBtn.style.display = "none";
+    } else {
+        loginBtn.style.display = "block";
+    }
+}
+
+document.addEventListener("DOMContentLoaded", updateAuthUI);
+//hjello guys
+if (bar) {
+    bar.addEventListener("click", () => {
+        nav.classList.add("active");
+    });
+}
+if (close) {
+    close.addEventListener("click", () => {
+        nav.classList.remove("active");
+    });
+}
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
 
 // Dynamic Product Details Logic
 // Global capturing click listener for all product cards (static and dynamic)
@@ -26,7 +104,11 @@ document.addEventListener("click", function (e) {
     if (!proCard) return;
 
     // Ignore clicks on cart icon or buy now button inside the card
+<<<<<<< HEAD
     if (e.target.closest(".cart") || e.target.closest(".buy-now-btn")) return;
+=======
+    if (e.target.closest(".pro-cart-btn") || e.target.closest(".pro-buy-btn")) return;
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
 
     const nameElement = proCard.querySelector("h5");
     const priceElement = proCard.querySelector("h4");
@@ -88,6 +170,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Single Product Image Switching for thumbnails
         const MainImg = document.getElementById("MainImg");
+<<<<<<< HEAD
 const smallImg = document.getElementsByClassName("small-img");
 
 if (MainImg && smallImg) {
@@ -114,6 +197,16 @@ if (MainImg && smallImg) {
         };
     }
 }
+=======
+        const smallImg = document.getElementsByClassName("small-img");
+        if (MainImg && smallImg) {
+            for (let i = 0; i < smallImg.length; i++) {
+                smallImg[i].onclick = function () {
+                    MainImg.src = smallImg[i].src;
+                }
+            }
+        }
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
     }
 });
 
@@ -152,6 +245,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /* --- START: CART FUNCTIONALITY --- */
 
+<<<<<<< HEAD
 // Robust price parser: strips all currency symbols, commas, HTML entities, and whitespace
 function parsePriceString(priceStr) {
     if (typeof priceStr === 'number') return isFinite(priceStr) ? priceStr : 0;
@@ -169,6 +263,8 @@ function formatCurrency(amount) {
     return '₹' + Math.round(num).toLocaleString('en-IN');
 }
 
+=======
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
 // Update cart count badge
 function updateCartCount() {
     const cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
@@ -210,6 +306,7 @@ function handleEmptyCartView() {
 
 function addToCart(productName, productPrice, productImage, quantity, size) {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+<<<<<<< HEAD
     let parsedQty = parseInt(quantity);
     if (isNaN(parsedQty) || parsedQty < 1) parsedQty = 1;
     let item = {
@@ -217,6 +314,13 @@ function addToCart(productName, productPrice, productImage, quantity, size) {
         price: parsePriceString(productPrice),
         image: productImage,
         quantity: parsedQty,
+=======
+    let item = {
+        name: productName,
+        price: parseFloat(productPrice.replace(/[₹$,]/g, '')),
+        image: productImage,
+        quantity: parseInt(quantity),
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
         size: size.replace('Size ', '')
     };
 
@@ -283,6 +387,7 @@ window.updateQty = function (change) {
         let currentValue = parseInt(qtyInput.value);
         if (isNaN(currentValue)) currentValue = 1;
         let newValue = currentValue + change;
+<<<<<<< HEAD
         
         // Clamp quantity between 1 and 99
         if (newValue < 1) newValue = 1;
@@ -300,6 +405,10 @@ window.updateQty = function (change) {
         if (plusBtn) {
             plusBtn.disabled = (newValue >= 99);
         }
+=======
+        if (newValue < 1) newValue = 1;
+        qtyInput.value = newValue;
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
     }
 }
 
@@ -340,7 +449,10 @@ window.loadCart = function () {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
 
     handleEmptyCartView();
+<<<<<<< HEAD
     if (typeof window.loadSavedItems === 'function') window.loadSavedItems();
+=======
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
 
     const itemsContainer = document.getElementById('cart-items-container');
     if (!itemsContainer) return;
@@ -349,10 +461,15 @@ window.loadCart = function () {
     let subtotal = 0;
 
     cart.forEach((item, index) => {
+<<<<<<< HEAD
         // Ensure price is a valid number (defensive: localStorage may have string or NaN)
         const itemPrice = parsePriceString(item.price);
         const itemQty = parseInt(item.quantity) || 1;
         const itemSubtotal = itemPrice * itemQty;
+=======
+        const itemPrice = item.price;
+        const itemSubtotal = itemPrice * item.quantity;
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
         subtotal += itemSubtotal;
 
         // Modern Card Grid Row (Flexbox responsive card)
@@ -370,16 +487,25 @@ window.loadCart = function () {
                 </div>
             </div>
             <div class="cart-item-right">
+<<<<<<< HEAD
                 <div class="cart-item-price">${formatCurrency(itemPrice)}</div>
+=======
+                <div class="cart-item-price">₹${itemPrice.toLocaleString('en-IN')}</div>
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
                 <div class="qty-selector">
                     <button class="qty-btn minus" aria-label="Decrease quantity" onclick="event.stopPropagation(); changeQuantity(${index}, -1)">
                         <i class="ri-subtract-line"></i>
                     </button>
+<<<<<<< HEAD
                     <input type="number" class="qty-input" value="${itemQty}" readonly />
+=======
+                    <input type="number" class="qty-input" value="${item.quantity}" readonly />
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
                     <button class="qty-btn plus" aria-label="Increase quantity" onclick="event.stopPropagation(); changeQuantity(${index}, 1)">
                         <i class="ri-add-line"></i>
                     </button>
                 </div>
+<<<<<<< HEAD
                 <div class="cart-item-subtotal">${formatCurrency(itemSubtotal)}</div>
                 <div class="cart-item-actions" style="display: flex; gap: 8px;">
                     <button class="cart-item-save" aria-label="Save for later" onclick="event.stopPropagation(); saveForLater(${index})" title="Save for Later" style="color: var(--text-secondary); background: none; border: none; font-size: 20px; cursor: pointer;">
@@ -389,6 +515,12 @@ window.loadCart = function () {
                         <i class="ri-delete-bin-line"></i>
                     </button>
                 </div>
+=======
+                <div class="cart-item-subtotal">₹${itemSubtotal.toLocaleString('en-IN')}</div>
+                <button class="cart-item-remove" aria-label="Remove item" onclick="event.stopPropagation(); removeItem(${index})">
+                    <i class="ri-delete-bin-line"></i>
+                </button>
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
             </div>
         `;
         itemsContainer.appendChild(row);
@@ -402,6 +534,7 @@ window.loadCart = function () {
     const discountEl = document.getElementById('summary-discount');
     const totalEl = document.getElementById('summary-total');
 
+<<<<<<< HEAD
         // REMOVE BUTTON
         const removeCell = newRow.insertCell();
         const removeLink = document.createElement('a');
@@ -450,15 +583,33 @@ window.loadCart = function () {
         const subtotalCell = newRow.insertCell();
         subtotalCell.textContent = '$' + subtotal.toFixed(2);
     };
+=======
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
 
     // ✅ TOTAL UPDATE MUST BE HERE (INSIDE FUNCTION, AFTER LOOP)
    const subtotalDisplay = document.querySelector('.subtotal table tr:nth-child(1) td:nth-child(2)');
  const totalDisplay = document.querySelector('.subtotal table tr:nth-child(3) td:nth-child(2) strong');
 
+<<<<<<< HEAD
 
 window.removeItem = function (index) {
     if (subtotalEl) {
         subtotalEl.innerText = formatCurrency(subtotal);
+=======
+if (subtotalDisplay) {
+    subtotalDisplay.innerText =
+        `₹${subtotal.toLocaleString('en-IN')}`;
+}
+
+if (totalDisplay) {
+    totalDisplay.innerText =
+        `₹${subtotal.toLocaleString('en-IN')}`;
+}
+
+window.removeItem = function (index) {
+    if (subtotalEl) {
+        subtotalEl.innerText = `₹${subtotal.toLocaleString('en-IN')}`;
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
     }
 
     // Shipping calculations (free above 3000)
@@ -467,7 +618,11 @@ window.removeItem = function (index) {
         shipping = subtotal >= 3000 ? 0 : 150;
     }
     if (shippingEl) {
+<<<<<<< HEAD
         shippingEl.innerText = shipping === 0 ? 'FREE' : formatCurrency(shipping);
+=======
+        shippingEl.innerText = shipping === 0 ? 'FREE' : `₹${shipping}`;
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
         if (shipping === 0 && subtotal > 0) {
             shippingEl.classList.add('shipping-free');
         } else {
@@ -478,7 +633,11 @@ window.removeItem = function (index) {
     // 18% tax calculation
     const tax = Math.round(subtotal * 0.18);
     if (taxEl) {
+<<<<<<< HEAD
         taxEl.innerText = formatCurrency(tax);
+=======
+        taxEl.innerText = `₹${tax.toLocaleString('en-IN')}`;
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
     }
 
     // Coupon / Discount calculation
@@ -492,7 +651,11 @@ window.removeItem = function (index) {
     if (discountRow && discountEl) {
         if (discount > 0) {
             discountRow.style.display = 'flex';
+<<<<<<< HEAD
             discountEl.innerText = '-' + formatCurrency(discount);
+=======
+            discountEl.innerText = `-₹${discount.toLocaleString('en-IN')}`;
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
         } else {
             discountRow.style.display = 'none';
         }
@@ -501,7 +664,11 @@ window.removeItem = function (index) {
     // Grand total calculation
     const grandTotal = Math.max(0, subtotal + tax + shipping - discount);
     if (totalEl) {
+<<<<<<< HEAD
         totalEl.innerText = formatCurrency(grandTotal);
+=======
+        totalEl.innerText = `₹${grandTotal.toLocaleString('en-IN')}`;
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
     }
 
     // Update promo input field state
@@ -585,6 +752,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* --- END: CART FUNCTIONALITY --- */
 
+<<<<<<< HEAD
 /* --- START: THEME TOGGLE FUNCTIONALITY --- */
 
 (function () {
@@ -660,6 +828,8 @@ document.addEventListener('DOMContentLoaded', () => {
 })();
 
 /* --- END: THEME TOGGLE FUNCTIONALITY --- */
+=======
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
 
 (function () {
     const paginationSection = document.getElementById('pagination');
@@ -767,12 +937,16 @@ document.addEventListener('DOMContentLoaded', () => {
 })();
 
 // Back to Top Button Logic
+<<<<<<< HEAD
 // Back to Top Button Logic
 
+=======
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
 const backToTopBtn = document.getElementById("backToTop");
 const ToptobackBtn = document.getElementById("Toptoback");
 
 if (backToTopBtn && ToptobackBtn) {
+<<<<<<< HEAD
 
     // SHOW BUTTONS ON SCROLL
     window.addEventListener("scroll", () => {
@@ -782,19 +956,56 @@ if (backToTopBtn && ToptobackBtn) {
             backToTopBtn.classList.remove("show");
         } 
         
+=======
+    window.addEventListener("scroll", () => {
+
+    if (!backToTopBtn || !ToptobackBtn) return;
+
+    if (window.scrollY <= 300) {
+        ToptobackBtn.classList.add("show");
+        backToTopBtn.classList.remove("show");
+    } else {
+        backToTopBtn.classList.add("show");
+        ToptobackBtn.classList.remove("show");
+    }
+});
+
+// BACK TO TOP
+if (backToTopBtn) {
+        // SHOW DOWN BUTTON WHEN USER IS NEAR TOP
+        if (window.scrollY <= 300) {
+            ToptobackBtn.classList.add("show");
+            backToTopBtn.classList.remove("show");
+        }
+
+        // SHOW TOP BUTTON AFTER 300PX
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
         else {
             backToTopBtn.classList.add("show");
             ToptobackBtn.classList.remove("show");
         }
+<<<<<<< HEAD
     });
 
     // SCROLL TO TOP
+=======
+    };
+
+    // BACK TO TOP
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
     backToTopBtn.addEventListener("click", () => {
         window.scrollTo({
             top: 0,
             behavior: "smooth"
         });
     });
+<<<<<<< HEAD
+=======
+}
+
+// SCROLL TO BOTTOM
+if (ToptobackBtn) {
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
 
     // SCROLL TO BOTTOM
     ToptobackBtn.addEventListener("click", () => {
@@ -811,9 +1022,13 @@ window.openQuiz = function () {
 }
 
 window.closeQuiz = function () {
+<<<<<<< HEAD
     document.querySelector('.close').addEventListener('click', () => {
     document.getElementById('quiz-modal').style.display = 'none';
 });
+=======
+    document.getElementById('quiz-modal').style.display = 'none';
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
 }
 
 window.selectStyle = function (style) {
@@ -1071,6 +1286,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 /* --- END: CURRENT YEAR FUNCTIONALITY --- */
+<<<<<<< HEAD
 /* --- Sort by Price Logic --- */
 document.addEventListener('DOMContentLoaded', () => {
     const sortMenu = document.getElementById('sort-price');
@@ -2688,3 +2904,15 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 })();
 /* --- END: PRODUCT QUICK-VIEW MODAL FUNCTIONALITY --- */
+=======
+document.addEventListener('DOMContentLoaded', () => {
+  const newsletterForm = document.querySelector('.newsletter-form');
+  if (newsletterForm) {
+    newsletterForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const email = this.querySelector('input[type="email"]').value.trim();
+      if (email) showToast('Thanks for subscribing!', 'success');
+    });
+  }
+});
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377

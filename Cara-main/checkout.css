@@ -37,6 +37,7 @@ body{
   }
 }
 
+<<<<<<< HEAD
 .checkout-header {
   display: flex;
   align-items: center;
@@ -70,6 +71,12 @@ body{
   font-size:32px;
   font-weight:700;
   margin-bottom:0px;
+=======
+.logo{
+  font-size:32px;
+  font-weight:700;
+  margin-bottom:10px;
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
   text-align:center;
 }
 

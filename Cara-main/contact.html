@@ -8,7 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Page Title -->
+<<<<<<< HEAD
     <title>Cara | Contact</title>
+=======
+    <title>Contact Us | Cara — Modern E-Commerce</title>
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
 
     <!-- Favicon -->
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
@@ -27,8 +31,13 @@
     <meta property="og:title" content="Contact Us | Cara — Modern E-Commerce">
     <meta property="og:description"
         content="Reach out to Cara — our team is here to help with any questions or feedback.">
+<<<<<<< HEAD
     <meta property="og:image" content="https://cara-seven-ashen.vercel.app/images/logo.png">
     <meta property="og:url" content="https://cara-seven-ashen.vercel.app/contact">
+=======
+    <meta property="og:image" content="https://example.com/images/preview.jpg">
+    <meta property="og:url" content="https://example.com/contact">
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
     <meta property="og:type" content="website">
 
     <!-- Twitter Card Tags -->
@@ -43,7 +52,11 @@
     />
     <meta
       name="twitter:image"
+<<<<<<< HEAD
       content="https://cara-seven-ashen.vercel.app/images/logo.png"
+=======
+      content="https://example.com/images/preview.jpg"
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
     />
     <meta name="twitter:site" content="@janavipandole" />
 
@@ -62,7 +75,11 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+<<<<<<< HEAD
   
+=======
+  </head>
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
   <style>
 
   
@@ -401,6 +418,7 @@ footer .copyright {
     width: 100%;
   }
 }
+<<<<<<< HEAD
   </style>
 
 /* FIX NAVBAR VISIBILITY */
@@ -516,6 +534,35 @@ footer .copyright {
 
   </div>
 </section>
+=======
+
+#navbar-container {
+  display: block;
+}
+
+@media (max-width: 799px) {
+  #navbar-container {
+    display: none;
+  }
+
+  #navbar-container.active {
+    display: block;
+  }
+}
+
+
+  </style>
+
+  <body>
+    <!-- HEADER -->
+  <section id="header">
+    <a href="index.html">
+      <img src="images/logo.png" alt="" id="siteLogo">
+    </a>
+
+    <!-- Navbar loads here -->
+    <div id="navbar-container"></div>
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
 
     <div class="mobile">
       <button class="theme-toggle" id="themeToggleMobile"
@@ -822,18 +869,43 @@ footer .copyright {
       <!-- Copyright -->
       <div class="copyright">
         <p>
+<<<<<<< HEAD
           © Cara 2026. All rights reserved. |
+=======
+          &copy; Cara <span class="Current-Year"></span>. All rights reserved. |
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
           <a href="license.html" style="color: #088178"> MIT License </a>
         </p>
       </div>
     </footer>
 
+<<<<<<< HEAD
  <!-- Javascript -->
     <script src="navbar.js"></script>
     <script>loadNavbar('contact');</script>
     <script src="app.js"></script>
 <script>
 
+=======
+    <script src="navbar.js"></script>
+    <script>loadNavbar('contact');</script>
+    <script src="app.js"></script>
+    <script src="app.js?v=1779120917212"></script>
+<script>
+
+/* =========================
+   MOBILE NAVBAR TOGGLE
+========================= */
+const bar = document.getElementById("bar");
+const navbar = document.getElementById("navbar-container");
+
+if (bar) {
+  bar.addEventListener("click", () => {
+    navbar.classList.toggle("active");
+  });
+}
+
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
 
 /* =========================
    BACK TO TOP / BOTTOM
@@ -930,11 +1002,14 @@ document.addEventListener("DOMContentLoaded", function () {
 document.querySelector(".Current-Year").textContent = new Date().getFullYear();
 
 </script>
+<<<<<<< HEAD
 <script src="navbar.js"></script>
 
 <script>
   loadNavbar('contact');
 </script>
+=======
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
 </body>
 
 </html>

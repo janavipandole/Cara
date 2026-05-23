@@ -1,4 +1,5 @@
 const products = [
+<<<<<<< HEAD
   {
     id: 1,
     brand: 'Nike',
@@ -143,6 +144,24 @@ const products = [
     rating: 5,
     category: 'minimal',
   },
+=======
+  { id: 1,  brand: "Nike",          name: "Tropical Hibiscus Summer Shirt",   price: 2499, img: "images/products/f1.jpg", rating: 5, category: "street" },
+  { id: 2,  brand: "H&M",           name: "White Palm Leaf Casual Shirt",     price: 1299, img: "images/products/f2.jpg", rating: 5, category: "minimal" },
+  { id: 3,  brand: "Zara",          name: "Vintage Rose Garden Shirt",        price: 3490, img: "images/products/f3.jpg", rating: 5, category: "minimal" },
+  { id: 4,  brand: "Levi's",        name: "Sakura Blossom Floral Shirt",      price: 2799, img: "images/products/f4.jpg", rating: 5, category: "minimal" },
+  { id: 5,  brand: "Puma",          name: "Pink Peony Patterned Shirt",       price: 1999, img: "images/products/f5.jpg", rating: 5, category: "street" },
+  { id: 6,  brand: "Gap",           name: "Dual-Tone Corduroy Shirt",         price: 2299, img: "images/products/f6.jpg", rating: 5, category: "street" },
+  { id: 7,  brand: "Uniqlo",        name: "Embroidered Linen Trousers",       price: 3990, img: "images/products/f7.jpg", rating: 5, category: "street" },
+  { id: 8,  brand: "Mango",         name: "Cat Print Long Sleeve Blouse",     price: 2699, img: "images/products/f8.jpg", rating: 5, category: "minimal" },
+  { id: 9,  brand: "Tommy Hilfiger",name: "Sky Blue Mandarin Collar Shirt",   price: 4499, img: "images/products/n1.jpg", rating: 5, category: "formal" },
+  { id: 10, brand: "Ralph Lauren",  name: "Navy Textured Formal Shirt",       price: 6999, img: "images/products/n2.jpg", rating: 5, category: "formal" },
+  { id: 11, brand: "Calvin Klein",  name: "Classic White Cotton Shirt",       price: 5499, img: "images/products/n3.jpg", rating: 5, category: "formal" },
+  { id: 12, brand: "Zara",          name: "Sandstone Tactical Utility Shirt", price: 3990, img: "images/products/n4.jpg", rating: 5, category: "formal" },
+  { id: 13, brand: "Nike",          name: "Denim Blue Everyday Shirt",        price: 2799, img: "images/products/n5.jpg", rating: 5, category: "minimal" },
+  { id: 14, brand: "Levi's",        name: "Vertical Stripe Chino Shorts",     price: 2499, img: "images/products/n6.jpg", rating: 5, category: "minimal" },
+  { id: 15, brand: "Uniqlo",        name: "Khaki Safari Work Shirt",          price: 3499, img: "images/products/n7.jpg", rating: 5, category: "minimal" },
+  { id: 16, brand: "Puma",          name: "Deep Charcoal Casual Shirt",       price: 1799, img: "images/products/n8.jpg", rating: 5, category: "minimal" },
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
 ];
 
 function renderProducts(containerId, list) {
@@ -151,6 +170,7 @@ function renderProducts(containerId, list) {
   container.innerHTML = '';
 
   if (list.length === 0) {
+<<<<<<< HEAD
     const searchInput = document.getElementById('searchInput');
     const searchTerm = searchInput ? searchInput.value : '';
 
@@ -167,11 +187,22 @@ function renderProducts(containerId, list) {
   }
 
   list.forEach((p) => {
+=======
+    const message = document.createElement('div');
+    message.className = 'no-results-message';
+    message.textContent = 'No products found. Try a different search or category.';
+    container.appendChild(message);
+    return;
+  }
+
+  list.forEach(p => {
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
     // Create product card container
     const card = document.createElement('div');
     card.className = 'pro';
     card.dataset.category = p.category;
     card.addEventListener('click', () => {
+<<<<<<< HEAD
       const selectedProduct = {
         id: p.id,
         name: p.name,
@@ -180,6 +211,8 @@ function renderProducts(containerId, list) {
         image: p.img,
       };
       localStorage.setItem('selectedProduct', JSON.stringify(selectedProduct));
+=======
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
       window.location.href = 'singleProduct.html';
     });
 
@@ -190,6 +223,7 @@ function renderProducts(containerId, list) {
     img.src = p.img;
     img.alt = p.name;
     imgWrap.appendChild(img);
+<<<<<<< HEAD
     // Add ribbon badge for selected products
     const ribbon = document.createElement('div');
     ribbon.className = 'ribbon';
@@ -227,6 +261,8 @@ function renderProducts(containerId, list) {
     qvOverlay.appendChild(qvBtn);
     imgWrap.appendChild(qvOverlay);
 
+=======
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
     card.appendChild(imgWrap);
 
     // ── Description container ──
@@ -316,11 +352,15 @@ function renderSearchSuggestions(query) {
 
   const normalizedQuery = query.trim().toLowerCase();
   const suggestions = products
+<<<<<<< HEAD
     .filter(
       (p) =>
         p.name.toLowerCase().includes(normalizedQuery) ||
         p.brand.toLowerCase().includes(normalizedQuery)
     )
+=======
+    .filter(p => p.name.toLowerCase().includes(normalizedQuery) || p.brand.toLowerCase().includes(normalizedQuery))
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
     .slice(0, 5);
 
   if (suggestions.length === 0) {
@@ -330,7 +370,11 @@ function renderSearchSuggestions(query) {
     return;
   }
 
+<<<<<<< HEAD
   suggestions.forEach((item) => {
+=======
+  suggestions.forEach(item => {
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
     const button = document.createElement('button');
     button.type = 'button';
     button.textContent = `${item.name} — ${item.brand}`;
@@ -355,12 +399,18 @@ function filterProducts() {
   const category = categorySelect ? categorySelect.value : 'all';
   const sortValue = sortSelect ? sortSelect.value : 'default';
 
+<<<<<<< HEAD
   let filteredProducts = products.filter((product) => {
     const matchesCategory = category === 'all' || product.category === category;
     const matchesSearch =
       query === '' ||
       product.name.toLowerCase().includes(query) ||
       product.brand.toLowerCase().includes(query);
+=======
+  let filteredProducts = products.filter(product => {
+    const matchesCategory = category === 'all' || product.category === category;
+    const matchesSearch = query === '' || product.name.toLowerCase().includes(query) || product.brand.toLowerCase().includes(query);
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
     return matchesCategory && matchesSearch;
   });
 
@@ -405,6 +455,7 @@ function attachSearchListeners() {
   }
 }
 
+<<<<<<< HEAD
 // Add to Cart function
 function addToCart(name, price, img, quantity, size) {
   let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
@@ -453,3 +504,11 @@ document.addEventListener('DOMContentLoaded', () => {
   updateSearchSummary(products.length);
   renderSearchSuggestions('');
 });
+=======
+// Initializing the renders
+renderProducts('shop-container', products);
+renderProducts('featured-container', products.slice(0, 4));
+attachSearchListeners();
+updateSearchSummary(products.length);
+renderSearchSuggestions('');
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377

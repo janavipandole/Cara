@@ -92,6 +92,35 @@ Cara is a fully responsive e-commerce website that provides users with a seamles
 <img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="1920" />
 
 ## 🚀 Getting Started
+<<<<<<< HEAD
+=======
+## 📱 Responsive Testing Guide
+
+Before submitting a pull request, contributors should test the project on multiple screen sizes and browsers.
+
+### Recommended Screen Sizes
+- Mobile: 320px - 480px
+- Tablet: 768px - 1024px
+- Desktop: 1440px+
+
+### Recommended Browsers
+- Google Chrome
+- Microsoft Edge
+- Firefox
+
+### Suggested Testing Checklist
+- Verify navbar responsiveness
+- Check image scaling
+- Test button hover animations
+- Ensure no layout overflow exists
+- Verify mobile menu behavior
+- Check responsive product sections
+
+### Useful Tools
+- Chrome DevTools Device Toolbar
+- VS Code Live Server
+- Lighthouse Performance Testing
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
 
 ### Prerequisites
 All you need is a modern web browser and a text editor!
@@ -102,6 +131,7 @@ All you need is a modern web browser and a text editor!
    git clone https://github.com/janavipandole/Cara.git
    cd Cara
    ```
+<<<<<<< HEAD
 
 2. **Install development dependencies**
    ```bash
@@ -133,6 +163,10 @@ npm run format
 ```
 
 3. **Open in browser**
+=======
+   
+2. **Open in browser**
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
    Simply open `index.html` in your web browser:
    - Double-click the `index.html` file, or
    - Right-click and select "Open with" your preferred browser, or
@@ -234,9 +268,46 @@ Cart -
 See the [open issues](https://github.com/janavipandole/Cara/issues) for a full list of proposed features and known issues.
 
 <img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="1920" />
+<<<<<<< HEAD
 
 ## 🤝 Contributing
 
+=======
+## 📱 Responsive Testing Guide
+
+Before submitting a pull request, contributors should test the project on multiple screen sizes and browsers.
+
+### Recommended Screen Sizes
+- Mobile: 320px - 480px
+- Tablet: 768px - 1024px
+- Desktop: 1440px+
+
+### Recommended Browsers
+- Google Chrome
+- Microsoft Edge
+- Firefox
+
+### Suggested Testing Checklist
+- Verify navbar responsiveness
+- Check image scaling
+- Test button hover animations
+- Ensure no layout overflow exists
+- Verify mobile menu behavior
+- Check responsive product sections
+
+### Useful Tools
+- Chrome DevTools Device Toolbar
+- VS Code Live Server
+- Lighthouse Performance Testing
+
+## 🤝 Contributing
+### Contribution Tips
+- Create a separate branch for every issue
+- Keep pull requests focused on one issue only
+- Test UI changes before submitting PRs
+- Avoid modifying unrelated files
+- Write clear commit messages
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
 Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 Please read our [Contributing Guidelines](CONTRIBUTING.md) before submitting a Pull Request.
 

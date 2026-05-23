@@ -8,12 +8,17 @@
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#000000" />
   <title>Delivery Information | Cara — Modern E-Commerce</title>
+<<<<<<< HEAD
   <!-- Favicon -->
   <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+=======
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
 
   <style>
     :root {
@@ -52,7 +57,66 @@
     a { text-decoration: none; color: inherit; }
     ul { list-style: none; }
 
+<<<<<<< HEAD
 
+=======
+    /* ── NAVBAR ── */
+    #navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 60px;
+      background: var(--background-color);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+
+    #navbar .logo img { width: 120px; }
+
+    #navbar ul {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    #navbar ul li a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-color);
+      transition: color 0.2s;
+    }
+
+    #navbar ul li a:hover { color: var(--primary-color); }
+
+    .navbar-icons { display: flex; align-items: center; gap: 18px; }
+
+    .navbar-icons a {
+      font-size: 20px;
+      color: var(--text-color);
+      transition: color 0.2s;
+    }
+
+    .navbar-icons a:hover { color: var(--primary-color); }
+
+    .cart-icon { position: relative; }
+
+    .cart-icon span {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: var(--primary-color);
+      color: #fff;
+      font-size: 10px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
 
     /* ── BACK BUTTON ── */
     .back-btn-wrap { padding: 20px 60px 0; }
@@ -339,6 +403,10 @@
     @media (max-width: 900px) {
       .delivery-cards { grid-template-columns: 1fr 1fr; }
       .footer-top { grid-template-columns: 1fr 1fr; }
+<<<<<<< HEAD
+=======
+      #navbar { padding: 14px 24px; }
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
       .page-hero { padding: 44px 24px 36px; }
       .delivery-section { padding: 0 20px; }
       footer { padding: 40px 24px 20px; }
@@ -348,6 +416,10 @@
     @media (max-width: 600px) {
       .delivery-cards { grid-template-columns: 1fr; }
       .footer-top { grid-template-columns: 1fr; gap: 28px; }
+<<<<<<< HEAD
+=======
+      #navbar ul { display: none; }
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
       .page-hero h2 { font-size: 26px; }
       .shipping-table { font-size: 12px; }
     }
@@ -355,6 +427,7 @@
 </head>
 <body>
 
+<<<<<<< HEAD
   <!-- HEADER -->
   <section id="header">
     <a href="index.html">
@@ -374,6 +447,55 @@
       <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
     </div>
   </section>
+=======
+  <!-- NAVBAR -->
+<nav id="navbar">
+  <!-- Logo -->
+  <div class="logo">
+    <a href="index.html">
+      <img src="images/logo.png" alt="Cara Logo" />
+    </a>
+  </div>
+
+  <!-- Nav Links -->
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+
+  <!-- Right Side Icons -->
+  <div class="navbar-icons">
+
+    <!-- Contact Icon -->
+    <a href="contact.html" class="nav-icon" aria-label="Contact">
+      <i class="fa-solid fa-headset"></i>
+    </a>
+
+    <!-- Login Icon -->
+    <a href="login.html" class="nav-icon" aria-label="Login">
+      <i class="fa-regular fa-user"></i>
+    </a>
+
+    <!-- Cart Icon -->
+    <a href="cart.html" class="cart-icon" aria-label="Cart">
+      <i class="fa-solid fa-bag-shopping"></i>
+      <span>0</span>
+    </a>
+
+    <!-- Theme Toggle -->
+    <button
+      class="theme-toggle"
+      id="themeToggle"
+      aria-label="Toggle dark mode"
+    >
+      <i class="fa-solid fa-moon"></i>
+    </button>
+
+  </div>
+</nav>
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
 
   <!-- BACK BUTTON -->
   <div class="back-btn-wrap">
@@ -550,7 +672,11 @@
         <ul>
           <li><a href="login.html">Sign In</a></li>
           <li><a href="cart.html">View Cart</a></li>
+<<<<<<< HEAD
           <li><a href="#">My Wishlist</a></li>
+=======
+          <li><a href="wishlist.html">My Wishlist</a></li>
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
           <li><a href="cart.html">Track My Order</a></li>
           <li><a href="contact.html">Help</a></li>
         </ul>
@@ -571,7 +697,11 @@
 
     </div>
     <div class="footer-bottom">
+<<<<<<< HEAD
       <p>© Cara 2026. All rights reserved. | <a href="license.html">MIT License</a></p>
+=======
+      <p>© Cara 2025. All rights reserved. | <a href="license.html">MIT License</a></p>
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
     </div>
   </footer>
 
@@ -590,10 +720,13 @@
     });
   </script>
 
+<<<<<<< HEAD
   <script src="navbar.js"></script>
   <script>
     loadNavbar();
   </script>
   <script src="app.js"></script>
+=======
+>>>>>>> f06de213b5f61a3c8e2e7f5533ec6607b29e0377
 </body>
 </html>
