@@ -277,7 +277,37 @@ function renderProducts(containerId, list) {
     return;
   }
 
-  list.forEach((p) => {
+  // 1. Render Skeleton Cards
+  const numSkeletons = Math.min(list.length, 8); // Render up to 8 skeleton cards
+  for (let i = 0; i < numSkeletons; i++) {
+    const skel = document.createElement('div');
+    skel.className = 'skeleton-card';
+    skel.innerHTML = `
+      <div class="skeleton-img skeleton"></div>
+      <div class="des" style="padding: 0;">
+        <div class="skeleton-brand skeleton"></div>
+        <div class="skeleton-title skeleton"></div>
+        <div class="skeleton-stars skeleton"></div>
+        <div class="skeleton-price skeleton"></div>
+        <div class="skeleton-action-bar">
+          <div class="skeleton-buy-btn skeleton"></div>
+          <div class="skeleton-cart-btn skeleton"></div>
+        </div>
+      </div>
+    `;
+    container.appendChild(skel);
+  }
+
+  // Clear previous timeout to avoid overlapping renders (debounce effect)
+  if (container.dataset.renderTimeout) {
+    clearTimeout(Number(container.dataset.renderTimeout));
+  }
+
+  // 2. Render actual products after delay to show the skeleton effect
+  const timeoutId = setTimeout(() => {
+    container.innerHTML = '';
+
+    list.forEach((p) => {
     const card = document.createElement('div');
     card.className = 'pro';
     card.dataset.category = p.category;
@@ -390,7 +420,10 @@ function renderProducts(containerId, list) {
     des.appendChild(actionBar);
     card.appendChild(des);
     container.appendChild(card);
-  });
+    });
+  }, 1000); // 1000ms delay to clearly show the skeleton loading screen
+
+  container.dataset.renderTimeout = timeoutId.toString();
 }
 
 function updateSearchSummary(filteredCount) {
