@@ -92,6 +92,32 @@ Cara is a fully responsive e-commerce website that provides users with a seamles
 <img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="1920" />
 
 ## 🚀 Getting Started
+## 📱 Responsive Testing Guide
+
+Before submitting a pull request, contributors should test the project on multiple screen sizes and browsers.
+
+### Recommended Screen Sizes
+- Mobile: 320px - 480px
+- Tablet: 768px - 1024px
+- Desktop: 1440px+
+
+### Recommended Browsers
+- Google Chrome
+- Microsoft Edge
+- Firefox
+
+### Suggested Testing Checklist
+- Verify navbar responsiveness
+- Check image scaling
+- Test button hover animations
+- Ensure no layout overflow exists
+- Verify mobile menu behavior
+- Check responsive product sections
+
+### Useful Tools
+- Chrome DevTools Device Toolbar
+- VS Code Live Server
+- Lighthouse Performance Testing
 
 ### Prerequisites
 All you need is a modern web browser and a text editor!
@@ -205,9 +231,40 @@ Cart -
 See the [open issues](https://github.com/janavipandole/Cara/issues) for a full list of proposed features and known issues.
 
 <img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="1920" />
+## 📱 Responsive Testing Guide
+
+Before submitting a pull request, contributors should test the project on multiple screen sizes and browsers.
+
+### Recommended Screen Sizes
+- Mobile: 320px - 480px
+- Tablet: 768px - 1024px
+- Desktop: 1440px+
+
+### Recommended Browsers
+- Google Chrome
+- Microsoft Edge
+- Firefox
+
+### Suggested Testing Checklist
+- Verify navbar responsiveness
+- Check image scaling
+- Test button hover animations
+- Ensure no layout overflow exists
+- Verify mobile menu behavior
+- Check responsive product sections
+
+### Useful Tools
+- Chrome DevTools Device Toolbar
+- VS Code Live Server
+- Lighthouse Performance Testing
 
 ## 🤝 Contributing
-
+### Contribution Tips
+- Create a separate branch for every issue
+- Keep pull requests focused on one issue only
+- Test UI changes before submitting PRs
+- Avoid modifying unrelated files
+- Write clear commit messages
 Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 Please read our [Contributing Guidelines](CONTRIBUTING.md) before submitting a Pull Request.
 
