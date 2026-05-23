@@ -51,13 +51,21 @@ const close = document.getElementById("close");
 function updateAuthUI() {
     const loginBtn = document.getElementById("login-btn");
     const loggedInUser = localStorage.getItem("loggedInUser");
+    const logoutBtn = document.getElementById("logout-btn");
 
     if (!loginBtn) return;
 
     if (loggedInUser) {
         loginBtn.style.display = "none";
+         logoutBtn.style.display = "inline-flex";
+           logoutBtn.onclick = function () {
+                localStorage.removeItem("loggedInUser");
+                localStorage.removeItem("appliedCoupon");
+                window.location.href = "login.html";
+             };
     } else {
         loginBtn.style.display = "block";
+        if (logoutBtn) logoutBtn.style.display = "none";
     }
 }
 
@@ -975,3 +983,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+}
