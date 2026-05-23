@@ -1660,19 +1660,6 @@ footer .copyright {
     font-weight: 600;
 }
 
-/* ============================================
-   TARGET 1: SHOP PAGE - SEARCH & FILTER
-   ============================================ */
-#search-filter {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-    padding: 30px 80px;
-    background-color: var(--card-bg);
-    border-bottom: 1px solid var(--border-color);
-}
 
 .search-container {
     position: relative; /* Anchors the floating dropdown */
@@ -2171,15 +2158,7 @@ footer .copyright {
             flex-direction: column;
         }
 
-        #search-filter {
-            flex-direction: column;
-            align-items: stretch;
-            padding: 20px;
-        }
 
-        .search-container {
-            max-width: 100%;
-        }
     }
 
 
