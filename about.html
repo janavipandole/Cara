@@ -71,39 +71,86 @@
       referrerpolicy="no-referrer"
     />
     <style>
+      #scrollTopBtn {
+        position: fixed;
+        bottom: 30px;
+        right: 30px; /* keeps button on right side */
+
+        width: 55px;
+        height: 55px;
+
+        border: none;
+        border-radius: 50%;
+
+        background-color: #088178;
+        color: white;
+
+        font-size: 24px;
+        font-weight: bold;
+
+        cursor: pointer;
+        z-index: 999;
+
+        display: none;
+
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      #scrollTopBtn:hover {
+        background-color: #065f5b;
+        transform: scale(1.1);
+      }
+
+    .about-content{
+    max-width: 500px;
+    padding: 20px;
+}
+
+.about-content h1{
+    font-size: 55px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 25px;
+}
+
+.about-list{
+    list-style: none;
+    padding: 0;
+}
+
+.about-list li{
+    font-size: 22px;
+    color: var(--text-color);
+    margin-bottom: 18px;
+    position: relative;
+    padding-left: 35px;
+    line-height: 1;
+}
+
+.about-list li::before{
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #0a8f7a;
+    font-weight: bold;
+    font-size: 22px;
+}
+.about-highlight{
+    margin-top: 25px;
+    width: 100%;
+    padding: 18px 22px;
+    background: #f5f5f5;
+    border-left: 4px solid #0a8f7a;
+    color: #444;
+    font-size: 17px;
+    line-height: 1.7;
+    border-radius: 8px;
+}
+    </style>
 
     
-#scrollTopBtn {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;   /* keeps button on right side */
-
-  width: 55px;
-  height: 55px;
-
-  border: none;
-  border-radius: 50%;
-
-  background-color: #088178;
-  color: white;
-
-  font-size: 24px;
-  font-weight: bold;
-
-  cursor: pointer;
-  z-index: 999;
-
-  display: none;
-
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  transition: all 0.3s ease;
-}
-
-#scrollTopBtn:hover {
-  background-color: #065f5b;
-  transform: scale(1.1);
-}
-</style>
   </head>
 
   <body>
@@ -114,88 +161,79 @@
     <img src="images/logo.png" alt="Cara Logo" />
   </a>
 
-  <div>
-    <ul id="navbar">
+      <div>
+        <ul id="navbar">
+          <!-- Main Navigation Links -->
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a class="active" href="about.html">About</a></li>
+          <li><a href="try-on.html">Try-On</a></li>
+          <li><a href="community.html">Community</a></li>
+          <li><a href="promotions.html">Promotions</a></li>
 
-      <!-- Main Navigation Links -->
-      <li><a href="index.html">Home</a></li>
-      <li><a href="shop.html">Shop</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a class="active" href="about.html">About</a></li>
-      <li><a href="try-on.html">Try-On</a></li>
-      <li><a href="community.html">Community</a></li>
-      <li><a href="promotions.html">Promotions</a></li>
+          <!-- Contact Icon -->
+          <li class="nav-icon">
+            <a href="contact.html" aria-label="Contact">
+              <i class="ri-customer-service-2-line"></i>
+            </a>
+          </li>
 
-      <!-- Contact Icon -->
-      <li class="nav-icon">
-        <a href="contact.html" aria-label="Contact">
-          <i class="ri-customer-service-2-line"></i>
-        </a>
-      </li>
+          <!-- Login Icon -->
+          <li class="nav-icon">
+            <a href="login.html" aria-label="Login">
+              <i class="ri-user-3-line"></i>
+            </a>
+          </li>
 
-      <!-- Login Icon -->
-      <li class="nav-icon">
+          <!-- Cart Icon -->
+          <li class="nav-icon">
+            <a href="cart.html" id="lg-bag" aria-label="Cart">
+              <i class="ri-shopping-bag-4-line"></i>
+            </a>
+          </li>
+
+          <!-- Theme Toggle -->
+          <li class="nav-icon">
+            <button
+              class="theme-toggle"
+              id="themeToggle"
+              aria-label="Toggle dark mode"
+            >
+              <i class="ri-moon-line" id="themeIcon"></i>
+            </button>
+          </li>
+
+          <!-- Close Button -->
+          <a href="#" id="close" aria-label="Close menu" aria-hidden="false">
+            <i class="fa-solid fa-xmark"></i>
+          </a>
+        </ul>
+      </div>
+
+      <!-- Mobile Navbar -->
+      <div class="mobile">
+        <!-- Login Icon -->
         <a href="login.html" aria-label="Login">
           <i class="ri-user-3-line"></i>
         </a>
-      </li>
 
-      <!-- Cart Icon -->
-      <li class="nav-icon">
-        <a href="cart.html" id="lg-bag" aria-label="Cart">
+        <!-- Cart Icon -->
+        <a href="cart.html" aria-label="Cart">
           <i class="ri-shopping-bag-4-line"></i>
         </a>
-      </li>
 
-      <!-- Theme Toggle -->
-      <li class="nav-icon">
-        <button
-          class="theme-toggle"
-          id="themeToggle"
-          aria-label="Toggle dark mode"
-        >
-          <i class="ri-moon-line" id="themeIcon"></i>
-        </button>
-      </li>
-
-      <!-- Close Button -->
-      <a
-        href="#"
-        id="close"
-        aria-label="Close menu"
-        aria-hidden="false"
-      >
-        <i class="fa-solid fa-xmark"></i>
-      </a>
-
-    </ul>
-  </div>
-
-  <!-- Mobile Navbar -->
-  <div class="mobile">
-
-    <!-- Login Icon -->
-    <a href="login.html" aria-label="Login">
-      <i class="ri-user-3-line"></i>
-    </a>
-
-    <!-- Cart Icon -->
-    <a href="cart.html" aria-label="Cart">
-      <i class="ri-shopping-bag-4-line"></i>
-    </a>
-
-    <!-- Hamburger Menu -->
-    <i
-      class="fas fa-outdent"
-      id="bar"
-      role="button"
-      aria-label="Open menu"
-      aria-expanded="false"
-      tabindex="0"
-    ></i>
-
-  </div>
-</section>
+        <!-- Hamburger Menu -->
+        <i
+          class="fas fa-outdent"
+          id="bar"
+          role="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+          tabindex="0"
+        ></i>
+      </div>
+    </section>
     <section id="about-head">
       <h2>#KnowUs</h2>
       <p>Read all case studies about Us!</p>
@@ -203,29 +241,21 @@
 
     <section id="about-us" class="section-p1">
       <img src="images/about/a6.jpg" alt="" />
-      <div>
+      <div class="about-content">
         <h2>Who We Are</h2>
         <p>
-          Cara is a modern and user-friendly web platform designed to deliver a
-          smooth, responsive, and visually engaging digital experience for users
-          across all devices. Our focus is on combining clean design, fast
-          performance, and interactive functionality to create a seamless
-          browsing experience that feels both modern and reliable. We believe
-          that great web applications should not only look attractive but also
-          provide simplicity, accessibility, and ease of use for everyone. Every
-          section of this platform is carefully crafted with attention to
-          detail, ensuring better usability, elegant design structure, and
-          improved user interaction. Our goal is to continuously innovate and
-          build meaningful digital experiences that connect creativity with
-          technology in the most effective way possible. At Cara, we are
-          committed to delivering quality, performance, and a modern web
-          experience that users can enjoy with confidence.
+                  <ul class="about-list">
+                    <li>Modern and responsive design</li>
+                    <li>Smooth user-friendly experience</li>
+                    <li>Optimized performance on all devices</li>
+                    <li>Clean and elegant interface</li>
+                    <li>Built with creativity and innovation</li>
+                    <li>Reliable, accessible, and easy to use</li>
+                  </ul>
         </p>
-
-        <abbr title=""
-          >Create stunning images with as much or as little control as you like
-          thanks to a choice of Basic and Creative modes.</abbr
-        >
+        <p class="about-highlight">
+            Delivering modern digital experiences with clean design, fast performance, and seamless usability.
+        </p>
         <br /><br />
         <marquee loop="-1" scollamount="5" width="100%">
           Create stunning images with as much or as little control as you like
@@ -248,51 +278,93 @@
         </div>
 
         <div class="sub-card card-l1">
-          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-               <div class="icon">🛒</div>
-               <h3>Free Shipping</h3>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              margin-bottom: 8px;
+            "
+          >
+            <div class="icon">🛒</div>
+            <h3>Free Shipping</h3>
           </div>
           <p>On all standard regional custom retail updates.</p>
         </div>
 
         <div class="sub-card card-l2">
-        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-             <div class="icon">👤</div>
-             <h3>Online Order</h3>
-        </div>
-        <p>Quick dynamic electronic checkout confirmation system.</p>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              margin-bottom: 8px;
+            "
+          >
+            <div class="icon">👤</div>
+            <h3>Online Order</h3>
+          </div>
+          <p>Quick dynamic electronic checkout confirmation system.</p>
         </div>
 
         <div class="sub-card card-l3">
-        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              margin-bottom: 8px;
+            "
+          >
             <div class="icon">⚙️</div>
             <h3>Save Money</h3>
-        </div>
-        <p>Incentive cashback loops on every wholesale purchase.</p>
+          </div>
+          <p>Incentive cashback loops on every wholesale purchase.</p>
         </div>
 
         <div class="sub-card card-r1">
-        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              margin-bottom: 8px;
+            "
+          >
             <div class="icon">⭐</div>
             <h3>Promotions</h3>
-        </div>
-        <p>Unlock seasonal drops & holiday campaign vouchers.</p>
+          </div>
+          <p>Unlock seasonal drops & holiday campaign vouchers.</p>
         </div>
 
         <div class="sub-card card-r2">
-        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              margin-bottom: 8px;
+            "
+          >
             <div class="icon">🚀</div>
             <h3>Happy Sell</h3>
-        </div>
-        <p>Premium matching customer success feedback loops.</p>
+          </div>
+          <p>Premium matching customer success feedback loops.</p>
         </div>
 
         <div class="sub-card card-r3">
-        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              margin-bottom: 8px;
+            "
+          >
             <div class="icon">🌍</div>
             <h3>24/7 Support</h3>
-        </div>
-        <p>Global infrastructure desk agents always responsive.</p>
+          </div>
+          <p>Global infrastructure desk agents always responsive.</p>
         </div>
       </div>
     </section>
@@ -448,34 +520,38 @@
         </p>
       </div>
     </footer>
-          <button id="scrollTopBtn" title="Go to top" width="120px" height="120px">
-  ↑
-</button>
+    <button id="scrollTopBtn" title="Go to top" width="120px" height="120px">
+      ↑
+    </button>
 
     <script src="navbar.js"></script>
-    <script>loadNavbar('about');</script>
-    <script src="app.js"></script>
     <script>
-        const yearEl = document.getElementById("Current-Year");
-        if (yearEl) yearEl.textContent = new Date().getFullYear();
+      loadNavbar('about');
+    </script>
+
+    <script src="app.js"></script>
+
+    <script>
+      document.querySelector('.Current-Year').textContent =
+        new Date().getFullYear();
     </script>
     <script>
-  const scrollBtn = document.getElementById("scrollTopBtn");
+      const scrollBtn = document.getElementById('scrollTopBtn');
 
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 300) {
-      scrollBtn.style.display = "block";
-    } else {
-      scrollBtn.style.display = "none";
-    }
-  });
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+          scrollBtn.style.display = 'block';
+        } else {
+          scrollBtn.style.display = 'none';
+        }
+      });
 
-  scrollBtn.addEventListener("click", () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-  });
-</script>
+      scrollBtn.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+      });
+    </script>
   </body>
 </html>

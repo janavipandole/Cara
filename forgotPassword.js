@@ -1,6 +1,9 @@
 /* ===== FORGOT PASSWORD JS ===== */
 
 /* toggle new password visibility */
+const form = document.getElementById('forgotForm');
+if (!form) return;
+
 document.getElementById('toggleNewPass').addEventListener('click', function () {
   const pwd = document.getElementById('forgotNewPass');
   pwd.type = pwd.type === 'password' ? 'text' : 'password';
@@ -17,7 +20,7 @@ document.getElementById('toggleConfirmPass').addEventListener('click', function 
 });
 
 /* form submit */
-document.getElementById('forgotForm').addEventListener('submit', function (e) {
+form.addEventListener('submit', function (e) {
   e.preventDefault();
 
   const email       = document.getElementById('forgotEmail').value.trim();
@@ -75,4 +78,4 @@ document.getElementById('forgotForm').addEventListener('submit', function (e) {
     }, 2000);
   }, 1500);
 });
-
+
