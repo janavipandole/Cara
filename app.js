@@ -253,12 +253,27 @@ function showToast(message, type) {
 
     // Build toast element
     var toast = document.createElement('div');
-    toast.className = 'toast toast-' + type;
-    toast.innerHTML =
-        '<i class="fa-solid ' + (icons[type] || icons.success) + ' toast-icon"></i>' +
-        '<span class="toast-msg">' + message + '</span>' +
-        '<button class="toast-close" aria-label="Close notification">&times;</button>' +
-        '<div class="toast-progress"></div>';
+     toast.className = 'toast toast-' + type;
+
+    var icon = document.createElement('i');
+     icon.className = 'fa-solid ' + (icons[type] || icons.success) + ' toast-icon';
+
+    var msg = document.createElement('span');
+     msg.className = 'toast-msg';
+     msg.textContent = message; // ✅ safe — no HTML injection
+
+    var closeBtn = document.createElement('button');
+     closeBtn.className = 'toast-close';
+     closeBtn.setAttribute('aria-label', 'Close notification');
+     closeBtn.textContent = '×';
+
+    var progress = document.createElement('div');
+     progress.className = 'toast-progress';
+
+     toast.appendChild(icon);
+     toast.appendChild(msg);
+     toast.appendChild(closeBtn);
+     toast.appendChild(progress);
 
     // Close button handler
     toast.querySelector('.toast-close').addEventListener('click', function() {
