@@ -183,3 +183,25 @@
     font-size: 26px;
   }
 }
+/* ERROR MESSAGE */
+.error-message {
+    color: red;
+    font-size: 13px;
+    margin-top: 5px;
+    display: block;
+}
+
+/* ERROR INPUT */
+.error {
+    border: 2px solid red !important;
+}
+
+/* SUCCESS INPUT */
+.success {
+    border: 2px solid green !important;
+}
+
+/* SMOOTH EFFECT */
+input {
+    transition: 0.3s ease;
+}

@@ -57,7 +57,7 @@
     <h2>Welcome Back!</h2>
     <p class="subtitle">Please enter your details to sign in</p>
     
-    <form id="loginForm" class="login-form" novalidate>
+    <!-- <form id="loginForm" class="login-form" novalidate>
         <div class="input-group">
             <label for="loginEmail">Email Address</label>
             <input type="email" id="loginEmail" class="input-field" placeholder="example@domain.com" required>
@@ -80,7 +80,53 @@
         </div>
         
         <button type="submit" class="login-btn"><span>Sign In</span></button>
-    </form>
+    </form> -->
+    <form id="loginForm" class="login-form" novalidate>
+
+    <div class="input-group">
+        <label for="loginEmail">Email Address</label>
+        <input 
+            type="email" 
+            id="loginEmail" 
+            class="input-field" 
+            placeholder="example@domain.com" 
+            required
+        >
+        <small class="error-message"></small>
+    </div>
+
+    <div class="input-group password-group">
+        <label for="loginPassword">Password</label>
+
+        <input 
+            type="password" 
+            id="loginPassword" 
+            class="input-field" 
+            placeholder="••••••••" 
+            required
+        >
+
+        <button type="button" id="togglePassword" class="toggle_password">
+            <i class="ri-eye-line"></i>
+        </button>
+
+        <small class="error-message"></small>
+    </div>
+
+    <div class="remember-forgot">
+        <div class="remember">
+            <input type="checkbox" id="rememberMe">
+            <label for="rememberMe">Remember me</label>
+        </div>
+
+        <a href="forgotPassword.html" class="forgot">Forgot Password?</a>
+    </div>
+
+    <button type="submit" class="login-btn">
+        <span>Sign In</span>
+    </button>
+
+</form>
     
     <div class="signup-link">
         Don't have an account? <a href="register.html">Register</a>
