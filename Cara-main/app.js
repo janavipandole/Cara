@@ -397,65 +397,19 @@ window.loadCart = function () {
     const discountEl = document.getElementById('summary-discount');
     const totalEl = document.getElementById('summary-total');
 
-        // REMOVE BUTTON
-        const removeCell = newRow.insertCell();
-        const removeLink = document.createElement('a');
-        removeLink.href = '#';
-        removeLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            removeItem(index);
-        });
-        const removeIcon = document.createElement('i');
-        removeIcon.className = 'fa-regular fa-circle-xmark';
-        removeLink.appendChild(removeIcon);
-        removeCell.appendChild(removeLink);
-
-        // IMAGE
-        const imgCell = newRow.insertCell();
-        const img = document.createElement('img');
-        img.src = item.image;
-        img.alt = item.name;
-        imgCell.appendChild(img);
-
-        // NAME
-        const nameCell = newRow.insertCell();
-        nameCell.textContent = item.name;
-
-        const sizeSmall = document.createElement('small');
-        sizeSmall.textContent = 'Size: ' + item.size;
-        nameCell.appendChild(document.createElement('br'));
-        nameCell.appendChild(sizeSmall);
-
-        // PRICE
-        const priceCell = newRow.insertCell();
-        priceCell.textContent = '$' + itemPrice.toFixed(2);
-
-        // QTY
-        const qtyCell = newRow.insertCell();
-        const qtyInput = document.createElement('input');
-        qtyInput.type = 'number';
-        qtyInput.value = item.quantity;
-        qtyInput.min = 1;
-        qtyInput.addEventListener('change', function () {
-            updateQuantity(index, this.value);
-        });
-        qtyCell.appendChild(qtyInput);
-
-        // SUBTOTAL
-        const subtotalCell = newRow.insertCell();
-        subtotalCell.textContent = '$' + subtotal.toFixed(2);
-    };
 
     // ✅ TOTAL UPDATE MUST BE HERE (INSIDE FUNCTION, AFTER LOOP)
    const subtotalDisplay = document.querySelector('.subtotal table tr:nth-child(1) td:nth-child(2)');
  const totalDisplay = document.querySelector('.subtotal table tr:nth-child(3) td:nth-child(2) strong');
 
 if (subtotalDisplay) {
-    subtotalDisplay.innerText = `$${total.toFixed(2)}`;
+    subtotalDisplay.innerText =
+        `₹${subtotal.toLocaleString('en-IN')}`;
 }
 
 if (totalDisplay) {
-    totalDisplay.innerText = `$${total.toFixed(2)}`;
+    totalDisplay.innerText =
+        `₹${subtotal.toLocaleString('en-IN')}`;
 }
 
 window.removeItem = function (index) {
@@ -1011,34 +965,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 /* --- END: CURRENT YEAR FUNCTIONALITY --- */
-/* --- Sort by Price Logic --- */
-document.addEventListener('DOMContentLoaded', () => {
-    const sortMenu = document.getElementById('sort-price');
-    const proContainer = document.querySelector('.pro-container');
-
-    if (sortMenu && proContainer) {
-        const originalProducts = Array.from(proContainer.querySelectorAll('.pro'));
-        sortMenu.addEventListener('change', (e) => {
-            const sortValue = e.target.value;
-            let productsToAppend;
-
-            if (sortValue === 'default') {
-                productsToAppend = originalProducts;
-            } else {
-                productsToAppend = [...originalProducts].sort((a, b) => {
-                    const priceA = parseFloat(a.querySelector('h4').innerText.replace(/[₹$,]/g, '').trim());
-                    const priceB = parseFloat(b.querySelector('h4').innerText.replace(/[₹$,]/g, '').trim());
-
-                    if (sortValue === 'low-high') return priceA - priceB;
-                    if (sortValue === 'high-low') return priceB - priceA;
-                });
-            }
-            productsToAppend.forEach(product => {
-                proContainer.appendChild(product);
-            });
-        });
-    }
-});
 document.addEventListener('DOMContentLoaded', () => {
   const newsletterForm = document.querySelector('.newsletter-form');
   if (newsletterForm) {

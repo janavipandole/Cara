@@ -1,0 +1,426 @@
+/* Advanced filter styling for Cara-main/shop.html */
+#advanced-filter-bar {
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border-color);
+  padding: 22px 24px 18px;
+  margin: 0;
+}
+
+/* Ensure the filter bar sits below the fixed header and remains visible on scroll */
+#advanced-filter-bar {
+  /* fallback spacing for tall headers */
+  margin-top: 0;
+  position: sticky;
+  top: 72px; /* sits right beneath the fixed header */
+  z-index: 998; /* just below header (999) but above content */
+  background: var(--card-bg);
+}
+
+#advanced-filter-bar .afb-toprow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 18px;
+  align-items: center;
+}
+
+.afb-result-count {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.afb-result-count span {
+  vertical-align: middle;
+}
+
+.afb-result-count #afb-count-num {
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-right: 0.35rem;
+}
+
+.afb-sort-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+.afb-sort-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  background: var(--input-bg);
+}
+
+.afb-sort-wrap select {
+  border: none;
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  min-width: 11rem;
+  appearance: none;
+  padding-right: 1.5rem;
+}
+
+.afb-sort-icon,
+.afb-chevron {
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+.afb-view-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.afb-view-btn {
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background: var(--body-bg);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.afb-view-btn.active,
+.afb-view-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(8, 129, 120, 0.08);
+}
+
+.afb-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  background: var(--body-bg);
+  color: var(--text-primary);
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.afb-toggle-btn i {
+  font-size: 1.35rem;
+}
+
+.afb-toggle-btn:hover,
+.afb-toggle-btn[aria-expanded="true"] {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(8, 129, 120, 0.08);
+}
+
+.afb-active-badge {
+  display: inline-flex;
+  height: 1.5rem;
+  min-width: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.45rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.8rem;
+}
+
+.afb-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 12px 0;
+}
+
+/* Search row input styling */
+.afb-search-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 680px;
+}
+
+.afb-search-input {
+  flex: 1 1 auto;
+  padding: 12px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border-color);
+  background: var(--input-bg);
+  color: var(--text-primary);
+  font-size: 1rem;
+  outline: none;
+}
+
+.afb-search-input::placeholder {
+  color: var(--text-secondary);
+  opacity: 1;
+}
+
+.afb-panel {
+  display: none;
+  padding: 18px 0 0;
+  overflow: hidden;
+}
+
+.afb-panel[aria-hidden="false"] {
+  display: block;
+}
+
+.afb-panel-inner {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.afb-group {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.afb-group-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.9rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.afb-price-display {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.afb-range-wrap {
+  position: relative;
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.afb-range-track {
+  position: relative;
+  height: 12px;
+  background: var(--input-bg);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.afb-range-fill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(8,129,120,0.2), rgba(8,129,120,0.4));
+}
+
+.afb-range {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: transparent;
+  pointer-events: all;
+  accent-color: var(--accent);
+  z-index: 2;
+}
+
+/* Remove browser default track visuals to avoid stray blue markers */
+.afb-range::-webkit-slider-runnable-track {
+  height: 12px;
+  background: transparent;
+}
+.afb-range::-moz-range-track {
+  height: 12px;
+  background: transparent;
+}
+
+/* Styled thumbs (WebKit and Firefox) */
+.afb-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 4px rgba(8, 129, 120, 0.15);
+}
+.afb-range::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 4px rgba(8, 129, 120, 0.15);
+}
+
+/* Prevent default focus outline bubbling into visible blue dots */
+.afb-range:focus {
+  outline: none;
+}
+
+.afb-pill-group,
+.afb-check-group,
+.afb-rating-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.afb-pill,
+.afb-check,
+.afb-star-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid var(--border-color);
+  background: var(--input-bg);
+  color: var(--text-primary);
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.afb-pill.active,
+.afb-check.active,
+.afb-star-btn.active {
+  border-color: transparent;
+  background: var(--accent);
+  color: #fff;
+}
+
+.afb-pill input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+}
+
+.afb-check input {
+  position: absolute;
+  opacity: 0;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  pointer-events: auto;
+  z-index: 1;
+}
+
+.afb-pill {
+  position: relative;
+}
+
+.afb-check {
+  position: relative;
+  padding-left: 0;
+  min-width: 6rem;
+}
+
+.afb-rating-group {
+  align-items: center;
+}
+
+.afb-star-btn {
+  min-width: 3rem;
+  justify-content: center;
+  gap: 0.35rem;
+}
+
+.afb-star-btn i {
+  color: #f4b400;
+}
+
+.afb-panel-actions {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+.afb-clear-btn,
+.afb-apply-btn {
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  padding: 0.9rem 1.1rem;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.afb-clear-btn {
+  background: transparent;
+  color: var(--text-primary);
+}
+
+.afb-apply-btn {
+  background: var(--accent);
+  color: #fff;
+  border-color: transparent;
+}
+
+@media (max-width: 900px) {
+  #advanced-filter-bar {
+    padding: 18px 16px 14px;
+    margin-top: 64px;
+  }
+
+  #advanced-filter-bar .afb-toprow {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .afb-sort-group {
+    justify-content: space-between;
+  }
+
+  .afb-panel-inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .afb-sort-wrap,
+  .afb-toggle-btn {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .afb-panel-actions {
+    justify-content: stretch;
+  }
+
+  .afb-clear-btn,
+  .afb-apply-btn {
+    width: 100%;
+  }
+
+  /* smaller header on very small screens */
+  #advanced-filter-bar {
+    margin-top: 56px;
+  }
+}
