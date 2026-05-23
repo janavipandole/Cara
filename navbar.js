@@ -16,6 +16,7 @@ function loadNavbar() {
     'promotions.html': 'promotions',
     'login.html': 'login',
   };
+  
 
   const activePage = activeMap[currentPage];
 
