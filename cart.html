@@ -9,6 +9,7 @@
     <meta name="keywords" content="e-commerce, shopping, online store, dark mode, buy online, latest fashion" />
     <meta name="author" content="Cara" />
     <meta name="robots" content="index, follow" />
+    <meta http-equiv="Content-Language" content="en" />
     <meta property="og:title" content="E-commerce - Dark Theme Working" />
     <meta property="og:description" content="Shop the latest trends with our dark mode-enabled e-commerce experience." />
     <meta property="og:image" content="https://cara-seven-ashen.vercel.app/images/logo.png" />
@@ -72,7 +73,7 @@
             </button>
           </li>
 
-          <a href="#" id="close" aria-label="Close menu">
+          <a href="#" id="close" aria-label="Close menu" aria-hidden="false">
             <i class="fa-solid fa-xmark"></i>
           </a>
         </ul>
@@ -120,7 +121,6 @@
               <!--
                 EMPTY CART STATE
                 app.js's handleEmptyCartView() looks for id="empty-cart-container"
-                We use that ID here so the existing app.js logic works without changes.
               -->
               <div class="empty-cart-view" id="empty-cart-container" style="display:none;">
                 <div class="empty-cart-card">
@@ -218,6 +218,14 @@
           </div>
         </section>
         <!-- /GRID -->
+
+        <!-- ============ SAVED FOR LATER (from incoming branch) ============ -->
+        <section id="saved-items-section" class="section-p1" style="display: none;">
+          <h3>Saved for Later</h3>
+          <p>Items you've saved to buy later</p>
+          <div id="saved-items-container"></div>
+        </section>
+        <!-- /SAVED FOR LATER -->
 
 
         <!-- ============ FOOTER ============ -->
