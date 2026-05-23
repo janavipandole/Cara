@@ -190,6 +190,43 @@ function renderProducts(containerId, list) {
     img.src = p.img;
     img.alt = p.name;
     imgWrap.appendChild(img);
+    // Add ribbon badge for selected products
+    const ribbon = document.createElement('div');
+    ribbon.className = 'ribbon';
+    // Simple logic: first product gets "Sale", second gets "New"
+    if (p.id === 1) {
+      ribbon.textContent = 'Sale';
+    } else if (p.id === 2) {
+      ribbon.textContent = 'New';
+    } else {
+      // No ribbon for other items
+      ribbon.style.display = 'none';
+    }
+    imgWrap.appendChild(ribbon);
+
+    // Quick View Overlay inside imgWrap
+    const qvOverlay = document.createElement('div');
+    qvOverlay.className = 'pro-quick-view-overlay';
+    const qvBtn = document.createElement('button');
+    qvBtn.className = 'pro-quick-view-btn';
+    qvBtn.type = 'button';
+    qvBtn.innerHTML = '<i class="ri-eye-line"></i> Quick View';
+    qvBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      if (typeof window.openQuickViewModal === 'function') {
+        window.openQuickViewModal({
+          name: p.name,
+          price: '₹' + p.price,
+          brand: p.brand,
+          img: p.img,
+          rating: p.rating
+        });
+      }
+    });
+    qvOverlay.appendChild(qvBtn);
+    imgWrap.appendChild(qvOverlay);
+
     card.appendChild(imgWrap);
 
     // ── Description container ──
