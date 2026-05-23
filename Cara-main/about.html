@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Character Encoding -->
+    <meta charset="UTF-8" />
+
+    <!-- Viewport for Responsive Design -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Page Title -->
+    <title>Cara | About</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
+
+    <!-- SEO Meta Tags -->
+    <meta
+      name="description"
+      content="Shop the latest trends on our e-commerce store. Dark theme supported for a better user experience."
+    />
+    <meta
+      name="keywords"
+      content="e-commerce, shopping, online store, dark mode, buy online, latest fashion"
+    />
+    <meta name="author" content=" Cara" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Language -->
+    <meta http-equiv="Content-Language" content="en" />
+
+    <!-- Open Graph (OG) Tags for Social Sharing -->
+    <meta property="og:title" content="E-commerce - Dark Theme Working" />
+    <meta
+      property="og:description"
+      content="Shop the latest trends with our dark mode-enabled e-commerce experience."
+    />
+    <meta
+      property="og:image"
+      content="https://cara-seven-ashen.vercel.app/images/logo.png"
+    />
+    <meta property="og:url" content="https://cara-seven-ashen.vercel.app/" />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="E-commerce - Dark Theme Working" />
+    <meta
+      name="twitter:description"
+      content="Dark theme e-commerce site with modern features."
+    />
+    <meta
+      name="twitter:image"
+      content="https://cara-seven-ashen.vercel.app/images/logo.png"
+    />
+    <meta name="twitter:site" content="@janavipandole" />
+
+    <!-- Theme Color for Mobile Browser -->
+    <meta name="theme-color" content="#000000" />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      #scrollTopBtn {
+        position: fixed;
+        bottom: 30px;
+        right: 30px; /* keeps button on right side */
+
+        width: 55px;
+        height: 55px;
+
+        border: none;
+        border-radius: 50%;
+
+        background-color: #088178;
+        color: white;
+
+        font-size: 24px;
+        font-weight: bold;
+
+        cursor: pointer;
+        z-index: 999;
+
+        display: none;
+
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      #scrollTopBtn:hover {
+        background-color: #065f5b;
+        transform: scale(1.1);
+      }
+
+      .about-content{
+        max-width: 500px;
+        padding: 20px;
+      }
+
+      .about-content h1{
+        font-size: 55px;
+        font-weight: 700;
+        color: #222;
+        margin-bottom: 25px;
+      }
+
+      .about-list{
+        list-style: none;
+        padding: 0;
+      }
+
+      .about-list li{
+        font-size: 22px;
+        color: var(--text-color);
+        margin-bottom: 18px;
+        position: relative;
+        padding-left: 35px;
+        line-height: 1;
+      }
+
+      .about-list li::before{
+        content: "✓";
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: #0a8f7a;
+        font-weight: bold;
+        font-size: 22px;
+      }
+      
+      .about-highlight{
+        margin-top: 25px;
+        width: 100%;
+        padding: 18px 22px;
+        background: #f5f5f5;
+        border-left: 4px solid #0a8f7a;
+        color: #444;
+        font-size: 17px;
+        line-height: 1.7;
+        border-radius: 8px;
+      }
+
+      /* ========================================== */
+      /* NEW ENHANCED INTERACTIVE FEATURES STYLING   */
+      /* ========================================== */
+      #interactive-feature-wrapper {
+        max-width: 1200px;
+        width: 100%;
+        margin: 40px auto;
+        padding: 2rem 1.5rem;
+        font-family: inherit;
+      }
+
+      .animation-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        width: 100%;
+      }
+
+      .sub-card {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 16px;
+        padding: 1.75rem;
+        display: flex;
+        gap: 1.25rem;
+        align-items: flex-start;
+        transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+      }
+
+      /* Dark mode adjustment for card borders if active on body */
+      body.dark-theme .sub-card,
+      body[data-theme="dark"] .sub-card {
+        border-color: rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      .sub-card:hover {
+        transform: translateY(-5px);
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(8, 129, 120, 0.3); /* Uses Cara's signature teal hue */
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+      }
+
+      body.dark-theme .sub-card:hover,
+      body[data-theme="dark"] .sub-card:hover {
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+      }
+
+      .icon-wrapper {
+        font-size: 1.75rem;
+        padding: 0.65rem;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s ease;
+        flex-shrink: 0;
+      }
+
+      .sub-card:hover .icon-wrapper {
+        transform: scale(1.1) rotate(4deg);
+      }
+
+      /* Fine-tuned specific accent palettes for each card */
+      .card-l1 .icon-wrapper { color: #38bdf8; background: rgba(56, 189, 248, 0.12); }
+      .card-l2 .icon-wrapper { color: #a78bfa; background: rgba(167, 139, 250, 0.12); }
+      .card-l3 .icon-wrapper { color: #34d399; background: rgba(52, 211, 153, 0.12); }
+      .card-r1 .icon-wrapper { color: #fbbf24; background: rgba(251, 191, 36, 0.12); }
+      .card-r2 .icon-wrapper { color: #f472b6; background: rgba(244, 114, 182, 0.12); }
+      .card-r3 .icon-wrapper { color: #2dd4bf; background: rgba(45, 212, 191, 0.12); }
+
+      .card-content {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .card-content h3 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin: 0 0 0.4rem 0;
+        color: var(--text-color, #222);
+        transition: color 0.3s ease;
+      }
+
+      .sub-card:hover .card-content h3 {
+        color: #088178; /* Cara teal highlight on hover */
+      }
+
+      .card-content p {
+        font-size: 0.95rem;
+        line-height: 1.5;
+        margin: 0;
+        color: #64748b;
+      }
+      
+      body.dark-theme .card-content p,
+      body[data-theme="dark"] .card-content p {
+        color: #94a3b8;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- HEADER -->
+    <section id="header">
+      <!-- Logo -->
+      <a href="index.html">
+        <img src="images/logo.png" alt="Cara Logo" />
+      </a>
+
+      <div>
+        <ul id="navbar">
+          <!-- Main Navigation Links -->
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a class="active" href="about.html">About</a></li>
+          <li><a href="try-on.html">Try-On</a></li>
+          <li><a href="community.html">Community</a></li>
+          <li><a href="promotions.html">Promotions</a></li>
+
+          <!-- Contact Icon -->
+          <li class="nav-icon">
+            <a href="contact.html" aria-label="Contact">
+              <i class="ri-customer-service-2-line"></i>
+            </a>
+          </li>
+
+          <!-- Login Icon -->
+          <li class="nav-icon">
+            <a href="login.html" aria-label="Login">
+              <i class="ri-user-3-line"></i>
+            </a>
+          </li>
+
+          <!-- Cart Icon -->
+          <li class="nav-icon">
+            <a href="cart.html" id="lg-bag" aria-label="Cart">
+              <i class="ri-shopping-bag-4-line"></i>
+            </a>
+          </li>
+
+          <!-- Theme Toggle -->
+          <li class="nav-icon">
+            <button
+              class="theme-toggle"
+              id="themeToggle"
+              aria-label="Toggle dark mode"
+            >
+              <i class="ri-moon-line" id="themeIcon"></i>
+            </button>
+          </li>
+
+          <!-- Close Button -->
+          <a href="#" id="close" aria-label="Close menu" aria-hidden="false">
+            <i class="fa-solid fa-xmark"></i>
+          </a>
+        </ul>
+      </div>
+
+      <!-- Mobile Navbar -->
+      <div class="mobile">
+        <!-- Login Icon -->
+        <a href="login.html" aria-label="Login">
+          <i class="ri-user-3-line"></i>
+        </a>
+
+        <!-- Cart Icon -->
+        <a href="cart.html" aria-label="Cart">
+          <i class="ri-shopping-bag-4-line"></i>
+        </a>
+
+        <!-- Hamburger Menu -->
+        <i
+          class="fas fa-outdent"
+          id="bar"
+          role="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+          tabindex="0"
+        ></i>
+      </div>
+    </section>
+    
+    <section id="about-head">
+      <h2>#KnowUs</h2>
+      <p>Read all case studies about Us!</p>
+    </section>
+
+    <section id="about-us" class="section-p1">
+      <img src="images/about/a6.jpg" alt="" />
+      <div class="about-content">
+        <h2>Who We Are</h2>
+        <p>
+          <ul class="about-list">
+            <li>Modern and responsive design</li>
+            <li>Smooth user-friendly experience</li>
+            <li>Optimized performance on all devices</li>
+            <li>Clean and elegant interface</li>
+            <li>Built with creativity and innovation</li>
+            <li>Reliable, accessible, and easy to use</li>
+          </ul>
+        </p>
+        <p class="about-highlight">
+          Delivering modern digital experiences with clean design, fast performance, and seamless usability.
+        </p>
+        <br /><br />
+        <marquee loop="-1" scrollamount="5" width="100%">
+          Create stunning images with as much or as little control as you like
+          thanks to a choice of Basic and Creative modes.
+        </marquee>
+      </div>
+    </section>
+
+    <section id="about-app">
+      <h1>Download Our <a href="#">App</a></h1>
+      <div class="video">
+        <video autoplay muted loop src="images/about/1.mp4"></video>
+      </div>
+    </section>
+
+    <!-- NEW ENHANCED INTERACTIVE CARDS SECTION -->
+    <section id="interactive-feature-wrapper">
+      <div class="animation-container" id="cardContainer">
+        
+        <div class="sub-card card-l1">
+          <div class="icon-wrapper">🛒</div>
+          <div class="card-content">
+            <h3>Free Shipping</h3>
+            <p>On all standard regional custom retail updates.</p>
+          </div>
+        </div>
+
+        <div class="sub-card card-l2">
+          <div class="icon-wrapper">👤</div>
+          <div class="card-content">
+            <h3>Online Order</h3>
+            <p>Quick dynamic electronic checkout confirmation system.</p>
+          </div>
+        </div>
+
+        <div class="sub-card card-l3">
+          <div class="icon-wrapper">⚙️</div>
+          <div class="card-content">
+            <h3>Save Money</h3>
+            <p>Incentive cashback loops on every wholesale purchase.</p>
+          </div>
+        </div>
+
+        <div class="sub-card card-r1">
+          <div class="icon-wrapper">⭐</div>
+          <div class="card-content">
+            <h3>Promotions</h3>
+            <p>Unlock seasonal drops & holiday campaign vouchers.</p>
+          </div>
+        </div>
+
+        <div class="sub-card card-r2">
+          <div class="icon-wrapper">🚀</div>
+          <div class="card-content">
+            <h3>Happy Sell</h3>
+            <p>Premium matching customer success feedback loops.</p>
+          </div>
+        </div>
+
+        <div class="sub-card card-r3">
+          <div class="icon-wrapper">🌍</div>
+          <div class="card-content">
+            <h3>24/7 Support</h3>
+            <p>Global infrastructure desk agents always responsive.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="section-p1">
+      <!-- Contact Column -->
+      <div class="col">
+        <img class="logo" src="images/logo.png" alt="Cara Logo" />
+        <h4>Contact</h4>
+        <p>
+          <strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco
+        </p>
+        <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
+        <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
+
+        <div class="follow">
+          <h4>Follow us</h4>
+          <div class="icon">
+            <a
+              href="https://x.com/JanaviPandole"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a
+              href="https://github.com/janavipandole"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fab fa-github"></i>
+            </a>
+            <a
+              href="https://www.linkedin.com/in/janavi-pandole-80a7b2290"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fab fa-linkedin"></i>
+            </a>
+            <a
+              href="https://www.youtube.com/@JanaviPandole"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fab fa-youtube"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- About Column -->
+      <div class="col">
+        <h4>About</h4>
+        <a href="about.html">About Us</a>
+        <a href="#">Delivery Information</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms and Conditions</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+
+      <!-- My Account Column -->
+      <div class="col">
+        <h4>My Account</h4>
+        <a href="login.html">Sign In</a>
+        <a href="cart.html">View Cart</a>
+        <a href="#">My Wishlist</a>
+        <a href="cart.html">Track My Order</a>
+        <a href="contact.html">Help</a>
+      </div>
+
+      <!-- Newsletter Column -->
+      <div class="col newsletter-footer">
+        <h4>Newsletter</h4>
+        <p>
+          Get email updates about our latest shop and
+          <span>special offers.</span>
+        </p>
+
+        <form class="newsletter-form">
+          <input type="email" placeholder="Your email address" required />
+          <button type="submit" class="normal">Sign Up</button>
+        </form>
+      </div>
+
+      <!-- Install App Column -->
+      <div class="col install">
+        <h4>Install App</h4>
+        <p>From App Store or Google Play</p>
+
+        <div class="row">
+          <img src="images/pay/app.jpg" alt="Download from App Store" />
+          <img src="images/pay/play.jpg" alt="Get it on Google Play" />
+        </div>
+
+        <p>Secured Payment Gateways</p>
+
+        <div class="payment-icons">
+          <a
+            href="https://www.visa.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visa"
+          >
+            <i class="fab fa-cc-visa"></i>
+          </a>
+
+          <a
+            href="https://www.mastercard.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Mastercard"
+          >
+            <i class="fab fa-cc-mastercard"></i>
+          </a>
+
+          <a
+            href="https://www.paypal.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="PayPal"
+          >
+            <i class="fab fa-cc-paypal"></i>
+          </a>
+
+          <a
+            href="https://www.americanexpress.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="American Express"
+          >
+            <i class="fab fa-cc-amex"></i>
+          </a>
+
+          <a
+            href="https://stripe.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Stripe"
+          >
+            <i class="fab fa-cc-stripe"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Copyright -->
+      <div class="copyright">
+        <p>
+          © Cara 2026. All rights reserved. |
+          <a href="license.html" style="color: #088178"> MIT License </a>
+        </p>
+      </div>
+    </footer>
+    
+    <button id="scrollTopBtn" title="Go to top">
+      ↑
+    </button>
+
+    <!-- Scripts -->
+    <script src="navbar.js"></script>
+    <script>
+      loadNavbar('about');
+    </script>
+
+    <script src="app.js"></script>
+
+    <script>
+      document.querySelector('.Current-Year').textContent =
+        new Date().getFullYear();
+    </script>
+    
+    <script>
+      const scrollBtn = document.getElementById('scrollTopBtn');
+
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+          scrollBtn.style.display = 'block';
+        } else {
+          scrollBtn.style.display = 'none';
+        }
+      });
+
+      scrollBtn.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+      });
+    </script>
+  </body>
+</html>
