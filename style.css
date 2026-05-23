@@ -35171,3 +35171,14 @@ html {
 
     transform: scale(1.1);
 }
+.sort-container {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.sort-box {
+  display: flex;
+  flex-direction: column;
+}

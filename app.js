@@ -2714,3 +2714,24 @@ function addToWishlist(name, price, image) {
 
     alert("Added to wishlist!");
 }
+const brandFilter = document.getElementById("sort-brand");
+const products = document.querySelectorAll(".pro");
+
+brandFilter.addEventListener("change", () => {
+  const selectedBrand = brandFilter.value.toLowerCase();
+
+  products.forEach((product) => {
+    const brandName = product
+      .querySelector(".des span")
+      .textContent.toLowerCase();
+
+    if (
+      selectedBrand === "default" ||
+      brandName === selectedBrand
+    ) {
+      product.style.display = "block";
+    } else {
+      product.style.display = "none";
+    }
+  });
+});

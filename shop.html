@@ -175,7 +175,7 @@
     </section>
 
     <section id="product1" class="section-p1">
-      <div class="sort-container" aria-label="Sort products by price">
+      <!-- <div class="sort-container" aria-label="Sort products by price">
         <label class="sort-label" for="sort-price">
           <i class="ri-sorting-asc"></i>
           Sort by price
@@ -188,8 +188,51 @@
           </select>
           <i class="ri-arrow-down-s-line sort-chevron" aria-hidden="true"></i>
         </div>
-      </div>
+      </div> -->
+      <div class="sort-container" aria-label="Sort products">
 
+  <!-- Sort by Price -->
+  <div class="sort-box">
+    <label class="sort-label" for="sort-price">
+      <i class="ri-sorting-asc"></i>
+      Sort by Price
+    </label>
+
+    <div class="sort-select-wrap">
+      <select id="sort-price">
+        <option value="default">Default Sorting</option>
+        <option value="low-high">Price: Low to High</option>
+        <option value="high-low">Price: High to Low</option>
+      </select>
+
+      <i class="ri-arrow-down-s-line sort-chevron"></i>
+    </div>
+  </div>
+
+  <!-- Sort by Brand -->
+  <div class="sort-box">
+    <label class="sort-label" for="sort-brand">
+      <i class="ri-store-2-line"></i>
+      Sort by Brand
+    </label>
+
+    <div class="sort-select-wrap">
+      <select id="sort-brand">
+        <option value="default">All Brands</option>
+        <option value="adidas">Adidas</option>
+        <option value="nike">Nike</option>
+        <option value="puma">Puma</option>
+        <option value="puma">H&M</option>
+        <option value="puma">Zara</option>
+        <option value="puma">Levis</option>
+      </select>
+
+      <i class="ri-arrow-down-s-line sort-chevron"></i>
+    </div>
+  </div>
+
+</div>
+      
         <div class="pro-container">
             <div class="pro" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/f1.jpg" alt="">
