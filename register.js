@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('registerForm');
+    if (!form) return;
     form.addEventListener('submit', function (e) {
         e.preventDefault();
         const name = document.getElementById('registerUsername').value.trim();
