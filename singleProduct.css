@@ -400,3 +400,27 @@
         padding: 0 16px;
     }
 }
+@media (max-width: 768px) {
+  #pro-details .cart-action-group {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  #pro-details .single-pro-details .cart-action-group button.normal {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 14px;
+    height: auto;
+    margin-left: 0 !important;
+  }
+
+  #pro-details .quantity-selector {
+    width: fit-content;
+  }
+
+  .back-btn {
+    position: static !important;
+    margin: 10px 0;
+  }
+}
