@@ -14,7 +14,7 @@
 
 **A modern, responsive e-commerce platform built with vanilla HTML, CSS, and JavaScript**
 
-## 🚀 [Live Demo] (https://cara-seven-ashen.vercel.app/ )
+## 🚀 [Live Demo](https://cara-seven-ashen.vercel.app/)
  [Report Bug](https://github.com/janavipandole/Cara/issues) 
  [Request Feature](https://github.com/janavipandole/Cara/issues)
 
@@ -106,6 +106,12 @@ All you need is a modern web browser and a text editor!
 2. **Install development dependencies**
    ```bash
    npm install
+   ```
+
+3. **Verify linting and formatting**
+   ```bash
+   npm run lint
+   npm run format:check
    ```
 
 ## 🛠️ Development
