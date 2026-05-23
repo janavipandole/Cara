@@ -34,7 +34,8 @@
 }
 
 /* Banner3 — solid white button with dark text for max contrast */
-#banner3 .banner-box button {
+/* Reusable banner button */
+.banner-btn {
     background: rgba(255, 255, 255, 0.92);
     color: #111;
     border: none;
@@ -43,13 +44,17 @@
     padding: 12px 24px;
     border-radius: 6px;
     cursor: pointer;
-    -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
     transition: all 0.3s ease;
-    margin-top: 12px;
     position: relative;
     z-index: 2;
+}
+
+.banner-btn:hover {
+    background: var(--accent);
+    color: #fff;
+    transform: translateY(-2px);
 }
 
 #banner3 .banner-box button:hover {
@@ -60,21 +65,27 @@
 }
 
 /* sm-banner buttons — same treatment */
-#sm-banner .banner-box button {
+/* Reusable banner button */
+.banner-btn {
     background: rgba(255, 255, 255, 0.92);
     color: #111;
     border: none;
     font-weight: 700;
     font-size: 14px;
-    padding: 12px 28px;
+    padding: 12px 24px;
     border-radius: 6px;
     cursor: pointer;
-    -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
     transition: all 0.3s ease;
     position: relative;
     z-index: 2;
+}
+
+.banner-btn:hover {
+    background: var(--accent);
+    color: #fff;
+    transform: translateY(-2px);
 }
 
 #sm-banner .banner-box button:hover {
