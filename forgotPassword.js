@@ -33,10 +33,11 @@ form.addEventListener('submit', function (e) {
     return;
   }
 
-  if (!newPass || newPass.length < 6) {
-    showToast('Password must be at least 6 characters!', 'warning');
-    return;
-  }
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
+    if (!newPass || !passwordRegex.test(newPass)) {
+       showToast('Password must have 8+ chars, 1 uppercase, 1 lowercase, 1 number, and 1 special character (@$!%*?&).', 'warning');
+        return;
+    }
 
   if (newPass !== confirmPass) {
     showToast('Passwords do not match!', 'warning');
