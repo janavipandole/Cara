@@ -2,6 +2,63 @@
    CART PAGE
    ============================================ */
 
+        body {
+            background: var(--bg-primary);
+        }
+
+        #cart-content-wrapper {
+            width: min(1400px, calc(100% - 48px));
+            margin: 0 auto;
+        }
+
+        .cartmain {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        #page-header.about-header {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 220px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-radius: 20px;
+            overflow: hidden;
+            color: #ffffff;
+        }
+
+        #cart-container {
+            padding-top: 0;
+        }
+
+        .cart-grid-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 380px;
+            gap: 32px;
+            align-items: start;
+            margin: 10px 0 0;
+        }
+
+        .cart-summary-column {
+            position: relative;
+            min-width: 0;
+        }
+
+        .sticky-summary-card {
+            top: 120px;
+        }
+
+        .empty-cart-view {
+            padding-top: 40px;
+        }
+
+        footer.section-p1 {
+            margin-top: 20px;
+        }
+
         #cart {
             overflow-x: auto;
         }
@@ -756,3 +813,28 @@
     .cart-item-title { font-size: 14px; word-break: break-word; }
 }
 .cart-summary-column { height: 100%; align-self: start; }
+
+@media (max-width: 991px) {
+    #cart-content-wrapper {
+        width: min(100% - 32px, 1400px);
+    }
+
+    .cart-grid-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .sticky-summary-card {
+        position: static;
+    }
+}
+
+@media (max-width: 640px) {
+    #cart-content-wrapper {
+        width: calc(100% - 24px);
+    }
+
+    #page-header.about-header {
+        min-height: 180px;
+        border-radius: 16px;
+    }
+}
