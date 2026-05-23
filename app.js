@@ -2688,3 +2688,29 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 })();
 /* --- END: PRODUCT QUICK-VIEW MODAL FUNCTIONALITY --- */
+function addToWishlist(name, price, image) {
+
+    let wishlist =
+        JSON.parse(localStorage.getItem("wishlist")) || [];
+
+    const exists =
+        wishlist.find(item => item.name === name);
+
+    if (exists) {
+        alert("Already in wishlist!");
+        return;
+    }
+
+    wishlist.push({
+        name,
+        price,
+        image
+    });
+
+    localStorage.setItem(
+        "wishlist",
+        JSON.stringify(wishlist)
+    );
+
+    alert("Added to wishlist!");
+}

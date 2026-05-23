@@ -596,6 +596,7 @@ button.white .ripple-effect {
     left: 2px;
 }
 
+
 /* ============================================
    HERO SECTION
    ============================================ */
@@ -35128,4 +35129,45 @@ html {
 /* Keep the navbar brand readable on dark backgrounds. */
 [data-theme="dark"] #siteLogo {
     filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(255, 255, 255, 0.25));
+}
+/* PRODUCT CARD */
+.pro {
+    position: relative;
+}
+
+/* WISHLIST BUTTON */
+.wishlist {
+    position: absolute;
+
+    top: 10px;
+    right: 10px;
+
+    width: 40px;
+    height: 40px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #ff4d6d;
+
+    font-size: 20px;
+
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+
+    z-index: 10;
+
+    transition: 0.3s ease;
+}
+
+/* HOVER EFFECT */
+.wishlist:hover {
+    background: #ff4d6d;
+    color: white;
+
+    transform: scale(1.1);
 }
