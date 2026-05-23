@@ -35129,3 +35129,33 @@ html {
 [data-theme="dark"] #siteLogo {
     filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(255, 255, 255, 0.25));
 }
+
+/* Scroll to Top Button */
+#scrollTopBtn {
+  display: none;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 999;
+  background-color: #088178;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 0;
+}
+
+#scrollTopBtn.show {
+  display: block;
+  opacity: 1;
+}
+
+#scrollTopBtn:hover {
+  background-color: #056b5e;
+  transform: scale(1.1);
+}
