@@ -244,3 +244,72 @@ h2 {
     display: flex;
     flex-direction: column;
 }
+/* ── Role Selector ── */
+.role-selector {
+    display: flex;
+    gap: 12px;
+    margin-top: 6px;
+}
+
+.role-option {
+    flex: 1;
+    cursor: pointer;
+}
+
+.role-option input[type="radio"] {
+    display: none;
+}
+
+.role-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 14px 10px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    text-align: center;
+    transition: all 0.25s ease;
+    background: #f9f9f9;
+    cursor: pointer;
+}
+
+.role-card i {
+    font-size: 22px;
+    color: #088178;
+}
+
+.role-card strong {
+    font-size: 14px;
+    font-weight: 700;
+    color: #222;
+}
+
+.role-card small {
+    font-size: 11px;
+    color: #888;
+}
+
+.role-option input[type="radio"]:checked + .role-card {
+    border-color: #088178;
+    background: #e8f5f4;
+    box-shadow: 0 0 0 3px rgba(8, 129, 120, 0.15);
+}
+
+.role-option input[type="radio"]:checked + .role-card strong {
+    color: #088178;
+}
+
+[data-theme="dark"] .role-card {
+    background: #1a1f26;
+    border-color: #2d3748;
+}
+
+[data-theme="dark"] .role-card strong {
+    color: #e6eef8;
+}
+
+[data-theme="dark"] .role-option input[type="radio"]:checked + .role-card {
+    background: #0d2e2c;
+    border-color: #06b6d4;
+}
