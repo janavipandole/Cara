@@ -1350,7 +1350,10 @@ document.addEventListener('DOMContentLoaded', () => {
 // Update cart count badge
 function updateCartCount() {
   const cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
-  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const totalItems = cart.reduce(
+    (sum, item) => sum + (parseInt(item.quantity, 10) || 1),
+    0
+  );
 
   const desktopCount = document.getElementById('desktopCartCount');
   const mobileCount = document.getElementById('mobileCartCount');
@@ -1368,6 +1371,51 @@ function updateCartCount() {
 
 // Call on page load
 document.addEventListener('DOMContentLoaded', updateCartCount);
+
+function checkCartEmpty() {
+  const cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+  const checkoutBtn = document.getElementById('checkout-btn');
+  const checkoutSubmitBtn = document.querySelector('#checkoutForm .submit-btn');
+
+  if (checkoutBtn) {
+    if (!checkoutBtn.dataset.originalText) {
+      checkoutBtn.dataset.originalText =
+        checkoutBtn.textContent.trim() || 'Proceed to Checkout';
+    }
+
+    if (!checkoutBtn.dataset.originalHref) {
+      checkoutBtn.dataset.originalHref =
+        checkoutBtn.getAttribute('href') || 'checkout.html';
+    }
+
+    if (cart.length === 0) {
+      checkoutBtn.classList.add('disabled');
+      checkoutBtn.setAttribute('aria-disabled', 'true');
+      checkoutBtn.removeAttribute('href');
+      checkoutBtn.textContent = 'Your cart is empty';
+    } else {
+      checkoutBtn.classList.remove('disabled');
+      checkoutBtn.removeAttribute('aria-disabled');
+      checkoutBtn.setAttribute('href', checkoutBtn.dataset.originalHref);
+      checkoutBtn.textContent = checkoutBtn.dataset.originalText;
+    }
+  }
+
+  if (checkoutSubmitBtn) {
+    if (!checkoutSubmitBtn.dataset.originalText) {
+      checkoutSubmitBtn.dataset.originalText =
+        checkoutSubmitBtn.textContent.trim() || 'Place Your Order';
+    }
+
+    if (cart.length === 0) {
+      checkoutSubmitBtn.disabled = true;
+      checkoutSubmitBtn.textContent = 'Your cart is empty';
+    } else {
+      checkoutSubmitBtn.disabled = false;
+      checkoutSubmitBtn.textContent = checkoutSubmitBtn.dataset.originalText;
+    }
+  }
+}
 
 // NEW: Function to toggle visibility of empty cart message
 function handleEmptyCartView() {
@@ -1579,7 +1627,8 @@ window.loadCart = function () {
 
   cart.forEach((item, index) => {
     const itemPrice = item.price;
-    const itemSubtotal = itemPrice * item.quantity;
+    const itemQty = parseInt(item.quantity, 10) || 1;
+    const itemSubtotal = itemPrice * itemQty;
 
     subtotal += itemSubtotal;
 
@@ -1630,7 +1679,7 @@ window.loadCart = function () {
           <input
             type="number"
             class="qty-input"
-            value="${item.quantity}"
+            value="${itemQty}"
             readonly
           />
 
@@ -1745,13 +1794,25 @@ if (totalDisplay) {
       promoBtn.classList.remove('applied');
     }
   }
+
+  checkCartEmpty();
 };
 window.changeQuantity = function (index, change) {
   let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
   if (!cart[index]) return;
 
-  let newQty = cart[index].quantity + change;
-  if (newQty < 1) newQty = 1;
+  const currentQty = parseInt(cart[index].quantity, 10) || 1;
+  let newQty = currentQty + change;
+
+  if (newQty <= 0) {
+    const removedName = cart[index].name || 'Item';
+    cart.splice(index, 1);
+    localStorage.setItem('productsInCart', JSON.stringify(cart));
+    loadCart();
+    updateCartCount();
+    showToast(`${removedName} removed from cart`, 'error');
+    return;
+  }
 
   cart[index].quantity = newQty;
   localStorage.setItem('productsInCart', JSON.stringify(cart));
@@ -1802,6 +1863,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const cartElement = document.getElementById('cart-items-container');
   if (cartElement) {
     loadCart();
+  }
+
+  checkCartEmpty();
+});
+
+window.addEventListener('storage', (event) => {
+  if (event.key === 'productsInCart') {
+    if (typeof window.loadCart === 'function') {
+      window.loadCart();
+    }
+    updateCartCount();
+    checkCartEmpty();
   }
 });
 

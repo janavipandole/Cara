@@ -153,7 +153,7 @@
           </table>
 
           <button id="share-cart-btn" class="normal" onclick="shareWardrobe()"><i class="ri-share-forward-line"></i> Share Wardrobe</button>
-          <a href="checkout.html" class="normal" style="text-decoration: none">
+          <a id="checkout-btn" href="checkout.html" class="normal checkout-btn" style="text-decoration: none">
             Proceed to Checkout
           </a>
         </div>
@@ -272,24 +272,6 @@
     </div>
 
     <script src="app.js"></script>
-    <!-- Corrected  -->
-    <script>
-        document.getElementById("Current-Year").textContent = new Date().getFullYear();
-        const cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-const cartContainer = document.getElementById("cart-items-container");
-
-cart.forEach((item) => {
-  cartContainer.innerHTML += `
-    <div class="cart-item">
-      <img src="${item.img}" width="100">
-      <h3>${item.name}</h3>
-      <p>${item.price}</p>
-      <p>Quantity: ${item.quantity}</p>
-    </div>
-  `;
-});
-    </script>
 
 </body>
 
