@@ -1131,34 +1131,36 @@ button.white .ripple-effect {
 }
 
 #search-filter {
-  display: grid;
-  grid-template-columns: 1.8fr 1fr 0.6fr;
-  gap: 24px;
-  align-items: flex-end;
-  margin-bottom: 32px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr) minmax(0, 0.6fr);
+    gap: 24px;
+    align-items: flex-end;
+    margin-bottom: 32px;
 }
 
 #search-filter .search-container,
 #search-filter .filter-container,
 #search-filter .search-summary {
-  width: 100%;
+    width: 100%;
+    min-width: 0;
 }
 
 .search-box {
-  display: flex;
-  width: 100%;
-  gap: 8px;
+    display: flex;
+    width: 100%;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
 #searchInput {
-  width: 100%;
-  padding: 14px 18px;
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  font-size: 16px;
-  transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 14px 18px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 16px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 #searchInput:focus {
@@ -1168,13 +1170,15 @@ button.white .ripple-effect {
 }
 
 #searchBtn {
-  min-width: 58px;
-  border: none;
-  border-radius: 12px;
-  background: var(--accent);
-  color: #fff;
-  cursor: pointer;
-  transition: transform 0.2s ease;
+    flex: 0 0 auto;
+    min-width: 58px;
+    border: none;
+    border-radius: 12px;
+    background: var(--accent);
+    color: #fff;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    padding: 12px 16px;
 }
 
 #searchBtn:hover {
@@ -1262,17 +1266,27 @@ button.white .ripple-effect {
     align-items: stretch;
   }
 
-  .search-box {
-    flex-direction: column;
-  }
+    .search-box {
+        flex-direction: column;
+        align-items: stretch;
+    }
 
   #searchBtn {
     width: 100%;
   }
 
-  .search-suggestions {
-    max-height: 200px;
-  }
+    .filter-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-container label {
+        margin-bottom: 8px;
+    }
+
+    .search-suggestions {
+        max-height: 200px;
+    }
 
   #search-filter .search-summary {
     text-align: left;
@@ -1301,17 +1315,17 @@ button.white .ripple-effect {
    ============================================ */
 
 #banner {
-  background-image: url('images/banner/b2.jpg');
-  height: 40vh;
-  width: 100%;
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  text-align: center;
-  flex-direction: column;
+    background-image: url("images/banner/b2.png");
+    height: 40vh;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFF;
+    text-align: center;
+    flex-direction: column;
 }
 
 #banner h4 {
@@ -1341,17 +1355,17 @@ button.white .ripple-effect {
 }
 
 #sm-banner .banner-box {
-  background-image: url('images/banner/b17.jpg');
-  height: 50vh;
-  min-width: 660px;
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  color: #fff;
-  flex-direction: column;
-  padding: 30px;
+    background-image: url("images/banner/b18.jpg");
+    height: 50vh;
+    min-width: 660px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    color: #FFF;
+    flex-direction: column;
+    padding: 30px;
 }
 
 #sm-banner .banner-box2 {
