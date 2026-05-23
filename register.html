@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Cara</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
@@ -16,7 +18,7 @@
         <section id="header">
   <!-- Logo -->
   <a href="index.html">
-    <img src="images/logo.png" alt="Cara Logo" />
+    <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
   </a>
 
   <div>
@@ -138,6 +140,7 @@
                             placeholder="Enter your password"
                             id="registerPassword" required>
                         <i class="ri-eye-line toggle-eye"></i>
+                        <small id="passwordHint" style="display:block; margin-top:5px; font-size:12px;"></small>
                     </div>
                 </div>
 
