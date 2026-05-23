@@ -190,5 +190,11 @@ function renderProducts(containerId, list) {
   `).join('');
 }
 
-renderProducts('shop-container', products);
-renderProducts('featured-container', products.slice(0, 4));
+// Initializing the renders from local array
+document.addEventListener('DOMContentLoaded', () => {
+  renderProducts('shop-container', products);
+  renderProducts('featured-container', products.slice(0, 4));
+  attachSearchListeners();
+  updateSearchSummary(products.length);
+  renderSearchSuggestions('');
+});
