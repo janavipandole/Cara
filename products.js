@@ -198,9 +198,14 @@ function attachSearchListeners() {
   }
 }
 
-// Initializing the renders
-renderProducts('shop-container', products);
-renderProducts('featured-container', products.slice(0, 4));
-attachSearchListeners();
-updateSearchSummary(products.length);
-renderSearchSuggestions('');
+// Initializing the renders from local array
+document.addEventListener('DOMContentLoaded', () => {
+  renderProducts('shop-container', products);
+  // Only render featured section on pages that have it (e.g. index.html)
+  if (document.getElementById('featured-container')) {
+    renderProducts('featured-container', products.slice(0, 4));
+  }
+  attachSearchListeners();
+  updateSearchSummary(products.length);
+  renderSearchSuggestions('');
+});
