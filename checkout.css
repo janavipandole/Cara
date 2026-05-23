@@ -37,10 +37,39 @@ body{
   }
 }
 
+.checkout-header {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.back-to-cart {
+  position: absolute;
+  left: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #4f46e5;
+  font-weight: 500;
+  font-size: 14px;
+  background: #eef2ff;
+  padding: 8px 16px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.back-to-cart:hover {
+  background: #4f46e5;
+  color: #fff;
+}
+
 .logo{
+  flex-grow: 1;
   font-size:32px;
   font-weight:700;
-  margin-bottom:10px;
+  margin-bottom:0px;
   text-align:center;
 }
 

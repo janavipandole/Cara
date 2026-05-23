@@ -113,7 +113,7 @@
             </select>
             <div class="cart-action-group">
                 <div class="quantity-selector">
-                    <button type="button" class="qty-btn minus" onclick="updateQty(-1)" aria-label="Decrease quantity">
+                    <button type="button" class="qty-btn minus" onclick="updateQty(-1)" aria-label="Decrease quantity" disabled>
                         <i class="fa-solid fa-minus"></i>
                     </button>
                     <input id="product-quantity" type="number" value="1" min="1" readonly title="Product quantity" aria-label="Product quantity">
@@ -122,8 +122,8 @@
                     </button>
                 </div>
                 <button class="normal" onclick="handleAddToCart()">Add to Cart</button>
-                <button class="normal" style="background: #088178; color: white; margin-left: 10px;" onclick="handleBuyNow()">Buy Now</button>
-                <button class="normal" style="background: var(--accent); color: white; margin-left: 10px;" onclick="window.location.href='try-on.html'">Try it On Virtually!</button>
+                <button class="normal" style="background: #088178; color: white;" onclick="handleBuyNow()">Buy Now</button>
+                <button class="normal" style="background: var(--accent); color: white;" onclick="window.location.href='try-on.html'">Try it On Virtually!</button>
             </div>
             <h4>Product Details</h4>
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officia tenetur, exercitationem velit maxime
