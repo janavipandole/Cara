@@ -35129,3 +35129,73 @@ html {
 [data-theme="dark"] #siteLogo {
     filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(255, 255, 255, 0.25));
 }
+
+/* ============================================
+   FOOTER — CLICKABLE ADDRESS + MAP WIDGET
+   ============================================ */
+
+/* Clickable address link */
+.footer-address-link {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 6px;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    border-bottom: 1px dashed transparent;
+    transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+.footer-address-link:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+}
+
+.footer-address-link i {
+    font-size: 14px;
+    margin-top: 3px;
+    flex-shrink: 0;
+    color: var(--accent);
+}
+
+/* Map widget container */
+.footer-map-widget {
+    margin-top: 14px;
+    width: 100%;
+    max-width: 260px;
+}
+
+.footer-map-widget iframe {
+    width: 100%;
+    height: 140px;
+    border: none;
+    border-radius: 8px;
+    display: block;
+    filter: grayscale(20%) contrast(1.05);
+    transition: filter 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+}
+
+.footer-map-widget iframe:hover {
+    filter: grayscale(0%) contrast(1);
+    box-shadow: 0 4px 18px rgba(8, 129, 120, 0.25);
+}
+
+[data-theme="dark"] .footer-map-widget iframe {
+    filter: grayscale(20%) contrast(0.9) brightness(0.85);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .footer-map-widget iframe:hover {
+    filter: grayscale(0%) contrast(0.95) brightness(0.9);
+}
+
+@media (max-width: 768px) {
+    .footer-map-widget {
+        max-width: 100%;
+    }
+
+    .footer-map-widget iframe {
+        height: 120px;
+    }
+}
