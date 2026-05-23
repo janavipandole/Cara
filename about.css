@@ -69,6 +69,7 @@
     margin-top: 30px;
 }
 
+
 @media (max-width: 799px) {
     #about-details {
         flex-direction: column;

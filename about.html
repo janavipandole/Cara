@@ -76,7 +76,7 @@
 #scrollTopBtn {
   position: fixed;
   bottom: 30px;
-  right: 30px;   /* keeps button on right side */
+  right: 30px;
 
   width: 55px;
   height: 55px;
@@ -87,22 +87,30 @@
   background-color: #088178;
   color: white;
 
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 18px;
 
   cursor: pointer;
   z-index: 999;
 
-  display: none;
+  opacity: 0;
+  pointer-events: none;
 
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
   transition: all 0.3s ease;
+}
+
+/* Visible state */
+#scrollTopBtn.show {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 #scrollTopBtn:hover {
   background-color: #065f5b;
   transform: scale(1.1);
 }
+
+
 </style>
   </head>
 
@@ -227,7 +235,7 @@
           thanks to a choice of Basic and Creative modes.</abbr
         >
         <br /><br />
-        <marquee loop="-1" scollamount="5" width="100%">
+        <marquee loop="-1" scrollamount="5" width="100%">
           Create stunning images with as much or as little control as you like
           thanks to a choice of Basic and Creative modes.
         </marquee>
@@ -448,8 +456,8 @@
         </p>
       </div>
     </footer>
-          <button id="scrollTopBtn" title="Go to top" width="120px" height="120px">
-  ↑
+    <button id="scrollTopBtn" title="Go to top" aria-label="Scroll to top">
+  <i class="fas fa-arrow-up"></i>
 </button>
 
     <script src="navbar.js"></script>
@@ -462,20 +470,34 @@
     <script>
   const scrollBtn = document.getElementById("scrollTopBtn");
 
+
+  // Show / Hide button smoothly
   window.addEventListener("scroll", () => {
     if (window.scrollY > 300) {
-      scrollBtn.style.display = "block";
+      scrollBtn.classList.add("show");
     } else {
-      scrollBtn.style.display = "none";
+      scrollBtn.classList.remove("show");
     }
   });
 
+  // Scroll to top on click
   scrollBtn.addEventListener("click", () => {
     window.scrollTo({
       top: 0,
       behavior: "smooth"
     });
   });
+
+  // Accessibility: keyboard support
+  scrollBtn.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+  });
+</script>
 </script>
   </body>
 </html>
