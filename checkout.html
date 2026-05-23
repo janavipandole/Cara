@@ -3,11 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<<<<<<< HEAD
   <title>Modern Checkout Form</title>
   <!-- Favicon -->
   <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+=======
+  <title>Checkout | Cara</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
   <link rel="stylesheet" href="toast.css">
@@ -15,6 +26,7 @@
 </head>
 <body>
 
+<<<<<<< HEAD
   <div class="checkout-container">
 
     <div class="checkout-header">
@@ -25,12 +37,105 @@
         <span>Cara</span>
       </div>
     </div>
+=======
+  <section id="header">
+    <!-- Logo -->
+    <a href="index.html">
+      <img src="images/logo.png" alt="Cara Logo" id="siteLogo" />
+    </a>
+  
+    <div>
+      <ul id="navbar">
+  
+        <!-- Main Navigation Links -->
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="try-on.html">Try-On</a></li>
+        <li><a href="community.html">Community</a></li>
+        <li><a href="promotions.html">Promotions</a></li>
+  
+        <!-- Contact Icon -->
+        <li class="nav-icon">
+          <a href="contact.html" aria-label="Contact">
+            <i class="ri-customer-service-2-line"></i>
+          </a>
+        </li>
+  
+        <!-- Login Icon -->
+        <li class="nav-icon">
+          <a href="login.html" aria-label="Login">
+            <i class="ri-user-3-line"></i>
+          </a>
+        </li>
+  
+        <!-- Cart Icon -->
+        <li class="nav-icon">
+          <a href="cart.html" id="lg-bag" aria-label="Cart">
+            <i class="ri-shopping-bag-4-line"></i>
+          </a>
+        </li>
+  
+        <!-- Theme Toggle -->
+        <li class="nav-icon">
+          <button
+            class="theme-toggle"
+            id="themeToggle"
+            aria-label="Toggle dark mode"
+          >
+            <i class="ri-moon-line" id="themeIcon"></i>
+          </button>
+        </li>
+  
+        <!-- Close Button -->
+        <a
+          href="#"
+          id="close"
+          aria-label="Close menu"
+          aria-hidden="false"
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </a>
+  
+      </ul>
+    </div>
+  
+    <!-- Mobile Navbar -->
+    <div class="mobile">
+  
+      <!-- Login Icon -->
+      <a href="login.html" aria-label="Login">
+        <i class="ri-user-3-line"></i>
+      </a>
+  
+      <!-- Cart Icon -->
+      <a href="cart.html" aria-label="Cart">
+        <i class="ri-shopping-bag-4-line"></i>
+      </a>
+  
+      <!-- Hamburger Menu -->
+      <i
+        class="fas fa-outdent"
+        id="bar"
+        role="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+        tabindex="0"
+      ></i>
+  
+    </div>
+  </section>
+
+  <div class="checkout-container">
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
 
     <div class="title">
       <h2>Checkout Your Order</h2>
       <p>Fill all details to complete your order</p>
     </div>
 
+<<<<<<< HEAD
     <form id="checkoutForm">
 
       <div class="input-group">
@@ -144,6 +249,148 @@
 
   </div>
 
+=======
+    <div class="checkout-layout">
+      <!-- Left side: Form -->
+      <div class="checkout-form-section">
+        <form id="checkoutForm">
+
+          <div class="input-group">
+            <label>Full Name</label>
+            <input type="text" placeholder="Enter your full name" required>
+          </div>
+
+          <div class="row">
+
+            <div class="input-group">
+              <label>Email Address</label>
+              <input type="email" placeholder="Enter your email" required>
+            </div>
+
+            <div class="input-group">
+              <label>Phone Number</label>
+              <input type="tel" placeholder="Enter phone number" required>
+            </div>
+
+          </div>
+
+          <div class="input-group">
+            <label>Delivery Address</label>
+            <textarea placeholder="Enter full address" required></textarea>
+          </div>
+
+          <div class="row">
+
+            <div class="input-group">
+              <label>City</label>
+              <input type="text" placeholder="Enter city" required>
+            </div>
+
+            <div class="input-group">
+              <label>ZIP Code</label>
+              <input type="text" placeholder="ZIP Code" required>
+            </div>
+
+          </div>
+
+          <!-- PAYMENT METHOD -->
+          <div class="input-group">
+            <label>Select Payment Method</label>
+
+            <select id="paymentMethod" required>
+              <option value="">Choose Payment Method</option>
+              <option value="cod">Cash On Delivery</option>
+              <option value="online">Online Payment</option>
+            </select>
+          </div>
+
+          <!-- CARD DETAILS -->
+          <div class="payment-box" id="cardDetails">
+
+            <div class="payment-title">
+              Card Details
+            </div>
+
+            <div class="input-group">
+              <label for="cardName">Card Holder Name</label>
+              <input type="text" id="cardName" placeholder="Card holder name" autocomplete="cc-name">
+            </div>
+
+            <div class="input-group">
+              <label for="cardNumber">Card Number</label>
+              <input
+                type="text"
+                id="cardNumber"
+                placeholder="XXXX XXXX XXXX XXXX"
+                inputmode="numeric"
+                autocomplete="cc-number"
+                maxlength="19"
+              >
+            </div>
+
+            <div class="row">
+
+              <div class="input-group">
+                <label for="expiry">Expiry Date</label>
+                <input
+                  type="text"
+                  id="expiry"
+                  placeholder="MM/YY"
+                  inputmode="numeric"
+                  autocomplete="cc-exp"
+                  maxlength="5"
+                >
+              </div>
+
+              <div class="input-group">
+                <label for="cvv">CVV</label>
+                <input
+                  type="password"
+                  id="cvv"
+                  placeholder="***"
+                  inputmode="numeric"
+                  autocomplete="cc-csc"
+                  maxlength="4"
+                >
+              </div>
+
+            </div>
+
+          </div>
+
+        </form>
+      </div>
+
+      <!-- Right side: Order Summary -->
+      <div class="checkout-summary-section">
+        <div class="order-summary-card">
+          <h3>Order Summary</h3>
+          <div id="checkoutSummaryItems">
+            <!-- Items appear here -->
+          </div>
+          <div class="summary-item">
+            <span>Subtotal</span>
+            <span id="checkoutSubtotal">₹0</span>
+          </div>
+          <div class="summary-item">
+            <span>Shipping</span>
+            <span>Free</span>
+          </div>
+          <div class="summary-item total">
+            <span>Total</span>
+            <span id="checkoutTotal">₹0</span>
+          </div>
+          <button type="submit" form="checkoutForm" class="submit-btn" id="placeOrderBtn">
+            Place Your Order
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
   <!-- SUCCESS MESSAGE -->
   <div class="success-popup" id="successPopup">
     <div class="popup-box">
@@ -156,8 +403,121 @@
     </div>
   </div>
 
+<<<<<<< HEAD
   <script src="app.js"></script>
   <script src="checkout.js"></script>
 
+=======
+  <!-- Footer -->
+  <section id="newsletter" class="section-p1">
+    <div class="newstext">
+      <h4>Sign Up For Newsletters</h4>
+      <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
+    </div>
+    <form class="form newsletter-form">
+      <input type="email" placeholder="Your email address" required />
+      <button type="submit" class="normal">Sign Up</button>
+    </form>
+  </section>
+
+  <footer class="section-p1">
+    <div class="footer-container">
+      
+      <div class="col">
+        <img class="logo" src="images/logo.png" alt="Cara Logo" />
+        <h4>Contact</h4>
+        <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
+        <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
+        <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
+
+        <div class="follow">
+          <h4>Follow us</h4>
+          <div class="icon">
+            <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-youtube"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <h4>About</h4>
+        <a href="about.html">About us</a>
+        <a href="delivery.html">Delivery Information</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms & Conditions</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+
+      <div class="col">
+        <h4>My Account</h4>
+        <a href="login.html">Sign In</a>
+        <a href="cart.html">View Cart</a> <a href="#">My Wishlist</a>
+        <a href="track-order.html">Track My Order</a>
+        <a href="contact.html">Help</a>
+      </div>
+
+      <div class="col install">
+        <h4>Install App</h4>
+        <p>From App Store or Google Play</p>
+
+        <div class="row">
+          <img src="images/pay/app.jpg" alt="Download from App Store" />
+          <img src="images/pay/play.jpg" alt="Get it on Google Play" />
+        </div>
+
+        <p>Secured Payment Gateways</p>
+
+        <div class="payment-icons">
+          <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer" aria-label="Visa">
+            <i class="fab fa-cc-visa"></i>
+          </a>
+          <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer" aria-label="Mastercard">
+            <i class="fab fa-cc-mastercard"></i>
+          </a>
+          <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" aria-label="PayPal">
+            <i class="fab fa-cc-paypal"></i>
+          </a>
+          <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer" aria-label="American Express">
+            <i class="fab fa-cc-amex"></i>
+          </a>
+          <a href="https://stripe.com" target="_blank" rel="noopener noreferrer" aria-label="Stripe">
+            <i class="fab fa-cc-stripe"></i>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="copyright">
+      <p>
+        &copy; Cara  <span class="Current-Year"></span>. All rights reserved. |
+        <a href="license.html" style="color: #088178"> MIT License </a>
+      </p>
+    </div>
+  </footer>
+
+  <div id="toast-container"></div>
+  <script src="app.js?v=1779120917211"></script>
+  <script src="navbar.js"></script>
+  <script>loadNavbar('home');</script>
+  <script src="checkout.js"></script>
+  <!-- Corrected  -->
+  <script id="Current-Year">
+      const year = new Date().getFullYear();
+      for (let el of document.querySelectorAll(".Current-Year")) {
+          el.textContent = year;
+      }
+  </script>
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
 </body>
 </html>

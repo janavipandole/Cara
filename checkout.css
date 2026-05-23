@@ -37,6 +37,7 @@ body{
   }
 }
 
+<<<<<<< HEAD
 .checkout-header {
   display: flex;
   align-items: center;
@@ -70,6 +71,12 @@ body{
   font-size:32px;
   font-weight:700;
   margin-bottom:0px;
+=======
+.logo{
+  font-size:32px;
+  font-weight:700;
+  margin-bottom:10px;
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
   text-align:center;
 }
 

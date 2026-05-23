@@ -66,6 +66,10 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css" />
+<<<<<<< HEAD
+=======
+    <link rel="stylesheet" href="shop-filters.css" />
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
       rel="stylesheet"
@@ -118,6 +122,7 @@
           <i class="ri-shopping-bag-4-line"></i>
         </a>
       </li>
+<<<<<<< HEAD
 
       <!-- Theme Toggle -->
       <li class="nav-icon">
@@ -768,6 +773,119 @@
         </form>
       </section>
     </div>
+=======
+    </ul>
+  </div>
+</section>
+
+    <!-- Advanced Filter Bar -->
+    <section id="advanced-filter-bar" class="section-p1">
+      <div class="afb-toprow">
+        <div class="afb-left">
+          <button class="afb-toggle-btn" id="afb-toggle" aria-expanded="false" aria-controls="afb-panel" title="Open filters">
+            <i class="fa-solid fa-filter" aria-hidden="true"></i>
+            <span class="afb-toggle-label">Filters</span>
+            <span class="afb-active-badge" id="afb-active-badge" hidden>0</span>
+          </button>
+          <div class="afb-chips" id="afb-chips" aria-live="polite"></div>
+        </div>
+        <div class="afb-right">
+          <div class="afb-result-count">
+            <span id="afb-count-num">0</span> results
+          </div>
+          <div class="afb-sort-group">
+            <label for="sort-price" class="afb-sort-label">Sort</label>
+            <select id="sort-price" class="afb-sort-select">
+              <option value="default">Default</option>
+              <option value="low-high">Price: Low to High</option>
+              <option value="high-low">Price: High to Low</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="afb-panel" id="afb-panel" aria-hidden="true">
+        <div class="afb-panel-inner">
+          <fieldset class="afb-group" aria-labelledby="priceRangeLabel">
+            <legend id="priceRangeLabel" class="afb-group-title"><i class="ri-price-tag-3-line"></i> Price</legend>
+            <div class="afb-price-controls">
+              <div class="afb-price-display">
+                <span id="afb-price-min-display">$0</span>
+                <span id="afb-price-max-display">$1000</span>
+              </div>
+              <div class="afb-range-wrap">
+                <input id="afb-price-min" class="afb-range" type="range" min="0" max="1000" value="0">
+                <input id="afb-price-max" class="afb-range" type="range" min="0" max="1000" value="1000">
+                <div class="afb-range-track"><div id="afb-range-fill" class="afb-range-fill"></div></div>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="afb-group">
+            <legend class="afb-group-title"><i class="ri-stack-line"></i> Category</legend>
+            <div class="afb-pill-group">
+              <label class="afb-pill"><input type="radio" name="afb-category" value="all" checked> <span>All</span></label>
+              <label class="afb-pill"><input type="radio" name="afb-category" value="men"> <span>Men</span></label>
+              <label class="afb-pill"><input type="radio" name="afb-category" value="women"> <span>Women</span></label>
+              <label class="afb-pill"><input type="radio" name="afb-category" value="kids"> <span>Kids</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="afb-group">
+            <legend class="afb-group-title"><i class="ri-store-2-line"></i> Brand</legend>
+            <div class="afb-check-group">
+              <label class="afb-check"><input type="checkbox" name="afb-brand" value="adidas"> <span>adidas</span></label>
+              <label class="afb-check"><input type="checkbox" name="afb-brand" value="nike"> <span>nike</span></label>
+              <label class="afb-check"><input type="checkbox" name="afb-brand" value="puma"> <span>puma</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="afb-group">
+            <legend class="afb-group-title"><i class="ri-checkbox-circle-line"></i> Availability</legend>
+            <div class="afb-check-group">
+              <label class="afb-check"><input type="checkbox" name="afb-avail" value="instock" checked> <span>In Stock</span></label>
+              <label class="afb-check"><input type="checkbox" name="afb-avail" value="preorder"> <span>Pre-Order</span></label>
+              <label class="afb-check"><input type="checkbox" name="afb-avail" value="sale"> <span>On Sale</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="afb-group">
+            <legend class="afb-group-title"><i class="ri-star-line"></i> Min Rating</legend>
+            <div class="afb-rating-group" id="afb-rating-group" role="radiogroup" aria-label="Minimum rating">
+              <button class="afb-star-btn active" data-rating="0" aria-pressed="true" title="Any rating">Any</button>
+              <button class="afb-star-btn" data-rating="3" aria-pressed="false" title="3 stars and above"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></button>
+              <button class="afb-star-btn" data-rating="4" aria-pressed="false" title="4 stars and above"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></button>
+              <button class="afb-star-btn" data-rating="5" aria-pressed="false" title="5 stars only"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></button>
+            </div>
+          </fieldset>
+
+        </div><!-- /.afb-panel-inner -->
+
+        <div class="afb-panel-actions">
+          <button class="afb-clear-btn" id="afb-clear-btn" type="button"><i class="ri-refresh-line"></i> Reset Filters</button>
+          <button class="afb-apply-btn" id="afb-apply-btn" type="button">Apply Filters</button>
+        </div>
+      </div><!-- /.afb-panel -->
+    </section><!-- /#advanced-filter-bar -->
+
+    <div id="afb-search-row" class="section-p1">
+      <div class="afb-search-wrap">
+        <i class="ri-search-line afb-search-icon" aria-hidden="true"></i>
+        <input type="text" id="searchInput" class="afb-search-input"
+          placeholder="Search products by name or brand…"
+          autocomplete="off" aria-label="Search products" />
+        <button id="searchBtn" class="afb-search-clear" aria-label="Clear search" hidden>
+          <i class="ri-close-line"></i>
+        </button>
+      </div>
+      <div id="searchSuggestions" class="search-suggestions" aria-live="polite"></div>
+    </div>
+
+    <section id="product1" class="section-p1">
+      <div class="pro-container" id="shop-container"></div>
+    </section>
+
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
     <!-- Back to Top and Scroll to Bottom Buttons -->
     <button id="backToTop" title="Back to Top" aria-label="Back to top">
       ⬆
@@ -777,6 +895,20 @@
     </button>
 
     <!-- Footer -->
+<<<<<<< HEAD
+=======
+    <section id="newsletter" class="section-p1">
+      <div class="newstext">
+        <h4>Sign Up For Newsletters</h4>
+        <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
+      </div>
+      <form class="form newsletter-form">
+        <input type="email" placeholder="Your email address" required />
+        <button type="submit" class="normal">Sign Up</button>
+      </form>
+    </section>
+
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
     <footer class="section-p1">
       <div class="footer-container">
         
@@ -863,12 +995,21 @@
       </div>
     </footer>
 
+<<<<<<< HEAD
     <div id="toast-container"></div>
     <!-- Dynamic products and search logic -->
     <script src="products.js?v=1779120917219"></script>
     <script src="app.js?v=1779120917219"></script>
     <script src="navbar.js"></script>
     <script>loadNavbar('shop');</script>
+=======
+    <script src="shop.js"></script>
+    <script src="shop-filters.js"></script>
+    <script src="products.js?v=1779120917219"></script>
+    <script src="app.js?v=1779120917219"></script>
+    <script src="navbar.js"></script>
+    <script>loadNavbar('home');</script>
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
     <!-- Corrected  -->
     <script id="Current-Year">
         const year = new Date().getFullYear();
@@ -878,4 +1019,8 @@
     </script>
     <div id="toast-container"></div>
   </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)

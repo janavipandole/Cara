@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 document.addEventListener("DOMContentLoaded",()=>{
     // ============================================
+=======
+// ============================================
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
 // CARA VIRTUAL TRY-ON — Full Implementation
 // Uses MediaPipe Pose (BlazePose) for body detection
 // Canvas-based garment overlay with background removal
@@ -76,7 +80,11 @@ pose.onResults(onPoseResults);
 // ============================================
 // MODE SWITCHING (Camera / Upload)
 // ============================================
+<<<<<<< HEAD
 window.switchMode = function(mode) {
+=======
+function switchMode(mode) {
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
     currentMode = mode;
     document.getElementById('btn-camera').classList.toggle('active', mode === 'camera');
     document.getElementById('btn-upload').classList.toggle('active', mode === 'upload');
@@ -92,6 +100,7 @@ window.switchMode = function(mode) {
 // ============================================
 // CAMERA HANDLING
 // ============================================
+<<<<<<< HEAD
 window.openCamera = function () {
     navigator.mediaDevices.getUserMedia({
         video: { facingMode: 'user' }
@@ -103,6 +112,18 @@ window.openCamera = function () {
         webcamVideo.style.display = 'block';
         placeholder.style.display = 'none';
 
+=======
+async function openCamera() {
+    try {
+        cameraStream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 } }
+        });
+        webcamVideo.srcObject = cameraStream;
+        webcamVideo.style.display = 'block';
+        placeholder.style.display = 'none';
+
+        // Show canvas for live drawing
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
         resultCanvas.style.display = 'block';
         resultCanvas.width = 640;
         resultCanvas.height = 480;
@@ -112,6 +133,7 @@ window.openCamera = function () {
         document.getElementById('stop-camera-btn').style.display = 'flex';
 
         isLiveMode = true;
+<<<<<<< HEAD
         startLiveDetection();
     })
     .catch(err => {
@@ -119,6 +141,18 @@ window.openCamera = function () {
         alert('Camera access failed');
     });
 }
+=======
+
+        // Start MediaPipe camera loop for live detection
+        startLiveDetection();
+
+    } catch (err) {
+        console.error('Camera error:', err);
+        alert('Could not access camera. Please check permissions or try Upload mode.');
+    }
+}
+
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
 function startLiveDetection() {
     if (!isLiveMode) return;
 
@@ -155,7 +189,11 @@ function startLiveDetection() {
     }
 }
 
+<<<<<<< HEAD
 window.capturePhoto=function() {
+=======
+function capturePhoto() {
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
     if (!cameraStream) return;
 
     // Capture current frame from the canvas
@@ -186,7 +224,11 @@ window.capturePhoto=function() {
     updateStep(2);
 }
 
+<<<<<<< HEAD
 window.stopCamera=function() {
+=======
+function stopCamera() {
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
     isLiveMode = false;
     if (cameraStream) {
         cameraStream.getTracks().forEach(t => t.stop());
@@ -679,6 +721,7 @@ function shareResult() {
         downloadResult();
     }
 }
+<<<<<<< HEAD
 
 switchMode("camera");
 })
@@ -700,3 +743,5 @@ const topBtn = document.getElementById("topBtn");
         behavior: "smooth"
       });
     });
+=======
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)

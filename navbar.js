@@ -1,5 +1,9 @@
 function loadNavbar() {
+<<<<<<< HEAD
   const currentPage = window.location.pathname.split('/').pop();
+=======
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
 
   const activeMap = {
     'index.html': 'home',
@@ -18,6 +22,7 @@ function loadNavbar() {
   const navbarHTML = `
     <div>
       <ul id="navbar">
+<<<<<<< HEAD
 
         <li>
           <a ${activePage === 'home' ? 'class="active"' : ''} href="index.html" title="Home">
@@ -100,11 +105,30 @@ function loadNavbar() {
           </a>
         </li>
 
+=======
+        <li><a ${activePage === 'home' ? 'class="active"' : ''} href="index.html">Home</a></li>
+        <li><a ${activePage === 'shop' ? 'class="active"' : ''} href="shop.html">Shop</a></li>
+        <li><a ${activePage === 'blog' ? 'class="active"' : ''} href="blog.html">Blog</a></li>
+        <li><a ${activePage === 'about' ? 'class="active"' : ''} href="about.html">About</a></li>
+        <li><a ${activePage === 'tryon' ? 'class="active"' : ''} href="try-on.html">Try-On</a></li>
+        <li><a ${activePage === 'community' ? 'class="active"' : ''} href="community.html">Community</a></li>
+        <li><a ${activePage === 'promotions' ? 'class="active"' : ''} href="promotions.html">Promotions</a></li>
+        <li class="nav-icon"><a href="contact.html"><i class="ri-customer-service-2-line"></i></a></li>
+        <li class="nav-icon"><a ${activePage === 'login' ? 'class="active"' : ''} href="login.html"><i class="ri-user-3-line"></i></a></li>
+        <li class="nav-icon"><a href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
+        <li class="nav-icon">
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+            <i class="ri-moon-line" id="themeIcon"></i>
+          </button>
+        </li>
+        <li><a href="#" id="close"><i class="fa-solid fa-xmark"></i></a></li>
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
       </ul>
     </div>
   `;
 
   const container = document.getElementById('navbar-container');
+<<<<<<< HEAD
 
   if (container) {
     container.innerHTML = navbarHTML;
@@ -121,11 +145,26 @@ initMobileNavbar();
 
 function initMobileNavbar() {
   const bar = document.getElementById('bar');
+=======
+  if (container) {
+    container.innerHTML = navbarHTML;
+    // INITIALIZE ONLY AFTER HTML IS INJECTED
+    initDarkMode();
+    initMobileNavbar();
+  } else {
+    console.error('navbar-container not found!');
+  }
+}
+
+function initMobileNavbar() {
+  const bar = document.getElementById('bar'); // Make sure your HTML has id="bar"
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
   const close = document.getElementById('close');
   const navbar = document.getElementById('navbar');
 
   if (!bar || !navbar) return;
 
+<<<<<<< HEAD
   // Open menu
   function openMenu() {
     navbar.classList.add('active');
@@ -187,11 +226,26 @@ function initMobileNavbar() {
       closeMenu();
     });
   });
+=======
+  bar.addEventListener('click', () => {
+    navbar.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  });
+
+  if (close) {
+    close.addEventListener('click', (e) => {
+      e.preventDefault();
+      navbar.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+  }
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
 }
 
 function initDarkMode() {
   const themeToggle = document.getElementById('themeToggle');
   const themeIcon = document.getElementById('themeIcon');
+<<<<<<< HEAD
 
   const isDarkSaved = localStorage.getItem('theme') === 'dark';
 
@@ -222,3 +276,24 @@ function initDarkMode() {
     themeToggle.addEventListener('click', handleToggle);
   }
 }
+=======
+  
+  if (!themeToggle) return;
+
+  const isDarkSaved = localStorage.getItem('theme') === 'dark';
+  if (isDarkSaved) {
+    document.body.classList.add('dark');
+    themeIcon?.classList.replace('ri-moon-line', 'ri-sun-line');
+  }
+
+  themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    const isDark = document.body.classList.contains('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    themeIcon?.classList.replace(isDark ? 'ri-moon-line' : 'ri-sun-line', isDark ? 'ri-sun-line' : 'ri-moon-line');
+  });
+}
+
+// Run everything once the DOM is fully parsed
+document.addEventListener('DOMContentLoaded', loadNavbar);
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)

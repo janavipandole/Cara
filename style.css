@@ -34,6 +34,7 @@
 }
 
 /* Banner3 — solid white button with dark text for max contrast */
+<<<<<<< HEAD
 /* Reusable banner button */
 .banner-btn {
     background: rgba(255, 255, 255, 0.92);
@@ -6844,6 +6845,8 @@ footer.main-footer {
 }
 
 /* Banner3 — solid white button with dark text for max contrast */
+=======
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
 #banner3 .banner-box button {
     background: rgba(255, 255, 255, 0.92);
     color: #111;
@@ -7909,7 +7912,11 @@ button.white .ripple-effect {
 
 #search-filter {
     display: grid;
+<<<<<<< HEAD
     grid-template-columns: 1.8fr 1fr 0.6fr;
+=======
+    grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr) minmax(0, 0.6fr);
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
     gap: 24px;
     align-items: flex-end;
     margin-bottom: 32px;
@@ -7919,16 +7926,30 @@ button.white .ripple-effect {
 #search-filter .filter-container,
 #search-filter .search-summary {
     width: 100%;
+<<<<<<< HEAD
+=======
+    min-width: 0;
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
 }
 
 .search-box {
     display: flex;
     width: 100%;
     gap: 8px;
+<<<<<<< HEAD
 }
 
 #searchInput {
     width: 100%;
+=======
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+#searchInput {
+    flex: 1 1 0;
+    min-width: 0;
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
     padding: 14px 18px;
     border: 1px solid var(--border-color);
     border-radius: 12px;
@@ -7943,6 +7964,10 @@ button.white .ripple-effect {
 }
 
 #searchBtn {
+<<<<<<< HEAD
+=======
+    flex: 0 0 auto;
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
     min-width: 58px;
     border: none;
     border-radius: 12px;
@@ -7950,6 +7975,10 @@ button.white .ripple-effect {
     color: #fff;
     cursor: pointer;
     transition: transform 0.2s ease;
+<<<<<<< HEAD
+=======
+    padding: 12px 16px;
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
 }
 
 #searchBtn:hover {
@@ -8039,12 +8068,28 @@ button.white .ripple-effect {
 
     .search-box {
         flex-direction: column;
+<<<<<<< HEAD
+=======
+        align-items: stretch;
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
     }
 
     #searchBtn {
         width: 100%;
     }
 
+<<<<<<< HEAD
+=======
+    .filter-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-container label {
+        margin-bottom: 8px;
+    }
+
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
     .search-suggestions {
         max-height: 200px;
     }
@@ -8076,7 +8121,11 @@ button.white .ripple-effect {
    ============================================ */
 
 #banner {
+<<<<<<< HEAD
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.4)), url("images/banner/b2.png");
+=======
+    background-image: url("images/banner/b2.png");
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
     height: 40vh;
     width: 100%;
     background-size: cover;
@@ -8087,6 +8136,7 @@ button.white .ripple-effect {
     color: #FFF;
     text-align: center;
     flex-direction: column;
+<<<<<<< HEAD
     box-shadow: inset 0 0 100px rgba(0,0,0,0.6);
 }
 
@@ -8109,6 +8159,23 @@ button.white .ripple-effect {
     padding: 10px 0;
     text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.8);
     font-weight: 700;
+=======
+}
+
+#banner h4 {
+    color: #ffffffde;
+    font-size: 28px;
+}
+
+#banner span {
+    color: red;
+}
+
+#banner h2 {
+    color: #ffffffde;
+    font-size: 45px;
+    padding: 10px 0;
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
 }
 
 #banner button:hover {
@@ -8186,7 +8253,11 @@ button.white .ripple-effect {
 }
 
 #banner3 .banner-box2 {
+<<<<<<< HEAD
     background-image: url("images/banner/b5.jpg");
+=======
+    background-image: url("images/banner/b4.jpg");
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
 }
 
 #banner3 .banner-box3 {
@@ -8429,7 +8500,11 @@ footer .copyright {
    ============================================ */
 
 #shop-hero {
+<<<<<<< HEAD
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.35)), url("images/banner/b1.png");
+=======
+    background-image: url("images/banner/b2.png");
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
     background-size: cover;
     background-position: center;
     height: 50vh;
@@ -8438,6 +8513,7 @@ footer .copyright {
     justify-content: center;
     flex-direction: column;
     padding: 14px;
+<<<<<<< HEAD
     box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.55);
 }
 
@@ -8455,6 +8531,13 @@ footer .copyright {
     font-size: 20px;
     font-weight: 500;
     text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+=======
+}
+
+#shop-hero h2,
+#shop-hero p {
+    color: #fff;
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
     text-align: center;
 }
 
@@ -8593,6 +8676,7 @@ footer .copyright {
     margin-bottom: 12px;
 }
 
+<<<<<<< HEAD
     #pro-details .cart-action-group {
         display: flex;
         align-items: center;
@@ -8657,6 +8741,36 @@ footer .copyright {
         -moz-appearance: textfield;
         appearance: textfield;
     }
+=======
+    /* ── QUANTITY SELECTOR FIX (Issue: buttons stacking vertically) ── */
+#pro-details .single-pro-details .quantity-selector {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+#pro-details .single-pro-details .qty-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    border-radius: 50%;
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background 0.2s ease;
+}
+
+#pro-details .single-pro-details .qty-btn:hover {
+    background-color: #066b63;
+}
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
 
 #pro-details .single-pro-details .quantity-selector input {
     width: 50px;
@@ -9074,6 +9188,7 @@ footer .copyright {
         margin-bottom: 10px;
     }
 
+<<<<<<< HEAD
     #pro-details .quantity-selector .qty-btn {
         background: transparent;
         border: none;
@@ -9122,6 +9237,23 @@ footer .copyright {
 
     #pro-details .single-pro-details .quantity-selector input:focus {
         outline: none;
+=======
+    #pro-details .single-pro-details input {
+        width: 50px;
+        height: 47px;
+        padding-left: 10px;
+        font-size: 16px;
+        margin-right: 10px;
+    }
+
+    #pro-details .single-pro-details input:focus {
+        outline: none;
+    }
+
+    #pro-details .single-pro-details button {
+        color: #fff;
+        background: #088178;
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
     }
 
     /* ============================================
@@ -9140,6 +9272,38 @@ footer .copyright {
         transition: all 0.3s ease;
     }
 
+<<<<<<< HEAD
+=======
+    #pro-details .single-pro-details .qty-btn:hover {
+        background-color: var(--accent);
+        color: #fff;
+    }
+
+    #pro-details .single-pro-details .quantity-selector input {
+        width: 50px;
+        height: 100%;
+        text-align: center;
+        font-size: 18px;
+        font-weight: 600;
+        border: none;
+        background: transparent;
+        color: var(--text-primary);
+        padding: 0;
+        margin: 0;
+        -moz-appearance: textfield;
+    }
+
+    #pro-details .single-pro-details .quantity-selector input::-webkit-outer-spin-button,
+    #pro-details .single-pro-details .quantity-selector input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    #pro-details .single-pro-details .quantity-selector input:focus {
+        outline: none;
+    }
+
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
     #pro-details .single-pro-details .cart-action-group button.normal {
         color: #fff;
         background: var(--accent);
@@ -12666,6 +12830,7 @@ footer .copyright {
             display: flex;
             align-items: center;
             border: 1.5px solid var(--border-color);
+<<<<<<< HEAD
             border-radius: 24px;
             width: fit-content;
             background: var(--bg-primary);
@@ -19875,6 +20040,8 @@ footer a {
             display: flex;
             align-items: center;
             border: 1.5px solid var(--border-color);
+=======
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
             border-radius: 20px;
             overflow: hidden;
             width: fit-content;
@@ -20284,6 +20451,7 @@ footer a {
     z-index: 999 !important;
   }
 }
+<<<<<<< HEAD
 /* Added styling for better buttons on footer
 */
 .quiz-options {
@@ -35129,3 +35297,60 @@ html {
 [data-theme="dark"] #siteLogo {
     filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(255, 255, 255, 0.25));
 }
+=======
+
+/* Mobile Hero Image*/
+@media screen and (max-width: 768px) {
+
+    .hero-slider .slide:nth-child(1) {
+        background-position: 75% center !important;
+    }
+
+    .hero-slider .slide:nth-child(2) {
+        background-position: 80% center !important;
+    }
+
+    .hero-slider .slide:nth-child(3) {
+        background-position: 50% center !important;
+    }
+
+}
+
+/* Mobile & Tablet Hero Image Position Fix */
+
+@media screen and (max-width: 1024px) {
+
+    /* Slide 1 */
+    .hero-slider .slide:nth-child(1) {
+        background-position: 72% center !important;
+    }
+
+    /* Slide 2 */
+    .hero-slider .slide:nth-child(2) {
+        background-position: 68% center !important;
+    }
+
+    /* Slide 3 */
+    .hero-slider .slide:nth-child(3) {
+        background-position: 40% center !important;
+    }
+
+}
+
+/* Small Mobile Devices */
+@media screen and (max-width: 768px) {
+
+    .hero-slider .slide:nth-child(1) {
+        background-position: 78% center !important;
+    }
+
+    .hero-slider .slide:nth-child(2) {
+        background-position: 73% center !important;
+    }
+
+    .hero-slider .slide:nth-child(3) {
+        background-position: 50% center !important;
+    }
+
+}
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)

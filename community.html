@@ -11,6 +11,7 @@
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
+<<<<<<< HEAD
       body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -41,6 +42,8 @@
     #topBtn:hover {
       background-color: #555;
     }
+=======
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
         /* Community Page Specific Styles */
         #community-header {
             background-image: url("images/hero4.png");
@@ -78,6 +81,7 @@
 
         /* Upload Section */
         #upload-look {
+<<<<<<< HEAD
     text-align: center;
     padding: 20px;
     width: 100%;
@@ -152,6 +156,44 @@
     opacity: 0;
     position: absolute;
 }
+=======
+            text-align: center;
+            padding: 50px 80px;
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        #upload-look h3 {
+            font-size: 32px;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        .upload-area {
+            max-width: 600px;
+            margin: 0 auto;
+            border: 2px dashed var(--accent);
+            padding: 40px;
+            border-radius: 10px;
+            background: var(--bg-secondary);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .upload-area:hover {
+            background: var(--card-bg);
+            box-shadow: 0 10px 20px var(--shadow);
+        }
+
+        .upload-area i {
+            font-size: 50px;
+            color: var(--accent);
+        }
+
+        .upload-area input {
+            display: none;
+        }
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
 
         /* Gallery Grid */
         #gallery {
@@ -225,6 +267,7 @@
 </head>
 <body>
     <section id="header">
+<<<<<<< HEAD
   <!-- Logo -->
   <a href="index.html">
     <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
@@ -312,6 +355,27 @@
 
   </div>
 </section>
+=======
+        <a href="index.html">
+            <img id="siteLogo" src="images/logo.png" alt="" id="siteLogo">
+        </a>
+
+        <!-- Desktop navbar injects here -->
+        <div id="navbar-container"></div>
+
+        <!-- Mobile controls (outside navbar, always in DOM) -->
+        <div class="mobile">
+            <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
+            <i class="ri-moon-line" id="themeIconMobile"></i>
+            </button>
+            <a href="cart.html">
+            <i class="ri-shopping-bag-4-line"></i>
+            <span class="cart-count" id="mobileCartCount">0</span>
+            </a>
+            <i class="fas fa-outdent" id="bar"></i>
+        </div>
+    </section>
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
 
     <section id="community-header">
         <h2>#CaraCommunity</h2>
@@ -319,6 +383,7 @@
     </section>
 
     <section id="upload-look">
+<<<<<<< HEAD
     <h3>Showcase Your Look!</h3>
     <p class="upload-subtitle">Used our Virtual Try-On? Got a stunning Cara outfit? Upload your poster to be featured on our Trending feed!</p>
     
@@ -331,6 +396,18 @@
         <input type="file" id="community-upload" accept="image/*">
     </label>
 </section>
+=======
+        <h3>Showcase Your Look!</h3>
+        <p>Used our Virtual Try-On? Got a stunning Cara outfit? Upload your poster to be featured on our Trending feed!</p>
+        <label class="upload-area">
+            <i class="ri-camera-lens-fill"></i>
+            <h4>Click to Upload Photo</h4>
+            <p>PNG, JPG up to 5MB</p>
+            <input type="file" id="community-upload" accept="image/*">
+        </label>
+        <p id="upload-success" style="display:none; color: var(--accent); font-weight:bold; margin-top:15px;">Thanks for sharing! Your look is under review.</p>
+    </section>
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
 
     <section id="gallery">
         <h2>Trending Outfits & Inspiration</h2>
@@ -396,6 +473,7 @@
     </section>
 
     <footer class="section-p1">
+<<<<<<< HEAD
     <!-- Contact Column -->
     <div class="col">
       <img class="logo" src="images/logo.png" alt="Cara Logo">
@@ -529,6 +607,22 @@
         behavior: "smooth"
       });
     });
+=======
+        <div class="col">
+            <img class="logo" src="images/logo.png" alt="">
+            <h4>Contact</h4>
+            <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
+        </div>
+        <div class="copyright">
+            <p>&copy; Cara 2025. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="navbar.js"></script>
+    <script>loadNavbar('community');</script>  
+
+    <script src="app.js?v=1779120917211"></script>
+    <script>
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
         document.getElementById('community-upload').addEventListener('change', function(e) {
             if(e.target.files.length > 0) {
                 document.getElementById('upload-success').style.display = 'block';
@@ -538,5 +632,9 @@
             }
         });
     </script>
+<<<<<<< HEAD
+=======
+    <!-- <script src="app.js?v=1779120917211"></script>       -->
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
 </body>
 </html>
