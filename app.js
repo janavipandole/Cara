@@ -1777,47 +1777,69 @@ document.addEventListener('DOMContentLoaded', () => {
 /* --- START: THEME TOGGLE FUNCTIONALITY --- */
 
 (function () {
-  const themeToggle = document.getElementById('themeToggle');
-  const themeToggleMobile = document.getElementById('themeToggleMobile');
-  const themeIcon = document.getElementById('themeIcon');
-  const themeIconMobile = document.getElementById('themeIconMobile');
-  const html = document.documentElement;
+    const html = document.documentElement;
 
-  const currentTheme = localStorage.getItem('theme') || 'light';
-  html.setAttribute('data-theme', currentTheme);
-  updateThemeIcon(currentTheme);
-
-  function updateThemeIcon(theme) {
-    console.log('Updating icons to:', theme);
-    const iconClass = theme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
-    if (themeIcon) themeIcon.className = iconClass;
-    if (themeIconMobile) themeIconMobile.className = iconClass;
-
-    // Swap logo based on theme
-    const siteLogo = document.getElementById('siteLogo');
-    if (siteLogo) {
-      siteLogo.src = theme === 'dark' ? 'images/Dlogo.png' : 'images/logo.png';
+    // Apply saved theme on load
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', currentTheme);
+    if (currentTheme === 'dark') {
+        document.body.classList.add('dark');
+    } else {
+        document.body.classList.remove('dark');
     }
-  }
 
-  function toggleTheme() {
-    const currentTheme = html.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    html.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    updateThemeIcon(newTheme);
-  }
+    function updateThemeIcon(theme) {
+        const iconClass = theme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
+        
+        const themeIcon = document.getElementById('themeIcon');
+        const themeIconMobile = document.getElementById('themeIconMobile');
+        
+        if (themeIcon) themeIcon.className = iconClass;
+        if (themeIconMobile) themeIconMobile.className = iconClass;
 
-  if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
-  if (themeToggleMobile)
-    themeToggleMobile.addEventListener('click', toggleTheme);
+        // Swap logo based on theme
+        const siteLogo = document.getElementById('siteLogo');
+        if (siteLogo) {
+            siteLogo.src = theme === 'dark' ? 'images/Dlogo.png' : 'images/logo.png';
+        }
+    }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      updateThemeIcon(currentTheme);
+    function toggleTheme() {
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'light' : 'dark';
+        
+        html.setAttribute('data-theme', newTheme);
+        if (newTheme === 'dark') {
+            document.body.classList.add('dark');
+        } else {
+            document.body.classList.remove('dark');
+        }
+        
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon(newTheme);
+    }
+
+    // Event Delegation: Works for static AND dynamic buttons
+    document.addEventListener('click', (e) => {
+        if (e.target && (e.target.closest('#themeToggle') || e.target.closest('#themeToggleMobile'))) {
+            e.preventDefault();
+            toggleTheme();
+        }
     });
-  }
+
+    // Watch for dynamic navbar insertions
+    if (typeof MutationObserver !== 'undefined') {
+        const observer = new MutationObserver(() => {
+            const activeTheme = html.getAttribute('data-theme') || 'light';
+            updateThemeIcon(activeTheme);
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+    }
+
+    // Initialize icons on load
+    updateThemeIcon(currentTheme);
 })();
+
 
 /* --- END: THEME TOGGLE FUNCTIONALITY --- */
 
