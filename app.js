@@ -256,9 +256,10 @@ function showToast(message, type) {
     toast.className = 'toast toast-' + type;
     toast.innerHTML =
         '<i class="fa-solid ' + (icons[type] || icons.success) + ' toast-icon"></i>' +
-        '<span class="toast-msg">' + message + '</span>' +
+        '<span class="toast-msg"></span>' +
         '<button class="toast-close" aria-label="Close notification">&times;</button>' +
         '<div class="toast-progress"></div>';
+    toast.querySelector('.toast-msg').textContent = message;
 
     // Close button handler
     toast.querySelector('.toast-close').addEventListener('click', function() {
@@ -1436,11 +1437,10 @@ function showToast(message, type) {
     '<i class="fa-solid ' +
     (icons[type] || icons.success) +
     ' toast-icon"></i>' +
-    '<span class="toast-msg">' +
-    message +
-    '</span>' +
+    '<span class="toast-msg"></span>' +
     '<button class="toast-close" aria-label="Close notification">&times;</button>' +
     '<div class="toast-progress"></div>';
+  toast.querySelector('.toast-msg').textContent = message;
 
   // Close button handler
   toast.querySelector('.toast-close').addEventListener('click', function () {
