@@ -1,8 +1,9 @@
 /* ===== FORGOT PASSWORD JS ===== */
+ 
 
 /* toggle new password visibility */
-const form = document.getElementById('forgotForm');
-if (!form) return;
+if (!document.getElementById('forgotForm')) 
+      return;
 
 document.getElementById('toggleNewPass').addEventListener('click', function () {
   const pwd = document.getElementById('forgotNewPass');
