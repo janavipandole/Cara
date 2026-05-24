@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cara — AI Virtual Try-On</title>
+    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- MediaPipe Pose CDNs -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js" crossorigin="anonymous"></script>
+
+<<<<<<< HEAD
+
+        <style>
+            body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.8;
+    }
+
+    .content {
+      height: 2000px;
+    }
+
+    /* Scroll Button */
+    #topBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: none;
+      background-color:#088178;
+      color: white;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      transition: 0.3s;
+    }
+
+    #topBtn:hover {
+      background-color: #555;
+    }
+
+            :root {
+    --accent: #088178;
+    --text-primary: #333;
+    --bg-secondary: #f5f5f5;
+    --card-bg: #ffffff;
+    --border-color: #ddd;
+}
+=======
+    <style>
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
+        /* ============================================
+           VIRTUAL TRY-ON PAGE STYLES
+           ============================================ */
+
+        #try-on-section {
+            padding: 40px 80px;
+            margin-top: 80px;
+            min-height: 80vh;
+        }
+
+        /* ---- Step Flow Header ---- */
+        .step-flow {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .step-indicator {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            opacity: 0.4;
+            transition: opacity 0.4s ease;
+        }
+
+        .step-indicator.active {
+            opacity: 1;
+        }
+
+        .step-num {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .step-label {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .step-divider {
+            width: 60px;
+            height: 2px;
+            background: var(--border-color);
+            align-self: center;
+        }
+
+        /* ---- Main Layout ---- */
+        .tryon-layout {
+            display: flex;
+            gap: 30px;
+            min-height: 65vh;
+        }
+
+        /* ---- Left: Controls Panel ---- */
+        .controls {
+            flex: 1;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px var(--shadow);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            overflow-y: auto;
+            max-height: 75vh;
+        }
+
+        .controls h2 {
+            font-size: 28px;
+            margin-bottom: 5px;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .controls h2 i { font-size: 32px; }
+
+        .controls p {
+            font-size: 15px;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .controls h4 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        /* ---- Mode Toggle (Camera / Upload) ---- */
+        .mode-toggle {
+            display: flex;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid var(--accent);
+        }
+
+        .mode-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: transparent;
+            color: var(--text-primary);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: 0.3s ease;
+        }
+<<<<<<< HEAD
+        .mode-toggle {
+          min-height: 48px;
+             }
+
+         .mode-btn {
+         min-height: 48px;
+         }
+=======
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
+
+        .mode-btn.active {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .mode-btn:hover:not(.active) {
+            background: var(--bg-secondary);
+        }
+
+        /* ---- Upload Area ---- */
+        .upload-area {
+            display: none;
+        }
+
+        .upload-area.visible {
+            display: block;
+        }
+
+        .upload-btn {
+            background-color: var(--card-bg);
+            color: var(--text-primary);
+            padding: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 10px;
+            transition: 0.3s;
+            border: 2px dashed var(--accent);
+        }
+
+        .upload-btn i {
+            font-size: 30px;
+            color: var(--accent);
+        }
+
+        .upload-btn:hover {
+            background-color: var(--bg-secondary);
+        }
+
+        .upload-btn input {
+            display: none;
+        }
+
+        /* ---- Camera Controls ---- */
+        .camera-area {
+            display: none;
+        }
+
+        .camera-area.visible {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .camera-btn {
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: 0.3s ease;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .camera-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .camera-btn.capture {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+        }
+
+        .camera-btn.capture:hover {
+            background: #06665f;
+        }
+
+        /* ---- Clothing Grid ---- */
+        .clothing-list {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .clothing-item {
+            width: 80px;
+            height: 80px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            cursor: pointer;
+            object-fit: cover;
+            transition: 0.3s ease;
+        }
+
+        .clothing-item:hover, .clothing-item.selected {
+            border-color: var(--accent);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(8, 129, 120, 0.3);
+        }
+
+        /* ---- Action Button ---- */
+        .action-btn {
+            background: var(--accent);
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .action-btn:hover {
+            background: #06665f;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(8, 129, 120, 0.4);
+        }
+
+        .action-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+<<<<<<< HEAD
+        /* ---- Right Panel: AI Viewport Container ---- */
+        .ai-viewport {
+            flex: 1.5; /* Isse video ki horizontal space left block ke same lagegi */
+            background: var(--card-bg);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 5px 15px var(--shadow);
+            position: relative;
+=======
+        /* ---- Right: AI Viewport ---- */
+        .ai-viewport {
+            flex: 1.3;
+            background: var(--bg-secondary);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
+            min-height: 500px;
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
+        }
+
+        .viewport-placeholder {
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .viewport-placeholder i {
+            font-size: 60px;
+            margin-bottom: 15px;
+            color: var(--border-color);
+        }
+
+<<<<<<< HEAD
+        /* ---- Camera & Canvas Master Box ---- */
+        .video-wrapper {
+            position: relative;
+            width: 100%;       
+            max-width: 680px; /* Ab left box ke barabar mast look dega */
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 4 / 3; 
+            background: #000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
+        }
+
+        /* Live camera video configuration */
+        .video-wrapper video {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important; 
+            display: block !important;
+            transform: scaleX(-1); /* Mirror view */
+        }
+
+        /* 🌟 Main Canvas (Absolute hokar video ke theek UPAR bethega) 🌟 */
+        .video-wrapper #output-canvas {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            z-index: 10 !important; /* Isse dono merge ho jayenge, double nahi dikhega */
+            pointer-events: none;
+=======
+        /* Hidden webcam video element */
+        #webcam-video {
+            display: none;
+        }
+
+        /* The main output canvas */
+        #output-canvas {
+            position: relative !important;
+            top: auto !important;
+            left: auto !important;
+            z-index: 1 !important;
+            pointer-events: auto !important;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: none;
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
+        }
+
+        /* Hidden image for uploads */
+        #uploaded-preview {
+            display: none;
+        }
+
+        /* ---- Body Info Badge ---- */
+        .body-info {
+            position: absolute;
+<<<<<<< HEAD
+            top: 45px;
+            left: 45px;
+=======
+            top: 15px;
+            left: 15px;
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
+            background: rgba(0,0,0,0.75);
+            color: #fff;
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 13px;
+            line-height: 1.6;
+<<<<<<< HEAD
+            z-index: 20;
+=======
+            z-index: 5;
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
+            display: none;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .body-info .label {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        /* ---- Scanning Animation ---- */
+        .scanning-container {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0,0,0,0.8);
+            color: white;
+<<<<<<< HEAD
+            z-index: 30;
+=======
+            z-index: 10;
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
+        }
+
+        .scanner-line {
+            width: 100%;
+            height: 3px;
+            background: var(--accent);
+            position: absolute;
+            top: 0;
+            box-shadow: 0 0 15px 2px var(--accent);
+            animation: scan 2s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { top: 0; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        .ai-text {
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-top: 20px;
+            animation: pulse 1s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { opacity: 0.5; }
+            to { opacity: 1; }
+        }
+
+        /* ---- Share / Action Controls ---- */
+        .share-controls {
+            position: absolute;
+<<<<<<< HEAD
+            bottom: 45px;
+            right: 45px;
+            display: none;
+            gap: 10px;
+            z-index: 20;
+=======
+            bottom: 15px;
+            right: 15px;
+            display: none;
+            gap: 10px;
+            z-index: 5;
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
+        }
+
+        .share-btn {
+            background: white;
+            color: var(--accent);
+            border: none;
+            padding: 10px 18px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 13px;
+        }
+
+        .share-btn:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* ---- Responsive ---- */
+        @media (max-width: 900px) {
+            #try-on-section {
+                padding: 20px 15px;
+            }
+            .tryon-layout {
+                flex-direction: column;
+            }
+            .ai-viewport {
+                min-height: 400px;
+            }
+            .step-flow {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .step-divider {
+                width: 30px;
+            }
+            .controls {
+                max-height: none;
+            }
+        }
+<<<<<<< HEAD
+        
+    </style>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+        <!-- HEADER -->
+        <!-- <section id="header"> -->
+            <section id="header">
+  <!-- Logo -->
+  <a href="index.html">
+    <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
+  </a>
+
+  <div>
+    <ul id="navbar">
+
+      <!-- Main Navigation Links -->
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a class="active" href="try-on.html">Try-On</a></li>
+      <li><a href="community.html">Community</a></li>
+      <li><a href="promotions.html">Promotions</a></li>
+
+      <!-- Contact Icon -->
+      <li class="nav-icon">
+        <a href="contact.html" aria-label="Contact">
+          <i class="ri-customer-service-2-line"></i>
+        </a>
+      </li>
+
+      <!-- Login Icon -->
+      <li class="nav-icon">
+        <a href="login.html" aria-label="Login">
+          <i class="ri-user-3-line"></i>
+        </a>
+      </li>
+
+      <!-- Cart Icon -->
+      <li class="nav-icon">
+        <a href="cart.html" id="lg-bag" aria-label="Cart">
+          <i class="ri-shopping-bag-4-line"></i>
+        </a>
+      </li>
+
+      <!-- Theme Toggle -->
+      <li class="nav-icon">
+        <button
+          class="theme-toggle"
+          id="themeToggle"
+          aria-label="Toggle dark mode"
+        >
+          <i class="ri-moon-line" id="themeIcon"></i>
+        </button>
+      </li>
+
+      <!-- Close Button -->
+      <a
+        href="#"
+        id="close"
+        aria-label="Close menu"
+        aria-hidden="false"
+      >
+        <i class="fa-solid fa-xmark"></i>
+      </a>
+
+    </ul>
+  </div>
+
+  <!-- Mobile Navbar -->
+  <div class="mobile">
+
+    <!-- Login Icon -->
+    <a href="login.html" aria-label="Login">
+      <i class="ri-user-3-line"></i>
+    </a>
+
+    <!-- Cart Icon -->
+    <a href="cart.html" aria-label="Cart">
+      <i class="ri-shopping-bag-4-line"></i>
+    </a>
+
+    <!-- Hamburger Menu -->
+    <i
+      class="fas fa-outdent"
+      id="bar"
+      role="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+      tabindex="0"
+    ></i>
+
+  </div>
+</section>
+
+            <!-- <div class="mobile">
+=======
+    </style>
+</head>
+<body>
+    <body>
+
+        <!-- HEADER -->
+        <section id="header">
+            <a href="index.html">
+            <img id="siteLogo" src="images/logo.png" alt="" id="siteLogo">
+            </a>
+
+            <!-- Navbar loads here -->
+            <div id="navbar-container"></div>
+
+            <div class="mobile">
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
+            <button class="theme-toggle" id="themeToggleMobile"
+                aria-label="Toggle dark mode">
+                <i class="ri-moon-line" id="themeIconMobile"></i>
+            </button>
+            <a href="cart.html" id="mobile-cart-icon">
+                <i class="ri-shopping-bag-4-line"></i>
+                <span class="cart-count" id="mobileCartCount">0</span>
+            </a>
+            <i class="fas fa-outdent" id="bar"></i>
+<<<<<<< HEAD
+            </div> -->
+        <!-- </section> -->
+=======
+            </div>
+        </section>
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
+    <section id="try-on-section">
+
+        <!-- Step Progress -->
+        <div class="step-flow">
+            <div class="step-indicator active" id="step1">
+                <div class="step-num">1</div>
+                <span class="step-label">Your Photo</span>
+            </div>
+            <div class="step-divider"></div>
+            <div class="step-indicator" id="step2">
+                <div class="step-num">2</div>
+                <span class="step-label">Select Outfit</span>
+            </div>
+            <div class="step-divider"></div>
+            <div class="step-indicator" id="step3">
+                <div class="step-num">3</div>
+                <span class="step-label">Try On</span>
+            </div>
+        </div>
+
+        <div class="tryon-layout">
+            <!-- Left: Controls -->
+            <div class="controls">
+                <h2><i class="ri-magic-line"></i> AI Virtual Try-On</h2>
+                <p>Use your camera or upload a photo. Our AI detects your body shape and fits the clothing on you.</p>
+                
+                <!-- Step 1: Input Mode -->
+                <h4>1. Choose Input</h4>
+                <div class="mode-toggle">
+                    <button class="mode-btn active" id="btn-camera" onclick="switchMode('camera')">
+                        <i class="ri-camera-line"></i> Camera
+                    </button>
+                    <button class="mode-btn" id="btn-upload" onclick="switchMode('upload')">
+                        <i class="ri-upload-cloud-2-line"></i> Upload
+                    </button>
+                </div>
+
+                <!-- Camera Controls -->
+                <div class="camera-area visible" id="camera-area">
+                    <button class="camera-btn" id="open-camera-btn" onclick="openCamera()">
+                        <i class="ri-camera-line"></i> Open Camera
+                    </button>
+                    <button class="camera-btn capture" id="capture-btn" style="display:none;" onclick="capturePhoto()">
+                        <i class="ri-camera-switch-line"></i> Capture Photo
+                    </button>
+                    <button class="camera-btn" id="stop-camera-btn" style="display:none;" onclick="stopCamera()">
+                        <i class="ri-close-circle-line"></i> Stop Camera
+                    </button>
+                </div>
+
+                <!-- Upload Controls -->
+                <div class="upload-area" id="upload-area">
+                    <label class="upload-btn">
+                        <i class="ri-upload-cloud-2-line"></i>
+                        <span id="upload-text">Click to upload full-body photo</span>
+                        <input type="file" id="photo-upload" accept="image/*">
+                    </label>
+                </div>
+
+                <!-- Step 2: Outfit -->
+                <h4>2. Select Outfit</h4>
+                <div class="clothing-list" id="clothing-list">
+                    <!-- Populated by JS from products array -->
+                </div>
+
+                <div style="flex-grow: 1;"></div>
+
+                <!-- Step 3: Generate -->
+                <button class="action-btn" id="generate-btn" disabled>
+                    <i class="ri-sparkling-fill"></i> Generate AI Try-On
+                </button>
+            </div>
+
+            <!-- Right: Viewport -->
+<<<<<<< HEAD
+            <div class="ai-viewport preview-container">
+                <div class="viewport-placeholder" id="placeholder">
+                    <i class="ri-body-scan-line">
+                    </i>
+                
+=======
+            <div class="ai-viewport">
+                <div class="viewport-placeholder" id="placeholder">
+                    <i class="ri-body-scan-line"></i>
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
+                    <h3>Open your camera or upload a photo</h3>
+                    <p style="font-size:14px; margin-top:8px;">We'll detect your body shape automatically</p>
+                </div>
+
+                <!-- Hidden webcam feed -->
+<<<<<<< HEAD
+             <div class="video-wrapper">
+    <video id="webcam-video" autoplay playsinline></video>
+    <canvas id="output-canvas"></canvas>
+</div>
+=======
+                <video id="webcam-video" autoplay playsinline></video>
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
+
+                <!-- Hidden uploaded image -->
+                <img id="uploaded-preview" src="" alt="">
+
+<<<<<<< HEAD
+
+=======
+                <!-- Main output canvas -->
+                <canvas id="output-canvas"></canvas>
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
+
+                <!-- Body info badge -->
+                <div class="body-info" id="body-info"></div>
+                
+                <!-- Scanning Animation -->
+                <div class="scanning-container" id="scanner">
+                    <div class="scanner-line"></div>
+                    <i class="ri-focus-3-line" style="font-size: 60px; color: var(--accent); animation: pulse 1s infinite alternate;"></i>
+                    <div class="ai-text" id="ai-status">DETECTING BODY...</div>
+                </div>
+                
+                <!-- Share Controls -->
+                <div class="share-controls" id="share-controls">
+                    <button class="share-btn" onclick="downloadResult()"><i class="ri-download-2-line"></i> Download</button>
+                    <button class="share-btn" onclick="shareResult()"><i class="ri-share-line"></i> Share</button>
+                    <button class="share-btn" onclick="resetTryOn()"><i class="ri-refresh-line"></i> Retry</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="section-p1">
+<<<<<<< HEAD
+    <!-- Contact Column -->
+    <div class="col">
+      <img class="logo" src="images/logo.png" alt="Cara Logo">
+      <h4>Contact</h4>
+      <p>
+        <strong>Address:</strong> 562 Wellington Road, Street 32, San
+        Francisco
+      </p>
+      <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
+      <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
+
+      <div class="follow">
+        <h4>Follow us</h4>
+        <div class="icon">
+          <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-youtube"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- About Column -->
+    <div class="col">
+      <h4>About</h4>
+      <a href="about.html">About Us</a>
+      <a href="#">Delivery Information</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms and Conditions</a>
+      <a href="contact.html">Contact Us</a>
+    </div>
+
+    <!-- My Account Column -->
+    <div class="col">
+      <h4>My Account</h4>
+      <a href="login.html">Sign In</a>
+      <a href="cart.html">View Cart</a>
+      <a href="#">My Wishlist</a>
+      <a href="cart.html">Track My Order</a>
+      <a href="contact.html">Help</a>
+    </div>
+
+    <!-- Newsletter Column -->
+    <div class="col newsletter-footer">
+      <h4>Newsletter</h4>
+      <p>
+        Get email updates about our latest shop and
+        <span>special offers.</span>
+      </p>
+
+      <form class="newsletter-form">
+        <input type="email" placeholder="Your email address" required="">
+        <button type="submit" class="normal">Sign Up</button>
+      </form>
+    </div>
+
+    <!-- Install App Column -->
+    <div class="col install">
+      <h4>Install App</h4>
+      <p>From App Store or Google Play</p>
+
+      <div class="row">
+        <img src="images/pay/app.jpg" alt="Download from App Store">
+        <img src="images/pay/play.jpg" alt="Get it on Google Play">
+      </div>
+
+      <p>Secured Payment Gateways</p>
+
+      <div class="payment-icons">
+        <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer" aria-label="Visa">
+          <i class="fab fa-cc-visa"></i>
+        </a>
+
+        <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer" aria-label="Mastercard">
+          <i class="fab fa-cc-mastercard"></i>
+        </a>
+
+        <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" aria-label="PayPal">
+          <i class="fab fa-cc-paypal"></i>
+        </a>
+
+        <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer" aria-label="American Express">
+          <i class="fab fa-cc-amex"></i>
+        </a>
+
+        <a href="https://stripe.com" target="_blank" rel="noopener noreferrer" aria-label="Stripe">
+          <i class="fab fa-cc-stripe"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="copyright">
+      <p>
+        © Cara 2026. All rights reserved. |
+        <a href="license.html" style="color: #088178"> MIT License </a>
+      </p>
+    </div>
+  </footer>
+   <button id="topBtn">↑</button>
+     <script src="try-on.js"></script> 
+    <script src="navbar.js"></script>
+<!-- <script>loadNavbar('tryon');</script> -->
+=======
+        <div class="col">
+            <img class="logo" src="images/logo.png" alt="">
+            <h4>Contact</h4>
+            <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
+        </div>
+        <div class="copyright">
+            <p>&copy; Cara <span id="Current-Year"></span> All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="try-on.js"></script>
+    <script src="navbar.js"></script>
+<script>loadNavbar('tryon');</script>
+<script src="app.js?v=1779120917221"></script>
+>>>>>>> c0df24a (Fix navbar and theme initialization logic)
+        <script id="Current-Year">
+        document.getElementById("Current-Year").textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
