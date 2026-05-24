@@ -591,15 +591,19 @@ document.addEventListener('DOMContentLoaded', () => {
 /* --- END: CART FUNCTIONALITY --- */
 
 /* --- START: THEME TOGGLE FUNCTIONALITY --- */
-/* --- START: THEME TOGGLE FUNCTIONALITY --- */
 
 (function () {
     const html = document.documentElement;
 
-    // Apply the saved theme immediately when script runs so there is no
-    // flash of the wrong theme while the page loads.
-    const savedTheme = localStorage.getItem('theme') || 'light';
+    // Apply saved theme immediately; default to dark for first-time visitors.
+    const savedTheme = localStorage.getItem('theme') || 'dark';
     html.setAttribute('data-theme', savedTheme);
+
+    function syncBodyTheme(theme) {
+        if (document.body) {
+            document.body.classList.toggle('dark', theme === 'dark');
+        }
+    }
 
     // Updates the sun/moon icon and the logo image to match the active theme.
     function updateThemeIcon(theme) {
@@ -619,29 +623,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Switches between dark and light and persists the choice.
     function toggleTheme() {
-        const currentTheme = html.getAttribute('data-theme') || 'light';
+        const currentTheme = html.getAttribute('data-theme') || 'dark';
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark'; // fixed: was 'light' ? 'light' : 'dark'
         html.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
+        syncBodyTheme(newTheme);
         updateThemeIcon(newTheme);
     }
 
-    // app.js loads at the bottom of <body> so the DOM is already parsed —
-    // update the icon immediately without waiting for DOMContentLoaded.
+    syncBodyTheme(savedTheme);
     updateThemeIcon(savedTheme);
 
-    // Use event delegation so the handler works even if the button is
-    // injected into the page dynamically after this script runs.
     document.addEventListener('click', function (e) {
-        if (!e.target) return;
-        if (e.target.closest('#themeToggle') || e.target.closest('#themeToggleMobile')) {
+        if (e.target && (e.target.closest('#themeToggle') || e.target.closest('#themeToggleMobile'))) {
             e.preventDefault();
             toggleTheme();
         }
     });
-})();
 
-/* --- END: THEME TOGGLE FUNCTIONALITY --- */
+    if (typeof MutationObserver !== 'undefined' && document.body) {
+        const observer = new MutationObserver(() => {
+            const activeTheme = html.getAttribute('data-theme') || 'dark';
+            syncBodyTheme(activeTheme);
+            updateThemeIcon(activeTheme);
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const activeTheme = html.getAttribute('data-theme') || 'dark';
+        syncBodyTheme(activeTheme);
+        updateThemeIcon(activeTheme);
+    });
+})();
 
 /* --- END: THEME TOGGLE FUNCTIONALITY --- */
 

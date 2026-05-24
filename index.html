@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 
 <head>
   <!-- Character Encoding -->
@@ -91,30 +91,6 @@
     .theme-toggle {
       pointer-events: all !important;
     }
-    .search-container{
-  width: 100%;
-  background: white;
-  padding: 15px 20px;
-  box-sizing: border-box;
-  margin:20px;
-  position: relative;
-  z-index: 9999;
-  margin-left: 500px;
-}
-
-#searchBar{
-  width: 100%;
-  padding: 15px 20px;
-  border: 2px solid #088178;
-  border-radius: 8px;
-  font-size: 16px;
-  outline: none;
-  box-sizing: border-box;
-  background: white;
-  position: relative;
-  z-index: 99999;
-  pointer-events: auto;
-}
   </style>
 </head>
 
@@ -123,7 +99,7 @@
     <div id="top">
       <div id="workingArea">
         <section id="header">
-          <a href="index.html"><img loading="lazy" src="images/logo.png" alt="" /></a>
+          <a href="index.html"><img id="siteLogo" src="images/logo.png" alt="Cara Logo" /></a>
 
           <div>
             <ul id="navbar">
@@ -133,7 +109,6 @@
               <li><a href="about.html">About</a></li>
               <li><a href="contact.html">Contact</a></li>
               <li><a href="login.html">Login</a></li>
-              <li><a href="#" id="logout-btn" style="display:none">Logout</a></li>
               <li><a href="try-on.html">Try-On</a></li>
               <li><a href="community.html">Community</a></li>
               <li><a href="promotions.html">Promotions</a></li>
@@ -149,113 +124,180 @@
             </ul>
           </div>
           <div class="mobile">
-           
+            <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
+              <i class="ri-moon-line" id="themeIconMobile"></i>
+            </button>
             <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
             <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false"
               tabindex="0"></i>
           </div>
         </section>
+        <!-- Single retained hero slider; the older duplicate hero block was removed. -->
         <section id="hero" class="hero-slider">
-          <div class="slide active" style="background-image: url('images/hero4.png');">
-            <div class="slide-content">
-              <h4>Trade-in-offer</h4>
-              <h2>Super value deals</h2>
-              <h1>On all products</h1>
-              <p>Save more with coupons & up to 70% off!</p>
-              <a href="shop.html" class="btn-shop-now">Shop Now</a>
-              <button onclick="openQuiz()">Take Style Quiz</button>
-            </div>
-          </div>
-          
-          <div class="slide" style="background-image: url('images/banner/b1.png');">
-            <div class="slide-content">
-              <h4>New Arrivals</h4>
-              <h2>Summer Collection</h2>
-              <h1>Explore the Trends</h1>
-              <p>Discover the latest styles to elevate your wardrobe!</p>
-              <a href="shop.html" class="btn-shop-now">Explore Collection</a>
-            </div>
-          </div>
-          
-          <div class="slide" style="background-image: url('images/banner/b2.png');">
-            <div class="slide-content">
-              <h4>Seasonal Sale</h4>
-              <h2>Up to 50% Off</h2>
-              <h1>Exclusive Deals</h1>
-              <p>Don't miss out on our biggest sale of the year.</p>
-              <a href="shop.html" class="btn-shop-now">Grab the Deal</a>
-            </div>
-          </div>
-  <!-- Logo -->
-  <a href="index.html">
-    <img loading="lazy" id="siteLogo" src="images/logo.png" alt="Cara Logo" />
-  </a>
 
- <div id="navbar-container"></div>
+  <!-- Slide 1 -->
+  <div class="slide active" style="background-image: url('images/hero4.png');">
+    
+    <div class="slide-content">
 
-  <!-- Mobile Navbar -->
-  <div id ="mobile">
+      <div class="hero-badge">
+        Trending Fashion 2025
+      </div>
 
-    <!-- Login Icon -->
-    <a href="login.html" aria-label="Login">
-      <i class="ri-user-3-line"></i>
-    </a>
+      <h4>Trade-in-offer</h4>
 
-    <!-- Cart Icon -->
-    <a href="cart.html" aria-label="Cart">
-      <i class="ri-shopping-bag-4-line"></i>
-    </a>
+      <h2>Super Value Deals</h2>
 
-    <!-- Hamburger Menu -->
-    <i
-      class="fas fa-outdent"
-      id="bar"
-      role="button"
-      aria-label="Open menu"
-      aria-expanded="false"
-      tabindex="0"
-    ></i>
+      <h1>On All Products</h1>
 
-  </div>
-</section>
-</section>
+      <p>
+        Save more with coupons & up to 70% off on premium
+        fashion collections.
+      </p>
 
-<div class="search-container">
-  <input 
-    type="text"
-    id="searchBar"
-    placeholder="Search products..."
-  >
-</div>
+      <div class="hero-tags">
+        <span>Streetwear</span>
+        <span>Premium</span>
+        <span>Trending</span>
+      </div>
+
+      <div class="hero-btn-group">
+
+        <a href="shop.html" class="btn-shop-now">
+          Shop Now
+        </a>
+
+        <button onclick="openQuiz()">
+          Take Style Quiz
+        </button>
+
+      </div>
 
     </div>
+  </div>
+
+  <!-- Slide 2 -->
+  <div class="slide" style="background-image: url('images/banner/b1.png');">
+
+    <div class="slide-content">
+
+      <div class="hero-badge">
+        New Collection
+      </div>
+
+      <h4>New Arrivals</h4>
+
+      <h2>Summer Collection</h2>
+
+      <h1>Explore Trends</h1>
+
+      <p>
+        Discover fresh styles designed to elevate your
+        wardrobe this season.
+      </p>
+
+      <div class="hero-tags">
+        <span>Summer</span>
+        <span>Minimal</span>
+        <span>Luxury</span>
+      </div>
+
+      <div class="hero-btn-group">
+
+        <a href="shop.html" class="btn-shop-now">
+          Explore Collection
+        </a>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Slide 3 -->
+  <div class="slide" style="background-image: url('images/banner/b2.png');">
+
+    <div class="slide-content">
+
+      <div class="hero-badge">
+        Limited Offer
+      </div>
+
+      <h4>Seasonal Sale</h4>
+
+      <h2>Up to 50% Off</h2>
+
+      <h1>Exclusive Deals</h1>
+
+      <p>
+        Don't miss the biggest sale of the season with
+        exclusive discounts.
+      </p>
+
+      <div class="hero-tags">
+        <span>Sale</span>
+        <span>Fashion</span>
+        <span>Exclusive</span>
+      </div>
+
+      <div class="hero-btn-group">
+
+        <a href="shop.html" class="btn-shop-now">
+          Grab the Deal
+        </a>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Slider Controls -->
+  <button class="slider-btn prev" aria-label="Previous Slide">
+    <i class="fa-solid fa-chevron-left"></i>
+  </button>
+
+  <button class="slider-btn next" aria-label="Next Slide">
+    <i class="fa-solid fa-chevron-right"></i>
+  </button>
+
+  <!-- Slider Indicators -->
+  <div class="slider-dots">
+
+    <span class="dot active" data-slide="0"></span>
+
+    <span class="dot" data-slide="1"></span>
+
+    <span class="dot" data-slide="2"></span>
+
+  </div>
+
+</section>      </div>
     </div>
   </div>
   <!-- Fix: Added descriptive alt text to all feature images for accessibility.
      Also fixed typo: 'F24/7 Support' corrected to '24/7 Support' -->
   <section id="feature" class="section-p1">
     <div class="fe-box">
-      <img loading="lazy" src="images/feature/f1.png" alt="Free Shipping" />
+      <img src="images/feature/f1.png" alt="Free Shipping" />
       <h6>Free Shipping</h6>
     </div>
     <div class="fe-box">
-      <img loading="lazy" src="images/feature/f2.png" alt="Online Order" />
+      <img src="images/feature/f2.png" alt="Online Order" />
       <h6>Online Order</h6>
     </div>
     <div class="fe-box">
-      <img loading="lazy" src="images/feature/f3.png" alt="Save Money" />
+      <img src="images/feature/f3.png" alt="Save Money" />
       <h6>Save Money</h6>
     </div>
     <div class="fe-box">
-      <img loading="lazy" src="images/feature/f4.png" alt="Promotions" />
+      <img src="images/feature/f4.png" alt="Promotions" />
       <h6>Promotions</h6>
     </div>
     <div class="fe-box">
-      <img loading="lazy" src="images/feature/f5.png" alt="Happy Sell" />
+      <img src="images/feature/f5.png" alt="Happy Sell" />
       <h6>Happy Sell</h6>
     </div>
     <div class="fe-box">
-      <img loading="lazy" src="images/feature/f6.png" alt="24/7 Support" />
+      <img src="images/feature/f6.png" alt="24/7 Support" />
       <h6>24/7 Support</h6>
     </div>
   </section>
@@ -266,7 +308,7 @@
     <div class="pro-container">
 
       <div class="pro" data-category="street">
-        <div class="pro-img-wrap"><img loading="lazy" src="images/products/f1.jpg" alt="Cartoon Astronaut T-Shirts" /></div>
+        <div class="pro-img-wrap"><img src="images/products/f1.jpg" alt="Cartoon Astronaut T-Shirts" /></div>
         <div class="des">
           <div class="pro-brand-row">
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
@@ -283,7 +325,7 @@
       </div>
 
       <div class="pro" data-category="minimal">
-        <div class="pro-img-wrap"><img loading="lazy" src="images/products/f2.jpg" alt="White Palm Leaf Casual Shirt" /></div>
+        <div class="pro-img-wrap"><img src="images/products/f2.jpg" alt="White Palm Leaf Casual Shirt" /></div>
         <div class="des">
           <div class="pro-brand-row">
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
@@ -300,7 +342,7 @@
       </div>
 
       <div class="pro" data-category="minimal">
-        <div class="pro-img-wrap"><img loading="lazy" src="images/products/f3.jpg" alt="Vintage Rose Garden Shirt" /></div>
+        <div class="pro-img-wrap"><img src="images/products/f3.jpg" alt="Vintage Rose Garden Shirt" /></div>
         <div class="des">
           <div class="pro-brand-row">
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
@@ -317,7 +359,7 @@
       </div>
 
       <div class="pro" data-category="minimal">
-        <div class="pro-img-wrap"><img loading="lazy" src="images/products/f4.jpg" alt="Sakura Blossom Floral Shirt" /></div>
+        <div class="pro-img-wrap"><img src="images/products/f4.jpg" alt="Sakura Blossom Floral Shirt" /></div>
         <div class="des">
           <div class="pro-brand-row">
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
@@ -334,7 +376,7 @@
       </div>
 
       <div class="pro" data-category="street">
-        <div class="pro-img-wrap"><img loading="lazy" src="images/products/f5.jpg" alt="Pink Peony Patterned Shirt" /></div>
+        <div class="pro-img-wrap"><img src="images/products/f5.jpg" alt="Pink Peony Patterned Shirt" /></div>
         <div class="des">
           <div class="pro-brand-row">
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
@@ -351,7 +393,7 @@
       </div>
 
       <div class="pro" data-category="street">
-        <div class="pro-img-wrap"><img loading="lazy" src="images/products/f6.jpg" alt="Dual-Tone Corduroy Shirt" /></div>
+        <div class="pro-img-wrap"><img src="images/products/f6.jpg" alt="Dual-Tone Corduroy Shirt" /></div>
         <div class="des">
           <div class="pro-brand-row">
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
@@ -368,7 +410,7 @@
       </div>
 
       <div class="pro" data-category="street">
-        <div class="pro-img-wrap"><img loading="lazy" src="images/products/f7.jpg" alt="Embroidered Linen Trousers" /></div>
+        <div class="pro-img-wrap"><img src="images/products/f7.jpg" alt="Embroidered Linen Trousers" /></div>
         <div class="des">
           <div class="pro-brand-row">
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
@@ -385,7 +427,7 @@
       </div>
 
       <div class="pro" data-category="minimal">
-        <div class="pro-img-wrap"><img loading="lazy" src="images/products/f8.jpg" alt="Cat Print Long Sleeve Blouse" /></div>
+        <div class="pro-img-wrap"><img src="images/products/f8.jpg" alt="Cat Print Long Sleeve Blouse" /></div>
         <div class="des">
           <div class="pro-brand-row">
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
@@ -416,7 +458,7 @@
     <div class="pro-container">
 
       <div class="pro" data-category="formal">
-        <div class="pro-img-wrap"><img loading="lazy" src="images/products/n1.jpg" alt="Sky Blue Mandarin Collar Shirt" /></div>
+        <div class="pro-img-wrap"><img src="images/products/n1.jpg" alt="Sky Blue Mandarin Collar Shirt" /></div>
         <div class="des">
           <div class="pro-brand-row">
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
@@ -433,7 +475,7 @@
       </div>
 
       <div class="pro" data-category="formal">
-        <div class="pro-img-wrap"><img loading="lazy" src="images/products/n2.jpg" alt="Navy Textured Formal Shirt" /></div>
+        <div class="pro-img-wrap"><img src="images/products/n2.jpg" alt="Navy Textured Formal Shirt" /></div>
         <div class="des">
           <div class="pro-brand-row">
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
@@ -450,7 +492,7 @@
       </div>
 
       <div class="pro" data-category="formal">
-        <div class="pro-img-wrap"><img loading="lazy" src="images/products/n3.jpg" alt="Classic White Cotton Shirt" /></div>
+        <div class="pro-img-wrap"><img src="images/products/n3.jpg" alt="Classic White Cotton Shirt" /></div>
         <div class="des">
           <div class="pro-brand-row">
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
@@ -467,7 +509,7 @@
       </div>
 
       <div class="pro" data-category="formal">
-        <div class="pro-img-wrap"><img loading="lazy" src="images/products/n4.jpg" alt="Sandstone Tactical Utility Shirt" /></div>
+        <div class="pro-img-wrap"><img src="images/products/n4.jpg" alt="Sandstone Tactical Utility Shirt" /></div>
         <div class="des">
           <div class="pro-brand-row">
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
@@ -484,7 +526,7 @@
       </div>
 
       <div class="pro" data-category="minimal">
-        <div class="pro-img-wrap"><img loading="lazy" src="images/products/n5.jpg" alt="Denim Blue Everyday Shirt" /></div>
+        <div class="pro-img-wrap"><img src="images/products/n5.jpg" alt="Denim Blue Everyday Shirt" /></div>
         <div class="des">
           <div class="pro-brand-row">
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
@@ -501,7 +543,7 @@
       </div>
 
       <div class="pro" data-category="minimal">
-        <div class="pro-img-wrap"><img loading="lazy" src="images/products/n6.jpg" alt="Vertical Stripe Chino Shorts" /></div>
+        <div class="pro-img-wrap"><img src="images/products/n6.jpg" alt="Vertical Stripe Chino Shorts" /></div>
         <div class="des">
           <div class="pro-brand-row">
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
@@ -518,7 +560,7 @@
       </div>
 
       <div class="pro" data-category="minimal">
-        <div class="pro-img-wrap"><img loading="lazy" src="images/products/n7.jpg" alt="Khaki Safari Work Shirt" /></div>
+        <div class="pro-img-wrap"><img src="images/products/n7.jpg" alt="Khaki Safari Work Shirt" /></div>
         <div class="des">
           <div class="pro-brand-row">
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
@@ -535,7 +577,7 @@
       </div>
 
       <div class="pro" data-category="minimal">
-        <div class="pro-img-wrap"><img loading="lazy" src="images/products/n8.jpg" alt="Deep Charcoal Casual Shirt" /></div>
+        <div class="pro-img-wrap"><img src="images/products/n8.jpg" alt="Deep Charcoal Casual Shirt" /></div>
         <div class="des">
           <div class="pro-brand-row">
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
@@ -652,8 +694,8 @@
                 <h4>INSTALL APP</h4>
                 <p>From App Store or Google Play</p>
                 <div class="download-badges">
-                    <img loading="lazy" src="images/pay/app.jpg" alt="Download from App Store" />
-                    <img loading="lazy" src="images/pay/play.jpg" alt="Get it on Google Play" />
+                    <img src="images/pay/app.jpg" alt="Download from App Store" />
+                    <img src="images/pay/play.jpg" alt="Get it on Google Play" />
                 </div>
             </div>
 
@@ -673,35 +715,6 @@
 </script>
 
 <script src="app.js"></script>  
-<script>
-
-const searchBar = document.getElementById("searchBar");
-
-searchBar.addEventListener("keyup", function() {
-
-  const input = searchBar.value.toLowerCase();
-
-  const products = document.querySelectorAll(".pro");
-
-  products.forEach(function(product){
-
-    const productName = product
-      .querySelector("h5")
-      .textContent
-      .toLowerCase();
-
-    if(productName.includes(input)){
-      product.style.display = "block";
-    }
-    else{
-      product.style.display = "none";
-    }
-
-  });
-
-});
-
-</script>
 </body>
 
 </html>

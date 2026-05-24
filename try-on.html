@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -536,6 +536,7 @@
             <section id="header">
   <!-- Logo -->
   <a href="index.html">
+    <!-- id lets the Try-On theme script swap the logo when dark mode changes. -->
     <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
   </a>
 
@@ -598,6 +599,14 @@
 
   <!-- Mobile Navbar -->
   <div class="mobile">
+    <!-- Mobile theme toggle uses the same Try-On theme script as the desktop button. -->
+    <button
+      class="theme-toggle"
+      id="themeToggleMobile"
+      aria-label="Toggle dark mode"
+    >
+      <i class="ri-moon-line" id="themeIconMobile"></i>
+    </button>
 
     <!-- Login Icon -->
     <a href="login.html" aria-label="Login">

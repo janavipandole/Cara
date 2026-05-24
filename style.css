@@ -268,7 +268,7 @@
     --bg-secondary: #1a1f26;
     --text-primary: #e6eef8;
     --text-secondary: #94a3b8;
-    --header-bg:#4a5560;
+    --header-bg: #0f1419;
     --card-bg: #1a1f26;
     --border-color: #2d3748;
     --shadow: rgba(0, 0, 0, 0.4);
@@ -13772,7 +13772,7 @@ footer .copyright {
     --bg-secondary: #1a1f26;
     --text-primary: #e6eef8;
     --text-secondary: #94a3b8;
-    --header-bg:#4a5560;
+    --header-bg: #0f1419;
     --card-bg: #1a1f26;
     --border-color: #2d3748;
     --shadow: rgba(0, 0, 0, 0.4);
@@ -27719,7 +27719,7 @@ footer .copyright {
     --bg-secondary: #1a1f26;
     --text-primary: #e6eef8;
     --text-secondary: #94a3b8;
-    --header-bg:#4a5560;
+    --header-bg: #0f1419;
     --card-bg: #1a1f26;
     --border-color: #2d3748;
     --shadow: rgba(0, 0, 0, 0.4);
@@ -35543,4 +35543,10 @@ html {
 /* Keep the navbar brand readable on dark backgrounds. */
 [data-theme="dark"] #siteLogo {
     filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(255, 255, 255, 0.25));
+}
+
+@media (max-width: 799px) {
+    #navbar #themeToggle {
+        display: none;
+    }
 }
