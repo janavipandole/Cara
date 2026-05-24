@@ -227,13 +227,55 @@
           </select>
           <i class="ri-arrow-down-s-line sort-chevron" aria-hidden="true"></i>
         </div>
+        <div class="sort-container" aria-label="Filter products by brand">
+
+    <label class="sort-label" for="brand-filter">
+        <i class="ri-price-tag-3-line"></i>
+        Filter by brand
+    </label>
+
+    <div class="sort-select-wrap">
+
+        <select id="brand-filter" class="sort-dropdown">
+
+            <option value="all">
+                All Brands
+            </option>
+
+            <option value="adidas">
+                adidas
+            </option>
+
+            <option value="nike">
+                Nike
+            </option>
+
+            <option value="puma">
+                Puma
+            </option>
+
+            <option value="zara">
+                Zara
+            </option>
+
+            <option value="hm">
+                H&M
+            </option>
+
+        </select>
+
+        <i class="ri-arrow-down-s-line sort-chevron"></i>
+
+    </div>
+
+</div>
       </div>
 
         <div class="pro-container">
             <div class="pro" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/f1.jpg" alt="">
                 <div class="des">
-                    <span>adidas</span>
+                    <span>Puma</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
                     <div class="star">
                         <i class="ri-star-fill"></i>
@@ -331,7 +373,7 @@
             <div class="pro" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/f6.jpg" alt="">
                 <div class="des">
-                    <span>adidas</span>
+                    <span>Nike</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
                     <div class="star">
                         <i class="ri-star-fill"></i>
@@ -371,7 +413,7 @@
             <div class="pro" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/f8.jpg" alt="">
                 <div class="des">
-                    <span>adidas</span>
+                    <span>Puma</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
                     <div class="star">
                         <i class="ri-star-fill"></i>
@@ -656,7 +698,7 @@
             <div class="pro" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/f7.jpg" alt="">
                 <div class="des">
-                    <span>adidas</span>
+                    <span>H&M</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
                     <div class="star">
                         <i class="ri-star-fill"></i>
@@ -751,7 +793,7 @@
             <div class="pro" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/n4.jpg" alt="">
                 <div class="des">
-                    <span>adidas</span>
+                    <span>Nike</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
                     <div class="star">
                         <i class="ri-star-fill"></i>
@@ -789,7 +831,7 @@
             <div class="pro" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/n6.jpg" alt="">
                 <div class="des">
-                    <span>adidas</span>
+                    <span>H&M</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
                     <div class="star">
                         <i class="ri-star-fill"></i>
@@ -808,7 +850,7 @@
             <div class="pro" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/n7.jpg" alt="">
                 <div class="des">
-                    <span>adidas</span>
+                    <span>Nike</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
                     <div class="star">
                         <i class="ri-star-fill"></i>
@@ -1041,6 +1083,52 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 });
+</script>
+<script>
+
+const brandFilter =
+    document.getElementById("brand-filter");
+
+brandFilter.addEventListener("change", function () {
+
+    const selectedBrand =
+        this.value.toLowerCase().trim();
+
+    const products =
+        document.querySelectorAll(".pro");
+
+    products.forEach((product) => {
+
+        const brandElement =
+            product.querySelector(".des span");
+
+        const productBrand =
+            brandElement.innerText
+            .toLowerCase()
+            .trim();
+
+        // SHOW ALL PRODUCTS
+        if (selectedBrand === "all") {
+
+            product.style.display = "block";
+        }
+
+        // SHOW MATCHING BRAND
+        else if (productBrand === selectedBrand) {
+
+            product.style.display = "block";
+        }
+
+        // HIDE NON-MATCHING PRODUCTS
+        else {
+
+            product.style.display = "none";
+        }
+
+    });
+
+});
+
 </script>
   </body>
 </html>
