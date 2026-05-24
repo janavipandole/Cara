@@ -41,6 +41,7 @@
   <!-- Stylesheets -->
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="singleProduct.css" />
+  <link rel="stylesheet" href="toast.css">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
@@ -50,9 +51,7 @@
 
 <body>
   <section id="header">
-    <a href="index.html"><img src="images/logo.png" alt="Cara logo"></a>
-    <section id="header">
-        <a id="siteLogo" href="index.html"><img src="images/logo.png" alt="Cara logo"></a>
+    <a id="siteLogo" href="index.html"><img src="images/logo.png" alt="Cara logo"></a>
 
     <div>
       <ul id="navbar">
@@ -65,7 +64,12 @@
         <li><a href="try-on.html">Try-On</a></li>
         <li><a href="community.html">Community</a></li>
         <li><a href="promotions.html">Promotions</a></li>
-        <li><a href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
+        <li>
+          <a href="cart.html" id="lg-bag" style="position: relative; display: inline-block;">
+            <i class="ri-shopping-bag-4-line"></i>
+            <span id="desktopCartCount" class="cart-count hidden">0</span>
+          </a>
+        </li>
         <li>
           <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
             <i class="ri-moon-line" id="themeIcon"></i>
@@ -76,7 +80,10 @@
       </ul>
     </div>
     <div class="mobile">
-      <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
+      <a href="cart.html" style="position: relative; display: inline-block; margin-right: 15px;">
+        <i class="ri-shopping-bag-4-line"></i>
+        <span id="mobileCartCount" class="cart-count hidden">0</span>
+      </a>
       <i class="fas fa-outdent" id="bar"></i>
     </div>
     <button onclick="history.back()" class="back-btn">Back</button>
@@ -108,6 +115,8 @@
       <h6>Home / T-Shirt</h6>
       <h4 id="product-name">Men's Fashion T-Shirt</h4>
       <h2 id="product-price">$139.00</h2>
+      
+      <!-- Size selector + floating size chart panel -->
       <div class="size-section">
         <select id="product-size" name="product-size" aria-label="Select product size">
           <option>Select Size</option>
@@ -118,90 +127,61 @@
           <option>L</option>
         </select>
 
-        <!-- Size Chart Button -->
-       <button id="size-chart-btn">View Size Chart</button>
+        <!-- Trigger button -->
+        <button id="size-chart-btn" aria-expanded="false" aria-controls="size-chart-modal">
+          View Size Chart
+        </button>
 
-<!-- Modal -->
-<div id="size-chart-modal" class="modal">
-
-    <div class="modal-content">
-
-        <span class="close-btn">&times;</span>
-
-        <h2>Size Chart</h2>
-
-        <table class="size-chart">
-
-            <thead>
-
-                <tr>
+        <!-- Floating size chart panel (positioned absolute relative to .size-section) -->
+        <div id="size-chart-modal" class="modal" role="dialog" aria-modal="true" aria-label="Size Chart">
+          <div class="modal-content">
+            <button class="close-btn" aria-label="Close size chart">&times;</button>
+            <h2>Size Chart</h2>
+            <div class="table-responsive" style="max-height: 300px; overflow-y: auto; overflow-x: auto;">
+              <table class="size-chart">
+                <thead>
+                  <tr>
                     <th>Size</th>
                     <th>Chest (in)</th>
                     <th>Length (in)</th>
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-                <tr>
-                    <td>XXS</td>
-                    <td>30.0</td>
-                    <td>21.8</td>
-                </tr>
-
-                <tr>
-                    <td>XS</td>
-                    <td>32.0</td>
-                    <td>21.9</td>
-                </tr>
-
-                <tr>
-                    <td>S</td>
-                    <td>34.0</td>
-                    <td>22.0</td>
-                </tr>
-
-                <tr>
-                    <td>M</td>
-                    <td>36.0</td>
-                    <td>22.1</td>
-                </tr>
-
-                <tr>
-                    <td>L</td>
-                    <td>38.0</td>
-                    <td>22.2</td>
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-</div>
-        <div class="cart-action-group">
-          <div class="quantity-selector">
-            <button type="button" class="qty-btn minus" onclick="updateQty(-1)" aria-label="Decrease quantity">
-              <i class="fa-solid fa-minus"></i>
-            </button>
-            <input id="product-quantity" type="number" value="1" min="1" readonly title="Product quantity"
-              aria-label="Product quantity">
-            <button type="button" class="qty-btn plus" onclick="updateQty(1)" aria-label="Increase quantity">
-              <i class="fa-solid fa-plus"></i>
-            </button>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>XXS</td><td>30.0</td><td>21.8</td></tr>
+                  <tr><td>XS</td><td>32.0</td><td>21.9</td></tr>
+                  <tr><td>S</td><td>34.0</td><td>22.0</td></tr>
+                  <tr><td>M</td><td>36.0</td><td>22.1</td></tr>
+                  <tr><td>L</td><td>38.0</td><td>22.2</td></tr>
+                  <tr><td>XL</td><td>40.0</td><td>22.4</td></tr>
+                  <tr><td>XXL</td><td>42.0</td><td>22.6</td></tr>
+                </tbody>
+              </table>
+            </div>
           </div>
-          <button class="normal" onclick="handleAddToCart()">Add to Cart</button>
-          <button class="normal" style="background: #088178; color: white; margin-left: 10px;"
-            onclick="handleBuyNow()">Buy Now</button>
-          <button class="normal" style="background: var(--accent); color: white; margin-left: 10px;"
-            onclick="window.location.href='try-on.html'">Try it On Virtually!</button>
         </div>
-        <h4>Product Details</h4>
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officia tenetur, exercitationem velit maxime
-          sit beatae ea tempore a itaque natus placeat, neque fuga cumque aperiam nemo quia atque ducimus ipsam.
-        </p>
+      </div>
+
+      <div class="cart-action-group">
+        <div class="quantity-selector">
+          <button type="button" class="qty-btn minus" onclick="updateQty(-1)" aria-label="Decrease quantity">
+            <i class="fa-solid fa-minus"></i>
+          </button>
+          <input id="product-quantity" type="number" value="1" min="1" readonly title="Product quantity"
+            aria-label="Product quantity">
+          <button type="button" class="qty-btn plus" onclick="updateQty(1)" aria-label="Increase quantity">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+        </div>
+        <button class="normal" onclick="handleAddToCart()">Add to Cart</button>
+        <button class="normal" style="background: #088178; color: white; margin-left: 10px;"
+          onclick="handleBuyNow()">Buy Now</button>
+        <button class="normal" style="background: var(--accent); color: white; margin-left: 10px;"
+          onclick="window.location.href='try-on.html'">Try it On Virtually!</button>
+      </div>
+      <h4>Product Details</h4>
+      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officia tenetur, exercitationem velit maxime
+        sit beatae ea tempore a itaque natus placeat, neque fuga cumque aperiam nemo quia atque ducimus ipsam.
+      </p>
 
       </div>
     </div>

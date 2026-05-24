@@ -2,39 +2,40 @@
    TOAST NOTIFICATION SYSTEM
    ============================================ */
 #toast-container {
-    position: fixed;
-    top: 24px;
-    right: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    z-index: 10000;
-    pointer-events: none;
+    position: fixed !important;
+    top: auto !important;
+    bottom: 24px !important;
+    right: 24px !important;
+    display: flex !important;
+    flex-direction: column-reverse !important;
+    gap: 12px !important;
+    z-index: 10000 !important;
+    pointer-events: none !important;
 }
 
 .toast {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    min-width: 300px;
-    max-width: 420px;
-    padding: 14px 18px;
-    border-radius: 12px;
-    background: #ffffff;
-    color: #1e293b;
-    font-size: 14px;
-    font-weight: 500;
-    font-family: 'Outfit', 'Poppins', 'Segoe UI', sans-serif;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
-    border-left: 4px solid #088178;
-    pointer-events: all;
-    position: relative;
-    overflow: hidden;
-    animation: toastSlideIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    min-width: 300px !important;
+    max-width: 420px !important;
+    padding: 14px 18px !important;
+    border-radius: 12px !important;
+    background: #ffffff !important;
+    color: #1e293b !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    font-family: 'Outfit', 'Poppins', 'Segoe UI', sans-serif !important;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+    border-left: 4px solid #088178 !important;
+    pointer-events: all !important;
+    position: relative !important;
+    overflow: hidden !important;
+    animation: toastSlideUpIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
 }
 
 .toast-hiding {
-    animation: toastSlideOut 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation: toastSlideUpOut 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
 }
 
 .toast-icon {
@@ -117,25 +118,25 @@
 }
 
 /* --- Toast Animations --- */
-@keyframes toastSlideIn {
+@keyframes toastSlideUpIn {
     from {
         opacity: 0;
-        transform: translateX(100%);
+        transform: translateY(30px);
     }
     to {
         opacity: 1;
-        transform: translateX(0);
+        transform: translateY(0);
     }
 }
 
-@keyframes toastSlideOut {
+@keyframes toastSlideUpOut {
     from {
         opacity: 1;
-        transform: translateX(0);
+        transform: translateY(0);
     }
     to {
         opacity: 0;
-        transform: translateX(100%);
+        transform: translateY(30px);
     }
 }
 
@@ -162,8 +163,7 @@
 /* --- Mobile Responsive Toast --- */
 @media (max-width: 480px) {
     #toast-container {
-        top: auto;
-        bottom: 20px;
+        bottom: 16px;
         right: 12px;
         left: 12px;
     }
