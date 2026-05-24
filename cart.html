@@ -1,38 +1,161 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Your Cart | Cara</title>
-    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
-    <meta name="description" content="Shop the latest trends on our e-commerce store. Dark theme supported for a better user experience." />
-    <meta name="keywords" content="e-commerce, shopping, online store, dark mode, buy online, latest fashion" />
-    <meta name="author" content="Cara" />
-    <meta name="robots" content="index, follow" />
-    <meta http-equiv="Content-Language" content="en" />
-    <meta property="og:title" content="E-commerce - Dark Theme Working" />
-    <meta property="og:description" content="Shop the latest trends with our dark mode-enabled e-commerce experience." />
-    <meta property="og:image" content="https://cara-seven-ashen.vercel.app/images/logo.png" />
-    <meta property="og:url" content="https://cara-seven-ashen.vercel.app/" />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="E-commerce - Dark Theme Working" />
-    <meta name="twitter:description" content="Dark theme e-commerce site with modern features." />
-    <meta name="twitter:image" content="https://cara-seven-ashen.vercel.app/images/logo.png" />
-    <meta name="twitter:site" content="@janavipandole" />
-    <meta name="theme-color" content="#000000" />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="cart.css" />
-    <!-- Fix: static #toast (Share Wardrobe) needs .show to become visible -->
-    <style>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Cart | Cara</title>
+  <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
+  <meta name="description"
+    content="Shop the latest trends on our e-commerce store. Dark theme supported for a better user experience." />
+  <meta name="keywords" content="e-commerce, shopping, online store, dark mode, buy online, latest fashion" />
+  <meta name="author" content=" Cara" />
+  <meta name="robots" content="index, follow" />
+  <meta http-equiv="Content-Language" content="en" />
+  <meta property="og:title" content="E-commerce - Dark Theme Working" />
+  <meta property="og:description" content="Shop the latest trends with our dark mode-enabled e-commerce experience." />
+  <meta property="og:image" content="https://cara-seven-ashen.vercel.app/images/logo.png" />
+  <meta property="og:url" content="https://cara-seven-ashen.vercel.app/" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="E-commerce - Dark Theme Working" />
+  <meta name="twitter:description" content="Dark theme e-commerce site with modern features." />
+  <meta name="twitter:image" content="https://cara-seven-ashen.vercel.app/images/logo.png" />
+  <meta name="twitter:site" content="@janavipandole" />
+  <meta name="theme-color" content="#000000" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="cart.css" />
+  <link rel="stylesheet" href="empty-cart.css" />
+  <style>
       #toast { display: none; }
       #toast.show { display: flex; align-items: center; gap: 10px; }
     </style>
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-      crossorigin="anonymous" referrerpolicy="no-referrer" />
-  </head>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    /* ================================================================
+       FIX #954 — Cart page layout misaligned / empty space on left
+       Root cause: .cartmain and #cart-content-wrapper had no max-width
+       or centering, so content floated unanchored to the right.
+    ================================================================ */
+     body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.8;
+    }
+    #cart-content-wrapper {
+      width: 100%;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+
+    .cartmain {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* Align the .cart-header labels with the actual cart-item-row grid.
+       cart-item-row uses a 5-column grid on desktop:
+       [Product 3.5fr] [Price 1fr] [Qty 1.5fr] [Subtotal 1.2fr] [Remove 0.5fr]
+       The old .cart-header used plain flex with no matching widths. */
+    .cart-header {
+      display: none;
+    }
+
+    .cart-column-header {
+      border-radius: 8px 8px 0 0;
+      border: 1px solid var(--border-color);
+      border-bottom: 2px solid var(--border-color);
+      margin-bottom: -1px;
+    }
+
+    /* ================================================================
+       FIX #964 — Cart item quantity & subtotal overlapping on mobile
+       Root cause: on screens below 768 px, cart-item-right is display:flex
+       with 4 children (price, qty-selector, subtotal, actions) packed in
+       one row — they overflow and collide.
+       Fix: switch to a 2x2 grid on small screens so each element has room.
+    ================================================================ */
+
+    @media (max-width: 767px) {
+      .cart-item-row {
+        padding: 16px;
+        gap: 12px;
+      }
+
+      .cart-item-right {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px 16px;
+        align-items: center;
+        width: 100%;
+      }
+
+      .cart-item-price {
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .qty-selector {
+        justify-self: start;
+      }
+
+      .cart-item-subtotal {
+        font-size: 15px;
+        font-weight: 700;
+        text-align: right;
+        justify-self: end;
+      }
+
+      .cart-item-actions {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 8px;
+        grid-column: span 2;
+        border-top: 1px solid var(--border-color);
+        padding-top: 10px;
+        margin-top: 2px;
+      }
+
+      .cart-item-remove {
+        color: var(--text-secondary);
+        width: 36px;
+        height: 36px;
+      }
+
+      .cart-item-img-wrap {
+        width: 70px;
+        height: 70px;
+        flex-shrink: 0;
+      }
+
+      .cart-item-title {
+        font-size: 14px;
+      }
+    }
+
+    /* Extra-small phones: tighten the layout further */
+    @media (max-width: 420px) {
+      #cart-content-wrapper {
+        padding: 0 12px;
+      }
+
+      .cart-item-row {
+        padding: 14px 12px;
+      }
+
+      .cart-item-img-wrap {
+        width: 60px;
+        height: 60px;
+      }
+    }
+  </style>
+</head>
 
   <body>
 
@@ -79,15 +202,24 @@
         </ul>
       </div>
 
-      <!-- Mobile Nav -->
-      <div class="mobile">
-        <a href="login.html" aria-label="Login"><i class="ri-user-3-line"></i></a>
-        <a href="cart.html" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a>
-        <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
-      </div>
-    </section>
-    <!-- ========================================= -->
+    <!-- Mobile Navbar -->
+    <div class="mobile">
 
+      <!-- Login Icon -->
+      <a href="login.html" aria-label="Login">
+        <i class="ri-user-3-line"></i>
+      </a>
+
+      <!-- Cart Icon -->
+      <a href="cart.html" aria-label="Cart">
+        <i class="ri-shopping-bag-4-line"></i>
+      </a>
+
+      <!-- Hamburger Menu -->
+      <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
+
+    </div>
+  </section>
 
     <!-- ============ CART MAIN CONTENT ============ -->
     <div id="cart-content-wrapper" style="margin-top: 100px;">
@@ -98,6 +230,13 @@
           <h2>Your Cart</h2>
           <p>Review and manage your selected items</p>
         </section>
+
+      <div id="empty-cart-state">
+        <i class="ri-shopping-cart-line empty-cart-icon"></i>
+        <h2>Your cart is empty</h2>
+        <p>Looks like you haven't added anything to your cart yet.</p>
+        <a href="shop.html" class="btn-continue-shopping">Continue Shopping</a>
+      </div>
 
         <!-- ---- GRID: Items (left 7fr) + Summary (right 3fr) ---- -->
         <section class="section-p1">
@@ -226,10 +365,40 @@
           <div id="saved-items-container"></div>
         </section>
         <!-- /SAVED FOR LATER -->
+        <section id="cart-add" class="section-p1">
+        <div class="subtotal">
+          <h3>Cart Totals</h3>
 
+          <table>
+            <tr>
+              <td>Cart Subtotal</td>
+              <td>$0.00</td>
+            </tr>
+
+            <tr>
+              <td>Shipping</td>
+              <td>Free</td>
+            </tr>
+
+            <tr>
+              <td><strong>Total</strong></td>
+              <td><strong>$0.00</strong></td>
+            </tr>
+          </table>
+
+          <button id="share-cart-btn" class="normal" onclick="shareWardrobe()">
+            <i class="ri-share-forward-line"></i> Share Wardrobe
+          </button>
+          <a href="checkout.html" class="normal" style="text-decoration: none">
+            Proceed to Checkout
+          </a>
+        </div>
+      </section>
 
         <!-- ============ FOOTER ============ -->
-        <footer class="section-p1">
+      
+    </div>
+      <footer class="section-p1">
           <div class="col">
             <img class="logo" src="images/logo.png" alt="Cara Logo" />
             <h4>Contact</h4>
@@ -286,7 +455,7 @@
           </div>
 
           <div class="copyright">
-            <p>© Cara <span class="Current-Year"></span>. All rights reserved. |
+            <p>© Cara <span id="Current-Year"></span>. All rights reserved. |
               <a href="license.html" style="color: #088178;">MIT License</a>
             </p>
           </div>
@@ -294,7 +463,6 @@
         <!-- /FOOTER -->
 
       </div>
-    </div>
     <!-- /CART MAIN CONTENT -->
 
 
@@ -343,8 +511,16 @@
       <span id="toast-msg"></span>
     </div>
 
-    <!-- ONE script — app.js owns everything. No inline cart logic. -->
-    <script src="app.js"></script>
+  <script src="app.js"></script>
+  <script src="empty-cart.js"></script>
+  <script>
+    document.getElementById("Current-Year").textContent = new Date().getFullYear();
+  </script>
 
   </body>
 </html>
+    /* Issue #866: keep cart navbar aligned consistently with other pages */
+    #header #navbar {
+      margin: 0;
+      padding: 0;
+    }
