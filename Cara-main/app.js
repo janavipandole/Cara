@@ -421,73 +421,7 @@ if (totalDisplay) {
         `₹${subtotal.toLocaleString('en-IN')}`;
 }
 
-window.removeItem = function (index) {
-    if (subtotalEl) {
-        subtotalEl.innerText = `₹${subtotal.toLocaleString('en-IN')}`;
-    }
 
-    // Shipping calculations (free above 3000)
-    let shipping = 0;
-    if (subtotal > 0) {
-        shipping = subtotal >= 3000 ? 0 : 150;
-    }
-    if (shippingEl) {
-        shippingEl.innerText = shipping === 0 ? 'FREE' : `₹${shipping}`;
-        if (shipping === 0 && subtotal > 0) {
-            shippingEl.classList.add('shipping-free');
-        } else {
-            shippingEl.classList.remove('shipping-free');
-        }
-    }
-
-    // 18% tax calculation
-    const tax = Math.round(subtotal * 0.18);
-    if (taxEl) {
-        taxEl.innerText = `₹${tax.toLocaleString('en-IN')}`;
-    }
-
-    // Coupon / Discount calculation
-    let discount = 0;
-    if (window.appliedCoupon === 'CARA20' && subtotal > 0) {
-        discount = Math.round(subtotal * 0.20);
-    } else if (window.appliedCoupon === 'WELCOME10' && subtotal > 0) {
-        discount = Math.round(subtotal * 0.10);
-    }
-
-    if (discountRow && discountEl) {
-        if (discount > 0) {
-            discountRow.style.display = 'flex';
-            discountEl.innerText = `-₹${discount.toLocaleString('en-IN')}`;
-        } else {
-            discountRow.style.display = 'none';
-        }
-    }
-
-    // Grand total calculation
-    const grandTotal = Math.max(0, subtotal + tax + shipping - discount);
-    if (totalEl) {
-        totalEl.innerText = `₹${grandTotal.toLocaleString('en-IN')}`;
-    }
-
-    // Update promo input field state
-    const promoInput = document.getElementById('coupon-code');
-    const promoBtn = document.getElementById('apply-coupon-btn');
-    if (promoInput && promoBtn) {
-        if (window.appliedCoupon) {
-            promoInput.value = window.appliedCoupon;
-            promoInput.disabled = true;
-            promoBtn.innerText = 'Applied';
-            promoBtn.disabled = true;
-            promoBtn.classList.add('applied');
-        } else {
-            promoInput.value = '';
-            promoInput.disabled = false;
-            promoBtn.innerText = 'Apply';
-            promoBtn.disabled = false;
-            promoBtn.classList.remove('applied');
-        }
-    }
-}
 
 window.changeQuantity = function (index, change) {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
