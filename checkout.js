@@ -163,8 +163,9 @@ form.addEventListener("submit", function (e) {
 
   // Simulate async order processing (replace with real API call)
   setTimeout(function () {
-    // CLEAR CART AFTER SUCCESSFUL ORDER
     localStorage.removeItem("productsInCart");
+    localStorage.removeItem("appliedCoupon");
+    window.appliedCoupon = null;
 
     // Re-enable button
     if (submitBtn) {

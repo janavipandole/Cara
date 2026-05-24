@@ -818,10 +818,11 @@
       const toast = document.createElement('div');
       toast.className = `toast toast-${type}`;
       toast.innerHTML = `
-        <span class="toast-msg">${message}</span>
+        <span class="toast-msg"></span>
         <button class="toast-close" aria-label="Close notification">&times;</button>
         <div class="toast-progress"></div>
       `;
+      toast.querySelector('.toast-msg').textContent = message;
       toast.querySelector('.toast-close').addEventListener('click', () => {
         dismissToast(toast);
       });
