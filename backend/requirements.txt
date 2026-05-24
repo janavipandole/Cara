@@ -9,3 +9,6 @@ numpy
 scikit-learn
 cors
 python-multipart
+python-dotenv
+psycopg2-binary
+alembic

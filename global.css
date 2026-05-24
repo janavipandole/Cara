@@ -3408,3 +3408,47 @@ footer .copyright {
                     transition: none;
                 }
             }
+
+                .star {
+                display: flex;
+                align-items: center;
+                gap: 3px;
+                margin: 4px 0;
+                }
+
+                /* All star icons */
+                .star i[data-value] {
+                color: #FFB800;
+                font-size: 13px;
+                cursor: pointer;
+                transition: transform 0.15s ease, color 0.15s ease;
+                }
+
+                /* Hover scale effect */
+                .star i[data-value]:hover {
+                transform: scale(1.25);
+                color: #FFA500;
+                }
+
+                /* Empty stars slightly faded */
+                .star i.ri-star-line {
+                color: #ccc;
+                }
+
+                /* Dark mode — empty stars */
+                body.dark .star i.ri-star-line {
+                color: #555;
+                }
+
+                /* Numeric rating value next to stars */
+                .rating-value {
+                font-size: 12px;
+                color: #888;
+                margin-left: 4px;
+                font-weight: 600;
+                line-height: 1;
+                }
+
+                body.dark .rating-value {
+                color: #aaa;
+            }
