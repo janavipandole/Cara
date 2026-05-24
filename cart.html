@@ -23,6 +23,7 @@
   <meta name="twitter:site" content="@janavipandole" />
   <meta name="theme-color" content="#000000" />
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="empty-cart.css" />
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
@@ -229,6 +230,13 @@
         <p>Review and manage your selected items</p>
       </section>
 
+      <div id="empty-cart-state">
+        <i class="ri-shopping-cart-line empty-cart-icon"></i>
+        <h2>Your cart is empty</h2>
+        <p>Looks like you haven't added anything to your cart yet.</p>
+        <a href="shop.html" class="btn-continue-shopping">Continue Shopping</a>
+      </div>
+
       <section id="cart" class="section-p1">
 
         <!-- Column headers aligned to the 5-column cart-item-row grid -->
@@ -398,6 +406,7 @@
   </div>
 
   <script src="app.js"></script>
+  <script src="empty-cart.js"></script>
   <script>
     document.getElementById("Current-Year").textContent = new Date().getFullYear();
   </script>
