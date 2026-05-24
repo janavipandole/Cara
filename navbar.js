@@ -10,6 +10,7 @@ function loadNavbar() {
     'try-on.html': 'tryon',
     'community.html': 'community',
     'promotions.html': 'promotions',
+    'wishlist.html': 'wishlist',
     'login.html': 'login',
   };
 
@@ -72,6 +73,14 @@ function loadNavbar() {
         <li class="nav-icon">
           <a ${activePage === 'login' ? 'class="active"' : ''} href="login.html" title="Sign In" aria-label="Login">
             <i class="ri-user-3-line"></i>
+          </a>
+        </li>
+
+        <!-- Wishlist Icon -->
+        <li class="nav-icon">
+          <a ${activePage === 'wishlist' ? 'class="active"' : ''} href="wishlist.html" title="Wishlist" aria-label="Wishlist" style="position:relative;">
+            <i class="ri-heart-line"></i>
+            <span class="wishlist-count" style="position:absolute;top:-6px;right:-6px;background:#e74c3c;color:#fff;font-size:11px;font-weight:700;width:18px;height:18px;border-radius:50%;display:none;align-items:center;justify-content:center;"></span>
           </a>
         </li>
 

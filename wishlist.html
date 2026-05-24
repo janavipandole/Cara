@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wishlist | Cara</title>
+  <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
+  <meta name="description" content="Your saved wishlist items on Cara." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="wishlist.css" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  <section id="header">
+    <a href="index.html">
+      <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
+    </a>
+    <div id="navbar-container"></div>
+    <div class="mobile">
+      <a href="login.html" aria-label="Login"><i class="ri-user-3-line"></i></a>
+      <a href="cart.html" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a>
+      <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
+    </div>
+  </section>
+
+  <div style="margin-top: 100px;">
+    <div class="wishlist-header">
+      <h2>My Wishlist</h2>
+      <p>Items you've saved for later</p>
+    </div>
+
+    <div id="wishlist-empty">
+      <i class="ri-heart-line"></i>
+      Your wishlist is empty. Browse the <a href="shop.html">shop</a> to add items!
+    </div>
+
+    <div id="wishlist-items"></div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="section-p1">
+    <div class="col">
+      <img class="logo" src="images/logo.png" alt="Cara Logo" />
+      <h4>Contact</h4>
+      <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
+      <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
+      <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
+      <div class="follow">
+        <h4>Follow us</h4>
+        <div class="icon">
+          <a href="https://x.com/JanaviPandole"><i class="fab fa-twitter"></i></a>
+          <a href="https://github.com/janavipandole"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://www.youtube.com/@JanaviPandole"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <h4>About</h4>
+      <a href="about.html">About Us</a>
+      <a href="delivery.html">Delivery Information</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms and Conditions</a>
+      <a href="contact.html">Contact Us</a>
+    </div>
+    <div class="col">
+      <h4>My Account</h4>
+      <a href="login.html">Sign In</a>
+      <a href="cart.html">View Cart</a>
+      <a href="wishlist.html">My Wishlist</a>
+      <a href="track-order.html">Track My Order</a>
+      <a href="contact.html">Help</a>
+    </div>
+    <div class="col newsletter-footer">
+      <h4>Newsletter</h4>
+      <p>Get email updates about our latest shop and <span>special offers.</span></p>
+      <form class="newsletter-form">
+        <input type="email" placeholder="Your email address" required />
+        <button type="submit" class="normal">Sign Up</button>
+      </form>
+    </div>
+    <div class="col install">
+      <h4>Install App</h4>
+      <p>From App Store or Google Play</p>
+      <div class="row">
+        <img src="images/pay/app.jpg" alt="Download from App Store" />
+        <img src="images/pay/play.jpg" alt="Get it on Google Play" />
+      </div>
+      <p>Secured Payment Gateways</p>
+      <img src="images/pay/pay.png" alt="" />
+    </div>
+    <div class="copyright">
+      <p>&copy; Cara <span class="Current-Year"></span>. All rights reserved. |
+        <a href="license.html" style="color: #088178;">MIT License</a>
+      </p>
+    </div>
+  </footer>
+
+  <div id="toast-container"></div>
+
+  <script src="app.js"></script>
+  <script src="wishlist.js"></script>
+  <script src="navbar.js"></script>
+  <script>
+    const year = new Date().getFullYear();
+    for (let el of document.querySelectorAll(".Current-Year")) {
+      el.textContent = year;
+    }
+  </script>
+</body>
+</html>
