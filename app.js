@@ -1625,19 +1625,12 @@ window.loadCart = function () {
 
   // SUMMARY ELEMENTS
   // CART TOTALS TABLE UPDATE
+// SUMMARY ELEMENTS
+// CART TOTALS TABLE UPDATE
 
-const subtotalDisplay = document.querySelector(
-  '.subtotal table tr:nth-child(1) td:nth-child(2)'
-);
-
-const shippingDisplay = document.querySelector(
-  '.subtotal table tr:nth-child(2) td:nth-child(2)'
-);
-
-const totalDisplay = document.querySelector(
-  '.subtotal table tr:nth-child(3) td:nth-child(2) strong'
-);
-
+const subtotalDisplay = document.getElementById('cart-subtotal');
+const shippingDisplay = document.querySelector('.shipping-free');
+const totalDisplay = document.getElementById('cart-total');
 // SHIPPING
 let shipping = 0;
 
@@ -2147,6 +2140,8 @@ document.addEventListener('DOMContentLoaded', () => {
 /* --- END: CURRENT YEAR FUNCTIONALITY --- */
 const topBtn = document.getElementById("topBtn");
 
+// Check if the button exists before applying scroll and click events!
+if (topBtn) {
     // Show button when user scrolls down
     window.onscroll = function () {
       if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
@@ -2163,7 +2158,7 @@ const topBtn = document.getElementById("topBtn");
         behavior: "smooth"
       });
     });
-
+}
 /* ========================================================
    COLLABORATIVE WARDROBE SHARING ENGINE
    ======================================================== */
