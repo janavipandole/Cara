@@ -113,15 +113,25 @@ function loadNavbar() {
     </div>
   `;
 
-  const container = document.getElementById('navbar-container');
+const container = document.getElementById("navbar-container");
 
-  if (container) {
-    container.innerHTML = navbarHTML;
-  } else {
-    console.error('navbar-container not found!');
-    return;
+if (container) {
+  container.innerHTML = navbarHTML;
+
+  // NOW elements exist
+  const menuBtn = document.getElementById("menu-btn");
+
+  if (menuBtn) {
+    menuBtn.addEventListener("click", () => {
+     
+    });
   }
 }
+}
+  initDarkMode();
+  initMobileNavbar();
+  
+  function initMobileNavbar() {
 
 // Initialize navbar and UI
 loadNavbar();
