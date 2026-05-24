@@ -27,8 +27,8 @@
     <meta property="og:title" content="Contact Us | Cara — Modern E-Commerce">
     <meta property="og:description"
         content="Reach out to Cara — our team is here to help with any questions or feedback.">
-    <meta property="og:image" content="https://example.com/images/preview.jpg">
-    <meta property="og:url" content="https://example.com/contact">
+    <meta property="og:image" content="https://cara-seven-ashen.vercel.app/images/logo.png">
+    <meta property="og:url" content="https://cara-seven-ashen.vercel.app/contact">
     <meta property="og:type" content="website">
 
     <!-- Twitter Card Tags -->
@@ -43,7 +43,7 @@
     />
     <meta
       name="twitter:image"
-      content="https://example.com/images/preview.jpg"
+      content="https://cara-seven-ashen.vercel.app/images/logo.png"
     />
     <meta name="twitter:site" content="@janavipandole" />
 
@@ -62,9 +62,14 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-  </head>
+  
   <style>
-
+ body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.8;
+    }
   
 /* =======
    CARDS CONTAINER
@@ -293,7 +298,7 @@ button.normal:hover {
 /* ===============================
    FOOTER
 ================================ */
-footer {
+/* footer {
   background: #f3f3f3;
   padding: 40px 80px;
 }
@@ -371,7 +376,7 @@ footer .copyright {
   text-align: center;
   margin-top: 30px;
   font-size: 16px;
-}
+} */
 
 
 /* ===============================
@@ -401,33 +406,121 @@ footer .copyright {
     width: 100%;
   }
 }
-
-#navbar-container {
-  display: block;
-}
-
-@media (max-width: 799px) {
-  #navbar-container {
-    display: none;
-  }
-
-  #navbar-container.active {
-    display: block;
-  }
-}
-
-
   </style>
 
+/* FIX NAVBAR VISIBILITY */
+#header {
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  background: white;
+  width: 100%;
+}
+
+#navbar-container {
+  position: relative;
+  z-index: 9999;
+}
+
+#about-head {
+  position: relative;
+  z-index: 1;
+}
+
+</style>
+
+  </style>
+</head>
   <body>
     <!-- HEADER -->
   <section id="header">
-    <a href="index.html">
-      <img src="images/logo.png" alt="" id="siteLogo">
+  <!-- Logo -->
+  <a href="index.html">
+    <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
+  </a>
+
+  <div>
+    <ul id="navbar">
+
+      <!-- Main Navigation Links -->
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="try-on.html">Try-On</a></li>
+      <li><a href="community.html">Community</a></li>
+      <li><a href="promotions.html">Promotions</a></li>
+
+      <!-- Contact Icon -->
+      <li class="nav-icon">
+        <a class="active" href="contact.html" aria-label="Contact">
+          <i class="ri-customer-service-2-line"></i>
+        </a>
+      </li>
+
+      <!-- Login Icon -->
+      <li class="nav-icon">
+        <a href="login.html" aria-label="Login">
+          <i class="ri-user-3-line"></i>
+        </a>
+      </li>
+
+      <!-- Cart Icon -->
+      <li class="nav-icon">
+        <a href="cart.html" id="lg-bag" aria-label="Cart">
+          <i class="ri-shopping-bag-4-line"></i>
+        </a>
+      </li>
+
+      <!-- Theme Toggle -->
+      <li class="nav-icon">
+        <button
+          class="theme-toggle"
+          id="themeToggle"
+          aria-label="Toggle dark mode"
+        >
+          <i class="ri-moon-line" id="themeIcon"></i>
+        </button>
+      </li>
+
+      <!-- Close Button -->
+      <a
+        href="#"
+        id="close"
+        aria-label="Close menu"
+        aria-hidden="false"
+      >
+        <i class="fa-solid fa-xmark"></i>
+      </a>
+
+    </ul>
+  </div>
+
+  <!-- Mobile Navbar -->
+  <div class="mobile">
+
+    <!-- Login Icon -->
+    <a href="login.html" aria-label="Login">
+      <i class="ri-user-3-line"></i>
     </a>
 
-    <!-- Navbar loads here -->
-    <div id="navbar-container"></div>
+    <!-- Cart Icon -->
+    <a href="cart.html" aria-label="Cart">
+      <i class="ri-shopping-bag-4-line"></i>
+    </a>
+
+    <!-- Hamburger Menu -->
+    <i
+      class="fas fa-outdent"
+      id="bar"
+      role="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+      tabindex="0"
+    ></i>
+
+  </div>
+</section>
 
     <div class="mobile">
       <button class="theme-toggle" id="themeToggleMobile"
@@ -734,29 +827,17 @@ footer .copyright {
       <!-- Copyright -->
       <div class="copyright">
         <p>
-          &copy; Cara <span class="Current-Year"></span>. All rights reserved. |
+          © Cara 2026. All rights reserved. |
           <a href="license.html" style="color: #088178"> MIT License </a>
         </p>
       </div>
     </footer>
 
+ <!-- Javascript -->
     <script src="navbar.js"></script>
     <script>loadNavbar('contact');</script>
     <script src="app.js"></script>
-    <script src="app.js?v=1779120917212"></script>
 <script>
-
-/* =========================
-   MOBILE NAVBAR TOGGLE
-========================= */
-const bar = document.getElementById("bar");
-const navbar = document.getElementById("navbar-container");
-
-if (bar) {
-  bar.addEventListener("click", () => {
-    navbar.classList.toggle("active");
-  });
-}
 
 
 /* =========================
@@ -853,6 +934,11 @@ document.addEventListener("DOMContentLoaded", function () {
 ========================= */
 document.querySelector(".Current-Year").textContent = new Date().getFullYear();
 
+</script>
+<script src="navbar.js"></script>
+
+<script>
+  loadNavbar('contact');
 </script>
 </body>
 
