@@ -5630,13 +5630,23 @@ footer .copyright {
            ========================================================================== */
         
         /* ── Page Grid Architecture ── */
-        .cart-grid-layout {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 30px;
-            align-items: start;
-            margin: 20px 0 50px;
-        }
+.cart-grid-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    align-items: start;
+    width: 100%;
+}
+
+.cart-items-column,
+.cart-summary-column {
+    width: 100%;
+}
+#cart-container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
 
         @media (min-width: 992px) {
             .cart-grid-layout {

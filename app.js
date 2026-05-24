@@ -437,7 +437,7 @@ window.loadCart = function () {
         qtyInput.value = item.quantity;
         qtyInput.min = 1;
         qtyInput.addEventListener('change', function () {
-            updateQuantity(index, this.value);
+            updatQuantitye(index, this.value);
         });
         qtyCell.appendChild(qtyInput);
 
@@ -527,14 +527,22 @@ window.removeItem = function (index) {
 }
 
 window.changeQuantity = function (index, change) {
+
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+
     if (!cart[index]) return;
 
     let newQty = cart[index].quantity + change;
-    if (newQty < 1) newQty = 1;
 
-    cart[index].quantity = newQty;
+    // Remove product if quantity becomes 0
+    if (newQty <= 0) {
+        cart.splice(index, 1);
+    } else {
+        cart[index].quantity = newQty;
+    }
+
     localStorage.setItem('productsInCart', JSON.stringify(cart));
+
     loadCart();
     updateCartCount();
 }
