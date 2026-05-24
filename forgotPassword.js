@@ -1,8 +1,9 @@
 /* ===== FORGOT PASSWORD JS ===== */
+ 
 
 /* toggle new password visibility */
-const form = document.getElementById('forgotForm');
-if (!form) return;
+if (!document.getElementById('forgotForm')) 
+      return;
 
 document.getElementById('toggleNewPass').addEventListener('click', function () {
   const pwd = document.getElementById('forgotNewPass');
@@ -33,8 +34,33 @@ form.addEventListener('submit', function (e) {
     return;
   }
 
-  if (!newPass || newPass.length < 6) {
-    showToast('Password must be at least 6 characters!', 'warning');
+  if (/\s/.test(newPass)) {
+    showToast('Password must not contain spaces.', 'warning');
+    return;
+  }
+
+  if (!newPass || newPass.length < 8) {
+    showToast('Password must be at least 8 characters long.', 'warning');
+    return;
+  }
+
+  if (!/[A-Z]/.test(newPass)) {
+    showToast('Password must contain at least one uppercase letter (A-Z).', 'warning');
+    return;
+  }
+
+  if (!/[a-z]/.test(newPass)) {
+    showToast('Password must contain at least one lowercase letter (a-z).', 'warning');
+    return;
+  }
+
+  if (!/[0-9]/.test(newPass)) {
+    showToast('Password must contain at least one number (0-9).', 'warning');
+    return;
+  }
+
+  if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(newPass)) {
+    showToast('Password must contain at least one special character (e.g. @, #, $).', 'warning');
     return;
   }
 

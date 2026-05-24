@@ -3,15 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Modern Checkout Form</title>
-  <!-- Favicon -->
-  <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
+  <title>Checkout – Cara</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
-  <link rel="stylesheet" href="toast.css">
-  <link rel="stylesheet" href="checkout.css">
+
+  <!-- Checkout styles -->
+  <link rel="stylesheet" href="checkout.css" />
 </head>
 <body>
 
@@ -19,144 +18,186 @@
 
     <div class="checkout-header">
       <a href="cart.html" class="back-to-cart" aria-label="Back to cart">
+        <a href="#" id="logout-btn" style="display:none">Logout</a>
         <i class="ri-arrow-left-line"></i> Back to Cart
       </a>
       <div class="logo">
         <span>Cara</span>
       </div>
     </div>
+  </nav>
 
-    <div class="title">
-      <h2>Checkout Your Order</h2>
+  <!-- ══ PAGE ══ -->
+  <div class="page-wrapper">
+
+    <!-- Back button -->
+    <button class="back-btn" onclick="window.location.href='cart.html'">
+      <i class="ri-arrow-left-line"></i> Back to Cart
+    </button>
+
+    <!-- Page title -->
+    <div class="page-title">
+      <span class="brand-name">Cara</span>
+      <h1>Checkout Your Order</h1>
       <p>Fill all details to complete your order</p>
     </div>
 
-    <form id="checkoutForm">
+    <!-- Two-column layout -->
+    <div class="checkout-grid">
 
       <div class="input-group">
         <label>Full Name</label>
-        <input type="text" placeholder="Enter your full name" required>
+        <!-- Fix: Added name="fullName" so FormData API can collect this field's value on submit -->
+        <input type="text" name="fullName" placeholder="Enter your full name" required>
       </div>
 
-      <div class="row">
+        <!-- Contact Information -->
+        <div class="card">
+          <div class="card-title">
+            <i class="ri-user-3-line"></i> Contact Information
+          </div>
 
         <div class="input-group">
           <label>Email Address</label>
-          <input type="email" placeholder="Enter your email" required>
+          <!-- Fix: Added name="email" so FormData API can collect this field's value on submit -->
+          <input type="email" name="email" placeholder="Enter your email" required>
         </div>
 
         <div class="input-group">
           <label>Phone Number</label>
-          <input type="tel" placeholder="Enter phone number" required>
+          <!-- Fix: Added name="phone" so FormData API can collect this field's value on submit -->
+          <input type="tel" name="phone" placeholder="Enter phone number" required>
         </div>
 
       </div>
 
       <div class="input-group">
         <label>Delivery Address</label>
-        <textarea placeholder="Enter full address" required></textarea>
+        <!-- Fix: Added name="address" so FormData API can collect this field's value on submit -->
+        <textarea name="address" placeholder="Enter full address" required></textarea>
       </div>
 
       <div class="row">
 
         <div class="input-group">
           <label>City</label>
-          <input type="text" placeholder="Enter city" required>
+          <!-- Fix: Added name="city" so FormData API can collect this field's value on submit -->
+          <input type="text" name="city" placeholder="Enter city" required>
         </div>
 
         <div class="input-group">
           <label>ZIP Code</label>
-          <input type="text" placeholder="ZIP Code" required>
+          <!-- Fix: Added name="zip" so FormData API can collect this field's value on submit -->
+          <input type="text" name="zip" placeholder="ZIP Code" required>
         </div>
 
-      </div>
-
-      <!-- PAYMENT METHOD -->
-      <div class="input-group">
-        <label>Select Payment Method</label>
-
-        <select id="paymentMethod" required>
-          <option value="">Choose Payment Method</option>
-          <option value="cod">Cash On Delivery</option>
-          <option value="online">Online Payment</option>
-        </select>
-      </div>
-
-      <!-- CARD DETAILS -->
-      <div class="payment-box" id="cardDetails">
-
-        <div class="payment-title">
-          Card Details
-        </div>
-
-        <div class="input-group">
-          <label for="cardName">Card Holder Name</label>
-          <input type="text" id="cardName" placeholder="Card holder name" autocomplete="cc-name">
-        </div>
-
-        <div class="input-group">
-          <label for="cardNumber">Card Number</label>
-          <input
-            type="text"
-            id="cardNumber"
-            placeholder="XXXX XXXX XXXX XXXX"
-            inputmode="numeric"
-            autocomplete="cc-number"
-            maxlength="19"
-          >
-        </div>
-
-        <div class="row">
-
-          <div class="input-group">
-            <label for="expiry">Expiry Date</label>
-            <input
-              type="text"
-              id="expiry"
-              placeholder="MM/YY"
-              inputmode="numeric"
-              autocomplete="cc-exp"
-              maxlength="5"
-            >
+        <!-- Payment Method -->
+        <div class="card">
+          <div class="card-title">
+            <i class="ri-bank-card-line"></i> Payment Method
           </div>
 
-          <div class="input-group">
-            <label for="cvv">CVV</label>
-            <input
-              type="password"
-              id="cvv"
-              placeholder="***"
-              inputmode="numeric"
-              autocomplete="cc-csc"
-              maxlength="4"
-            >
+          <div class="payment-tabs">
+            <div class="payment-tab active" id="tabCOD" onclick="selectPayment('cod')">
+              <i class="ri-money-rupee-circle-line"></i> Cash on Delivery
+            </div>
+            <div class="payment-tab" id="tabOnline" onclick="selectPayment('online')">
+              <i class="ri-bank-card-2-line"></i> Online Payment
+            </div>
           </div>
 
+          <!-- Card Details (visible only for Online Payment) -->
+          <div class="card-details-section" id="cardDetails">
+            <div class="input-group">
+              <label>Card Holder Name</label>
+              <input type="text" id="cardName" placeholder="Name on card">
+            </div>
+            <div class="input-group">
+              <label>Card Number</label>
+              <input type="text" id="cardNumber" placeholder="XXXX XXXX XXXX XXXX" maxlength="19">
+            </div>
+            <div class="row">
+              <div class="input-group">
+                <label>Expiry Date</label>
+                <input type="text" id="expiry" placeholder="MM/YY" maxlength="5">
+              </div>
+              <div class="input-group">
+                <label>CVV</label>
+                <input type="password" id="cvv" placeholder="•••" maxlength="4">
+              </div>
+            </div>
+          </div>
         </div>
 
-      </div>
+      </div><!-- /left -->
 
-      <button type="submit" class="submit-btn">
-        Place Your Order
-      </button>
+      <!-- ── RIGHT: ORDER SUMMARY ── -->
+      <div>
+        <div class="card">
+          <div class="card-title">
+            <i class="ri-shopping-bag-3-line"></i> Order Summary
+          </div>
 
-    </form>
+          <div class="order-item">
+            <div class="item-thumb">👔</div>
+            <div class="item-info">
+              <div class="item-name">Dual-Tone Corduroy Shirt</div>
+              <div class="item-meta">GAP · Size S · Qty 1</div>
+            </div>
+            <div class="item-price">₹2,299</div>
+          </div>
 
-  </div>
+          <div class="order-item">
+            <div class="item-thumb">🌺</div>
+            <div class="item-info">
+              <div class="item-name">Tropical Print Shirt</div>
+              <div class="item-meta">H&M · Size L · Qty 2</div>
+            </div>
+            <div class="item-price">₹1,798</div>
+          </div>
 
-  <!-- SUCCESS MESSAGE -->
-  <div class="success-popup" id="successPopup">
+          <div class="totals">
+            <div class="total-row">
+              <span>Subtotal</span>
+              <span>₹4,097</span>
+            </div>
+            <div class="total-row free-ship">
+              <span>Shipping</span>
+              <span>Free</span>
+            </div>
+            <div class="total-row">
+              <span>Tax (5%)</span>
+              <span>₹205</span>
+            </div>
+            <div class="total-row grand">
+              <span>Total</span>
+              <span>₹4,302</span>
+            </div>
+          </div>
+
+          <button class="submit-btn" onclick="placeOrder()">
+            <i class="ri-shield-check-line"></i> Place Your Order
+          </button>
+
+          <div class="secure-badge">
+            <i class="ri-lock-line"></i> 100% Secure Checkout
+          </div>
+        </div>
+      </div><!-- /right -->
+
+    </div><!-- /checkout-grid -->
+  </div><!-- /page-wrapper -->
+
+  <!-- ══ SUCCESS POPUP ══ -->
+  <div class="success-overlay" id="successOverlay">
     <div class="popup-box">
-      <div class="check-icon">
-        ✓
-      </div>
+      <div class="check-circle"><i class="ri-check-line"></i></div>
       <h2>Order Successful!</h2>
-      <p>Your Order has been completed successfully.</p>
-      <a href="shop.html" > <button>Continue to Shopping </button></a>
+      <p>Your order has been placed successfully. We'll send you a confirmation shortly.</p>
+      <button class="popup-btn" onclick="window.location.href='shop.html'">Continue Shopping</button>
     </div>
   </div>
 
-  <script src="app.js"></script>
   <script src="checkout.js"></script>
 
 </body>
