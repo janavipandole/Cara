@@ -1,213 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <!-- Character Encoding -->
     <meta charset="UTF-8">
-
-    <!-- Viewport for Responsive Design -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Page Title -->
-    <title>Cara — Modern E‑Commerce</title>
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
-
-    <!-- SEO Meta Tags -->
-    <meta name="description"
-        content="Shop the latest trends on our e-commerce store. Dark theme supported for a better user experience.">
-    <meta name="keywords" content="e-commerce, shopping, online store, dark mode, buy online, latest fashion">
-    <meta name="author" content=" Cara">
-    <meta name="robots" content="index, follow">
-
-    <!-- Language -->
-    <meta http-equiv="Content-Language" content="en">
-
-    <!-- Open Graph (OG) Tags for Social Sharing -->
-    <meta property="og:title" content="E-commerce - Dark Theme Working">
-    <meta property="og:description" content="Shop the latest trends with our dark mode-enabled e-commerce experience.">
-    <meta property="og:image" content="https://example.com/images/preview.jpg">
-    <meta property="og:url" content="https://example.com/">
-    <meta property="og:type" content="website">
-
-    <!-- Twitter Card Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="E-commerce - Dark Theme Working">
-    <meta name="twitter:description" content="Dark theme e-commerce site with modern features.">
-    <meta name="twitter:image" content="https://example.com/images/preview.jpg">
-    <meta name="twitter:site" content="@janavipandole">
-
-    <!-- Theme Color for Mobile Browser -->
-    <meta name="theme-color" content="#000000">
-
-    <!-- Stylesheets -->
+    <title>Register - Cara</title>
+    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <link rel="stylesheet" href="toast.css">
+    <link rel="stylesheet" href="register.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="login.css">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-
 </head>
-
 <body>
-    <div id="particles-js"></div>
 
-    <div class="container">
-        <div class="form-box">
-            <h2>Register</h2>
-            <p>Namaste!!&#128075</p>
+<section id="header">
+  <a href="index.html">
+    <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
+  </a>
 
-            <form id="registerForm">
-                <div class="input-group">
-                    <input type="text" id="registerUsername" required class="input-field">
-                    <label for="registerUsername">Username</label>
-                    <div class="glow-line"></div>
+  <div>
+    <ul id="navbar">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="try-on.html">Try-On</a></li>
+      <li><a href="community.html">Community</a></li>
+      <li><a href="promotions.html">Promotions</a></li>
+      <li class="nav-icon"><a href="contact.html" aria-label="Contact"><i class="ri-customer-service-2-line"></i></a></li>
+      <li class="nav-icon"><a class="active" href="login.html" aria-label="Login"><i class="ri-user-3-line"></i></a></li>
+      <li class="nav-icon"><a href="cart.html" id="lg-bag" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a></li>
+      <li class="nav-icon">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+          <i class="ri-moon-line" id="themeIcon"></i>
+        </button>
+      </li>
+      <a href="#" id="close" aria-label="Close menu" aria-hidden="false"><i class="fa-solid fa-xmark"></i></a>
+    </ul>
+  </div>
+
+  <div class="mobile">
+    <a href="login.html" aria-label="Login"><i class="ri-user-3-line"></i></a>
+    <a href="cart.html" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a>
+    <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
+  </div>
+</section>
+
+<section id="register-section">
+    <div class="auth-card">
+        <h2>Register</h2>
+        <p class="subtitle">Create your account 😊</p>
+
+        <form id="registerForm" novalidate>
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="registerUsername" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="registerEmail" placeholder="Enter your email" required>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <div class="password-wrapper" style="position: relative; display: flex; align-items: center; width: 100%;">
+                    <input type="password" placeholder="Enter your password" id="registerPassword" required style="width: 100%; padding-right: 45px;">
+                    <button type="button" id="togglePassword" style="position: absolute; right: 10px; background: none; border: none; cursor: pointer; color: #666; font-size: 18px;">
+                        <i class="ri-eye-line" id="registerToggleIcon"></i>
+                    </button>
                 </div>
-                <div class="input-group">
-                    <input type="text" id="registerEmail" required class="input-field">
-                    <label for="registerEmail">Email</label>
-                    <div class="glow-line"></div>
+                <small id="passwordHint" style="display:block; margin-top:5px; font-size:12px;"></small>
+            </div>
+
+            <div class="form-group">
+                <label>Confirm Password</label>
+                <div class="password-wrapper" style="position: relative; display: flex; align-items: center; width: 100%;">
+                    <input type="password" placeholder="Confirm your password" id="confirmPassword" required style="width: 100%; padding-right: 45px;">
+                    <button type="button" id="confirmTogglePassword" style="position: absolute; right: 10px; background: none; border: none; cursor: pointer; color: #666; font-size: 18px;">
+                        <i class="ri-eye-line" id="confirmToggleIcon"></i>
+                    </button>
                 </div>
-                <div class="input-group">
-                    <input type="password" id="registerPassword" required class="input-field">
-                    <label for="registerPassword">Password</label>
-                    <div class="glow-line"></div>
-                </div>
-                <div class="input-group">
-                    <input type="password" id="registerConfirmPassword" required class="input-field">
-                    <label for="registerConfirmPassword">Confirm Password</label>
-                    <div class="glow-line"></div>
-                </div>
-                <div class="remember-forgot">
-                    <div class="remember">
-                        <input type="checkbox" id="remember">
-                        <label for="remember">Remember me</label>
-                    </div>
-                </div>
-                <button type="submit" class="login-btn">
-                    <span> REGISTER</span>
-                    <div class="btn-glow"></div>
-                </button>
-                <div class="signup-link">
-                    Already have an account? <a href="login.html">Login</a>
-                </div>
-            </form>
+            </div>
+
+            <button type="submit" class="btn-primary">CREATE ACCOUNT</button>
+        </form>
+
+        <div class="switch-auth">
+            Already have an account? <a href="login.html">Login</a>
         </div>
     </div>
+</section>
 
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            particlesJS('particles-js', {
-                "particles": {
-                    "number": {
-                        "value": 100,
-                        "density": {
-                            "enable": true,
-                            "value_area": 800
-                        }
-                    },
-                    "color": {
-                        "value": "#00d4ff"
-                    },
-                    "shape": {
-                        "type": "circle",
-                        "stroke": {
-                            "width": 0,
-                            "color": "#000000"
-                        },
-                        "polygon": {
-                            "nb_sides": 5
-                        }
-                    },
-                    "opacity": {
-                        "value": 0.8,
-                        "random": true,
-                        "anim": {
-                            "enable": true,
-                            "speed": 1,
-                            "opacity_min": 0.4,
-                            "sync": false
-                        }
-                    },
-                    "size": {
-                        "value": 5,
-                        "random": true,
-                        "anim": {
-                            "enable": true,
-                            "speed": 2,
-                            "size_min": 1,
-                            "sync": false
-                        }
-                    },
-                    "line_linked": {
-                        "enable": true,
-                        "distance": 150,
-                        "color": "#00d4ff",
-                        "opacity": 0.6,
-                        "width": 1.5
-                    },
-                    "move": {
-                        "enable": true,
-                        "speed": 2,
-                        "direction": "none",
-                        "random": true,
-                        "straight": false,
-                        "out_mode": "out",
-                        "bounce": false,
-                        "attract": {
-                            "enable": true,
-                            "rotateX": 600,
-                            "rotateY": 1200
-                        }
-                    }
-                },
-                "interactivity": {
-                    "detect_on": "canvas",
-                    "events": {
-                        "onhover": {
-                            "enable": true,
-                            "mode": "repulse"
-                        },
-                        "onclick": {
-                            "enable": true,
-                            "mode": "push"
-                        },
-                        "resize": true
-                    },
-                    "modes": {
-                        "grab": {
-                            "distance": 400,
-                            "line_linked": {
-                                "opacity": 1
-                            }
-                        },
-                        "bubble": {
-                            "distance": 400,
-                            "size": 40,
-                            "duration": 2,
-                            "opacity": 8,
-                            "speed": 3
-                        },
-                        "repulse": {
-                            "distance": 100,
-                            "duration": 0.4
-                        },
-                        "push": {
-                            "particles_nb": 4
-                        },
-                        "remove": {
-                            "particles_nb": 2
-                        }
-                    }
-                },
-                "retina_detect": true
-            });
-        });
-    </script>
-    <script src="register.js"></script>
+<footer class="main-footer">
+    <div class="footer-top">
+        <div class="footer-logo-box"><img class="footer-logo" src="images/logo.png" alt="Cara Logo" /></div>
+        <div class="footer-socials">
+            <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+            <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+        </div>
+    </div>
+    <hr class="footer-divider">
+    <div class="footer-middle">
+        <div class="footer-col brand-info">
+            <h4>ABOUT US</h4>
+            <p>Cara E-Commerce – Redefining your style with premium apparel, expert curation, and an absolute commitment to fashion excellence.</p>
+            <p><strong>Address: </strong>562 Wellington Road, Street 32, San Francisco</p>
+            <p><strong>Phone: </strong>+01 2222 365 / (+91) 01 2345 6789</p>
+            <p><strong>Hours: </strong>10:00 - 18:00, Mon - Sat</p>
+        </div>
+        <div class="footer-col">
+            <h4>QUICK LINKS</h4>
+            <a href="about.html">About Us</a>
+            <a href="#">Delivery Information</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms and Conditions</a>
+            <a href="contact.html">Contact Us</a>
+        </div>
+        <div class="footer-col">
+            <h4>MY ACCOUNT</h4>
+            <a href="login.html">Sign In</a>
+            <a href="cart.html">View Cart</a>
+            <a href="cart.html">My Wishlist</a>
+            <a href="cart.html">Track My Order</a>
+            <a href="contact.html">Help</a>
+        </div>
+        <div class="footer-col newsletter-footer">
+            <h4>NEWSLETTER</h4>
+            <p>Get email updates about our latest shop and <span>special offers.</span></p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Your email address" required>
+                <button type="submit" style="background-color: #088178; color: white; border: none; padding: 10px 20px; cursor: pointer;">Sign Up</button>
+            </form>
+            <div class="install-payment-box">
+                <h4>SECURED PAYMENT GATEWAYS</h4>
+                <div class="payment-icons">
+                    <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer"><i class="fab fa-cc-visa"></i></a>
+                    <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer"><i class="fab fa-cc-mastercard"></i></a>
+                    <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer"><i class="fab fa-cc-paypal"></i></a>
+                    <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer"><i class="fab fa-cc-amex"></i></a>
+                    <a href="https://www.stripe.com" target="_blank" rel="noopener noreferrer"><i class="fab fa-cc-stripe"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-install-box">
+        <h4>INSTALL APP</h4>
+        <p>From App Store or Google Play</p>
+        <div class="download-badges">
+            <img src="images/pay/app.jpg" alt="Download from App Store" />
+            <img src="images/pay/play.jpg" alt="Get it on Google Play" />
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p class="copyright">&copy; Cara 2026. All rights reserved.</p>
+        <div class="footer-legal-links"><a href="license.html" class="license-link">MIT License</a></div>
+    </div>
+</footer>
+
+<div id="toast-container"></div>
+
+<script src="app.js"></script>
+<script src="register.js"></script>
 </body>
-
 </html>

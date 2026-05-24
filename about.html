@@ -1,205 +1,756 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <!-- Character Encoding -->
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
 
     <!-- Viewport for Responsive Design -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Page Title -->
     <title>Cara — Modern E‑Commerce</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
+    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
 
     <!-- SEO Meta Tags -->
-    <meta name="description"
-        content="Shop the latest trends on our e-commerce store. Dark theme supported for a better user experience.">
-    <meta name="keywords" content="e-commerce, shopping, online store, dark mode, buy online, latest fashion">
-    <meta name="author" content=" Cara">
-    <meta name="robots" content="index, follow">
+    <meta
+      name="description"
+      content="Shop the latest trends on our e-commerce store. Dark theme supported for a better user experience."
+    />
+    <meta
+      name="keywords"
+      content="e-commerce, shopping, online store, dark mode, buy online, latest fashion"
+    />
+    <meta name="author" content=" Cara" />
+    <meta name="robots" content="index, follow" />
 
     <!-- Language -->
-    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Language" content="en" />
 
     <!-- Open Graph (OG) Tags for Social Sharing -->
-    <meta property="og:title" content="E-commerce - Dark Theme Working">
-    <meta property="og:description" content="Shop the latest trends with our dark mode-enabled e-commerce experience.">
-    <meta property="og:image" content="https://example.com/images/preview.jpg">
-    <meta property="og:url" content="https://example.com/">
-    <meta property="og:type" content="website">
+    <meta property="og:title" content="E-commerce - Dark Theme Working" />
+    <meta
+      property="og:description"
+      content="Shop the latest trends with our dark mode-enabled e-commerce experience."
+    />
+    <meta
+      property="og:image"
+      content="https://cara-seven-ashen.vercel.app/images/logo.png"
+    />
+    <meta property="og:url" content="https://cara-seven-ashen.vercel.app/" />
+    <meta property="og:type" content="website" />
 
     <!-- Twitter Card Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="E-commerce - Dark Theme Working">
-    <meta name="twitter:description" content="Dark theme e-commerce site with modern features.">
-    <meta name="twitter:image" content="https://example.com/images/preview.jpg">
-    <meta name="twitter:site" content="@janavipandole">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="E-commerce - Dark Theme Working" />
+    <meta
+      name="twitter:description"
+      content="Dark theme e-commerce site with modern features."
+    />
+    <meta
+      name="twitter:image"
+      content="https://cara-seven-ashen.vercel.app/images/logo.png"
+    />
+    <meta name="twitter:site" content="@janavipandole" />
 
     <!-- Theme Color for Mobile Browser -->
-    <meta name="theme-color" content="#000000">
+    <meta name="theme-color" content="#000000" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      #scrollTopBtn {
+        position: fixed;
+        bottom: 30px;
+        right: 30px; /* keeps button on right side */
 
-</head>
+        width: 55px;
+        height: 55px;
 
-<body>
+        border: none;
+        border-radius: 50%;
+
+        background-color: #088178;
+        color: white;
+
+        font-size: 24px;
+        font-weight: bold;
+
+        cursor: pointer;
+        z-index: 999;
+
+        display: none;
+
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      #scrollTopBtn:hover {
+        background-color: #065f5b;
+        transform: scale(1.1);
+      }
+
+      .cara-features {
+        position: relative;
+        max-width: 1200px;
+        margin: 100px auto;
+        padding: 0 40px;
+      }
+
+      .cara-features::before,
+      .cara-features::after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 0;
+        filter: blur(24px);
+        opacity: 0.55;
+      }
+
+      .cara-features::before {
+        width: 180px;
+        height: 180px;
+        top: -24px;
+        left: -40px;
+        background: rgba(8, 129, 120, 0.07);
+      }
+
+      .cara-features::after {
+        width: 220px;
+        height: 220px;
+        right: -60px;
+        bottom: -30px;
+        background: rgba(8, 129, 120, 0.045);
+      }
+
+      .cara-heading {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        max-width: 760px;
+        margin: 0 auto;
+      }
+
+      .cara-heading span {
+        display: inline-block;
+        margin-bottom: 14px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: #088178;
+      }
+
+      .cara-heading h2 {
+        margin: 0;
+        font-size: clamp(3rem, 4.5vw, 3.5rem);
+        font-weight: 700;
+        line-height: 1.1;
+        color: #1a1a1a;
+        letter-spacing: -0.03em;
+      }
+
+      .cara-heading p {
+        margin: 16px auto 0;
+        font-size: 18px;
+        line-height: 1.7;
+        max-width: 650px;
+        color: #5f6b6a;
+      }
+
+      .cara-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 28px;
+        margin-top: 60px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .cara-card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        background: #fff;
+        border-radius: 24px;
+        padding: 32px;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+        transition: all 0.35s ease;
+        min-height: 100%;
+        overflow: hidden;
+      }
+
+      .cara-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, rgba(8, 129, 120, 0.22), rgba(8, 129, 120, 0.04));
+      }
+
+      .cara-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(8, 129, 120, 0.02), transparent 30%);
+        opacity: 0;
+        transition: opacity 0.35s ease;
+      }
+
+      .cara-card:hover {
+        transform: translateY(-8px);
+        border-color: #088178;
+        box-shadow: 0 18px 50px rgba(8, 129, 120, 0.12);
+      }
+
+      .cara-card:hover::after {
+        opacity: 1;
+      }
+
+      .cara-icon {
+        width: 62px;
+        height: 62px;
+        border-radius: 18px;
+        background: rgba(8, 129, 120, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 22px;
+        flex: 0 0 auto;
+        transition: all 0.35s ease;
+      }
+
+      .cara-card:hover .cara-icon {
+        background: rgba(8, 129, 120, 0.14);
+        transform: translateY(-1px);
+      }
+
+      .cara-icon svg {
+        width: 26px;
+        height: 26px;
+        stroke: #088178;
+        fill: none;
+        stroke-width: 1.9;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .cara-card h3 {
+        margin: 0 0 12px;
+        font-size: 22px;
+        font-weight: 700;
+        color: #1a1a1a;
+        letter-spacing: -0.02em;
+      }
+
+      .cara-card p {
+        margin: 0;
+        font-size: 15px;
+        line-height: 1.7;
+        color: #666;
+      }
+
+      [data-theme="dark"] .cara-features {
+        background: linear-gradient(180deg, rgba(15, 20, 25, 0.98) 0%, rgba(15, 20, 25, 0.94) 100%);
+      }
+
+      [data-theme="dark"] .cara-features::before {
+        background: rgba(6, 182, 212, 0.08);
+      }
+
+      [data-theme="dark"] .cara-features::after {
+        background: rgba(6, 182, 212, 0.05);
+      }
+
+      [data-theme="dark"] .cara-heading span {
+        color: #6ee7df;
+      }
+
+      [data-theme="dark"] .cara-heading h2 {
+        color: #f8fbfd;
+      }
+
+      [data-theme="dark"] .cara-heading p {
+        color: #a7b7c6;
+      }
+
+      [data-theme="dark"] .cara-card {
+        background: #151b20;
+        border-color: rgba(255, 255, 255, 0.08);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.32);
+      }
+
+      [data-theme="dark"] .cara-card::before {
+        background: linear-gradient(90deg, rgba(6, 182, 212, 0.3), rgba(6, 182, 212, 0.04));
+      }
+
+      [data-theme="dark"] .cara-card::after {
+        background: linear-gradient(180deg, rgba(6, 182, 212, 0.06), transparent 30%);
+      }
+
+      [data-theme="dark"] .cara-card:hover {
+        border-color: #06b6d4;
+        box-shadow: 0 20px 54px rgba(6, 182, 212, 0.12);
+      }
+
+      [data-theme="dark"] .cara-icon {
+        background: rgba(6, 182, 212, 0.1);
+      }
+
+      [data-theme="dark"] .cara-card:hover .cara-icon {
+        background: rgba(6, 182, 212, 0.18);
+      }
+
+      [data-theme="dark"] .cara-card h3 {
+        color: #f8fbfd;
+      }
+
+      [data-theme="dark"] .cara-card p {
+        color: #98a8b5;
+      }
+
+      @media (max-width: 991px) {
+        .cara-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .cara-heading h2 {
+          font-size: 44px;
+        }
+      }
+
+      @media (max-width: 767px) {
+        .cara-features {
+          padding: 0 20px;
+          margin: 80px auto;
+        }
+
+        .cara-features::before {
+          width: 120px;
+          height: 120px;
+        }
+
+        .cara-features::after {
+          width: 140px;
+          height: 140px;
+        }
+
+        .cara-grid {
+          grid-template-columns: 1fr;
+          gap: 20px;
+          margin-top: 40px;
+        }
+
+        .cara-card {
+          padding: 28px;
+        }
+
+        .cara-heading h2 {
+          font-size: 34px;
+        }
+
+        .cara-heading p {
+          font-size: 16px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- HEADER -->
     <section id="header">
-        <a href="index.html"><img src="images/logo.png" alt=""></a>
+      <!-- Logo -->
+      <a href="index.html">
+        <img src="images/logo.png" alt="Cara Logo" />
+      </a>
 
-        <div>
-            <ul id="navbar">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="shop.html">Shop</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a class="active" href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="login.html">Login</a></li>
-                <li><a href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
-                <li>
-                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-                        <i class="ri-moon-line" id="themeIcon"></i>
-                    </button>
-                </li>
-                <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
-            </ul>
-        </div>
-        <div class="mobile">
-            <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
-            <i class="fas fa-outdent" id="bar"></i>
-        </div>
+      <div>
+        <ul id="navbar">
+          <!-- Main Navigation Links -->
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a class="active" href="about.html">About</a></li>
+          <li><a href="try-on.html">Try-On</a></li>
+          <li><a href="community.html">Community</a></li>
+          <li><a href="promotions.html">Promotions</a></li>
+
+          <!-- Contact Icon -->
+          <li class="nav-icon">
+            <a href="contact.html" aria-label="Contact">
+              <i class="ri-customer-service-2-line"></i>
+            </a>
+          </li>
+
+          <!-- Login Icon -->
+          <li class="nav-icon">
+            <a href="login.html" aria-label="Login">
+              <i class="ri-user-3-line"></i>
+            </a>
+          </li>
+
+          <!-- Cart Icon -->
+          <li class="nav-icon">
+            <a href="cart.html" id="lg-bag" aria-label="Cart">
+              <i class="ri-shopping-bag-4-line"></i>
+            </a>
+          </li>
+
+          <!-- Theme Toggle -->
+          <li class="nav-icon">
+            <button
+              class="theme-toggle"
+              id="themeToggle"
+              aria-label="Toggle dark mode"
+            >
+              <i class="ri-moon-line" id="themeIcon"></i>
+            </button>
+          </li>
+
+          <!-- Close Button -->
+          <a href="#" id="close" aria-label="Close menu" aria-hidden="false">
+            <i class="fa-solid fa-xmark"></i>
+          </a>
+        </ul>
+      </div>
+
+      <!-- Mobile Navbar -->
+      <div class="mobile">
+        <!-- Login Icon -->
+        <a href="login.html" aria-label="Login">
+          <i class="ri-user-3-line"></i>
+        </a>
+
+        <!-- Cart Icon -->
+        <a href="cart.html" aria-label="Cart">
+          <i class="ri-shopping-bag-4-line"></i>
+        </a>
+
+        <!-- Hamburger Menu -->
+        <i
+          class="fas fa-outdent"
+          id="bar"
+          role="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+          tabindex="0"
+        ></i>
+      </div>
     </section>
-
+    
     <section id="about-head">
-        <h2>#KnowUs</h2>
-        <p>Read all case studies about Us!</p>
+      <h2>#KnowUs</h2>
+      <p>Read all case studies about Us!</p>
     </section>
 
     <section id="about-us" class="section-p1">
-        <img src="images/about/a6.jpg" alt="">
-        <div>
-            <h2>Who We Are</h2>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi sed necessitatibus quaerat? Est alias
-                sapiente deleniti libero in vitae rerum aliquam nam cumque, illum accusamus. Aspernatur ea ex magni?
-                Sunt?
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi repellendus quam dolorum eius illo,
-                asperiores repudiandae odit sed adipisci sint delectus cupiditate quod itaque quis, obcaecati
-                perspiciatis, eos sit. Minus!
-            </p>
+      <div class="about-image-container">
+        <img src="images/about/a6.jpg" alt="About Cara" />
+      </div>
+      <div class="about-content">
+        <span class="about-eyebrow">Who We Are</span>
+        <h2>Shaping the Future of Modern E-Commerce</h2>
+        <p>
+          Cara is a premium e-commerce platform designed to deliver a
+          smooth, responsive, and visually engaging digital experience for users
+          across all devices. Our focus is on combining sleek modern aesthetics, rapid
+          performance, and interactive functionality to create a seamless
+          browsing experience that feels both modern and reliable.
+        </p>
+        <p>
+          We believe that great web applications should not only look attractive but also
+          provide simplicity, accessibility, and ease of use for everyone. Every
+          section of this platform is carefully crafted with attention to
+          detail, ensuring better usability, elegant design structure, and
+          improved user interaction.
+        </p>
 
-            <abbr title="">Create stunning images with as much or as little control as you
-                like thanks to a choice of Basic and Creative modes.</abbr>
-            <br><br>
-            <marquee bgcolor=" #ccc" loop="-1" scollamount="5" width="100%">Create stunning images with as much or as
-                little control as you
-                like thanks to a choice of Basic and Creative modes. </marquee>
+        <!-- Modern Trust Stats Grid (Replacing legacy Marquee) -->
+        <div class="about-stats-grid">
+          <div class="stat-item">
+            <span class="stat-number">10K+</span>
+            <span class="stat-label">Global Styles</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">99.8%</span>
+            <span class="stat-label">Happy Shoppers</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">24/7</span>
+            <span class="stat-label">Priority Support</span>
+          </div>
         </div>
+      </div>
     </section>
 
     <section id="about-app">
-        <h1>Download Our <a href="#">App</a></h1>
-        <div class="video">
-            <video autoplay muted loop src="images/about/1.mp4"></video>
-        </div>
+      <h1>Download Our <a href="#">App</a></h1>
+      <div class="video">
+        <video autoplay muted loop src="images/about/1.mp4"></video>
+      </div>
     </section>
 
-    <section id="feature" class="section-p1">
-        <div class="fe-box">
-            <img src="images/feature/f1.png" alt="">
-            <h6>Free Shipping</h6>
+    <section class="cara-features" aria-labelledby="why-choose-heading">
+      <div class="cara-heading">
+        <span>WHY CHOOSE US</span>
+        <h2 id="why-choose-heading">Why Customers Love Cara</h2>
+        <p>
+          A considered shopping experience shaped around trust, clarity, and a
+          refined modern feel.
+        </p>
+      </div>
+
+      <div class="cara-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:60px;">
+        <div class="cara-card">
+          <div class="cara-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v10H3z"></path><path d="M14 10h4l3 3v4h-7z"></path><circle cx="7.5" cy="18" r="1.6"></circle><circle cx="17.5" cy="18" r="1.6"></circle></svg>
+          </div>
+          <h3>Free Shipping</h3>
+          <p>Fast and secure delivery across all regions with real-time tracking support.</p>
         </div>
-        <div class="fe-box">
-            <img src="images/feature/f2.png" alt="">
-            <h6>Online Order</h6>
+
+        <div class="cara-card">
+          <div class="cara-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 6h14l-1.5 8h-11z"></path><path d="M7 6l.8-2h8.4L17 6"></path><path d="M9 14.5V19"></path><path d="M15 14.5V19"></path></svg>
+          </div>
+          <h3>Smart Ordering</h3>
+          <p>Seamless ordering experience with secure checkout and instant confirmations.</p>
         </div>
-        <div class="fe-box">
-            <img src="images/feature/f3.png" alt="">
-            <h6>Save Money</h6>
+
+        <div class="cara-card">
+          <div class="cara-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 9.2 8.6 3 9.5l4.5 4.4-1 6.2L12 17l5.5 3.1-1-6.2L21 9.5l-6.2-.9z"></path></svg>
+          </div>
+          <h3>Best Value</h3>
+          <p>Premium fashion collections at competitive prices with exclusive offers.</p>
         </div>
-        <div class="fe-box">
-            <img src="images/feature/f4.png" alt="">
-            <h6>Promotions</h6>
+
+        <div class="cara-card">
+          <div class="cara-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"></path><path d="M5 8h14"></path><path d="M6.5 8c0 3 2.5 5.5 5.5 5.5S17.5 11 17.5 8"></path><path d="M6.5 16c0-2.2 2.5-4 5.5-4s5.5 1.8 5.5 4"></path></svg>
+          </div>
+          <h3>Seasonal Deals</h3>
+          <p>Discover limited-time campaigns, holiday discounts, and member rewards.</p>
         </div>
-        <div class="fe-box">
-            <img src="images/feature/f5.png" alt="">
-            <h6>Happy Sell</h6>
+
+        <div class="cara-card">
+          <div class="cara-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 6.5V12c0 4.4 3.1 8.4 7.5 9.5 4.4-1.1 7.5-5.1 7.5-9.5V6.5z"></path><path d="m8.5 12 2.3 2.3L15.5 9.6"></path></svg>
+          </div>
+          <h3>Trusted Quality</h3>
+          <p>Carefully curated products with verified customer satisfaction and quality assurance.</p>
         </div>
-        <div class="fe-box">
-            <img src="images/feature/f6.png" alt="">
-            <h6>F24/7 Support</h6>
+
+        <div class="cara-card">
+          <div class="cara-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 13a7.5 7.5 0 0 1 15 0"></path><path d="M4.5 13v3a2 2 0 0 0 2 2H8v-7H6.5A2 2 0 0 0 4.5 13z"></path><path d="M19.5 13v3a2 2 0 0 1-2 2H16v-7h1.5a2 2 0 0 1 2 2z"></path><path d="M10 20h4"></path></svg>
+          </div>
+          <h3>24/7 Support</h3>
+          <p>Dedicated support team ready to help anytime with quick response assistance.</p>
         </div>
+      </div>
     </section>
 
-    <section id="newsletter" class="section-p1 section-m1">
-        <div class="newstext">
-            <h4>Sign Up For Newsletters</h4>
-            <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
-        </div>
-        <div class="form">
-            <input type="text" placeholder="Your email address">
-            <button class="normal">Sign Up</button>
-        </div>
-    </section>
-
+    <!-- Footer -->
     <footer class="section-p1">
-        <div class="col">
-            <img class="logo" src="images/logo.png" alt="">
-            <h4>Contact</h4>
-            <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
-            <p><strong>Phone:</strong> +01 2222 365 /(+91) 01 2345 6789</p>
-            <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
+      <!-- Contact Column -->
+      <div class="col">
+        <img class="logo" src="images/logo.png" alt="Cara Logo" />
+        <h4>Contact</h4>
+        <p>
+          <strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco
+        </p>
+        <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
+        <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
 
-            <div class="follow">
-                <h4>Follow us</h4>
-                <div class="icon">
-                    <a href="https://x.com/JanaviPandole"><i class="fab fa-twitter"></i></a>
-                    <a href="https://github.com/janavipandole"><i class="fab fa-github"></i></a>
-                    <a href="www.linkedin.com/in/janavi-pandole-80a7b2290"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://www.youtube.com/@JanaviPandole"><i class="fab fa-youtube"></i></a>
-                </div>
-            </div>
+        <div class="follow">
+          <h4>Follow us</h4>
+          <div class="icon">
+            <a
+              href="https://x.com/JanaviPandole"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a
+              href="https://github.com/janavipandole"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fab fa-github"></i>
+            </a>
+            <a
+              href="https://www.linkedin.com/in/janavi-pandole-80a7b2290"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fab fa-linkedin"></i>
+            </a>
+            <a
+              href="https://www.youtube.com/@JanaviPandole"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fab fa-youtube"></i>
+            </a>
+          </div>
         </div>
-        <div class="col">
-            <h4>About</h4>
-            <a href="about.html">About us</a>
-            <a href="#">Delivery Information</a>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms & Conditions</a>
-            <a href="contact.html">Contact Us</a>
+      </div>
+
+      <!-- About Column -->
+      <div class="col">
+        <h4>About</h4>
+        <a href="about.html">About Us</a>
+        <a href="#">Delivery Information</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms and Conditions</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+
+      <!-- My Account Column -->
+      <div class="col">
+        <h4>My Account</h4>
+        <a href="login.html">Sign In</a>
+        <a href="cart.html">View Cart</a>
+        <a href="#">My Wishlist</a>
+        <a href="cart.html">Track My Order</a>
+        <a href="contact.html">Help</a>
+      </div>
+
+      <!-- Newsletter Column -->
+      <div class="col newsletter-footer">
+        <h4>Newsletter</h4>
+        <p>
+          Get email updates about our latest shop and
+          <span>special offers.</span>
+        </p>
+
+        <form class="newsletter-form">
+          <input type="email" placeholder="Your email address" required />
+          <button type="submit" class="normal">Sign Up</button>
+        </form>
+      </div>
+
+      <!-- Install App Column -->
+      <div class="col install">
+        <h4>Install App</h4>
+        <p>From App Store or Google Play</p>
+
+        <div class="row">
+          <img src="images/pay/app.jpg" alt="Download from App Store" />
+          <img src="images/pay/play.jpg" alt="Get it on Google Play" />
         </div>
-        <div class="col">
-            <h4>My Account</h4>
-            <a href="login.html">Sign In</a>
-            <a href="cart.html">View Cart</a>
-            <a href="#">My Wishlist</a>
-            <a href="cart.html">Track My Order</a>
-            <a href="contact.html">Help</a>
+
+        <p>Secured Payment Gateways</p>
+
+        <div class="payment-icons">
+          <a
+            href="https://www.visa.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visa"
+          >
+            <i class="fab fa-cc-visa"></i>
+          </a>
+
+          <a
+            href="https://www.mastercard.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Mastercard"
+          >
+            <i class="fab fa-cc-mastercard"></i>
+          </a>
+
+          <a
+            href="https://www.paypal.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="PayPal"
+          >
+            <i class="fab fa-cc-paypal"></i>
+          </a>
+
+          <a
+            href="https://www.americanexpress.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="American Express"
+          >
+            <i class="fab fa-cc-amex"></i>
+          </a>
+
+          <a
+            href="https://stripe.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Stripe"
+          >
+            <i class="fab fa-cc-stripe"></i>
+          </a>
         </div>
-        <div class="col install">
-            <h4>Install App</h4>
-            <p>From App Store ro Google Play</p>
-            <div class="row">
-                <img src="images/pay/app.jpg" alt="">
-                <img src="images/pay/play.jpg" alt="">
-            </div>
-            <p>Secured Payment Gateways</p>
-            <img src="images/pay/pay.png" alt="">
-        </div>
-        <div class="copyright">
-            <p> &copy; Cara 2025. All rights reserved. | <a href="license.html" style="color: #088178;">MIT License</a>
-            </p>
-        </div>
+      </div>
+
+      <!-- Copyright -->
+      <div class="copyright">
+        <p>
+          © Cara 2026. All rights reserved. |
+          <a href="license.html" style="color: #088178"> MIT License </a>
+        </p>
+      </div>
     </footer>
+    
+    <button id="scrollTopBtn" title="Go to top">
+      ↑
+    </button>
+
+    <!-- Scripts -->
+    <script src="navbar.js"></script>
+    <script>
+      loadNavbar('about');
+    </script>
 
     <script src="app.js"></script>
 
-</body>
+    <script>
+      document.querySelector('.Current-Year').textContent =
+        new Date().getFullYear();
+    </script>
+    
+    <script>
+      const scrollBtn = document.getElementById('scrollTopBtn');
 
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+          scrollBtn.style.display = 'block';
+        } else {
+          scrollBtn.style.display = 'none';
+        }
+      });
+
+      scrollBtn.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+      });
+    </script>
+  </body>
 </html>
