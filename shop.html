@@ -66,6 +66,7 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="shop.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
       rel="stylesheet"
@@ -108,6 +109,7 @@
       <!-- Login Icon -->
       <li class="nav-icon">
         <a href="login.html" aria-label="Login">
+          <a href="#" id="logout-btn" style="display:none">Logout</a>
           <i class="ri-user-3-line"></i>
         </a>
       </li>
@@ -148,6 +150,7 @@
 
     <!-- Login Icon -->
     <a href="login.html" aria-label="Login">
+      <a href="#" id="logout-btn" style="display:none">Logout</a>
       <i class="ri-user-3-line"></i>
     </a>
 
@@ -174,6 +177,37 @@
       <p>Save more with coupons & up to 70% off!</p>
     </section>
 
+    <!-- Search and Filter moved here so it's visible at top of shop page -->
+    <section id="search-filter" class="section-p1">
+      <div class="search-container">
+        <div class="search-box">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search products by name or brand..."
+            autocomplete="off"
+            aria-label="Search products"
+          />
+          <button id="searchBtn" aria-label="Search">
+            <i class="ri-search-line"></i>
+          </button>
+        </div>
+        <div id="searchSuggestions" class="search-suggestions" aria-live="polite"></div>
+      </div>
+      <div class="filter-container">
+        <label for="categoryFilter">Filter by Category:</label>
+        <select id="categoryFilter">
+          <option value="all">All Products</option>
+          <option value="street">Street Style</option>
+          <option value="minimal">Minimal</option>
+          <option value="formal">Formal</option>
+        </select>
+      </div>
+      <div class="search-summary">
+        <span id="searchCount">16 products</span>
+      </div>
+    </section>
+
     <section id="product1" class="section-p1">
       <div class="sort-container" aria-label="Sort products by price">
         <label class="sort-label" for="sort-price">
@@ -181,7 +215,7 @@
           Sort by price
         </label>
         <div class="sort-select-wrap">
-          <select id="sort-price">
+          <select id="sort-price" class="sort-dropdown">
             <option value="default">Default Sorting</option>
             <option value="low-high">Price: Low to High</option>
             <option value="high-low">Price: High to Low</option>
@@ -720,43 +754,7 @@
           <div class="pro-container" id="shop-container"></div>
         </section>   
     
-        <!-- Search and Filter Section -->
-    <div class="top-section">
-
-      <section id="search-filter" class="section-p1">
-        <div class="search-container">
-          <div class="search-box">
-            <input
-              type="text"
-              id="searchInput"
-              placeholder="Search products by name or brand..."
-              autocomplete="off"
-              aria-label="Search products"
-            />
-            <button id="searchBtn" aria-label="Search">
-              <i class="ri-search-line"></i>
-            </button>
-          </div>
-          <div
-            id="searchSuggestions"
-            class="search-suggestions"
-            aria-live="polite"
-          ></div>
-        </div>
-        <div class="filter-container">
-          <label for="categoryFilter">Filter by Category:</label>
-          <select id="categoryFilter">
-            <option value="all">All Products</option>
-            <option value="street">Street Style</option>
-            <option value="minimal">Minimal</option>
-            <option value="formal">Formal</option>
-          </select>
-        </div>
-        <div class="search-summary">
-          <span id="searchCount">16 products</span>
-        </div>
-      </section>
-
+        
       <section id="newsletter" class="section-p1">
         <div class="newstext">
           <h4>Sign Up For Newsletters</h4>
@@ -818,6 +816,7 @@
         <div class="col">
           <h4>My Account</h4>
           <a href="login.html">Sign In</a>
+          <a href="#" id="logout-btn" style="display:none">Logout</a>
           <a href="cart.html">View Cart</a> <a href="#">My Wishlist</a>
           <a href="track-order.html">Track My Order</a>
           <a href="contact.html">Help</a>

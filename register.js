@@ -123,3 +123,33 @@ function showSuccess(msg) {
   el.style.cssText = "color:#27ae60; font-size:13px; margin-top:10px; text-align:center;";
   registerForm.appendChild(el);
 }
+
+// ─── PASSWORD VISIBILITY TOGGLE LOGIC FOR REGISTRATION ───
+document.addEventListener('DOMContentLoaded', function () {
+    const registerPasswordInput = document.getElementById('registerPassword');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+    const togglePasswordButton = document.getElementById('togglePassword');
+    const confirmTogglePasswordButton = document.getElementById('confirmTogglePassword');
+    const registerToggleIcon = document.getElementById('registerToggleIcon');
+    const confirmToggleIcon = document.getElementById('confirmToggleIcon');
+
+    function setupPasswordToggle(inputField, toggleButton, iconElement) {
+        if (inputField && toggleButton && iconElement) {
+            toggleButton.addEventListener('click', function () {
+                const isPasswordHidden = inputField.type === 'password';
+                inputField.type = isPasswordHidden ? 'text' : 'password';
+
+                if (isPasswordHidden) {
+                    iconElement.classList.remove('ri-eye-line');
+                    iconElement.classList.add('ri-eye-off-line');
+                } else {
+                    iconElement.classList.remove('ri-eye-off-line');
+                    iconElement.classList.add('ri-eye-line');
+                }
+            });
+        }
+    }
+
+    setupPasswordToggle(registerPasswordInput, togglePasswordButton, registerToggleIcon);
+    setupPasswordToggle(confirmPasswordInput, confirmTogglePasswordButton, confirmToggleIcon);
+});

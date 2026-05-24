@@ -14,25 +14,16 @@
 </head>
 <body>
 
-  <!-- ══ NAVBAR ══ -->
-  <nav>
-    <a class="nav-logo" href="index.html">Cara</a>
+  <div class="checkout-container">
 
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="shop.html" class="active">Shop</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="login.html">Login</a></li>
-      <li><a href="tryon.html">Try-On</a></li>
-      <li><a href="community.html">Community</a></li>
-      <li><a href="promotions.html">Promotions</a></li>
-    </ul>
-
-    <div class="nav-right">
-      <i class="ri-shopping-bag-line"></i>
-      <div class="theme-toggle"><i class="ri-moon-line"></i></div>
+    <div class="checkout-header">
+      <a href="cart.html" class="back-to-cart" aria-label="Back to cart">
+        <a href="#" id="logout-btn" style="display:none">Logout</a>
+        <i class="ri-arrow-left-line"></i> Back to Cart
+      </a>
+      <div class="logo">
+        <span>Cara</span>
+      </div>
     </div>
   </nav>
 
@@ -54,8 +45,11 @@
     <!-- Two-column layout -->
     <div class="checkout-grid">
 
-      <!-- ── LEFT: FORM ── -->
-      <div>
+      <div class="input-group">
+        <label>Full Name</label>
+        <!-- Fix: Added name="fullName" so FormData API can collect this field's value on submit -->
+        <input type="text" name="fullName" placeholder="Enter your full name" required>
+      </div>
 
         <!-- Contact Information -->
         <div class="card">
@@ -63,44 +57,38 @@
             <i class="ri-user-3-line"></i> Contact Information
           </div>
 
-          <div class="input-group">
-            <label>Full Name</label>
-            <input type="text" id="fullName" placeholder="Enter your full name" required>
-          </div>
-
-          <div class="row">
-            <div class="input-group">
-              <label>Email Address</label>
-              <input type="email" id="email" placeholder="Enter your email" required>
-            </div>
-            <div class="input-group">
-              <label>Phone Number</label>
-              <input type="tel" id="phone" placeholder="Enter phone number" required>
-            </div>
-          </div>
+        <div class="input-group">
+          <label>Email Address</label>
+          <!-- Fix: Added name="email" so FormData API can collect this field's value on submit -->
+          <input type="email" name="email" placeholder="Enter your email" required>
         </div>
 
-        <!-- Delivery Address -->
-        <div class="card">
-          <div class="card-title">
-            <i class="ri-map-pin-line"></i> Delivery Address
-          </div>
+        <div class="input-group">
+          <label>Phone Number</label>
+          <!-- Fix: Added name="phone" so FormData API can collect this field's value on submit -->
+          <input type="tel" name="phone" placeholder="Enter phone number" required>
+        </div>
 
-          <div class="input-group">
-            <label>Street Address</label>
-            <textarea id="address" placeholder="Enter full address" required></textarea>
-          </div>
+      </div>
 
-          <div class="row">
-            <div class="input-group">
-              <label>City</label>
-              <input type="text" id="city" placeholder="Enter city" required>
-            </div>
-            <div class="input-group">
-              <label>ZIP Code</label>
-              <input type="text" id="zip" placeholder="ZIP Code" required>
-            </div>
-          </div>
+      <div class="input-group">
+        <label>Delivery Address</label>
+        <!-- Fix: Added name="address" so FormData API can collect this field's value on submit -->
+        <textarea name="address" placeholder="Enter full address" required></textarea>
+      </div>
+
+      <div class="row">
+
+        <div class="input-group">
+          <label>City</label>
+          <!-- Fix: Added name="city" so FormData API can collect this field's value on submit -->
+          <input type="text" name="city" placeholder="Enter city" required>
+        </div>
+
+        <div class="input-group">
+          <label>ZIP Code</label>
+          <!-- Fix: Added name="zip" so FormData API can collect this field's value on submit -->
+          <input type="text" name="zip" placeholder="ZIP Code" required>
         </div>
 
         <!-- Payment Method -->
