@@ -217,8 +217,12 @@ function addToCart(productName, productPrice, productImage, quantity, size) {
         price: parsePriceString(productPrice),
         image: productImage,
         quantity: parsedQty,
-        size: size.replace('Size ', '')
+        size: size ? size.replace('Size','') : null 
     };
+     if (!item.size) {
+    console.log("Size missing, not adding to cart");
+    return;
+}
 
     let existingItem = cart.find(p => p.name === item.name && p.size === item.size);
 
