@@ -66,6 +66,7 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="shop.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
       rel="stylesheet"
@@ -77,6 +78,16 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+
+    <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.8;
+    }
+    </style>
+
   </head>
 
   <body>
@@ -108,9 +119,15 @@
       <!-- Login Icon -->
       <li class="nav-icon">
         <a href="login.html" aria-label="Login">
+          <a href="#" id="logout-btn" style="display:none">Logout</a>
           <i class="ri-user-3-line"></i>
         </a>
       </li>
+      <li class="nav-icon">
+    <a href="wishlist.html" aria-label="Wishlist">
+        <i class="ri-heart-line"></i>
+    </a>
+</li>
 
       <!-- Cart Icon -->
       <li class="nav-icon">
@@ -148,6 +165,7 @@
 
     <!-- Login Icon -->
     <a href="login.html" aria-label="Login">
+      <a href="#" id="logout-btn" style="display:none">Logout</a>
       <i class="ri-user-3-line"></i>
     </a>
 
@@ -174,6 +192,37 @@
       <p>Save more with coupons & up to 70% off!</p>
     </section>
 
+    <!-- Search and Filter moved here so it's visible at top of shop page -->
+    <section id="search-filter" class="section-p1">
+      <div class="search-container">
+        <div class="search-box">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search products by name or brand..."
+            autocomplete="off"
+            aria-label="Search products"
+          />
+          <button id="searchBtn" aria-label="Search">
+            <i class="ri-search-line"></i>
+          </button>
+        </div>
+        <div id="searchSuggestions" class="search-suggestions" aria-live="polite"></div>
+      </div>
+      <div class="filter-container">
+        <label for="categoryFilter">Filter by Category:</label>
+        <select id="categoryFilter">
+          <option value="all">All Products</option>
+          <option value="street">Street Style</option>
+          <option value="minimal">Minimal</option>
+          <option value="formal">Formal</option>
+        </select>
+      </div>
+      <div class="search-summary">
+        <span id="searchCount">16 products</span>
+      </div>
+    </section>
+
     <section id="product1" class="section-p1">
       <div class="sort-container" aria-label="Sort products by price">
         <label class="sort-label" for="sort-price">
@@ -181,20 +230,62 @@
           Sort by price
         </label>
         <div class="sort-select-wrap">
-          <select id="sort-price">
+          <select id="sort-price" class="sort-dropdown">
             <option value="default">Default Sorting</option>
             <option value="low-high">Price: Low to High</option>
             <option value="high-low">Price: High to Low</option>
           </select>
           <i class="ri-arrow-down-s-line sort-chevron" aria-hidden="true"></i>
         </div>
+        <div class="sort-container" aria-label="Filter products by brand">
+
+    <label class="sort-label" for="brand-filter">
+        <i class="ri-price-tag-3-line"></i>
+        Filter by brand
+    </label>
+
+    <div class="sort-select-wrap">
+
+        <select id="brand-filter" class="sort-dropdown">
+
+            <option value="all">
+                All Brands
+            </option>
+
+            <option value="adidas">
+                adidas
+            </option>
+
+            <option value="nike">
+                Nike
+            </option>
+
+            <option value="puma">
+                Puma
+            </option>
+
+            <option value="zara">
+                Zara
+            </option>
+
+            <option value="hm">
+                H&M
+            </option>
+
+        </select>
+
+        <i class="ri-arrow-down-s-line sort-chevron"></i>
+
+    </div>
+
+</div>
       </div>
 
         <div class="pro-container">
             <div class="pro" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/f1.jpg" alt="">
                 <div class="des">
-                    <span>adidas</span>
+                    <span>Puma</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
                     <div class="star">
                         <i class="ri-star-fill"></i>
@@ -259,6 +350,10 @@
                     </div>
                     <h4>$78</h4>
                 </div>
+                <a href="#" class="wishlist-btn">
+   <i class="ri-heart-line"></i>
+</a>
+
                 <a href="#" class="cart"
                     onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/f4.jpg', 1, 'M')"><i
                         class="ri-shopping-cart-2-line"></i></a>
@@ -277,6 +372,10 @@
                     </div>
                     <h4>$78</h4>
                 </div>
+                <a href="#" class="wishlist-btn">
+   <i class="ri-heart-line"></i>
+</a>
+
                 <a href="#" class="cart"
                     onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/f5.jpg', 1, 'M')"><i
                         class="ri-shopping-cart-2-line"></i></a>
@@ -284,7 +383,7 @@
             <div class="pro" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/f6.jpg" alt="">
                 <div class="des">
-                    <span>adidas</span>
+                    <span>Nike</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
                     <div class="star">
                         <i class="ri-star-fill"></i>
@@ -295,6 +394,9 @@
                     </div>
                     <h4>$78</h4>
                 </div>
+                    <a href="#" class="wishlist-btn">
+   <i class="ri-heart-line"></i>
+</a>
                 <a href="#" class="cart"
                     onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/f6.jpg', 1, 'M')"><i
                         class="ri-shopping-cart-2-line"></i></a>
@@ -313,12 +415,15 @@
                     </div>
                     <h4>$78</h4>
                 </div>
+                          <a href="#" class="wishlist-btn">
+   <i class="ri-heart-line"></i>
+</a>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
             <div class="pro" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/f8.jpg" alt="">
                 <div class="des">
-                    <span>adidas</span>
+                    <span>Puma</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
                     <div class="star">
                         <i class="ri-star-fill"></i>
@@ -329,6 +434,9 @@
                     </div>
                     <h4>$78</h4>
                 </div>
+                <a href="#" class="wishlist-btn">
+   <i class="ri-heart-line"></i>
+</a>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
             <div class="pro" onclick="window.location.href='singleProduct.html';">
@@ -345,6 +453,9 @@
                     </div>
                     <h4>$78</h4>
                 </div>
+                <a href="#" class="wishlist-btn">
+   <i class="ri-heart-line"></i>
+</a>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
             <div class="pro" onclick="window.location.href='singleProduct.html';">
@@ -361,6 +472,9 @@
                     </div>
                     <h4>$78</h4>
                 </div>
+                <a href="#" class="wishlist-btn">
+   <i class="ri-heart-line"></i>
+</a>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
             <div class="pro" onclick="window.location.href='singleProduct.html';">
@@ -377,6 +491,9 @@
                     </div>
                     <h4>$78</h4>
                 </div>
+                <a href="#" class="wishlist-btn">
+   <i class="ri-heart-line"></i>
+</a>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
             <div class="pro" onclick="window.location.href='singleProduct.html';">
@@ -393,6 +510,9 @@
                     </div>
                     <h4>$78</h4>
                 </div>
+                <a href="#" class="wishlist-btn">
+   <i class="ri-heart-line"></i>
+</a>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
             <div class="pro" onclick="window.location.href='singleProduct.html';">
@@ -409,6 +529,9 @@
                     </div>
                     <h4>$79</h4>
                 </div>
+                <a href="#" class="wishlist-btn">
+   <i class="ri-heart-line"></i>
+</a>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
             <div class="pro" onclick="window.location.href='singleProduct.html';">
@@ -425,6 +548,9 @@
                     </div>
                     <h4>$78</h4>
                 </div>
+                <a href="#" class="wishlist-btn">
+   <i class="ri-heart-line"></i>
+</a>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
             <div class="pro" onclick="window.location.href='singleProduct.html';">
@@ -441,6 +567,9 @@
                     </div>
                     <h4>$78</h4>
                 </div>
+                <a href="#" class="wishlist-btn">
+   <i class="ri-heart-line"></i>
+</a>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
             <div class="pro" onclick="window.location.href='singleProduct.html';">
@@ -457,6 +586,9 @@
                     </div>
                     <h4>$78</h4>
                 </div>
+                <a href="#" class="wishlist-btn">
+   <i class="ri-heart-line"></i>
+</a>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
             <div class="pro" onclick="window.location.href='singleProduct.html';">
@@ -473,6 +605,9 @@
                     </div>
                     <h4>$78</h4>
                 </div>
+                <a href="#" class="wishlist-btn">
+   <i class="ri-heart-line"></i>
+</a>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
             <div class="pro" onclick="window.location.href='singleProduct.html';">
@@ -489,6 +624,9 @@
                     </div>
                     <h4>$78</h4>
                 </div>
+                <a href="#" class="wishlist-btn">
+   <i class="ri-heart-line"></i>
+</a>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
             <div class="pro" onclick="window.location.href='singleProduct.html';">
@@ -505,6 +643,9 @@
                     </div>
                     <h4>$78</h4>
                 </div>
+                <a href="#" class="wishlist-btn">
+   <i class="ri-heart-line"></i>
+</a>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
             <div class="pro" onclick="window.location.href='singleProduct.html';">
@@ -521,6 +662,9 @@
                     </div>
                     <h4>$78</h4>
                 </div>
+                <a href="#" class="wishlist-btn">
+   <i class="ri-heart-line"></i>
+</a>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
             <div class="pro" onclick="window.location.href='singleProduct.html';">
@@ -537,6 +681,9 @@
                     </div>
                     <h4>$78</h4>
                 </div>
+                <a href="#" class="wishlist-btn">
+   <i class="ri-heart-line"></i>
+</a>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
             <div class="pro" onclick="window.location.href='singleProduct.html';">
@@ -553,12 +700,15 @@
                     </div>
                     <h4>$78</h4>
                 </div>
+                <a href="#" class="wishlist-btn">
+   <i class="ri-heart-line"></i>
+</a>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
             <div class="pro" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/f7.jpg" alt="">
                 <div class="des">
-                    <span>adidas</span>
+                    <span>H&M</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
                     <div class="star">
                         <i class="ri-star-fill"></i>
@@ -569,6 +719,9 @@
                     </div>
                     <h4>$78</h4>
                 </div>
+                <a href="#" class="wishlist-btn">
+   <i class="ri-heart-line"></i>
+</a>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
             <div class="pro" onclick="window.location.href='singleProduct.html';">
@@ -585,6 +738,9 @@
                     </div>
                     <h4>$78</h4>
                 </div>
+                <a href="#" class="wishlist-btn">
+   <i class="ri-heart-line"></i>
+</a>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
             <div class="pro" onclick="window.location.href='singleProduct.html';">
@@ -601,6 +757,9 @@
                     </div>
                     <h4>$78</h4>
                 </div>
+                <a href="#" class="wishlist-btn">
+   <i class="ri-heart-line"></i>
+</a>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
             <div class="pro" onclick="window.location.href='singleProduct.html';">
@@ -617,6 +776,9 @@
                     </div>
                     <h4>$78</h4>
                 </div>
+                <a href="#" class="wishlist-btn">
+   <i class="ri-heart-line"></i>
+</a>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
             <div class="pro" onclick="window.location.href='singleProduct.html';">
@@ -633,12 +795,15 @@
                     </div>
                     <h4>$78</h4>
                 </div>
+                <a href="#" class="wishlist-btn">
+   <i class="ri-heart-line"></i>
+</a>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
             <div class="pro" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/n4.jpg" alt="">
                 <div class="des">
-                    <span>adidas</span>
+                    <span>Nike</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
                     <div class="star">
                         <i class="ri-star-fill"></i>
@@ -649,6 +814,9 @@
                     </div>
                     <h4>$78</h4>
                 </div>
+                <a href="#" class="wishlist-btn">
+   <i class="ri-heart-line"></i>
+</a>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
             <div class="pro" onclick="window.location.href='singleProduct.html';">
@@ -665,12 +833,15 @@
                     </div>
                     <h4>$78</h4>
                 </div>
+                <a href="#" class="wishlist-btn">
+   <i class="ri-heart-line"></i>
+</a>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
             <div class="pro" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/n6.jpg" alt="">
                 <div class="des">
-                    <span>adidas</span>
+                    <span>H&M</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
                     <div class="star">
                         <i class="ri-star-fill"></i>
@@ -681,12 +852,15 @@
                     </div>
                     <h4>$78</h4>
                 </div>
+                <a href="#" class="wishlist-btn">
+   <i class="ri-heart-line"></i>
+</a>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
             <div class="pro" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/n7.jpg" alt="">
                 <div class="des">
-                    <span>adidas</span>
+                    <span>Nike</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
                     <div class="star">
                         <i class="ri-star-fill"></i>
@@ -697,6 +871,9 @@
                     </div>
                     <h4>$78</h4>
                 </div>
+                <a href="#" class="wishlist-btn">
+   <i class="ri-heart-line"></i>
+</a>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
             <div class="pro" onclick="window.location.href='singleProduct.html';">
@@ -713,50 +890,17 @@
                     </div>
                     <h4>$78</h4>
                 </div>
+                <a href="#" class="wishlist-btn">
+   <i class="ri-heart-line"></i>
+</a>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
         </div>
         <section id="product1" class="section-p1">
           <div class="pro-container" id="shop-container"></div>
         </section>   
-    
-        <!-- Search and Filter Section -->
-    <div class="top-section">
-
-      <section id="search-filter" class="section-p1">
-        <div class="search-container">
-          <div class="search-box">
-            <input
-              type="text"
-              id="searchInput"
-              placeholder="Search products by name or brand..."
-              autocomplete="off"
-              aria-label="Search products"
-            />
-            <button id="searchBtn" aria-label="Search">
-              <i class="ri-search-line"></i>
-            </button>
-          </div>
-          <div
-            id="searchSuggestions"
-            class="search-suggestions"
-            aria-live="polite"
-          ></div>
-        </div>
-        <div class="filter-container">
-          <label for="categoryFilter">Filter by Category:</label>
-          <select id="categoryFilter">
-            <option value="all">All Products</option>
-            <option value="street">Street Style</option>
-            <option value="minimal">Minimal</option>
-            <option value="formal">Formal</option>
-          </select>
-        </div>
-        <div class="search-summary">
-          <span id="searchCount">16 products</span>
-        </div>
-      </section>
-
+    </section>
+        
       <section id="newsletter" class="section-p1">
         <div class="newstext">
           <h4>Sign Up For Newsletters</h4>
@@ -778,90 +922,113 @@
 
     <!-- Footer -->
     <footer class="section-p1">
-      <div class="footer-container">
-        
-        <div class="col">
-          <img class="logo" src="images/logo.png" alt="Cara Logo" />
-          <h4>Contact</h4>
-          <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
-          <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
-          <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
+    <!-- Contact Column -->
+    <div class="col">
+      <img class="logo" src="images/logo.png" alt="Cara Logo">
+      <h4>Contact</h4>
+      <p>
+        <strong>Address:</strong> 562 Wellington Road, Street 32, San
+        Francisco
+      </p>
+      <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
+      <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
 
-          <div class="follow">
-            <h4>Follow us</h4>
-            <div class="icon">
-              <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer">
-                <i class="fab fa-twitter"></i>
-              </a>
-              <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
-                <i class="fab fa-github"></i>
-              </a>
-              <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
-                <i class="fab fa-linkedin"></i>
-              </a>
-              <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer">
-                <i class="fab fa-youtube"></i>
-              </a>
-            </div>
-          </div>
+      <div class="follow">
+        <h4>Follow us</h4>
+        <div class="icon">
+          <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-youtube"></i>
+          </a>
         </div>
+      </div>
+    </div>
 
-        <div class="col">
-          <h4>About</h4>
-          <a href="about.html">About us</a>
-          <a href="delivery.html">Delivery Information</a>
-          <a href="privacy.html">Privacy Policy</a>
-          <a href="terms.html">Terms & Conditions</a>
-          <a href="contact.html">Contact Us</a>
-        </div>
+    <!-- About Column -->
+    <div class="col">
+      <h4>About</h4>
+      <a href="about.html">About Us</a>
+      <a href="#">Delivery Information</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms and Conditions</a>
+      <a href="contact.html">Contact Us</a>
+    </div>
 
-        <div class="col">
-          <h4>My Account</h4>
-          <a href="login.html">Sign In</a>
-          <a href="cart.html">View Cart</a> <a href="#">My Wishlist</a>
-          <a href="track-order.html">Track My Order</a>
-          <a href="contact.html">Help</a>
-        </div>
+    <!-- My Account Column -->
+    <div class="col">
+      <h4>My Account</h4>
+      <a href="login.html">Sign In</a>
+      <a href="cart.html">View Cart</a>
+      <a href="#">My Wishlist</a>
+      <a href="cart.html">Track My Order</a>
+      <a href="contact.html">Help</a>
+    </div>
 
-        <div class="col install">
-          <h4>Install App</h4>
-          <p>From App Store or Google Play</p>
+    <!-- Newsletter Column -->
+    <div class="col newsletter-footer">
+      <h4>Newsletter</h4>
+      <p>
+        Get email updates about our latest shop and
+        <span>special offers.</span>
+      </p>
 
-          <div class="row">
-            <img src="images/pay/app.jpg" alt="Download from App Store" />
-            <img src="images/pay/play.jpg" alt="Get it on Google Play" />
-          </div>
+      <form class="newsletter-form">
+        <input type="email" placeholder="Your email address" required="">
+        <button type="submit" class="normal">Sign Up</button>
+      </form>
+    </div>
 
-          <p>Secured Payment Gateways</p>
+    <!-- Install App Column -->
+    <div class="col install">
+      <h4>Install App</h4>
+      <p>From App Store or Google Play</p>
 
-          <div class="payment-icons">
-            <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer" aria-label="Visa">
-              <i class="fab fa-cc-visa"></i>
-            </a>
-            <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer" aria-label="Mastercard">
-              <i class="fab fa-cc-mastercard"></i>
-            </a>
-            <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" aria-label="PayPal">
-              <i class="fab fa-cc-paypal"></i>
-            </a>
-            <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer" aria-label="American Express">
-              <i class="fab fa-cc-amex"></i>
-            </a>
-            <a href="https://stripe.com" target="_blank" rel="noopener noreferrer" aria-label="Stripe">
-              <i class="fab fa-cc-stripe"></i>
-            </a>
-          </div>
-        </div>
-
+      <div class="row">
+        <img src="images/pay/app.jpg" alt="Download from App Store">
+        <img src="images/pay/play.jpg" alt="Get it on Google Play">
       </div>
 
-      <div class="copyright">
-        <p>
-          &copy; Cara  <span class="Current-Year"></span>. All rights reserved. |
-          <a href="license.html" style="color: #088178"> MIT License </a>
-        </p>
+      <p>Secured Payment Gateways</p>
+
+      <div class="payment-icons">
+        <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer" aria-label="Visa">
+          <i class="fab fa-cc-visa"></i>
+        </a>
+
+        <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer" aria-label="Mastercard">
+          <i class="fab fa-cc-mastercard"></i>
+        </a>
+
+        <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" aria-label="PayPal">
+          <i class="fab fa-cc-paypal"></i>
+        </a>
+
+        <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer" aria-label="American Express">
+          <i class="fab fa-cc-amex"></i>
+        </a>
+
+        <a href="https://stripe.com" target="_blank" rel="noopener noreferrer" aria-label="Stripe">
+          <i class="fab fa-cc-stripe"></i>
+        </a>
       </div>
-    </footer>
+    </div>
+
+    <!-- Copyright -->
+    <div class="copyright">
+      <p>
+        © Cara 2026. All rights reserved. |
+        <a href="license.html" style="color: #088178"> MIT License </a>
+      </p>
+    </div>
+  </footer>
 
     <div id="toast-container"></div>
     <!-- Dynamic products and search logic -->
@@ -877,5 +1044,123 @@
         }
     </script>
     <div id="toast-container"></div>
+    <script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const wishlistButtons = document.querySelectorAll(".wishlist-btn");
+
+    wishlistButtons.forEach((button) => {
+
+        button.addEventListener("click", (e) => {
+
+            e.preventDefault();
+            e.stopPropagation();
+
+            const productCard = button.closest(".pro");
+
+            const productImage = productCard.querySelector("img").src;
+            const productName = productCard.querySelector("h5").innerText;
+            const productPrice = productCard.querySelector("h4").innerText;
+
+            let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+            const existingProduct = wishlist.find(
+                item => item.name === productName
+            );
+
+            // ADD TO WISHLIST
+            if (!button.classList.contains("active")) {
+
+                button.classList.add("active");
+
+                button.innerHTML =
+                    '<i class="ri-heart-fill"></i>';
+
+                wishlist.push({
+                    name: productName,
+                    price: productPrice,
+                    image: productImage
+                });
+
+                localStorage.setItem(
+                    "wishlist",
+                    JSON.stringify(wishlist)
+                );
+
+                alert("Product added to wishlist ❤️");
+            }
+
+            // REMOVE FROM WISHLIST
+            else {
+
+                button.classList.remove("active");
+
+                button.innerHTML =
+                    '<i class="ri-heart-line"></i>';
+
+                wishlist = wishlist.filter(
+                    item => item.name !== productName
+                );
+
+                localStorage.setItem(
+                    "wishlist",
+                    JSON.stringify(wishlist)
+                );
+
+                alert("Product removed from wishlist");
+            }
+
+        });
+
+    });
+
+});
+</script>
+<script>
+
+const brandFilter =
+    document.getElementById("brand-filter");
+
+brandFilter.addEventListener("change", function () {
+
+    const selectedBrand =
+        this.value.toLowerCase().trim();
+
+    const products =
+        document.querySelectorAll(".pro");
+
+    products.forEach((product) => {
+
+        const brandElement =
+            product.querySelector(".des span");
+
+        const productBrand =
+            brandElement.innerText
+            .toLowerCase()
+            .trim();
+
+        // SHOW ALL PRODUCTS
+        if (selectedBrand === "all") {
+
+            product.style.display = "block";
+        }
+
+        // SHOW MATCHING BRAND
+        else if (productBrand === selectedBrand) {
+
+            product.style.display = "block";
+        }
+
+        // HIDE NON-MATCHING PRODUCTS
+        else {
+
+            product.style.display = "none";
+        }
+
+    });
+
+});
+
+</script>
   </body>
 </html>

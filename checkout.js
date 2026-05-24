@@ -214,7 +214,8 @@ form.addEventListener("submit", function (e) {
 
   // CHECK EMPTY CART
   if (cart.length === 0) {
-    showToast("Your cart is empty!", "error");
+    if (typeof showToast === 'function') showToast('Your cart is empty!', 'error');
+    else alert('Your cart is empty!');
     return;
   }
 
@@ -232,14 +233,10 @@ form.addEventListener("submit", function (e) {
     localStorage.removeItem("appliedCoupon");
     window.appliedCoupon = null;
 
-    // Re-enable button
-    if (submitBtn) {
-      submitBtn.classList.remove("btn-loading");
-      submitBtn.disabled = false;
-    }
-
-    // SHOW SUCCESS POPUP
-    popup.classList.add("active");
+    btn.disabled = false;
+    btn.style.opacity = '';
+    btn.style.cursor = '';
+    btn.innerHTML = originalHTML;
 
     form.reset();
 
@@ -265,3 +262,8 @@ document.addEventListener("DOMContentLoaded", initCheckoutValidation);
 if (document.readyState === "interactive" || document.readyState === "complete") {
   initCheckoutValidation();
 }
+
+// ── Close popup when clicking outside the box ─────────────
+document.getElementById('successOverlay').addEventListener('click', function (e) {
+  if (e.target === this) this.classList.remove('show');
+});
