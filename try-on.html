@@ -531,109 +531,54 @@
 </head>
 <body>
 
-        <!-- HEADER -->
-        <!-- <section id="header"> -->
-            <section id="header">
-  <!-- Logo -->
-  <a href="index.html">
-    <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
-  </a>
-
-  <div>
-    <ul id="navbar">
-
-      <!-- Main Navigation Links -->
-      <li><a href="index.html">Home</a></li>
-      <li><a href="shop.html">Shop</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a class="active" href="try-on.html">Try-On</a></li>
-      <li><a href="community.html">Community</a></li>
-      <li><a href="promotions.html">Promotions</a></li>
-
-      <!-- Contact Icon -->
-      <li class="nav-icon">
-        <a href="contact.html" aria-label="Contact">
-          <i class="ri-customer-service-2-line"></i>
-        </a>
-      </li>
-
-      <!-- Login Icon -->
-      <li class="nav-icon">
-        <a href="login.html" aria-label="Login">
-          <i class="ri-user-3-line"></i>
-        </a>
-      </li>
-
-      <!-- Cart Icon -->
-      <li class="nav-icon">
-        <a href="cart.html" id="lg-bag" aria-label="Cart">
-          <i class="ri-shopping-bag-4-line"></i>
-        </a>
-      </li>
-
-      <!-- Theme Toggle -->
-      <li class="nav-icon">
-        <button
-          class="theme-toggle"
-          id="themeToggle"
-          aria-label="Toggle dark mode"
-        >
-          <i class="ri-moon-line" id="themeIcon"></i>
-        </button>
-      </li>
-
-      <!-- Close Button -->
-      <a
-        href="#"
-        id="close"
-        aria-label="Close menu"
-        aria-hidden="false"
-      >
-        <i class="fa-solid fa-xmark"></i>
-      </a>
-
-    </ul>
-  </div>
-
-  <!-- Mobile Navbar -->
-  <div class="mobile">
-
-    <!-- Login Icon -->
-    <a href="login.html" aria-label="Login">
-      <i class="ri-user-3-line"></i>
+                <section id="header">
+    <a href="index.html">
+        <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
     </a>
 
-    <!-- Cart Icon -->
-    <a href="cart.html" aria-label="Cart">
-      <i class="ri-shopping-bag-4-line"></i>
-    </a>
+    <div>
+        <ul id="navbar">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a class="active" href="try-on.html">Try-On</a></li>
+            <li><a href="community.html">Community</a></li>
+            <li><a href="promotions.html">Promotions</a></li>
+            <li class="nav-icon">
+                <a href="contact.html" aria-label="Contact">
+                    <i class="ri-customer-service-2-line"></i>
+                </a>
+            </li>
+            <li class="nav-icon">
+                <a href="login.html" aria-label="Login">
+                    <i class="ri-user-3-line"></i>
+                </a>
+            </li>
+            <li class="nav-icon">
+                <a href="cart.html" id="lg-bag" aria-label="Cart">
+                    <i class="ri-shopping-bag-4-line"></i>
+                </a>
+            </li>
+            <li class="nav-icon">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" type="button">
+                    <i class="ri-moon-line" id="themeIcon"></i>
+                </button>
+            </li>
+        </ul>
+    </div>
 
-    <!-- Hamburger Menu -->
-    <i
-      class="fas fa-outdent"
-      id="bar"
-      role="button"
-      aria-label="Open menu"
-      aria-expanded="false"
-      tabindex="0"
-    ></i>
-
-  </div>
+    <div class="mobile">
+        <i
+            class="fas fa-outdent"
+            id="bar"
+            role="button"
+            aria-label="Open menu"
+            aria-expanded="false"
+            tabindex="0"
+        ></i>
+    </div>
 </section>
-
-            <!-- <div class="mobile">
-            <button class="theme-toggle" id="themeToggleMobile"
-                aria-label="Toggle dark mode">
-                <i class="ri-moon-line" id="themeIconMobile"></i>
-            </button>
-            <a href="cart.html" id="mobile-cart-icon">
-                <i class="ri-shopping-bag-4-line"></i>
-                <span class="cart-count" id="mobileCartCount">0</span>
-            </a>
-            <i class="fas fa-outdent" id="bar"></i>
-            </div> -->
-        <!-- </section> -->
     <section id="try-on-section">
 
         <!-- Step Progress -->
@@ -857,9 +802,54 @@
     </div>
   </footer>
    <button id="topBtn">↑</button>
-     <script src="try-on.js"></script> 
-    <script src="navbar.js"></script>
-<!-- <script>loadNavbar('tryon');</script> -->
+        <script src="try-on.js"></script>
+        <script>
+            (function () {
+                const bar = document.getElementById('bar');
+                const navbar = document.getElementById('navbar');
+                const themeToggle = document.getElementById('themeToggle');
+                const themeIcon = document.getElementById('themeIcon');
+
+                if (bar && navbar) {
+                    const toggleMenu = () => {
+                        const isOpen = navbar.classList.toggle('active');
+                        bar.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                    };
+
+                    bar.addEventListener('click', toggleMenu);
+                    bar.addEventListener('keydown', (event) => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                            event.preventDefault();
+                            toggleMenu();
+                        }
+                    });
+
+                    document.addEventListener('click', (event) => {
+                        if (!navbar.classList.contains('active')) return;
+                        if (navbar.contains(event.target) || bar.contains(event.target)) return;
+                        navbar.classList.remove('active');
+                        bar.setAttribute('aria-expanded', 'false');
+                    });
+                }
+
+                if (themeToggle && themeIcon) {
+                    if (localStorage.getItem('theme') === 'dark') {
+                        document.body.classList.add('dark');
+                        themeIcon.classList.replace('ri-moon-line', 'ri-sun-line');
+                    }
+
+                    themeToggle.addEventListener('click', () => {
+                        document.body.classList.toggle('dark');
+                        const isDark = document.body.classList.contains('dark');
+                        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                        themeIcon.classList.replace(
+                            isDark ? 'ri-moon-line' : 'ri-sun-line',
+                            isDark ? 'ri-sun-line' : 'ri-moon-line'
+                        );
+                    });
+                }
+            })();
+        </script>
         <script id="Current-Year">
         document.getElementById("Current-Year").textContent = new Date().getFullYear();
     </script>

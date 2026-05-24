@@ -14208,6 +14208,13 @@ button.white .ripple-effect {
         font-size: 24px;
     }
 
+
+@media (min-width: 800px) {
+    .mobile,
+    #bar {
+        display: none !important;
+    }
+}
     #close i {
         font-size: 24px;
     }
