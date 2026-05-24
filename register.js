@@ -1,4 +1,4 @@
-const registerForm = document.getElementById("registerForm");
+﻿const registerForm = document.getElementById("registerForm");
 
 registerForm.addEventListener("submit", function (e) {
   e.preventDefault();
@@ -77,7 +77,7 @@ document.getElementById("registerPassword").addEventListener("input", function (
   if (!hint) return;
 
   if (/\s/.test(val)) {
-    hint.textContent = "✗ Spaces are not allowed in the password.";
+    hint.textContent = "Γ£ù Spaces are not allowed in the password.";
     hint.style.color = "#e74c3c";
   } else if (val.length === 0) {
     hint.textContent = "";
@@ -93,7 +93,7 @@ document.getElementById("registerPassword").addEventListener("input", function (
     const missing = checks.filter((c) => !c.pass).map((c) => c.msg);
 
     if (missing.length === 0) {
-      hint.textContent = "✓ Strong password!";
+      hint.textContent = "Γ£ô Strong password!";
       hint.style.color = "#27ae60";
     } else {
       hint.textContent = "Missing: " + missing.join(", ");
@@ -124,7 +124,7 @@ function showSuccess(msg) {
   registerForm.appendChild(el);
 }
 
-// ─── PASSWORD VISIBILITY TOGGLE LOGIC FOR REGISTRATION ───
+// ΓöÇΓöÇΓöÇ PASSWORD VISIBILITY TOGGLE LOGIC FOR REGISTRATION ΓöÇΓöÇΓöÇ
 document.addEventListener('DOMContentLoaded', function () {
     const registerPasswordInput = document.getElementById('registerPassword');
     const confirmPasswordInput = document.getElementById('confirmPassword');
@@ -150,50 +150,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-// Password validation
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
-
-        if (!passwordRegex.test(password)) {
-            showToast('Password must have 8+ chars, 1 uppercase, 1 lowercase, 1 number, and 1 special character.', 'warning');
-            return;
-        }
-
-        // Confirm Password validation
-        const confirmPassword = document.getElementById('confirmPassword').value;
-        if (password !== confirmPassword) {
-            showToast('Passwords do not match.', 'warning');
-            return;
-        }
-
-        const emailErrorEl = document.getElementById('emailError');
-        if (emailErrorEl) emailErrorEl.style.display = 'none';
-
-        let users = JSON.parse(localStorage.getItem('users') || '[]');
-        if (users.find(u => u.email.toLowerCase() === email.toLowerCase())) {
-            if (emailErrorEl) {
-                emailErrorEl.textContent = 'Email already registered.';
-                emailErrorEl.style.display = 'block';
-            }
-            showToast('Email already registered.', 'error');
-            return;
-        }
-        if (users.find(u => u.name.toLowerCase() === name.toLowerCase())) {
-            showToast('Username already exists.', 'error');
-            return;
-        }
-
-        users.push({ name, email, password });
-        localStorage.setItem('users', JSON.stringify(users));
-
-        // On successful registration
-        showToast('Signup successful! Welcome to Cara.', 'success');
-        localStorage.setItem('loggedInUser', email);
-        setTimeout(() => {
-            window.location.href = 'index.html';
-        }, 1500);
-    });
-
-setupPasswordToggle(registerPasswordInput, togglePasswordButton, registerToggleIcon);
+    setupPasswordToggle(registerPasswordInput, togglePasswordButton, registerToggleIcon);
     setupPasswordToggle(confirmPasswordInput, confirmTogglePasswordButton, confirmToggleIcon);
-
 });
