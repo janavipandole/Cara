@@ -2684,6 +2684,37 @@ document.addEventListener('DOMContentLoaded', () => {
         // Show modal
         modal.classList.add("active");
         modal.setAttribute("aria-hidden", "false");
-    };
-})();
-/* --- END: PRODUCT QUICK-VIEW MODAL FUNCTIONALITY --- */
+    const sortDropdown = document.getElementById("sort-price");
+const productContainer = document.querySelector(".pro-container");
+
+if (sortDropdown && productContainer) {
+  sortDropdown.addEventListener("change", () => {
+    const products = Array.from(document.querySelectorAll(".pro"));
+
+    products.sort((a, b) => {
+      const priceA = parseFloat(
+        a.querySelector("h4").textContent.replace("$", "")
+      );
+
+      const priceB = parseFloat(
+        b.querySelector("h4").textContent.replace("$", "")
+      );
+
+      if (sortDropdown.value === "low-high") {
+        return priceA - priceB;
+      }
+
+      if (sortDropdown.value === "high-low") {
+        return priceB - priceA;
+      }
+
+      return 0;
+    });
+
+    productContainer.innerHTML = "";
+
+    products.forEach((product) => {
+      productContainer.appendChild(product);
+    });
+  });
+}
