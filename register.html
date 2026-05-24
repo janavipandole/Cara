@@ -48,31 +48,23 @@
 </section>
 
 <section id="register-section">
-    <div class="auth-card">
-        <h2>Register</h2>
-        <p class="subtitle">Create your account 😊</p>
+  <div class="auth-card">
+    <h2>Register</h2>
+    <p class="subtitle">Create your account 😊</p>
 
-        <form id="registerForm" novalidate>
-            <div class="form-group">
-                <label>Full Name</label>
-                <input type="text" id="registerUsername" placeholder="Enter your full name" required>
-            </div>
+    <form id="registerForm" novalidate>
 
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" id="registerEmail" placeholder="Enter your email" required>
-            </div>
-
-            <div class="form-group">
-                <label>Password</label>
-                <div class="password-wrapper" style="position: relative; display: flex; align-items: center; width: 100%;">
-                    <input type="password" placeholder="Enter your password" id="registerPassword" required style="width: 100%; padding-right: 45px;">
-                    <button type="button" id="togglePassword" style="position: absolute; right: 10px; background: none; border: none; cursor: pointer; color: #666; font-size: 18px;">
-                        <i class="ri-eye-line" id="registerToggleIcon"></i>
-                    </button>
-                </div>
-                <small id="passwordHint" style="display:block; margin-top:5px; font-size:12px;"></small>
-            </div>
+      <!-- FULL NAME -->
+      <div class="form-group">
+        <label for="registerUsername">Full Name</label>
+        <input
+          type="text"
+          id="registerUsername"
+          placeholder="Enter your full name"
+          required
+          autocomplete="name"
+        >
+      </div>
 
 <!-- EMAIL -->
                 <div class="form-group">
@@ -93,13 +85,67 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn-primary">CREATE ACCOUNT</button>
-        </form>
-
-        <div class="switch-auth">
-            Already have an account? <a href="login.html">Login</a>
+          <button
+            type="button"
+            id="togglePassword"
+            class="toggle-eye"
+            aria-label="Toggle password visibility"
+          >
+            <i
+              class="ri-eye-line"
+              id="registerToggleIcon"
+            ></i>
+          </button>
         </div>
+
+        <!-- PASSWORD STRENGTH HINT -->
+        <small id="passwordHint"></small>
+      </div>
+
+      <!-- CONFIRM PASSWORD -->
+      <div class="form-group">
+        <label for="confirmPassword">
+          Confirm Password
+        </label>
+
+        <div class="password-wrapper">
+          <input
+            type="password"
+            id="confirmPassword"
+            placeholder="Confirm your password"
+            required
+            autocomplete="new-password"
+          >
+
+          <button
+            type="button"
+            id="confirmTogglePassword"
+            class="toggle-eye"
+            aria-label="Toggle confirm password visibility"
+          >
+            <i
+              class="ri-eye-line"
+              id="confirmToggleIcon"
+            ></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- FORM MESSAGE -->
+      <div id="formMessage"></div>
+
+      <!-- SUBMIT BUTTON -->
+      <button type="submit" class="btn-primary">
+        CREATE ACCOUNT
+      </button>
+    </form>
+
+    <!-- LOGIN LINK -->
+    <div class="switch-auth">
+      Already have an account?
+      <a href="login.html">Login</a>
     </div>
+  </div>
 </section>
 
 <footer class="main-footer">
