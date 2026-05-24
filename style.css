@@ -1313,7 +1313,7 @@ button.white .ripple-effect {
    ============================================ */
 
 #banner {
-    background-image: url("images/banner/b2.png");
+    background-image: url("./images/banner/b2.png");
     height: 40vh;
     width: 100%;
     background-size: cover;
@@ -1662,7 +1662,7 @@ footer .copyright {
    ============================================ */
 
 #shop-hero {
-    background-image: url("images/banner/b2.png");
+    background-image: url("./images/banner/b2.png");
     background-size: cover;
     background-position: center;
     height: 50vh;
@@ -8491,7 +8491,7 @@ button.white .ripple-effect {
    ============================================ */
 
 #banner {
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.4)), url("images/banner/b2.png");
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.4)), url("./images/banner/b2.png");
     height: 40vh;
     width: 100%;
     background-size: cover;
@@ -15297,7 +15297,7 @@ button.white .ripple-effect {
    ============================================ */
 
 #banner {
-    background-image: url("images/banner/b2.png");
+    background-image: url("./images/banner/b2.jpg");
     height: 40vh;
     width: 100%;
     background-size: cover;
@@ -15645,7 +15645,7 @@ footer .copyright {
    ============================================ */
 
 #shop-hero {
-    background-image: url("images/banner/b2.png");
+    background-image: url("./images/banner/b2.png");
     background-size: cover;
     background-position: center;
     height: 50vh;
@@ -22438,7 +22438,7 @@ button.white .ripple-effect {
    ============================================ */
 
 #banner {
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.4)), url("images/banner/b2.png");
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.4)), url("./images/banner/b2.png");
     height: 40vh;
     width: 100%;
     background-size: cover;
@@ -29244,7 +29244,7 @@ button.white .ripple-effect {
    ============================================ */
 
 #banner {
-    background-image: url("images/banner/b2.png");
+    background-image: url("./images/banner/b2.jpg");
     height: 40vh;
     width: 100%;
     background-size: cover;
@@ -29592,7 +29592,7 @@ footer .copyright {
    ============================================ */
 
 #shop-hero {
-    background-image: url("images/banner/b2.png");
+    background-image: url("./images/banner/b2.png");
     background-size: cover;
     background-position: center;
     height: 50vh;
