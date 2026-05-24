@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -186,7 +186,18 @@
                 <button class="modal-btn cancel-btn" onclick="closeShareModal()">Ignore</button>
             </div>
         </div>
+      </div>
+      <div class="modal-footer">
+        <button class="modal-btn merge-btn" onclick="applySharedCart('merge')">
+          <i class="ri-git-merge-line"></i> Merge with My Cart
+        </button>
+        <button class="modal-btn overwrite-btn" onclick="applySharedCart('overwrite')">
+          <i class="ri-refresh-line"></i> Overwrite My Cart
+        </button>
+        <button class="modal-btn cancel-btn" onclick="closeShareModal()">Ignore</button>
+      </div>
     </div>
+  </div>
 
     <div class="toast" id="toast" style="display: none;">
         <div class="toast-icon" id="toast-icon">✅</div>

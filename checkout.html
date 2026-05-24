@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Modern Checkout Form</title>
-
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
@@ -17,9 +18,10 @@
   <div class="checkout-container">
 
     <div class="checkout-header">
-      <button class="back-to-cart" onclick="window.location.href='cart.html'" aria-label="Back to cart">
+      <a href="cart.html" class="back-to-cart" aria-label="Back to cart">
+        <a href="#" id="logout-btn" style="display:none">Logout</a>
         <i class="ri-arrow-left-line"></i> Back to Cart
-      </button>
+      </a>
       <div class="logo">
         <span>Cara</span>
       </div>
@@ -34,38 +36,44 @@
 
       <div class="input-group">
         <label>Full Name</label>
-        <input type="text" placeholder="Enter your full name" required>
+        <!-- Fix: Added name="fullName" so FormData API can collect this field's value on submit -->
+        <input type="text" name="fullName" placeholder="Enter your full name" required>
       </div>
 
       <div class="row">
 
         <div class="input-group">
           <label>Email Address</label>
-          <input type="email" placeholder="Enter your email" required>
+          <!-- Fix: Added name="email" so FormData API can collect this field's value on submit -->
+          <input type="email" name="email" placeholder="Enter your email" required>
         </div>
 
         <div class="input-group">
           <label>Phone Number</label>
-          <input type="tel" placeholder="Enter phone number" required>
+          <!-- Fix: Added name="phone" so FormData API can collect this field's value on submit -->
+          <input type="tel" name="phone" placeholder="Enter phone number" required>
         </div>
 
       </div>
 
       <div class="input-group">
         <label>Delivery Address</label>
-        <textarea placeholder="Enter full address" required></textarea>
+        <!-- Fix: Added name="address" so FormData API can collect this field's value on submit -->
+        <textarea name="address" placeholder="Enter full address" required></textarea>
       </div>
 
       <div class="row">
 
         <div class="input-group">
           <label>City</label>
-          <input type="text" placeholder="Enter city" required>
+          <!-- Fix: Added name="city" so FormData API can collect this field's value on submit -->
+          <input type="text" name="city" placeholder="Enter city" required>
         </div>
 
         <div class="input-group">
           <label>ZIP Code</label>
-          <input type="text" placeholder="ZIP Code" required>
+          <!-- Fix: Added name="zip" so FormData API can collect this field's value on submit -->
+          <input type="text" name="zip" placeholder="ZIP Code" required>
         </div>
 
       </div>

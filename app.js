@@ -88,14 +88,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Single Product Image Switching for thumbnails
         const MainImg = document.getElementById("MainImg");
-        const smallImg = document.getElementsByClassName("small-img");
-        if (MainImg && smallImg) {
-            for (let i = 0; i < smallImg.length; i++) {
-                smallImg[i].onclick = function () {
-                    MainImg.src = smallImg[i].src;
-                }
-            }
-        }
+const smallImg = document.getElementsByClassName("small-img");
+
+if (MainImg && smallImg) {
+    for (let i = 0; i < smallImg.length; i++) {
+        smallImg[i].onclick = function () {
+
+            // Prevent unnecessary reload
+            if (MainImg.src === smallImg[i].src) return;
+
+            // Smooth fade transition
+            MainImg.style.opacity = "0.4";
+
+            const tempImg = new Image();
+
+            tempImg.src = smallImg[i].src;
+
+            tempImg.onload = function () {
+                MainImg.src = tempImg.src;
+
+                requestAnimationFrame(() => {
+                    MainImg.style.opacity = "1";
+                });
+            };
+        };
+    }
+}
     }
 });
 
@@ -199,8 +217,12 @@ function addToCart(productName, productPrice, productImage, quantity, size) {
         price: parsePriceString(productPrice),
         image: productImage,
         quantity: parsedQty,
-        size: size.replace('Size ', '')
+        size: size ? size.replace('Size','') : null 
     };
+     if (!item.size) {
+    console.log("Size missing, not adding to cart");
+    return;
+}
 
     let existingItem = cart.find(p => p.name === item.name && p.size === item.size);
 
@@ -238,9 +260,10 @@ function showToast(message, type) {
     toast.className = 'toast toast-' + type;
     toast.innerHTML =
         '<i class="fa-solid ' + (icons[type] || icons.success) + ' toast-icon"></i>' +
-        '<span class="toast-msg">' + message + '</span>' +
+        '<span class="toast-msg"></span>' +
         '<button class="toast-close" aria-label="Close notification">&times;</button>' +
         '<div class="toast-progress"></div>';
+    toast.querySelector('.toast-msg').textContent = message;
 
     // Close button handler
     toast.querySelector('.toast-close').addEventListener('click', function() {
@@ -265,8 +288,23 @@ window.updateQty = function (change) {
         let currentValue = parseInt(qtyInput.value);
         if (isNaN(currentValue)) currentValue = 1;
         let newValue = currentValue + change;
+        
+        // Clamp quantity between 1 and 99
         if (newValue < 1) newValue = 1;
+        if (newValue > 99) newValue = 99;
+        
         qtyInput.value = newValue;
+
+        // Dynamically update minus and plus button disabled states
+        const minusBtn = document.querySelector('.qty-btn.minus');
+        const plusBtn = document.querySelector('.qty-btn.plus');
+        
+        if (minusBtn) {
+            minusBtn.disabled = (newValue <= 1);
+        }
+        if (plusBtn) {
+            plusBtn.disabled = (newValue >= 99);
+        }
     }
 }
 
@@ -307,6 +345,7 @@ window.loadCart = function () {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
 
     handleEmptyCartView();
+    if (typeof window.loadSavedItems === 'function') window.loadSavedItems();
 
     const itemsContainer = document.getElementById('cart-items-container');
     if (!itemsContainer) return;
@@ -347,9 +386,14 @@ window.loadCart = function () {
                     </button>
                 </div>
                 <div class="cart-item-subtotal">${formatCurrency(itemSubtotal)}</div>
-                <button class="cart-item-remove" aria-label="Remove item" onclick="event.stopPropagation(); removeItem(${index})">
-                    <i class="ri-delete-bin-line"></i>
-                </button>
+                <div class="cart-item-actions" style="display: flex; gap: 8px;">
+                    <button class="cart-item-save" aria-label="Save for later" onclick="event.stopPropagation(); saveForLater(${index})" title="Save for Later" style="color: var(--text-secondary); background: none; border: none; font-size: 20px; cursor: pointer;">
+                        <i class="ri-bookmark-line"></i>
+                    </button>
+                    <button class="cart-item-remove" aria-label="Remove item" onclick="event.stopPropagation(); removeItem(${index})" title="Remove">
+                        <i class="ri-delete-bin-line"></i>
+                    </button>
+                </div>
             </div>
         `;
         itemsContainer.appendChild(row);
@@ -547,78 +591,57 @@ document.addEventListener('DOMContentLoaded', () => {
 /* --- END: CART FUNCTIONALITY --- */
 
 /* --- START: THEME TOGGLE FUNCTIONALITY --- */
+/* --- START: THEME TOGGLE FUNCTIONALITY --- */
 
 (function () {
     const html = document.documentElement;
 
-    // Apply saved theme on load
-    const currentTheme = localStorage.getItem('theme') || 'light';
-    html.setAttribute('data-theme', currentTheme);
-    if (currentTheme === 'dark') {
-        document.body.classList.add('dark');
-    } else {
-        document.body.classList.remove('dark');
-    }
+    // Apply the saved theme immediately when script runs so there is no
+    // flash of the wrong theme while the page loads.
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', savedTheme);
 
-    // Run dynamic icon and logo updates
-    setTimeout(() => {
-        updateThemeIcon(currentTheme);
-    }, 0);
-
+    // Updates the sun/moon icon and the logo image to match the active theme.
     function updateThemeIcon(theme) {
         const iconClass = theme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
-        
-        // Find elements dynamically since they could be injected after this runs
+
         const themeIcon = document.getElementById('themeIcon');
         const themeIconMobile = document.getElementById('themeIconMobile');
-        
+
         if (themeIcon) themeIcon.className = iconClass;
         if (themeIconMobile) themeIconMobile.className = iconClass;
 
-        // Swap logo based on theme
         const siteLogo = document.getElementById('siteLogo');
         if (siteLogo) {
             siteLogo.src = theme === 'dark' ? 'images/Dlogo.png' : 'images/logo.png';
         }
     }
 
+    // Switches between dark and light and persists the choice.
     function toggleTheme() {
-        const currentTheme = html.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        
+        const currentTheme = html.getAttribute('data-theme') || 'light';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark'; // fixed: was 'light' ? 'light' : 'dark'
         html.setAttribute('data-theme', newTheme);
-        if (newTheme === 'dark') {
-            document.body.classList.add('dark');
-        } else {
-            document.body.classList.remove('dark');
-        }
-        
         localStorage.setItem('theme', newTheme);
         updateThemeIcon(newTheme);
     }
 
-    // Event Delegation: Automatically listens to clicks on static AND dynamic buttons!
-    document.addEventListener('click', (e) => {
-        if (e.target && (e.target.closest('#themeToggle') || e.target.closest('#themeToggleMobile'))) {
+    // app.js loads at the bottom of <body> so the DOM is already parsed —
+    // update the icon immediately without waiting for DOMContentLoaded.
+    updateThemeIcon(savedTheme);
+
+    // Use event delegation so the handler works even if the button is
+    // injected into the page dynamically after this script runs.
+    document.addEventListener('click', function (e) {
+        if (!e.target) return;
+        if (e.target.closest('#themeToggle') || e.target.closest('#themeToggleMobile')) {
             e.preventDefault();
             toggleTheme();
         }
     });
-
-    // Watch for dynamic navbar insertions (MutationObserver) to instantly apply correct icon and logo styles
-    if (typeof MutationObserver !== 'undefined') {
-        const observer = new MutationObserver(() => {
-            const activeTheme = html.getAttribute('data-theme') || 'light';
-            updateThemeIcon(activeTheme);
-        });
-        observer.observe(document.body, { childList: true, subtree: true });
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const activeTheme = html.getAttribute('data-theme') || 'light';
-        updateThemeIcon(activeTheme);
-    });
 })();
+
+/* --- END: THEME TOGGLE FUNCTIONALITY --- */
 
 /* --- END: THEME TOGGLE FUNCTIONALITY --- */
 
@@ -728,49 +751,34 @@ document.addEventListener('DOMContentLoaded', () => {
 })();
 
 // Back to Top Button Logic
+// Back to Top Button Logic
+
 const backToTopBtn = document.getElementById("backToTop");
 const ToptobackBtn = document.getElementById("Toptoback");
 
 if (backToTopBtn && ToptobackBtn) {
+
+    // SHOW BUTTONS ON SCROLL
     window.addEventListener("scroll", () => {
 
-    if (!backToTopBtn || !ToptobackBtn) return;
-
-    if (window.scrollY <= 300) {
-        ToptobackBtn.classList.add("show");
-        backToTopBtn.classList.remove("show");
-    } else {
-        backToTopBtn.classList.add("show");
-        ToptobackBtn.classList.remove("show");
-    }
-});
-
-// BACK TO TOP
-if (backToTopBtn) {
-        // SHOW DOWN BUTTON WHEN USER IS NEAR TOP
         if (window.scrollY <= 300) {
             ToptobackBtn.classList.add("show");
             backToTopBtn.classList.remove("show");
-        }
-
-        // SHOW TOP BUTTON AFTER 300PX
+        } 
+        
         else {
             backToTopBtn.classList.add("show");
             ToptobackBtn.classList.remove("show");
         }
-    };
+    });
 
-    // BACK TO TOP
+    // SCROLL TO TOP
     backToTopBtn.addEventListener("click", () => {
         window.scrollTo({
             top: 0,
             behavior: "smooth"
         });
     });
-}
-
-// SCROLL TO BOTTOM
-if (ToptobackBtn) {
 
     // SCROLL TO BOTTOM
     ToptobackBtn.addEventListener("click", () => {
@@ -846,6 +854,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const performSearch = () => {
             const searchTerm = searchInput.value.toLowerCase().trim();
             const selectedCategory = categoryFilter ? categoryFilter.value : 'all';
+           
+            // Reset all products visible before filtering the full set
+           
+            document.querySelectorAll('.pro').forEach(p => p.style.display = 'block');
             const products = document.querySelectorAll('.pro');
             let visibleCount = 0;
             
@@ -863,6 +875,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 } else {
                     product.style.display = 'none';
                 }
+
+                // Reset to page 1 so filtered results start from beginning
+                if (typeof window._showShopPage === 'function') {
+                window._showShopPage(1);
+                }
+
             });
 
             // Handle "No matching products found" UI
@@ -875,9 +893,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         <div class="no-results-content">
                             <i class="ri-search-line"></i>
                             <h3>No matching products found</h3>
-                            <p>We couldn't find any products matching "${searchInput.value}". Please try a different search term or change your category filter.</p>
+                            <p></p>
                         </div>
                     `;
+                    noResultsMsg.querySelector('p').textContent = `We couldn't find any products matching "${searchInput.value}". Please try a different search term or change your category filter.`;
                     const container = document.getElementById('shop-container');
                     if (container) {
                         container.appendChild(noResultsMsg);
@@ -1412,11 +1431,10 @@ function showToast(message, type) {
     '<i class="fa-solid ' +
     (icons[type] || icons.success) +
     ' toast-icon"></i>' +
-    '<span class="toast-msg">' +
-    message +
-    '</span>' +
+    '<span class="toast-msg"></span>' +
     '<button class="toast-close" aria-label="Close notification">&times;</button>' +
     '<div class="toast-progress"></div>';
+  toast.querySelector('.toast-msg').textContent = message;
 
   // Close button handler
   toast.querySelector('.toast-close').addEventListener('click', function () {
@@ -1445,8 +1463,23 @@ window.updateQty = function (change) {
     let currentValue = parseInt(qtyInput.value);
     if (isNaN(currentValue)) currentValue = 1;
     let newValue = currentValue + change;
+    
+    // Clamp quantity between 1 and 99
     if (newValue < 1) newValue = 1;
+    if (newValue > 99) newValue = 99;
+    
     qtyInput.value = newValue;
+
+    // Dynamically update minus and plus button disabled states
+    const minusBtn = document.querySelector('.qty-btn.minus');
+    const plusBtn = document.querySelector('.qty-btn.plus');
+    
+    if (minusBtn) {
+      minusBtn.disabled = (newValue <= 1);
+    }
+    if (plusBtn) {
+      plusBtn.disabled = (newValue >= 99);
+    }
   }
 };
 
@@ -1609,13 +1642,25 @@ window.loadCart = function () {
           ₹${itemSubtotal.toLocaleString('en-IN')}
         </div>
 
-        <button
-          class="cart-item-remove"
-          aria-label="Remove item"
-          onclick="removeItem(${index})"
-        >
-          <i class="ri-delete-bin-line"></i>
-        </button>
+        <div class="cart-item-actions" style="display: flex; gap: 8px; justify-content: flex-end; width: 100%;">
+          <button
+            class="cart-item-save"
+            aria-label="Save for later"
+            onclick="saveForLater(${index})"
+            title="Save for Later"
+            style="color: var(--text-secondary); background: none; border: none; font-size: 20px; cursor: pointer;"
+          >
+            <i class="ri-bookmark-line"></i>
+          </button>
+          <button
+            class="cart-item-remove"
+            aria-label="Remove item"
+            onclick="removeItem(${index})"
+            title="Remove"
+          >
+            <i class="ri-delete-bin-line"></i>
+          </button>
+        </div>
 
       </div>
     `;
@@ -1752,47 +1797,69 @@ document.addEventListener('DOMContentLoaded', () => {
 /* --- START: THEME TOGGLE FUNCTIONALITY --- */
 
 (function () {
-  const themeToggle = document.getElementById('themeToggle');
-  const themeToggleMobile = document.getElementById('themeToggleMobile');
-  const themeIcon = document.getElementById('themeIcon');
-  const themeIconMobile = document.getElementById('themeIconMobile');
-  const html = document.documentElement;
+    const html = document.documentElement;
 
-  const currentTheme = localStorage.getItem('theme') || 'light';
-  html.setAttribute('data-theme', currentTheme);
-  updateThemeIcon(currentTheme);
-
-  function updateThemeIcon(theme) {
-    console.log('Updating icons to:', theme);
-    const iconClass = theme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
-    if (themeIcon) themeIcon.className = iconClass;
-    if (themeIconMobile) themeIconMobile.className = iconClass;
-
-    // Swap logo based on theme
-    const siteLogo = document.getElementById('siteLogo');
-    if (siteLogo) {
-      siteLogo.src = theme === 'dark' ? 'images/Dlogo.png' : 'images/logo.png';
+    // Apply saved theme on load
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', currentTheme);
+    if (currentTheme === 'dark') {
+        document.body.classList.add('dark');
+    } else {
+        document.body.classList.remove('dark');
     }
-  }
 
-  function toggleTheme() {
-    const currentTheme = html.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    html.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    updateThemeIcon(newTheme);
-  }
+    function updateThemeIcon(theme) {
+        const iconClass = theme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
+        
+        const themeIcon = document.getElementById('themeIcon');
+        const themeIconMobile = document.getElementById('themeIconMobile');
+        
+        if (themeIcon) themeIcon.className = iconClass;
+        if (themeIconMobile) themeIconMobile.className = iconClass;
 
-  if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
-  if (themeToggleMobile)
-    themeToggleMobile.addEventListener('click', toggleTheme);
+        // Swap logo based on theme
+        const siteLogo = document.getElementById('siteLogo');
+        if (siteLogo) {
+            siteLogo.src = theme === 'dark' ? 'images/Dlogo.png' : 'images/logo.png';
+        }
+    }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      updateThemeIcon(currentTheme);
+    function toggleTheme() {
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'light' : 'dark';
+        
+        html.setAttribute('data-theme', newTheme);
+        if (newTheme === 'dark') {
+            document.body.classList.add('dark');
+        } else {
+            document.body.classList.remove('dark');
+        }
+        
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon(newTheme);
+    }
+
+    // Event Delegation: Works for static AND dynamic buttons
+    document.addEventListener('click', (e) => {
+        if (e.target && (e.target.closest('#themeToggle') || e.target.closest('#themeToggleMobile'))) {
+            e.preventDefault();
+            toggleTheme();
+        }
     });
-  }
+
+    // Watch for dynamic navbar insertions
+    if (typeof MutationObserver !== 'undefined') {
+        const observer = new MutationObserver(() => {
+            const activeTheme = html.getAttribute('data-theme') || 'light';
+            updateThemeIcon(activeTheme);
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+    }
+
+    // Initialize icons on load
+    updateThemeIcon(currentTheme);
 })();
+
 
 /* --- END: THEME TOGGLE FUNCTIONALITY --- */
 
@@ -1827,7 +1894,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function showPage(pageNumber) {
+  window._showShopPage = function showPage(pageNumber) {
     allProducts.forEach((product) => {
       product.style.display = 'none';
     });
@@ -2151,12 +2218,21 @@ if (topBtn) {
       }
     };
 
-    // Scroll to top smoothly
-    topBtn.addEventListener("click", function () {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
+  if (
+    document.body.scrollTop > 200 ||
+    document.documentElement.scrollTop > 200
+  ) {
+    topBtn.style.display = "block";
+  } else {
+    topBtn.style.display = "none";
+  }
+};
+
+if (topBtn) {
+  topBtn.addEventListener("click", function () {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
     });
 }
 /* ========================================================
@@ -2310,3 +2386,303 @@ window.applySharedCart = function (action) {
 document.addEventListener('DOMContentLoaded', function () {
     setTimeout(window.checkSharedWardrobe, 150);
 });
+
+// --- SAVE FOR LATER LOGIC ---
+window.saveForLater = function(index) {
+    let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+    let saved = JSON.parse(localStorage.getItem('savedItems')) || [];
+    if (index >= 0 && index < cart.length) {
+        let item = cart.splice(index, 1)[0];
+        saved.push(item);
+        localStorage.setItem('productsInCart', JSON.stringify(cart));
+        localStorage.setItem('savedItems', JSON.stringify(saved));
+        if(typeof window.loadCart === 'function') window.loadCart();
+        if(typeof window.showToast === 'function') window.showToast('Item saved for later', 'success');
+    }
+};
+
+window.moveToCart = function(index) {
+    let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+    let saved = JSON.parse(localStorage.getItem('savedItems')) || [];
+    if (index >= 0 && index < saved.length) {
+        let item = saved.splice(index, 1)[0];
+        cart.push(item);
+        localStorage.setItem('productsInCart', JSON.stringify(cart));
+        localStorage.setItem('savedItems', JSON.stringify(saved));
+        if(typeof window.loadCart === 'function') window.loadCart();
+        if(typeof window.showToast === 'function') window.showToast('Item moved to cart', 'success');
+    }
+};
+
+window.removeSavedItem = function(index) {
+    let saved = JSON.parse(localStorage.getItem('savedItems')) || [];
+    if (index >= 0 && index < saved.length) {
+        saved.splice(index, 1);
+        localStorage.setItem('savedItems', JSON.stringify(saved));
+        if(typeof window.loadSavedItems === 'function') window.loadSavedItems();
+        if(typeof window.showToast === 'function') window.showToast('Saved item removed', 'success');
+    }
+};
+
+window.loadSavedItems = function() {
+    let saved = JSON.parse(localStorage.getItem('savedItems')) || [];
+    const savedContainer = document.getElementById('saved-items-container');
+    const savedSection = document.getElementById('saved-items-section');
+    if (!savedContainer || !savedSection) return;
+
+    if (saved.length === 0) {
+        savedSection.style.display = 'none';
+        return;
+    }
+    
+    savedSection.style.display = 'block';
+    savedContainer.innerHTML = '';
+    
+    saved.forEach((item, index) => {
+        const itemPrice = typeof parsePriceString === 'function' ? parsePriceString(item.price) : item.price;
+        const formattedPrice = typeof formatCurrency === 'function' ? formatCurrency(itemPrice) : '$' + itemPrice;
+
+        const row = document.createElement('div');
+        row.className = 'cart-item-row';
+        row.innerHTML = `
+            <div class="cart-item-left" style="opacity: 0.8;">
+                <div class="cart-item-img-wrap">
+                    <img src="${item.image}" alt="${item.name}" loading="lazy" />
+                </div>
+                <div class="cart-item-details">
+                    <span class="cart-item-brand">${item.brand || 'Premium Brand'}</span>
+                    <h5 class="cart-item-title">${item.name}</h5>
+                    <span class="cart-item-size">Size: ${item.size}</span>
+                </div>
+            </div>
+            <div class="cart-item-right" style="flex-direction: row; align-items: center; justify-content: space-between;">
+                <div class="cart-item-price">${formattedPrice}</div>
+                <div class="cart-item-actions" style="display: flex; gap: 8px;">
+                    <button class="cart-item-move" aria-label="Move to cart" onclick="moveToCart(${index})" title="Move to Cart" style="color: var(--accent); background: none; border: none; font-size: 20px; cursor: pointer;">
+                        <i class="ri-shopping-cart-2-line"></i>
+                    </button>
+                    <button class="cart-item-remove" aria-label="Remove item" onclick="removeSavedItem(${index})" title="Remove" style="color: var(--text-secondary); background: none; border: none; font-size: 20px; cursor: pointer;">
+                        <i class="ri-delete-bin-line"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+        savedContainer.appendChild(row);
+    });
+};
+
+// Initialize loadSavedItems if we are on cart page
+document.addEventListener('DOMContentLoaded', () => {
+    if (document.getElementById('saved-items-container')) {
+        if(typeof window.loadSavedItems === 'function') window.loadSavedItems();
+    }
+});
+
+/* --- START: PRODUCT QUICK-VIEW MODAL FUNCTIONALITY --- */
+(function () {
+    // 1. Build and Inject Modal HTML Structure into document body
+    const modalHTML = `
+        <div class="quickview-modal" id="quickViewModal" role="dialog" aria-modal="true" aria-hidden="true">
+            <div class="quickview-content">
+                <button class="quickview-close" aria-label="Close modal">&times;</button>
+                
+                <div class="quickview-left">
+                    <img id="qvModalImg" src="" alt="Product Image">
+                </div>
+                
+                <div class="quickview-right">
+                    <span class="quickview-brand" id="qvModalBrand">Brand</span>
+                    <h3 class="quickview-title" id="qvModalTitle">Product Title</h3>
+                    
+                    <div class="quickview-stars" id="qvModalStars">
+                        <!-- Stars injected dynamically -->
+                    </div>
+                    
+                    <div class="quickview-price" id="qvModalPrice">₹0.00</div>
+                    
+                    <div class="quickview-selects">
+                        <div class="quickview-select-wrap">
+                            <label for="qvModalSize">Size</label>
+                            <select id="qvModalSize">
+                                <option value="Select Size" disabled selected>Select Size</option>
+                                <option value="S">S</option>
+                                <option value="M">M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
+                                <option value="XXL">XXL</option>
+                            </select>
+                        </div>
+                        <div class="quickview-select-wrap">
+                            <label>Quantity</label>
+                            <div class="quickview-qty-container">
+                                <button type="button" class="quickview-qty-btn minus" id="qvQtyMinus">-</button>
+                                <input type="number" class="quickview-qty-input" id="qvQtyInput" value="1" min="1" readonly>
+                                <button type="button" class="quickview-qty-btn plus" id="qvQtyPlus">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="quickview-actions">
+                        <button type="button" class="quickview-btn cart-btn" id="qvAddToCartBtn">ADD TO CART</button>
+                        <button type="button" class="quickview-btn buy-btn" id="qvBuyNowBtn">BUY NOW</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.addEventListener("DOMContentLoaded", () => {
+        // Insert modal into DOM
+        const div = document.createElement("div");
+        div.innerHTML = modalHTML;
+        document.body.appendChild(div.firstElementChild);
+
+        const modal = document.getElementById("quickViewModal");
+        const closeBtn = modal.querySelector(".quickview-close");
+        const qtyInput = document.getElementById("qvQtyInput");
+        const qtyMinus = document.getElementById("qvQtyMinus");
+        const qtyPlus = document.getElementById("qvQtyPlus");
+
+        // Close handlers
+        const closeModal = () => {
+            modal.classList.remove("active");
+            modal.setAttribute("aria-hidden", "true");
+        };
+
+        closeBtn.addEventListener("click", closeModal);
+        modal.addEventListener("click", (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        // ESC key close
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && modal.classList.contains("active")) {
+                closeModal();
+            }
+        });
+
+        // Quantity handlers
+        qtyMinus.addEventListener("click", () => {
+            let val = parseInt(qtyInput.value);
+            if (val > 1) qtyInput.value = val - 1;
+        });
+        qtyPlus.addEventListener("click", () => {
+            let val = parseInt(qtyInput.value);
+            qtyInput.value = val + 1;
+        });
+
+        // Add Quick View overlay triggers dynamically to all static .pro cards
+        injectQuickViewOverlays();
+        
+        // Sometimes content loads dynamically or scripts modify the DOM, so watch for changes or run it
+        // on a slight timeout to ensure all cards have it
+        setTimeout(injectQuickViewOverlays, 500);
+        setTimeout(injectQuickViewOverlays, 1500);
+    });
+
+    function injectQuickViewOverlays() {
+        const proCards = document.querySelectorAll(".pro");
+        proCards.forEach(card => {
+            const imgWrap = card.querySelector(".pro-img-wrap");
+            if (imgWrap && !imgWrap.querySelector(".pro-quick-view-overlay")) {
+                const qvOverlay = document.createElement('div');
+                qvOverlay.className = 'pro-quick-view-overlay';
+                const qvBtn = document.createElement('button');
+                qvBtn.className = 'pro-quick-view-btn';
+                qvBtn.type = 'button';
+                qvBtn.innerHTML = '<i class="ri-eye-line"></i> Quick View';
+                
+                // Add event listener to trigger modal open
+                qvBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    
+                    // Extract details from static card
+                    const name = card.querySelector("h5") ? card.querySelector("h5").textContent.trim() : "";
+                    const priceText = card.querySelector("h4") ? card.querySelector("h4").textContent.trim() : "";
+                    const brand = card.querySelector(".pro-brand-row span") ? card.querySelector(".pro-brand-row span").textContent.trim() : 
+                                  (card.querySelector(".des span") ? card.querySelector(".des span").textContent.trim() : "");
+                    const img = card.querySelector("img") ? card.querySelector("img").src : "";
+                    
+                    // Calculate rating based on filled stars
+                    const rating = card.querySelectorAll(".star i.ri-star-fill").length || 
+                                   card.querySelectorAll(".star i.fa-star").length || 5;
+                    
+                    window.openQuickViewModal({
+                        name: name,
+                        price: priceText,
+                        brand: brand,
+                        img: img,
+                        rating: rating
+                    });
+                });
+                
+                qvOverlay.appendChild(qvBtn);
+                imgWrap.appendChild(qvOverlay);
+            }
+        });
+    }
+
+    // 2. Define global window function to open and populate the modal
+    window.openQuickViewModal = function(product) {
+        const modal = document.getElementById("quickViewModal");
+        if (!modal) return;
+
+        // Reset quantity
+        document.getElementById("qvQtyInput").value = "1";
+
+        // Populate elements
+        document.getElementById("qvModalImg").src = product.img;
+        document.getElementById("qvModalImg").alt = product.name;
+        document.getElementById("qvModalBrand").textContent = product.brand;
+        document.getElementById("qvModalTitle").textContent = product.name;
+        
+        // Clean and format price
+        document.getElementById("qvModalPrice").textContent = product.price;
+
+        // Populate stars
+        const starsContainer = document.getElementById("qvModalStars");
+        starsContainer.innerHTML = "";
+        const rating = product.rating || 5;
+        for (let i = 0; i < rating; i++) {
+            const star = document.createElement("i");
+            star.className = "ri-star-fill";
+            starsContainer.appendChild(star);
+        }
+
+        // Setup Actions
+        const addToCartBtn = document.getElementById("qvAddToCartBtn");
+        const buyNowBtn = document.getElementById("qvBuyNowBtn");
+
+        // Remove old listeners to avoid multiple fires
+        const newAddToCart = addToCartBtn.cloneNode(true);
+        const newBuyNow = buyNowBtn.cloneNode(true);
+
+        addToCartBtn.parentNode.replaceChild(newAddToCart, addToCartBtn);
+        buyNowBtn.parentNode.replaceChild(newBuyNow, buyNowBtn);
+
+        // Add fresh listeners
+        newAddToCart.addEventListener("click", () => {
+            const size = document.getElementById("qvModalSize").value;
+            const qty = parseInt(document.getElementById("qvQtyInput").value);
+            if (typeof addToCart === 'function') {
+                addToCart(product.name, product.price, product.img, qty, size);
+                modal.classList.remove("active");
+            }
+        });
+
+        newBuyNow.addEventListener("click", () => {
+            const size = document.getElementById("qvModalSize").value;
+            const qty = parseInt(document.getElementById("qvQtyInput").value);
+            if (typeof buyNow === 'function') {
+                modal.classList.remove("active");
+                buyNow(product.name, product.price, product.img, qty, size);
+            }
+        });
+
+        // Show modal
+        modal.classList.add("active");
+        modal.setAttribute("aria-hidden", "false");
+    };
+})();
+/* --- END: PRODUCT QUICK-VIEW MODAL FUNCTIONALITY --- */
