@@ -116,7 +116,6 @@ function loadNavbar() {
 
 // Initialize navbar and UI
 loadNavbar();
-initDarkMode();
 initMobileNavbar();
 
 function initMobileNavbar() {
@@ -189,36 +188,3 @@ function initMobileNavbar() {
   });
 }
 
-function initDarkMode() {
-  const themeToggle = document.getElementById('themeToggle');
-  const themeIcon = document.getElementById('themeIcon');
-
-  const isDarkSaved = localStorage.getItem('theme') === 'dark';
-
-  if (isDarkSaved) {
-    document.body.classList.add('dark');
-
-    if (themeIcon) {
-      themeIcon.classList.replace('ri-moon-line', 'ri-sun-line');
-    }
-  }
-
-  function handleToggle() {
-    document.body.classList.toggle('dark');
-
-    const isDark = document.body.classList.contains('dark');
-
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-
-    if (themeIcon) {
-      themeIcon.classList.replace(
-        isDark ? 'ri-moon-line' : 'ri-sun-line',
-        isDark ? 'ri-sun-line' : 'ri-moon-line'
-      );
-    }
-  }
-
-  if (themeToggle) {
-    themeToggle.addEventListener('click', handleToggle);
-  }
-}

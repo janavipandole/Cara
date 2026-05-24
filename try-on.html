@@ -56,6 +56,14 @@
     --card-bg: #ffffff;
     --border-color: #ddd;
 }
+
+[data-theme="dark"] {
+    --accent: #06b6d4;
+    --text-primary: #e6eef8;
+    --bg-secondary: #1a1f26;
+    --card-bg: #1a1f26;
+    --border-color: #2d3748;
+}
         /* ============================================
            VIRTUAL TRY-ON PAGE STYLES
            ============================================ */
@@ -848,6 +856,7 @@
    <button id="topBtn">↑</button>
      <script src="try-on.js"></script> 
     <script src="navbar.js"></script>
+    <script src="app.js"></script>
 <!-- <script>loadNavbar('tryon');</script> -->
         <script id="Current-Year">
         document.getElementById("Current-Year").textContent = new Date().getFullYear();

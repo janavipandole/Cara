@@ -268,7 +268,7 @@
     --bg-secondary: #1a1f26;
     --text-primary: #e6eef8;
     --text-secondary: #94a3b8;
-    --header-bg:#4a5560;
+    --header-bg: rgba(15, 20, 25, 0.95);
     --card-bg: #1a1f26;
     --border-color: #2d3748;
     --shadow: rgba(0, 0, 0, 0.4);
