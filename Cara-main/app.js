@@ -49,24 +49,39 @@ const nav = document.getElementById("navbar");
 const close = document.getElementById("close");
 
 function updateAuthUI() {
-    const loginBtn = document.getElementById("login-btn");
     const loggedInUser = localStorage.getItem("loggedInUser");
-    const logoutBtn = document.getElementById("logout-btn");
+    const loginLinks = document.querySelectorAll('a[href="login.html"]');
 
-    if (!loginBtn) return;
-
-    if (loggedInUser) {
-        loginBtn.style.display = "none";
-         logoutBtn.style.display = "inline-flex";
-           logoutBtn.onclick = function () {
+    loginLinks.forEach(link => {
+        // Skip links in the footer or elsewhere if they don't have icons (optional)
+        // But for simplicity, we can transform them all.
+        if (loggedInUser) {
+            // Change to Logout
+            if (link.innerHTML.includes('ri-user-3-line') || link.innerHTML.includes('fa-user')) {
+                link.innerHTML = '<i class="ri-logout-box-r-line"></i>';
+                link.setAttribute('aria-label', 'Logout');
+            } else {
+                link.innerText = "Logout";
+            }
+            link.href = "#";
+            link.onclick = function (e) {
+                e.preventDefault();
                 localStorage.removeItem("loggedInUser");
                 localStorage.removeItem("appliedCoupon");
                 window.location.href = "login.html";
-             };
-    } else {
-        loginBtn.style.display = "block";
-        if (logoutBtn) logoutBtn.style.display = "none";
-    }
+            };
+        } else {
+            // Revert to Login
+            if (link.innerHTML.includes('ri-logout-box-r-line')) {
+                link.innerHTML = '<i class="ri-user-3-line"></i>';
+                link.setAttribute('aria-label', 'Login');
+            } else if (link.innerText === "Logout") {
+                link.innerText = "Login"; // or "Sign In"
+            }
+            link.href = "login.html";
+            link.onclick = null;
+        }
+    });
 }
 
 document.addEventListener("DOMContentLoaded", updateAuthUI);
@@ -407,21 +422,39 @@ window.loadCart = function () {
     const totalEl = document.getElementById('summary-total');
 
 
-    // ✅ TOTAL UPDATE MUST BE HERE (INSIDE FUNCTION, AFTER LOOP)
-   const subtotalDisplay = document.querySelector('.subtotal table tr:nth-child(1) td:nth-child(2)');
- const totalDisplay = document.querySelector('.subtotal table tr:nth-child(3) td:nth-child(2) strong');
+    // Calculate Tax (18% GST)
+    const taxRate = 0.18;
+    const tax = subtotal * taxRate;
 
-if (subtotalDisplay) {
-    subtotalDisplay.innerText =
-        `₹${subtotal.toLocaleString('en-IN')}`;
-}
+    // Apply Coupon Discount
+    let discount = 0;
+    const coupon = window.appliedCoupon || localStorage.getItem('appliedCoupon');
+    if (coupon === 'CARA20') {
+        discount = subtotal * 0.20;
+        if (discountRow) discountRow.style.display = 'flex';
+        if (discountEl) discountEl.innerText = `-₹${discount.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
+    } else if (coupon === 'WELCOME10') {
+        discount = subtotal * 0.10;
+        if (discountRow) discountRow.style.display = 'flex';
+        if (discountEl) discountEl.innerText = `-₹${discount.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
+    } else {
+        if (discountRow) discountRow.style.display = 'none';
+    }
 
-if (totalDisplay) {
-    totalDisplay.innerText =
-        `₹${subtotal.toLocaleString('en-IN')}`;
-}
+    // Grand Total
+    const grandTotal = subtotal + tax - discount;
 
+    if (subtotalEl) subtotalEl.innerText = `₹${subtotal.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
+    if (taxEl) taxEl.innerText = `₹${tax.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
+    if (totalEl) totalEl.innerText = `₹${grandTotal.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
 
+    // Fallback for old layouts if they still exist
+    const oldSubtotalDisplay = document.querySelector('.subtotal table tr:nth-child(1) td:nth-child(2)');
+    const oldTotalDisplay = document.querySelector('.subtotal table tr:nth-child(3) td:nth-child(2) strong');
+
+    if (oldSubtotalDisplay) oldSubtotalDisplay.innerText = `₹${subtotal.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
+    if (oldTotalDisplay) oldTotalDisplay.innerText = `₹${grandTotal.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
+};
 
 window.changeQuantity = function (index, change) {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
@@ -526,7 +559,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const firstContainer = productContainers[0];
         firstContainer.innerHTML = '';
-        firstContainer.style.display = 'flex';
+        firstContainer.style.display = 'grid';
 
         productsToShow.forEach(product => {
             product.style.display = 'block';
@@ -918,4 +951,3 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
-}

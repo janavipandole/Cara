@@ -893,9 +893,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         <div class="no-results-content">
                             <i class="ri-search-line"></i>
                             <h3>No matching products found</h3>
-                            <p>We couldn't find any products matching "${searchInput.value}". Please try a different search term or change your category filter.</p>
+                            <p></p>
                         </div>
                     `;
+                    noResultsMsg.querySelector('p').textContent = `We couldn't find any products matching "${searchInput.value}". Please try a different search term or change your category filter.`;
                     const container = document.getElementById('shop-container');
                     if (container) {
                         container.appendChild(noResultsMsg);
