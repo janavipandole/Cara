@@ -811,9 +811,10 @@ window.openQuiz = function () {
 }
 
 window.closeQuiz = function () {
-    document.querySelector('.close').addEventListener('click', () => {
-    document.getElementById('quiz-modal').style.display = 'none';
-});
+    const modal = document.getElementById('quiz-modal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
 }
 
 window.selectStyle = function (style) {

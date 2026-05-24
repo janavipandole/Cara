@@ -35129,3 +35129,121 @@ html {
 [data-theme="dark"] #siteLogo {
     filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(255, 255, 255, 0.25));
 }
+
+/* ============================================
+   GLASSMORPHISM STYLE QUIZ MODAL
+   ============================================ */
+
+#quiz-modal.glass-modal-overlay {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    justify-content: center;
+    align-items: center;
+}
+
+.glass-modal-content {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 32px 24px;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 420px;
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+[data-theme="dark"] .glass-modal-content {
+    background: rgba(30, 30, 30, 0.75);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-primary, #333);
+    transition: all 0.3s ease;
+    opacity: 0.6;
+}
+
+.glass-close:hover {
+    opacity: 1;
+    color: #088178;
+    transform: scale(1.1);
+}
+
+[data-theme="dark"] .glass-close {
+    color: #fff;
+}
+
+.glass-modal-content h2 {
+    margin-top: 0;
+    margin-bottom: 24px;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary, #111);
+    font-family: 'Outfit', 'League Spartan', sans-serif;
+}
+
+[data-theme="dark"] .glass-modal-content h2 {
+    color: #fff;
+}
+
+.glass-quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.glass-quiz-options button {
+    padding: 12px 24px;
+    background: transparent;
+    color: var(--text-primary, #111);
+    border: 1.5px solid rgba(8, 129, 120, 0.3);
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+[data-theme="dark"] .glass-quiz-options button {
+    color: #eee;
+    border-color: rgba(6, 182, 212, 0.4);
+}
+
+.glass-quiz-options button:hover {
+    background-color: #088178;
+    color: #ffffff;
+    border-color: #088178;
+    box-shadow: 0 4px 12px rgba(8, 129, 120, 0.25);
+    transform: translateY(-2px);
+}
+
+[data-theme="dark"] .glass-quiz-options button:hover {
+    background-color: var(--accent, #06b6d4);
+    border-color: var(--accent, #06b6d4);
+    box-shadow: 0 4px 12px rgba(6, 182, 212, 0.25);
+}
