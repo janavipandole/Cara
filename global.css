@@ -114,8 +114,8 @@ p {
 }
 
 button.normal {
-    background-color: #fff;
-    color: #000;
+    background-color: var(--card-bg);
+    color: var(--text-primary);
     border: none;
     padding: 15px 30px;
     text-decoration: none;
@@ -404,7 +404,7 @@ button.white .ripple-effect {
 /* â”€â”€ Image wrapper â”€â”€ */
 .pro-img-wrap {
     width: 100%;
-    background: #f5f5f5;
+    background: var(--bg-secondary);
     border-radius: 12px;
     overflow: hidden;
     display: flex;
@@ -592,7 +592,7 @@ footer .newsletter-footer p {
     font-size: 14px;
     line-height: 1.6;
     margin: 10px 0 18px;
-    color: #465b52;
+    color: var(--text-secondary);
 }
 
 footer .newsletter-footer p span {
@@ -963,7 +963,7 @@ footer .copyright {
                 align-items: center;
                 justify-content: center;
                 min-height: 100vh;
-                background-color: #f3f4f6;
+                background-color: var(--bg-secondary);
                 margin: 10;
             }
 
@@ -986,7 +986,8 @@ footer .copyright {
 
             /* Form Container */
             .auth-container {
-                background-color: #ffffff;
+                background-color: var(--card-bg);
+                color: var(--text-primary);
                 padding: 2rem;
                 border-radius: 0.5rem;
                 box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
@@ -1031,7 +1032,7 @@ footer .copyright {
                 display: block;
                 font-size: 0.9rem;
                 font-weight: 500;
-                color: #374151;
+                color: var(--text-primary);
                 margin-bottom: 0.4rem;
             }
 
@@ -1040,11 +1041,12 @@ footer .copyright {
                 display: block;
                 width: 100%;
                 padding: 0.5rem 0.75rem;
-                border: 1px solid #d1d5db;
+                border: 1px solid var(--border-color);
                 border-radius: 0.375rem;
                 box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-                color: #111827;
+                color: var(--text-primary);
                 font-size: 0.875rem;
+                background-color: var(--input-bg);
             }
 
             input::placeholder {

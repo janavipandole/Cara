@@ -697,8 +697,20 @@ const topBtn = document.getElementById("topBtn");
 
     // Scroll to top smoothly
     topBtn.addEventListener("click", function () {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-    });
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+});
+
+const themeToggle = document.getElementById("themeToggle");
+
+themeToggle?.addEventListener("click", () => {
+    const currentTheme = document.body.getAttribute("data-theme");
+
+    if (currentTheme === "dark") {
+        document.body.setAttribute("data-theme", "light");
+    } else {
+        document.body.setAttribute("data-theme", "dark");
+    }
+});
