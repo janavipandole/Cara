@@ -31,55 +31,62 @@
       <p>Fill all details to complete your order</p>
     </div>
 
-    <form id="checkoutForm">
+    <form id="checkoutForm" novalidate>
 
       <div class="input-group">
-        <label>Full Name</label>
-        <input type="text" placeholder="Enter your full name" required>
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" placeholder="Enter your full name" data-validate="fullName" required>
+        <span class="error-msg"></span>
       </div>
 
       <div class="row">
 
         <div class="input-group">
-          <label>Email Address</label>
-          <input type="email" placeholder="Enter your email" required>
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="Enter your email" data-validate="email" required>
+          <span class="error-msg"></span>
         </div>
 
         <div class="input-group">
-          <label>Phone Number</label>
-          <input type="tel" placeholder="Enter phone number" required>
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" placeholder="Enter phone number" data-validate="phone" required>
+          <span class="error-msg"></span>
         </div>
 
       </div>
 
       <div class="input-group">
-        <label>Delivery Address</label>
-        <textarea placeholder="Enter full address" required></textarea>
+        <label for="address">Delivery Address</label>
+        <textarea id="address" placeholder="Enter full address" data-validate="address" required></textarea>
+        <span class="error-msg"></span>
       </div>
 
       <div class="row">
 
         <div class="input-group">
-          <label>City</label>
-          <input type="text" placeholder="Enter city" required>
+          <label for="city">City</label>
+          <input type="text" id="city" placeholder="Enter city" data-validate="city" required>
+          <span class="error-msg"></span>
         </div>
 
         <div class="input-group">
-          <label>ZIP Code</label>
-          <input type="text" placeholder="ZIP Code" required>
+          <label for="zip">ZIP Code</label>
+          <input type="text" id="zip" placeholder="ZIP Code" data-validate="zip" required>
+          <span class="error-msg"></span>
         </div>
 
       </div>
 
       <!-- PAYMENT METHOD -->
       <div class="input-group">
-        <label>Select Payment Method</label>
+        <label for="paymentMethod">Select Payment Method</label>
 
-        <select id="paymentMethod" required>
+        <select id="paymentMethod" data-validate="paymentMethod" required>
           <option value="">Choose Payment Method</option>
           <option value="cod">Cash On Delivery</option>
           <option value="online">Online Payment</option>
         </select>
+        <span class="error-msg"></span>
       </div>
 
       <!-- CARD DETAILS -->
@@ -91,7 +98,8 @@
 
         <div class="input-group">
           <label for="cardName">Card Holder Name</label>
-          <input type="text" id="cardName" placeholder="Card holder name" autocomplete="cc-name">
+          <input type="text" id="cardName" placeholder="Card holder name" autocomplete="cc-name" data-validate="cardName">
+          <span class="error-msg"></span>
         </div>
 
         <div class="input-group">
@@ -103,7 +111,9 @@
             inputmode="numeric"
             autocomplete="cc-number"
             maxlength="19"
+            data-validate="cardNumber"
           >
+          <span class="error-msg"></span>
         </div>
 
         <div class="row">
@@ -117,7 +127,9 @@
               inputmode="numeric"
               autocomplete="cc-exp"
               maxlength="5"
+              data-validate="expiry"
             >
+            <span class="error-msg"></span>
           </div>
 
           <div class="input-group">
@@ -129,7 +141,9 @@
               inputmode="numeric"
               autocomplete="cc-csc"
               maxlength="4"
+              data-validate="cvv"
             >
+            <span class="error-msg"></span>
           </div>
 
         </div>
