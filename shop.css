@@ -1,6 +1,6 @@
 #search-filter {
     display: grid;
-    grid-template-columns: 1.8fr 1fr 0.6fr;
+    grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr) minmax(0, 0.6fr);
     gap: 24px;
     align-items: flex-end;
     margin-bottom: 32px;
@@ -10,16 +10,20 @@
 #search-filter .filter-container,
 #search-filter .search-summary {
     width: 100%;
+    min-width: 0;
 }
 
 .search-box {
     display: flex;
     width: 100%;
     gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
 #searchInput {
-    width: 100%;
+    flex: 1 1 0;
+    min-width: 0;
     padding: 14px 18px;
     border: 1px solid var(--border-color);
     border-radius: 12px;
@@ -34,6 +38,7 @@
 }
 
 #searchBtn {
+    flex: 0 0 auto;
     min-width: 58px;
     border: none;
     border-radius: 12px;
@@ -41,6 +46,7 @@
     color: #fff;
     cursor: pointer;
     transition: transform 0.2s ease;
+    padding: 12px 16px;
 }
 
 #searchBtn:hover {
@@ -213,11 +219,10 @@
    TARGET 1: SHOP PAGE - SEARCH & FILTER
    ============================================ */
 #search-filter {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr) minmax(0, 0.6fr);
+    gap: 24px;
+    align-items: flex-end;
     padding: 30px 80px;
     background-color: var(--card-bg);
     border-bottom: 1px solid var(--border-color);
@@ -242,7 +247,8 @@
 }
 
 #searchInput {
-    flex: 1;
+    flex: 1 1 0;
+    min-width: 0;
     border: none;
     background: transparent;
     padding: 10px 5px;
@@ -259,10 +265,45 @@
     cursor: pointer;
     transition: color 0.3s ease;
     padding: 5px;
+    flex: 0 0 auto;
 }
 
 #searchBtn:hover {
     color: var(--accent);
+}
+
+@media (max-width: 900px) {
+    #search-filter {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        align-items: stretch;
+    }
+
+    .search-box {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #searchBtn {
+        width: 100%;
+    }
+
+    .filter-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-container label {
+        margin-bottom: 8px;
+    }
+
+    .search-suggestions {
+        max-height: 200px;
+    }
+
+    #search-filter .search-summary {
+        text-align: left;
+    }
 }
 
 .filter-container {
@@ -298,6 +339,39 @@
 #categoryFilter:hover {
     border-color: var(--accent);
     box-shadow: 0 6px 15px var(--shadow-hover);
+}
+
+/* Custom styling for product sorting dropdown */
+.sort-dropdown {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    padding: 10px 20px;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    font-size: 15px;
+    background-color: var(--body-bg);
+    color: var(--text-primary);
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%236b7280"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px 16px;
+    transition: all 0.3s ease;
+}
+
+.sort-dropdown:focus,
+.sort-dropdown:hover {
+    border-color: #088178;
+    box-shadow: 0 6px 15px rgba(8, 129, 120, 0.12);
+    outline: none;
+    /* change arrow color on hover/focus */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23088178"><path d="M7 10l5 5 5-5z"/></svg>');
+}
+
+/* hide the extra chevron icon when present to avoid duplicate arrows */
+.sort-select-wrap .sort-chevron {
+    display: none;
 }
 
 /* ============================================
@@ -459,4 +533,41 @@
             margin: 0;
             line-height: 1.5;
         }
+
+    /* ============================================
+       SHOP PAGE FOOTER LAYOUT
+       Keep the footer columns in a row on desktop
+       ============================================ */
+    footer .footer-container {
+        display: grid;
+        grid-template-columns: minmax(260px, 1.25fr) repeat(2, minmax(150px, 0.9fr)) minmax(240px, 1.2fr);
+        gap: 48px;
+        width: 100%;
+        align-items: start;
+    }
+
+    footer .footer-container .col {
+        margin-bottom: 0;
+        min-width: 0;
+    }
+
+    footer .footer-container .install .row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    @media (max-width: 1024px) {
+        footer .footer-container {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 32px 24px;
+        }
+    }
+
+    @media (max-width: 640px) {
+        footer .footer-container {
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+    }
 
