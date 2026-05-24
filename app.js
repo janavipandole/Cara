@@ -1833,7 +1833,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function toggleTheme() {
         const currentTheme = html.getAttribute('data-theme');
-        const newTheme = currentTheme === 'light' ? 'light' : 'dark';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
         
         html.setAttribute('data-theme', newTheme);
         if (newTheme === 'dark') {
@@ -2687,3 +2687,60 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 })();
 /* --- END: PRODUCT QUICK-VIEW MODAL FUNCTIONALITY --- */
+/* --- START: WISHLIST FUNCTIONALITY --- */
+
+window.addToWishlist = function(product) {
+
+    let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+    const exists = wishlist.find(item =>
+        item.name === product.name
+    );
+
+    if (!exists) {
+
+        wishlist.push(product);
+
+        localStorage.setItem(
+            "wishlist",
+            JSON.stringify(wishlist)
+        );
+
+        if (typeof showToast === "function") {
+            showToast(`${product.name} added to wishlist!`, "success");
+        }
+
+    } else {
+
+        if (typeof showToast === "function") {
+            showToast(`${product.name} already in wishlist!`, "info");
+        }
+    }
+};
+
+/* --- END: WISHLIST FUNCTIONALITY --- */
+document.addEventListener("click", function(e) {
+
+    const wishlistBtn = e.target.closest(".wishlist-icon");
+
+    if (!wishlistBtn) return;
+
+    e.stopPropagation();
+
+    const proCard = wishlistBtn.closest(".pro");
+
+    if (!proCard) return;
+
+    const product = {
+
+        name: proCard.querySelector("h5")?.textContent.trim() || "Product",
+
+        price: proCard.querySelector("h4")?.textContent.trim() || "₹0",
+
+        image: proCard.querySelector("img")?.src || ""
+
+    };
+
+    addToWishlist(product);
+
+});

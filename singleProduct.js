@@ -6,7 +6,6 @@ const closeBtn = document.querySelector(".close-btn");
 
 const sizeDropdown = document.getElementById("product-size");
 
-const sizeRadios = document.querySelectorAll('.size-chart input[type="radio"]');
 
 
 // OPEN MODAL
@@ -39,25 +38,3 @@ window.addEventListener("click", (e) => {
 
 });
 
-
-// AUTO SELECT SIZE + CLOSE MODAL
-
-sizeRadios.forEach((radio) => {
-
-    radio.addEventListener("change", function () {
-
-        // Get selected row
-        const row = this.closest("tr");
-
-        // Get size text
-        const selectedSize = row.children[1].textContent.trim();
-
-        // Update dropdown
-        sizeDropdown.value = selectedSize;
-
-        // Close modal
-        modal.style.display = "none";
-
-    });
-
-});

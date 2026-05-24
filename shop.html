@@ -109,9 +109,9 @@
       <!-- Login Icon -->
       <li class="nav-icon">
         <a href="login.html" aria-label="Login">
-          <a href="#" id="logout-btn" style="display:none">Logout</a>
-          <i class="ri-user-3-line"></i>
-        </a>
+          <i class="ri-user-3-line"></i></a>
+        
+        <a href="#" id="logout-btn" style="display:none">Logout</a>
       </li>
 
       <!-- Cart Icon -->
@@ -121,6 +121,12 @@
         </a>
       </li>
 
+      <!-- Wishlist Icon -->
+      <li class="nav-icon">
+        <a href="wishlist.html" aria-label="Wishlist">
+          <i class="ri-heart-line"></i>
+        </a>
+      </li>
       <!-- Theme Toggle -->
       <li class="nav-icon">
         <button
@@ -150,9 +156,11 @@
 
     <!-- Login Icon -->
     <a href="login.html" aria-label="Login">
-      <a href="#" id="logout-btn" style="display:none">Logout</a>
+      
       <i class="ri-user-3-line"></i>
     </a>
+    <a href="#" id="logout-btn" style="display:none">Logout</a>
+    
 
     <!-- Cart Icon -->
     <a href="cart.html" aria-label="Cart">
@@ -257,6 +265,7 @@
                     </div>
                     <h4>$78</h4>
                 </div>
+                <i class="ri-heart-line wishlist-icon"></i>
                 <a href="#" class="cart"
                     onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/f2.jpg', 1, 'M')"><i
                         class="ri-shopping-cart-2-line"></i></a>
@@ -347,7 +356,11 @@
                     </div>
                     <h4>$78</h4>
                 </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+                <i class="ri-heart-line wishlist-icon"></i>
+
+                <a href="#" class="cart">
+                    <i class="ri-shopping-cart-2-line"></i>
+                </a>            
             </div>
             <div class="pro" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/f8.jpg" alt="">
@@ -363,7 +376,10 @@
                     </div>
                     <h4>$78</h4>
                 </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+                <i class="ri-heart-line wishlist-icon"></i>
+                <a href="#" class="cart">
+                    <i class="ri-shopping-cart-2-line"></i>
+                </a>
             </div>
             <div class="pro" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/n1.jpg" alt="">
