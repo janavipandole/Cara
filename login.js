@@ -35,6 +35,11 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
+        if (/\d/.test(email)) {
+            showToast('Numbers are not allowed in the email address.', 'warning');
+            return;
+        }
+
         // ── Loading state: disable button & show spinner ──
         const submitBtn = form.querySelector('.login-btn');
         if (submitBtn) {

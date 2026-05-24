@@ -8,19 +8,22 @@ registerForm.addEventListener("submit", function (e) {
   const password = document.getElementById("registerPassword").value;
   const confirmPassword = document.getElementById("confirmPassword").value;
 
-  
+
   if (!username || !email || !password || !confirmPassword) {
     showError("Please fill in all fields.");
     return;
   }
 
-  
+  if (/\d/.test(email)) {
+    showError("Numbers are not allowed in the email address.");
+    return;
+  }
   if (/\s/.test(password)) {
     showError("Password must not contain spaces.");
     return;
   }
 
-  
+
   if (password.length < 8) {
     showError("Password must be at least 8 characters long.");
     return;
@@ -46,13 +49,13 @@ registerForm.addEventListener("submit", function (e) {
     return;
   }
 
-  
+
   if (password !== confirmPassword) {
     showError("Passwords do not match.");
     return;
   }
 
-  
+
   const users = JSON.parse(localStorage.getItem("users")) || [];
 
   const emailAlreadyExists = users.find((u) => u.email === email);
@@ -126,30 +129,30 @@ function showSuccess(msg) {
 
 // ─── PASSWORD VISIBILITY TOGGLE LOGIC FOR REGISTRATION ───
 document.addEventListener('DOMContentLoaded', function () {
-    const registerPasswordInput = document.getElementById('registerPassword');
-    const confirmPasswordInput = document.getElementById('confirmPassword');
-    const togglePasswordButton = document.getElementById('togglePassword');
-    const confirmTogglePasswordButton = document.getElementById('confirmTogglePassword');
-    const registerToggleIcon = document.getElementById('registerToggleIcon');
-    const confirmToggleIcon = document.getElementById('confirmToggleIcon');
+  const registerPasswordInput = document.getElementById('registerPassword');
+  const confirmPasswordInput = document.getElementById('confirmPassword');
+  const togglePasswordButton = document.getElementById('togglePassword');
+  const confirmTogglePasswordButton = document.getElementById('confirmTogglePassword');
+  const registerToggleIcon = document.getElementById('registerToggleIcon');
+  const confirmToggleIcon = document.getElementById('confirmToggleIcon');
 
-    function setupPasswordToggle(inputField, toggleButton, iconElement) {
-        if (inputField && toggleButton && iconElement) {
-            toggleButton.addEventListener('click', function () {
-                const isPasswordHidden = inputField.type === 'password';
-                inputField.type = isPasswordHidden ? 'text' : 'password';
+  function setupPasswordToggle(inputField, toggleButton, iconElement) {
+    if (inputField && toggleButton && iconElement) {
+      toggleButton.addEventListener('click', function () {
+        const isPasswordHidden = inputField.type === 'password';
+        inputField.type = isPasswordHidden ? 'text' : 'password';
 
-                if (isPasswordHidden) {
-                    iconElement.classList.remove('ri-eye-line');
-                    iconElement.classList.add('ri-eye-off-line');
-                } else {
-                    iconElement.classList.remove('ri-eye-off-line');
-                    iconElement.classList.add('ri-eye-line');
-                }
-            });
+        if (isPasswordHidden) {
+          iconElement.classList.remove('ri-eye-line');
+          iconElement.classList.add('ri-eye-off-line');
+        } else {
+          iconElement.classList.remove('ri-eye-off-line');
+          iconElement.classList.add('ri-eye-line');
         }
+      });
     }
+  }
 
-    setupPasswordToggle(registerPasswordInput, togglePasswordButton, registerToggleIcon);
-    setupPasswordToggle(confirmPasswordInput, confirmTogglePasswordButton, confirmToggleIcon);
+  setupPasswordToggle(registerPasswordInput, togglePasswordButton, registerToggleIcon);
+  setupPasswordToggle(confirmPasswordInput, confirmTogglePasswordButton, confirmToggleIcon);
 });
