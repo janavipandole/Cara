@@ -14,6 +14,11 @@ registerForm.addEventListener("submit", function (e) {
     return;
   }
 
+  if (/\d/.test(email)) {
+    showError("Numbers are not allowed in the email address.");
+    return;
+  }
+
   
   if (/\s/.test(password)) {
     showError("Password must not contain spaces.");
