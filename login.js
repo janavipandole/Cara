@@ -5,22 +5,32 @@ document.addEventListener('DOMContentLoaded', function () {
     const toggleIcon = document.getElementById('toggleIcon');
 
     // ── Password Visibility Toggle Logic ──
-    if (passwordInput && togglePassword && toggleIcon) {
-        togglePassword.addEventListener('click', function () {
-            // Toggle the input field's type attribute
-            const isPasswordHidden = passwordInput.type === 'password';
-            passwordInput.type = isPasswordHidden ? 'text' : 'password';
-
-            // Toggle the Remix Icon classes cleanly without modifying innerHTML structure
-            if (isPasswordHidden) {
-                toggleIcon.classList.remove('ri-eye-line');
-                toggleIcon.classList.add('ri-eye-off-line');
-            } else {
-                toggleIcon.classList.remove('ri-eye-off-line');
-                toggleIcon.classList.add('ri-eye-line');
-            }
-        });
+    // ADD THIS INSIDE THE VISIBILITY TOGGLE IF STATEMENT:
+if (passwordInput && togglePassword && toggleIcon) {
+    // Make it focusable if it isn't an HTML button element
+    if (!togglePassword.hasAttribute('tabindex')) {
+        togglePassword.setAttribute('tabindex', '0');
+        togglePassword.setAttribute('role', 'button');
+        togglePassword.setAttribute('aria-label', 'Toggle password visibility');
     }
+
+    const toggleVisibility = function () {
+        const isPasswordHidden = passwordInput.type === 'password';
+        passwordInput.type = isPasswordHidden ? 'text' : 'password';
+        togglePassword.setAttribute('aria-aria-expanded', !isPasswordHidden);
+
+        toggleIcon.classList.toggle('ri-eye-line', !isPasswordHidden);
+        toggleIcon.classList.toggle('ri-eye-off-line', isPasswordHidden);
+    };
+
+    togglePassword.addEventListener('click', toggleVisibility);
+    togglePassword.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleVisibility();
+        }
+    });
+}
 
     if (!form) return;
 
@@ -43,22 +53,31 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         // Simulate async request (replace with real API call)
-        setTimeout(function () {
-            const users = JSON.parse(localStorage.getItem('users') || '[]');
-            const user = users.find(u => u.email === email && u.password === password);
+        // UPDATE THE SETTIMEOUT WRAPPER:
+setTimeout(function () {
+    try {
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+        const user = users.find(u => u.email === email && u.password === password);
 
-            if (user) {
-                // On successful login
-                localStorage.setItem('loggedInUser', email);
-                window.location.href = 'index.html';
-            } else {
-                showToast("Invalid email or password", "error");
-                // ── Re-enable button on failure ──
-                if (submitBtn) {
-                    submitBtn.classList.remove('btn-loading');
-                    submitBtn.disabled = false;
-                }
-            }
-        }, 1500);
+        if (user) {
+            localStorage.setItem('loggedInUser', email);
+            window.location.href = 'index.html';
+        } else {
+            showToast("Invalid email or password", "error");
+            resetButton();
+        }
+    } catch (error) {
+        console.error("Authentication error:", error);
+        showToast("An unexpected authentication error occurred.", "error");
+        resetButton();
+    }
+
+    function resetButton() {
+        if (submitBtn) {
+            submitBtn.classList.remove('btn-loading');
+            submitBtn.disabled = false;
+        }
+    }
+}, 1500);
     });
 });

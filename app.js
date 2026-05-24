@@ -618,14 +618,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Switches between dark and light and persists the choice.
-    function toggleTheme() {
-        const currentTheme = html.getAttribute('data-theme') || 'light';
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark'; // fixed: was 'light' ? 'light' : 'dark'
-        html.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        updateThemeIcon(newTheme);
+   function toggleTheme() {
+    const currentTheme = html.getAttribute('data-theme') || 'light';
+    // FIXED: Correctly alternates between light and dark themes
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    html.setAttribute('data-theme', newTheme);
+    if (newTheme === 'dark') {
+        document.body.classList.add('dark');
+    } else {
+        document.body.classList.remove('dark');
     }
-
+    
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcon(newTheme);
+}
     // app.js loads at the bottom of <body> so the DOM is already parsed —
     // update the icon immediately without waiting for DOMContentLoaded.
     updateThemeIcon(savedTheme);
@@ -1182,24 +1189,16 @@ window.addToCart =
   };
 
 // Buy Now function (imported from products.js or defined globally)
+// Buy Now function updated to reuse existing workflow logic safely
 window.buyNow =
   window.buyNow ||
   function (name, price, img, quantity, size) {
-    let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+    // FIXED: Instead of manually saving broken schemas, call the unified workflow
+    addToCart(name, price, img, quantity, size);
 
-    const product = {
-      name,
-      price,
-      img,
-      quantity,
-      size,
-      id: Date.now(),
-    };
-
-    cart.push(product);
-    localStorage.setItem('productsInCart', JSON.stringify(cart));
-
-    window.location.href = 'checkout.html';
+    setTimeout(function () {
+        window.location.href = 'checkout.html';
+    }, 500);
   };
 
 document.addEventListener('click', function (e) {
@@ -1383,14 +1382,15 @@ function handleEmptyCartView() {
 
 function addToCart(productName, productPrice, productImage, quantity, size) {
   let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+  
+  // FIXED: Defensive parsing using your robust price parser and safe string fallbacks
   let item = {
     name: productName,
-    price: parseFloat(productPrice.replace(/[₹$,]/g, '')),
+    price: typeof parsePriceString === 'function' ? parsePriceString(productPrice) : parseFloat(String(productPrice).replace(/[₹$,]/g, '')),
     image: productImage,
-    quantity: parseInt(quantity),
-    size: size.replace('Size ', ''),
+    quantity: parseInt(quantity) || 1,
+    size: size ? String(size).replace('Size ', '') : 'M',
   };
-
   let existingItem = cart.find(
     (p) => p.name === item.name && p.size === item.size
   );

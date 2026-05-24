@@ -1,10 +1,8 @@
-/* ============================================
+/* ================================================================
    SINGLE PRODUCT PAGE — ENHANCED STYLES
-   Improvements: layout, typography, spacing,
-   image sizing, responsiveness, dark mode,
-   hover/transition effects, button styling
-   ============================================ */
-
+   Improvements: layout alignment, accessibility variables, 
+   fluid typography, robust dark theme variables mapping maps.
+   ================================================================ */
 
 #pro-details {
     margin-top: 80px;
@@ -224,7 +222,6 @@
     padding: 0;
     margin: 0 4px;
     outline: none;
-    -moz-appearance: textfield;
     appearance: textfield;
 }
 
@@ -302,9 +299,75 @@
     box-shadow: 0 6px 16px rgba(8, 129, 120, 0.35);
 }
 
+/* ================================================================
+   SIZE CHART & ACCESSORY COMPONENTS (Dark Mode Compliant)
+   ================================================================ */
+
+#size-chart-btn {
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--accent);
+    color: #fff;
+    cursor: pointer;
+    margin-top: 12px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 12px var(--shadow);
+}
+
+#size-chart-btn:hover {
+    background-color: #066c63;
+    transform: translateY(-1px);
+}
+
+.size-chart {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 25px;
+    table-layout: fixed;
+    background-color: var(--bg-primary);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.size-chart thead tr {
+    border-bottom: 2px solid var(--border-color);
+    background-color: var(--bg-secondary);
+}
+
+.size-chart th {
+    padding: 16px 20px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.size-chart td {
+    padding: 18px 20px;
+    text-align: center;
+    font-size: 15px;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.size-chart tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.size-chart tbody tr:hover {
+    background-color: var(--glass);
+}
+
+/* ================================================================
+   RESPONSIVE MEDIA BREAKPOINTS
+   ================================================================ */
+
 @media (max-width: 1024px) and (min-width: 800px) {
     #pro-details {
-        padding: 40px 40px;
+        padding: 40px;
         gap: 36px;
     }
 
@@ -346,75 +409,10 @@
     #pro-details .single-pro-details {
         width: 100%;
     }
-}
-#size-chart-btn {
-
-    padding: 12px 24px;
-
-    font-size: 16px;
-
-    font-weight: 400;
-
-    border: none;
-
-    border-radius: 6px;
-
-    background-color: #088178;
-
-    color: white;
-
-    cursor: pointer;
-
-    margin-top: 12px;
-
-    transition: 0.3s ease;
-}
-
-
-#size-chart-btn:hover {
-
-    background-color: #066c63;
-}
-.size-chart {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 25px;
-    table-layout: fixed;
-}
-
-.size-chart thead tr {
-    border-bottom: 2px solid #e5e5e5;
-}
-
-.size-chart th {
-
-    padding: 16px 20px;
-
-    text-align: center;
-
-    font-size: 20px;
-
-    font-weight: 600;
-
-    color: #222;
-}
-
-.size-chart td {
-
-    padding: 18px 20px;
-
-    text-align: center;
-
-    font-size: 18px;
-
-    color: #444;
-
-    border-bottom: 1px solid #f1f1f1;
-}
-
-.size-chart tbody tr:hover {
-
-    background-color: #fafafa;
-
-    transition: 0.2s ease;
+    
+    .size-chart th, 
+    .size-chart td {
+        padding: 10px 8px;
+        font-size: 13px;
+    }
 }

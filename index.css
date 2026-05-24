@@ -10,7 +10,7 @@
     overflow: hidden;
     padding: 0;
 }
-
+/* TO THIS: */
 .hero-slider .slide {
     position: absolute;
     top: 0;
@@ -21,13 +21,13 @@
     background-position: top 25% right 0;
     opacity: 0;
     transition: opacity 0.6s ease-in-out;
+    will-change: opacity; /* Hardware acceleration fallback */
     z-index: 0;
     display: flex;
     align-items: start;
     justify-content: center;
     flex-direction: column;
 }
-
 .hero-slider .slide.active {
     opacity: 1;
     z-index: 1;
@@ -63,6 +63,7 @@
 }
 
 /* Slider Controls */
+/* TO THIS: */
 .slider-btn {
     position: absolute;
     top: 50%;
@@ -73,7 +74,7 @@
     width: 32px;
     height: 32px;
     border-radius: 100%;
-    font-size: 1px;
+    font-size: 14px; /* Standardize a visible baseline font size */
     cursor: pointer;
     z-index: 3;
     transition: background 0.2s ease, color 0.2s ease;
@@ -185,21 +186,21 @@
 }
 
 /* â”€â”€ Slider nav buttons: override the generic #hero button rule above â”€â”€ */
+/* TO THIS: */
 #hero .slider-btn {
-    background: #000000 !important;
-    color: #ffffff !important;
-    border: none !important;
-    width: 46px !important;
-    height: 46px !important;
-    border-radius: 50% !important;
-    font-size: 16px !important;
-    padding: 0 !important;
-    font-weight: normal !important;
+    background: #000000;
+    color: #ffffff;
+    border: none;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    font-size: 16px;
+    padding: 0;
+    font-weight: normal;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
-    transition: background 0.25s ease, opacity 0.25s ease !important;
-    transform: translateY(-50%) !important; /* keep vertical centring, no extra shift */
+    transition: background 0.25s ease, opacity 0.25s ease;
+    transform: translateY(-50%);
 }
-
 #hero .slider-btn:hover {
     background: #2a2a2a !important;
     color: #ffffff !important;
@@ -247,11 +248,11 @@
     box-shadow: 10px 10px 74px var(--shadow-hover);
 }
 
-#feature.fe-box img {
+/* TO THIS: */
+#feature .fe-box img {
     width: 100%;
     margin-bottom: 10px;
 }
-
 #feature .fe-box h6 {
     display: inline-block;
     padding: 9px 8px 6px 8px;
@@ -268,29 +269,14 @@
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
-#feature .fe-box:nth-child(1) h6 {
-    background-color: var(--feature-bg-1);
-}
+/* TO THIS: */
+#feature .fe-box:nth-child(1) h6 { background-color: var(--feature-bg-1, #fddde4); }
+#feature .fe-box:nth-child(2) h6 { background-color: var(--feature-bg-2, #cdebbc); }
+#feature .fe-box:nth-child(3) h6 { background-color: var(--feature-bg-3, #d1e8fc); }
+#feature .fe-box:nth-child(4) h6 { background-color: var(--feature-bg-4, #cdd4f8); }
+#feature .fe-box:nth-child(5) h6 { background-color: var(--feature-bg-5, #f6dbf6); }
+#feature .fe-box:nth-child(6) h6 { background-color: var(--feature-bg-6, #fff2e5); }
 
-#feature .fe-box:nth-child(2) h6 {
-    background-color: var(--feature-bg-2);
-}
-
-#feature .fe-box:nth-child(3) h6 {
-    background-color: var(--feature-bg-3);
-}
-
-#feature .fe-box:nth-child(4) h6 {
-    background-color: var(--feature-bg-4);
-}
-
-#feature .fe-box:nth-child(5) h6 {
-    background-color: var(--feature-bg-5);
-}
-
-#feature .fe-box:nth-child(6) h6 {
-    background-color: var(--feature-bg-6);
-}
 
 /* ============================================
    BANNERS

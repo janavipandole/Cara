@@ -14,7 +14,6 @@
       -------------------- */
     :root {
       --bg: #0f1724;
-      /* dark page background */
       --card: #0b1220;
       --muted: #94a3b8;
       --accent: #7c3aed;
@@ -27,12 +26,12 @@
     }
 
     * {
-      box-sizing: border-box
+      box-sizing: border-box;
     }
 
     html,
     body {
-      height: 100%
+      height: 100%;
     }
 
     body {
@@ -67,7 +66,7 @@
     .brand {
       display: flex;
       gap: 12px;
-      align-items: center
+      align-items: center;
     }
 
     .logo {
@@ -86,19 +85,19 @@
 
     .brand h1 {
       font-size: 18px;
-      margin: 0
+      margin: 0;
     }
 
     .tag {
       font-size: 12px;
-      color: var(--muted)
+      color: var(--muted);
     }
 
     /* Controls */
     .controls {
       display: flex;
       gap: 10px;
-      align-items: center
+      align-items: center;
     }
 
     .search {
@@ -108,7 +107,7 @@
       display: flex;
       gap: 8px;
       align-items: center;
-      min-width: 260px
+      min-width: 260px;
     }
 
     .search input {
@@ -116,7 +115,7 @@
       border: 0;
       color: inherit;
       outline: none;
-      width: 100%
+      width: 100%;
     }
 
     .icon-btn {
@@ -124,7 +123,16 @@
       padding: 8px;
       border-radius: 10px;
       border: 0;
-      cursor: pointer
+      color: inherit;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .icon-btn:hover {
+      background: var(--glass-2);
     }
 
     /* Main content */
@@ -132,36 +140,37 @@
       background: transparent;
       padding: 18px;
       border-radius: 16px;
-      min-height: 60vh
+      min-height: 60vh;
     }
 
     .toolbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px
+      margin-bottom: 12px;
     }
 
     .filters {
       display: flex;
       gap: 8px;
-      align-items: center
+      align-items: center;
     }
 
     .filter-btn {
       background: var(--glass-2);
+      border: 1px solid rgba(255, 255, 255, 0.05);
       border-radius: 10px;
       padding: 6px 10px;
       font-size: 13px;
       color: var(--muted);
-      cursor: pointer
+      cursor: pointer;
     }
 
     /* Product grid */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 16px
+      gap: 16px;
     }
 
     .card {
@@ -171,7 +180,7 @@
       box-shadow: var(--shadow);
       position: relative;
       overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.02)
+      border: 1px solid rgba(255, 255, 255, 0.02);
     }
 
     .thumb {
@@ -181,41 +190,41 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 10px
+      margin-bottom: 10px;
     }
 
     .thumb img {
       max-width: 100%;
       max-height: 100%;
-      object-fit: contain
+      object-fit: contain;
     }
 
     .meta {
       display: flex;
       justify-content: space-between;
-      align-items: center
+      align-items: center;
     }
 
     .title {
-      font-weight: 600
+      font-weight: 600;
     }
 
     .price {
       font-weight: 700;
-      color: var(--accent-2)
+      color: var(--accent-2);
     }
 
     .desc {
       font-size: 13px;
       color: var(--muted);
-      margin-top: 6px
+      margin-top: 6px;
     }
 
     .card-footer {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 12px
+      margin-top: 12px;
     }
 
     .add {
@@ -224,7 +233,8 @@
       border-radius: 10px;
       border: 0;
       color: white;
-      cursor: pointer
+      cursor: pointer;
+      font-weight: 600;
     }
 
     /* Sidebar / cart */
@@ -235,20 +245,20 @@
       border-radius: 16px;
       padding: 16px;
       height: fit-content;
-      border: 1px solid rgba(255, 255, 255, 0.02)
+      border: 1px solid rgba(255, 255, 255, 0.02);
     }
 
     .cart-list {
       display: flex;
       flex-direction: column;
       gap: 12px;
-      margin-top: 10px
+      margin-top: 10px;
     }
 
     .cart-item {
       display: flex;
       gap: 12px;
-      align-items: center
+      align-items: center;
     }
 
     .cart-thumb {
@@ -258,13 +268,13 @@
       background: var(--glass);
       display: flex;
       align-items: center;
-      justify-content: center
+      justify-content: center;
     }
 
     .qty {
       display: flex;
       gap: 6px;
-      align-items: center
+      align-items: center;
     }
 
     .qty button {
@@ -273,7 +283,7 @@
       padding: 6px;
       border-radius: 6px;
       color: var(--muted);
-      cursor: pointer
+      cursor: pointer;
     }
 
     .checkout {
@@ -285,7 +295,7 @@
       color: white;
       width: 100%;
       font-weight: 700;
-      cursor: pointer
+      cursor: pointer;
     }
 
     /* Modal / quick view */
@@ -295,30 +305,33 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(2, 6, 23, 0.6);
+      background: rgba(2, 6, 23, 0.75);
       padding: 20px;
       z-index: 60;
     }
 
     .modal-card {
+      position: relative;
       background: linear-gradient(180deg, #061019, #08111b);
-      padding: 18px;
+      padding: 28px 18px 18px 18px;
       border-radius: 12px;
       max-width: 880px;
       width: 100%;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px
+      gap: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
     }
 
-    .close {
+    .close-modal-btn {
       position: absolute;
-      right: 18px;
-      top: 18px;
+      right: 14px;
+      top: 14px;
       background: transparent;
       border: 0;
       color: var(--muted);
-      cursor: pointer
+      cursor: pointer;
+      font-size: 20px;
     }
 
     /* Empty states */
@@ -327,7 +340,7 @@
       border-radius: 12px;
       text-align: center;
       color: var(--muted);
-      background: var(--glass-2)
+      background: var(--glass-2);
     }
 
     #clearFilters {
@@ -338,9 +351,7 @@
       color: var(--muted);
       cursor: pointer;
       border: none;
-      /* Optional: remove default border */
       transition: background 0.3s, transform 0.2s;
-      /* Optional: for hover effects */
     }
 
     #clearFilters:hover {
@@ -348,58 +359,56 @@
       transform: translateY(-2px);
     }
 
-
     /* Small screens */
     @media (max-width:980px) {
       .app {
-        grid-template-columns: 1fr
+        grid-template-columns: 1fr;
       }
 
       .sidebar {
-        order: 2
+        order: 2;
       }
 
       header {
         flex-direction: column;
         align-items: flex-start;
-        gap: 12px
+        gap: 12px;
       }
 
       .search {
-        min-width: 100%
+        min-width: 100%;
       }
 
       .modal-card {
-        grid-template-columns: 1fr
+        grid-template-columns: 1fr;
       }
     }
 
-    /* Tiny polish */
     a,
     button {
-      font-family: inherit
+      font-family: inherit;
     }
 
     .muted {
       color: var(--muted);
-      font-size: 13px
+      font-size: 13px;
     }
 
     /* animations */
     .fade-up {
       transform: translateY(8px);
       opacity: 0;
-      animation: flyup .45s forwards
+      animation: flyup .45s forwards;
     }
 
     @keyframes flyup {
       to {
         transform: none;
-        opacity: 1
+        opacity: 1;
       }
     }
 
-    /* Toast Notifications styling inside cara.html */
+    /* Toast Notifications styling */
     #toast-container {
       position: fixed;
       top: 24px;
@@ -410,6 +419,7 @@
       z-index: 10000;
       pointer-events: none;
     }
+
     .toast {
       display: flex;
       align-items: center;
@@ -424,19 +434,22 @@
       font-weight: 500;
       box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.2);
       border-left: 4px solid var(--accent);
-      border: 1px solid rgba(255,255,255,0.05);
+      border: 1px solid rgba(255, 255, 255, 0.05);
       pointer-events: all;
       position: relative;
       overflow: hidden;
       animation: toastSlideIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     }
+
     .toast-hiding {
       animation: toastSlideOut 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     }
+
     .toast-msg {
       flex: 1;
       line-height: 1.4;
     }
+
     .toast-close {
       background: none;
       border: none;
@@ -447,10 +460,12 @@
       line-height: 1;
       transition: color 0.2s, transform 0.2s;
     }
+
     .toast-close:hover {
       color: #ffffff;
       transform: scale(1.1);
     }
+
     .toast-progress {
       position: absolute;
       bottom: 0;
@@ -459,54 +474,81 @@
       background: var(--accent);
       animation: toastProgress 4s linear forwards;
     }
-    .toast-success { border-left-color: var(--accent-2); }
-    .toast-success .toast-progress { background: var(--accent-2); }
-    .toast-error { border-left-color: #dc2626; }
-    .toast-error .toast-progress { background: #dc2626; }
+
+    .toast-success {
+      border-left-color: var(--accent-2);
+    }
+
+    .toast-success .toast-progress {
+      background: var(--accent-2);
+    }
+
+    .toast-error {
+      border-left-color: #dc2626;
+    }
+
+    .toast-error .toast-progress {
+      background: #dc2626;
+    }
+
     @keyframes toastSlideIn {
-      from { opacity: 0; transform: translateX(100%); }
-      to { opacity: 1; transform: translateX(0); }
+      from {
+        opacity: 0;
+        transform: translateX(100%);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
+
     @keyframes toastSlideOut {
-      from { opacity: 1; transform: translateX(0); }
-      to { opacity: 0; transform: translateX(100%); }
+      from {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      to {
+        opacity: 0;
+        transform: translateX(100%);
+      }
     }
+
     @keyframes toastProgress {
-      from { width: 100%; }
-      to { width: 0%; }
+      from {
+        width: 100%;
+      }
+
+      to {
+        width: 0%;
+      }
     }
+
     /* Scroll To Top Button */
+    #scrollTopBtn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 55px;
+      height: 55px;
+      border: none;
+      border-radius: 50%;
+      background-color: #088178;
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 999;
+      display: none;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+    }
 
-#scrollTopBtn {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;   /* keeps button on right side */
-
-  width: 55px;
-  height: 55px;
-
-  border: none;
-  border-radius: 50%;
-
-  background-color: #088178;
-  color: white;
-
-  font-size: 24px;
-  font-weight: bold;
-
-  cursor: pointer;
-  z-index: 999;
-
-  display: none;
-
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  transition: all 0.3s ease;
-}
-
-#scrollTopBtn:hover {
-  background-color: #065f5b;
-  transform: scale(1.1);
-}
+    #scrollTopBtn:hover {
+      background-color: #065f5b;
+      transform: scale(1.1);
+    }
   </style>
 </head>
 
@@ -522,20 +564,20 @@
 
     <div class="controls">
       <div class="search" role="search">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
             stroke-linejoin="round" />
         </svg>
         <input id="search" placeholder="Search products, e.g. 'sneakers'" aria-label="Search products" />
       </div>
 
-      <button class="icon-btn" id="sortBtn" title="Sort">
+      <button class="icon-btn" id="sortBtn" title="Sort Products" aria-label="Sort products by price">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
           <path d="M3 6h18M6 12h12M10 18h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
             stroke-linejoin="round" />
         </svg>
       </button>
-      <button class="icon-btn" id="cartBtn" aria-label="Open cart">
+      <button class="icon-btn" id="cartBtn" aria-label="Open cart summary">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
           <path d="M6 6h15l-1.5 9h-12zM6 6L4 2H2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
             stroke-linejoin="round" />
@@ -545,7 +587,7 @@
   </header>
 
   <main class="app" role="main">
-    <section class="catalog">
+    <section class="catalog" aria-label="Product Catalog">
       <div class="toolbar">
         <div>
           <div class="muted">Showing <span id="count">0</span> products</div>
@@ -555,17 +597,16 @@
           </h2>
         </div>
         <div class="filters">
-          <select id="category" class="filter-btn">
+          <select id="category" class="filter-btn" aria-label="Filter by Category">
             <option value="all">All categories</option>
           </select>
-          <select id="priceRange" class="filter-btn">
+          <select id="priceRange" class="filter-btn" aria-label="Filter by Price Range">
             <option value="any">Any price</option>
             <option value="0-25">Under $25</option>
             <option value="25-75">$25–75</option>
             <option value="75-9999">$75+</option>
           </select>
           <button id="clearFilters" class="filter-btn" title="Clear all filters">Clear All Filters</button>
-
         </div>
       </div>
 
@@ -581,7 +622,7 @@
           <h3 style="margin:0">Your Cart</h3>
           <div class="muted">Keep items for later or checkout quickly</div>
         </div>
-        <button id="clearCart" class="icon-btn" title="Clear cart">Clear</button>
+        <button id="clearCart" class="icon-btn" title="Clear entire cart">Clear</button>
       </div>
 
       <div id="cartList" class="cart-list">
@@ -597,45 +638,34 @@
       </div>
     </aside>
   </main>
-  <button id="scrollTopBtn" title="Go to top">
-  ↑
-</button>
 
-  <!-- Quick view modal (hidden by default) -->
+  <button id="scrollTopBtn" title="Go to top" aria-label="Scroll back to top">↑</button>
+
+  <!-- Quick view modal container -->
   <div id="modalRoot" style="display:none"></div>
 
   <script>
-    /* Cara — lightweight product catalogue + cart
-       - Mobile-first
-       - Single-file for quick prototyping
-       - Uses localStorage for cart persistence
-    */
-
     const sampleProducts = [
-      { id: 'c1', title: 'Aero Runner Sneakers', price: 69.00, cat: 'footwear', img: '', desc: 'Lightweight breathable trainers for everyday comfort.' },
-      { id: 'c2', title: 'Nimbus Hoodie', price: 49.00, cat: 'apparel', img: '', desc: 'Cozy oversized hoodie with soft fleece inside.' },
-      { id: 'c3', title: 'Orbit Stainless Bottle', price: 24.50, cat: 'home', img: '', desc: 'Vacuum insulated bottle keeps drinks cold for 24h.' },
-      { id: 'c4', title: 'Willow Leather Wallet', price: 39.99, cat: 'accessories', img: '', desc: 'Slim leather wallet with RFID protection.' },
-      { id: 'c5', title: 'Pixel Case — Phone', price: 19.99, cat: 'accessories', img: '', desc: 'Slim, shock-absorbent case with matte finish.' },
-      { id: 'c6', title: 'Lumen Desk Lamp', price: 89.00, cat: 'home', img: '', desc: 'Minimal lamp with adjustable brightness and color temp.' },
-      { id: 'c7', title: 'Trailpack 30L', price: 129.00, cat: 'bags', img: '', desc: 'Durable daypack with weather-resistant fabric.' },
-      { id: 'c8', title: 'Canvas Sneaker — White', price: 29.99, cat: 'footwear', img: '', desc: 'Casual canvas sneakers made for daily wear.' }
+      { id: 'c1', title: 'Aero Runner Sneakers', price: 69.00, cat: 'footwear', desc: 'Lightweight breathable trainers for everyday comfort.' },
+      { id: 'c2', title: 'Nimbus Hoodie', price: 49.00, cat: 'apparel', desc: 'Cozy oversized hoodie with soft fleece inside.' },
+      { id: 'c3', title: 'Orbit Stainless Bottle', price: 24.50, cat: 'home', desc: 'Vacuum insulated bottle keeps drinks cold for 24h.' },
+      { id: 'c4', title: 'Willow Leather Wallet', price: 39.99, cat: 'accessories', desc: 'Slim leather wallet with RFID protection.' },
+      { id: 'c5', title: 'Pixel Case — Phone', price: 19.99, cat: 'accessories', desc: 'Slim, shock-absorbent case with matte finish.' },
+      { id: 'c6', title: 'Lumen Desk Lamp', price: 89.00, cat: 'home', desc: 'Minimal lamp with adjustable brightness and color temp.' },
+      { id: 'c7', title: 'Trailpack 30L', price: 129.00, cat: 'bags', desc: 'Durable daypack with weather-resistant fabric.' },
+      { id: 'c8', title: 'Canvas Sneaker — White', price: 29.99, cat: 'footwear', desc: 'Casual canvas sneakers made for daily wear.' }
     ];
 
-    // generate simple gradient placeholder images as data URLs
     function placeholderSVG(title) {
       const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400'><defs><linearGradient id='g' x1='0' x2='1' y1='0' y2='1'><stop offset='0' stop-color='%237c3aed'/><stop offset='1' stop-color='%2306b6d4'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23g)' rx='16' /><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Inter, Arial' font-weight='700' font-size='28' fill='white'>${title}</text></svg>`;
       return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
     }
 
-    // populate images
     sampleProducts.forEach(p => p.img = placeholderSVG(p.title));
 
-    // state
     let products = [...sampleProducts];
     let cart = JSON.parse(localStorage.getItem('cara_cart') || '{}');
 
-    // DOM refs
     const grid = document.getElementById('grid');
     const count = document.getElementById('count');
     const cartList = document.getElementById('cartList');
@@ -645,11 +675,14 @@
     const priceRange = document.getElementById('priceRange');
     const modalRoot = document.getElementById('modalRoot');
 
-    // init categories
     const categories = Array.from(new Set(products.map(p => p.cat)));
     categories.forEach(cat => {
-      const opt = document.createElement('option'); opt.value = cat; opt.textContent = cat[0].toUpperCase() + cat.slice(1); categorySelect.appendChild(opt);
+      const opt = document.createElement('option');
+      opt.value = cat;
+      opt.textContent = cat[0].toUpperCase() + cat.slice(1);
+      categorySelect.appendChild(opt);
     });
+
     document.getElementById('clearFilters').addEventListener('click', () => {
       categorySelect.value = 'all';
       priceRange.value = 'any';
@@ -657,21 +690,23 @@
       filterProducts();
     });
 
-
-    // helpers
-    function formatPrice(v) { return '$' + v.toFixed(2) }
+    function formatPrice(v) { return '$' + v.toFixed(2); }
     function saveCart() { localStorage.setItem('cara_cart', JSON.stringify(cart)); }
 
     function renderGrid(items) {
       grid.innerHTML = '';
-      if (!items.length) { document.getElementById('empty').style.display = 'block'; }
-      else document.getElementById('empty').style.display = 'none';
+      if (!items.length) {
+        document.getElementById('empty').style.display = 'block';
+      } else {
+        document.getElementById('empty').style.display = 'none';
+      }
 
       count.textContent = items.length;
       items.forEach(p => {
-        const card = document.createElement('article'); card.className = 'card fade-up';
+        const card = document.createElement('article');
+        card.className = 'card fade-up';
         card.innerHTML = `
-          <div class="thumb" aria-hidden><img src="${p.img}" alt="${p.title}"></div>
+          <div class="thumb" aria-hidden="true"><img src="${p.img}" alt="${p.title}"></div>
           <div class="meta"><div class="title">${p.title}</div><div class="price">${formatPrice(p.price)}</div></div>
           <div class="desc">${p.desc}</div>
           <div class="card-footer">
@@ -682,9 +717,8 @@
         grid.appendChild(card);
       });
 
-      // attach add handlers
       grid.querySelectorAll('.add').forEach(btn => btn.addEventListener('click', e => addToCart(e.target.dataset.id)));
-      grid.querySelectorAll('[data-qv]').forEach(b => b.addEventListener('click', e => quickView(e.target.dataset.qv)));
+      grid.querySelectorAll('[data-qv]').forEach(b => b.addEventListener('click', e => quickView(b.target.dataset.qv)));
     }
 
     function filterProducts() {
@@ -706,24 +740,51 @@
     }
 
     function addToCart(id, qty = 1) {
-      const p = products.find(x => x.id === id); if (!p) return;
-      cart[id] = (cart[id] || 0) + qty; saveCart(); renderCart();
-      // microfeedback
+      const p = products.find(x => x.id === id);
+      if (!p) return;
+      cart[id] = (cart[id] || 0) + qty;
+      saveCart();
+      renderCart();
+      showToast(`${p.title} added to cart!`, 'success');
+
       const btn = document.querySelector(`button.add[data-id='${id}']`);
-      if (btn) { btn.textContent = 'Added ✓'; setTimeout(() => btn.textContent = 'Add to cart', 900) }
+      if (btn) {
+        btn.textContent = 'Added ✓';
+        setTimeout(() => btn.textContent = 'Add to cart', 900);
+      }
     }
 
-    function removeFromCart(id) { delete cart[id]; saveCart(); renderCart(); }
+    function removeFromCart(id) {
+      delete cart[id];
+      saveCart();
+      renderCart();
+    }
 
-    function changeQty(id, delta) { if (!cart[id]) return; cart[id] = Math.max(0, cart[id] + delta); if (cart[id] === 0) delete cart[id]; saveCart(); renderCart(); }
+    function changeQty(id, delta) {
+      if (!cart[id]) return;
+      cart[id] = Math.max(0, cart[id] + delta);
+      if (cart[id] === 0) delete cart[id];
+      saveCart();
+      renderCart();
+    }
 
     function renderCart() {
-      cartList.innerHTML = ''; const ids = Object.keys(cart);
-      if (!ids.length) { cartList.innerHTML = '<div class="muted">Cart is empty</div>'; subtotalEl.textContent = '$0.00'; return; }
+      cartList.innerHTML = '';
+      const ids = Object.keys(cart);
+      if (!ids.length) {
+        cartList.innerHTML = '<div class="muted">Cart is empty</div>';
+        subtotalEl.textContent = '$0.00';
+        return;
+      }
       let total = 0;
       ids.forEach(id => {
-        const p = products.find(x => x.id === id); const q = cart[id]; const line = p.price * q; total += line;
-        const el = document.createElement('div'); el.className = 'cart-item';
+        const p = products.find(x => x.id === id);
+        if (!p) return;
+        const q = cart[id];
+        const line = p.price * q;
+        total += line;
+        const el = document.createElement('div');
+        el.className = 'cart-item';
         el.innerHTML = `
           <div class='cart-thumb'><img src='${p.img}' alt='${p.title}' style='width:100%;height:100%;object-fit:cover;border-radius:6px'/></div>
           <div style='flex:1'>
@@ -734,10 +795,10 @@
             <div style='display:flex;justify-content:space-between;align-items:center;margin-top:6px'>
               <div class='muted' style='font-size:13px'>${formatPrice(p.price)} each</div>
               <div class='qty'>
-                <button data-dec='${id}'>-</button>
-                <div style='min-width:22px;text-align:center'>${q}</div>
-                <button data-inc='${id}'>+</button>
-                <button title='Remove' data-rm='${id}' style='margin-left:6px' class='icon-btn'>✕</button>
+                <button data-dec='${id}' aria-label="Decrease quantity">-</button>
+                <div style='min-width:22px;text-align:center' aria-live="polite">${q}</div>
+                <button data-inc='${id}' aria-label="Increase quantity">+</button>
+                <button title='Remove item' data-rm='${id}' style='margin-left:6px' class='icon-btn'>✕</button>
               </div>
             </div>
           </div>
@@ -746,28 +807,30 @@
       });
       subtotalEl.textContent = formatPrice(total);
 
-      // bind qty handlers
       cartList.querySelectorAll('[data-inc]').forEach(b => b.addEventListener('click', e => changeQty(e.target.dataset.inc, 1)));
       cartList.querySelectorAll('[data-dec]').forEach(b => b.addEventListener('click', e => changeQty(e.target.dataset.dec, -1)));
       cartList.querySelectorAll('[data-rm]').forEach(b => b.addEventListener('click', e => removeFromCart(e.target.dataset.rm)));
     }
 
     function quickView(id) {
-      const p = products.find(x => x.id === id); if (!p) return;
+      const p = products.find(x => x.id === id);
+      if (!p) return;
       modalRoot.style.display = 'block';
       modalRoot.innerHTML = `
-        <div class='modal' role='dialog' aria-modal='true'>
+        <div class='modal' role='dialog' aria-modal='true' aria-labelledby="modalTitle">
           <div class='modal-card'>
+            <button id='closeModal' class='close-modal-btn' aria-label="Close modal">&times;</button>
             <div style='display:flex;flex-direction:column;gap:12px'>
-              <div style='border-radius:10px;overflow:hidden'><img src='${p.img}' alt='${p.title}' style='width:100%;height:320px;object-fit:cover;display:block'/></div>
+              <div style='border-radius:10px;overflow:hidden'>
+                <img src='${p.img}' alt='${p.title}' style='width:100%;height:320px;object-fit:cover;display:block'/>
+              </div>
               <div style='display:flex;gap:8px;align-items:center'>
                 <button class='add' data-id='${p.id}'>Add to cart</button>
-                <button id='closeModal' class='icon-btn'>Close</button>
               </div>
             </div>
             <div>
-              <h3 style='margin-top:0'>${p.title}</h3>
-              <div class='muted'>${p.cat}</div>
+              <h3 id="modalTitle" style='margin-top:0'>${p.title}</h3>
+              <div class='muted'>Category: ${p.cat}</div>
               <div style='font-size:20px;font-weight:800;margin-top:8px'>${formatPrice(p.price)}</div>
               <p class='muted' style='margin-top:12px'>${p.desc}</p>
               <hr style='border-color:rgba(255,255,255,0.03);margin:14px 0'/>
@@ -777,37 +840,31 @@
         </div>
       `;
 
-      // events
       modalRoot.querySelector('#closeModal').addEventListener('click', closeModal);
       modalRoot.querySelector('.add').addEventListener('click', e => { addToCart(e.target.dataset.id); closeModal(); });
       modalRoot.querySelector('.modal').addEventListener('click', (ev) => { if (ev.target.classList.contains('modal')) closeModal(); });
     }
+    
     function closeModal() { modalRoot.style.display = 'none'; modalRoot.innerHTML = ''; }
 
-    // sort toggle
     document.getElementById('sortBtn').addEventListener('click', () => {
-      // simple toggle: price asc / desc
       const asc = document.body.dataset.sort === 'asc';
       products.sort((a, b) => asc ? b.price - a.price : a.price - b.price);
       document.body.dataset.sort = asc ? 'desc' : 'asc';
       filterProducts();
     });
 
-    // cart button scrolls to cart
     document.getElementById('cartBtn').addEventListener('click', () => {
       document.querySelector('.sidebar').scrollIntoView({ behavior: 'smooth' });
     });
 
-    // search debounce
     let t;
     searchInput.addEventListener('input', () => { clearTimeout(t); t = setTimeout(filterProducts, 220); });
     categorySelect.addEventListener('change', filterProducts);
     priceRange.addEventListener('change', filterProducts);
 
-    // clear cart
     document.getElementById('clearCart').addEventListener('click', () => { cart = {}; saveCart(); renderCart(); });
 
-    // toast notification system helper
     function showToast(message, type = 'success') {
       let container = document.getElementById('toast-container');
       if (!container) {
@@ -823,63 +880,57 @@
         <div class="toast-progress"></div>
       `;
       toast.querySelector('.toast-msg').textContent = message;
-      toast.querySelector('.toast-close').addEventListener('click', () => {
-        dismissToast(toast);
-      });
+      toast.querySelector('.toast-close').addEventListener('click', () => dismissToast(toast));
       container.appendChild(toast);
-      setTimeout(() => { dismissToast(toast); }, 4000);
+      
+      const timer = setTimeout(() => { dismissToast(toast); }, 4000);
+      toast.dataset.timerId = timer;
     }
+    
     function dismissToast(toast) {
       if (!toast || toast.classList.contains('toast-hiding')) return;
+      clearTimeout(toast.dataset.timerId);
       toast.classList.add('toast-hiding');
       toast.addEventListener('animationend', () => { toast.remove(); });
     }
 
-    // checkout (demo)
     document.getElementById('checkout').addEventListener('click', () => {
       if (!Object.keys(cart).length) {
         showToast('Your cart is empty — add items to checkout.', 'error');
         return;
       }
-      const items = Object.entries(cart).map(([id, q]) => ({ id, q }));
       showToast('Checkout successful! Demo order processed.', 'success');
     });
 
-    // init render
     renderGrid(products);
     renderCart();
 
-    // accessibility: keyboard shortcut "/" to focus search
     window.addEventListener('keydown', e => { if (e.key === '/') { e.preventDefault(); searchInput.focus(); } });
 
-    // lightweight analytics (no external calls) — track product views in session
+    // Track active views securely fixing dataset target mapping issues
     const views = {};
     grid.addEventListener('click', e => {
-      const card = e.target.closest('.card');
-      if (card) { const id = card.querySelector('[data-id]')?.dataset?.id; if (id) views[id] = (views[id] || 0) + 1; }
+      const targeted = e.target.closest('[data-id], [data-qv]');
+      if (targeted) {
+        const id = targeted.dataset.id || targeted.dataset.qv;
+        if (id) views[id] = (views[id] || 0) + 1;
+      }
     });
 
-    // expose functions for debugging in console
     window.__cara = { products, cart, addToCart, removeFromCart };
   </script>
   <script>
-  const scrollBtn = document.getElementById("scrollTopBtn");
-
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 300) {
-      scrollBtn.style.display = "block";
-    } else {
-      scrollBtn.style.display = "none";
-    }
-  });
-
-  scrollBtn.addEventListener("click", () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
+    const scrollBtn = document.getElementById("scrollTopBtn");
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) {
+        scrollBtn.style.display = "block";
+      } else {
+        scrollBtn.style.display = "none";
+      }
     });
-  });
-</script>
+    scrollBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
 </body>
-
 </html>
