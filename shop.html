@@ -67,6 +67,7 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="shop.css" />
+    <link rel="stylesheet" href="product-search.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
       rel="stylesheet"
@@ -192,16 +193,13 @@
             <i class="ri-search-line"></i>
           </button>
         </div>
-        <div id="searchSuggestions" class="search-suggestions" aria-live="polite"></div>
       </div>
       <div class="filter-container">
-        <label for="categoryFilter">Filter by Category:</label>
-        <select id="categoryFilter">
-          <option value="all">All Products</option>
-          <option value="street">Street Style</option>
-          <option value="minimal">Minimal</option>
-          <option value="formal">Formal</option>
-        </select>
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="men">Men</button>
+        <button class="filter-btn" data-filter="women">Women</button>
+        <button class="filter-btn" data-filter="kids">Kids</button>
+        <button class="filter-btn" data-filter="accessories">Accessories</button>
       </div>
       <div class="search-summary">
         <span id="searchCount">16 products</span>
@@ -225,7 +223,11 @@
       </div>
 
         <div class="pro-container">
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <div id="noResultsMsg" style="display: none;">
+                <i class="ri-search-line" style="font-size: 2rem; color: #ccc;"></i>
+                <p>No products found matching your search.</p>
+            </div>
+            <div class="pro" data-category="men" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/f1.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
@@ -243,7 +245,7 @@
                     onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/f1.jpg', 1, 'M')"><i
                         class="ri-shopping-cart-2-line"></i></a>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <div class="pro" data-category="women" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/f2.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
@@ -261,7 +263,7 @@
                     onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/f2.jpg', 1, 'M')"><i
                         class="ri-shopping-cart-2-line"></i></a>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <div class="pro" data-category="kids" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/f3.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
@@ -279,7 +281,7 @@
                     onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/f3.jpg', 1, 'M')"><i
                         class="ri-shopping-cart-2-line"></i></a>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <div class="pro" data-category="accessories" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/f4.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
@@ -297,7 +299,7 @@
                     onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/f4.jpg', 1, 'M')"><i
                         class="ri-shopping-cart-2-line"></i></a>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <div class="pro" data-category="men" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/f5.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
@@ -315,7 +317,7 @@
                     onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/f5.jpg', 1, 'M')"><i
                         class="ri-shopping-cart-2-line"></i></a>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <div class="pro" data-category="women" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/f6.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
@@ -333,7 +335,7 @@
                     onclick="addToCart('Cartoon Astronaut T-Shirts', '$78', 'images/products/f6.jpg', 1, 'M')"><i
                         class="ri-shopping-cart-2-line"></i></a>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <div class="pro" data-category="kids" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/f7.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
@@ -349,7 +351,7 @@
                 </div>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <div class="pro" data-category="accessories" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/f8.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
@@ -365,7 +367,7 @@
                 </div>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <div class="pro" data-category="men" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/n1.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
@@ -381,7 +383,7 @@
                 </div>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <div class="pro" data-category="women" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/n2.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
@@ -397,7 +399,7 @@
                 </div>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <div class="pro" data-category="kids" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/n3.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
@@ -413,7 +415,7 @@
                 </div>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <div class="pro" data-category="accessories" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/n4.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
@@ -429,7 +431,7 @@
                 </div>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <div class="pro" data-category="men" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/n5.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
@@ -445,7 +447,7 @@
                 </div>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <div class="pro" data-category="women" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/n6.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
@@ -461,7 +463,7 @@
                 </div>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <div class="pro" data-category="kids" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/n7.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
@@ -477,7 +479,7 @@
                 </div>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <div class="pro" data-category="accessories" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/n8.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
@@ -493,7 +495,7 @@
                 </div>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <div class="pro" data-category="men" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/f1.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
@@ -509,7 +511,7 @@
                 </div>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <div class="pro" data-category="women" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/f2.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
@@ -525,7 +527,7 @@
                 </div>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <div class="pro" data-category="kids" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/f3.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
@@ -541,7 +543,7 @@
                 </div>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <div class="pro" data-category="accessories" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/f4.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
@@ -557,7 +559,7 @@
                 </div>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <div class="pro" data-category="men" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/f5.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
@@ -573,7 +575,7 @@
                 </div>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <div class="pro" data-category="women" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/f6.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
@@ -589,7 +591,7 @@
                 </div>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <div class="pro" data-category="kids" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/f7.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
@@ -605,7 +607,7 @@
                 </div>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <div class="pro" data-category="accessories" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/f8.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
@@ -621,7 +623,7 @@
                 </div>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <div class="pro" data-category="men" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/n1.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
@@ -637,7 +639,7 @@
                 </div>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <div class="pro" data-category="women" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/n2.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
@@ -653,7 +655,7 @@
                 </div>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <div class="pro" data-category="kids" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/n3.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
@@ -669,7 +671,7 @@
                 </div>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <div class="pro" data-category="accessories" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/n4.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
@@ -685,7 +687,7 @@
                 </div>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <div class="pro" data-category="men" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/n5.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
@@ -701,7 +703,7 @@
                 </div>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <div class="pro" data-category="women" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/n6.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
@@ -717,7 +719,7 @@
                 </div>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <div class="pro" data-category="kids" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/n7.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
@@ -733,7 +735,7 @@
                 </div>
                 <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
-            <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <div class="pro" data-category="accessories" onclick="window.location.href='singleProduct.html';">
                 <img src="images/products/n8.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
@@ -868,13 +870,8 @@
     <script src="app.js?v=1779120917219"></script>
     <script src="navbar.js"></script>
     <script>loadNavbar('shop');</script>
-    <!-- Corrected  -->
-    <script id="Current-Year">
-        const year = new Date().getFullYear();
-        for (let el of document.querySelectorAll(".Current-Year")) {
-            el.textContent = year;
-        }
-    </script>
-    <div id="toast-container"></div>
+    <!-- Scripts -->
+    <script src="app.js"></script>
+    <script src="product-search.js"></script>
   </body>
 </html>

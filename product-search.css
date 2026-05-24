@@ -1,0 +1,143 @@
+/* Product Search & Filter Styles */
+#search-filter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 80px;
+    gap: 20px;
+}
+
+.search-container {
+    width: 100%;
+    max-width: 600px;
+    position: relative;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 1px solid #e1e1e1;
+    border-radius: 50px;
+    padding: 5px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease;
+}
+
+body.dark-mode .search-box {
+    background: #1a1a1a;
+    border-color: #333;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.search-box:focus-within {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    border-color: #088178;
+}
+
+body.dark-mode .search-box:focus-within {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+    border-color: #088178;
+}
+
+.search-box input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 10px;
+    font-size: 16px;
+    background: transparent;
+    color: #111;
+}
+
+body.dark-mode .search-box input {
+    color: #f1f1f1;
+}
+
+.search-box button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #666;
+    padding: 5px;
+    transition: color 0.3s ease;
+}
+
+body.dark-mode .search-box button {
+    color: #aaa;
+}
+
+.search-box button:hover {
+    color: #088178;
+}
+
+.clear-btn {
+    margin-right: 10px;
+}
+
+.filter-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.filter-btn {
+    background: transparent;
+    border: 1px solid #088178;
+    color: #088178;
+    padding: 8px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.filter-btn:hover, .filter-btn.active {
+    background: #088178;
+    color: #fff;
+}
+
+.search-summary {
+    color: #666;
+    font-size: 14px;
+    align-self: flex-start;
+}
+
+body.dark-mode .search-summary {
+    color: #aaa;
+}
+
+#noResultsMsg {
+    text-align: center;
+    width: 100%;
+    padding: 40px;
+    font-size: 18px;
+    color: #666;
+    display: none;
+}
+
+body.dark-mode #noResultsMsg {
+    color: #aaa;
+}
+
+@media (max-width: 799px) {
+    #search-filter {
+        padding: 20px 40px;
+    }
+}
+
+@media (max-width: 477px) {
+    #search-filter {
+        padding: 20px;
+    }
+    .search-box {
+        padding: 5px 15px;
+    }
+    .filter-btn {
+        padding: 6px 15px;
+        font-size: 13px;
+    }
+}
