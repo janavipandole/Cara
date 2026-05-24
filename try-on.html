@@ -52,10 +52,19 @@
             :root {
     --accent: #088178;
     --text-primary: #333;
+    --text-secondary: #6b7280;
     --bg-secondary: #f5f5f5;
     --card-bg: #ffffff;
     --border-color: #ddd;
-}
+    }
+
+    body[data-theme="dark"]{
+    --text-primary: #f3f4f6;
+    --text-secondary: #d1d5db;
+    --bg-secondary: #111827;
+    --card-bg: #1f2937;
+    --border-color: #374151;
+    }
         /* ============================================
            VIRTUAL TRY-ON PAGE STYLES
            ============================================ */
@@ -471,8 +480,8 @@
         }
 
         .share-btn {
-            background: white;
-            color: var(--accent);
+            background: var(--card-bg);
+            color: var(--text-primary);
             border: none;
             padding: 10px 18px;
             border-radius: 5px;

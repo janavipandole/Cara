@@ -66,6 +66,7 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="shop.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
       rel="stylesheet"
@@ -80,98 +81,121 @@
   </head>
 
   <body>
-    <section id="header">
+    <!-- HEADER -->
+          <section id="header">
   <!-- Logo -->
   <a href="index.html">
     <img src="images/logo.png" alt="Cara Logo" />
   </a>
 
-  <div>
-    <ul id="navbar">
+      <div>
+        <ul id="navbar">
+          <!-- Main Navigation Links -->
+          <li><a href="index.html">Home</a></li>
+          <li><a class="active" href="shop.html">Shop</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="try-on.html">Try-On</a></li>
+          <li><a href="community.html">Community</a></li>
+          <li><a href="promotions.html">Promotions</a></li>
 
-      <!-- Main Navigation Links -->
-      <li><a href="index.html">Home</a></li>
-      <li><a class="active" href="shop.html">Shop</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="try-on.html">Try-On</a></li>
-      <li><a href="community.html">Community</a></li>
-      <li><a href="promotions.html">Promotions</a></li>
+          <!-- Contact Icon -->
+          <li class="nav-icon">
+            <a href="contact.html" aria-label="Contact">
+              <i class="ri-customer-service-2-line"></i>
+            </a>
+          </li>
 
-      <!-- Contact Icon -->
-      <li class="nav-icon">
-        <a href="contact.html" aria-label="Contact">
-          <i class="ri-customer-service-2-line"></i>
-        </a>
-      </li>
+          <!-- Login Icon -->
+          <li class="nav-icon">
+            <a href="login.html" aria-label="Login">
+              <i class="ri-user-3-line"></i>
+            </a>
+          </li>
 
-      <!-- Login Icon -->
-      <li class="nav-icon">
+          <!-- Cart Icon -->
+          <li class="nav-icon">
+            <a href="cart.html" id="lg-bag" aria-label="Cart">
+              <i class="ri-shopping-bag-4-line"></i>
+            </a>
+          </li>
+
+          <!-- Theme Toggle -->
+          <li class="nav-icon">
+            <button
+              class="theme-toggle"
+              id="themeToggle"
+              aria-label="Toggle dark mode"
+            >
+              <i class="ri-moon-line" id="themeIcon"></i>
+            </button>
+          </li>
+
+          <!-- Close Button -->
+          <a href="#" id="close" aria-label="Close menu" aria-hidden="false">
+            <i class="fa-solid fa-xmark"></i>
+          </a>
+        </ul>
+      </div>
+
+      <!-- Mobile Navbar -->
+      <div class="mobile">
+        <!-- Login Icon -->
         <a href="login.html" aria-label="Login">
           <i class="ri-user-3-line"></i>
         </a>
-      </li>
 
-      <!-- Cart Icon -->
-      <li class="nav-icon">
-        <a href="cart.html" id="lg-bag" aria-label="Cart">
+        <!-- Cart Icon -->
+        <a href="cart.html" aria-label="Cart">
           <i class="ri-shopping-bag-4-line"></i>
         </a>
-      </li>
 
-      <!-- Theme Toggle -->
-      <li class="nav-icon">
-        <button
-          class="theme-toggle"
-          id="themeToggle"
-          aria-label="Toggle dark mode"
-        >
-          <i class="ri-moon-line" id="themeIcon"></i>
-        </button>
-      </li>
-
-      <!-- Close Button -->
-      <a
-        href="#"
-        id="close"
-        aria-label="Close menu"
-        aria-hidden="false"
-      >
-        <i class="fa-solid fa-xmark"></i>
-      </a>
-
-    </ul>
-  </div>
-
-  <!-- Mobile Navbar -->
-  <div class="mobile">
-
-    <!-- Login Icon -->
-    <a href="login.html" aria-label="Login">
-      <i class="ri-user-3-line"></i>
-    </a>
-
-    <!-- Cart Icon -->
-    <a href="cart.html" aria-label="Cart">
-      <i class="ri-shopping-bag-4-line"></i>
-    </a>
-
-    <!-- Hamburger Menu -->
-    <i
-      class="fas fa-outdent"
-      id="bar"
-      role="button"
-      aria-label="Open menu"
-      aria-expanded="false"
-      tabindex="0"
-    ></i>
-
-  </div>
-</section>
+        <!-- Hamburger Menu -->
+        <i
+          class="fas fa-outdent"
+          id="bar"
+          role="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+          tabindex="0"
+        ></i>
+      </div>
+    </section>
 
     <section id="shop-hero">
       <h2>#stayhome</h2>
       <p>Save more with coupons & up to 70% off!</p>
+    </section>
+
+    <!-- Search and Filter moved here so it's visible at top of shop page -->
+    <section id="search-filter" class="section-p1">
+      <div class="search-container">
+        <div class="search-box">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search products by name or brand..."
+            autocomplete="off"
+            aria-label="Search products"
+          />
+          <button id="searchBtn" aria-label="Search">
+            <i class="ri-search-line"></i>
+          </button>
+        </div>
+        <div id="searchSuggestions" class="search-suggestions" aria-live="polite"></div>
+      </div>
+      <div class="filter-container">
+        <label for="categoryFilter">Filter by Category:</label>
+        <select id="categoryFilter">
+          <option value="all">All Products</option>
+          <option value="street">Street Style</option>
+          <option value="minimal">Minimal</option>
+          <option value="formal">Formal</option>
+        </select>
+      </div>
+      <div class="search-summary">
+        <span id="searchCount">16 products</span>
+      </div>
     </section>
 
     <section id="product1" class="section-p1">
@@ -181,7 +205,7 @@
           Sort by price
         </label>
         <div class="sort-select-wrap">
-          <select id="sort-price">
+          <select id="sort-price" class="sort-dropdown">
             <option value="default">Default Sorting</option>
             <option value="low-high">Price: Low to High</option>
             <option value="high-low">Price: High to Low</option>
@@ -720,43 +744,7 @@
           <div class="pro-container" id="shop-container"></div>
         </section>   
     
-        <!-- Search and Filter Section -->
-    <div class="top-section">
-
-      <section id="search-filter" class="section-p1">
-        <div class="search-container">
-          <div class="search-box">
-            <input
-              type="text"
-              id="searchInput"
-              placeholder="Search products by name or brand..."
-              autocomplete="off"
-              aria-label="Search products"
-            />
-            <button id="searchBtn" aria-label="Search">
-              <i class="ri-search-line"></i>
-            </button>
-          </div>
-          <div
-            id="searchSuggestions"
-            class="search-suggestions"
-            aria-live="polite"
-          ></div>
-        </div>
-        <div class="filter-container">
-          <label for="categoryFilter">Filter by Category:</label>
-          <select id="categoryFilter">
-            <option value="all">All Products</option>
-            <option value="street">Street Style</option>
-            <option value="minimal">Minimal</option>
-            <option value="formal">Formal</option>
-          </select>
-        </div>
-        <div class="search-summary">
-          <span id="searchCount">16 products</span>
-        </div>
-      </section>
-
+        
       <section id="newsletter" class="section-p1">
         <div class="newstext">
           <h4>Sign Up For Newsletters</h4>
@@ -818,6 +806,7 @@
         <div class="col">
           <h4>My Account</h4>
           <a href="login.html">Sign In</a>
+          <a href="#" id="logout-btn" style="display:none">Logout</a>
           <a href="cart.html">View Cart</a> <a href="#">My Wishlist</a>
           <a href="track-order.html">Track My Order</a>
           <a href="contact.html">Help</a>

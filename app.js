@@ -217,8 +217,12 @@ function addToCart(productName, productPrice, productImage, quantity, size) {
         price: parsePriceString(productPrice),
         image: productImage,
         quantity: parsedQty,
-        size: size.replace('Size ', '')
+        size: size ? size.replace('Size','') : null 
     };
+     if (!item.size) {
+    console.log("Size missing, not adding to cart");
+    return;
+}
 
     let existingItem = cart.find(p => p.name === item.name && p.size === item.size);
 
@@ -256,9 +260,10 @@ function showToast(message, type) {
     toast.className = 'toast toast-' + type;
     toast.innerHTML =
         '<i class="fa-solid ' + (icons[type] || icons.success) + ' toast-icon"></i>' +
-        '<span class="toast-msg">' + message + '</span>' +
+        '<span class="toast-msg"></span>' +
         '<button class="toast-close" aria-label="Close notification">&times;</button>' +
         '<div class="toast-progress"></div>';
+    toast.querySelector('.toast-msg').textContent = message;
 
     // Close button handler
     toast.querySelector('.toast-close').addEventListener('click', function() {
@@ -586,78 +591,57 @@ document.addEventListener('DOMContentLoaded', () => {
 /* --- END: CART FUNCTIONALITY --- */
 
 /* --- START: THEME TOGGLE FUNCTIONALITY --- */
+/* --- START: THEME TOGGLE FUNCTIONALITY --- */
 
 (function () {
     const html = document.documentElement;
 
-    // Apply saved theme on load
-    const currentTheme = localStorage.getItem('theme') || 'light';
-    html.setAttribute('data-theme', currentTheme);
-    if (currentTheme === 'dark') {
-        document.body.classList.add('dark');
-    } else {
-        document.body.classList.remove('dark');
-    }
+    // Apply the saved theme immediately when script runs so there is no
+    // flash of the wrong theme while the page loads.
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', savedTheme);
 
-    // Run dynamic icon and logo updates
-    setTimeout(() => {
-        updateThemeIcon(currentTheme);
-    }, 0);
-
+    // Updates the sun/moon icon and the logo image to match the active theme.
     function updateThemeIcon(theme) {
         const iconClass = theme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
-        
-        // Find elements dynamically since they could be injected after this runs
+
         const themeIcon = document.getElementById('themeIcon');
         const themeIconMobile = document.getElementById('themeIconMobile');
-        
+
         if (themeIcon) themeIcon.className = iconClass;
         if (themeIconMobile) themeIconMobile.className = iconClass;
 
-        // Swap logo based on theme
         const siteLogo = document.getElementById('siteLogo');
         if (siteLogo) {
             siteLogo.src = theme === 'dark' ? 'images/Dlogo.png' : 'images/logo.png';
         }
     }
 
+    // Switches between dark and light and persists the choice.
     function toggleTheme() {
-        const currentTheme = html.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        
+        const currentTheme = html.getAttribute('data-theme') || 'light';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark'; // fixed: was 'light' ? 'light' : 'dark'
         html.setAttribute('data-theme', newTheme);
-        if (newTheme === 'dark') {
-            document.body.classList.add('dark');
-        } else {
-            document.body.classList.remove('dark');
-        }
-        
         localStorage.setItem('theme', newTheme);
         updateThemeIcon(newTheme);
     }
 
-    // Event Delegation: Automatically listens to clicks on static AND dynamic buttons!
-    document.addEventListener('click', (e) => {
-        if (e.target && (e.target.closest('#themeToggle') || e.target.closest('#themeToggleMobile'))) {
+    // app.js loads at the bottom of <body> so the DOM is already parsed —
+    // update the icon immediately without waiting for DOMContentLoaded.
+    updateThemeIcon(savedTheme);
+
+    // Use event delegation so the handler works even if the button is
+    // injected into the page dynamically after this script runs.
+    document.addEventListener('click', function (e) {
+        if (!e.target) return;
+        if (e.target.closest('#themeToggle') || e.target.closest('#themeToggleMobile')) {
             e.preventDefault();
             toggleTheme();
         }
     });
-
-    // Watch for dynamic navbar insertions (MutationObserver) to instantly apply correct icon and logo styles
-    if (typeof MutationObserver !== 'undefined') {
-        const observer = new MutationObserver(() => {
-            const activeTheme = html.getAttribute('data-theme') || 'light';
-            updateThemeIcon(activeTheme);
-        });
-        observer.observe(document.body, { childList: true, subtree: true });
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const activeTheme = html.getAttribute('data-theme') || 'light';
-        updateThemeIcon(activeTheme);
-    });
 })();
+
+/* --- END: THEME TOGGLE FUNCTIONALITY --- */
 
 /* --- END: THEME TOGGLE FUNCTIONALITY --- */
 
@@ -870,6 +854,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const performSearch = () => {
             const searchTerm = searchInput.value.toLowerCase().trim();
             const selectedCategory = categoryFilter ? categoryFilter.value : 'all';
+           
+            // Reset all products visible before filtering the full set
+           
+            document.querySelectorAll('.pro').forEach(p => p.style.display = 'block');
             const products = document.querySelectorAll('.pro');
             let visibleCount = 0;
             
@@ -887,6 +875,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 } else {
                     product.style.display = 'none';
                 }
+
+                // Reset to page 1 so filtered results start from beginning
+                if (typeof window._showShopPage === 'function') {
+                window._showShopPage(1);
+                }
+
             });
 
             // Handle "No matching products found" UI
@@ -899,9 +893,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         <div class="no-results-content">
                             <i class="ri-search-line"></i>
                             <h3>No matching products found</h3>
-                            <p>We couldn't find any products matching "${searchInput.value}". Please try a different search term or change your category filter.</p>
+                            <p></p>
                         </div>
                     `;
+                    noResultsMsg.querySelector('p').textContent = `We couldn't find any products matching "${searchInput.value}". Please try a different search term or change your category filter.`;
                     const container = document.getElementById('shop-container');
                     if (container) {
                         container.appendChild(noResultsMsg);
@@ -1436,11 +1431,10 @@ function showToast(message, type) {
     '<i class="fa-solid ' +
     (icons[type] || icons.success) +
     ' toast-icon"></i>' +
-    '<span class="toast-msg">' +
-    message +
-    '</span>' +
+    '<span class="toast-msg"></span>' +
     '<button class="toast-close" aria-label="Close notification">&times;</button>' +
     '<div class="toast-progress"></div>';
+  toast.querySelector('.toast-msg').textContent = message;
 
   // Close button handler
   toast.querySelector('.toast-close').addEventListener('click', function () {
@@ -1907,7 +1901,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function showPage(pageNumber) {
+  window._showShopPage = function showPage(pageNumber) {
     allProducts.forEach((product) => {
       product.style.display = 'none';
     });
@@ -2220,22 +2214,27 @@ document.addEventListener('DOMContentLoaded', () => {
 /* --- END: CURRENT YEAR FUNCTIONALITY --- */
 const topBtn = document.getElementById("topBtn");
 
-    // Show button when user scrolls down
-    window.onscroll = function () {
-      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-        topBtn.style.display = "block";
-      } else {
-        topBtn.style.display = "none";
-      }
-    };
+window.onscroll = function () {
+  if (!topBtn) return;
 
-    // Scroll to top smoothly
-    topBtn.addEventListener("click", function () {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
+  if (
+    document.body.scrollTop > 200 ||
+    document.documentElement.scrollTop > 200
+  ) {
+    topBtn.style.display = "block";
+  } else {
+    topBtn.style.display = "none";
+  }
+};
+
+if (topBtn) {
+  topBtn.addEventListener("click", function () {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
     });
+  });
+}
 
 /* ========================================================
    COLLABORATIVE WARDROBE SHARING ENGINE

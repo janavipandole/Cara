@@ -118,11 +118,11 @@
             <input type="email" id="loginEmail" class="input-field" placeholder="example@domain.com" required>
         </div>
         
-        <div class="input-group password-group">
+        <div class="input-group password-group" style="position: relative;">
             <label for="loginPassword">Password</label>
-            <input type="password" id="loginPassword" class="input-field" placeholder="••••••••" required>
-            <button type="button" id="togglePassword" class="toggle_password">
-                <i class="ri-eye-line"></i>
+            <input type="password" id="loginPassword" class="input-field" placeholder="••••••••" required style="padding-right: 45px; width: 100%;">
+            <button type="button" id="togglePassword" class="toggle_password" style="position: absolute; right: 10px; top: 38px; background: none; border: none; cursor: pointer; color: #666; font-size: 18px;">
+                <i class="ri-eye-line" id="toggleIcon"></i>
             </button>
         </div>
         
