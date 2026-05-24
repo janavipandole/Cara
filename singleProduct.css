@@ -418,3 +418,18 @@
 
     transition: 0.2s ease;
 }
+
+/* Featured Products 2x2 grid on singleProduct page */
+#product1 .pro-container {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 30px !important;
+    max-width: 700px !important;
+    margin: 0 auto !important;
+}
+
+@media (max-width: 600px) {
+    #product1 .pro-container {
+        grid-template-columns: 1fr !important;
+    }
+}

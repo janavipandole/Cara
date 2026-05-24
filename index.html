@@ -62,12 +62,8 @@
     body {
       font-family: Arial, sans-serif;
       margin: 0;
-      padding: 20px;
+      padding: 0;
       line-height: 1.8;
-    }
-
-    .content {
-      height: 2000px;
     }
 
     /* Scroll Button */
@@ -89,12 +85,18 @@
     #topBtn:hover {
       background-color: #555;
     }
+
     /* Critical Fix */
     .theme-toggle {
       pointer-events: all !important;
     }
 
-
+    /* Header search bar — placed inside #header */
+    #header .search-container {
+      flex: 1;
+      max-width: 380px;
+      margin: 0 24px;
+    }
   </style>
 </head>
 
@@ -108,13 +110,18 @@
           <div id="navbar-container"></div>
 
           <div class="mobile">
-            <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
-            <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
+            <a href="cart.html" style="position: relative; display: inline-block; margin-right: 15px;">
+              <i class="ri-shopping-bag-4-line"></i>
+              <span id="mobileCartCount" class="cart-count hidden">0</span>
+            </a>
+            <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false"
+              tabindex="0"></i>
           </div>
         </section>
 
         <main>
         <section id="hero" class="hero-slider">
+          <div class="slides-wrapper">
 
           <!-- Slide 1 -->
           <div class="slide active" style="background-image: url('images/hero4.png');">
@@ -228,6 +235,7 @@
 
             </div>
           </div>
+          </div>
 
           <!-- Slider Controls -->
           <button class="slider-btn prev" aria-label="Previous Slide">
@@ -286,6 +294,19 @@
   <section id="product1" class="section-p1">
     <h2>Featured Product</h2>
     <p>Summer Collection New Modern Design</p>
+
+    <!-- Search bar for products -->
+    <div class="search-container" style="margin: 20px auto; max-width: 400px; display: flex; align-items: center; background: var(--bg-secondary); border: 1px solid var(--border-color); padding: 8px 16px; border-radius: 30px;">
+      <input
+        type="text"
+        id="searchBar"
+        placeholder="Search products..."
+        aria-label="Search products"
+        style="border: none; outline: none; background: transparent; width: 100%; color: var(--text-primary); font-size: 15px;"
+      />
+      <i class="ri-search-line" style="color:var(--text-secondary);font-size:18px; margin-left: 8px;"></i>
+    </div>
+
     <div class="pro-container">
 
       <div class="pro" data-category="street">
@@ -848,10 +869,10 @@ searchBar.addEventListener("keyup", function() {
       .toLowerCase();
 
     if(productName.includes(input)){
-      product.style.display = "block";
+      product.style.setProperty('display', 'flex', 'important');
     }
     else{
-      product.style.display = "none";
+      product.style.setProperty('display', 'none', 'important');
     }
 
   });

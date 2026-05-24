@@ -25,8 +25,16 @@ document.addEventListener("click", function (e) {
     const proCard = e.target.closest(".pro");
     if (!proCard) return;
 
-    // Ignore clicks on cart icon or buy now button inside the card
-    if (e.target.closest(".cart") || e.target.closest(".buy-now-btn")) return;
+    // Ignore clicks on cart icon, buy now, cart buttons, or Quick View overlay
+    if (
+        e.target.closest(".cart") ||
+        e.target.closest(".buy-now-btn") ||
+        e.target.closest(".pro-buy-btn") ||
+        e.target.closest(".pro-cart-btn") ||
+        e.target.closest(".pro-action-bar") ||
+        e.target.closest(".pro-quick-view-btn") ||
+        e.target.closest(".pro-quick-view-overlay")
+    ) return;
 
     const nameElement = proCard.querySelector("h5");
     const priceElement = proCard.querySelector("h4");
@@ -206,22 +214,32 @@ function handleEmptyCartView() {
 }
 
 function addToCart(productName, productPrice, productImage, quantity, size) {
-    let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+    let cart = [];
+    try {
+        cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+        if (!Array.isArray(cart)) cart = [];
+    } catch (e) { cart = []; }
+
     let parsedQty = parseInt(quantity);
     if (isNaN(parsedQty) || parsedQty < 1) parsedQty = 1;
+
+    // Normalize size: trim whitespace and strip any leading "Size " prefix
+    let normalizedSize = size ? String(size).trim().replace(/^Size\s*/i, '') : '';
+
+    if (!normalizedSize) {
+        showToast('Please select a size before adding to cart!', 'warning');
+        return;
+    }
+
     let item = {
         name: productName,
         price: parsePriceString(productPrice),
         image: productImage,
         quantity: parsedQty,
-        size: size ? size.replace('Size','') : null 
+        size: normalizedSize
     };
-     if (!item.size) {
-    return;
-}
 
     let existingItem = cart.find(p => p.name === item.name && p.size === item.size);
-
     if (existingItem) {
         existingItem.quantity += item.quantity;
     } else {
@@ -229,8 +247,8 @@ function addToCart(productName, productPrice, productImage, quantity, size) {
     }
 
     localStorage.setItem('productsInCart', JSON.stringify(cart));
-    showToast(`${item.name} (Size: ${item.size}) added to cart!`);
-    updateCartCount(); // Update badge
+    showToast(`${item.name} (Size: ${item.size}) added to cart!`, 'success');
+    updateCartCount();
 }
 
 function showToast(message, type) {
@@ -313,26 +331,23 @@ window.handleAddToCart = function () {
 
     if (!nameElement || !priceElement || !sizeSelect || !quantityInput || !imageElement) {
         console.error("Missing product elements on page.");
+        showToast('Could not add to cart: page elements missing.', 'error');
         return;
     }
 
-    const name = nameElement.innerText;
-    const price = priceElement.innerText;
-    const size = sizeSelect.value;
-    const quantity = parseInt(quantityInput.value);
+    const name = nameElement.textContent.trim();
+    const price = priceElement.textContent.trim();
+    const size = sizeSelect.value.trim();
+    const quantity = parseInt(quantityInput.value) || 1;
     const image = imageElement.src;
 
-    if (size === 'Select Size' || size === "") {
+    if (!size || size === 'Select Size') {
         showToast('Please select a size before adding to cart!', 'warning');
-        return;
-    }
-    if (quantity < 1 || isNaN(quantity)) {
-        showToast('Please enter a valid quantity.', 'warning');
         return;
     }
 
     addToCart(name, price, image, quantity, size);
-    updateCartCount(); // Update badge
+    updateCartCount();
 }
 
 window.appliedCoupon = localStorage.getItem('appliedCoupon') || null;
@@ -787,14 +802,28 @@ if (backToTopBtn && ToptobackBtn) {
 
 // Style Quiz Functionality
 window.openQuiz = function () {
-    document.getElementById('quiz-modal').style.display = 'flex';
-}
+    const modal = document.getElementById('quiz-modal');
+    if (modal) {
+        modal.classList.add('is-open');
+        modal.style.display = 'flex'; /* Fallback for browsers ignoring !important on display:none */
+    }
+};
 
 window.closeQuiz = function () {
-    document.querySelector('.close').addEventListener('click', () => {
-    document.getElementById('quiz-modal').style.display = 'none';
+    const modal = document.getElementById('quiz-modal');
+    if (modal) {
+        modal.classList.remove('is-open');
+        modal.style.removeProperty('display');
+    }
+};
+
+// Close quiz modal when clicking the backdrop
+document.addEventListener('click', function (e) {
+    const modal = document.getElementById('quiz-modal');
+    if (modal && e.target === modal) {
+        window.closeQuiz();
+    }
 });
-}
 
 window.selectStyle = function (style) {
     closeQuiz();
@@ -815,7 +844,8 @@ window.selectStyle = function (style) {
             block: 'start'
         });
     }
-    alert(`Showing ${style} style recommendations!`);
+    // Replace disruptive alert with a friendly toast
+    showToast(`Showing ${style} style recommendations!`, 'info');
 }
 
 /* --- START: BUY NOW FUNCTIONALITY --- */
@@ -1291,28 +1321,41 @@ function handleEmptyCartView() {
 }
 
 function addToCart(productName, productPrice, productImage, quantity, size) {
-  let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
-  let item = {
-    name: productName,
-    price: parseFloat(productPrice.replace(/[₹$,]/g, '')),
-    image: productImage,
-    quantity: parseInt(quantity),
-    size: size.replace('Size ', ''),
-  };
+    let cart = [];
+    try {
+        cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+        if (!Array.isArray(cart)) cart = [];
+    } catch (e) { cart = []; }
 
-  let existingItem = cart.find(
-    (p) => p.name === item.name && p.size === item.size
-  );
+    let parsedQty = parseInt(quantity);
+    if (isNaN(parsedQty) || parsedQty < 1) parsedQty = 1;
 
-  if (existingItem) {
-    existingItem.quantity += item.quantity;
-  } else {
-    cart.push(item);
-  }
+    // Normalize size: trim whitespace and strip any leading "Size " prefix
+    let normalizedSize = size ? String(size).trim().replace(/^Size\s*/i, '') : '';
 
-  localStorage.setItem('productsInCart', JSON.stringify(cart));
-  showToast(`${item.name} (Size: ${item.size}) added to cart!`);
-  updateCartCount(); // Update badge
+    if (!normalizedSize) {
+        showToast('Please select a size before adding to cart!', 'warning');
+        return;
+    }
+
+    let item = {
+        name: productName,
+        price: typeof parsePriceString === 'function' ? parsePriceString(productPrice) : parseFloat(String(productPrice).replace(/[₹$,]/g, '')),
+        image: productImage,
+        quantity: parsedQty,
+        size: normalizedSize
+    };
+
+    let existingItem = cart.find(p => p.name === item.name && p.size === item.size);
+    if (existingItem) {
+        existingItem.quantity += item.quantity;
+    } else {
+        cart.push(item);
+    }
+
+    localStorage.setItem('productsInCart', JSON.stringify(cart));
+    showToast(`${item.name} (Size: ${item.size}) added to cart!`, 'success');
+    updateCartCount();
 }
 
 function showToast(message, type) {
@@ -1393,40 +1436,31 @@ window.updateQty = function (change) {
 };
 
 window.handleAddToCart = function () {
-  const nameElement = document.getElementById('product-name');
-  const priceElement = document.getElementById('product-price');
-  const sizeSelect = document.getElementById('product-size');
-  const quantityInput = document.getElementById('product-quantity');
-  const imageElement = document.getElementById('MainImg');
+    const nameElement = document.getElementById('product-name');
+    const priceElement = document.getElementById('product-price');
+    const sizeSelect = document.getElementById('product-size');
+    const quantityInput = document.getElementById('product-quantity');
+    const imageElement = document.getElementById('MainImg');
 
-  if (
-    !nameElement ||
-    !priceElement ||
-    !sizeSelect ||
-    !quantityInput ||
-    !imageElement
-  ) {
-    console.error('Missing product elements on page.');
-    return;
-  }
+    if (!nameElement || !priceElement || !sizeSelect || !quantityInput || !imageElement) {
+        console.error("Missing product elements on page.");
+        showToast('Could not add to cart: page elements missing.', 'error');
+        return;
+    }
 
-  const name = nameElement.innerText;
-  const price = priceElement.innerText;
-  const size = sizeSelect.value;
-  const quantity = parseInt(quantityInput.value);
-  const image = imageElement.src;
+    const name = nameElement.textContent.trim();
+    const price = priceElement.textContent.trim();
+    const size = sizeSelect.value.trim();
+    const quantity = parseInt(quantityInput.value) || 1;
+    const image = imageElement.src;
 
-  if (size === 'Select Size' || size === '') {
-    showToast('Please select a size before adding to cart!', 'warning');
-    return;
-  }
-  if (quantity < 1 || isNaN(quantity)) {
-    showToast('Please enter a valid quantity.', 'warning');
-    return;
-  }
+    if (!size || size === 'Select Size') {
+        showToast('Please select a size before adding to cart!', 'warning');
+        return;
+    }
 
-  addToCart(name, price, image, quantity, size);
-  updateCartCount(); // Update badge
+    addToCart(name, price, image, quantity, size);
+    updateCartCount();
 };
 
 window.handleBuyNow = function () {
@@ -1936,13 +1970,14 @@ if (ToptobackBtn) {
   });
 }
 
-// Style Quiz Functionality
-window.openQuiz = function () {
-  document.getElementById('quiz-modal').style.display = 'flex';
+// Style Quiz Functionality (duplicate section — kept in sync)
+window.openQuiz = window.openQuiz || function () {
+  const modal = document.getElementById('quiz-modal');
+  if (modal) { modal.classList.add('is-open'); modal.style.display = 'flex'; }
 };
-
-window.closeQuiz = function () {
-  document.getElementById('quiz-modal').style.display = 'none';
+window.closeQuiz = window.closeQuiz || function () {
+  const modal = document.getElementById('quiz-modal');
+  if (modal) { modal.classList.remove('is-open'); modal.style.removeProperty('display'); }
 };
 
 window.selectStyle = function (style) {
@@ -2030,13 +2065,15 @@ document.addEventListener('DOMContentLoaded', () => {
 /* --- START: HERO SLIDER FUNCTIONALITY --- */
 function initHeroSlider() {
   const slider = document.querySelector('.hero-slider');
-  // Null check to prevent errors on pages where the slider doesn't exist
-  if (!slider) return;
+  // Null check and initialization guard to prevent double-initialization
+  if (!slider || slider.dataset.initialized) return;
+  slider.dataset.initialized = 'true';
 
   const slides = slider.querySelectorAll('.slide');
   const prevBtn = slider.querySelector('.slider-btn.prev');
   const nextBtn = slider.querySelector('.slider-btn.next');
   const dots = slider.querySelectorAll('.slider-dots .dot');
+  const wrapper = slider.querySelector('.slides-wrapper');
 
   if (slides.length === 0) return;
 
@@ -2045,6 +2082,9 @@ function initHeroSlider() {
   const intervalTime = 5000; // 5 seconds
 
   function updateSlider() {
+    if (wrapper) {
+        wrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
+    }
     // Remove active class from all slides and dots
     slides.forEach((slide) => slide.classList.remove('active'));
     dots.forEach((dot) => dot.classList.remove('active'));
@@ -2500,7 +2540,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 qvBtn.type = 'button';
                 qvBtn.innerHTML = '<i class="ri-eye-line"></i> Quick View';
                 
-                // Add event listener to trigger modal open
+                // Add event listener to trigger direct navigation
                 qvBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
                     e.preventDefault();
@@ -2512,17 +2552,16 @@ document.addEventListener('DOMContentLoaded', () => {
                                   (card.querySelector(".des span") ? card.querySelector(".des span").textContent.trim() : "");
                     const img = card.querySelector("img") ? card.querySelector("img").src : "";
                     
-                    // Calculate rating based on filled stars
-                    const rating = card.querySelectorAll(".star i.ri-star-fill").length || 
-                                   card.querySelectorAll(".star i.fa-star").length || 5;
-                    
-                    window.openQuickViewModal({
+                    // Save to local storage for singleProduct.html to read
+                    const selectedProduct = {
                         name: name,
                         price: priceText,
                         brand: brand,
-                        img: img,
-                        rating: rating
-                    });
+                        image: img
+                    };
+                    
+                    localStorage.setItem("selectedProduct", JSON.stringify(selectedProduct));
+                    window.location.href = "singleProduct.html";
                 });
                 
                 qvOverlay.appendChild(qvBtn);

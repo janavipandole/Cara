@@ -626,7 +626,7 @@ button.white .ripple-effect {
     position: relative;
     overflow: hidden;
     padding: 0;
-    margin-bottom: 50px;
+    /* Removed margin-bottom: 50px — was creating an empty gap below the carousel */
 }
 
 .hero-slider .slide {
@@ -651,7 +651,7 @@ button.white .ripple-effect {
     z-index: 1;
 }
 
-/* Gradient Overlays */
+/* Gradient Overlays — strengthened for better text readability on bright images */
 .hero-slider .slide::before {
     content: '';
     position: absolute;
@@ -660,9 +660,10 @@ button.white .ripple-effect {
     width: 100%;
     height: 100%;
     background-image: linear-gradient(to right,
-            rgba(255, 255, 255, 0.75) 0%,
-            rgba(255, 255, 255, 0.45) 35%,
-            rgba(255, 255, 255, 0) 65%);
+            rgba(255, 255, 255, 0.92) 0%,
+            rgba(255, 255, 255, 0.65) 40%,
+            rgba(255, 255, 255, 0.08) 70%,
+            rgba(255, 255, 255, 0) 100%);
     z-index: -1;
     pointer-events: none;
 }
@@ -675,7 +676,7 @@ button.white .ripple-effect {
 }
 
 .hero-slider .slide-content {
-    padding: 0 80px;
+    padding: 100px 80px 60px; /* top padding accounts for fixed navbar (~86px) */
     position: relative;
     z-index: 2;
 }
@@ -685,20 +686,21 @@ button.white .ripple-effect {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.25);
-    color: var(--text-color);
+    background: rgba(0, 0, 0, 0.55);
+    color: #ffffff;
     border: none;
-    width: 32px;
-    height: 32px;
-    border-radius: 100%;
-    font-size: 1px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 18px;
     cursor: pointer;
     z-index: 3;
-    transition: background 0.2s ease, color 0.2s ease;
+    transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
     display: flex;
     align-items: center;
     justify-content: center;
     pointer-events: all;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 
 .slider-btn:hover {
@@ -859,10 +861,10 @@ button.white .ripple-effect {
 }
 
 #hero .slider-btn:hover {
-    background: #2a2a2a !important;
+    background: var(--accent) !important;
     color: #ffffff !important;
-    opacity: 0.9;
-    transform: translateY(-50%) !important; /* LOCKED — no downward movement on hover */
+    box-shadow: 0 6px 24px rgba(8, 129, 120, 0.5);
+    transform: translateY(-50%) scale(1.1) !important;
 }
 
 @keyframes fadeInUp {
@@ -973,6 +975,7 @@ button.white .ripple-effect {
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
     padding-top: 20px;
+    align-items: stretch;
 }
 
 /* ── Card container ── */
@@ -985,7 +988,7 @@ button.white .ripple-effect {
     border-radius: 16px;
     cursor: pointer;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    margin: 10px 0;
+    margin: 0; /* Removed conflicting margin — grid gap handles spacing */
     background-color: var(--card-bg);
     transition: box-shadow 0.3s ease, transform 0.25s ease;
     display: flex;
@@ -1371,7 +1374,7 @@ button.white .ripple-effect {
 }
 
 #banner h4 {
-    color: var(--text-primary);
+    color: #fff;
     font-size: 28px;
 }
 
@@ -1380,7 +1383,7 @@ button.white .ripple-effect {
 }
 
 #banner h2 {
-    color: var(--text-primary);
+    color: #fff;
     font-size: 45px;
     padding: 10px 0;
 }
@@ -5812,12 +5815,12 @@ footer .copyright a:hover {
             #hero h2,
             #hero p {
                 color: var(--text-primary);
-                text-shadow: 0 1px 4px rgba(255, 255, 255, 0.3);
+                text-shadow: 0 1px 6px rgba(0, 40, 30, 0.35), 0 2px 12px rgba(255, 255, 255, 0.5);
             }
 
             #hero h1 {
                 color: var(--accent);
-                text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+                text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25), 0 4px 16px rgba(8, 129, 120, 0.2);
             }
 
             [data-theme="dark"] #hero h4,
@@ -12595,12 +12598,12 @@ footer .copyright {
             #hero h2,
             #hero p {
                 color: var(--text-primary);
-                text-shadow: 0 1px 4px rgba(255, 255, 255, 0.3);
+                text-shadow: 0 1px 6px rgba(0, 40, 30, 0.35), 0 2px 12px rgba(255, 255, 255, 0.5);
             }
 
             #hero h1 {
                 color: var(--accent);
-                text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+                text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25), 0 4px 16px rgba(8, 129, 120, 0.2);
             }
 
             [data-theme="dark"] #hero h4,
@@ -19701,12 +19704,12 @@ footer a {
             #hero h2,
             #hero p {
                 color: var(--text-primary);
-                text-shadow: 0 1px 4px rgba(255, 255, 255, 0.3);
+                text-shadow: 0 1px 6px rgba(0, 40, 30, 0.35), 0 2px 12px rgba(255, 255, 255, 0.5);
             }
 
             #hero h1 {
                 color: var(--accent);
-                text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+                text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25), 0 4px 16px rgba(8, 129, 120, 0.2);
             }
 
             [data-theme="dark"] #hero h4,
@@ -26549,12 +26552,12 @@ footer .copyright {
             #hero h2,
             #hero p {
                 color: var(--text-primary);
-                text-shadow: 0 1px 4px rgba(255, 255, 255, 0.3);
+                text-shadow: 0 1px 6px rgba(0, 40, 30, 0.35), 0 2px 12px rgba(255, 255, 255, 0.5);
             }
 
             #hero h1 {
                 color: var(--accent);
-                text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+                text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25), 0 4px 16px rgba(8, 129, 120, 0.2);
             }
 
             [data-theme="dark"] #hero h4,
@@ -33577,12 +33580,12 @@ footer .copyright {
             #hero h2,
             #hero p {
                 color: var(--text-primary);
-                text-shadow: 0 1px 4px rgba(255, 255, 255, 0.3);
+                text-shadow: 0 1px 6px rgba(0, 40, 30, 0.35), 0 2px 12px rgba(255, 255, 255, 0.5);
             }
 
             #hero h1 {
                 color: var(--accent);
-                text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+                text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25), 0 4px 16px rgba(8, 129, 120, 0.2);
             }
 
             [data-theme="dark"] #hero h4,
@@ -35840,9 +35843,360 @@ html {
     filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(255, 255, 255, 0.25));
 }
 
+/* ================================================================
+   MASTER OVERRIDES — appended last to win every cascade conflict
+   caused by the massively-duplicated style.css structure.
+   DO NOT add new rules above this block.
+   ================================================================ */
 
+/* ── 1. MODAL: always hidden until JS opens it ── */
+.modal {
+    display: none !important;
+    position: fixed !important;
+    z-index: 10000 !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background-color: rgba(0, 0, 0, 0.55) !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+.modal.is-open {
+    display: flex !important;
+}
 
+/* ── 2. PRODUCT GRID: strict 4-col on desktop, 2-col on mobile ── */
+#product1 .pro-container,
+#product2 .pro-container,
+.pro-container {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 20px !important;
+    padding-top: 20px !important;
+    align-items: stretch !important;
+}
 
+@media (max-width: 1024px) {
+    #product1 .pro-container,
+    #product2 .pro-container,
+    .pro-container {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+}
+@media (max-width: 768px) {
+    #product1 .pro-container,
+    #product2 .pro-container,
+    .pro-container {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+@media (max-width: 480px) {
+    #product1 .pro-container,
+    #product2 .pro-container,
+    .pro-container {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* ── 3. PRODUCT CARD: remove conflicting margin so grid gap is sole spacing ── */
+#product1 .pro,
+#product2 .pro,
+.pro {
+    margin: 0 !important;
+}
+
+/* ── 4. HERO CAROUSEL: horizontal sliding carousel ── */
+#hero.hero-slider {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+.hero-slider .slides-wrapper {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+.hero-slider .slide {
+    position: relative !important;
+    flex: 0 0 100% !important;
+    width: 100% !important;
+    height: 100% !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    z-index: 1 !important;
+}
+
+/* ── 5. HEADER: proper flex alignment with search bar ── */
+#header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 14px 48px !important;
+    gap: 16px !important;
+}
+#header > a:first-child {
+    flex-shrink: 0;
+}
+#header .search-container {
+    flex: 1 !important;
+    max-width: 360px !important;
+    margin: 0 !important;
+    height: 42px !important;
+}
+#header > div:last-of-type {
+    flex-shrink: 0;
+}
+
+/* ── 6. CART ICON in navbar ── */
+#lg-bag {
+    padding: 0 10px !important;
+}
+#lg-bag a {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 22px !important;
+    color: var(--text-primary) !important;
+    text-decoration: none !important;
+    padding: 6px 10px !important;
+    border-radius: 8px !important;
+    transition: color 0.3s ease, background-color 0.3s ease !important;
+    position: relative !important;
+}
+#lg-bag a:hover {
+    color: var(--accent, #088178) !important;
+    background: rgba(8, 129, 120, 0.08) !important;
+}
+#lg-bag a::after {
+    display: none !important; /* Disable underline for the cart icon */
+}
+#lg-bag i {
+    font-size: 22px !important;
+    line-height: 1 !important;
+}
+
+/* Cart count badge positioning & styling */
+.cart-count {
+    position: absolute !important;
+    top: -2px !important;
+    right: -2px !important;
+    background-color: #ff3f3f !important; /* Premium vibrant red */
+    color: #ffffff !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    border-radius: 50% !important;
+    min-width: 16px !important;
+    height: 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 4px !important;
+    box-shadow: 0 0 0 2px var(--bg-primary, #fff) !important;
+    line-height: 1 !important;
+    transform: scale(1);
+    transition: transform 0.2s ease !important;
+}
+.cart-count.hidden {
+    display: none !important;
+}
+
+/* ── 7. HERO TEXT: readability, positioning, and theme compatibility ── */
+.hero-slider .slide-content {
+    margin-left: 80px !important;
+}
+.hero-slider .slide-content h4,
+.hero-slider .slide-content h2,
+.hero-slider .slide-content p,
+#hero h4,
+#hero h2,
+#hero p {
+    color: var(--text-primary, #111) !important;
+    text-shadow: 0 1px 4px rgba(255, 255, 255, 0.8),
+                 0 2px 10px rgba(255, 255, 255, 0.6) !important;
+}
+.hero-slider .slide-content h1,
+#hero h1 {
+    color: var(--accent, #088178) !important;
+    text-shadow: 0 1px 4px rgba(255, 255, 255, 0.8),
+                 0 2px 10px rgba(255, 255, 255, 0.6) !important;
+}
+
+[data-theme="dark"] .hero-slider .slide-content h4,
+[data-theme="dark"] .hero-slider .slide-content h2,
+[data-theme="dark"] .hero-slider .slide-content p,
+[data-theme="dark"] #hero h4,
+[data-theme="dark"] #hero h2,
+[data-theme="dark"] #hero p {
+    color: #fff !important;
+    text-shadow: 0 1px 4px rgba(0, 50, 40, 0.7),
+                 0 2px 10px rgba(0, 0, 0, 0.6) !important;
+}
+[data-theme="dark"] .hero-slider .slide-content h1,
+[data-theme="dark"] #hero h1 {
+    color: var(--accent, #088178) !important;
+    text-shadow: 0 2px 8px rgba(0, 60, 40, 0.45),
+                 0 4px 18px rgba(8, 129, 120, 0.25) !important;
+}
+
+/* ── 7.5 HERO TAGS & BADGES: visibility in light/dark modes ── */
+.hero-badge {
+    background: rgba(255, 255, 255, 0.6) !important;
+    color: var(--accent, #088178) !important;
+    border: 1px solid rgba(8, 129, 120, 0.2) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+}
+
+.hero-tags span {
+    background: rgba(255, 255, 255, 0.5) !important;
+    color: #111 !important;
+    border: 1px solid rgba(255, 255, 255, 0.6) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+}
+
+[data-theme="dark"] .hero-badge {
+    background: rgba(255, 255, 255, 0.18) !important;
+    color: #fff !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+[data-theme="dark"] .hero-tags span {
+    background: rgba(255, 255, 255, 0.12) !important;
+    color: #fff !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    box-shadow: none !important;
+}
+
+/* ── 8. SIZE CHART: floating panel beside size selector (not a modal) ── */
+/* Wrapper for relative positioning */
+.size-section {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* "View Size Chart" trigger button */
+#size-chart-btn {
+    background: transparent !important;
+    border: 1.5px solid var(--accent, #088178) !important;
+    color: var(--accent, #088178) !important;
+    padding: 8px 16px !important;
+    border-radius: 6px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: background 0.25s ease, color 0.25s ease !important;
+}
+#size-chart-btn:hover {
+    background: var(--accent, #088178) !important;
+    color: #fff !important;
+}
+
+/* Centered Size chart modal overlay */
+#size-chart-modal.modal {
+    display: none !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: rgba(0, 0, 0, 0.5) !important;
+    z-index: 9999 !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+#size-chart-modal.modal.is-open {
+    display: flex !important;
+}
+
+#size-chart-modal .modal-content {
+    background: var(--bg-primary, #fff) !important;
+    border: 1px solid var(--border-color, #e0e0e0) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25) !important;
+    padding: 24px !important;
+    width: 90% !important;
+    max-width: 450px !important;
+    position: relative !important;
+    animation: scFadeIn 0.3s ease !important;
+    text-align: left !important;
+}
+
+@keyframes scFadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+#size-chart-modal .close-btn {
+    position: absolute !important;
+    top: 15px !important;
+    right: 20px !important;
+    font-size: 28px !important;
+    cursor: pointer !important;
+    color: var(--text-secondary, #666) !important;
+    background: none !important;
+    border: none !important;
+    line-height: 1 !important;
+    transition: color 0.2s ease !important;
+}
+#size-chart-modal .close-btn:hover {
+    color: var(--accent, #088178) !important;
+}
+#size-chart-modal h2 {
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    margin: 0 0 12px !important;
+    color: var(--text-primary) !important;
+    padding-right: 20px !important;
+}
+
+/* Size chart table inside panel */
+.size-chart {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    font-size: 13px !important;
+}
+.size-chart th,
+.size-chart td {
+    padding: 6px 12px !important;
+    text-align: center !important;
+    border: 1px solid var(--border-color, #e0e0e0) !important;
+}
+.size-chart thead th {
+    background: var(--accent, #088178) !important;
+    color: #fff !important;
+    font-weight: 600 !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 10 !important;
+}
+.size-chart tbody tr:nth-child(even) {
+    background: var(--bg-secondary, #f5f5f5) !important;
+}
+
+/* ── 9. QUICK VIEW MODAL: product preview always shows first ── */
+.quickview-modal {
+    display: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+.quickview-modal.active {
+    display: flex !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
+
+/* ── 10. BANNER FIX: Make banner text white ── */
+#banner h4,
+#banner h2 {
+    color: #fff !important;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4) !important;
+}
 
 
 /* ============================================
