@@ -961,16 +961,34 @@ document.addEventListener('DOMContentLoaded', function () {
                             <p></p>
                         </div>
                     `;
-          noResultsMsg.querySelector('p').textContent =
-            `We couldn't find any products matching "${searchInput.value}". Please try a different search term or change your category filter.`;
-          const container = document.getElementById('shop-container');
-          if (container) {
-            container.appendChild(noResultsMsg);
-          }
-        } else {
-          noResultsMsg.querySelector('p').textContent =
-            `We couldn't find any products matching "${searchInput.value}". Please try a different search term or change your category filter.`;
-          noResultsMsg.style.display = 'block';
+noResultsMsg.querySelector('p').textContent =
+    `We couldn't find any products matching "${searchInput.value}". Please try a different search term or change your category filter.`;
+
+const container = document.getElementById('shop-container');
+
+if (container) {
+    container.appendChild(noResultsMsg);
+}
+} else {
+    noResultsMsg.querySelector('p').textContent =
+        `We couldn't find any products matching "${searchInput.value}". Please try a different search term or change your category filter.`;
+
+    noResultsMsg.style.display = 'block';
+}
+} else {
+    if (noResultsMsg) {
+        noResultsMsg.style.display = 'none';
+    }
+}
+};
+
+// Event listeners for real-time search
+searchInput.addEventListener('input', debounce(performSearch, 150));
+
+// Immediate check on Enter key or Search button click
+if (searchBtn) {
+    searchBtn.addEventListener('click', performSearch);
+}
         }
       } else {
         if (noResultsMsg) {

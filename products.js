@@ -5,7 +5,7 @@ const products = [
     name: 'Tropical Hibiscus Summer Shirt',
     price: 2499,
     img: 'images/products/f1.jpg',
-    rating: 5,
+    rating: 4.5,
     category: 'street',
   },
   {
@@ -14,7 +14,7 @@ const products = [
     name: 'White Palm Leaf Casual Shirt',
     price: 1299,
     img: 'images/products/f2.jpg',
-    rating: 5,
+    rating: 3.5,
     category: 'minimal',
   },
   {
@@ -23,7 +23,7 @@ const products = [
     name: 'Vintage Rose Garden Shirt',
     price: 3490,
     img: 'images/products/f3.jpg',
-    rating: 5,
+    rating: 4.0,
     category: 'minimal',
   },
   {
@@ -32,7 +32,7 @@ const products = [
     name: 'Sakura Blossom Floral Shirt',
     price: 2799,
     img: 'images/products/f4.jpg',
-    rating: 5,
+    rating: 5.0,
     category: 'minimal',
   },
   {
@@ -41,7 +41,7 @@ const products = [
     name: 'Pink Peony Patterned Shirt',
     price: 1999,
     img: 'images/products/f5.jpg',
-    rating: 5,
+    rating: 3.0,
     category: 'street',
   },
   {
@@ -50,7 +50,7 @@ const products = [
     name: 'Dual-Tone Corduroy Shirt',
     price: 2299,
     img: 'images/products/f6.jpg',
-    rating: 5,
+    rating: 4.0,
     category: 'street',
   },
   {
@@ -59,7 +59,7 @@ const products = [
     name: 'Embroidered Linen Trousers',
     price: 3990,
     img: 'images/products/f7.jpg',
-    rating: 5,
+    rating: 4.5,
     category: 'street',
   },
   {
@@ -68,7 +68,7 @@ const products = [
     name: 'Cat Print Long Sleeve Blouse',
     price: 2699,
     img: 'images/products/f8.jpg',
-    rating: 5,
+    rating: 3.5,
     category: 'minimal',
   },
   {
@@ -77,7 +77,7 @@ const products = [
     name: 'Sky Blue Mandarin Collar Shirt',
     price: 4499,
     img: 'images/products/n1.jpg',
-    rating: 5,
+    rating: 5.0,
     category: 'formal',
   },
   {
@@ -86,7 +86,7 @@ const products = [
     name: 'Navy Textured Formal Shirt',
     price: 6999,
     img: 'images/products/n2.jpg',
-    rating: 5,
+    rating: 4.5,
     category: 'formal',
   },
   {
@@ -95,7 +95,7 @@ const products = [
     name: 'Classic White Cotton Shirt',
     price: 5499,
     img: 'images/products/n3.jpg',
-    rating: 5,
+    rating: 4.0,
     category: 'formal',
   },
   {
@@ -104,7 +104,7 @@ const products = [
     name: 'Sandstone Tactical Utility Shirt',
     price: 3990,
     img: 'images/products/n4.jpg',
-    rating: 5,
+    rating: 3.5,
     category: 'formal',
   },
   {
@@ -113,7 +113,7 @@ const products = [
     name: 'Denim Blue Everyday Shirt',
     price: 2799,
     img: 'images/products/n5.jpg',
-    rating: 5,
+    rating: 4.0,
     category: 'minimal',
   },
   {
@@ -122,7 +122,7 @@ const products = [
     name: 'Vertical Stripe Chino Shorts',
     price: 2499,
     img: 'images/products/n6.jpg',
-    rating: 5,
+    rating: 3.0,
     category: 'minimal',
   },
   {
@@ -131,7 +131,7 @@ const products = [
     name: 'Khaki Safari Work Shirt',
     price: 3499,
     img: 'images/products/n7.jpg',
-    rating: 5,
+    rating: 4.5,
     category: 'minimal',
   },
   {
@@ -140,10 +140,121 @@ const products = [
     name: 'Deep Charcoal Casual Shirt',
     price: 1799,
     img: 'images/products/n8.jpg',
-    rating: 5,
+    rating: 3.5,
     category: 'minimal',
   },
 ];
+
+/**
+ * Renders star icons based on a numeric rating (supports half-stars).
+ * Also loads user's saved rating from localStorage if available.
+ * @param {number} baseRating - Default rating from products array (e.g. 3.5)
+ * @param {number} productId  - Used as localStorage key
+ * @returns {HTMLElement} - A <div class="star"> with interactive star icons
+ */
+function renderStars(baseRating, productId) {
+  // Load user's saved rating if it exists, else use base rating
+  const savedRating = parseFloat(localStorage.getItem('userRating_' + productId));
+  const displayRating = !isNaN(savedRating) ? savedRating : baseRating;
+
+  const starDiv = document.createElement('div');
+  starDiv.className = 'star';
+  starDiv.setAttribute('aria-label', 'Rating: ' + displayRating + ' out of 5');
+  starDiv.setAttribute('title', displayRating + ' / 5');
+
+  // Build 5 star icons
+  for (let i = 1; i <= 5; i++) {
+    const starIcon = document.createElement('i');
+    starIcon.dataset.value = i; // store which star this is
+
+    if (i <= Math.floor(displayRating)) {
+      starIcon.className = 'ri-star-fill';
+    } else if (i === Math.ceil(displayRating) && displayRating % 1 !== 0) {
+      starIcon.className = 'ri-star-half-fill';
+    } else {
+      starIcon.className = 'ri-star-line';
+    }
+
+    // ── User rating on click ──
+    starIcon.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const clickedValue = parseInt(starIcon.dataset.value);
+      saveUserRating(productId, clickedValue, starDiv);
+    });
+
+    // Hover effect — highlight stars on mouseover
+    starIcon.addEventListener('mouseover', () => {
+      highlightStars(starDiv, i);
+    });
+
+    starDiv.appendChild(starIcon);
+  }
+
+  // Reset highlight on mouse leave
+  starDiv.addEventListener('mouseleave', () => {
+    const currentRating = parseFloat(localStorage.getItem('userRating_' + productId)) || baseRating;
+    updateStarDisplay(starDiv, currentRating);
+  });
+
+  // Numeric rating text
+  const ratingText = document.createElement('span');
+  ratingText.className = 'rating-value';
+  ratingText.textContent = displayRating % 1 === 0
+    ? displayRating.toFixed(1)
+    : displayRating.toString();
+  starDiv.appendChild(ratingText);
+
+  return starDiv;
+}
+
+/**
+ * Saves user's clicked rating to localStorage and updates star display.
+ * @param {number} productId
+ * @param {number} rating - Integer 1–5 clicked by user
+ * @param {HTMLElement} starDiv
+ */
+function saveUserRating(productId, rating, starDiv) {
+  localStorage.setItem('userRating_' + productId, rating);
+  updateStarDisplay(starDiv, rating);
+
+  // Update numeric text
+  const ratingText = starDiv.querySelector('.rating-value');
+  if (ratingText) {
+    ratingText.textContent = rating + '.0';
+  }
+}
+
+/**
+ * Highlights stars up to a given value (used on hover).
+ * @param {HTMLElement} starDiv
+ * @param {number} upTo - Highlight stars 1 through upTo
+ */
+function highlightStars(starDiv, upTo) {
+  const stars = starDiv.querySelectorAll('i[data-value]');
+  stars.forEach((star) => {
+    const val = parseInt(star.dataset.value);
+    star.className = val <= upTo ? 'ri-star-fill' : 'ri-star-line';
+  });
+}
+
+/**
+ * Refreshes star icon classes based on a numeric rating.
+ * @param {HTMLElement} starDiv
+ * @param {number} rating
+ */
+function updateStarDisplay(starDiv, rating) {
+  const stars = starDiv.querySelectorAll('i[data-value]');
+  stars.forEach((star) => {
+    const i = parseInt(star.dataset.value);
+    if (i <= Math.floor(rating)) {
+      star.className = 'ri-star-fill';
+    } else if (i === Math.ceil(rating) && rating % 1 !== 0) {
+      star.className = 'ri-star-half-fill';
+    } else {
+      star.className = 'ri-star-line';
+    }
+  });
+}
 
 function renderProducts(containerId, list) {
   const container = document.getElementById(containerId);
@@ -167,7 +278,6 @@ function renderProducts(containerId, list) {
   }
 
   list.forEach((p) => {
-    // Create product card container
     const card = document.createElement('div');
     card.className = 'pro';
     card.dataset.category = p.category;
@@ -183,28 +293,25 @@ function renderProducts(containerId, list) {
       window.location.href = 'singleProduct.html';
     });
 
-    // ── Image wrapper ──
+    // Image wrapper
     const imgWrap = document.createElement('div');
     imgWrap.className = 'pro-img-wrap';
     const img = document.createElement('img');
     img.src = p.img;
     img.alt = p.name;
     imgWrap.appendChild(img);
-    // Add ribbon badge for selected products
+
     const ribbon = document.createElement('div');
     ribbon.className = 'ribbon';
-    // Simple logic: first product gets "Sale", second gets "New"
     if (p.id === 1) {
       ribbon.textContent = 'Sale';
     } else if (p.id === 2) {
       ribbon.textContent = 'New';
     } else {
-      // No ribbon for other items
       ribbon.style.display = 'none';
     }
     imgWrap.appendChild(ribbon);
 
-    // Quick View Overlay inside imgWrap
     const qvOverlay = document.createElement('div');
     qvOverlay.className = 'pro-quick-view-overlay';
     const qvBtn = document.createElement('button');
@@ -220,20 +327,18 @@ function renderProducts(containerId, list) {
           price: '₹' + p.price,
           brand: p.brand,
           img: p.img,
-          rating: p.rating
+          rating: p.rating,
         });
       }
     });
     qvOverlay.appendChild(qvBtn);
     imgWrap.appendChild(qvOverlay);
-
     card.appendChild(imgWrap);
 
-    // ── Description container ──
+    // Description container
     const des = document.createElement('div');
     des.className = 'des';
 
-    // Brand row: logo icon + brand name
     const brandRow = document.createElement('div');
     brandRow.className = 'pro-brand-row';
     brandRow.innerHTML = `
@@ -248,21 +353,13 @@ function renderProducts(containerId, list) {
     nameH5.textContent = p.name;
     des.appendChild(nameH5);
 
-    // Star rating
-    const starDiv = document.createElement('div');
-    starDiv.className = 'star';
-    for (let i = 0; i < p.rating; i++) {
-      const starIcon = document.createElement('i');
-      starIcon.className = 'ri-star-fill';
-      starDiv.appendChild(starIcon);
-    }
-    des.appendChild(starDiv);
+    // Dynamic interactive star rating
+    des.appendChild(renderStars(p.rating, p.id));
 
     const priceH4 = document.createElement('h4');
     priceH4.textContent = '₹' + p.price.toLocaleString('en-IN');
     des.appendChild(priceH4);
 
-    // ── Action bar: BUY NOW pill + circular cart button ──
     const actionBar = document.createElement('div');
     actionBar.className = 'pro-action-bar';
 
@@ -292,12 +389,10 @@ function renderProducts(containerId, list) {
 
     des.appendChild(actionBar);
     card.appendChild(des);
-
     container.appendChild(card);
   });
 }
 
-// Search and filter helpers
 function updateSearchSummary(filteredCount) {
   const countElement = document.getElementById('searchCount');
   if (countElement) {
@@ -310,9 +405,7 @@ function renderSearchSuggestions(query) {
   if (!suggestionsElement) return;
 
   suggestionsElement.innerHTML = '';
-  if (!query.trim()) {
-    return;
-  }
+  if (!query.trim()) return;
 
   const normalizedQuery = query.trim().toLowerCase();
   const suggestions = products
@@ -390,12 +483,8 @@ function attachSearchListeners() {
       }
     });
   }
-  if (categorySelect) {
-    categorySelect.addEventListener('change', filterProducts);
-  }
-  if (sortSelect) {
-    sortSelect.addEventListener('change', filterProducts);
-  }
+  if (categorySelect) categorySelect.addEventListener('change', filterProducts);
+  if (sortSelect) sortSelect.addEventListener('change', filterProducts);
   if (searchBtn) {
     searchBtn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -405,47 +494,22 @@ function attachSearchListeners() {
   }
 }
 
-// Add to Cart function
 function addToCart(name, price, img, quantity, size) {
   let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
-
-  const product = {
-    name,
-    price,
-    img,
-    quantity,
-    size,
-    id: Date.now(),
-  };
-
-  cart.push(product);
+  cart.push({ name, price, img, quantity, size, id: Date.now() });
   localStorage.setItem('productsInCart', JSON.stringify(cart));
-
   if (typeof showToast === 'function') {
     showToast(name + ' added to cart!', 'success');
   }
 }
 
-// Buy Now function
 function buyNow(name, price, img, quantity, size) {
   let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
-
-  const product = {
-    name,
-    price,
-    img,
-    quantity,
-    size,
-    id: Date.now(),
-  };
-
-  cart.push(product);
+  cart.push({ name, price, img, quantity, size, id: Date.now() });
   localStorage.setItem('productsInCart', JSON.stringify(cart));
-
   window.location.href = 'checkout.html';
 }
 
-// Initializing the renders from local array
 document.addEventListener('DOMContentLoaded', () => {
   renderProducts('shop-container', products);
   renderProducts('featured-container', products.slice(0, 4));
