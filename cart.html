@@ -53,6 +53,17 @@
       margin: 0 auto;
     }
 
+    @media (min-width: 768px) {
+      #cart-add {
+        display: flex;
+        justify-content: flex-end;
+      }
+      .subtotal {
+        width: 100%;
+        max-width: 450px;
+      }
+    }
+
     /* Align the .cart-header labels with the actual cart-item-row grid.
        cart-item-row uses a 5-column grid on desktop:
        [Product 3.5fr] [Price 1fr] [Qty 1.5fr] [Subtotal 1.2fr] [Remove 0.5fr]
