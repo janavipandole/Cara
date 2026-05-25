@@ -28900,6 +28900,8 @@ button.white .ripple-effect {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
     transition: background 0.25s ease, opacity 0.25s ease !important;
     transform: translateY(-50%) !important; /* keep vertical centring, no extra shift */
+    pointer-events: auto !important;
+    z-index: 9999 !important;
 }
 
 #hero .slider-btn:hover {
