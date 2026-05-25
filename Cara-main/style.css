@@ -6354,3 +6354,75 @@ footer .copyright {
     background-color: var(--accent);
     color: white;
 }
+
+#ai-stylist{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:60px 80px;
+  background:linear-gradient(to right,#f8f9ff,#eef2ff);
+  border-radius:20px;
+  margin:40px 60px;
+  gap:40px;
+}
+
+.ai-content{
+  flex:1;
+}
+
+.ai-content h2{
+  font-size:42px;
+  color:#222;
+  margin:10px 0;
+}
+
+.ai-content p{
+  color:#555;
+  margin-bottom:20px;
+}
+
+#stylist-btn{
+  background:#088178;
+  color:white;
+  border:none;
+  padding:18px 38px;
+  border-radius:14px;
+  cursor:pointer;
+  transition:0.3s ease;
+  font-size:20px;
+  font-weight:500;
+  margin-top:12px;
+  box-shadow:0 10px 24px rgba(8,129,120,0.25);
+}
+
+#stylist-btn:hover{
+  transform:translateY(-4px) scale(1.03);
+  background:#066b63;
+}
+
+.ai-preview{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.style-card{
+  background:white;
+  padding:18px;
+  border-radius:24px;
+  width:520px;
+  height:320px;
+  overflow:hidden;
+  box-shadow:0 8px 24px rgba(0,0,0,0.12);
+  transition:0.3s ease;
+}
+.style-card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:18px;
+  display:block;
+}
+.style-card:hover{
+  transform:translateY(-6px);
+}
