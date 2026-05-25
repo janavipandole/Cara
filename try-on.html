@@ -18,6 +18,55 @@
 
 
         <style>
+            body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.8;
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+    }
+
+    .content {
+      height: 2000px;
+    }
+
+    /* Scroll Button */
+    #topBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: none;
+      background-color:#088178;
+      color: white;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      transition: 0.3s;
+    }
+
+    #topBtn:hover {
+      background-color: #555;
+    }
+
+            :root {
+    --accent: #088178;
+    --text-primary: #333;
+    --text-secondary: #6b7280;
+    --bg-secondary: #f5f5f5;
+    --card-bg: #ffffff;
+    --border-color: #ddd;
+    }
+
+    body[data-theme="dark"]{
+    --text-primary: #f3f4f6;
+    --text-secondary: #d1d5db;
+    --bg-secondary: #111827;
+    --card-bg: #1f2937;
+    --border-color: #374151;
+    }
         /* ============================================
            VIRTUAL TRY-ON PAGE STYLES
            ============================================ */
@@ -142,6 +191,13 @@
             gap: 8px;
             transition: 0.3s ease;
         }
+        .mode-toggle {
+          min-height: 48px;
+             }
+
+         .mode-btn {
+         min-height: 48px;
+         }
 
         .mode-btn.active {
             background: var(--accent);
@@ -426,8 +482,8 @@
         }
 
         .share-btn {
-            background: white;
-            color: var(--accent);
+            background: var(--card-bg);
+            color: var(--text-primary);
             border: none;
             padding: 10px 18px;
             border-radius: 5px;
@@ -469,22 +525,104 @@
                 max-height: none;
             }
         }
-
+        
     </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <body>
 
         <!-- HEADER -->
-        <section id="header">
-            <a href="index.html">
-            <img src="images/logo.png" alt="" id="siteLogo">
-            </a>
+        <!-- <section id="header"> -->
+            <section id="header">
+  <!-- Logo -->
+  <a href="index.html">
+    <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
+  </a>
 
-            <!-- Navbar loads here -->
-            <div id="navbar-container"></div>
+  <div>
+    <ul id="navbar">
 
-            <div class="mobile">
+      <!-- Main Navigation Links -->
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a class="active" href="try-on.html">Try-On</a></li>
+      <li><a href="community.html">Community</a></li>
+      <li><a href="promotions.html">Promotions</a></li>
+
+      <!-- Contact Icon -->
+      <li class="nav-icon">
+        <a href="contact.html" aria-label="Contact">
+          <i class="ri-customer-service-2-line"></i>
+        </a>
+      </li>
+
+      <!-- Login Icon -->
+      <li class="nav-icon">
+        <a href="login.html" aria-label="Login">
+          <i class="ri-user-3-line"></i>
+        </a>
+      </li>
+
+      <!-- Cart Icon -->
+      <li class="nav-icon">
+        <a href="cart.html" id="lg-bag" aria-label="Cart">
+          <i class="ri-shopping-bag-4-line"></i>
+        </a>
+      </li>
+
+      <!-- Theme Toggle -->
+      <li class="nav-icon">
+        <button
+          class="theme-toggle"
+          id="themeToggle"
+          aria-label="Toggle dark mode"
+        >
+          <i class="ri-moon-line" id="themeIcon"></i>
+        </button>
+      </li>
+
+      <!-- Close Button -->
+      <a
+        href="#"
+        id="close"
+        aria-label="Close menu"
+        aria-hidden="false"
+      >
+        <i class="fa-solid fa-xmark"></i>
+      </a>
+
+    </ul>
+  </div>
+
+  <!-- Mobile Navbar -->
+  <div class="mobile">
+
+    <!-- Login Icon -->
+    <a href="login.html" aria-label="Login">
+      <i class="ri-user-3-line"></i>
+    </a>
+
+    <!-- Cart Icon -->
+    <a href="cart.html" aria-label="Cart">
+      <i class="ri-shopping-bag-4-line"></i>
+    </a>
+
+    <!-- Hamburger Menu -->
+    <i
+      class="fas fa-outdent"
+      id="bar"
+      role="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+      tabindex="0"
+    ></i>
+
+  </div>
+</section>
+
+            <!-- <div class="mobile">
             <button class="theme-toggle" id="themeToggleMobile"
                 aria-label="Toggle dark mode">
                 <i class="ri-moon-line" id="themeIconMobile"></i>
@@ -494,8 +632,8 @@
                 <span class="cart-count" id="mobileCartCount">0</span>
             </a>
             <i class="fas fa-outdent" id="bar"></i>
-            </div>
-        </section>
+            </div> -->
+        <!-- </section> -->
     <section id="try-on-section">
 
         <!-- Step Progress -->
@@ -585,13 +723,10 @@
     <canvas id="output-canvas"></canvas>
 </div>
 
-<img id="uploaded-preview" src="" alt="">
-
                 <!-- Hidden uploaded image -->
                 <img id="uploaded-preview" src="" alt="">
 
-                <!-- Main output canvas -->
-                <canvas id="output-canvas"></canvas>
+
 
                 <!-- Body info badge -->
                 <div class="body-info" id="body-info"></div>
@@ -716,15 +851,15 @@
     <!-- Copyright -->
     <div class="copyright">
       <p>
-        © Cara 2025. All rights reserved. |
+        © Cara 2026. All rights reserved. |
         <a href="license.html" style="color: #088178"> MIT License </a>
       </p>
     </div>
   </footer>
-    <script src="try-on.js"></script>
+   <button id="topBtn">↑</button>
+     <script src="try-on.js"></script> 
     <script src="navbar.js"></script>
-<script>loadNavbar('tryon');</script>
-<script src="app.js?v=1779120917221"></script>
+<!-- <script>loadNavbar('tryon');</script> -->
         <script id="Current-Year">
         document.getElementById("Current-Year").textContent = new Date().getFullYear();
     </script>

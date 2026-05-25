@@ -64,7 +64,7 @@
         <section id="header">
   <!-- Logo -->
   <a href="index.html">
-    <img src="images/logo.png" alt="Cara Logo" />
+    <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
   </a>
 
   <div>
@@ -112,20 +112,25 @@
       </li>
 
       <!-- Close Button -->
-      <a
-        href="#"
-        id="close"
-        aria-label="Close menu"
-        aria-hidden="false"
-      >
-        <i class="fa-solid fa-xmark"></i>
-      </a>
+      <li>
+        <a
+          href="#"
+          id="close"
+          aria-label="Close menu"
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </a>
+      </li>
 
     </ul>
   </div>
 
   <!-- Mobile Navbar -->
   <div class="mobile">
+
+    <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
+  <i class="ri-moon-line" id="themeIconMobile"></i>
+</button>
 
     <!-- Login Icon -->
     <a href="login.html" aria-label="Login">
@@ -522,13 +527,13 @@
       <h4>crazy deals</h4>
       <h2>buy 1 get 1 free</h2>
       <span>The best classic dress is on sale at cara</span>
-      <button class="white">Learn More</button>
+      <button class="banner-btn">Learn More</button>
     </div>
     <div class="banner-box banner-box2">
       <h4>upcoming season</h4>
       <h2>winter collection</h2>
       <span>The best classic dress is on sale at Cara</span>
-      <button class="white">Collection</button>
+      <button class="banner-btn">Collection</button>
     </div>
   </section>
 
@@ -546,6 +551,18 @@
       </div>
     </div>
   </div>
+
+  <!-- Newsletter Section -->
+  <section id="newsletter" class="section-p1">
+    <div class="newstext">
+      <h4>Sign Up For Newsletters</h4>
+      <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
+    </div>
+    <form class="form newsletter-form">
+      <input type="email" placeholder="Your email address" required />
+      <button type="submit" class="normal">Sign Up</button>
+    </form>
+  </section>
 
   <!-- Footer -->
   <footer class="section-p1">
@@ -599,19 +616,7 @@
       <a href="contact.html">Help</a>
     </div>
 
-    <!-- Newsletter Column -->
-    <div class="col newsletter-footer">
-      <h4>Newsletter</h4>
-      <p>
-        Get email updates about our latest shop and
-        <span>special offers.</span>
-      </p>
 
-      <form class="newsletter-form">
-        <input type="email" placeholder="Your email address" required />
-        <button type="submit" class="normal">Sign Up</button>
-      </form>
-    </div>
 
     <!-- Install App Column -->
     <div class="col install">
@@ -659,7 +664,7 @@
   </footer>
 
   <div id="toast-container"></div>
-  <script src="app.js"></script>
+  <script src="app.js?v=3"></script>
 </body>
 
 </html>

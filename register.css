@@ -50,6 +50,7 @@
 
 .form-group {
   margin-bottom: 20px;
+  position: relative;
 }
 
 .form-group label {
@@ -70,10 +71,12 @@
   font-family: inherit;
   background: var(--input-bg);
   color: var(--text-primary);
-  transition: border-color 0.25s ease,
-              box-shadow 0.25s ease,
-              background-color 0.3s ease,
-              color 0.3s ease;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background-color 0.3s ease,
+    color 0.3s ease,
+    transform 0.2s ease;
 }
 
 .form-group input::placeholder {
@@ -125,11 +128,14 @@
   font-weight: 700;
   letter-spacing: 1px;
   cursor: pointer;
-  transition: background 0.25s ease,
-              transform 0.15s ease,
-              box-shadow 0.25s ease;
+  transition:
+    background 0.25s ease,
+    transform 0.15s ease,
+    box-shadow 0.25s ease,
+    opacity 0.2s ease;
 }
 
+/* BUTTON HOVER */
 .btn-primary:hover {
   background: #066b63;
   transform: translateY(-1px);
@@ -164,6 +170,7 @@
   .auth-card {
     padding: 36px 24px;
   }
+
   .auth-card h2 {
     font-size: 26px;
   }

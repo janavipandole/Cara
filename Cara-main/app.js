@@ -49,16 +49,39 @@ const nav = document.getElementById("navbar");
 const close = document.getElementById("close");
 
 function updateAuthUI() {
-    const loginBtn = document.getElementById("login-btn");
     const loggedInUser = localStorage.getItem("loggedInUser");
+    const loginLinks = document.querySelectorAll('a[href="login.html"]');
 
-    if (!loginBtn) return;
-
-    if (loggedInUser) {
-        loginBtn.style.display = "none";
-    } else {
-        loginBtn.style.display = "block";
-    }
+    loginLinks.forEach(link => {
+        // Skip links in the footer or elsewhere if they don't have icons (optional)
+        // But for simplicity, we can transform them all.
+        if (loggedInUser) {
+            // Change to Logout
+            if (link.innerHTML.includes('ri-user-3-line') || link.innerHTML.includes('fa-user')) {
+                link.innerHTML = '<i class="ri-logout-box-r-line"></i>';
+                link.setAttribute('aria-label', 'Logout');
+            } else {
+                link.innerText = "Logout";
+            }
+            link.href = "#";
+            link.onclick = function (e) {
+                e.preventDefault();
+                localStorage.removeItem("loggedInUser");
+                localStorage.removeItem("appliedCoupon");
+                window.location.href = "login.html";
+            };
+        } else {
+            // Revert to Login
+            if (link.innerHTML.includes('ri-logout-box-r-line')) {
+                link.innerHTML = '<i class="ri-user-3-line"></i>';
+                link.setAttribute('aria-label', 'Login');
+            } else if (link.innerText === "Logout") {
+                link.innerText = "Login"; // or "Sign In"
+            }
+            link.href = "login.html";
+            link.onclick = null;
+        }
+    });
 }
 
 document.addEventListener("DOMContentLoaded", updateAuthUI);
@@ -81,7 +104,7 @@ document.addEventListener("click", function (e) {
     if (!proCard) return;
 
     // Ignore clicks on cart icon or buy now button inside the card
-    if (e.target.closest(".cart") || e.target.closest(".buy-now-btn")) return;
+    if (e.target.closest(".pro-cart-btn") || e.target.closest(".pro-buy-btn")) return;
 
     const nameElement = proCard.querySelector("h5");
     const priceElement = proCard.querySelector("h4");
@@ -274,9 +297,10 @@ function showToast(message, type) {
     toast.className = 'toast toast-' + type;
     toast.innerHTML =
         '<i class="fa-solid ' + (icons[type] || icons.success) + ' toast-icon"></i>' +
-        '<span class="toast-msg">' + message + '</span>' +
+        '<span class="toast-msg"></span>' +
         '<button class="toast-close" aria-label="Close notification">&times;</button>' +
         '<div class="toast-progress"></div>';
+    toast.querySelector('.toast-msg').textContent = message;
 
     // Close button handler
     toast.querySelector('.toast-close').addEventListener('click', function() {
@@ -397,134 +421,40 @@ window.loadCart = function () {
     const discountEl = document.getElementById('summary-discount');
     const totalEl = document.getElementById('summary-total');
 
-        // REMOVE BUTTON
-        const removeCell = newRow.insertCell();
-        const removeLink = document.createElement('a');
-        removeLink.href = '#';
-        removeLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            removeItem(index);
-        });
-        const removeIcon = document.createElement('i');
-        removeIcon.className = 'fa-regular fa-circle-xmark';
-        removeLink.appendChild(removeIcon);
-        removeCell.appendChild(removeLink);
 
-        // IMAGE
-        const imgCell = newRow.insertCell();
-        const img = document.createElement('img');
-        img.src = item.image;
-        img.alt = item.name;
-        imgCell.appendChild(img);
+    // Calculate Tax (18% GST)
+    const taxRate = 0.18;
+    const tax = subtotal * taxRate;
 
-        // NAME
-        const nameCell = newRow.insertCell();
-        nameCell.textContent = item.name;
-
-        const sizeSmall = document.createElement('small');
-        sizeSmall.textContent = 'Size: ' + item.size;
-        nameCell.appendChild(document.createElement('br'));
-        nameCell.appendChild(sizeSmall);
-
-        // PRICE
-        const priceCell = newRow.insertCell();
-        priceCell.textContent = '$' + itemPrice.toFixed(2);
-
-        // QTY
-        const qtyCell = newRow.insertCell();
-        const qtyInput = document.createElement('input');
-        qtyInput.type = 'number';
-        qtyInput.value = item.quantity;
-        qtyInput.min = 1;
-        qtyInput.addEventListener('change', function () {
-            updateQuantity(index, this.value);
-        });
-        qtyCell.appendChild(qtyInput);
-
-        // SUBTOTAL
-        const subtotalCell = newRow.insertCell();
-        subtotalCell.textContent = '$' + subtotal.toFixed(2);
-    };
-
-    // ✅ TOTAL UPDATE MUST BE HERE (INSIDE FUNCTION, AFTER LOOP)
-   const subtotalDisplay = document.querySelector('.subtotal table tr:nth-child(1) td:nth-child(2)');
- const totalDisplay = document.querySelector('.subtotal table tr:nth-child(3) td:nth-child(2) strong');
-
-if (subtotalDisplay) {
-    subtotalDisplay.innerText = `$${total.toFixed(2)}`;
-}
-
-if (totalDisplay) {
-    totalDisplay.innerText = `$${total.toFixed(2)}`;
-}
-
-window.removeItem = function (index) {
-    if (subtotalEl) {
-        subtotalEl.innerText = `₹${subtotal.toLocaleString('en-IN')}`;
-    }
-
-    // Shipping calculations (free above 3000)
-    let shipping = 0;
-    if (subtotal > 0) {
-        shipping = subtotal >= 3000 ? 0 : 150;
-    }
-    if (shippingEl) {
-        shippingEl.innerText = shipping === 0 ? 'FREE' : `₹${shipping}`;
-        if (shipping === 0 && subtotal > 0) {
-            shippingEl.classList.add('shipping-free');
-        } else {
-            shippingEl.classList.remove('shipping-free');
-        }
-    }
-
-    // 18% tax calculation
-    const tax = Math.round(subtotal * 0.18);
-    if (taxEl) {
-        taxEl.innerText = `₹${tax.toLocaleString('en-IN')}`;
-    }
-
-    // Coupon / Discount calculation
+    // Apply Coupon Discount
     let discount = 0;
-    if (window.appliedCoupon === 'CARA20' && subtotal > 0) {
-        discount = Math.round(subtotal * 0.20);
-    } else if (window.appliedCoupon === 'WELCOME10' && subtotal > 0) {
-        discount = Math.round(subtotal * 0.10);
+    const coupon = window.appliedCoupon || localStorage.getItem('appliedCoupon');
+    if (coupon === 'CARA20') {
+        discount = subtotal * 0.20;
+        if (discountRow) discountRow.style.display = 'flex';
+        if (discountEl) discountEl.innerText = `-₹${discount.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
+    } else if (coupon === 'WELCOME10') {
+        discount = subtotal * 0.10;
+        if (discountRow) discountRow.style.display = 'flex';
+        if (discountEl) discountEl.innerText = `-₹${discount.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
+    } else {
+        if (discountRow) discountRow.style.display = 'none';
     }
 
-    if (discountRow && discountEl) {
-        if (discount > 0) {
-            discountRow.style.display = 'flex';
-            discountEl.innerText = `-₹${discount.toLocaleString('en-IN')}`;
-        } else {
-            discountRow.style.display = 'none';
-        }
-    }
+    // Grand Total
+    const grandTotal = subtotal + tax - discount;
 
-    // Grand total calculation
-    const grandTotal = Math.max(0, subtotal + tax + shipping - discount);
-    if (totalEl) {
-        totalEl.innerText = `₹${grandTotal.toLocaleString('en-IN')}`;
-    }
+    if (subtotalEl) subtotalEl.innerText = `₹${subtotal.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
+    if (taxEl) taxEl.innerText = `₹${tax.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
+    if (totalEl) totalEl.innerText = `₹${grandTotal.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
 
-    // Update promo input field state
-    const promoInput = document.getElementById('coupon-code');
-    const promoBtn = document.getElementById('apply-coupon-btn');
-    if (promoInput && promoBtn) {
-        if (window.appliedCoupon) {
-            promoInput.value = window.appliedCoupon;
-            promoInput.disabled = true;
-            promoBtn.innerText = 'Applied';
-            promoBtn.disabled = true;
-            promoBtn.classList.add('applied');
-        } else {
-            promoInput.value = '';
-            promoInput.disabled = false;
-            promoBtn.innerText = 'Apply';
-            promoBtn.disabled = false;
-            promoBtn.classList.remove('applied');
-        }
-    }
-}
+    // Fallback for old layouts if they still exist
+    const oldSubtotalDisplay = document.querySelector('.subtotal table tr:nth-child(1) td:nth-child(2)');
+    const oldTotalDisplay = document.querySelector('.subtotal table tr:nth-child(3) td:nth-child(2) strong');
+
+    if (oldSubtotalDisplay) oldSubtotalDisplay.innerText = `₹${subtotal.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
+    if (oldTotalDisplay) oldTotalDisplay.innerText = `₹${grandTotal.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
+};
 
 window.changeQuantity = function (index, change) {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
@@ -629,7 +559,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const firstContainer = productContainers[0];
         firstContainer.innerHTML = '';
-        firstContainer.style.display = 'flex';
+        firstContainer.style.display = 'grid';
 
         productsToShow.forEach(product => {
             product.style.display = 'block';
@@ -1011,31 +941,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 /* --- END: CURRENT YEAR FUNCTIONALITY --- */
-/* --- Sort by Price Logic --- */
 document.addEventListener('DOMContentLoaded', () => {
-    const sortMenu = document.getElementById('sort-price');
-    const proContainer = document.querySelector('.pro-container');
-
-    if (sortMenu && proContainer) {
-        const originalProducts = Array.from(proContainer.querySelectorAll('.pro'));
-        sortMenu.addEventListener('change', (e) => {
-            const sortValue = e.target.value;
-            let productsToAppend;
-
-            if (sortValue === 'default') {
-                productsToAppend = originalProducts;
-            } else {
-                productsToAppend = [...originalProducts].sort((a, b) => {
-                    const priceA = parseFloat(a.querySelector('h4').innerText.replace('$', '').trim());
-                    const priceB = parseFloat(b.querySelector('h4').innerText.replace('$', '').trim());
-
-                    if (sortValue === 'low-high') return priceA - priceB;
-                    if (sortValue === 'high-low') return priceB - priceA;
-                });
-            }
-            productsToAppend.forEach(product => {
-                proContainer.appendChild(product);
-            });
-        });
-    }
+  const newsletterForm = document.querySelector('.newsletter-form');
+  if (newsletterForm) {
+    newsletterForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const email = this.querySelector('input[type="email"]').value.trim();
+      if (email) showToast('Thanks for subscribing!', 'success');
+    });
+  }
 });

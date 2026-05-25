@@ -2,25 +2,29 @@ document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('loginForm');
     const passwordInput = document.getElementById('loginPassword');
     const togglePassword = document.getElementById('togglePassword');
+    const toggleIcon = document.getElementById('toggleIcon');
 
-    if (passwordInput && togglePassword) {
+    // ── Password Visibility Toggle Logic ──
+    if (passwordInput && togglePassword && toggleIcon) {
+        togglePassword.addEventListener('click', function () {
+            // Toggle the input field's type attribute
+            const isPasswordHidden = passwordInput.type === 'password';
+            passwordInput.type = isPasswordHidden ? 'text' : 'password';
 
-    togglePassword.addEventListener('click', function () {
-
-        const isPasswordHidden = passwordInput.type === 'password';
-
-        passwordInput.type = isPasswordHidden ? 'text' : 'password';
-
-        this.innerHTML = isPasswordHidden
-
-            ? '<i class="ri-eye-off-line"></i>'
-            : '<i class="ri-eye-line"></i>';
-    });
-    
-}
+            // Toggle the Remix Icon classes cleanly without modifying innerHTML structure
+            if (isPasswordHidden) {
+                toggleIcon.classList.remove('ri-eye-line');
+                toggleIcon.classList.add('ri-eye-off-line');
+            } else {
+                toggleIcon.classList.remove('ri-eye-off-line');
+                toggleIcon.classList.add('ri-eye-line');
+            }
+        });
+    }
 
     if (!form) return;
 
+    // ── Form Submission Logic ──
     form.addEventListener('submit', function (e) {
         e.preventDefault();
         const email = document.getElementById('loginEmail').value.trim();
