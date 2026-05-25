@@ -7,6 +7,8 @@ const products = [
     img: 'images/products/f1.jpg',
     rating: 4.5,
     category: 'street',
+    color: 'pink',
+    style: 'floral',
   },
   {
     id: 2,
@@ -16,6 +18,8 @@ const products = [
     img: 'images/products/f2.jpg',
     rating: 3.5,
     category: 'minimal',
+    color: 'white',
+    style: 'casual',
   },
   {
     id: 3,
@@ -25,6 +29,8 @@ const products = [
     img: 'images/products/f3.jpg',
     rating: 4.0,
     category: 'minimal',
+    color: 'red',
+    style: 'floral',
   },
   {
     id: 4,
@@ -34,6 +40,8 @@ const products = [
     img: 'images/products/f4.jpg',
     rating: 5.0,
     category: 'minimal',
+    color: 'pink',
+    style: 'floral',
   },
   {
     id: 5,
@@ -43,6 +51,8 @@ const products = [
     img: 'images/products/f5.jpg',
     rating: 3.0,
     category: 'street',
+    color: 'pink',
+    style: 'floral',
   },
   {
     id: 6,
@@ -52,6 +62,8 @@ const products = [
     img: 'images/products/f6.jpg',
     rating: 4.0,
     category: 'street',
+    color: 'yellow',
+    style: 'casual',
   },
   {
     id: 7,
@@ -61,6 +73,8 @@ const products = [
     img: 'images/products/f7.jpg',
     rating: 4.5,
     category: 'street',
+    color: 'blue',
+    style: 'minimal',
   },
   {
     id: 8,
@@ -70,6 +84,8 @@ const products = [
     img: 'images/products/f8.jpg',
     rating: 3.5,
     category: 'minimal',
+    color: 'white',
+    style: 'cartoon',
   },
   {
     id: 9,
@@ -79,6 +95,8 @@ const products = [
     img: 'images/products/n1.jpg',
     rating: 5.0,
     category: 'formal',
+    color: 'blue',
+    style: 'formal',
   },
   {
     id: 10,
@@ -88,6 +106,8 @@ const products = [
     img: 'images/products/n2.jpg',
     rating: 4.5,
     category: 'formal',
+    color: 'blue',
+    style: 'formal',
   },
   {
     id: 11,
@@ -97,6 +117,8 @@ const products = [
     img: 'images/products/n3.jpg',
     rating: 4.0,
     category: 'formal',
+    color: 'white',
+    style: 'formal',
   },
   {
     id: 12,
@@ -106,6 +128,8 @@ const products = [
     img: 'images/products/n4.jpg',
     rating: 3.5,
     category: 'formal',
+    color: 'brown',
+    style: 'utility',
   },
   {
     id: 13,
@@ -115,6 +139,8 @@ const products = [
     img: 'images/products/n5.jpg',
     rating: 4.0,
     category: 'minimal',
+    color: 'blue',
+    style: 'casual',
   },
   {
     id: 14,
@@ -124,6 +150,8 @@ const products = [
     img: 'images/products/n6.jpg',
     rating: 3.0,
     category: 'minimal',
+    color: 'beige',
+    style: 'casual',
   },
   {
     id: 15,
@@ -133,6 +161,8 @@ const products = [
     img: 'images/products/n7.jpg',
     rating: 4.5,
     category: 'minimal',
+    color: 'khaki',
+    style: 'utility',
   },
   {
     id: 16,
@@ -142,6 +172,184 @@ const products = [
     img: 'images/products/n8.jpg',
     rating: 3.5,
     category: 'minimal',
+    color: 'black',
+    style: 'casual',
+  },
+  {
+    id: 17,
+    brand: 'Adidas',
+    name: 'Black Tech Training Tee',
+    price: 1899,
+    img: 'images/products/f1.jpg',
+    rating: 4.0,
+    category: 'street',
+    color: 'black',
+    style: 'minimal',
+  },
+  {
+    id: 18,
+    brand: 'Zara',
+    name: 'Olive Cargo Utility Pants',
+    price: 3299,
+    img: 'images/products/f2.jpg',
+    rating: 4.2,
+    category: 'street',
+    color: 'green',
+    style: 'utility',
+  },
+  {
+    id: 19,
+    brand: 'H&M',
+    name: 'Peach Knit Sweater',
+    price: 2199,
+    img: 'images/products/f3.jpg',
+    rating: 4.3,
+    category: 'minimal',
+    color: 'pink',
+    style: 'casual',
+  },
+  {
+    id: 20,
+    brand: "Levi's",
+    name: 'Indigo Denim Jacket',
+    price: 4999,
+    img: 'images/products/f4.jpg',
+    rating: 4.7,
+    category: 'street',
+    color: 'blue',
+    style: 'casual',
+  },
+  {
+    id: 21,
+    brand: 'Puma',
+    name: 'Red Logo Hoodie',
+    price: 2999,
+    img: 'images/products/f5.jpg',
+    rating: 4.1,
+    category: 'street',
+    color: 'red',
+    style: 'casual',
+  },
+  {
+    id: 22,
+    brand: 'Gap',
+    name: 'Navy Sweatpants',
+    price: 1999,
+    img: 'images/products/f6.jpg',
+    rating: 4.0,
+    category: 'minimal',
+    color: 'blue',
+    style: 'casual',
+  },
+  {
+    id: 23,
+    brand: 'Uniqlo',
+    name: 'White Crewneck Tee',
+    price: 1499,
+    img: 'images/products/f7.jpg',
+    rating: 4.4,
+    category: 'minimal',
+    color: 'white',
+    style: 'casual',
+  },
+  {
+    id: 24,
+    brand: 'Mango',
+    name: 'Vintage Floral Mini Dress',
+    price: 2799,
+    img: 'images/products/f8.jpg',
+    rating: 4.5,
+    category: 'minimal',
+    color: 'yellow',
+    style: 'floral',
+  },
+  {
+    id: 25,
+    brand: 'Tommy Hilfiger',
+    name: 'Grey Polo Shirt',
+    price: 3599,
+    img: 'images/products/n1.jpg',
+    rating: 4.3,
+    category: 'formal',
+    color: 'grey',
+    style: 'formal',
+  },
+  {
+    id: 26,
+    brand: 'Ralph Lauren',
+    name: 'Cream Chino Pants',
+    price: 4799,
+    img: 'images/products/n2.jpg',
+    rating: 4.6,
+    category: 'formal',
+    color: 'beige',
+    style: 'formal',
+  },
+  {
+    id: 27,
+    brand: 'Calvin Klein',
+    name: 'Black Leather Belt',
+    price: 1199,
+    img: 'images/products/n3.jpg',
+    rating: 4.0,
+    category: 'minimal',
+    color: 'black',
+    style: 'minimal',
+  },
+  {
+    id: 28,
+    brand: 'Zara',
+    name: 'Sandstone Knit Blazer',
+    price: 5299,
+    img: 'images/products/n4.jpg',
+    rating: 4.5,
+    category: 'formal',
+    color: 'brown',
+    style: 'formal',
+  },
+  {
+    id: 29,
+    brand: 'Nike',
+    name: 'White Running Shorts',
+    price: 1899,
+    img: 'images/products/n5.jpg',
+    rating: 4.2,
+    category: 'street',
+    color: 'white',
+    style: 'casual',
+  },
+  {
+    id: 30,
+    brand: "Levi's",
+    name: 'Classic Denim Jeans',
+    price: 3999,
+    img: 'images/products/n6.jpg',
+    rating: 4.1,
+    category: 'street',
+    color: 'blue',
+    style: 'casual',
+  },
+  {
+    id: 31,
+    brand: 'Uniqlo',
+    name: 'Camel Overshirt',
+    price: 3299,
+    img: 'images/products/n7.jpg',
+    rating: 4.4,
+    category: 'minimal',
+    color: 'brown',
+    style: 'casual',
+  },
+  {
+    id: 32,
+    brand: 'Puma',
+    name: 'Blue Windbreaker Jacket',
+    price: 2699,
+    img: 'images/products/n8.jpg',
+    rating: 4.3,
+    category: 'street',
+    color: 'blue',
+    style: 'utility',
   },
 ];
 
@@ -259,6 +467,8 @@ function updateStarDisplay(starDiv, rating) {
 function renderProducts(containerId, list) {
   const container = document.getElementById(containerId);
   if (!container) return;
+  // Remove any existing static product nodes to avoid duplicates
+  document.querySelectorAll('.pro').forEach((n) => n.remove());
   container.innerHTML = '';
 
   if (list.length === 0) {
@@ -387,6 +597,36 @@ function renderProducts(containerId, list) {
     cartBtn.appendChild(cartIcon);
     actionBar.appendChild(cartBtn);
 
+    // Wishlist button compatible with existing site scripts
+    const wishlistBtn = document.createElement('button');
+    wishlistBtn.type = 'button';
+    wishlistBtn.className = 'wishlist-btn';
+    wishlistBtn.innerHTML = '<i class="ri-heart-line"></i>';
+    wishlistBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      // reuse addToCart-like behaviour: toggle active and localStorage
+      const productName = p.name;
+      const productImage = p.img;
+      const productPrice = '₹' + p.price;
+      let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+      const exists = wishlist.find((i) => i.name === productName);
+      if (!exists) {
+        wishlist.push({ name: productName, price: productPrice, image: productImage });
+        wishlistBtn.classList.add('active');
+        wishlistBtn.innerHTML = '<i class="ri-heart-fill"></i>';
+        localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        if (typeof showToast === 'function') showToast(productName + ' added to wishlist', 'success');
+      } else {
+        wishlist = wishlist.filter((i) => i.name !== productName);
+        wishlistBtn.classList.remove('active');
+        wishlistBtn.innerHTML = '<i class="ri-heart-line"></i>';
+        localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        if (typeof showToast === 'function') showToast(productName + ' removed from wishlist', 'info');
+      }
+    });
+    actionBar.appendChild(wishlistBtn);
+
     des.appendChild(actionBar);
     card.appendChild(des);
     container.appendChild(card);
@@ -443,10 +683,16 @@ function filterProducts() {
   const input = document.getElementById('searchInput');
   const categorySelect = document.getElementById('categoryFilter');
   const sortSelect = document.getElementById('sort-price');
+  const brandSelect = document.getElementById('brand-filter');
+  const colorSelect = document.getElementById('color-filter');
+  const styleSelect = document.getElementById('style-filter');
 
   const query = input ? input.value.trim().toLowerCase() : '';
   const category = categorySelect ? categorySelect.value : 'all';
   const sortValue = sortSelect ? sortSelect.value : 'default';
+  const brandValue = brandSelect ? brandSelect.value.toLowerCase().trim() : 'all';
+  const colorValue = colorSelect ? colorSelect.value.toLowerCase().trim() : 'all';
+  const styleValue = styleSelect ? styleSelect.value.toLowerCase().trim() : 'all';
 
   let filteredProducts = products.filter((product) => {
     const matchesCategory = category === 'all' || product.category === category;
@@ -457,10 +703,24 @@ function filterProducts() {
     return matchesCategory && matchesSearch;
   });
 
+  // Apply brand/color/style filters
+  filteredProducts = filteredProducts.filter((product) => {
+    const matchesBrand = brandValue === 'all' || product.brand.toLowerCase() === brandValue;
+    const matchesColor = colorValue === 'all' || (product.color && product.color.toLowerCase() === colorValue);
+    const matchesStyle = styleValue === 'all' || (product.style && product.style.toLowerCase() === styleValue);
+    return matchesBrand && matchesColor && matchesStyle;
+  });
+
   if (sortValue === 'low-high') {
     filteredProducts.sort((a, b) => a.price - b.price);
   } else if (sortValue === 'high-low') {
     filteredProducts.sort((a, b) => b.price - a.price);
+  } else if (sortValue === 'rating-high') {
+    filteredProducts.sort((a, b) => b.rating - a.rating);
+  } else if (sortValue === 'rating-low') {
+    filteredProducts.sort((a, b) => a.rating - b.rating);
+  } else if (sortValue === 'newest') {
+    filteredProducts.sort((a, b) => b.id - a.id);
   }
 
   renderProducts('shop-container', filteredProducts);
@@ -472,6 +732,9 @@ function attachSearchListeners() {
   const input = document.getElementById('searchInput');
   const categorySelect = document.getElementById('categoryFilter');
   const sortSelect = document.getElementById('sort-price');
+  const brandSelect = document.getElementById('brand-filter');
+  const colorSelect = document.getElementById('color-filter');
+  const styleSelect = document.getElementById('style-filter');
   const searchBtn = document.getElementById('searchBtn');
 
   if (input) {
@@ -485,6 +748,9 @@ function attachSearchListeners() {
   }
   if (categorySelect) categorySelect.addEventListener('change', filterProducts);
   if (sortSelect) sortSelect.addEventListener('change', filterProducts);
+  if (brandSelect) brandSelect.addEventListener('change', filterProducts);
+  if (colorSelect) colorSelect.addEventListener('change', filterProducts);
+  if (styleSelect) styleSelect.addEventListener('change', filterProducts);
   if (searchBtn) {
     searchBtn.addEventListener('click', (e) => {
       e.preventDefault();
