@@ -1,192 +1,113 @@
-const paymentMethod = document.getElementById("paymentMethod");
-const cardDetails = document.getElementById("cardDetails");
+// ============================================================
+// checkout.js — Cara Fashion Store
+// ============================================================
 
-const cardName = document.getElementById("cardName");
-const cardNumber = document.getElementById("cardNumber");
-const expiry = document.getElementById("expiry");
-const cvv = document.getElementById("cvv");
-const paymentFields = [cardName, cardNumber, expiry, cvv];
+let selectedPayment = 'cod';
 
-function setFieldError(field, message) {
-  if (!field) return;
-
-  field.classList.add("input-error");
-  field.setCustomValidity(message);
-  field.reportValidity();
+// ── Payment method tab toggle ──────────────────────────────
+function selectPayment(method) {
+  selectedPayment = method;
+  document.getElementById('tabCOD').classList.toggle('active', method === 'cod');
+  document.getElementById('tabOnline').classList.toggle('active', method === 'online');
+  document.getElementById('cardDetails').classList.toggle('visible', method === 'online');
 }
 
-function clearFieldError(field) {
-  if (!field) return;
+// ── Auto-format card number (XXXX XXXX XXXX XXXX) ─────────
+document.getElementById('cardNumber').addEventListener('input', function (e) {
+  let v = e.target.value.replace(/\D/g, '').slice(0, 16);
+  e.target.value = v.replace(/(.{4})/g, '$1 ').trim();
+});
 
-  field.classList.remove("input-error");
-  field.setCustomValidity("");
-}
+// ── Auto-format expiry (MM/YY) ────────────────────────────
+document.getElementById('expiry').addEventListener('input', function (e) {
+  let v = e.target.value.replace(/\D/g, '').slice(0, 4);
+  if (v.length >= 3) v = v.slice(0, 2) + '/' + v.slice(2);
+  e.target.value = v;
+});
 
-function getDigits(value) {
-  return value.replace(/\D/g, "");
-}
+// ── CVV: digits only ──────────────────────────────────────
+document.getElementById('cvv').addEventListener('input', function (e) {
+  e.target.value = e.target.value.replace(/\D/g, '').slice(0, 4);
+});
 
-function formatCardNumber(value) {
-  return getDigits(value).slice(0, 16).replace(/(.{4})/g, "$1 ").trim();
-}
-
-function formatExpiry(value) {
-  const digits = getDigits(value).slice(0, 4);
-
-  if (digits.length <= 2) {
-    return digits;
-  }
-
-  return digits.slice(0, 2) + "/" + digits.slice(2);
+// ── Validation helpers ────────────────────────────────────
+function highlightError(el) {
+  el.focus();
+  el.style.borderColor = '#e53e3e';
+  el.style.boxShadow = '0 0 0 3px rgba(229,62,62,0.12)';
+  setTimeout(() => {
+    el.style.borderColor = '';
+    el.style.boxShadow = '';
+  }, 2000);
 }
 
 function isValidExpiry(value) {
   const match = value.match(/^(\d{2})\/(\d{2})$/);
   if (!match) return false;
-
   const month = Number(match[1]);
-  const year = Number("20" + match[2]);
+  const year = Number('20' + match[2]);
   if (month < 1 || month > 12) return false;
-
-  const currentDate = new Date();
-  const expiryDate = new Date(year, month);
-
-  return expiryDate > currentDate;
+  return new Date(year, month) > new Date();
 }
 
-function validateOnlinePayment() {
-  if (paymentMethod.value !== "online") return true;
+function validateCard() {
+  const cardName   = document.getElementById('cardName');
+  const cardNumber = document.getElementById('cardNumber');
+  const expiry     = document.getElementById('expiry');
+  const cvv        = document.getElementById('cvv');
 
-  paymentFields.forEach(clearFieldError);
-
-  const cardNumberDigits = getDigits(cardNumber.value);
-  const cvvDigits = getDigits(cvv.value);
-
-  if (cardName.value.trim().length < 2) {
-    setFieldError(cardName, "Enter the card holder name.");
-    return false;
-  }
-
-  if (cardNumberDigits.length !== 16) {
-    setFieldError(cardNumber, "Enter a valid 16-digit card number.");
-    return false;
-  }
-
-  if (!isValidExpiry(expiry.value.trim())) {
-    setFieldError(expiry, "Enter a valid future expiry date in MM/YY format.");
-    return false;
-  }
-
-  if (!/^\d{3,4}$/.test(cvvDigits)) {
-    setFieldError(cvv, "Enter a valid 3 or 4 digit CVV.");
-    return false;
-  }
+  if (cardName.value.trim().length < 2)                   { highlightError(cardName);   return false; }
+  if (cardNumber.value.replace(/\s/g, '').length !== 16)  { highlightError(cardNumber); return false; }
+  if (!isValidExpiry(expiry.value.trim()))                 { highlightError(expiry);     return false; }
+  if (!/^\d{3,4}$/.test(cvv.value.trim()))                { highlightError(cvv);        return false; }
 
   return true;
 }
 
-cardNumber.addEventListener("input", function () {
-  this.value = formatCardNumber(this.value);
-  clearFieldError(this);
-});
-
-expiry.addEventListener("input", function () {
-  this.value = formatExpiry(this.value);
-  clearFieldError(this);
-});
-
-cvv.addEventListener("input", function () {
-  this.value = getDigits(this.value).slice(0, 4);
-  clearFieldError(this);
-});
-
-cardName.addEventListener("input", function () {
-  clearFieldError(this);
-});
-
-// SHOW / HIDE CARD DETAILS
-paymentMethod.addEventListener("change", function () {
-  paymentFields.forEach(clearFieldError);
-
-  if (this.value === "online") {
-
-    cardDetails.style.display = "block";
-
-    cardName.required = true;
-    cardNumber.required = true;
-    expiry.required = true;
-    cvv.required = true;
-
-  } else {
-
-    cardDetails.style.display = "none";
-
-    cardName.required = false;
-    cardNumber.required = false;
-    expiry.required = false;
-    cvv.required = false;
-    paymentFields.forEach(function (field) {
-      field.value = "";
-    });
-
-  }
-
-});
-
-// FORM SUBMIT
-const form = document.getElementById("checkoutForm");
-const popup = document.getElementById("successPopup");
-
-form.addEventListener("submit", function (e) {
-
-  e.preventDefault();
-
-  // GET CART
-  let cart = JSON.parse(localStorage.getItem("productsInCart")) || [];
-
-  // CHECK EMPTY CART
+// ── Place order ───────────────────────────────────────────
+function placeOrder() {
+  // Check cart
+  const cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
   if (cart.length === 0) {
-    showToast("Your cart is empty!", "error");
+    if (typeof showToast === 'function') showToast('Your cart is empty!', 'error');
+    else alert('Your cart is empty!');
     return;
   }
 
-  if (!validateOnlinePayment()) {
-    return;
+  // Required contact/address fields
+  const requiredFields = ['fullName', 'email', 'phone', 'address', 'city', 'zip'];
+  for (const id of requiredFields) {
+    const el = document.getElementById(id);
+    if (!el || !el.value.trim()) { highlightError(el); return; }
   }
 
-  // ── Loading state: disable button & show spinner ──
-  const submitBtn = form.querySelector(".submit-btn");
-  if (submitBtn) {
-    submitBtn.classList.add("btn-loading");
-    submitBtn.disabled = true;
-  }
+  // Card validation for online payment
+  if (selectedPayment === 'online' && !validateCard()) return;
 
-  // Simulate async order processing (replace with real API call)
-  setTimeout(function () {
-    // CLEAR CART AFTER SUCCESSFUL ORDER
-    localStorage.removeItem("productsInCart");
-    localStorage.removeItem("appliedCoupon");
+  // Loading state
+  const btn = document.querySelector('.submit-btn');
+  const originalHTML = btn.innerHTML;
+  btn.disabled = true;
+  btn.style.opacity = '0.75';
+  btn.style.cursor = 'not-allowed';
+  btn.innerHTML = '<i class="ri-loader-4-line"></i> Processing…';
+
+  // Simulate async order processing
+  setTimeout(() => {
+    localStorage.removeItem('productsInCart');
+    localStorage.removeItem('appliedCoupon');
     window.appliedCoupon = null;
 
-    // Re-enable button
-    if (submitBtn) {
-      submitBtn.classList.remove("btn-loading");
-      submitBtn.disabled = false;
-    }
+    btn.disabled = false;
+    btn.style.opacity = '';
+    btn.style.cursor = '';
+    btn.innerHTML = originalHTML;
 
-    // SHOW SUCCESS POPUP
-    popup.classList.add("active");
-
-    form.reset();
-
-    // HIDE CARD DETAILS AGAIN
-    cardDetails.style.display = "none";
+    document.getElementById('successOverlay').classList.add('show');
   }, 1500);
-
-});
-
-function closePopup() {
-
-  popup.classList.remove("active");
-
 }
+
+// ── Close popup when clicking outside the box ─────────────
+document.getElementById('successOverlay').addEventListener('click', function (e) {
+  if (e.target === this) this.classList.remove('show');
+});

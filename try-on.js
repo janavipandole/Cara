@@ -158,6 +158,7 @@ function startLiveDetection() {
 window.capturePhoto=function() {
     if (!cameraStream) return;
 
+    detectedLandmarks = null; // clear stale landmarks before new capture
     // Capture current frame from the canvas
     const captureCanvas = document.createElement('canvas');
     captureCanvas.width = resultCanvas.width;
@@ -206,6 +207,7 @@ window.stopCamera=function() {
 uploadInput.addEventListener('change', function() {
     if (this.files && this.files[0]) {
         hasPhoto = true;
+        detectedLandmarks = null; // clear stale landmarks from previous photo
         uploadText.innerText = this.files[0].name;
 
         const reader = new FileReader();
@@ -695,8 +697,20 @@ const topBtn = document.getElementById("topBtn");
 
     // Scroll to top smoothly
     topBtn.addEventListener("click", function () {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-    });
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+});
+
+const themeToggle = document.getElementById("themeToggle");
+
+themeToggle?.addEventListener("click", () => {
+    const currentTheme = document.body.getAttribute("data-theme");
+
+    if (currentTheme === "dark") {
+        document.body.setAttribute("data-theme", "light");
+    } else {
+        document.body.setAttribute("data-theme", "dark");
+    }
+});
