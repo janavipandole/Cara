@@ -60,6 +60,7 @@
         <input
           type="text"
           id="registerUsername"
+          name="name"
           placeholder="Enter your full name"
           required
           autocomplete="name"
@@ -72,6 +73,7 @@
         <input
           type="email"
           id="registerEmail"
+          name="email"
           placeholder="Enter your email"
           required
           autocomplete="email"
@@ -86,9 +88,11 @@
           <input
             type="password"
             id="registerPassword"
+            name="password"
             placeholder="Enter your password"
             required
             autocomplete="new-password"
+            aria-describedby="passwordHint"
           >
 
           <button
@@ -105,7 +109,7 @@
         </div>
 
         <!-- PASSWORD STRENGTH HINT -->
-        <small id="passwordHint"></small>
+        <small id="passwordHint">Use at least 8 characters with a number.</small>
       </div>
 
       <!-- CONFIRM PASSWORD -->
@@ -118,9 +122,11 @@
           <input
             type="password"
             id="confirmPassword"
+            name="confirmPassword"
             placeholder="Confirm your password"
             required
             autocomplete="new-password"
+            aria-describedby="confirmHint"
           >
 
           <button
@@ -135,6 +141,9 @@
             ></i>
           </button>
         </div>
+
+        <!-- CONFIRM PASSWORD HINT -->
+        <small id="confirmHint"></small>
       </div>
 
       <!-- FORM MESSAGE -->
