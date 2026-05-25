@@ -61,56 +61,44 @@ function loadNavbar() {
           </a>
         </li>
 
-        <!-- Contact Icon -->
-        <li class="nav-icon">
-          <a href="contact.html" title="Contact Us" aria-label="Contact">
-            <i class="ri-customer-service-2-line"></i>
-          </a>
+        <li>
+          <a ${activePage === 'contact' ? 'class="active"' : ''} href="contact.html">Contact</a>
         </li>
-
-        <!-- Login Icon -->
-        <li class="nav-icon">
-          <a ${activePage === 'login' ? 'class="active"' : ''} href="login.html" title="Sign In" aria-label="Login">
-            <i class="ri-user-3-line"></i>
-          </a>
+        <li>
+          <a ${activePage === 'login' ? 'class="active"' : ''} href="login.html">Login</a>
         </li>
-
-        <!-- Cart Icon -->
-        <li class="nav-icon">
-          <a href="cart.html" id="lg-bag" title="View Cart" aria-label="Cart">
-            <i class="ri-shopping-bag-4-line"></i>
-          </a>
+        <li>
+          <a href="#" id="logout-btn" style="display:none">Logout</a>
         </li>
-
-        <!-- Theme Toggle -->
-        <li class="nav-icon">
-          <button
-            class="theme-toggle"
-            id="themeToggle"
-            aria-label="Toggle dark mode"
-          >
+        <li>
+          <a ${activePage === 'tryon' ? 'class="active"' : ''} href="try-on.html">Try-On</a>
+        </li>
+        <li>
+          <a ${activePage === 'community' ? 'class="active"' : ''} href="community.html">Community</a>
+        </li>
+        <li>
+          <a ${activePage === 'promotions' ? 'class="active"' : ''} href="promotions.html">Promotions</a>
+        </li>
+        <li>
+          <a href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a>
+        </li>
+        <li>
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
             <i class="ri-moon-line" id="themeIcon"></i>
           </button>
         </li>
-
-        <!-- Close Button -->
-        <li>
-          <a href="#" id="close" aria-label="Close menu">
-            <i class="fa-solid fa-xmark"></i>
-          </a>
-        </li>
-
+        <a href="#" id="close" aria-label="Close menu" aria-hidden="false"><i class="fa-solid fa-xmark"></i></a>
       </ul>
     </div>
   `;
 
-const container = document.getElementById("navbar-container");
+  const container = document.getElementById("navbar-container");
 
-if (container) {
-  container.innerHTML = navbarHTML;
+  if (container) {
+    container.innerHTML = navbarHTML;
 
-  // NOW elements exist
-  const menuBtn = document.getElementById("menu-btn");
+    // NOW elements exist
+    const menuBtn = document.getElementById("menu-btn");
 
   if (menuBtn) {
     menuBtn.addEventListener("click", () => {
@@ -119,13 +107,8 @@ if (container) {
   }
 }
 }
-  initDarkMode();
-  initMobileNavbar();
-  
-  function initMobileNavbar() {
 
-// Initialize navbar and UI
-loadNavbar();
+// Initialize features
 initDarkMode();
 initMobileNavbar();
 
