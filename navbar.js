@@ -11,8 +11,11 @@ function loadNavbar(activePage) {
         <li><a ${activePage === 'community' ? 'class="active"' : ''} href="community.html">Community</a></li>
         <li><a ${activePage === 'promotions' ? 'class="active"' : ''} href="promotions.html">Promotions</a></li>
         <li><a ${activePage === 'login' ? 'class="active"' : ''} href="login.html" id="login-btn">Login</a></li>
-        <li>
-          <a href="cart.html" id="lg-bag" class="cart-icon-wrapper">
+        <li><a href="about.html#feedback-section" class="nav-feedback-btn">Feedback</a></li>
+        
+        
+  <li>
+        <a href="cart.html" id="lg-bag" class="cart-icon-wrapper">
             <i class="ri-shopping-bag-4-line"></i>
             <span class="cart-count" id="desktopCartCount">0</span>
           </a>
@@ -67,3 +70,7 @@ function initDarkMode() {
   if (themeToggle) themeToggle.addEventListener('click', handleToggle);
   if (themeToggleMobile) themeToggleMobile.addEventListener('click', handleToggle);
 }
+
+
+
+

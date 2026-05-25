@@ -6206,3 +6206,5 @@ footer .copyright {
     z-index: 999 !important;
   }
 }
+
+.nav-feedback-btn { padding: 6px 14px !important; background: #088178 !important; color: #fff !important; border-radius: 20px !important; font-size: 14px !important; font-weight: 600 !important; text-decoration: none !important; }
