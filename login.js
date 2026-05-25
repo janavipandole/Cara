@@ -59,6 +59,7 @@ setTimeout(function () {
         const users = JSON.parse(localStorage.getItem('users') || '[]');
         const user = users.find(u => u.email === email && u.password === password);
 
+
         if (user) {
             localStorage.setItem('loggedInUser', email);
             window.location.href = 'index.html';
@@ -79,5 +80,50 @@ setTimeout(function () {
         }
     }
 }, 1500);
+
+            // Get selected role from the radio buttons
+            const selectedRoleInput = document.querySelector('input[name="loginRole"]:checked');
+            const selectedRole = selectedRoleInput ? selectedRoleInput.value : 'USER';
+
+            if (user) {
+                const userRole = user.role || 'USER';
+
+                // Role mismatch check
+                if (userRole !== selectedRole) {
+                    showToast(`This account is registered as ${userRole}. Please select the correct role.`, 'error');
+                    if (submitBtn) {
+                        submitBtn.classList.remove('btn-loading');
+                        submitBtn.disabled = false;
+                    }
+                    return;
+                }
+
+                // Store full user object with role
+                localStorage.setItem('loggedInUser', JSON.stringify({
+                    name: user.username,
+                    email: user.email,
+                    role: userRole
+                }));
+
+                showToast(`Welcome back, ${user.username}!`, 'success');
+
+                // Role-based redirect
+                setTimeout(function () {
+                    if (userRole === 'ADMIN') {
+                        window.location.href = 'admin.html';
+                    } else {
+                        window.location.href = 'index.html';
+                    }
+                }, 1000);
+
+            } else {
+                showToast("Invalid email or password", "error");
+                if (submitBtn) {
+                    submitBtn.classList.remove('btn-loading');
+                    submitBtn.disabled = false;
+                }
+            }
+        }, 1500);
+ main
     });
 });
