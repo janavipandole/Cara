@@ -1566,6 +1566,14 @@ footer .col {
     flex: 1 1 220px;
     min-width: 200px;
     margin-bottom: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+footer .col:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
 }
 
 footer .logo {
@@ -1593,7 +1601,39 @@ footer a {
     text-decoration: none;
     color: var(--footer-text);
     margin-bottom: 8px;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, padding-left 0.3s ease;
+    position: relative;
+    display: inline-block;
+}
+
+footer a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: var(--accent);
+    transition: width 0.3s ease;
+}
+
+footer a:hover {
+    color: var(--accent);
+    padding-left: 5px;
+}
+
+footer a:hover::after {
+    width: 100%;
+}
+
+/* Exclude hover animation from icon links */
+footer .follow a:hover,
+footer .payment-icons a:hover {
+    padding-left: 0;
+}
+footer .follow a::after,
+footer .payment-icons a::after {
+    display: none;
 }
 
 /* Social icons — prevent overlap */
@@ -1763,6 +1803,10 @@ footer .copyright a {
 footer .copyright a:hover {
     text-decoration: underline;
 }
+
+
+
+
 
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -35753,3 +35797,58 @@ html {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+.copyright {
+    width: 100% !important;
+    text-align: center !important;
+    flex-basis: 100% !important;
+    display: block !important;
+}
+
+.copyright {
+    width: 100% !important;
+    text-align: center !important;
+    flex-basis: 100% !important;
+    display: block !important;
+}
+
+/* Big Footer Brand Text override */
+.footer-big-text {
+    width: 100% !important;
+    display: block !important;
+    font-size: 28vw !important;
+    font-weight: 900 !important;
+    font-family: 'Helvetica Neue', Arial, sans-serif !important;
+    text-align: center !important;
+    line-height: 0.75 !important;
+    letter-spacing: -1vw !important;
+    background: linear-gradient(180deg, #111111 0%, #eeeeee 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    color: transparent !important;
+    user-select: none;
+    -webkit-user-select: none;
+    padding: 0 !important;
+    margin: 30px 0 0 0 !important;
+    clear: both !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+}
+
+[data-theme="dark"] .footer-big-text {
+    background: linear-gradient(180deg, #ffffff 0%, #1a1a1a 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
