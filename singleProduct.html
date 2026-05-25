@@ -130,6 +130,48 @@
         </div>
         </div>
     </section>
+      
+        <!-- Product Reviews Section -->
+    <section id="product-reviews" class="section-p1">
+        <div class="reviews-container">
+            <h3>Customer Reviews</h3>
+            
+            <!-- Where existing reviews will show up -->
+            <div id="reviews-list">
+                <div class="single-review">
+                    <div class="review-header">
+                        <strong>Alex Johnson</strong>
+                        <span class="stars">★★★★★</span>
+                    </div>
+                    <p>This T-Shirt is incredibly comfortable and the fabric is premium quality! Highly recommend.</p>
+                </div>
+            </div>
+
+            <!-- The Form to write a new review -->
+            <div class="write-review-box">
+                <h4>Write a Review</h4>
+                <form id="reviewForm">
+                    <input type="text" id="reviewerName" placeholder="Enter Your Name" required>
+                    
+                    <div class="rating-select">
+                        <label for="rating">Rating:</label>
+                        <select id="rating" required>
+                            <option value="5">★★★★★ (5/5)</option>
+                            <option value="4">★★★★☆ (4/5)</option>
+                            <option value="3">★★★☆☆ (3/5)</option>
+                            <option value="2">★★☆☆☆ (2/5)</option>
+                            <option value="1">★☆☆☆☆ (1/5)</option>
+                        </select>
+                    </div>
+
+                    <textarea id="reviewText" placeholder="What did you think about this product?" rows="4" required></textarea>
+                    
+                    <button type="submit" class="normal">Submit Review</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
 
     <section id="product1" class="section-p1">
         <h2>Featured Product</h2>
@@ -215,6 +257,6 @@
         document.getElementById("MainImg").src =
             localStorage.getItem("productImage") || "images/products/f1.jpg";
     </script>
+        <script src="reviews.js"></script>
 </body>
-
 </html>
