@@ -691,27 +691,71 @@ window.buyNow = function (productName, productPrice, productImage, quantity, siz
     }
 })();
 
-/* ============================================================
-   STYLE QUIZ
-   ============================================================ */
+// Session state helpers with window.name fallback for file:// protocol
+function setSessionFlag(key, value) {
+    try {
+        sessionStorage.setItem(key, value);
+    } catch (e) {}
+    try {
+        let state = {};
+        try {
+            state = JSON.parse(window.name);
+        } catch (err) {
+            state = {};
+        }
+        if (typeof state !== 'object' || state === null) state = {};
+        state[key] = value;
+        window.name = JSON.stringify(state);
+    } catch (e) {}
+}
+
+function getSessionFlag(key) {
+    try {
+        const val = sessionStorage.getItem(key);
+        if (val !== null) return val;
+    } catch (e) {}
+    try {
+        let state = JSON.parse(window.name);
+        if (state && typeof state === 'object') {
+            return state[key] || null;
+        }
+    } catch (e) {}
+    return null;
+}
+
+// Style Quiz Functionality
 window.openQuiz = function () {
-    const modal = document.getElementById("quiz-modal");
-    if (modal) modal.style.display = "flex";
-};
+    const modal = document.getElementById('quiz-modal');
+    if (modal) modal.style.display = 'flex';
+}
 
 window.closeQuiz = function () {
-    const modal = document.getElementById("quiz-modal");
-    if (modal) modal.style.display = "none";
-};
+    const modal = document.getElementById('quiz-modal');
+    if (modal) modal.style.display = 'none';
+    setSessionFlag('style_quiz_dismissed', 'true');
+}
 
 window.selectStyle = function (style) {
-    window.closeQuiz();
-    document.querySelectorAll(".pro").forEach(product => {
-        product.style.display =
-            product.getAttribute("data-category") === style ? "block" : "none";
+    closeQuiz();
+    setSessionFlag('style_quiz_preference', style);
+    const products = document.querySelectorAll('.pro');
+    products.forEach(product => {
+        if (product.getAttribute('data-category') === style) {
+            product.style.display = 'block';
+        } else {
+            product.style.display = 'none';
+        }
     });
-    const productSection = document.getElementById("product1");
-    if (productSection) productSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    // Auto scroll to products section
+    const productSection = document.getElementById('product1');
+
+    if (productSection) {
+        productSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
+
     alert(`Showing ${style} style recommendations!`);
 };
 
@@ -1422,3 +1466,31 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 })();
 /* --- END: PRODUCT QUICK-VIEW MODAL FUNCTIONALITY --- */
+const savedTheme = localStorage.getItem('theme');
+
+if (savedTheme === 'dark') {
+    document.body.classList.add('dark');
+    updateThemeIcon('dark');
+}
+
+// Automatically trigger style quiz modal on initial visit
+function initStyleQuizOnLoad() {
+    const quizModal = document.getElementById('quiz-modal');
+    if (quizModal) {
+        const quizTaken = getSessionFlag('style_quiz_preference');
+        const quizDismissed = getSessionFlag('style_quiz_dismissed');
+        if (!quizTaken && !quizDismissed) {
+            setTimeout(() => {
+                if (typeof window.openQuiz === 'function') {
+                    window.openQuiz();
+                }
+            }, 1000); // 1-second delay for smooth UX
+        }
+    }
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initStyleQuizOnLoad);
+} else {
+    initStyleQuizOnLoad();
+}
