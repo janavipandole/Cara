@@ -1,0 +1,5 @@
+venv/
+__pycache__/
+*.pyc
+cara.db
+faiss_index.bin

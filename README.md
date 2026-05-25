@@ -102,8 +102,37 @@ All you need is a modern web browser and a text editor!
    git clone https://github.com/janavipandole/Cara.git
    cd Cara
    ```
-   
-2. **Open in browser**
+
+2. **Install development dependencies**
+   ```bash
+   npm install
+   ```
+
+## 🛠️ Development
+
+This project uses ESLint and Prettier to maintain code quality and consistent styling.
+
+### Linting
+To check for code quality issues:
+```bash
+npm run lint
+```
+To automatically fix linting issues:
+```bash
+npm run lint:fix
+```
+
+### Formatting
+To check for formatting issues:
+```bash
+npm run format:check
+```
+To automatically format all files:
+```bash
+npm run format
+```
+
+3. **Open in browser**
    Simply open `index.html` in your web browser:
    - Double-click the `index.html` file, or
    - Right-click and select "Open with" your preferred browser, or
