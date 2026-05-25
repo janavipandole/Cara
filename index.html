@@ -91,30 +91,35 @@
     .theme-toggle {
       pointer-events: all !important;
     }
-    .search-container{
-  width: 100%;
-  background: white;
-  padding: 15px 20px;
-  box-sizing: border-box;
-  margin:20px;
-  position: relative;
-  z-index: 9999;
-  margin-left: 500px;
-}
+    .search-container {
+      flex: 1;
+      max-width: 350px;
+      margin: 0 20px;
+      position: relative;
+    }
+    
+    #searchBar {
+      width: 100%;
+      padding: 10px 15px;
+      border: 2px solid #088178;
+      border-radius: 8px;
+      font-size: 15px;
+      outline: none;
+      box-sizing: border-box;
+      background: var(--input-bg, white);
+      color: var(--text-primary, black);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    #searchBar:focus {
+      box-shadow: 0 0 8px rgba(8, 129, 120, 0.4);
+    }
 
-#searchBar{
-  width: 100%;
-  padding: 15px 20px;
-  border: 2px solid #088178;
-  border-radius: 8px;
-  font-size: 16px;
-  outline: none;
-  box-sizing: border-box;
-  background: white;
-  position: relative;
-  z-index: 99999;
-  pointer-events: auto;
-}
+    @media (max-width: 899px) {
+      .search-container {
+        display: none; /* Hide on mobile to keep navbar clean, or implement mobile toggle */
+      }
+    }
   </style>
 </head>
 
@@ -124,6 +129,14 @@
       <div id="workingArea">
         <section id="header">
           <a href="index.html"><img loading="lazy" src="images/logo.png" alt="" /></a>
+
+          <div class="search-container">
+            <input 
+              type="text"
+              id="searchBar"
+              placeholder="Search products..."
+            >
+          </div>
 
           <div>
             <ul id="navbar">
@@ -149,19 +162,10 @@
             </ul>
           </div>
           <div class="mobile">
-           
             <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
-            <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false"
-              tabindex="0"></i>
+            <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
           </div>
         </section>
-        <div class="search-container">
-          <input 
-            type="text"
-            id="searchBar"
-            placeholder="Search products..."
-          >
-        </div>
 
         <section id="hero" class="hero-slider">
 
