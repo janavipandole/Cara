@@ -92,35 +92,30 @@
     .theme-toggle {
       pointer-events: all !important;
     }
-    .search-container {
-      flex: 1;
-      max-width: 350px;
-      margin: 0 20px;
-      position: relative;
-    }
-    
-    #searchBar {
-      width: 100%;
-      padding: 10px 15px;
-      border: 2px solid #088178;
-      border-radius: 8px;
-      font-size: 15px;
-      outline: none;
-      box-sizing: border-box;
-      background: var(--input-bg, white);
-      color: var(--text-primary, black);
-      transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    }
-    
-    #searchBar:focus {
-      box-shadow: 0 0 8px rgba(8, 129, 120, 0.4);
-    }
+    .search-container{
+  width: 100%;
+  background: white;
+  padding: 15px 20px;
+  box-sizing: border-box;
+  margin: 20px auto;
+  max-width: 600px;
+  position: relative;
+  z-index: 9999;
+}
 
-    @media (max-width: 899px) {
-      .search-container {
-        display: none; /* Hide on mobile to keep navbar clean, or implement mobile toggle */
-      }
-    }
+#searchBar{
+  width: 100%;
+  padding: 15px 20px;
+  border: 2px solid #088178;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+  box-sizing: border-box;
+  background: white;
+  position: relative;
+  z-index: 99999;
+  pointer-events: auto;
+}
   </style>
 </head>
 
@@ -168,6 +163,7 @@
           </div>
         </section>
 
+        <main>
         <section id="hero" class="hero-slider">
 
           <!-- Slide 1 -->
@@ -662,6 +658,8 @@
       </div>
     </div>
   </div>
+
+  </main>
 
   <!-- Footer -->
   <footer class="section-p1">
