@@ -457,8 +457,10 @@ button.white .ripple-effect {
     background: transparent;
     border: 2px solid var(--border-color);
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -466,6 +468,8 @@ button.white .ripple-effect {
     color: var(--text-primary);
     font-size: 18px;
     transition: all 0.3s ease;
+    flex-shrink: 0;
+    aspect-ratio: 1 / 1;
 }
 
 .theme-toggle:hover {
@@ -3778,8 +3782,7 @@ footer .copyright {
    ============================================ */
 
             button,
-            .cart,
-            .theme-toggle {
+            .cart {
                 min-height: 44px;
                 min-width: 44px;
             }
@@ -6167,8 +6170,10 @@ footer .copyright {
             }
 
             .slider-btn {
-                width: 40px;
-                height: 40px;
+                width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
                 font-size: 16px;
             }
 
@@ -7671,8 +7676,10 @@ button.white .ripple-effect {
     background: transparent;
     border: 2px solid var(--border-color);
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -7680,6 +7687,8 @@ button.white .ripple-effect {
     color: var(--text-primary);
     font-size: 18px;
     transition: all 0.3s ease;
+    flex-shrink: 0;
+    aspect-ratio: 1 / 1;
 }
 
 .theme-toggle:hover {
@@ -10512,8 +10521,7 @@ footer .copyright {
    ============================================ */
 
             button,
-            .cart,
-            .theme-toggle {
+            .cart {
                 min-height: 44px;
                 min-width: 44px;
             }
@@ -12895,8 +12903,10 @@ footer .copyright {
             }
 
             .slider-btn {
-                width: 40px;
-                height: 40px;
+                width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
                 font-size: 16px;
             }
 
@@ -13961,8 +13971,10 @@ button.white .ripple-effect {
     background: transparent;
     border: 2px solid var(--border-color);
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -13970,6 +13982,8 @@ button.white .ripple-effect {
     color: var(--text-primary);
     font-size: 18px;
     transition: all 0.3s ease;
+    flex-shrink: 0;
+    aspect-ratio: 1 / 1;
 }
 
 .theme-toggle:hover {
@@ -14126,8 +14140,7 @@ button.white .ripple-effect {
 }
 
 /* Better touch targets */
-#navbar li a,
-.theme-toggle {
+#navbar li a {
     min-height: 44px;
     display: flex;
     align-items: center;
@@ -17529,8 +17542,7 @@ footer .copyright {
    ============================================ */
 
             button,
-            .cart,
-            .theme-toggle {
+            .cart {
                 min-height: 44px;
                 min-width: 44px;
             }
@@ -19998,8 +20010,10 @@ footer a {
             }
 
             .slider-btn {
-                width: 40px;
-                height: 40px;
+                width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
                 font-size: 16px;
             }
 
@@ -21618,8 +21632,10 @@ button.white .ripple-effect {
     background: transparent;
     border: 2px solid var(--border-color);
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -21627,6 +21643,8 @@ button.white .ripple-effect {
     color: var(--text-primary);
     font-size: 18px;
     transition: all 0.3s ease;
+    flex-shrink: 0;
+    aspect-ratio: 1 / 1;
 }
 
 .theme-toggle:hover {
@@ -24459,8 +24477,7 @@ footer .copyright {
    ============================================ */
 
             button,
-            .cart,
-            .theme-toggle {
+            .cart {
                 min-height: 44px;
                 min-width: 44px;
             }
@@ -26842,8 +26859,10 @@ footer .copyright {
             }
 
             .slider-btn {
-                width: 40px;
-                height: 40px;
+                width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
                 font-size: 16px;
             }
 
@@ -27908,8 +27927,10 @@ button.white .ripple-effect {
     background: transparent;
     border: 2px solid var(--border-color);
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -27917,6 +27938,8 @@ button.white .ripple-effect {
     color: var(--text-primary);
     font-size: 18px;
     transition: all 0.3s ease;
+    flex-shrink: 0;
+    aspect-ratio: 1 / 1;
 }
 
 .theme-toggle:hover {
@@ -28073,8 +28096,7 @@ button.white .ripple-effect {
 }
 
 /* Better touch targets */
-#navbar li a,
-.theme-toggle {
+#navbar li a {
     min-height: 44px;
     display: flex;
     align-items: center;
@@ -31476,8 +31498,7 @@ footer .copyright {
    ============================================ */
 
             button,
-            .cart,
-            .theme-toggle {
+            .cart {
                 min-height: 44px;
                 min-width: 44px;
             }
@@ -33865,8 +33886,10 @@ footer .copyright {
             }
 
             .slider-btn {
-                width: 40px;
-                height: 40px;
+                width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
                 font-size: 16px;
             }
 
@@ -35544,3 +35567,8 @@ html {
 [data-theme="dark"] #siteLogo {
     filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(255, 255, 255, 0.25));
 }
+
+
+
+
+
