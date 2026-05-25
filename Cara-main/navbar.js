@@ -55,13 +55,8 @@ function initDarkMode() {
   }
 
   function handleToggle() {
-    document.body.classList.toggle('dark');
-    const isDark = document.body.classList.contains('dark');
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    const next = isDark ? 'ri-sun-line' : 'ri-moon-line';
-    const prev = isDark ? 'ri-moon-line' : 'ri-sun-line';
-    if (themeIcon) themeIcon.classList.replace(prev, next);
-    if (themeIconMobile) themeIconMobile.classList.replace(prev, next);
+    toggleTheme(); //single source of truth from app.js
+    
   }
 
   if (themeToggle) themeToggle.addEventListener('click', handleToggle);
