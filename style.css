@@ -1499,16 +1499,95 @@ button.white .ripple-effect {
 /* ============================================
    FOOTER
    ============================================ */
+
+/* Main footer container */
+footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2rem;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 2rem;
+    margin: 0 auto;
+    background-color: var(--bg-secondary);
+    transition: background-color 0.3s ease;
+}
+
+/* Footer columns — 4 columns on desktop */
+footer .col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1 1 220px;
+    min-width: 200px;
+    margin-bottom: 20px;
+}
+
+footer .logo {
+    margin-bottom: 30px;
+    max-width: 100%;
+    height: auto;
+}
+
+footer h4 {
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--footer-text);
+}
+
+footer p {
+    margin: 0 0 12px 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--footer-text);
+}
+
+footer a {
+    font-size: 14px;
+    text-decoration: none;
+    color: var(--footer-text);
+    margin-bottom: 8px;
+    transition: color 0.3s ease;
+}
+
+/* Social icons — prevent overlap */
+footer .follow {
+    margin-top: 20px;
+    width: 100%;
+}
+
+footer .follow .icon {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+footer .follow i {
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: color 0.3s ease;
+    font-size: 18px;
+}
+
+footer .follow i:hover,
+footer a:hover {
+    color: var(--accent);
+}
+
+/* Newsletter column */
 footer .newsletter-footer {
-    flex: 1 1 320px;
-    max-width: 360px;
+    flex: 1 1 220px;
+    min-width: 200px;
 }
 
 footer .newsletter-footer p {
     font-size: 14px;
     line-height: 1.6;
     margin: 10px 0 18px;
-    color: #465b52;
+    color: var(--footer-text);
 }
 
 footer .newsletter-footer p span {
@@ -1518,119 +1597,94 @@ footer .newsletter-footer p span {
 
 footer .newsletter-form {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    gap: 0.5rem;
+    width: 100%;
+    align-items: stretch;
 }
 
 footer .newsletter-form input {
-    width: 100%;
+    flex: 1;
+    min-width: 150px;
     height: 44px;
     padding: 0 15px;
-    border: 1px solid #d1d1d1;
+    border: 1px solid var(--border-color, #d1d1d1);
     border-radius: 6px;
     outline: none;
     font-size: 14px;
+    background-color: var(--input-bg, #fff);
+    color: var(--text-primary);
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+footer .newsletter-form input:focus {
+    border-color: #088178;
 }
 
 footer .newsletter-form button {
-    width: 100%;
+    padding: 0 20px;
     height: 44px;
+    border: none;
     border-radius: 6px;
-}
-
-@media (min-width: 992px) {
-    footer .newsletter-form {
-        flex-direction: row;
-    }
-
-    footer .newsletter-form input {
-        flex: 1;
-    }
-
-    footer .newsletter-form button {
-        width: auto;
-        min-width: 110px;
-        white-space: nowrap;
-    }
-}
-
-footer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    background-color: var(--bg-secondary);
+    background-color: #088178;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
     transition: background-color 0.3s ease;
 }
 
-footer .col {
+footer .newsletter-form button:hover {
+    background-color: #066356;
+}
+
+/* Install app column */
+footer .install {
+    flex: 1 1 220px;
+    min-width: 200px;
+}
+
+footer .install .row {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 20px;
-}
-
-footer .logo {
-    margin-bottom: 30px;
-}
-
-footer h4 {
-    margin-bottom: 20px;
-    font-size: 20px;
-    color: var(--footer-text);
-}
-
-footer p {
-    margin: 0 0 8px 0;
-    font-size: 20px;
-    color: var(--footer-text);
-}
-
-footer a {
-    font-size: 18px;
-    text-decoration: none;
-    color: var(--footer-text);
-    margin-bottom: 10px;
-    transition: color 0.3s ease;
-}
-
-footer .follow {
-    margin-top: 20px;
-}
-
-footer .follow i {
-    color: var(--text-secondary);
-    padding-right: 4px;
-    cursor: pointer;
-    transition: color 0.3s ease;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin: 15px 0;
+    width: 100%;
 }
 
 footer .install .row img {
     border: 1px solid #088178;
     border-radius: 6px;
+    max-width: calc(50% - 0.25rem);
+    height: auto;
 }
 
 footer .install img {
-    margin: 10px 0 15px 0;
+    margin: 0;
 }
 
+/* Payment icons — prevent overflow */
 .payment-icons {
     display: flex;
-    align-items: center;
-    gap: 5px;
+    flex-wrap: wrap;
+    gap: 0.5rem;
     margin-top: 10px;
+    align-items: center;
 }
 
 .payment-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-decoration: none;
-}
-.main-footer{
-    margin-top: 20px;
+    padding: 4px;
+    transition: transform 0.3s ease;
 }
 
 .payment-icons i {
-    font-size: 37px;
+    font-size: 28px;
     color: #444444;
-    transition: 0.3s ease;
+    transition: color 0.3s ease;
     cursor: pointer;
 }
 
@@ -1647,14 +1701,106 @@ footer .install img {
     color: var(--accent);
 }
 
-footer .follow i:hover,
-footer a:hover {
-    color: var(--accent);
-}
-
+/* Copyright section */
 footer .copyright {
     text-align: center;
     width: 100%;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color, #e0e0e0);
+    margin-top: 1rem;
+    font-size: 14px;
+}
+
+footer .copyright a {
+    color: #088178;
+    margin-bottom: 0;
+}
+
+footer .copyright a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    footer {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1.5rem;
+        padding: 1.5rem;
+    }
+
+    footer .col {
+        flex: 1 1 100%;
+        align-items: flex-start;
+        margin-bottom: 0;
+    }
+
+    footer .newsletter-footer {
+        flex: 1 1 100%;
+    }
+
+    footer .install {
+        flex: 1 1 100%;
+    }
+
+    footer .newsletter-form {
+        flex-direction: column;
+    }
+
+    footer .newsletter-form input {
+        width: 100%;
+    }
+
+    footer .newsletter-form button {
+        width: 100%;
+    }
+
+    footer .follow .icon {
+        gap: 0.75rem;
+    }
+
+    footer h4 {
+        font-size: 14px;
+    }
+
+    footer p {
+        font-size: 13px;
+    }
+
+    footer a {
+        font-size: 13px;
+    }
+
+    .payment-icons i {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    footer {
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    footer h4 {
+        font-size: 13px;
+    }
+
+    footer p {
+        font-size: 12px;
+    }
+
+    footer a {
+        font-size: 12px;
+    }
+
+    footer .logo {
+        max-width: 100px;
+    }
+
+    .payment-icons i {
+        font-size: 20px;
+    }
 }
 
 /* ============================================
