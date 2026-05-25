@@ -53,6 +53,17 @@
       margin: 0 auto;
     }
 
+    @media (min-width: 768px) {
+      #cart-add {
+        display: flex;
+        justify-content: flex-end;
+      }
+      .subtotal {
+        width: 100%;
+        max-width: 450px;
+      }
+    }
+
     /* Align the .cart-header labels with the actual cart-item-row grid.
        cart-item-row uses a 5-column grid on desktop:
        [Product 3.5fr] [Price 1fr] [Qty 1.5fr] [Subtotal 1.2fr] [Remove 0.5fr]
@@ -262,6 +273,15 @@
       </section>
 
       <section id="cart-add" class="section-p1">
+        <div class="coupon">
+          <h3>Apply Coupon</h3>
+          <div>
+            <label for="coupon-code" class="sr-only" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">Coupon Code</label>
+            <input type="text" id="coupon-code" placeholder="Enter Your Coupon" />
+            <button id="apply-coupon-btn" class="normal">Apply</button>
+          </div>
+        </div>
+
         <div class="subtotal">
           <h3>Cart Totals</h3>
 
@@ -418,8 +438,10 @@
 <script src="navbar.js"></script>
 </body>
 </html>
+<style>
     /* Issue #866: keep cart navbar aligned consistently with other pages */
     #header #navbar {
       margin: 0;
       padding: 0;
     }
+</style>

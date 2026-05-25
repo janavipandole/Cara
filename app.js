@@ -49,45 +49,48 @@ document.addEventListener(
 );
 
 // Dynamic Render on singleProduct.html
-document.addEventListener('DOMContentLoaded', () => {
-  if (window.location.pathname.includes('singleProduct')) {
-    console.log('On singleProduct page, attempting dynamic render.');
-    const storedProductJSON = localStorage.getItem('selectedProduct');
-    console.log('Stored product JSON:', storedProductJSON);
+document.addEventListener("DOMContentLoaded", () => {
+  if (window.location.pathname.includes("singleProduct")) {
+    const storedProductJSON = localStorage.getItem("selectedProduct");
 
     if (storedProductJSON) {
       try {
         const product = JSON.parse(storedProductJSON);
-        console.log('Parsed product:', product);
 
-        const nameEl = document.getElementById('product-name');
-        const priceEl = document.getElementById('product-price');
-        const mainImgEl = document.getElementById('MainImg');
-        const breadcrumbEl = document.querySelector('.single-pro-details h6');
-        const smallImgs = document.querySelectorAll('.small-img');
+        const nameEl = document.getElementById("product-name");
+        const priceEl = document.getElementById("product-price");
+        const mainImgEl = document.getElementById("MainImg");
+        const breadcrumbEl = document.querySelector(".single-pro-details h6");
+        const smallImgs = document.querySelectorAll(".small-img");
 
         if (nameEl) nameEl.textContent = product.name;
         if (priceEl) priceEl.textContent = product.price;
         if (mainImgEl) mainImgEl.src = product.image;
 
         if (breadcrumbEl && product.brand) {
-          // Dynamically determine product type from name (e.g. Trousers, Shorts, Shirt)
-          let productType = 'T-Shirt';
-          if (product.name.toLowerCase().includes('trousers'))
-            productType = 'Trousers';
-          else if (product.name.toLowerCase().includes('shorts'))
-            productType = 'Shorts';
-          else if (product.name.toLowerCase().includes('blouse'))
-            productType = 'Blouse';
-          else if (product.name.toLowerCase().includes('shirt'))
-            productType = 'Shirt';
+          let productType = "T-Shirt";
+
+          if (product.name.toLowerCase().includes("trousers"))
+            productType = "Trousers";
+          else if (product.name.toLowerCase().includes("shorts"))
+            productType = "Shorts";
+          else if (product.name.toLowerCase().includes("blouse"))
+            productType = "Blouse";
+          else if (product.name.toLowerCase().includes("shirt"))
+            productType = "Shirt";
 
           breadcrumbEl.textContent = `Home / ${product.brand} / ${productType}`;
         }
 
-        // Update first thumbnail to match the product image
         if (smallImgs.length > 0 && product.image) {
           smallImgs[0].src = product.image;
+        }
+      } catch (error) {
+        console.error("Error parsing stored product:", error);
+      }
+    }
+  }
+});
         }
       } catch (error) {
         console.error('Error parsing stored product:', error);
@@ -216,18 +219,22 @@ function handleEmptyCartView() {
 }
 
 function addToCart(productName, productPrice, productImage, quantity, size) {
-  let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
-  let parsedQty = parseInt(quantity);
-  if (isNaN(parsedQty) || parsedQty < 1) parsedQty = 1;
-  let item = {
-    name: productName,
-    price: parsePriceString(productPrice),
-    image: productImage,
-    quantity: parsedQty,
-    size: size ? size.replace('Size', '') : null,
-  };
-  if (!item.size) {
-    console.log('Size missing, not adding to cart');
+let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+
+let parsedQty = parseInt(quantity);
+if (isNaN(parsedQty) || parsedQty < 1) parsedQty = 1;
+
+let item = {
+  name: productName,
+  price: parsePriceString(productPrice),
+  image: productImage,
+  quantity: parsedQty,
+  size: size ? size.replace("Size", "") : null
+};
+
+if (!item.size) {
+  return; // or handle validation upstream
+}
     return;
   }
 
@@ -1347,14 +1354,11 @@ document.addEventListener(
 // Dynamic Render on singleProduct.html
 document.addEventListener('DOMContentLoaded', () => {
   if (window.location.pathname.includes('singleProduct')) {
-    console.log('On singleProduct page, attempting dynamic render.');
     const storedProductJSON = localStorage.getItem('selectedProduct');
-    console.log('Stored product JSON:', storedProductJSON);
 
     if (storedProductJSON) {
       try {
         const product = JSON.parse(storedProductJSON);
-        console.log('Parsed product:', product);
 
         const nameEl = document.getElementById('product-name');
         const priceEl = document.getElementById('product-price');

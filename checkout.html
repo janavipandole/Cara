@@ -45,51 +45,52 @@
     <!-- Two-column layout -->
     <div class="checkout-grid">
 
-      <div class="input-group">
-        <label>Full Name</label>
-        <!-- Fix: Added name="fullName" so FormData API can collect this field's value on submit -->
-        <input type="text" name="fullName" placeholder="Enter your full name" required>
-      </div>
-
+      <div><!-- left -->
         <!-- Contact Information -->
-        <div class="card">
-          <div class="card-title">
+        <fieldset class="card">
+          <legend class="card-title">
             <i class="ri-user-3-line"></i> Contact Information
+          </legend>
+
+          <div class="input-group">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" autocomplete="name" required>
           </div>
 
-        <div class="input-group">
-          <label>Email Address</label>
-          <!-- Fix: Added name="email" so FormData API can collect this field's value on submit -->
-          <input type="email" name="email" placeholder="Enter your email" required>
-        </div>
+          <div class="input-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" autocomplete="email" required>
+          </div>
 
-        <div class="input-group">
-          <label>Phone Number</label>
-          <!-- Fix: Added name="phone" so FormData API can collect this field's value on submit -->
-          <input type="tel" name="phone" placeholder="Enter phone number" required>
-        </div>
+          <div class="input-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="Enter phone number" autocomplete="tel" required>
+          </div>
+        </fieldset>
 
-      </div>
+        <!-- Delivery Details -->
+        <fieldset class="card">
+          <legend class="card-title">
+            <i class="ri-map-pin-line"></i> Delivery Details
+          </legend>
 
-      <div class="input-group">
-        <label>Delivery Address</label>
-        <!-- Fix: Added name="address" so FormData API can collect this field's value on submit -->
-        <textarea name="address" placeholder="Enter full address" required></textarea>
-      </div>
+          <div class="input-group">
+            <label for="address">Delivery Address</label>
+            <textarea id="address" name="address" placeholder="Enter full address" autocomplete="street-address" required></textarea>
+          </div>
 
-      <div class="row">
+          <div class="row">
+            <div class="input-group">
+              <label for="city">City</label>
+              <input type="text" id="city" name="city" placeholder="Enter city" autocomplete="address-level2" required>
+            </div>
 
-        <div class="input-group">
-          <label>City</label>
-          <!-- Fix: Added name="city" so FormData API can collect this field's value on submit -->
-          <input type="text" name="city" placeholder="Enter city" required>
-        </div>
-
-        <div class="input-group">
-          <label>ZIP Code</label>
-          <!-- Fix: Added name="zip" so FormData API can collect this field's value on submit -->
-          <input type="text" name="zip" placeholder="ZIP Code" required>
-        </div>
+            <div class="input-group">
+              <label for="zip">ZIP Code</label>
+              <input type="text" id="zip" name="zip" placeholder="ZIP Code" autocomplete="postal-code" required>
+            </div>
+          </div>
+        </fieldset>
 
         <!-- Payment Method -->
         <div class="card">
@@ -109,21 +110,21 @@
           <!-- Card Details (visible only for Online Payment) -->
           <div class="card-details-section" id="cardDetails">
             <div class="input-group">
-              <label>Card Holder Name</label>
-              <input type="text" id="cardName" placeholder="Name on card">
+              <label for="cardName">Card Holder Name</label>
+              <input type="text" id="cardName" placeholder="Name on card" autocomplete="cc-name">
             </div>
             <div class="input-group">
-              <label>Card Number</label>
-              <input type="text" id="cardNumber" placeholder="XXXX XXXX XXXX XXXX" maxlength="19">
+              <label for="cardNumber">Card Number</label>
+              <input type="text" id="cardNumber" placeholder="XXXX XXXX XXXX XXXX" maxlength="19" autocomplete="cc-number">
             </div>
             <div class="row">
               <div class="input-group">
-                <label>Expiry Date</label>
-                <input type="text" id="expiry" placeholder="MM/YY" maxlength="5">
+                <label for="expiry">Expiry Date</label>
+                <input type="text" id="expiry" placeholder="MM/YY" maxlength="5" autocomplete="cc-exp">
               </div>
               <div class="input-group">
-                <label>CVV</label>
-                <input type="password" id="cvv" placeholder="•••" maxlength="4">
+                <label for="cvv">CVV</label>
+                <input type="password" id="cvv" placeholder="•••" maxlength="4" autocomplete="cc-csc">
               </div>
             </div>
           </div>

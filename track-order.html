@@ -68,7 +68,7 @@
     <section id="header">
   <!-- Logo -->
   <a href="index.html">
-    <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
+    <img id="siteLogo" src="images/logo.png" alt="Cara Logo" width="130" height="40" />
   </a>
 
   <div>
@@ -268,9 +268,9 @@
         <!-- Progress Timeline -->
         <div class="timeline-section">
           <h3>Shipment Progress</h3>
-          <div class="timeline" id="timeline">
+          <div class="timeline" id="timeline" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="80" aria-valuetext="In Transit">
 
-            <div class="timeline-step completed" id="step-ordered">
+            <div class="timeline-step completed" id="step-ordered" aria-label="Step 1: Order Placed (Completed)">
               <div class="step-icon">
                 <i class="ri-shopping-bag-check-line"></i>
               </div>
@@ -281,7 +281,7 @@
               </div>
             </div>
 
-            <div class="timeline-step completed" id="step-packed">
+            <div class="timeline-step completed" id="step-packed" aria-label="Step 2: Order Packed (Completed)">
               <div class="step-icon">
                 <i class="ri-archive-2-line"></i>
               </div>
@@ -292,7 +292,7 @@
               </div>
             </div>
 
-            <div class="timeline-step completed" id="step-shipped">
+            <div class="timeline-step completed" id="step-shipped" aria-label="Step 3: Shipped (Completed)">
               <div class="step-icon">
                 <i class="ri-send-plane-line"></i>
               </div>
@@ -303,7 +303,7 @@
               </div>
             </div>
 
-            <div class="timeline-step active" id="step-transit">
+            <div class="timeline-step active" id="step-transit" aria-current="step" aria-label="Step 4: In Transit (Current Step)">
               <div class="step-icon">
                 <i class="ri-truck-line"></i>
               </div>
@@ -314,7 +314,7 @@
               </div>
             </div>
 
-            <div class="timeline-step" id="step-delivered">
+            <div class="timeline-step" id="step-delivered" aria-label="Step 5: Delivered (Pending)">
               <div class="step-icon">
                 <i class="ri-home-check-line"></i>
               </div>
@@ -437,11 +437,10 @@
       </div>
     </section>
 
-    <!-- Footer -->
     <footer class="section-p1">
       <!-- Contact Column -->
       <div class="col">
-        <img class="logo" src="images/logo.png" alt="Cara Logo" />
+        <img class="logo" src="images/logo.png" alt="Cara Logo" width="130" height="40" loading="lazy" />
         <h4>Contact</h4>
         <p>
           <strong>Address:</strong> 562 Wellington Road, Street 32, San
@@ -509,8 +508,8 @@
         <p>From App Store or Google Play</p>
 
         <div class="row">
-          <img src="images/pay/app.jpg" alt="Download from App Store" />
-          <img src="images/pay/play.jpg" alt="Get it on Google Play" />
+          <img src="images/pay/app.jpg" alt="Download from App Store" width="180" height="54" loading="lazy" />
+          <img src="images/pay/play.jpg" alt="Get it on Google Play" width="180" height="54" loading="lazy" />
         </div>
 
         <p>Secured Payment Gateways</p>

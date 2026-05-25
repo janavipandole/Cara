@@ -63,13 +63,44 @@ document.addEventListener('DOMContentLoaded', function () {
           sessionStorage.setItem('loggedInUser', email);
         }
 
-        window.location.href = 'index.html';
-      } finally {
+const selectedRoleInput = document.querySelector('input[name="loginRole"]:checked');
+const selectedRole = selectedRoleInput ? selectedRoleInput.value : 'USER';
+
+if (user) {
+    const userRole = user.role || 'USER';
+
+    // Role mismatch check
+    if (userRole !== selectedRole) {
+        showToast(`This account is registered as ${userRole}. Please select the correct role.`, 'error');
         if (submitBtn) {
-          submitBtn.classList.remove('btn-loading');
-          submitBtn.disabled = false;
+            submitBtn.classList.remove('btn-loading');
+            submitBtn.disabled = false;
         }
-      }
-    }, 1500);
-  });
+        return;
+    }
+
+    // Store full user session
+    localStorage.setItem('loggedInUser', JSON.stringify({
+        name: user.username,
+        email: user.email,
+        role: userRole
+    }));
+
+    showToast(`Welcome back, ${user.username}!`, 'success');
+
+    setTimeout(function () {
+        if (userRole === 'ADMIN') {
+            window.location.href = 'admin.html';
+        } else {
+            window.location.href = 'index.html';
+        }
+    }, 1000);
+
+} else {
+    showToast("Invalid email or password", "error");
+    if (submitBtn) {
+        submitBtn.classList.remove('btn-loading');
+        submitBtn.disabled = false;
+    }
+}
 });
