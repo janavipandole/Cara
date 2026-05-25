@@ -1,0 +1,66 @@
+/* header-fix.css
+   Offsets the page content to account for the fixed header
+   Keeps the change isolated from style.css as requested.
+*/
+:root {
+  --header-height: 80px;
+}
+
+@media (max-width: 1024px) {
+  :root { --header-height: 72px; }
+}
+
+@media (max-width: 640px) {
+  :root { --header-height: 64px; }
+}
+
+/* apply the offset to the document body so the hero/products are pushed below the header */
+body {
+  padding-top: var(--header-height);
+  transition: padding-top 0.18s ease;
+}
+
+/* Make hero occupy viewport minus header so it doesn't overlap content below */
+.hero-slider {
+  height: calc(100vh - var(--header-height));
+  min-height: 420px; /* keep a sensible minimum */
+  box-sizing: border-box;
+}
+
+.hero-slider .slide {
+  height: 100% !important;
+}
+
+/* Ensure slider controls and dots remain visible above content */
+.hero-slider .slider-btn,
+.hero-slider .slider-dots {
+  z-index: 5;
+}
+
+/* Pull the products section up so it visually sits right under the hero
+   without editing global styles. Adjust per breakpoint for safe overlap. */
+.hero-slider + .section-p1,
+#hero + .section-p1,
+.hero-slider + #product1,
+#hero + #product1 {
+  margin-top: -48px; /* pull up */
+  padding-top: 20px; /* keep internal spacing */
+}
+
+@media (max-width: 991px) {
+  .hero-slider + .section-p1,
+  #hero + .section-p1,
+  .hero-slider + #product1,
+  #hero + #product1 {
+    margin-top: -28px;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-slider + .section-p1,
+  #hero + .section-p1,
+  .hero-slider + #product1,
+  #hero + #product1 {
+    margin-top: -16px;
+  }
+}

@@ -356,9 +356,10 @@
 <body>
 
   <!-- HEADER -->
+  <!-- HEADER -->
   <section id="header">
     <a href="index.html">
-      <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
+      <img id="siteLogo" src="images/logo.png" alt="Cara Logo" width="130" height="40" />
     </a>
 
     <div id="navbar-container"></div>
@@ -377,9 +378,9 @@
 
   <!-- BACK BUTTON -->
   <div class="back-btn-wrap">
-    <a class="back-btn" onclick="history.back()">
+    <button class="back-btn" onclick="history.back()" aria-label="Go back to previous page" style="background: transparent; border: none; font-family: inherit; font-size: inherit; cursor: pointer;">
       <i class="fa-solid fa-arrow-left"></i> Back
-    </a>
+    </button>
   </div>
 
   <!-- HERO -->
@@ -412,7 +413,7 @@
     </div>
 
     <!-- Shipping Policy -->
-    <div class="delivery-block">
+    <section class="delivery-block">
       <h3>📦 Shipping Policy</h3>
       <p>We are committed to delivering your orders as quickly and safely as possible.</p>
       <table class="shipping-table">
@@ -449,10 +450,10 @@
       <div class="notice-box">
         ℹ️ Shipping times are estimates and may vary during peak seasons or due to courier delays outside our control.
       </div>
-    </div>
+    </section>
 
     <!-- Order Processing -->
-    <div class="delivery-block">
+    <section class="delivery-block">
       <h3>⚙️ Order Processing</h3>
       <p>Once your order is placed and payment confirmed, our team begins processing immediately:</p>
       <ul>
@@ -461,10 +462,10 @@
         <li>You will receive a confirmation email with tracking number once dispatched.</li>
         <li>Processing may take 1–2 extra days during sale events or high-traffic periods.</li>
       </ul>
-    </div>
+    </section>
 
     <!-- International Shipping -->
-    <div class="delivery-block">
+    <section class="delivery-block">
       <h3>🌍 International Shipping</h3>
       <p>We ship to over 50 countries worldwide. Please note:</p>
       <ul>
@@ -476,10 +477,10 @@
       <div class="notice-box">
         ℹ️ Shipping cost for international orders is calculated at checkout based on your location and order weight.
       </div>
-    </div>
+    </section>
 
     <!-- Order Tracking -->
-    <div class="delivery-block">
+    <section class="delivery-block">
       <h3>📍 Order Tracking</h3>
       <p>Once your order is shipped, you can track it anytime:</p>
       <ul>
@@ -488,10 +489,10 @@
         <li>Tracking updates may take up to 24 hours to reflect after dispatch.</li>
         <li>For any tracking issues, please contact our support team.</li>
       </ul>
-    </div>
+    </section>
 
     <!-- Returns -->
-    <div class="delivery-block">
+    <section class="delivery-block">
       <h3>↩️ Returns & Exchanges</h3>
       <p>We want you to love every purchase. If something isn't right:</p>
       <ul>
@@ -502,10 +503,10 @@
         <li>Refunds are processed within 5–7 business days after we receive the returned item.</li>
       </ul>
       <p>For full details, see our <a href="terms.html" style="color:#088178; font-weight:600;">Terms and Conditions</a>.</p>
-    </div>
+    </section>
 
     <!-- Contact -->
-    <div class="delivery-block">
+    <section class="delivery-block">
       <h3>📞 Need Help?</h3>
       <p>Our support team is always here for you:</p>
       <ul>
@@ -513,7 +514,7 @@
         <li>📞 Phone: +01 2222 365 / (+91) 01 2345 6789</li>
         <li>🕙 Hours: 10:00 – 18:00, Mon – Sat</li>
       </ul>
-    </div>
+    </section>
 
   </main>
 
@@ -522,15 +523,15 @@
     <div class="footer-top">
 
       <div class="footer-brand">
-        <img src="images/logo.png" alt="Cara Logo" />
+        <img src="images/logo.png" alt="Cara Logo" width="110" height="34" loading="lazy" />
         <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
         <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
         <p><strong>Hours:</strong> 10:00 – 18:00, Mon – Sat</p>
         <div class="social-links">
-          <a href="https://x.com/JanaviPandole" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
-          <a href="https://github.com/janavipandole" target="_blank"><i class="fa-brands fa-github"></i></a>
-          <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
-          <a href="https://www.youtube.com/@JanaviPandole" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+          <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-youtube"></i></a>
         </div>
       </div>
 
@@ -560,12 +561,12 @@
         <h4>Install App</h4>
         <p style="font-size:13px; margin-bottom:4px;">From App Store or Google Play</p>
         <div class="app-badges">
-          <img src="images/pay/app.jpg" alt="App Store" />
-          <img src="images/pay/play.jpg" alt="Google Play" />
+          <img src="images/pay/app.jpg" alt="App Store" width="120" height="36" loading="lazy" />
+          <img src="images/pay/play.jpg" alt="Google Play" width="120" height="36" loading="lazy" />
         </div>
         <p style="font-size:13px; margin-top:18px; margin-bottom:8px; color:#fff;">Secured Payment Gateways</p>
         <div class="payment-icons">
-          <img src="images/pay/pay.png" alt="Payment methods" />
+          <img src="images/pay/pay.png" alt="Payment methods" width="224" height="24" loading="lazy" />
         </div>
       </div>
 

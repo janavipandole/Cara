@@ -50,6 +50,7 @@
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="style.css?v=2" />
+  <link rel="stylesheet" href="header-fix.css" />
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
@@ -96,10 +97,10 @@
   background: white;
   padding: 15px 20px;
   box-sizing: border-box;
-  margin:20px;
+  margin: 20px auto;
+  max-width: 600px;
   position: relative;
   z-index: 9999;
-  margin-left: 500px;
 }
 
 #searchBar{
@@ -125,6 +126,14 @@
         <section id="header">
           <a href="index.html"><img loading="lazy" src="images/logo.png" alt="" /></a>
 
+          <div class="search-container">
+            <input 
+              type="text"
+              id="searchBar"
+              placeholder="Search products..."
+            >
+          </div>
+
           <div>
             <ul id="navbar">
               <li><a class="active" href="index.html">Home</a></li>
@@ -149,20 +158,12 @@
             </ul>
           </div>
           <div class="mobile">
-           
             <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
-            <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false"
-              tabindex="0"></i>
+            <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
           </div>
         </section>
-        <div class="search-container">
-          <input 
-            type="text"
-            id="searchBar"
-            placeholder="Search products..."
-          >
-        </div>
 
+        <main>
         <section id="hero" class="hero-slider">
 
           <!-- Slide 1 -->
@@ -658,6 +659,8 @@
     </div>
   </div>
 
+  </main>
+
   <!-- Footer -->
   <footer class="section-p1">
     <!-- Contact Column -->
@@ -852,6 +855,28 @@
 <script src="navbar.js"></script>
 <script>
   loadNavbar();
+</script>
+
+<!-- Runtime header height shim: measures header and sets --header-height CSS var -->
+<script>
+  function updateHeaderHeight() {
+    var header = document.getElementById('header');
+    if (!header) return;
+    // measure computed height (includes padding, border)
+    var h = Math.ceil(header.getBoundingClientRect().height);
+    document.documentElement.style.setProperty('--header-height', h + 'px');
+    // also ensure body padding is in sync (in case header-fix.css missing)
+    document.body.style.paddingTop = h + 'px';
+  }
+
+  // Run early and on resize/load
+  document.addEventListener('DOMContentLoaded', function () {
+    updateHeaderHeight();
+    // small delay in case fonts/layout change
+    setTimeout(updateHeaderHeight, 120);
+  });
+  window.addEventListener('load', updateHeaderHeight);
+  window.addEventListener('resize', updateHeaderHeight);
 </script>
 
 <script src="app.js"></script>  
