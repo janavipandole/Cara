@@ -12,7 +12,6 @@
     updateThemeIcon(currentTheme);
 
     function updateThemeIcon(theme) {
-        console.log('Updating icons to:', theme);
         const iconClass = theme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
         if (themeIcon) themeIcon.className = iconClass;
         if (themeIconMobile) themeIconMobile.className = iconClass;
@@ -125,14 +124,11 @@ document.addEventListener("click", function (e) {
 // Dynamic Render on singleProduct.html
 document.addEventListener("DOMContentLoaded", () => {
     if (window.location.pathname.includes("singleProduct")) {
-        console.log("On singleProduct page, attempting dynamic render.");
         const storedProductJSON = localStorage.getItem("selectedProduct");
-        console.log("Stored product JSON:", storedProductJSON);
         
         if (storedProductJSON) {
             try {
                 const product = JSON.parse(storedProductJSON);
-                console.log("Parsed product:", product);
 
                 const nameEl = document.getElementById("product-name");
                 const priceEl = document.getElementById("product-price");
