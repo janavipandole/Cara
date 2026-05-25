@@ -1,4 +1,4 @@
-﻿        /* ============================================
+        /* ============================================
    CART PAGE
    ============================================ */
 
@@ -248,7 +248,9 @@
             grid-template-columns: 1fr;
             gap: 30px;
             align-items: start;
-            margin: 20px 0 50px;
+            margin: 20px auto 50px;
+            max-width: 1400px;
+            width: 100%;
         }
 
         @media (min-width: 992px) {
@@ -837,4 +839,25 @@
         min-height: 180px;
         border-radius: 16px;
     }
+/* --- SAVED FOR LATER SECTION --- */
+#saved-items-section {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px dashed var(--border-color);
+}
+#saved-items-section h3 {
+    font-size: 24px;
+    margin-bottom: 5px;
+    color: var(--text-primary);
+}
+#saved-items-section p {
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+}
+#saved-items-container .cart-item-row {
+    margin-bottom: 15px;
+    opacity: 0.9;
+}
+#saved-items-container .cart-item-move:hover {
+    transform: scale(1.1);
 }

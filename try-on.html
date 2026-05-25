@@ -19,10 +19,12 @@
 
         <style>
             body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-      line-height: 1.8;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.8;
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
     }
 
     .content {
@@ -52,10 +54,19 @@
             :root {
     --accent: #088178;
     --text-primary: #333;
+    --text-secondary: #6b7280;
     --bg-secondary: #f5f5f5;
     --card-bg: #ffffff;
     --border-color: #ddd;
-}
+    }
+
+    body[data-theme="dark"]{
+    --text-primary: #f3f4f6;
+    --text-secondary: #d1d5db;
+    --bg-secondary: #111827;
+    --card-bg: #1f2937;
+    --border-color: #374151;
+    }
         /* ============================================
            VIRTUAL TRY-ON PAGE STYLES
            ============================================ */
@@ -471,8 +482,8 @@
         }
 
         .share-btn {
-            background: white;
-            color: var(--accent);
+            background: var(--card-bg);
+            color: var(--text-primary);
             border: none;
             padding: 10px 18px;
             border-radius: 5px;
@@ -525,7 +536,7 @@
             <section id="header">
   <!-- Logo -->
   <a href="index.html">
-    <img src="images/logo.png" alt="Cara Logo" />
+    <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
   </a>
 
   <div>

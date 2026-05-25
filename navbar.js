@@ -1,16 +1,16 @@
 function loadNavbar() {
-  const currentPage = window.location.pathname.split("/").pop();
+  const currentPage = window.location.pathname.split('/').pop();
 
   const activeMap = {
-    "index.html": "home",
-    "shop.html": "shop",
-    "blog.html": "blog",
-    "about.html": "about",
-    "contact.html": "contact",
-    "try-on.html": "tryon",
-    "community.html": "community",
-    "promotions.html": "promotions",
-    "login.html": "login"
+    'index.html': 'home',
+    'shop.html': 'shop',
+    'blog.html': 'blog',
+    'about.html': 'about',
+    'contact.html': 'contact',
+    'try-on.html': 'tryon',
+    'community.html': 'community',
+    'promotions.html': 'promotions',
+    'login.html': 'login',
   };
 
   const activePage = activeMap[currentPage];
@@ -104,46 +104,57 @@ function loadNavbar() {
     </div>
   `;
 
-  const container = document.getElementById("navbar-container");
+const container = document.getElementById("navbar-container");
 
-  if (container) {
-    container.innerHTML = navbarHTML;
-  } else {
-    console.error("navbar-container not found!");
-    return;
+if (container) {
+  container.innerHTML = navbarHTML;
+
+  // NOW elements exist
+  const menuBtn = document.getElementById("menu-btn");
+
+  if (menuBtn) {
+    menuBtn.addEventListener("click", () => {
+     
+    });
   }
-
+}
 }
   initDarkMode();
   initMobileNavbar();
-  }
+  
   function initMobileNavbar() {
 
-  const bar = document.getElementById("bar");
-  const close = document.getElementById("close");
-  const navbar = document.getElementById("navbar");
+// Initialize navbar and UI
+loadNavbar();
+initDarkMode();
+initMobileNavbar();
+
+function initMobileNavbar() {
+  const bar = document.getElementById('bar');
+  const close = document.getElementById('close');
+  const navbar = document.getElementById('navbar');
 
   if (!bar || !navbar) return;
 
   // Open menu
   function openMenu() {
-    navbar.classList.add("active");
-    bar.setAttribute("aria-expanded", "true");
-    document.body.style.overflow = "hidden";
+    navbar.classList.add('active');
+    bar.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
   }
 
   // Close menu
   function closeMenu() {
-    navbar.classList.remove("active");
-    bar.setAttribute("aria-expanded", "false");
-    document.body.style.overflow = "";
+    navbar.classList.remove('active');
+    bar.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
   }
 
   // Open handlers
-  bar.addEventListener("click", openMenu);
+  bar.addEventListener('click', openMenu);
 
-  bar.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") {
+  bar.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       openMenu();
     }
@@ -151,20 +162,19 @@ function loadNavbar() {
 
   // Close handlers
   if (close) {
-    close.addEventListener("click", (e) => {
+    close.addEventListener('click', (e) => {
       e.preventDefault();
       closeMenu();
     });
   }
 
   // Close on outside click
-  document.addEventListener("click", (e) => {
-
+  document.addEventListener('click', (e) => {
     const clickedInsideNavbar = navbar.contains(e.target);
     const clickedBar = bar.contains(e.target);
 
     if (
-      navbar.classList.contains("active") &&
+      navbar.classList.contains('active') &&
       !clickedInsideNavbar &&
       !clickedBar
     ) {
@@ -173,53 +183,52 @@ function loadNavbar() {
   });
 
   // Close on ESC key
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
       closeMenu();
     }
   });
 
   // Close menu after clicking nav links on mobile
-  const navLinks = navbar.querySelectorAll("a");
+  const navLinks = navbar.querySelectorAll('a');
 
   navLinks.forEach((link) => {
-    link.addEventListener("click", () => {
+    link.addEventListener('click', () => {
       closeMenu();
     });
   });
- }
-
+}
 
 function initDarkMode() {
-  const themeToggle = document.getElementById("themeToggle");
-  const themeIcon = document.getElementById("themeIcon");
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon = document.getElementById('themeIcon');
 
-  const isDarkSaved = localStorage.getItem("theme") === "dark";
+  const isDarkSaved = localStorage.getItem('theme') === 'dark';
 
   if (isDarkSaved) {
-    document.body.classList.add("dark");
+    document.body.classList.add('dark');
 
     if (themeIcon) {
-      themeIcon.classList.replace("ri-moon-line", "ri-sun-line");
+      themeIcon.classList.replace('ri-moon-line', 'ri-sun-line');
     }
   }
 
   function handleToggle() {
-    document.body.classList.toggle("dark");
+    document.body.classList.toggle('dark');
 
-    const isDark = document.body.classList.contains("dark");
+    const isDark = document.body.classList.contains('dark');
 
-    localStorage.setItem("theme", isDark ? "dark" : "light");
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
 
     if (themeIcon) {
       themeIcon.classList.replace(
-        isDark ? "ri-moon-line" : "ri-sun-line",
-        isDark ? "ri-sun-line" : "ri-moon-line"
+        isDark ? 'ri-moon-line' : 'ri-sun-line',
+        isDark ? 'ri-sun-line' : 'ri-moon-line'
       );
     }
   }
 
   if (themeToggle) {
-    themeToggle.addEventListener("click", handleToggle);
+    themeToggle.addEventListener('click', handleToggle);
   }
 }
