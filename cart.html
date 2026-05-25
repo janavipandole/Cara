@@ -33,9 +33,6 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <style>
-    /* ================================================================
-       FIX #954 — Cart page layout misaligned / empty space on left
-    ================================================================ */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -55,7 +52,6 @@
       margin: 0 auto;
     }
 
-    /* Fix desktop header grid template column maps to line up with rows */
     .cart-column-header {
       display: grid;
       grid-template-columns: 3.5fr 1fr 1.5fr 1.2fr 0.5fr;
@@ -74,9 +70,7 @@
       padding: 0;
     }
 
-    /* ================================================================
-       FIX #964 — Cart item quantity & subtotal overlapping on mobile
-    ================================================================ */
+  
     @media (max-width: 767px) {
       .cart-column-header {
         display: none; /* Hide column tables on small break environments */
