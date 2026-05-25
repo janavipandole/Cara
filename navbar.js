@@ -20,43 +20,43 @@ function loadNavbar() {
       <ul id="navbar">
 
         <li>
-          <a ${activePage === 'home' ? 'class="active"' : ''} href="index.html" title="Home">
+          <a ${activePage === 'home' ? 'class="active" aria-current="page"' : ''} href="index.html" title="Home">
             Home
           </a>
         </li>
 
         <li>
-          <a ${activePage === 'shop' ? 'class="active"' : ''} href="shop.html" title="Shop">
+          <a ${activePage === 'shop' ? 'class="active" aria-current="page"' : ''} href="shop.html" title="Shop">
             Shop
           </a>
         </li>
 
         <li>
-          <a ${activePage === 'blog' ? 'class="active"' : ''} href="blog.html" title="Blog">
+          <a ${activePage === 'blog' ? 'class="active" aria-current="page"' : ''} href="blog.html" title="Blog">
             Blog
           </a>
         </li>
 
         <li>
-          <a ${activePage === 'about' ? 'class="active"' : ''} href="about.html" title="About">
+          <a ${activePage === 'about' ? 'class="active" aria-current="page"' : ''} href="about.html" title="About">
             About
           </a>
         </li>
 
         <li>
-          <a ${activePage === 'tryon' ? 'class="active"' : ''} href="try-on.html" title="Try-On">
+          <a ${activePage === 'tryon' ? 'class="active" aria-current="page"' : ''} href="try-on.html" title="Try-On">
             Try-On
           </a>
         </li>
 
         <li>
-          <a ${activePage === 'community' ? 'class="active"' : ''} href="community.html" title="Community">
+          <a ${activePage === 'community' ? 'class="active" aria-current="page"' : ''} href="community.html" title="Community">
             Community
           </a>
         </li>
 
         <li>
-          <a ${activePage === 'promotions' ? 'class="active"' : ''} href="promotions.html" title="Promotions">
+          <a ${activePage === 'promotions' ? 'class="active" aria-current="page"' : ''} href="promotions.html" title="Promotions">
             Promotions
           </a>
         </li>
@@ -70,7 +70,7 @@ function loadNavbar() {
 
         <!-- Login Icon -->
         <li class="nav-icon">
-          <a ${activePage === 'login' ? 'class="active"' : ''} href="login.html" title="Sign In" aria-label="Login">
+          <a ${activePage === 'login' ? 'class="active" aria-current="page"' : ''} href="login.html" title="Sign In" aria-label="Login">
             <i class="ri-user-3-line"></i>
           </a>
         </li>
