@@ -755,6 +755,46 @@ button.white .ripple-effect {
     color: var(--accent);
 }
 
+/* ── Hero banner: contrast fix for secondary text layers ──────────────────
+   These rules target ONLY the promotional sub-headings and body copy inside
+   .slide-content so they remain legible against the frosted-glass overlay.
+   Nothing outside the hero slider is affected.
+   ───────────────────────────────────────────────────────────────────────── */
+
+/* "Trade-in-offer", "New Arrivals", "Seasonal Sale" — small promo label */
+#hero .slide-content h4 {
+    color: #088178;                              /* brand primary dark-green */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+/* "Super Value Deals", "Summer Collection", "Up to 50% Off" — sub-headline */
+#hero .slide-content h2 {
+    color: #1a1a1a;                              /* near-black for strong contrast */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.10);
+}
+
+/* Supporting body copy under the headings */
+#hero .slide-content p {
+    color: #2d2d2d;                              /* dark charcoal, clearly readable */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+/* Dark-mode overrides: keep text bright on the dark gradient overlay */
+[data-theme="dark"] #hero .slide-content h4 {
+    color: #4ecdc4;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] #hero .slide-content h2 {
+    color: #f5f5f5;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] #hero .slide-content p {
+    color: #d4d4d4;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
 /* Shop Now CTA — filled accent button */
 .btn-shop-now {
     pointer-events: auto;
