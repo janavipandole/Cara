@@ -262,6 +262,15 @@
       </section>
 
       <section id="cart-add" class="section-p1">
+        <div class="coupon">
+          <h3>Apply Coupon</h3>
+          <div>
+            <label for="coupon-code" class="sr-only" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">Coupon Code</label>
+            <input type="text" id="coupon-code" placeholder="Enter Your Coupon" />
+            <button id="apply-coupon-btn" class="normal">Apply</button>
+          </div>
+        </div>
+
         <div class="subtotal">
           <h3>Cart Totals</h3>
 
@@ -417,8 +426,10 @@
 
 </body>
 </html>
+<style>
     /* Issue #866: keep cart navbar aligned consistently with other pages */
     #header #navbar {
       margin: 0;
       padding: 0;
     }
+</style>
