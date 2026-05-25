@@ -78,7 +78,14 @@ function placeOrder() {
   const requiredFields = ['fullName', 'email', 'phone', 'address', 'city', 'zip'];
   for (const id of requiredFields) {
     const el = document.getElementById(id);
-    if (!el || !el.value.trim()) { highlightError(el); return; }
+    if (!el) {
+      console.error(`Missing input field with id: ${id}`);
+      return;
+    }
+    if (!el.value.trim()) {
+    highlightError(el);
+    return;
+    }
   }
 
   // Card validation for online payment
