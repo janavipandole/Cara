@@ -2687,3 +2687,154 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 })();
 /* --- END: PRODUCT QUICK-VIEW MODAL FUNCTIONALITY --- */
+
+/* --- START: THREE COLUMN VIDEO HERO --- */
+document.addEventListener('DOMContentLoaded', () => {
+    const hero = document.querySelector('.cara-hero');
+    if (!hero) return;
+
+    const slides = Array.from(hero.querySelectorAll('.cara-hero-slide'));
+    const dots = Array.from(hero.querySelectorAll('.cara-hero-dots button'));
+    const prevBtn = hero.querySelector('.hero-prev');
+    const nextBtn = hero.querySelector('.hero-next');
+    const counter = hero.querySelector('.cara-hero-count');
+    const storyBtns = Array.from(hero.querySelectorAll('.hero-next-btn'));
+    let currentSlide = slides.findIndex((slide) => slide.classList.contains('active'));
+    let timerId;
+    const intervalMs = 6500;
+
+    if (currentSlide < 0) currentSlide = 0;
+
+    function syncVideos(activeSlide) {
+        slides.forEach((slide) => {
+            slide.querySelectorAll('video').forEach((video) => {
+                if (slide === activeSlide) {
+                    video.play().catch(() => {});
+                } else {
+                    video.pause();
+                }
+            });
+        });
+    }
+
+    function showSlide(index) {
+        const previousSlide = slides[currentSlide];
+        currentSlide = (index + slides.length) % slides.length;
+        slides.forEach((slide, slideIndex) => {
+            slide.classList.remove('leaving');
+            slide.classList.toggle('active', slideIndex === currentSlide);
+        });
+        if (previousSlide && previousSlide !== slides[currentSlide]) {
+            previousSlide.classList.add('leaving');
+            window.setTimeout(() => previousSlide.classList.remove('leaving'), 760);
+        }
+        dots.forEach((dot, dotIndex) => {
+            dot.classList.toggle('active', dotIndex === currentSlide);
+            dot.setAttribute('aria-selected', String(dotIndex === currentSlide));
+        });
+        if (counter) {
+            counter.textContent = `${String(currentSlide + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+        }
+        syncVideos(slides[currentSlide]);
+    }
+
+    function nextSlide() {
+        showSlide(currentSlide + 1);
+    }
+
+    function resetTimer() {
+        window.clearInterval(timerId);
+        timerId = window.setInterval(nextSlide, intervalMs);
+    }
+
+    prevBtn?.addEventListener('click', () => {
+        showSlide(currentSlide - 1);
+        resetTimer();
+    });
+
+    nextBtn?.addEventListener('click', () => {
+        nextSlide();
+        resetTimer();
+    });
+
+    storyBtns.forEach((button) => {
+        button.addEventListener('click', () => {
+            nextSlide();
+            resetTimer();
+        });
+    });
+
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            showSlide(index);
+            resetTimer();
+        });
+    });
+
+    document.addEventListener('keydown', (event) => {
+        const activeElement = document.activeElement;
+        const isTyping = activeElement?.matches('input, textarea, select, [contenteditable="true"]');
+        const quizIsOpen = document.getElementById('quiz-modal')?.classList.contains('is-open');
+
+        if (isTyping || quizIsOpen) return;
+
+        if (event.key === 'ArrowRight') {
+            nextSlide();
+            resetTimer();
+        }
+
+        if (event.key === 'ArrowLeft') {
+            showSlide(currentSlide - 1);
+            resetTimer();
+        }
+
+        if (event.key === 'Home') {
+            showSlide(0);
+            resetTimer();
+        }
+
+        if (event.key === 'End') {
+            showSlide(slides.length - 1);
+            resetTimer();
+        }
+    });
+
+    showSlide(currentSlide);
+    resetTimer();
+});
+/* --- END: THREE COLUMN VIDEO HERO --- */
+
+/* --- START: QUIZ MODAL CONTROL OVERRIDE --- */
+document.addEventListener('DOMContentLoaded', () => {
+    const quizModal = document.getElementById('quiz-modal');
+    if (quizModal) {
+        quizModal.classList.remove('is-open');
+        quizModal.style.display = '';
+        quizModal.addEventListener('click', (event) => {
+            if (event.target === quizModal) {
+                window.closeQuiz();
+            }
+        });
+    }
+});
+
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+        window.closeQuiz?.();
+    }
+});
+
+window.openQuiz = function () {
+    const quizModal = document.getElementById('quiz-modal');
+    if (!quizModal) return;
+    quizModal.classList.add('is-open');
+    quizModal.style.display = '';
+};
+
+window.closeQuiz = function () {
+    const quizModal = document.getElementById('quiz-modal');
+    if (!quizModal) return;
+    quizModal.classList.remove('is-open');
+    quizModal.style.display = '';
+};
+/* --- END: QUIZ MODAL CONTROL OVERRIDE --- */

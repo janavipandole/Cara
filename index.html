@@ -31,7 +31,7 @@
       property="og:image"
       content="https://cara-seven-ashen.vercel.app/images/logo.png"
     />
-  <meta property="og:url" 
+  <meta property="og:url"
   content="https://cara-seven-ashen.vercel.app/" />
   <meta property="og:type" content="website" />
 
@@ -60,7 +60,7 @@
     body {
       font-family: Arial, sans-serif;
       margin: 0;
-      padding: 20px;
+      padding: 0;
       line-height: 1.8;
     }
 
@@ -91,30 +91,6 @@
     .theme-toggle {
       pointer-events: all !important;
     }
-    .search-container{
-  width: 100%;
-  background: white;
-  padding: 15px 20px;
-  box-sizing: border-box;
-  margin:20px;
-  position: relative;
-  z-index: 9999;
-  margin-left: 500px;
-}
-
-#searchBar{
-  width: 100%;
-  padding: 15px 20px;
-  border: 2px solid #088178;
-  border-radius: 8px;
-  font-size: 16px;
-  outline: none;
-  box-sizing: border-box;
-  background: white;
-  position: relative;
-  z-index: 99999;
-  pointer-events: auto;
-}
   </style>
 </head>
 
@@ -123,7 +99,7 @@
     <div id="top">
       <div id="workingArea">
         <section id="header">
-          <a href="index.html"><img loading="lazy" src="images/logo.png" alt="" /></a>
+          <a href="index.html"><img loading="lazy" id="siteLogo" src="images/logo.png" alt="" /></a>
 
           <div>
             <ul id="navbar">
@@ -149,162 +125,150 @@
             </ul>
           </div>
           <div class="mobile">
-           
+
             <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
             <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false"
               tabindex="0"></i>
           </div>
         </section>
-        <div class="search-container">
-          <input 
-            type="text"
-            id="searchBar"
-            placeholder="Search products..."
-          >
-        </div>
-
-        <section id="hero" class="hero-slider">
-
-          <!-- Slide 1 -->
-          <div class="slide active" style="background-image: url('images/hero4.png');">
-            
-            <div class="slide-content">
-
-              <div class="hero-badge">
-                Trending Fashion 2025
-              </div>
-
-              <h4>Trade-in-offer</h4>
-
-              <h2>Super Value Deals</h2>
-
-              <h1>On All Products</h1>
-
-              <p>
-                Save more with coupons & up to 70% off on premium
-                fashion collections.
-              </p>
-
-              <div class="hero-tags">
-                <span>Streetwear</span>
-                <span>Premium</span>
-                <span>Trending</span>
-              </div>
-
-              <div class="hero-btn-group">
-
-                <a href="shop.html" class="btn-shop-now">
-                  Shop Now
-                </a>
-
-                <button onclick="openQuiz()">
-                  Take Style Quiz
-                </button>
-
-              </div>
-
-            </div>
-          </div>
-
-          <!-- Slide 2 -->
-          <div class="slide" style="background-image: url('images/banner/b1.png');">
-
-            <div class="slide-content">
-
-              <div class="hero-badge">
-                New Collection
-              </div>
-
-              <h4>New Arrivals</h4>
-
-              <h2>Summer Collection</h2>
-
-              <h1>Explore Trends</h1>
-
-              <p>
-                Discover fresh styles designed to elevate your
-                wardrobe this season.
-              </p>
-
-              <div class="hero-tags">
-                <span>Summer</span>
-                <span>Minimal</span>
-                <span>Luxury</span>
-              </div>
-
-              <div class="hero-btn-group">
-
-                <a href="shop.html" class="btn-shop-now">
-                  Explore Collection
-                </a>
-
-              </div>
-
-            </div>
-          </div>
-
-          <!-- Slide 3 -->
-          <div class="slide" style="background-image: url('images/banner/b2.png');">
-
-            <div class="slide-content">
-
-              <div class="hero-badge">
-                Limited Offer
-              </div>
-
-              <h4>Seasonal Sale</h4>
-
-              <h2>Up to 50% Off</h2>
-
-              <h1>Exclusive Deals</h1>
-
-              <p>
-                Don't miss the biggest sale of the season with
-                exclusive discounts.
-              </p>
-
-              <div class="hero-tags">
-                <span>Sale</span>
-                <span>Fashion</span>
-                <span>Exclusive</span>
-              </div>
-
-              <div class="hero-btn-group">
-
-                <a href="shop.html" class="btn-shop-now">
-                  Grab the Deal
-                </a>
-
-              </div>
-
-            </div>
-          </div>
-
-          <!-- Slider Controls -->
-          <button class="slider-btn prev" aria-label="Previous Slide">
-            <i class="fa-solid fa-chevron-left"></i>
-          </button>
-
-          <button class="slider-btn next" aria-label="Next Slide">
-            <i class="fa-solid fa-chevron-right"></i>
-          </button>
-
-          <!-- Slider Indicators -->
-          <div class="slider-dots">
-
-            <span class="dot active" data-slide="0"></span>
-
-            <span class="dot" data-slide="1"></span>
-
-            <span class="dot" data-slide="2"></span>
-
-          </div>
-
-        </section>
-
       </div>
     </div>
   </div>
+  <section id="cara-hero" class="cara-hero" aria-label="Featured fashion stories">
+    <div class="cara-hero-track">
+      <article class="cara-hero-slide active" data-slide="0">
+        <div class="hero-video-card">
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="images/hero-video-1.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="hero-copy-card">
+          <span class="hero-kicker">Editorial Drop</span>
+          <h1>Curated Layers</h1>
+          <p>Build a sharper wardrobe with new textures, clean silhouettes, and pieces styled for every part of the day.</p>
+          <div class="hero-actions">
+            <a href="shop.html">Shop the Edit</a>
+            <button type="button" class="hero-quiz-btn" onclick="openQuiz()">Take Style Quiz</button>
+            <button type="button" class="hero-next-btn">Next Story</button>
+          </div>
+        </div>
+        <div class="hero-video-card">
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="images/hero-video-2.mp4" type="video/mp4">
+          </video>
+        </div>
+      </article>
+
+      <article class="cara-hero-slide" data-slide="1">
+        <div class="hero-video-card">
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="images/hero-video-3.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="hero-copy-card">
+          <span class="hero-kicker">Street Studio</span>
+          <h1>Motion Ready</h1>
+          <p>Relaxed staples, elevated details, and confident fits made for city plans, campus days, and late evenings.</p>
+          <div class="hero-actions">
+            <a href="shop.html">Explore Looks</a>
+            <button type="button" class="hero-quiz-btn" onclick="openQuiz()">Take Style Quiz</button>
+            <button type="button" class="hero-next-btn">Next Story</button>
+          </div>
+        </div>
+        <div class="hero-video-card">
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="images/hero-video-4.mp4" type="video/mp4">
+          </video>
+        </div>
+      </article>
+
+      <article class="cara-hero-slide" data-slide="2">
+        <div class="hero-video-card">
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="images/hero-video-5.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="hero-copy-card">
+          <span class="hero-kicker">Seasonal Sale</span>
+          <h1>Fresh Icons</h1>
+          <p>Statement pieces meet everyday comfort. Refresh your rotation with new-season fashion at limited-time prices.</p>
+          <div class="hero-actions">
+            <a href="shop.html">Grab the Deal</a>
+            <button type="button" class="hero-quiz-btn" onclick="openQuiz()">Take Style Quiz</button>
+            <button type="button" class="hero-next-btn">Next Story</button>
+          </div>
+        </div>
+        <div class="hero-video-card">
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="images/hero-video-6.mp4" type="video/mp4">
+          </video>
+        </div>
+      </article>
+
+      <article class="cara-hero-slide" data-slide="3">
+        <div class="hero-video-card">
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="images/hero-video-7.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="hero-copy-card">
+          <span class="hero-kicker">Runway Mood</span>
+          <h1>Bold Lines</h1>
+          <p>Sharp cuts, expressive movement, and modern essentials styled for the moments when subtle is not enough.</p>
+          <div class="hero-actions">
+            <a href="shop.html">View Runway</a>
+            <button type="button" class="hero-quiz-btn" onclick="openQuiz()">Take Style Quiz</button>
+            <button type="button" class="hero-next-btn">Next Story</button>
+          </div>
+        </div>
+        <div class="hero-video-card">
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="images/hero-video-8.mp4" type="video/mp4">
+          </video>
+        </div>
+      </article>
+
+      <article class="cara-hero-slide" data-slide="4">
+        <div class="hero-video-card">
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="images/hero-video-9.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="hero-copy-card">
+          <span class="hero-kicker">Weekend Edit</span>
+          <h1>Soft Power</h1>
+          <p>Easy layers, confident palettes, and refined comfort made for coffee runs, city walks, and dinner plans.</p>
+          <div class="hero-actions">
+            <a href="shop.html">Shop Weekend</a>
+            <button type="button" class="hero-quiz-btn" onclick="openQuiz()">Take Style Quiz</button>
+            <button type="button" class="hero-next-btn">Next Story</button>
+          </div>
+        </div>
+        <div class="hero-video-card">
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="images/hero-video-10.mp4" type="video/mp4">
+          </video>
+        </div>
+      </article>
+    </div>
+
+    <div class="cara-hero-controls" aria-label="Hero slide controls">
+      <button type="button" class="cara-hero-arrow hero-prev" aria-label="Previous hero slide">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <div class="cara-hero-dots" role="tablist" aria-label="Hero slides">
+        <button type="button" class="active" aria-label="Show slide 1" data-slide="0"></button>
+        <button type="button" aria-label="Show slide 2" data-slide="1"></button>
+        <button type="button" aria-label="Show slide 3" data-slide="2"></button>
+        <button type="button" aria-label="Show slide 4" data-slide="3"></button>
+        <button type="button" aria-label="Show slide 5" data-slide="4"></button>
+      </div>
+      <span class="cara-hero-count" aria-live="polite">01 / 05</span>
+      <button type="button" class="cara-hero-arrow hero-next" aria-label="Next hero slide">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
+  </section>
   <!-- Fix: Added descriptive alt text to all feature images for accessibility.
      Also fixed typo: 'F24/7 Support' corrected to '24/7 Support' -->
   <section id="feature" class="section-p1">
@@ -648,12 +612,25 @@
   <!-- Style Quiz Modal -->
   <div id="quiz-modal" class="modal">
     <div class="modal-content">
-      <span class="close" onclick="closeQuiz()" style="background-color: red; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: medium;">&times;</span>
-      <h2 >What's Your Style ?</h2>
+      <button type="button" class="quiz-close" onclick="closeQuiz()" aria-label="Close style quiz">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <span class="quiz-kicker">Personal style finder</span>
+      <h2>What's Your Style?</h2>
+      <p>Pick a direction and we will filter the edit to pieces that match your mood.</p>
       <div class="quiz-options">
-        <button onclick="selectStyle('minimal')">Minimal</button>
-        <button onclick="selectStyle('street')">Street</button>
-        <button onclick="selectStyle('formal')">Formal</button>
+        <button onclick="selectStyle('minimal')">
+          <i class="fa-solid fa-circle-half-stroke"></i>
+          <span>Minimal</span>
+        </button>
+        <button onclick="selectStyle('street')">
+          <i class="fa-solid fa-bolt"></i>
+          <span>Street</span>
+        </button>
+        <button onclick="selectStyle('formal')">
+          <i class="fa-solid fa-user-tie"></i>
+          <span>Formal</span>
+        </button>
       </div>
     </div>
   </div>
@@ -816,7 +793,7 @@
                 <input type="email" placeholder="Your email address" required>
                 <button type="submit" style="background-color: #088178; color: white; border: none; padding: 10px 20px; cursor: pointer;">Sign Up</button>
             </form>
-            
+
             <div class="install-payment-box">
                 <h4>SECURED PAYMENT GATEWAYS</h4>
                 <div class="payment-icons">
@@ -829,7 +806,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="footer-install-box">
                 <h4>INSTALL APP</h4>
                 <p>From App Store or Google Play</p>
@@ -854,36 +831,7 @@
   loadNavbar();
 </script>
 
-<script src="app.js"></script>  
-<script>
-
-const searchBar = document.getElementById("searchBar");
-
-searchBar.addEventListener("keyup", function() {
-
-  const input = searchBar.value.toLowerCase();
-
-  const products = document.querySelectorAll(".pro");
-
-  products.forEach(function(product){
-
-    const productName = product
-      .querySelector("h5")
-      .textContent
-      .toLowerCase();
-
-    if(productName.includes(input)){
-      product.style.display = "block";
-    }
-    else{
-      product.style.display = "none";
-    }
-
-  });
-
-});
-
-</script>
+<script src="app.js"></script>
 </body>
 
 </html>
