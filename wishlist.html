@@ -71,67 +71,51 @@
 
 <body>
 
-    <h1 style="text-align:center; margin-top:20px;">
-        My Wishlist ❤️
-    </h1>
+    <main aria-label="My Wishlist">
+        <h1 style="text-align:center; margin-top:20px;">
+            My Wishlist ❤️
+        </h1>
 
-    <div class="wishlist-container" id="wishlistContainer"></div>
+        <div style="text-align: center; margin-top: 10px;">
+            <a href="shop.html" class="normal" style="text-decoration: none; display: inline-block; padding: 10px 20px; background-color: #088178; color: white; border-radius: 5px;">Back to Shop</a>
+        </div>
+
+        <div class="wishlist-container" id="wishlistContainer" aria-live="polite"></div>
+    </main>
 
     <script>
+        const wishlistContainer = document.getElementById("wishlistContainer");
 
-        const wishlistContainer =
-            document.getElementById("wishlistContainer");
+        let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
 
-        let wishlist =
-            JSON.parse(localStorage.getItem("wishlist")) || [];
-
-        // EMPTY WISHLIST
-        if(wishlist.length === 0){
-
-            wishlistContainer.innerHTML =
-                '<p class="empty-message">Your wishlist is empty 💔</p>';
+        function renderWishlist() {
+            wishlistContainer.innerHTML = '';
+            if (wishlist.length === 0) {
+                wishlistContainer.innerHTML = '<p class="empty-message">Your wishlist is empty 💔</p>';
+            } else {
+                wishlist.forEach((product, index) => {
+                    wishlistContainer.innerHTML += `
+                        <div class="wishlist-card">
+                            <img src="${product.image}" alt="${product.name}" width="220" height="280" loading="lazy">
+                            <h3>${product.name}</h3>
+                            <p>${product.price}</p>
+                            <button class="remove-btn" aria-label="Remove ${product.name} from wishlist" onclick="removeItem(${index})">
+                                Remove
+                            </button>
+                        </div>
+                    `;
+                });
+            }
         }
 
-        // SHOW PRODUCTS
-        else{
-
-            wishlist.forEach((product, index) => {
-
-                wishlistContainer.innerHTML += `
-
-                    <div class="wishlist-card">
-
-                        <img src="${product.image}" alt="">
-
-                        <h3>${product.name}</h3>
-
-                        <p>${product.price}</p>
-
-                        <button class="remove-btn"
-                            onclick="removeItem(${index})">
-
-                            Remove
-                        </button>
-
-                    </div>
-
-                `;
-            });
-        }
-
-        // REMOVE ITEM
-        function removeItem(index){
-
+        function removeItem(index) {
             wishlist.splice(index, 1);
-
-            localStorage.setItem(
-                "wishlist",
-                JSON.stringify(wishlist)
-            );
-
-            location.reload();
+            localStorage.setItem("wishlist", JSON.stringify(wishlist));
+            renderWishlist();
         }
 
+        // Initial render
+        renderWishlist();
     </script>
 
 </body>
