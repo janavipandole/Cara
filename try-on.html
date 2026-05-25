@@ -19,10 +19,12 @@
 
         <style>
             body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-      line-height: 1.8;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.8;
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
     }
 
     .content {
@@ -52,10 +54,19 @@
             :root {
     --accent: #088178;
     --text-primary: #333;
+    --text-secondary: #6b7280;
     --bg-secondary: #f5f5f5;
     --card-bg: #ffffff;
     --border-color: #ddd;
-}
+    }
+
+    body[data-theme="dark"]{
+    --text-primary: #f3f4f6;
+    --text-secondary: #d1d5db;
+    --bg-secondary: #111827;
+    --card-bg: #1f2937;
+    --border-color: #374151;
+    }
         /* ============================================
            VIRTUAL TRY-ON PAGE STYLES
            ============================================ */
@@ -471,8 +482,8 @@
         }
 
         .share-btn {
-            background: white;
-            color: var(--accent);
+            background: var(--card-bg);
+            color: var(--text-primary);
             border: none;
             padding: 10px 18px;
             border-radius: 5px;
@@ -623,6 +634,7 @@
             <i class="fas fa-outdent" id="bar"></i>
             </div> -->
         <!-- </section> -->
+    <main>
     <section id="try-on-section">
 
         <!-- Step Progress -->
@@ -650,7 +662,7 @@
                 <p>Use your camera or upload a photo. Our AI detects your body shape and fits the clothing on you.</p>
                 
                 <!-- Step 1: Input Mode -->
-                <h4>1. Choose Input</h4>
+                <h3>1. Choose Input</h3>
                 <div class="mode-toggle">
                     <button class="mode-btn active" id="btn-camera" onclick="switchMode('camera')">
                         <i class="ri-camera-line"></i> Camera
@@ -683,7 +695,7 @@
                 </div>
 
                 <!-- Step 2: Outfit -->
-                <h4>2. Select Outfit</h4>
+                <h3>2. Select Outfit</h3>
                 <div class="clothing-list" id="clothing-list">
                     <!-- Populated by JS from products array -->
                 </div>
@@ -736,6 +748,7 @@
             </div>
         </div>
     </section>
+    </main>
 
     <footer class="section-p1">
     <!-- Contact Column -->

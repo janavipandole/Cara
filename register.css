@@ -1,4 +1,3 @@
-/* ===== REGISTER PAGE — DARK MODE AWARE ===== */
 
 #register-section {
   min-height: calc(100vh - 80px);
@@ -10,7 +9,6 @@
   transition: background-color 0.3s ease;
 }
 
-/* CARD */
 .auth-card {
   width: 100%;
   max-width: 480px;
@@ -25,7 +23,6 @@
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-/* ANIMATION */
 @keyframes slideUp {
   to {
     opacity: 1;
@@ -33,7 +30,6 @@
   }
 }
 
-/* TITLE */
 .auth-card h2 {
   font-family: 'League Spartan', sans-serif;
   font-size: 32px;
@@ -44,7 +40,6 @@
   transition: color 0.3s ease;
 }
 
-/* SUBTITLE */
 .auth-card .subtitle {
   text-align: center;
   color: var(--text-secondary);
@@ -53,12 +48,11 @@
   transition: color 0.3s ease;
 }
 
-/* FORM GROUP */
 .form-group {
   margin-bottom: 20px;
+  position: relative;
 }
 
-/* LABEL */
 .form-group label {
   display: block;
   font-size: 14px;
@@ -68,7 +62,6 @@
   transition: color 0.3s ease;
 }
 
-/* INPUT */
 .form-group input {
   width: 100%;
   padding: 14px 16px;
@@ -78,19 +71,19 @@
   font-family: inherit;
   background: var(--input-bg);
   color: var(--text-primary);
-  transition: border-color 0.25s ease,
-              box-shadow 0.25s ease,
-              background-color 0.3s ease,
-              color 0.3s ease;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background-color 0.3s ease,
+    color 0.3s ease,
+    transform 0.2s ease;
 }
 
-/* PLACEHOLDER */
 .form-group input::placeholder {
   color: var(--text-secondary);
   opacity: 0.75;
 }
 
-/* INPUT FOCUS */
 .form-group input:focus {
   outline: none;
   border-color: var(--accent);
@@ -101,7 +94,6 @@
   box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.18);
 }
 
-/* PASSWORD WRAPPER */
 .password-wrapper {
   position: relative;
 }
@@ -110,7 +102,6 @@
   padding-right: 44px;
 }
 
-/* EYE ICON */
 .toggle-eye {
   position: absolute;
   right: 14px;
@@ -126,7 +117,6 @@
   color: var(--accent);
 }
 
-/* BUTTON */
 .btn-primary {
   width: 100%;
   padding: 15px;
@@ -138,11 +128,14 @@
   font-weight: 700;
   letter-spacing: 1px;
   cursor: pointer;
-  transition: background 0.25s ease,
-              transform 0.15s ease,
-              box-shadow 0.25s ease;
+  transition:
+    background 0.25s ease,
+    transform 0.15s ease,
+    box-shadow 0.25s ease,
+    opacity 0.2s ease;
 }
 
+/* BUTTON HOVER */
 .btn-primary:hover {
   background: #066b63;
   transform: translateY(-1px);
@@ -154,7 +147,6 @@
   box-shadow: 0 6px 20px rgba(6, 182, 212, 0.3);
 }
 
-/* SWITCH AUTH */
 .switch-auth {
   text-align: center;
   margin-top: 24px;
@@ -174,12 +166,81 @@
   opacity: 0.8;
 }
 
-/* RESPONSIVE */
 @media (max-width: 540px) {
   .auth-card {
     padding: 36px 24px;
   }
+
   .auth-card h2 {
     font-size: 26px;
   }
+}
+
+.role-selector {
+    display: flex;
+    gap: 12px;
+    margin-top: 6px;
+}
+
+.role-option {
+    flex: 1;
+    cursor: pointer;
+}
+
+.role-option input[type="radio"] {
+    display: none;
+}
+
+.role-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 14px 10px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    text-align: center;
+    transition: all 0.25s ease;
+    background: #f9f9f9;
+    cursor: pointer;
+}
+
+.role-card i {
+    font-size: 22px;
+    color: #088178;
+}
+
+.role-card strong {
+    font-size: 14px;
+    font-weight: 700;
+    color: #222;
+}
+
+.role-card small {
+    font-size: 11px;
+    color: #888;
+}
+
+.role-option input[type="radio"]:checked + .role-card {
+    border-color: #088178;
+    background: #e8f5f4;
+    box-shadow: 0 0 0 3px rgba(8, 129, 120, 0.15);
+}
+
+.role-option input[type="radio"]:checked + .role-card strong {
+    color: #088178;
+}
+
+[data-theme="dark"] .role-card {
+    background: #1a1f26;
+    border-color: #2d3748;
+}
+
+[data-theme="dark"] .role-card strong {
+    color: #e6eef8;
+}
+
+[data-theme="dark"] .role-option input[type="radio"]:checked + .role-card {
+    background: #0d2e2c;
+    border-color: #06b6d4;
 }

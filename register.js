@@ -7,6 +7,8 @@ registerForm.addEventListener("submit", function (e) {
   const email = document.getElementById("registerEmail").value.trim();
   const password = document.getElementById("registerPassword").value;
   const confirmPassword = document.getElementById("confirmPassword").value;
+  const roleInput = document.querySelector('input[name="registerRole"]:checked');
+  const selectedRole = roleInput ? roleInput.value : 'USER';
 
   
   if (!username || !email || !password || !confirmPassword) {
@@ -61,10 +63,10 @@ registerForm.addEventListener("submit", function (e) {
     return;
   }
 
-  users.push({ username, email, password });
+  users.push({ username, email, password, role: selectedRole });
   localStorage.setItem("users", JSON.stringify(users));
 
-  showSuccess("Account created successfully! Redirecting to login...");
+  showSuccess(`${selectedRole === 'ADMIN' ? 'Admin' : 'User'} account created successfully! Redirecting to login...`);
   setTimeout(() => {
     window.location.href = "login.html";
   }, 2000);

@@ -1,0 +1,79 @@
+/* Empty Cart State Styles */
+#empty-cart-state {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    margin: 40px auto;
+    max-width: 600px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+body.dark-mode #empty-cart-state {
+    background-color: #1a1a1a;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+.empty-cart-icon {
+    font-size: 80px;
+    color: #ccc;
+    margin-bottom: 20px;
+    animation: bounce 2s infinite;
+}
+
+body.dark-mode .empty-cart-icon {
+    color: #444;
+}
+
+#empty-cart-state h2 {
+    font-size: 28px;
+    color: #222;
+    margin-bottom: 10px;
+}
+
+body.dark-mode #empty-cart-state h2 {
+    color: #f1f1f1;
+}
+
+#empty-cart-state p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+body.dark-mode #empty-cart-state p {
+    color: #aaa;
+}
+
+.btn-continue-shopping {
+    background-color: #088178;
+    color: #fff;
+    padding: 14px 30px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.btn-continue-shopping:hover {
+    background-color: #066b63;
+    color: #fff;
+}
+
+/* Bounce Animation */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-20px);
+    }
+    60% {
+        transform: translateY(-10px);
+    }
+}

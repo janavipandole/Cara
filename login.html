@@ -60,14 +60,14 @@
     <form id="loginForm" class="login-form" novalidate>
         <div class="input-group">
             <label for="loginEmail">Email Address</label>
-            <input type="email" id="loginEmail" class="input-field" placeholder="example@domain.com" required>
+            <input type="email" id="loginEmail" name="email" class="input-field" placeholder="example@domain.com" autocomplete="email" required>
         </div>
         
-        <div class="input-group password-group">
+        <div class="input-group password-group" style="position: relative;">
             <label for="loginPassword">Password</label>
-            <input type="password" id="loginPassword" class="input-field" placeholder="••••••••" required>
-            <button type="button" id="togglePassword" class="toggle_password">
-                <i class="ri-eye-line"></i>
+            <input type="password" id="loginPassword" name="password" class="input-field" placeholder="••••••••" autocomplete="current-password" required style="padding-right: 45px; width: 100%;">
+            <button type="button" id="togglePassword" class="toggle_password" aria-label="Toggle password visibility" style="position: absolute; right: 10px; top: 38px; background: none; border: none; cursor: pointer; color: #666; font-size: 18px;">
+                <i class="ri-eye-line" id="toggleIcon"></i>
             </button>
         </div>
         
@@ -77,6 +77,28 @@
                 <label for="rememberMe">Remember me</label>
             </div>
             <a href="forgotPassword.html" class="forgot">Forgot Password?</a>
+        </div>
+        
+        <div class="input-group">
+            <label>Login As</label>
+            <div class="role-selector">
+                <label class="role-option">
+                    <input type="radio" name="loginRole" value="USER" checked>
+                    <span class="role-card">
+                        <i class="ri-user-3-line"></i>
+                        <strong>User</strong>
+                        <small>Shop &amp; browse</small>
+                    </span>
+                </label>
+                <label class="role-option">
+                    <input type="radio" name="loginRole" value="ADMIN">
+                    <span class="role-card">
+                        <i class="ri-shield-user-line"></i>
+                        <strong>Admin</strong>
+                        <small>Manage store</small>
+                    </span>
+                </label>
+            </div>
         </div>
         
         <button type="submit" class="login-btn"><span>Sign In</span></button>
