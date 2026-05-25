@@ -6825,6 +6825,8 @@ footer.main-footer {
     display: flex;
     align-items: center;
     gap: 14px;
+    /* Niche wali line add karein */
+    margin-left: auto; 
 }
 
 .footer-socials a {
