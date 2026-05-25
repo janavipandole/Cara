@@ -93,28 +93,34 @@
       pointer-events: all !important;
     }
     .search-container{
-  width: 100%;
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  min-width: 48px;
+  max-width: 48px;
   background: white;
-  padding: 15px 20px;
+  padding: 0;
   box-sizing: border-box;
-  margin: 20px auto;
-  max-width: 600px;
+  margin: 0 18px;
   position: relative;
   z-index: 9999;
+  border: 2px solid #088178;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
-#searchBar{
+.search-container a{
   width: 100%;
-  padding: 15px 20px;
-  border: 2px solid #088178;
-  border-radius: 8px;
-  font-size: 16px;
-  outline: none;
-  box-sizing: border-box;
-  background: white;
-  position: relative;
-  z-index: 99999;
-  pointer-events: auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #088178;
+  text-decoration: none;
+  font-size: 22px;
 }
   </style>
 </head>
@@ -126,12 +132,10 @@
         <section id="header">
           <a href="index.html"><img loading="lazy" src="images/logo.png" alt="" /></a>
 
-          <div class="search-container">
-            <input 
-              type="text"
-              id="searchBar"
-              placeholder="Search products..."
-            >
+          <div class="search-container" aria-label="Search products">
+            <a href="shop.html" class="search-icon" aria-label="Search products">
+              <i class="ri-search-line"></i>
+            </a>
           </div>
 
           <div>
@@ -158,7 +162,6 @@
             </ul>
           </div>
           <div class="mobile">
-            <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
             <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
           </div>
         </section>
@@ -197,10 +200,6 @@
                 <a href="shop.html" class="btn-shop-now">
                   Shop Now
                 </a>
-
-                <button onclick="openQuiz()">
-                  Take Style Quiz
-                </button>
 
               </div>
 
@@ -646,18 +645,7 @@
 
 
 
-  <!-- Style Quiz Modal -->
-  <div id="quiz-modal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeQuiz()" style="background-color: red; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: medium;">&times;</span>
-      <h2 >What's Your Style ?</h2>
-      <div class="quiz-options">
-        <button onclick="selectStyle('minimal')">Minimal</button>
-        <button onclick="selectStyle('street')">Street</button>
-        <button onclick="selectStyle('formal')">Formal</button>
-      </div>
-    </div>
-  </div>
+  <!-- Style quiz removed -->
 
   </main>
 
@@ -880,35 +868,6 @@
 </script>
 
 <script src="app.js"></script>  
-<script>
-
-const searchBar = document.getElementById("searchBar");
-
-searchBar.addEventListener("keyup", function() {
-
-  const input = searchBar.value.toLowerCase();
-
-  const products = document.querySelectorAll(".pro");
-
-  products.forEach(function(product){
-
-    const productName = product
-      .querySelector("h5")
-      .textContent
-      .toLowerCase();
-
-    if(productName.includes(input)){
-      product.style.display = "block";
-    }
-    else{
-      product.style.display = "none";
-    }
-
-  });
-
-});
-
-</script>
 </body>
 
 </html>

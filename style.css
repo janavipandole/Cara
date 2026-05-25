@@ -528,7 +528,8 @@ button.white .ripple-effect {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 18px 80px;
+    gap: 20px;
+    padding: 18px 56px;
     background: var(--header-bg);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
     backdrop-filter: blur(20px) saturate(180%);
@@ -543,6 +544,17 @@ button.white .ripple-effect {
 
 #header a {
     pointer-events: all;
+}
+
+#header > a {
+    flex: 0 0 auto;
+}
+
+#header > div {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    justify-content: flex-end;
 }
 
 #header a img {
@@ -561,22 +573,32 @@ button.white .ripple-effect {
     position: relative;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
+    flex: 1 1 auto;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    gap: 0;
 }
 
 #navbar li {
     list-style: none;
-    padding: 0 20px;
+    padding: 0 10px;
+    flex: 0 0 auto;
 }
 
 #navbar li a {
     position: relative;
     pointer-events: all;
     text-decoration: none;
-    font-size: 22px;
+    font-size: 17px;
     font-weight: 500;
     color: var(--text-primary);
     transition: color 0.3s ease;
+    white-space: nowrap;
+}
+
+#navbar li.nav-icon a {
+    font-size: 20px;
 }
 
 #navbar li a:hover,
@@ -610,6 +632,117 @@ button.white .ripple-effect {
 @media (prefers-reduced-motion: reduce) {
     #navbar li:not(.nav-icon) a::after {
         transition: none;
+    }
+}
+
+@media (max-width: 1200px) {
+    #header {
+        padding: 16px 24px;
+        gap: 14px;
+    }
+
+    #header .search-container {
+        flex: 0 1 260px;
+        max-width: 260px;
+        width: auto !important;
+        margin: 0;
+    }
+
+    #navbar li {
+        padding: 0 8px;
+    }
+
+    #navbar li a {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 1024px) {
+    #header {
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    #header .search-container {
+        order: 3;
+        flex: 1 1 100%;
+        max-width: none;
+        width: 100% !important;
+    }
+
+    #header > div {
+        flex: 0 0 auto;
+    }
+
+    .mobile {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        order: 2;
+        margin-left: auto;
+    }
+
+    #navbar {
+        position: fixed;
+        top: 0;
+        right: -320px;
+        width: 300px;
+        height: 100vh;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 12px;
+        padding: 90px 24px 24px;
+        background: var(--header-bg);
+        box-shadow: -12px 0 30px rgba(0, 0, 0, 0.18);
+        z-index: 1000;
+        transition: right 0.25s ease;
+        overflow-y: auto;
+    }
+
+    #navbar.active {
+        right: 0;
+    }
+
+    #navbar li {
+        width: 100%;
+        padding: 0;
+    }
+
+    #navbar li a {
+        display: block;
+        width: 100%;
+        font-size: 18px;
+    }
+
+    #close {
+        display: flex;
+        position: absolute;
+        top: 20px;
+        right: 22px;
+        font-size: 26px;
+        color: var(--text-primary);
+        z-index: 1001;
+    }
+}
+
+@media (max-width: 640px) {
+    #header {
+        padding: 14px 16px;
+    }
+
+    #header .search-container {
+        order: 4;
+    }
+
+    #header .search-container,
+    #searchBar {
+        max-width: none;
+    }
+
+    #navbar {
+        width: min(88vw, 300px);
+        right: calc(-1 * min(88vw, 300px));
     }
 }
 
@@ -7966,22 +8099,32 @@ button.white .ripple-effect {
     position: relative;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
+    flex: 1 1 auto;
+    flex-wrap: nowrap;
+    gap: 4px;
+    white-space: nowrap;
 }
 
 #navbar li {
     list-style: none;
-    padding: 0 20px;
+    padding: 0 8px;
+    flex: 0 0 auto;
 }
 
 #navbar li a {
     position: relative;
     pointer-events: all;
     text-decoration: none;
-    font-size: 22px;
+    font-size: 16px;
     font-weight: 500;
     color: var(--text-primary);
     transition: color 0.3s ease;
+    white-space: nowrap;
+}
+
+#navbar li.nav-icon a {
+    font-size: 20px;
 }
 
 #navbar li a:hover,
@@ -8002,6 +8145,168 @@ button.white .ripple-effect {
     position: absolute;
     bottom: -4px;
     left: 2px;
+}
+
+/* ========================================================
+   FINAL HEADER OVERRIDES
+   Keep the desktop navbar on one line and preserve the
+   mobile off-canvas menu without fighting earlier duplicates.
+   ======================================================== */
+
+#header {
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-wrap: nowrap !important;
+    gap: 12px !important;
+}
+
+#header > a {
+    flex: 0 0 auto !important;
+}
+
+#header .search-container {
+    flex: 0 0 48px !important;
+    width: 48px !important;
+    height: 48px !important;
+    max-width: 48px !important;
+    min-width: 48px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 2px solid var(--accent) !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+}
+
+#header .search-container a {
+    display: flex !important;
+    width: 100% !important;
+    height: 100% !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: var(--accent) !important;
+    text-decoration: none !important;
+    font-size: 20px !important;
+}
+
+#header > div:not(.search-container):not(.mobile) {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+}
+
+#navbar {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    flex-wrap: nowrap !important;
+    gap: clamp(6px, 0.6vw, 12px) !important;
+    white-space: nowrap !important;
+    width: 100% !important;
+}
+
+#navbar li {
+    list-style: none;
+    padding: 0 clamp(2px, 0.45vw, 8px) !important;
+    flex: 0 0 auto !important;
+}
+
+#navbar li a {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    white-space: nowrap !important;
+    font-size: clamp(14px, 0.95vw, 17px) !important;
+    line-height: 1 !important;
+    min-height: 44px;
+}
+
+#navbar li.nav-icon a {
+    font-size: 20px !important;
+}
+
+.mobile,
+#close {
+    display: none !important;
+}
+
+@media (max-width: 799px) {
+    #header {
+        flex-wrap: wrap !important;
+        gap: 12px !important;
+        padding: 16px 24px !important;
+    }
+
+    #header .search-container {
+        order: 3;
+        flex: 0 0 48px !important;
+        width: 48px !important;
+        max-width: 48px !important;
+        margin: 0 !important;
+    }
+
+    #header > div:not(.search-container):not(.mobile) {
+        order: 2;
+        flex: 0 0 auto !important;
+    }
+
+    .mobile {
+        display: flex !important;
+        align-items: center;
+        gap: 16px;
+        margin-left: auto;
+        order: 2;
+    }
+
+    #navbar {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+        position: fixed !important;
+        top: 0 !important;
+        right: -320px !important;
+        width: 300px !important;
+        height: 100vh !important;
+        padding: 90px 24px 24px !important;
+        background: var(--header-bg) !important;
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1) !important;
+        transition: right 0.35s ease !important;
+        z-index: 1000 !important;
+        white-space: normal !important;
+        gap: 0 !important;
+    }
+
+    #navbar.active {
+        right: 0 !important;
+    }
+
+    #navbar li {
+        width: 100% !important;
+        padding: 0 !important;
+        margin-bottom: 18px;
+    }
+
+    #navbar li a {
+        width: 100% !important;
+        justify-content: flex-start !important;
+        font-size: 20px !important;
+        min-height: auto;
+        padding: 12px 0;
+    }
+
+    #close {
+        display: flex !important;
+        position: absolute;
+        top: 24px;
+        right: 24px;
+        z-index: 1001;
+        font-size: 26px;
+        color: var(--text-primary);
+    }
 }
 
 /* ============================================
@@ -14260,22 +14565,32 @@ button.white .ripple-effect {
     position: relative;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
+    flex: 1 1 auto;
+    flex-wrap: nowrap;
+    gap: 4px;
+    white-space: nowrap;
 }
 
 #navbar li {
     list-style: none;
-    padding: 0 20px;
+    padding: 0 8px;
+    flex: 0 0 auto;
 }
 
 #navbar li a {
     position: relative;
     pointer-events: all;
     text-decoration: none;
-    font-size: 22px;
+    font-size: 16px;
     font-weight: 500;
     color: var(--text-primary);
     transition: color 0.3s ease;
+    white-space: nowrap;
+}
+
+#navbar li.nav-icon a {
+    font-size: 20px;
 }
 
 #navbar li a:hover,
@@ -14335,6 +14650,12 @@ button.white .ripple-effect {
 
     #header {
         padding: 16px 24px;
+    }
+
+    #header > div {
+        flex: 0 0 auto;
+        display: block;
+        justify-content: initial;
     }
 
     #navbar {

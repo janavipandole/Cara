@@ -785,38 +785,7 @@ if (backToTopBtn && ToptobackBtn) {
     });
 }
 
-// Style Quiz Functionality
-window.openQuiz = function () {
-    document.getElementById('quiz-modal').style.display = 'flex';
-}
-
-window.closeQuiz = function () {
-    document.querySelector('.close').addEventListener('click', () => {
-    document.getElementById('quiz-modal').style.display = 'none';
-});
-}
-
-window.selectStyle = function (style) {
-    closeQuiz();
-    const products = document.querySelectorAll('.pro');
-    products.forEach(product => {
-        if (product.getAttribute('data-category') === style) {
-            product.style.display = 'block';
-        } else {
-            product.style.display = 'none';
-        }
-    });
-        // Auto scroll to products section
-    const productSection = document.getElementById('product1');
-
-    if (productSection) {
-        productSection.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-        });
-    }
-    alert(`Showing ${style} style recommendations!`);
-}
+// Style quiz removed - functions no longer needed
 
 /* --- START: BUY NOW FUNCTIONALITY --- */
 window.buyNow = function (productName, productPrice, productImage, quantity, size) {
@@ -2022,36 +1991,7 @@ if (ToptobackBtn) {
   });
 }
 
-// Style Quiz Functionality
-window.openQuiz = function () {
-  document.getElementById('quiz-modal').style.display = 'flex';
-};
-
-window.closeQuiz = function () {
-  document.getElementById('quiz-modal').style.display = 'none';
-};
-
-window.selectStyle = function (style) {
-  closeQuiz();
-  const products = document.querySelectorAll('.pro');
-  products.forEach((product) => {
-    if (product.getAttribute('data-category') === style) {
-      product.style.display = 'block';
-    } else {
-      product.style.display = 'none';
-    }
-  });
-  // Auto scroll to products section
-  const productSection = document.getElementById('product1');
-
-  if (productSection) {
-    productSection.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-    });
-  }
-  alert(`Showing ${style} style recommendations!`);
-};
+// Style quiz removed - functions no longer needed
 
 /* --- START: BUY NOW FUNCTIONALITY --- */
 window.buyNow = function (
