@@ -54,6 +54,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="global.css">
 
   <!-- Inline Critical CSS -->
   <style>
@@ -648,7 +649,9 @@
   <!-- Style Quiz Modal -->
   <div id="quiz-modal" class="modal">
     <div class="modal-content">
-      <span class="close" onclick="closeQuiz()" style="background-color: red; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: medium;">&times;</span>
+      <!-- issue #910 redesigning close button-->
+      <span class="close" onclick="closeQuiz()" style=" position: absolute; top: 14px; right: 16px; font-size: 24px; cursor: pointer; color: #666;width: 32px; height: 32px;
+ display: flex; align-items:center;justify-content: center; border-radius: 50%; transition: all 0.25s ease-in-out;"> &times;</span>
       <h2 >What's Your Style ?</h2>
       <div class="quiz-options">
         <button onclick="selectStyle('minimal')">Minimal</button>
