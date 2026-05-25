@@ -47,14 +47,11 @@ document.addEventListener("click", function (e) {
 // Dynamic Render on singleProduct.html
 document.addEventListener("DOMContentLoaded", () => {
     if (window.location.pathname.includes("singleProduct")) {
-        console.log("On singleProduct page, attempting dynamic render.");
         const storedProductJSON = localStorage.getItem("selectedProduct");
-        console.log("Stored product JSON:", storedProductJSON);
         
         if (storedProductJSON) {
             try {
                 const product = JSON.parse(storedProductJSON);
-                console.log("Parsed product:", product);
 
                 const nameEl = document.getElementById("product-name");
                 const priceEl = document.getElementById("product-price");
@@ -220,7 +217,6 @@ function addToCart(productName, productPrice, productImage, quantity, size) {
         size: size ? size.replace('Size','') : null 
     };
      if (!item.size) {
-    console.log("Size missing, not adding to cart");
     return;
 }
 
@@ -1253,14 +1249,11 @@ document.addEventListener(
 // Dynamic Render on singleProduct.html
 document.addEventListener('DOMContentLoaded', () => {
   if (window.location.pathname.includes('singleProduct')) {
-    console.log('On singleProduct page, attempting dynamic render.');
     const storedProductJSON = localStorage.getItem('selectedProduct');
-    console.log('Stored product JSON:', storedProductJSON);
 
     if (storedProductJSON) {
       try {
         const product = JSON.parse(storedProductJSON);
-        console.log('Parsed product:', product);
 
         const nameEl = document.getElementById('product-name');
         const priceEl = document.getElementById('product-price');
