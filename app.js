@@ -2157,14 +2157,14 @@ if (topBtn) {
 window.pendingSharedCart = null;
 
 window.showToast = function (msg, isError) {
-  var toast = document.getElementById('toast');
-  var toastMsg = document.getElementById('toast-msg');
-  var toastIcon = document.getElementById('toast-icon');
-  if (!toast || !toastMsg) return;
-  toastMsg.textContent = msg;
-  if (toastIcon) toastIcon.textContent = isError ? '⚠️' : '✅';
-  toast.classList.add('show');
-  setTimeout(function () { toast.classList.remove('show'); }, 3500);
+    var toast = document.getElementById('toast');
+    var toastMsg = document.getElementById('toast-msg');
+    var toastIcon = document.getElementById('toast-icon');
+    if (!toast || !toastMsg) return;
+    toastMsg.textContent = msg;
+    if (toastIcon) toastIcon.innerHTML = isError ? '<i class="ri-error-warning-line"></i>' : '<i class="ri-checkbox-circle-line"></i>';
+    toast.classList.add('show');
+    setTimeout(function () { toast.classList.remove('show'); }, 3500);
 };
 
 window.shareWardrobe = function () {
@@ -2189,14 +2189,28 @@ window.shareWardrobe = function () {
       setTimeout(function () { btn.innerHTML = originalText; btn.style.color = ''; }, 3000);
     }
     try {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(shareUrl).catch(function () { fallbackCopyText(shareUrl); });
-      } else { fallbackCopyText(shareUrl); }
-    } catch (clipErr) { fallbackCopyText(shareUrl); }
-  } catch (e) {
-    console.error("Failed to generate share link: ", e);
-    showToast("Oops, something went wrong generating the link.", true);
-  }
+        var minimizedCart = cart.map(function (item) {
+            return { n: item.name, p: item.price, i: item.image, q: item.quantity, s: item.size };
+        });
+        var jsonStr = JSON.stringify(minimizedCart);
+        var base64Payload = btoa(unescape(encodeURIComponent(jsonStr)));
+        var shareUrl = window.location.origin + window.location.pathname + '#share=' + base64Payload;
+        showToast("Wardrobe share link copied to clipboard!");
+        if (btn) {
+            var originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="ri-checkbox-circle-line"></i> Link Copied!';
+            btn.style.color = '#10b981';
+            setTimeout(function () { btn.innerHTML = originalText; btn.style.color = ''; }, 3000);
+        }
+        try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(shareUrl).catch(function () { fallbackCopyText(shareUrl); });
+            } else { fallbackCopyText(shareUrl); }
+        } catch (clipErr) { fallbackCopyText(shareUrl); }
+    } catch (e) {
+        console.error("Failed to generate share link: ", e);
+        showToast("Oops, something went wrong generating the link.", true);
+    }
 };
 
 function fallbackCopyText(text) {
@@ -2538,67 +2552,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 2. Define global window function to open and populate the modal
-  window.openQuickViewModal = function (product) {
-    const modal = document.getElementById("quickViewModal");
-    if (!modal) return;
+        // Show modal
+        modal.classList.add("active");
+        modal.setAttribute("aria-hidden", "false");
+    };
+    document.addEventListener("DOMContentLoaded", () => {
+  const resetBtn = document.getElementById("resetFiltersBtn");
 
-    // Reset quantity
-    document.getElementById("qvQtyInput").value = "1";
+  if (resetBtn) {
+    resetBtn.addEventListener("click", () => {
+      document.getElementById("categoryFilter").value = "all";
+      document.getElementById("style-filter").value = "all";
+      document.getElementById("brand-filter").value = "all";
+      document.getElementById("color-filter").value = "all";
 
-    // Populate elements
-    document.getElementById("qvModalImg").src = product.img;
-    document.getElementById("qvModalImg").alt = product.name;
-    document.getElementById("qvModalBrand").textContent = product.brand;
-    document.getElementById("qvModalTitle").textContent = product.name;
+      const searchInput = document.getElementById("searchInput");
+      if (searchInput) searchInput.value = "";
 
-    // Clean and format price
-    document.getElementById("qvModalPrice").textContent = product.price;
+      const suggestions = document.getElementById("searchSuggestions");
+      if (suggestions) suggestions.innerHTML = "";
 
-    // Populate stars
-    const starsContainer = document.getElementById("qvModalStars");
-    starsContainer.innerHTML = "";
-    const rating = product.rating || 5;
-    for (let i = 0; i < rating; i++) {
-      const star = document.createElement("i");
-      star.className = "ri-star-fill";
-      starsContainer.appendChild(star);
-    }
-
-    // Setup Actions
-    const addToCartBtn = document.getElementById("qvAddToCartBtn");
-    const buyNowBtn = document.getElementById("qvBuyNowBtn");
-
-    // Remove old listeners to avoid multiple fires
-    const newAddToCart = addToCartBtn.cloneNode(true);
-    const newBuyNow = buyNowBtn.cloneNode(true);
-
-    addToCartBtn.parentNode.replaceChild(newAddToCart, addToCartBtn);
-    buyNowBtn.parentNode.replaceChild(newBuyNow, buyNowBtn);
-
-    // Add fresh listeners
-    newAddToCart.addEventListener("click", () => {
-      const size = document.getElementById("qvModalSize").value;
-      const qty = parseInt(document.getElementById("qvQtyInput").value);
-      if (typeof addToCart === 'function') {
-        addToCart(product.name, product.price, product.img, qty, size);
-        modal.classList.remove("active");
-      }
+      location.reload();
     });
+  }
+});
 
-    newBuyNow.addEventListener("click", () => {
-      const size = document.getElementById("qvModalSize").value;
-      const qty = parseInt(document.getElementById("qvQtyInput").value);
-      if (typeof buyNow === 'function') {
-        modal.classList.remove("active");
-        buyNow(product.name, product.price, product.img, qty, size);
-      }
-    });
-
-    // Show modal
-    modal.classList.add("active");
-    modal.setAttribute("aria-hidden", "false");
-  };
 })();
 /* --- END: PRODUCT QUICK-VIEW MODAL FUNCTIONALITY --- */
 const savedTheme = localStorage.getItem('theme');
