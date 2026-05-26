@@ -35791,6 +35791,25 @@ html {
     .quickview-title {
         font-size: 1.3rem;
     }
+    .coming-soon {
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.coming-container h1 {
+  font-size: 3rem;
+}
+
+.coming-container p {
+  margin: 15px 0;
+  font-size: 1.2rem;
+}
+.coming-container {
+  max-width: 500px;
+}
 }
 
 /* Keep the navbar brand readable on dark backgrounds. */
