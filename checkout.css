@@ -1,0 +1,626 @@
+/* ============================================================
+   checkout.css — Cara Fashion Store
+   Matches the main site UI (white navbar, teal accents)
+   ============================================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --teal:       #1a7a6e;
+  --teal-dark:  #145f55;
+  --teal-light: #e6f4f2;
+  --text:       #1a1a1a;
+  --muted:      #6b7280;
+  --border:     #e5e7eb;
+  --bg:         #f5f5f5;
+  --white:      #ffffff;
+  --radius:     12px;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ══════════════════════════════════════════
+   NAVBAR — white, matches Cara main site
+══════════════════════════════════════════ */
+
+nav {
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 56px;
+  height: 76px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* Handwritten logo — matches Cara script */
+.nav-logo {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1;
+}
+
+/* Lavender flower accent beside logo */
+.nav-logo::after {
+  content: "✿";
+  font-size: 1rem;
+  color: #a98fd4;
+  font-family: sans-serif;
+}
+
+.nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding-bottom: 4px;
+  position: relative;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover {
+  color: var(--teal);
+}
+
+/* Teal underline for active nav link */
+.nav-links a.active {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.nav-links a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 2.5px;
+  background: var(--teal);
+  border-radius: 2px;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.nav-right i {
+  font-size: 1.3rem;
+  color: var(--text);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.nav-right i:hover {
+  color: var(--teal);
+}
+
+/* Circle toggle for dark/light mode */
+.theme-toggle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* ══════════════════════════════════════════
+   PAGE WRAPPER
+══════════════════════════════════════════ */
+
+.page-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 44px 24px 80px;
+}
+
+/* Back button — teal pill, same as product page "Back" */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--teal);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 22px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-bottom: 32px;
+}
+
+.back-btn:hover {
+  background: var(--teal-dark);
+}
+
+/* Page title block */
+.page-title {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.page-title .brand-name {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2rem;
+  color: var(--teal);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.page-title h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.3px;
+}
+
+.page-title p {
+  font-size: 0.88rem;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+/* ══════════════════════════════════════════
+   TWO-COLUMN GRID
+══════════════════════════════════════════ */
+
+.checkout-grid {
+  display: grid;
+  grid-template-columns: 1fr 370px;
+  gap: 28px;
+  align-items: start;
+}
+
+/* ══════════════════════════════════════════
+   CARD
+══════════════════════════════════════════ */
+
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  border: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+
+.card:last-child {
+  margin-bottom: 0;
+}
+
+.card-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 22px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-title i {
+  color: var(--teal);
+  font-size: 1.1rem;
+}
+
+/* ══════════════════════════════════════════
+   FORM ELEMENTS
+══════════════════════════════════════════ */
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.input-group:last-child {
+  margin-bottom: 0;
+}
+
+label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.875rem;
+  color: var(--text);
+  background: var(--white);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #b5bec9;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(26, 122, 110, 0.1);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 88px;
+}
+
+/* Two-column row inside a card */
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* ══════════════════════════════════════════
+   PAYMENT METHOD TABS
+══════════════════════════════════════════ */
+
+.payment-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.payment-tab {
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--muted);
+  transition: all 0.2s;
+  background: var(--white);
+  user-select: none;
+}
+
+.payment-tab i {
+  font-size: 1.15rem;
+}
+
+.payment-tab.active {
+  border-color: var(--teal);
+  background: var(--teal-light);
+  color: var(--teal);
+}
+
+/* Card details — shown only for Online Payment */
+.card-details-section {
+  display: none;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  animation: fadeSlide 0.25s ease;
+}
+
+.card-details-section.visible {
+  display: block;
+}
+
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ══════════════════════════════════════════
+   ORDER SUMMARY
+══════════════════════════════════════════ */
+
+.order-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.order-item:first-of-type { padding-top: 0; }
+.order-item:last-of-type  { border-bottom: none; }
+
+.item-thumb {
+  width: 62px;
+  height: 62px;
+  border-radius: 8px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.item-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-meta {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.item-price {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--teal);
+  white-space: nowrap;
+}
+
+/* Totals section */
+.totals {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+}
+
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.total-row.free-ship span:last-child {
+  color: var(--teal);
+  font-weight: 500;
+}
+
+.total-row.grand {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  margin-bottom: 0;
+}
+
+/* Place Order button — teal pill, same as "Add to Cart" / "Buy Now" */
+.submit-btn {
+  width: 100%;
+  padding: 15px;
+  background: var(--teal);
+  color: var(--white);
+  border: none;
+  border-radius: 30px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.2s, transform 0.15s;
+  letter-spacing: 0.2px;
+}
+
+.submit-btn:hover {
+  background: var(--teal-dark);
+  transform: translateY(-1px);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+/* Secure checkout badge */
+.secure-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 0.73rem;
+  color: var(--muted);
+  margin-top: 12px;
+}
+
+.secure-badge i {
+  color: var(--teal);
+}
+
+/* ══════════════════════════════════════════
+   SUCCESS POPUP
+══════════════════════════════════════════ */
+
+.success-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
+}
+
+.success-overlay.show {
+  display: flex;
+}
+
+.popup-box {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 52px 44px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  animation: popIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.82); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.check-circle {
+  width: 76px;
+  height: 76px;
+  background: var(--teal);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.check-circle i {
+  color: var(--white);
+  font-size: 2rem;
+}
+
+.popup-box h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.popup-box p {
+  font-size: 0.88rem;
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+
+.popup-btn {
+  display: inline-block;
+  padding: 13px 34px;
+  background: var(--teal);
+  color: var(--white);
+  border: none;
+  border-radius: 30px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  text-decoration: none;
+}
+
+.popup-btn:hover {
+  background: var(--teal-dark);
+}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════ */
+
+@media (max-width: 880px) {
+  nav {
+    padding: 0 20px;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .checkout-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 500px) {
+  .row {
+    grid-template-columns: 1fr;
+  }
+
+  .payment-tabs {
+    grid-template-columns: 1fr;
+  }
+
+  .page-title h1 {
+    font-size: 1.5rem;
+  }
+}
+
+/* ── Validation States ── */
+.input-group input.is-valid,
+.input-group textarea.is-valid,
+.input-group select.is-valid {
+  border-color: #22c55e !important;
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.2) !important;
+}
+
+.input-group input.is-invalid,
+.input-group textarea.is-invalid,
+.input-group select.is-invalid {
+  border-color: #dc2626 !important;
+  box-shadow: 0 0 8px rgba(220, 38, 38, 0.2) !important;
+}
+
+.error-msg {
+  display: none;
+  color: #dc2626;
+  font-size: 0.8rem;
+  margin-top: 6px;
+  font-weight: 500;
+  text-align: left;
+}
+
+.input-group input.is-invalid ~ .error-msg,
+.input-group textarea.is-invalid ~ .error-msg,
+.input-group select.is-invalid ~ .error-msg {
+  display: block;
+}
+

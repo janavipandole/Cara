@@ -1,5 +1,9 @@
 # 🛍️ Cara - E-commerce Platform
 
+> Officially participating in
+## GSSOC 2026
+## ELUSOC 2026
+
 <div align="center">
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -9,10 +13,6 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
 **A modern, responsive e-commerce platform built with vanilla HTML, CSS, and JavaScript**
-
-[Live Demo](#) · [Report Bug](https://github.com/janavipandole/Cara/issues) · [Request Feature](https://github.com/janavipandole/Cara/issues)
-
-</div>
 
 <img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="1920" />
 
@@ -96,8 +96,37 @@ All you need is a modern web browser and a text editor!
    git clone https://github.com/janavipandole/Cara.git
    cd Cara
    ```
-   
-2. **Open in browser**
+
+2. **Install development dependencies**
+   ```bash
+   npm install
+   ```
+
+## 🛠️ Development
+
+This project uses ESLint and Prettier to maintain code quality and consistent styling.
+
+### Linting
+To check for code quality issues:
+```bash
+npm run lint
+```
+To automatically fix linting issues:
+```bash
+npm run lint:fix
+```
+
+### Formatting
+To check for formatting issues:
+```bash
+npm run format:check
+```
+To automatically format all files:
+```bash
+npm run format
+```
+
+3. **Open in browser**
    Simply open `index.html` in your web browser:
    - Double-click the `index.html` file, or
    - Right-click and select "Open with" your preferred browser, or
