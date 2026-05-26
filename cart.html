@@ -351,11 +351,12 @@
               <div class="sticky-summary-card">
                 <h3>Order Summary</h3>
                 <div class="coupon-section">
-                  <p>Have a promotional coupon?</p>
-                  <div class="coupon-input-group">
-                    <input type="text" id="coupon-code" placeholder="Enter coupon (e.g. CARA20)" />
-                    <button id="apply-coupon-btn">Apply</button>
+                  <p style="font-size: 13px; font-weight: 500; margin-bottom: 8px;">Have a promotional coupon?</p>
+                  <div class="coupon-input-group" style="display: flex; gap: 8px; margin-bottom: 8px;">
+                    <input type="text" id="coupon-code-input" placeholder="Enter coupon (e.g. CARA20)" style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" />
+                    <button id="apply-coupon-btn" style="background: #088178; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: 600; transition: 0.3s;">Apply</button>
                   </div>
+                  <div id="coupon-feedback" style="font-size: 12px; font-weight: 600; min-height: 18px; margin-top: 5px;"></div>
                 </div>
 
                 <div class="summary-breakdown">
@@ -486,6 +487,41 @@
     <script src="app.js?v=1779120917210"></script>
     <script>
       document.getElementById("Current-Year").textContent = new Date().getFullYear();
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const couponInput = document.getElementById("coupon-code-input");
+        const applyBtn = document.getElementById("apply-coupon-btn");
+        const feedback = document.getElementById("coupon-feedback");
+        const discountRow = document.getElementById("summary-discount-row");
+        const discountVal = document.getElementById("summary-discount");
+        
+        if (applyBtn && couponInput && feedback) {
+          applyBtn.addEventListener("click", () => {
+            const val = couponInput.value.trim().toUpperCase();
+            if (val === "CARA20") {
+              feedback.innerHTML = `<span style="color: #088178;"><i class="ri-checkbox-circle-fill"></i> Coupon CARA20 Applied! 20% Discount active.</span>`;
+              if (discountRow && discountVal) {
+                discountRow.style.display = "flex";
+                const subtotalText = document.getElementById("summary-subtotal").textContent.replace("₹", "").replace("$", "").trim();
+                const subtotal = parseFloat(subtotalText) || 0;
+                const discount = subtotal * 0.20;
+                discountVal.textContent = "-₹" + discount.toFixed(2);
+                
+                const taxText = document.getElementById("summary-tax").textContent.replace("₹", "").replace("$", "").trim();
+                const tax = parseFloat(taxText) || 0;
+                const total = subtotal + tax - discount;
+                document.getElementById("summary-total").textContent = "₹" + total.toFixed(2);
+              }
+            } else if (val === "") {
+              feedback.innerHTML = `<span style="color: #ef4444;"><i class="ri-error-warning-fill"></i> Please enter a coupon code.</span>`;
+            } else {
+              feedback.innerHTML = `<span style="color: #ef4444;"><i class="ri-error-warning-fill"></i> Invalid coupon code. Try CARA20.</span>`;
+              if (discountRow) discountRow.style.display = "none";
+            }
+          });
+        }
+      });
     </script>
   </body>
 </html>
