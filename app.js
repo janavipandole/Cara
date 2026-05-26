@@ -1825,20 +1825,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function toggleTheme() {
-        const currentTheme = html.getAttribute('data-theme');
-        const newTheme = currentTheme === 'light' ? 'light' : 'dark';
-        
-        html.setAttribute('data-theme', newTheme);
-        if (newTheme === 'dark') {
-            document.body.classList.add('dark');
-        } else {
-            document.body.classList.remove('dark');
-        }
-        
-        localStorage.setItem('theme', newTheme);
-        updateThemeIcon(newTheme);
-    }
+    const isDark = document.body.classList.contains('dark');
 
+    if (isDark) {
+        document.body.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        updateThemeIcon('light');
+    } else {
+        document.body.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        updateThemeIcon('dark');
+    }
+}
     // Event Delegation: Works for static AND dynamic buttons
     document.addEventListener('click', (e) => {
         if (e.target && (e.target.closest('#themeToggle') || e.target.closest('#themeToggleMobile'))) {
@@ -2680,3 +2678,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 })();
 /* --- END: PRODUCT QUICK-VIEW MODAL FUNCTIONALITY --- */
+const savedTheme = localStorage.getItem('theme');
+
+if (savedTheme === 'dark') {
+    document.body.classList.add('dark');
+    updateThemeIcon('dark');
+}
