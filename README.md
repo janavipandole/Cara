@@ -14,12 +14,6 @@
 
 **A modern, responsive e-commerce platform built with vanilla HTML, CSS, and JavaScript**
 
-## 🚀 [Live Demo] (https://cara-seven-ashen.vercel.app/ )
- [Report Bug](https://github.com/janavipandole/Cara/issues) 
- [Request Feature](https://github.com/janavipandole/Cara/issues)
-
-</div>
-
 <img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="1920" />
 
 ## 📋 Table of Contents
