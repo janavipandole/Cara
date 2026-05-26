@@ -81,9 +81,6 @@ function loadNavbar(activePage) {
   const container = document.getElementById('navbar-container');
   if (container) {
     container.innerHTML = navbarHTML;
-  } else {
-    console.error('navbar-container not found!');
-    return;
   }
 
   initDarkMode();
@@ -121,6 +118,7 @@ function initDarkMode() {
     updateIcons(newTheme);
   }
 
-  if (themeToggle) themeToggle.addEventListener('click', handleToggle);
-  if (themeToggleMobile) themeToggleMobile.addEventListener('click', handleToggle);
+  // Listeners are already handled by event delegation in app.js
+  // if (themeToggle) themeToggle.addEventListener('click', handleToggle);
+  // if (themeToggleMobile) themeToggleMobile.addEventListener('click', handleToggle);
 }
