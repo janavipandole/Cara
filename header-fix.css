@@ -34,7 +34,8 @@ body {
 /* Ensure slider controls and dots remain visible above content */
 .hero-slider .slider-btn,
 .hero-slider .slider-dots {
-  z-index: 5;
+  z-index: 9999 !important;
+  pointer-events: auto !important;
 }
 
 /* Pull the products section up so it visually sits right under the hero
