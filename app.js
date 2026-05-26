@@ -2155,7 +2155,7 @@ window.showToast = function (msg, isError) {
     var toastIcon = document.getElementById('toast-icon');
     if (!toast || !toastMsg) return;
     toastMsg.textContent = msg;
-    if (toastIcon) toastIcon.textContent = isError ? '⚠️' : '✅';
+    if (toastIcon) toastIcon.innerHTML = isError ? '<i class="ri-error-warning-line"></i>' : '<i class="ri-checkbox-circle-line"></i>';
     toast.classList.add('show');
     setTimeout(function () { toast.classList.remove('show'); }, 3500);
 };
@@ -2177,7 +2177,7 @@ window.shareWardrobe = function () {
         showToast("Wardrobe share link copied to clipboard!");
         if (btn) {
             var originalText = btn.innerHTML;
-            btn.innerHTML = '✅ Link Copied!';
+            btn.innerHTML = '<i class="ri-checkbox-circle-line"></i> Link Copied!';
             btn.style.color = '#10b981';
             setTimeout(function () { btn.innerHTML = originalText; btn.style.color = ''; }, 3000);
         }
