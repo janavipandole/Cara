@@ -1,11 +1,42 @@
 #search-filter {
-    display: grid;
-    grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr) minmax(0, 0.6fr);
-    gap: 24px;
-    align-items: flex-end;
-    margin-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 30px 80px;
+  background-color: var(--card-bg);
 }
 
+.filters-row {
+  display: flex;
+  flex-wrap: wrap;          /* ✅ allow wrapping */
+  gap: 20px;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
+.filter-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 180px;
+  flex: 1 1 180px;
+}
+
+.reset-wrapper {
+  margin-left: auto;
+}
+
+.reset-btn {
+  padding: 10px 16px;
+  background: #088178;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.reset-btn:hover {
+  background: #066a63;
+}
 #search-filter .search-container,
 #search-filter .filter-container,
 #search-filter .search-summary {
@@ -408,7 +439,8 @@
 
 #product1 .pro img {
     max-width: 100%;
-}
+
+
     border-radius: 12px;
     object-fit: cover;
     width: 100%;
@@ -638,5 +670,14 @@
         width: 36px;
         height: 36px;
     }
+    .reset-btn {
+  padding: 10px 16px;
+  background: #088178;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
 }
 
+}

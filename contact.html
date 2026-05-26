@@ -734,7 +734,7 @@ footer .copyright {
       <div class="col">
         <h4>About</h4>
         <a href="about.html">About Us</a>
-        <a href="#">Delivery Information</a>
+        <a href="deliveryInformation.html">Delivery Information</a>
         <a href="privacy.html">Privacy Policy</a>
         <a href="terms.html">Terms and Conditions</a>
         <a href="contact.html">Contact Us</a>
@@ -899,7 +899,7 @@ form.addEventListener("submit", function (e) {
     setTimeout(() => {
       btn.classList.remove("btn-loading");
       form.reset();
-      document.getElementById("form-status").innerText = "✅ Message sent successfully!";
+      document.getElementById("form-status").innerHTML = `<div style="display: flex; align-items: center; gap: 8px; color: #088178; margin-top: 15px; font-weight: 600;"><i class="ri-checkbox-circle-line" style="font-size: 20px;"></i> Message sent successfully!</div>`;
     }, 1500);
   }
 });
@@ -919,10 +919,18 @@ document.addEventListener("DOMContentLoaded", function () {
       const input = this.querySelector("input");
 
       if (input.value.includes("@")) {
-        alert("✅ Subscribed successfully!");
+        if (typeof showToast === 'function') {
+          showToast("Subscribed successfully!");
+        } else {
+          alert("Subscribed successfully!");
+        }
         input.value = "";
       } else {
-        alert("❌ Enter a valid email");
+        if (typeof showToast === 'function') {
+          showToast("Enter a valid email", true);
+        } else {
+          alert("Enter a valid email");
+        }
       }
     });
   }
