@@ -2592,6 +2592,27 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.classList.add("active");
         modal.setAttribute("aria-hidden", "false");
     };
+    document.addEventListener("DOMContentLoaded", () => {
+  const resetBtn = document.getElementById("resetFiltersBtn");
+
+  if (resetBtn) {
+    resetBtn.addEventListener("click", () => {
+      document.getElementById("categoryFilter").value = "all";
+      document.getElementById("style-filter").value = "all";
+      document.getElementById("brand-filter").value = "all";
+      document.getElementById("color-filter").value = "all";
+
+      const searchInput = document.getElementById("searchInput");
+      if (searchInput) searchInput.value = "";
+
+      const suggestions = document.getElementById("searchSuggestions");
+      if (suggestions) suggestions.innerHTML = "";
+
+      location.reload();
+    });
+  }
+});
+
 })();
 /* --- END: PRODUCT QUICK-VIEW MODAL FUNCTIONALITY --- */
 const savedTheme = localStorage.getItem('theme');
