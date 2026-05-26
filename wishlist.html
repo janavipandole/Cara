@@ -91,7 +91,7 @@
         function renderWishlist() {
             wishlistContainer.innerHTML = '';
             if (wishlist.length === 0) {
-                wishlistContainer.innerHTML = '<p class="empty-message">Your wishlist is empty 💔</p>';
+                wishlistContainer.innerHTML = '<p class="empty-message">Your wishlist is empty <i class="fas fa-heart-broken"></i></p>';
             } else {
                 wishlist.forEach((product, index) => {
                     wishlistContainer.innerHTML += `
