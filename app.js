@@ -21,29 +21,27 @@ document.addEventListener("click", (e) => {
 
 // Dynamic Product Details Logic
 // Global capturing click listener for all product cards (static and dynamic)
-document.addEventListener("click", function (e) {
-    const proCard = e.target.closest(".pro");
-    if (!proCard) return;
+document.addEventListener('click', function (e) {
 
-    // Ignore clicks on cart icon or buy now button inside the card
-    if (e.target.closest(".cart") || e.target.closest(".buy-now-btn")) return;
+    if (e.target.closest('#bar')) {
+      const nav = document.getElementById('navbar');
+      if (nav) nav.classList.add('active');
+    }
 
-    const nameElement = proCard.querySelector("h5");
-    const priceElement = proCard.querySelector("h4");
-    const brandElement = proCard.querySelector(".des span");
-    const imageElement = proCard.querySelector("img");
+    if (e.target.closest('#close')) {
+      const nav = document.getElementById('navbar');
+      if (nav) nav.classList.remove('active');
+    }
 
-    const selectedProduct = {
-        name: nameElement ? nameElement.textContent.trim() : "Product",
-        price: priceElement ? priceElement.textContent.trim() : "$0.00",
-        brand: brandElement ? brandElement.textContent.trim() : "Brand",
-        image: imageElement ? imageElement.src : ""
-    };
+    if (e.target.closest('#themeToggle') || e.target.closest('#themeToggleMobile')) {
+      e.preventDefault();
+      toggleTheme();
+    }
+  });
 
-    localStorage.setItem("selectedProduct", JSON.stringify(selectedProduct));
-    window.location.href = "singleProduct.html";
-}, true);
-
+  // Initialize icon on load
+  updateThemeIcon(savedTheme);
+  
 // Dynamic Render on singleProduct.html
 document.addEventListener("DOMContentLoaded", () => {
     if (window.location.pathname.includes("singleProduct")) {
@@ -615,8 +613,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Switches between dark and light and persists the choice.
     function toggleTheme() {
-        const currentTheme = html.getAttribute('data-theme') || 'light';
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark'; // fixed: was 'light' ? 'light' : 'dark'
+        const current = html.getAttribute('data-theme') || 'light';
+        const newTheme = current === 'dark' ? 'light' : 'dark'; // fixed: was 'light' ? 'light' : 'dark'
         html.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
         updateThemeIcon(newTheme);
@@ -624,19 +622,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // app.js loads at the bottom of <body> so the DOM is already parsed —
     // update the icon immediately without waiting for DOMContentLoaded.
-    updateThemeIcon(savedTheme);
 
-    // Use event delegation so the handler works even if the button is
-    // injected into the page dynamically after this script runs.
-    document.addEventListener('click', function (e) {
-        if (!e.target) return;
-        if (e.target.closest('#themeToggle') || e.target.closest('#themeToggleMobile')) {
-            e.preventDefault();
-            toggleTheme();
-        }
+  // delegated click (IMPORTANT for navbar injection)
+    document.addEventListener("click", (e) => {
+
+      // mobile menu open
+      if (e.target.closest("#bar")) {
+        document.getElementById("navbar")?.classList.add("active");
+      }
+
+      // mobile menu close
+      if (e.target.closest("#close")) {
+        document.getElementById("navbar")?.classList.remove("active");
+      }
+
+      // theme toggle
+      if (e.target.closest("#themeToggle") ||
+          e.target.closest("#themeToggleMobile")) {
+        e.preventDefault();
+        toggleTheme();
+      }
     });
-})();
-
 /* --- END: THEME TOGGLE FUNCTIONALITY --- */
 
 /* --- END: THEME TOGGLE FUNCTIONALITY --- */
@@ -1718,11 +1724,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Apply saved theme on load
     const currentTheme = localStorage.getItem('theme') || 'light';
     html.setAttribute('data-theme', currentTheme);
-    if (currentTheme === 'dark') {
-        document.body.classList.add('dark');
-    } else {
-        document.body.classList.remove('dark');
-    }
 
     function updateThemeIcon(theme) {
         const iconClass = theme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
@@ -1748,7 +1749,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('theme', 'light');
         updateThemeIcon('light');
     } else {
-        document.body.classList.add('dark');
+        
         localStorage.setItem('theme', 'dark');
         updateThemeIcon('dark');
     }

@@ -35938,3 +35938,20 @@ html {
     font-weight: 600 !important;
 }
 
+body {
+  transition: 0.3s ease;
+}
+
+/* Dark mode */
+.dark body {
+  background: #0f172a;
+  color: white;
+}
+
+.upload-success{
+    display: none;
+    margin-top: 15px;
+    color: #0a8f6a;
+    font-weight: 600;
+    font-size: 15px;
+}

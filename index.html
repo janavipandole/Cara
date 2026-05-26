@@ -802,10 +802,13 @@
 
   <div id="toast-container"></div>
    <button id="topBtn">↑</button>
-<script src="navbar.js"></script>
-<script>
-  loadNavbar('home');
-</script>
+
+  <script src="navbar.js"></script>
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    loadNavbar('home');
+  });
+  </script>
 
 <!-- Runtime header height shim: measures header and sets --header-height CSS var -->
 <script>
@@ -832,33 +835,42 @@
 <script src="app.js"></script>  
 <script>
 
-const searchBar = document.getElementById("searchBar");
+document.addEventListener("DOMContentLoaded", () => {
 
-searchBar.addEventListener("keyup", function() {
+  const searchBar = document.getElementById("searchBar");
 
-  const input = searchBar.value.toLowerCase();
+  if (searchBar) {
 
-  const products = document.querySelectorAll(".pro");
+    searchBar.addEventListener("keyup", function () {
 
-  products.forEach(function(product){
+      const input = searchBar.value.toLowerCase();
 
-    const productName = product
-      .querySelector("h5")
-      .textContent
-      .toLowerCase();
+      const products = document.querySelectorAll(".pro");
 
-    if(productName.includes(input)){
-      product.style.display = "block";
-    }
-    else{
-      product.style.display = "none";
-    }
+      products.forEach(function(product){
 
-  });
+        const productName = product
+          .querySelector("h5")
+          .textContent
+          .toLowerCase();
+
+        if(productName.includes(input)) {
+          product.style.display = "block";
+        } else {
+          product.style.display = "none";
+        }
+
+      });
+
+    });
+
+  }
 
 });
 
 </script>
+
+<script src="js/theme.js"></script>
 </body>
 
 </html>
