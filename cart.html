@@ -237,90 +237,6 @@
     </div>
   </section>
 
-  <div id="cart-content-wrapper" style="margin-top: 100px;">
-    <div class="cartmain">
-      <section id="page-header">
-        <h2>Your Cart</h2>
-        <p>Review and manage your selected items</p>
-      </section>
-
-      <div id="empty-cart-state">
-        <i class="ri-shopping-cart-line empty-cart-icon"></i>
-        <h2>Your cart is empty</h2>
-        <p>Looks like you haven't added anything to your cart yet.</p>
-        <a href="shop.html" class="btn-continue-shopping">Continue Shopping</a>
-      </div>
-
-      <section id="cart" class="section-p1">
-
-        <!-- Column headers aligned to the 5-column cart-item-row grid -->
-        <div class="cart-column-header">
-          <span class="header-product">Product</span>
-          <span class="header-price">Price</span>
-          <span class="header-qty">Quantity</span>
-          <span class="header-subtotal">Subtotal</span>
-          <span class="header-remove"></span>
-        </div>
-
-        <div id="cart-items-container"></div>
-
-      </section>
-
-      <section id="saved-items-section" class="section-p1" style="display: none;">
-        <h3>Saved for Later</h3>
-        <p>Items you've saved to buy later</p>
-        <div id="saved-items-container"></div>
-      </section>
-
-      <section id="cart-add" class="section-p1">
-        <div class="coupon">
-          <h3>Apply Coupon</h3>
-          <div>
-            <label for="coupon-code" class="sr-only" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">Coupon Code</label>
-            <input type="text" id="coupon-code" placeholder="Enter Your Coupon" />
-            <button id="apply-coupon-btn" class="normal">Apply</button>
-          </div>
-        </div>
-
-        <div class="subtotal">
-          <h3>Cart Totals</h3>
-
-          <table>
-            <tr>
-              <td>Cart Subtotal</td>
-              <td>$0.00</td>
-            </tr>
-
-            <tr>
-              <td>Shipping</td>
-              <td>Free</td>
-            </tr>
-
-            <tr>
-              <td><strong>Total</strong></td>
-              <td><strong>$0.00</strong></td>
-            </tr>
-          </table>
-
-          <button id="share-cart-btn" class="normal" onclick="shareWardrobe()">
-            <i class="ri-share-forward-line"></i> Share Wardrobe
-          </button>
-          <a href="checkout.html" class="normal" style="text-decoration: none">
-            Proceed to Checkout
-          </a>
-        </ul>
-      </div>
-
-      <div class="mobile">
-        <a href="login.html" aria-label="Login">
-          <i class="ri-user-3-line"></i>
-        </a>
-        <a href="cart.html" aria-label="Cart">
-          <i class="ri-shopping-bag-4-line"></i>
-        </a>
-        <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
-      </div>
-    </section>
 
     <div id="cart-content-wrapper">
       <div class="cartmain">
@@ -385,9 +301,18 @@
                 <button class="checkout-btn" onclick="window.location.href='checkout.html'">
                   PROCEED TO CHECKOUT <i class="ri-arrow-right-line"></i>
                 </button>
+                <button id="share-cart-btn" class="share-btn" onclick="shareWardrobe()" style="margin-top: 10px; width: 100%; padding: 12px; background-color: transparent; border: 1px solid var(--primary-color, #088178); color: var(--primary-color, #088178); font-weight: 600; cursor: pointer; border-radius: 4px; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s ease;">
+                  <i class="ri-share-forward-line"></i> SHARE WARDROBE
+                </button>
               </div>
             </div>
           </div>
+        </section>
+
+        <section id="saved-items-section" class="section-p1" style="display: none;">
+          <h3>Saved for Later</h3>
+          <p>Items you've saved to buy later</p>
+          <div id="saved-items-container"></div>
         </section>
 
         <div id="empty-cart-container" class="empty-cart-view" style="display: none;">
