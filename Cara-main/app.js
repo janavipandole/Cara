@@ -151,6 +151,27 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
         }
+
+        // Size Button Initialization
+        const sizeButtons = document.querySelectorAll(".size-btn");
+        const sizeInput = document.getElementById("product-size");
+
+        if (sizeButtons.length > 0 && sizeInput) {
+            sizeButtons.forEach(button => {
+                button.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all buttons
+                    sizeButtons.forEach(btn => btn.classList.remove("active"));
+                    
+                    // Add active class to clicked button
+                    this.classList.add("active");
+                    
+                    // Update the hidden input with the selected size
+                    sizeInput.value = this.dataset.size;
+                });
+            });
+        }
     }
 });
 
@@ -309,22 +330,22 @@ window.updateQty = function (change) {
 window.handleAddToCart = function () {
     const nameElement = document.getElementById('product-name');
     const priceElement = document.getElementById('product-price');
-    const sizeSelect = document.getElementById('product-size');
+    const sizeInput = document.getElementById('product-size');
     const quantityInput = document.getElementById('product-quantity');
     const imageElement = document.getElementById('MainImg');
 
-    if (!nameElement || !priceElement || !sizeSelect || !quantityInput || !imageElement) {
+    if (!nameElement || !priceElement || !sizeInput || !quantityInput || !imageElement) {
         console.error("Missing product elements on page.");
         return;
     }
 
     const name = nameElement.innerText;
     const price = priceElement.innerText;
-    const size = sizeSelect.value;
+    const size = sizeInput.value;
     const quantity = parseInt(quantityInput.value);
     const image = imageElement.src;
 
-    if (size === 'Select Size' || size === "") {
+    if (!size || size === "") {
         showToast('Please select a size before adding to cart!', 'warning');
         return;
     }

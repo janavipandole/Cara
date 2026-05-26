@@ -1,7 +1,7 @@
 ---
 name: 🐛 Bug Report
 about: Report a bug or unexpected behavior in the project
-title: "[BUG] <short description>"
+title: '[BUG] <short description>'
 labels: bug
 ---
 
@@ -14,6 +14,7 @@ A clear and concise description of the bug.
 ## 🔁 Steps to Reproduce
 
 Steps to reproduce the behavior:
+
 1. Go to '...'
 2. Click on '...'
 3. Scroll down to '...'
@@ -41,14 +42,14 @@ Add screenshots, console logs, or error messages here.
 
 ## 🧩 Environment
 
-- OS:  
-- Browser:  
-- Node.js version:  
-- Framework/Library version:  
+- OS:
+- Browser:
+- Node.js version:
+- Framework/Library version:
 
 ---
 
 ## ✅ Checklist
 
-- [ ] I have searched for existing issues before creating this one.  
-- [ ] I have included all relevant details and reproduction steps.  
+- [ ] I have searched for existing issues before creating this one.
+- [ ] I have included all relevant details and reproduction steps.

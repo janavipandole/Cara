@@ -30,6 +30,7 @@ We pledge to make participation in our project a harassment-free experience for 
    git clone https://github.com/YOUR_USERNAME/Cara.git
    cd Cara
    ```
+
 ## How Can I Contribute?
 
 ### 🐛 Reporting Bugs
@@ -75,6 +76,7 @@ Look for issues labeled `good first issue` or `beginner-friendly`. These are spe
 ### Development Workflow
 
 1. **Create a new branch** for your feature/fix:
+
    ```bash
    git checkout -b feature/your-feature-name
    # or
@@ -86,11 +88,13 @@ Look for issues labeled `good first issue` or `beginner-friendly`. These are spe
 3. **Test your changes** thoroughly
 
 4. **Commit your changes** using conventional commits:
+
    ```bash
    git commit -m "feat: add feature"
    ```
 
 5. **Push to your fork**:
+
    ```bash
    git push origin feature/your-feature-name
    ```
@@ -102,7 +106,7 @@ Look for issues labeled `good first issue` or `beginner-friendly`. These are spe
 ### Before Submitting
 
 - [ ] Check that your code follows our style guidelines
-- [ ] Run the linter and fix any issues: 
+- [ ] Run the linter and fix any issues:
 - [ ] Test your changes manually
 - [ ] Update documentation if needed
 - [ ] Add or update tests if applicable
@@ -131,12 +135,13 @@ Look for issues labeled `good first issue` or `beginner-friendly`. These are spe
 #### JavaScript/
 
 #### CSS/Styling
- 
+
 ## Issue Guidelines
 
 ### Bug Reports
 
 Use the bug report template and include:
+
 - **Environment**: OS, browser, Node.js version
 - **Steps to reproduce**: Clear, numbered steps
 - **Expected behavior**: What should happen
@@ -146,6 +151,7 @@ Use the bug report template and include:
 ### Feature Requests
 
 Use the feature request template and include:
+
 - **Problem description**: What problem does this solve?
 - **Proposed solution**: How should it work?
 - **Alternatives considered**: Other approaches you've thought of
@@ -154,6 +160,7 @@ Use the feature request template and include:
 ## Recognition
 
 Contributors will be recognized in:
+
 - README.md contributors section
 - GitHub contributors page
 - Release notes for significant contributions
@@ -161,6 +168,7 @@ Contributors will be recognized in:
 ## Questions?
 
 Feel free to ask questions by:
+
 - Creating a discussion on GitHub
 - Joining our Discord community
 - Reaching out to maintainers

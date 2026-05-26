@@ -331,28 +331,33 @@
     <button id="topBtn">↑</button>
 
     <script src="navbar.js"></script>
-    <script>loadNavbar();</script>
+    <script>
+      loadNavbar();
+    </script>
     <script src="app.js"></script>
     <script>
-      const topBtn = document.getElementById("topBtn");
+      const topBtn = document.getElementById('topBtn');
 
-    // Show button when user scrolls down
-    window.onscroll = function () {
-      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-        topBtn.style.display = "block";
-      } else {
-        topBtn.style.display = "none";
-      }
-    };
+      // Show button when user scrolls down
+      window.onscroll = function () {
+        if (
+          document.body.scrollTop > 200 ||
+          document.documentElement.scrollTop > 200
+        ) {
+          topBtn.style.display = 'block';
+        } else {
+          topBtn.style.display = 'none';
+        }
+      };
 
-    // Scroll to top smoothly
-    topBtn.addEventListener("click", function () {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
+      // Scroll to top smoothly
+      topBtn.addEventListener('click', function () {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
       });
-    });
-       
+
       // Form submission simulation
       document
         .getElementById('ambassador-form')
@@ -367,5 +372,5 @@
         document.getElementById('discount-popup').style.display = 'block';
       }, 5000);
     </script>
-</body>
+  </body>
 </html>

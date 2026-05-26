@@ -1,286 +1,321 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cara — Community & Inspiration</title>
-    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <style>
-        /* Community Page Specific Styles */
-        #community-header {
-            background-image: url("images/hero4.png");
-            background-size: cover;
-            background-position: center;
-            width: 100%;
-            height: 40vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            flex-direction: column;
-            color: #fff;
-            position: relative;
-            margin-top: 90px;
-        }
+      /* Community Page Specific Styles */
+      #community-header {
+        background-image: url('images/hero4.png');
+        background-size: cover;
+        background-position: center;
+        width: 100%;
+        height: 40vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        flex-direction: column;
+        color: #fff;
+        position: relative;
+        margin-top: 90px;
+      }
 
-        #community-header::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1;
-        }
+      #community-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1;
+      }
 
-        #community-header > * {
-            z-index: 2;
-            position: relative;
-        }
+      #community-header > * {
+        z-index: 2;
+        position: relative;
+      }
 
-        #community-header h2 {
-            color: #fff;
-            margin-bottom: 10px;
-        }
+      #community-header h2 {
+        color: #fff;
+        margin-bottom: 10px;
+      }
 
-        /* Upload Section */
-        #upload-look {
-            text-align: center;
-            padding: 50px 80px;
-            background: var(--card-bg);
-            border-bottom: 1px solid var(--border-color);
-        }
+      /* Upload Section */
+      #upload-look {
+        text-align: center;
+        padding: 50px 80px;
+        background: var(--card-bg);
+        border-bottom: 1px solid var(--border-color);
+      }
 
-        #upload-look h3 {
-            font-size: 32px;
-            color: var(--accent);
-            margin-bottom: 15px;
-        }
+      #upload-look h3 {
+        font-size: 32px;
+        color: var(--accent);
+        margin-bottom: 15px;
+      }
 
-        .upload-area {
-            max-width: 600px;
-            margin: 0 auto;
-            border: 2px dashed var(--accent);
-            padding: 40px;
-            border-radius: 10px;
-            background: var(--bg-secondary);
-            cursor: pointer;
-            transition: 0.3s;
-        }
+      .upload-area {
+        max-width: 600px;
+        margin: 0 auto;
+        border: 2px dashed var(--accent);
+        padding: 40px;
+        border-radius: 10px;
+        background: var(--bg-secondary);
+        cursor: pointer;
+        transition: 0.3s;
+      }
 
-        .upload-area:hover {
-            background: var(--card-bg);
-            box-shadow: 0 10px 20px var(--shadow);
-        }
+      .upload-area:hover {
+        background: var(--card-bg);
+        box-shadow: 0 10px 20px var(--shadow);
+      }
 
-        .upload-area i {
-            font-size: 50px;
-            color: var(--accent);
-        }
+      .upload-area i {
+        font-size: 50px;
+        color: var(--accent);
+      }
 
-        .upload-area input {
-            display: none;
-        }
+      .upload-area input {
+        display: none;
+      }
 
-        /* Gallery Grid */
+      /* Gallery Grid */
+      #gallery {
+        padding: 50px 80px;
+        text-align: center;
+      }
+
+      #gallery h2 {
+        margin-bottom: 40px;
+      }
+
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+      }
+
+      .gallery-item {
+        position: relative;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px var(--shadow);
+        aspect-ratio: 1;
+      }
+
+      .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+      }
+
+      .gallery-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        color: #fff;
+        padding: 15px;
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+        text-align: left;
+      }
+
+      .gallery-item:hover img {
+        transform: scale(1.1);
+      }
+
+      .gallery-item:hover .gallery-overlay {
+        transform: translateY(0);
+      }
+
+      .gallery-overlay h5 {
+        color: #fff;
+        margin-bottom: 5px;
+      }
+
+      .gallery-overlay p {
+        color: var(--accent);
+        font-size: 14px;
+        margin: 0;
+      }
+
+      @media (max-width: 799px) {
+        #upload-look,
         #gallery {
-            padding: 50px 80px;
-            text-align: center;
+          padding: 40px 20px;
         }
-
-        #gallery h2 {
-            margin-bottom: 40px;
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .gallery-item {
-            position: relative;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px var(--shadow);
-            aspect-ratio: 1;
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-
-        .gallery-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(0,0,0,0.7);
-            color: #fff;
-            padding: 15px;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-            text-align: left;
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.1);
-        }
-
-        .gallery-item:hover .gallery-overlay {
-            transform: translateY(0);
-        }
-
-        .gallery-overlay h5 {
-            color: #fff;
-            margin-bottom: 5px;
-        }
-
-        .gallery-overlay p {
-            color: var(--accent);
-            font-size: 14px;
-            margin: 0;
-        }
-
-        @media (max-width: 799px) {
-            #upload-look, #gallery {
-                padding: 40px 20px;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <section id="header">
-        <a href="index.html">
-            <img id="siteLogo" src="images/logo.png" alt="" id="siteLogo">
+      <a href="index.html">
+        <img id="siteLogo" src="images/logo.png" alt="" id="siteLogo" />
+      </a>
+
+      <!-- Desktop navbar injects here -->
+      <div id="navbar-container"></div>
+
+      <!-- Mobile controls (outside navbar, always in DOM) -->
+      <div class="mobile">
+        <button
+          class="theme-toggle"
+          id="themeToggleMobile"
+          aria-label="Toggle dark mode"
+        >
+          <i class="ri-moon-line" id="themeIconMobile"></i>
+        </button>
+        <a href="cart.html">
+          <i class="ri-shopping-bag-4-line"></i>
+          <span class="cart-count" id="mobileCartCount">0</span>
         </a>
-
-        <!-- Desktop navbar injects here -->
-        <div id="navbar-container"></div>
-
-        <!-- Mobile controls (outside navbar, always in DOM) -->
-        <div class="mobile">
-            <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
-            <i class="ri-moon-line" id="themeIconMobile"></i>
-            </button>
-            <a href="cart.html">
-            <i class="ri-shopping-bag-4-line"></i>
-            <span class="cart-count" id="mobileCartCount">0</span>
-            </a>
-            <i class="fas fa-outdent" id="bar"></i>
-        </div>
+        <i class="fas fa-outdent" id="bar"></i>
+      </div>
     </section>
 
     <section id="community-header">
-        <h2>#CaraCommunity</h2>
-        <p>Your Style, Your Rules. Get inspired by fashion lovers worldwide.</p>
+      <h2>#CaraCommunity</h2>
+      <p>Your Style, Your Rules. Get inspired by fashion lovers worldwide.</p>
     </section>
 
     <section id="upload-look">
-        <h3>Showcase Your Look!</h3>
-        <p>Used our Virtual Try-On? Got a stunning Cara outfit? Upload your poster to be featured on our Trending feed!</p>
-        <label class="upload-area">
-            <i class="ri-camera-lens-fill"></i>
-            <h4>Click to Upload Photo</h4>
-            <p>PNG, JPG up to 5MB</p>
-            <input type="file" id="community-upload" accept="image/*">
-        </label>
-        <p id="upload-success" style="display:none; color: var(--accent); font-weight:bold; margin-top:15px;">Thanks for sharing! Your look is under review.</p>
+      <h3>Showcase Your Look!</h3>
+      <p>
+        Used our Virtual Try-On? Got a stunning Cara outfit? Upload your poster
+        to be featured on our Trending feed!
+      </p>
+      <label class="upload-area">
+        <i class="ri-camera-lens-fill"></i>
+        <h4>Click to Upload Photo</h4>
+        <p>PNG, JPG up to 5MB</p>
+        <input type="file" id="community-upload" accept="image/*" />
+      </label>
+      <p
+        id="upload-success"
+        style="
+          display: none;
+          color: var(--accent);
+          font-weight: bold;
+          margin-top: 15px;
+        "
+      >
+        Thanks for sharing! Your look is under review.
+      </p>
     </section>
 
     <section id="gallery">
-        <h2>Trending Outfits & Inspiration</h2>
-        <div class="gallery-grid">
-            <!-- Dummy content representing community uploads -->
-            <div class="gallery-item">
-                <img src="images/products/f1.jpg" alt="User Look 1">
-                <div class="gallery-overlay">
-                    <h5>@fashion_guru</h5>
-                    <p>#CaraFashion #SummerVibes</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="images/products/f2.jpg" alt="User Look 2">
-                <div class="gallery-overlay">
-                    <h5>@style_icon</h5>
-                    <p>#MyCaraLook #OOTD</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="images/products/f3.jpg" alt="User Look 3">
-                <div class="gallery-overlay">
-                    <h5>@trendsetter99</h5>
-                    <p>#Streetwear #Cara</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="images/products/f4.jpg" alt="User Look 4">
-                <div class="gallery-overlay">
-                    <h5>@chic_daily</h5>
-                    <p>#CaraTryOn #LoveIt</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="images/products/n1.jpg" alt="User Look 5">
-                <div class="gallery-overlay">
-                    <h5>@minimal_aesthetic</h5>
-                    <p>#CaraFashion #Minimalist</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="images/products/n2.jpg" alt="User Look 6">
-                <div class="gallery-overlay">
-                    <h5>@vintage_soul</h5>
-                    <p>#Retro #CaraCommunity</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="images/products/n3.jpg" alt="User Look 7">
-                <div class="gallery-overlay">
-                    <h5>@urban_outfits</h5>
-                    <p>#CityStyle #MyCaraLook</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="images/products/n4.jpg" alt="User Look 8">
-                <div class="gallery-overlay">
-                    <h5>@glam_life</h5>
-                    <p>#CaraFashion #PartyReady</p>
-                </div>
-            </div>
+      <h2>Trending Outfits & Inspiration</h2>
+      <div class="gallery-grid">
+        <!-- Dummy content representing community uploads -->
+        <div class="gallery-item">
+          <img src="images/products/f1.jpg" alt="User Look 1" />
+          <div class="gallery-overlay">
+            <h5>@fashion_guru</h5>
+            <p>#CaraFashion #SummerVibes</p>
+          </div>
         </div>
+        <div class="gallery-item">
+          <img src="images/products/f2.jpg" alt="User Look 2" />
+          <div class="gallery-overlay">
+            <h5>@style_icon</h5>
+            <p>#MyCaraLook #OOTD</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/products/f3.jpg" alt="User Look 3" />
+          <div class="gallery-overlay">
+            <h5>@trendsetter99</h5>
+            <p>#Streetwear #Cara</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/products/f4.jpg" alt="User Look 4" />
+          <div class="gallery-overlay">
+            <h5>@chic_daily</h5>
+            <p>#CaraTryOn #LoveIt</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/products/n1.jpg" alt="User Look 5" />
+          <div class="gallery-overlay">
+            <h5>@minimal_aesthetic</h5>
+            <p>#CaraFashion #Minimalist</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/products/n2.jpg" alt="User Look 6" />
+          <div class="gallery-overlay">
+            <h5>@vintage_soul</h5>
+            <p>#Retro #CaraCommunity</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/products/n3.jpg" alt="User Look 7" />
+          <div class="gallery-overlay">
+            <h5>@urban_outfits</h5>
+            <p>#CityStyle #MyCaraLook</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/products/n4.jpg" alt="User Look 8" />
+          <div class="gallery-overlay">
+            <h5>@glam_life</h5>
+            <p>#CaraFashion #PartyReady</p>
+          </div>
+        </div>
+      </div>
     </section>
 
     <footer class="section-p1">
-        <div class="col">
-            <img class="logo" src="images/logo.png" alt="">
-            <h4>Contact</h4>
-            <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
-        </div>
-        <div class="copyright">
-            <p>&copy; Cara 2025. All rights reserved.</p>
-        </div>
+      <div class="col">
+        <img class="logo" src="images/logo.png" alt="" />
+        <h4>Contact</h4>
+        <p>
+          <strong>Address:</strong> 562 Wellington Road, Street 32, San
+          Francisco
+        </p>
+      </div>
+      <div class="copyright">
+        <p>&copy; Cara 2025. All rights reserved.</p>
+      </div>
     </footer>
     <script src="navbar.js"></script>
-    <script>loadNavbar('community');</script>  
+    <script>
+      loadNavbar('community');
+    </script>
 
     <script src="app.js?v=1779120917211"></script>
     <script>
-        document.getElementById('community-upload').addEventListener('change', function(e) {
-            if(e.target.files.length > 0) {
-                document.getElementById('upload-success').style.display = 'block';
-                setTimeout(() => {
-                    document.getElementById('upload-success').style.display = 'none';
-                }, 4000);
-            }
+      document
+        .getElementById('community-upload')
+        .addEventListener('change', function (e) {
+          if (e.target.files.length > 0) {
+            document.getElementById('upload-success').style.display = 'block';
+            setTimeout(() => {
+              document.getElementById('upload-success').style.display = 'none';
+            }, 4000);
+          }
         });
     </script>
     <!-- <script src="app.js?v=1779120917211"></script>       -->
-</body>
+  </body>
 </html>

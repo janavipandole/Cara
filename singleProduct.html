@@ -102,15 +102,18 @@
             <h6>Home / T-Shirt</h6>
             <h4 id="product-name">Men's Fashion T-Shirt</h4>
             <h2 id="product-price">$139.00</h2>
-            <select id="product-size" name="product-size" aria-label="Select product size">
-                <option>Select Size</option>
-                <option>S</option>
-                <option>M</option>
-                <option>L</option>
-                <option>XL</option>
-                <option>XXL</option>
-                <option>XXXL</option>
-            </select>
+            <div class="size-selector-container">
+                <label class="size-label">Select Size:</label>
+                <div class="size-buttons-group">
+                    <button type="button" class="size-btn" data-size="S" aria-label="Size S">S</button>
+                    <button type="button" class="size-btn" data-size="M" aria-label="Size M">M</button>
+                    <button type="button" class="size-btn" data-size="L" aria-label="Size L">L</button>
+                    <button type="button" class="size-btn" data-size="XL" aria-label="Size XL">XL</button>
+                    <button type="button" class="size-btn" data-size="XXL" aria-label="Size XXL">XXL</button>
+                    <button type="button" class="size-btn" data-size="XXXL" aria-label="Size XXXL">XXXL</button>
+                </div>
+                <input type="hidden" id="product-size" value="">
+            </div>
             <div class="cart-action-group">
                 <div class="quantity-selector">
                     <button type="button" class="qty-btn minus" onclick="updateQty(-1)" aria-label="Decrease quantity" disabled>

@@ -7,7 +7,7 @@
 */
 
 #promo-header {
-  background-image: url("images/banner/b_person.png");
+  background-image: url('images/banner/b_person.png');
   width: 100%;
   height: 48vh;
   background-size: cover;
@@ -21,8 +21,15 @@
   margin-top: 90px;
 }
 
-[data-theme="dark"] #promo-header {
-  background-image: linear-gradient(to right, rgba(0,0,0,0.6) 20%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0)), url("images/banner/b_person.png");
+[data-theme='dark'] #promo-header {
+  background-image:
+    linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.6) 20%,
+      rgba(0, 0, 0, 0.2) 60%,
+      rgba(0, 0, 0, 0)
+    ),
+    url('images/banner/b_person.png');
 }
 
 #promo-header h2 {
@@ -34,7 +41,7 @@
 }
 
 #promo-header p {
-  color: var(--text-hero-sub, rgba(255,255,255,0.9));
+  color: var(--text-hero-sub, rgba(255, 255, 255, 0.9));
   font-size: 18px;
   font-weight: 500;
   margin: 0;
@@ -64,12 +71,14 @@
   border-radius: 10px;
   margin-bottom: 18px;
   box-shadow: 0 6px 18px var(--shadow);
-  transition: transform 200ms ease, box-shadow 200ms ease;
+  transition:
+    transform 200ms ease,
+    box-shadow 200ms ease;
 }
 
 .perk-box:hover {
   transform: translateY(-6px);
-  box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
 }
 
 .perk-box h4 {
@@ -93,9 +102,15 @@
   margin-bottom: 18px;
 }
 
-.form-group { margin-bottom: 16px; }
+.form-group {
+  margin-bottom: 16px;
+}
 
-.form-group label { display: block; margin-bottom: 8px; font-weight: 600; }
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
 
 .form-group input,
 .form-group textarea {
@@ -106,13 +121,16 @@
   outline: none;
   background: var(--input-bg);
   color: var(--text-primary);
-  transition: border-color 160ms ease, box-shadow 160ms ease, transform 120ms ease;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 120ms ease;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
   border-color: var(--accent);
-  box-shadow: 0 8px 24px rgba(6,102,95,0.06);
+  box-shadow: 0 8px 24px rgba(6, 102, 95, 0.06);
   transform: translateY(-1px);
 }
 
@@ -125,15 +143,24 @@
   color: #fff;
   padding: 18px;
   border-radius: 10px;
-  box-shadow: 0 14px 40px rgba(0,0,0,0.25);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
   z-index: 1000;
   display: none;
   max-width: 320px;
   animation: slideUp 520ms ease-out;
 }
 
-#discount-popup h4 { margin: 0 0 8px 0; font-size: 20px; }
-#discount-popup .close-btn { position: absolute; top: 8px; right: 10px; cursor: pointer; font-size: 18px; }
+#discount-popup h4 {
+  margin: 0 0 8px 0;
+  font-size: 20px;
+}
+#discount-popup .close-btn {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 18px;
+}
 
 .copy-code {
   background: #fff;
@@ -148,14 +175,35 @@
 }
 
 @keyframes slideUp {
-  from { transform: translateY(40px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 /* Small screens */
 @media (max-width: 799px) {
-  #promo-header { padding: 22px; text-align: center; height: 40vh; background-image: linear-gradient(rgba(247,181,56,0.85), rgba(247,181,56,0.85)), url('images/banner/b_person.png'); }
-  .promo-container { flex-direction: column; padding: 20px; }
-  .promo-details, .influencer-form { width: 100%; }
-  #promo-header h2 { font-size: 34px; }
+  #promo-header {
+    padding: 22px;
+    text-align: center;
+    height: 40vh;
+    background-image:
+      linear-gradient(rgba(247, 181, 56, 0.85), rgba(247, 181, 56, 0.85)),
+      url('images/banner/b_person.png');
+  }
+  .promo-container {
+    flex-direction: column;
+    padding: 20px;
+  }
+  .promo-details,
+  .influencer-form {
+    width: 100%;
+  }
+  #promo-header h2 {
+    font-size: 34px;
+  }
 }

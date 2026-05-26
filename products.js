@@ -220,7 +220,7 @@ function renderProducts(containerId, list) {
           price: '₹' + p.price,
           brand: p.brand,
           img: p.img,
-          rating: p.rating
+          rating: p.rating,
         });
       }
     });
