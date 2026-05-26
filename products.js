@@ -783,3 +783,44 @@ document.addEventListener('DOMContentLoaded', () => {
   updateSearchSummary(products.length);
   renderSearchSuggestions('');
 });
+
+ // --- GLOBAL TOAST NOTIFICATION HANDLER ---
+function showToast(message, type = 'success') {
+    // Check if container already exists, else create it
+    let container = document.getElementById('toast-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'toast-container';
+        document.body.appendChild(container);
+    }
+
+    // Create Toast element wrapper
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+
+    // Select icon based on variant types
+    let icon = '🛒';
+    if (type === 'error') icon = '❌';
+    if (type === 'warning') icon = '⚠️';
+    if (type === 'info') icon = 'ℹ️';
+
+    // Build Toast inner body to match your existing CSS layout (.toast-icon, .toast-msg, .toast-close, .toast-progress)
+    toast.innerHTML = `
+        <div class="toast-icon">${icon}</div>
+        <div class="toast-msg">${message}</div>
+        <button class="toast-close" onclick="this.parentElement.remove()">&times;</button>
+        <div class="toast-progress"></div>
+    `;
+
+    container.appendChild(toast);
+
+    // Auto-remove animation sequence handling (Matches CSS timers smoothly)
+    setTimeout(() => {
+        toast.classList.add('toast-hiding');
+        setTimeout(() => {
+            toast.remove();
+        }, 350); // Exact exit duration specified in .toast-hiding cubic-bezier curve
+    }, 3650); // Active visibility shelf life before auto dismissal
+}
+});
+
