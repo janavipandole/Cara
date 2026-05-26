@@ -124,14 +124,17 @@
                         <i class="ri-moon-line" id="themeIcon"></i>
                     </button>
                 </li>
-                <li><a href="login.html">Login</a></li>
+                <li><a href="login.html" id="login-btn">Login</a></li>
                 <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
             </ul>
         </div>
-        <div class="mobile">
-            <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
-            <i class="fas fa-outdent" id="bar"></i>
-        </div>
+      <div class="mobile">
+    <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
+    <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
+        <i class="ri-moon-line" id="themeIconMobile"></i>
+    </button>
+    <i class="fas fa-outdent" id="bar"></i>
+</div>
     </section>
 
     <section id="license-content">
@@ -139,7 +142,7 @@
         <p class="license-meta">This project is licensed under the <span class="highlight">MIT License</span></p>
 
         <h2>Copyright Notice</h2>
-        <p>Copyright © 2025 <strong>Janavi Pandole</strong></p>
+        <p>Copyright © <span class="Current-Year"></span> <strong>Janavi Pandole</strong></p>
 
         <div class="license-box">
             <p class="license-text">Permission is hereby granted, free of charge, to any person obtaining a copy of this
@@ -187,7 +190,9 @@
                 <div class="icon">
                     <a href="https://x.com/JanaviPandole"><i class="fab fa-twitter"></i></a>
                     <a href="https://github.com/janavipandole"><i class="fab fa-github"></i></a>
-                    <a href="www.linkedin.com/in/janavi-pandole-80a7b2290"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
                     <a href="https://www.youtube.com/@JanaviPandole"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
@@ -195,7 +200,7 @@
         <div class="col">
             <h4>About</h4>
             <a href="about.html">About us</a>
-            <a href="#">Delivery Information</a>
+         <a href="deliver.html">Delivery Information</a>
             <a href="#">Privacy Policy</a>
             <a href="#">Terms & Conditions</a>
             <a href="contact.html">Contact Us</a>
@@ -205,7 +210,7 @@
             <a href="login.html">Sign In</a>
             <a href="cart.html">View Cart</a>
             <a href="#">My Wishlist</a>
-            <a href="cart.html">Track My Order</a>
+            <a href="track-order.html">Track My Order</a>
             <a href="contact.html">Help</a>
         </div>
         <div class="col install">
@@ -216,14 +221,28 @@
                 <img src="images/pay/play.jpg" alt="">
             </div>
             <p>Secured Payment Gateways</p>
-            <img src="images/pay/pay.png" alt="">
+            <div class="payment-icons">
+                <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer" aria-label="Visa"><i class="fab fa-cc-visa"></i></a>
+                <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer" aria-label="Mastercard"><i class="fab fa-cc-mastercard"></i></a>
+                <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" aria-label="PayPal"><i class="fab fa-cc-paypal"></i></a>
+                <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer" aria-label="American Express"><i class="fab fa-cc-amex"></i></a>
+                <a href="https://stripe.com" target="_blank" rel="noopener noreferrer" aria-label="Stripe"><i class="fab fa-cc-stripe"></i></a>
+            </div>
         </div>
         <div class="copyright">
-            <p>© Cara 2025. All rights reserved. | <a href="license.html" style="color: #088178;">MIT License</a></p>
+            <p>© Cara 2026. All rights reserved. | <a href="license.html" style="color: #088178;">MIT License</a></p>
         </div>
     </footer>
 
     <script src="app.js"></script>
+    <script>
+       const year = new Date().getFullYear();
+
+for (let el of document.querySelectorAll(".Current-Year")) {
+  el.textContent = year;
+}
+  
+    </script>
 </body>
 
 </html>
