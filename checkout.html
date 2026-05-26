@@ -64,26 +64,16 @@
 
         <div class="input-group">
           <label for="phone">Phone Number</label>
-          <input type="tel" id="phone" placeholder="Enter phone number" data-validate="phone" required>
+          <input type="tel" id="phone" placeholder="Enter phone number" data-validate="phone" autocomplete="tel" required>
           <span class="error-msg"></span>
         </div>
-
-          <div class="input-group">
-            <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone" placeholder="Enter phone number" autocomplete="tel" required>
-          </div>
         </fieldset>
 
       <div class="input-group">
         <label for="address">Delivery Address</label>
-        <textarea id="address" placeholder="Enter full address" data-validate="address" required></textarea>
+        <textarea id="address" placeholder="Enter full address" data-validate="address" autocomplete="street-address" required></textarea>
         <span class="error-msg"></span>
       </div>
-
-          <div class="input-group">
-            <label for="address">Delivery Address</label>
-            <textarea id="address" name="address" placeholder="Enter full address" autocomplete="street-address" required></textarea>
-          </div>
 
         <div class="input-group">
           <label for="city">City</label>
@@ -174,7 +164,7 @@
           </div>
 
           <div class="order-item">
-            <div class="item-thumb">🌺</div>
+            <div class="item-thumb"><i class="ri-shirt-line"></i></div>
             <div class="item-info">
               <div class="item-name">Tropical Print Shirt</div>
               <div class="item-meta">H&M · Size L · Qty 2</div>
