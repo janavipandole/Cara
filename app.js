@@ -1777,6 +1777,90 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* --- END: THEME TOGGLE FUNCTIONALITY --- */
 
+/* --- START: MEN OUTFITS VIEW TOGGLE --- */
+function initMenOutfitsToggle() {
+  const section = document.querySelector('.men-outfits-section');
+  if (!section) return;
+
+  const products = Array.from(section.querySelectorAll('.pro'));
+  const grid = section.querySelector('.men-outfits-grid');
+  const toggleBtn = section.querySelector('#menOutfitsToggle');
+  const initialVisibleCount = 4;
+  const extraProducts = products.slice(initialVisibleCount);
+
+  if (!toggleBtn || extraProducts.length === 0) {
+    if (toggleBtn) toggleBtn.style.display = 'none';
+    return;
+  }
+
+  extraProducts.forEach((product) => {
+    product.classList.add('men-outfit-extra');
+    product.classList.remove('is-visible', 'is-hiding');
+  });
+
+  let isExpanded = false;
+
+  function setButtonState() {
+    toggleBtn.textContent = isExpanded ? 'View Less' : 'View More';
+    toggleBtn.setAttribute('aria-expanded', String(isExpanded));
+  }
+
+  function animateGridHeight(startHeight, endHeight) {
+    if (!grid) return;
+
+    grid.classList.add('is-resizing');
+    grid.style.height = `${startHeight}px`;
+
+    requestAnimationFrame(() => {
+      grid.style.height = `${endHeight}px`;
+    });
+
+    window.setTimeout(() => {
+      grid.classList.remove('is-resizing');
+      grid.style.height = '';
+    }, 460);
+  }
+
+  toggleBtn.addEventListener('click', () => {
+    const startHeight = grid ? grid.offsetHeight : 0;
+    isExpanded = !isExpanded;
+    setButtonState();
+
+    if (isExpanded) {
+      extraProducts.forEach((product, index) => {
+        product.classList.remove('is-hiding');
+        product.style.animationDelay = `${index * 55}ms`;
+        product.classList.add('is-visible');
+      });
+      animateGridHeight(startHeight, grid ? grid.scrollHeight : startHeight);
+      return;
+    }
+
+    extraProducts.forEach((product, index) => {
+      product.style.animationDelay = `${index * 35}ms`;
+      product.classList.add('is-hiding');
+    });
+
+    window.setTimeout(() => {
+      extraProducts.forEach((product) => {
+        product.classList.remove('is-visible', 'is-hiding');
+        product.style.animationDelay = '';
+      });
+      animateGridHeight(startHeight, grid ? grid.scrollHeight : startHeight);
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 360);
+  });
+
+  setButtonState();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initMenOutfitsToggle);
+} else {
+  initMenOutfitsToggle();
+}
+/* --- END: MEN OUTFITS VIEW TOGGLE --- */
+
 (function () {
   const paginationSection = document.getElementById('pagination');
   if (!paginationSection) return;

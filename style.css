@@ -35772,7 +35772,230 @@ html {
     filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(255, 255, 255, 0.25));
 }
 
+/* Homepage hero text motion */
+.hero-slider .slide.active .hero-badge,
+.hero-slider .slide.active h4,
+.hero-slider .slide.active h2,
+.hero-slider .slide.active h1,
+.hero-slider .slide.active p,
+.hero-slider .slide.active .hero-tags span,
+.hero-slider .slide.active .hero-btn-group {
+    animation-fill-mode: both;
+    will-change: transform, opacity;
+}
 
+.hero-slider .slide.active .hero-badge {
+    animation: heroFadeSlide 0.7s ease 0.05s both, heroFloat 4.5s ease-in-out 1s infinite;
+}
 
+.hero-slider .slide.active h4 {
+    animation: heroFadeSlide 0.7s ease 0.18s both, heroFloat 5s ease-in-out 1.2s infinite;
+}
 
+.hero-slider .slide.active h2 {
+    animation: heroBrandReveal 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 0.35s both, heroGlowPulse 2.8s ease-in-out 1.2s infinite;
+    text-shadow: 0 0 18px rgba(8, 129, 120, 0.24);
+}
+
+.hero-slider .slide.active h1 {
+    animation: heroBrandReveal 0.85s cubic-bezier(0.2, 0.8, 0.2, 1) 0.55s both, heroGlowPulse 3.2s ease-in-out 1.35s infinite;
+}
+
+.hero-slider .slide.active p {
+    animation: heroFadeSlide 0.75s ease 0.8s both;
+}
+
+.hero-slider .slide.active .hero-tags span {
+    animation: heroTagReveal 0.55s ease both;
+}
+
+.hero-slider .slide.active .hero-tags span:nth-child(1) {
+    animation-delay: 0.95s;
+}
+
+.hero-slider .slide.active .hero-tags span:nth-child(2) {
+    animation-delay: 1.08s;
+}
+
+.hero-slider .slide.active .hero-tags span:nth-child(3) {
+    animation-delay: 1.21s;
+}
+
+.hero-slider .slide.active .hero-btn-group {
+    animation: heroFadeSlide 0.7s ease 1.3s both;
+}
+
+@keyframes heroFadeSlide {
+    from {
+        opacity: 0;
+        transform: translateY(22px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes heroBrandReveal {
+    0% {
+        opacity: 0;
+        transform: translateY(26px) scale(0.96);
+        filter: blur(6px);
+    }
+
+    70% {
+        opacity: 1;
+        transform: translateY(-2px) scale(1.01);
+        filter: blur(0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes heroGlowPulse {
+    0%,
+    100% {
+        text-shadow: 0 0 10px rgba(8, 129, 120, 0.18);
+    }
+
+    50% {
+        text-shadow: 0 0 22px rgba(8, 129, 120, 0.5), 0 0 34px rgba(255, 255, 255, 0.22);
+    }
+}
+
+@keyframes heroFloat {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes heroTagReveal {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Men Outfits view more / less */
+#product1.men-outfits-section {
+    overflow: hidden;
+}
+
+#product1.men-outfits-section .men-outfits-grid.is-resizing {
+    overflow: hidden;
+    transition: height 0.42s ease;
+}
+
+#product1.men-outfits-section .pro:nth-child(n+5):not(.is-visible):not(.is-hiding),
+#product1.men-outfits-section .pro.men-outfit-extra:not(.is-visible):not(.is-hiding) {
+    display: none !important;
+}
+
+#product1.men-outfits-section .pro.men-outfit-extra.is-visible {
+    animation: menProductReveal 0.42s ease both;
+}
+
+#product1.men-outfits-section .pro.men-outfit-extra.is-hiding {
+    animation: menProductHide 0.28s ease both;
+}
+
+.view-toggle-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+.view-toggle-btn {
+    background: #000000;
+    color: #ffffff;
+    border: 1.5px solid #000000;
+    border-radius: 6px;
+    padding: 13px 32px;
+    min-width: 150px;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+    transition: background 0.25s ease, color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+}
+
+.view-toggle-btn:hover,
+.view-toggle-btn:focus-visible {
+    background: #ffffff;
+    color: #000000;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+    outline: none;
+}
+
+[data-theme="dark"] .view-toggle-btn {
+    background: #ffffff;
+    color: #000000;
+    border-color: #ffffff;
+}
+
+[data-theme="dark"] .view-toggle-btn:hover,
+[data-theme="dark"] .view-toggle-btn:focus-visible {
+    background: transparent;
+    color: #ffffff;
+}
+
+@keyframes menProductReveal {
+    from {
+        opacity: 0;
+        transform: translateY(22px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes menProductHide {
+    from {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(16px) scale(0.98);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-slider .slide.active .hero-badge,
+    .hero-slider .slide.active h4,
+    .hero-slider .slide.active h2,
+    .hero-slider .slide.active h1,
+    .hero-slider .slide.active p,
+    .hero-slider .slide.active .hero-tags span,
+    .hero-slider .slide.active .hero-btn-group,
+    #product1.men-outfits-section .pro.men-outfit-extra.is-visible,
+    #product1.men-outfits-section .pro.men-outfit-extra.is-hiding {
+        animation: none;
+    }
+
+    .view-toggle-btn {
+        transition: none;
+    }
+}
 
