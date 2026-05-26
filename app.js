@@ -791,10 +791,9 @@ window.openQuiz = function () {
 }
 
 window.closeQuiz = function () {
-    document.querySelector('.close').addEventListener('click', () => {
     document.getElementById('quiz-modal').style.display = 'none';
-});
 }
+
 
 window.selectStyle = function (style) {
     closeQuiz();
