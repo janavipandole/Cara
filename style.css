@@ -7015,6 +7015,8 @@ footer.main-footer {
     display: flex;
     align-items: center;
     gap: 14px;
+    /* Niche wali line add karein */
+    margin-left: auto; 
 }
 
 .footer-socials a {
@@ -28949,6 +28951,8 @@ button.white .ripple-effect {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
     transition: background 0.25s ease, opacity 0.25s ease !important;
     transform: translateY(-50%) !important; /* keep vertical centring, no extra shift */
+    pointer-events: auto !important;
+    z-index: 9999 !important;
 }
 
 #hero .slider-btn:hover {
@@ -35392,6 +35396,25 @@ button#share-cart-btn:hover {
 }
 .summary-label { font-size: 14px; font-weight: 600; color: var(--text-primary); }
 .summary-value { font-size: 18px; font-weight: 800; color: var(--accent); }
+
+#quiz-modal {
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+#quiz-modal .modal-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+}
+
 .modal-footer {
     display: flex; justify-content: flex-end; gap: 12px;
     padding: 20px 24px;
