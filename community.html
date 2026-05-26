@@ -313,19 +313,20 @@
   </div>
 </section>
 
+    <main id="main-content">
     <section id="community-header">
-        <h2>#CaraCommunity</h2>
+        <h1>#CaraCommunity</h1>
         <p>Your Style, Your Rules. Get inspired by fashion lovers worldwide.</p>
     </section>
 
     <section id="upload-look">
-    <h3>Showcase Your Look!</h3>
+    <h2>Showcase Your Look!</h2>
     <p class="upload-subtitle">Used our Virtual Try-On? Got a stunning Cara outfit? Upload your poster to be featured on our Trending feed!</p>
     
     <label class="cara-upload-box" for="community-upload">
         <div class="cara-upload-content">
             <i class="ri-camera-lens-fill cara-icon"></i>
-            <h4 class="cara-title">Click to Upload Photo</h4>
+            <h3 class="cara-title">Click to Upload Photo</h3>
             <p class="cara-text">PNG, JPG up to 5MB</p>
         </div>
         <input type="file" id="community-upload" accept="image/*">
@@ -334,66 +335,67 @@
 
     <section id="gallery">
         <h2>Trending Outfits & Inspiration</h2>
-        <div class="gallery-grid">
+        <div class="gallery-grid" role="list">
             <!-- Dummy content representing community uploads -->
-            <div class="gallery-item">
-                <img src="images/products/f1.jpg" alt="User Look 1">
+            <div class="gallery-item" role="listitem" aria-label="Style share by @fashion_guru">
+                <img src="images/products/f1.jpg" alt="User Look 1" loading="lazy">
                 <div class="gallery-overlay">
-                    <h5>@fashion_guru</h5>
+                    <h3>@fashion_guru</h3>
                     <p>#CaraFashion #SummerVibes</p>
                 </div>
             </div>
-            <div class="gallery-item">
-                <img src="images/products/f2.jpg" alt="User Look 2">
+            <div class="gallery-item" role="listitem" aria-label="Style share by @style_icon">
+                <img src="images/products/f2.jpg" alt="User Look 2" loading="lazy">
                 <div class="gallery-overlay">
-                    <h5>@style_icon</h5>
+                    <h3>@style_icon</h3>
                     <p>#MyCaraLook #OOTD</p>
                 </div>
             </div>
-            <div class="gallery-item">
-                <img src="images/products/f3.jpg" alt="User Look 3">
+            <div class="gallery-item" role="listitem" aria-label="Style share by @trendsetter99">
+                <img src="images/products/f3.jpg" alt="User Look 3" loading="lazy">
                 <div class="gallery-overlay">
-                    <h5>@trendsetter99</h5>
+                    <h3>@trendsetter99</h3>
                     <p>#Streetwear #Cara</p>
                 </div>
             </div>
-            <div class="gallery-item">
-                <img src="images/products/f4.jpg" alt="User Look 4">
+            <div class="gallery-item" role="listitem" aria-label="Style share by @chic_daily">
+                <img src="images/products/f4.jpg" alt="User Look 4" loading="lazy">
                 <div class="gallery-overlay">
-                    <h5>@chic_daily</h5>
+                    <h3>@chic_daily</h3>
                     <p>#CaraTryOn #LoveIt</p>
                 </div>
             </div>
-            <div class="gallery-item">
-                <img src="images/products/n1.jpg" alt="User Look 5">
+            <div class="gallery-item" role="listitem" aria-label="Style share by @minimal_aesthetic">
+                <img src="images/products/n1.jpg" alt="User Look 5" loading="lazy">
                 <div class="gallery-overlay">
-                    <h5>@minimal_aesthetic</h5>
+                    <h3>@minimal_aesthetic</h3>
                     <p>#CaraFashion #Minimalist</p>
                 </div>
             </div>
-            <div class="gallery-item">
-                <img src="images/products/n2.jpg" alt="User Look 6">
+            <div class="gallery-item" role="listitem" aria-label="Style share by @vintage_soul">
+                <img src="images/products/n2.jpg" alt="User Look 6" loading="lazy">
                 <div class="gallery-overlay">
-                    <h5>@vintage_soul</h5>
+                    <h3>@vintage_soul</h3>
                     <p>#Retro #CaraCommunity</p>
                 </div>
             </div>
-            <div class="gallery-item">
-                <img src="images/products/n3.jpg" alt="User Look 7">
+            <div class="gallery-item" role="listitem" aria-label="Style share by @urban_outfits">
+                <img src="images/products/n3.jpg" alt="User Look 7" loading="lazy">
                 <div class="gallery-overlay">
-                    <h5>@urban_outfits</h5>
+                    <h3>@urban_outfits</h3>
                     <p>#CityStyle #MyCaraLook</p>
                 </div>
             </div>
-            <div class="gallery-item">
-                <img src="images/products/n4.jpg" alt="User Look 8">
+            <div class="gallery-item" role="listitem" aria-label="Style share by @glam_life">
+                <img src="images/products/n4.jpg" alt="User Look 8" loading="lazy">
                 <div class="gallery-overlay">
-                    <h5>@glam_life</h5>
+                    <h3>@glam_life</h3>
                     <p>#CaraFashion #PartyReady</p>
                 </div>
             </div>
         </div>
     </section>
+    </main>
 
     <footer class="section-p1">
     <!-- Contact Column -->
@@ -430,7 +432,7 @@
     <div class="col">
       <h4>About</h4>
       <a href="about.html">About Us</a>
-      <a href="#">Delivery Information</a>
+      <a href="deliveryInformation.html">Delivery Information</a>
       <a href="privacy.html">Privacy Policy</a>
       <a href="terms.html">Terms and Conditions</a>
       <a href="contact.html">Contact Us</a>

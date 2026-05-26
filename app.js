@@ -47,14 +47,11 @@ document.addEventListener("click", function (e) {
 // Dynamic Render on singleProduct.html
 document.addEventListener("DOMContentLoaded", () => {
     if (window.location.pathname.includes("singleProduct")) {
-        console.log("On singleProduct page, attempting dynamic render.");
         const storedProductJSON = localStorage.getItem("selectedProduct");
-        console.log("Stored product JSON:", storedProductJSON);
         
         if (storedProductJSON) {
             try {
                 const product = JSON.parse(storedProductJSON);
-                console.log("Parsed product:", product);
 
                 const nameEl = document.getElementById("product-name");
                 const priceEl = document.getElementById("product-price");
@@ -220,7 +217,6 @@ function addToCart(productName, productPrice, productImage, quantity, size) {
         size: size ? size.replace('Size','') : null 
     };
      if (!item.size) {
-    console.log("Size missing, not adding to cart");
     return;
 }
 
@@ -974,90 +970,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-/* --- START: HERO SLIDER FUNCTIONALITY --- */
-function initHeroSlider() {
-    const slider = document.querySelector('.hero-slider');
-    // Null check to prevent errors on pages where the slider doesn't exist
-    if (!slider) return;
-
-    const slides = slider.querySelectorAll('.slide');
-    const prevBtn = slider.querySelector('.slider-btn.prev');
-    const nextBtn = slider.querySelector('.slider-btn.next');
-    const dots = slider.querySelectorAll('.slider-dots .dot');
-
-    if (slides.length === 0) return;
-
-    let currentSlide = 0;
-    let autoPlayInterval;
-    const intervalTime = 5000; // 5 seconds
-
-    function updateSlider() {
-        // Remove active class from all slides and dots
-        slides.forEach(slide => slide.classList.remove('active'));
-        dots.forEach(dot => dot.classList.remove('active'));
-
-        // Add active class to current slide and dot
-        slides[currentSlide].classList.add('active');
-        if (dots[currentSlide]) {
-            dots[currentSlide].classList.add('active');
-        }
-    }
-
-    function nextSlide() {
-        currentSlide = (currentSlide + 1) % slides.length;
-        updateSlider();
-    }
-
-    function prevSlide() {
-        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-        updateSlider();
-    }
-
-    function resetAutoPlay() {
-        clearInterval(autoPlayInterval);
-        startAutoPlay();
-    }
-
-    function startAutoPlay() {
-        autoPlayInterval = setInterval(nextSlide, intervalTime);
-    }
-
-    // Event Listeners for Arrows
-    if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
-            nextSlide();
-            resetAutoPlay();
-        });
-    }
-
-    if (prevBtn) {
-        prevBtn.addEventListener('click', () => {
-            prevSlide();
-            resetAutoPlay();
-        });
-    }
-
-    // Event Listeners for Dots
-    dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-            currentSlide = index;
-            updateSlider();
-            resetAutoPlay();
-        });
-    });
-
-    // Initialize auto-play
-    startAutoPlay();
-}
-
-// Resilient initialization
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initHeroSlider);
-} else {
-    initHeroSlider();
-}
-/* --- END: HERO SLIDER FUNCTIONALITY --- */
-
 /* --- START: CURRENT YEAR FUNCTIONALITY --- */
 document.addEventListener('DOMContentLoaded', () => {
     const year = new Date().getFullYear();
@@ -1253,14 +1165,11 @@ document.addEventListener(
 // Dynamic Render on singleProduct.html
 document.addEventListener('DOMContentLoaded', () => {
   if (window.location.pathname.includes('singleProduct')) {
-    console.log('On singleProduct page, attempting dynamic render.');
     const storedProductJSON = localStorage.getItem('selectedProduct');
-    console.log('Stored product JSON:', storedProductJSON);
 
     if (storedProductJSON) {
       try {
         const product = JSON.parse(storedProductJSON);
-        console.log('Parsed product:', product);
 
         const nameEl = document.getElementById('product-name');
         const priceEl = document.getElementById('product-price');
@@ -1832,20 +1741,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function toggleTheme() {
-        const currentTheme = html.getAttribute('data-theme');
-        const newTheme = currentTheme === 'light' ? 'light' : 'dark';
-        
-        html.setAttribute('data-theme', newTheme);
-        if (newTheme === 'dark') {
-            document.body.classList.add('dark');
-        } else {
-            document.body.classList.remove('dark');
-        }
-        
-        localStorage.setItem('theme', newTheme);
-        updateThemeIcon(newTheme);
-    }
+    const isDark = document.body.classList.contains('dark');
 
+    if (isDark) {
+        document.body.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        updateThemeIcon('light');
+    } else {
+        document.body.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        updateThemeIcon('dark');
+    }
+}
     // Event Delegation: Works for static AND dynamic buttons
     document.addEventListener('click', (e) => {
         if (e.target && (e.target.closest('#themeToggle') || e.target.closest('#themeToggleMobile'))) {
@@ -2687,3 +2594,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 })();
 /* --- END: PRODUCT QUICK-VIEW MODAL FUNCTIONALITY --- */
+const savedTheme = localStorage.getItem('theme');
+
+if (savedTheme === 'dark') {
+    document.body.classList.add('dark');
+    updateThemeIcon('dark');
+}

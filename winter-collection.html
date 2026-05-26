@@ -2,6 +2,12 @@
 <html lang="en">
 
 <head>
+  <script>
+    (function () {
+      const currentTheme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', currentTheme);
+    })();
+  </script>
   <!-- Character Encoding -->
   <meta charset="UTF-8" />
 
@@ -177,58 +183,12 @@
     <div id="top">
       <div id="workingArea">
         <section id="header">
-          <!-- Logo -->
           <a href="index.html">
-            <img id="siteLogo" src="images/logo.png" alt="Cara Logo" id="siteLogo" />
+            <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
           </a>
 
-          <div>
-            <ul id="navbar">
-              <!-- Main Navigation Links -->
-              <li><a href="index.html">Home</a></li>
-              <li><a href="shop.html" class="active">Shop</a></li>
-              <li><a href="blog.html">Blog</a></li>
-              <li><a href="about.html">About</a></li>
-              <li><a href="try-on.html">Try-On</a></li>
-              <li><a href="community.html">Community</a></li>
-              <li><a href="promotions.html">Promotions</a></li>
+          <div id="navbar-container"></div>
 
-              <!-- Contact Icon -->
-              <li class="nav-icon">
-                <a href="contact.html" aria-label="Contact">
-                  <i class="ri-customer-service-2-line"></i>
-                </a>
-              </li>
-
-              <!-- Login Icon -->
-              <li class="nav-icon">
-                <a href="login.html" aria-label="Login">
-                  <i class="ri-user-3-line"></i>
-                </a>
-              </li>
-
-              <!-- Cart Icon -->
-              <li class="nav-icon">
-                <a href="cart.html" id="lg-bag" aria-label="Cart">
-                  <i class="ri-shopping-bag-4-line"></i>
-                </a>
-              </li>
-
-              <!-- Theme Toggle -->
-              <li class="nav-icon">
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-                  <i class="ri-moon-line" id="themeIcon"></i>
-                </button>
-              </li>
-
-              <!-- Close Button -->
-              <a href="#" id="close" aria-label="Close menu" aria-hidden="false">
-                <i class="fa-solid fa-xmark"></i>
-              </a>
-            </ul>
-          </div>
-
-          <!-- Mobile Navbar -->
           <div class="mobile">
             <!-- Login Icon -->
             <a href="login.html" aria-label="Login">
@@ -261,77 +221,7 @@
 
     <!-- Product Grid for Winter Arrivals -->
     <div id="product1" class="section-p1" style="width: 100%; padding: 0;">
-      <div class="pro-container">
-
-        <div class="pro" data-category="formal">
-          <div class="pro-img-wrap"><img src="images/products/n2.jpg" alt="Navy Textured Formal Shirt" /></div>
-          <div class="des">
-            <div class="pro-brand-row">
-              <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
-              <span>Ralph Lauren</span>
-            </div>
-            <h5>Navy Textured Formal Shirt</h5>
-            <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
-            <h4>&#8377;6,999</h4>
-            <div class="pro-action-bar">
-              <button class="pro-buy-btn" onclick="event.stopPropagation(); buyNow('Navy Textured Formal Shirt','₹6,999','images/products/n2.jpg',1,'M')">BUY NOW</button>
-              <a href="#" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation(); addToCart('Navy Textured Formal Shirt','₹6,999','images/products/n2.jpg',1,'M'); return false;"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-          </div>
-        </div>
-
-        <div class="pro" data-category="formal">
-          <div class="pro-img-wrap"><img src="images/products/n4.jpg" alt="Sandstone Tactical Utility Shirt" /></div>
-          <div class="des">
-            <div class="pro-brand-row">
-              <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
-              <span>Zara</span>
-            </div>
-            <h5>Sandstone Tactical Utility Shirt</h5>
-            <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
-            <h4>&#8377;3,990</h4>
-            <div class="pro-action-bar">
-              <button class="pro-buy-btn" onclick="event.stopPropagation(); buyNow('Sandstone Tactical Utility Shirt','₹3,990','images/products/n4.jpg',1,'M')">BUY NOW</button>
-              <a href="#" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation(); addToCart('Sandstone Tactical Utility Shirt','₹3,990','images/products/n4.jpg',1,'M'); return false;"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-          </div>
-        </div>
-
-        <div class="pro" data-category="minimal">
-          <div class="pro-img-wrap"><img src="images/products/n8.jpg" alt="Deep Charcoal Casual Shirt" /></div>
-          <div class="des">
-            <div class="pro-brand-row">
-              <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
-              <span>Puma</span>
-            </div>
-            <h5>Deep Charcoal Casual Shirt</h5>
-            <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
-            <h4>&#8377;1,799</h4>
-            <div class="pro-action-bar">
-              <button class="pro-buy-btn" onclick="event.stopPropagation(); buyNow('Deep Charcoal Casual Shirt','₹1,799','images/products/n8.jpg',1,'M')">BUY NOW</button>
-              <a href="#" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation(); addToCart('Deep Charcoal Casual Shirt','₹1,799','images/products/n8.jpg',1,'M'); return false;"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-          </div>
-        </div>
-
-        <div class="pro" data-category="formal">
-          <div class="pro-img-wrap"><img src="images/products/n3.jpg" alt="Classic White Cotton Shirt" /></div>
-          <div class="des">
-            <div class="pro-brand-row">
-              <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
-              <span>Calvin Klein</span>
-            </div>
-            <h5>Classic White Cotton Shirt</h5>
-            <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
-            <h4>&#8377;5,499</h4>
-            <div class="pro-action-bar">
-              <button class="pro-buy-btn" onclick="event.stopPropagation(); buyNow('Classic White Cotton Shirt','₹5,499','images/products/n3.jpg',1,'M')">BUY NOW</button>
-              <a href="#" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation(); addToCart('Classic White Cotton Shirt','₹5,499','images/products/n3.jpg',1,'M'); return false;"><i class="ri-shopping-cart-2-line"></i></a>
-            </div>
-          </div>
-        </div>
-
-      </div>
+      <div class="pro-container" id="winter-products"></div>
     </div>
 
     <!-- Navigation CTAs -->
@@ -347,12 +237,6 @@
       <div class="footer-logo-box">
         <img class="footer-logo" src="images/logo.png" alt="Cara Logo" />
       </div>
-      <div class="footer-socials">
-        <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
-        <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
-        <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
-        <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
-      </div>
     </div>
 
     <hr class="footer-divider">
@@ -363,13 +247,13 @@
         <p>Cara E-Commerce – Redefining your style with premium apparel, expert curation, and an absolute commitment to fashion excellence.</p>
         <p><strong>Address: </strong>562 Wellington Road, Street 32, San Francisco</p>
         <p><strong>Phone: </strong>+01 2222 365 / (+91) 01 2345 6789</p>
-        <p><strong>Hours: </strong>10:00 - 18:00, Mon - Sat</p>
+        <p><strong>Hours: </strong>10AM - 6PM, Mon - Sat</p>
       </div>
 
       <div class="footer-col">
         <h4>QUICK LINKS</h4>
         <a href="about.html">About Us</a>
-        <a href="#">Delivery Information</a>
+        <a href="delivery.html">Delivery Information</a>
         <a href="privacy.html">Privacy Policy</a>
         <a href="terms.html">Terms and Conditions</a>
         <a href="contact.html">Contact Us</a>
@@ -379,8 +263,8 @@
         <h4>MY ACCOUNT</h4>
         <a href="login.html">Sign In</a>
         <a href="cart.html">View Cart</a>
-        <a href="#">My Wishlist</a>
-        <a href="cart.html">Track My Order</a>
+        <a href="cart.html">My Wishlist</a>
+        <a href="track-order.html">Track My Order</a>
         <a href="contact.html">Help</a>
       </div>
 
@@ -407,13 +291,24 @@
 
     <div class="footer-install-box">
       <h4>INSTALL APP</h4>
-      <p>From App Store or Google Play</p>
+      <p>App Store</p>
       <div class="download-badges">
         <img src="images/pay/app.jpg" alt="Download from App Store" />
+      </div>
+      <p>Google Play</p>
+      <div class="download-badges">
         <img src="images/pay/play.jpg" alt="Get it on Google Play" />
+      </div>
+
+      <div class="footer-socials">
+        <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+        <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+        <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
       </div>
     </div>
 
+    
     <div class="footer-bottom">
       <p class="copyright">© Cara 2026. All rights reserved.</p>
       <div class="footer-legal-links">
@@ -425,11 +320,22 @@
   <button id="scrollTopBtn" title="Go to top">↑</button>
 
   <div id="toast-container"></div>
+  <script src="navbar.js"></script>
+  <script src="products.js"></script>
   <script src="app.js"></script>
-
-  <!-- Simple script for Scroll To Top and core behavior -->
   <script>
-    // Scroll to Top buttons
+    document.addEventListener('DOMContentLoaded', function () {
+      if (typeof renderProducts === 'function' && typeof products !== 'undefined') {
+        const winterIds = [10, 12, 16, 11];
+        renderProducts(
+          'winter-products',
+          products.filter(function (p) {
+            return winterIds.includes(p.id);
+          })
+        );
+      }
+    });
+
     const scrollTopBtn = document.getElementById("scrollTopBtn");
     window.addEventListener("scroll", () => {
       if (window.scrollY > 300) {
