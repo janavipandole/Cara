@@ -168,6 +168,14 @@
 
         <!-- PASSWORD STRENGTH HINT -->
         <small id="passwordHint">Use at least 8 characters with a number.</small>
+        
+        <!-- Password Strength Meter -->
+        <div id="strength-meter-container" style="display: none; margin-top: 8px;">
+          <div style="height: 6px; width: 100%; background: #e2e8f0; border-radius: 3px; overflow: hidden;">
+            <div id="strength-meter-bar" style="height: 100%; width: 0%; transition: width 0.3s ease, background-color 0.3s ease;"></div>
+          </div>
+          <span id="strength-text" style="font-size: 12px; font-weight: 600; margin-top: 4px; display: block; color: #64748b;">Password Strength: Weak</span>
+        </div>
       </div>
 
       <!-- CONFIRM PASSWORD -->
@@ -392,6 +400,54 @@
 
         });
 
+    });
+
+    // Password Strength Meter Logic
+    document.addEventListener("DOMContentLoaded", () => {
+        const passwordInput = document.getElementById("registerPassword");
+        const meterContainer = document.getElementById("strength-meter-container");
+        const meterBar = document.getElementById("strength-meter-bar");
+        const strengthText = document.getElementById("strength-text");
+
+        if (passwordInput && meterContainer && meterBar && strengthText) {
+            passwordInput.addEventListener("input", () => {
+                const val = passwordInput.value;
+                if (val.length === 0) {
+                    meterContainer.style.display = "none";
+                    return;
+                }
+                meterContainer.style.display = "block";
+                
+                let score = 0;
+                if (val.length >= 8) score++;
+                if (/[A-Z]/.test(val)) score++;
+                if (/[0-9]/.test(val)) score++;
+                if (/[^A-Za-z0-9]/.test(val)) score++;
+                
+                let color = "#ef4444";
+                let text = "Weak";
+                let width = "25%";
+                
+                if (score === 2) {
+                    color = "#f59e0b";
+                    text = "Medium";
+                    width = "50%";
+                } else if (score === 3) {
+                    color = "#3b82f6";
+                    text = "Good";
+                    width = "75%";
+                } else if (score === 4) {
+                    color = "#10b981";
+                    text = "Strong";
+                    width = "100%";
+                }
+                
+                meterBar.style.width = width;
+                meterBar.style.backgroundColor = color;
+                strengthText.textContent = "Password Strength: " + text;
+                strengthText.style.color = color;
+            });
+        }
     });
 </script>
 
