@@ -868,7 +868,7 @@ button.white .ripple-effect {
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(40px);
     }
 
     to {
@@ -8037,6 +8037,55 @@ button.white .ripple-effect {
 .hero-slider .slide.active {
     opacity: 1;
     z-index: 1;
+}
+/* HERO TEXT ANIMATION */
+
+#hero .slide-content h4,
+#hero .slide-content h2,
+#hero .slide-content h1,
+#hero .slide-content p,
+#hero .hero-btn-group {
+    opacity: 0;
+    transform: translateY(40px);
+}
+
+/* ACTIVE SLIDE ANIMATION */
+.hero-slider .slide.active h4 {
+    animation: fadeInUp 0.6s ease forwards;
+    animation-delay: 0.2s;
+}
+
+.hero-slider .slide.active h2 {
+    animation: fadeInUp 0.6s ease forwards;
+    animation-delay: 0.4s;
+}
+
+.hero-slider .slide.active h1 {
+    animation: fadeInUp 0.6s ease forwards;
+    animation-delay: 0.6s;
+}
+
+.hero-slider .slide.active p {
+    animation: fadeInUp 0.6s ease forwards;
+    animation-delay: 0.8s;
+}
+
+.hero-slider .slide.active .hero-btn-group {
+    animation: fadeInUp 0.6s ease forwards;
+    animation-delay: 1s;
+}
+/* Glow effect for main heading */
+.hero-slider .slide.active h1 {
+    animation: fadeInUp 0.6s ease forwards, glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 5px var(--accent);
+    }
+    to {
+        text-shadow: 0 0 15px var(--accent);
+    }
 }
 
 /* Gradient Overlays */
