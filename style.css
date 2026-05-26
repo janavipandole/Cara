@@ -35347,6 +35347,25 @@ button#share-cart-btn:hover {
 }
 .summary-label { font-size: 14px; font-weight: 600; color: var(--text-primary); }
 .summary-value { font-size: 18px; font-weight: 800; color: var(--accent); }
+
+#quiz-modal {
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+#quiz-modal .modal-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+}
+
 .modal-footer {
     display: flex; justify-content: flex-end; gap: 12px;
     padding: 20px 24px;
