@@ -101,6 +101,16 @@
             </div>
         </div>
         
+        <!-- CAPTCHA Section (shown after failed attempt) -->
+        <div id="captcha-section" class="captcha-section" style="display: none;">
+          <label>Security Verification</label>
+          <canvas id="captcha-canvas" width="280" height="80"></canvas>
+          <div class="captcha-row">
+            <input type="text" id="captcha-input" class="input-field" placeholder="Enter code above" autocomplete="off" maxlength="6" style="flex:1;" />
+            <button type="button" id="captcha-refresh" class="captcha-refresh" title="Refresh code" aria-label="Refresh CAPTCHA"><i class="fas fa-sync"></i></button>
+          </div>
+        </div>
+
         <button type="submit" class="login-btn"><span>Sign In</span></button>
     </form>
     
