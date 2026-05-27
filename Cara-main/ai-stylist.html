@@ -1,426 +1,390 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
+    <title>AI Stylist | Cara</title>
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>AI Stylist | Cara</title>
-
-  <style>
-
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:Arial, Helvetica, sans-serif;
-    }
-
-    body{
-      background:#f4f6ff;
-      height:100vh;
-      overflow:hidden;
-      padding:20px;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-    }
-
-    #stylist-page{
-      width:100%;
-    }
-
-    .stylist-container{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      gap:35px;
-      background:white;
-      padding:35px;
-      border-radius:25px;
-      max-width:1400px;
-      margin:auto;
-      height:92vh;
-      box-shadow:0 10px 30px rgba(0,0,0,0.08);
-    }
-
-    .stylist-left{
-      flex:1;
-    }
-
-    .stylist-left h1{
-      font-size:42px;
-      color:#222;
-      margin-bottom:15px;
-    }
-
-    .stylist-left p{
-      font-size:15px;
-      color:#666;
-      margin-bottom:25px;
-      line-height:1.5;
-    }
-
-    .stylist-form{
-      display:flex;
-      flex-direction:column;
-      gap:16px;
-    }
-
-    .stylist-form select{
-      padding:13px;
-      border-radius:10px;
-      border:1px solid #ccc;
-      font-size:15px;
-      outline:none;
-      background:white;
-    }
-
-    #generate-btn{
-      background:#088178;
-      color:white;
-      border:none;
-      padding:14px;
-      border-radius:10px;
-      cursor:pointer;
-      font-size:16px;
-      transition:0.3s;
-      margin-top:5px;
-    }
-
-    #generate-btn:hover{
-      background:#066b63;
-      transform:translateY(-2px);
-    }
-
-    .stylist-right{
-      flex:1;
-      height:100%;
-    }
-
-    #result-card{
-      background:#fafafa;
-      border-radius:22px;
-      padding:28px;
-      box-shadow:0 8px 20px rgba(0,0,0,0.06);
-      height:100%;
-      overflow:auto;
-    }
-
-    .result-content h2{
-      color:#222;
-      margin-bottom:15px;
-      font-size:26px;
-    }
-
-    .result-content p{
-      color:#555;
-      margin-bottom:12px;
-      line-height:1.5;
-      font-size:15px;
-    }
-
-    .tag-container{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top:20px;
-    }
-
-    .tag{
-      background:#e6f7f5;
-      color:#088178;
-      padding:8px 14px;
-      border-radius:30px;
-      font-size:13px;
-      font-weight:bold;
-    }
-
-    .home-btn{
-      display:inline-block;
-      margin-top:25px;
-      background:#222;
-      color:white;
-      text-decoration:none;
-      padding:12px 24px;
-      border-radius:10px;
-      transition:0.3s;
-      font-size:15px;
-    }
-
-    .home-btn:hover{
-      background:black;
-    }
-
-    @media(max-width:1000px){
-
-      body{
-        overflow:auto;
-        height:auto;
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
       }
 
-      .stylist-container{
-        flex-direction:column;
-        height:auto;
+      body {
+        background: #f4f6ff;
+        height: 100vh;
+        overflow: hidden;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
 
-      .stylist-left h1{
-        font-size:34px;
+      #stylist-page {
+        width: 100%;
       }
 
-    }
+      .stylist-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 35px;
+        background: white;
+        padding: 35px;
+        border-radius: 25px;
+        max-width: 1400px;
+        margin: auto;
+        height: 92vh;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      }
 
-  </style>
+      .stylist-left {
+        flex: 1;
+      }
 
-</head>
+      .stylist-left h1 {
+        font-size: 42px;
+        color: #222;
+        margin-bottom: 15px;
+      }
 
-<body>
+      .stylist-left p {
+        font-size: 15px;
+        color: #666;
+        margin-bottom: 25px;
+        line-height: 1.5;
+      }
 
-  <section id="stylist-page">
+      .stylist-form {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
 
-    <div class="stylist-container">
+      .stylist-form select {
+        padding: 13px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        font-size: 15px;
+        outline: none;
+        background: white;
+      }
 
-      <!-- LEFT SIDE -->
+      #generate-btn {
+        background: #088178;
+        color: white;
+        border: none;
+        padding: 14px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: 0.3s;
+        margin-top: 5px;
+      }
 
-      <div class="stylist-left">
+      #generate-btn:hover {
+        background: #066b63;
+        transform: translateY(-2px);
+      }
 
-        <h1>AI Fashion Stylist</h1>
+      .stylist-right {
+        flex: 1;
+        height: 100%;
+      }
 
-        <p>
-          Get personalized outfit recommendations based on your style,
-          body type, favorite colors, and occasion.
-        </p>
+      #result-card {
+        background: #fafafa;
+        border-radius: 22px;
+        padding: 28px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+        height: 100%;
+        overflow: auto;
+      }
 
-        <div class="stylist-form">
+      .result-content h2 {
+        color: #222;
+        margin-bottom: 15px;
+        font-size: 26px;
+      }
 
-          <select id="style">
-            <option value="">Preferred Clothing Style</option>
-            <option value="Casual">Casual</option>
-            <option value="Formal">Formal</option>
-            <option value="Party">Party</option>
-            <option value="Streetwear">Streetwear</option>
-            <option value="Minimal">Minimal</option>
-          </select>
+      .result-content p {
+        color: #555;
+        margin-bottom: 12px;
+        line-height: 1.5;
+        font-size: 15px;
+      }
 
-          <select id="body">
-            <option value="">Body Type / Size</option>
-            <option value="Slim">Slim</option>
-            <option value="Athletic">Athletic</option>
-            <option value="Curvy">Curvy</option>
-            <option value="Plus Size">Plus Size</option>
-          </select>
+      .tag-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 20px;
+      }
 
-          <select id="gender">
-            <option value="">Gender Preference</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Unisex">Unisex</option>
-          </select>
+      .tag {
+        background: #e6f7f5;
+        color: #088178;
+        padding: 8px 14px;
+        border-radius: 30px;
+        font-size: 13px;
+        font-weight: bold;
+      }
 
-          <select id="color">
-            <option value="">Favorite Color</option>
-            <option value="Black">Black</option>
-            <option value="Blue">Blue</option>
-            <option value="White">White</option>
-            <option value="Green">Green</option>
-            <option value="Beige">Beige</option>
-          </select>
+      .home-btn {
+        display: inline-block;
+        margin-top: 25px;
+        background: #222;
+        color: white;
+        text-decoration: none;
+        padding: 12px 24px;
+        border-radius: 10px;
+        transition: 0.3s;
+        font-size: 15px;
+      }
 
-          <select id="occasion">
-            <option value="">Occasion</option>
-            <option value="Casual">Casual</option>
-            <option value="Formal">Formal</option>
-            <option value="Party">Party</option>
-            <option value="Summer">Summer</option>
-            <option value="Winter">Winter</option>
-          </select>
+      .home-btn:hover {
+        background: black;
+      }
 
-          <button id="generate-btn">
+      @media (max-width: 1000px) {
+        body {
+          overflow: auto;
+          height: auto;
+        }
 
-            Generate AI Recommendation
+        .stylist-container {
+          flex-direction: column;
+          height: auto;
+        }
 
-          </button>
+        .stylist-left h1 {
+          font-size: 34px;
+        }
+      }
+    </style>
+  </head>
 
-        </div>
+  <body>
+    <section id="stylist-page">
+      <div class="stylist-container">
+        <!-- LEFT SIDE -->
 
-      </div>
+        <div class="stylist-left">
+          <h1>AI Fashion Stylist</h1>
 
-      <!-- RIGHT SIDE -->
+          <p>
+            Get personalized outfit recommendations based on your style, body
+            type, favorite colors, and occasion.
+          </p>
 
-      <div class="stylist-right">
+          <div class="stylist-form">
+            <select id="style">
+              <option value="">Preferred Clothing Style</option>
+              <option value="Casual">Casual</option>
+              <option value="Formal">Formal</option>
+              <option value="Party">Party</option>
+              <option value="Streetwear">Streetwear</option>
+              <option value="Minimal">Minimal</option>
+            </select>
 
-        <div id="result-card">
+            <select id="body">
+              <option value="">Body Type / Size</option>
+              <option value="Slim">Slim</option>
+              <option value="Athletic">Athletic</option>
+              <option value="Curvy">Curvy</option>
+              <option value="Plus Size">Plus Size</option>
+            </select>
 
-          <div class="result-content">
+            <select id="gender">
+              <option value="">Gender Preference</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Unisex">Unisex</option>
+            </select>
 
-            <h2>AI Fashion Report</h2>
+            <select id="color">
+              <option value="">Favorite Color</option>
+              <option value="Black">Black</option>
+              <option value="Blue">Blue</option>
+              <option value="White">White</option>
+              <option value="Green">Green</option>
+              <option value="Beige">Beige</option>
+            </select>
 
-            <p>
-              Your personalized fashion recommendations will appear here.
-            </p>
+            <select id="occasion">
+              <option value="">Occasion</option>
+              <option value="Casual">Casual</option>
+              <option value="Formal">Formal</option>
+              <option value="Party">Party</option>
+              <option value="Summer">Summer</option>
+              <option value="Winter">Winter</option>
+            </select>
 
+            <button id="generate-btn">Generate AI Recommendation</button>
           </div>
-
         </div>
 
+        <!-- RIGHT SIDE -->
+
+        <div class="stylist-right">
+          <div id="result-card">
+            <div class="result-content">
+              <h2>AI Fashion Report</h2>
+
+              <p>Your personalized fashion recommendations will appear here.</p>
+            </div>
+          </div>
+        </div>
       </div>
+    </section>
 
-    </div>
+    <script>
+      const generateBtn = document.getElementById('generate-btn');
 
-  </section>
+      generateBtn.addEventListener('click', () => {
+        const style = document.getElementById('style').value;
+        const body = document.getElementById('body').value;
+        const gender = document.getElementById('gender').value;
+        const color = document.getElementById('color').value;
+        const occasion = document.getElementById('occasion').value;
 
-  <script>
+        const resultCard = document.getElementById('result-card');
 
-const generateBtn = document.getElementById("generate-btn");
+        let outfit = '';
+        let tops = '';
+        let pants = '';
+        let jacket = '';
+        let accessory = '';
+        let footwear = '';
+        let colors = '';
+        let stylingTip = '';
 
-generateBtn.addEventListener("click", () => {
+        /* FORMAL */
 
-  const style = document.getElementById("style").value;
-  const body = document.getElementById("body").value;
-  const gender = document.getElementById("gender").value;
-  const color = document.getElementById("color").value;
-  const occasion = document.getElementById("occasion").value;
+        if (style === 'Formal') {
+          outfit = 'Elegant Blazer Outfit';
 
-  const resultCard = document.getElementById("result-card");
+          tops =
+            gender === 'Female'
+              ? 'Silk blouse or structured formal dress'
+              : 'Premium cotton formal shirt';
 
-  let outfit = "";
-  let tops = "";
-  let pants = "";
-  let jacket = "";
-  let accessory = "";
-  let footwear = "";
-  let colors = "";
-  let stylingTip = "";
+          pants =
+            body === 'Slim'
+              ? 'Tailored slim-fit trousers'
+              : 'Straight fit formal trousers';
 
-  /* FORMAL */
+          jacket = 'Structured blazer';
 
-  if(style === "Formal"){
+          accessory = 'Luxury watch & leather belt';
 
-    outfit = "Elegant Blazer Outfit";
+          footwear = 'Classic formal shoes';
 
-    tops = gender === "Female"
-      ? "Silk blouse or structured formal dress"
-      : "Premium cotton formal shirt";
+          colors = `${color} + White + Beige`;
 
-    pants = body === "Slim"
-      ? "Tailored slim-fit trousers"
-      : "Straight fit formal trousers";
+          stylingTip =
+            'Layer minimal accessories for a premium luxury appearance.';
+        } else if (style === 'Party') {
 
-    jacket = "Structured blazer";
+        /* PARTY */
+          outfit = 'Luxury Party Wear';
 
-    accessory = "Luxury watch & leather belt";
+          tops =
+            gender === 'Female'
+              ? 'Statement shimmer top'
+              : 'Printed party shirt';
 
-    footwear = "Classic formal shoes";
+          pants =
+            body === 'Athletic'
+              ? 'Slim black jeans'
+              : 'Relaxed fit dark trousers';
 
-    colors = `${color} + White + Beige`;
+          jacket = 'Leather statement jacket';
 
-    stylingTip = "Layer minimal accessories for a premium luxury appearance.";
-  }
+          accessory = 'Bold chain accessories';
 
-  /* PARTY */
+          footwear = 'High-top sneakers or heels';
 
-  else if(style === "Party"){
+          colors = `${color} + Black combinations`;
 
-    outfit = "Luxury Party Wear";
+          stylingTip =
+            'Use contrast layering to create standout evening styling.';
+        } else if (style === 'Streetwear') {
 
-    tops = gender === "Female"
-      ? "Statement shimmer top"
-      : "Printed party shirt";
+        /* STREETWEAR */
+          outfit = 'Urban Streetwear Style';
 
-    pants = body === "Athletic"
-      ? "Slim black jeans"
-      : "Relaxed fit dark trousers";
+          tops = 'Oversized graphic tees';
 
-    jacket = "Leather statement jacket";
+          pants =
+            body === 'Plus Size' ? 'Relaxed cargo pants' : 'Baggy cargo jeans';
 
-    accessory = "Bold chain accessories";
+          jacket = 'Oversized hoodie';
 
-    footwear = "High-top sneakers or heels";
+          accessory = 'Caps, chains & sneakers';
 
-    colors = `${color} + Black combinations`;
+          footwear = 'Chunky sneakers';
 
-    stylingTip = "Use contrast layering to create standout evening styling.";
-  }
+          colors = `${color} + Grey + Black`;
 
-  /* STREETWEAR */
+          stylingTip =
+            'Oversized silhouettes enhance modern street fashion aesthetics.';
+        } else if (style === 'Minimal') {
 
-  else if(style === "Streetwear"){
+        /* MINIMAL */
+          outfit = 'Clean Minimal Aesthetic';
 
-    outfit = "Urban Streetwear Style";
+          tops = 'Neutral premium basics';
 
-    tops = "Oversized graphic tees";
+          pants = 'Straight fit neutral trousers';
 
-    pants = body === "Plus Size"
-      ? "Relaxed cargo pants"
-      : "Baggy cargo jeans";
+          jacket = 'Beige overshirt';
 
-    jacket = "Oversized hoodie";
+          accessory = 'Minimal silver accessories';
 
-    accessory = "Caps, chains & sneakers";
+          footwear = 'Clean white sneakers';
 
-    footwear = "Chunky sneakers";
+          colors = `${color} + White neutrals`;
 
-    colors = `${color} + Grey + Black`;
+          stylingTip = 'Focus on clean fits and subtle color palettes.';
+        } else {
 
-    stylingTip = "Oversized silhouettes enhance modern street fashion aesthetics.";
-  }
+        /* CASUAL DEFAULT */
+          outfit = 'Smart Casual Look';
 
-  /* MINIMAL */
+          tops = 'Soft cotton casual shirts';
 
-  else if(style === "Minimal"){
+          pants = 'Wide-leg relaxed jeans';
 
-    outfit = "Clean Minimal Aesthetic";
+          jacket = 'Lightweight casual jacket';
 
-    tops = "Neutral premium basics";
+          accessory = 'Smart casual accessories';
 
-    pants = "Straight fit neutral trousers";
+          footwear = 'Comfort sneakers';
 
-    jacket = "Beige overshirt";
+          colors = `${color} + Soft pastel combinations`;
 
-    accessory = "Minimal silver accessories";
+          stylingTip =
+            'Balanced casual layering improves overall outfit harmony.';
+        }
 
-    footwear = "Clean white sneakers";
+        /* SEASONAL LOGIC */
 
-    colors = `${color} + White neutrals`;
+        if (occasion === 'Winter') {
+          jacket += ' with wool layering';
+        }
 
-    stylingTip = "Focus on clean fits and subtle color palettes.";
-  }
+        if (occasion === 'Summer') {
+          tops += ' in breathable fabrics';
+        }
 
-  /* CASUAL DEFAULT */
+        /* FINAL OUTPUT */
 
-  else{
-
-    outfit = "Smart Casual Look";
-
-    tops = "Soft cotton casual shirts";
-
-    pants = "Wide-leg relaxed jeans";
-
-    jacket = "Lightweight casual jacket";
-
-    accessory = "Smart casual accessories";
-
-    footwear = "Comfort sneakers";
-
-    colors = `${color} + Soft pastel combinations`;
-
-    stylingTip = "Balanced casual layering improves overall outfit harmony.";
-  }
-
-  /* SEASONAL LOGIC */
-
-  if(occasion === "Winter"){
-    jacket += " with wool layering";
-  }
-
-  if(occasion === "Summer"){
-    tops += " in breathable fabrics";
-  }
-
-  /* FINAL OUTPUT */
-
-  resultCard.innerHTML = `
+        resultCard.innerHTML = `
 
     <div class="result-content">
 
@@ -464,11 +428,7 @@ generateBtn.addEventListener("click", () => {
     </div>
 
   `;
-
-});
-
-</script>
-
-</body>
-
+      });
+    </script>
+  </body>
 </html>

@@ -3,86 +3,85 @@
    ============================================ */
 
 #about-head {
-    background-image: url("images/about/banner.png");
-    background-size: cover;
-    background-position: center;
-    height: 50vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+  background-image: url('images/about/banner.png');
+  background-size: cover;
+  background-position: center;
+  height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 #about-head h2,
 #about-head p {
-    color: #fff;
-    text-align: center;
+  color: #fff;
+  text-align: center;
 }
 
 #about-head h2 {
-    font-size: 40px;
-    font-weight: 700;
+  font-size: 40px;
+  font-weight: 700;
 }
 
 #about-head p {
-    font-size: 16px;
-    margin-top: 10px;
+  font-size: 16px;
+  margin-top: 10px;
 }
 
 #about-details {
-    display: flex;
-    align-items: center;
-    padding: 80px;
-    gap: 40px;
+  display: flex;
+  align-items: center;
+  padding: 80px;
+  gap: 40px;
 }
 
 #about-details img {
-    width: 50%;
-    height: auto;
-    border-radius: 8px;
+  width: 50%;
+  height: auto;
+  border-radius: 8px;
 }
 
 #about-details div {
-    width: 50%;
+  width: 50%;
 }
 
 #about-details h2 {
-    font-size: 40px;
-    font-weight: 600;
+  font-size: 40px;
+  font-weight: 600;
 }
 
 #about-details p {
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin: 15px 0;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 15px 0;
 }
 
 #about-app {
-    text-align: center;
-    padding: 80px 0;
+  text-align: center;
+  padding: 80px 0;
 }
 
 #about-app video {
-    width: 70%;
-    height: auto;
-    border-radius: 20px;
-    margin-top: 30px;
+  width: 70%;
+  height: auto;
+  border-radius: 20px;
+  margin-top: 30px;
 }
 
 @media (max-width: 799px) {
-    #about-details {
-        flex-direction: column;
-        padding: 40px 20px;
-    }
-    #about-details img,
-    #about-details div {
-        width: 100%;
-    }
-    #about-app video {
-        width: 90%;
-    }
+  #about-details {
+    flex-direction: column;
+    padding: 40px 20px;
+  }
+  #about-details img,
+  #about-details div {
+    width: 100%;
+  }
+  #about-app video {
+    width: 90%;
+  }
 }
-
 
 /* Typography enhancements */
 .about-header h2 {

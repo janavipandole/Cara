@@ -72,138 +72,148 @@
     />
     <style>
       /* Scroll To Top Button */
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-      line-height: 1.8;
-    }
-#scrollTopBtn {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;   /* keeps button on right side */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        line-height: 1.8;
+      }
+      #scrollTopBtn {
+        position: fixed;
+        bottom: 30px;
+        right: 30px; /* keeps button on right side */
 
-  width: 55px;
-  height: 55px;
+        width: 55px;
+        height: 55px;
 
-  border: none;
-  border-radius: 50%;
+        border: none;
+        border-radius: 50%;
 
-  background-color: #088178;
-  color: white;
+        background-color: #088178;
+        color: white;
 
-  font-size: 24px;
-  font-weight: bold;
+        font-size: 24px;
+        font-weight: bold;
 
-  cursor: pointer;
-  z-index: 999;
+        cursor: pointer;
+        z-index: 999;
 
-  display: none;
+        display: none;
 
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  transition: all 0.3s ease;
-}
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+      }
 
-#scrollTopBtn:hover {
-  background-color: #065f5b;
-  transform: scale(1.1);
-}
+      #scrollTopBtn:hover {
+        background-color: #065f5b;
+        transform: scale(1.1);
+      }
     </style>
   </head>
 
   <body>
-<section id="header">
-  <!-- Logo -->
-  <a href="index.html">
-    <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
-  </a>
+    <section id="header">
+      <!-- Logo -->
+      <a href="index.html">
+        <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
+      </a>
 
-  <div>
-    <ul id="navbar">
+      <div>
+        <ul id="navbar">
+          <!-- Main Navigation Links -->
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a class="active" href="blog.html">Blog</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="try-on.html">Try-On</a></li>
+          <li><a href="community.html">Community</a></li>
+          <li><a href="promotions.html">Promotions</a></li>
 
-      <!-- Main Navigation Links -->
-      <li><a href="index.html">Home</a></li>
-      <li><a href="shop.html">Shop</a></li>
-      <li><a class="active" href="blog.html">Blog</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="try-on.html">Try-On</a></li>
-      <li><a href="community.html">Community</a></li>
-      <li><a href="promotions.html">Promotions</a></li>
+          <!-- Contact Icon -->
+          <li class="nav-icon">
+            <a href="contact.html" aria-label="Contact">
+              <i class="ri-customer-service-2-line"></i>
+            </a>
+          </li>
 
-      <!-- Contact Icon -->
-      <li class="nav-icon">
-        <a href="contact.html" aria-label="Contact">
-          <i class="ri-customer-service-2-line"></i>
-        </a>
-      </li>
+          <!-- Login Icon -->
+          <li class="nav-icon">
+            <a href="login.html" aria-label="Login">
+              <i class="ri-user-3-line"></i>
+            </a>
+          </li>
 
-      <!-- Login Icon -->
-      <li class="nav-icon">
+          <!-- Cart Icon -->
+          <li class="nav-icon">
+            <a href="cart.html" id="lg-bag" aria-label="Cart">
+              <i class="ri-shopping-bag-4-line"></i>
+            </a>
+          </li>
+
+          <!-- Theme Toggle -->
+          <li class="nav-icon">
+            <button
+              class="theme-toggle"
+              id="themeToggle"
+              aria-label="Toggle dark mode"
+            >
+              <i class="ri-moon-line" id="themeIcon"></i>
+            </button>
+          </li>
+
+          <!-- Close Button -->
+          <a href="#" id="close" aria-label="Close menu" aria-hidden="false">
+            <i class="fa-solid fa-xmark"></i>
+          </a>
+        </ul>
+      </div>
+
+      <!-- Mobile Navbar -->
+      <div class="mobile">
+        <!-- Login Icon -->
         <a href="login.html" aria-label="Login">
           <i class="ri-user-3-line"></i>
         </a>
-      </li>
 
-      <!-- Cart Icon -->
-      <li class="nav-icon">
-        <a href="cart.html" id="lg-bag" aria-label="Cart">
+        <!-- Cart Icon -->
+        <a href="cart.html" aria-label="Cart">
           <i class="ri-shopping-bag-4-line"></i>
         </a>
-      </li>
 
-      <!-- Theme Toggle -->
-      <li class="nav-icon">
-        <button
-          class="theme-toggle"
-          id="themeToggle"
-          aria-label="Toggle dark mode"
-        >
-          <i class="ri-moon-line" id="themeIcon"></i>
-        </button>
-      </li>
-
-      <!-- Close Button -->
-      <a
-        href="#"
-        id="close"
-        aria-label="Close menu"
-        aria-hidden="false"
-      >
-        <i class="fa-solid fa-xmark"></i>
-      </a>
-
-    </ul>
-  </div>
-
-  <!-- Mobile Navbar -->
-  <div class="mobile">
-
-    <!-- Login Icon -->
-    <a href="login.html" aria-label="Login">
-      <i class="ri-user-3-line"></i>
-    </a>
-
-    <!-- Cart Icon -->
-    <a href="cart.html" aria-label="Cart">
-      <i class="ri-shopping-bag-4-line"></i>
-    </a>
-
-    <!-- Hamburger Menu -->
-    <i
-      class="fas fa-outdent"
-      id="bar"
-      role="button"
-      aria-label="Open menu"
-      aria-expanded="false"
-      tabindex="0"
-    ></i>
-
-  </div>
-</section>
+        <!-- Hamburger Menu -->
+        <i
+          class="fas fa-outdent"
+          id="bar"
+          role="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+          tabindex="0"
+        ></i>
+      </div>
+    </section>
 
     <!-- Dynamic Reading Progress Bar -->
-    <div id="reading-progress-container" style="position: fixed; top: 79px; left: 0; width: 100%; height: 4px; background: rgba(8, 129, 120, 0.1); z-index: 9999;">
-      <div id="reading-progress-bar" style="width: 0%; height: 100%; background: #088178; transition: width 0.05s ease;"></div>
+    <div
+      id="reading-progress-container"
+      style="
+        position: fixed;
+        top: 79px;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: rgba(8, 129, 120, 0.1);
+        z-index: 9999;
+      "
+    >
+      <div
+        id="reading-progress-bar"
+        style="
+          width: 0%;
+          height: 100%;
+          background: #088178;
+          transition: width 0.05s ease;
+        "
+      ></div>
     </div>
 
     <section id="blog-head">
@@ -214,7 +224,13 @@
     <section id="blog">
       <div class="blog-box">
         <div class="blog-img">
-          <img src="images/blog/b1.jpg" alt="A person wearing a Cotton-Jersey Zip-Up Hoodie" width="600" height="400" loading="lazy" />
+          <img
+            src="images/blog/b1.jpg"
+            alt="A person wearing a Cotton-Jersey Zip-Up Hoodie"
+            width="600"
+            height="400"
+            loading="lazy"
+          />
         </div>
         <div class="blog-details">
           <h4>The Cotton-Jersey Zip-Up Hoodie</h4>
@@ -235,7 +251,13 @@
       </div>
       <div class="blog-box">
         <div class="blog-img">
-          <img src="images/blog/b2.jpg" alt="A professional styling a Quiff haircut" width="600" height="400" loading="lazy" />
+          <img
+            src="images/blog/b2.jpg"
+            alt="A professional styling a Quiff haircut"
+            width="600"
+            height="400"
+            loading="lazy"
+          />
         </div>
         <div class="blog-details">
           <h4>How to style a Quiff</h4>
@@ -252,7 +274,13 @@
       </div>
       <div class="blog-box">
         <div class="blog-img">
-          <img src="images/blog/b3.jpg" alt="A variety of Must-Have Skater Girls Items laid out" width="600" height="400" loading="lazy" />
+          <img
+            src="images/blog/b3.jpg"
+            alt="A variety of Must-Have Skater Girls Items laid out"
+            width="600"
+            height="400"
+            loading="lazy"
+          />
         </div>
         <div class="blog-details">
           <h4>Must-Have Skater Girls Items</h4>
@@ -270,7 +298,13 @@
       </div>
       <div class="blog-box">
         <div class="blog-img">
-          <img src="images/blog/b4.jpg" alt="Models showcasing Runway-Inspired Trends" width="600" height="400" loading="lazy" />
+          <img
+            src="images/blog/b4.jpg"
+            alt="Models showcasing Runway-Inspired Trends"
+            width="600"
+            height="400"
+            loading="lazy"
+          />
         </div>
         <div class="blog-details">
           <h4>Runway-Inspired Trends</h4>
@@ -287,7 +321,13 @@
       </div>
       <div class="blog-box">
         <div class="blog-img">
-          <img src="images/blog/b6.jpg" alt="Menswear autumn winter collection presentation" width="600" height="400" loading="lazy" />
+          <img
+            src="images/blog/b6.jpg"
+            alt="Menswear autumn winter collection presentation"
+            width="600"
+            height="400"
+            loading="lazy"
+          />
         </div>
         <div class="blog-details">
           <h4>AW20 Menswear Trends</h4>
@@ -466,43 +506,44 @@
       <i class="ri-arrow-up-line"></i>
     </button>
 
-
     <script src="app.js"></script>
     <!-- Corrected  -->
     <script>
-        const year= new Date().getFullYear();
-        for (let el of document.querySelectorAll(".Current-Year")) {
-  el.textContent = year;
-}
+      const year = new Date().getFullYear();
+      for (let el of document.querySelectorAll('.Current-Year')) {
+        el.textContent = year;
+      }
     </script>
     <script>
-  const scrollBtn = document.getElementById("scrollTopBtn");
-  const progressBar = document.getElementById("reading-progress-bar");
+      const scrollBtn = document.getElementById('scrollTopBtn');
+      const progressBar = document.getElementById('reading-progress-bar');
 
-  window.addEventListener("scroll", () => {
-    // Scroll Top Button visibility
-    if (window.scrollY > 300) {
-      scrollBtn.style.display = "block";
-    } else {
-      scrollBtn.style.display = "none";
-    }
+      window.addEventListener('scroll', () => {
+        // Scroll Top Button visibility
+        if (window.scrollY > 300) {
+          scrollBtn.style.display = 'block';
+        } else {
+          scrollBtn.style.display = 'none';
+        }
 
-    // Dynamic Reading Progress Bar calculation
-    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    if (height > 0) {
-      const scrolled = (winScroll / height) * 100;
-      progressBar.style.width = scrolled + "%";
-    }
-  });
+        // Dynamic Reading Progress Bar calculation
+        const winScroll =
+          document.body.scrollTop || document.documentElement.scrollTop;
+        const height =
+          document.documentElement.scrollHeight -
+          document.documentElement.clientHeight;
+        if (height > 0) {
+          const scrolled = (winScroll / height) * 100;
+          progressBar.style.width = scrolled + '%';
+        }
+      });
 
-  scrollBtn.addEventListener("click", () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-  });
-</script>
-
-</body>
+      scrollBtn.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+      });
+    </script>
+  </body>
 </html>

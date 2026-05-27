@@ -89,5 +89,4 @@ function loadNavbar(activePage) {
     console.error('navbar-container not found!');
     return;
   }
-
 }
