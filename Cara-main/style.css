@@ -548,11 +548,15 @@ button.white .ripple-effect {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 8px;
+    flex-wrap: nowrap;
 }
 
 #navbar li {
     list-style: none;
-    padding: 0 20px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
 }
 
 #navbar li a {
@@ -563,6 +567,7 @@ button.white .ripple-effect {
     font-weight: 500;
     color: var(--text-primary);
     transition: color 0.3s ease;
+    white-space: nowrap;
 }
 
 #navbar li a:hover,
@@ -570,7 +575,7 @@ button.white .ripple-effect {
     color: var(--accent);
 }
 
-.mobile,
+#mobile,
 #close {
     display: none;
 }
@@ -585,6 +590,13 @@ button.white .ripple-effect {
     left: 2px;
 }
 
+.nav-icon i {
+    font-size: 22px;
+}
+
+#close {
+    display: none;
+}
 /* ============================================
    HERO SECTION
    ============================================ */
@@ -2275,6 +2287,7 @@ footer .copyright {
         padding: 0;
         margin: 0;
         -moz-appearance: textfield;
+        appearance: textfield;
     }
 
     #pro-details .single-pro-details .quantity-selector input::-webkit-outer-spin-button,
@@ -2881,7 +2894,12 @@ footer .copyright {
                 padding: 80px 0 40px 20px;
                 z-index: 999;
                 overflow-y: auto;
+                gap: 0;
             }
+
+            #close {
+                display: block;
+                    }
 
             #cart table {
                 width: 100%;
@@ -5855,6 +5873,7 @@ footer .copyright {
             color: var(--text-primary);
             pointer-events: none;
             -moz-appearance: textfield;
+            appearance: textfield;
         }
 
         .qty-input::-webkit-outer-spin-button,
@@ -6354,3 +6373,187 @@ footer .copyright {
     background-color: var(--accent);
     color: white;
 }
+
+#ai-stylist{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:60px 80px;
+  background:linear-gradient(to right,#f8f9ff,#eef2ff);
+  border-radius:20px;
+  margin:40px 60px;
+  gap:40px;
+}
+
+.ai-content{
+  flex:1;
+}
+
+.ai-content h2{
+  font-size:42px;
+  color:#222;
+  margin:10px 0;
+}
+
+.ai-content p{
+  color:#555;
+  margin-bottom:20px;
+}
+
+#stylist-btn{
+  background:#088178;
+  color:white;
+  border:none;
+  padding:18px 38px;
+  border-radius:14px;
+  cursor:pointer;
+  transition:0.3s ease;
+  font-size:20px;
+  font-weight:500;
+  margin-top:12px;
+  box-shadow:0 10px 24px rgba(8,129,120,0.25);
+}
+
+#stylist-btn:hover{
+  transform:translateY(-4px) scale(1.03);
+  background:#066b63;
+}
+
+.ai-preview{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.style-card{
+  background:white;
+  padding:18px;
+  border-radius:24px;
+  width:520px;
+  height:320px;
+  overflow:hidden;
+  box-shadow:0 8px 24px rgba(0,0,0,0.12);
+  transition:0.3s ease;
+}
+.style-card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:18px;
+  display:block;
+}
+.style-card:hover{
+  transform:translateY(-6px);
+}
+
+#header img{
+    width: 150px;
+    height: auto;
+    object-fit: contain;
+    margin-left: -10px;
+}
+
+
+/* AI FASHION BANNER */
+
+.relevant-fashion-banner{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 35px;
+    padding: 35px 6%;
+    background: linear-gradient(to right, #f5f5f5, #edf7f6);
+    margin-bottom: 35px;
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.rf-content{
+    flex: 1;
+}
+
+.rf-badge{
+    display: inline-block;
+    background: #088178;
+    color: white;
+    padding: 8px 18px;
+    border-radius: 30px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
+.rf-content h1{
+    font-size: 42px;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    color: #1f1f1f;
+    max-width: 450px;
+    font-weight: 700;
+}
+
+.rf-content p{
+    font-size: 16px;
+    line-height: 1.7;
+    color: #555;
+    max-width: 500px;
+    margin-bottom: 24px;
+}
+
+.rf-btn{
+    display: inline-block;
+    padding: 13px 26px;
+    background: #088178;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: 0.3s ease;
+}
+
+.rf-btn:hover{
+    background: #066b63;
+    transform: translateY(-2px);
+}
+
+.rf-image{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.rf-image img{
+    width: 100%;
+    max-width: 520px;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+}
+
+/* RESPONSIVE */
+
+@media(max-width: 950px){
+
+    .relevant-fashion-banner{
+        flex-direction: column;
+        text-align: center;
+        padding: 30px 5%;
+    }
+
+    .rf-content h1{
+        font-size: 34px;
+        max-width: 100%;
+    }
+
+    .rf-content p{
+        margin: auto;
+        margin-bottom: 22px;
+    }
+
+    .rf-image img{
+        height: auto;
+    }

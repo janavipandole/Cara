@@ -1,250 +1,304 @@
-/* Core Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
-html {
-  scroll-behavior: smooth;
+/* ==========================================================================
+   1. LAYOUT STRUCTURAL BASELINE (Direct alignment with main template framework)
+   ========================================================================== */
+#main {
+    width: 100%;
+    height: auto;
+    min-height: 100vh; /* Matches layout rule from style.css */
 }
 
-:root {
-  --primary-teal: #088178; /* Cara's signature teal color */
-  --primary-hover: #06655e; /* Darker shade for crisp hover interactions */
-  --bg-surface: #f4f6f6; /* Soft canvas background */
-  --text-main: #1a1a1a; /* Deep rich dark for headers */
-  --text-muted: #666666; /* Gentle grey for labels and captions */
-  --border-color: #e1e1e1;
+#top {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
 }
 
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: var(--bg-surface);
-  padding: 20px;
+#workingArea {
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1920px; /* Matches layout boundary from style.css */
 }
 
-/* Elegant Light Card Container */
-.login-container {
-  background: #ffffff;
-  width: 100%;
-  height: 90vh;
-  margin-top: 100px;
-  max-width: 400px;
-  padding: 40px 30px;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
-  text-align: center;
-  position: relative;
+/* ==========================================================================
+   2. LOGIN CONTAINER & CARD ELEMENT TYPOGRAPHY (Synced with style.css)
+   ========================================================================== */
+#login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+    padding: 60px 20px;
+    background-color: var(--bg-secondary, #f8f9fa); /* Automatically handles light/dark mode */
+    box-sizing: border-box;
 }
 
-/* Back Button */
-.back-button {
-  display: inline-flex;
-  align-items: center;
-  color: var(--text-muted);
-  font-size: 14px;
-  text-decoration: none;
-  font-weight: 500;
-  margin-bottom: 20px;
-  float: left;
-  transition: color 0.3s ease;
+.login-box {
+    width: 100%;
+    max-width: 450px;
+    background: var(--card-bg, #ffffff);
+    padding: 40px;
+    border-radius: 16px; /* Matches product card rounding rule from style.css */
+    border: 1.5px solid var(--border-color); /* Matches template line decorations */
+    box-shadow: 0 8px 22px var(--shadow);
+    box-sizing: border-box;
 }
 
-.back-button:hover {
-  color: var(--primary-teal);
+/* Form Title - Scaling down from your core template 56px scale down to look balanced */
+.login-box h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--text-primary);
+    font-size: 38px !important; /* Forces layout proportions down from template h2: 56px */
+    line-height: 44px !important;
+    font-weight: 700;
+    margin-top: 0;
 }
 
-/* Logo Container & Image Styling */
-.logo-container {
-  clear: both;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 20px;
+.login-box .input-field {
+    margin-bottom: 24px;
 }
 
-.logo-img {
-  max-height: 45px;
-  width: auto;
-  object-fit: contain;
-  transform: translateX(28px);
-}
-h2 {
-  font-family: 'League Spartan', sans-serif;
-  font-size: 24px;
-  color: var(--text-main);
-  font-weight: 600;
-  margin-bottom: 6px;
-}
-
-.subtitle {
-  color: var(--text-muted);
-  font-size: 14px;
-  margin-bottom: 30px;
+/* Form Inputs - Forces font size matching the index input configs (16px) */
+.login-box .input-field input {
+    display: block;
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+    font-size: 16px !important; /* Synced direct to template search/filter parameters */
+    outline: none;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
 }
 
-.input-group {
-  text-align: left;
-  margin-bottom: 22px;
-  position: relative;
+.login-box .input-field input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent);
 }
 
-.input-group label {
+.login-box .forgot-pass {
+    text-align: right;
+    margin-bottom: 24px;
+}
+
+/* Secondary Actions / Links - Matches standard template body font rules */
+.login-box .forgot-pass a {
+    color: var(--accent);
+    font-size: 16px !important; 
+    font-weight: 500;
+    text-decoration: none;
+}
+
+/* Primary Form Button - Synced exactly to .btn-shop-now & button.normal settings */
+.login-box .login-btn {
+    width: 100%;
+    padding: 14px 36px;
+    background-color: var(--accent);
+    color: #ffffff;
+    border: none;
+    font-size: 15px !important; /* Direct match to .btn-shop-now font-size definition */
+    font-weight: 700 !important; /* Direct match to .btn-shop-now font-weight definition */
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(8, 129, 120, 0.35);
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.login-box .login-btn:hover {
+    background-color: #000000;
+    transform: translateY(-2px);
+}
+
+.login-box .signup-link {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 16px !important; /* Scaled to legibility bounds */
+    color: var(--text-secondary);
+}
+
+.login-box .signup-link a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+/* ==========================================================================
+   3. REPLICATED INDEX FOOTER CLASSES (Direct matching values from style.css)
+   ========================================================================== */
+footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: var(--bg-secondary); /* Dynamic template utility alignment */
+    transition: background-color 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+footer.section-p1 {
+    padding: 40px 80px; /* Aligned section padding rules */
+}
+
+footer .col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+footer .logo {
+    margin-bottom: 30px;
+}
+
+/* Footer Section Header Match */
+footer h4 {
+    margin-bottom: 20px;
+    font-size: 20px !important; /* Hardcoded exact match from your template style.css line */
+    color: var(--footer-text);
+    font-weight: 700;
+}
+
+/* Footer Paragraph Match */
+footer p {
+    margin: 0 0 8px 0;
+    font-size: 20px !important; /* Hardcoded exact match from your template style.css line */
+    color: var(--footer-text);
+}
+
+/* Footer Navigation Link Match */
+footer a {
+    font-size: 18px !important; /* Hardcoded exact match from your template style.css line */
+    text-decoration: none;
+    color: var(--footer-text);
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+}
+
+footer a:hover, 
+footer .follow i:hover {
+    color: var(--accent);
+}
+
+footer .follow {
+    margin-top: 20px;
+}
+
+footer .follow i {
+    color: var(--text-secondary);
+    padding-right: 4px;
+    cursor: pointer;
+    font-size: 18px !important;
+    transition: color 0.3s ease;
+}
+
+footer .install .row img {
+    border: 1px solid #088178;
+    border-radius: 6px;
+}
+
+footer .install img {
+    margin: 10px 0 15px 0;
+}
+
+footer .copyright {
+    text-align: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* ==========================================================================
+   4. RESPONSIVE RESET BREAKPOINTS
+   ========================================================================== */
+@media (max-width: 799px) {
+    footer.section-p1 {
+        padding: 24px; /* Scaled wrapper alignment */
+    }
+}
+
+/* CAPTCHA Section */
+.captcha-section {
+  margin-top: 16px;
+}
+
+.captcha-section label {
   display: block;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--text-main);
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text-primary, #333);
+}
+
+#captcha-canvas {
+  width: 100%;
+  max-width: 280px;
+  height: 80px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color, #ddd);
+  background: #f5f5f5;
+  display: block;
   margin-bottom: 8px;
 }
 
-.input-field {
-  width: 100%;
-  padding: 12px 18px;
-  border: 1px solid var(--border-color);
-  border-radius: 25px; /* Pill layout matching homepage buttons */
+[data-theme="dark"] #captcha-canvas {
+  background: #2a2a3e;
+  border-color: #444;
+}
+
+.captcha-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.captcha-refresh {
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 8px;
+  background: var(--card-bg, #fff);
+  color: var(--text-primary, #333);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.captcha-refresh:hover {
+  background: rgba(8, 129, 120, 0.1);
+  border-color: var(--primary-color, #088178);
+  color: var(--primary-color, #088178);
+}
+
+@media (max-width: 640px) {
+    #top {
+        position: relative !important;
+        height: auto !important;
+    }
+
+    .section-p1 {
+        padding: 24px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .login-box h2 {
+        font-size: 30px !important; 
+        line-height: 36px !important;
+    }
+}
+.required {
+  color: red;
+  font-weight: bold;
+}
+
+.required-note {
   font-size: 14px;
-  background-color: #fafafa;
-  color: var(--text-main);
-  outline: none;
-  transition: all 0.3s ease;
-}
-
-.input-field:focus {
-  border-color: var(--primary-teal);
-  background-color: #ffffff;
-  box-shadow: 0 0 0 4px rgba(8, 129, 120, 0.1);
-}
-
-/* Password Group Modifications for the Eye Icon */
-.password-group {
-  position: relative;
-}
-
-.toggle_password {
-  position: absolute;
-  right: 16px;
-  bottom: 12px; /* Centers cleanly within the input container */
-  background: transparent;
-  border: none;
-  color: var(--text-muted);
-  cursor: pointer;
-  font-size: 18px;
-  transition: color 0.3s;
-}
-
-.toggle_password:hover {
-  color: var(--primary-teal);
-}
-
-/* Options Bar: Remember Me & Forgot link */
-.remember-forgot {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 25px;
-  font-size: 13px;
-}
-
-.remember {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-  color: var(--text-muted);
-}
-
-.remember input {
-  accent-color: var(--primary-teal);
-  cursor: pointer;
-}
-
-.forgot {
-  color: var(--primary-teal);
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s;
-}
-
-.forgot:hover {
-  text-decoration: underline;
-  color: var(--primary-hover);
-}
-
-/* Submission Button - Custom tailored to match Cara's "Shop Now" element */
-.login-btn {
-  width: 100%;
-  background-color: var(--primary-teal);
-  color: #ffffff;
-  border: none;
-  padding: 14px 0;
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  border-radius: 25px;
-  cursor: pointer;
-  box-shadow: 0 4px 14px rgba(8, 129, 120, 0.2);
-  transition: all 0.3s ease;
-}
-
-.login-btn:hover {
-  background-color: var(--primary-hover);
-  box-shadow: 0 6px 20px rgba(8, 129, 120, 0.3);
-}
-
-/* Bottom Footer Redirection Link */
-.signup-link {
-  margin-top: 25px;
-  font-size: 13px;
-  color: var(--text-muted);
-}
-
-.signup-link a {
-  color: var(--primary-teal);
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.signup-link a:hover {
-  text-decoration: underline;
-}
-
-/* ── Loading State for Submit Button ── */
-@keyframes btn-spinner {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.login-btn.btn-loading {
-  position: relative;
-  pointer-events: none;
-  opacity: 0.75;
-  cursor: not-allowed;
-}
-
-.login-btn.btn-loading span {
-  visibility: hidden;
-}
-
-.login-btn.btn-loading::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 20px;
-  height: 20px;
-  margin-top: -10px;
-  margin-left: -10px;
-  border: 3px solid rgba(255, 255, 255, 0.3);
-  border-top-color: #fff;
-  border-radius: 50%;
-  animation: btn-spinner 0.6s linear infinite;
-}
-.login-page {
-  display: flex;
-  flex-direction: column;
+  margin-bottom: 10px;
 }
