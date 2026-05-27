@@ -681,3 +681,9 @@
 }
 
 }
+
+
+/* Spacing tuning for standard shop card viewports */
+.pro-container {
+  grid-gap: 25px;
+}
