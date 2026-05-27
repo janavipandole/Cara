@@ -88,7 +88,7 @@ Cara is a fully responsive e-commerce website that provides users with a seamles
 ## 🚀 Getting Started
 
 ### Prerequisites
-All you need is a modern web browser and a text editor!
+All you need is a modern web browser and a text editor! Cara is designed for lightweight deployment and simple styling customizability.
 
 ### Installation
 1. **Clone the repository**
