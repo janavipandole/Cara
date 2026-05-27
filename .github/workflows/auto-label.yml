@@ -1,0 +1,87 @@
+name: Auto Label Pull Requests
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+jobs:
+  auto-label:
+    name: Auto-label PR by branch name and changed files
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Apply labels based on branch name
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const branch = context.payload.pull_request.head.ref;
+            const labels = [];
+
+            // Branch prefix → label mapping
+            if (branch.startsWith('fix/'))           labels.push('bug');
+            if (branch.startsWith('feat/'))          labels.push('feature');
+            if (branch.startsWith('feature/'))       labels.push('feature');
+            if (branch.startsWith('enhancement/'))   labels.push('enhancement');
+            if (branch.startsWith('docs/'))          labels.push('documentation');
+            if (branch.startsWith('refactor/'))      labels.push('refactor');
+            if (branch.startsWith('style/'))         labels.push('style');
+            if (branch.startsWith('test/'))          labels.push('testing');
+            if (branch.startsWith('chore/'))         labels.push('chore');
+            if (branch.startsWith('perf/'))          labels.push('performance');
+            if (branch.startsWith('security/'))      labels.push('security');
+            if (branch.startsWith('accessibility/')) labels.push('accessibility');
+            if (branch.startsWith('ci/'))            labels.push('ci/cd');
+
+            // Get list of changed files
+            const { data: files } = await github.rest.pulls.listFiles({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+            });
+
+            const changedFiles = files.map(f => f.filename);
+
+            // File-type → label mapping
+            const hasHTML = changedFiles.some(f => f.endsWith('.html'));
+            const hasCSS  = changedFiles.some(f => f.endsWith('.css'));
+            const hasJS   = changedFiles.some(f => f.endsWith('.js'));
+            const hasDoc  = changedFiles.some(f =>
+              f.endsWith('.md') || f.startsWith('docs/')
+            );
+            const hasCI   = changedFiles.some(f => f.startsWith('.github/'));
+
+            if (hasHTML) labels.push('html');
+            if (hasCSS)  labels.push('css');
+            if (hasJS)   labels.push('javascript');
+            if (hasDoc && !labels.includes('documentation')) labels.push('documentation');
+            if (hasCI  && !labels.includes('ci/cd'))         labels.push('ci/cd');
+
+            // Deduplicate
+            const uniqueLabels = [...new Set(labels)];
+
+            if (uniqueLabels.length === 0) {
+              console.log('No matching labels found for this PR.');
+              return;
+            }
+
+            console.log('Applying labels:', uniqueLabels.join(', '));
+
+            try {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.payload.pull_request.number,
+                labels: uniqueLabels,
+              });
+            } catch (error) {
+              // If a label doesn't exist in the repo, the API throws.
+              // Log and skip gracefully so the workflow doesn't fail.
+              console.warn('Could not apply some labels:', error.message);
+              console.warn('Create missing labels in the repository settings first.');
+            }
