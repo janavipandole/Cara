@@ -396,17 +396,17 @@
     <!-- Quick Cards -->
     <div class="delivery-cards">
       <div class="delivery-card">
-        <div class="icon"><i class="fas fa-truck"></i></div>
+        <div class="icon" style="color: var(--primary-color);"><i class="fas fa-truck"></i></div>
         <h4>Free Shipping</h4>
         <p>On all orders above $50 within the US</p>
       </div>
       <div class="delivery-card">
-        <div class="icon">⏱️</div>
+        <div class="icon" style="color: var(--primary-color);"><i class="far fa-clock"></i></div>
         <h4>Fast Processing</h4>
         <p>Orders dispatched within 1–2 business days</p>
       </div>
       <div class="delivery-card">
-        <div class="icon">↩️</div>
+        <div class="icon" style="color: var(--primary-color);"><i class="fas fa-undo-alt"></i></div>
         <h4>Easy Returns</h4>
         <p>30-day hassle-free return policy</p>
       </div>
@@ -448,13 +448,97 @@
         </tbody>
       </table>
       <div class="notice-box">
-        ℹ️ Shipping times are estimates and may vary during peak seasons or due to courier delays outside our control.
+        <i class="fas fa-info-circle" style="color: var(--primary-color); margin-right: 6px;"></i> Shipping times are estimates and may vary during peak seasons or due to courier delays outside our control.
       </div>
+    </section>
+
+    <!-- Interactive Shipping Cost Estimator -->
+    <section class="delivery-block" style="background: var(--card-bg); padding: 25px; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 36px; box-shadow: var(--shadow);">
+      <h3 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-calculator"></i> Live Shipping & ETA Estimator</h3>
+      <p style="margin-bottom: 20px; font-size: 13.5px;">Calculate shipping rates and estimated delivery windows in real-time based on destination and package details.</p>
+      
+      <div class="estimator-form" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 20px;">
+        <div>
+          <label style="display: block; font-size: 12px; font-weight: 600; text-transform: uppercase; margin-bottom: 6px; color: var(--text-color);">Destination</label>
+          <select id="estCountry" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--border-color); background: var(--background-color); color: var(--text-color); font-family: inherit; font-size: 14px;">
+            <option value="us">United States (Domestic)</option>
+            <option value="ca">Canada</option>
+            <option value="uk">United Kingdom</option>
+            <option value="eu">European Union</option>
+            <option value="in">India</option>
+            <option value="other">Rest of the World</option>
+          </select>
+        </div>
+        <div>
+          <label style="display: block; font-size: 12px; font-weight: 600; text-transform: uppercase; margin-bottom: 6px; color: var(--text-color);">Method</label>
+          <select id="estMethod" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--border-color); background: var(--background-color); color: var(--text-color); font-family: inherit; font-size: 14px;">
+            <option value="standard">Standard Shipping</option>
+            <option value="express">Express Courier</option>
+            <option value="sameday">Same-Day Special</option>
+          </select>
+        </div>
+        <div>
+          <label style="display: block; font-size: 12px; font-weight: 600; text-transform: uppercase; margin-bottom: 6px; color: var(--text-color);">Weight (lbs)</label>
+          <input type="number" id="estWeight" value="1.5" min="0.1" step="0.1" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--border-color); background: var(--background-color); color: var(--text-color); font-family: inherit; font-size: 14px;" />
+        </div>
+      </div>
+
+      <button onclick="estimateShipping()" style="background: var(--primary-color); color: #fff; border: none; padding: 12px 24px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; transition: background 0.2s;">Calculate Estimate</button>
+
+      <div id="estimatorResult" style="display: none; margin-top: 20px; padding: 15px; background: var(--background-color); border-radius: 8px; border: 1px solid var(--border-color);">
+        <h4 style="margin-bottom: 10px; color: var(--text-color); font-size: 15px; display: flex; align-items: center; gap: 8px;"><i class="fas fa-check-circle" style="color: var(--primary-color);"></i> Quote Summary</h4>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 13.5px;"><span style="color: var(--light-text);">Shipping cost:</span> <strong id="resCost" style="color: var(--text-color);">$0.00</strong></div>
+        <div style="display: flex; justify-content: space-between; font-size: 13.5px;"><span style="color: var(--light-text);">Estimated Delivery Window:</span> <strong id="resETA" style="color: var(--primary-color);">N/A</strong></div>
+      </div>
+
+      <script>
+        function estimateShipping() {
+          const country = document.getElementById('estCountry').value;
+          const method = document.getElementById('estMethod').value;
+          const weight = parseFloat(document.getElementById('estWeight').value) || 1;
+          
+          let cost = 0;
+          let minDays = 3;
+          let maxDays = 5;
+
+          // Simple logic based on inputs
+          if (country === 'us') {
+            if (method === 'standard') {
+              cost = weight > 5 ? 5.99 : 0; // Free above $50 orders assumed, but fallback based on weight
+              minDays = 3; maxDays = 5;
+            } else if (method === 'express') {
+              cost = 9.99 + (weight * 1.5);
+              minDays = 1; maxDays = 2;
+            } else {
+              cost = 14.99 + (weight * 2.5);
+              minDays = 0; maxDays = 0;
+            }
+          } else {
+            // International
+            if (method === 'standard') {
+              cost = 15.00 + (weight * 3.0);
+              minDays = 7; maxDays = 14;
+            } else if (method === 'express') {
+              cost = 35.00 + (weight * 5.0);
+              minDays = 3; maxDays = 5;
+            } else {
+              cost = 50.00 + (weight * 8.0);
+              minDays = 1; maxDays = 2;
+            }
+          }
+
+          const etaText = minDays === 0 ? 'Today (Same-Day Courier)' : `${minDays} to ${maxDays} Business Days`;
+          
+          document.getElementById('resCost').innerText = cost === 0 ? 'FREE' : `$${cost.toFixed(2)}`;
+          document.getElementById('resETA').innerText = etaText;
+          document.getElementById('estimatorResult').style.display = 'block';
+        }
+      </script>
     </section>
 
     <!-- Order Processing -->
     <section class="delivery-block">
-      <h3>⚙️ Order Processing</h3>
+      <h3><i class="fas fa-cogs"></i> Order Processing</h3>
       <p>Once your order is placed and payment confirmed, our team begins processing immediately:</p>
       <ul>
         <li>Orders placed before 2:00 PM (Mon–Sat) are processed the same day.</li>
@@ -475,7 +559,7 @@
         <li>Some items may not be available for international shipping due to restrictions.</li>
       </ul>
       <div class="notice-box">
-        ℹ️ Shipping cost for international orders is calculated at checkout based on your location and order weight.
+        <i class="fas fa-info-circle" style="color: var(--primary-color); margin-right: 6px;"></i> Shipping cost for international orders is calculated at checkout based on your location and order weight.
       </div>
     </section>
 
@@ -493,7 +577,7 @@
 
     <!-- Returns -->
     <section class="delivery-block">
-      <h3>↩️ Returns & Exchanges</h3>
+      <h3><i class="fas fa-reply"></i> Returns & Exchanges</h3>
       <p>We want you to love every purchase. If something isn't right:</p>
       <ul>
         <li>Returns accepted within 30 days of delivery.</li>
