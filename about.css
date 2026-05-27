@@ -82,3 +82,10 @@
         width: 90%;
     }
 }
+
+
+/* Typography enhancements */
+.about-header h2 {
+  font-size: clamp(2rem, 5vw, 3.5rem) !important;
+  line-height: 1.2;
+}
