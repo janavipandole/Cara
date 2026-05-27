@@ -1,4 +1,6 @@
 const registerForm = document.getElementById("registerForm");
+const usernameInput = document.getElementById("registerUsername");
+const emailInput = document.getElementById("registerEmail");
 
 registerForm.addEventListener("submit", function (e) {
   e.preventDefault();
@@ -16,7 +18,48 @@ registerForm.addEventListener("submit", function (e) {
     return;
   }
 
-  
+  // Username validation
+  if (username.length < 3) {
+    setFieldState(usernameInput, false);
+    showError(
+      "Username must be at least 3 characters long."
+    );
+    shakeForm();
+    return;
+  }
+
+  if (!/^[a-zA-Z\s]+$/.test(username)) {
+    setFieldState(usernameInput, false);
+    showError(
+      "Username should contain only letters."
+    );
+    shakeForm();
+    return;
+  }
+
+  setFieldState(usernameInput, true);
+
+  // Email validation
+  const emailRegex =
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!emailRegex.test(email)) {
+    setFieldState(emailInput, false);
+    showError("Please enter a valid email address.");
+    shakeForm();
+    return;
+  }
+
+  if (/\d/.test(email)) {
+    setFieldState(emailInput, false);
+    showError("Numbers are not allowed in the email address.");
+    shakeForm();
+    return;
+  }
+
+  setFieldState(emailInput, true);
+
+  // Password validations
   if (/\s/.test(password)) {
     showError("Password must not contain spaces.");
     return;
@@ -125,3 +168,134 @@ function showSuccess(msg) {
   el.style.cssText = "color:#27ae60; font-size:13px; margin-top:10px; text-align:center;";
   registerForm.appendChild(el);
 }
+function removeMessage() {
+  const existing =
+    document.getElementById("formMessage");
+
+  if (existing) existing.remove();
+}
+
+function setFieldState(input, isValid) {
+  input.style.border = isValid
+    ? "2px solid #27ae60"
+    : "2px solid #e74c3c";
+}
+
+function resetFieldStyles() {
+  const inputs =
+    registerForm.querySelectorAll("input");
+
+  inputs.forEach((input) => {
+    input.style.border =
+      "1px solid #dcdcdc";
+  });
+}
+
+function shakeForm() {
+  registerForm.classList.add("shake");
+
+  setTimeout(() => {
+    registerForm.classList.remove("shake");
+  }, 300);
+}
+
+/// ─────────────────────────────────────────────
+// PASSWORD TOGGLE
+// ─────────────────────────────────────────────
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function () {
+
+    const registerPasswordInput =
+      document.getElementById(
+        "registerPassword"
+      );
+
+    const confirmPasswordInput =
+      document.getElementById(
+        "confirmPassword"
+      );
+
+    const togglePasswordButton =
+      document.getElementById(
+        "togglePassword"
+      );
+
+    const confirmTogglePasswordButton =
+      document.getElementById(
+        "confirmTogglePassword"
+      );
+
+    const registerToggleIcon =
+      document.getElementById(
+        "registerToggleIcon"
+      );
+
+    const confirmToggleIcon =
+      document.getElementById(
+        "confirmToggleIcon"
+      );
+
+    function setupPasswordToggle(
+      inputField,
+      toggleButton,
+      iconElement
+    ) {
+      if (
+        inputField &&
+        toggleButton &&
+        iconElement
+      ) {
+
+        toggleButton.addEventListener(
+          "click",
+          function () {
+
+            const isHidden =
+              inputField.type === "password";
+
+            // Toggle input type
+            inputField.type = isHidden
+              ? "text"
+              : "password";
+
+            // Toggle icon
+            if (isHidden) {
+              iconElement.classList.remove(
+                "ri-eye-line"
+              );
+
+              iconElement.classList.add(
+                "ri-eye-off-line"
+              );
+
+            } else {
+
+              iconElement.classList.remove(
+                "ri-eye-off-line"
+              );
+
+              iconElement.classList.add(
+                "ri-eye-line"
+              );
+            }
+          }
+        );
+      }
+    }
+
+    // Initialize toggles
+    setupPasswordToggle(
+      registerPasswordInput,
+      togglePasswordButton,
+      registerToggleIcon
+    );
+
+    setupPasswordToggle(
+      confirmPasswordInput,
+      confirmTogglePasswordButton,
+      confirmToggleIcon
+    );
+  }
+);

@@ -21,7 +21,8 @@ document.getElementById('toggleConfirmPass').addEventListener('click', function 
 });
 
 /* form submit */
-form.addEventListener('submit', function (e) {
+const form = document.getElementById('forgotForm');
+if (form) form.addEventListener('submit', function (e) {
   e.preventDefault();
 
   const email       = document.getElementById('forgotEmail').value.trim();

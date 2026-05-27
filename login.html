@@ -49,7 +49,7 @@
   </div>
 </section>
 <div class="login-container">
-    <a href="index.html" class="back-button">&#8592; Back to Shop</a>
+    <a href="index.html" class="back-button"><i class="ri-arrow-left-line"></i> Back to Shop</a>
     
     <div class="logo-container">
         <img src="images/logo.png" alt="Cara Logo" class="logo-img">
@@ -60,7 +60,7 @@
     <form id="loginForm" class="login-form" novalidate>
         <div class="input-group">
             <label for="loginEmail">Email Address</label>
-            <input type="email" id="loginEmail" name="email" class="input-field" placeholder="example@domain.com" autocomplete="email" required>
+            <input type="email" id="loginEmail" name="email" class="input-field" placeholder="Enter your email address" autocomplete="email" required>
         </div>
         
         <div class="input-group password-group" style="position: relative;">
@@ -115,5 +115,20 @@
     </script>
     <script src="app.js"></script>
     <script src="login.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const togglePasswordBtn = document.getElementById("togglePassword");
+        const passwordInput = document.getElementById("loginPassword");
+        const toggleIcon = document.getElementById("toggleIcon");
+
+        if (togglePasswordBtn && passwordInput && toggleIcon) {
+          togglePasswordBtn.addEventListener("click", () => {
+            const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+            passwordInput.setAttribute("type", type);
+            toggleIcon.className = type === "password" ? "ri-eye-line" : "ri-eye-off-line";
+          });
+        }
+      });
+    </script>
 </body>
 </html>
