@@ -4,20 +4,19 @@ document.addEventListener('DOMContentLoaded', function () {
   if (!document.getElementById('forgotForm')) 
         return;
 
-document.getElementById('toggleNewPass').addEventListener('click', function () {
-  const pwd = document.getElementById('forgotNewPass');
-  pwd.type = pwd.type === 'password' ? 'text' : 'password';
-  this.classList.toggle('ri-eye-line');
-  this.classList.toggle('ri-eye-off-line');
-});
+}
 
 /* toggle confirm password visibility */
-document.getElementById('toggleConfirmPass').addEventListener('click', function () {
-  const pwd = document.getElementById('forgotConfirmPass');
-  pwd.type = pwd.type === 'password' ? 'text' : 'password';
-  this.classList.toggle('ri-eye-line');
-  this.classList.toggle('ri-eye-off-line');
-});
+var toggleConfirmPass = document.getElementById('toggleConfirmPass');
+if (toggleConfirmPass) {
+  toggleConfirmPass.addEventListener('click', function () {
+    var pwd = document.getElementById('forgotConfirmPass');
+    if (!pwd) return;
+    pwd.type = pwd.type === 'password' ? 'text' : 'password';
+    this.classList.toggle('ri-eye-line');
+    this.classList.toggle('ri-eye-off-line');
+  });
+}
 
 /* form submit */
 const form = document.getElementById('forgotForm');
@@ -105,4 +104,5 @@ if (form) form.addEventListener('submit', function (e) {
   }, 1500);
 });
 });
+
 
