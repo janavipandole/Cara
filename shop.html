@@ -104,8 +104,28 @@
           <option value="minimal">Minimal</option>
           <option value="formal">Formal</option>
         </select>
-
+gssoc-dark-theme-fix-1062
       </div>
+</section>
+    <section id="product1" class="section-p1">
+      <div class="sort-container" aria-label="Sort products" role="region" aria-live="polite">
+        <label class="sort-label" for="sort-price"><i class="ri-sorting-asc"></i> Sort by</label>
+        <div class="sort-select-wrap">
+          <select id="sort-price" class="sort-dropdown" aria-describedby="sort-hint">
+            <option value="default">Default Sorting</option>
+            <option value="low-high">Price: Low to High</option>
+            <option value="high-low">Price: High to Low</option>
+            <option value="rating-high">Rating: High to Low</option>
+            <option value="rating-low">Rating: Low to High</option>
+            <option value="newest">Newest</option>
+          </select>
+          <i class="ri-arrow-down-s-line sort-chevron" aria-hidden="true"></i>
+          <span id="sort-hint" hidden>Choose how to order the product listings</span>
+        </div>
+      </div>
+      <div class="pro-container" id="shop-container" aria-live="polite" aria-label="Product listings"></div>
+    </section>
+main
 
       <div class="filter-container">
 
@@ -116,6 +136,7 @@
         </select>
 
       </div>
+gssoc-dark-theme-fix-1062
 
       <div class="filter-container">
 
@@ -125,6 +146,31 @@
           <option value="all">All</option>
         </select>
 
+      <form class="form newsletter-form">
+        <input type="email" placeholder="Your email address" required />
+        <button type="submit" class="normal">Sign Up</button>
+      </form>
+    </section>
+
+    <button id="backToTop" title="Back to Top" aria-label="Back to top">⬆</button>
+    <button id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">⬇</button>
+
+    <footer class="section-p1">
+    <section id="product1" class="section-p1">
+      <div class="sort-container" aria-label="Sort products" role="region" aria-live="polite">
+        <label class="sort-label" for="sort-price"><i class="ri-sorting-asc"></i> Sort by</label>
+        <div class="sort-select-wrap">
+          <select id="sort-price" class="sort-dropdown">
+            <option value="default">Default Sorting</option>
+            <option value="low-high">Price: Low to High</option>
+            <option value="high-low">Price: High to Low</option>
+            <option value="rating-high">Rating: High to Low</option>
+            <option value="rating-low">Rating: Low to High</option>
+            <option value="newest">Newest</option>
+          </select>
+          <i class="ri-arrow-down-s-line sort-chevron" aria-hidden="true"></i>
+        </div>
+main
       </div>
 
       <div class="filter-container">
@@ -312,4 +358,11 @@
    loadNavbar('shop');
 </script>
 </body>
+gssoc-dark-theme-fix-1062
 </html>
+=======
+</html>
+
+
+<!-- A11y and structural improvements -->
+main

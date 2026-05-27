@@ -502,8 +502,14 @@ a {
           </p>
         </div>
 
+gssoc-dark-theme-fix-1062
         <!-- FEATURES -->
         <section class="features">
+
+        <!-- NAME -->
+        <label for="name">Full Name <span style="color: red;">*</span></label>
+        <input id="name" type="text" name="name" placeholder="Your Full Name" autocomplete="name" required aria-required="true">
+main
 
           <div class="feature-card">
             <i class="fas fa-clock"></i>
@@ -674,6 +680,7 @@ a {
 
     });
 
+gssoc-dark-theme-fix-1062
     backToTop.onclick = () => {
       window.scrollTo({
         top: 0,
@@ -687,6 +694,13 @@ a {
         behavior: "smooth"
       });
     };
+
+/* =========================
+   CURRENT YEAR (FOOTER)
+========================= */
+const yearEl = document.querySelector(".Current-Year");
+if (yearEl) yearEl.textContent = new Date().getFullYear();
+main
 
   </script>
 

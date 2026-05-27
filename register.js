@@ -1,4 +1,6 @@
 const registerForm = document.getElementById("registerForm");
+const usernameInput = document.getElementById("registerUsername");
+const emailInput = document.getElementById("registerEmail");
 
 registerForm.addEventListener("submit", function (e) {
   e.preventDefault();
@@ -44,13 +46,6 @@ registerForm.addEventListener("submit", function (e) {
   if (!emailRegex.test(email)) {
     setFieldState(emailInput, false);
     showError("Please enter a valid email address.");
-    shakeForm();
-    return;
-  }
-
-  if (/\d/.test(email)) {
-    setFieldState(emailInput, false);
-    showError("Numbers are not allowed in the email address.");
     shakeForm();
     return;
   }
@@ -143,6 +138,20 @@ document.getElementById("registerPassword").addEventListener("input", function (
       hint.style.color = "#e67e22";
     }
   }
+
+  // Active validation state highlights
+  const confirmVal = document.getElementById("confirmPassword").value;
+  if (confirmVal) {
+    const isMatching = val === confirmVal;
+    document.getElementById("confirmPassword").style.border = isMatching ? "2px solid #27ae60" : "2px solid #e74c3c";
+  }
+});
+
+document.getElementById("confirmPassword").addEventListener("input", function () {
+  const confirmVal = this.value;
+  const passwordVal = document.getElementById("registerPassword").value;
+  const isMatching = confirmVal === passwordVal && confirmVal !== "";
+  this.style.border = isMatching ? "2px solid #27ae60" : "2px solid #e74c3c";
 });
 
 function showError(msg) {
