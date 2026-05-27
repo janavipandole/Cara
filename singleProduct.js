@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const sizeDropdown = document.getElementById('product-size');
 
     if (!panel || !openBtn) return; // guard: elements might not exist on every page
-
     // ── Open the floating panel ──────────────────────────────────
     openBtn.addEventListener('click', function (e) {
         e.stopPropagation(); // prevent document click from immediately closing it
