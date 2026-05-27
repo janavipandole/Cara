@@ -27,7 +27,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // ── Form Submission Logic ──
     form.addEventListener('submit', function (e) {
         e.preventDefault();
-        const email = document.getElementById('loginEmail').value.trim();
+        const loginEmailEl = document.getElementById('loginEmail');
+        const email = loginEmailEl ? loginEmailEl.value.trim() : '';
         const password = document.getElementById('loginPassword').value;
 
         if (!email || !password) {
