@@ -1,0 +1,86 @@
+name: Mark Stale Issues and PRs
+
+on:
+  schedule:
+    # Run daily at 02:00 UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  stale:
+    name: Close stale issues and PRs
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+
+    steps:
+      - name: Mark stale issues and PRs
+        uses: actions/stale@v9
+        with:
+          # ── ISSUE SETTINGS ──────────────────────────────────────────
+          # Issues with no activity for 21 days get a stale warning
+          days-before-issue-stale: 21
+          # Issues stay stale for 7 more days before being closed
+          days-before-issue-close: 7
+          stale-issue-label: 'stale'
+          close-issue-label: 'closed-stale'
+          stale-issue-message: |
+            👋 Hi there! This issue has been inactive for **21 days**.
+
+            It will be **automatically closed in 7 days** unless there is new activity.
+
+            If this issue is still relevant:
+            - Leave a comment with any updates or additional context
+            - Add the `keep-open` label to prevent automatic closure
+            - A maintainer can also manually remove the `stale` label
+
+            Thank you for contributing to **Cara** 🛍️
+
+          close-issue-message: |
+            🔒 This issue has been **automatically closed** due to 28 days of inactivity.
+
+            If this issue is still valid, please open a new issue with updated information
+            and reference this one. Thank you for your understanding!
+
+          # ── PULL REQUEST SETTINGS ───────────────────────────────────
+          # PRs with no activity for 30 days get a stale warning
+          days-before-pr-stale: 30
+          # PRs stay stale for 14 more days before being closed
+          days-before-pr-close: 14
+          stale-pr-label: 'stale'
+          close-pr-label: 'closed-stale'
+          stale-pr-message: |
+            👋 Hi! This pull request has been inactive for **30 days**.
+
+            It will be **automatically closed in 14 days** unless there is new activity.
+
+            To keep this PR open:
+            - Push new commits or address any review feedback
+            - Leave a comment with a status update
+            - Add the `keep-open` label to prevent automatic closure
+
+            We appreciate your contribution to **Cara** 🛍️
+
+          close-pr-message: |
+            🔒 This pull request has been **automatically closed** due to 44 days of inactivity.
+
+            If your changes are still relevant, please reopen or create a new PR rebased
+            against the latest `main` branch. Thank you!
+
+          # ── EXEMPTIONS ──────────────────────────────────────────────
+          # Issues/PRs with these labels are NEVER marked stale
+          exempt-issue-labels: 'keep-open,pinned,security,critical,in-progress,help-wanted,good first issue'
+          exempt-pr-labels: 'keep-open,pinned,security,critical,in-progress,do-not-merge,work-in-progress'
+
+          # Do not act on issues/PRs that are already assigned
+          exempt-all-assignees: true
+
+          # Limit to 30 operations per run to stay within GitHub API rate limits
+          operations-per-run: 30
+
+          # Remove stale label when new activity resumes
+          remove-stale-when-updated: true
+
+          # Enable debug output for troubleshooting
+          debug-only: false
