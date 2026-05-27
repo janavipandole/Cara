@@ -293,3 +293,12 @@ footer .copyright {
         line-height: 36px !important;
     }
 }
+.required {
+  color: red;
+  font-weight: bold;
+}
+
+.required-note {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
