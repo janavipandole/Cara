@@ -646,6 +646,42 @@
       <p>For full details, see our <a href="terms.html" style="color:#088178; font-weight:600;">Terms and Conditions</a>.</p>
     </section>
 
+    <!-- FAQ Accordion Section -->
+    <section class="delivery-block">
+      <h3><i class="fas fa-question-circle"></i> Frequently Asked Questions</h3>
+      <div class="faq-accordion" style="margin-top: 20px;">
+        <div class="faq-item" style="border: 1px solid var(--border-color); border-radius: 6px; margin-bottom: 10px; overflow: hidden;">
+          <button class="faq-toggle" style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: var(--card-bg); border: none; font-family: inherit; font-size: 15px; font-weight: 600; color: var(--text-color); cursor: pointer; text-align: left; transition: background 0.2s;">
+            <span>How long will my order take to arrive?</span>
+            <i class="fas fa-chevron-down" style="font-size: 12px; transition: transform 0.2s;"></i>
+          </button>
+          <div class="faq-content" style="max-height: 0; overflow: hidden; transition: max-height 0.25s ease-out; background: var(--background-color);">
+            <p style="padding: 15px 20px; margin: 0; font-size: 14px; color: var(--light-text); line-height: 1.6;">Standard delivery takes 3 to 5 business days, while express shipping delivers in 1 to 2 business days. International delivery varies between 7 and 14 business days.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" style="border: 1px solid var(--border-color); border-radius: 6px; margin-bottom: 10px; overflow: hidden;">
+          <button class="faq-toggle" style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: var(--card-bg); border: none; font-family: inherit; font-size: 15px; font-weight: 600; color: var(--text-color); cursor: pointer; text-align: left; transition: background 0.2s;">
+            <span>What is your return policy?</span>
+            <i class="fas fa-chevron-down" style="font-size: 12px; transition: transform 0.2s;"></i>
+          </button>
+          <div class="faq-content" style="max-height: 0; overflow: hidden; transition: max-height 0.25s ease-out; background: var(--background-color);">
+            <p style="padding: 15px 20px; margin: 0; font-size: 14px; color: var(--light-text); line-height: 1.6;">We offer a 30-day return policy. Items must be unused, unwashed, and returned in their original packaging with all tags attached.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" style="border: 1px solid var(--border-color); border-radius: 6px; margin-bottom: 10px; overflow: hidden;">
+          <button class="faq-toggle" style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: var(--card-bg); border: none; font-family: inherit; font-size: 15px; font-weight: 600; color: var(--text-color); cursor: pointer; text-align: left; transition: background 0.2s;">
+            <span>Can I track my shipment?</span>
+            <i class="fas fa-chevron-down" style="font-size: 12px; transition: transform 0.2s;"></i>
+          </button>
+          <div class="faq-content" style="max-height: 0; overflow: hidden; transition: max-height 0.25s ease-out; background: var(--background-color);">
+            <p style="padding: 15px 20px; margin: 0; font-size: 14px; color: var(--light-text); line-height: 1.6;">Yes, a tracking link is sent via email once your order has been dispatched. You can track updates on our tracking portal.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Contact -->
     <section class="delivery-block">
       <h3><i class="fas fa-phone"></i> Need Help?</h3>
@@ -777,6 +813,22 @@
     });
     scrollBtn.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Accordion active toggling logic
+    document.querySelectorAll('.faq-toggle').forEach(button => {
+      button.addEventListener('click', () => {
+        const faqContent = button.nextElementSibling;
+        const icon = button.querySelector('i');
+        button.classList.toggle('active');
+        if (button.classList.contains('active')) {
+          faqContent.style.maxHeight = faqContent.scrollHeight + 'px';
+          icon.style.transform = 'rotate(180deg)';
+        } else {
+          faqContent.style.maxHeight = 0;
+          icon.style.transform = 'rotate(0deg)';
+        }
+      });
     });
   </script>
 

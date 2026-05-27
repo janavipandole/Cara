@@ -50,13 +50,6 @@ registerForm.addEventListener("submit", function (e) {
     return;
   }
 
-  if (/\d/.test(email)) {
-    setFieldState(emailInput, false);
-    showError("Numbers are not allowed in the email address.");
-    shakeForm();
-    return;
-  }
-
   setFieldState(emailInput, true);
 
   // Password validations
@@ -145,6 +138,20 @@ document.getElementById("registerPassword").addEventListener("input", function (
       hint.style.color = "#e67e22";
     }
   }
+
+  // Active validation state highlights
+  const confirmVal = document.getElementById("confirmPassword").value;
+  if (confirmVal) {
+    const isMatching = val === confirmVal;
+    document.getElementById("confirmPassword").style.border = isMatching ? "2px solid #27ae60" : "2px solid #e74c3c";
+  }
+});
+
+document.getElementById("confirmPassword").addEventListener("input", function () {
+  const confirmVal = this.value;
+  const passwordVal = document.getElementById("registerPassword").value;
+  const isMatching = confirmVal === passwordVal && confirmVal !== "";
+  this.style.border = isMatching ? "2px solid #27ae60" : "2px solid #e74c3c";
 });
 
 function showError(msg) {
