@@ -1,114 +1,74 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener("DOMContentLoaded", () => {
     console.log("register.js loaded");
 
-    const form = document.getElementById('registerForm');
-    const submitBtn = document.getElementById('registerSubmitBtn');
+    const btn = document.getElementById("registerSubmitBtn");
 
-    if (!form) {
-        console.error("registerForm not found!");
+    if (!btn) {
+        console.error("Submit button not found!");
         return;
     }
 
-    if (!submitBtn) {
-        console.error("registerSubmitBtn not found!");
-        return;
-    }
-
-    submitBtn.addEventListener('click', function (e) {
+    btn.addEventListener("click", async (e) => {
         e.preventDefault();
 
-        console.log("Register button clicked");
+        const username = document.getElementById("registerUsername")?.value.trim();
+        const email = document.getElementById("registerEmail")?.value.trim();
+        const password = document.getElementById("registerPassword")?.value.trim();
+        const confirmPassword = document.getElementById("confirmPassword")?.value.trim();
 
-        const name = document.getElementById('registerUsername').value.trim();
-        const email = document.getElementById('registerEmail').value.trim();
-        const password = document.getElementById('registerPassword').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
+        const role = document.querySelector('input[name="registerRole"]:checked')?.value || "USER";
 
-        // Get selected role
-        const roleElement = document.querySelector('input[name="registerRole"]:checked');
-        const role = roleElement ? roleElement.value : "USER";
+        const messageBox = document.getElementById("formMessage");
 
-        console.log("Collected Form Data:");
-        console.log("Name:", name);
-        console.log("Email:", email);
-        console.log("Password Length:", password.length);
-        console.log("Role:", role);
-
-        // Empty field validation
-        if (!name || !email || !password || !confirmPassword) {
-            console.warn("Validation failed: Empty fields");
-            showToast('Please fill all fields.', 'warning');
+        // basic validation
+        if (!username || !email || !password) {
+            messageBox.innerText = "All fields are required!";
+            messageBox.style.color = "red";
             return;
         }
 
-        // Password validation
-        const passwordRegex =
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
-
-        if (!passwordRegex.test(password)) {
-            console.warn("Validation failed: Weak password");
-            showToast(
-                'Password must have 8+ chars, 1 uppercase, 1 lowercase, 1 number, and 1 special character.',
-                'warning'
-            );
-            return;
-        }
-
-        // Confirm password validation
         if (password !== confirmPassword) {
-            console.warn("Validation failed: Password mismatch");
-            showToast('Passwords do not match.', 'warning');
+            messageBox.innerText = "Passwords do not match!";
+            messageBox.style.color = "red";
             return;
         }
 
-        // Get existing users
-        let users = JSON.parse(localStorage.getItem('users') || '[]');
+        try {
+            const res = await fetch("http://localhost:8000/api/auth/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    username,
+                    email,
+                    password,
+                    role
+                })
+            });
 
-        console.log("Existing users:", users);
+            const data = await res.json();
 
-        // Duplicate email check
-        if (users.find(u => u.email === email)) {
-            console.warn("Validation failed: Email already exists");
-            showToast('Email already registered.', 'error');
-            return;
+            if (!res.ok) {
+                throw new Error(data.detail || "Registration failed");
+            }
+
+            console.log("Success:", data);
+
+            localStorage.setItem("token", data.access_token);
+            localStorage.setItem("user", JSON.stringify(data.user));
+
+            messageBox.style.color = "green";
+            messageBox.innerText = "Account created successfully! Redirecting...";
+
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 1200);
+
+        } catch (err) {
+            console.error(err);
+            messageBox.style.color = "red";
+            messageBox.innerText = err.message;
         }
-
-        // Duplicate username check
-        if (users.find(u => u.name.toLowerCase() === name.toLowerCase())) {
-            console.warn("Validation failed: Username already exists");
-            showToast('Username already exists.', 'error');
-            return;
-        }
-
-        const newUser = {
-            name,
-            email,
-            password,
-            role
-        };
-
-        console.log("Creating new user:", newUser);
-
-        // Save user
-        users.push(newUser);
-
-        localStorage.setItem('users', JSON.stringify(users));
-
-        console.log("Users saved to localStorage");
-        console.log(JSON.parse(localStorage.getItem('users')));
-
-        // Save logged in user
-        localStorage.setItem('loggedInUser', email);
-
-        console.log("loggedInUser set:", email);
-
-        // Success toast
-        showToast('Signup successful! Welcome to Cara.', 'success');
-
-        
-        // Redirect
-        setTimeout(() => {
-            window.location.href = 'index.html';
-        }, 1500);
     });
 });

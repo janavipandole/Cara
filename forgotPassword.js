@@ -1,10 +1,11 @@
 /* ===== FORGOT PASSWORD JS ===== */
  
+document.addEventListener('DOMContentLoaded', function () {
+
+  var forgotForm = document.getElementById('forgotForm');
+  if (!forgotForm) return;
 
 /* toggle new password visibility */
-if (!document.getElementById('forgotForm')) 
-      return;
-
 document.getElementById('toggleNewPass').addEventListener('click', function () {
   const pwd = document.getElementById('forgotNewPass');
   pwd.type = pwd.type === 'password' ? 'text' : 'password';
@@ -104,5 +105,7 @@ if (form) form.addEventListener('submit', function (e) {
       window.location.href = 'login.html';
     }, 2000);
   }, 1500);
+});
+
 });
 
