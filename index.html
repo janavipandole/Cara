@@ -48,6 +48,19 @@
   <!-- Theme Color for Mobile Browser -->
   <meta name="theme-color" content="#000000" />
 
+  <!-- Performance: DNS Prefetch & Preconnect for external CDN origins
+       These hints allow the browser to establish connections to external
+       origins before they are needed, reducing font/icon loading latency.
+  -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+
   <!-- Stylesheets -->
   <link rel="stylesheet" href="style.css?v=2" />
   <link rel="stylesheet" href="header-fix.css" />
