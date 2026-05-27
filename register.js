@@ -1,4 +1,6 @@
 const registerForm = document.getElementById("registerForm");
+const usernameInput = document.getElementById("registerUsername");
+const emailInput = document.getElementById("registerEmail");
 
 registerForm.addEventListener("submit", function (e) {
   e.preventDefault();
