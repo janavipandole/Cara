@@ -870,7 +870,7 @@ button.white .ripple-effect {
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(40px);
+        transform: translateY(30px);
     }
 
     to {
@@ -8042,55 +8042,6 @@ button.white .ripple-effect {
 .hero-slider .slide.active {
     opacity: 1;
     z-index: 1;
-}
-/* HERO TEXT ANIMATION */
-
-#hero .slide-content h4,
-#hero .slide-content h2,
-#hero .slide-content h1,
-#hero .slide-content p,
-#hero .hero-btn-group {
-    opacity: 0;
-    transform: translateY(40px);
-}
-
-/* ACTIVE SLIDE ANIMATION */
-.hero-slider .slide.active h4 {
-    animation: fadeInUp 0.6s ease forwards;
-    animation-delay: 0.2s;
-}
-
-.hero-slider .slide.active h2 {
-    animation: fadeInUp 0.6s ease forwards;
-    animation-delay: 0.4s;
-}
-
-.hero-slider .slide.active h1 {
-    animation: fadeInUp 0.6s ease forwards;
-    animation-delay: 0.6s;
-}
-
-.hero-slider .slide.active p {
-    animation: fadeInUp 0.6s ease forwards;
-    animation-delay: 0.8s;
-}
-
-.hero-slider .slide.active .hero-btn-group {
-    animation: fadeInUp 0.6s ease forwards;
-    animation-delay: 1s;
-}
-/* Glow effect for main heading */
-.hero-slider .slide.active h1 {
-    animation: fadeInUp 0.6s ease forwards, glow 2s ease-in-out infinite alternate;
-}
-
-@keyframes glow {
-    from {
-        text-shadow: 0 0 5px var(--accent);
-    }
-    to {
-        text-shadow: 0 0 15px var(--accent);
-    }
 }
 
 /* Gradient Overlays */
@@ -35817,25 +35768,6 @@ html {
     .quickview-title {
         font-size: 1.3rem;
     }
-    .coming-soon {
-  height: 80vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.coming-container h1 {
-  font-size: 3rem;
-}
-
-.coming-container p {
-  margin: 15px 0;
-  font-size: 1.2rem;
-}
-.coming-container {
-  max-width: 500px;
-}
 }
 
 /* Keep the navbar brand readable on dark backgrounds. */
@@ -36196,99 +36128,5 @@ html {
 #banner h2 {
     color: #fff !important;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4) !important;
-}
-
-
-/* ============================================
-   MODERN NAV SEARCH BAR DESIGN
-   ============================================ */
-.nav-search-container {
-  position: relative;
-  flex: 1;
-  max-width: 320px;
-  margin: 0 20px;
-  display: flex;
-  align-items: center;
-}
-
-.nav-search-container .search-icon {
-  position: absolute;
-  left: 16px;
-  color: var(--text-secondary, #888);
-  font-size: 1.15rem;
-  pointer-events: none;
-  transition: color 0.3s ease;
-}
-
-.nav-search-container:focus-within .search-icon {
-  color: #088178;
-}
-
-.nav-search-input {
-  width: 100%;
-  padding: 12px 20px 12px 46px;
-  border-radius: 50px;
-  border: 1px solid var(--border-color, #e0e0e0);
-  background: var(--input-bg, #f9f9f9);
-  color: var(--text-primary, #111);
-  font-size: 0.95rem;
-  font-weight: 500;
-  outline: none;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.03) inset;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-
-[data-theme="dark"] .nav-search-input {
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: inset 0 2px 6px rgba(0,0,0,0.2);
-}
-
-.nav-search-input:hover {
-  border-color: #088178;
-}
-
-.nav-search-input:focus {
-  background: var(--bg-color, #ffffff);
-  border-color: #088178;
-  box-shadow: 0 4px 15px rgba(8, 129, 120, 0.18);
-  transform: translateY(-1px);
-}
-
-/* ============================================
-   GLOBAL RESPONSIVE FIXES (DESKTOP / MOBILE)
-   ============================================ */
-#navbar-container {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  flex: 1;
-}
-
-@media (max-width: 799px) {
-  #navbar-container {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  #navbar-container .nav-search-container {
-    order: 3;
-    width: 100%;
-    max-width: 100% !important;
-    margin: 10px 0 0 0 !important;
-    flex: none !important;
-  }
-}
-
-@media (min-width: 800px) {
-  .mobile {
-    display: none !important;
-  }
-}
-
-/* ============================================
-   NAVBAR LINKS UNIFORM FONT OVERRIDE
-   ============================================ */
-#navbar li a {
-    font-size: 16px !important;
-    font-weight: 600 !important;
 }
 

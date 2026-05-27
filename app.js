@@ -1231,7 +1231,7 @@ window.showToast = function (msg, isError) {
   var toastIcon = document.getElementById('toast-icon');
   if (!toast || !toastMsg) return;
   toastMsg.textContent = msg;
-  if (toastIcon) toastIcon.innerHTML = isError ? '<i class="ri-error-warning-line"></i>' : '<i class="ri-checkbox-circle-line"></i>';
+  if (toastIcon) toastIcon.textContent = isError ? '⚠️' : '✅';
   toast.classList.add('show');
   setTimeout(function () { toast.classList.remove('show'); }, 3500);
 };
@@ -1667,23 +1667,6 @@ document.addEventListener('DOMContentLoaded', () => {
     modal.classList.add("active");
     modal.setAttribute("aria-hidden", "false");
   };
-
-  document.addEventListener("DOMContentLoaded", () => {
-    const resetBtn = document.getElementById("resetFiltersBtn");
-    if (resetBtn) {
-      resetBtn.addEventListener("click", () => {
-        document.getElementById("categoryFilter").value = "all";
-        document.getElementById("style-filter").value = "all";
-        document.getElementById("brand-filter").value = "all";
-        document.getElementById("color-filter").value = "all";
-        const searchInput = document.getElementById("searchInput");
-        if (searchInput) searchInput.value = "";
-        const suggestions = document.getElementById("searchSuggestions");
-        if (suggestions) suggestions.innerHTML = "";
-        location.reload();
-      });
-    }
-  });
 })();
 /* --- END: PRODUCT QUICK-VIEW MODAL FUNCTIONALITY --- */
 const savedTheme = localStorage.getItem('theme');
