@@ -146,10 +146,29 @@ document.addEventListener('DOMContentLoaded', function () {
         captchaRefresh.addEventListener('click', generateCaptcha);
     }
 
+    // ── Email Field Live Validation Helpers ──
+    const loginEmailEl = document.getElementById('loginEmail');
+    if (loginEmailEl) {
+        loginEmailEl.addEventListener('blur', function() {
+            const emailVal = loginEmailEl.value.trim();
+            const isValid = emailVal.includes('@') && emailVal.includes('.') && !/\d/.test(emailVal);
+            loginEmailEl.classList.toggle('is-valid', isValid && emailVal !== '');
+            loginEmailEl.classList.toggle('is-invalid', !isValid && emailVal !== '');
+        });
+        loginEmailEl.addEventListener('input', function() {
+            if (loginEmailEl.classList.contains('is-invalid')) {
+                const emailVal = loginEmailEl.value.trim();
+                const isValid = emailVal.includes('@') && emailVal.includes('.') && !/\d/.test(emailVal);
+                if (isValid) {
+                    loginEmailEl.classList.remove('is-invalid');
+                }
+            }
+        });
+    }
+
     // ── Form Submission Logic ──
     form.addEventListener('submit', function (e) {
         e.preventDefault();
-        const loginEmailEl = document.getElementById('loginEmail');
         const email = loginEmailEl ? loginEmailEl.value.trim() : '';
         const password = document.getElementById('loginPassword').value;
 
