@@ -650,6 +650,14 @@
     color: #e0245e;
 }
 
+@media (max-width: 1024px) {
+    #product1 .pro-container,
+    #shop-container {
+        gap: 18px;
+        padding: 20px 40px;
+    }
+}
+
 @media (max-width: 900px) {
     #product1 .pro-container,
     #shop-container {
@@ -659,6 +667,7 @@
     }
 
     #product1 .pro {
+        padding: 12px;
         padding-bottom: 64px;
         border-radius: 14px;
     }
