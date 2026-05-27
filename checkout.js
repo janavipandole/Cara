@@ -12,7 +12,24 @@ const validators = {
   required: (val) => val.trim() !== "",
   email: (val) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val.trim()),
   phone: (val) => /^\+?[\d\s\-]{7,15}$/.test(val.trim()),
-  cardNumber: (val) => /^\d{16}$/.test(val.replace(/\s/g, "")),
+  cardNumber: (val) => {
+    const raw = val.replace(/\s/g, "");
+    if (!/^\d{13,19}$/.test(raw)) return false;
+    
+    // Luhn checksum algorithm implementation
+    let sum = 0;
+    let shouldDouble = false;
+    for (let i = raw.length - 1; i >= 0; i--) {
+      let digit = parseInt(raw.charAt(i));
+      if (shouldDouble) {
+        digit *= 2;
+        if (digit > 9) digit -= 9;
+      }
+      sum += digit;
+      shouldDouble = !shouldDouble;
+    }
+    return sum % 10 === 0;
+  },
   expiry: (val) => {
     const value = val.trim();
     const match = value.match(/^(0[1-9]|1[0-2])\/\d{2}$/);
@@ -41,7 +58,7 @@ const errorMessages = {
   zip:        "Please enter a valid ZIP/postal code",
   paymentMethod: "Please select a payment method",
   cardName:   "Card holder name is required",
-  cardNumber: "Card number must be 16 digits",
+  cardNumber: "Card number is invalid (Luhn Check failed)",
   expiry:     "Please enter a valid future expiry date (MM/YY)",
   cvv:        "CVV must be 3-4 digits",
 };
