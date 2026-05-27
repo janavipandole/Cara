@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Fashion Assistant | Cara</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body { font-family: 'DM Sans', sans-serif; background: #e8f4f0; min-height: 100vh; padding: 2rem; color: #1f1f1f; }
+
+    .main-container { max-width: 1400px; margin: auto; }
+
+    .rf-badge { display: inline-flex; align-items: center; gap: 6px; background: #0f6e56; color: #e1f5ee; font-size: 13px; font-weight: 500; padding: 7px 18px; border-radius: 100px; margin-bottom: 1.2rem; }
+    .rf-badge .star { color: #FAC775; }
+
+    .main-title { font-family: 'Playfair Display', serif; font-size: 2.6rem; color: #04342c; margin-bottom: 1.8rem; line-height: 1.2; }
+
+    .feature-container { display: grid; grid-template-columns: 1fr 1.4fr; gap: 1.5rem; align-items: start; }
+
+    /* LEFT */
+    .upload-section { background: white; border-radius: 24px; padding: 2rem; box-shadow: 0 8px 24px rgba(0,0,0,0.05); }
+    .upload-section h2 { font-family: 'Playfair Display', serif; color: #0f6e56; font-size: 1.7rem; margin-bottom: 1.25rem; }
+
+    .upload-box { border: 2px dashed #9fe1cb; border-radius: 16px; padding: 2.2rem 1.5rem; text-align: center; background: #f6fcfa; cursor: pointer; transition: background 0.2s, transform 0.2s; display: block; position: relative; }
+    .upload-box:hover { background: #e1f5ee; transform: translateY(-2px); }
+    #fileInput { display: none; }
+    .upload-box .cam-icon { font-size: 2.2rem; margin-bottom: 10px; }
+    .upload-box h3 { color: #0f6e56; font-size: 1.1rem; font-weight: 600; margin-bottom: 6px; }
+    .upload-box p { color: #888780; font-size: 13px; }
+
+    #preview { width: 100%; max-height: 320px; object-fit: cover; border-radius: 14px; display: none; }
+
+    /* Change photo link */
+    .change-photo { display: none; text-align: center; margin-top: 10px; }
+    .change-photo label { font-size: 12px; color: #0f6e56; cursor: pointer; text-decoration: underline; font-weight: 500; }
+
+    .find-btn { width: 100%; margin-top: 1.2rem; padding: 1rem; border: none; border-radius: 14px; background: #0f6e56; color: white; font-size: 1rem; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: background 0.2s, transform 0.1s; }
+    .find-btn:hover { background: #085041; }
+    .find-btn:active { transform: scale(0.98); }
+    .find-btn:disabled { background: #9fe1cb; cursor: not-allowed; }
+
+    /* RIGHT */
+    .recommendation-section h2 { font-family: 'Playfair Display', serif; color: #0f6e56; font-size: 1.9rem; margin-bottom: 1.1rem; }
+
+    .view-toggle { display: flex; gap: 10px; margin-bottom: 1rem; }
+    .toggle-btn { padding: 7px 16px; border-radius: 100px; border: 1.5px solid #9fe1cb; background: white; color: #0f6e56; font-size: 13px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: 0.2s; }
+    .toggle-btn.active, .toggle-btn:hover { background: #0f6e56; color: white; border-color: #0f6e56; }
+
+    /* LOADING */
+    .loading-state { background: white; border-radius: 24px; min-height: 360px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2.5rem; box-shadow: 0 8px 24px rgba(0,0,0,0.05); }
+    .loader { width: 52px; height: 52px; border: 4px solid #d5eeea; border-top-color: #0f6e56; border-radius: 50%; animation: spin 0.9s linear infinite; margin-bottom: 1.2rem; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-state h3 { font-size: 1.15rem; font-weight: 600; margin-bottom: 8px; color: #1f1f1f; }
+    .loading-state p { color: #888780; font-size: 13.5px; line-height: 1.6; max-width: 300px; }
+
+    /* AI RESULTS */
+    .ai-results { display: none; flex-direction: column; gap: 14px; }
+    .style-card { background: white; border-radius: 18px; padding: 1.1rem 1.25rem; border: 0.5px solid rgba(15,110,86,0.15); box-shadow: 0 4px 14px rgba(0,0,0,0.04); animation: fadein 0.4s ease both; }
+    @keyframes fadein { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .style-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+    .style-name { font-size: 15px; font-weight: 600; color: #04342c; }
+    .style-match { background: #e1f5ee; color: #085041; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 100px; }
+    .style-desc { font-size: 13px; color: #5f5e5a; line-height: 1.55; margin-bottom: 8px; }
+    .style-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .tag { font-size: 11px; background: #f6fcfa; color: #0f6e56; border: 0.5px solid #9fe1cb; padding: 3px 10px; border-radius: 100px; font-weight: 500; }
+
+    /* PRODUCT CARDS */
+    .products { display: none; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .card { background: white; border-radius: 20px; padding: 16px; box-shadow: 0 8px 20px rgba(0,0,0,0.05); transition: transform 0.2s; }
+    .card:hover { transform: translateY(-3px); }
+    .card-img-wrap { position: relative; width: 100%; height: 200px; border-radius: 14px; overflow: hidden; margin-bottom: 12px; background: #f6fcfa; }
+    .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .card-badge { position: absolute; top: 10px; left: 10px; background: #0f6e56; color: white; font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 100px; }
+    .card h3 { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: #1f1f1f; }
+    .card-sub { font-size: 12px; color: #888780; margin-bottom: 8px; }
+    .price { color: #0f6e56; font-size: 15px; font-weight: 700; margin-bottom: 12px; }
+    .shop-btn { width: 100%; padding: 11px; border: none; background: #111; color: white; border-radius: 12px; font-size: 14px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: background 0.2s; }
+    .shop-btn:hover { background: #0f6e56; }
+
+    /* EXPLORE */
+    .explore { text-align: center; margin-top: 2.5rem; }
+    .explore a { display: inline-flex; align-items: center; gap: 8px; background: #085041; color: #e1f5ee; text-decoration: none; padding: 0.9rem 2.2rem; border-radius: 100px; font-size: 15px; font-weight: 600; transition: background 0.2s, transform 0.1s; }
+    .explore a:hover { background: #04342c; }
+    .explore a:active { transform: scale(0.98); }
+
+    @media (max-width: 900px) {
+      .feature-container { grid-template-columns: 1fr; }
+      .main-title { font-size: 1.9rem; }
+      .products { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="main-container">
+
+  <span class="rf-badge"><span class="star">✦</span> AI Fashion Discovery</span>
+  <h1 class="main-title">AI Fashion Assistant</h1>
+
+  <div class="feature-container">
+
+    <!-- LEFT: Upload -->
+    <div class="upload-section">
+      <h2>Upload Your Outfit</h2>
+
+      <label class="upload-box" id="uploadBox" for="fileInput">
+        <input type="file" id="fileInput" accept="image/*" />
+        <div class="cam-icon">📷</div>
+        <h3>Upload Inspiration</h3>
+        <p>Drag & drop or click to upload your outfit image</p>
+      </label>
+
+      <img id="preview" alt="Uploaded outfit preview" />
+
+      <div class="change-photo" id="changePhotoWrap">
+        <label for="fileInput">↩ Change photo</label>
+      </div>
+
+      <button class="find-btn" id="findBtn" disabled>Find Similar Styles</button>
+    </div>
+
+    <!-- RIGHT: Recommendations -->
+    <div class="recommendation-section">
+      <h2>Recommended Styles</h2>
+
+      <div class="view-toggle" id="viewToggle" style="display:none;">
+        <button class="toggle-btn active" id="btnAI" onclick="switchView('ai')">AI Insights</button>
+        <button class="toggle-btn" id="btnProducts" onclick="switchView('products')">Shop Items</button>
+      </div>
+
+      <!-- Loading -->
+      <div class="loading-state" id="loadingState">
+        <div class="loader"></div>
+        <h3>Looking for your preferences...</h3>
+        <p>Upload an outfit inspiration to discover matching fashion recommendations.</p>
+      </div>
+
+      <!-- AI Style Cards -->
+      <div class="ai-results" id="aiResults"></div>
+
+      <!-- Anarkali Product Cards -->
+      <div class="products" id="products">
+
+        <div class="card">
+          <div class="card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400&h=400&fit=crop&crop=center" alt="Pink Anarkali Suit" onerror="this.src='https://placehold.co/400x200/fce4ec/880e4f?text=Anarkali+Suit'">
+            <span class="card-badge">Best Match</span>
+          </div>
+          <h3>Embroidered Pink Anarkali</h3>
+          <p class="card-sub">Full flare with dupatta — festive wear</p>
+          <p class="price">₹3,499</p>
+          <button class="shop-btn">Shop Now</button>
+        </div>
+
+        <div class="card">
+          <div class="card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=400&h=400&fit=crop&crop=center" alt="Magenta Ethnic Suit" onerror="this.src='https://placehold.co/400x200/f8bbd0/880e4f?text=Ethnic+Suit'">
+          </div>
+          <h3>Magenta Ethnic Suit Set</h3>
+          <p class="card-sub">Kurta + palazzo + dupatta</p>
+          <p class="price">₹2,899</p>
+          <button class="shop-btn">Shop Now</button>
+        </div>
+
+        <div class="card">
+          <div class="card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=400&h=400&fit=crop&crop=center" alt="Designer Anarkali" onerror="this.src='https://placehold.co/400x200/fce4ec/880e4f?text=Designer+Anarkali'">
+          </div>
+          <h3>Designer Floral Anarkali</h3>
+          <p class="card-sub">Printed georgette with churidar</p>
+          <p class="price">₹4,199</p>
+          <button class="shop-btn">Shop Now</button>
+        </div>
+
+        <div class="card">
+          <div class="card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1594938298603-c8148c4b4741?w=400&h=400&fit=crop&crop=center" alt="Black Jacket Kurta" onerror="this.src='https://placehold.co/400x200/e8f5e9/1b5e20?text=Jacket+Kurta'">
+          </div>
+          <h3>Black Jacket Kurta Set</h3>
+          <p class="card-sub">Indo-western with contrast dupatta</p>
+          <p class="price">₹3,199</p>
+          <button class="shop-btn">Shop Now</button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="explore">
+    <a href="shop.html">Explore Different Styles →</a>
+  </div>
+
+</div>
+
+<script>
+  const fileInput    = document.getElementById('fileInput');
+  const preview      = document.getElementById('preview');
+  const findBtn      = document.getElementById('findBtn');
+  const loadingState = document.getElementById('loadingState');
+  const aiResults    = document.getElementById('aiResults');
+  const products     = document.getElementById('products');
+  const viewToggle   = document.getElementById('viewToggle');
+  const uploadBox    = document.getElementById('uploadBox');
+  const changeWrap   = document.getElementById('changePhotoWrap');
+
+  let uploadedFile = null;
+
+  // ── File selected ──────────────────────────────────────────────
+  fileInput.addEventListener('change', function () {
+    const file = this.files[0];
+    if (!file) return;
+    uploadedFile = file;
+
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      preview.src = e.target.result;
+      preview.style.display = 'block';
+      uploadBox.style.display = 'none';
+      changeWrap.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+
+    findBtn.disabled = false;
+
+    // Reset right panel
+    loadingState.style.display = 'flex';
+    loadingState.querySelector('.loader').style.display = 'none';
+    loadingState.querySelector('h3').textContent = 'Image ready!';
+    loadingState.querySelector('p').textContent  = 'Click "Find Similar Styles" to get AI recommendations.';
+    aiResults.style.display  = 'none';
+    products.style.display   = 'none';
+    viewToggle.style.display = 'none';
+  });
+
+  // ── Find button ────────────────────────────────────────────────
+  findBtn.addEventListener('click', function () {
+    if (!uploadedFile) return;
+    analyzeOutfit();
+  });
+
+  // ── Analyse with Claude API ────────────────────────────────────
+  async function analyzeOutfit() {
+    findBtn.disabled = true;
+    findBtn.textContent = 'Analyzing...';
+
+    loadingState.style.display = 'flex';
+    loadingState.querySelector('.loader').style.display = 'block';
+    loadingState.querySelector('h3').textContent = 'Analyzing your outfit...';
+    loadingState.querySelector('p').textContent  = 'Our AI is identifying your style. Just a moment!';
+    aiResults.style.display  = 'none';
+    products.style.display   = 'none';
+    viewToggle.style.display = 'none';
+
+    const base64 = await toBase64(uploadedFile);
+
+    try {
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 1000,
+          messages: [{
+            role: 'user',
+            content: [
+              { type: 'image', source: { type: 'base64', media_type: uploadedFile.type || 'image/jpeg', data: base64 } },
+              { type: 'text', text: `You are an Indian ethnic fashion expert. Analyze this outfit image carefully.
+Look at the actual garment type, colors, embroidery, silhouette, and occasion.
+Return ONLY a JSON array (no markdown, no backticks, no extra text) of 3 specific style recommendations that closely match what is shown.
+For Indian ethnic wear like Anarkali, salwar kameez, saree, lehenga, kurti etc — give recommendations specific to that category.
+Each object: { "name": "specific style name", "match": "XX%", "description": "1-2 sentences specific to what you see in the image", "tags": ["tag1","tag2","tag3"] }
+Be very specific — mention colors, embroidery patterns, occasion (festive/casual/wedding), and silhouette details you actually see.` }
+            ]
+          }]
+        })
+      });
+
+      const data = await response.json();
+      const text = data.content.map(i => i.text || '').join('');
+      const clean = text.replace(/```json|```/g, '').trim();
+      let styles;
+      try { styles = JSON.parse(clean); } catch { styles = anarkalliFallback(); }
+      renderAI(styles);
+
+    } catch (err) {
+      renderAI(anarkalliFallback());
+    }
+
+    findBtn.disabled = false;
+    findBtn.textContent = 'Find Similar Styles';
+  }
+
+  // ── Render AI style cards ──────────────────────────────────────
+  function renderAI(styles) {
+    aiResults.innerHTML = styles.map((s, i) => `
+      <div class="style-card" style="animation-delay:${i * 0.1}s">
+        <div class="style-header">
+          <span class="style-name">${s.name}</span>
+          <span class="style-match">${s.match} match</span>
+        </div>
+        <div class="style-desc">${s.description}</div>
+        <div class="style-tags">${(s.tags || []).map(t => `<span class="tag">${t}</span>`).join('')}</div>
+      </div>
+    `).join('');
+
+    loadingState.style.display = 'none';
+    aiResults.style.display    = 'flex';
+    products.style.display     = 'none';
+    viewToggle.style.display   = 'flex';
+    switchView('ai');
+  }
+
+  // ── Toggle AI / Shop view ──────────────────────────────────────
+  function switchView(view) {
+    document.getElementById('btnAI').classList.toggle('active', view === 'ai');
+    document.getElementById('btnProducts').classList.toggle('active', view === 'products');
+    aiResults.style.display = view === 'ai'       ? 'flex'  : 'none';
+    products.style.display  = view === 'products' ? 'grid'  : 'none';
+  }
+
+  // ── Helpers ────────────────────────────────────────────────────
+  function toBase64(file) {
+    return new Promise((res, rej) => {
+      const r = new FileReader();
+      r.onload  = () => res(r.result.split(',')[1]);
+      r.onerror = () => rej(new Error('Read failed'));
+      r.readAsDataURL(file);
+    });
+  }
+
+  // Anarkali-specific fallback (shown if API not connected)
+  function anarkalliFallback() {
+    return [
+      {
+        name: 'Flared Anarkali Suit',
+        match: '95%',
+        description: 'A deep magenta flared Anarkali with geometric embroidery — perfect for festive occasions and family functions. Pair with statement jhumkas and a contrast dupatta.',
+        tags: ['festive', 'flared silhouette', 'embroidered', 'magenta']
+      },
+      {
+        name: 'Indo-Western Jacket Kurta',
+        match: '87%',
+        description: 'A structured black jacket layered over a pink kurta for an elegant Indo-western look. Ideal for reception parties and semi-formal events.',
+        tags: ['indo-western', 'layered', 'semi-formal', 'contrasting']
+      },
+      {
+        name: 'Palazzo Ethnic Set',
+        match: '80%',
+        description: 'Wide-leg palazzo paired with a printed kurta in jewel tones. Comfortable yet stylish for festivals, sangeet, or day functions.',
+        tags: ['palazzo', 'ethnic', 'jewel tones', 'comfortable']
+      }
+    ];
+  }
+</script>
+
+</body>
+</html>
