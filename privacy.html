@@ -217,7 +217,7 @@
         </div>
 
         <div class="policy-section">
-          <dt><h2>⚡ 2. How We Use Your Information</h2></dt>
+          <dt><h2><i class="fas fa-bolt"></i> 2. How We Use Your Information</h2></dt>
           <dd>
             <p>The information collected is used to:</p>
             <ul>
@@ -391,10 +391,82 @@
       </div>
     </footer>
 
+    <!-- Interactive Cookie Preferences Drawer -->
+    <div id="cookieDrawer" style="position: fixed; bottom: -400px; right: 20px; width: 340px; background: var(--bg-primary, #fff); border: 1px solid var(--border-color, #e0e0e0); border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); padding: 20px; z-index: 1000; transition: bottom 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); color: var(--text-primary, #333);">
+      <h3 style="margin: 0 0 10px 0; font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 8px;"><i class="fas fa-cookie-bite" style="color: #088178;"></i> Consent Manager</h3>
+      <p style="font-size: 12.5px; margin: 0 0 15px 0; color: var(--text-secondary, #666); line-height: 1.5;">Customize your cookie preference parameters. Essential cookies are mandatory for operations.</p>
+      
+      <div style="margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-size: 13px; font-weight: 600;">Essential (Core)</span>
+        <span style="font-size: 11px; text-transform: uppercase; color: #088178; font-weight: 700;">Always On</span>
+      </div>
+      
+      <div style="margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-size: 13px; font-weight: 600;">Performance / Analytics</span>
+        <input type="checkbox" id="cookieAnalytics" checked style="width: 16px; height: 16px; accent-color: #088178;" />
+      </div>
+
+      <div style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-size: 13px; font-weight: 600;">Marketing & Targeting</span>
+        <input type="checkbox" id="cookieMarketing" style="width: 16px; height: 16px; accent-color: #088178;" />
+      </div>
+
+      <div style="display: flex; gap: 10px;">
+        <button onclick="saveCookiePreferences()" style="flex: 1; padding: 10px; background: #088178; color: #fff; border: none; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; transition: opacity 0.2s;">Save Choice</button>
+        <button onclick="acceptAllCookies()" style="flex: 1; padding: 10px; background: transparent; border: 1px solid #088178; color: #088178; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s;">Accept All</button>
+      </div>
+    </div>
+
+    <!-- Trigger Button -->
+    <button onclick="toggleCookieDrawer()" style="position: fixed; bottom: 20px; left: 20px; padding: 10px 16px; background: #088178; color: #fff; border: none; border-radius: 30px; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(8,129,120,0.3); z-index: 999;">
+      <i class="fas fa-cookie-bite"></i> Privacy Settings
+    </button>
+
     <div id="toast-container"></div>
     <script src="app.js"></script>
-            <script id="Current-Year">
+    <script id="Current-Year">
         document.getElementById("Current-Year").textContent = new Date().getFullYear();
+    </script>
+    
+    <script>
+      function toggleCookieDrawer() {
+        const drawer = document.getElementById('cookieDrawer');
+        if (drawer.style.bottom === '20px') {
+          drawer.style.bottom = '-400px';
+        } else {
+          drawer.style.bottom = '20px';
+        }
+      }
+
+      function saveCookiePreferences() {
+        const analytics = document.getElementById('cookieAnalytics').checked;
+        const marketing = document.getElementById('cookieMarketing').checked;
+        localStorage.setItem('cara_cookie_analytics', analytics);
+        localStorage.setItem('cara_cookie_marketing', marketing);
+        localStorage.setItem('cara_cookies_configured', 'true');
+        
+        alert('Privacy preferences successfully saved!');
+        document.getElementById('cookieDrawer').style.bottom = '-400px';
+      }
+
+      function acceptAllCookies() {
+        document.getElementById('cookieAnalytics').checked = true;
+        document.getElementById('cookieMarketing').checked = true;
+        saveCookiePreferences();
+      }
+
+      // Auto pop-up if not configured yet
+      document.addEventListener('DOMContentLoaded', () => {
+        if (!localStorage.getItem('cara_cookies_configured')) {
+          setTimeout(() => {
+            document.getElementById('cookieDrawer').style.bottom = '20px';
+          }, 1500);
+        } else {
+          // Sync state from storage
+          document.getElementById('cookieAnalytics').checked = localStorage.getItem('cara_cookie_analytics') === 'true';
+          document.getElementById('cookieMarketing').checked = localStorage.getItem('cara_cookie_marketing') === 'true';
+        }
+      });
     </script>
   </body>
 </html>
