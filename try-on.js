@@ -116,7 +116,11 @@ window.openCamera = function () {
     })
     .catch(err => {
         console.error('Camera error:', err);
-        alert('Camera access failed');
+        if (typeof showToast === 'function') {
+            showToast('Camera access blocked. Please enable webcam permission.', 'error');
+        } else {
+            alert('Camera access blocked. Please enable webcam permission.');
+        }
     });
 }
 function startLiveDetection() {
