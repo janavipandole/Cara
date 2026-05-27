@@ -4,12 +4,12 @@ from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 from passlib.context import CryptContext
 from jose import jwt, JWTError
-
+import os
 from app.database import get_db
 from app import models
 from app.schemas import UserRegister, UserLogin, Token, UserOut
 
-SECRET_KEY = "CHANGE_ME_USE_ENV_VAR_IN_PROD"
+SECRET_KEY = os.environ["SECRET_KEY"] #set it in .env 
 ALGORITHM  = "HS256"
 TOKEN_DAYS = 7
 
@@ -70,7 +70,7 @@ def register(payload: UserRegister, db: Session = Depends(get_db)):
     return Token(
         access_token = create_token(user.email),
         token_type   = "bearer",
-        user         = UserOut.from_orm(user)
+        user         = UserOut.model_validate(user)
     )
 
 
@@ -88,7 +88,7 @@ def login(payload: UserLogin, db: Session = Depends(get_db)):
     return Token(
         access_token = create_token(user.email),
         token_type   = "bearer",
-        user         = UserOut.from_orm(user)
+        user         = UserOut.model_validate(user)
     )
 
 
