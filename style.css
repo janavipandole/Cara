@@ -35937,4 +35937,37 @@ html {
     font-size: 16px !important;
     font-weight: 600 !important;
 }
+/*Scroll to top */
+#scrollToTopBtn {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;                    /* ← changed */
+  transform: translateX(-50%);  /* ← centers it horizontally */
+  z-index: 999;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.2s ease;
+  background-color:#088178;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+#scrollToTopBtn.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Hover — override transform to keep it centered while scaling */
+#scrollToTopBtn:hover {
+  transform: translateX(-50%) scale(1.1);  /* ← important, keep translateX here too */
+}
 

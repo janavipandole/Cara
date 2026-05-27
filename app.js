@@ -2621,3 +2621,21 @@ if (savedTheme === 'dark') {
     document.body.classList.add('dark');
     updateThemeIcon('dark');
 }
+//scroll to top function
+(function () {
+  if (!document.getElementById('scrollToTopBtn')) return;
+
+  const btn = document.getElementById('scrollToTopBtn');
+
+  window.addEventListener('scroll', function () {
+    if (window.scrollY > 300) {
+      btn.classList.add('visible');
+    } else {
+      btn.classList.remove('visible');
+    }
+  });
+
+  btn.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
