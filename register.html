@@ -109,31 +109,39 @@
     <a href="index.html" class="back-button">&#8592; Back to Shop</a>
     <h2>Register</h2>
     <p class="subtitle">Create your account <i class="fas fa-smile"></i></p>
-
+<p class="required-note">
+  Fields marked with * are required.
+</p>
     <form id="registerForm" novalidate>
 
       <!-- FULL NAME -->
       <div class="form-group">
-        <label for="registerUsername">Full Name</label>
+        <label for="registerUsername">
+  Full Name <span class="required">*</span>
+</label>
         <input
-          type="text"
-          id="registerUsername"
-          name="name"
-          placeholder="Enter your full name"
-          required
-          autocomplete="name"
-        >
+  type="text"
+  id="registerUsername"
+  name="name"
+  placeholder="Enter your full name"
+  required
+  aria-required="true"
+  autocomplete="name"
+>
       </div>
 
       <!-- EMAIL -->
       <div class="form-group">
-        <label for="registerEmail">Email</label>
+        <label for="registerEmail">
+  Email <span class="required">*</span>
+</label>
         <input
           type="email"
           id="registerEmail"
           name="email"
           placeholder="Enter your email"
           required
+           aria-required="true"
           autocomplete="email"
         >
       </div>
@@ -456,3 +464,4 @@
 </body>
 
 </html>
+

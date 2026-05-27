@@ -121,10 +121,10 @@
 
 </section>
     <section id="product1" class="section-p1">
-      <div class="sort-container" aria-label="Sort products">
+      <div class="sort-container" aria-label="Sort products" role="region" aria-live="polite">
         <label class="sort-label" for="sort-price"><i class="ri-sorting-asc"></i> Sort by</label>
         <div class="sort-select-wrap">
-          <select id="sort-price" class="sort-dropdown">
+          <select id="sort-price" class="sort-dropdown" aria-describedby="sort-hint">
             <option value="default">Default Sorting</option>
             <option value="low-high">Price: Low to High</option>
             <option value="high-low">Price: High to Low</option>
@@ -133,9 +133,10 @@
             <option value="newest">Newest</option>
           </select>
           <i class="ri-arrow-down-s-line sort-chevron" aria-hidden="true"></i>
+          <span id="sort-hint" hidden>Choose how to order the product listings</span>
         </div>
       </div>
-      <div class="pro-container" id="shop-container"></div>
+      <div class="pro-container" id="shop-container" aria-live="polite" aria-label="Product listings"></div>
     </section>
 
     <section id="newsletter" class="section-p1">
@@ -154,7 +155,7 @@
 
     <footer class="section-p1">
     <section id="product1" class="section-p1">
-      <div class="sort-container" aria-label="Sort products">
+      <div class="sort-container" aria-label="Sort products" role="region" aria-live="polite">
         <label class="sort-label" for="sort-price"><i class="ri-sorting-asc"></i> Sort by</label>
         <div class="sort-select-wrap">
           <select id="sort-price" class="sort-dropdown">
@@ -405,3 +406,5 @@ brandFilter.addEventListener("change", function () {
 </body>
 </html>
 
+
+<!-- A11y and structural improvements -->
