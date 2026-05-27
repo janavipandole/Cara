@@ -11,6 +11,7 @@ function loadNavbar() {
     'community.html': 'community',
     'promotions.html': 'promotions',
     'login.html': 'login',
+    'profile.html': 'profile',
   };
 
   const activePage = activeMap[currentPage];
@@ -68,7 +69,16 @@ function loadNavbar() {
           </a>
         </li>
 
-        <!-- Login Icon -->
+        <!-- Profile Icon -->
+<li class="nav-icon">
+  <a
+    ${activePage === 'profile' ? 'class="active"' : ''}
+    href="profile.html"
+    title="Profile"
+    aria-label="Profile"
+  >
+  </a>
+</li>
         <li class="nav-icon">
           <a ${activePage === 'login' ? 'class="active"' : ''} href="login.html" title="Sign In" aria-label="Login">
             <i class="ri-user-3-line"></i>
@@ -119,11 +129,6 @@ if (container) {
   }
 }
 }
-  initDarkMode();
-  initMobileNavbar();
-  
-  function initMobileNavbar() {
-
 // Initialize navbar and UI
 loadNavbar();
 initDarkMode();

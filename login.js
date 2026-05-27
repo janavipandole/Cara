@@ -1,64 +1,72 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('loginForm');
-    const passwordInput = document.getElementById('loginPassword');
-    const togglePassword = document.getElementById('togglePassword');
-    const toggleIcon = document.getElementById('toggleIcon');
+// ===============================
+// PASSWORD TOGGLE
+// ===============================
 
-    // ── Password Visibility Toggle Logic ──
-    if (passwordInput && togglePassword && toggleIcon) {
-        togglePassword.addEventListener('click', function () {
-            // Toggle the input field's type attribute
-            const isPasswordHidden = passwordInput.type === 'password';
-            passwordInput.type = isPasswordHidden ? 'text' : 'password';
+const togglePassword = document.getElementById("togglePassword");
+const passwordInput = document.getElementById("loginPassword");
+const toggleIcon = document.getElementById("toggleIcon");
 
-            // Toggle the Remix Icon classes cleanly without modifying innerHTML structure
-            if (isPasswordHidden) {
-                toggleIcon.classList.remove('ri-eye-line');
-                toggleIcon.classList.add('ri-eye-off-line');
-            } else {
-                toggleIcon.classList.remove('ri-eye-off-line');
-                toggleIcon.classList.add('ri-eye-line');
-            }
-        });
-    }
+togglePassword.addEventListener("click", () => {
+    const type =
+        passwordInput.getAttribute("type") === "password"
+            ? "text"
+            : "password";
 
-    if (!form) return;
+    passwordInput.setAttribute("type", type);
 
-    // ── Form Submission Logic ──
-    form.addEventListener('submit', function (e) {
+    // Toggle icon
+    toggleIcon.classList.toggle("ri-eye-line");
+    toggleIcon.classList.toggle("ri-eye-off-line");
+});
+
+// ===============================
+// LOGIN FORM SUBMIT
+// ===============================
+
+document
+    .getElementById("loginForm")
+    .addEventListener("submit", function (e) {
+
         e.preventDefault();
-        const email = document.getElementById('loginEmail').value.trim();
-        const password = document.getElementById('loginPassword').value;
 
+        const email = document
+            .getElementById("loginEmail")
+            .value
+            .trim();
+
+        const password = document
+            .getElementById("loginPassword")
+            .value
+            .trim();
+
+        // Validation
         if (!email || !password) {
-            showToast('Please fill all fields.', 'warning');
+            alert("Please fill all fields");
             return;
         }
 
-        // ── Loading state: disable button & show spinner ──
-        const submitBtn = form.querySelector('.login-btn');
-        if (submitBtn) {
-            submitBtn.classList.add('btn-loading');
-            submitBtn.disabled = true;
-        }
+        // Demo user object
+        const extractedName = email.split("@")[0];
 
-        // Simulate async request (replace with real API call)
-        setTimeout(function () {
-            const users = JSON.parse(localStorage.getItem('users') || '[]');
-            const user = users.find(u => u.email === email && u.password === password);
+const formattedName =
+    extractedName.charAt(0).toUpperCase() +
+    extractedName.slice(1);
 
-            if (user) {
-                // On successful login
-                localStorage.setItem('loggedInUser', email);
-                window.location.href = 'index.html';
-            } else {
-                showToast("Invalid email or password", "error");
-                // ── Re-enable button on failure ──
-                if (submitBtn) {
-                    submitBtn.classList.remove('btn-loading');
-                    submitBtn.disabled = false;
-                }
-            }
-        }, 1500);
+const user = {
+    name: formattedName,
+    email: email,
+    orders: 5
+};
+
+        // Save user data
+        localStorage.setItem(
+            "user",
+            JSON.stringify(user)
+        );
+
+        // Success alert
+        alert("Login successful!");
+
+        // Redirect to profile page
+        window.location.href = "profile.html";
     });
-});

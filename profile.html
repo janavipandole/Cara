@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    />
+
+    <title>User Profile</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    />
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css"
+        rel="stylesheet"
+    />
+
+    <style>
+
+body{
+    background: linear-gradient(to right, #f5f5f5, #eef7f6);
+    font-family: 'Poppins', sans-serif;
+}
+
+.profile-container{
+    max-width: 800px;
+    margin: 120px auto;
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+}
+
+.profile-banner{
+    height: 180px;
+    background: linear-gradient(135deg,#088178,#0aa89e);
+}
+
+.profile-content{
+    padding: 30px;
+    text-align: center;
+    margin-top: -70px;
+}
+
+.profile-avatar{
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 6px solid white;
+    object-fit: cover;
+    background: white;
+}
+
+.profile-title{
+    font-size: 48px;
+    margin-top: 20px;
+    color: #222;
+}
+
+.profile-subtitle{
+    color: #777;
+    margin-bottom: 30px;
+}
+
+.profile-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.profile-card{
+    background: #f9f9f9;
+    padding: 24px;
+    border-radius: 16px;
+    transition: 0.3s;
+}
+
+.profile-card:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.profile-card h3{
+    margin-bottom: 10px;
+    color: #088178;
+}
+
+.profile-card p{
+    color: #444;
+    font-size: 18px;
+}
+
+.logout-btn{
+    margin-top: 35px;
+    padding: 14px 32px;
+    border: none;
+    border-radius: 12px;
+    background: #088178;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.logout-btn:hover{
+    background: #066b63;
+    transform: scale(1.05);
+}
+
+</style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <section id="header">
+
+        <a href="index.html">
+            <img
+                id="siteLogo"
+                src="images/logo.png"
+                alt="Cara Logo"
+            />
+        </a>
+
+        <div id="navbar-container"></div>
+
+    </section>
+
+    <!-- PROFILE -->
+    <div class="profile-container">
+
+    <div class="profile-banner"></div>
+
+    <div class="profile-content">
+
+        <img
+            class="profile-avatar"
+            src="https://randomuser.me/api/portraits/men/32.jpg"
+            alt="Profile"
+        />
+
+        <h1 class="profile-title">
+            Welcome Back!
+        </h1>
+
+        <p class="profile-subtitle">
+            Manage your account details and activity
+        </p>
+
+        <div class="profile-grid">
+
+            <div class="profile-card">
+                <h3>Name</h3>
+                <p id="user-name"></p>
+            </div>
+
+            <div class="profile-card">
+                <h3>Email</h3>
+                <p id="user-email"></p>
+            </div>
+
+            <div class="profile-card">
+                <h3>Orders</h3>
+                <p id="user-orders"></p>
+            </div>
+
+        </div>
+
+        <button
+            class="logout-btn"
+            onclick="logout()"
+        >
+            Logout
+        </button>
+
+    </div>
+
+</div>
+
+    <!-- NAVBAR -->
+    <script src="navbar.js"></script>
+
+    <script>
+        loadNavbar("profile");
+
+        // Get user from localStorage
+        const user = JSON.parse(
+            localStorage.getItem("user")
+        );
+
+        // Redirect if not logged in
+        if (!user) {
+            window.location.href = "login.html";
+        }
+
+        // Set profile data
+        document.getElementById("user-name").textContent =
+            user.name;
+
+        document.getElementById("user-email").textContent =
+            user.email;
+
+        document.getElementById("user-orders").textContent =
+            user.orders;
+
+        // Logout function
+        function logout() {
+
+            localStorage.removeItem("user");
+
+            alert("Logged out successfully!");
+
+            window.location.href = "login.html";
+        }
+
+    </script>
+
+</body>
+</html>
