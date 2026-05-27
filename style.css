@@ -391,7 +391,7 @@ button.white:focus-visible {
 }
 
 .back-btn {
-    position: absolute;
+    position: sticky;
     right: 110px;
     top: 140px;
     padding: 11px 24px;
