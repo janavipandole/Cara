@@ -250,10 +250,13 @@ form.addEventListener("submit", function (e) {
     localStorage.removeItem("appliedCoupon");
     window.appliedCoupon = null;
 
-    btn.disabled = false;
-    btn.style.opacity = '';
-    btn.style.cursor = '';
-    btn.innerHTML = originalHTML;
+    if (submitBtn) {
+      submitBtn.classList.remove("btn-loading");
+      submitBtn.disabled = false;
+      submitBtn.style.opacity = "";
+      submitBtn.style.cursor = "";
+      submitBtn.innerHTML = originalHTML;
+    }
 
     form.reset();
 
