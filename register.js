@@ -119,29 +119,82 @@ document.getElementById("registerPassword").addEventListener("input", function (
   const hint = document.getElementById("passwordHint");
   if (!hint) return;
 
+  // Dynamically inject the visual meter bar if not present
+  let meterWrap = document.getElementById("passwordStrengthMeterWrap");
+  if (!meterWrap) {
+    meterWrap = document.createElement("div");
+    meterWrap.id = "passwordStrengthMeterWrap";
+    meterWrap.style.cssText = "margin-top: 10px; margin-bottom: 10px;";
+    meterWrap.innerHTML = `
+      <div style="background: rgba(0,0,0,0.1); height: 6px; border-radius: 3px; overflow: hidden; margin-bottom: 5px;">
+        <div id="strengthBar" style="height: 100%; width: 0%; background: #e74c3c; transition: width 0.3s ease, background 0.3s ease;"></div>
+      </div>
+      <div style="display: flex; justify-content: space-between; font-size: 11px;">
+        <span id="strengthLabel" style="font-weight: 600; color: #e74c3c;">Weak</span>
+        <span id="strengthPercent" style="color: #888;">0%</span>
+      </div>
+    `;
+    hint.parentNode.insertBefore(meterWrap, hint);
+  }
+
   if (/\s/.test(val)) {
     hint.textContent = "✗ Spaces are not allowed in the password.";
     hint.style.color = "#e74c3c";
-  } else if (val.length === 0) {
+    return;
+  }
+
+  if (val.length === 0) {
     hint.textContent = "";
+    document.getElementById("strengthBar").style.width = "0%";
+    document.getElementById("strengthLabel").textContent = "Too Short";
+    document.getElementById("strengthPercent").textContent = "0%";
+    return;
+  }
+
+  const checks = [
+    { pass: val.length >= 8, weight: 20 },
+    { pass: /[A-Z]/.test(val), weight: 20 },
+    { pass: /[a-z]/.test(val), weight: 20 },
+    { pass: /[0-9]/.test(val), weight: 20 },
+    { pass: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(val), weight: 20 },
+  ];
+
+  const score = checks.reduce((acc, c) => acc + (c.pass ? c.weight : 0), 0);
+  const bar = document.getElementById("strengthBar");
+  const label = document.getElementById("strengthLabel");
+  const pct = document.getElementById("strengthPercent");
+
+  bar.style.width = score + "%";
+  pct.textContent = score + "%";
+
+  if (score <= 40) {
+    bar.style.background = "#e74c3c"; // red
+    label.textContent = "Weak";
+    label.style.color = "#e74c3c";
+  } else if (score <= 80) {
+    bar.style.background = "#f39c12"; // orange
+    label.textContent = "Medium";
+    label.style.color = "#f39c12";
   } else {
-    const checks = [
-      { pass: val.length >= 8, msg: "8+ characters" },
-      { pass: /[A-Z]/.test(val), msg: "uppercase letter" },
-      { pass: /[a-z]/.test(val), msg: "lowercase letter" },
-      { pass: /[0-9]/.test(val), msg: "number" },
-      { pass: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(val), msg: "special character" },
-    ];
+    bar.style.background = "#27ae60"; // green
+    label.textContent = "Strong";
+    label.style.color = "#27ae60";
+  }
 
-    const missing = checks.filter((c) => !c.pass).map((c) => c.msg);
+  const missing = [
+    { pass: val.length >= 8, msg: "8+ chars" },
+    { pass: /[A-Z]/.test(val), msg: "uppercase" },
+    { pass: /[a-z]/.test(val), msg: "lowercase" },
+    { pass: /[0-9]/.test(val), msg: "number" },
+    { pass: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(val), msg: "special symbol" },
+  ].filter((c) => !c.pass).map((c) => c.msg);
 
-    if (missing.length === 0) {
-      hint.textContent = "✓ Strong password!";
-      hint.style.color = "#27ae60";
-    } else {
-      hint.textContent = "Missing: " + missing.join(", ");
-      hint.style.color = "#e67e22";
-    }
+  if (missing.length === 0) {
+    hint.textContent = "✓ Password meets all guidelines!";
+    hint.style.color = "#27ae60";
+  } else {
+    hint.textContent = "Requirements left: " + missing.join(", ");
+    hint.style.color = "#e67e22";
   }
 });
 
