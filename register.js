@@ -50,13 +50,6 @@ registerForm.addEventListener("submit", function (e) {
     return;
   }
 
-  if (/\d/.test(email)) {
-    setFieldState(emailInput, false);
-    showError("Numbers are not allowed in the email address.");
-    shakeForm();
-    return;
-  }
-
   setFieldState(emailInput, true);
 
   // Password validations

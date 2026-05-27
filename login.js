@@ -158,11 +158,6 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        if (/\d/.test(email)) {
-            showToast('Numbers are not allowed in the email address.', 'warning');
-            return;
-        }
-
         // CAPTCHA verification on second+ attempts
         if (loginAttempts >= 1) {
             var userCode = captchaInput ? captchaInput.value.trim().toUpperCase() : '';
