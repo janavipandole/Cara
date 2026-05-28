@@ -36219,6 +36219,36 @@ html {
     font-weight: 600 !important;
 }
 
+@media (max-width: 768px) {
+  #navbar-container {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    gap: 8px;
+  }
+  #navbar li a {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+  #navbar {
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+    gap: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  #navbar-container {
+    padding: 8px;
+    gap: 4px;
+  }
+  #navbar li a {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+}
+
 /* ============================================
    SKELETON LOADER SHIMMER UTILITY
    Issue #1584
