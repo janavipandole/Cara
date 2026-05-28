@@ -524,41 +524,40 @@ button.white .ripple-effect {
    HEADER
    ============================================ */
 
+ /* ============================================
+   SMALLER NAVBAR FIX
+   ============================================ */
+
 #header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 18px 80px;
+
+    padding: 6px 35px;
+
     background: var(--header-bg);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    backdrop-filter: blur(20px) saturate(180%);
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-    z-index: 999;
+
     position: fixed;
     top: 0;
+    left: 0;
+
     width: 100%;
-    border: none;
-    transition: all 0.3s ease;
+    z-index: 999;
+
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
 }
 
-#header a {
-    pointer-events: all;
-}
-
-#header a img {
-    filter: var(--logo-filter);
-    transition: filter 0.3s ease;
-}
+/* Logo */
 
 #siteLogo {
-
-    width: 120px;
-    height: 50px;
+    width: 70px;
+    height: 28px;
     object-fit: contain;
 }
 
+/* Navbar links */
+
 #navbar {
-    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -566,139 +565,223 @@ button.white .ripple-effect {
 
 #navbar li {
     list-style: none;
-    padding: 0 20px;
+    padding: 0 10px;
 }
 
 #navbar li a {
-    position: relative;
-    pointer-events: all;
     text-decoration: none;
-    font-size: 22px;
+    font-size: 16px;
     font-weight: 500;
     color: var(--text-primary);
-    transition: color 0.3s ease;
+}
+ 
+/* ============================================
+   FORCE NAVBAR SIZE FIX
+   ============================================ */
+
+#header {
+    padding: 4px 30px !important;
+    min-height: 55px !important;
+    height: 55px !important;
 }
 
-#navbar li a:hover,
-#navbar li a.active {
-    color: var(--accent);
+#siteLogo {
+    width: 65px !important;
+    height: 24px !important;
 }
 
-.mobile,
-#close {
-    display: none;
+#navbar li {
+    padding: 0 8px !important;
 }
 
-#navbar li:not(.nav-icon) a::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -4px;
-    height: 2px;
-    width: 0%;
-    background: var(--accent);
-    transition: width 260ms cubic-bezier(.2,.8,.2,1);
-    will-change: width;
+#navbar li a {
+    font-size: 15px !important;
 }
 
-/* expand underline on hover or when link is active */
-#navbar li:not(.nav-icon) a:hover::after,
-#navbar li:not(.nav-icon) a.active::after {
-    width: 100%;
+#hero.hero-slider {
+    margin-top: 55px !important;
 }
 
-@media (prefers-reduced-motion: reduce) {
-    #navbar li:not(.nav-icon) a::after {
-        transition: none;
-    }
-}
-
+  
 /* ============================================
    HERO SECTION
    ============================================ */
-#hero{
-  z-index: 1;
+/* ── Hero: base stacking context ───────────────────────────────────────── */
+/* ============================================
+   HERO SECTION 
+   ============================================ */
+
+#hero {
+    position: relative;
+    z-index: 1;
+}
+
+/* ───────────────── HERO CONTAINER ───────────────── */
+#hero.hero-slider{
+    margine-top:55px;
 }
 #hero.hero-slider {
-    height: 100vh;
-    min-height: 500px;
     width: 100%;
     position: relative;
     overflow: hidden;
     padding: 0;
     margin-bottom: 50px;
+
+    /* Better responsive height */
+    min-height: 500px;
+    height: clamp(500px, 85vh, 750px);
+
+    isolation: isolate;
+}
+
+/* ───────────────── SLIDES ───────────────── */
+
+/* ============================================
+    HERO SLIDER 
+   ============================================ */
+
+.hero-slider {
+    position: relative;
+    overflow: hidden;
 }
 
 .hero-slider .slide {
     position: absolute;
     top: 0;
     left: 0;
+
     width: 100%;
     height: 100%;
-    background-size: cover;
-    background-position: top 25% right 0;
+
     opacity: 0;
-    transition: opacity 0.6s ease-in-out;
+    visibility: hidden;
+
+    transition: opacity 0.6s ease;
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
     z-index: 0;
+
     display: flex;
-    align-items: start;
+    align-items: center;
     justify-content: center;
     flex-direction: column;
 }
+#hero.hero-slider{
+    overflow:hiddem !important;
+}
 
+/* ONLY active slide visible */
+
+.hero-slider .slide.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 1;
+}
+
+/* Active slide */
 .hero-slider .slide.active {
     opacity: 1;
     z-index: 1;
 }
 
-/* Gradient Overlays */
+/* ───────────────── OVERLAY ───────────────── */
+
 .hero-slider .slide::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: linear-gradient(to right,
-            rgba(255, 255, 255, 0.75) 0%,
-            rgba(255, 255, 255, 0.45) 35%,
-            rgba(255, 255, 255, 0) 65%);
-    z-index: -1;
+    inset: 0;
+
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.75) 0%,
+        rgba(255, 255, 255, 0.45) 35%,
+        rgba(255, 255, 255, 0) 65%
+    );
+
+    z-index: 0;
     pointer-events: none;
 }
 
+/* Dark theme overlay */
+
 [data-theme="dark"] .hero-slider .slide::before {
-    background-image: linear-gradient(to right,
-            rgba(0, 0, 0, 0.9) 0%,
-            rgba(0, 0, 0, 0.7) 50%,
-            rgba(0, 0, 0, 0) 100%);
+    background: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.85) 0%,
+        rgba(0, 0, 0, 0.6) 45%,
+        rgba(0, 0, 0, 0) 100%
+    );
 }
+
+/* ───────────────── CONTENT ───────────────── */
 
 .hero-slider .slide-content {
-    padding: 0 80px;
     position: relative;
     z-index: 2;
+
+    padding: 0 80px;
+    max-width: 700px;
 }
 
-/* Slider Controls */
+/* ───────────────── TYPOGRAPHY ───────────────── */
+
+#hero h4 {
+    padding-bottom: 15px;
+}
+
+#hero h1 {
+    color: var(--accent);
+}
+
+#hero .slide-content h4 {
+    color: #088178;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+#hero .slide-content h2 {
+    color: #1a1a1a;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.10);
+}
+
+#hero .slide-content p {
+    color: #2d2d2d;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+/* Dark mode text */
+
+[data-theme="dark"] #hero .slide-content h2,
+[data-theme="dark"] #hero .slide-content p {
+    color: #ffffff;
+}
+
+/* ───────────────── SLIDER BUTTONS ───────────────── */
+
 .slider-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.25);
-    color: var(--text-color);
+
+    width: 42px;
+    height: 42px;
+
     border: none;
-    width: 32px;
-    height: 32px;
-    border-radius: 100%;
-    font-size: 1px;
-    cursor: pointer;
-    z-index: 3;
-    transition: background 0.2s ease, color 0.2s ease;
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.25);
+    color: var(--text-primary);
+
     display: flex;
     align-items: center;
     justify-content: center;
-    pointer-events: all;
+
+    cursor: pointer;
+    z-index: 3;
+
+    transition: all 0.3s ease;
 }
 
 .slider-btn:hover {
@@ -714,75 +797,309 @@ button.white .ripple-effect {
     right: 20px;
 }
 
-/* Slider Indicators */
+/* ───────────────── DOTS ───────────────── */
+
 .slider-dots {
     position: absolute;
     bottom: 30px;
     left: 50%;
+
     transform: translateX(-50%);
+
     display: flex;
     gap: 10px;
+
     z-index: 3;
-    pointer-events: all;
 }
 
 .slider-dots .dot {
     width: 12px;
     height: 12px;
+
     border-radius: 50%;
-    background: rgba(0, 0, 0, 0.45);
     cursor: pointer;
+
+    background: rgba(0, 0, 0, 0.4);
+
     transition: all 0.3s ease;
-    border: 2px solid transparent;
+}
+
+.slider-dots .dot.active {
+    background: #000;
+    transform: scale(1.2);
 }
 
 [data-theme="dark"] .slider-dots .dot {
     background: rgba(255, 255, 255, 0.3);
 }
 
-.slider-dots .dot.active {
-    background: #000000;
-    transform: scale(1.3);
-    border-color: rgba(255, 255, 255, 0.4);
-}
-
 [data-theme="dark"] .slider-dots .dot.active {
-    background: #ffffff;
-    border-color: rgba(0, 0, 0, 0.3);
+    background: #fff;
 }
 
-#hero h4 {
-    padding-bottom: 15px;
+/* ───────────────── RESPONSIVE ───────────────── */
+
+@media (max-width: 992px) {
+
+    #hero.hero-slider {
+        height: 75vh;
+    }
+
+    .hero-slider .slide-content {
+        padding: 0 50px;
+    }
+
+    #hero h1 {
+        font-size: 56px;
+        line-height: 60px;
+    }
+
+    #hero h2 {
+        font-size: 42px;
+        line-height: 48px;
+    }
 }
 
-#hero h1 {
-    color: var(--accent);
+@media (max-width: 768px) {
+
+    #hero.hero-slider {
+        height: 65vh;
+        min-height: 420px;
+    }
+
+    .hero-slider .slide-content {
+        padding: 0 24px;
+        max-width: 100%;
+    }
+
+    #hero h1 {
+        font-size: 42px;
+        line-height: 48px;
+    }
+
+    #hero h2 {
+        font-size: 32px;
+        line-height: 38px;
+    }
+
+    #hero h4 {
+        font-size: 20px;
+    }
+
+    #hero p {
+        font-size: 16px;
+    }
+
+    .slider-btn {
+        width: 36px;
+        height: 36px;
+    }
 }
 
-/* ── Hero banner: contrast fix for secondary text layers ──────────────────
-   These rules target ONLY the promotional sub-headings and body copy inside
-   .slide-content so they remain legible against the frosted-glass overlay.
-   Nothing outside the hero slider is affected.
-   ───────────────────────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
 
-/* "Trade-in-offer", "New Arrivals", "Seasonal Sale" — small promo label */
-#hero .slide-content h4 {
-    color: #088178;                              /* brand primary dark-green */
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+    #hero.hero-slider {
+        height: 60vh;
+        min-height: 380px;
+    }
+
+    #hero h1 {
+        font-size: 34px;
+        line-height: 40px;
+    }
+
+    #hero h2 {
+        font-size: 26px;
+        line-height: 32px;
+    }
+
+    #hero p {
+        font-size: 15px;
+    }
+
+    .slider-dots {
+        bottom: 20px;
+    }
 }
 
-/* "Super Value Deals", "Summer Collection", "Up to 50% Off" — sub-headline */
-#hero .slide-content h2 {
-    color: #1a1a1a;                              /* near-black for strong contrast */
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.10);
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+   All breakpoints only adjust sizing/spacing — no colour or layout changes.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Large desktop (≥ 1440 px) — cap height so images don't over-scale ─── */
+@media (min-width: 1440px) {
+    #hero.hero-slider {
+        max-height: 860px;
+    }
 }
 
-/* Supporting body copy under the headings */
-#hero .slide-content p {
-    color: #2d2d2d;                              /* dark charcoal, clearly readable */
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+/* ── Standard laptop / desktop (≤ 1280 px) ─────────────────────────────── */
+@media (max-width: 1280px) {
+    #hero.hero-slider {
+        max-height: 700px;
+    }
+
+    .hero-slider .slide {
+        background-position: top 20% right 0;
+    }
+
+    .hero-slider .slide-content {
+        padding: 0 60px;
+    }
 }
 
+/* ── Small laptop / large tablet (≤ 1024 px) ───────────────────────────── */
+@media (max-width: 1024px) {
+    #hero.hero-slider {
+        height: 75vh;
+        max-height: 620px;
+        min-height: 460px;
+    }
+
+    .hero-slider .slide {
+        background-position: top 15% center;
+    }
+
+    .hero-slider .slide::before {
+        background-image: linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0.85) 0%,
+            rgba(255, 255, 255, 0.60) 45%,
+            rgba(255, 255, 255, 0) 70%
+        );
+    }
+
+    [data-theme="dark"] .hero-slider .slide::before {
+        background-image: linear-gradient(
+            to right,
+            rgba(0, 0, 0, 0.92) 0%,
+            rgba(0, 0, 0, 0.75) 55%,
+            rgba(0, 0, 0, 0) 100%
+        );
+    }
+
+    .hero-slider .slide-content {
+        padding: 0 48px;
+    }
+}
+
+/* ── Tablet portrait (≤ 768 px) ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+    #hero.hero-slider {
+        height: 70vh;
+        max-height: 560px;
+        min-height: 420px;
+        margin-bottom: 36px;
+    }
+
+    .hero-slider .slide {
+        background-position: top 10% center;
+        /* Centre the image on narrow viewports for balanced cropping          */
+        background-size: cover;
+    }
+
+    .hero-slider .slide::before {
+        /* Stronger overlay so text stays readable over centered image         */
+        background-image: linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0.90) 0%,
+            rgba(255, 255, 255, 0.70) 50%,
+            rgba(255, 255, 255, 0.10) 100%
+        );
+    }
+
+    [data-theme="dark"] .hero-slider .slide::before {
+        background-image: linear-gradient(
+            to right,
+            rgba(0, 0, 0, 0.95) 0%,
+            rgba(0, 0, 0, 0.80) 55%,
+            rgba(0, 0, 0, 0.15) 100%
+        );
+    }
+
+    .hero-slider .slide-content {
+        padding: 0 32px;
+    }
+
+    .slider-btn {
+        width: 28px;
+        height: 28px;
+    }
+
+    .slider-btn.prev { left: 12px;  }
+    .slider-btn.next { right: 12px; }
+
+    .slider-dots {
+        bottom: 18px;
+        gap: 8px;
+    }
+
+    .slider-dots .dot {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+/* ── Mobile (≤ 480 px) ──────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+    #hero.hero-slider {
+        height: 65vh;
+        max-height: 480px;
+        min-height: 360px;
+        margin-bottom: 24px;
+    }
+
+    .hero-slider .slide {
+        background-position: top 5% center;
+    }
+
+    .hero-slider .slide::before {
+        /* Full-width gradient on very small screens for maximum legibility    */
+        background-image: linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.88) 0%,
+            rgba(255, 255, 255, 0.65) 60%,
+            rgba(255, 255, 255, 0.20) 100%
+        );
+    }
+
+    [data-theme="dark"] .hero-slider .slide::before {
+        background-image: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.92) 0%,
+            rgba(0, 0, 0, 0.75) 60%,
+            rgba(0, 0, 0, 0.25) 100%
+        );
+    }
+
+    .hero-slider .slide-content {
+        padding: 0 20px;
+    }
+
+    .slider-btn {
+        width: 26px;
+        height: 26px;
+    }
+
+    .slider-dots {
+        bottom: 14px;
+        gap: 7px;
+    }
+
+    .slider-dots .dot {
+        width: 9px;
+        height: 9px;
+    }
+}
+
+/* ── Reduce-motion: honour OS accessibility setting ─────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    .hero-slider .slide,
+    .slider-dots .dot {
+        transition: none;
+    }
+}
 /* Dark-mode overrides: keep text bright on the dark gradient overlay */
 [data-theme="dark"] #hero .slide-content h4 {
     color: #4ecdc4;
