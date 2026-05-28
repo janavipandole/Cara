@@ -1,306 +1,144 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Cara</title>
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-    <!-- Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="toast.css">
-    <link rel="stylesheet" href="login.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - Cara</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  <link rel="stylesheet" href="toast.css" />
+  <link rel="stylesheet" href="login.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-
-<!-- HEADER -->
-<section id="header">
-
+  <section id="header">
     <!-- Logo -->
     <a href="index.html">
-        <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
+      <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
     </a>
 
-    <!-- Navbar -->
     <div id="navbar-container"></div>
 
     <!-- Mobile Navbar -->
     <div class="mobile">
+      <!-- Login Icon -->
+      <a href="login.html" aria-label="Login">
+        <i class="ri-user-3-line"></i>
+      </a>
 
-        <!-- Login Icon -->
-        <a href="login.html" aria-label="Login">
-            <i class="ri-user-3-line"></i>
-        </a>
+      <!-- Cart Icon -->
+      <a href="cart.html" aria-label="Cart">
+        <i class="ri-shopping-bag-4-line"></i>
+      </a>
 
-        <!-- Cart Icon -->
-        <a href="cart.html" aria-label="Cart">
-            <i class="ri-shopping-bag-4-line"></i>
-        </a>
-
-        <!-- Hamburger -->
-        <i
-            class="fas fa-outdent"
-            id="bar"
-            role="button"
-            aria-label="Open menu"
-            aria-expanded="false"
-            tabindex="0"
-        ></i>
-
+      <!-- Hamburger Menu -->
+      <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
     </div>
-
-</section>
-
-<!-- LOGIN SECTION -->
-<div id="login-container">
-
+  </section>
+  <div id="login-container">
+    <button class="back-btn" onclick="history.back()" aria-label="Back to Shop"><i class="ri-arrow-left-line"></i> Back
+      to Shop</button>
     <div class="login-box">
+      <h2>Welcome Back!</h2>
+      <p class="subtitle">Please enter your details to sign in</p>
 
-        <!-- Back Button -->
-        <a href="index.html" class="back-button">
-            <i class="ri-arrow-left-line"></i> Back to Shop
-        </a>
-
-        <!-- Logo -->
-        <div class="logo-container">
-            <img src="images/logo.png" alt="Cara Logo" class="logo-img">
+      <form id="loginForm" class="login-form" novalidate>
+        <div class="input-group">
+          <label for="loginEmail">Email Address</label>
+          <input type="email" id="loginEmail" name="email" class="input-field" placeholder="Enter your email address"
+            autocomplete="email" required />
         </div>
 
-        <!-- Heading -->
-        <h2>Welcome Back!</h2>
-
-        <p class="subtitle">
-            Please enter your details to sign in
-        </p>
-
-        <p class="required-note">
-            Fields marked with * are required.
-        </p>
-
-        <!-- FORM -->
-        <form id="loginForm" novalidate>
-
-            <!-- EMAIL -->
-            <div class="input-field">
-
-                <label for="loginEmail">
-                    Email Address <span class="required">*</span>
-                </label>
-
-                <input
-                    type="email"
-                    id="loginEmail"
-                    name="email"
-                    class="input-field"
-                    placeholder="Enter your email address"
-                    autocomplete="email"
-                    required
-                    aria-required="true"
-                >
-            </div>
-
-            <!-- PASSWORD -->
-            <div class="input-field password-group" style="position: relative;">
-
-                <label for="loginPassword">
-                    Password <span class="required">*</span>
-                </label>
-
-                <input
-                    type="password"
-                    id="loginPassword"
-                    name="password"
-                    class="input-field"
-                    placeholder="••••••••"
-                    autocomplete="current-password"
-                    required
-                    aria-required="true"
-                    style="padding-right: 45px;"
-                >
-
-                <button
-                    type="button"
-                    id="togglePassword"
-                    class="toggle_password"
-                    aria-label="Toggle password visibility"
-                    style="position:absolute; right:10px; top:40px; background:none; border:none; cursor:pointer;"
-                >
-                    <i class="ri-eye-line" id="toggleIcon"></i>
-                </button>
-
-            </div>
-
-            <!-- REMEMBER -->
-            <div class="remember-forgot">
-
-                <div class="remember">
-                    <input type="checkbox" id="rememberMe">
-                    <label for="rememberMe">Remember me</label>
-                </div>
-
-                <a href="forgotPassword.html" class="forgot">
-                    Forgot Password?
-                </a>
-
-            </div>
-
-            <!-- ROLE -->
-            <div class="input-field">
-
-                <label>Login As</label>
-
-                <div class="role-selector">
-
-                    <label class="role-option">
-
-                        <input
-                            type="radio"
-                            name="loginRole"
-                            value="USER"
-                            checked
-                        >
-
-                        <span class="role-card">
-                            <i class="ri-user-3-line"></i>
-                            <strong>User</strong>
-                            <small>Shop & browse</small>
-                        </span>
-
-                    </label>
-
-                    <label class="role-option">
-
-                        <input
-                            type="radio"
-                            name="loginRole"
-                            value="ADMIN"
-                        >
-
-                        <span class="role-card">
-                            <i class="ri-shield-user-line"></i>
-                            <strong>Admin</strong>
-                            <small>Manage store</small>
-                        </span>
-
-                    </label>
-
-                </div>
-
-            </div>
-
-            <!-- CAPTCHA -->
-            <div
-                id="captcha-section"
-                class="captcha-section"
-                style="display:none;"
-            >
-
-                <label>Security Verification</label>
-
-                <canvas
-                    id="captcha-canvas"
-                    width="280"
-                    height="80"
-                ></canvas>
-
-                <div class="captcha-row">
-
-                    <input
-                        type="text"
-                        id="captcha-input"
-                        class="input-field"
-                        placeholder="Enter code above"
-                        autocomplete="off"
-                        maxlength="6"
-                        style="flex:1;"
-                    >
-
-                    <button
-                        type="button"
-                        id="captcha-refresh"
-                        class="captcha-refresh"
-                        title="Refresh code"
-                        aria-label="Refresh CAPTCHA"
-                    >
-                        <i class="fas fa-sync"></i>
-                    </button>
-
-                </div>
-
-            </div>
-
-            <!-- SUBMIT -->
-            <button type="submit" class="login-btn">
-                <span>Sign In</span>
-            </button>
-
-        </form>
-
-        <!-- REGISTER -->
-        <div class="signup-link">
-            Don't have an account?
-            <a href="register.html">Register</a>
+        <div class="input-group password-group" style="position: relative">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" name="password" class="input-field" placeholder="••••••••"
+            autocomplete="current-password" required style="padding-right: 45px; width: 100%" />
+          <button type="button" id="togglePassword" class="toggle_password" aria-label="Toggle password visibility"
+            style="
+              position: absolute;
+              right: 10px;
+              top: 56%;
+              transform: translateY(-50%);
+              padding:0;
+              background: none;
+              border: none;
+              cursor: pointer;
+              color: #666;
+              font-size: 18px;
+            ">
+            <i class="ri-eye-line" id="toggleIcon"></i>
+          </button>
+        </div>
+        <div class="remfor">
+          <div class="remember">
+            <input type="checkbox" id="rememberMe" />
+            <label for="rememberMe">Remember me</label>
+          </div>
+          <a href="forgotPassword.html" class="forgot">Forgot Password?</a>
         </div>
 
+        <div class="input-group">
+          <label>Login As</label>
+          <div class="role-selector">
+            <label class="role-option">
+              <input type="radio" name="loginRole" value="USER" checked />
+              <span class="role-card">
+                <i class="ri-user-3-line"></i>
+                <strong>User</strong>
+                <small>Shop &amp; browse</small>
+              </span>
+            </label>
+            <label class="role-option">
+              <input type="radio" name="loginRole" value="ADMIN" />
+              <span class="role-card">
+                <i class="ri-shield-user-line"></i>
+                <strong>Admin</strong>
+                <small>Manage store</small>
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <button type="submit" class="login-btn"><span>Sign In</span></button>
+      </form>
+
+      <div class="signup-link">
+        Don't have an account? <a href="register.html">Register</a>
+      </div>
     </div>
 
-</div>
+    <script src="navbar.js"></script>
+    <script>
+      loadNavbar();
+    </script>
+    <script src="app.js"></script>
+    <script src="login.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const togglePasswordBtn = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('loginPassword');
+        const toggleIcon = document.getElementById('toggleIcon');
 
-<!-- SCRIPTS -->
-<script src="navbar.js"></script>
-
-<script>
-    loadNavbar();
-</script>
-
-<script src="app.js"></script>
-<script src="login.js"></script>
-
-<!-- PASSWORD TOGGLE -->
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-
-    const togglePasswordBtn =
-        document.getElementById("togglePassword");
-
-    const passwordInput =
-        document.getElementById("loginPassword");
-
-    const toggleIcon =
-        document.getElementById("toggleIcon");
-
-    if (togglePasswordBtn && passwordInput && toggleIcon) {
-
-        togglePasswordBtn.addEventListener("click", () => {
-
+        if (togglePasswordBtn && passwordInput && toggleIcon) {
+          togglePasswordBtn.addEventListener('click', () => {
             const type =
-                passwordInput.getAttribute("type") === "password"
-                ? "text"
-                : "password";
-
-            passwordInput.setAttribute("type", type);
-
+              passwordInput.getAttribute('type') === 'password'
+                ? 'text'
+                : 'password';
+            passwordInput.setAttribute('type', type);
             toggleIcon.className =
-                type === "password"
-                ? "ri-eye-line"
-                : "ri-eye-off-line";
-
-        });
-
-    }
-
-});
-</script>
-
+              type === 'password' ? 'ri-eye-line' : 'ri-eye-off-line';
+          });
+        }
+      });
+    </script>
 </body>
+
 </html>
