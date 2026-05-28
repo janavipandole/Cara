@@ -1,11 +1,42 @@
 #search-filter {
-    display: grid;
-    grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr) minmax(0, 0.6fr);
-    gap: 24px;
-    align-items: flex-end;
-    margin-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 30px 80px;
+  background-color: var(--card-bg);
 }
 
+.filters-row {
+  display: flex;
+  flex-wrap: wrap;          /* ✅ allow wrapping */
+  gap: 20px;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
+.filter-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 180px;
+  flex: 1 1 180px;
+}
+
+.reset-wrapper {
+  margin-left: auto;
+}
+
+.reset-btn {
+  padding: 10px 16px;
+  background: #088178;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.reset-btn:hover {
+  background: #066a63;
+}
 #search-filter .search-container,
 #search-filter .filter-container,
 #search-filter .search-summary {
@@ -341,9 +372,51 @@
     box-shadow: 0 6px 15px var(--shadow-hover);
 }
 
+/* Custom styling for product sorting dropdown */
+.sort-dropdown {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    padding: 10px 20px;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    font-size: 15px;
+    background-color: var(--body-bg);
+    color: var(--text-primary);
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%236b7280"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px 16px;
+    transition: all 0.3s ease;
+}
+
+.sort-dropdown:focus,
+.sort-dropdown:hover {
+    border-color: #088178;
+    box-shadow: 0 6px 15px rgba(8, 129, 120, 0.12);
+    outline: none;
+    /* change arrow color on hover/focus */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23088178"><path d="M7 10l5 5 5-5z"/></svg>');
+}
+
+/* hide the extra chevron icon when present to avoid duplicate arrows */
+.sort-select-wrap .sort-chevron {
+    display: none;
+}
+
 /* ============================================
    TARGET 2: SHOP PAGE - PRODUCT CARDS GRID
    ============================================ */
+#product1 .pro-container,
+#shop-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    align-items: start;
+    padding: 20px 80px;
+}
+
 #product1 .pro {
     display: flex;
     flex-direction: column;
@@ -365,6 +438,9 @@
 }
 
 #product1 .pro img {
+    max-width: 100%;
+
+
     border-radius: 12px;
     object-fit: cover;
     width: 100%;
@@ -501,3 +577,157 @@
             line-height: 1.5;
         }
 
+    /* ============================================
+       SHOP PAGE FOOTER LAYOUT
+       Keep the footer columns in a row on desktop
+       ============================================ */
+    footer .footer-container {
+        display: grid;
+        grid-template-columns: minmax(260px, 1.25fr) repeat(2, minmax(150px, 0.9fr)) minmax(240px, 1.2fr);
+        gap: 48px;
+        width: 100%;
+        align-items: start;
+    }
+
+    footer .footer-container .col {
+        margin-bottom: 0;
+        min-width: 0;
+    }
+
+    footer .footer-container .install .row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    @media (max-width: 1024px) {
+        footer .footer-container {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 32px 24px;
+        }
+    }
+
+    @media (max-width: 640px) {
+        footer .footer-container {
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+    }
+    .pro{
+    position: relative;
+}
+
+.wishlist-btn{
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 44px;
+    height: 44px;
+    background: var(--card-bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    z-index: 20;
+    border: 1px solid var(--border-color);
+}
+
+.wishlist-btn i{
+    font-size: 20px;
+    color: var(--text-secondary);
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+/* Red heart when added */
+.wishlist-btn.active i{
+    color: #e0245e;
+}
+
+/* Hover effect */
+.wishlist-btn:hover i{
+    transform: scale(1.15);
+    color: #e0245e;
+}
+#newsletter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+        #scrollTopBtn {
+        position: fixed;
+        bottom: 30px;
+        right: 30px; /* keeps button on right side */
+
+        width: 55px;
+        height: 55px;
+
+        border: none;
+        border-radius: 50%;
+
+        background-color: #088178;
+        color: white;
+
+        font-size: 24px;
+        font-weight: bold;
+
+        cursor: pointer;
+        z-index: 999;
+
+        display: none;
+
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      #scrollTopBtn:hover {
+        background-color: #065f5b;
+        transform: scale(1.1);
+      }
+@media (max-width: 1024px) {
+    #product1 .pro-container,
+    #shop-container {
+        gap: 18px;
+        padding: 20px 40px;
+    }
+}
+
+@media (max-width: 900px) {
+    #product1 .pro-container,
+    #shop-container {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        padding: 14px 18px;
+        gap: 14px;
+    }
+
+    #product1 .pro {
+        padding: 12px;
+        padding-bottom: 64px;
+        border-radius: 14px;
+    }
+
+    .wishlist-btn {
+        top: 8px;
+        right: 8px;
+        width: 36px;
+        height: 36px;
+    }
+    .reset-btn {
+  padding: 10px 16px;
+  background: #088178;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+}
+
+
+/* Spacing tuning for standard shop card viewports */
+.pro-container {
+  grid-gap: 25px;
+}
