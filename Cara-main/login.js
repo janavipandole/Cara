@@ -31,13 +31,6 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-        if (!emailPattern.test(email)) {
-        showToast('Please enter a valid email.', 'warning');
-        return;
-}
-
         // ── Loading state: disable button & show spinner ──
         const submitBtn = form.querySelector('.login-btn');
         if (submitBtn) {
