@@ -27,6 +27,8 @@ class InteractionCreate(BaseModel):
     interaction_type: str
 
 class RecommendationRequest(BaseModel):
-    product_id: int
+    product_id: Optional[int] = None
+    style: Optional[str] = None
+    subcategory: Optional[str] = None
     user_id: Optional[str] = None
-    limit: Optional[int] = 4
+    limit: int = 4

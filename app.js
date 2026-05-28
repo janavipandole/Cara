@@ -785,38 +785,6 @@ if (backToTopBtn && ToptobackBtn) {
     });
 }
 
-// Style Quiz Functionality
-window.openQuiz = function () {
-    document.getElementById('quiz-modal').style.display = 'flex';
-}
-
-window.closeQuiz = function () {
-    document.querySelector('.close').addEventListener('click', () => {
-    document.getElementById('quiz-modal').style.display = 'none';
-});
-}
-
-window.selectStyle = function (style) {
-    closeQuiz();
-    const products = document.querySelectorAll('.pro');
-    products.forEach(product => {
-        if (product.getAttribute('data-category') === style) {
-            product.style.display = 'block';
-        } else {
-            product.style.display = 'none';
-        }
-    });
-        // Auto scroll to products section
-    const productSection = document.getElementById('product1');
-
-    if (productSection) {
-        productSection.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-        });
-    }
-    alert(`Showing ${style} style recommendations!`);
-}
 
 /* --- START: BUY NOW FUNCTIONALITY --- */
 window.buyNow = function (productName, productPrice, productImage, quantity, size) {
@@ -830,7 +798,7 @@ window.buyNow = function (productName, productPrice, productImage, quantity, siz
 
 /* --- START: SEARCH AND FILTER FUNCTIONALITY --- */
 document.addEventListener('DOMContentLoaded', function () {
-    const searchInput = document.getElementById('searchInput');
+    const searchInput = document.getElementById('searchInput') || document.getElementById('searchBar');
     const searchBtn = document.getElementById('searchBtn');
     const categoryFilter = document.getElementById('categoryFilter');
 
@@ -848,12 +816,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Unified search and category filtering
         const performSearch = () => {
+            // products.js owns filtering on the shop page — skip legacy DOM manipulation
+            if (typeof filterProducts === 'function') {
+                filterProducts();
+                return;
+            }
+
             const searchTerm = searchInput.value.toLowerCase().trim();
             const selectedCategory = categoryFilter ? categoryFilter.value : 'all';
            
             // Reset all products visible before filtering the full set
            
-            document.querySelectorAll('.pro').forEach(p => p.style.display = 'block');
+            document.querySelectorAll('.pro').forEach(p => p.style.setProperty('display', 'flex', 'important'));
             const products = document.querySelectorAll('.pro');
             let visibleCount = 0;
             
@@ -866,10 +840,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 const matchesCategory = selectedCategory === 'all' || productCategory === selectedCategory;
                 
                 if (matchesSearch && matchesCategory) {
-                    product.style.display = 'block';
+                    product.style.setProperty('display', 'flex', 'important');
                     visibleCount++;
                 } else {
-                    product.style.display = 'none';
+                    product.style.setProperty('display', 'none', 'important');
                 }
 
                 // Reset to page 1 so filtered results start from beginning
@@ -2022,52 +1996,7 @@ if (ToptobackBtn) {
   });
 }
 
-// Style Quiz Functionality
-window.openQuiz = function () {
-  document.getElementById('quiz-modal').style.display = 'flex';
-};
-
-window.closeQuiz = function () {
-  document.getElementById('quiz-modal').style.display = 'none';
-};
-
-window.selectStyle = function (style) {
-  closeQuiz();
-  const products = document.querySelectorAll('.pro');
-  products.forEach((product) => {
-    if (product.getAttribute('data-category') === style) {
-      product.style.display = 'block';
-    } else {
-      product.style.display = 'none';
-    }
-  });
-  // Auto scroll to products section
-  const productSection = document.getElementById('product1');
-
-  if (productSection) {
-    productSection.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-    });
-  }
-  alert(`Showing ${style} style recommendations!`);
-};
-
-/* --- START: BUY NOW FUNCTIONALITY --- */
-window.buyNow = function (
-  productName,
-  productPrice,
-  productImage,
-  quantity,
-  size
-) {
-  // Add to cart first
-  addToCart(productName, productPrice, productImage, quantity, size);
-  // Brief delay so user sees the toast before redirect
-  setTimeout(function () {
-    window.location.href = 'checkout.html';
-  }, 1500);
-};
+/* --- END: BUY NOW FUNCTIONALITY --- */
 
 document.addEventListener('DOMContentLoaded', () => {
   const brandCard = document.getElementById('brandCard');
