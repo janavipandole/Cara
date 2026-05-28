@@ -12,3 +12,6 @@ python-multipart
 python-dotenv
 psycopg2-binary
 alembic
+passlib[bcrypt]
+python-jose[cryptography]
+email-validator
