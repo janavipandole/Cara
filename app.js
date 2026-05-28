@@ -137,7 +137,7 @@ function formatCurrency(amount) {
 
 // Update cart count badge
 function updateCartCount() {
-    const cart       = JSON.parse(localStorage.getItem("productsInCart")) || [];
+    const cart       = window.StateStore ? window.StateStore.getState("cart") : (JSON.parse(localStorage.getItem("productsInCart")) || []);
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
     const desktopCount = document.getElementById("desktopCartCount");
@@ -153,7 +153,13 @@ function updateCartCount() {
     }
 }
 
-document.addEventListener("DOMContentLoaded", updateCartCount);
+document.addEventListener("DOMContentLoaded", () => {
+    if (window.StateStore) {
+        window.StateStore.subscribe("cart", updateCartCount);
+    } else {
+        updateCartCount();
+    }
+});
 
 // Toggle empty-cart view
 function handleEmptyCartView() {
@@ -173,7 +179,7 @@ function handleEmptyCartView() {
 }
 
 function addToCart(productName, productPrice, productImage, quantity, size) {
-    let cart       = JSON.parse(localStorage.getItem("productsInCart")) || [];
+    let cart       = window.StateStore ? window.StateStore.getState("cart") : (JSON.parse(localStorage.getItem("productsInCart")) || []);
     let parsedQty  = parseInt(quantity);
     if (isNaN(parsedQty) || parsedQty < 1) parsedQty = 1;
 
@@ -197,7 +203,11 @@ function addToCart(productName, productPrice, productImage, quantity, size) {
         cart.push(item);
     }
 
-    localStorage.setItem("productsInCart", JSON.stringify(cart));
+    if (window.StateStore) {
+        window.StateStore.setState("cart", cart);
+    } else {
+        localStorage.setItem("productsInCart", JSON.stringify(cart));
+    }
     showToast(`${item.name} (Size: ${item.size}) added to cart!`, "success");
     updateCartCount();
 }
@@ -448,12 +458,16 @@ window.loadCart = function () {
 };
 
 window.changeQuantity = function (index, change) {
-    let cart = JSON.parse(localStorage.getItem("productsInCart")) || [];
+    let cart = window.StateStore ? window.StateStore.getState("cart") : (JSON.parse(localStorage.getItem("productsInCart")) || []);
     if (!cart[index]) return;
     let newQty = cart[index].quantity + change;
     if (newQty < 1) newQty = 1;
     cart[index].quantity = newQty;
-    localStorage.setItem("productsInCart", JSON.stringify(cart));
+    if (window.StateStore) {
+        window.StateStore.setState("cart", cart);
+    } else {
+        localStorage.setItem("productsInCart", JSON.stringify(cart));
+    }
     loadCart();
     updateCartCount();
 };
@@ -481,10 +495,14 @@ window.applyCoupon = function () {
 };
 
 window.removeItem = function (index) {
-    let cart        = JSON.parse(localStorage.getItem("productsInCart")) || [];
+    let cart = window.StateStore ? window.StateStore.getState("cart") : (JSON.parse(localStorage.getItem("productsInCart")) || []);
     const removedName = cart[index] ? cart[index].name : "Item";
     cart.splice(index, 1);
-    localStorage.setItem("productsInCart", JSON.stringify(cart));
+    if (window.StateStore) {
+        window.StateStore.setState("cart", cart);
+    } else {
+        localStorage.setItem("productsInCart", JSON.stringify(cart));
+    }
     loadCart();
     updateCartCount();
     showToast(`${removedName} removed from cart`, "error");
