@@ -144,8 +144,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
         e.preventDefault();
 
-        const email =
+        let email =
             loginEmailEl.value.trim();
+
+        if (window.DOMSecurity && window.DOMSecurity.sanitizeHTML) {
+            email = window.DOMSecurity.sanitizeHTML(email);
+        }
 
         const password =
             passwordInput.value;
