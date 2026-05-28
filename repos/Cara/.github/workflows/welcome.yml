@@ -1,0 +1,19 @@
+name: Welcome new contributors
+
+on:
+  issues:
+    types: [opened]
+  pull_request_target:
+    types: [opened]
+
+jobs:
+  welcome:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/first-interaction@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          issue-message: |
+            👋 Welcome! Thanks for opening your first issue in Cara. We appreciate your contribution! Please make sure to follow our contributing guidelines.
+          pr-message: |
+            🎉 Welcome! Thank you for submitting your first pull request to Cara. A maintainer will review your changes soon. Please make sure you've followed our contributing guidelines.
