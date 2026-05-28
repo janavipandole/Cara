@@ -35681,6 +35681,7 @@ button#share-cart-btn:hover {
 
 #quiz-modal {
     inset: 0;
+    display: flex;
     width: 100vw;
     height: 100vh;
     min-height: 100vh;
@@ -35690,10 +35691,8 @@ button#share-cart-btn:hover {
 }
 
 #quiz-modal .modal-content {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: relative;
+    transform: none;
     margin: 0;
 }
 
