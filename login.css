@@ -370,6 +370,62 @@ footer .copyright {
   }
 }
 
+/* CAPTCHA Section */
+.captcha-section {
+  margin-top: 16px;
+}
+
+.captcha-section label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text-primary, #333);
+}
+
+#captcha-canvas {
+  width: 100%;
+  max-width: 280px;
+  height: 80px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color, #ddd);
+  background: #f5f5f5;
+  display: block;
+  margin-bottom: 8px;
+}
+
+[data-theme="dark"] #captcha-canvas {
+  background: #2a2a3e;
+  border-color: #444;
+}
+
+.captcha-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.captcha-refresh {
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 8px;
+  background: var(--card-bg, #fff);
+  color: var(--text-primary, #333);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.captcha-refresh:hover {
+  background: rgba(8, 129, 120, 0.1);
+  border-color: var(--primary-color, #088178);
+  color: var(--primary-color, #088178);
+}
+
 @media (max-width: 640px) {
   #top {
     position: relative !important;

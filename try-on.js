@@ -116,7 +116,11 @@ window.openCamera = function () {
     })
     .catch(err => {
         console.error('Camera error:', err);
-        alert('Camera access failed');
+        if (typeof showToast === 'function') {
+            showToast('Camera access blocked. Please enable webcam permission.', 'error');
+        } else {
+            alert('Camera access blocked. Please enable webcam permission.');
+        }
     });
 }
 function startLiveDetection() {
@@ -752,14 +756,20 @@ const topBtn = document.getElementById("topBtn");
   });
 });
 
-const themeToggle = document.getElementById("themeToggle");
+document.addEventListener("click", function (e) {
+    const btn = e.target.closest("#themeToggle, #themeToggleMobile");
+    if (!btn) return;
 
-themeToggle?.addEventListener("click", () => {
-    const currentTheme = document.body.getAttribute("data-theme");
+    const html = document.documentElement;
+    const current = html.getAttribute("data-theme") || "light";
+    const next = current === "dark" ? "light" : "dark";
 
-    if (currentTheme === "dark") {
-        document.body.setAttribute("data-theme", "light");
-    } else {
-        document.body.setAttribute("data-theme", "dark");
-    }
+    html.setAttribute("data-theme", next);
+    localStorage.setItem("theme", next);
+
+    var icon = document.getElementById("themeIcon");
+    var iconM = document.getElementById("themeIconMobile");
+    var cls = next === "dark" ? "ri-sun-line" : "ri-moon-line";
+    if (icon) icon.className = cls;
+    if (iconM) iconM.className = cls;
 });
