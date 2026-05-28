@@ -1,3 +1,5 @@
+/* Lazy load product card images for performance */
+// Set loading=\"lazy\" dynamically in the image tag
 const products = [
   {
     id: 1,
