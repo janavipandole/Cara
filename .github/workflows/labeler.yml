@@ -1,7 +1,8 @@
-name: PR Labeler
+name: PR Triage Workflows
 
 on:
   pull_request_target:
+    types: [opened, synchronize]
 
 jobs:
   triage:
@@ -15,3 +16,21 @@ jobs:
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           configuration-path: .github/labeler.yml
+
+  size-label:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Size Labeler
+        uses: pascalgn/size-label-action@v0.4.3
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        with:
+          sizes: |
+            XS: 0-20
+            S: 21-100
+            M: 101-500
+            L: 501-1000
+            XL: 1001-5000
