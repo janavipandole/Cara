@@ -1,11 +1,42 @@
 #search-filter {
-    display: grid;
-    grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr) minmax(0, 0.6fr);
-    gap: 24px;
-    align-items: flex-end;
-    margin-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 30px 80px;
+  background-color: var(--card-bg);
 }
 
+.filters-row {
+  display: flex;
+  flex-wrap: wrap;          /* ✅ allow wrapping */
+  gap: 20px;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
+.filter-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 180px;
+  flex: 1 1 180px;
+}
+
+.reset-wrapper {
+  margin-left: auto;
+}
+
+.reset-btn {
+  padding: 10px 16px;
+  background: #088178;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.reset-btn:hover {
+  background: #066a63;
+}
 #search-filter .search-container,
 #search-filter .filter-container,
 #search-filter .search-summary {
@@ -408,7 +439,8 @@
 
 #product1 .pro img {
     max-width: 100%;
-}
+
+
     border-radius: 12px;
     object-fit: cover;
     width: 100%;
@@ -618,6 +650,49 @@
     transform: scale(1.15);
     color: #e0245e;
 }
+#newsletter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+        #scrollTopBtn {
+        position: fixed;
+        bottom: 30px;
+        right: 30px; /* keeps button on right side */
+
+        width: 55px;
+        height: 55px;
+
+        border: none;
+        border-radius: 50%;
+
+        background-color: #088178;
+        color: white;
+
+        font-size: 24px;
+        font-weight: bold;
+
+        cursor: pointer;
+        z-index: 999;
+
+        display: none;
+
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      #scrollTopBtn:hover {
+        background-color: #065f5b;
+        transform: scale(1.1);
+      }
+@media (max-width: 1024px) {
+    #product1 .pro-container,
+    #shop-container {
+        gap: 18px;
+        padding: 20px 40px;
+    }
+}
 
 @media (max-width: 900px) {
     #product1 .pro-container,
@@ -628,6 +703,7 @@
     }
 
     #product1 .pro {
+        padding: 12px;
         padding-bottom: 64px;
         border-radius: 14px;
     }
@@ -638,5 +714,20 @@
         width: 36px;
         height: 36px;
     }
+    .reset-btn {
+  padding: 10px 16px;
+  background: #088178;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
 }
 
+}
+
+
+/* Spacing tuning for standard shop card viewports */
+.pro-container {
+  grid-gap: 25px;
+}
