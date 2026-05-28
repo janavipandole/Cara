@@ -137,7 +137,12 @@ function formatCurrency(amount) {
 
 // Update cart count badge
 function updateCartCount() {
-    const cart       = JSON.parse(localStorage.getItem("productsInCart")) || [];
+    let cart = [];
+try {
+    cart = JSON.parse(localStorage.getItem("productsInCart")) || [];
+} catch (e) {
+    console.error("LocalStorage Parse Error", e);
+}
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
     const desktopCount = document.getElementById("desktopCartCount");
