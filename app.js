@@ -927,9 +927,15 @@ function initHeroSlider() {
 
     function updateSlider() {
         slides.forEach(s => s.classList.remove("active"));
-        dots.forEach(d   => d.classList.remove("active"));
+        dots.forEach(d   => {
+            d.classList.remove("active");
+            d.removeAttribute("aria-current");
+        });
         slides[currentSlide].classList.add("active");
-        if (dots[currentSlide]) dots[currentSlide].classList.add("active");
+        if (dots[currentSlide]) {
+            dots[currentSlide].classList.add("active");
+            dots[currentSlide].setAttribute("aria-current", "true");
+        }
     }
 
     function nextSlide() { currentSlide = (currentSlide + 1) % slides.length; updateSlider(); }
