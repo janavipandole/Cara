@@ -255,7 +255,7 @@ form.addEventListener("submit", function (e) {
       submitBtn.disabled = false;
       submitBtn.style.opacity = "";
       submitBtn.style.cursor = "";
-      submitBtn.innerHTML = originalHTML;
+      submitBtn.innerHTML = submitBtn.getAttribute('data-original-html') || 'Place Order';
     }
 
     form.reset();

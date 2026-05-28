@@ -1,9 +1,8 @@
 /* ===== FORGOT PASSWORD JS ===== */
- 
 
-/* toggle new password visibility */
-if (!document.getElementById('forgotForm')) 
-      return;
+document.addEventListener('DOMContentLoaded', function () {
+  if (!document.getElementById('forgotForm')) 
+        return;
 
 document.getElementById('toggleNewPass').addEventListener('click', function () {
   const pwd = document.getElementById('forgotNewPass');
@@ -104,5 +103,6 @@ if (form) form.addEventListener('submit', function (e) {
       window.location.href = 'login.html';
     }, 2000);
   }, 1500);
+});
 });
 
