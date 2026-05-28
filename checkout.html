@@ -163,6 +163,13 @@
             <span class="error-msg"></span>
           </div>
 
+      <!-- COLUMN PREVIEW OR SIDEBAR -->
+      <div class="totals-sidebar">
+        <!-- Preview and Totals -->
+        <fieldset class="card">
+          <legend class="card-title">
+            <i class="ri-shopping-bag-3-line"></i> Order Summary
+          </legend>
           <div class="order-item">
             <div class="item-thumb"><i class="ri-shirt-line"></i></div>
             <div class="item-info">
@@ -171,7 +178,6 @@
             </div>
             <div class="item-price">₹1,798</div>
           </div>
-
           <div class="totals">
             <div class="total-row">
               <span>Subtotal</span>
@@ -190,18 +196,16 @@
               <span>₹4,302</span>
             </div>
           </div>
-
-          <button class="submit-btn" onclick="placeOrder()">
+          <button type="submit" class="submit-btn">
             <i class="ri-shield-check-line"></i> Place Your Order
           </button>
-
           <div class="secure-badge">
             <i class="ri-lock-line"></i> 100% Secure Checkout
           </div>
-        </div>
-      </div><!-- /right -->
+        </fieldset>
+      </div>
 
-    </div><!-- /checkout-grid -->
+    </form>
   </div><!-- /page-wrapper -->
 
   <!-- ══ SUCCESS POPUP ══ -->

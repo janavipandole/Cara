@@ -6512,13 +6512,11 @@ button.normal:hover {
   transform: translateY(-6px);
 }
 
-/* ============================================
-   GLOBAL RESPONSIVE STYLES
-   ============================================ */
-@media (min-width: 800px) {
-  .mobile {
-    display: none !important;
-  }
+#header img{
+    width: 150px;
+    height: auto;
+    object-fit: contain;
+    margin-left: -10px;
 }
 
 @media (max-width: 991px) {
@@ -6547,9 +6545,7 @@ button.normal:hover {
     margin-top: 30px;
   }
 
-  #banner {
-    height: 30vh;
-  }
+/* AI FASHION BANNER */
 
   #sm-banner .banner-box {
     min-width: 100%;
@@ -6565,15 +6561,21 @@ button.normal:hover {
     min-width: 100%;
   }
 
-  #contact-section {
-    padding: 40px 40px;
-  }
+.rf-content{
+    flex: 1;
 }
 
-@media (max-width: 799px) {
-  .section-p1 {
-    padding: 40px 20px;
-  }
+.rf-badge{
+    display: inline-block;
+    background: #088178;
+    color: white;
+    padding: 8px 18px;
+    border-radius: 30px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
 
   /* Mobile Navbar */
   #navbar {
@@ -6685,13 +6687,14 @@ button.normal:hover {
   .cart-item-right {
     justify-content: space-between;
     width: 100%;
-  }
+    max-width: 520px;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
 }
 
-@media (max-width: 477px) {
-  #header {
-    padding: 10px 20px;
-  }
+/* RESPONSIVE */
 
   h1 {
     font-size: 38px;
@@ -6702,19 +6705,21 @@ button.normal:hover {
     line-height: 32px;
   }
 
-  #product1 .pro-container {
-    grid-template-columns: 1fr;
-  }
+    .relevant-fashion-banner{
+        flex-direction: column;
+        text-align: center;
+        padding: 30px 5%;
+    }
 
-  #feature .fe-box {
-    width: 100%;
-  }
+    .rf-content h1{
+        font-size: 34px;
+        max-width: 100%;
+    }
 
-  #sm-banner .banner-box {
-    height: 30vh;
-    padding: 20px;
-    min-width: 100%;
-  }
+    .rf-content p{
+        margin: auto;
+        margin-bottom: 22px;
+    }
 
   .style-card {
     width: 100%;

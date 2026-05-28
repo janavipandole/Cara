@@ -531,6 +531,10 @@ button.white .ripple-effect {
    HEADER
    ============================================ */
 
+ /* ============================================
+   SMALLER NAVBAR FIX
+   ============================================ */
+
 #header {
   display: flex;
   align-items: center;
@@ -563,6 +567,8 @@ button.white .ripple-effect {
   object-fit: contain;
 }
 
+/* Navbar links */
+
 #navbar {
   position: relative;
   display: flex;
@@ -584,6 +590,10 @@ button.white .ripple-effect {
   color: var(--text-primary);
   transition: color 0.3s ease;
 }
+ 
+/* ============================================
+   FORCE NAVBAR SIZE FIX
+   ============================================ */
 
 #navbar li a:hover,
 #navbar li a.active {
@@ -619,6 +629,7 @@ button.white .ripple-effect {
   }
 }
 
+  
 /* ============================================
    HERO SECTION
    ============================================ */
@@ -651,13 +662,25 @@ button.white .ripple-effect {
   justify-content: center;
   flex-direction: column;
 }
+#hero.hero-slider{
+    overflow:hiddem !important;
+}
+
+/* ONLY active slide visible */
 
 .hero-slider .slide.active {
   opacity: 1;
   z-index: 1;
 }
 
-/* Gradient Overlays */
+/* Active slide */
+.hero-slider .slide.active {
+    opacity: 1;
+    z-index: 1;
+}
+
+/* ───────────────── OVERLAY ───────────────── */
+
 .hero-slider .slide::before {
   content: '';
   position: absolute;
@@ -684,13 +707,48 @@ button.white .ripple-effect {
   );
 }
 
+/* ───────────────── CONTENT ───────────────── */
+
 .hero-slider .slide-content {
   padding: 0 80px;
   position: relative;
   z-index: 2;
 }
 
-/* Slider Controls */
+/* ───────────────── TYPOGRAPHY ───────────────── */
+
+#hero h4 {
+    padding-bottom: 15px;
+}
+
+#hero h1 {
+    color: var(--accent);
+}
+
+#hero .slide-content h4 {
+    color: #088178;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+#hero .slide-content h2 {
+    color: #1a1a1a;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.10);
+}
+
+#hero .slide-content p {
+    color: #2d2d2d;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+/* Dark mode text */
+
+[data-theme="dark"] #hero .slide-content h2,
+[data-theme="dark"] #hero .slide-content p {
+    color: #ffffff;
+}
+
+/* ───────────────── SLIDER BUTTONS ───────────────── */
+
 .slider-btn {
   position: absolute;
   top: 50%;
@@ -726,7 +784,8 @@ button.white .ripple-effect {
   right: 20px;
 }
 
-/* Slider Indicators */
+/* ───────────────── DOTS ───────────────── */
+
 .slider-dots {
   position: absolute;
   bottom: 30px;
@@ -771,11 +830,10 @@ button.white .ripple-effect {
   color: var(--accent);
 }
 
-/* ── Hero banner: contrast fix for secondary text layers ──────────────────
-   These rules target ONLY the promotional sub-headings and body copy inside
-   .slide-content so they remain legible against the frosted-glass overlay.
-   Nothing outside the hero slider is affected.
-   ───────────────────────────────────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+   All breakpoints only adjust sizing/spacing — no colour or layout changes.
+   ═══════════════════════════════════════════════════════════════════════════ */
 
 /* "Trade-in-offer", "New Arrivals", "Seasonal Sale" — small promo label */
 #hero .slide-content h4 {
@@ -795,6 +853,122 @@ button.white .ripple-effect {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
 }
 
+/* ── Tablet portrait (≤ 768 px) ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+    #hero.hero-slider {
+        height: 70vh;
+        max-height: 560px;
+        min-height: 420px;
+        margin-bottom: 36px;
+    }
+
+    .hero-slider .slide {
+        background-position: top 10% center;
+        /* Centre the image on narrow viewports for balanced cropping          */
+        background-size: cover;
+    }
+
+    .hero-slider .slide::before {
+        /* Stronger overlay so text stays readable over centered image         */
+        background-image: linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0.90) 0%,
+            rgba(255, 255, 255, 0.70) 50%,
+            rgba(255, 255, 255, 0.10) 100%
+        );
+    }
+
+    [data-theme="dark"] .hero-slider .slide::before {
+        background-image: linear-gradient(
+            to right,
+            rgba(0, 0, 0, 0.95) 0%,
+            rgba(0, 0, 0, 0.80) 55%,
+            rgba(0, 0, 0, 0.15) 100%
+        );
+    }
+
+    .hero-slider .slide-content {
+        padding: 0 32px;
+    }
+
+    .slider-btn {
+        width: 28px;
+        height: 28px;
+    }
+
+    .slider-btn.prev { left: 12px;  }
+    .slider-btn.next { right: 12px; }
+
+    .slider-dots {
+        bottom: 18px;
+        gap: 8px;
+    }
+
+    .slider-dots .dot {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+/* ── Mobile (≤ 480 px) ──────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+    #hero.hero-slider {
+        height: 65vh;
+        max-height: 480px;
+        min-height: 360px;
+        margin-bottom: 24px;
+    }
+
+    .hero-slider .slide {
+        background-position: top 5% center;
+    }
+
+    .hero-slider .slide::before {
+        /* Full-width gradient on very small screens for maximum legibility    */
+        background-image: linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.88) 0%,
+            rgba(255, 255, 255, 0.65) 60%,
+            rgba(255, 255, 255, 0.20) 100%
+        );
+    }
+
+    [data-theme="dark"] .hero-slider .slide::before {
+        background-image: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.92) 0%,
+            rgba(0, 0, 0, 0.75) 60%,
+            rgba(0, 0, 0, 0.25) 100%
+        );
+    }
+
+    .hero-slider .slide-content {
+        padding: 0 20px;
+    }
+
+    .slider-btn {
+        width: 26px;
+        height: 26px;
+    }
+
+    .slider-dots {
+        bottom: 14px;
+        gap: 7px;
+    }
+
+    .slider-dots .dot {
+        width: 9px;
+        height: 9px;
+    }
+}
+
+/* ── Reduce-motion: honour OS accessibility setting ─────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    .hero-slider .slide,
+    .slider-dots .dot {
+        transition: none;
+    }
+}
 /* Dark-mode overrides: keep text bright on the dark gradient overlay */
 [data-theme='dark'] #hero .slide-content h4 {
   color: #4ecdc4;
