@@ -26,6 +26,14 @@
       referrerpolicy="no-referrer"
     />
     <!-- Promotions-specific styles moved to promotions.css -->
+     <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.8;
+    }
+    </style>
   </head>
   <body>
     <section id="header">
@@ -156,27 +164,34 @@
     </section>
 
     <!-- Discount Popup Element -->
-    <div id="discount-popup">
-      <i
-        class="ri-close-line close-btn"
+    <div id="discount-popup" role="dialog" aria-labelledby="popup-title" aria-describedby="promo-text" aria-live="polite">
+      <button
+        class="close-btn"
+        aria-label="Close gift popup"
+        style="background: transparent; border: none; color: #fff; position: absolute; top: 8px; right: 10px; cursor: pointer; font-size: 18px;"
         onclick="
-          document.getElementById('discount-popup').style.display = 'none'
+          document.getElementById('discount-popup').style.display = 'none';
         "
-      ></i>
-      <h4>Surprise Gift! 🎁</h4>
+      >
+        <i class="ri-close-line"></i>
+      </button>
+      <h4 id="popup-title">Surprise Gift! <i class="fas fa-gift"></i></h4>
       <p id="promo-text">
         Thanks for checking out our promotions. Use this code at checkout for
         15% off your first order!
       </p>
-      <div
+      <button
         class="copy-code"
+        aria-label="Copy coupon code CARA15 for 15% off"
+        style="border: none; font-family: inherit; cursor: pointer; font-size: inherit; text-transform: none; line-height: inherit;"
         onclick="
           navigator.clipboard.writeText('CARA15');
           this.innerText = 'COPIED!';
+          this.setAttribute('aria-label', 'Coupon code CARA15 copied to clipboard');
         "
       >
         CARA15
-      </div>
+      </button>
     </div>
 
     <footer class="section-p1">
@@ -230,7 +245,7 @@
       <div class="col">
         <h4>About</h4>
         <a href="about.html">About Us</a>
-        <a href="#">Delivery Information</a>
+        <a href="deliveryInformation.html">Delivery Information</a>
         <a href="privacy.html">Privacy Policy</a>
         <a href="terms.html">Terms and Conditions</a>
         <a href="contact.html">Contact Us</a>
@@ -369,3 +384,5 @@
     </script>
 </body>
 </html>
+
+<!-- Accessibility and structural improvements -->
