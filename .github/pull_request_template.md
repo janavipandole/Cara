@@ -43,12 +43,12 @@ Select the type of change your PR introduces (check all that apply):
 
 Before submitting your PR, please confirm the following:
 
-- [ ] I have performed a self-review of my code.  
-- [ ] I have commented my code, particularly in hard-to-understand areas.  
-- [ ] I have added or updated relevant documentation.  
-- [ ] My changes do not break any existing functionality.  
-- [ ] I have tested my changes locally and they work as expected.  
-- [ ] I have linked all relevant issues (if any).
+- [ ] Code follows project style guidelines  
+- [ ] Tests added/updated and passing  
+- [ ] Responsive design verified on mobile/tablet/desktop  
+- [ ] Accessibility checked (keyboard nav, screen readers)  
+- [ ] Screenshots attached (if UI changes)  
+- [ ] Self-review completed
 
 ---
 
