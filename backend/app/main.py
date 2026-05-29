@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from . import models
 from .database import engine
+from .api import auth
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -23,3 +24,4 @@ def root():
 from .api import recommendation, products
 app.include_router(recommendation.router, prefix="/api/outfit", tags=["outfit"])
 app.include_router(products.router, prefix="/api/products", tags=["products"])
+app.include_router(auth.router,prefix="/api/auth",tags=["auth"])

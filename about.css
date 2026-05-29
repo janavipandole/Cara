@@ -82,3 +82,53 @@
         width: 90%;
     }
 }
+
+
+/* Typography enhancements */
+.about-header h2 {
+  font-size: clamp(2rem, 5vw, 3.5rem) !important;
+  line-height: 1.2;
+}
+
+/* Timeline Milestone Animations */
+.milestone-item {
+  opacity: 0;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.milestone-item.milestone-left {
+  transform: translateX(-40px);
+}
+
+.milestone-item.milestone-right {
+  transform: translateX(40px);
+}
+
+.milestone-item.milestone-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.milestone-dot {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.milestone-item.milestone-visible .milestone-dot {
+  animation: dotPulse 1s ease-out;
+}
+
+@keyframes dotPulse {
+  0%   { transform: translateX(-50%) scale(0.6); box-shadow: 0 0 0 0 rgba(8, 129, 120, 0.6); }
+  50%  { transform: translateX(-50%) scale(1.15); box-shadow: 0 0 0 12px rgba(8, 129, 120, 0); }
+  100% { transform: translateX(-50%) scale(1);   box-shadow: 0 0 0 0 rgba(8, 129, 120, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .milestone-item,
+  .milestone-item.milestone-left,
+  .milestone-item.milestone-right {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
