@@ -213,16 +213,12 @@
     
     <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 40px; margin-top: 30px;">
       <!-- Aggregate Rating -->
-      <div style="background: #f9f9f9; padding: 25px; border-radius: 8px; border: 1px solid #eee;">
-        <h3 style="font-size: 32px; margin: 0; color: #222;">4.8</h3>
-        <div style="color: #ffbd27; font-size: 18px; margin: 8px 0;">
-          <i class="ri-star-fill"></i>
-          <i class="ri-star-fill"></i>
-          <i class="ri-star-fill"></i>
-          <i class="ri-star-fill"></i>
-          <i class="ri-star-half-fill"></i>
+      <div id="aggregate-rating" style="background: #f9f9f9; padding: 25px; border-radius: 8px; border: 1px solid #eee;">
+        <h3 id="average-rating" style="font-size: 32px; margin: 0; color: #222;">0.0</h3>
+        <div id="average-stars" style="color: #ffbd27; font-size: 18px; margin: 8px 0;">
+          <!-- stars rendered here -->
         </div>
-        <p style="margin: 0; font-size: 14px; color: #555;">Based on 124 reviews</p>
+        <p style="margin: 0; font-size: 14px; color: #555;" id="review-count">Based on 0 reviews</p>
       </div>
 
       <!-- Add Review Form -->
@@ -239,6 +235,14 @@
               <i class="ri-star-line" data-rating="5" onclick="setRating(5)"></i>
             </div>
             <input type="hidden" id="review-rating" value="0">
+          </div>
+          <div>
+            <label style="display: block; font-weight: 600; margin-bottom: 5px;">Name (optional):</label>
+            <input id="review-name" type="text" placeholder="Your name" style="width:100%; padding:8px; border:1px solid #ccc; border-radius:6px;">
+          </div>
+          <div>
+            <label style="display: block; font-weight: 600; margin-bottom: 5px;">Attach images (optional):</label>
+            <input id="review-images" type="file" accept="image/*" multiple />
           </div>
           <div>
             <label for="review-text" style="display: block; font-weight: 600; margin-bottom: 5px;">Your Comment:</label>
@@ -264,58 +268,141 @@
   </section>
 
   <script>
-    let currentRating = 0;
-    function setRating(rating) {
-      currentRating = rating;
-      document.getElementById('review-rating').value = rating;
-      const stars = document.querySelectorAll('#star-rating-selector i');
-      stars.forEach((star, idx) => {
-        if (idx < rating) {
-          star.className = 'ri-star-fill';
-          star.style.color = '#ffbd27';
-        } else {
-          star.className = 'ri-star-line';
-          star.style.color = '';
+    (function () {
+      let currentRating = 0;
+
+      function slugify(text) {
+        return text.toString().toLowerCase().trim().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+      }
+
+      function productKey() {
+        const name = document.getElementById('product-name')?.textContent || 'product';
+        return 'reviews_' + slugify(name);
+      }
+
+      function loadReviews() {
+        const raw = localStorage.getItem(productKey());
+        return raw ? JSON.parse(raw) : [];
+      }
+
+      function saveReviews(reviews) {
+        localStorage.setItem(productKey(), JSON.stringify(reviews));
+      }
+
+      function renderAggregate(reviews) {
+        const avgEl = document.getElementById('average-rating');
+        const starsEl = document.getElementById('average-stars');
+        const countEl = document.getElementById('review-count');
+        if (!avgEl || !starsEl || !countEl) return;
+
+        const count = reviews.length;
+        const avg = count ? (reviews.reduce((s, r) => s + r.rating, 0) / count) : 0;
+        avgEl.textContent = avg ? avg.toFixed(1) : '0.0';
+        countEl.textContent = `Based on ${count} review${count !== 1 ? 's' : ''}`;
+
+        // render stars (full/half)
+        starsEl.innerHTML = '';
+        const full = Math.floor(avg);
+        const half = avg - full >= 0.5;
+        for (let i = 0; i < full; i++) starsEl.innerHTML += '<i class="ri-star-fill"></i>';
+        if (half) starsEl.innerHTML += '<i class="ri-star-half-fill"></i>';
+        const remaining = 5 - full - (half ? 1 : 0);
+        for (let i = 0; i < remaining; i++) starsEl.innerHTML += '<i class="ri-star-line"></i>';
+      }
+
+      function renderReviews() {
+        const list = document.getElementById('reviews-list');
+        if (!list) return;
+        list.innerHTML = '';
+        const reviews = loadReviews();
+        reviews.slice().reverse().forEach((r) => {
+          const div = document.createElement('div');
+          div.style.borderBottom = '1px solid #eee';
+          div.style.paddingBottom = '15px';
+
+          const stars = Array.from({ length: 5 }, (_, i) => i < r.rating ? '<i class="ri-star-fill" style="color:#ffbd27"></i>' : '<i class="ri-star-line"></i>').join('');
+
+          let imagesHtml = '';
+          if (r.images && r.images.length) {
+            imagesHtml = '<div style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap;">' + r.images.map(src => `<img src="${src}" style="width:80px; height:80px; object-fit:cover; border-radius:6px;" loading="lazy"/>`).join('') + '</div>';
+          }
+
+          div.innerHTML = `
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <h4 style="margin:0; font-size:16px;">${r.name || 'Anonymous'} <span style="color:#088178; font-size:12px; margin-left:8px;"><i class="ri-checkbox-circle-fill"></i> Verified Buyer</span></h4>
+              <span style="font-size:12px; color:#777;">${new Date(r.date).toLocaleDateString()}</span>
+            </div>
+            <div style="color:#ffbd27; margin:5px 0;">${stars}</div>
+            <p style="margin:0; color:#555;">${r.text}</p>
+            ${imagesHtml}
+          `;
+
+          list.appendChild(div);
+        });
+
+        renderAggregate(reviews);
+      }
+
+      function setRating(rating) {
+        currentRating = rating;
+        document.getElementById('review-rating').value = rating;
+        const stars = document.querySelectorAll('#star-rating-selector i');
+        stars.forEach((star, idx) => {
+          if (idx < rating) {
+            star.className = 'ri-star-fill';
+            star.style.color = '#ffbd27';
+          } else {
+            star.className = 'ri-star-line';
+            star.style.color = '';
+          }
+        });
+      }
+
+      function readFilesAsDataURLs(files) {
+        return Promise.all(Array.from(files).map(file => new Promise((res) => {
+          const fr = new FileReader();
+          fr.onload = () => res(fr.result);
+          fr.readAsDataURL(file);
+        })));
+      }
+
+      async function submitReview(e) {
+        e.preventDefault();
+        const text = document.getElementById('review-text').value.trim();
+        const name = document.getElementById('review-name').value.trim() || 'Anonymous';
+        const files = document.getElementById('review-images').files;
+        const status = document.getElementById('review-status');
+
+        if (currentRating === 0) {
+          status.innerHTML = `<span style="color: #ef4444;"><i class="ri-error-warning-line"></i> Please select a star rating.</span>`;
+          return;
         }
+
+        status.innerHTML = `<span style="color: #088178;"><i class="ri-checkbox-circle-line"></i> Submitting review...</span>`;
+
+        const images = files && files.length ? await readFilesAsDataURLs(files) : [];
+
+        const reviews = loadReviews();
+        reviews.push({ name, rating: currentRating, text, images, date: new Date().toISOString() });
+        saveReviews(reviews);
+
+        status.innerHTML = `<span style="color: #088178;"><i class="ri-checkbox-circle-line"></i> Thank you! Review submitted successfully.</span>`;
+        renderReviews();
+
+        document.getElementById('review-form').reset();
+        setRating(0);
+        setTimeout(() => status.innerHTML = '', 3000);
+      }
+
+      // expose to global scope for inline handlers
+      window.setRating = setRating;
+      window.submitReview = submitReview;
+
+      // init
+      document.addEventListener('DOMContentLoaded', () => {
+        renderReviews();
       });
-    }
-
-    function submitReview(e) {
-      e.preventDefault();
-      const text = document.getElementById('review-text').value;
-      const status = document.getElementById('review-status');
-      
-      if (currentRating === 0) {
-        status.innerHTML = `<span style="color: #ef4444;"><i class="ri-error-warning-line"></i> Please select a star rating.</span>`;
-        return;
-      }
-
-      status.innerHTML = `<span style="color: #088178;"><i class="ri-checkbox-circle-line"></i> Thank you! Review submitted successfully.</span>`;
-      
-      const list = document.getElementById('reviews-list');
-      const newReview = document.createElement('div');
-      newReview.style.borderBottom = '1px solid #eee';
-      newReview.style.paddingBottom = '15px';
-      
-      let starHtml = '';
-      for (let i = 0; i < 5; i++) {
-        starHtml += i < currentRating ? '<i class="ri-star-fill" style="color: #ffbd27;"></i>' : '<i class="ri-star-line"></i>';
-      }
-
-      newReview.innerHTML = `
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-          <h4 style="margin: 0; font-size: 16px;">Anonymous <span style="color: #088178; font-size: 12px; margin-left: 8px;"><i class="ri-checkbox-circle-fill"></i> Verified Buyer</span></h4>
-          <span style="font-size: 12px; color: #777;">Today</span>
-        </div>
-        <div style="color: #ffbd27; margin: 5px 0;">${starHtml}</div>
-        <p style="margin: 0; color: #555;">${text}</p>
-      `;
-      list.insertBefore(newReview, list.firstChild);
-      
-      document.getElementById('review-form').reset();
-      setRating(0);
-      setTimeout(() => status.innerHTML = '', 3000);
-    }
+    })();
   </script>
 
   <section id="product1" class="section-p1">
