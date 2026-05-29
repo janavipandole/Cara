@@ -279,31 +279,25 @@ function dismissToast(toast) {
 }
 
 window.updateQty = function (change) {
-    const qtyInput = document.getElementById('product-quantity');
-    if (qtyInput) {
-        let currentValue = parseInt(qtyInput.value);
-        if (isNaN(currentValue)) currentValue = 1;
-        let newValue = currentValue + change;
-        
-        // Clamp quantity between 1 and 99
-        if (newValue < 1) newValue = 1;
-        if (newValue > 99) newValue = 99;
-        
-        qtyInput.value = newValue;
+    let quantityElement = document.querySelector(".qty"); // check class
+    let quantity = parseInt(quantityElement.textContent);
 
-        // Dynamically update minus and plus button disabled states
-        const minusBtn = document.querySelector('.qty-btn.minus');
-        const plusBtn = document.querySelector('.qty-btn.plus');
-        
-        if (minusBtn) {
-            minusBtn.disabled = (newValue <= 1);
-        }
-        if (plusBtn) {
-            plusBtn.disabled = (newValue >= 99);
-        }
+    quantity += change;
+
+    // ✅ Fix starts here
+    if (isNaN(quantity) || quantity < 1) {
+        quantity = 1;
     }
-}
 
+    if (quantity > 99) {
+        quantity = 99;
+    }
+    // ✅ Fix ends here
+
+    quantityElement.textContent = quantity;
+
+    updateCartTotal(); // already present function
+};
 window.handleAddToCart = function () {
     const nameElement = document.getElementById('product-name');
     const priceElement = document.getElementById('product-price');
@@ -2264,7 +2258,7 @@ window.shareWardrobe = function () {
         if (btn) {
             var originalText = btn.innerHTML;
             btn.innerHTML = '✅ Link Copied!';
-            btn.style.color = '#10b981';
+            btn.style.color = '#10b991';
             setTimeout(function () { btn.innerHTML = originalText; btn.style.color = ''; }, 3000);
         }
         try {

@@ -275,7 +275,7 @@
     --shadow-hover: rgba(124, 58, 237, 0.3);
     --accent: #06b6d4;
     --feature-bg-1: #7c3aed;
-    --feature-bg-2: #10b981;
+    --feature-bg-2: #10b991;
     --feature-bg-3: #3b82f6;
     --feature-bg-4: #8b5cf6;
     --feature-bg-5: #ec4899;
@@ -390,7 +390,7 @@ button.white:hover {
 
 /* Click/Active State for White/Inverted Buttons */
 button.white:active {
-    transform: translateY(0) scale(0.98);
+    transform: translateY(0) scale(0.99);
     box-shadow: 0 2px 5px var(--shadow);
 }
 
@@ -3056,7 +3056,7 @@ footer {
         }
 
         [data-theme="dark"] .stat-label {
-            color: #98a8b5;
+            color: #99a8b5;
         }
 
         [data-theme="dark"] .about-image-container:hover {
@@ -3250,7 +3250,7 @@ footer {
         }
 
         [data-theme="dark"] .cara-features {
-            background: linear-gradient(180deg, rgba(15, 20, 25, 0.98) 0%, rgba(15, 20, 25, 0.94) 100%);
+            background: linear-gradient(180deg, rgba(15, 20, 25, 0.99) 0%, rgba(15, 20, 25, 0.94) 100%);
         }
 
         [data-theme="dark"] .cara-features::before {
@@ -3305,7 +3305,7 @@ footer {
         }
 
         [data-theme="dark"] .cara-card p {
-            color: #98a8b5;
+            color: #99a8b5;
         }
 
         @media (max-width: 991px) {
@@ -7705,7 +7705,7 @@ footer.main-footer {
     --shadow-hover: rgba(124, 58, 237, 0.3);
     --accent: #06b6d4;
     --feature-bg-1: #7c3aed;
-    --feature-bg-2: #10b981;
+    --feature-bg-2: #10b991;
     --feature-bg-3: #3b82f6;
     --feature-bg-4: #8b5cf6;
     --feature-bg-5: #ec4899;
@@ -7820,7 +7820,7 @@ button.white:hover {
 
 /* Click/Active State for White/Inverted Buttons */
 button.white:active {
-    transform: translateY(0) scale(0.98);
+    transform: translateY(0) scale(0.99);
     box-shadow: 0 2px 5px var(--shadow);
 }
 
@@ -13999,7 +13999,7 @@ footer .copyright {
     --shadow-hover: rgba(124, 58, 237, 0.3);
     --accent: #06b6d4;
     --feature-bg-1: #7c3aed;
-    --feature-bg-2: #10b981;
+    --feature-bg-2: #10b991;
     --feature-bg-3: #3b82f6;
     --feature-bg-4: #8b5cf6;
     --feature-bg-5: #ec4899;
@@ -14114,7 +14114,7 @@ button.white:hover {
 
 /* Click/Active State for White/Inverted Buttons */
 button.white:active {
-    transform: translateY(0) scale(0.98);
+    transform: translateY(0) scale(0.99);
     box-shadow: 0 2px 5px var(--shadow);
 }
 
@@ -17063,7 +17063,7 @@ footer .copyright {
             margin-top: 18px;
             padding: 14px 16px;
             background:
-                linear-gradient(135deg, rgba(8, 129, 120, 0.10), rgba(255, 255, 255, 0.98));
+                linear-gradient(135deg, rgba(8, 129, 120, 0.10), rgba(255, 255, 255, 0.99));
             color: var(--text-secondary);
             border: 1px solid var(--border-color);
             border-left: 4px solid var(--accent);
@@ -20322,7 +20322,7 @@ footer a {
     width: 100%;
     padding: 16px 16px 14px;
     border-radius: 14px;
-    background: linear-gradient(135deg, rgba(8,129,120,0.06), rgba(255,255,255,0.98));
+    background: linear-gradient(135deg, rgba(8,129,120,0.06), rgba(255,255,255,0.99));
     border: 1px solid rgba(8,129,120,0.18);
     box-shadow: 0 12px 28px rgba(2,6,23,0.06);
     display: flex;
@@ -21659,7 +21659,7 @@ html {
     --shadow-hover: rgba(124, 58, 237, 0.3);
     --accent: #06b6d4;
     --feature-bg-1: #7c3aed;
-    --feature-bg-2: #10b981;
+    --feature-bg-2: #10b991;
     --feature-bg-3: #3b82f6;
     --feature-bg-4: #8b5cf6;
     --feature-bg-5: #ec4899;
@@ -21774,7 +21774,7 @@ button.white:hover {
 
 /* Click/Active State for White/Inverted Buttons */
 button.white:active {
-    transform: translateY(0) scale(0.98);
+    transform: translateY(0) scale(0.99);
     box-shadow: 0 2px 5px var(--shadow);
 }
 
@@ -27953,7 +27953,7 @@ footer .copyright {
     --shadow-hover: rgba(124, 58, 237, 0.3);
     --accent: #06b6d4;
     --feature-bg-1: #7c3aed;
-    --feature-bg-2: #10b981;
+    --feature-bg-2: #10b991;
     --feature-bg-3: #3b82f6;
     --feature-bg-4: #8b5cf6;
     --feature-bg-5: #ec4899;
@@ -28068,7 +28068,7 @@ button.white:hover {
 
 /* Click/Active State for White/Inverted Buttons */
 button.white:active {
-    transform: translateY(0) scale(0.98);
+    transform: translateY(0) scale(0.99);
     box-shadow: 0 2px 5px var(--shadow);
 }
 
@@ -31017,7 +31017,7 @@ footer .copyright {
             margin-top: 18px;
             padding: 14px 16px;
             background:
-                linear-gradient(135deg, rgba(8, 129, 120, 0.10), rgba(255, 255, 255, 0.98));
+                linear-gradient(135deg, rgba(8, 129, 120, 0.10), rgba(255, 255, 255, 0.99));
             color: var(--text-secondary);
             border: 1px solid var(--border-color);
             border-left: 4px solid var(--accent);
@@ -34196,7 +34196,7 @@ footer .copyright {
     width: 100%;
     padding: 16px 16px 14px;
     border-radius: 14px;
-    background: linear-gradient(135deg, rgba(8,129,120,0.06), rgba(255,255,255,0.98));
+    background: linear-gradient(135deg, rgba(8,129,120,0.06), rgba(255,255,255,0.99));
     border: 1px solid rgba(8,129,120,0.18);
     box-shadow: 0 12px 28px rgba(2,6,23,0.06);
     display: flex;
@@ -35742,7 +35742,7 @@ html {
 }
 
 .quickview-btn:active {
-    transform: scale(0.98);
+    transform: scale(0.99);
 }
 
 /* Responsive Modal */

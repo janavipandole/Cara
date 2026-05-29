@@ -62,7 +62,7 @@ nav {
 .nav-logo::after {
   content: "✿";
   font-size: 1rem;
-  color: #a98fd4;
+  color: #a99fd4;
   font-family: sans-serif;
 }
 

@@ -605,7 +605,7 @@ function renderFinalComposite() {
     bodyInfoEl.style.display = 'block';
 
     generateBtn.innerHTML = '<i class="ri-check-line"></i> Try-On Complete';
-    generateBtn.style.background = '#10b981';
+    generateBtn.style.background = '#10b991';
 }
 
 // ============================================
