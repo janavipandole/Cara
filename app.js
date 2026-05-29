@@ -1417,4 +1417,8 @@ document.addEventListener("DOMContentLoaded", () => {
         modal.classList.add("active");
         modal.setAttribute("aria-hidden", "false");
     };
+    window.addEventListener('unhandledrejection', (event) => {
+  console.error('Unhandled Promise Rejection:', event.reason);
+});
 })();
+/* --- END: PRODUCT QUICK-VIEW MODAL FUNCTIONALITY --- */

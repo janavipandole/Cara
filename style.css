@@ -36219,3 +36219,38 @@ html {
     font-weight: 600 !important;
 }
 
+/* ============================================
+   SKELETON LOADER SHIMMER UTILITY
+   Issue #1584
+   ============================================ */
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+.skeleton-card {
+  height: 280px;
+  width: 100%;
+  max-width: 280px;
+  margin: 10px;
+}
+
+.skeleton-text {
+  height: 16px;
+  width: 80%;
+  margin: 8px 0;
+}
+
+.skeleton-image {
+  height: 180px;
+  width: 100%;
+}
+
