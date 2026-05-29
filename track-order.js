@@ -99,6 +99,13 @@ function setLoading(isLoading) {
 
 // ── Render the result card ────────────────────────────────
 function renderResult(order) {
+  // Save order tracking parameters to localStorage for history retention
+  localStorage.setItem("cara_last_tracked_id", order.id);
+  const emailInput = document.getElementById("orderEmail");
+  if (emailInput) {
+    localStorage.setItem("cara_last_tracked_email", emailInput.value.trim());
+  }
+
   // Populate header
   document.getElementById("resultOrderId").textContent = order.id;
   document.getElementById("statusText").textContent    = order.status;
@@ -112,6 +119,40 @@ function renderResult(order) {
   badge.className = "order-status-badge";
   if (order.status === "Delivered") badge.classList.add("delivered");
   if (order.status === "In Transit") badge.classList.add("in-transit");
+
+  // Dynamic live progress bar tracker (Simulated Distance Cover)
+  let liveContainer = document.getElementById("liveProgressBarWrap");
+  if (!liveContainer) {
+    liveContainer = document.createElement("div");
+    liveContainer.id = "liveProgressBarWrap";
+    liveContainer.style.cssText = "background: rgba(8, 129, 120, 0.08); padding: 15px; border-radius: 8px; margin-bottom: 25px; border: 1px solid rgba(8, 129, 120, 0.15);";
+    liveContainer.innerHTML = `
+      <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 6px; font-weight: 600; color: #088178;">
+        <span>Simulated Delivery Progress</span>
+        <span id="liveProgressPercent">62%</span>
+      </div>
+      <div style="background: rgba(0,0,0,0.1); height: 8px; border-radius: 4px; overflow: hidden; position: relative;">
+        <div id="liveProgressBar" style="background: #088178; height: 100%; width: 62%; transition: width 1s linear;"></div>
+      </div>
+      <span style="display: block; font-size: 11px; color: #666; margin-top: 6px; font-style: italic;">Live simulated parcel dispatch tracing active...</span>
+    `;
+    const detailsWrap = document.querySelector(".result-grid");
+    if (detailsWrap) detailsWrap.parentNode.insertBefore(liveContainer, detailsWrap);
+  }
+
+  // Animate simulated progress bar dynamically
+  let currentPct = 62;
+  const progressTimer = setInterval(() => {
+    if (currentPct < 99) {
+      currentPct += (Math.random() * 0.5 + 0.1);
+      const bar = document.getElementById("liveProgressBar");
+      const label = document.getElementById("liveProgressPercent");
+      if (bar) bar.style.width = currentPct.toFixed(1) + "%";
+      if (label) label.textContent = currentPct.toFixed(1) + "%";
+    } else {
+      clearInterval(progressTimer);
+    }
+  }, 3000);
 
   // Populate timeline
   const steps = ["ordered", "packed", "shipped", "transit", "delivered"];
@@ -141,7 +182,7 @@ function renderResult(order) {
     itemsList.innerHTML = order.items.map(function (item) {
       return `
         <div class="order-item">
-          <img src="${item.img}" alt="${item.name}" />
+          <img src="${item.img}" alt="${item.name}" loading="lazy" />
           <div class="item-info">
             <h4>${item.name}</h4>
             <span>Size: ${item.size} &nbsp;|&nbsp; Qty: ${item.qty}</span>
@@ -161,6 +202,18 @@ function renderResult(order) {
   resultCard.style.display = "block";
   resultCard.scrollIntoView({ behavior: "smooth", block: "start" });
 }
+
+// Auto-fill tracked order from localStorage if available
+document.addEventListener("DOMContentLoaded", () => {
+  const cachedId = localStorage.getItem("cara_last_tracked_id");
+  const cachedEmail = localStorage.getItem("cara_last_tracked_email");
+  if (cachedId && document.getElementById("orderId")) {
+    document.getElementById("orderId").value = cachedId;
+  }
+  if (cachedEmail && document.getElementById("orderEmail")) {
+    document.getElementById("orderEmail").value = cachedEmail;
+  }
+});
 
 // ── Show error card ───────────────────────────────────────
 function showError() {

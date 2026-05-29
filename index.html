@@ -2,8 +2,16 @@
 <html lang="en">
 
 <head>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
   <!-- Character Encoding -->
   <meta charset="UTF-8" />
+
+  <!-- Resource Hints -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
 
   <!-- Viewport for Responsive Design -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -55,6 +63,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="global.css">
 
   <!-- Inline Critical CSS -->
   <style>
@@ -92,30 +101,8 @@
     .theme-toggle {
       pointer-events: all !important;
     }
-    .search-container{
-  width: 100%;
-  background: white;
-  padding: 15px 20px;
-  box-sizing: border-box;
-  margin: 20px auto;
-  max-width: 600px;
-  position: relative;
-  z-index: 9999;
-}
 
-#searchBar{
-  width: 100%;
-  padding: 15px 20px;
-  border: 2px solid #088178;
-  border-radius: 8px;
-  font-size: 16px;
-  outline: none;
-  box-sizing: border-box;
-  background: white;
-  position: relative;
-  z-index: 99999;
-  pointer-events: auto;
-}
+
   </style>
 </head>
 
@@ -124,39 +111,10 @@
     <div id="top">
       <div id="workingArea">
         <section id="header">
-          <a href="index.html"><img loading="lazy" src="images/logo.png" alt="" /></a>
+          <a href="index.html" style="flex-shrink: 0;"><img id="siteLogo" loading="lazy" src="images/logo.png" alt="Cara Logo" style="height: 50px; min-width: 120px; object-fit: contain;" /></a>
 
-          <div class="search-container">
-            <input 
-              type="text"
-              id="searchBar"
-              placeholder="Search products..."
-            >
-          </div>
+          <div id="navbar-container"></div>
 
-          <div>
-            <ul id="navbar">
-              <li><a class="active" href="index.html">Home</a></li>
-              <li><a href="shop.html">Shop</a></li>
-              <li><a href="blog.html">Blog</a></li>
-              <li><a href="about.html">About</a></li>
-              <li><a href="contact.html">Contact</a></li>
-              <li><a href="login.html">Login</a></li>
-              <li><a href="#" id="logout-btn" style="display:none">Logout</a></li>
-              <li><a href="try-on.html">Try-On</a></li>
-              <li><a href="community.html">Community</a></li>
-              <li><a href="promotions.html">Promotions</a></li>
-              <li>
-                <a href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a>
-              </li>
-              <li>
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-                  <i class="ri-moon-line" id="themeIcon"></i>
-                </button>
-              </li>
-              <a href="#" id="close" aria-label="Close menu" aria-hidden="false"><i class="fa-solid fa-xmark"></i></a>
-            </ul>
-          </div>
           <div class="mobile">
             <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
             <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
@@ -175,24 +133,22 @@
                 Trending Fashion 2025
               </div>
 
-              <h4>Trade-in-offer</h4>
+              <h4 class="hero-small">Trade-in-offer</h4>
 
-              <h2>Super Value Deals</h2>
+<h2 class="hero-title">Super Value Deals</h2>
 
-              <h1>On All Products</h1>
+<h1 class="hero-main">On All Products</h1>
 
-              <p>
-                Save more with coupons & up to 70% off on premium
-                fashion collections.
-              </p>
-
+<p class="hero-desc">
+  Save more with coupons & up to 70% off on premium fashion collections.
+</p>
               <div class="hero-tags">
                 <span>Streetwear</span>
                 <span>Premium</span>
                 <span>Trending</span>
               </div>
 
-              <div class="hero-btn-group">
+              <div class="hero-btn-group hero-buttons">
 
                 <a href="shop.html" class="btn-shop-now">
                   Shop Now
@@ -647,7 +603,9 @@
   <!-- Style Quiz Modal -->
   <div id="quiz-modal" class="modal">
     <div class="modal-content">
-      <span class="close" onclick="closeQuiz()" style="background-color: red; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: medium;">&times;</span>
+      <!-- issue #910 redesigning close button-->
+      <span class="close" onclick="closeQuiz()" style=" position: absolute; top: 14px; right: 16px; font-size: 24px; cursor: pointer; color: #666;width: 32px; height: 32px;
+ display: flex; align-items:center;justify-content: center; border-radius: 50%; transition: all 0.25s ease-in-out;"> &times;</span>
       <h2 >What's Your Style ?</h2>
       <div class="quiz-options">
         <button onclick="selectStyle('minimal')">Minimal</button>
@@ -695,7 +653,7 @@
     <div class="col">
       <h4>About</h4>
       <a href="about.html">About Us</a>
-      <a href="#">Delivery Information</a>
+      <a href="deliveryInformation.html">Delivery Information</a>
       <a href="privacy.html">Privacy Policy</a>
       <a href="terms.html">Terms and Conditions</a>
       <a href="contact.html">Contact Us</a>
@@ -841,7 +799,7 @@
             </div>
 
     <div class="footer-bottom">
-        <p class="copyright">© Cara 2026. All rights reserved.</p>
+        <p class="copyright">© Cara <span class="Current-Year"></span>. All rights reserved.</p>
         <div class="footer-legal-links">
             <a href="license.html" class="license-link">MIT License</a>
         </div>
@@ -852,7 +810,7 @@
    <button id="topBtn">↑</button>
 <script src="navbar.js"></script>
 <script>
-  loadNavbar();
+  loadNavbar('home');
 </script>
 
 <!-- Runtime header height shim: measures header and sets --header-height CSS var -->
