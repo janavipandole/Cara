@@ -1,0 +1,40 @@
+# .github/labeler.yml
+# Configuration for actions/labeler@v5
+
+frontend:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '*.html'
+          - '*.js'
+          - 'Cara-main/**/*.html'
+          - 'Cara-main/**/*.js'
+          - 'js/**/*.js'
+
+styles:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '*.css'
+          - 'Cara-main/**/*.css'
+
+backend:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'backend/**'
+          - 'cara.db'
+
+workflows:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '.github/workflows/**'
+
+documentation:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '*.md'
+          - 'LICENSE'
+
+dependencies:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'package.json'
+          - 'package-lock.json'
