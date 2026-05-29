@@ -254,22 +254,30 @@
       </div>
     </div>
 
-    <!-- Review List -->
-    <div id="reviews-list" style="margin-top: 30px; display: flex; flex-direction: column; gap: 20px;">
-      <div style="border-bottom: 1px solid #eee; padding-bottom: 15px;">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-          <h4 style="margin: 0; font-size: 16px;">Debasmita B. <span style="color: #088178; font-size: 12px; margin-left: 8px;"><i class="ri-checkbox-circle-fill"></i> Verified Buyer</span></h4>
-          <span style="font-size: 12px; color: #777;">May 24, 2026</span>
-        </div>
-        <div style="color: #ffbd27; margin: 5px 0;"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
-        <p style="margin: 0; color: #555;">Excellent fit and fabric quality! Perfect summer wear.</p>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-top: 30px; gap: 12px; flex-wrap:wrap;">
+      <p style="margin:0; color:#555; max-width: 70%;">Showing all customer feedback below, sorted by <strong>Most Recent</strong>. Reviews load automatically as you scroll.</p>
+      <div style="display:flex; align-items:center; gap: 10px; font-size: 14px; color:#555;">
+        <label for="review-sort" style="font-weight:600;">Sort by:</label>
+        <select id="review-sort" style="padding: 8px 10px; border:1px solid #ccc; border-radius:6px;">
+          <option value="recent">Most Recent</option>
+          <option value="rating-high">Highest Rating</option>
+          <option value="rating-low">Lowest Rating</option>
+        </select>
       </div>
     </div>
+
+    <div id="reviews-list" style="margin-top: 20px; display: flex; flex-direction: column; gap: 20px;"></div>
+    <div id="reviews-sentinel" style="padding: 18px 0; color:#555; text-align:center; font-size:14px;">Scroll to load more reviews automatically.</div>
   </section>
 
   <script>
     (function () {
       let currentRating = 0;
+      const REVIEWS_BATCH_SIZE = 5;
+      let reviewsCache = [];
+      let renderedReviewsCount = 0;
+      let reviewObserver = null;
+      let currentSortOrder = 'recent';
 
       function slugify(text) {
         return text.toString().toLowerCase().trim().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
@@ -300,7 +308,6 @@
         avgEl.textContent = avg ? avg.toFixed(1) : '0.0';
         countEl.textContent = `Based on ${count} review${count !== 1 ? 's' : ''}`;
 
-        // render stars (full/half)
         starsEl.innerHTML = '';
         const full = Math.floor(avg);
         const half = avg - full >= 0.5;
@@ -310,35 +317,90 @@
         for (let i = 0; i < remaining; i++) starsEl.innerHTML += '<i class="ri-star-line"></i>';
       }
 
+      function sortReviews(reviews) {
+        return reviews.slice().sort((a, b) => {
+          const dateA = new Date(a.date).getTime();
+          const dateB = new Date(b.date).getTime();
+
+          if (currentSortOrder === 'rating-high') {
+            return (b.rating - a.rating) || (dateB - dateA);
+          }
+          if (currentSortOrder === 'rating-low') {
+            return (a.rating - b.rating) || (dateB - dateA);
+          }
+          return dateB - dateA;
+        });
+      }
+
+      function createReviewElement(review) {
+        const div = document.createElement('div');
+        div.style.borderBottom = '1px solid #eee';
+        div.style.paddingBottom = '15px';
+
+        const stars = Array.from({ length: 5 }, (_, i) => i < review.rating ? '<i class="ri-star-fill" style="color:#ffbd27"></i>' : '<i class="ri-star-line"></i>').join('');
+
+        let imagesHtml = '';
+        if (review.images && review.images.length) {
+          imagesHtml = '<div style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap;">' + review.images.map(src => `<img src="${src}" style="width:80px; height:80px; object-fit:cover; border-radius:6px;" loading="lazy"/>`).join('') + '</div>';
+        }
+
+        div.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;">
+            <h4 style="margin:0; font-size:16px;">${review.name || 'Anonymous'} <span style="color:#088178; font-size:12px; margin-left:8px;"><i class="ri-checkbox-circle-fill"></i> Verified Buyer</span></h4>
+            <span style="font-size:12px; color:#777;">${new Date(review.date).toLocaleDateString()}</span>
+          </div>
+          <div style="color:#ffbd27; margin:5px 0;">${stars}</div>
+          <p style="margin:0; color:#555;">${review.text}</p>
+          ${imagesHtml}
+        `;
+
+        return div;
+      }
+
+      function renderMoreReviews() {
+        const list = document.getElementById('reviews-list');
+        const sentinel = document.getElementById('reviews-sentinel');
+        if (!list || !sentinel) return;
+
+        if (renderedReviewsCount >= reviewsCache.length) {
+          sentinel.textContent = reviewsCache.length ? 'All reviews loaded.' : 'No reviews available yet.';
+          if (reviewObserver) reviewObserver.disconnect();
+          return;
+        }
+
+        const nextBatch = reviewsCache.slice(renderedReviewsCount, renderedReviewsCount + REVIEWS_BATCH_SIZE);
+        nextBatch.forEach((review) => {
+          list.appendChild(createReviewElement(review));
+        });
+
+        renderedReviewsCount += nextBatch.length;
+        sentinel.textContent = renderedReviewsCount < reviewsCache.length ? 'Loading more reviews as you scroll…' : 'All reviews loaded.';
+      }
+
       function renderReviews() {
         const list = document.getElementById('reviews-list');
-        if (!list) return;
+        const sentinel = document.getElementById('reviews-sentinel');
+        if (!list || !sentinel) return;
+
+        const reviews = sortReviews(loadReviews());
+        reviewsCache = reviews;
+        renderedReviewsCount = 0;
         list.innerHTML = '';
-        const reviews = loadReviews();
-        reviews.slice().reverse().forEach((r) => {
-          const div = document.createElement('div');
-          div.style.borderBottom = '1px solid #eee';
-          div.style.paddingBottom = '15px';
 
-          const stars = Array.from({ length: 5 }, (_, i) => i < r.rating ? '<i class="ri-star-fill" style="color:#ffbd27"></i>' : '<i class="ri-star-line"></i>').join('');
-
-          let imagesHtml = '';
-          if (r.images && r.images.length) {
-            imagesHtml = '<div style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap;">' + r.images.map(src => `<img src="${src}" style="width:80px; height:80px; object-fit:cover; border-radius:6px;" loading="lazy"/>`).join('') + '</div>';
-          }
-
-          div.innerHTML = `
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <h4 style="margin:0; font-size:16px;">${r.name || 'Anonymous'} <span style="color:#088178; font-size:12px; margin-left:8px;"><i class="ri-checkbox-circle-fill"></i> Verified Buyer</span></h4>
-              <span style="font-size:12px; color:#777;">${new Date(r.date).toLocaleDateString()}</span>
-            </div>
-            <div style="color:#ffbd27; margin:5px 0;">${stars}</div>
-            <p style="margin:0; color:#555;">${r.text}</p>
-            ${imagesHtml}
-          `;
-
-          list.appendChild(div);
-        });
+        if (!reviews.length) {
+          list.innerHTML = '<div style="padding:20px; background:#fff8e1; border:1px solid #fde68a; border-radius:8px; color:#92400e;">No reviews yet. Be the first to share your experience!</div>';
+          sentinel.textContent = 'Submit the first review to help other customers.';
+          if (reviewObserver) reviewObserver.disconnect();
+        } else {
+          renderMoreReviews();
+          if (reviewObserver) reviewObserver.disconnect();
+          reviewObserver = new IntersectionObserver((entries) => {
+            if (entries.some((entry) => entry.isIntersecting)) {
+              renderMoreReviews();
+            }
+          }, { rootMargin: '200px' });
+          reviewObserver.observe(sentinel);
+        }
 
         renderAggregate(reviews);
       }
@@ -400,6 +462,14 @@
 
       // init
       function initReviews() {
+        const sortSelect = document.getElementById('review-sort');
+        if (sortSelect) {
+          sortSelect.value = currentSortOrder;
+          sortSelect.addEventListener('change', () => {
+            currentSortOrder = sortSelect.value;
+            renderReviews();
+          });
+        }
         renderReviews();
       }
 
