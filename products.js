@@ -487,6 +487,14 @@ function renderProducts(containerId, list) {
     return;
   }
 
+  function safeParseJSON(key, fallback = '[]') {
+    try {
+      return JSON.parse(localStorage.getItem(key) || fallback);
+    } catch {
+      try { return JSON.parse(fallback); } catch { return []; }
+    }
+  }
+
   list.forEach((p) => {
     const card = document.createElement('div');
     card.className = 'pro';
@@ -610,7 +618,7 @@ function renderProducts(containerId, list) {
       const productName = p.name;
       const productImage = p.img;
       const productPrice = '₹' + p.price;
-      let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+      let wishlist = safeParseJSON('wishlist');
       const exists = wishlist.find((i) => i.name === productName);
       if (!exists) {
         wishlist.push({ name: productName, price: productPrice, image: productImage });
@@ -762,16 +770,10 @@ function attachSearchListeners() {
 }
 
 function addToCart(name, price, img, quantity, size) {
-  let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
-  cart.push({ name, price, img, quantity, size, id: Date.now() });
-  localStorage.setItem('productsInCart', JSON.stringify(cart));
-  if (typeof showToast === 'function') {
-    showToast(name + ' added to cart!', 'success');
-  }
-}
-
-function buyNow(name, price, img, quantity, size) {
-  let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+let cart = safeParseJSON('productsInCart');
+    } else if (e.target.classList.contains('fa-cart-plus') || e.target.classList.contains('ri-add-box-line')) {
+      // Add to cart
+      let cart = safeParseJSON('productsInCart');
   cart.push({ name, price, img, quantity, size, id: Date.now() });
   localStorage.setItem('productsInCart', JSON.stringify(cart));
   window.location.href = 'checkout.html';
