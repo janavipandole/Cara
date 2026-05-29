@@ -1,0 +1,10 @@
+﻿Closes #1417
+
+## Changes
+- privacy.html: Replaced raw ⚡ emoji with FontAwesome a-bolt icon
+- privacy.html: Added interactive Cookie & Privacy Preferences Consent Drawer
+  - Slide-up drawer with acceptance animation
+  - Accept All / Decline buttons
+  - Preference saved to localStorage (cara_cookie_consent)
+  - Only shows when no prior consent is stored
+- Fully responsive and dark-mode aware

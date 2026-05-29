@@ -1,0 +1,6 @@
+﻿Closes #1368
+
+## Changes
+- Added @media (max-width: 1024px) breakpoint in shop.css for product grid with gap: 18px and padding: 20px 40px
+- Updated @media (max-width: 900px) with consistent .pro card internal padding
+- Creates smooth gap transition: 20px → 18px → 14px across screen sizes
