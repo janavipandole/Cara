@@ -509,6 +509,7 @@ function renderProducts(containerId, list) {
     const img = document.createElement('img');
     img.src = p.img;
     img.alt = p.name;
+    img.loading = 'lazy';
     imgWrap.appendChild(img);
 
     const ribbon = document.createElement('div');
