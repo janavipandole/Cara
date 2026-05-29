@@ -79,8 +79,12 @@
       <a href="cart.html" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a>
       <i class="fas fa-outdent" id="bar"></i>
     </div>
-    <button onclick="history.back()" class="back-btn" aria-label="Go back">Back</button>
   </section>
+
+  <button type="button" onclick="history.back()" class="back-btn" aria-label="Go back">
+    <i class="ri-arrow-left-line" aria-hidden="true"></i>
+    Back
+  </button>
 
   <section id="pro-details" class="section-p1">
     <div class="single-pro-image">
@@ -207,58 +211,17 @@
     </div>
   </section>
 
-  <section id="product-reviews" class="section-p1" style="border-top: 1px solid #eef; padding-top: 40px; margin-top: 20px;">
-    <h2>Customer Reviews</h2>
-    <p>What our customers are saying about this product</p>
-    
-    <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 40px; margin-top: 30px;">
-      <!-- Aggregate Rating -->
-      <div id="aggregate-rating" style="background: #f9f9f9; padding: 25px; border-radius: 8px; border: 1px solid #eee;">
-        <h3 id="average-rating" style="font-size: 32px; margin: 0; color: #222;">0.0</h3>
-        <div id="average-stars" style="color: #ffbd27; font-size: 18px; margin: 8px 0;">
-          <!-- stars rendered here -->
-        </div>
-        <p style="margin: 0; font-size: 14px; color: #555;" id="review-count">Based on 0 reviews</p>
+  <section id="product-reviews" class="section-p1 reviews-section" aria-labelledby="reviews-heading">
+    <div class="reviews-heading-row">
+      <div>
+        <p class="reviews-kicker">Customer feedback</p>
+        <h2 id="reviews-heading">Ratings & Reviews</h2>
+        <p class="reviews-subtitle">See peer feedback immediately, sorted by the newest reviews first.</p>
       </div>
 
-      <!-- Add Review Form -->
-      <div style="background: #ffffff; padding: 25px; border-radius: 8px; border: 1px solid #eee;">
-        <h3 style="margin-top: 0;">Write a Review</h3>
-        <form id="review-form" onsubmit="submitReview(event)" style="display: flex; flex-direction: column; gap: 12px;">
-          <div>
-            <label style="display: block; font-weight: 600; margin-bottom: 5px;">Rating:</label>
-            <div id="star-rating-selector" style="display: flex; gap: 5px; font-size: 24px; color: #ccc; cursor: pointer;">
-              <i class="ri-star-line" data-rating="1" onclick="setRating(1)"></i>
-              <i class="ri-star-line" data-rating="2" onclick="setRating(2)"></i>
-              <i class="ri-star-line" data-rating="3" onclick="setRating(3)"></i>
-              <i class="ri-star-line" data-rating="4" onclick="setRating(4)"></i>
-              <i class="ri-star-line" data-rating="5" onclick="setRating(5)"></i>
-            </div>
-            <input type="hidden" id="review-rating" value="0">
-          </div>
-          <div>
-            <label style="display: block; font-weight: 600; margin-bottom: 5px;">Name (optional):</label>
-            <input id="review-name" type="text" placeholder="Your name" style="width:100%; padding:8px; border:1px solid #ccc; border-radius:6px;">
-          </div>
-          <div>
-            <label style="display: block; font-weight: 600; margin-bottom: 5px;">Attach images (optional):</label>
-            <input id="review-images" type="file" accept="image/*" multiple />
-          </div>
-          <div>
-            <label for="review-text" style="display: block; font-weight: 600; margin-bottom: 5px;">Your Comment:</label>
-            <textarea id="review-text" rows="3" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px;" required placeholder="Share your experience..."></textarea>
-          </div>
-          <button type="submit" class="normal" style="align-self: flex-start;">Submit Review</button>
-          <div id="review-status" style="margin-top: 10px; font-weight: 600;"></div>
-        </form>
-      </div>
-    </div>
-
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-top: 30px; gap: 12px; flex-wrap:wrap;">
-      <p style="margin:0; color:#555; max-width: 70%;">Showing all customer feedback below, sorted by <strong>Most Recent</strong>. Reviews load automatically as you scroll.</p>
-      <div style="display:flex; align-items:center; gap: 10px; font-size: 14px; color:#555;">
-        <label for="review-sort" style="font-weight:600;">Sort by:</label>
-        <select id="review-sort" style="padding: 8px 10px; border:1px solid #ccc; border-radius:6px;">
+      <div class="review-sort-control">
+        <label for="review-sort">Sort by</label>
+        <select id="review-sort">
           <option value="recent">Most Recent</option>
           <option value="rating-high">Highest Rating</option>
           <option value="rating-low">Lowest Rating</option>
@@ -266,8 +229,60 @@
       </div>
     </div>
 
-    <div id="reviews-list" style="margin-top: 20px; display: flex; flex-direction: column; gap: 20px;"></div>
-    <div id="reviews-sentinel" style="padding: 18px 0; color:#555; text-align:center; font-size:14px;">Scroll to load more reviews automatically.</div>
+    <div class="reviews-shell">
+      <aside id="aggregate-rating" class="reviews-summary-card" aria-label="Average customer rating">
+        <span class="reviews-summary-label">Overall Rating</span>
+        <h3 id="average-rating">0.0</h3>
+        <div id="average-stars" class="average-stars" aria-hidden="true"></div>
+        <p id="review-count">Based on 0 reviews</p>
+      </aside>
+
+      <div class="review-form-card">
+        <h3>Write a Review</h3>
+        <form id="review-form" class="review-form" onsubmit="submitReview(event)">
+          <div class="review-field">
+            <label>Rating</label>
+            <div id="star-rating-selector" class="star-rating-selector" role="radiogroup" aria-label="Select review rating">
+              <button type="button" data-rating="1" onclick="setRating(1)" aria-label="1 star"><i class="ri-star-line"></i></button>
+              <button type="button" data-rating="2" onclick="setRating(2)" aria-label="2 stars"><i class="ri-star-line"></i></button>
+              <button type="button" data-rating="3" onclick="setRating(3)" aria-label="3 stars"><i class="ri-star-line"></i></button>
+              <button type="button" data-rating="4" onclick="setRating(4)" aria-label="4 stars"><i class="ri-star-line"></i></button>
+              <button type="button" data-rating="5" onclick="setRating(5)" aria-label="5 stars"><i class="ri-star-line"></i></button>
+            </div>
+            <input type="hidden" id="review-rating" value="0">
+          </div>
+
+          <div class="review-field">
+            <label for="review-name">Name <span>(optional)</span></label>
+            <input id="review-name" type="text" placeholder="Your name">
+          </div>
+
+          <div class="review-field">
+            <label for="review-images">Attach images <span>(optional)</span></label>
+            <input id="review-images" type="file" accept="image/*" multiple>
+          </div>
+
+          <div class="review-field">
+            <label for="review-text">Your Comment</label>
+            <textarea id="review-text" rows="3" required placeholder="Share your experience..."></textarea>
+          </div>
+
+          <button type="submit" class="normal">Submit Review</button>
+          <div id="review-status" class="review-status" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+
+    <div class="reviews-list-header">
+      <div>
+        <h3>Customer Reviews</h3>
+        <p>All available reviews are visible here. More reviews load automatically as you scroll.</p>
+      </div>
+    </div>
+
+    <div id="reviews-list" class="reviews-list" aria-live="polite">
+      <div id="reviews-sentinel" class="reviews-sentinel">Loading reviews...</div>
+    </div>
   </section>
 
   <script>
@@ -284,13 +299,25 @@
       }
 
       function productKey() {
-        const name = document.getElementById('product-name')?.textContent || 'product';
+        const storedProduct = getSelectedProduct();
+        const name = storedProduct?.name || document.getElementById('product-name')?.textContent || 'product';
         return 'reviews_' + slugify(name);
       }
 
+      function getSelectedProduct() {
+        try {
+          return JSON.parse(localStorage.getItem('selectedProduct')) || null;
+        } catch (error) {
+          return null;
+        }
+      }
+
       function loadReviews() {
-        const raw = localStorage.getItem(productKey());
-        return raw ? JSON.parse(raw) : [];
+        try {
+          return JSON.parse(localStorage.getItem(productKey())) || [];
+        } catch (error) {
+          return [];
+        }
       }
 
       function saveReviews(reviews) {
@@ -334,27 +361,40 @@
 
       function createReviewElement(review) {
         const div = document.createElement('div');
-        div.style.borderBottom = '1px solid #eee';
-        div.style.paddingBottom = '15px';
+        div.className = 'review-card';
 
         const stars = Array.from({ length: 5 }, (_, i) => i < review.rating ? '<i class="ri-star-fill" style="color:#ffbd27"></i>' : '<i class="ri-star-line"></i>').join('');
 
+        const safeName = escapeHtml(review.name || 'Anonymous');
+        const safeText = escapeHtml(review.text || '');
+        const safeDateAttr = escapeHtml(review.date || '');
+        const safeDate = Number.isNaN(new Date(review.date).getTime()) ? '' : new Date(review.date).toLocaleDateString();
         let imagesHtml = '';
         if (review.images && review.images.length) {
-          imagesHtml = '<div style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap;">' + review.images.map(src => `<img src="${src}" style="width:80px; height:80px; object-fit:cover; border-radius:6px;" loading="lazy"/>`).join('') + '</div>';
+          imagesHtml = '<div class="review-images">' + review.images.map(src => `<img src="${escapeHtml(src)}" alt="Customer uploaded review image" loading="lazy">`).join('') + '</div>';
         }
 
         div.innerHTML = `
-          <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;">
-            <h4 style="margin:0; font-size:16px;">${review.name || 'Anonymous'} <span style="color:#088178; font-size:12px; margin-left:8px;"><i class="ri-checkbox-circle-fill"></i> Verified Buyer</span></h4>
-            <span style="font-size:12px; color:#777;">${new Date(review.date).toLocaleDateString()}</span>
+          <div class="review-card-top">
+            <h4>${safeName} <span><i class="ri-checkbox-circle-fill"></i> Verified Buyer</span></h4>
+            <time datetime="${safeDateAttr}">${safeDate}</time>
           </div>
-          <div style="color:#ffbd27; margin:5px 0;">${stars}</div>
-          <p style="margin:0; color:#555;">${review.text}</p>
+          <div class="review-stars" aria-label="${review.rating} out of 5 stars">${stars}</div>
+          <p>${safeText}</p>
           ${imagesHtml}
         `;
 
         return div;
+      }
+
+      function escapeHtml(value) {
+        return String(value).replace(/[&<>"']/g, (char) => ({
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#039;',
+        }[char]));
       }
 
       function renderMoreReviews() {
@@ -370,7 +410,7 @@
 
         const nextBatch = reviewsCache.slice(renderedReviewsCount, renderedReviewsCount + REVIEWS_BATCH_SIZE);
         nextBatch.forEach((review) => {
-          list.appendChild(createReviewElement(review));
+          list.insertBefore(createReviewElement(review), sentinel);
         });
 
         renderedReviewsCount += nextBatch.length;
@@ -386,36 +426,56 @@
         reviewsCache = reviews;
         renderedReviewsCount = 0;
         list.innerHTML = '';
+        list.appendChild(sentinel);
 
         if (!reviews.length) {
-          list.innerHTML = '<div style="padding:20px; background:#fff8e1; border:1px solid #fde68a; border-radius:8px; color:#92400e;">No reviews yet. Be the first to share your experience!</div>';
+          list.insertBefore(createEmptyReviewState(), sentinel);
           sentinel.textContent = 'Submit the first review to help other customers.';
           if (reviewObserver) reviewObserver.disconnect();
         } else {
           renderMoreReviews();
           if (reviewObserver) reviewObserver.disconnect();
-          reviewObserver = new IntersectionObserver((entries) => {
-            if (entries.some((entry) => entry.isIntersecting)) {
+          if ('IntersectionObserver' in window) {
+            reviewObserver = new IntersectionObserver((entries) => {
+              if (entries.some((entry) => entry.isIntersecting)) {
+                renderMoreReviews();
+              }
+            }, {
+              root: list,
+              rootMargin: '120px',
+            });
+            reviewObserver.observe(sentinel);
+          } else {
+            while (renderedReviewsCount < reviewsCache.length) {
               renderMoreReviews();
             }
-          }, { rootMargin: '200px' });
-          reviewObserver.observe(sentinel);
+          }
         }
 
         renderAggregate(reviews);
       }
 
+      function createEmptyReviewState() {
+        const emptyState = document.createElement('div');
+        emptyState.className = 'reviews-empty-state';
+        emptyState.textContent = 'No reviews yet. Be the first to share your experience!';
+        return emptyState;
+      }
+
       function setRating(rating) {
         currentRating = rating;
         document.getElementById('review-rating').value = rating;
-        const stars = document.querySelectorAll('#star-rating-selector i');
-        stars.forEach((star, idx) => {
+        const starButtons = document.querySelectorAll('#star-rating-selector button');
+        starButtons.forEach((button, idx) => {
+          const star = button.querySelector('i');
           if (idx < rating) {
             star.className = 'ri-star-fill';
             star.style.color = '#ffbd27';
+            button.setAttribute('aria-pressed', 'true');
           } else {
             star.className = 'ri-star-line';
             star.style.color = '';
+            button.setAttribute('aria-pressed', 'false');
           }
         });
       }
