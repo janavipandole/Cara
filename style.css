@@ -1846,6 +1846,32 @@ footer .copyright a:hover {
         font-size: 20px;
     }
 }
+/* === FIX: Footer responsive improvement === */
+
+@media (max-width: 768px) {
+    footer {
+        align-items: center;
+        text-align: center;
+    }
+
+    footer .col {
+        align-items: center;
+        text-align: center;
+    }
+
+    footer .follow .icon {
+        justify-content: center;
+    }
+}
+
+/* Prevent horizontal scroll */
+html, body {
+    overflow-x: hidden;
+}
+footer {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
 
 /* ============================================
    SHOP PAGE
