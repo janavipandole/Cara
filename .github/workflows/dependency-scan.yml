@@ -1,0 +1,20 @@
+name: Dependency Security Scan
+
+on:
+  schedule:
+    - cron: '0 0 * * 1'
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Run Dependency Audit
+        run: |
+          npm audit --audit-level=high || true
