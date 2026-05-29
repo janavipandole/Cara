@@ -1,3 +1,11 @@
+function safeParseJSON(key, fallback = '[]') {
+  try {
+    return JSON.parse(localStorage.getItem(key) || fallback);
+  } catch {
+    try { return JSON.parse(fallback); } catch { return []; }
+  }
+}
+
 const paymentMethod = document.getElementById("paymentMethod");
 const cardDetails = document.getElementById("cardDetails");
 
@@ -227,7 +235,7 @@ form.addEventListener("submit", function (e) {
   }
 
   // GET CART
-  let cart = JSON.parse(localStorage.getItem("productsInCart")) || [];
+  let cart = safeParseJSON('productsInCart');
 
   // CHECK EMPTY CART
   if (cart.length === 0) {
