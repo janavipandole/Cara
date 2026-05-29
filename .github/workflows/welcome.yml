@@ -1,30 +1,20 @@
-name: Welcome First-time Contributors
+name: Standard Welcome Bot
 
 on:
-  pull_request_target:
-    types: [opened]
-  issues:
+  pull_request:
     types: [opened]
 
 jobs:
   welcome:
     runs-on: ubuntu-latest
     steps:
-      - name: Welcome Message
+      - name: Welcome new contributor
         uses: actions/github-script@v7
         with:
           script: |
-            const isPR = !!context.payload.pull_request;
-            const sender = context.payload.sender.login;
-            
-            let message = `Thank you @${sender} for opening this `;
-            message += isPR ? "pull request! We appreciate your contribution." : "issue! Our team will look into it shortly.";
-            
-            if (isPR) {
-              await github.rest.issues.createComment({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: message
-              });
-            }
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `### Welcome to Cara! 🛍️\n\nThank you so much for opening this pull request. We really appreciate your contribution to this e-commerce platform!\n\n**Next Steps:**\n- Ensure your code follows the coding standard.\n- A maintainer will review your changes shortly.`
+            })
