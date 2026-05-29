@@ -33,6 +33,24 @@
       padding: 20px;
       line-height: 1.8;
     }
+    #topBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: none;
+      background-color: #088178;
+      color: white;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      transition: 0.3s;
+    }
+
+    #topBtn:hover {
+      background-color: #555;
+    }
     </style>
   </head>
   <body>
@@ -343,8 +361,7 @@
         </p>
       </div>
     </footer>
-    <button id="topBtn">↑</button>
-
+<button id="topBtn">↑</button>
     <script src="navbar.js"></script>
     <script>loadNavbar();</script>
     <script src="app.js"></script>
