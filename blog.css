@@ -101,3 +101,12 @@
         width: 100%;
     }
 }
+
+
+/* Smooth card image hover scaling */
+.blog-box img {
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.blog-box:hover img {
+  transform: scale(1.08);
+}
