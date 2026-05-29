@@ -1,0 +1,14 @@
+﻿## Description
+
+Wraps JSON.parse(localStorage.getItem(...)) calls in try-catch blocks in cart-related files to prevent unhandled exceptions when localStorage contains corrupted or invalid JSON data.
+
+## Changes
+
+- Added safeParseJSON(key, fallback) helper function in each modified file
+- **products.js**: Updated wishlist and cart reads (3 call sites)
+- **empty-cart.js**: Updated cart read for empty-cart view
+- **checkout.js**: Updated cart read for checkout flow
+
+## Related Issue
+
+Closes #1572
