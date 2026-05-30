@@ -30993,44 +30993,55 @@ footer .copyright {
         }
 
         /* --- Mobile Responsive Toast --- */
-        @media (max-width: 480px) {
-            #toast-container {
-                top: auto;
-                bottom: 20px;
-                right: 12px;
-                left: 12px;
-            }
+@media (max-width: 480px) {
+    #toast-container {
+        position: fixed;
+        bottom: 15px;
+        left: 10px;
+        right: 10px;
+        top: auto;
+        width: auto;
+        z-index: 9999;
+        box-sizing: border-box;
+    }
 
-            .toast {
-                min-width: unset;
-                max-width: 100%;
-                width: 100%;
-            }
+    .toast {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+        padding: 12px 16px;
+        border-radius: 10px;
+        font-size: 14px;
+        line-height: 1.5;
+        overflow-wrap: break-word;
+        word-break: break-word;
+    }
 
-            @keyframes toastSlideIn {
-                from {
-                    opacity: 0;
-                    transform: translateY(30px);
-                }
-
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-
-            @keyframes toastSlideOut {
-                from {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-
-                to {
-                    opacity: 0;
-                    transform: translateY(30px);
-                }
-            }
+    @keyframes toastSlideIn {
+        from {
+            opacity: 0;
+            transform: translateY(40px);
         }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes toastSlideOut {
+        from {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        to {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+    }
+}
 
         /* ============================================
    BLOG PAGE
