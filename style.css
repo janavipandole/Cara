@@ -36254,3 +36254,86 @@ html {
   width: 100%;
 }
 
+/* Wishlist navigation badge */
+.wishlist-nav-link,
+#navbar .nav-icon a {
+  position: relative;
+}
+
+.wishlist-count {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: #e0245e;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(224, 36, 94, 0.28);
+}
+
+.wishlist-count.hidden {
+  display: none;
+}
+
+/* Keep image-backed hero and banner copy readable in every theme. */
+#hero .slide-content h1,
+#hero .slide-content h2,
+#hero .slide-content h4,
+#hero .slide-content p,
+#banner h2,
+#banner h4,
+#shop-hero h1,
+#shop-hero h2,
+#shop-hero p,
+#about-head h1,
+#about-head h2,
+#about-head p,
+#community-header h1,
+#community-header h2,
+#community-header p,
+#page-header h2,
+#page-header p,
+#sm-banner .banner-box h2,
+#sm-banner .banner-box h4,
+#sm-banner .banner-box span,
+#banner3 .banner-box h2,
+#banner3 .banner-box h3 {
+  color: #fff !important;
+  text-shadow: 0 3px 16px rgba(0, 0, 0, 0.52);
+}
+
+#banner span {
+  color: #ffbdc9 !important;
+  text-shadow: 0 3px 16px rgba(0, 0, 0, 0.52);
+}
+
+#shop-hero .btn,
+#shop-hero .btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0 22px;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 999px;
+  background: #fff !important;
+  color: #055f59 !important;
+  font-weight: 800;
+  text-decoration: none;
+  text-shadow: none !important;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.24);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+#shop-hero .btn:hover,
+#shop-hero .btn-primary:hover {
+  transform: translateY(-2px);
+  background: #f3fffd !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
