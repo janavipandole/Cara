@@ -1053,3 +1053,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+const container = document.getElementById("shop-container");
+
+if (container && typeof products !== "undefined") {
+  container.innerHTML = "";
+
+  products.forEach(product => {
+    container.innerHTML += `
+      <div class="pro"
+           data-category="${product.category}"
+           data-price="${product.price}"
+           data-rating="${product.rating}">
+        <img src="${product.image}" />
+        <h5>${product.name}</h5>
+        <p>₹${product.price}</p>
+      </div>
+    `;
+  });
+}
