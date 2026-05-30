@@ -3455,7 +3455,7 @@ footer .copyright {
                 color: #ccc;
                 }
 
-                /* Dark mode — empty stars */
+                /* Dark mode ï¿½ empty stars */
                 body.dark .star i.ri-star-line {
                 color: #555;
                 }
@@ -3476,4 +3476,91 @@ footer .copyright {
 :root[data-theme='dark'] {
   --transition-speed: 0.3s;
   --element-spacing: 1.5rem;
+}
+
+/* QUICK VIEW MODAL */
+.qv-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+    backdrop-filter: blur(5px);
+}
+.qv-modal-content {
+    background: var(--card-bg, #ffffff);
+    padding: 30px;
+    border-radius: 16px;
+    max-width: 800px;
+    width: 90%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    animation: qvScaleUp 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+@keyframes qvScaleUp {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+.qv-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-primary, #222);
+}
+.qv-img-container img {
+    width: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+}
+.qv-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.qv-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: var(--text-primary, #222);
+}
+.qv-price {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--accent, #088178);
+    margin-bottom: 15px;
+}
+.qv-desc {
+    font-size: 14px;
+    color: var(--text-secondary, #6c757d);
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+.qv-btn {
+    background: var(--accent, #088178);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+.qv-btn:hover {
+    background: #06665f;
+}
+@media (max-width: 768px) {
+    .qv-modal-content {
+        grid-template-columns: 1fr;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
 }
