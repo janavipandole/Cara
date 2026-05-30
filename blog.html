@@ -211,7 +211,20 @@
       <p>Read all case studies about our products!</p>
     </section>
 
-    <section id="blog">
+    
+<section id="blog-search-sec" class="section-p1" style="max-width: 1200px; margin: 0 auto; padding-top: 40px; padding-bottom: 20px;">
+    <div style="display: flex; gap: 15px; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+        <input type="text" id="blogSearchInput" placeholder="Search blog articles..." style="padding: 12px 20px; border: 1px solid #cde7d8; border-radius: 8px; width: 300px; outline: none; transition: 0.3s; background: #fff;" />
+        <div class="blog-tags" style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <button class="blog-tag-btn active" data-tag="all" style="padding: 8px 16px; border: 1px solid #088178; background: #088178; color: white; border-radius: 20px; cursor: pointer; font-weight: 600; transition: 0.3s;">All</button>
+            <button class="blog-tag-btn" data-tag="fashion" style="padding: 8px 16px; border: 1px solid #cde7d8; background: transparent; color: #222; border-radius: 20px; cursor: pointer; font-weight: 600; transition: 0.3s;">Fashion</button>
+            <button class="blog-tag-btn" data-tag="menswear" style="padding: 8px 16px; border: 1px solid #cde7d8; background: transparent; color: #222; border-radius: 20px; cursor: pointer; font-weight: 600; transition: 0.3s;">Menswear</button>
+            <button class="blog-tag-btn" data-tag="trends" style="padding: 8px 16px; border: 1px solid #cde7d8; background: transparent; color: #222; border-radius: 20px; cursor: pointer; font-weight: 600; transition: 0.3s;">Trends</button>
+        </div>
+    </div>
+</section>
+<section id="blog">
+
       <div class="blog-box">
         <div class="blog-img">
           <img src="images/blog/b1.jpg" alt="A person wearing a Cotton-Jersey Zip-Up Hoodie" width="600" height="400" loading="lazy" />
@@ -225,7 +238,7 @@
             style....
           </p>
           <a
-            href="blog-cotton-jersey-hoodie.html"
+            data-tag="fashion" href="blog-cotton-jersey-hoodie.html"
             class="read-more text-gray-600 dark:text-gray-300"
           >
             CONTINUE READING
@@ -244,7 +257,7 @@
             looks to modern textured variations, we break down everything you
             need to nail this iconic hairstyle with total confidence....
           </p>
-          <a href="blog-quiff-styling.html" class="read-more"
+          <a data-tag="trends" href="blog-quiff-styling.html" class="read-more"
             >CONTINUE READING</a
           >
         </div>
@@ -262,7 +275,7 @@
             oversized graphic tees to the perfect high-top sneakers and cargo
             pants....
           </p>
-          <a href="blog-skater-girls.html" class="read-more"
+          <a data-tag="fashion" href="blog-skater-girls.html" class="read-more"
             >CONTINUE READING</a
           >
         </div>
@@ -279,7 +292,7 @@
             We've distilled this season's biggest fashion week highlights into
             wearable, everyday inspiration for the modern wardrobe....
           </p>
-          <a href="blog-runway-trends.html" class="read-more"
+          <a data-tag="trends" href="blog-runway-trends.html" class="read-more"
             >CONTINUE READING</a
           >
         </div>
@@ -296,7 +309,7 @@
             tailoring, and earthy tones. Explore the defining trends that shaped
             the season and how to incorporate them into your wardrobe today....
           </p>
-          <a href="blog-aw20-menswear.html" class="read-more"
+          <a data-tag="menswear" href="blog-aw20-menswear.html" class="read-more"
             >CONTINUE READING</a
           >
         </div>
@@ -504,6 +517,7 @@
   });
 </script>
 
+<script src="js/blog-search.js"></script>
 </body>
 </html>
 
