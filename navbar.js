@@ -69,6 +69,18 @@ function loadNavbar(activePage) {
           </a>
         </li>
 
+gssoc-dark-theme-fix-1062
+=======
+        <!-- Wishlist Icon -->
+        <li class="nav-icon">
+          <a ${activePage === 'wishlist' ? 'class="active" aria-current="page"' : ''} href="wishlist.html" title="View Wishlist" aria-label="Wishlist">
+            <i class="ri-heart-line"></i>
+            <span class="wishlist-count hidden">0</span>
+          </a>
+        </li>
+
+        <!-- Cart Icon -->
+main
         <li class="nav-icon">
           <a ${activePage === 'cart' ? 'class="active"' : ''} 
               href="cart.html" 
@@ -100,12 +112,18 @@ function loadNavbar(activePage) {
     return;
   }
 
+gssoc-dark-theme-fix-1062
   container.innerHTML = navbarHTML;
 
   // After injecting navbar → initialize features
   initTheme();
   initSearch();
   updateCartCount();
+
+  if (typeof window.updateWishlistCount === 'function') {
+    window.updateWishlistCount();
+  }
+main
 }
 
 
