@@ -1,0 +1,15 @@
+[
+  {
+    "path": "/*",
+    "budgets": [
+      {
+        "metric": "first-contentful-paint",
+        "budget": 2000
+      },
+      {
+        "metric": "interactive",
+        "budget": 3500
+      }
+    ]
+  }
+]

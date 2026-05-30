@@ -1,5 +1,11 @@
 # 🛍️ Cara - E-commerce Platform
 
+## Architecture Overview
+- **Frontend**: Clean semantic HTML5, modern vanilla CSS, responsive layouts, and app.js state handling.
+- **Database**: SQLite `cara.db` file mapping backend models.
+- **Workflows**: GitHub actions verify builds, run dependency checks, and auto-label code triage.
+- **Asset Assets**: Located under `assets/` and `images/` directories.
+
 > Officially participating in
 ## GSSOC 2026
 ## ELUSOC 2026
@@ -11,9 +17,16 @@
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6.svg?&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E.svg?&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![GitHub Contributors](https://img.shields.io/github/contributors/janavipandole/Cara)](https://github.com/janavipandole/Cara/graphs/contributors)
+[![GitHub Last Commit](https://img.shields.io/github/last-commit/janavipandole/Cara)](https://github.com/janavipandole/Cara/commits/main)
 
 **A modern, responsive e-commerce platform built with vanilla HTML, CSS, and JavaScript**
 
+## 🚀 [Live Demo](https://cara-seven-ashen.vercel.app/)
+ [Report Bug](https://github.com/janavipandole/Cara/issues) 
+ [Request Feature](https://github.com/janavipandole/Cara/issues)
+
+</div>
 <img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="1920" />
 
 ## 📋 Table of Contents
@@ -100,6 +113,12 @@ All you need is a modern web browser and a text editor!
 2. **Install development dependencies**
    ```bash
    npm install
+   ```
+
+3. **Verify linting and formatting**
+   ```bash
+   npm run lint
+   npm run format:check
    ```
 
 ## 🛠️ Development
@@ -302,3 +321,4 @@ If you find this project helpful, please consider giving it a ⭐ on GitHub!
 Made with ❤️ by [Janavi Pandole](https://github.com/janavipandole)
 
 </div>
+
