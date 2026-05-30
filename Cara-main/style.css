@@ -2274,6 +2274,7 @@ footer .copyright {
         color: var(--text-primary);
         padding: 0;
         margin: 0;
+        appearance: textfield;
         -moz-appearance: textfield;
     }
 
@@ -2546,45 +2547,72 @@ footer .copyright {
             color: #e2e8f0;
         }
 
-        /* --- Mobile Responsive Toast --- */
-        @media (max-width: 480px) {
-            #toast-container {
-                top: auto;
-                bottom: 20px;
-                right: 12px;
-                left: 12px;
-            }
+        /* ---  --- */
+@media (max-width: 480px) {
+    #toast-container {
+        position: fixed;
+        top: auto;
+        bottom: 15px;
+        left: 10px;
+        right: 10px;
+        width: auto;
+        z-index: 9999;
+    }
 
-            .toast {
-                min-width: unset;
-                max-width: 100%;
-                width: 100%;
-            }
+    .toast {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+        padding: 12px 16px;
+        border-radius: 12px;
+        font-size: 14px;
+        line-height: 1.5;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
 
-            @keyframes toastSlideIn {
-                from {
-                    opacity: 0;
-                    transform: translateY(30px);
-                }
+    .toast * {
+        max-width: 100%;
+        word-break: break-word;
+    }
 
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-
-            @keyframes toastSlideOut {
-                from {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-
-                to {
-                    opacity: 0;
-                    transform: translateY(30px);
-                }
-            }
+    @keyframes toastSlideIn {
+        from {
+            opacity: 0;
+            transform: translateY(40px);
         }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes toastSlideOut {
+        from {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        to {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+    }
+}
+
+/* --- Tablet Responsive Toast --- */
+@media (max-width: 768px) {
+    #toast-container {
+        left: 15px;
+        right: 15px;
+    }
+
+    .toast {
+        max-width: 100%;
+    }
+}
 
         /* ============================================
    BLOG PAGE
@@ -5854,6 +5882,7 @@ footer .copyright {
             font-weight: 700;
             color: var(--text-primary);
             pointer-events: none;
+            appearance: textfield;
             -moz-appearance: textfield;
         }
 

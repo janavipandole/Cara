@@ -2370,17 +2370,7 @@ footer .copyright a:hover {
         color: white;
     }
 
-    /* ============================================
-   MOBILE RESPONSIVENESS TWEAKS
-   ============================================ */
-    @media (max-width: 768px) {
-        #contact-section {
-            padding: 40px 20px;
-            flex-direction: column;
-        }
-
-
-    }
+   
 
 
     /* ============================================
@@ -2485,6 +2475,7 @@ footer .copyright a:hover {
         color: var(--text-primary);
         padding: 0;
         margin: 0;
+        appearance: textfield;
         -moz-appearance: textfield;
     }
 
@@ -2757,45 +2748,96 @@ footer .copyright a:hover {
             color: #e2e8f0;
         }
 
-        /* --- Mobile Responsive Toast --- */
-        @media (max-width: 480px) {
-            #toast-container {
-                top: auto;
-                bottom: 20px;
-                right: 12px;
-                left: 12px;
-            }
+       /* --- Tablet & Small Laptop Responsive Toast --- */
+@media (max-width: 768px) {
+    #toast-container {
+        position: fixed;
+        left: 15px;
+        right: 15px;
+        bottom: 20px;
+        top: auto;
+        width: auto;
+        z-index: 9999;
+    }
 
-            .toast {
-                min-width: unset;
-                max-width: 100%;
-                width: 100%;
-            }
+    .toast {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+}
 
-            @keyframes toastSlideIn {
-                from {
-                    opacity: 0;
-                    transform: translateY(30px);
-                }
+/* --- Mobile Responsive Toast --- */
+@media (max-width: 480px) {
+    #toast-container {
+        position: fixed;
+        left: 10px;
+        right: 10px;
+        bottom: 15px;
+        top: auto;
+        width: auto;
+        z-index: 9999;
+    }
 
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
+    .toast {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        padding: 14px 16px;
+        font-size: 14px;
+        line-height: 1.5;
+        border-radius: 12px;
+        box-sizing: border-box;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
 
-            @keyframes toastSlideOut {
-                from {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
+    .toast-title {
+        font-size: 15px;
+        font-weight: 600;
+        line-height: 1.4;
+    }
 
-                to {
-                    opacity: 0;
-                    transform: translateY(30px);
-                }
-            }
+    .toast-message {
+        font-size: 13px;
+        line-height: 1.5;
+        word-break: break-word;
+    }
+
+    .toast-close {
+        min-width: 36px;
+        min-height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+
+    @keyframes toastSlideIn {
+        from {
+            opacity: 0;
+            transform: translateY(40px);
         }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes toastSlideOut {
+        from {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        to {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+    }
+}
 
         /* ============================================
    BLOG PAGE
@@ -6584,6 +6626,7 @@ footer .copyright a:hover {
             font-weight: 700;
             color: var(--text-primary);
             pointer-events: none;
+            appearance: textfield;
             -moz-appearance: textfield;
         }
 
@@ -9618,23 +9661,65 @@ footer .copyright {
     /* ============================================
    MOBILE RESPONSIVENESS TWEAKS
    ============================================ */
-    @media (max-width: 768px) {
-        #contact-section {
-            padding: 40px 20px;
-            flex-direction: column;
-        }
-
-        #search-filter {
-            flex-direction: column;
-            align-items: stretch;
-            padding: 20px;
-        }
-
-        .search-container {
-            max-width: 100%;
-        }
+@media (max-width: 768px) {
+    #contact-section {
+        padding: 40px 20px;
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+        width: 100%;
+        box-sizing: border-box;
     }
 
+    #contact-section > * {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    #search-filter {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+        padding: 20px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .search-container {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .search-container input,
+    .search-container select,
+    .search-container button {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    #contact-section {
+        padding: 30px 15px;
+        gap: 20px;
+    }
+
+    #search-filter {
+        padding: 15px;
+        gap: 12px;
+    }
+
+    .search-container input,
+    .search-container select,
+    .search-container button {
+        font-size: 14px;
+    }
+}
 
     /* ============================================
    SINGLE PRODUCT
@@ -9719,6 +9804,7 @@ footer .copyright {
         padding: 0;
         margin: 0 6px;
         outline: none;
+        appearance: textfield;
         -moz-appearance: textfield;
     }
 
@@ -10007,7 +10093,7 @@ footer .copyright {
             color: #e2e8f0;
         }
 
-        /* --- Mobile Responsive Toast --- */
+        /* ---  --- */
         @media (max-width: 480px) {
             #toast-container {
                 top: auto;
@@ -13322,6 +13408,7 @@ footer .copyright {
             font-weight: 700;
             color: var(--text-primary);
             pointer-events: none;
+            appearance: textfield;
             -moz-appearance: textfield;
         }
 
@@ -16376,22 +16463,73 @@ footer .copyright {
     /* ============================================
    MOBILE RESPONSIVENESS TWEAKS
    ============================================ */
-    @media (max-width: 768px) {
-        #contact-section {
-            padding: 40px 20px;
-            flex-direction: column;
-        }
 
-        #search-filter {
-            flex-direction: column;
-            align-items: stretch;
-            padding: 20px;
-        }
-
-        .search-container {
-            max-width: 100%;
-        }
+/* Tablets and Mobile */
+@media (max-width: 768px) {
+    #contact-section {
+        padding: 40px 20px;
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+        width: 100%;
+        box-sizing: border-box;
     }
+
+    #contact-section > * {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    #search-filter {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+        padding: 20px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .search-container {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .search-container input,
+    .search-container select,
+    .search-container button {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+/* Small Mobile Devices */
+@media (max-width: 480px) {
+    #contact-section {
+        padding: 30px 15px;
+        gap: 20px;
+    }
+
+    #search-filter {
+        padding: 15px;
+        gap: 12px;
+    }
+
+    .search-container {
+        width: 100%;
+    }
+
+    .search-container input,
+    .search-container select,
+    .search-container button {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    #contact-section img {
+        max-width: 100%;
+        height: auto;
+    }
+}
 
 
     /* ============================================
@@ -16489,6 +16627,7 @@ footer .copyright {
         color: var(--text-primary);
         padding: 0;
         margin: 0;
+        appearance: textfield;
         -moz-appearance: textfield;
     }
 
@@ -16762,44 +16901,74 @@ footer .copyright {
         }
 
         /* --- Mobile Responsive Toast --- */
-        @media (max-width: 480px) {
-            #toast-container {
-                top: auto;
-                bottom: 20px;
-                right: 12px;
-                left: 12px;
-            }
+@media (max-width: 480px) {
+    #toast-container {
+        position: fixed;
+        top: auto;
+        bottom: 15px;
+        left: 10px;
+        right: 10px;
+        width: auto;
+        z-index: 9999;
+    }
 
-            .toast {
-                min-width: unset;
-                max-width: 100%;
-                width: 100%;
-            }
+    .toast {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        padding: 14px 16px;
+        box-sizing: border-box;
+        border-radius: 12px;
+        font-size: 14px;
+        line-height: 1.5;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
 
-            @keyframes toastSlideIn {
-                from {
-                    opacity: 0;
-                    transform: translateY(30px);
-                }
+    .toast-title {
+        font-size: 15px;
+        font-weight: 600;
+        line-height: 1.4;
+    }
 
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
+    .toast-message {
+        font-size: 13px;
+        line-height: 1.5;
+        word-break: break-word;
+    }
 
-            @keyframes toastSlideOut {
-                from {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
+    .toast-close {
+        min-width: 36px;
+        min-height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-                to {
-                    opacity: 0;
-                    transform: translateY(30px);
-                }
-            }
+    @keyframes toastSlideIn {
+        from {
+            opacity: 0;
+            transform: translateY(40px);
         }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes toastSlideOut {
+        from {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        to {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+    }
+}
 
         /* ============================================
    BLOG PAGE
@@ -20528,6 +20697,7 @@ footer a {
             font-weight: 700;
             color: var(--text-primary);
             pointer-events: none;
+            appearance: textfield;
             -moz-appearance: textfield;
         }
 
@@ -23572,24 +23742,66 @@ footer .copyright {
     /* ============================================
    MOBILE RESPONSIVENESS TWEAKS
    ============================================ */
-    @media (max-width: 768px) {
-        #contact-section {
-            padding: 40px 20px;
-            flex-direction: column;
-        }
-
-        #search-filter {
-            flex-direction: column;
-            align-items: stretch;
-            padding: 20px;
-        }
-
-        .search-container {
-            max-width: 100%;
-        }
+@media (max-width: 768px) {
+    #contact-section {
+        display: flex;
+        flex-direction: column;
+        padding: 40px 20px;
+        gap: 24px;
+        width: 100%;
+        box-sizing: border-box;
     }
 
+    #contact-section > * {
+        width: 100%;
+        max-width: 100%;
+    }
 
+    #search-filter {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+        padding: 20px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .search-container {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .search-container input,
+    .search-container select,
+    .search-container button {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    #contact-section {
+        padding: 30px 15px;
+        gap: 20px;
+    }
+
+    #search-filter {
+        padding: 15px;
+        gap: 12px;
+    }
+
+    .search-container input,
+    .search-container select,
+    .search-container button {
+        font-size: 14px;
+    }
+}
     /* ============================================
    SINGLE PRODUCT
    ============================================ */
@@ -23673,6 +23885,7 @@ footer .copyright {
         padding: 0;
         margin: 0 6px;
         outline: none;
+        appearance: textfield;
         -moz-appearance: textfield;
     }
 
@@ -23962,44 +24175,62 @@ footer .copyright {
         }
 
         /* --- Mobile Responsive Toast --- */
-        @media (max-width: 480px) {
-            #toast-container {
-                top: auto;
-                bottom: 20px;
-                right: 12px;
-                left: 12px;
-            }
+@media (max-width: 480px) {
+    #toast-container {
+        position: fixed;
+        top: auto;
+        bottom: 15px;
+        left: 10px;
+        right: 10px;
+        width: auto;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
 
-            .toast {
-                min-width: unset;
-                max-width: 100%;
-                width: 100%;
-            }
+    .toast {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+        padding: 14px 16px;
+        border-radius: 12px;
+        font-size: 14px;
+        line-height: 1.5;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
 
-            @keyframes toastSlideIn {
-                from {
-                    opacity: 0;
-                    transform: translateY(30px);
-                }
+    .toast * {
+        max-width: 100%;
+        word-break: break-word;
+    }
 
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-
-            @keyframes toastSlideOut {
-                from {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-
-                to {
-                    opacity: 0;
-                    transform: translateY(30px);
-                }
-            }
+    @keyframes toastSlideIn {
+        from {
+            opacity: 0;
+            transform: translateY(40px);
         }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes toastSlideOut {
+        from {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        to {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+    }
+}
 
         /* ============================================
    BLOG PAGE
@@ -27276,6 +27507,7 @@ footer .copyright {
             font-weight: 700;
             color: var(--text-primary);
             pointer-events: none;
+            appearance: textfield;
             -moz-appearance: textfield;
         }
 
@@ -30328,24 +30560,68 @@ footer .copyright {
     }
 
     /* ============================================
-   MOBILE RESPONSIVENESS TWEAKS
+   NESS TWEAKS
    ============================================ */
-    @media (max-width: 768px) {
-        #contact-section {
-            padding: 40px 20px;
-            flex-direction: column;
-        }
-
-        #search-filter {
-            flex-direction: column;
-            align-items: stretch;
-            padding: 20px;
-        }
-
-        .search-container {
-            max-width: 100%;
-        }
+@media (max-width: 768px) {
+    #contact-section {
+        display: flex;
+        flex-direction: column;
+        padding: 40px 20px;
+        gap: 24px;
+        width: 100%;
+        box-sizing: border-box;
     }
+
+    #contact-section > * {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    #search-filter {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+        padding: 20px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .search-container {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .search-container input,
+    .search-container select,
+    .search-container button {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    #contact-section {
+        padding: 30px 15px;
+        gap: 20px;
+    }
+
+    #search-filter {
+        padding: 15px;
+        gap: 12px;
+    }
+
+    .search-container input,
+    .search-container select,
+    .search-container button {
+        font-size: 14px;
+    }
+}
 
 
     /* ============================================
@@ -30443,6 +30719,7 @@ footer .copyright {
         color: var(--text-primary);
         padding: 0;
         margin: 0;
+        appearance: textfield;
         -moz-appearance: textfield;
     }
 
@@ -34402,6 +34679,7 @@ footer .copyright {
             font-weight: 700;
             color: var(--text-primary);
             pointer-events: none;
+            appearance: textfield;
             -moz-appearance: textfield;
         }
 
