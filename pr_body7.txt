@@ -1,0 +1,13 @@
+﻿Closes #1362
+
+## Root Cause
+The standalone theme toggle handler in 	ry-on.js was:
+1. Setting data-theme on document.body instead of document.documentElement (the <html> root)
+2. Not persisting the choice to localStorage
+3. CSS selectors ([data-theme="dark"]) target the <html> element, so the toggle appeared to do nothing
+
+## Fix
+- Changed target to document.documentElement to match the app.js theme system
+- Added localStorage.setItem("theme", next) for persistence
+- Switched to event delegation (#themeToggle, #themeToggleMobile) consistent with app.js
+- Added sun/moon icon class swap on toggle

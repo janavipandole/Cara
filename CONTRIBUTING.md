@@ -102,8 +102,9 @@ Look for issues labeled `good first issue` or `beginner-friendly`. These are spe
 ### Before Submitting
 
 - [ ] Check that your code follows our style guidelines
-- [ ] Run the linter and fix any issues: 
+- [ ] Run the linter and fix any issues: `npm run lint`
 - [ ] Test your changes manually
+- [ ] Link any related issue or feature request
 - [ ] Update documentation if needed
 - [ ] Add or update tests if applicable
 
