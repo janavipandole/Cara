@@ -1,0 +1,11 @@
+documentation:
+  - changed-files:
+      - any-glob-to-any-file: 'docs/**'
+      - any-glob-to-any-file: '*.md'
+
+bug:
+  - changed-files:
+      - any-glob-to-any-file: 'src/**'
+
+feature:
+  - title-regex: '.*feature.*'
