@@ -1,0 +1,246 @@
+
+#register-section {
+  min-height: calc(100vh - 80px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 20px 60px;
+  background: var(--bg-secondary);
+  transition: background-color 0.3s ease;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 480px;
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 48px 40px;
+  box-shadow: 0 10px 40px var(--shadow);
+  border: 1px solid var(--border-color);
+  opacity: 0;
+  transform: translateY(80px);
+  animation: slideUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.auth-card h2 {
+  font-family: 'League Spartan', sans-serif;
+  font-size: 32px;
+  text-align: center;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  font-weight: 700;
+  transition: color 0.3s ease;
+}
+
+.auth-card .subtitle {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 15px;
+  margin-bottom: 32px;
+  transition: color 0.3s ease;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  transition: color 0.3s ease;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: inherit;
+  background: var(--input-bg);
+  color: var(--text-primary);
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background-color 0.3s ease,
+    color 0.3s ease,
+    transform 0.2s ease;
+}
+
+.form-group input::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.75;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(8, 129, 120, 0.15);
+}
+
+[data-theme="dark"] .form-group input:focus {
+  box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.18);
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper input {
+  padding-right: 44px;
+}
+
+.toggle-eye {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 18px;
+  transition: color 0.2s ease;
+}
+
+.toggle-eye:hover {
+  color: var(--accent);
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 15px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition:
+    background 0.25s ease,
+    transform 0.15s ease,
+    box-shadow 0.25s ease,
+    opacity 0.2s ease;
+}
+
+/* BUTTON HOVER */
+.btn-primary:hover {
+  background: #066b63;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(8, 129, 120, 0.3);
+}
+
+[data-theme="dark"] .btn-primary:hover {
+  background: #0891b2;
+  box-shadow: 0 6px 20px rgba(6, 182, 212, 0.3);
+}
+
+.switch-auth {
+  text-align: center;
+  margin-top: 24px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+}
+
+.switch-auth a {
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.switch-auth a:hover {
+  opacity: 0.8;
+}
+
+@media (max-width: 540px) {
+  .auth-card {
+    padding: 36px 24px;
+  }
+
+  .auth-card h2 {
+    font-size: 26px;
+  }
+}
+
+.role-selector {
+    display: flex;
+    gap: 12px;
+    margin-top: 6px;
+}
+
+.role-option {
+    flex: 1;
+    cursor: pointer;
+}
+
+.role-option input[type="radio"] {
+    display: none;
+}
+
+.role-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 14px 10px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    text-align: center;
+    transition: all 0.25s ease;
+    background: #f9f9f9;
+    cursor: pointer;
+}
+
+.role-card i {
+    font-size: 22px;
+    color: #088178;
+}
+
+.role-card strong {
+    font-size: 14px;
+    font-weight: 700;
+    color: #222;
+}
+
+.role-card small {
+    font-size: 11px;
+    color: #888;
+}
+
+.role-option input[type="radio"]:checked + .role-card {
+    border-color: #088178;
+    background: #e8f5f4;
+    box-shadow: 0 0 0 3px rgba(8, 129, 120, 0.15);
+}
+
+.role-option input[type="radio"]:checked + .role-card strong {
+    color: #088178;
+}
+
+[data-theme="dark"] .role-card {
+    background: #1a1f26;
+    border-color: #2d3748;
+}
+
+[data-theme="dark"] .role-card strong {
+    color: #e6eef8;
+}
+
+[data-theme="dark"] .role-option input[type="radio"]:checked + .role-card {
+    background: #0d2e2c;
+    border-color: #06b6d4;
+}
