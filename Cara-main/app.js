@@ -116,6 +116,19 @@ document.addEventListener("click", function (e) {
         brand: brandElement ? brandElement.textContent.trim() : "Brand",
         image: imageElement ? imageElement.src : ""
     };
+    let viewed = JSON.parse(localStorage.getItem("recentProducts")) || [];
+
+// remove duplicate
+viewed = viewed.filter(p => p.name !== selectedProduct.name);
+
+// add current product to top
+viewed.unshift(selectedProduct);
+
+// keep only last 6
+viewed = viewed.slice(0, 6);
+
+// save back
+localStorage.setItem("recentProducts", JSON.stringify(viewed));
 
     localStorage.setItem("selectedProduct", JSON.stringify(selectedProduct));
     window.location.href = "singleProduct.html";
@@ -1070,4 +1083,21 @@ if (container && typeof products !== "undefined") {
       </div>
     `;
   });
+}
+if (window.location.pathname.includes("singleProduct")) {
+const recentContainer = document.getElementById("recent-products");
+
+const recent = JSON.parse(localStorage.getItem("recentProducts")) || [];
+
+if (recent.length === 0) {
+  recentContainer.innerHTML = "<p>No recently viewed products</p>";
+} else {
+  recentContainer.innerHTML = recent.map(p => `
+    <div class="pro">
+      <img src="${p.image}" alt="${p.name}" />
+      <h5>${p.name}</h5>
+      <p>${p.price}</p>
+    </div>
+  `).join("");
+}
 }
