@@ -244,3 +244,33 @@
     background: #0d2e2c;
     border-color: #06b6d4;
 }
+
+/* Back Button */
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  color: #666666;
+  font-size: 14px;
+  text-decoration: none;
+  font-weight: 500;
+  margin-bottom: 20px;
+  float: left;
+  transition: color 0.3s ease;
+}
+.back-button:hover {
+  color: #088178;
+}
+[data-theme="dark"] .back-button {
+    color: #94a3b8;
+}
+.required {
+  color: red;
+  font-weight: bold;
+  margin-left: 2px;
+}
+
+.required-note {
+  font-size: 14px;
+  margin-bottom: 12px;
+  color: #555;
+}

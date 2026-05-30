@@ -201,6 +201,11 @@
   </div>
 </section>
 
+    <!-- Dynamic Reading Progress Bar -->
+    <div id="reading-progress-container" style="position: fixed; top: 79px; left: 0; width: 100%; height: 4px; background: rgba(8, 129, 120, 0.1); z-index: 9999;">
+      <div id="reading-progress-bar" style="width: 0%; height: 100%; background: #088178; transition: width 0.05s ease;"></div>
+    </div>
+
     <section id="blog-head">
       <h2>#readmore</h2>
       <p>Read all case studies about our products!</p>
@@ -301,10 +306,10 @@
 
     <!-- Back to Top and Scroll to Bottom Buttons -->
     <button id="backToTop" title="Back to Top" aria-label="Back to top">
-      ⬆
+      <i class="ri-arrow-up-line"></i>
     </button>
     <button id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">
-      ⬇
+      <i class="ri-arrow-down-line"></i>
     </button>
 
     <!-- Footer -->
@@ -328,7 +333,7 @@
               target="_blank"
               rel="noopener noreferrer"
             >
-              <i class="fab fa-twitter"></i>
+              <i class="fa-brands fa-x-twitter"></i>
             </a>
             <a
               href="https://github.com/janavipandole"
@@ -359,7 +364,7 @@
       <div class="col">
         <h4>About</h4>
         <a href="about.html">About Us</a>
-        <a href="#">Delivery Information</a>
+        <a href="deliveryInformation.html">Delivery Information</a>
         <a href="privacy.html">Privacy Policy</a>
         <a href="terms.html">Terms and Conditions</a>
         <a href="contact.html">Contact Us</a>
@@ -457,9 +462,9 @@
         </p>
       </div>
     </footer>
-    <button id="scrollTopBtn" title="Go to top">
-  ↑
-</button>
+    <button id="scrollTopBtn" title="Go to top" aria-label="Go to top">
+      <i class="ri-arrow-up-line"></i>
+    </button>
 
 
     <script src="app.js"></script>
@@ -472,12 +477,22 @@
     </script>
     <script>
   const scrollBtn = document.getElementById("scrollTopBtn");
+  const progressBar = document.getElementById("reading-progress-bar");
 
   window.addEventListener("scroll", () => {
+    // Scroll Top Button visibility
     if (window.scrollY > 300) {
       scrollBtn.style.display = "block";
     } else {
       scrollBtn.style.display = "none";
+    }
+
+    // Dynamic Reading Progress Bar calculation
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    if (height > 0) {
+      const scrolled = (winScroll / height) * 100;
+      progressBar.style.width = scrolled + "%";
     }
   });
 
@@ -492,6 +507,4 @@
 </body>
 </html>
 
-</body>
-
-</html>
+<!-- A11y and structural improvements -->

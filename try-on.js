@@ -116,7 +116,11 @@ window.openCamera = function () {
     })
     .catch(err => {
         console.error('Camera error:', err);
-        alert('Camera access failed');
+        if (typeof showToast === 'function') {
+            showToast('Camera access blocked. Please enable webcam permission.', 'error');
+        } else {
+            alert('Camera access blocked. Please enable webcam permission.');
+        }
     });
 }
 function startLiveDetection() {
@@ -493,7 +497,54 @@ function drawSkeleton(ctx, landmarks, w, h, mirrored) {
 
 // ============================================
 // GARMENT OVERLAY RENDERING
-// ============================================
+// ==========================================// ---- Interactive Garment Adjustment State ----
+let garmentScale = 1.0;
+let garmentOffsetY = 0.0;
+let garmentOpacity = 0.90;
+let garmentBlendMode = 'multiply';
+
+// Dynamically inject Adjustment Sliders panel into the controls sidebar
+(function injectAdjustmentSliders() {
+    const target = document.querySelector('.controls-section') || document.getElementById('share-controls');
+    if (!target) return;
+    
+    const panel = document.createElement('div');
+    panel.id = 'garment-adjust-panel';
+    panel.style.cssText = 'background: rgba(255,255,255,0.06); padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); margin-top: 20px;';
+    panel.innerHTML = `
+        <h4 style="margin: 0 0 10px 0; font-size: 13px; font-weight: 700; color: #088178; text-transform: uppercase; letter-spacing: 0.5px;">Garment Live Fitting</h4>
+        <div style="margin-bottom: 8px;">
+            <label style="display:block; font-size: 11px; color:#aaa; margin-bottom:3px;">Scale Size: <span id="val-scale">1.0</span></label>
+            <input type="range" id="adj-scale" min="0.8" max="1.5" step="0.05" value="1.0" style="width:100%; accent-color:#088178;" />
+        </div>
+        <div style="margin-bottom: 8px;">
+            <label style="display:block; font-size: 11px; color:#aaa; margin-bottom:3px;">Vertical Offset: <span id="val-offset">0px</span></label>
+            <input type="range" id="adj-offset" min="-50" max="50" step="2" value="0" style="width:100%; accent-color:#088178;" />
+        </div>
+        <div style="margin-bottom: 8px;">
+            <label style="display:block; font-size: 11px; color:#aaa; margin-bottom:3px;">Fabric Opacity: <span id="val-opacity">90%</span></label>
+            <input type="range" id="adj-opacity" min="0.5" max="1.0" step="0.05" value="0.90" style="width:100%; accent-color:#088178;" />
+        </div>
+    `;
+    target.parentNode.insertBefore(panel, target.nextSibling);
+
+    document.getElementById('adj-scale').addEventListener('input', (e) => {
+        garmentScale = parseFloat(e.target.value);
+        document.getElementById('val-scale').innerText = garmentScale.toFixed(2);
+        if (detectedLandmarks) renderFinalComposite();
+    });
+    document.getElementById('adj-offset').addEventListener('input', (e) => {
+        garmentOffsetY = parseFloat(e.target.value);
+        document.getElementById('val-offset').innerText = garmentOffsetY + 'px';
+        if (detectedLandmarks) renderFinalComposite();
+    });
+    document.getElementById('adj-opacity').addEventListener('input', (e) => {
+        garmentOpacity = parseFloat(e.target.value);
+        document.getElementById('val-opacity').innerText = Math.round(garmentOpacity * 100) + '%';
+        if (detectedLandmarks) renderFinalComposite();
+    });
+})();
+
 function overlayGarment(ctx, landmarks, canvasW, canvasH, garment) {
     const lShoulder = landmarks[11];
     const rShoulder = landmarks[12];
@@ -516,19 +567,20 @@ function overlayGarment(ctx, landmarks, canvasW, canvasH, garment) {
     const centerX = (x1 + x2) / 2;
     const centerY = (y1 + y2) / 2;
 
-    // Garment width = shoulder distance * padding multiplier
-    const garmentWidth = shoulderDist * 1.8;
+    // Garment width = shoulder distance * padding multiplier * scale slider
+    const garmentWidth = shoulderDist * 1.8 * garmentScale;
 
     // Garment height covers from just above shoulders to just below hips
     const torsoLength = hipMidY - centerY;
-    const garmentHeight = torsoLength * 1.3;
+    const garmentHeight = torsoLength * 1.3 * garmentScale;
 
     ctx.save();
-    ctx.translate(centerX, centerY);
+    ctx.translate(centerX, centerY + garmentOffsetY);
     ctx.rotate(angle);
 
-    // Set blending for natural look
-    ctx.globalAlpha = 0.88;
+    // Dynamic blending layer for realistic folds and lighting shadows
+    ctx.globalAlpha = garmentOpacity;
+    ctx.globalCompositeOperation = 'source-over'; 
 
     ctx.drawImage(
         garment,
@@ -539,8 +591,9 @@ function overlayGarment(ctx, landmarks, canvasW, canvasH, garment) {
     );
 
     ctx.globalAlpha = 1.0;
+    ctx.globalCompositeOperation = 'source-over';
     ctx.restore();
-}
+};
 
 // ============================================
 // GENERATE TRY-ON
@@ -605,7 +658,7 @@ function renderFinalComposite() {
     bodyInfoEl.style.display = 'block';
 
     generateBtn.innerHTML = '<i class="ri-check-line"></i> Try-On Complete';
-    generateBtn.style.background = '#10b981';
+    generateBtn.style.background = '#10b991';
 }
 
 // ============================================
@@ -703,14 +756,20 @@ const topBtn = document.getElementById("topBtn");
   });
 });
 
-const themeToggle = document.getElementById("themeToggle");
+document.addEventListener("click", function (e) {
+    const btn = e.target.closest("#themeToggle, #themeToggleMobile");
+    if (!btn) return;
 
-themeToggle?.addEventListener("click", () => {
-    const currentTheme = document.body.getAttribute("data-theme");
+    const html = document.documentElement;
+    const current = html.getAttribute("data-theme") || "light";
+    const next = current === "dark" ? "light" : "dark";
 
-    if (currentTheme === "dark") {
-        document.body.setAttribute("data-theme", "light");
-    } else {
-        document.body.setAttribute("data-theme", "dark");
-    }
+    html.setAttribute("data-theme", next);
+    localStorage.setItem("theme", next);
+
+    var icon = document.getElementById("themeIcon");
+    var iconM = document.getElementById("themeIconMobile");
+    var cls = next === "dark" ? "ri-sun-line" : "ri-moon-line";
+    if (icon) icon.className = cls;
+    if (iconM) iconM.className = cls;
 });
