@@ -63,6 +63,14 @@ function loadNavbar(activePage) {
           </a>
         </li>
 
+        <!-- Wishlist Icon -->
+        <li class="nav-icon">
+          <a ${activePage === 'wishlist' ? 'class="active" aria-current="page"' : ''} href="wishlist.html" title="View Wishlist" aria-label="Wishlist">
+            <i class="ri-heart-line"></i>
+            <span class="wishlist-count hidden">0</span>
+          </a>
+        </li>
+
         <!-- Cart Icon -->
         <li class="nav-icon">
           <a href="cart.html" id="lg-bag" title="View Cart" aria-label="Cart">
@@ -90,4 +98,7 @@ function loadNavbar(activePage) {
     return;
   }
 
+  if (typeof window.updateWishlistCount === 'function') {
+    window.updateWishlistCount();
+  }
 }

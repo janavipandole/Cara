@@ -264,7 +264,7 @@
     --shadow-hover: rgba(124, 58, 237, 0.3);
     --accent: #06b6d4;
     --feature-bg-1: #7c3aed;
-    --feature-bg-2: #10b981;
+    --feature-bg-2: #10b991;
     --feature-bg-3: #3b82f6;
     --feature-bg-4: #8b5cf6;
     --feature-bg-5: #ec4899;
@@ -379,7 +379,7 @@ button.white:hover {
 
 /* Click/Active State for White/Inverted Buttons */
 button.white:active {
-    transform: translateY(0) scale(0.98);
+    transform: translateY(0) scale(0.99);
     box-shadow: 0 2px 5px var(--shadow);
 }
 
