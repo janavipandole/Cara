@@ -297,8 +297,17 @@ function addToCart(productName, productPrice, productImage, quantity, size) {
 
     let existingItem = cart.find(p => p.name === item.name && p.size === item.size);
     if (existingItem) {
-        existingItem.quantity += item.quantity;
+        if (existingItem.quantity + item.quantity > 10) {
+            showToast("Cannot add more items. Max limit of 10 items per product size reached!", "warning");
+            existingItem.quantity = 10;
+        } else {
+            existingItem.quantity += item.quantity;
+        }
     } else {
+        if (item.quantity > 10) {
+            showToast("Quantity restricted to max 10 items per product.", "warning");
+            item.quantity = 10;
+        }
         cart.push(item);
     }
 
@@ -562,6 +571,10 @@ window.changeQuantity = function (index, change) {
     if (!cart[index]) return;
     let newQty = cart[index].quantity + change;
     if (newQty < 1) newQty = 1;
+    if (newQty > 10) {
+        showToast("Max limit of 10 items per product size reached!", "warning");
+        newQty = 10;
+    }
     cart[index].quantity = newQty;
     localStorage.setItem("productsInCart", JSON.stringify(cart));
     loadCart();
