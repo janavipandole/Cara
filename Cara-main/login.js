@@ -44,9 +44,19 @@ document.addEventListener('DOMContentLoaded', function () {
             const user = users.find(u => u.email === email && u.password === password);
 
             if (user) {
-                // On successful login
-                localStorage.setItem('loggedInUser', email);
-                window.location.href = 'index.html';
+
+              // Save logged in user
+             localStorage.setItem('loggedInUser', email);
+
+             // Remove loading state
+              if (submitBtn) {
+             submitBtn.classList.remove('btn-loading');
+              submitBtn.disabled = false;
+    }
+
+    // Redirect
+    window.location.href = 'index.html';
+
             } else {
                 showToast("Invalid email or password", "error");
                 // ── Re-enable button on failure ──

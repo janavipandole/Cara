@@ -418,3 +418,28 @@
 
     transition: 0.2s ease;
 }
+
+.product-wishlist-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff !important;
+    color: #088178 !important;
+    border: 1px solid #088178 !important;
+    margin-left: 10px;
+}
+
+.product-wishlist-btn i {
+    font-size: 18px;
+}
+
+.product-wishlist-btn.active {
+    background: #fff5f7 !important;
+    color: #e0245e !important;
+    border-color: #e0245e !important;
+}
+
+.product-wishlist-btn:focus-visible {
+    outline: 3px solid rgba(8, 129, 120, 0.28);
+    outline-offset: 3px;
+}
