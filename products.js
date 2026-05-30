@@ -1,5 +1,7 @@
 /* Reusable modal display element */
 const modalTemplate = `<div class="quick-view-modal" style="display:none;"></div>`;
+/* Reusable modal display element */
+const modalTemplate = `<div class="quick-view-modal" style="display:none;"></div>`;
 const products = [
   {
     id: 1,
