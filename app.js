@@ -346,20 +346,25 @@ function dismissToast(toast) {
 }
 
 window.updateQty = function (change) {
-    const qtyInput = document.getElementById("product-quantity");
-    if (!qtyInput) return;
+    let quantityElement = document.querySelector(".qty"); // check class
+    let quantity = parseInt(quantityElement.textContent);
 
-    let currentValue = parseInt(qtyInput.value);
-    if (isNaN(currentValue)) currentValue = 1;
-    let newValue = Math.min(99, Math.max(1, currentValue + change));
-    qtyInput.value = newValue;
+    quantity += change;
 
-    const minusBtn = document.querySelector(".qty-btn.minus");
-    const plusBtn  = document.querySelector(".qty-btn.plus");
-    if (minusBtn) minusBtn.disabled = (newValue <= 1);
-    if (plusBtn)  plusBtn.disabled  = (newValue >= 99);
+    // ✅ Fix starts here
+    if (isNaN(quantity) || quantity < 1) {
+        quantity = 1;
+    }
+
+    if (quantity > 99) {
+        quantity = 99;
+    }
+    // ✅ Fix ends here
+
+    quantityElement.textContent = quantity;
+
+    updateCartTotal(); // already present function
 };
-
 window.handleAddToCart = function () {
     const nameElement     = document.getElementById("product-name");
     const priceElement    = document.getElementById("product-price");
@@ -1119,16 +1124,10 @@ window.shareWardrobe = function () {
         showToast("Wardrobe share link copied to clipboard!", "success");
 
         if (btn) {
-            var originalText   = btn.innerHTML;
-            btn.innerHTML      = '<i class="ri-checkbox-circle-line"></i> Link Copied!';
-            btn.style.color    = "#10b981";
-            setTimeout(function () { btn.innerHTML = originalText; btn.style.color = ""; }, 3000);
-        }
-
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(shareUrl).catch(function () { fallbackCopyText(shareUrl); });
-        } else {
-            fallbackCopyText(shareUrl);
+            var originalText = btn.innerHTML;
+            btn.innerHTML = '✅ Link Copied!';
+            btn.style.color = '#10b991';
+            setTimeout(function () { btn.innerHTML = originalText; btn.style.color = ''; }, 3000);
         }
     } catch (e) {
         console.error("Failed to generate share link: ", e);
