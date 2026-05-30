@@ -4,6 +4,18 @@
    ADD-TO-CART BUTTON HOVER ANIMATION
    Issue #316 — Hover micro-interactions
    ============================================ */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --card-bg: #f5f5f5;
+}
+
+body[data-theme="dark"] {
+  --bg-color: #121212;
+  --text-color: #ffffff;
+  --card-bg: #1e1e1e;
+}
+
 
 #product1 .pro .cart {
   transition: all 0.3s ease;
@@ -606,19 +618,21 @@ button.white .ripple-effect {
 /* ============================================
    HERO SECTION
    ============================================ */
-/* ── Hero: base stacking context ───────────────────────────────────────── */
-/* ============================================
-   HERO SECTION 
-   ============================================ */
-
-#hero {
-    position: relative;
+#hero{
     z-index: 1;
+    position: relative; /* ADD THIS */
 }
-
-/* ───────────────── HERO CONTAINER ───────────────── */
-#hero.hero-slider{
-    margine-top:55px;
+[data-theme="dark"] #hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+}
+[data-theme="dark"] .hero-content {
+  background: rgba(20, 20, 20, 0.75);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.1);
 }
 #hero.hero-slider {
     width: 100%;
@@ -1161,8 +1175,8 @@ button.white .ripple-effect {
 
 /* ── Slider nav buttons: override the generic #hero button rule above ── */
 #hero .slider-btn {
-    background: #000000 !important;
-    color: #ffffff !important;
+   background: var(--accent) !important;
+   color: #fff !important;
     border: none !important;
     width: 46px !important;
     height: 46px !important;
