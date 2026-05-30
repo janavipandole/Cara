@@ -112,6 +112,31 @@
     </div>
 
     <div class="filter-container">
+      <label>Rating</label>
+      <select id="ratingFilter">
+        <option value="all">All Ratings</option>
+        <option value="4">4★ & Above</option>
+        <option value="3">3★ & Above</option>
+        <option value="2">2★ & Above</option>
+       </select>
+    </div>
+
+    <div class="filter-container">
+      <label>Max Price</label>
+
+      <input
+        type="range"
+        id="priceFilter"
+        min="1000"
+        max="7000"
+        step="100"
+        value="7000"
+      >
+
+      <span id="priceValue">₹7000</span>
+    </div>
+
+    <div class="filter-container">
       <label>Color</label>
       <select id="color-filter">
         <option value="all">All</option>

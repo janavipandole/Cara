@@ -768,6 +768,8 @@ function filterProducts() {
   const brandSelect = document.getElementById('brand-filter');
   const colorSelect = document.getElementById('color-filter');
   const styleSelect = document.getElementById('style-filter');
+  const ratingSelect = document.getElementById('ratingFilter');
+  const priceFilter = document.getElementById('priceFilter');
 
   const query = input ? input.value.trim().toLowerCase() : '';
   const category = categorySelect ? categorySelect.value : 'all';
@@ -775,6 +777,8 @@ function filterProducts() {
   const brandValue = brandSelect ? brandSelect.value.toLowerCase().trim() : 'all';
   const colorValue = colorSelect ? colorSelect.value.toLowerCase().trim() : 'all';
   const styleValue = styleSelect ? styleSelect.value.toLowerCase().trim() : 'all';
+  const ratingValue = ratingSelect ? ratingSelect.value : 'all';
+  const maxPrice = priceFilter ? parseInt(priceFilter.value) : 7000;
 
   let filteredProducts = products.filter((product) => {
     const matchesCategory = category === 'all' || product.category === category;
@@ -787,11 +791,36 @@ function filterProducts() {
 
   // Apply brand/color/style filters
   filteredProducts = filteredProducts.filter((product) => {
-    const matchesBrand = brandValue === 'all' || product.brand.toLowerCase() === brandValue;
-    const matchesColor = colorValue === 'all' || (product.color && product.color.toLowerCase() === colorValue);
-    const matchesStyle = styleValue === 'all' || (product.style && product.style.toLowerCase() === styleValue);
-    return matchesBrand && matchesColor && matchesStyle;
-  });
+
+  const matchesBrand =
+    brandValue === 'all' ||
+    product.brand.toLowerCase() === brandValue;
+
+  const matchesColor =
+    colorValue === 'all' ||
+    (product.color &&
+      product.color.toLowerCase() === colorValue);
+
+  const matchesStyle =
+    styleValue === 'all' ||
+    (product.style &&
+      product.style.toLowerCase() === styleValue);
+
+  const matchesRating =
+    ratingValue === 'all' ||
+    product.rating >= parseFloat(ratingValue);
+
+  const matchesPrice =
+    product.price <= maxPrice;
+
+  return (
+    matchesBrand &&
+    matchesColor &&
+    matchesStyle &&
+    matchesRating &&
+    matchesPrice
+  );
+});
 
   if (sortValue === 'low-high') {
     filteredProducts.sort((a, b) => a.price - b.price);
@@ -817,6 +846,8 @@ function attachSearchListeners() {
   const brandSelect = document.getElementById('brand-filter');
   const colorSelect = document.getElementById('color-filter');
   const styleSelect = document.getElementById('style-filter');
+  const ratingSelect = document.getElementById('ratingFilter');
+  const priceFilter = document.getElementById('priceFilter');
   const searchBtn = document.getElementById('searchBtn');
 
   if (input) {
@@ -833,6 +864,8 @@ function attachSearchListeners() {
   if (brandSelect) brandSelect.addEventListener('change', filterProducts);
   if (colorSelect) colorSelect.addEventListener('change', filterProducts);
   if (styleSelect) styleSelect.addEventListener('change', filterProducts);
+  if (ratingSelect) ratingSelect.addEventListener('change', filterProducts);
+  if (priceFilter) priceFilter.addEventListener('input', filterProducts);
   if (searchBtn) {
     searchBtn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -861,6 +894,16 @@ document.addEventListener('DOMContentLoaded', () => {
   updateSearchSummary(products.length);
   renderSearchSuggestions('');
   syncWishlistButtons();
+  const slider = document.getElementById('priceFilter');
+  const display = document.getElementById('priceValue');
+
+  if (slider && display) {
+    display.textContent = '₹' + slider.value;
+
+    slider.addEventListener('input', () => {
+      display.textContent = '₹' + slider.value;
+    });
+  }
 });
 
  // --- GLOBAL TOAST NOTIFICATION HANDLER ---
