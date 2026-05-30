@@ -6,6 +6,12 @@
 - **Workflows**: GitHub actions verify builds, run dependency checks, and auto-label code triage.
 - **Asset Assets**: Located under `assets/` and `images/` directories.
 
+## Architecture Overview
+- **Frontend**: Clean semantic HTML5, modern vanilla CSS, responsive layouts, and app.js state handling.
+- **Database**: SQLite `cara.db` file mapping backend models.
+- **Workflows**: GitHub actions verify builds, run dependency checks, and auto-label code triage.
+- **Asset Assets**: Located under `assets/` and `images/` directories.
+
 > Officially participating in
 ## GSSOC 2026
 ## ELUSOC 2026
