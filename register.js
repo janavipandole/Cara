@@ -72,3 +72,52 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+document.addEventListener("DOMContentLoaded", () => {
+    const passwordInput = document.getElementById("password");
+    const bar1 = document.getElementById("strength-bar-1");
+    const bar2 = document.getElementById("strength-bar-2");
+    const bar3 = document.getElementById("strength-bar-3");
+    const bar4 = document.getElementById("strength-bar-4");
+    const text = document.getElementById("strength-text");
+
+    if (passwordInput && bar1) {
+        passwordInput.addEventListener("input", () => {
+            const val = passwordInput.value;
+            let score = 0;
+            
+            if (val.length >= 8) score++;
+            if (/[A-Z]/.test(val)) score++;
+            if (/[0-9]/.test(val)) score++;
+            if (/[^A-Za-z0-9]/.test(val)) score++;
+
+            // Clear all
+            [bar1, bar2, bar3, bar4].forEach(bar => bar.style.background = "#eee");
+
+            if (val.length === 0) {
+                text.innerText = "";
+            } else if (score === 1) {
+                bar1.style.background = "#ef4444";
+                text.innerText = "Weak";
+                text.style.color = "#ef4444";
+            } else if (score === 2) {
+                bar1.style.background = "#f59e0b";
+                bar2.style.background = "#f59e0b";
+                text.innerText = "Fair";
+                text.style.color = "#f59e0b";
+            } else if (score === 3) {
+                bar1.style.background = "#3b82f6";
+                bar2.style.background = "#3b82f6";
+                bar3.style.background = "#3b82f6";
+                text.innerText = "Good";
+                text.style.color = "#3b82f6";
+            } else if (score === 4) {
+                bar1.style.background = "#10b981";
+                bar2.style.background = "#10b981";
+                bar3.style.background = "#10b981";
+                bar4.style.background = "#10b981";
+                text.innerText = "Very Strong";
+                text.style.color = "#10b981";
+            }
+        });
+    }
+});
