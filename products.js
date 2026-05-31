@@ -1,3 +1,5 @@
+/* Reusable modal display element */
+const modalTemplate = `<div class="quick-view-modal" style="display:none;"></div>`;
 const products = [
   {
     id: 1,
@@ -5,8 +7,10 @@ const products = [
     name: 'Tropical Hibiscus Summer Shirt',
     price: 2499,
     img: 'images/products/f1.jpg',
-    rating: 5,
+    rating: 4.5,
     category: 'street',
+    color: 'pink',
+    style: 'floral',
   },
   {
     id: 2,
@@ -14,8 +18,10 @@ const products = [
     name: 'White Palm Leaf Casual Shirt',
     price: 1299,
     img: 'images/products/f2.jpg',
-    rating: 5,
+    rating: 3.5,
     category: 'minimal',
+    color: 'white',
+    style: 'casual',
   },
   {
     id: 3,
@@ -23,8 +29,10 @@ const products = [
     name: 'Vintage Rose Garden Shirt',
     price: 3490,
     img: 'images/products/f3.jpg',
-    rating: 5,
+    rating: 4.0,
     category: 'minimal',
+    color: 'red',
+    style: 'floral',
   },
   {
     id: 4,
@@ -32,8 +40,10 @@ const products = [
     name: 'Sakura Blossom Floral Shirt',
     price: 2799,
     img: 'images/products/f4.jpg',
-    rating: 5,
+    rating: 5.0,
     category: 'minimal',
+    color: 'pink',
+    style: 'floral',
   },
   {
     id: 5,
@@ -41,8 +51,10 @@ const products = [
     name: 'Pink Peony Patterned Shirt',
     price: 1999,
     img: 'images/products/f5.jpg',
-    rating: 5,
+    rating: 3.0,
     category: 'street',
+    color: 'pink',
+    style: 'floral',
   },
   {
     id: 6,
@@ -50,8 +62,10 @@ const products = [
     name: 'Dual-Tone Corduroy Shirt',
     price: 2299,
     img: 'images/products/f6.jpg',
-    rating: 5,
+    rating: 4.0,
     category: 'street',
+    color: 'yellow',
+    style: 'casual',
   },
   {
     id: 7,
@@ -59,8 +73,10 @@ const products = [
     name: 'Embroidered Linen Trousers',
     price: 3990,
     img: 'images/products/f7.jpg',
-    rating: 5,
+    rating: 4.5,
     category: 'street',
+    color: 'blue',
+    style: 'minimal',
   },
   {
     id: 8,
@@ -68,8 +84,10 @@ const products = [
     name: 'Cat Print Long Sleeve Blouse',
     price: 2699,
     img: 'images/products/f8.jpg',
-    rating: 5,
+    rating: 3.5,
     category: 'minimal',
+    color: 'white',
+    style: 'cartoon',
   },
   {
     id: 9,
@@ -77,8 +95,10 @@ const products = [
     name: 'Sky Blue Mandarin Collar Shirt',
     price: 4499,
     img: 'images/products/n1.jpg',
-    rating: 5,
+    rating: 5.0,
     category: 'formal',
+    color: 'blue',
+    style: 'formal',
   },
   {
     id: 10,
@@ -86,8 +106,10 @@ const products = [
     name: 'Navy Textured Formal Shirt',
     price: 6999,
     img: 'images/products/n2.jpg',
-    rating: 5,
+    rating: 4.5,
     category: 'formal',
+    color: 'blue',
+    style: 'formal',
   },
   {
     id: 11,
@@ -95,8 +117,10 @@ const products = [
     name: 'Classic White Cotton Shirt',
     price: 5499,
     img: 'images/products/n3.jpg',
-    rating: 5,
+    rating: 4.0,
     category: 'formal',
+    color: 'white',
+    style: 'formal',
   },
   {
     id: 12,
@@ -104,8 +128,10 @@ const products = [
     name: 'Sandstone Tactical Utility Shirt',
     price: 3990,
     img: 'images/products/n4.jpg',
-    rating: 5,
+    rating: 3.5,
     category: 'formal',
+    color: 'brown',
+    style: 'utility',
   },
   {
     id: 13,
@@ -113,8 +139,10 @@ const products = [
     name: 'Denim Blue Everyday Shirt',
     price: 2799,
     img: 'images/products/n5.jpg',
-    rating: 5,
+    rating: 4.0,
     category: 'minimal',
+    color: 'blue',
+    style: 'casual',
   },
   {
     id: 14,
@@ -122,8 +150,10 @@ const products = [
     name: 'Vertical Stripe Chino Shorts',
     price: 2499,
     img: 'images/products/n6.jpg',
-    rating: 5,
+    rating: 3.0,
     category: 'minimal',
+    color: 'beige',
+    style: 'casual',
   },
   {
     id: 15,
@@ -131,8 +161,10 @@ const products = [
     name: 'Khaki Safari Work Shirt',
     price: 3499,
     img: 'images/products/n7.jpg',
-    rating: 5,
+    rating: 4.5,
     category: 'minimal',
+    color: 'khaki',
+    style: 'utility',
   },
   {
     id: 16,
@@ -140,14 +172,392 @@ const products = [
     name: 'Deep Charcoal Casual Shirt',
     price: 1799,
     img: 'images/products/n8.jpg',
-    rating: 5,
+    rating: 3.5,
     category: 'minimal',
+    color: 'black',
+    style: 'casual',
+  },
+  {
+    id: 17,
+    brand: 'Adidas',
+    name: 'Black Tech Training Tee',
+    price: 1899,
+    img: 'images/products/f1.jpg',
+    rating: 4.0,
+    category: 'street',
+    color: 'black',
+    style: 'minimal',
+  },
+  {
+    id: 18,
+    brand: 'Zara',
+    name: 'Olive Cargo Utility Pants',
+    price: 3299,
+    img: 'images/products/f2.jpg',
+    rating: 4.2,
+    category: 'street',
+    color: 'green',
+    style: 'utility',
+  },
+  {
+    id: 19,
+    brand: 'H&M',
+    name: 'Peach Knit Sweater',
+    price: 2199,
+    img: 'images/products/f3.jpg',
+    rating: 4.3,
+    category: 'minimal',
+    color: 'pink',
+    style: 'casual',
+  },
+  {
+    id: 20,
+    brand: "Levi's",
+    name: 'Indigo Denim Jacket',
+    price: 4999,
+    img: 'images/products/f4.jpg',
+    rating: 4.7,
+    category: 'street',
+    color: 'blue',
+    style: 'casual',
+  },
+  {
+    id: 21,
+    brand: 'Puma',
+    name: 'Red Logo Hoodie',
+    price: 2999,
+    img: 'images/products/f5.jpg',
+    rating: 4.1,
+    category: 'street',
+    color: 'red',
+    style: 'casual',
+  },
+  {
+    id: 22,
+    brand: 'Gap',
+    name: 'Navy Sweatpants',
+    price: 1999,
+    img: 'images/products/f6.jpg',
+    rating: 4.0,
+    category: 'minimal',
+    color: 'blue',
+    style: 'casual',
+  },
+  {
+    id: 23,
+    brand: 'Uniqlo',
+    name: 'White Crewneck Tee',
+    price: 1499,
+    img: 'images/products/f7.jpg',
+    rating: 4.4,
+    category: 'minimal',
+    color: 'white',
+    style: 'casual',
+  },
+  {
+    id: 24,
+    brand: 'Mango',
+    name: 'Vintage Floral Mini Dress',
+    price: 2799,
+    img: 'images/products/f8.jpg',
+    rating: 4.5,
+    category: 'minimal',
+    color: 'yellow',
+    style: 'floral',
+  },
+  {
+    id: 25,
+    brand: 'Tommy Hilfiger',
+    name: 'Grey Polo Shirt',
+    price: 3599,
+    img: 'images/products/n1.jpg',
+    rating: 4.3,
+    category: 'formal',
+    color: 'grey',
+    style: 'formal',
+  },
+  {
+    id: 26,
+    brand: 'Ralph Lauren',
+    name: 'Cream Chino Pants',
+    price: 4799,
+    img: 'images/products/n2.jpg',
+    rating: 4.6,
+    category: 'formal',
+    color: 'beige',
+    style: 'formal',
+  },
+  {
+    id: 27,
+    brand: 'Calvin Klein',
+    name: 'Black Leather Belt',
+    price: 1199,
+    img: 'images/products/n3.jpg',
+    rating: 4.0,
+    category: 'minimal',
+    color: 'black',
+    style: 'minimal',
+  },
+  {
+    id: 28,
+    brand: 'Zara',
+    name: 'Sandstone Knit Blazer',
+    price: 5299,
+    img: 'images/products/n4.jpg',
+    rating: 4.5,
+    category: 'formal',
+    color: 'brown',
+    style: 'formal',
+  },
+  {
+    id: 29,
+    brand: 'Nike',
+    name: 'White Running Shorts',
+    price: 1899,
+    img: 'images/products/n5.jpg',
+    rating: 4.2,
+    category: 'street',
+    color: 'white',
+    style: 'casual',
+  },
+  {
+    id: 30,
+    brand: "Levi's",
+    name: 'Classic Denim Jeans',
+    price: 3999,
+    img: 'images/products/n6.jpg',
+    rating: 4.1,
+    category: 'street',
+    color: 'blue',
+    style: 'casual',
+  },
+  {
+    id: 31,
+    brand: 'Uniqlo',
+    name: 'Camel Overshirt',
+    price: 3299,
+    img: 'images/products/n7.jpg',
+    rating: 4.4,
+    category: 'minimal',
+    color: 'brown',
+    style: 'casual',
+  },
+  {
+    id: 32,
+    brand: 'Puma',
+    name: 'Blue Windbreaker Jacket',
+    price: 2699,
+    img: 'images/products/n8.jpg',
+    rating: 4.3,
+    category: 'street',
+    color: 'blue',
+    style: 'utility',
   },
 ];
+
+/**
+ * Renders star icons based on a numeric rating (supports half-stars).
+ * Also loads user's saved rating from localStorage if available.
+ * @param {number} baseRating - Default rating from products array (e.g. 3.5)
+ * @param {number} productId  - Used as localStorage key
+ * @returns {HTMLElement} - A <div class="star"> with interactive star icons
+ */
+function renderStars(baseRating, productId) {
+  // Load user's saved rating if it exists, else use base rating
+  const savedRating = parseFloat(localStorage.getItem('userRating_' + productId));
+  const displayRating = !isNaN(savedRating) ? savedRating : baseRating;
+
+  const starDiv = document.createElement('div');
+  starDiv.className = 'star';
+  starDiv.setAttribute('aria-label', 'Rating: ' + displayRating + ' out of 5');
+  starDiv.setAttribute('title', displayRating + ' / 5');
+
+  // Build 5 star icons
+  for (let i = 1; i <= 5; i++) {
+    const starIcon = document.createElement('i');
+    starIcon.dataset.value = i; // store which star this is
+
+    if (i <= Math.floor(displayRating)) {
+      starIcon.className = 'ri-star-fill';
+    } else if (i === Math.ceil(displayRating) && displayRating % 1 !== 0) {
+      starIcon.className = 'ri-star-half-fill';
+    } else {
+      starIcon.className = 'ri-star-line';
+    }
+
+    // ── User rating on click ──
+    starIcon.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const clickedValue = parseInt(starIcon.dataset.value);
+      saveUserRating(productId, clickedValue, starDiv);
+    });
+
+    // Hover effect — highlight stars on mouseover
+    starIcon.addEventListener('mouseover', () => {
+      highlightStars(starDiv, i);
+    });
+
+    starDiv.appendChild(starIcon);
+  }
+
+  // Reset highlight on mouse leave
+  starDiv.addEventListener('mouseleave', () => {
+    const currentRating = parseFloat(localStorage.getItem('userRating_' + productId)) || baseRating;
+    updateStarDisplay(starDiv, currentRating);
+  });
+
+  // Numeric rating text
+  const ratingText = document.createElement('span');
+  ratingText.className = 'rating-value';
+  ratingText.textContent = displayRating % 1 === 0
+    ? displayRating.toFixed(1)
+    : displayRating.toString();
+  starDiv.appendChild(ratingText);
+
+  return starDiv;
+}
+
+/**
+ * Saves user's clicked rating to localStorage and updates star display.
+ * @param {number} productId
+ * @param {number} rating - Integer 1–5 clicked by user
+ * @param {HTMLElement} starDiv
+ */
+function saveUserRating(productId, rating, starDiv) {
+  localStorage.setItem('userRating_' + productId, rating);
+  updateStarDisplay(starDiv, rating);
+
+  // Update numeric text
+  const ratingText = starDiv.querySelector('.rating-value');
+  if (ratingText) {
+    ratingText.textContent = rating + '.0';
+  }
+}
+
+/**
+ * Highlights stars up to a given value (used on hover).
+ * @param {HTMLElement} starDiv
+ * @param {number} upTo - Highlight stars 1 through upTo
+ */
+function highlightStars(starDiv, upTo) {
+  const stars = starDiv.querySelectorAll('i[data-value]');
+  stars.forEach((star) => {
+    const val = parseInt(star.dataset.value);
+    star.className = val <= upTo ? 'ri-star-fill' : 'ri-star-line';
+  });
+}
+
+/**
+ * Refreshes star icon classes based on a numeric rating.
+ * @param {HTMLElement} starDiv
+ * @param {number} rating
+ */
+function updateStarDisplay(starDiv, rating) {
+  const stars = starDiv.querySelectorAll('i[data-value]');
+  stars.forEach((star) => {
+    const i = parseInt(star.dataset.value);
+    if (i <= Math.floor(rating)) {
+      star.className = 'ri-star-fill';
+    } else if (i === Math.ceil(rating) && rating % 1 !== 0) {
+      star.className = 'ri-star-half-fill';
+    } else {
+      star.className = 'ri-star-line';
+    }
+  });
+}
+
+function safeParseJSON(key, fallback = '[]') {
+  try {
+    return JSON.parse(localStorage.getItem(key) || fallback);
+  } catch {
+    try {
+      return JSON.parse(fallback);
+    } catch {
+      return [];
+    }
+  }
+}
+
+function normalizeWishlistItem(item) {
+  return {
+    id: item.id || item.name,
+    name: item.name || 'Product',
+    brand: item.brand || 'Cara',
+    price: item.price || '₹0',
+    image: item.image || item.img || 'images/products/f1.jpg',
+  };
+}
+
+function getWishlist() {
+  const wishlist = safeParseJSON('wishlist');
+  return Array.isArray(wishlist) ? wishlist.map(normalizeWishlistItem) : [];
+}
+
+function saveWishlist(wishlist) {
+  localStorage.setItem('wishlist', JSON.stringify(wishlist.map(normalizeWishlistItem)));
+  if (typeof window.updateWishlistCount === 'function') {
+    window.updateWishlistCount();
+  }
+}
+
+function isInWishlist(productName) {
+  return getWishlist().some((item) => item.name === productName);
+}
+
+function updateWishlistButtonState(button, isSaved) {
+  if (!button) return;
+
+  const productName = button.dataset.productName || 'product';
+  button.classList.toggle('active', isSaved);
+  button.setAttribute('aria-pressed', String(isSaved));
+  button.setAttribute(
+    'aria-label',
+    isSaved ? `Remove ${productName} from wishlist` : `Add ${productName} to wishlist`
+  );
+  button.title = isSaved ? 'Remove from wishlist' : 'Add to wishlist';
+  button.innerHTML = `<i class="${isSaved ? 'ri-heart-fill' : 'ri-heart-line'}" aria-hidden="true"></i>`;
+
+  if (button.classList.contains('product-wishlist-btn')) {
+    const label = document.createElement('span');
+    label.textContent = isSaved ? 'Saved' : 'Wishlist';
+    button.appendChild(label);
+  }
+}
+
+function syncWishlistButtons() {
+  document.querySelectorAll('.wishlist-btn[data-product-name]').forEach((button) => {
+    updateWishlistButtonState(button, isInWishlist(button.dataset.productName));
+  });
+}
+
+function toggleWishlistItem(product, button) {
+  const item = normalizeWishlistItem(product);
+  let wishlist = getWishlist();
+  const exists = wishlist.some((wishItem) => wishItem.name === item.name);
+
+  if (exists) {
+    wishlist = wishlist.filter((wishItem) => wishItem.name !== item.name);
+    if (typeof showToast === 'function') showToast(`${item.name} removed from wishlist`, 'info');
+  } else {
+    wishlist.push(item);
+    if (typeof showToast === 'function') showToast(`${item.name} added to wishlist`, 'success');
+  }
+
+  saveWishlist(wishlist);
+  updateWishlistButtonState(button, !exists);
+  syncWishlistButtons();
+}
+
+window.getWishlist = getWishlist;
+window.saveWishlist = saveWishlist;
+window.toggleWishlistItem = toggleWishlistItem;
+window.syncWishlistButtons = syncWishlistButtons;
 
 function renderProducts(containerId, list) {
   const container = document.getElementById(containerId);
   if (!container) return;
+  // Remove any existing static product nodes to avoid duplicates
+  document.querySelectorAll('.pro').forEach((n) => n.remove());
   container.innerHTML = '';
 
   if (list.length === 0) {
@@ -167,7 +577,6 @@ function renderProducts(containerId, list) {
   }
 
   list.forEach((p) => {
-    // Create product card container
     const card = document.createElement('div');
     card.className = 'pro';
     card.dataset.category = p.category;
@@ -183,33 +592,53 @@ function renderProducts(containerId, list) {
       window.location.href = 'singleProduct.html';
     });
 
-    // ── Image wrapper ──
+    // Image wrapper
     const imgWrap = document.createElement('div');
     imgWrap.className = 'pro-img-wrap';
     const img = document.createElement('img');
     img.src = p.img;
     img.alt = p.name;
+    img.loading = 'lazy';
     imgWrap.appendChild(img);
-    // Add ribbon badge for selected products
+
     const ribbon = document.createElement('div');
     ribbon.className = 'ribbon';
-    // Simple logic: first product gets "Sale", second gets "New"
     if (p.id === 1) {
       ribbon.textContent = 'Sale';
     } else if (p.id === 2) {
       ribbon.textContent = 'New';
     } else {
-      // No ribbon for other items
       ribbon.style.display = 'none';
     }
     imgWrap.appendChild(ribbon);
+
+    const qvOverlay = document.createElement('div');
+    qvOverlay.className = 'pro-quick-view-overlay';
+    const qvBtn = document.createElement('button');
+    qvBtn.className = 'pro-quick-view-btn';
+    qvBtn.type = 'button';
+    qvBtn.innerHTML = '<i class="ri-eye-line"></i> Quick View';
+    qvBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      if (typeof window.openQuickViewModal === 'function') {
+        window.openQuickViewModal({
+          name: p.name,
+          price: '₹' + p.price,
+          brand: p.brand,
+          img: p.img,
+          rating: p.rating,
+        });
+      }
+    });
+    qvOverlay.appendChild(qvBtn);
+    imgWrap.appendChild(qvOverlay);
     card.appendChild(imgWrap);
 
-    // ── Description container ──
+    // Description container
     const des = document.createElement('div');
     des.className = 'des';
 
-    // Brand row: logo icon + brand name
     const brandRow = document.createElement('div');
     brandRow.className = 'pro-brand-row';
     brandRow.innerHTML = `
@@ -224,21 +653,13 @@ function renderProducts(containerId, list) {
     nameH5.textContent = p.name;
     des.appendChild(nameH5);
 
-    // Star rating
-    const starDiv = document.createElement('div');
-    starDiv.className = 'star';
-    for (let i = 0; i < p.rating; i++) {
-      const starIcon = document.createElement('i');
-      starIcon.className = 'ri-star-fill';
-      starDiv.appendChild(starIcon);
-    }
-    des.appendChild(starDiv);
+    // Dynamic interactive star rating
+    des.appendChild(renderStars(p.rating, p.id));
 
     const priceH4 = document.createElement('h4');
     priceH4.textContent = '₹' + p.price.toLocaleString('en-IN');
     des.appendChild(priceH4);
 
-    // ── Action bar: BUY NOW pill + circular cart button ──
     const actionBar = document.createElement('div');
     actionBar.className = 'pro-action-bar';
 
@@ -266,14 +687,34 @@ function renderProducts(containerId, list) {
     cartBtn.appendChild(cartIcon);
     actionBar.appendChild(cartBtn);
 
+    // Wishlist button compatible with the shared wishlist page.
+    const wishlistBtn = document.createElement('button');
+    wishlistBtn.type = 'button';
+    wishlistBtn.className = 'wishlist-btn';
+    wishlistBtn.dataset.productName = p.name;
+    updateWishlistButtonState(wishlistBtn, isInWishlist(p.name));
+    wishlistBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      toggleWishlistItem(
+        {
+          id: p.id,
+          name: p.name,
+          brand: p.brand,
+          price: '₹' + p.price.toLocaleString('en-IN'),
+          image: p.img,
+        },
+        wishlistBtn
+      );
+    });
+    actionBar.appendChild(wishlistBtn);
+
     des.appendChild(actionBar);
     card.appendChild(des);
-
     container.appendChild(card);
   });
 }
 
-// Search and filter helpers
 function updateSearchSummary(filteredCount) {
   const countElement = document.getElementById('searchCount');
   if (countElement) {
@@ -286,9 +727,7 @@ function renderSearchSuggestions(query) {
   if (!suggestionsElement) return;
 
   suggestionsElement.innerHTML = '';
-  if (!query.trim()) {
-    return;
-  }
+  if (!query.trim()) return;
 
   const normalizedQuery = query.trim().toLowerCase();
   const suggestions = products
@@ -326,10 +765,16 @@ function filterProducts() {
   const input = document.getElementById('searchInput');
   const categorySelect = document.getElementById('categoryFilter');
   const sortSelect = document.getElementById('sort-price');
+  const brandSelect = document.getElementById('brand-filter');
+  const colorSelect = document.getElementById('color-filter');
+  const styleSelect = document.getElementById('style-filter');
 
   const query = input ? input.value.trim().toLowerCase() : '';
   const category = categorySelect ? categorySelect.value : 'all';
   const sortValue = sortSelect ? sortSelect.value : 'default';
+  const brandValue = brandSelect ? brandSelect.value.toLowerCase().trim() : 'all';
+  const colorValue = colorSelect ? colorSelect.value.toLowerCase().trim() : 'all';
+  const styleValue = styleSelect ? styleSelect.value.toLowerCase().trim() : 'all';
 
   let filteredProducts = products.filter((product) => {
     const matchesCategory = category === 'all' || product.category === category;
@@ -340,10 +785,24 @@ function filterProducts() {
     return matchesCategory && matchesSearch;
   });
 
+  // Apply brand/color/style filters
+  filteredProducts = filteredProducts.filter((product) => {
+    const matchesBrand = brandValue === 'all' || product.brand.toLowerCase() === brandValue;
+    const matchesColor = colorValue === 'all' || (product.color && product.color.toLowerCase() === colorValue);
+    const matchesStyle = styleValue === 'all' || (product.style && product.style.toLowerCase() === styleValue);
+    return matchesBrand && matchesColor && matchesStyle;
+  });
+
   if (sortValue === 'low-high') {
     filteredProducts.sort((a, b) => a.price - b.price);
   } else if (sortValue === 'high-low') {
     filteredProducts.sort((a, b) => b.price - a.price);
+  } else if (sortValue === 'rating-high') {
+    filteredProducts.sort((a, b) => b.rating - a.rating);
+  } else if (sortValue === 'rating-low') {
+    filteredProducts.sort((a, b) => a.rating - b.rating);
+  } else if (sortValue === 'newest') {
+    filteredProducts.sort((a, b) => b.id - a.id);
   }
 
   renderProducts('shop-container', filteredProducts);
@@ -355,6 +814,9 @@ function attachSearchListeners() {
   const input = document.getElementById('searchInput');
   const categorySelect = document.getElementById('categoryFilter');
   const sortSelect = document.getElementById('sort-price');
+  const brandSelect = document.getElementById('brand-filter');
+  const colorSelect = document.getElementById('color-filter');
+  const styleSelect = document.getElementById('style-filter');
   const searchBtn = document.getElementById('searchBtn');
 
   if (input) {
@@ -366,12 +828,11 @@ function attachSearchListeners() {
       }
     });
   }
-  if (categorySelect) {
-    categorySelect.addEventListener('change', filterProducts);
-  }
-  if (sortSelect) {
-    sortSelect.addEventListener('change', filterProducts);
-  }
+  if (categorySelect) categorySelect.addEventListener('change', filterProducts);
+  if (sortSelect) sortSelect.addEventListener('change', filterProducts);
+  if (brandSelect) brandSelect.addEventListener('change', filterProducts);
+  if (colorSelect) colorSelect.addEventListener('change', filterProducts);
+  if (styleSelect) styleSelect.addEventListener('change', filterProducts);
   if (searchBtn) {
     searchBtn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -381,51 +842,62 @@ function attachSearchListeners() {
   }
 }
 
-// Add to Cart function
 function addToCart(name, price, img, quantity, size) {
-  let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
-
-  const product = {
-    name,
-    price,
-    img,
-    quantity,
-    size,
-    id: Date.now(),
-  };
-
-  cart.push(product);
+  const cart = safeParseJSON('productsInCart');
+  cart.push({ name, price, img, quantity, size, id: Date.now() });
   localStorage.setItem('productsInCart', JSON.stringify(cart));
-
+  if (typeof updateCartCount === 'function') {
+    updateCartCount();
+  }
   if (typeof showToast === 'function') {
-    showToast(name + ' added to cart!', 'success');
+    showToast(`${name} added to cart`, 'success');
   }
 }
 
-// Buy Now function
-function buyNow(name, price, img, quantity, size) {
-  let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
-
-  const product = {
-    name,
-    price,
-    img,
-    quantity,
-    size,
-    id: Date.now(),
-  };
-
-  cart.push(product);
-  localStorage.setItem('productsInCart', JSON.stringify(cart));
-
-  window.location.href = 'checkout.html';
-}
-
-// Initializing the renders from local array
 document.addEventListener('DOMContentLoaded', () => {
   renderProducts('shop-container', products);
   renderProducts('featured-container', products.slice(0, 4));
   attachSearchListeners();
   updateSearchSummary(products.length);
   renderSearchSuggestions('');
+  syncWishlistButtons();
 });
+
+ // --- GLOBAL TOAST NOTIFICATION HANDLER ---
+function showToast(message, type = 'success') {
+    // Check if container already exists, else create it
+    let container = document.getElementById('toast-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'toast-container';
+        document.body.appendChild(container);
+    }
+
+    // Create Toast element wrapper
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+
+    // Select icon based on variant types
+    let icon = '🛒';
+    if (type === 'error') icon = '❌';
+    if (type === 'warning') icon = '⚠️';
+    if (type === 'info') icon = 'ℹ️';
+
+    // Build Toast inner body to match your existing CSS layout (.toast-icon, .toast-msg, .toast-close, .toast-progress)
+    toast.innerHTML = `
+        <div class="toast-icon">${icon}</div>
+        <div class="toast-msg">${message}</div>
+        <button class="toast-close" onclick="this.parentElement.remove()">&times;</button>
+        <div class="toast-progress"></div>
+    `;
+
+    container.appendChild(toast);
+
+    // Auto-remove animation sequence handling (Matches CSS timers smoothly)
+    setTimeout(() => {
+        toast.classList.add('toast-hiding');
+        setTimeout(() => {
+            toast.remove();
+        }, 350); // Exact exit duration specified in .toast-hiding cubic-bezier curve
+    }, 3650); // Active visibility shelf life before auto dismissal
+}

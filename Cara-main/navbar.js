@@ -49,17 +49,22 @@ function initDarkMode() {
   // Apply saved theme on load
   const isDarkSaved = localStorage.getItem('theme') === 'dark';
   if (isDarkSaved) {
-    document.body.classList.add('dark');
+    document.body.setAttribute('data-theme', 'dark');
     if (themeIcon) themeIcon.classList.replace('ri-moon-line', 'ri-sun-line');
     if (themeIconMobile) themeIconMobile.classList.replace('ri-moon-line', 'ri-sun-line');
   }
 
   function handleToggle() {
-    document.body.classList.toggle('dark');
-    const isDark = document.body.classList.contains('dark');
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    const next = isDark ? 'ri-sun-line' : 'ri-moon-line';
-    const prev = isDark ? 'ri-moon-line' : 'ri-sun-line';
+    const isDark = document.body.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+        document.body.removeAttribute('data-theme');
+    } else {
+        document.body.setAttribute('data-theme', 'dark');
+    }
+    const newIsDark = !isDark;
+    localStorage.setItem('theme', newIsDark ? 'dark' : 'light');
+    const next = newIsDark ? 'ri-sun-line' : 'ri-moon-line';
+    const prev = newIsDark ? 'ri-moon-line' : 'ri-sun-line';
     if (themeIcon) themeIcon.classList.replace(prev, next);
     if (themeIconMobile) themeIconMobile.classList.replace(prev, next);
   }

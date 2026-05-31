@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Delivery Information</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f5f5;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        .delivery-hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                url('https://images.unsplash.com/photo-1556740749-887f6717d7e4?q=80&w=1400&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            height: 45vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+        }
+
+        .delivery-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .delivery-hero p {
+            font-size: 1.1rem;
+            max-width: 700px;
+        }
+
+        .delivery-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 60px auto;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .info-card {
+            background: white;
+            padding: 30px 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .info-card h3 {
+            margin-bottom: 15px;
+            color: #088178;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            color: #222;
+        }
+
+        .timeline {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 60px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .timeline-number {
+            width: 45px;
+            height: 45px;
+            background: #088178;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .faq {
+            margin-top: 50px;
+        }
+
+        .faq-item {
+            background: white;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+        }
+
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            background: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: #fafafa;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 20px;
+            max-height: 200px;
+        }
+
+        .contact-box {
+            background: #088178;
+            color: white;
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .contact-box h2 {
+            margin-bottom: 15px;
+        }
+
+        .contact-box p {
+            margin: 10px 0;
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .delivery-hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .timeline-item {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="delivery-hero">
+        <div>
+            <h1>Delivery Information</h1>
+            <p>
+                Fast, secure, and reliable shipping to ensure your orders reach you on time.
+            </p>
+        </div>
+    </section>
+
+    <div class="delivery-container">
+
+        <div class="section-title">
+            <h2>Shipping Details</h2>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>Standard Delivery</h3>
+                <p>
+                    Orders are usually delivered within 3–7 business days depending on your location.
+                </p>
+            </div>
+
+            <div class="info-card">
+                <h3>Express Shipping</h3>
+                <p>
+                    Get your products delivered within 1–3 business days with express shipping.
+                </p>
+            </div>
+
+            <div class="info-card">
+                <h3>Free Shipping</h3>
+                <p>
+                    Free delivery is available on orders above ₹999 across selected regions.
+                </p>
+            </div>
+
+            <div class="info-card">
+                <h3>Order Tracking</h3>
+                <p>
+                    Track your order in real-time using the tracking link shared via email or SMS.
+                </p>
+            </div>
+        </div>
+
+        <div class="section-title">
+            <h2>Delivery Process</h2>
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-number">1</div>
+                <div>
+                    <h3>Order Confirmation</h3>
+                    <p>
+                        Once your order is placed, you will receive an instant confirmation email.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-number">2</div>
+                <div>
+                    <h3>Packaging & Dispatch</h3>
+                    <p>
+                        Your products are carefully packed and dispatched from our warehouse.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-number">3</div>
+                <div>
+                    <h3>Shipping Updates</h3>
+                    <p>
+                        You will receive live shipping updates and tracking information.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-number">4</div>
+                <div>
+                    <h3>Successful Delivery</h3>
+                    <p>
+                        Your package will arrive safely at your doorstep within the estimated time.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">
+            <h2>Frequently Asked Questions</h2>
+        </div>
+
+        <div class="faq">
+            <div class="faq-item">
+                <div class="faq-question">
+                    How can I track my order?
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    You can track your order using the tracking link sent to your email or mobile number.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    Do you offer international shipping?
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    Yes, international shipping is available for selected countries and regions.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    What happens if my delivery is delayed?
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    In rare cases of delay, our support team will notify you and provide updated delivery timelines.
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-box">
+            <h2>Need Help With Delivery?</h2>
+
+            <p>
+                If you have any questions regarding shipping, tracking,
+                delayed orders, or delivery support, feel free to contact us.
+            </p>
+
+            <br>
+
+            <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
+
+            <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
+
+            <p><strong>Email:</strong> contact@example.com</p>
+
+            <p><strong>Support Hours:</strong> 10:00 AM - 6:00 PM, Mon - Sat</p>
+        </div>
+
+    </div>
+
+    <script>
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        faqItems.forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.toggle('active');
+            });
+        });
+    </script>
+
+</body>
+</html>
