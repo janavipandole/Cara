@@ -72,3 +72,4 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+// TODO: Prevent signup triggers if password complexity score is poor
