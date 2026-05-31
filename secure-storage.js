@@ -47,3 +47,5 @@
         }
     };
 })();
+
+// TODO: Implement cryptographic token signing wrapper
