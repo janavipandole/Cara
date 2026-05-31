@@ -4,7 +4,8 @@ document.addEventListener('DOMContentLoaded', function () {
   if (!document.getElementById('forgotForm')) 
         return;
 
-document.getElementById('toggleNewPass').addEventListener('click', function () {
+const toggleNewPass = document.getElementById('toggleNewPass');
+if (toggleNewPass) toggleNewPass.addEventListener('click', function () {
   const pwd = document.getElementById('forgotNewPass');
   pwd.type = pwd.type === 'password' ? 'text' : 'password';
   this.classList.toggle('ri-eye-line');
