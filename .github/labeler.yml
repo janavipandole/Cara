@@ -1,38 +1,15 @@
-frontend:
-  - changed-files:
-      - any-glob-to-any-file:
-          - "*.html"
-          - "*.css"
-          - "js/**"
+name: Labeler
 
-backend:
-  - changed-files:
-      - any-glob-to-any-file:
-          - "backend/**"
+on:
+  pull_request_target:
 
-documentation:
-  - changed-files:
-      - any-glob-to-any-file:
-          - "docs/**"
-          - "*.md"
+permissions:
+  contents: read
+  pull-requests: write
 
-github:
-  - changed-files:
-      - any-glob-to-any-file:
-          - ".github/**"
+jobs:
+  triage:
+    runs-on: ubuntu-latest
 
-assets:
-  - changed-files:
-      - any-glob-to-any-file:
-          - "assets/**"
-          - "images/**"
-
-database:
-  - changed-files:
-      - any-glob-to-any-file:
-          - "*.db"
-
-workflow:
-  - changed-files:
-      - any-glob-to-any-file:
-          - ".github/workflows/**"
+    steps:
+      - uses: actions/labeler@v6

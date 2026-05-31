@@ -191,6 +191,9 @@
             aspect-ratio: 4 / 5;
             border-radius: 18px;
             background: #edf3f2;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-start;
         }
 
         .wishlist-card img {
@@ -199,6 +202,8 @@
             object-fit: cover;
             display: block;
             transition: transform 0.35s ease;
+            position: absolute;
+            inset: 0;
         }
 
         .wishlist-card:hover img {
@@ -206,9 +211,9 @@
         }
 
         .saved-pill {
-            position: absolute;
-            top: 12px;
-            left: 12px;
+            position: relative;
+            z-index: 10;
+            margin: 12px;
             padding: 7px 10px;
             border-radius: 999px;
             background: rgba(255, 255, 255, 0.9);
@@ -219,6 +224,7 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
+            white-space: nowrap;
         }
 
         .wishlist-details {
