@@ -1,0 +1,370 @@
+/* ============================================================
+   LAYOUT FIXES - Frontend Design & Overlapping Issues
+   Addresses: Z-index hierarchy, negative margins, position conflicts
+   ============================================================ */
+
+/* ============================================================
+   1. ESTABLISH Z-INDEX HIERARCHY
+   ============================================================ */
+:root {
+    /* Z-Index Scale */
+    --z-base: 1;                    /* base elements */
+    --z-content: 10;                /* content layers */
+    --z-dropdown: 50;               /* dropdowns, tooltips */
+    --z-sticky: 100;                /* sticky header */
+    --z-modal-overlay: 900;         /* modal backgrounds */
+    --z-modal: 950;                 /* modal dialogs */
+    --z-popover: 1000;              /* popovers, notifications */
+    --z-toast: 10000;               /* toasts, alerts */
+}
+
+/* ============================================================
+   2. HEADER & NAVIGATION - Fixed Positioning
+   ============================================================ */
+#header {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: var(--z-sticky);
+    background: var(--header-bg);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+nav {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--z-sticky);
+    background: var(--header-bg);
+}
+
+/* ============================================================
+   3. BODY & CONTENT OFFSET
+   ============================================================ */
+body {
+    padding-top: 80px;
+    transition: padding-top 0.2s ease;
+}
+
+@media (max-width: 1024px) {
+    body {
+        padding-top: 72px;
+    }
+}
+
+@media (max-width: 640px) {
+    body {
+        padding-top: 64px;
+    }
+}
+
+/* ============================================================
+   4. HERO SECTION - Remove Negative Margins
+   ============================================================ */
+#hero,
+#hero.hero-slider,
+#shop-hero {
+    position: relative;
+    z-index: var(--z-content);
+    margin-top: 0;                  /* REMOVED: negative margins */
+    padding-top: 0;
+    background: var(--bg-primary);
+}
+
+/* Hero should account for fixed header */
+.hero-slider {
+    height: calc(100vh - 80px);
+    min-height: 420px;
+    width: 100%;
+    overflow: hidden;
+}
+
+@media (max-width: 1024px) {
+    .hero-slider {
+        height: calc(100vh - 72px);
+        min-height: 380px;
+    }
+}
+
+@media (max-width: 640px) {
+    .hero-slider {
+        height: calc(100vh - 64px);
+        min-height: 300px;
+    }
+}
+
+.hero-slider .slider-btn,
+.hero-slider .slider-dots {
+    z-index: var(--z-dropdown) !important;
+    pointer-events: auto !important;
+}
+
+/* ============================================================
+   5. PRODUCTS SECTION - Remove Overlap
+   ============================================================ */
+#product1,
+#product2,
+#product3,
+.section-p1 {
+    margin-top: 0;                  /* REMOVED: negative margins */
+    padding-top: 40px;
+    z-index: var(--z-content);
+    position: relative;
+}
+
+/* ============================================================
+   6. MOBILE NAVBAR FIX
+   ============================================================ */
+@media (max-width: 799px) {
+    #navbar {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: var(--card-bg);
+        padding: 80px 20px 40px 20px;
+        z-index: 998;               /* below modals */
+        overflow-y: auto;
+        
+        /* FIX: Use transform instead of right: -300px for smooth animation */
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        box-shadow: inset 2px 0 8px rgba(0, 0, 0, 0.1);
+    }
+
+    #navbar.active {
+        transform: translateX(0);
+    }
+
+    /* Close button */
+    #close {
+        display: block;
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 999;
+        cursor: pointer;
+        font-size: 24px;
+    }
+
+    #close.active {
+        display: block;
+    }
+}
+
+/* ============================================================
+   7. STICKY ELEMENTS - Fix Position Conflicts
+   ============================================================ */
+.sticky-summary-card {
+    position: sticky !important;     /* Use STICKY, not FIXED */
+    top: 100px;                      /* Account for fixed header */
+    z-index: var(--z-content);
+}
+
+@media (max-width: 640px) {
+    .sticky-summary-card {
+        position: relative !important; /* Become relative on mobile */
+        top: auto;
+    }
+}
+
+/* ============================================================
+   8. CART GRID - Responsive Layout
+   ============================================================ */
+.cart-grid-layout {
+    display: grid;
+    gap: 32px;
+    align-items: start;
+    z-index: var(--z-content);
+}
+
+/* Desktop: Two columns */
+@media (min-width: 1025px) {
+    .cart-grid-layout {
+        grid-template-columns: minmax(0, 1fr) 380px;
+    }
+}
+
+/* Tablet & Mobile: Single column */
+@media (max-width: 1024px) {
+    .cart-grid-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .cart-summary-column {
+        order: 2;                   /* Move summary below cart on mobile */
+    }
+
+    .sticky-summary-card {
+        position: relative;
+        top: auto;
+    }
+}
+
+/* ============================================================
+   9. MODAL & POPUP MANAGEMENT
+   ============================================================ */
+.modal,
+.modal-overlay,
+[role="dialog"] {
+    z-index: var(--z-modal);
+}
+
+.modal-overlay {
+    z-index: var(--z-modal-overlay);
+}
+
+/* Dropdowns & Popovers */
+.dropdown-menu,
+.popover,
+.tooltip,
+.search-suggestions {
+    z-index: var(--z-popover);
+}
+
+/* Toasts & Notifications */
+.toast,
+.notification,
+[role="alert"],
+#topBtn {
+    z-index: var(--z-toast);
+}
+
+/* ============================================================
+   10. CHECKOUT PAGE - Fix Navbar Position
+   ============================================================ */
+.checkout-nav,
+#checkout-header {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--z-sticky);
+    background: var(--white);
+    padding-top: 0;
+}
+
+/* ============================================================
+   11. SEARCH & FILTER SECTION
+   ============================================================ */
+#search-filter {
+    position: relative;
+    z-index: var(--z-content);
+    margin-top: 20px;
+    padding: 30px 80px;
+}
+
+@media (max-width: 640px) {
+    #search-filter {
+        padding: 20px 16px;
+    }
+}
+
+/* ============================================================
+   12. FOOTER - Ensure Proper Stacking
+   ============================================================ */
+footer {
+    position: relative;
+    z-index: var(--z-base);
+    margin-top: 40px;
+}
+
+/* ============================================================
+   13. FIXED ELEMENTS - Top Scroll Button
+   ============================================================ */
+#topBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: var(--z-toast);
+    display: none;
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    padding: 12px 16px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+#topBtn:hover {
+    background-color: #066a63;
+}
+
+/* ============================================================
+   14. ANIMATIONS - Smooth Transitions
+   ============================================================ */
+* {
+    transition: z-index 0s, transform 0.3s ease;
+}
+
+/* ============================================================
+   15. PRINT STYLES - Hide Fixed Elements
+   ============================================================ */
+@media print {
+    #header,
+    nav,
+    #navbar,
+    #topBtn,
+    .toast,
+    .notification {
+        display: none !important;
+    }
+
+    body {
+        padding-top: 0;
+    }
+}
+
+/* ============================================================
+   16. ACCESSIBILITY - Focus Management
+   ============================================================ */
+*:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    z-index: var(--z-popover);
+}
+
+/* ============================================================
+   17. DARK THEME ADJUSTMENTS
+   ============================================================ */
+[data-theme="dark"] #navbar {
+    background-color: var(--card-bg);
+}
+
+[data-theme="dark"] #header {
+    background: var(--header-bg);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================================
+   18. RESPONSIVE BREAKPOINT FINE-TUNING
+   ============================================================ */
+
+/* Tablets (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    #header,
+    nav {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .section-p1 {
+        padding: 30px 40px;
+    }
+}
+
+/* Large Screens (1440px+) */
+@media (min-width: 1440px) {
+    .section-p1,
+    #search-filter {
+        padding-left: 120px;
+        padding-right: 120px;
+    }
+}

@@ -297,10 +297,7 @@ button.white .ripple-effect {
     -webkit-backdrop-filter: blur(20px) saturate(180%);
     backdrop-filter: blur(20px) saturate(180%);
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-    z-index: 999;
-    position: fixed;
-    top: 0;
-    width: 100%;
+    /* NOTE: position, z-index, top, width now handled in layout-fixes.css */
     border: none;
     transition: all 0.3s ease;
 }
@@ -1366,21 +1363,22 @@ footer .copyright {
                     flex-direction: column;
                     align-items: flex-start;
                     justify-content: flex-start;
-                    position: fixed;
-                    top: 0;
-                    right: -300px;
+                    /* NOTE: position, z-index, top now handled in layout-fixes.css */
                     height: 100vh;
-                    width: 300px;
+                    width: 100%;
                     background-color: var(--card-bg);
-                    box-shadow: 0 40px 60px rgba(0, 0, 0, 0.1);
-                    padding: 80px 0 40px 20px;
-                    z-index: 999;
+                    box-shadow: inset 2px 0 8px rgba(0, 0, 0, 0.1);
+                    padding: 80px 20px 40px 20px;
                     overflow-y: auto;
                     -webkit-overflow-scrolling: touch;
+                    /* FIX: Use transform for smooth animation instead of right: -300px */
+                    transform: translateX(-100%);
+                    transition: transform 0.3s ease;
                 }
 
                 #navbar.active {
-                    right: 0;
+                    transform: translateX(0);
+                }
                 }
 
                 #navbar li {
@@ -3455,7 +3453,7 @@ footer .copyright {
                 color: #ccc;
                 }
 
-                /* Dark mode — empty stars */
+                /* Dark mode ï¿½ empty stars */
                 body.dark .star i.ri-star-line {
                 color: #555;
                 }

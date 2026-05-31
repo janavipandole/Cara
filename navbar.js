@@ -101,4 +101,35 @@ function loadNavbar(activePage) {
   if (typeof window.updateWishlistCount === 'function') {
     window.updateWishlistCount();
   }
+
+  // Mobile navbar toggle - uses transform-based animation
+  const navbar = document.getElementById('navbar');
+  const bar = document.getElementById('bar');
+  const close = document.getElementById('close');
+
+  if (bar) {
+    bar.addEventListener('click', (e) => {
+      e.preventDefault();
+      navbar?.classList.add('active');
+      bar.classList.add('active');
+    });
+  }
+
+  if (close) {
+    close.addEventListener('click', (e) => {
+      e.preventDefault();
+      navbar?.classList.remove('active');
+      bar?.classList.remove('active');
+    });
+  }
+
+  // Close navbar when a link is clicked
+  const navLinks = document.querySelectorAll('#navbar a:not(#close)');
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      navbar?.classList.remove('active');
+      bar?.classList.remove('active');
+    });
+  });
 }
+
