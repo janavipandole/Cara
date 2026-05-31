@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
   document
     .getElementById('toggleNewPass')
     .addEventListener('click', function () {
-      const pwd = document.getElementById('forgotNewPass');
+      const pwd = document.getElementById('newPassword');
       pwd.type = pwd.type === 'password' ? 'text' : 'password';
       this.classList.toggle('ri-eye-line');
       this.classList.toggle('ri-eye-off-line');
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
   document
     .getElementById('toggleConfirmPass')
     .addEventListener('click', function () {
-      const pwd = document.getElementById('forgotConfirmPass');
+      const pwd = document.getElementById('confirmPassword');
       pwd.type = pwd.type === 'password' ? 'text' : 'password';
       this.classList.toggle('ri-eye-line');
       this.classList.toggle('ri-eye-off-line');
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const step2Div = document.getElementById('forgotStep2');
   const nextBtn = document.getElementById('forgotNextBtn');
   const emailInput = document.getElementById('forgotEmail');
-  const answerInput = document.getElementById('forgotAnswer');
+  const answerInput = document.getElementById('securityAnswerInput');
   const displayQuestion = document.getElementById('securityQuestionDisplay');
 
   let matchedUser = null;
@@ -106,8 +106,8 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       const answer = answerInput.value.trim();
-      const newPass = document.getElementById('forgotNewPass').value;
-      const confirmPass = document.getElementById('forgotConfirmPass').value;
+      const newPass = document.getElementById('newPassword').value;
+      const confirmPass = document.getElementById('confirmPassword').value;
 
       /* validations */
       if (!answer) {

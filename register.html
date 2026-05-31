@@ -85,9 +85,14 @@
     </section>
 
     <section id="register-section">
-      <div class="auth-card">
+      <div
+        class="auth-card"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalTitle"
+      >
         <a href="index.html" class="back-button">&#8592; Back to Shop</a>
-        <h2>Register</h2>
+        <h2 id="modalTitle">Register</h2>
         <p class="subtitle">Create your account <i class="fas fa-smile"></i></p>
         <p class="required-note">Fields marked with * are required.</p>
 
@@ -285,10 +290,15 @@
           </div>
 
           <!-- Form Message -->
-          <div id="formMessage"></div>
+          <div id="formMessage" aria-live="polite"></div>
 
           <!-- Submit -->
-          <button type="button" id="registerSubmitBtn" class="btn-primary">
+          <button
+            type="button"
+            id="registerSubmitBtn"
+            class="btn-primary"
+            aria-label="Create Account"
+          >
             CREATE ACCOUNT
           </button>
 
@@ -450,7 +460,7 @@
       </div>
     </footer>
 
-    <div id="toast-container"></div>
+    <div id="toast-container" aria-live="polite"></div>
 
     <script src="app.js"></script>
     <script src="register.js"></script>
