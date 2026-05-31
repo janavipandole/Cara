@@ -258,6 +258,20 @@
 
       <section id="cart" class="section-p1">
 
+        <!-- Loyalty Points Container -->
+        <div id="loyalty-points-container" style="background: rgba(8, 129, 120, 0.05); margin: 20px 0; padding: 20px; border: 1px solid rgba(8, 129, 120, 0.2); border-radius: 8px; font-family: sans-serif;">
+            <h3 style="color: #088178; margin-top: 0;"><i class="ri-medal-line"></i> Cara Loyalty Rewards</h3>
+            <p style="margin: 6px 0;">Your current balance: <strong id="loyalty-balance" style="color: #088178;">0</strong> points</p>
+            <p style="margin: 6px 0;">Points to earn from this order: <strong id="points-to-earn">0</strong> points</p>
+            <div id="loyalty-apply-section" style="margin-top: 12px; display: flex; gap: 8px;">
+                <input type="number" id="points-to-apply" placeholder="Redeem points" style="padding: 8px; width: 150px; border: 1px solid #ccc; border-radius: 4px;" />
+                <button id="apply-points-btn" style="padding: 8px 15px; background: #088178; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600;">Apply Points</button>
+            </div>
+            <p id="loyalty-msg" style="margin: 8px 0 0 0; font-size: 13px; font-weight: 600; min-height: 18px;"></p>
+        </div>
+
+        <script src="js/loyalty.js" defer></script>
+
         <!-- Column headers aligned to the 5-column cart-item-row grid -->
         <div class="cart-column-header">
           <span class="header-product">Product</span>
