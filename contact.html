@@ -64,7 +64,12 @@
     />
   
   <style>
-
+ body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.8;
+    }
   
 /* =======
    CARDS CONTAINER
@@ -293,7 +298,7 @@ button.normal:hover {
 /* ===============================
    FOOTER
 ================================ */
-footer {
+/* footer {
   background: #f3f3f3;
   padding: 40px 80px;
 }
@@ -371,7 +376,7 @@ footer .copyright {
   text-align: center;
   margin-top: 30px;
   font-size: 16px;
-}
+} */
 
 
 /* ===============================
@@ -587,12 +592,12 @@ footer .copyright {
         <h2>Tell us how we can help</h2>
 
         <!-- NAME -->
-        <label for="name">Full Name</label>
-        <input id="name" type="text" name="name" placeholder="Enter your full name">
+        <label for="name">Full Name <span style="color: red;">*</span></label>
+        <input id="name" type="text" name="name" placeholder="Your Full Name" autocomplete="name" required aria-required="true">
 
         <!-- EMAIL -->
-        <label for="email">Email</label>
-        <input id="email" type="email" name="email" placeholder="Enter your email address">
+        <label for="email">Email <span style="color: red;">*</span></label>
+        <input id="email" type="email" name="email" placeholder="Enter your email address" autocomplete="email" required aria-required="true">
 
         <!-- SUBJECT -->
         <label for="subject">Subject</label>
@@ -610,8 +615,8 @@ footer .copyright {
         </select>
 
         <!-- MESSAGE -->
-        <label for="message">Message</label>
-        <textarea id="message" name="message" rows="6" placeholder="Write your message here"></textarea>
+        <label for="message">Message <span style="color: red;">*</span></label>
+        <textarea id="message" name="message" rows="6" placeholder="Write your message here" required aria-required="true"></textarea>
 
         <button type="submit" class="normal">Send Message</button>
 
@@ -644,7 +649,7 @@ footer .copyright {
           <h4>Sophia Chen</h4>
           <span>Technical Support</span>
           <a href="mailto:tech@cara.com">tech@cara.com</a>
-          <a href="tel:+10009876543">+1 (000) 987-6543</a>
+          <a href="tel:+10009976543">+1 (000) 997-6543</a>
           <small>Website issues and account assistance</small>
         </div>
       </div>
@@ -698,7 +703,7 @@ footer .copyright {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <i class="fab fa-twitter"></i>
+              <i class="fa-brands fa-x-twitter"></i>
             </a>
             <a
               href="https://github.com/janavipandole"
@@ -729,7 +734,7 @@ footer .copyright {
       <div class="col">
         <h4>About</h4>
         <a href="about.html">About Us</a>
-        <a href="#">Delivery Information</a>
+        <a href="deliveryInformation.html">Delivery Information</a>
         <a href="privacy.html">Privacy Policy</a>
         <a href="terms.html">Terms and Conditions</a>
         <a href="contact.html">Contact Us</a>
@@ -894,7 +899,7 @@ form.addEventListener("submit", function (e) {
     setTimeout(() => {
       btn.classList.remove("btn-loading");
       form.reset();
-      document.getElementById("form-status").innerText = "✅ Message sent successfully!";
+      document.getElementById("form-status").innerHTML = `<div style="display: flex; align-items: center; gap: 8px; color: #088178; margin-top: 15px; font-weight: 600;"><i class="ri-checkbox-circle-line" style="font-size: 20px;"></i> Message sent successfully!</div>`;
     }, 1500);
   }
 });
@@ -906,7 +911,6 @@ form.addEventListener("submit", function (e) {
 document.addEventListener("DOMContentLoaded", function () {
   const newsletter = document.querySelector(".newsletter-form");
 
-  console.log(newsletter); // debug
 
   if (newsletter) {
     newsletter.addEventListener("submit", function (e) {
@@ -915,10 +919,18 @@ document.addEventListener("DOMContentLoaded", function () {
       const input = this.querySelector("input");
 
       if (input.value.includes("@")) {
-        alert("✅ Subscribed successfully!");
+        if (typeof showToast === 'function') {
+          showToast("Subscribed successfully!");
+        } else {
+          alert("Subscribed successfully!");
+        }
         input.value = "";
       } else {
-        alert("❌ Enter a valid email");
+        if (typeof showToast === 'function') {
+          showToast("Enter a valid email", true);
+        } else {
+          alert("Enter a valid email");
+        }
       }
     });
   }
@@ -927,7 +939,8 @@ document.addEventListener("DOMContentLoaded", function () {
 /* =========================
    CURRENT YEAR (FOOTER)
 ========================= */
-document.querySelector(".Current-Year").textContent = new Date().getFullYear();
+const yearEl = document.querySelector(".Current-Year");
+if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 </script>
 <script src="navbar.js"></script>

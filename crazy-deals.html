@@ -2,6 +2,12 @@
 <html lang="en">
 
 <head>
+  <script>
+    (function () {
+      const currentTheme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', currentTheme);
+    })();
+  </script>
   <!-- Character Encoding -->
   <meta charset="UTF-8" />
 
@@ -25,7 +31,7 @@
   <style>
     /* Campaign Page Head Styling */
     #campaign-head {
-      background-image: linear-gradient(135deg, rgba(239, 68, 68, 0.95), rgba(245, 158, 11, 0.9)), url('images/banner/b17.jpg');
+      background-image: linear-gradient(135deg, rgba(239, 68, 68, 0.95), rgba(245, 158, 11, 0.9)), url('images/banner/b18.jpg');
       background-size: cover;
       background-position: center;
       width: 100%;
@@ -179,56 +185,11 @@
         <section id="header">
           <!-- Logo -->
           <a href="index.html">
-            <img id="siteLogo" src="images/logo.png" alt="Cara Logo" id="siteLogo" />
+            <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
           </a>
 
-          <div>
-            <ul id="navbar">
-              <!-- Main Navigation Links -->
-              <li><a href="index.html">Home</a></li>
-              <li><a href="shop.html" class="active">Shop</a></li>
-              <li><a href="blog.html">Blog</a></li>
-              <li><a href="about.html">About</a></li>
-              <li><a href="try-on.html">Try-On</a></li>
-              <li><a href="community.html">Community</a></li>
-              <li><a href="promotions.html">Promotions</a></li>
+          <div id="navbar-container"></div>
 
-              <!-- Contact Icon -->
-              <li class="nav-icon">
-                <a href="contact.html" aria-label="Contact">
-                  <i class="ri-customer-service-2-line"></i>
-                </a>
-              </li>
-
-              <!-- Login Icon -->
-              <li class="nav-icon">
-                <a href="login.html" aria-label="Login">
-                  <i class="ri-user-3-line"></i>
-                </a>
-              </li>
-
-              <!-- Cart Icon -->
-              <li class="nav-icon">
-                <a href="cart.html" id="lg-bag" aria-label="Cart">
-                  <i class="ri-shopping-bag-4-line"></i>
-                </a>
-              </li>
-
-              <!-- Theme Toggle -->
-              <li class="nav-icon">
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-                  <i class="ri-moon-line" id="themeIcon"></i>
-                </button>
-              </li>
-
-              <!-- Close Button -->
-              <a href="#" id="close" aria-label="Close menu" aria-hidden="false">
-                <i class="fa-solid fa-xmark"></i>
-              </a>
-            </ul>
-          </div>
-
-          <!-- Mobile Navbar -->
           <div class="mobile">
             <!-- Login Icon -->
             <a href="login.html" aria-label="Login">
@@ -277,7 +238,7 @@
               <span style="text-decoration: line-through; font-size: 14px; color: #888; font-weight: normal;">&#8377;2,499</span>
             </h4>
             <div class="pro-action-bar">
-              <button class="pro-buy-btn" onclick="event.stopPropagation(); buyNow('Cartoon Astronaut T-Shirts','₹1,249','images/products/f1.jpg',1,'M')">BUY NOW</button>
+             <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="event.stopPropagation(); buyNow('Cartoon Astronaut T-Shirts','₹1,249','images/products/f1.jpg',1,'M')">BUY NOW</button>
               <a href="#" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation(); addToCart('Cartoon Astronaut T-Shirts','₹1,249','images/products/f1.jpg',1,'M'); return false;"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
           </div>
@@ -297,7 +258,7 @@
               <span style="text-decoration: line-through; font-size: 14px; color: #888; font-weight: normal;">&#8377;1,299</span>
             </h4>
             <div class="pro-action-bar">
-              <button class="pro-buy-btn" onclick="event.stopPropagation(); buyNow('White Palm Leaf Casual Shirt','₹649','images/products/f2.jpg',1,'M')">BUY NOW</button>
+             <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="event.stopPropagation(); buyNow('White Palm Leaf Casual Shirt','₹649','images/products/f2.jpg',1,'M')">BUY NOW</button>
               <a href="#" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation(); addToCart('White Palm Leaf Casual Shirt','₹649','images/products/f2.jpg',1,'M'); return false;"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
           </div>
@@ -317,7 +278,7 @@
               <span style="text-decoration: line-through; font-size: 14px; color: #888; font-weight: normal;">&#8377;1,999</span>
             </h4>
             <div class="pro-action-bar">
-              <button class="pro-buy-btn" onclick="event.stopPropagation(); buyNow('Pink Peony Patterned Shirt','₹999','images/products/f5.jpg',1,'M')">BUY NOW</button>
+             <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="event.stopPropagation(); buyNow('Pink Peony Patterned Shirt','₹999','images/products/f5.jpg',1,'M')">BUY NOW</button>
               <a href="#" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation(); addToCart('Pink Peony Patterned Shirt','₹999','images/products/f5.jpg',1,'M'); return false;"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
           </div>
@@ -337,7 +298,7 @@
               <span style="text-decoration: line-through; font-size: 14px; color: #888; font-weight: normal;">&#8377;2,299</span>
             </h4>
             <div class="pro-action-bar">
-              <button class="pro-buy-btn" onclick="event.stopPropagation(); buyNow('Dual-Tone Corduroy Shirt','₹1,149','images/products/f6.jpg',1,'M')">BUY NOW</button>
+             <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="event.stopPropagation(); buyNow('Dual-Tone Corduroy Shirt','₹1,149','images/products/f6.jpg',1,'M')">BUY NOW</button>
               <a href="#" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation(); addToCart('Dual-Tone Corduroy Shirt','₹1,149','images/products/f6.jpg',1,'M'); return false;"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
           </div>
@@ -360,7 +321,7 @@
         <img class="footer-logo" src="images/logo.png" alt="Cara Logo" />
       </div>
       <div class="footer-socials">
-        <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+        <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
         <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
         <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
         <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
@@ -381,7 +342,7 @@
       <div class="footer-col">
         <h4>QUICK LINKS</h4>
         <a href="about.html">About Us</a>
-        <a href="#">Delivery Information</a>
+        <a href="delivery.html">Delivery Information</a>
         <a href="privacy.html">Privacy Policy</a>
         <a href="terms.html">Terms and Conditions</a>
         <a href="contact.html">Contact Us</a>
@@ -391,8 +352,8 @@
         <h4>MY ACCOUNT</h4>
         <a href="login.html">Sign In</a>
         <a href="cart.html">View Cart</a>
-        <a href="#">My Wishlist</a>
-        <a href="cart.html">Track My Order</a>
+        <a href="cart.html">My Wishlist</a>
+        <a href="track-order.html">Track My Order</a>
         <a href="contact.html">Help</a>
       </div>
 
@@ -437,11 +398,9 @@
   <button id="scrollTopBtn" title="Go to top">↑</button>
 
   <div id="toast-container"></div>
+  <script src="navbar.js"></script>
   <script src="app.js"></script>
-
-  <!-- Simple script for Scroll To Top and core behavior -->
   <script>
-    // Scroll to Top buttons
     const scrollTopBtn = document.getElementById("scrollTopBtn");
     window.addEventListener("scroll", () => {
       if (window.scrollY > 300) {

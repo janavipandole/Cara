@@ -15,6 +15,22 @@ const products = [
   { id: 14, brand: "Levi's",        name: "Vertical Stripe Chino Shorts",     price: 2499, img: "images/products/n6.jpg", rating: 5, category: "minimal" },
   { id: 15, brand: "Uniqlo",        name: "Khaki Safari Work Shirt",          price: 3499, img: "images/products/n7.jpg", rating: 5, category: "minimal" },
   { id: 16, brand: "Puma",          name: "Deep Charcoal Casual Shirt",       price: 1799, img: "images/products/n8.jpg", rating: 5, category: "minimal" },
+  { id: 17, brand: "Adidas",        name: "Black Tech Training Tee",          price: 1899, img: "images/products/f1.jpg", rating: 4, category: "street" },
+  { id: 18, brand: "Zara",          name: "Olive Cargo Utility Pants",         price: 3299, img: "images/products/f2.jpg", rating: 4.2, category: "street" },
+  { id: 19, brand: "H&M",           name: "Peach Knit Sweater",               price: 2199, img: "images/products/f3.jpg", rating: 4.3, category: "minimal" },
+  { id: 20, brand: "Levi's",        name: "Indigo Denim Jacket",              price: 4999, img: "images/products/f4.jpg", rating: 4.7, category: "street" },
+  { id: 21, brand: "Puma",          name: "Red Logo Hoodie",                  price: 2999, img: "images/products/f5.jpg", rating: 4.1, category: "street" },
+  { id: 22, brand: "Gap",           name: "Navy Sweatpants",                  price: 1999, img: "images/products/f6.jpg", rating: 4.0, category: "minimal" },
+  { id: 23, brand: "Uniqlo",        name: "White Crewneck Tee",               price: 1499, img: "images/products/f7.jpg", rating: 4.4, category: "minimal" },
+  { id: 24, brand: "Mango",         name: "Vintage Floral Mini Dress",         price: 2799, img: "images/products/f8.jpg", rating: 4.5, category: "minimal" },
+  { id: 25, brand: "Tommy Hilfiger",name: "Grey Polo Shirt",                  price: 3599, img: "images/products/n1.jpg", rating: 4.3, category: "formal" },
+  { id: 26, brand: "Ralph Lauren",  name: "Cream Chino Pants",                price: 4799, img: "images/products/n2.jpg", rating: 4.6, category: "formal" },
+  { id: 27, brand: "Calvin Klein",  name: "Black Leather Belt",               price: 1199, img: "images/products/n3.jpg", rating: 4.0, category: "minimal" },
+  { id: 28, brand: "Zara",          name: "Sandstone Knit Blazer",            price: 5299, img: "images/products/n4.jpg", rating: 4.5, category: "formal" },
+  { id: 29, brand: "Nike",          name: "White Running Shorts",             price: 1899, img: "images/products/n5.jpg", rating: 4.2, category: "street" },
+  { id: 30, brand: "Levi's",        name: "Classic Denim Jeans",              price: 3999, img: "images/products/n6.jpg", rating: 4.1, category: "street" },
+  { id: 31, brand: "Uniqlo",        name: "Camel Overshirt",                  price: 3299, img: "images/products/n7.jpg", rating: 4.4, category: "minimal" },
+  { id: 32, brand: "Puma",          name: "Blue Windbreaker Jacket",          price: 2699, img: "images/products/n8.jpg", rating: 4.3, category: "street" },
 ];
 
 function renderProducts(containerId, list) {
@@ -164,15 +180,23 @@ function renderSearchSuggestions(query) {
 function filterProducts() {
   const input = document.getElementById('searchInput');
   const categorySelect = document.getElementById('categoryFilter');
+  const sortSelect = document.getElementById('sort-price');
 
   const query = input ? input.value.trim().toLowerCase() : '';
   const category = categorySelect ? categorySelect.value : 'all';
+  const sortValue = sortSelect ? sortSelect.value : 'default';
 
-  const filteredProducts = products.filter(product => {
+  let filteredProducts = products.filter(product => {
     const matchesCategory = category === 'all' || product.category === category;
     const matchesSearch = query === '' || product.name.toLowerCase().includes(query) || product.brand.toLowerCase().includes(query);
     return matchesCategory && matchesSearch;
   });
+
+  if (sortValue === 'low-high') {
+    filteredProducts.sort((a, b) => a.price - b.price);
+  } else if (sortValue === 'high-low') {
+    filteredProducts.sort((a, b) => b.price - a.price);
+  }
 
   renderProducts('shop-container', filteredProducts);
   updateSearchSummary(filteredProducts.length);
@@ -182,6 +206,7 @@ function filterProducts() {
 function attachSearchListeners() {
   const input = document.getElementById('searchInput');
   const categorySelect = document.getElementById('categoryFilter');
+  const sortSelect = document.getElementById('sort-price');
   const searchBtn = document.getElementById('searchBtn');
 
   if (input) {
@@ -195,6 +220,9 @@ function attachSearchListeners() {
   }
   if (categorySelect) {
     categorySelect.addEventListener('change', filterProducts);
+  }
+  if (sortSelect) {
+    sortSelect.addEventListener('change', filterProducts);
   }
   if (searchBtn) {
     searchBtn.addEventListener('click', (e) => {

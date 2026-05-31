@@ -12,7 +12,6 @@
     updateThemeIcon(currentTheme);
 
     function updateThemeIcon(theme) {
-        console.log('Updating icons to:', theme);
         const iconClass = theme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
         if (themeIcon) themeIcon.className = iconClass;
         if (themeIconMobile) themeIconMobile.className = iconClass;
@@ -49,16 +48,39 @@ const nav = document.getElementById("navbar");
 const close = document.getElementById("close");
 
 function updateAuthUI() {
-    const loginBtn = document.getElementById("login-btn");
     const loggedInUser = localStorage.getItem("loggedInUser");
+    const loginLinks = document.querySelectorAll('a[href="login.html"]');
 
-    if (!loginBtn) return;
-
-    if (loggedInUser) {
-        loginBtn.style.display = "none";
-    } else {
-        loginBtn.style.display = "block";
-    }
+    loginLinks.forEach(link => {
+        // Skip links in the footer or elsewhere if they don't have icons (optional)
+        // But for simplicity, we can transform them all.
+        if (loggedInUser) {
+            // Change to Logout
+            if (link.innerHTML.includes('ri-user-3-line') || link.innerHTML.includes('fa-user')) {
+                link.innerHTML = '<i class="ri-logout-box-r-line"></i>';
+                link.setAttribute('aria-label', 'Logout');
+            } else {
+                link.innerText = "Logout";
+            }
+            link.href = "#";
+            link.onclick = function (e) {
+                e.preventDefault();
+                localStorage.removeItem("loggedInUser");
+                localStorage.removeItem("appliedCoupon");
+                window.location.href = "login.html";
+            };
+        } else {
+            // Revert to Login
+            if (link.innerHTML.includes('ri-logout-box-r-line')) {
+                link.innerHTML = '<i class="ri-user-3-line"></i>';
+                link.setAttribute('aria-label', 'Login');
+            } else if (link.innerText === "Logout") {
+                link.innerText = "Login"; // or "Sign In"
+            }
+            link.href = "login.html";
+            link.onclick = null;
+        }
+    });
 }
 
 document.addEventListener("DOMContentLoaded", updateAuthUI);
@@ -102,14 +124,11 @@ document.addEventListener("click", function (e) {
 // Dynamic Render on singleProduct.html
 document.addEventListener("DOMContentLoaded", () => {
     if (window.location.pathname.includes("singleProduct")) {
-        console.log("On singleProduct page, attempting dynamic render.");
         const storedProductJSON = localStorage.getItem("selectedProduct");
-        console.log("Stored product JSON:", storedProductJSON);
         
         if (storedProductJSON) {
             try {
                 const product = JSON.parse(storedProductJSON);
-                console.log("Parsed product:", product);
 
                 const nameEl = document.getElementById("product-name");
                 const priceEl = document.getElementById("product-price");
@@ -191,8 +210,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Update cart count badge
 function updateCartCount() {
-    const cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    let cart = JSON.parse(localStorage.getItem("productsInCart")) || [];
+
+// 🔥 FIX: sanitize stored quantities
+cart = cart.map(item => {
+    let qty = parseInt(item.quantity);
+
+    if (isNaN(qty) || qty < 1) qty = 1;
+    if (qty > 99) qty = 99;
+
+    return { ...item, quantity: qty };
+});
+
+// Save corrected data back
+localStorage.setItem("productsInCart", JSON.stringify(cart));
+    const totalItems = cart.reduce((sum, item) => {
+    let quantity = parseInt(item.quantity);
+
+    // ✅ VALIDATION (CRITICAL FIX)
+    if (isNaN(quantity) || quantity < 1) {
+        quantity = 1;
+    }
+
+    if (quantity > 99) {
+        quantity = 99;
+    }
+
+    return sum + quantity;
+}, 0);
 
     const desktopCount = document.getElementById('desktopCartCount');
     const mobileCount = document.getElementById('mobileCartCount');
@@ -274,9 +319,10 @@ function showToast(message, type) {
     toast.className = 'toast toast-' + type;
     toast.innerHTML =
         '<i class="fa-solid ' + (icons[type] || icons.success) + ' toast-icon"></i>' +
-        '<span class="toast-msg">' + message + '</span>' +
+        '<span class="toast-msg"></span>' +
         '<button class="toast-close" aria-label="Close notification">&times;</button>' +
         '<div class="toast-progress"></div>';
+    toast.querySelector('.toast-msg').textContent = message;
 
     // Close button handler
     toast.querySelector('.toast-close').addEventListener('click', function() {
@@ -295,16 +341,96 @@ function dismissToast(toast) {
     toast.addEventListener('animationend', function() { toast.remove(); });
 }
 
-window.updateQty = function (change) {
-    const qtyInput = document.getElementById('product-quantity');
-    if (qtyInput) {
-        let currentValue = parseInt(qtyInput.value);
-        if (isNaN(currentValue)) currentValue = 1;
-        let newValue = currentValue + change;
-        if (newValue < 1) newValue = 1;
-        qtyInput.value = newValue;
-    }
+const MAX_QTY = 100;
+
+function changeQty(id, delta) {
+  if (!cart[id]) return;
+
+  let quantity = parseInt(cart[id]) || 1;
+
+  quantity += delta;
+
+  // ✅ FINAL LIMIT LOGIC
+  quantity = Math.max(1, Math.min(MAX_QTY, quantity));
+
+  cart[id] = quantity;
+
+  saveCart();
+  renderCart();
 }
+function renderCart() {
+  cartList.innerHTML = '';
+  const ids = Object.keys(cart);
+
+  if (!ids.length) {
+    cartList.innerHTML = '<div class="muted">Cart is empty</div>';
+    subtotalEl.textContent = '$0.00';
+    return;
+  }
+
+  let total = 0;
+
+  ids.forEach(id => {
+    const p = products.find(x => x.id === id);
+ let q = cart[id];
+   if (q > MAX_QTY) {
+  q = MAX_QTY;
+  cart[id] = MAX_QTY;
+}
+
+    if (q < 1) {
+      q = 1;
+      cart[id] = 1;
+    }
+
+    const line = p.price * q;
+    total += line;
+
+    const el = document.createElement('div');
+    el.className = 'cart-item';
+
+    el.innerHTML = `
+      <div class='cart-thumb'>
+        <img src='${p.img}' alt='${p.title}' style='width:100%;height:100%;object-fit:cover;border-radius:6px'/>
+      </div>
+      <div style='flex:1'>
+        <div style='display:flex;justify-content:space-between;align-items:center'>
+          <div style='font-weight:700'>${p.title}</div>
+          <div style='font-weight:700'>${formatPrice(line)}</div>
+        </div>
+        <div style='display:flex;justify-content:space-between;align-items:center;margin-top:6px'>
+          <div class='muted' style='font-size:13px'>${formatPrice(p.price)} each</div>
+          <div class='qty'>
+            <button data-dec='${id}'>-</button>
+            <div style='min-width:22px;text-align:center'>${q}</div>
+            <button data-inc='${id}'>+</button>
+            <button title='Remove' data-rm='${id}' style='margin-left:6px' class='icon-btn'>✕</button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    cartList.appendChild(el);
+  });
+
+  // ✅ SAVE FIXED VALUES BACK
+  saveCart();
+
+  // ✅ UPDATE TOTAL
+  subtotalEl.textContent = formatPrice(total);
+
+  // ✅ EVENTS
+  cartList.querySelectorAll('[data-inc]')
+    .forEach(b => b.addEventListener('click', e => changeQty(e.target.dataset.inc, 1)));
+
+  cartList.querySelectorAll('[data-dec]')
+    .forEach(b => b.addEventListener('click', e => changeQty(e.target.dataset.dec, -1)));
+
+  cartList.querySelectorAll('[data-rm]')
+    .forEach(b => b.addEventListener('click', e => removeFromCart(e.target.dataset.rm)));
+}
+
+
 
 window.handleAddToCart = function () {
     const nameElement = document.getElementById('product-name');
@@ -397,134 +523,40 @@ window.loadCart = function () {
     const discountEl = document.getElementById('summary-discount');
     const totalEl = document.getElementById('summary-total');
 
-        // REMOVE BUTTON
-        const removeCell = newRow.insertCell();
-        const removeLink = document.createElement('a');
-        removeLink.href = '#';
-        removeLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            removeItem(index);
-        });
-        const removeIcon = document.createElement('i');
-        removeIcon.className = 'fa-regular fa-circle-xmark';
-        removeLink.appendChild(removeIcon);
-        removeCell.appendChild(removeLink);
 
-        // IMAGE
-        const imgCell = newRow.insertCell();
-        const img = document.createElement('img');
-        img.src = item.image;
-        img.alt = item.name;
-        imgCell.appendChild(img);
+    // Calculate Tax (18% GST)
+    const taxRate = 0.18;
+    const tax = subtotal * taxRate;
 
-        // NAME
-        const nameCell = newRow.insertCell();
-        nameCell.textContent = item.name;
-
-        const sizeSmall = document.createElement('small');
-        sizeSmall.textContent = 'Size: ' + item.size;
-        nameCell.appendChild(document.createElement('br'));
-        nameCell.appendChild(sizeSmall);
-
-        // PRICE
-        const priceCell = newRow.insertCell();
-        priceCell.textContent = '$' + itemPrice.toFixed(2);
-
-        // QTY
-        const qtyCell = newRow.insertCell();
-        const qtyInput = document.createElement('input');
-        qtyInput.type = 'number';
-        qtyInput.value = item.quantity;
-        qtyInput.min = 1;
-        qtyInput.addEventListener('change', function () {
-            updateQuantity(index, this.value);
-        });
-        qtyCell.appendChild(qtyInput);
-
-        // SUBTOTAL
-        const subtotalCell = newRow.insertCell();
-        subtotalCell.textContent = '$' + subtotal.toFixed(2);
-    };
-
-    // ✅ TOTAL UPDATE MUST BE HERE (INSIDE FUNCTION, AFTER LOOP)
-   const subtotalDisplay = document.querySelector('.subtotal table tr:nth-child(1) td:nth-child(2)');
- const totalDisplay = document.querySelector('.subtotal table tr:nth-child(3) td:nth-child(2) strong');
-
-if (subtotalDisplay) {
-    subtotalDisplay.innerText = `$${total.toFixed(2)}`;
-}
-
-if (totalDisplay) {
-    totalDisplay.innerText = `$${total.toFixed(2)}`;
-}
-
-window.removeItem = function (index) {
-    if (subtotalEl) {
-        subtotalEl.innerText = `₹${subtotal.toLocaleString('en-IN')}`;
-    }
-
-    // Shipping calculations (free above 3000)
-    let shipping = 0;
-    if (subtotal > 0) {
-        shipping = subtotal >= 3000 ? 0 : 150;
-    }
-    if (shippingEl) {
-        shippingEl.innerText = shipping === 0 ? 'FREE' : `₹${shipping}`;
-        if (shipping === 0 && subtotal > 0) {
-            shippingEl.classList.add('shipping-free');
-        } else {
-            shippingEl.classList.remove('shipping-free');
-        }
-    }
-
-    // 18% tax calculation
-    const tax = Math.round(subtotal * 0.18);
-    if (taxEl) {
-        taxEl.innerText = `₹${tax.toLocaleString('en-IN')}`;
-    }
-
-    // Coupon / Discount calculation
+    // Apply Coupon Discount
     let discount = 0;
-    if (window.appliedCoupon === 'CARA20' && subtotal > 0) {
-        discount = Math.round(subtotal * 0.20);
-    } else if (window.appliedCoupon === 'WELCOME10' && subtotal > 0) {
-        discount = Math.round(subtotal * 0.10);
+    const coupon = window.appliedCoupon || localStorage.getItem('appliedCoupon');
+    if (coupon === 'CARA20') {
+        discount = subtotal * 0.20;
+        if (discountRow) discountRow.style.display = 'flex';
+        if (discountEl) discountEl.innerText = `-₹${discount.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
+    } else if (coupon === 'WELCOME10') {
+        discount = subtotal * 0.10;
+        if (discountRow) discountRow.style.display = 'flex';
+        if (discountEl) discountEl.innerText = `-₹${discount.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
+    } else {
+        if (discountRow) discountRow.style.display = 'none';
     }
 
-    if (discountRow && discountEl) {
-        if (discount > 0) {
-            discountRow.style.display = 'flex';
-            discountEl.innerText = `-₹${discount.toLocaleString('en-IN')}`;
-        } else {
-            discountRow.style.display = 'none';
-        }
-    }
+    // Grand Total
+    const grandTotal = subtotal + tax - discount;
 
-    // Grand total calculation
-    const grandTotal = Math.max(0, subtotal + tax + shipping - discount);
-    if (totalEl) {
-        totalEl.innerText = `₹${grandTotal.toLocaleString('en-IN')}`;
-    }
+    if (subtotalEl) subtotalEl.innerText = `₹${subtotal.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
+    if (taxEl) taxEl.innerText = `₹${tax.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
+    if (totalEl) totalEl.innerText = `₹${grandTotal.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
 
-    // Update promo input field state
-    const promoInput = document.getElementById('coupon-code');
-    const promoBtn = document.getElementById('apply-coupon-btn');
-    if (promoInput && promoBtn) {
-        if (window.appliedCoupon) {
-            promoInput.value = window.appliedCoupon;
-            promoInput.disabled = true;
-            promoBtn.innerText = 'Applied';
-            promoBtn.disabled = true;
-            promoBtn.classList.add('applied');
-        } else {
-            promoInput.value = '';
-            promoInput.disabled = false;
-            promoBtn.innerText = 'Apply';
-            promoBtn.disabled = false;
-            promoBtn.classList.remove('applied');
-        }
-    }
-}
+    // Fallback for old layouts if they still exist
+    const oldSubtotalDisplay = document.querySelector('.subtotal table tr:nth-child(1) td:nth-child(2)');
+    const oldTotalDisplay = document.querySelector('.subtotal table tr:nth-child(3) td:nth-child(2) strong');
+
+    if (oldSubtotalDisplay) oldSubtotalDisplay.innerText = `₹${subtotal.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
+    if (oldTotalDisplay) oldTotalDisplay.innerText = `₹${grandTotal.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
+};
 
 window.changeQuantity = function (index, change) {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
@@ -629,7 +661,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const firstContainer = productContainers[0];
         firstContainer.innerHTML = '';
-        firstContainer.style.display = 'flex';
+        firstContainer.style.display = 'grid';
 
         productsToShow.forEach(product => {
             product.style.display = 'block';
