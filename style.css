@@ -502,9 +502,7 @@ button.white .ripple-effect {
 
 #top {
     pointer-events: none;
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: relative;
     width: 100%;
     height: 100vh;
 }
@@ -34718,4 +34716,8 @@ img {
 /* Smooth scrolling */
 html {
     scroll-behavior: smooth;
+}
+
+#feature {
+    margin-top: 60px !important;
 }
