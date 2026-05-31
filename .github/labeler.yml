@@ -1,0 +1,38 @@
+frontend:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "*.html"
+          - "*.css"
+          - "js/**"
+
+backend:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "backend/**"
+
+documentation:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "docs/**"
+          - "*.md"
+
+github:
+  - changed-files:
+      - any-glob-to-any-file:
+          - ".github/**"
+
+assets:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "assets/**"
+          - "images/**"
+
+database:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "*.db"
+
+workflow:
+  - changed-files:
+      - any-glob-to-any-file:
+          - ".github/workflows/**"
