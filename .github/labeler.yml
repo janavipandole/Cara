@@ -1,15 +1,29 @@
-name: Labeler
+# PR Labeler Configuration
+# Automatically labels PRs based on file paths changed
 
-on:
-  pull_request_target:
+frontend:
+  - any: ['*.html', '*.css', '*.js', 'assets/**', 'images/**']
 
-permissions:
-  contents: read
-  pull-requests: write
+backend:
+  - any: ['backend/**', '*.json']
 
-jobs:
-  triage:
-    runs-on: ubuntu-latest
+documentation:
+  - any: ['docs/**', '*.md', 'README.md']
 
-    steps:
-      - uses: actions/labeler@v6
+styles:
+  - any: ['**/*.css']
+
+scripts:
+  - any: ['**/*.js']
+
+bug:
+  - body: ['bug', 'broken', 'crash', 'error', 'issue']
+
+enhancement:
+  - body: ['feature', 'improvement', 'enhancement']
+
+chore:
+  - any: ['package.json', 'package-lock.json', 'node_modules/**']
+
+security:
+  - body: ['security', 'vulnerability', 'CVE']
