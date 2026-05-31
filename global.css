@@ -2267,6 +2267,20 @@ footer .copyright {
    MOBILE SMALL (≤ 477px)
    ============================================ */
 
+            /* ============================================
+   MOBILE MID (≤ 540px)
+   ============================================ */
+
+            @media (max-width: 540px) {
+                .mobile {
+                    justify-content: center;
+                }
+
+                .mobile i {
+                    padding-left: 14px;
+                }
+            }
+
             @media (max-width: 477px) {
                 #header {
                     padding: 10px 16px;
@@ -3455,7 +3469,7 @@ footer .copyright {
                 color: #ccc;
                 }
 
-                /* Dark mode � empty stars */
+                /* Dark mode � empty stars */
                 body.dark .star i.ri-star-line {
                 color: #555;
                 }
