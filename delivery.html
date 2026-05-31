@@ -8,8 +8,12 @@
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#000000" />
   <title>Delivery Information | Cara — Modern E-Commerce</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
 
   <style>
     :root {
@@ -48,62 +52,7 @@
     a { text-decoration: none; color: inherit; }
     ul { list-style: none; }
 
-    /* ── NAVBAR ── */
-    #navbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 60px;
-      background: var(--background-color);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-      position: sticky;
-      top: 0;
-      z-index: 999;
-    }
 
-    #navbar .logo img { width: 120px; }
-
-    #navbar ul {
-      display: flex;
-      align-items: center;
-      gap: 28px;
-    }
-
-    #navbar ul li a {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text-color);
-      transition: color 0.2s;
-    }
-
-    #navbar ul li a:hover { color: var(--primary-color); }
-
-    .navbar-icons { display: flex; align-items: center; gap: 18px; }
-
-    .navbar-icons a {
-      font-size: 20px;
-      color: var(--text-color);
-      transition: color 0.2s;
-    }
-
-    .navbar-icons a:hover { color: var(--primary-color); }
-
-    .cart-icon { position: relative; }
-
-    .cart-icon span {
-      position: absolute;
-      top: -8px;
-      right: -8px;
-      background: var(--primary-color);
-      color: #fff;
-      font-size: 10px;
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
 
     /* ── BACK BUTTON ── */
     .back-btn-wrap { padding: 20px 60px 0; }
@@ -390,77 +339,159 @@
     @media (max-width: 900px) {
       .delivery-cards { grid-template-columns: 1fr 1fr; }
       .footer-top { grid-template-columns: 1fr 1fr; }
-      #navbar { padding: 14px 24px; }
       .page-hero { padding: 44px 24px 36px; }
       .delivery-section { padding: 0 20px; }
       footer { padding: 40px 24px 20px; }
       .back-btn-wrap { padding: 20px 20px 0; }
     }
 
+    /* ── SHIPPING ESTIMATOR ── */
+    .estimator-wrap {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 32px;
+      margin: 32px 0;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border-color);
+    }
+
+    .estimator-wrap h3 {
+      margin-bottom: 8px;
+      color: var(--text-color);
+    }
+
+    .estimator-wrap .sub {
+      font-size: 14px;
+      color: var(--light-text);
+      margin-bottom: 20px;
+    }
+
+    .estimator-form {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: flex-end;
+    }
+
+    .estimator-form .field {
+      flex: 1 1 180px;
+      min-width: 140px;
+    }
+
+    .estimator-form label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text-color);
+    }
+
+    .estimator-form input,
+    .estimator-form select {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 14px;
+      background: var(--background-color);
+      color: var(--text-color);
+    }
+
+    .estimator-form input:focus,
+    .estimator-form select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .estimator-form .btn-estimate {
+      padding: 10px 28px;
+      background: var(--primary-color);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .estimator-form .btn-estimate:hover {
+      opacity: 0.85;
+    }
+
+    .estimator-result {
+      display: none;
+      margin-top: 20px;
+      padding: 18px 22px;
+      border-radius: 8px;
+      background: rgba(8, 129, 120, 0.08);
+      border-left: 4px solid var(--primary-color);
+    }
+
+    .estimator-result.show {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .estimator-result .cost {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .estimator-result .eta {
+      font-size: 14px;
+      color: var(--light-text);
+      margin-top: 4px;
+    }
+
+    .estimator-result .eta strong {
+      color: var(--text-color);
+    }
+
     @media (max-width: 600px) {
       .delivery-cards { grid-template-columns: 1fr; }
       .footer-top { grid-template-columns: 1fr; gap: 28px; }
-      #navbar ul { display: none; }
       .page-hero h2 { font-size: 26px; }
       .shipping-table { font-size: 12px; }
+      .estimator-wrap { padding: 20px; }
+      .estimator-form .field { flex: 1 1 100%; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAVBAR -->
-<nav id="navbar">
-  <!-- Logo -->
-  <div class="logo">
+  <!-- HEADER -->
+  <!-- HEADER -->
+  <section id="header">
     <a href="index.html">
-      <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
-    </a>
-  </div>
-
-  <!-- Nav Links -->
-  <ul>
-    <li><a href="index.html">Home</a></li>
-    <li><a href="shop.html">Shop</a></li>
-    <li><a href="blog.html">Blog</a></li>
-    <li><a href="about.html">About</a></li>
-  </ul>
-
-  <!-- Right Side Icons -->
-  <div class="navbar-icons">
-
-    <!-- Contact Icon -->
-    <a href="contact.html" class="nav-icon" aria-label="Contact">
-      <i class="fa-solid fa-headset"></i>
+      <img id="siteLogo" src="images/logo.png" alt="Cara Logo" width="130" height="40" />
     </a>
 
-    <!-- Login Icon -->
-    <a href="login.html" class="nav-icon" aria-label="Login">
-      <i class="fa-regular fa-user"></i>
-    </a>
+    <div id="navbar-container"></div>
 
-    <!-- Cart Icon -->
-    <a href="cart.html" class="cart-icon" aria-label="Cart">
-      <i class="fa-solid fa-bag-shopping"></i>
-      <span>0</span>
-    </a>
-
-    <!-- Theme Toggle -->
-    <button
-      class="theme-toggle"
-      id="themeToggle"
-      aria-label="Toggle dark mode"
-    >
-      <i class="fa-solid fa-moon"></i>
-    </button>
-
-  </div>
-</nav>
+    <!-- Mobile Navbar -->
+    <div class="mobile">
+      <a href="login.html" aria-label="Login">
+        <i class="ri-user-3-line"></i>
+      </a>
+      <a href="cart.html" aria-label="Cart">
+        <i class="ri-shopping-bag-4-line"></i>
+      </a>
+      <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
+    </div>
+  </section>
 
   <!-- BACK BUTTON -->
   <div class="back-btn-wrap">
-    <a class="back-btn" onclick="history.back()">
+    <button class="back-btn" onclick="history.back()" aria-label="Go back to previous page" style="background: transparent; border: none; font-family: inherit; font-size: inherit; cursor: pointer;">
       <i class="fa-solid fa-arrow-left"></i> Back
-    </a>
+    </button>
   </div>
 
   <!-- HERO -->
@@ -476,25 +507,25 @@
     <!-- Quick Cards -->
     <div class="delivery-cards">
       <div class="delivery-card">
-        <div class="icon">🚚</div>
+        <div class="icon"><i class="fas fa-truck"></i></div>
         <h4>Free Shipping</h4>
         <p>On all orders above $50 within the US</p>
       </div>
       <div class="delivery-card">
-        <div class="icon">⏱️</div>
+        <div class="icon"><i class="fas fa-clock"></i></div>
         <h4>Fast Processing</h4>
         <p>Orders dispatched within 1–2 business days</p>
       </div>
       <div class="delivery-card">
-        <div class="icon">↩️</div>
+        <div class="icon"><i class="fas fa-undo-alt"></i></div>
         <h4>Easy Returns</h4>
         <p>30-day hassle-free return policy</p>
       </div>
     </div>
 
     <!-- Shipping Policy -->
-    <div class="delivery-block">
-      <h3>📦 Shipping Policy</h3>
+    <section class="delivery-block">
+      <h3><i class="fas fa-box"></i> Shipping Policy</h3>
       <p>We are committed to delivering your orders as quickly and safely as possible.</p>
       <table class="shipping-table">
         <thead>
@@ -528,13 +559,43 @@
         </tbody>
       </table>
       <div class="notice-box">
-        ℹ️ Shipping times are estimates and may vary during peak seasons or due to courier delays outside our control.
+        <i class="fas fa-info-circle"></i> Shipping times are estimates and may vary during peak seasons or due to courier delays outside our control.
       </div>
-    </div>
+    </section>
+
+    <!-- Shipping Fee & Delivery Estimator -->
+    <section class="delivery-block estimator-wrap">
+      <h3><i class="fas fa-calculator"></i> Shipping Fee & Delivery Estimator</h3>
+      <p class="sub">Enter your package details to estimate shipping cost and delivery date.</p>
+      <form class="estimator-form" id="estimatorForm">
+        <div class="field">
+          <label for="est-weight">Package Weight (kg)</label>
+          <input type="number" id="est-weight" min="0.1" step="0.1" value="1" required />
+        </div>
+        <div class="field">
+          <label for="est-country">Destination</label>
+          <select id="est-country">
+            <option value="us">United States</option>
+            <option value="ca">Canada</option>
+            <option value="uk">United Kingdom</option>
+            <option value="de">Germany</option>
+            <option value="fr">France</option>
+            <option value="au">Australia</option>
+            <option value="in">India</option>
+            <option value="other">Other International</option>
+          </select>
+        </div>
+        <button type="submit" class="btn-estimate">Estimate</button>
+      </form>
+      <div class="estimator-result" id="estimatorResult">
+        <div class="cost" id="estCost">$0.00</div>
+        <div class="eta" id="estEta">Estimated delivery: <strong></strong></div>
+      </div>
+    </section>
 
     <!-- Order Processing -->
-    <div class="delivery-block">
-      <h3>⚙️ Order Processing</h3>
+    <section class="delivery-block">
+      <h3><i class="fas fa-cog"></i> Order Processing</h3>
       <p>Once your order is placed and payment confirmed, our team begins processing immediately:</p>
       <ul>
         <li>Orders placed before 2:00 PM (Mon–Sat) are processed the same day.</li>
@@ -542,11 +603,11 @@
         <li>You will receive a confirmation email with tracking number once dispatched.</li>
         <li>Processing may take 1–2 extra days during sale events or high-traffic periods.</li>
       </ul>
-    </div>
+    </section>
 
     <!-- International Shipping -->
-    <div class="delivery-block">
-      <h3>🌍 International Shipping</h3>
+    <section class="delivery-block">
+      <h3><i class="fas fa-globe"></i> International Shipping</h3>
       <p>We ship to over 50 countries worldwide. Please note:</p>
       <ul>
         <li>International delivery takes 7–14 business days depending on destination.</li>
@@ -555,13 +616,13 @@
         <li>Some items may not be available for international shipping due to restrictions.</li>
       </ul>
       <div class="notice-box">
-        ℹ️ Shipping cost for international orders is calculated at checkout based on your location and order weight.
+        <i class="fas fa-info-circle"></i> Shipping cost for international orders is calculated at checkout based on your location and order weight.
       </div>
-    </div>
+    </section>
 
     <!-- Order Tracking -->
-    <div class="delivery-block">
-      <h3>📍 Order Tracking</h3>
+    <section class="delivery-block">
+      <h3><i class="fas fa-map-marker-alt"></i> Order Tracking</h3>
       <p>Once your order is shipped, you can track it anytime:</p>
       <ul>
         <li>A tracking number will be emailed to you upon dispatch.</li>
@@ -569,11 +630,11 @@
         <li>Tracking updates may take up to 24 hours to reflect after dispatch.</li>
         <li>For any tracking issues, please contact our support team.</li>
       </ul>
-    </div>
+    </section>
 
     <!-- Returns -->
-    <div class="delivery-block">
-      <h3>↩️ Returns & Exchanges</h3>
+    <section class="delivery-block">
+      <h3><i class="fas fa-undo-alt"></i> Returns & Exchanges</h3>
       <p>We want you to love every purchase. If something isn't right:</p>
       <ul>
         <li>Returns accepted within 30 days of delivery.</li>
@@ -583,18 +644,54 @@
         <li>Refunds are processed within 5–7 business days after we receive the returned item.</li>
       </ul>
       <p>For full details, see our <a href="terms.html" style="color:#088178; font-weight:600;">Terms and Conditions</a>.</p>
-    </div>
+    </section>
+
+    <!-- FAQ Accordion Section -->
+    <section class="delivery-block">
+      <h3><i class="fas fa-question-circle"></i> Frequently Asked Questions</h3>
+      <div class="faq-accordion" style="margin-top: 20px;">
+        <div class="faq-item" style="border: 1px solid var(--border-color); border-radius: 6px; margin-bottom: 10px; overflow: hidden;">
+          <button class="faq-toggle" style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: var(--card-bg); border: none; font-family: inherit; font-size: 15px; font-weight: 600; color: var(--text-color); cursor: pointer; text-align: left; transition: background 0.2s;">
+            <span>How long will my order take to arrive?</span>
+            <i class="fas fa-chevron-down" style="font-size: 12px; transition: transform 0.2s;"></i>
+          </button>
+          <div class="faq-content" style="max-height: 0; overflow: hidden; transition: max-height 0.25s ease-out; background: var(--background-color);">
+            <p style="padding: 15px 20px; margin: 0; font-size: 14px; color: var(--light-text); line-height: 1.6;">Standard delivery takes 3 to 5 business days, while express shipping delivers in 1 to 2 business days. International delivery varies between 7 and 14 business days.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" style="border: 1px solid var(--border-color); border-radius: 6px; margin-bottom: 10px; overflow: hidden;">
+          <button class="faq-toggle" style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: var(--card-bg); border: none; font-family: inherit; font-size: 15px; font-weight: 600; color: var(--text-color); cursor: pointer; text-align: left; transition: background 0.2s;">
+            <span>What is your return policy?</span>
+            <i class="fas fa-chevron-down" style="font-size: 12px; transition: transform 0.2s;"></i>
+          </button>
+          <div class="faq-content" style="max-height: 0; overflow: hidden; transition: max-height 0.25s ease-out; background: var(--background-color);">
+            <p style="padding: 15px 20px; margin: 0; font-size: 14px; color: var(--light-text); line-height: 1.6;">We offer a 30-day return policy. Items must be unused, unwashed, and returned in their original packaging with all tags attached.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" style="border: 1px solid var(--border-color); border-radius: 6px; margin-bottom: 10px; overflow: hidden;">
+          <button class="faq-toggle" style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: var(--card-bg); border: none; font-family: inherit; font-size: 15px; font-weight: 600; color: var(--text-color); cursor: pointer; text-align: left; transition: background 0.2s;">
+            <span>Can I track my shipment?</span>
+            <i class="fas fa-chevron-down" style="font-size: 12px; transition: transform 0.2s;"></i>
+          </button>
+          <div class="faq-content" style="max-height: 0; overflow: hidden; transition: max-height 0.25s ease-out; background: var(--background-color);">
+            <p style="padding: 15px 20px; margin: 0; font-size: 14px; color: var(--light-text); line-height: 1.6;">Yes, a tracking link is sent via email once your order has been dispatched. You can track updates on our tracking portal.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- Contact -->
-    <div class="delivery-block">
-      <h3>📞 Need Help?</h3>
+    <section class="delivery-block">
+      <h3><i class="fas fa-phone"></i> Need Help?</h3>
       <p>Our support team is always here for you:</p>
       <ul>
-        <li>📧 Email: <a href="contact.html" style="color:#088178;">contact@cara.com</a></li>
-        <li>📞 Phone: +01 2222 365 / (+91) 01 2345 6789</li>
-        <li>🕙 Hours: 10:00 – 18:00, Mon – Sat</li>
+        <li><i class="fas fa-envelope"></i> Email: <a href="contact.html" style="color:#088178;">contact@cara.com</a></li>
+        <li><i class="fas fa-phone"></i> Phone: +01 2222 365 / (+91) 01 2345 6789</li>
+        <li><i class="far fa-clock"></i> Hours: 10:00 – 18:00, Mon – Sat</li>
       </ul>
-    </div>
+    </section>
 
   </main>
 
@@ -603,15 +700,15 @@
     <div class="footer-top">
 
       <div class="footer-brand">
-        <img src="images/logo.png" alt="Cara Logo" />
+        <img src="images/logo.png" alt="Cara Logo" width="110" height="34" loading="lazy" />
         <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
         <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
         <p><strong>Hours:</strong> 10:00 – 18:00, Mon – Sat</p>
         <div class="social-links">
-          <a href="https://x.com/JanaviPandole" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
-          <a href="https://github.com/janavipandole" target="_blank"><i class="fa-brands fa-github"></i></a>
-          <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
-          <a href="https://www.youtube.com/@JanaviPandole" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+          <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-youtube"></i></a>
         </div>
       </div>
 
@@ -631,7 +728,7 @@
         <ul>
           <li><a href="login.html">Sign In</a></li>
           <li><a href="cart.html">View Cart</a></li>
-          <li><a href="wishlist.html">My Wishlist</a></li>
+          <li><a href="#">My Wishlist</a></li>
           <li><a href="cart.html">Track My Order</a></li>
           <li><a href="contact.html">Help</a></li>
         </ul>
@@ -641,12 +738,12 @@
         <h4>Install App</h4>
         <p style="font-size:13px; margin-bottom:4px;">From App Store or Google Play</p>
         <div class="app-badges">
-          <img src="images/pay/app.jpg" alt="App Store" />
-          <img src="images/pay/play.jpg" alt="Google Play" />
+          <img src="images/pay/app.jpg" alt="App Store" width="120" height="36" loading="lazy" />
+          <img src="images/pay/play.jpg" alt="Google Play" width="120" height="36" loading="lazy" />
         </div>
         <p style="font-size:13px; margin-top:18px; margin-bottom:8px; color:#fff;">Secured Payment Gateways</p>
         <div class="payment-icons">
-          <img src="images/pay/pay.png" alt="Payment methods" />
+          <img src="images/pay/pay.png" alt="Payment methods" width="224" height="24" loading="lazy" />
         </div>
       </div>
 
@@ -662,6 +759,54 @@
   </button>
 
   <script>
+    (function initEstimator() {
+      var form = document.getElementById('estimatorForm');
+      if (!form) return;
+
+      var result = document.getElementById('estimatorResult');
+      var costEl = document.getElementById('estCost');
+      var etaEl = document.getElementById('estEta');
+
+      var rates = {
+        us: { base: 5.99, perKg: 1.50, min: 3, max: 7, label: 'United States' },
+        ca: { base: 8.99, perKg: 2.00, min: 5, max: 10, label: 'Canada' },
+        uk: { base: 12.99, perKg: 3.00, min: 7, max: 12, label: 'United Kingdom' },
+        de: { base: 13.99, perKg: 3.50, min: 7, max: 12, label: 'Germany' },
+        fr: { base: 13.99, perKg: 3.50, min: 7, max: 12, label: 'France' },
+        au: { base: 15.99, perKg: 4.00, min: 10, max: 16, label: 'Australia' },
+        in: { base: 10.99, perKg: 2.50, min: 8, max: 14, label: 'India' },
+        other: { base: 18.99, perKg: 5.00, min: 10, max: 20, label: 'International' }
+      };
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        var weight = parseFloat(document.getElementById('est-weight').value);
+        var country = document.getElementById('est-country').value;
+        var rate = rates[country] || rates.other;
+
+        if (!weight || weight <= 0) weight = 1;
+
+        var cost = rate.base + rate.perKg * weight;
+        var etaMin = rate.min;
+        var etaMax = rate.max;
+
+        var today = new Date();
+        var minDate = new Date(today);
+        minDate.setDate(today.getDate() + etaMin);
+        var maxDate = new Date(today);
+        maxDate.setDate(today.getDate() + etaMax);
+
+        var opts = { weekday: 'short', month: 'short', day: 'numeric' };
+        var minStr = minDate.toLocaleDateString('en-US', opts);
+        var maxStr = maxDate.toLocaleDateString('en-US', opts);
+
+        costEl.textContent = '$' + cost.toFixed(2);
+        etaEl.innerHTML = 'Estimated delivery: <strong>' + minStr + ' – ' + maxStr + '</strong>';
+        result.classList.add('show');
+      });
+    })();
+
     const scrollBtn = document.getElementById('scroll-top');
     window.addEventListener('scroll', () => {
       scrollBtn.style.display = window.scrollY > 300 ? 'flex' : 'none';
@@ -669,7 +814,30 @@
     scrollBtn.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    // Accordion active toggling logic
+    document.querySelectorAll('.faq-toggle').forEach(button => {
+      button.addEventListener('click', () => {
+        const faqContent = button.nextElementSibling;
+        const icon = button.querySelector('i');
+        button.classList.toggle('active');
+        if (button.classList.contains('active')) {
+          faqContent.style.maxHeight = faqContent.scrollHeight + 'px';
+          icon.style.transform = 'rotate(180deg)';
+        } else {
+          faqContent.style.maxHeight = 0;
+          icon.style.transform = 'rotate(0deg)';
+        }
+      });
+    });
   </script>
 
+  <script src="navbar.js"></script>
+  <script>
+    loadNavbar();
+  </script>
+  <script src="app.js"></script>
 </body>
 </html>
+
+<!-- Accessibility and structural improvements -->

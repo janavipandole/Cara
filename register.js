@@ -1,49 +1,74 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('registerForm');
-    form.addEventListener('submit', function (e) {
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("register.js loaded");
+
+    const btn = document.getElementById("registerSubmitBtn");
+
+    if (!btn) {
+        console.error("Submit button not found!");
+        return;
+    }
+
+    btn.addEventListener("click", async (e) => {
         e.preventDefault();
-        const name = document.getElementById('registerUsername').value.trim();
-        const email = document.getElementById('registerEmail').value.trim();
-        const password = document.getElementById('registerPassword').value;
 
-        if (!name || !email || !password) {
-            showToast('Please fill all fields.', 'warning');
+        const username = document.getElementById("registerUsername")?.value.trim();
+        const email = document.getElementById("registerEmail")?.value.trim();
+        const password = document.getElementById("registerPassword")?.value.trim();
+        const confirmPassword = document.getElementById("confirmPassword")?.value.trim();
+
+        const role = document.querySelector('input[name="registerRole"]:checked')?.value || "USER";
+
+        const messageBox = document.getElementById("formMessage");
+
+        // basic validation
+        if (!username || !email || !password) {
+            messageBox.innerText = "All fields are required!";
+            messageBox.style.color = "red";
             return;
         }
 
-        // Password validation
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
-
-        if (!passwordRegex.test(password)) {
-            showToast('Password must have 8+ chars, 1 uppercase, 1 lowercase, 1 number, and 1 special character.', 'warning');
-            return;
-        }
-
-        // Confirm Password validation
-        const confirmPassword = document.getElementById('confirmPassword').value;
         if (password !== confirmPassword) {
-            showToast('Passwords do not match.', 'warning');
+            messageBox.innerText = "Passwords do not match!";
+            messageBox.style.color = "red";
             return;
         }
 
-        let users = JSON.parse(localStorage.getItem('users') || '[]');
-        if (users.find(u => u.email === email)) {
-            showToast('Email already registered.', 'error');
-            return;
-        }
-        if (users.find(u => u.name.toLowerCase() === name.toLowerCase())) {
-            showToast('Username already exists.', 'error');
-            return;
-        }
+        try {
+            const res = await fetch("http://localhost:8000/api/auth/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    username,
+                    email,
+                    password,
+                    role
+                })
+            });
 
-        users.push({ name, email, password });
-        localStorage.setItem('users', JSON.stringify(users));
+            const data = await res.json();
 
-        // On successful registration
-        showToast('Signup successful! Welcome to Cara.', 'success');
-        localStorage.setItem('loggedInUser', email);
-        setTimeout(() => {
-            window.location.href = 'index.html';
-        }, 1500);
+            if (!res.ok) {
+                throw new Error(data.detail || "Registration failed");
+            }
+
+            console.log("Success:", data);
+
+            localStorage.setItem("token", data.access_token);
+            localStorage.setItem("user", JSON.stringify(data.user));
+
+            messageBox.style.color = "green";
+            messageBox.innerText = "Account created successfully! Redirecting...";
+
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 1200);
+
+        } catch (err) {
+            console.error(err);
+            messageBox.style.color = "red";
+            messageBox.innerText = err.message;
+        }
     });
 });
