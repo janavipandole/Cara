@@ -628,7 +628,7 @@ function renderProducts(containerId, list, query = '') {
     imgWrap.className = 'pro-img-wrap';
     const img = document.createElement('img');
     img.src = p.img;
-    img.alt = p.name;
+    img.alt = p.brand + ' - ' + p.name;
     img.loading = 'lazy';
     imgWrap.appendChild(img);
 
