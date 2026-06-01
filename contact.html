@@ -867,6 +867,7 @@ toBottom.onclick = () => window.scrollTo({ top: document.body.scrollHeight, beha
 const form = document.querySelector(".contact-form");
 
 form.addEventListener("submit", function (e) {
+  // Resolves #1690: Client-side input validation for the contact form
   e.preventDefault();
 
   let isValid = true;
