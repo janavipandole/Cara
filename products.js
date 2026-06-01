@@ -553,9 +553,40 @@ window.saveWishlist = saveWishlist;
 window.toggleWishlistItem = toggleWishlistItem;
 window.syncWishlistButtons = syncWishlistButtons;
 
-function renderProducts(containerId, list) {
+/**
+ * Safely escapes HTML and highlights matched search query terms.
+ * @param {string} text - The original text to display
+ * @param {string} query - The search query term
+ * @returns {string} - Highlighted HTML string
+ */
+function highlightText(text, query) {
+  if (!text) return '';
+  // Return HTML-escaped text to prevent XSS
+  const escapedText = text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+    
+  if (!query || !query.trim()) {
+    return escapedText;
+  }
+  
+  const escapedQuery = query.trim().replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+  const regex = new RegExp(`(${escapedQuery})`, 'gi');
+  return escapedText.replace(regex, '<span class="highlight">$1</span>');
+}
+
+function renderProducts(containerId, list, query = '') {
   const container = document.getElementById(containerId);
   if (!container) return;
+  
+  if (query === '') {
+    const searchInput = document.getElementById('searchInput');
+    query = searchInput ? searchInput.value.trim() : '';
+  }
+
   // Remove any existing static product nodes to avoid duplicates
   document.querySelectorAll('.pro').forEach((n) => n.remove());
   container.innerHTML = '';
@@ -645,12 +676,12 @@ function renderProducts(containerId, list) {
       <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
         <path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/>
       </svg>
-      <span>${p.brand}</span>
+      <span>${highlightText(p.brand, query)}</span>
     `;
     des.appendChild(brandRow);
 
     const nameH5 = document.createElement('h5');
-    nameH5.textContent = p.name;
+    nameH5.innerHTML = highlightText(p.name, query);
     des.appendChild(nameH5);
 
     // Dynamic interactive star rating
@@ -769,7 +800,8 @@ function filterProducts() {
   const colorSelect = document.getElementById('color-filter');
   const styleSelect = document.getElementById('style-filter');
 
-  const query = input ? input.value.trim().toLowerCase() : '';
+  const rawQuery = input ? input.value.trim() : '';
+  const query = rawQuery.toLowerCase();
   const category = categorySelect ? categorySelect.value : 'all';
   const sortValue = sortSelect ? sortSelect.value : 'default';
   const brandValue = brandSelect ? brandSelect.value.toLowerCase().trim() : 'all';
@@ -781,7 +813,10 @@ function filterProducts() {
     const matchesSearch =
       query === '' ||
       product.name.toLowerCase().includes(query) ||
-      product.brand.toLowerCase().includes(query);
+      product.brand.toLowerCase().includes(query) ||
+      product.category.toLowerCase().includes(query) ||
+      (product.style && product.style.toLowerCase().includes(query)) ||
+      (product.color && product.color.toLowerCase().includes(query));
     return matchesCategory && matchesSearch;
   });
 
@@ -805,7 +840,7 @@ function filterProducts() {
     filteredProducts.sort((a, b) => b.id - a.id);
   }
 
-  renderProducts('shop-container', filteredProducts);
+  renderProducts('shop-container', filteredProducts, rawQuery);
   updateSearchSummary(filteredProducts.length);
   renderSearchSuggestions(query);
 }

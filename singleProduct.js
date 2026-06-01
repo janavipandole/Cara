@@ -11,7 +11,7 @@ const sizeRadios = document.querySelectorAll('.size-chart input[type="radio"]');
 
 // OPEN MODAL
 
-if (openBtn) openBtn.addEventListener("click", () => {
+if (openBtn && modal) openBtn.addEventListener("click", () => {
 
     modal.style.display = "flex";
 
