@@ -792,6 +792,10 @@ function renderSearchSuggestions(query) {
   });
 }
 
+/**
+ * Resolves #1692
+ * Filters the products array based on search input and updates the UI.
+ */
 function filterProducts() {
   const input = document.getElementById('searchInput');
   const categorySelect = document.getElementById('categoryFilter');
