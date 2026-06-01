@@ -877,6 +877,10 @@ function attachSearchListeners() {
   }
 }
 
+/**
+ * Resolves #1691
+ * Adds an item to the cart and persists it to localStorage.
+ */
 function addToCart(name, price, img, quantity, size) {
   const cart = safeParseJSON('productsInCart');
   cart.push({ name, price, img, quantity, size, id: Date.now() });
