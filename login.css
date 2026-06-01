@@ -2,222 +2,230 @@
    1. LAYOUT STRUCTURAL BASELINE (Direct alignment with main template framework)
    ========================================================================== */
 #main {
-    width: 100%;
-    height: auto;
-    min-height: 100vh; /* Matches layout rule from style.css */
+  width: 100%;
+  height: auto;
+  min-height: 100vh; /* Matches layout rule from style.css */
 }
 
 #top {
-    position: relative;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: auto;
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
 }
 
 #workingArea {
-    position: relative;
-    margin: 0 auto;
-    width: 100%;
-    max-width: 1920px; /* Matches layout boundary from style.css */
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1920px; /* Matches layout boundary from style.css */
 }
 
 /* ==========================================================================
    2. LOGIN CONTAINER & CARD ELEMENT TYPOGRAPHY (Synced with style.css)
    ========================================================================== */
 #login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 70vh;
-    padding: 60px 20px;
-    background-color: var(--bg-secondary, #f8f9fa); /* Automatically handles light/dark mode */
-    box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+  padding: 60px 20px;
+  background-color: var(
+    --bg-secondary,
+    #f8f9fa
+  ); /* Automatically handles light/dark mode */
+  box-sizing: border-box;
 }
 
 .login-box {
-    width: 100%;
-    max-width: 450px;
-    background: var(--card-bg, #ffffff);
-    padding: 40px;
-    border-radius: 16px; /* Matches product card rounding rule from style.css */
-    border: 1.5px solid var(--border-color); /* Matches template line decorations */
-    box-shadow: 0 8px 22px var(--shadow);
-    box-sizing: border-box;
+  width: 100%;
+  max-width: 450px;
+  background: var(--card-bg, #ffffff);
+  padding: 40px;
+  border-radius: 16px; /* Matches product card rounding rule from style.css */
+  border: 1.5px solid var(--border-color); /* Matches template line decorations */
+  box-shadow: 0 8px 22px var(--shadow);
+  box-sizing: border-box;
 }
 
 /* Form Title - Scaling down from your core template 56px scale down to look balanced */
 .login-box h2 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: var(--text-primary);
-    font-size: 38px !important; /* Forces layout proportions down from template h2: 56px */
-    line-height: 44px !important;
-    font-weight: 700;
-    margin-top: 0;
+  text-align: center;
+  margin-bottom: 30px;
+  color: var(--text-primary);
+  font-size: 38px !important; /* Forces layout proportions down from template h2: 56px */
+  line-height: 44px !important;
+  font-weight: 700;
+  margin-top: 0;
 }
 
 .login-box .input-field {
-    margin-bottom: 24px;
+  margin-bottom: 24px;
 }
 
 /* Form Inputs - Forces font size matching the index input configs (16px) */
 .login-box .input-field input {
-    display: block;
-    width: 100%;
-    padding: 12px 16px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    background-color: var(--input-bg);
-    color: var(--text-primary);
-    font-size: 16px !important; /* Synced direct to template search/filter parameters */
-    outline: none;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
+  display: block;
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  font-size: 16px !important; /* Synced direct to template search/filter parameters */
+  outline: none;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
 }
 
 .login-box .input-field input:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 1px var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
 }
 
 .login-box .forgot-pass {
-    text-align: right;
-    margin-bottom: 24px;
+  text-align: right;
+  margin-bottom: 24px;
 }
 
 /* Secondary Actions / Links - Matches standard template body font rules */
 .login-box .forgot-pass a {
-    color: var(--accent);
-    font-size: 16px !important; 
-    font-weight: 500;
-    text-decoration: none;
+  color: var(--accent);
+  font-size: 16px !important;
+  font-weight: 500;
+  text-decoration: none;
 }
 
 /* Primary Form Button - Synced exactly to .btn-shop-now & button.normal settings */
 .login-box .login-btn {
-    width: 100%;
-    padding: 14px 36px;
-    background-color: var(--accent);
-    color: #ffffff;
-    border: none;
-    font-size: 15px !important; /* Direct match to .btn-shop-now font-size definition */
-    font-weight: 700 !important; /* Direct match to .btn-shop-now font-weight definition */
-    border-radius: 6px;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(8, 129, 120, 0.35);
-    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  width: 100%;
+  padding: 14px 36px;
+  background-color: var(--accent);
+  color: #ffffff;
+  border: none;
+  font-size: 15px !important; /* Direct match to .btn-shop-now font-size definition */
+  font-weight: 700 !important; /* Direct match to .btn-shop-now font-weight definition */
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(8, 129, 120, 0.35);
+  transition:
+    background 0.3s ease,
+    transform 0.2s ease,
+    box-shadow 0.3s ease;
 }
 
 .login-box .login-btn:hover {
-    background-color: #000000;
-    transform: translateY(-2px);
+  background-color: #000000;
+  transform: translateY(-2px);
 }
 
 .login-box .signup-link {
-    text-align: center;
-    margin-top: 25px;
-    font-size: 16px !important; /* Scaled to legibility bounds */
-    color: var(--text-secondary);
+  text-align: center;
+  margin-top: 25px;
+  font-size: 16px !important; /* Scaled to legibility bounds */
+  color: var(--text-secondary);
 }
 
 .login-box .signup-link a {
-    color: var(--accent);
-    text-decoration: none;
-    font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 700;
 }
 
 /* ==========================================================================
    3. REPLICATED INDEX FOOTER CLASSES (Direct matching values from style.css)
    ========================================================================== */
 footer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    background-color: var(--bg-secondary); /* Dynamic template utility alignment */
-    transition: background-color 0.3s ease;
-    width: 100%;
-    box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background-color: var(
+    --bg-secondary
+  ); /* Dynamic template utility alignment */
+  transition: background-color 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 footer.section-p1 {
-    padding: 40px 80px; /* Aligned section padding rules */
+  padding: 40px 80px; /* Aligned section padding rules */
 }
 
 footer .col {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 20px;
 }
 
 footer .logo {
-    margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 /* Footer Section Header Match */
 footer h4 {
-    margin-bottom: 20px;
-    font-size: 20px !important; /* Hardcoded exact match from your template style.css line */
-    color: var(--footer-text);
-    font-weight: 700;
+  margin-bottom: 20px;
+  font-size: 20px !important; /* Hardcoded exact match from your template style.css line */
+  color: var(--footer-text);
+  font-weight: 700;
 }
 
 /* Footer Paragraph Match */
 footer p {
-    margin: 0 0 8px 0;
-    font-size: 20px !important; /* Hardcoded exact match from your template style.css line */
-    color: var(--footer-text);
+  margin: 0 0 8px 0;
+  font-size: 20px !important; /* Hardcoded exact match from your template style.css line */
+  color: var(--footer-text);
 }
 
 /* Footer Navigation Link Match */
 footer a {
-    font-size: 18px !important; /* Hardcoded exact match from your template style.css line */
-    text-decoration: none;
-    color: var(--footer-text);
-    margin-bottom: 10px;
-    transition: color 0.3s ease;
+  font-size: 18px !important; /* Hardcoded exact match from your template style.css line */
+  text-decoration: none;
+  color: var(--footer-text);
+  margin-bottom: 10px;
+  transition: color 0.3s ease;
 }
 
-footer a:hover, 
+footer a:hover,
 footer .follow i:hover {
-    color: var(--accent);
+  color: var(--accent);
 }
 
 footer .follow {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 footer .follow i {
-    color: var(--text-secondary);
-    padding-right: 4px;
-    cursor: pointer;
-    font-size: 18px !important;
-    transition: color 0.3s ease;
+  color: var(--text-secondary);
+  padding-right: 4px;
+  cursor: pointer;
+  font-size: 18px !important;
+  transition: color 0.3s ease;
 }
 
 footer .install .row img {
-    border: 1px solid #088178;
-    border-radius: 6px;
+  border: 1px solid #088178;
+  border-radius: 6px;
 }
 
 footer .install img {
-    margin: 10px 0 15px 0;
+  margin: 10px 0 15px 0;
 }
 
 footer .copyright {
-    text-align: center;
-    width: 100%;
-    margin-top: 20px;
+  text-align: center;
+  width: 100%;
+  margin-top: 20px;
 }
 
 /* ==========================================================================
    4. RESPONSIVE RESET BREAKPOINTS
    ========================================================================== */
 @media (max-width: 799px) {
-    footer.section-p1 {
-        padding: 24px; /* Scaled wrapper alignment */
-    }
+  footer.section-p1 {
+    padding: 24px; /* Scaled wrapper alignment */
+  }
 }
 
 /* CAPTCHA Section */
@@ -244,7 +252,7 @@ footer .copyright {
   margin-bottom: 8px;
 }
 
-[data-theme="dark"] #captcha-canvas {
+[data-theme='dark'] #captcha-canvas {
   background: #2a2a3e;
   border-color: #444;
 }
@@ -277,21 +285,21 @@ footer .copyright {
 }
 
 @media (max-width: 640px) {
-    #top {
-        position: relative !important;
-        height: auto !important;
-    }
+  #top {
+    position: relative !important;
+    height: auto !important;
+  }
 
-    .section-p1 {
-        padding: 24px !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-    }
+  .section-p1 {
+    padding: 24px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
 
-    .login-box h2 {
-        font-size: 30px !important; 
-        line-height: 36px !important;
-    }
+  .login-box h2 {
+    font-size: 30px !important;
+    line-height: 36px !important;
+  }
 }
 .required {
   color: red;
@@ -301,4 +309,262 @@ footer .copyright {
 .required-note {
   font-size: 14px;
   margin-bottom: 10px;
+}
+
+/* Login page repair: keep these scoped overrides after the shared template CSS. */
+.login-page #login-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 72px);
+  padding: 64px 20px 56px;
+  background: var(--bg-secondary, #f8f9fa);
+  box-sizing: border-box;
+}
+
+.login-page .login-box {
+  width: 100%;
+  max-width: 560px;
+  padding: 40px 50px;
+  border: 1px solid rgba(8, 129, 120, 0.22);
+  border-radius: 16px;
+  background: var(--card-bg, #fff);
+  box-shadow: 0 18px 48px rgba(15, 23, 42, 0.08);
+}
+
+.login-page .login-box h2 {
+  margin: 0 0 16px;
+  color: var(--text-primary, #222);
+  font-size: 38px !important;
+  line-height: 1.05 !important;
+}
+
+.login-page .subtitle {
+  margin: 0 0 26px;
+  color: var(--text-secondary, #465f56);
+  text-align: center;
+  font-size: 22px;
+  line-height: 1.25;
+}
+
+.login-page .login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.login-page .input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.login-page .input-group label,
+.login-page .login-captcha-container label {
+  color: var(--text-primary, #2b2b2b) !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  line-height: 1.2;
+}
+
+.login-page .input-field,
+.login-page .login-captcha-container input {
+  display: block;
+  width: 100%;
+  min-height: 46px;
+  margin: 0;
+  padding: 12px 16px;
+  border: 1px solid var(--border-color, #d7dedb) !important;
+  border-radius: 8px !important;
+  background: var(--input-bg, #fff);
+  color: var(--text-primary, #222);
+  font-size: 16px !important;
+  outline: none;
+  box-sizing: border-box;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.login-page .input-field:focus,
+.login-page .login-captcha-container input:focus {
+  border-color: var(--accent, #088178) !important;
+  box-shadow: 0 0 0 3px rgba(8, 129, 120, 0.14);
+}
+
+.login-page .password-group {
+  position: relative;
+}
+
+.login-page .password-group .input-field {
+  padding-right: 46px !important;
+}
+
+.login-page .password-group .toggle_password {
+  top: auto !important;
+  right: 12px !important;
+  bottom: 11px !important;
+  width: 24px;
+  height: 24px;
+  transform: none !important;
+}
+
+.login-page .remfor {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: -4px;
+}
+
+.login-page .remember {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary, #4d5f59);
+  font-size: 15px;
+}
+
+.login-page .remember input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent, #088178);
+}
+
+.login-page .forgot {
+  color: var(--accent, #088178);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login-page .forgot:hover,
+.login-page .signup-link a:hover {
+  text-decoration: underline;
+}
+
+.login-page .role-selector {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.login-page .role-option {
+  cursor: pointer;
+}
+
+.login-page .role-option input[type='radio'] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.login-page .role-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 50px;
+  padding: 12px;
+  border: 1px solid var(--border-color, #d7dedb);
+  border-radius: 8px;
+  background: var(--bg-secondary, #f8f9fa);
+  color: var(--text-primary, #222);
+  text-align: center;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.login-page .role-card i {
+  color: var(--accent, #088178);
+  font-size: 20px;
+}
+
+.login-page .role-card strong {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.login-page .role-card small {
+  color: var(--text-secondary, #53645e);
+  font-size: 13px;
+}
+
+.login-page .role-option input[type='radio']:checked + .role-card {
+  border-color: var(--accent, #088178);
+  background: rgba(8, 129, 120, 0.09);
+  box-shadow: 0 0 0 3px rgba(8, 129, 120, 0.12);
+}
+
+.login-page .login-captcha-container {
+  margin: 0 !important;
+  font-family: inherit !important;
+}
+
+.login-page .login-btn {
+  min-height: 50px;
+  margin-top: 2px;
+}
+
+.login-page .back-btn {
+  top: 106px;
+  right: max(32px, calc((100vw - 560px) / 2 - 300px));
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 28px;
+  border-radius: 6px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.login-page .quickview-modal[aria-hidden='true'] {
+  display: none !important;
+}
+
+@media (max-width: 640px) {
+  .login-page #login-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 76px 16px 40px;
+  }
+
+  .login-page .login-box {
+    padding: 32px 22px;
+  }
+
+  .login-page .login-box h2 {
+    font-size: 30px !important;
+    line-height: 36px !important;
+  }
+
+  .login-page .subtitle {
+    font-size: 18px;
+  }
+
+  .login-page .remfor {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .login-page .role-selector {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  .login-page .role-card {
+    justify-content: flex-start;
+  }
+
+  .login-page .back-btn {
+    position: static !important;
+    align-self: flex-end;
+    top: auto !important;
+    right: auto !important;
+    padding: 12px 16px;
+  }
 }
