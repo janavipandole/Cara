@@ -242,27 +242,20 @@
     </div>
   </section>
 
-  <div id="cart-content-wrapper" style="margin-top: 100px;">
-    <div class="cartmain">
-      <section id="page-header">
-        <h2>Your Cart</h2>
-        <p>Review and manage your selected items</p>
-      </section>
 
-      <div id="empty-cart-state">
-        <i class="ri-shopping-cart-line empty-cart-icon"></i>
-        <h2>Your cart is empty</h2>
-        <p>Looks like you haven't added anything to your cart yet.</p>
-        <a href="shop.html" class="btn-continue-shopping">Continue Shopping</a>
-      </div>
 
-      <section id="cart" class="section-p1">
+    <div id="cart-content-wrapper">
+      <div class="cartmain">
+        <section id="page-header" class="about-header" style="background-image: url('images/about/banner.png');">
+          <h2>#cart</h2>
+          <p>Review & manage your selected items with premium details</p>
+        </section>
 
         <!-- Loyalty Points Container -->
-        <div id="loyalty-points-container" style="background: rgba(8, 129, 120, 0.05); margin: 20px 0; padding: 20px; border: 1px solid rgba(8, 129, 120, 0.2); border-radius: 8px; font-family: sans-serif;">
-            <h3 style="color: #088178; margin-top: 0;"><i class="ri-medal-line"></i> Cara Loyalty Rewards</h3>
-            <p style="margin: 6px 0;">Your current balance: <strong id="loyalty-balance" style="color: #088178;">0</strong> points</p>
-            <p style="margin: 6px 0;">Points to earn from this order: <strong id="points-to-earn">0</strong> points</p>
+        <div id="loyalty-points-container" style="background: rgba(8, 129, 120, 0.05); margin: 20px auto; padding: 20px; border: 1px solid rgba(8, 129, 120, 0.2); border-radius: 8px; font-family: sans-serif; max-width: 1200px; box-sizing: border-box;">
+            <h3 style="color: #088178; margin-top: 0; font-size: 18px;"><i class="ri-medal-line"></i> Cara Loyalty Rewards</h3>
+            <p style="margin: 6px 0; font-size: 14px;">Your current balance: <strong id="loyalty-balance" style="color: #088178;">0</strong> points</p>
+            <p style="margin: 6px 0; font-size: 14px;">Points to earn from this order: <strong id="points-to-earn">0</strong> points</p>
             <div id="loyalty-apply-section" style="margin-top: 12px; display: flex; gap: 8px;">
                 <input type="number" id="points-to-apply" placeholder="Redeem points" style="padding: 8px; width: 150px; border: 1px solid #ccc; border-radius: 4px;" />
                 <button id="apply-points-btn" style="padding: 8px 15px; background: #088178; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600;">Apply Points</button>
@@ -271,81 +264,6 @@
         </div>
 
         <script src="js/loyalty.js" defer></script>
-
-        <!-- Column headers aligned to the 5-column cart-item-row grid -->
-        <div class="cart-column-header">
-          <span class="header-product">Product</span>
-          <span class="header-price">Price</span>
-          <span class="header-qty">Quantity</span>
-          <span class="header-subtotal">Subtotal</span>
-          <span class="header-remove"></span>
-        </div>
-
-        <div id="cart-items-container"></div>
-
-      </section>
-
-      <section id="saved-items-section" class="section-p1" style="display: none;">
-        <h3>Saved for Later</h3>
-        <p>Items you've saved to buy later</p>
-        <div id="saved-items-container"></div>
-      </section>
-
-      <section id="cart-add" class="section-p1">
-        <div class="coupon">
-          <h3>Apply Coupon</h3>
-          <div>
-            <label for="coupon-code" class="sr-only" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">Coupon Code</label>
-            <input type="text" id="coupon-code" placeholder="Enter Your Coupon" />
-            <button id="apply-coupon-btn" class="normal">Apply</button>
-          </div>
-        </div>
-
-        <div class="subtotal">
-          <h3>Cart Totals</h3>
-
-          <table>
-            <tr>
-              <td>Cart Subtotal</td>
-              <td>$0.00</td>
-            </tr>
-
-            <tr>
-              <td>Shipping</td>
-              <td>Free</td>
-            </tr>
-
-            <tr>
-              <td><strong>Total</strong></td>
-              <td><strong>$0.00</strong></td>
-            </tr>
-          </table>
-
-          <button id="share-cart-btn" class="normal" onclick="shareWardrobe()">
-            <i class="ri-share-forward-line"></i> Share Wardrobe
-          </button>
-          <a href="checkout.html" class="normal" style="text-decoration: none">
-            Proceed to Checkout
-          </a>
-      </div>
-
-      <div class="mobile">
-        <a href="login.html" aria-label="Login">
-          <i class="ri-user-3-line"></i>
-        </a>
-        <a href="cart.html" aria-label="Cart">
-          <i class="ri-shopping-bag-4-line"></i>
-        </a>
-        <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
-      </div>
-    </section>
-
-    <div id="cart-content-wrapper">
-      <div class="cartmain">
-        <section id="page-header" class="about-header" style="background-image: url('images/about/banner.png');">
-          <h2>#cart</h2>
-          <p>Review & manage your selected items with premium details</p>
-        </section>
 
         <section id="cart-container" class="section-p1">
           <div class="cart-grid-layout">
@@ -417,6 +335,23 @@
             <h2>Your Cart is Empty!</h2>
             <p>Looks like you haven't added anything to your cart yet. Let's find some amazing products!</p>
             <a href="shop.html" class="return-shop-btn">Return to Shop</a>
+            <div class="empty-cart-recommendations" style="margin-top: 40px; border-top: 1px solid var(--border-color); padding-top: 30px; width: 100%;">
+              <h3 style="font-size: 20px; color: #222; margin-bottom: 20px; text-align: center;">Recommended for You</h3>
+              <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <div class="rec-card" style="border: 1px solid #eee; border-radius: 8px; padding: 12px; max-width: 200px; text-align: center; background: #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
+                  <img src="images/products/f1.jpg" alt="Astronaut T-Shirt" style="width: 100%; border-radius: 4px; object-fit: cover; aspect-ratio: 1;" />
+                  <h4 style="font-size: 14px; margin: 8px 0; color: #222;">Cartoon Astronaut T-Shirt</h4>
+                  <p style="color: #088178; font-weight: 700; margin: 0 0 8px 0;">₹780</p>
+                  <a href="singleProduct.html" onclick="localStorage.setItem('selectedProduct', JSON.stringify({name:'Cartoon Astronaut T-Shirt', price:'₹780', image:'images/products/f1.jpg', brand:'adidas'}))" style="display: inline-block; padding: 6px 12px; background: #088178; color: #fff; text-decoration: none; border-radius: 4px; font-size: 12px; font-weight: 600;">View Product</a>
+                </div>
+                <div class="rec-card" style="border: 1px solid #eee; border-radius: 8px; padding: 12px; max-width: 200px; text-align: center; background: #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
+                  <img src="images/products/f2.jpg" alt="Navy T-Shirt" style="width: 100%; border-radius: 4px; object-fit: cover; aspect-ratio: 1;" />
+                  <h4 style="font-size: 14px; margin: 8px 0; color: #222;">Cartoon Navy T-Shirt</h4>
+                  <p style="color: #088178; font-weight: 700; margin: 0 0 8px 0;">₹650</p>
+                  <a href="singleProduct.html" onclick="localStorage.setItem('selectedProduct', JSON.stringify({name:'Cartoon Navy T-Shirt', price:'₹650', image:'images/products/f2.jpg', brand:'adidas'}))" style="display: inline-block; padding: 6px 12px; background: #088178; color: #fff; text-decoration: none; border-radius: 4px; font-size: 12px; font-weight: 600;">View Product</a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
