@@ -761,18 +761,74 @@ function attachSearchListeners() {
 }
 
 function addToCart(name, price, img, quantity, size) {
-  let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
-  cart.push({ name, price, img, quantity, size, id: Date.now() });
-  localStorage.setItem('productsInCart', JSON.stringify(cart));
+  var CART_KEY = "cara_cart";
+  var cart;
+  try {
+    var raw = localStorage.getItem(CART_KEY);
+    cart = raw ? JSON.parse(raw) : [];
+    if (!Array.isArray(cart)) cart = [];
+  } catch (e) {
+    cart = [];
+  }
+
+  var parsedQty = parseInt(quantity);
+  if (isNaN(parsedQty) || parsedQty < 1) parsedQty = 1;
+
+  var existing = cart.find(function (item) {
+    return item.name === name && item.size === size;
+  });
+  if (existing) {
+    existing.quantity += parsedQty;
+  } else {
+    cart.push({ name: name, price: price, img: img, image: img, quantity: parsedQty, size: size, id: Date.now() });
+  }
+
+  try {
+    if (cart.length === 0) {
+      localStorage.removeItem(CART_KEY);
+    } else {
+      localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    }
+  } catch (e) {
+    console.warn("Cart could not be saved:", e);
+  }
+
   if (typeof showToast === 'function') {
     showToast(name + ' added to cart!', 'success');
+  }
+  if (typeof updateCartCount === 'function') {
+    updateCartCount();
   }
 }
 
 function buyNow(name, price, img, quantity, size) {
-  let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
-  cart.push({ name, price, img, quantity, size, id: Date.now() });
-  localStorage.setItem('productsInCart', JSON.stringify(cart));
+  var CART_KEY = "cara_cart";
+  var cart;
+  try {
+    var raw = localStorage.getItem(CART_KEY);
+    cart = raw ? JSON.parse(raw) : [];
+    if (!Array.isArray(cart)) cart = [];
+  } catch (e) {
+    cart = [];
+  }
+
+  var parsedQty = parseInt(quantity);
+  if (isNaN(parsedQty) || parsedQty < 1) parsedQty = 1;
+
+  var existing = cart.find(function (item) {
+    return item.name === name && item.size === size;
+  });
+  if (existing) {
+    existing.quantity += parsedQty;
+  } else {
+    cart.push({ name: name, price: price, img: img, image: img, quantity: parsedQty, size: size, id: Date.now() });
+  }
+
+  try {
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  } catch (e) {
+    console.warn("Cart could not be saved:", e);
+  }
   window.location.href = 'checkout.html';
 }
 
@@ -784,42 +840,41 @@ document.addEventListener('DOMContentLoaded', () => {
   renderSearchSuggestions('');
 });
 
- // --- GLOBAL TOAST NOTIFICATION HANDLER ---
+// --- GLOBAL TOAST NOTIFICATION HANDLER ---
 function showToast(message, type = 'success') {
-    // Check if container already exists, else create it
-    let container = document.getElementById('toast-container');
-    if (!container) {
-        container = document.createElement('div');
-        container.id = 'toast-container';
-        document.body.appendChild(container);
-    }
+  // Check if container already exists, else create it
+  let container = document.getElementById('toast-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.id = 'toast-container';
+    document.body.appendChild(container);
+  }
 
-    // Create Toast element wrapper
-    const toast = document.createElement('div');
-    toast.className = `toast toast-${type}`;
+  // Create Toast element wrapper
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
 
-    // Select icon based on variant types
-    let icon = '🛒';
-    if (type === 'error') icon = '❌';
-    if (type === 'warning') icon = '⚠️';
-    if (type === 'info') icon = 'ℹ️';
+  // Select icon based on variant types
+  let icon = '🛒';
+  if (type === 'error') icon = '❌';
+  if (type === 'warning') icon = '⚠️';
+  if (type === 'info') icon = 'ℹ️';
 
-    // Build Toast inner body to match your existing CSS layout (.toast-icon, .toast-msg, .toast-close, .toast-progress)
-    toast.innerHTML = `
+  // Build Toast inner body to match your existing CSS layout (.toast-icon, .toast-msg, .toast-close, .toast-progress)
+  toast.innerHTML = `
         <div class="toast-icon">${icon}</div>
         <div class="toast-msg">${message}</div>
         <button class="toast-close" onclick="this.parentElement.remove()">&times;</button>
         <div class="toast-progress"></div>
     `;
 
-    container.appendChild(toast);
+  container.appendChild(toast);
 
-    // Auto-remove animation sequence handling (Matches CSS timers smoothly)
+  // Auto-remove animation sequence handling (Matches CSS timers smoothly)
+  setTimeout(() => {
+    toast.classList.add('toast-hiding');
     setTimeout(() => {
-        toast.classList.add('toast-hiding');
-        setTimeout(() => {
-            toast.remove();
-        }, 350); // Exact exit duration specified in .toast-hiding cubic-bezier curve
-    }, 3650); // Active visibility shelf life before auto dismissal
+      toast.remove();
+    }, 350); // Exact exit duration specified in .toast-hiding cubic-bezier curve
+  }, 3650); // Active visibility shelf life before auto dismissal
 }
-

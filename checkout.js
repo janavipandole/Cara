@@ -15,7 +15,7 @@ const validators = {
   cardNumber: (val) => {
     const raw = val.replace(/\s/g, "");
     if (!/^\d{13,19}$/.test(raw)) return false;
-    
+
     // Luhn checksum algorithm implementation
     let sum = 0;
     let shouldDouble = false;
@@ -138,7 +138,7 @@ function getDigits(value) {
 cardNumber.addEventListener("input", function (e) {
   let val = getDigits(e.target.value).slice(0, 16);
   e.target.value = val.replace(/(.{4})/g, "$1 ").trim();
-  
+
   if (this.classList.contains("is-invalid")) {
     validateField(this);
   }
@@ -185,7 +185,7 @@ paymentMethod.addEventListener("change", function () {
     cardNumber.required = false;
     expiry.required = false;
     cvv.required = false;
-    
+
     // Clear card fields and errors
     paymentFields.forEach(function (field) {
       field.value = "";
@@ -227,7 +227,14 @@ form.addEventListener("submit", function (e) {
   }
 
   // GET CART
-  let cart = JSON.parse(localStorage.getItem("productsInCart")) || [];
+  let cart;
+  try {
+    var raw = localStorage.getItem("cara_cart");
+    cart = raw ? JSON.parse(raw) : [];
+    if (!Array.isArray(cart)) cart = [];
+  } catch (e) {
+    cart = [];
+  }
 
   // CHECK EMPTY CART
   if (cart.length === 0) {
@@ -246,7 +253,7 @@ form.addEventListener("submit", function (e) {
   // Simulate async order processing
   setTimeout(function () {
     // CLEAR CART AFTER SUCCESSFUL ORDER
-    localStorage.removeItem("productsInCart");
+    localStorage.removeItem("cara_cart");
     localStorage.removeItem("appliedCoupon");
     window.appliedCoupon = null;
 

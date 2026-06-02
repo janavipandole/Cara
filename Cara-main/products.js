@@ -118,7 +118,6 @@ function renderProducts(containerId, list) {
     cartBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       e.preventDefault();
-      addToCart(p.name, '₹' + p.price, p.img, 1, 'M');
     });
     const cartIcon = document.createElement('i');
     cartIcon.className = 'ri-shopping-cart-2-line';
