@@ -2,7 +2,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Wait and listen for wishlist dynamic rendering or item rows
     const observer = new MutationObserver(() => {
-        const rows = document.querySelectorAll(".wishlist-item-row") || document.querySelectorAll(".pro");
+        const rows = document.querySelectorAll(".wishlist-card");
         rows.forEach(row => {
             if (row.querySelector(".wishlist-note-wrapper")) return;
 
@@ -40,6 +40,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    const targetContainer = document.getElementById("wishlist-container") || document.body;
+    const targetContainer = document.getElementById("wishlistContainer") || document.body;
     observer.observe(targetContainer, { childList: true, subtree: true });
 });

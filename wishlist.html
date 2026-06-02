@@ -499,6 +499,7 @@
                 wishlist.forEach((product, index) => {
                     const card = document.createElement("article");
                     card.className = "wishlist-card";
+                    card.dataset.id = product.id;
 
                     const media = document.createElement("div");
                     media.className = "wishlist-media";
