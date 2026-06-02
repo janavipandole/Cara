@@ -1,0 +1,30 @@
+# .github/labeler.yml
+# Configuration for Actions Labeler v5
+
+frontend:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '*.html'
+          - '**/*.html'
+          - '*.css'
+          - '**/*.css'
+          - 'app.js'
+          - 'login.js'
+          - 'js/**/*.js'
+          - 'Cara-main/**/*'
+
+backend:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'backend/**/*'
+
+documentation:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '*.md'
+          - '**/*.md'
+
+ci:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '.github/**/*'
