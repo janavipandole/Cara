@@ -478,19 +478,93 @@ function safeParseJSON(key, fallback = '[]') {
   }
 }
 
+function parseNumericPrice(price) {
+  if (typeof price === 'number') return Number.isFinite(price) ? price : 0;
+  if (!price) return 0;
+  const cleaned = String(price).replace(/[₹$\s,]/g, '');
+  const num = parseFloat(cleaned);
+  return Number.isFinite(num) ? num : 0;
+}
+
+function formatRupee(amount) {
+  const num = parseNumericPrice(amount);
+  return '₹' + Math.round(num).toLocaleString('en-IN');
+}
+
+function hasPriceDropped(item) {
+  return (
+    typeof item.currentPrice === 'number' &&
+    typeof item.previousPrice === 'number' &&
+    item.currentPrice < item.previousPrice
+  );
+}
+
+function getPriceDropAmount(item) {
+  return hasPriceDropped(item) ? item.previousPrice - item.currentPrice : 0;
+}
+
+function refreshWishlistPrices(items) {
+  if (!Array.isArray(items) || typeof products === 'undefined') return items;
+
+  let changed = false;
+  const catalog = products;
+
+  const updated = items.map((item) => {
+    const normalized = normalizeWishlistItem(item);
+    const catalogItem = catalog.find(
+      (p) => p.id === normalized.id || p.name === normalized.name
+    );
+
+    if (!catalogItem) return normalized;
+
+    const actualPrice = parseNumericPrice(catalogItem.price);
+    if (actualPrice !== normalized.currentPrice) {
+      normalized.previousPrice = normalized.currentPrice;
+      normalized.currentPrice = actualPrice;
+      normalized.price = formatRupee(actualPrice);
+      normalized.priceValue = actualPrice;
+      changed = true;
+    }
+
+    return normalized;
+  });
+
+  if (changed) {
+    localStorage.setItem('wishlist', JSON.stringify(updated));
+  }
+
+  return updated;
+}
+
 function normalizeWishlistItem(item) {
+  const rawPrice = item.price || item.priceText || '₹0';
+  const currentPrice =
+    typeof item.currentPrice === 'number'
+      ? item.currentPrice
+      : parseNumericPrice(rawPrice);
+  const previousPrice =
+    typeof item.previousPrice === 'number'
+      ? item.previousPrice
+      : currentPrice;
+
   return {
     id: item.id || item.name,
     name: item.name || 'Product',
     brand: item.brand || 'Cara',
-    price: item.price || '₹0',
     image: item.image || item.img || 'images/products/f1.jpg',
+    price: formatRupee(currentPrice),
+    priceValue: currentPrice,
+    currentPrice,
+    previousPrice,
   };
 }
 
 function getWishlist() {
   const wishlist = safeParseJSON('wishlist');
-  return Array.isArray(wishlist) ? wishlist.map(normalizeWishlistItem) : [];
+  const normalized = Array.isArray(wishlist)
+    ? wishlist.map(normalizeWishlistItem)
+    : [];
+  return refreshWishlistPrices(normalized);
 }
 
 function saveWishlist(wishlist) {
@@ -552,6 +626,8 @@ window.getWishlist = getWishlist;
 window.saveWishlist = saveWishlist;
 window.toggleWishlistItem = toggleWishlistItem;
 window.syncWishlistButtons = syncWishlistButtons;
+window.hasPriceDropped = hasPriceDropped;
+window.getPriceDropAmount = getPriceDropAmount;
 
 /**
  * Safely escapes HTML and highlights matched search query terms.
@@ -664,6 +740,25 @@ function renderProducts(containerId, list, query = '') {
     });
     qvOverlay.appendChild(qvBtn);
     imgWrap.appendChild(qvOverlay);
+
+    const wishlistItem = getWishlist().find((item) => item.name === p.name);
+    if (wishlistItem && hasPriceDropped(wishlistItem)) {
+      const dropBadge = document.createElement('div');
+      dropBadge.className = 'price-drop-badge';
+      dropBadge.textContent = `Price dropped ₹${getPriceDropAmount(wishlistItem).toLocaleString('en-IN')}`;
+      dropBadge.style.position = 'absolute';
+      dropBadge.style.top = '12px';
+      dropBadge.style.right = '12px';
+      dropBadge.style.backgroundColor = 'rgba(220, 38, 38, 0.95)';
+      dropBadge.style.color = '#fff';
+      dropBadge.style.padding = '0.45rem 0.75rem';
+      dropBadge.style.borderRadius = '999px';
+      dropBadge.style.fontSize = '0.75rem';
+      dropBadge.style.fontWeight = '700';
+      dropBadge.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.18)';
+      dropBadge.style.zIndex = '3';
+      imgWrap.appendChild(dropBadge);
+    }
     card.appendChild(imgWrap);
 
     // Description container
@@ -734,6 +829,8 @@ function renderProducts(containerId, list, query = '') {
           brand: p.brand,
           price: '₹' + p.price.toLocaleString('en-IN'),
           image: p.img,
+          currentPrice: p.price,
+          previousPrice: p.price,
         },
         wishlistBtn
       );
