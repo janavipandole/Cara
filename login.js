@@ -4,11 +4,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const passwordInput = document.getElementById('loginPassword');
     const togglePassword = document.getElementById('togglePassword');
     const toggleIcon = document.getElementById('toggleIcon');
+    const loginEmailEl = document.getElementById('loginEmail');
 
     // =========================
     // 🔐 Password Toggle Logic
     // =========================
     if (passwordInput && togglePassword && toggleIcon) {
+
         togglePassword.addEventListener('click', function () {
             const isHidden = passwordInput.type === 'password';
 
@@ -36,7 +38,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const password = passwordInput.value;
 
         if (!email || !password) {
-            showToast('Please fill all fields.', 'warning');
+
+            showToast(
+                'Please fill all fields.',
+                'warning'
+            );
+
             return;
         }
 
@@ -46,8 +53,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const submitBtn = form.querySelector('.login-btn');
 
         if (submitBtn) {
-            submitBtn.classList.add('btn-loading');
+
             submitBtn.disabled = true;
+
+            submitBtn.classList.add(
+                'btn-loading'
+            );
         }
 
         // =========================
@@ -104,6 +115,17 @@ document.addEventListener('DOMContentLoaded', function () {
                     submitBtn.classList.remove('btn-loading');
                     submitBtn.disabled = false;
                 }
+            );
+
+            const data =
+                await response.json();
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.detail ||
+                    'Invalid email or password.'
+                );
             }
 
         }, 1500);

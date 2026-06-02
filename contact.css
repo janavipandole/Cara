@@ -238,3 +238,12 @@
         width: 100%;
     }
 }
+
+
+/* Focus state outline and shadow enhancements */
+.contact-details form input:focus,
+.contact-details form textarea:focus {
+  border-color: #088178 !important;
+  box-shadow: 0 0 8px rgba(8, 129, 120, 0.2) !important;
+  outline: none;
+}
