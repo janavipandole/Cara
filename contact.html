@@ -617,6 +617,7 @@ footer .copyright {
         <!-- MESSAGE -->
         <label for="message">Message <span style="color: red;">*</span></label>
         <textarea id="message" name="message" rows="6" placeholder="Write your message here" required aria-required="true"></textarea>
+        <small id="char-count" style="display:block; text-align:right; color:#777; margin-top:4px; margin-bottom:10px;">0 / 500 characters</small>
 
         <button type="submit" class="normal">Send Message</button>
 
@@ -864,6 +865,24 @@ toBottom.onclick = () => window.scrollTo({ top: document.body.scrollHeight, beha
 /* =========================
    FORM VALIDATION
 ========================= */
+const msgArea = document.getElementById("message");
+const charCount = document.getElementById("char-count");
+if (msgArea && charCount) {
+  msgArea.addEventListener("input", () => {
+    const len = msgArea.value.length;
+    charCount.textContent = `${len} / 500 characters`;
+    if (len >= 500) {
+      msgArea.value = msgArea.value.substring(0, 500);
+      charCount.style.color = "#ef4444";
+      charCount.textContent = "500 / 500 characters (limit reached)";
+    } else if (len >= 450) {
+      charCount.style.color = "#ffbd27";
+    } else {
+      charCount.style.color = "#777";
+    }
+  });
+}
+
 const form = document.querySelector(".contact-form");
 
 form.addEventListener("submit", function (e) {
