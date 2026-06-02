@@ -1043,13 +1043,3 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 /* --- END: CURRENT YEAR FUNCTIONALITY --- */
-document.addEventListener('DOMContentLoaded', () => {
-  const newsletterForm = document.querySelector('.newsletter-form');
-  if (newsletterForm) {
-    newsletterForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      const email = this.querySelector('input[type="email"]').value.trim();
-      if (email) showToast('Thanks for subscribing!', 'success');
-    });
-  }
-});

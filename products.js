@@ -152,7 +152,7 @@ const products = [
     img: 'images/products/n6.jpg',
     rating: 3.0,
     category: 'minimal',
-    color: 'beige',
+    color: 'purple',
     style: 'casual',
   },
   {
@@ -163,7 +163,7 @@ const products = [
     img: 'images/products/n7.jpg',
     rating: 4.5,
     category: 'minimal',
-    color: 'khaki',
+    color: 'brown',
     style: 'utility',
   },
   {
@@ -273,7 +273,7 @@ const products = [
     img: 'images/products/n1.jpg',
     rating: 4.3,
     category: 'formal',
-    color: 'grey',
+    color: 'gray',
     style: 'formal',
   },
   {
@@ -284,7 +284,7 @@ const products = [
     img: 'images/products/n2.jpg',
     rating: 4.6,
     category: 'formal',
-    color: 'beige',
+    color: 'purple',
     style: 'formal',
   },
   {
@@ -610,20 +610,7 @@ function renderProducts(containerId, list, query = '') {
   list.forEach((p) => {
     const card = document.createElement('div');
     card.className = 'pro';
-    card.dataset.category = p.category;
-    card.addEventListener('click', () => {
-      const selectedProduct = {
-        id: p.id,
-        name: p.name,
-        price: '$' + p.price,
-        brand: p.brand,
-        image: p.img,
-      };
-      localStorage.setItem('selectedProduct', JSON.stringify(selectedProduct));
-      window.location.href = 'singleProduct.html';
-    });
-
-    // Image wrapper
+   // Image wrapper
     const imgWrap = document.createElement('div');
     imgWrap.className = 'pro-img-wrap';
     const img = document.createElement('img');
@@ -936,3 +923,68 @@ function showToast(message, type = 'success') {
         }, 350); // Exact exit duration specified in .toast-hiding cubic-bezier curve
     }, 3650); // Active visibility shelf life before auto dismissal
 }
+
+
+// ===============================
+// Smart Product Assistant
+// ===============================
+
+// Get assistant button and sidebar elements
+const assistantBtn =
+document.getElementById("smartAssistantBtn");
+
+const assistant =
+document.getElementById("smartAssistant");
+
+// Open/Close assistant panel
+assistantBtn.addEventListener("click", () => {
+  assistant.classList.toggle("active");
+});
+
+// ===============================
+// Product Recommendation Function
+// ===============================
+function recommendProducts() {
+
+  console.log("Assistant Running");
+
+  const style = document.getElementById("styleSelect").value;
+  const color = document.getElementById("colorSelect").value;
+  const budget = Number(document.getElementById("budgetSelect").value);
+
+  console.log("Style:", style);
+  console.log("Color:", color);
+  console.log("Budget:", budget);
+
+  let results = products.filter(product => {
+    return (
+      (!style || product.category === style) &&
+      (!color || product.color === color) &&
+      (!budget || product.price <= budget)
+    );
+  });
+
+  console.log("Results:", results);
+
+  const output = document.getElementById("assistantResults");
+
+  if(results.length === 0){
+    output.innerHTML = "<p>No products found.</p>";
+    return;
+  }
+
+  output.innerHTML = `
+    <h4>Recommended Products</h4>
+
+    ${results.slice(0,5).map(product => `
+      <div class="recommend-card">
+        <img src="${product.img}" width="80">
+        <p><strong>${product.name}</strong></p>
+        <p>${product.brand}</p>
+        <p>₹${product.price}</p>
+        <p>⭐ ${product.rating}</p>
+      </div>
+    `).join("")}
+  `;
+}
+

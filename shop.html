@@ -130,6 +130,76 @@
 
 </section>
     <section id="product1" class="section-p1">
+   
+    <!-- Smart Product Assistant -->
+
+<button id="smartAssistantBtn">
+  ✨ Smart Assistant
+</button>
+
+<div id="smartAssistant">
+
+  <h3>Smart Product Assistant</h3>
+
+<p id="assistantStatus">
+  ✨ Smart Assistant Active
+</p>
+
+  <select id="styleSelect">
+    <option value="">Style</option>
+    <option value="minimal">Minimal</option>
+    <option value="street">Street</option>
+    <option value="formal">Formal</option>
+  </select>
+
+  <select id="colorSelect">
+    <option value="">Color</option>
+    <option value="">All</option>
+    <option value="black">Black</option>
+    <option value="white">White</option>
+    <option value="blue">Blue</option>
+    <option value="red">Red</option>
+    <option value="brown">Brown</option>
+    <option value="pink">Pink</option>
+    <option value="green">Green</option>
+    <option value="yellow">Yellow</option>
+    <option value="purple">Purple</option>
+    <option value="gray">Gray</option>
+  </select>
+
+  <select id="brandSelect">
+  <option value="">All Brands</option>
+  <option value="">All</option>
+  <option value="Nike">Nike</option>
+  <option value="Puma">Puma</option>
+  <option value="Zara">Zara</option>
+  <option value="H&M">H&M</option>
+  <option value="Levi's">Levi's</option>
+  <option value="Gap">Gap</option>
+  <option value="Uniqlo">Uniqlo</option>
+  <option value="Mango">Mango</option>
+  <option value="Tommy Hilfiger">Tommy Hilfiger</option>
+  <option value="Ralph Lauren">Ralph Lauren</option>
+  <option value="Calvin Klein">Calvin Klein</option>
+  <option value="Adidas">Adidas</option>
+</select>
+
+  <select id="budgetSelect">
+    <option value="">Budget</option>
+     <option value="">All</option>
+    <option value="2000">Under ₹2000</option>
+    <option value="4000">Under ₹4000</option>
+    <option value="7000">Under ₹7000</option>
+  </select>
+  
+  <!-- ADD BUTTON HERE -->
+  <button onclick="recommendProducts()">
+    Get Recommendations
+  </button>
+
+ <div id="assistantResults"></div>
+
+</div>
       <div class="sort-container" aria-label="Sort products list">
         <label class="sort-label" for="sort-price"><i class="ri-sorting-asc"></i> Sort by</label>
         <div class="sort-select-wrap">

@@ -1,3 +1,5 @@
+console.log("singleProduct.js loaded");
+
 const modal = document.getElementById("size-chart-modal");
 
 const openBtn = document.getElementById("size-chart-btn");
@@ -59,5 +61,23 @@ sizeRadios.forEach((radio) => {
         modal.style.display = "none";
 
     });
+
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const product =
+    JSON.parse(localStorage.getItem("selectedProduct"));
+
+  if (!product) return;
+
+  document.getElementById("product-name").textContent =
+    product.name;
+
+  document.getElementById("product-price").textContent =
+    product.price;
+
+  document.getElementById("MainImg").src =
+    product.image;
 
 });
