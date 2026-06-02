@@ -1,0 +1,13 @@
+﻿## Description
+
+Adds native loading="lazy" attribute to dynamically created product card images to defer offscreen image loading, reducing initial page weight and improving PageSpeed scores.
+
+## Changes
+
+- **products.js**: Added img.loading = 'lazy' when creating product card images dynamically
+- **app.js**: Added loading="lazy" to cart item images (two render locations)
+- **track-order.js**: Added loading="lazy" to order item images
+
+## Related Issue
+
+Closes #1578

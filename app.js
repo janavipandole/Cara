@@ -308,6 +308,8 @@ window.updateQty = function (change) {
   if (plusBtn)  plusBtn.disabled  = (newValue >= 99);
 };
 
+    updateCartTotal(); // already present function
+};
 window.handleAddToCart = function () {
   const nameElement     = document.getElementById("product-name");
   const priceElement    = document.getElementById("product-price");

@@ -100,8 +100,9 @@
             #cart table {
                 width: 100%;
                 border-collapse: collapse;
-                white-space: nowrap;
-                table-layout: fixed;
+                white-space: normal;
+                word-wrap: break-word;
+                table-layout: auto;
             }
 
             #cart table img {

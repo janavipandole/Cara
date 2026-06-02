@@ -1,3 +1,11 @@
+function safeParseJSON(key, fallback = '[]') {
+  try {
+    return JSON.parse(localStorage.getItem(key) || fallback);
+  } catch {
+    try { return JSON.parse(fallback); } catch { return []; }
+  }
+}
+
 const paymentMethod = document.getElementById("paymentMethod");
 const cardDetails = document.getElementById("cardDetails");
 
@@ -135,7 +143,7 @@ function getDigits(value) {
 }
 
 // Format card number with spaces (1234 5678 9012 3456)
-cardNumber.addEventListener("input", function (e) {
+if (cardNumber) cardNumber.addEventListener("input", function (e) {
   let val = getDigits(e.target.value).slice(0, 16);
   e.target.value = val.replace(/(.{4})/g, "$1 ").trim();
 

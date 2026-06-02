@@ -210,8 +210,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Update cart count badge
 function updateCartCount() {
-    const cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    let cart = JSON.parse(localStorage.getItem("productsInCart")) || [];
+
+// 🔥 FIX: sanitize stored quantities
+cart = cart.map(item => {
+    let qty = parseInt(item.quantity);
+
+    if (isNaN(qty) || qty < 1) qty = 1;
+    if (qty > 99) qty = 99;
+
+    return { ...item, quantity: qty };
+});
+
+// Save corrected data back
+localStorage.setItem("productsInCart", JSON.stringify(cart));
+    const totalItems = cart.reduce((sum, item) => {
+    let quantity = parseInt(item.quantity);
+
+    // ✅ VALIDATION (CRITICAL FIX)
+    if (isNaN(quantity) || quantity < 1) {
+        quantity = 1;
+    }
+
+    if (quantity > 99) {
+        quantity = 99;
+    }
+
+    return sum + quantity;
+}, 0);
 
     const desktopCount = document.getElementById('desktopCartCount');
     const mobileCount = document.getElementById('mobileCartCount');
@@ -315,16 +341,96 @@ function dismissToast(toast) {
     toast.addEventListener('animationend', function() { toast.remove(); });
 }
 
-window.updateQty = function (change) {
-    const qtyInput = document.getElementById('product-quantity');
-    if (qtyInput) {
-        let currentValue = parseInt(qtyInput.value);
-        if (isNaN(currentValue)) currentValue = 1;
-        let newValue = currentValue + change;
-        if (newValue < 1) newValue = 1;
-        qtyInput.value = newValue;
-    }
+const MAX_QTY = 100;
+
+function changeQty(id, delta) {
+  if (!cart[id]) return;
+
+  let quantity = parseInt(cart[id]) || 1;
+
+  quantity += delta;
+
+  // ✅ FINAL LIMIT LOGIC
+  quantity = Math.max(1, Math.min(MAX_QTY, quantity));
+
+  cart[id] = quantity;
+
+  saveCart();
+  renderCart();
 }
+function renderCart() {
+  cartList.innerHTML = '';
+  const ids = Object.keys(cart);
+
+  if (!ids.length) {
+    cartList.innerHTML = '<div class="muted">Cart is empty</div>';
+    subtotalEl.textContent = '$0.00';
+    return;
+  }
+
+  let total = 0;
+
+  ids.forEach(id => {
+    const p = products.find(x => x.id === id);
+ let q = cart[id];
+   if (q > MAX_QTY) {
+  q = MAX_QTY;
+  cart[id] = MAX_QTY;
+}
+
+    if (q < 1) {
+      q = 1;
+      cart[id] = 1;
+    }
+
+    const line = p.price * q;
+    total += line;
+
+    const el = document.createElement('div');
+    el.className = 'cart-item';
+
+    el.innerHTML = `
+      <div class='cart-thumb'>
+        <img src='${p.img}' alt='${p.title}' style='width:100%;height:100%;object-fit:cover;border-radius:6px'/>
+      </div>
+      <div style='flex:1'>
+        <div style='display:flex;justify-content:space-between;align-items:center'>
+          <div style='font-weight:700'>${p.title}</div>
+          <div style='font-weight:700'>${formatPrice(line)}</div>
+        </div>
+        <div style='display:flex;justify-content:space-between;align-items:center;margin-top:6px'>
+          <div class='muted' style='font-size:13px'>${formatPrice(p.price)} each</div>
+          <div class='qty'>
+            <button data-dec='${id}'>-</button>
+            <div style='min-width:22px;text-align:center'>${q}</div>
+            <button data-inc='${id}'>+</button>
+            <button title='Remove' data-rm='${id}' style='margin-left:6px' class='icon-btn'>✕</button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    cartList.appendChild(el);
+  });
+
+  // ✅ SAVE FIXED VALUES BACK
+  saveCart();
+
+  // ✅ UPDATE TOTAL
+  subtotalEl.textContent = formatPrice(total);
+
+  // ✅ EVENTS
+  cartList.querySelectorAll('[data-inc]')
+    .forEach(b => b.addEventListener('click', e => changeQty(e.target.dataset.inc, 1)));
+
+  cartList.querySelectorAll('[data-dec]')
+    .forEach(b => b.addEventListener('click', e => changeQty(e.target.dataset.dec, -1)));
+
+  cartList.querySelectorAll('[data-rm]')
+    .forEach(b => b.addEventListener('click', e => removeFromCart(e.target.dataset.rm)));
+}
+
+
 
 window.handleAddToCart = function () {
     const nameElement = document.getElementById('product-name');
