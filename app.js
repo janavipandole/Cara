@@ -893,6 +893,70 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
+    // Autocomplete Suggestions Integration
+    const suggestions = document.createElement("div");
+    suggestions.className = "search-suggestions";
+    suggestions.style.cssText = "position: absolute; top: 100%; left: 0; right: 0; background: #fff; border: 1px solid #ccc; border-radius: 8px; z-index: 1000; max-height: 250px; overflow-y: auto; box-shadow: 0 10px 20px rgba(0,0,0,0.08); display: none; margin-top: 5px;";
+    
+    const searchBox = searchInput.closest(".search-box");
+    if (searchBox) {
+      searchBox.style.position = "relative";
+      searchBox.appendChild(suggestions);
+    }
+
+    document.addEventListener("click", (e) => {
+      if (searchBox && !searchBox.contains(e.target)) {
+        suggestions.style.display = "none";
+      }
+    });
+
+    searchInput.addEventListener("input", () => {
+      const val = searchInput.value.toLowerCase().trim();
+      if (val === "") {
+        suggestions.innerHTML = "";
+        suggestions.style.display = "none";
+        return;
+      }
+
+      const products = Array.from(document.querySelectorAll(".pro"));
+      const matches = products.filter(product => {
+        const title = product.querySelector("h5")?.textContent.toLowerCase() || "";
+        const brand = product.querySelector(".des span")?.textContent.toLowerCase() || "";
+        return title.includes(val) || brand.includes(val);
+      });
+
+      if (matches.length === 0) {
+        suggestions.innerHTML = '<div style="padding: 10px 15px; color: #777; font-size: 14px;">No matches found</div>';
+        suggestions.style.display = "block";
+        return;
+      }
+
+      suggestions.innerHTML = "";
+      suggestions.style.display = "block";
+      
+      matches.slice(0, 5).forEach(product => {
+        const title = product.querySelector("h5")?.textContent || "";
+        const price = product.querySelector("h4")?.textContent || "";
+        const img = product.querySelector("img")?.src || "";
+        
+        const item = document.createElement("div");
+        item.style.cssText = "display: flex; align-items: center; gap: 12px; padding: 10px 15px; cursor: pointer; border-bottom: 1px solid #eee;";
+        item.innerHTML = `
+          <img src="${img}" style="width: 35px; height: 35px; object-fit: cover; border-radius: 4px;" />
+          <span style="font-size: 13px; font-weight: 600; color: #222;">${title}</span>
+          <span style="font-size: 12px; color: #088178; font-weight: 700; margin-left: auto;">${price}</span>
+        `;
+        
+        item.addEventListener("click", () => {
+          searchInput.value = title;
+          suggestions.style.display = "none";
+          performSearch();
+        });
+        
+        suggestions.appendChild(item);
+      });
+    });
+
     searchInput.addEventListener("input", debounce(performSearch, 150));
     searchInput.addEventListener("keyup", (e) => { if (e.key === "Enter") performSearch(); });
     if (searchBtn)      searchBtn.addEventListener("click", performSearch);
