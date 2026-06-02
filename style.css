@@ -523,6 +523,8 @@ button.white .ripple-effect {
 }
 
 #top {
+    pointer-events: none;
+    position: relative;
     position: relative;
     top: 0;
     left: 0;
@@ -33119,6 +33121,8 @@ html {
     scroll-behavior: smooth;
 }
 
+#feature {
+    margin-top: 60px !important;
 /* ============================================
    PRODUCT QUICK-VIEW MODAL AND OVERLAY STYLES
    ============================================ */
