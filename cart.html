@@ -41,6 +41,7 @@
       padding: 20px;
       line-height: 1.8;
     }
+    
     #cart-content-wrapper {
       width: 100%;
       padding: 0 20px;
@@ -165,6 +166,12 @@
       margin: 0;
       padding: 0;
     }
+    /* If your body has an id="cart-page" */
+#quickViewModal {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
   </style>
 </head>
 
@@ -328,97 +335,11 @@
             Proceed to Checkout
           </a>
       </div>
-
-      <div class="mobile">
-        <a href="login.html" aria-label="Login">
-          <i class="ri-user-3-line"></i>
-        </a>
-        <a href="cart.html" aria-label="Cart">
-          <i class="ri-shopping-bag-4-line"></i>
-        </a>
-        <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
-      </div>
     </section>
+    </div></div>
 
-    <div id="cart-content-wrapper">
-      <div class="cartmain">
-        <section id="page-header" class="about-header" style="background-image: url('images/about/banner.png');">
-          <h2>#cart</h2>
-          <p>Review & manage your selected items with premium details</p>
-        </section>
-
-        <section id="cart-container" class="section-p1">
-          <div class="cart-grid-layout">
-            <div class="cart-items-column">
-              <div class="cart-column-header">
-                <span>Product</span>
-                <span class="header-price">Price</span>
-                <span class="header-qty">Quantity</span>
-                <span class="header-subtotal">Subtotal</span>
-                <span class="header-action"></span>
-              </div>
-              <div id="cart-items-container"></div>
-              <div class="cart-actions-bottom">
-                <a href="shop.html" class="continue-shopping-btn">
-                  <i class="ri-arrow-left-line"></i> Continue Shopping
-                </a>
-              </div>
-            </div>
-
-            <div class="cart-summary-column">
-              <div class="sticky-summary-card">
-                <h3>Order Summary</h3>
-                <div class="coupon-section">
-                  <p style="font-size: 13px; font-weight: 500; margin-bottom: 8px;">Have a promotional coupon?</p>
-                  <div class="coupon-input-group" style="display: flex; gap: 8px; margin-bottom: 8px;">
-                    <input type="text" id="coupon-code-input" placeholder="Enter coupon (e.g. CARA20)" style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" />
-                    <button id="apply-coupon-btn" style="background: #088178; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: 600; transition: 0.3s;">Apply</button>
-                  </div>
-                  <div id="coupon-feedback" style="font-size: 12px; font-weight: 600; min-height: 18px; margin-top: 5px;"></div>
-                </div>
-
-                <div class="summary-breakdown">
-                  <div class="summary-row">
-                    <span>Subtotal</span>
-                    <span id="summary-subtotal">₹0</span>
-                  </div>
-                  <div class="summary-row">
-                    <span>Estimated Tax (18% GST)</span>
-                    <span id="summary-tax">₹0</span>
-                  </div>
-                  <div class="summary-row" id="summary-discount-row" style="display: none;">
-                    <span>Discount</span>
-                    <span id="summary-discount" class="discount-value">-₹0</span>
-                  </div>
-                  <div class="summary-row">
-                    <span>Shipping</span>
-                    <span id="summary-shipping">FREE</span>
-                  </div>
-                  <hr class="summary-divider" />
-                  <div class="summary-row grand-total-row">
-                    <span>Grand Total</span>
-                    <span id="summary-total">₹0</span>
-                  </div>
-                </div>
-
-                <button class="checkout-btn" onclick="window.location.href='checkout.html'">
-                  PROCEED TO CHECKOUT <i class="ri-arrow-right-line"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <div id="empty-cart-container" class="empty-cart-view" style="display: none;">
-          <div class="empty-cart-card">
-            <div class="empty-cart-icon">
-              <i class="ri-shopping-bag-3-line"></i>
-            </div>
-            <h2>Your Cart is Empty!</h2>
-            <p>Looks like you haven't added anything to your cart yet. Let's find some amazing products!</p>
-            <a href="shop.html" class="return-shop-btn">Return to Shop</a>
-          </div>
-        </div>
+  
+  
 
         <footer class="section-p1">
     <!-- Contact Column -->

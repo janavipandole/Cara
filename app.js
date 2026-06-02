@@ -14,7 +14,15 @@ document.addEventListener("click", (e) => {
         e.preventDefault();
     }
 });
-
+document.addEventListener("DOMContentLoaded", () => {
+    // Check if the current file is cart.html
+    if (window.location.pathname.endsWith("cart.html")) {
+        const modal = document.getElementById("quickViewModal");
+        if (modal) {
+            modal.remove(); // This removes the element entirely from the DOM for this page
+        }
+    }
+});
 // Dynamic Product Details Logic
 // Global capturing click listener for all product cards (static and dynamic)
 document.addEventListener("click", function (e) {
