@@ -424,12 +424,20 @@
             </div>
             <div class="nav-buttons">
                 <a href="shop.html" class="btn-secondary"><i class="ri-arrow-left-line" aria-hidden="true"></i> Back to Shop</a>
+                <button id="shareWishlistBtn" class="btn-secondary" onclick="shareWishlist()"><i class="ri-share-line" aria-hidden="true"></i> Share Wishlist</button>
                 <button id="clearAllBtn" class="btn-danger-outline" onclick="clearWishlist()"><i class="ri-delete-bin-6-line" aria-hidden="true"></i> Clear All</button>
             </div>
         </div>
     </header>
 
     <main>
+        <div id="shared-banner" style="display:none; background: rgba(8, 129, 120, 0.08); border: 1px solid rgba(8, 129, 120, 0.2); padding: 15px; border-radius: 12px; margin-bottom: 25px; align-items: center; justify-content: space-between; gap: 15px; flex-wrap: wrap;">
+            <div>
+                <strong style="color: var(--wishlist-teal-dark); font-size: 16px;"><i class="ri-share-line" aria-hidden="true"></i> Shared Wishlist Loaded</strong>
+                <p style="margin: 4px 0 0 0; font-size: 14px; color: var(--wishlist-muted);">You are viewing a wishlist shared by a friend. You can import these items to your personal wishlist!</p>
+            </div>
+            <button onclick="importSharedWishlist()" style="background: var(--wishlist-teal); color: white; border: none; padding: 10px 18px; border-radius: 999px; font-weight: 800; cursor: pointer; transition: 0.2s;">Import to My Wishlist</button>
+        </div>
         <div class="wishlist-container" id="wishlistContainer" aria-live="polite"></div>
     </main>
 
@@ -483,10 +491,73 @@
         }
 
         function saveWishlistItems(items) {
+            if (isSharedMode) return;
             localStorage.setItem("wishlist", JSON.stringify(items.map(normalizeWishlistItem)));
         }
 
         let wishlist = getWishlistItems();
+        let isSharedMode = false;
+        let sharedItems = [];
+
+        function checkSharedWishlist() {
+            const params = new URLSearchParams(window.location.search);
+            const shareData = params.get("share");
+            if (shareData) {
+                try {
+                    const decoded = JSON.parse(decodeURIComponent(atob(shareData)));
+                    if (Array.isArray(decoded) && decoded.length > 0) {
+                        sharedItems = decoded.map(normalizeWishlistItem);
+                        wishlist = sharedItems;
+                        isSharedMode = true;
+                        document.getElementById("shared-banner").style.display = "flex";
+                        setTimeout(() => {
+                            const clearBtn = document.getElementById("clearAllBtn");
+                            const shareBtn = document.getElementById("shareWishlistBtn");
+                            if (clearBtn) clearBtn.style.display = "none";
+                            if (shareBtn) shareBtn.style.display = "none";
+                        }, 50);
+                    }
+                } catch (e) {
+                    console.error("Failed to parse shared wishlist:", e);
+                }
+            }
+        }
+
+        function importSharedWishlist() {
+            if (sharedItems.length === 0) return;
+            let current = getWishlistItems();
+            sharedItems.forEach(item => {
+                if (!current.some(c => c.name === item.name)) {
+                    current.push(item);
+                }
+            });
+            localStorage.setItem("wishlist", JSON.stringify(current));
+            showLocalToast("Shared items imported successfully!");
+            setTimeout(() => {
+                window.location.href = window.location.pathname;
+            }, 1500);
+        }
+
+        function shareWishlist() {
+            if (wishlist.length === 0) {
+                showLocalToast("Your wishlist is empty!");
+                return;
+            }
+            try {
+                const serialized = btoa(encodeURIComponent(JSON.stringify(wishlist)));
+                const shareUrl = `${window.location.origin}${window.location.pathname}?share=${serialized}`;
+                navigator.clipboard.writeText(shareUrl).then(() => {
+                    showLocalToast("Share link copied to clipboard!");
+                }).catch(() => {
+                    showLocalToast("Failed to copy link automatically.");
+                });
+            } catch (e) {
+                console.error(e);
+                showLocalToast("Error generating share link.");
+            }
+        }
+
+        checkSharedWishlist();
 
         function showLocalToast(msg) {
             const toast = document.getElementById('toast');
