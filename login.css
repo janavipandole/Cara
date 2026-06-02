@@ -441,3 +441,45 @@ h2 {
         font-size: 10px;
     }
 }
+/* =========================
+   🔐 Password Toggle Styling
+   ========================= */
+
+.password-group {
+  position: relative;
+}
+
+.password-group input {
+  width: 100%;
+  padding-right: 45px; /* space for icon */
+}
+
+#togglePassword {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hover effect */
+#togglePassword:hover {
+  color: #088178; /* matches theme */
+}
+
+/* Smooth transition */
+#togglePassword i {
+  transition: 0.3s ease;
+}
+
+/* Optional: focus outline removal */
+#togglePassword:focus {
+  outline: none;
+}

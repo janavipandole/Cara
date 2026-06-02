@@ -4,116 +4,136 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Cara</title>
-    <!-- Favicon -->
+
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+
     <link rel="stylesheet" href="toast.css">
     <link rel="stylesheet" href="login.css">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-        <section id="header">
-  <!-- Logo -->
+<section id="header">
   <a href="index.html">
     <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
   </a>
 
   <div id="navbar-container"></div>
 
-  <!-- Mobile Navbar -->
   <div class="mobile">
-
-    <!-- Login Icon -->
-    <a href="login.html" aria-label="Login">
-      <i class="ri-user-3-line"></i>
-    </a>
-
-    <!-- Cart Icon -->
-    <a href="cart.html" aria-label="Cart">
-      <i class="ri-shopping-bag-4-line"></i>
-    </a>
-
-    <!-- Hamburger Menu -->
-    <i
-      class="fas fa-outdent"
-      id="bar"
-      role="button"
-      aria-label="Open menu"
-      aria-expanded="false"
-      tabindex="0"
-    ></i>
-
+    <a href="login.html"><i class="ri-user-3-line"></i></a>
+    <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
+    <i class="fas fa-outdent" id="bar"></i>
   </div>
 </section>
+
 <div class="login-container">
     <a href="index.html" class="back-button">&#8592; Back to Shop</a>
-    
+
     <div class="logo-container">
         <img src="images/logo.png" alt="Cara Logo" class="logo-img">
     </div>
+
     <h2>Welcome Back!</h2>
     <p class="subtitle">Please enter your details to sign in</p>
-    
+
     <form id="loginForm" class="login-form" novalidate>
+
+        <!-- EMAIL -->
         <div class="input-group">
             <label for="loginEmail">Email Address</label>
-            <input type="email" id="loginEmail" name="email" class="input-field" placeholder="example@domain.com" autocomplete="email" required>
+            <input type="email" id="loginEmail" class="input-field" required>
         </div>
-        
-        <div class="input-group password-group" style="position: relative;">
+
+        <!-- PASSWORD (UPDATED) -->
+        <div class="input-group">
             <label for="loginPassword">Password</label>
-            <input type="password" id="loginPassword" name="password" class="input-field" placeholder="••••••••" autocomplete="current-password" required style="padding-right: 45px; width: 100%;">
-            <button type="button" id="togglePassword" class="toggle_password" aria-label="Toggle password visibility" style="position: absolute; right: 10px; top: 38px; background: none; border: none; cursor: pointer; color: #666; font-size: 18px;">
-                <i class="ri-eye-line" id="toggleIcon"></i>
-            </button>
+
+            <div style="position: relative;">
+                <input 
+                    type="password" 
+                    id="loginPassword" 
+                    class="input-field" 
+                    required 
+                    style="padding-right: 45px;"
+                >
+
+                <button 
+                    type="button" 
+                    id="togglePassword"
+                    style="
+                        position:absolute;
+                        right:10px;
+                        top:50%;
+                        transform:translateY(-50%);
+                        background:none;
+                        border:none;
+                        cursor:pointer;
+                        font-size:18px;
+                        color:#666;
+                    "
+                >
+                    <i class="ri-eye-line" id="toggleIcon"></i>
+                </button>
+            </div>
         </div>
-        
+
+        <!-- REMEMBER -->
         <div class="remember-forgot">
-            <div class="remember">
+            <div>
                 <input type="checkbox" id="rememberMe">
                 <label for="rememberMe">Remember me</label>
             </div>
-            <a href="forgotPassword.html" class="forgot">Forgot Password?</a>
+            <a href="forgotPassword.html">Forgot Password?</a>
         </div>
-        
+
+        <!-- ROLE -->
         <div class="input-group">
             <label>Login As</label>
-            <div class="role-selector">
-                <label class="role-option">
-                    <input type="radio" name="loginRole" value="USER" checked>
-                    <span class="role-card">
-                        <i class="ri-user-3-line"></i>
-                        <strong>User</strong>
-                        <small>Shop &amp; browse</small>
-                    </span>
-                </label>
-                <label class="role-option">
-                    <input type="radio" name="loginRole" value="ADMIN">
-                    <span class="role-card">
-                        <i class="ri-shield-user-line"></i>
-                        <strong>Admin</strong>
-                        <small>Manage store</small>
-                    </span>
-                </label>
-            </div>
+
+            <label>
+                <input type="radio" name="role" checked> User
+            </label>
+
+            <label>
+                <input type="radio" name="role"> Admin
+            </label>
         </div>
-        
-        <button type="submit" class="login-btn"><span>Sign In</span></button>
+
+        <!-- BUTTON -->
+        <button type="submit" class="login-btn">Sign In</button>
+
     </form>
-    
-    <div class="signup-link">
-        Don't have an account? <a href="register.html">Register</a>
-    </div>
+
+    <p>Don't have an account? <a href="register.html">Register</a></p>
 </div>
 
-    <script src="navbar.js"></script>
-    <script>
-        loadNavbar();
-    </script>
-    <script src="app.js"></script>
-    <script src="login.js"></script>
+<script src="navbar.js"></script>
+<script src="app.js"></script>
+<script src="login.js"></script>
+
+<!-- 🔥 PASSWORD TOGGLE SCRIPT -->
+<script>
+const passwordInput = document.getElementById("loginPassword");
+const togglePassword = document.getElementById("togglePassword");
+const toggleIcon = document.getElementById("toggleIcon");
+
+togglePassword.addEventListener("click", function () {
+    const isPassword = passwordInput.type === "password";
+
+    passwordInput.type = isPassword ? "text" : "password";
+
+    if (isPassword) {
+        toggleIcon.classList.replace("ri-eye-line", "ri-eye-off-line");
+    } else {
+        toggleIcon.classList.replace("ri-eye-off-line", "ri-eye-line");
+    }
+});
+</script>
+
 </body>
 </html>
