@@ -507,6 +507,39 @@
       </div>
     </div>
 
+    <!-- Feedback Carousel -->
+    <section id="feedback-carousel-section" class="section-p1" style="background: #f8fafc; text-align: center; padding: 40px 20px;">
+      <h2>What Our Customers Say</h2>
+      <p>Real reviews from verified buyers</p>
+      <div id="feedback-carousel" style="max-width: 600px; margin: 20px auto; min-height: 120px; position: relative;">
+        <div class="feedback-slide" style="display: block;">
+          <p style="font-style: italic; font-size: 18px;">"Excellent fabric quality and super fast delivery. Highly recommended!"</p>
+          <strong style="display: block; margin-top: 10px; color: #088178;">- Debasmita B.</strong>
+        </div>
+        <div class="feedback-slide" style="display: none;">
+          <p style="font-style: italic; font-size: 18px;">"The customer support team resolved my sizing query in minutes."</p>
+          <strong style="display: block; margin-top: 10px; color: #088178;">- Rohan S.</strong>
+        </div>
+      </div>
+      <div style="display: flex; justify-content: center; gap: 10px; margin-top: 15px;">
+        <button onclick="prevSlide()" style="background: #cbd5e1; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;">Prev</button>
+        <button onclick="nextSlide()" style="background: #cbd5e1; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;">Next</button>
+      </div>
+    </section>
+
+    <script>
+    let currentSlideIndex = 0;
+    function showSlide(index) {
+      const slides = document.querySelectorAll(".feedback-slide");
+      if (slides.length === 0) return;
+      if (index >= slides.length) currentSlideIndex = 0;
+      else if (index < 0) currentSlideIndex = slides.length - 1;
+      else currentSlideIndex = index;
+      slides.forEach((s, idx) => s.style.display = idx === currentSlideIndex ? "block" : "none");
+    }
+    function nextSlide() { showSlide(currentSlideIndex + 1); }
+    function prevSlide() { showSlide(currentSlideIndex - 1); }
+    </script>
     <section id="about-app">
       <h1>Download Our <a href="#">App</a></h1>
       <div class="video">
