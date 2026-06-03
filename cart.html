@@ -301,6 +301,30 @@
           </div>
         </div>
 
+      <!-- Gift Options Section -->
+      <div id="gift-options-wrapper" class="card" style="padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 20px; background: var(--bg-color, #fff);">
+        <h3 style="margin-bottom: 10px;"><i class="ri-gift-line"></i> Gift Wrap Options</h3>
+        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; margin-bottom: 10px;">
+          <input type="checkbox" id="giftWrapCheck"> Add Premium Gift Wrapping (+₹50)
+        </label>
+        <textarea id="giftMessage" placeholder="Enter a custom gift message here..." style="width: 100%; height: 60px; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; display: none;"></textarea>
+      </div>
+
+      <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const check = document.getElementById("giftWrapCheck");
+        const msg = document.getElementById("giftMessage");
+        if (check && msg) {
+          check.addEventListener("change", () => {
+            msg.style.display = check.checked ? "block" : "none";
+            localStorage.setItem("giftWrapChoice", check.checked ? "true" : "false");
+          });
+          msg.addEventListener("input", () => {
+            localStorage.setItem("giftMessageText", msg.value);
+          });
+        }
+      });
+      </script>
         <div class="subtotal">
           <h3>Cart Totals</h3>
 
