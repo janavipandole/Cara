@@ -116,6 +116,22 @@
     </div>
     <div class="single-pro-details">
       <h6>Home / T-Shirt</h6>
+      <!-- Stock Urgency Badge -->
+      <div id="stock-urgency-badge" style="background: #f87171; color: white; display: inline-block; padding: 4px 8px; border-radius: 4px; font-weight: 600; font-size: 13px; margin-bottom: 10px; display: none;">
+        🔥 Only <span id="stock-items-count">3</span> left in stock!
+      </div>
+      
+      <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const badge = document.getElementById("stock-urgency-badge");
+        const count = document.getElementById("stock-items-count");
+        if (badge && count) {
+          const randomStock = Math.floor(Math.random() * 8) + 2;
+          count.textContent = randomStock;
+          badge.style.display = "inline-block";
+        }
+      });
+      </script>
       <h4 id="product-name">Men's Fashion T-Shirt</h4>
       <h2 id="product-price">$139.00</h2>
       <div class="size-section">
