@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=League+Spartan:wght@100..900&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=League+Spartan:wght@100..900&display=swap');
 
 
 
@@ -26,6 +26,19 @@
     --feature-bg-6: #fff2e5;
     --input-bg: #ffffff;
     --footer-text: #222;
+    --footer-bg: linear-gradient(180deg, #ffffff 0%, #f6fcfa 50%, #ecf7f4 100%);
+    --footer-accent: #088178;
+    --footer-heading: #044a44;
+    --footer-link: #465b52;
+    --footer-link-hover: #088178;
+    --footer-border: #cce7d0;
+    --footer-input-bg: #ffffff;
+    --footer-btn-text: #ffffff;
+    --footer-surface: rgba(8, 129, 120, 0.08);
+    --footer-icon-bg: #ffffff;
+    --footer-icon-border: #b8ddd4;
+    --footer-icon-color: #088178;
+    --footer-shadow: 0 8px 32px rgba(8, 129, 120, 0.1);
     --cart-icon-bg: #e8f6ea;
     --feature-label-color: #088178;
 }
@@ -42,13 +55,26 @@
     --shadow-hover: rgba(124, 58, 237, 0.3);
     --accent: #06b6d4;
     --feature-bg-1: #7c3aed;
-    --feature-bg-2: #10b991;
+    --feature-bg-2: #10b981;
     --feature-bg-3: #3b82f6;
     --feature-bg-4: #8b5cf6;
     --feature-bg-5: #ec4899;
     --feature-bg-6: #f59e0b;
     --input-bg: #2d3748;
     --footer-text: #e6eef8;
+    --footer-bg: linear-gradient(160deg, #0a1628 0%, #0f3340 45%, #0d5c63 100%);
+    --footer-accent: #06b6d4;
+    --footer-heading: #e6eef8;
+    --footer-link: rgba(230, 238, 248, 0.88);
+    --footer-link-hover: #06b6d4;
+    --footer-border: rgba(255, 255, 255, 0.12);
+    --footer-input-bg: rgba(45, 55, 72, 0.9);
+    --footer-btn-text: #0a1628;
+    --footer-surface: rgba(255, 255, 255, 0.06);
+    --footer-icon-bg: rgba(255, 255, 255, 0.1);
+    --footer-icon-border: rgba(255, 255, 255, 0.22);
+    --footer-icon-color: #e6eef8;
+    --footer-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
     --cart-icon-bg: #2d3748;
     --feature-label-color: #ffffff;
 }
@@ -69,6 +95,12 @@ body {
     background-color: var(--bg-primary);
     color: var(--text-primary);
     transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Smooth theme transition */
+html.theme-transitioning,
+html.theme-transitioning * {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
 }
 
 h1 {
@@ -157,7 +189,7 @@ button.white:hover {
 
 /* Click/Active State for White/Inverted Buttons */
 button.white:active {
-    transform: translateY(0) scale(0.99);
+    transform: translateY(0) scale(0.98);
     box-shadow: 0 2px 5px var(--shadow);
 }
 
@@ -269,7 +301,9 @@ button.white .ripple-effect {
 
 #top {
     pointer-events: none;
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100vh;
 }
@@ -392,7 +426,7 @@ button.white .ripple-effect {
     display: flex;
 }
 
-/* ── Card container ── */
+/* â”€â”€ Card container â”€â”€ */
 #product1 .pro {
     position: relative;
     width: 23%;
@@ -414,7 +448,7 @@ button.white .ripple-effect {
     transform: translateY(-3px);
 }
 
-/* ── Image wrapper ── */
+/* â”€â”€ Image wrapper â”€â”€ */
 .pro-img-wrap {
     width: 100%;
     background: var(--bg-secondary);
@@ -442,7 +476,7 @@ button.white .ripple-effect {
     transform: scale(1.04);
 }
 
-/* ── Description area ── */
+/* â”€â”€ Description area â”€â”€ */
 #product1 .pro .des {
     text-align: start;
     padding: 10px 2px 0;
@@ -452,7 +486,7 @@ button.white .ripple-effect {
     flex: 1;
 }
 
-/* ── Brand row: logo + name ── */
+/* â”€â”€ Brand row: logo + name â”€â”€ */
 .pro-brand-row {
     display: flex;
     align-items: center;
@@ -479,7 +513,7 @@ button.white .ripple-effect {
     color: #aaa;
 }
 
-/* ── Product title ── */
+/* â”€â”€ Product title â”€â”€ */
 #product1 .pro .des h5 {
     color: var(--text-primary);
     font-weight: 600;
@@ -491,7 +525,7 @@ button.white .ripple-effect {
     text-overflow: ellipsis;
 }
 
-/* ── Star rating ── */
+/* â”€â”€ Star rating â”€â”€ */
 #product1 .pro .des .star {
     display: flex;
     gap: 2px;
@@ -502,7 +536,7 @@ button.white .ripple-effect {
     font-size: 12px;
 }
 
-/* ── Price ── */
+/* â”€â”€ Price â”€â”€ */
 #product1 .pro .des h4 {
     color: var(--accent);
     font-size: 17px;
@@ -510,7 +544,7 @@ button.white .ripple-effect {
     margin: 2px 0 6px;
 }
 
-/* ── Action bar: BUY NOW + cart icon ── */
+/* â”€â”€ Action bar: BUY NOW + cart icon â”€â”€ */
 .pro-action-bar {
     display: flex;
     align-items: center;
@@ -567,7 +601,7 @@ button.white .ripple-effect {
     box-shadow: 0 0 0 2px rgba(8, 129, 120, 0.3);
 }
 
-/* Legacy .cart class — keep for any static HTML cards on index.html */
+/* Legacy .cart class â€” keep for any static HTML cards on index.html */
 #product1 .pro .cart {
     width: 36px;
     height: 36px;
@@ -1205,7 +1239,7 @@ footer .copyright {
             }
 
             /* ============================================
-   DESKTOP LARGE (≤ 1200px)
+   DESKTOP LARGE (â‰¤ 1200px)
    ============================================ */
 
             @media (max-width: 1200px) {
@@ -1240,7 +1274,7 @@ footer .copyright {
             }
 
             /* ============================================
-   TABLET LANDSCAPE (≤ 1024px)
+   TABLET LANDSCAPE (â‰¤ 1024px)
    ============================================ */
 
             @media (max-width: 1024px) {
@@ -1353,7 +1387,7 @@ footer .copyright {
             }
 
             /* ============================================
-   TABLET PORTRAIT + LARGE MOBILE (≤ 799px)
+   TABLET PORTRAIT + LARGE MOBILE (â‰¤ 799px)
    ============================================ */
 
             @media (max-width: 799px) {
@@ -1741,7 +1775,7 @@ footer .copyright {
             }
 
             /* ============================================
-   TABLET 4 — PORTRAIT (768px–1024px)
+   TABLET 4 â€” PORTRAIT (768pxâ€“1024px)
    ============================================ */
 
             @media (min-width: 768px) and (max-width: 1024px) {
@@ -2174,7 +2208,7 @@ footer .copyright {
             }
 
             /* ============================================
-   MOBILE LARGE (≤ 600px)
+   MOBILE LARGE (â‰¤ 600px)
    ============================================ */
 
             @media (max-width: 600px) {
@@ -2262,7 +2296,7 @@ footer .copyright {
             }
 
             /* ============================================
-   MOBILE SMALL (≤ 477px)
+   MOBILE SMALL (â‰¤ 477px)
    ============================================ */
 
             @media (max-width: 477px) {
@@ -2691,7 +2725,7 @@ footer .copyright {
             }
 
             /* ============================================
-   EXTRA SMALL (≤ 360px)
+   EXTRA SMALL (â‰¤ 360px)
    ============================================ */
 
             @media (max-width: 360px) {
@@ -2934,7 +2968,7 @@ footer .copyright {
                 color: var(--text-primary);
             }
 
-            /* Hero section — ensure text is always visible */
+            /* Hero section â€” ensure text is always visible */
             #hero h4,
             #hero h2,
             #hero p {
@@ -2981,7 +3015,7 @@ footer .copyright {
                 color: var(--text-primary);
             }
 
-            /* ── Dark theme: full product card overrides ── */
+            /* â”€â”€ Dark theme: full product card overrides â”€â”€ */
             [data-theme="dark"] #product1 .pro {
                 border-color: #333;
                 box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
@@ -3018,7 +3052,7 @@ footer .copyright {
                 box-shadow: 0 6px 18px rgba(255, 255, 255, 0.15);
             }
 
-            /* Circular cart button on dark card — keep black, consistent with light theme */
+            /* Circular cart button on dark card â€” keep black, consistent with light theme */
             [data-theme="dark"] .pro-cart-btn {
                 background: #000000;
                 border-color: #333;
@@ -3453,7 +3487,7 @@ footer .copyright {
                 color: #ccc;
                 }
 
-                /* Dark mode � empty stars */
+                /* Dark mode — empty stars */
                 body.dark .star i.ri-star-line {
                 color: #555;
                 }
@@ -3470,8 +3504,209 @@ footer .copyright {
                 body.dark .rating-value {
                 color: #aaa;
             }
-/* Theme Layout Transition Density Overrides */
-:root[data-theme='dark'] {
-  --transition-speed: 0.3s;
-  --element-spacing: 1.5rem;
+
+/* Modern navbar + style quiz dark-mode guardrails */
+html body #header:has(.modern-navbar) {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: auto !important;
+  left: 0 !important;
+  z-index: 99999 !important;
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: var(--header-height, 76px) !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  background: color-mix(in srgb, var(--header-bg, #fff) 88%, transparent) !important;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08) !important;
+}
+
+html[data-theme="dark"] body #header:has(.modern-navbar) {
+  background: rgba(12, 18, 24, 0.9) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+html body #header:has(.modern-navbar) #navbar-container {
+  position: relative !important;
+  z-index: 100000 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+html body #header:has(.modern-navbar) .mobile,
+html body #header:has(.modern-navbar) #close {
+  display: none !important;
+}
+
+html[data-theme="dark"] #quiz-modal .modal-content {
+  background: #111922 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+}
+
+html[data-theme="dark"] #quiz-modal h2 {
+  color: #f8fafc !important;
+  text-shadow: none !important;
+}
+
+html[data-theme="dark"] #quiz-modal .close {
+  color: #cbd5e1 !important;
+}
+
+html[data-theme="dark"] #quiz-modal .quiz-options button {
+  background: #0f8f86 !important;
+  color: #fff !important;
+}
+
+html[data-theme="dark"] #quiz-modal .quiz-options button:hover {
+  background: #12a59b !important;
+}
+
+/* Home promo cards: remove legacy min-width gutters and keep the row aligned. */
+#sm-banner.section-p1 {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: clamp(24px, 4vw, 56px) !important;
+  align-items: stretch !important;
+  width: 100% !important;
+  padding: clamp(34px, 5vw, 72px) clamp(28px, 5vw, 80px) !important;
+  background: var(--bg-primary) !important;
+}
+
+#sm-banner .banner-box {
+  position: relative !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  height: auto !important;
+  min-height: clamp(280px, 27vw, 380px) !important;
+  aspect-ratio: 16 / 9 !important;
+  margin: 0 !important;
+  padding: clamp(28px, 4vw, 52px) !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  border-radius: 6px !important;
+  background-size: cover !important;
+  background-position: center !important;
+  box-shadow: 0 18px 42px rgba(15, 23, 42, 0.1) !important;
+  isolation: isolate;
+}
+
+[data-theme="dark"] #sm-banner .banner-box {
+  box-shadow: none !important;
+}
+
+#sm-banner .banner-box::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 0 !important;
+  background: inherit !important;
+  background-size: cover !important;
+  background-position: center !important;
+  transform: none !important;
+}
+
+#sm-banner .banner-box::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.38), rgba(0, 0, 0, 0.08)) !important;
+  border-radius: inherit !important;
+}
+
+#sm-banner .banner-box > * {
+  position: relative !important;
+  z-index: 2 !important;
+  max-width: min(560px, 86%) !important;
+}
+
+#sm-banner .banner-box h4 {
+  margin: 0 0 18px !important;
+  color: #fff !important;
+  font-size: clamp(24px, 2vw, 34px) !important;
+  line-height: 1.05 !important;
+  font-weight: 400 !important;
+  text-shadow: 0 3px 16px rgba(0, 0, 0, 0.5) !important;
+}
+
+#sm-banner .banner-box h2 {
+  margin: 0 0 16px !important;
+  color: #fff !important;
+  font-size: clamp(32px, 3vw, 52px) !important;
+  line-height: 1.05 !important;
+  font-weight: 800 !important;
+  text-shadow: 0 3px 16px rgba(0, 0, 0, 0.56) !important;
+}
+
+#sm-banner .banner-box span {
+  display: block !important;
+  margin: 0 0 24px !important;
+  padding: 0 !important;
+  color: #fff !important;
+  font-size: clamp(18px, 1.6vw, 26px) !important;
+  line-height: 1.25 !important;
+  font-weight: 650 !important;
+  text-shadow: 0 3px 16px rgba(0, 0, 0, 0.56) !important;
+}
+
+#sm-banner .banner-box button.white,
+#sm-banner .banner-box .white {
+  min-width: 150px !important;
+  min-height: 52px !important;
+  padding: 0 24px !important;
+  border: 1px solid rgba(255, 255, 255, 0.42) !important;
+  border-radius: 8px !important;
+  background: rgba(255, 255, 255, 0.18) !important;
+  color: #fff !important;
+  font-size: 16px !important;
+  font-weight: 800 !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+  backdrop-filter: blur(8px);
+}
+
+#sm-banner .banner-box button.white:hover,
+#sm-banner .banner-box .white:hover {
+  background: var(--accent) !important;
+  border-color: var(--accent) !important;
+  color: #fff !important;
+}
+
+@media (max-width: 900px) {
+  #sm-banner.section-p1 {
+    grid-template-columns: 1fr !important;
+  }
+
+  #sm-banner .banner-box {
+    min-height: 300px !important;
+    aspect-ratio: auto !important;
+  }
+}
+
+@media (max-width: 520px) {
+  #sm-banner.section-p1 {
+    padding: 28px 16px !important;
+    gap: 18px !important;
+  }
+
+  #sm-banner .banner-box {
+    min-height: 260px !important;
+    padding: 24px !important;
+  }
+}
+
+/* Footer: override .section-p1 white background on index */
+footer.section-p1 {
+  background: var(--footer-bg) !important;
+  border-top: 3px solid var(--footer-accent);
+  box-shadow: 0 -4px 24px rgba(8, 129, 120, 0.06);
 }
