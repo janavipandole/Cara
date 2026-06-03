@@ -15,209 +15,352 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
 
     <style>
+        :root {
+            --wishlist-ink: #111827;
+            --wishlist-muted: #667085;
+            --wishlist-border: rgba(17, 24, 39, 0.1);
+            --wishlist-surface: rgba(255, 255, 255, 0.88);
+            --wishlist-teal: #088178;
+            --wishlist-teal-dark: #055f59;
+            --wishlist-rose: #e0245e;
+            --wishlist-bg: #f7faf9;
+        }
+
         body {
             font-family: 'League Spartan', sans-serif;
-            background-color: #f4f6f8;
+            background:
+                radial-gradient(circle at top left, rgba(8, 129, 120, 0.12), transparent 32rem),
+                linear-gradient(180deg, #ffffff 0%, var(--wishlist-bg) 48%, #eef6f4 100%);
+            color: var(--wishlist-ink);
             margin: 0;
             padding: 0;
+            min-height: 100vh;
         }
 
         .header-section {
-            text-align: center;
-            padding: 60px 20px;
-            background: linear-gradient(135deg, #088178 0%, #066e66 100%);
-            color: white;
             position: relative;
+            overflow: hidden;
+            min-height: 290px;
+            padding: 76px 24px 62px;
+            color: white;
+            background:
+                linear-gradient(115deg, rgba(6, 95, 89, 0.96), rgba(8, 129, 120, 0.9)),
+                url("images/banner/b2.jpg") center/cover;
+            isolation: isolate;
+        }
+
+        .header-section::after {
+            content: "";
+            position: absolute;
+            inset: auto 8% -42px;
+            height: 96px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.16);
+            filter: blur(18px);
+            z-index: -1;
+        }
+
+        .header-inner {
+            width: min(1120px, 100%);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            align-items: end;
+            gap: 32px;
+        }
+
+        .wishlist-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 18px;
+            padding: 8px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.12);
+            color: rgba(255, 255, 255, 0.92);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
         }
 
         .header-section h1 {
-            font-size: 40px;
-            margin: 0 0 10px 0;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            max-width: 680px;
+            color: #fff;
+            font-size: clamp(40px, 7vw, 76px);
+            line-height: 0.92;
+            margin: 0;
+            font-weight: 800;
+            letter-spacing: 0;
         }
 
         .header-section p {
-            font-size: 16px;
-            opacity: 0.9;
-            margin: 0;
+            max-width: 560px;
+            margin: 18px 0 0;
+            font-size: 18px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.94) !important;
+            text-shadow: 0 2px 14px rgba(0, 0, 0, 0.34);
         }
 
         .nav-buttons {
             display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .btn-secondary,
+        .btn-danger-outline {
+            min-height: 46px;
+            padding: 0 18px;
+            border-radius: 999px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+            display: inline-flex;
+            align-items: center;
             justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 8px;
+            text-decoration: none;
         }
 
         .btn-secondary {
-            text-decoration: none;
-            padding: 12px 25px;
-            background-color: transparent;
-            border: 2px solid white;
-            color: white;
-            border-radius: 4px;
-            font-weight: 600;
-            transition: 0.3s ease;
+            background: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.58);
+            color: var(--wishlist-teal-dark);
+            box-shadow: 0 18px 34px rgba(4, 47, 46, 0.2);
         }
 
-        .btn-secondary:hover {
-            background-color: white;
-            color: #088178;
+        .btn-secondary:hover,
+        .btn-danger-outline:hover {
+            transform: translateY(-2px);
         }
 
         .btn-danger-outline {
-            padding: 12px 25px;
-            background-color: transparent;
-            border: 2px solid #ef4444;
-            color: #ef4444;
-            border-radius: 4px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s ease;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.38);
+            color: #fff;
         }
 
         .btn-danger-outline:hover {
-            background-color: #ef4444;
-            color: white;
+            background: rgba(224, 36, 94, 0.9);
+            border-color: rgba(224, 36, 94, 0.9);
+        }
+
+        main {
+            width: min(1180px, calc(100% - 32px));
+            margin: -42px auto 80px;
+            position: relative;
+            z-index: 2;
         }
 
         .wishlist-container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 24px;
         }
 
         .wishlist-card {
-            background: white;
-            border-radius: 12px;
-            border: 1px solid #e2e8f0;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
+            overflow: hidden;
+            min-height: 100%;
+            padding: 12px;
+            border: 1px solid var(--wishlist-border);
+            border-radius: 22px;
+            background: var(--wishlist-surface);
+            box-shadow: 0 22px 54px rgba(15, 23, 42, 0.09);
+            backdrop-filter: blur(18px);
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
         }
 
         .wishlist-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transform: translateY(-7px);
+            border-color: rgba(8, 129, 120, 0.28);
+            box-shadow: 0 30px 70px rgba(15, 23, 42, 0.14);
+        }
+
+        .wishlist-media {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 4 / 5;
+            border-radius: 18px;
+            background: #edf3f2;
         }
 
         .wishlist-card img {
             width: 100%;
-            height: 320px;
+            height: 100%;
             object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 15px;
+            display: block;
+            transition: transform 0.35s ease;
+        }
+
+        .wishlist-card:hover img {
+            transform: scale(1.035);
+        }
+
+        .saved-pill {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 7px 10px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--wishlist-rose);
+            font-size: 12px;
+            font-weight: 800;
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .wishlist-details {
+            padding: 18px 6px 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+        }
+
+        .wishlist-brand {
+            color: var(--wishlist-muted);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
         }
 
         .wishlist-card h3 {
-            font-size: 18px;
-            color: #1a202c;
-            margin: 10px 0 5px 0;
-            font-weight: 600;
+            min-height: 46px;
+            margin: 0;
+            color: var(--wishlist-ink);
+            font-size: 20px;
+            line-height: 1.15;
+            font-weight: 800;
         }
 
         .wishlist-card p {
-            color: #088178;
-            font-weight: 700;
-            font-size: 20px;
-            margin: 0 0 15px 0;
+            margin: 0;
+            color: var(--wishlist-teal);
+            font-size: 22px;
+            font-weight: 800;
         }
 
         .card-actions {
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr 46px;
             gap: 10px;
+            padding-top: 16px;
             margin-top: auto;
         }
 
-        .add-to-cart-btn {
-            flex: 2;
-            padding: 10px;
-            background-color: #088178;
-            color: white;
+        .add-to-cart-btn,
+        .remove-icon-btn {
+            height: 46px;
             border: none;
-            border-radius: 6px;
-            font-weight: 600;
+            border-radius: 999px;
             cursor: pointer;
-            transition: 0.3s;
-            display: flex;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
+        }
+
+        .add-to-cart-btn {
+            background: linear-gradient(135deg, var(--wishlist-teal), var(--wishlist-teal-dark));
+            color: #fff;
+            font-size: 14px;
+            font-weight: 800;
             gap: 8px;
+            box-shadow: 0 14px 26px rgba(8, 129, 120, 0.24);
         }
 
         .add-to-cart-btn:hover {
-            background-color: #066e66;
+            transform: translateY(-2px);
+            box-shadow: 0 18px 34px rgba(8, 129, 120, 0.3);
         }
 
         .remove-icon-btn {
-            flex: 1;
-            padding: 10px;
-            background-color: #fee2e2;
-            color: #ef4444;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background: #fff1f2;
+            color: var(--wishlist-rose);
+            font-size: 18px;
         }
 
         .remove-icon-btn:hover {
-            background-color: #ef4444;
-            color: white;
+            transform: translateY(-2px);
+            background: var(--wishlist-rose);
+            color: #fff;
+        }
+
+        .add-to-cart-btn:focus-visible,
+        .remove-icon-btn:focus-visible,
+        .btn-secondary:focus-visible,
+        .btn-danger-outline:focus-visible {
+            outline: 3px solid rgba(8, 129, 120, 0.28);
+            outline-offset: 3px;
         }
 
         .empty-state {
+            max-width: 620px;
+            margin: 36px auto 0;
+            padding: 56px 28px;
+            border: 1px solid var(--wishlist-border);
+            border-radius: 26px;
+            background: rgba(255, 255, 255, 0.9);
             text-align: center;
-            max-width: 500px;
-            margin: 80px auto;
-            padding: 20px;
+            box-shadow: 0 26px 60px rgba(15, 23, 42, 0.1);
         }
 
         .empty-state i {
-            font-size: 80px;
-            color: #cbd5e1;
-            margin-bottom: 20px;
-            display: block;
+            width: 86px;
+            height: 86px;
+            margin: 0 auto 24px;
+            border-radius: 50%;
+            background: #fff1f2;
+            color: var(--wishlist-rose);
+            font-size: 42px;
+            display: grid;
+            place-items: center;
         }
 
         .empty-state h2 {
-            font-size: 24px;
-            color: #334155;
-            margin-bottom: 10px;
+            margin: 0 0 10px;
+            color: var(--wishlist-ink);
+            font-size: 30px;
+            font-weight: 800;
         }
 
         .empty-state p {
-            color: #64748b;
-            margin-bottom: 25px;
+            max-width: 420px;
+            margin: 0 auto 26px;
+            color: var(--wishlist-muted);
+            font-size: 17px;
+            line-height: 1.6;
         }
 
         .empty-state a {
-            text-decoration: none;
-            display: inline-block;
-            padding: 12px 30px;
-            background-color: #088178;
+            min-height: 46px;
+            padding: 0 22px;
+            border-radius: 999px;
+            background: var(--wishlist-teal);
             color: white;
-            border-radius: 6px;
-            font-weight: 600;
-            transition: 0.3s;
+            font-weight: 800;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.25s ease, background 0.25s ease;
         }
 
         .empty-state a:hover {
-            background-color: #066e66;
+            background: var(--wishlist-teal-dark);
+            transform: translateY(-2px);
         }
 
         /* Toast styles if app.js is present */
@@ -228,7 +371,7 @@
             background: #fff;
             padding: 15px 25px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-            border-radius: 8px;
+            border-radius: 14px;
             border-left: 5px solid #088178;
             z-index: 1000;
             display: flex;
@@ -242,17 +385,47 @@
             transform: translateY(0);
             opacity: 1;
         }
+
+        @media (max-width: 760px) {
+            .header-section {
+                min-height: auto;
+                padding: 54px 18px 72px;
+            }
+
+            .header-inner {
+                grid-template-columns: 1fr;
+                align-items: start;
+            }
+
+            .nav-buttons {
+                justify-content: flex-start;
+            }
+
+            main {
+                width: min(100% - 24px, 1180px);
+                margin-top: -46px;
+            }
+
+            .wishlist-container {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 
 <body>
 
     <header class="header-section">
-        <h1>My Wishlist <i class="ri-heart-fill" style="color: #f43f5e;"></i></h1>
-        <p>Save your favorite items and secure them in your cart anytime</p>
-        <div class="nav-buttons">
-            <a href="shop.html" class="btn-secondary"><i class="ri-arrow-left-line"></i> Back to Shop</a>
-            <button id="clearAllBtn" class="btn-danger-outline" onclick="clearWishlist()"><i class="ri-delete-bin-6-line"></i> Clear All</button>
+        <div class="header-inner">
+            <div>
+                <span class="wishlist-eyebrow"><i class="ri-heart-fill" aria-hidden="true"></i> Curated picks</span>
+                <h1>Wishlist</h1>
+                <p>Keep your favorite Cara pieces in one polished place, then move them to cart when the moment feels right.</p>
+            </div>
+            <div class="nav-buttons">
+                <a href="shop.html" class="btn-secondary"><i class="ri-arrow-left-line" aria-hidden="true"></i> Back to Shop</a>
+                <button id="clearAllBtn" class="btn-danger-outline" onclick="clearWishlist()"><i class="ri-delete-bin-6-line" aria-hidden="true"></i> Clear All</button>
+            </div>
         </div>
     </header>
 
@@ -270,7 +443,34 @@
         const wishlistContainer = document.getElementById("wishlistContainer");
         const clearAllBtn = document.getElementById("clearAllBtn");
 
-        let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+        function parseStoredList(key) {
+            try {
+                return JSON.parse(localStorage.getItem(key)) || [];
+            } catch {
+                return [];
+            }
+        }
+
+        function normalizeWishlistItem(item) {
+            return {
+                id: item.id || item.name,
+                name: item.name || "Product",
+                brand: item.brand || "Cara",
+                price: item.price || "₹0",
+                image: item.image || item.img || "images/products/f1.jpg",
+            };
+        }
+
+        function getWishlistItems() {
+            const items = parseStoredList("wishlist");
+            return Array.isArray(items) ? items.map(normalizeWishlistItem) : [];
+        }
+
+        function saveWishlistItems(items) {
+            localStorage.setItem("wishlist", JSON.stringify(items.map(normalizeWishlistItem)));
+        }
+
+        let wishlist = getWishlistItems();
 
         function showLocalToast(msg) {
             const toast = document.getElementById('toast');
@@ -297,23 +497,56 @@
                 clearAllBtn.style.display = 'inline-block';
                 wishlistContainer.style.display = 'grid';
                 wishlist.forEach((product, index) => {
-                    wishlistContainer.innerHTML += `
-                        <div class="wishlist-card">
-                            <img src="${product.image || 'images/products/f1.jpg'}" alt="${product.name}" loading="lazy">
-                            <div>
-                                <h3>${product.name}</h3>
-                                <p>${product.price}</p>
-                            </div>
-                            <div class="card-actions">
-                                <button class="add-to-cart-btn" onclick="moveToCart(${index})" aria-label="Add ${product.name} to cart">
-                                    <i class="ri-shopping-cart-2-line"></i> Add to Cart
-                                </button>
-                                <button class="remove-icon-btn" onclick="removeItem(${index})" aria-label="Remove ${product.name} from wishlist">
-                                    <i class="ri-delete-bin-line"></i>
-                                </button>
-                            </div>
-                        </div>
-                    `;
+                    const card = document.createElement("article");
+                    card.className = "wishlist-card";
+
+                    const media = document.createElement("div");
+                    media.className = "wishlist-media";
+
+                    const image = document.createElement("img");
+                    image.src = product.image;
+                    image.alt = product.name;
+                    image.loading = "lazy";
+
+                    const savedPill = document.createElement("span");
+                    savedPill.className = "saved-pill";
+                    savedPill.innerHTML = '<i class="ri-heart-fill" aria-hidden="true"></i> Saved';
+
+                    media.append(image, savedPill);
+                    card.appendChild(media);
+
+                    const details = document.createElement("div");
+                    details.className = "wishlist-details";
+                    const brand = document.createElement("span");
+                    brand.className = "wishlist-brand";
+                    brand.textContent = product.brand;
+                    const title = document.createElement("h3");
+                    title.textContent = product.name;
+                    const price = document.createElement("p");
+                    price.textContent = product.price;
+                    details.append(brand, title, price);
+                    card.appendChild(details);
+
+                    const actions = document.createElement("div");
+                    actions.className = "card-actions";
+
+                    const cartButton = document.createElement("button");
+                    cartButton.className = "add-to-cart-btn";
+                    cartButton.type = "button";
+                    cartButton.setAttribute("aria-label", `Add ${product.name} to cart`);
+                    cartButton.innerHTML = '<i class="ri-shopping-cart-2-line" aria-hidden="true"></i> Add to Cart';
+                    cartButton.addEventListener("click", () => moveToCart(index));
+
+                    const removeButton = document.createElement("button");
+                    removeButton.className = "remove-icon-btn";
+                    removeButton.type = "button";
+                    removeButton.setAttribute("aria-label", `Remove ${product.name} from wishlist`);
+                    removeButton.innerHTML = '<i class="ri-delete-bin-line" aria-hidden="true"></i>';
+                    removeButton.addEventListener("click", () => removeItem(index));
+
+                    actions.append(cartButton, removeButton);
+                    card.appendChild(actions);
+                    wishlistContainer.appendChild(card);
                 });
             }
         }
@@ -321,7 +554,7 @@
         function removeItem(index) {
             const removedItem = wishlist[index].name;
             wishlist.splice(index, 1);
-            localStorage.setItem("wishlist", JSON.stringify(wishlist));
+            saveWishlistItems(wishlist);
             renderWishlist();
             showLocalToast(`${removedItem} removed from wishlist`);
         }
@@ -329,7 +562,7 @@
         function clearWishlist() {
             if (confirm("Are you sure you want to clear your entire wishlist?")) {
                 wishlist = [];
-                localStorage.setItem("wishlist", JSON.stringify(wishlist));
+                saveWishlistItems(wishlist);
                 renderWishlist();
                 showLocalToast("Wishlist cleared completely!");
             }
@@ -337,9 +570,8 @@
 
         function moveToCart(index) {
             const product = wishlist[index];
-            
-            // Add to cart logic
-            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+            let cart = parseStoredList("productsInCart");
             const existingItem = cart.find(item => item.name === product.name);
             if (existingItem) {
                 existingItem.quantity = (existingItem.quantity || 1) + 1;
@@ -347,23 +579,23 @@
                 cart.push({
                     name: product.name,
                     price: product.price,
-                    image: product.image,
-                    quantity: 1
+                    img: product.image,
+                    quantity: 1,
+                    size: "M",
+                    id: Date.now()
                 });
             }
-            localStorage.setItem("cart", JSON.stringify(cart));
-            
-            // Remove from wishlist
+            localStorage.setItem("productsInCart", JSON.stringify(cart));
+
             wishlist.splice(index, 1);
-            localStorage.setItem("wishlist", JSON.stringify(wishlist));
-            
+            saveWishlistItems(wishlist);
             renderWishlist();
             showLocalToast(`${product.name} added to cart!`);
         }
 
-        // Initial render
         renderWishlist();
     </script>
 
+<script src="js/wishlist-notes.js" defer></script>
 </body>
 </html>

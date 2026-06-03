@@ -632,6 +632,7 @@
     box-shadow: 0 6px 18px rgba(0,0,0,0.08);
     z-index: 20;
     border: 1px solid var(--border-color);
+    cursor: pointer;
 }
 
 .wishlist-btn i{
@@ -649,6 +650,11 @@
 .wishlist-btn:hover i{
     transform: scale(1.15);
     color: #e0245e;
+}
+
+.wishlist-btn:focus-visible {
+    outline: 3px solid rgba(224, 36, 94, 0.28);
+    outline-offset: 3px;
 }
 #newsletter{
     display: flex;
@@ -730,4 +736,13 @@
 /* Spacing tuning for standard shop card viewports */
 .pro-container {
   grid-gap: 25px;
+}
+
+/* Highlights styling for search match terms */
+.highlight {
+    background-color: rgba(8, 129, 120, 0.15);
+    color: var(--accent, #088178);
+    font-weight: 700;
+    padding: 0 4px;
+    border-radius: 4px;
 }

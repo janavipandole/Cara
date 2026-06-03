@@ -21,7 +21,13 @@ document.addEventListener("click", function (e) {
     const proCard = e.target.closest(".pro");
     if (!proCard) return;
 
-    if (e.target.closest(".cart") || e.target.closest(".buy-now-btn")) return;
+    if (
+        e.target.closest(
+            ".cart, .buy-now-btn, .wishlist-btn, .pro-cart-btn, .pro-buy-btn, .pro-quick-view-btn, button"
+        )
+    ) {
+        return;
+    }
 
     const nameElement  = proCard.querySelector("h5");
     const priceElement = proCard.querySelector("h4");
@@ -153,7 +159,106 @@ function updateCartCount() {
     }
 }
 
-document.addEventListener("DOMContentLoaded", updateCartCount);
+function updateWishlistCount() {
+    let wishlist = [];
+
+    try {
+        wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+    } catch {
+        wishlist = [];
+    }
+
+    if (!Array.isArray(wishlist)) {
+        wishlist = [];
+    }
+
+    const totalItems = wishlist.length;
+    document.querySelectorAll(".wishlist-count").forEach((countBadge) => {
+        countBadge.textContent = totalItems;
+        countBadge.classList.toggle("hidden", totalItems === 0);
+    });
+}
+
+window.updateWishlistCount = updateWishlistCount;
+
+function createWishlistNavLink() {
+    const link = document.createElement("a");
+    link.href = "wishlist.html";
+    link.className = "wishlist-nav-link";
+    link.setAttribute("aria-label", "Wishlist");
+    link.innerHTML = '<i class="ri-heart-line" aria-hidden="true"></i><span class="wishlist-count hidden">0</span>';
+    return link;
+}
+
+function ensureWishlistNavLinks() {
+    const navbar = document.getElementById("navbar");
+
+    if (navbar && !navbar.querySelector('a[href="wishlist.html"]')) {
+        const cartLink = navbar.querySelector('a[href="cart.html"], #lg-bag');
+        const wishlistItem = document.createElement("li");
+        wishlistItem.className = "nav-icon";
+        wishlistItem.appendChild(createWishlistNavLink());
+
+        if (cartLink && cartLink.closest("li")) {
+            navbar.insertBefore(wishlistItem, cartLink.closest("li"));
+        } else {
+            navbar.appendChild(wishlistItem);
+        }
+    }
+
+    document.querySelectorAll(".mobile").forEach((mobileNav) => {
+        if (mobileNav.querySelector('a[href="wishlist.html"]')) return;
+
+        const cartLink = mobileNav.querySelector('a[href="cart.html"]');
+        const wishlistLink = createWishlistNavLink();
+
+        if (cartLink) {
+            mobileNav.insertBefore(wishlistLink, cartLink);
+        } else {
+            mobileNav.insertBefore(wishlistLink, mobileNav.firstChild);
+        }
+    });
+}
+
+function getCurrentProductDetails() {
+    const nameElement  = document.getElementById("product-name");
+    const priceElement = document.getElementById("product-price");
+    const imageElement = document.getElementById("MainImg");
+
+    return {
+        name:  nameElement ? nameElement.textContent.trim() : "Product",
+        price: priceElement ? priceElement.textContent.trim() : "₹0",
+        image: imageElement ? imageElement.src : "images/products/f1.jpg"
+    };
+}
+
+function initSingleProductWishlist() {
+    const wishlistBtn = document.getElementById("single-product-wishlist");
+    if (!wishlistBtn) return;
+
+    const product = getCurrentProductDetails();
+    wishlistBtn.dataset.productName = product.name;
+
+    if (typeof window.syncWishlistButtons === "function") {
+        window.syncWishlistButtons();
+    }
+
+    wishlistBtn.addEventListener("click", () => {
+        const currentProduct = getCurrentProductDetails();
+        wishlistBtn.dataset.productName = currentProduct.name;
+
+        if (typeof window.toggleWishlistItem === "function") {
+            window.toggleWishlistItem(currentProduct, wishlistBtn);
+        }
+    });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    ensureWishlistNavLinks();
+    updateCartCount();
+    updateWishlistCount();
+    initSingleProductWishlist();
+});
 
 // Toggle empty-cart view
 function handleEmptyCartView() {
@@ -241,20 +346,25 @@ function dismissToast(toast) {
 }
 
 window.updateQty = function (change) {
-    const qtyInput = document.getElementById("product-quantity");
-    if (!qtyInput) return;
+    let quantityElement = document.querySelector(".qty"); // check class
+    let quantity = parseInt(quantityElement.textContent);
 
-    let currentValue = parseInt(qtyInput.value);
-    if (isNaN(currentValue)) currentValue = 1;
-    let newValue = Math.min(99, Math.max(1, currentValue + change));
-    qtyInput.value = newValue;
+    quantity += change;
 
-    const minusBtn = document.querySelector(".qty-btn.minus");
-    const plusBtn  = document.querySelector(".qty-btn.plus");
-    if (minusBtn) minusBtn.disabled = (newValue <= 1);
-    if (plusBtn)  plusBtn.disabled  = (newValue >= 99);
+    // ✅ Fix starts here
+    if (isNaN(quantity) || quantity < 1) {
+        quantity = 1;
+    }
+
+    if (quantity > 99) {
+        quantity = 99;
+    }
+    // ✅ Fix ends here
+
+    quantityElement.textContent = quantity;
+
+    updateCartTotal(); // already present function
 };
-
 window.handleAddToCart = function () {
     const nameElement     = document.getElementById("product-name");
     const priceElement    = document.getElementById("product-price");
@@ -1014,16 +1124,10 @@ window.shareWardrobe = function () {
         showToast("Wardrobe share link copied to clipboard!", "success");
 
         if (btn) {
-            var originalText   = btn.innerHTML;
-            btn.innerHTML      = '<i class="ri-checkbox-circle-line"></i> Link Copied!';
-            btn.style.color    = "#10b981";
-            setTimeout(function () { btn.innerHTML = originalText; btn.style.color = ""; }, 3000);
-        }
-
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(shareUrl).catch(function () { fallbackCopyText(shareUrl); });
-        } else {
-            fallbackCopyText(shareUrl);
+            var originalText = btn.innerHTML;
+            btn.innerHTML = '✅ Link Copied!';
+            btn.style.color = '#10b991';
+            setTimeout(function () { btn.innerHTML = originalText; btn.style.color = ''; }, 3000);
         }
     } catch (e) {
         console.error("Failed to generate share link: ", e);

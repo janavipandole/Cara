@@ -107,6 +107,7 @@
 </head>
 
 <body>
+    <a href="#product1" class="skip-link" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to Content</a>
   <div id="main">
     <div id="top">
       <div id="workingArea">
@@ -120,6 +121,14 @@
             <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
           </div>
         </section>
+        <div class="search-container">
+          <input 
+            type="text"
+            id="searchBar"
+            placeholder="Search products..."
+          >
+        </div>
+<section id="hero" class="hero-slider">
 
         <main>
         <section id="hero" class="hero-slider">
@@ -865,6 +874,7 @@ searchBar.addEventListener("keyup", function() {
 });
 
 </script>
+<script src="js/search-history.js" defer></script>
 </body>
 
 </html>

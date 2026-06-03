@@ -65,6 +65,12 @@
         <li><a href="try-on.html">Try-On</a></li>
         <li><a href="community.html">Community</a></li>
         <li><a href="promotions.html">Promotions</a></li>
+        <li>
+          <a href="wishlist.html" class="wishlist-nav-link" aria-label="Wishlist">
+            <i class="ri-heart-line"></i>
+            <span class="wishlist-count hidden">0</span>
+          </a>
+        </li>
         <li><a href="cart.html" id="lg-bag" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a></li>
         <li>
           <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
@@ -76,6 +82,10 @@
       </ul>
     </div>
     <div class="mobile">
+      <a href="wishlist.html" class="wishlist-nav-link" aria-label="Wishlist">
+        <i class="ri-heart-line"></i>
+        <span class="wishlist-count hidden">0</span>
+      </a>
       <a href="cart.html" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a>
       <i class="fas fa-outdent" id="bar"></i>
     </div>
@@ -199,6 +209,17 @@
           <button class="normal" onclick="handleAddToCart()">Add to Cart</button>
           <button class="normal" style="background: #088178; color: white; margin-left: 10px;"
             onclick="handleBuyNow()">Buy Now</button>
+          <button
+            class="normal product-wishlist-btn wishlist-btn"
+            id="single-product-wishlist"
+            type="button"
+            data-product-name="Men's Fashion T-Shirt"
+            aria-pressed="false"
+            aria-label="Add product to wishlist"
+          >
+            <i class="ri-heart-line" aria-hidden="true"></i>
+            <span>Wishlist</span>
+          </button>
           <button class="normal" style="background: var(--accent); color: white; margin-left: 10px;"
             onclick="window.location.href='try-on.html'">Try it On Virtually!</button>
         </div>
