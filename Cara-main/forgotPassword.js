@@ -17,7 +17,7 @@ document.getElementById('toggleConfirmPass').addEventListener('click', function 
 });
 
 /* form submit */
-document.getElementById('forgotForm').addEventListener('submit', function (e) {
+document.getElementById('forgotForm').addEventListener('submit', async function (e) {
   e.preventDefault();
 
   const email       = document.getElementById('forgotEmail').value.trim();
@@ -30,8 +30,9 @@ document.getElementById('forgotForm').addEventListener('submit', function (e) {
     return;
   }
 
-  if (!newPass || newPass.length < 6) {
-    showToast('Password must be at least 6 characters!', 'warning');
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
+  if (!newPass || !passwordRegex.test(newPass)) {
+    showToast('Password must have 8+ chars, 1 uppercase, 1 lowercase, 1 number, and 1 special character.', 'warning');
     return;
   }
 
@@ -47,32 +48,31 @@ document.getElementById('forgotForm').addEventListener('submit', function (e) {
     submitBtn.disabled = true;
   }
 
-  /* Simulate async request */
-  setTimeout(function () {
-    /* check if email exists in localStorage */
-    let users = JSON.parse(localStorage.getItem('users') || '[]');
-    const userIndex = users.findIndex(u => u.email === email);
+  /* check if email exists in localStorage */
+  let users = JSON.parse(localStorage.getItem('users') || '[]');
+  const userIndex = users.findIndex(u => u.email === email);
 
-    if (userIndex === -1) {
-      showToast('No account found with this email!', 'error');
-      /* Re-enable button on failure */
-      if (submitBtn) {
-        submitBtn.classList.remove('btn-loading');
-        submitBtn.disabled = false;
-      }
-      return;
+  if (userIndex === -1) {
+    showToast('No account found with this email!', 'error');
+    if (submitBtn) {
+      submitBtn.classList.remove('btn-loading');
+      submitBtn.disabled = false;
     }
+    return;
+  }
 
-    /* update password */
-    users[userIndex].password = newPass;
-    localStorage.setItem('users', JSON.stringify(users));
+  /* hash new password before storing */
+  users[userIndex].password = await hashPassword(newPass);
+  localStorage.setItem('users', JSON.stringify(users));
 
-    showToast('Password reset successful! Redirecting to login...', 'success');
+  if (submitBtn) {
+    submitBtn.classList.remove('btn-loading');
+    submitBtn.disabled = false;
+  }
 
-    /* redirect to login after success */
-    setTimeout(() => {
-      window.location.href = 'login.html';
-    }, 2000);
-  }, 1500);
+  showToast('Password reset successful! Redirecting to login...', 'success');
+
+  setTimeout(() => {
+    window.location.href = 'login.html';
+  }, 2000);
 });
-

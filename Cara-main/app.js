@@ -1053,3 +1053,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+/* --- START: PASSWORD HASHING UTILITY --- */
+/**
+ * Returns a hex SHA-256 digest of the given string using the Web Crypto API.
+ * Used to avoid storing plaintext passwords in localStorage.
+ * NOTE: Client-side hashing improves over plaintext but is not a substitute
+ *       for server-side authentication. Replace with a real backend when ready.
+ */
+async function hashPassword(password) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    return Array.from(new Uint8Array(hashBuffer))
+        .map(b => b.toString(16).padStart(2, '0'))
+        .join('');
+}
+/* --- END: PASSWORD HASHING UTILITY --- */
