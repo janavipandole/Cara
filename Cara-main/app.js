@@ -1049,7 +1049,12 @@ document.addEventListener('DOMContentLoaded', () => {
     newsletterForm.addEventListener('submit', function (e) {
       e.preventDefault();
       const email = this.querySelector('input[type="email"]').value.trim();
-      if (email) showToast('Thanks for subscribing!', 'success');
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (email && emailRegex.test(email)) {
+        showToast('Thanks for subscribing!', 'success');
+      } else {
+        showToast('Please enter a valid email address.', 'warning');
+      }
     });
   }
 });
