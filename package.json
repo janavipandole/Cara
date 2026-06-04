@@ -33,6 +33,10 @@
   "bugs": {
     "url": "https://github.com/janavipandole/Cara/issues"
   },
-  "homepage": "https://github.com/janavipandole/Cara#readme"
+  "homepage": "https://github.com/janavipandole/Cara#readme",
+  "dependencies": {
+    "postcss": "^8.5.15",
+    "postcss-cli": "^11.0.1",
+    "postcss-discard-duplicates": "^8.0.0"
+  }
 }
-

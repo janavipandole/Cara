@@ -57,7 +57,7 @@
   <meta name="theme-color" content="#000000" />
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="style.css?v=2" />
+  <link rel="stylesheet" href="cleaner.css?v=2" />
   <link rel="stylesheet" href="header-fix.css" />
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
@@ -70,7 +70,7 @@
     body {
       font-family: Arial, sans-serif;
       margin: 0;
-      padding: 20px;
+      padding: 0px;
       line-height: 1.8;
     }
 
@@ -121,17 +121,10 @@
             <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
           </div>
         </section>
-        <div class="search-container">
-          <input 
-            type="text"
-            id="searchBar"
-            placeholder="Search products..."
-          >
-        </div>
-<section id="hero" class="hero-slider">
+
 
         <main>
-        <section id="hero" class="hero-slider">
+          <section id="hero" class="hero-slider">
 
           <!-- Slide 1 -->
           <div class="slide active" style="background-image: url('images/hero4.png');">
@@ -831,7 +824,6 @@
     var h = Math.ceil(header.getBoundingClientRect().height);
     document.documentElement.style.setProperty('--header-height', h + 'px');
     // also ensure body padding is in sync (in case header-fix.css missing)
-    document.body.style.paddingTop = h + 'px';
   }
 
   // Run early and on resize/load
