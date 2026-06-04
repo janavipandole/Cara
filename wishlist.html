@@ -450,6 +450,22 @@
 
     <script src="products.js"></script>
 
+    <!-- Wishlist Sharing Utility -->
+    <div style="max-width: 1200px; margin: 20px auto; padding: 0 20px; text-align: center;">
+      <button onclick="shareWishlist()" style="background: #088178; color: #fff; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 16px;">
+        <i class="ri-share-line"></i> Copy Shareable Wishlist Link
+      </button>
+    </div>
+    <script>
+    function shareWishlist() {
+      const items = localStorage.getItem("wishlist") || "[]";
+      const encoded = btoa(items);
+      const shareUrl = `${window.location.origin}${window.location.pathname}?import=${encoded}`;
+      navigator.clipboard.writeText(shareUrl).then(() => {
+        alert("Wishlist sharing link copied to clipboard!");
+      });
+    }
+    </script>
     <!-- Global Toast Component -->
     <div id="toast">
         <i class="ri-checkbox-circle-line" style="color: #088178; font-size: 20px;"></i>
