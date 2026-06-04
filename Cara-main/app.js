@@ -1044,12 +1044,16 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 /* --- END: CURRENT YEAR FUNCTIONALITY --- */
 document.addEventListener('DOMContentLoaded', () => {
-  const newsletterForm = document.querySelector('.newsletter-form');
-  if (newsletterForm) {
-    newsletterForm.addEventListener('submit', function (e) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  document.querySelectorAll('.newsletter-form').forEach(function (form) {
+    form.addEventListener('submit', function (e) {
       e.preventDefault();
       const email = this.querySelector('input[type="email"]').value.trim();
-      if (email) showToast('Thanks for subscribing!', 'success');
+      if (email && emailRegex.test(email)) {
+        showToast('Thanks for subscribing!', 'success');
+      } else {
+        showToast('Please enter a valid email address.', 'warning');
+      }
     });
-  }
+  });
 });
