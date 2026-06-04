@@ -86,10 +86,18 @@ function renderProducts(containerId, list) {
     // Star rating
     const starDiv = document.createElement('div');
     starDiv.className = 'star';
-    for (let i = 0; i < p.rating; i++) {
+    starDiv.setAttribute('aria-label', `Rating: ${p.rating} out of 5 stars`);
+    const fullStars = Math.floor(p.rating);
+    const hasHalf = (p.rating % 1) >= 0.5;
+    for (let i = 0; i < fullStars; i++) {
       const starIcon = document.createElement('i');
       starIcon.className = 'ri-star-fill';
       starDiv.appendChild(starIcon);
+    }
+    if (hasHalf) {
+      const halfIcon = document.createElement('i');
+      halfIcon.className = 'ri-star-half-fill';
+      starDiv.appendChild(halfIcon);
     }
     des.appendChild(starDiv);
 
