@@ -1,3 +1,18 @@
+// Global Runtime Error Boundary
+(function() {
+    window.addEventListener("error", function (event) {
+        if (document.getElementById("cara-error-boundary-overlay")) return;
+        const overlay = document.createElement("div");
+        overlay.id = "cara-error-boundary-overlay";
+        overlay.style.cssText = "position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:999999;display:flex;justify-content:center;align-items:center;color:#fff;font-family:sans-serif;padding:20px;";
+        const card = document.createElement("div");
+        card.style.cssText = "background:#fff;color:#333;padding:30px;border-radius:8px;max-width:500px;width:100%;box-shadow:0 4px 12px rgba(0,0,0,0.15);text-align:center;";
+        card.innerHTML = '<h2 style="color:#ef4444;margin-top:0;">Oops! Something went wrong</h2><p style="color:#555;margin-bottom:20px;">We encountered an unexpected error while loading this page.</p><div style="background:#f4f4f5;padding:12px;border-radius:6px;text-align:left;font-family:monospace;font-size:13px;color:#ef4444;overflow-x:auto;margin-bottom:25px;max-height:150px;">' + (event.message || "Unknown Runtime Error") + '</div><div style="display:flex;gap:10px;justify-content:center;"><button onclick="window.location.reload()" style="background:#088178;color:white;border:none;padding:10px 20px;border-radius:4px;cursor:pointer;font-weight:600;">Reload Page</button><button onclick="document.getElementById(\'cara-error-boundary-overlay\').remove()" style="background:#e4e4e7;color:#333;border:none;padding:10px 20px;border-radius:4px;cursor:pointer;">Dismiss</button></div>';
+        overlay.appendChild(card);
+        document.body.appendChild(overlay);
+    });
+})();
+
 // Mobile menu functionality using event delegation
 document.addEventListener("click", (e) => {
     const bar = e.target.closest("#bar");
