@@ -1,3 +1,21 @@
+// Focus Trapping Utility for WCAG 2.1 Accessibility compliance
+window.trapFocus = function(modalElement) {
+    if (!modalElement) return;
+    const focusable = modalElement.querySelectorAll('a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), [tabindex="0"]');
+    if (focusable.length === 0) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    first.focus();
+    modalElement.addEventListener("keydown", function (e) {
+        if (e.key !== "Tab") return;
+        if (e.shiftKey) {
+            if (document.activeElement === first) { last.focus(); e.preventDefault(); }
+        } else {
+            if (document.activeElement === last) { first.focus(); e.preventDefault(); }
+        }
+    });
+};
+
 // Mobile menu functionality using event delegation
 document.addEventListener("click", (e) => {
     const bar = e.target.closest("#bar");
