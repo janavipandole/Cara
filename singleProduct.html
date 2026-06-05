@@ -229,8 +229,20 @@
   </section>
 
   <section id="product-reviews" class="section-p1" style="border-top: 1px solid #eef; padding-top: 40px; margin-top: 20px;">
-    <h2>Customer Reviews</h2>
-    <p>What our customers are saying about this product</p>
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px;">
+      <div>
+        <h2>Customer Reviews</h2>
+        <p>What our customers are saying about this product</p>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <label for="review-sort" style="font-weight: 600;">Sort by:</label>
+        <select id="review-sort" onchange="sortReviews()" style="padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px; background: var(--bg-primary, #fff); color: var(--text-primary, #222); cursor: pointer;">
+          <option value="recent">Most Recent</option>
+          <option value="rating-desc">Rating: High to Low</option>
+          <option value="rating-asc">Rating: Low to High</option>
+        </select>
+      </div>
+    </div>
     
     <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 40px; margin-top: 30px;">
       <!-- Aggregate Rating -->
@@ -273,19 +285,41 @@
 
     <!-- Review List -->
     <div id="reviews-list" style="margin-top: 30px; display: flex; flex-direction: column; gap: 20px;">
-      <div style="border-bottom: 1px solid #eee; padding-bottom: 15px;">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-          <h4 style="margin: 0; font-size: 16px;">Debasmita B. <span style="color: #088178; font-size: 12px; margin-left: 8px;"><i class="ri-checkbox-circle-fill"></i> Verified Buyer</span></h4>
-          <span style="font-size: 12px; color: #777;">May 24, 2026</span>
-        </div>
-        <div style="color: #ffbd27; margin: 5px 0;"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
-        <p style="margin: 0; color: #555;">Excellent fit and fabric quality! Perfect summer wear.</p>
-      </div>
+      <!-- Loaded dynamically via JS -->
     </div>
   </section>
 
   <script>
+    // State management for reviews
+    const reviewsState = [
+      {
+        id: 1,
+        name: "Debasmita B.",
+        verified: true,
+        date: new Date("2026-05-24T12:00:00Z"),
+        rating: 5,
+        text: "Excellent fit and fabric quality! Perfect summer wear."
+      },
+      {
+        id: 2,
+        name: "Aarav S.",
+        verified: true,
+        date: new Date("2026-06-01T15:30:00Z"),
+        rating: 4,
+        text: "Comfortable material, stitching is strong. Delivery took 3 days."
+      },
+      {
+        id: 3,
+        name: "Kiara J.",
+        verified: false,
+        date: new Date("2026-05-15T09:00:00Z"),
+        rating: 3,
+        text: "Average product, color is slightly dimmer than the picture but fit is okay."
+      }
+    ];
+
     let currentRating = 0;
+    
     function setRating(rating) {
       currentRating = rating;
       document.getElementById('review-rating').value = rating;
@@ -301,6 +335,58 @@
       });
     }
 
+    function renderReviews() {
+      const list = document.getElementById('reviews-list');
+      if (!list) return;
+      list.innerHTML = '';
+
+      reviewsState.forEach(review => {
+        const item = document.createElement('div');
+        item.style.borderBottom = '1px solid #eee';
+        item.style.paddingBottom = '15px';
+
+        let starHtml = '';
+        for (let i = 0; i < 5; i++) {
+          if (i < review.rating) {
+            starHtml += '<i class="ri-star-fill" style="color: #ffbd27;"></i>';
+          } else {
+            starHtml += '<i class="ri-star-line" style="color: #ccc;"></i>';
+          }
+        }
+
+        const dateStr = review.date.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        });
+
+        item.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h4 style="margin: 0; font-size: 16px;">
+              ${sanitizeHTML(review.name)} 
+              ${review.verified ? '<span style="color: #088178; font-size: 12px; margin-left: 8px;"><i class="ri-checkbox-circle-fill"></i> Verified Buyer</span>' : ''}
+            </h4>
+            <span style="font-size: 12px; color: #777;">${dateStr}</span>
+          </div>
+          <div style="color: #ffbd27; margin: 5px 0;">${starHtml}</div>
+          <p style="margin: 0; color: #555;">${sanitizeHTML(review.text)}</p>
+        `;
+        list.appendChild(item);
+      });
+    }
+
+    function sortReviews() {
+      const sortVal = document.getElementById('review-sort').value;
+      if (sortVal === 'recent') {
+        reviewsState.sort((a, b) => b.date - a.date);
+      } else if (sortVal === 'rating-desc') {
+        reviewsState.sort((a, b) => b.rating - a.rating || b.date - a.date);
+      } else if (sortVal === 'rating-asc') {
+        reviewsState.sort((a, b) => a.rating - b.rating || b.date - a.date);
+      }
+      renderReviews();
+    }
+
     function submitReview(e) {
       e.preventDefault();
       const text = document.getElementById('review-text').value;
@@ -311,32 +397,32 @@
         return;
       }
 
-      status.innerHTML = `<span style="color: #088178;"><i class="ri-checkbox-circle-line"></i> Thank you! Review submitted successfully.</span>`;
-      
-      const list = document.getElementById('reviews-list');
-      const newReview = document.createElement('div');
-      newReview.style.borderBottom = '1px solid #eee';
-      newReview.style.paddingBottom = '15px';
-      
-      let starHtml = '';
-      for (let i = 0; i < 5; i++) {
-        starHtml += i < currentRating ? '<i class="ri-star-fill" style="color: #ffbd27;"></i>' : '<i class="ri-star-line"></i>';
-      }
+      const newReview = {
+        id: reviewsState.length + 1,
+        name: "Anonymous",
+        verified: true,
+        date: new Date(),
+        rating: currentRating,
+        text: text
+      };
 
-      newReview.innerHTML = `
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-          <h4 style="margin: 0; font-size: 16px;">Anonymous <span style="color: #088178; font-size: 12px; margin-left: 8px;"><i class="ri-checkbox-circle-fill"></i> Verified Buyer</span></h4>
-          <span style="font-size: 12px; color: #777;">Today</span>
-        </div>
-        <div style="color: #ffbd27; margin: 5px 0;">${starHtml}</div>
-        <p style="margin: 0; color: #555;">${text}</p>
-      `;
-      list.insertBefore(newReview, list.firstChild);
+      reviewsState.push(newReview);
+      
+      // Auto switch/reset to recent sorting
+      document.getElementById('review-sort').value = 'recent';
+      sortReviews();
+
+      status.innerHTML = `<span style="color: #088178;"><i class="ri-checkbox-circle-line"></i> Thank you! Review submitted successfully.</span>`;
       
       document.getElementById('review-form').reset();
       setRating(0);
       setTimeout(() => status.innerHTML = '', 3000);
     }
+
+    // Initialize rendering
+    document.addEventListener('DOMContentLoaded', () => {
+      sortReviews();
+    });
   </script>
 
   <section id="product1" class="section-p1">
