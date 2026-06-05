@@ -1,3 +1,12 @@
+// Register Service Worker for Offline support
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js')
+            .then(reg => console.log('ServiceWorker registered successfully', reg.scope))
+            .catch(err => console.log('ServiceWorker registration failed: ', err));
+    });
+}
+
 // Mobile menu functionality using event delegation
 document.addEventListener("click", (e) => {
     const bar = e.target.closest("#bar");
