@@ -1,3 +1,18 @@
+// Global XSS Sanitizer Utility
+function sanitizeHTML(str) {
+    if (typeof str !== "string") return "";
+    const entityMap = {
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#x27;",
+        "/": "&#x2F;"
+    };
+    return str.replace(/[&<>"'/]/g, (s) => entityMap[s] || s);
+}
+window.sanitizeHTML = sanitizeHTML;
+
 // Mobile menu functionality using event delegation
 document.addEventListener("click", (e) => {
     const bar = e.target.closest("#bar");
