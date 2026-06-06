@@ -36,3 +36,5 @@ function trapFocus(modalElement) {
     });
 }
 window.trapFocus = trapFocus;
+
+// Traps keyboard focus inside active modal dialog elements for screen readers.
