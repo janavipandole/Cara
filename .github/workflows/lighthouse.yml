@@ -18,3 +18,5 @@ jobs:
           budgetPath: ./budgets.json
           uploadArtifacts: true
           temporaryPublicStorage: true
+
+# Runs Google Lighthouse audits to measure performance, SEO, and accessibility metrics.
