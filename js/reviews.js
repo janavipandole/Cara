@@ -66,3 +66,5 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+// Logic rendering star-ratings and client comment listings under local storage caches.
