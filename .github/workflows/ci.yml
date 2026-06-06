@@ -32,3 +32,5 @@ jobs:
         run: |
           echo "Verifying project HTML/CSS files..."
           npx htmlhint "**/*.html" || true
+
+# Continuous integration build validation pipeline for syntax and formatting checks.
