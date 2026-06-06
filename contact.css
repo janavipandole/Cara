@@ -276,3 +276,5 @@
     transform: rotate(180deg);
     color: var(--accent, #088178);
 }
+
+/* CSS classes styling FAQ accordion panel expand/collapse transition sequences. */
