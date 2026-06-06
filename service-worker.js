@@ -26,3 +26,5 @@ self.addEventListener('fetch', (e) => {
     })
   );
 });
+
+// Handles caching static HTML, CSS, and image assets for offline recovery support.
