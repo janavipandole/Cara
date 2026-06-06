@@ -34,3 +34,5 @@ jobs:
             M: 101-500
             L: 501-1000
             XL: 1001-5000
+
+# Automatically adds diff size labels (XS, S, M, L, XL) to pull request reviews.
