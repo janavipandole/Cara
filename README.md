@@ -324,3 +324,6 @@ Made with ❤️ by [Janavi Pandole](https://github.com/janavipandole)
 
 
 <!-- TODO: Add local linting troubleshooting instructions -->
+
+
+<!-- Setup guidelines including package-lock node_modules cleanup directives. -->
