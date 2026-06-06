@@ -32,3 +32,5 @@ jobs:
                 labels: ["needs-more-info"]
               });
             }
+
+# Enforces descriptive guidelines validation check on incoming tickets.
