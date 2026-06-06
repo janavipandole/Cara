@@ -12,3 +12,6 @@ We will use Architecture Decision Records (ADRs) to document significant archite
 ## Consequences
 - Developers must submit an ADR when proposing key architectural changes.
 - Decisions are tracked and easily reviewable by future maintainers.
+
+
+<!-- ADR 1: Decision record framework mapping core styling and database structures. -->
