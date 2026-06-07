@@ -49,33 +49,33 @@ const close = document.getElementById("close");
 
 function updateAuthUI() {
     const loggedInUser = localStorage.getItem("loggedInUser");
-    const loginLinks = document.querySelectorAll('a[href="login.html"]');
+    const loggedInName = localStorage.getItem("loggedInUserName");
+    const loginLinks   = document.querySelectorAll('a[href="login.html"]');
 
     loginLinks.forEach(link => {
-        // Skip links in the footer or elsewhere if they don't have icons (optional)
-        // But for simplicity, we can transform them all.
         if (loggedInUser) {
-            // Change to Logout
             if (link.innerHTML.includes('ri-user-3-line') || link.innerHTML.includes('fa-user')) {
+                // Icon-based link — swap to logout icon with name in aria-label
                 link.innerHTML = '<i class="ri-logout-box-r-line"></i>';
-                link.setAttribute('aria-label', 'Logout');
+                link.setAttribute('aria-label', loggedInName ? `Logout ${loggedInName}` : 'Logout');
             } else {
-                link.innerText = "Logout";
+                // Text-based link — show personalised greeting
+                link.innerText = loggedInName ? `Hi, ${loggedInName}` : 'Logout';
             }
             link.href = "#";
             link.onclick = function (e) {
                 e.preventDefault();
                 localStorage.removeItem("loggedInUser");
+                localStorage.removeItem("loggedInUserName");
                 localStorage.removeItem("appliedCoupon");
                 window.location.href = "login.html";
             };
         } else {
-            // Revert to Login
             if (link.innerHTML.includes('ri-logout-box-r-line')) {
                 link.innerHTML = '<i class="ri-user-3-line"></i>';
                 link.setAttribute('aria-label', 'Login');
-            } else if (link.innerText === "Logout") {
-                link.innerText = "Login"; // or "Sign In"
+            } else if (link.innerText.startsWith('Hi,') || link.innerText === 'Logout') {
+                link.innerText = "Login";
             }
             link.href = "login.html";
             link.onclick = null;
