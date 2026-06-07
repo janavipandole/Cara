@@ -1,0 +1,10 @@
+frontend:
+  - '*.html'
+  - '*.css'
+  - '*.js'
+  - 'js/**/*'
+  - 'assets/**/*'
+backend:
+  - 'backend/**/*'
+workflows:
+  - '.github/workflows/**/*'
