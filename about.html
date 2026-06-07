@@ -508,6 +508,42 @@
       </div>
     </div>
 
+    <!-- FAQ Accordion -->
+    <section id="faq-accordion-section" class="section-p1" style="max-width: 800px; margin: 40px auto; padding: 0 20px;">
+      <h2 style="text-align: center; margin-bottom: 20px;">Frequently Asked Questions</h2>
+      <div class="faq-item" style="border-bottom: 1px solid #cbd5e1; padding: 15px 0;">
+        <button onclick="toggleFaq(this)" style="width: 100%; text-align: left; background: none; border: none; font-size: 18px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+          <span>What is the return policy?</span>
+          <i class="ri-add-line"></i>
+        </button>
+        <div class="faq-answer" style="display: none; padding-top: 10px; color: #475569;">
+          We offer a 30-day return policy for all unworn apparel items with tags intact.
+        </div>
+      </div>
+      <div class="faq-item" style="border-bottom: 1px solid #cbd5e1; padding: 15px 0;">
+        <button onclick="toggleFaq(this)" style="width: 100%; text-align: left; background: none; border: none; font-size: 18px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+          <span>Do you ship internationally?</span>
+          <i class="ri-add-line"></i>
+        </button>
+        <div class="faq-answer" style="display: none; padding-top: 10px; color: #475569;">
+          Yes! We ship to over 50 countries worldwide. Shipping fees are calculated at checkout.
+        </div>
+      </div>
+    </section>
+    
+    <script>
+    function toggleFaq(btn) {
+      const answer = btn.nextElementSibling;
+      const icon = btn.querySelector("i");
+      if (answer.style.display === "none" || !answer.style.display) {
+        answer.style.display = "block";
+        icon.className = "ri-subtract-line";
+      } else {
+        answer.style.display = "none";
+        icon.className = "ri-add-line";
+      }
+    }
+    </script>
     <section id="about-app">
       <h1>Download Our <a href="#">App</a></h1>
       <div class="video">
