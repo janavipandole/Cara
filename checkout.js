@@ -295,3 +295,4 @@ if (document.readyState === "interactive" || document.readyState === "complete")
 document.getElementById('successOverlay').addEventListener('click', function (e) {
   if (e.target === this) this.classList.remove('show');
 });
+// Advanced validation routines checking postal formats and shipping address boundaries.

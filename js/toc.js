@@ -36,3 +36,5 @@ document.addEventListener("DOMContentLoaded", () => {
     parentContainer.style.display = "flex";
     parentContainer.style.flexDirection = "row";
 });
+
+// Scroll observer updating table-of-contents highlight selectors dynamically.

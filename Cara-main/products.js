@@ -1,36 +1,23 @@
+// Each product must have a unique image in images/products/.
+// Only add new entries here when you have a corresponding unique image file.
+// Currently 16 unique images exist: f1-f8.jpg and n1-n8.jpg.
 const products = [
-  { id: 1,  brand: "Nike",          name: "Tropical Hibiscus Summer Shirt",   price: 2499, img: "images/products/f1.jpg", rating: 5, category: "street" },
-  { id: 2,  brand: "H&M",           name: "White Palm Leaf Casual Shirt",     price: 1299, img: "images/products/f2.jpg", rating: 5, category: "minimal" },
-  { id: 3,  brand: "Zara",          name: "Vintage Rose Garden Shirt",        price: 3490, img: "images/products/f3.jpg", rating: 5, category: "minimal" },
-  { id: 4,  brand: "Levi's",        name: "Sakura Blossom Floral Shirt",      price: 2799, img: "images/products/f4.jpg", rating: 5, category: "minimal" },
-  { id: 5,  brand: "Puma",          name: "Pink Peony Patterned Shirt",       price: 1999, img: "images/products/f5.jpg", rating: 5, category: "street" },
-  { id: 6,  brand: "Gap",           name: "Dual-Tone Corduroy Shirt",         price: 2299, img: "images/products/f6.jpg", rating: 5, category: "street" },
-  { id: 7,  brand: "Uniqlo",        name: "Embroidered Linen Trousers",       price: 3990, img: "images/products/f7.jpg", rating: 5, category: "street" },
-  { id: 8,  brand: "Mango",         name: "Cat Print Long Sleeve Blouse",     price: 2699, img: "images/products/f8.jpg", rating: 5, category: "minimal" },
-  { id: 9,  brand: "Tommy Hilfiger",name: "Sky Blue Mandarin Collar Shirt",   price: 4499, img: "images/products/n1.jpg", rating: 5, category: "formal" },
-  { id: 10, brand: "Ralph Lauren",  name: "Navy Textured Formal Shirt",       price: 6999, img: "images/products/n2.jpg", rating: 5, category: "formal" },
-  { id: 11, brand: "Calvin Klein",  name: "Classic White Cotton Shirt",       price: 5499, img: "images/products/n3.jpg", rating: 5, category: "formal" },
-  { id: 12, brand: "Zara",          name: "Sandstone Tactical Utility Shirt", price: 3990, img: "images/products/n4.jpg", rating: 5, category: "formal" },
-  { id: 13, brand: "Nike",          name: "Denim Blue Everyday Shirt",        price: 2799, img: "images/products/n5.jpg", rating: 5, category: "minimal" },
-  { id: 14, brand: "Levi's",        name: "Vertical Stripe Chino Shorts",     price: 2499, img: "images/products/n6.jpg", rating: 5, category: "minimal" },
-  { id: 15, brand: "Uniqlo",        name: "Khaki Safari Work Shirt",          price: 3499, img: "images/products/n7.jpg", rating: 5, category: "minimal" },
-  { id: 16, brand: "Puma",          name: "Deep Charcoal Casual Shirt",       price: 1799, img: "images/products/n8.jpg", rating: 5, category: "minimal" },
-  { id: 17, brand: "Adidas",        name: "Black Tech Training Tee",          price: 1899, img: "images/products/f1.jpg", rating: 4, category: "street" },
-  { id: 18, brand: "Zara",          name: "Olive Cargo Utility Pants",         price: 3299, img: "images/products/f2.jpg", rating: 4.2, category: "street" },
-  { id: 19, brand: "H&M",           name: "Peach Knit Sweater",               price: 2199, img: "images/products/f3.jpg", rating: 4.3, category: "minimal" },
-  { id: 20, brand: "Levi's",        name: "Indigo Denim Jacket",              price: 4999, img: "images/products/f4.jpg", rating: 4.7, category: "street" },
-  { id: 21, brand: "Puma",          name: "Red Logo Hoodie",                  price: 2999, img: "images/products/f5.jpg", rating: 4.1, category: "street" },
-  { id: 22, brand: "Gap",           name: "Navy Sweatpants",                  price: 1999, img: "images/products/f6.jpg", rating: 4.0, category: "minimal" },
-  { id: 23, brand: "Uniqlo",        name: "White Crewneck Tee",               price: 1499, img: "images/products/f7.jpg", rating: 4.4, category: "minimal" },
-  { id: 24, brand: "Mango",         name: "Vintage Floral Mini Dress",         price: 2799, img: "images/products/f8.jpg", rating: 4.5, category: "minimal" },
-  { id: 25, brand: "Tommy Hilfiger",name: "Grey Polo Shirt",                  price: 3599, img: "images/products/n1.jpg", rating: 4.3, category: "formal" },
-  { id: 26, brand: "Ralph Lauren",  name: "Cream Chino Pants",                price: 4799, img: "images/products/n2.jpg", rating: 4.6, category: "formal" },
-  { id: 27, brand: "Calvin Klein",  name: "Black Leather Belt",               price: 1199, img: "images/products/n3.jpg", rating: 4.0, category: "minimal" },
-  { id: 28, brand: "Zara",          name: "Sandstone Knit Blazer",            price: 5299, img: "images/products/n4.jpg", rating: 4.5, category: "formal" },
-  { id: 29, brand: "Nike",          name: "White Running Shorts",             price: 1899, img: "images/products/n5.jpg", rating: 4.2, category: "street" },
-  { id: 30, brand: "Levi's",        name: "Classic Denim Jeans",              price: 3999, img: "images/products/n6.jpg", rating: 4.1, category: "street" },
-  { id: 31, brand: "Uniqlo",        name: "Camel Overshirt",                  price: 3299, img: "images/products/n7.jpg", rating: 4.4, category: "minimal" },
-  { id: 32, brand: "Puma",          name: "Blue Windbreaker Jacket",          price: 2699, img: "images/products/n8.jpg", rating: 4.3, category: "street" },
+  { id: 1,  brand: "Nike",          name: "Tropical Hibiscus Summer Shirt",   price: 2499, img: "images/products/f1.jpg", rating: 5,   category: "street"  },
+  { id: 2,  brand: "H&M",           name: "White Palm Leaf Casual Shirt",     price: 1299, img: "images/products/f2.jpg", rating: 5,   category: "minimal" },
+  { id: 3,  brand: "Zara",          name: "Vintage Rose Garden Shirt",        price: 3490, img: "images/products/f3.jpg", rating: 5,   category: "minimal" },
+  { id: 4,  brand: "Levi's",        name: "Sakura Blossom Floral Shirt",      price: 2799, img: "images/products/f4.jpg", rating: 5,   category: "minimal" },
+  { id: 5,  brand: "Puma",          name: "Pink Peony Patterned Shirt",       price: 1999, img: "images/products/f5.jpg", rating: 5,   category: "street"  },
+  { id: 6,  brand: "Gap",           name: "Dual-Tone Corduroy Shirt",         price: 2299, img: "images/products/f6.jpg", rating: 5,   category: "street"  },
+  { id: 7,  brand: "Uniqlo",        name: "Embroidered Linen Trousers",       price: 3990, img: "images/products/f7.jpg", rating: 5,   category: "street"  },
+  { id: 8,  brand: "Mango",         name: "Cat Print Long Sleeve Blouse",     price: 2699, img: "images/products/f8.jpg", rating: 5,   category: "minimal" },
+  { id: 9,  brand: "Tommy Hilfiger",name: "Sky Blue Mandarin Collar Shirt",   price: 4499, img: "images/products/n1.jpg", rating: 5,   category: "formal"  },
+  { id: 10, brand: "Ralph Lauren",  name: "Navy Textured Formal Shirt",       price: 6999, img: "images/products/n2.jpg", rating: 5,   category: "formal"  },
+  { id: 11, brand: "Calvin Klein",  name: "Classic White Cotton Shirt",       price: 5499, img: "images/products/n3.jpg", rating: 5,   category: "formal"  },
+  { id: 12, brand: "Zara",          name: "Sandstone Tactical Utility Shirt", price: 3990, img: "images/products/n4.jpg", rating: 5,   category: "formal"  },
+  { id: 13, brand: "Nike",          name: "Denim Blue Everyday Shirt",        price: 2799, img: "images/products/n5.jpg", rating: 5,   category: "minimal" },
+  { id: 14, brand: "Levi's",        name: "Vertical Stripe Chino Shorts",     price: 2499, img: "images/products/n6.jpg", rating: 5,   category: "minimal" },
+  { id: 15, brand: "Uniqlo",        name: "Khaki Safari Work Shirt",          price: 3499, img: "images/products/n7.jpg", rating: 5,   category: "minimal" },
+  { id: 16, brand: "Puma",          name: "Deep Charcoal Casual Shirt",       price: 1799, img: "images/products/n8.jpg", rating: 5,   category: "minimal" },
 ];
 
 function renderProducts(containerId, list) {
@@ -86,10 +73,18 @@ function renderProducts(containerId, list) {
     // Star rating
     const starDiv = document.createElement('div');
     starDiv.className = 'star';
-    for (let i = 0; i < p.rating; i++) {
+    starDiv.setAttribute('aria-label', `Rating: ${p.rating} out of 5 stars`);
+    const fullStars = Math.floor(p.rating);
+    const hasHalf = (p.rating % 1) >= 0.5;
+    for (let i = 0; i < fullStars; i++) {
       const starIcon = document.createElement('i');
       starIcon.className = 'ri-star-fill';
       starDiv.appendChild(starIcon);
+    }
+    if (hasHalf) {
+      const halfIcon = document.createElement('i');
+      halfIcon.className = 'ri-star-half-fill';
+      starDiv.appendChild(halfIcon);
     }
     des.appendChild(starDiv);
 

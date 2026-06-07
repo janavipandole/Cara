@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // On successful registration
         showToast('Signup successful! Welcome to Cara.', 'success');
         localStorage.setItem('loggedInUser', email);
+        localStorage.setItem('loggedInUserName', name);
         setTimeout(() => {
             window.location.href = 'index.html';
         }, 1500);
