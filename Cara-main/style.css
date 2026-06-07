@@ -264,7 +264,7 @@
     --shadow-hover: rgba(124, 58, 237, 0.3);
     --accent: #06b6d4;
     --feature-bg-1: #7c3aed;
-    --feature-bg-2: #10b981;
+    --feature-bg-2: #10b991;
     --feature-bg-3: #3b82f6;
     --feature-bg-4: #8b5cf6;
     --feature-bg-5: #ec4899;
@@ -379,7 +379,7 @@ button.white:hover {
 
 /* Click/Active State for White/Inverted Buttons */
 button.white:active {
-    transform: translateY(0) scale(0.98);
+    transform: translateY(0) scale(0.99);
     box-shadow: 0 2px 5px var(--shadow);
 }
 
@@ -6445,3 +6445,115 @@ footer .copyright {
 .style-card:hover{
   transform:translateY(-6px);
 }
+
+#header img{
+    width: 150px;
+    height: auto;
+    object-fit: contain;
+    margin-left: -10px;
+}
+
+
+/* AI FASHION BANNER */
+
+.relevant-fashion-banner{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 35px;
+    padding: 35px 6%;
+    background: linear-gradient(to right, #f5f5f5, #edf7f6);
+    margin-bottom: 35px;
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.rf-content{
+    flex: 1;
+}
+
+.rf-badge{
+    display: inline-block;
+    background: #088178;
+    color: white;
+    padding: 8px 18px;
+    border-radius: 30px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
+.rf-content h1{
+    font-size: 42px;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    color: #1f1f1f;
+    max-width: 450px;
+    font-weight: 700;
+}
+
+.rf-content p{
+    font-size: 16px;
+    line-height: 1.7;
+    color: #555;
+    max-width: 500px;
+    margin-bottom: 24px;
+}
+
+.rf-btn{
+    display: inline-block;
+    padding: 13px 26px;
+    background: #088178;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: 0.3s ease;
+}
+
+.rf-btn:hover{
+    background: #066b63;
+    transform: translateY(-2px);
+}
+
+.rf-image{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.rf-image img{
+    width: 100%;
+    max-width: 520px;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+}
+
+/* RESPONSIVE */
+
+@media(max-width: 950px){
+
+    .relevant-fashion-banner{
+        flex-direction: column;
+        text-align: center;
+        padding: 30px 5%;
+    }
+
+    .rf-content h1{
+        font-size: 34px;
+        max-width: 100%;
+    }
+
+    .rf-content p{
+        margin: auto;
+        margin-bottom: 22px;
+    }
+
+    .rf-image img{
+        height: auto;
+    }
