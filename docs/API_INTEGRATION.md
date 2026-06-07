@@ -40,3 +40,6 @@ This document details the schema patterns, endpoint contracts, and network reque
     "total": 156.0
   }
   ```
+
+
+<!-- Guide for external developers integrating backend services and SQLite database pipelines. -->
