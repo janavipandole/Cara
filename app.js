@@ -1,3 +1,31 @@
+// Auto Apply Promo Code from URL Search Query Params
+document.addEventListener("DOMContentLoaded", () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const promoCode = urlParams.get("promo");
+    if (promoCode) {
+        const cleanedPromo = promoCode.trim().toUpperCase();
+        if (cleanedPromo === "CARA20" || cleanedPromo === "WELCOME10") {
+            localStorage.setItem("appliedCoupon", cleanedPromo);
+            window.appliedCoupon = cleanedPromo;
+            setTimeout(() => {
+                if (typeof showToast === "function") {
+                    showToast(`Promo code ${cleanedPromo} successfully applied from link!`, "success");
+                }
+                const itemsContainer = document.getElementById("cart-items-container");
+                if (itemsContainer && typeof loadCart === "function") {
+                    loadCart();
+                }
+            }, 500);
+        } else {
+            setTimeout(() => {
+                if (typeof showToast === "function") {
+                    showToast(`Invalid promo code "${cleanedPromo}" in link.`, "error");
+                }
+            }, 500);
+        }
+    }
+});
+
 // Mobile menu functionality using event delegation
 document.addEventListener("click", (e) => {
     const bar = e.target.closest("#bar");

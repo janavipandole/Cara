@@ -262,3 +262,5 @@ function toggleFaq(questionEl) {
     if (answerEl) answerEl.classList.add("open");
   }
 }
+
+// Timeline animator simulating transitions through shipping progress milestones.
