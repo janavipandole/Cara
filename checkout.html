@@ -17,15 +17,15 @@
   <div class="checkout-container">
 
     <div class="checkout-header">
-      <a href="cart.html" class="back-to-cart" aria-label="Back to cart">
+      <div class="back-to-cart">
+        <a href="cart.html" class="back-link" aria-label="Back to cart"><i class="ri-arrow-left-line"></i> Back to Cart</a>
         <a href="#" id="logout-btn" style="display:none">Logout</a>
-        <i class="ri-arrow-left-line"></i> Back to Cart
-      </a>
+      </div>
       <div class="logo">
         <span>Cara</span>
       </div>
     </div>
-  </nav>
+
 
   <!-- ══ PAGE ══ -->
   <div class="page-wrapper">
@@ -64,26 +64,16 @@
 
         <div class="input-group">
           <label for="phone">Phone Number</label>
-          <input type="tel" id="phone" placeholder="Enter phone number" data-validate="phone" required>
+          <input type="tel" id="phone" placeholder="Enter phone number" data-validate="phone" autocomplete="tel" required>
           <span class="error-msg"></span>
         </div>
-
-          <div class="input-group">
-            <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone" placeholder="Enter phone number" autocomplete="tel" required>
-          </div>
         </fieldset>
 
       <div class="input-group">
         <label for="address">Delivery Address</label>
-        <textarea id="address" placeholder="Enter full address" data-validate="address" required></textarea>
+        <textarea id="address" placeholder="Enter full address" data-validate="address" autocomplete="street-address" required></textarea>
         <span class="error-msg"></span>
       </div>
-
-          <div class="input-group">
-            <label for="address">Delivery Address</label>
-            <textarea id="address" name="address" placeholder="Enter full address" autocomplete="street-address" required></textarea>
-          </div>
 
         <div class="input-group">
           <label for="city">City</label>
@@ -173,15 +163,21 @@
             <span class="error-msg"></span>
           </div>
 
+      <!-- COLUMN PREVIEW OR SIDEBAR -->
+      <div class="totals-sidebar">
+        <!-- Preview and Totals -->
+        <fieldset class="card">
+          <legend class="card-title">
+            <i class="ri-shopping-bag-3-line"></i> Order Summary
+          </legend>
           <div class="order-item">
-            <div class="item-thumb">🌺</div>
+            <div class="item-thumb"><i class="ri-shirt-line"></i></div>
             <div class="item-info">
               <div class="item-name">Tropical Print Shirt</div>
               <div class="item-meta">H&M · Size L · Qty 2</div>
             </div>
-            <div class="item-price">₹1,798</div>
+            <div class="item-price">₹1,799</div>
           </div>
-
           <div class="totals">
             <div class="total-row">
               <span>Subtotal</span>
@@ -200,18 +196,16 @@
               <span>₹4,302</span>
             </div>
           </div>
-
-          <button class="submit-btn" onclick="placeOrder()">
+          <button type="submit" class="submit-btn">
             <i class="ri-shield-check-line"></i> Place Your Order
           </button>
-
           <div class="secure-badge">
             <i class="ri-lock-line"></i> 100% Secure Checkout
           </div>
-        </div>
-      </div><!-- /right -->
+        </fieldset>
+      </div>
 
-    </div><!-- /checkout-grid -->
+    </form>
   </div><!-- /page-wrapper -->
 
   <!-- ══ SUCCESS POPUP ══ -->

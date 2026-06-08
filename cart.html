@@ -35,58 +35,71 @@
        Root cause: .cartmain and #cart-content-wrapper had no max-width
        or centering, so content floated unanchored to the right.
     ================================================================ */
-     body {
+    /* ================================================================
+       FIX #954 — Cart page layout misaligned / centered layout
+    ================================================================ */
+    body {
       font-family: Arial, sans-serif;
       margin: 0;
-      padding: 20px;
-      line-height: 1.8;
+      padding: 0;
+      line-height: 1.6;
     }
+
     #cart-content-wrapper {
       width: 100%;
-      padding: 0 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 24px;
       box-sizing: border-box;
     }
 
     .cartmain {
       width: 100%;
-      max-width: 1400px;
-      margin: 0 auto;
+      margin: 40px 0;
     }
 
-    @media (min-width: 768px) {
-      #cart-add {
-        display: flex;
-        justify-content: flex-end;
+    /* Desktop Two-Column Layout Grid */
+    .cart-grid-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      align-items: start;
+      margin-top: 30px;
+    }
+
+    @media (min-width: 992px) {
+      .cart-grid-layout {
+        grid-template-columns: 7fr 3fr; /* Balances the layout perfectly */
       }
-      .subtotal {
-        width: 100%;
-        max-width: 450px;
+    }
+
+    .cart-items-column {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Header styling matching grid definitions */
+    /* Header styling matching grid definitions — Updated to 5 columns for the delete option */
+.cart-column-header {
+  display: grid;
+  /* Added a 0.5fr column at the end for the trash/remove icon */
+  grid-template-columns: 3.5fr 1fr 1.5fr 1.2fr 0.5fr; 
+  padding: 15px 20px;
+  border-bottom: 2px solid var(--border-color, #ccc);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+    @media (max-width: 768px) {
+      .cart-column-header {
+        display: none; /* Hide headings smoothly on tablet/mobile views */
       }
-    }
-
-    /* Align the .cart-header labels with the actual cart-item-row grid.
-       cart-item-row uses a 5-column grid on desktop:
-       [Product 3.5fr] [Price 1fr] [Qty 1.5fr] [Subtotal 1.2fr] [Remove 0.5fr]
-       The old .cart-header used plain flex with no matching widths. */
-    .cart-header {
-      display: none;
-    }
-
-    .cart-column-header {
-      border-radius: 8px 8px 0 0;
-      border: 1px solid var(--border-color);
-      border-bottom: 2px solid var(--border-color);
-      margin-bottom: -1px;
     }
 
     /* ================================================================
-       FIX #964 — Cart item quantity & subtotal overlapping on mobile
-       Root cause: on screens below 768 px, cart-item-right is display:flex
-       with 4 children (price, qty-selector, subtotal, actions) packed in
-       one row — they overflow and collide.
-       Fix: switch to a 2x2 grid on small screens so each element has room.
+       FIX #964 — Cart item quantity & subtotal layout responsive grid
     ================================================================ */
-
     @media (max-width: 767px) {
       .cart-item-row {
         padding: 16px;
@@ -101,11 +114,6 @@
         width: 100%;
       }
 
-      .cart-item-price {
-        font-size: 14px;
-        font-weight: 600;
-      }
-
       .qty-selector {
         justify-self: start;
       }
@@ -116,50 +124,216 @@
         text-align: right;
         justify-self: end;
       }
-
-      .cart-item-actions {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        gap: 8px;
-        grid-column: span 2;
-        border-top: 1px solid var(--border-color);
-        padding-top: 10px;
-        margin-top: 2px;
-      }
-
-      .cart-item-remove {
-        color: var(--text-secondary);
-        width: 36px;
-        height: 36px;
-      }
-
-      .cart-item-img-wrap {
-        width: 70px;
-        height: 70px;
-        flex-shrink: 0;
-      }
-
-      .cart-item-title {
-        font-size: 14px;
-      }
     }
 
-    /* Extra-small phones: tighten the layout further */
-    @media (max-width: 420px) {
-      #cart-content-wrapper {
-        padding: 0 12px;
-      }
-
-      .cart-item-row {
-        padding: 14px 12px;
-      }
-
-      .cart-item-img-wrap {
-        width: 60px;
-        height: 60px;
-      }
+    #header #navbar {
+      margin: 0;
+      padding: 0;
     }
+
+    /* Forces the dynamic product template at the bottom to stay hidden until triggered */
+/* Forces the dynamic product template at the bottom to stay hidden until triggered */
+.quickview-or-product-template, 
+[onclick*="shareWardrobe"] + div,
+body > div:last-of-type:not(#cart-content-wrapper),
+body > div:has(#siteLogo) ~ div:not(#cart-content-wrapper):not(.cartmain),
+footer ~ div,
+footer ~ span,
+footer + div {
+    display: none !important;
+}
+
+/* ==========================================================================
+   HIGH-SPECIFICITY OVERRIDE: COMPACT BANNER-MATCHING FOOTER
+   ========================================================================== */
+body footer.section-p1 {
+  background-color: #3d485a !important; /* Exact color from your #cart top banner */
+  color: #ffffff !important;            
+  display: flex !important;
+  justify-content: space-between !important;
+  flex-wrap: wrap !important;
+  gap: 20px !important;                 /* Reduced gap to save vertical space */
+  padding: 30px 40px 15px !important;   /* Shrunk height significantly */
+  margin-top: 40px !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+body footer.section-p1 .col {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  min-width: 180px !important;          
+  margin-bottom: 10px !important;       
+}
+
+body footer.section-p1 h4 {
+  color: #ffffff !important;            /* Forces header text to crisp white */
+  font-size: 14px !important;           
+  font-weight: 700 !important;
+  margin-bottom: 10px !important;       
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+}
+
+body footer.section-p1 p,
+body footer.section-p1 strong {
+  color: #f1f5f9 !important;            /* Forces paragraph text to clear off-white */
+  font-size: 13px !important;           
+  line-height: 1.5 !important;          
+}
+
+body footer.section-p1 a {
+  color: #cbd5e1 !important;            /* Forces links to clean light gray */
+  text-decoration: none !important;
+  font-size: 13px !important;           
+  margin-bottom: 6px !important;        
+  display: inline-block !important;
+  transition: all 0.2s ease !important;
+}
+
+body footer.section-p1 a:hover {
+  color: #ffffff !important;            /* Bright white text on hover */
+  transform: translateX(3px) !important; 
+}
+
+/* Compact rules for form controls inside the footer */
+body footer.section-p1 .newsletter-form {
+  margin-top: 5px !important;
+}
+
+body footer.section-p1 .newsletter-form input {
+  height: 34px !important;
+  font-size: 12px !important;
+  background: #ffffff !important;
+  color: #333333 !important;
+}
+
+body footer.section-p1 .newsletter-form button {
+  height: 34px !important;
+  font-size: 12px !important;
+}
+
+body footer.section-p1 .install .row img {
+  height: 30px !important;              /* Shrunks download badges */
+  margin-right: 6px !important;
+  margin-bottom: 5px !important;
+}
+
+/* Compact Copyright rules */
+body footer.section-p1 .copyright {
+  width: 100% !important;
+  text-align: center !important;
+  margin-top: 20px !important;          
+  padding-top: 15px !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important; 
+}
+
+body footer.section-p1 .copyright p {
+  color: #94a3b8 !important;
+  font-size: 12px !important;           
+  margin: 0 !important;
+}
+
+body footer.section-p1 .copyright a {
+  color: #ffffff !important;
+  text-decoration: underline !important;
+}
+
+    /* Obliterate the dynamic template from the viewport */
+body > div:not(#header):not(#cart-content-wrapper),
+body > span,
+form + div:not(.col),
+button + button {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    width: 0 !important;
+    overflow: hidden !important;
+    position: absolute !important;
+    pointer-events: none !important;
+}
+/* Smoothly lift the text up and add a soft light-purple glow on hover */
+.glow-title {
+    display: inline-block !important; /* Required for transform translations to calculate correctly */
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), text-shadow 0.3s ease !important;
+}
+
+.glow-title:hover {
+    text-shadow: 0 0 10px rgba(233, 213, 255, 0.8) !important;
+    transform: translateY(-5px) !important; /* Negative moves it UP out of its baseline position */
+}
+
+/* Force the dynamic delete/remove option to show up and be clickable in black */
+#cart-items-container .cart-item-row,
+.cart-item-row {
+    display: grid !important;
+    grid-template-columns: 3.5fr 1fr 1.5fr 1.2fr 0.5fr !important;
+    align-items: center !important;
+}
+
+/* Make sure the delete icon container is visible and styled black */
+.cart-item-row [class*="remove"],
+.cart-item-row [class*="delete"],
+.cart-item-row .fa-trash-can,
+.cart-item-row .ri-delete-bin-line,
+.cart-item-row i[onclick] {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    color: #000000 !important; /* Changed to flat black */
+    font-size: 18px !important;
+    cursor: pointer !important;
+    justify-content: center;
+    align-items: center;
+    min-width: 20px !important;
+    min-height: 20px !important;
+    transition: all 0.2s ease;
+}
+
+/* Add a subtle hover state so it turns a clean slate gray when hovered */
+.cart-item-row [class*="remove"]:hover,
+.cart-item-row .fa-trash-can:hover,
+.cart-item-row .ri-delete-bin-line:hover {
+    color: #4b5563 !important; /* Elegant gray on hover */
+    transform: scale(1.1);
+}
+
+    /* 1. Styled Black Dotted Outline for Empty Cart Card */
+/* Styled Gray Dotted Outline for Empty Cart Card */
+.empty-cart-card, 
+#empty-cart-container .empty-cart-card,
+[id*="empty-cart"] .empty-cart-card {
+    border: 2px dotted #94a3b8 !important; /* Changed from #000000 to a soft slate gray */
+    border-radius: 16px !important;
+    padding: 40px !important;
+    background-color: #ffffff !important;
+    box-shadow: none !important;
+}
+
+/* Ensure the empty cart container wrapper is centered beautifully */
+.empty-cart-view, #empty-cart-container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 60px auto !important;
+    width: 100% !important;
+}
+
+/* 2. Slow, Smooth Upward Float on Navbar List Items Header Hover */
+/* Apply a super smooth, slow upward glide to navbar items on hover */
+#navbar li, 
+#navbar li a {
+    display: inline-block !important;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+#navbar li:hover, 
+#navbar li:hover a {
+    transform: translateY(-5px) !important; /* Gently lifts the text up */
+    color: #cbd5e1 !important; /* Optional: gives a soft light-gray color shift on hover */
+}
+
   </style>
 </head>
 
@@ -237,98 +411,30 @@
     </div>
   </section>
 
-  <div id="cart-content-wrapper" style="margin-top: 100px;">
-    <div class="cartmain">
-      <section id="page-header">
-        <h2>Your Cart</h2>
-        <p>Review and manage your selected items</p>
-      </section>
-
-      <div id="empty-cart-state">
-        <i class="ri-shopping-cart-line empty-cart-icon"></i>
-        <h2>Your cart is empty</h2>
-        <p>Looks like you haven't added anything to your cart yet.</p>
-        <a href="shop.html" class="btn-continue-shopping">Continue Shopping</a>
-      </div>
-
-      <section id="cart" class="section-p1">
-
-        <!-- Column headers aligned to the 5-column cart-item-row grid -->
-        <div class="cart-column-header">
-          <span class="header-product">Product</span>
-          <span class="header-price">Price</span>
-          <span class="header-qty">Quantity</span>
-          <span class="header-subtotal">Subtotal</span>
-          <span class="header-remove"></span>
-        </div>
-
-        <div id="cart-items-container"></div>
-
-      </section>
-
-      <section id="saved-items-section" class="section-p1" style="display: none;">
-        <h3>Saved for Later</h3>
-        <p>Items you've saved to buy later</p>
-        <div id="saved-items-container"></div>
-      </section>
-
-      <section id="cart-add" class="section-p1">
-        <div class="coupon">
-          <h3>Apply Coupon</h3>
-          <div>
-            <label for="coupon-code" class="sr-only" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">Coupon Code</label>
-            <input type="text" id="coupon-code" placeholder="Enter Your Coupon" />
-            <button id="apply-coupon-btn" class="normal">Apply</button>
-          </div>
-        </div>
-
-        <div class="subtotal">
-          <h3>Cart Totals</h3>
-
-          <table>
-            <tr>
-              <td>Cart Subtotal</td>
-              <td>$0.00</td>
-            </tr>
-
-            <tr>
-              <td>Shipping</td>
-              <td>Free</td>
-            </tr>
-
-            <tr>
-              <td><strong>Total</strong></td>
-              <td><strong>$0.00</strong></td>
-            </tr>
-          </table>
-
-          <button id="share-cart-btn" class="normal" onclick="shareWardrobe()">
-            <i class="ri-share-forward-line"></i> Share Wardrobe
-          </button>
-          <a href="checkout.html" class="normal" style="text-decoration: none">
-            Proceed to Checkout
-          </a>
-        </ul>
-      </div>
-
-      <div class="mobile">
-        <a href="login.html" aria-label="Login">
-          <i class="ri-user-3-line"></i>
-        </a>
-        <a href="cart.html" aria-label="Cart">
-          <i class="ri-shopping-bag-4-line"></i>
-        </a>
-        <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
-      </div>
-    </section>
 
     <div id="cart-content-wrapper">
-      <div class="cartmain">
-        <section id="page-header" class="about-header" style="background-image: url('images/about/banner.png');">
-          <h2>#cart</h2>
-          <p>Review & manage your selected items with premium details</p>
-        </section>
+  <div class="cartmain">
+    
+    <!-- Simple Flat Banner Section with Modern Font & Light Purple Typography -->
+    <div id="cart-content-wrapper">
+  <div class="cartmain">
+    
+    <section id="page-header" class="about-header" style="background-color: #3d485a !important; background-image: 
+      url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23e9d5ff%22 stroke-width=%221%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 style=%22opacity: 0.12; filter: drop-shadow(0 0 12px %23e9d5ff);%22><circle cx=%229%22 cy=%2221%22 r=%221%22/><circle cx=%2220%22 cy=%2221%22 r=%221%22/><path d=%22M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6%22/></svg>'),
+      url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%224%22 height=%224%22 viewBox=%220 0 4 4%22><path d=%22M1 1h1v1H1z%22 fill=%22%23ffffff%22 fill-opacity=%220.04%22/></svg>') !important; 
+      background-repeat: no-repeat, repeat !important; 
+      background-position: left 10% center, top left !important; 
+      background-size: 180px, 4px 4px !important; 
+      padding: 60px 20px !important; 
+      text-align: center; 
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important; 
+      position: relative;">
+     <h2 class="glow-title" style="color: #e9d5ff !important; font-weight: 700 !important; text-transform: capitalize !important; letter-spacing: 0.5px; margin: 0 0 10px 0; font-size: 32px !important; transition: text-shadow 0.3s ease !important; cursor: default;">Shopping Cart</h2>
+      <p style="color: #f3e8ff !important; font-size: 16px; margin: 0; font-weight: 400 !important;">Review & manage your selected items with premium details</p>
+    </section>
 
+
+    <!-- Rest of your cart page content continues below here -->
         <section id="cart-container" class="section-p1">
           <div class="cart-grid-layout">
             <div class="cart-items-column">
@@ -351,11 +457,12 @@
               <div class="sticky-summary-card">
                 <h3>Order Summary</h3>
                 <div class="coupon-section">
-                  <p>Have a promotional coupon?</p>
-                  <div class="coupon-input-group">
-                    <input type="text" id="coupon-code" placeholder="Enter coupon (e.g. CARA20)" />
-                    <button id="apply-coupon-btn">Apply</button>
+                  <p style="font-size: 13px; font-weight: 500; margin-bottom: 8px;">Have a promotional coupon?</p>
+                  <div class="coupon-input-group" style="display: flex; gap: 8px; margin-bottom: 8px;">
+                    <input type="text" id="coupon-code-input" placeholder="Enter coupon (e.g. CARA20)" style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" />
+                    <button id="apply-coupon-btn" style="background: #088178; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: 600; transition: 0.3s;">Apply</button>
                   </div>
+                  <div id="coupon-feedback" style="font-size: 12px; font-weight: 600; min-height: 18px; margin-top: 5px;"></div>
                 </div>
 
                 <div class="summary-breakdown">
@@ -391,77 +498,18 @@
         </section>
 
         <div id="empty-cart-container" class="empty-cart-view" style="display: none;">
-          <div class="empty-cart-card">
-            <div class="empty-cart-icon">
-              <i class="ri-shopping-bag-3-line"></i>
-            </div>
-            <h2>Your Cart is Empty!</h2>
-            <p>Looks like you haven't added anything to your cart yet. Let's find some amazing products!</p>
-            <a href="shop.html" class="return-shop-btn">Return to Shop</a>
-          </div>
-        </div>
+  <div class="empty-cart-card">
+    
+    <div class="empty-cart-icon">
+      <i class="ri-shopping-cart-2-line"></i>
+    </div>
+    
+    <h2>Your Cart is Empty!</h2>
+    <p>Looks like you haven't added anything to your cart yet. Let's find some amazing products!</p>
+    <a href="shop.html" class="return-shop-btn">Return to Shop</a>
+  </div>
+</div>
 
-        <footer class="section-p1">
-          <div class="col">
-            <img class="logo" src="images/logo.png" alt="Cara Logo" />
-            <h4>Contact</h4>
-            <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
-            <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
-            <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
-
-            <div class="follow">
-              <h4>Follow us</h4>
-              <div class="icon">
-                <a href="https://x.com/JanaviPandole"><i class="fab fa-twitter"></i></a>
-                <a href="https://github.com/janavipandole"><i class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
-                <a href="https://www.youtube.com/@JanaviPandole"><i class="fab fa-youtube"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col">
-            <h4>About</h4>
-            <a href="about.html">About Us</a>
-            <a href="delivery.html">Delivery Information</a>
-            <a href="privacy.html">Privacy Policy</a>
-            <a href="terms.html">Terms and Conditions</a>
-            <a href="contact.html">Contact Us</a>
-          </div>
-
-          <div class="col">
-            <h4>My Account</h4>
-            <a href="login.html">Sign In</a>
-            <a href="cart.html">View Cart</a>
-            <a href="#">My Wishlist</a>
-            <a href="track-order.html">Track My Order</a>
-            <a href="contact.html">Help</a>
-          </div>
-
-          <div class="col newsletter-footer">
-            <h4>Newsletter</h4>
-            <p>Get email updates about our latest shop and <span>special offers.</span></p>
-            <form class="newsletter-form">
-              <input type="email" placeholder="Your email address" required />
-              <button type="submit" class="normal">Sign Up</button>
-            </form>
-          </div>
-
-          <div class="col install">
-            <h4>Install App</h4>
-            <p>From App Store or Google Play</p>
-            <div class="row">
-              <img src="images/pay/app.jpg" alt="Download from App Store" />
-              <img src="images/pay/play.jpg" alt="Get it on Google Play" />
-            </div>
-            <p>Secured Payment Gateways</p>
-            <img src="images/pay/pay.png" alt="" />
-          </div>
-
-          <div class="copyright">
-            <p>&copy; Cara <span id="Current-Year"></span>. All rights reserved. | <a href="license.html" style="color: #088178;">MIT License</a></p>
-          </div>
-        </footer>
       </div>
     </div>
 
@@ -469,12 +517,140 @@
     <script>
       document.getElementById("Current-Year").textContent = new Date().getFullYear();
     </script>
+    <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const couponInput = document.getElementById("coupon-code-input");
+    const applyBtn = document.getElementById("apply-coupon-btn");
+    const feedback = document.getElementById("coupon-feedback");
+    const discountRow = document.getElementById("summary-discount-row");
+    const discountVal = document.getElementById("summary-discount");
+    
+    if (applyBtn && couponInput && feedback) {
+      applyBtn.addEventListener("click", () => {
+        const val = couponInput.value.trim().toUpperCase();
+        
+        if (val === "CARA20") {
+          feedback.innerHTML = `<span style="color: #088178;"><i class="ri-checkbox-circle-fill"></i> Coupon CARA20 Applied! 20% Discount active.</span>`;
+          
+          if (discountRow && discountVal) {
+            discountRow.style.display = "flex";
+            
+            // Clean out currency symbols AND commas so strings like "7,289" parse as 7289
+            const subtotalText = document.getElementById("summary-subtotal").textContent.replace(/[₹$,]/g, "").trim();
+            const taxText = document.getElementById("summary-tax").textContent.replace(/[₹$,]/g, "").trim();
+            
+            const subtotal = parseFloat(subtotalText) || 0;
+            const tax = parseFloat(taxText) || 0;
+            
+            // Calculate true 20% discount
+            const discount = subtotal * 0.20;
+            
+            // Calculate correct Grand Total
+            const total = subtotal + tax - discount;
+            
+            // Update the UI with beautiful formatting back into the summary card
+            discountVal.textContent = "-₹" + discount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            document.getElementById("summary-total").textContent = "₹" + total.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          }
+        } else if (val === "") {
+          feedback.innerHTML = `<span style="color: #ef4444;"><i class="ri-error-warning-fill"></i> Please enter a coupon code.</span>`;
+        } else {
+          feedback.innerHTML = `<span style="color: #ef4444;"><i class="ri-error-warning-fill"></i> Invalid coupon code. Try CARA20.</span>`;
+          if (discountRow) discountRow.style.display = "none";
+        }
+      });
+    }
+  });
+</script>
+   <footer class="section-p1" style="background-color: #3d485a !important; color: #ffffff !important; padding: 25px 40px 40px !important; margin: 40px auto 0 auto !important; border-top: 1px solid rgba(255, 255, 255, 0.1); display: grid !important; grid-template-columns: repeat(4, 1fr) !important; gap: 30px !important; max-width: 1400px !important; width: 100% !important; box-sizing: border-box !important; clear: both !important;">
+        
+  <!-- COLUMN 1: CONTACT & SOCIALS -->
+  <div class="col" style="display: flex !important; flex-direction: column !important; align-items: flex-start !important; width: 100% !important;">
+    <img class="logo" src="images/logo.png" alt="Cara Logo" style="margin-bottom: 12px; height: auto; max-width: 120px;">
+    <h4 style="color: #ffffff !important; font-size: 14px !important; font-weight: 700 !important; margin: 0 0 10px 0 !important; text-transform: uppercase; letter-spacing: 0.5px;">Contact</h4>
+    <p style="color: #f1f5f9 !important; font-size: 13px !important; line-height: 1.4 !important; margin: 4px 0 !important;">
+      <strong style="color: #ffffff !important;">Address:</strong> 562 Wellington Road, SF
+    </p>
+    <p style="color: #f1f5f9 !important; font-size: 13px !important; line-height: 1.4 !important; margin: 4px 0 !important;">
+      <strong style="color: #ffffff !important;">Phone:</strong> +01 2222 365
+    </p>
+    <p style="color: #f1f5f9 !important; font-size: 13px !important; line-height: 1.4 !important; margin: 4px 0 !important;">
+      <strong style="color: #ffffff !important;">Hours:</strong> 10:00 - 18:00
+    </p>
+    
+    <h4 style="color: #ffffff !important; font-size: 13px !important; font-weight: 700 !important; margin: 15px 0 8px 0 !important; text-transform: uppercase; letter-spacing: 0.5px;">Follow us</h4>
+    <div class="icon" style="display: flex !important; gap: 12px !important; font-size: 15px !important;">
+      <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer" style="color: #cbd5e1 !important;"><i class="ri-twitter-x-fill"></i></a>
+      <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer" style="color: #cbd5e1 !important;"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer" style="color: #cbd5e1 !important;"><i class="fab fa-linkedin"></i></a>
+      <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer" style="color: #cbd5e1 !important;"><i class="fab fa-youtube"></i></a>
+    </div>
+  </div>
+
+  <!-- COLUMN 2: ABOUT & INSTALL APP -->
+  <div class="col" style="display: flex !important; flex-direction: column !important; align-items: flex-start !important; width: 100% !important;">
+    <h4 style="color: #ffffff !important; font-size: 14px !important; font-weight: 700 !important; margin: 0 0 10px 0 !important; text-transform: uppercase; letter-spacing: 0.5px;">About</h4>
+    <a href="about.html" style="color: #cbd5e1 !important; font-size: 13px !important; text-decoration: none; margin-bottom: 6px;">About Us</a>
+    <a href="deliveryInformation.html" style="color: #cbd5e1 !important; font-size: 13px !important; text-decoration: none; margin-bottom: 6px;">Delivery Info</a>
+    <a href="privacy.html" style="color: #cbd5e1 !important; font-size: 13px !important; text-decoration: none; margin-bottom: 6px;">Privacy Policy</a>
+    <a href="terms.html" style="color: #cbd5e1 !important; font-size: 13px !important; text-decoration: none; margin-bottom: 6px;">Terms & Conditions</a>
+    <a href="contact.html" style="color: #cbd5e1 !important; font-size: 13px !important; text-decoration: none; margin-bottom: 12px;">Contact Us</a>
+
+    <h4 style="color: #ffffff !important; font-size: 13px !important; font-weight: 700 !important; margin: 0 0 6px 0 !important; text-transform: uppercase; letter-spacing: 0.5px;">Install App</h4>
+    <div class="row" style="display: flex !important; gap: 4px !important;">
+      <img src="images/pay/app.jpg" alt="App Store" style="height: 24px !important; border-radius: 3px !important; width: auto !important;">
+      <img src="images/pay/play.jpg" alt="Google Play" style="height: 24px !important; border-radius: 3px !important; width: auto !important;">
+    </div>
+  </div>
+
+  <!-- COLUMN 3: MY ACCOUNT & PAYMENTS -->
+  <div class="col" style="display: flex !important; flex-direction: column !important; align-items: flex-start !important; width: 100% !important;">
+    <h4 style="color: #ffffff !important; font-size: 14px !important; font-weight: 700 !important; margin: 0 0 10px 0 !important; text-transform: uppercase; letter-spacing: 0.5px;">My Account</h4>
+    <a href="login.html" style="color: #cbd5e1 !important; font-size: 13px !important; text-decoration: none; margin-bottom: 6px;">Sign In</a>
+    <a href="cart.html" style="color: #cbd5e1 !important; font-size: 13px !important; text-decoration: none; margin-bottom: 6px;">View Cart</a>
+    <a href="#" style="color: #cbd5e1 !important; font-size: 13px !important; text-decoration: none; margin-bottom: 6px;">My Wishlist</a>
+    <a href="cart.html" style="color: #cbd5e1 !important; font-size: 13px !important; text-decoration: none; margin-bottom: 6px;">Track Order</a>
+    <a href="contact.html" style="color: #cbd5e1 !important; font-size: 13px !important; text-decoration: none; margin-bottom: 12px;">Help</a>
+
+  <!-- Secured Payments aligned horizontally underneath Account links -->
+    <h4 style="color: #ffffff !important; font-size: 13px !important; font-weight: 700 !important; margin: 0 0 6px 0 !important; text-transform: uppercase; letter-spacing: 0.5px;">Secured Payments</h4>
+    <div class="payment-icons" style="font-size: 26px !important; display: flex !important; gap: 12px !important; margin-top: 5px !important; color: #15803d !important;">
+      <i class="fab fa-cc-visa" style="color: #15803d !important; fill: #15803d !important;"></i>
+      <i class="fab fa-cc-mastercard" style="color: #15803d !important; fill: #15803d !important;"></i>
+      <i class="fab fa-cc-paypal" style="color: #15803d !important; fill: #15803d !important;"></i>
+      <i class="fab fa-cc-stripe" style="color: #15803d !important; fill: #15803d !important;"></i>
+    </div>
+  </div>
+
+  <!-- COLUMN 4: NEWSLETTER AREA -->
+  <div class="col newsletter-footer" style="display: flex !important; flex-direction: column !important; align-items: flex-start !important; width: 100% !important;">
+    <h4 style="color: #ffffff !important; font-size: 14px !important; font-weight: 700 !important; margin: 0 0 10px 0 !important; text-transform: uppercase; letter-spacing: 0.5px;">Newsletter</h4>
+    <p style="color: #f1f5f9 !important; font-size: 13px !important; line-height: 1.4 !important; margin: 4px 0 10px 0 !important;">Get updates about our latest shop and <span style="color: #ffffff !important; font-weight: 600;">special offers.</span></p>
+    <form class="newsletter-form" style="display: flex !important; width: 100% !important;">
+      <input type="email" placeholder="Your email address" required="" style="height: 34px !important; font-size: 12px !important; padding: 0 10px !important; border-radius: 4px 0 0 4px !important; border: none !important; flex-grow: 1 !important; width: 50% !important; min-width: 0 !important;">
+      <button type="submit" class="normal" style="height: 34px !important; font-size: 12px !important; background-color: #088178 !important; color: #ffffff !important; border: none !important; padding: 0 12px !important; border-radius: 0 4px 4px 0 !important; font-weight: 600 !important; cursor: pointer !important; flex-shrink: 0 !important;">Sign Up</button>
+    </form>
+  </div>
+
+  <!-- HORIZONTAL COPYRIGHT STATEMENT -->
+  <div class="copyright" style="grid-column: span 4 !important; text-align: center !important; margin-top: 15px !important; padding-top: 15px !important; margin-bottom: 30px !important; border-top: 1px solid rgba(255, 255, 255, 0.1) !important;">
+    <p style="color: #94a3b8 !important; font-size: 12px !important; margin: 0 !important;">© Cara 2026. All rights reserved. | <a href="license.html" style="color: #ffffff !important; text-decoration: underline !important;"> MIT License </a></p>
+  </div>
+</footer>
+
+  <!-- This is your closing footer tag -->
+
+      <!-- FORCE A BLANK LAYOUT GAP AT THE BOTTOM OF THE ENTIRE PAGE -->
+      <div style="height: 18px !important; width: 100% !important; clear: both !important; display: block !important;"></div>
+
+    <script src="app.js?v=1779120917210"></script>
+  
+    <script>
+      document.getElementById("Current-Year").textContent = new Date().getFullYear();
+    </script>
+    <script>
+      // ... (your coupon script stays exactly the same)
+    </script>
   </body>
 </html>
-<style>
-    /* Issue #866: keep cart navbar aligned consistently with other pages */
-    #header #navbar {
-      margin: 0;
-      padding: 0;
-    }
-</style>
+

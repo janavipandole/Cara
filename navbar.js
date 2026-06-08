@@ -1,5 +1,9 @@
 function loadNavbar(activePage) {
   const navbarHTML = `
+    <div class="nav-search-container">
+      <i class="ri-search-line search-icon"></i>
+      <input type="text" id="searchBar" class="nav-search-input" placeholder="Search products...">
+    </div>
     <div>
       <ul id="navbar">
 
@@ -59,6 +63,14 @@ function loadNavbar(activePage) {
           </a>
         </li>
 
+        <!-- Wishlist Icon -->
+        <li class="nav-icon">
+          <a ${activePage === 'wishlist' ? 'class="active" aria-current="page"' : ''} href="wishlist.html" title="View Wishlist" aria-label="Wishlist">
+            <i class="ri-heart-line"></i>
+            <span class="wishlist-count hidden">0</span>
+          </a>
+        </li>
+
         <!-- Cart Icon -->
         <li class="nav-icon">
           <a href="cart.html" id="lg-bag" title="View Cart" aria-label="Cart">
@@ -86,41 +98,7 @@ function loadNavbar(activePage) {
     return;
   }
 
-  initDarkMode();
-}
-
-function initDarkMode() {
-  const themeToggle = document.getElementById('themeToggle');
-  const themeIcon = document.getElementById('themeIcon');
-  const themeToggleMobile = document.getElementById('themeToggleMobile');
-  const themeIconMobile = document.getElementById('themeIconMobile');
-  const html = document.documentElement;
-
-  // Apply saved theme on load using data-theme on <html> (matches style.css selectors)
-  const savedTheme = localStorage.getItem('theme') || 'light';
-  html.setAttribute('data-theme', savedTheme);
-  updateIcons(savedTheme);
-
-  function updateIcons(theme) {
-    const iconClass = theme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
-    if (themeIcon) themeIcon.className = iconClass;
-    if (themeIconMobile) themeIconMobile.className = iconClass;
-
-    // Swap logo based on theme
-    const siteLogo = document.getElementById('siteLogo');
-    if (siteLogo) {
-      siteLogo.src = theme === 'dark' ? 'images/Dlogo.png' : 'images/logo.png';
-    }
+  if (typeof window.updateWishlistCount === 'function') {
+    window.updateWishlistCount();
   }
-
-  function handleToggle() {
-    const current = html.getAttribute('data-theme') || 'light';
-    const newTheme = current === 'dark' ? 'light' : 'dark';
-    html.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    updateIcons(newTheme);
-  }
-
-  if (themeToggle) themeToggle.addEventListener('click', handleToggle);
-  if (themeToggleMobile) themeToggleMobile.addEventListener('click', handleToggle);
 }

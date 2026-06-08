@@ -1,0 +1,36 @@
+name: Issue Quality Validator
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  validate-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate Issue Description
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const body = issue.body || '';
+            const title = issue.title || '';
+
+            // Check if title or body is extremely short
+            if (title.length < 5 || body.length < 15) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: "⚠️ Thank you for opening this issue. However, your description or title is too short. Please provide more detailed context to help maintainers reproduce or understand the problem/feature. This issue has been labeled as `needs-more-info`."
+              });
+
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                labels: ["needs-more-info"]
+              });
+            }
+
+# Enforces descriptive guidelines validation check on incoming tickets.

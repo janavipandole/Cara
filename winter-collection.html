@@ -151,6 +151,66 @@
       background-color: rgba(255, 255, 255, 0.05);
     }
 
+    /* Countdown Timer */
+    .countdown-wrapper {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin: 24px 0;
+      flex-wrap: wrap;
+    }
+
+    .countdown-box {
+      background: #0284c7;
+      color: #fff;
+      border-radius: 12px;
+      padding: 16px 22px;
+      min-width: 80px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+    }
+
+    .countdown-box span {
+      display: block;
+      font-size: 32px;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .countdown-box small {
+      display: block;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.85;
+      margin-top: 4px;
+    }
+
+    [data-theme="dark"] .countdown-box {
+      background: #0369a1;
+    }
+
+    /* Snowflakes Canvas */
+    #snowflakes-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    #campaign-head {
+      position: relative;
+      overflow: hidden;
+    }
+
+    #campaign-head > *:not(#snowflakes-canvas) {
+      position: relative;
+      z-index: 2;
+    }
+
     /* Scroll To Top Buttons */
     #scrollTopBtn {
       position: fixed;
@@ -207,6 +267,7 @@
 
         <!-- Subpage Banner Head -->
         <section id="campaign-head">
+          <canvas id="snowflakes-canvas"></canvas>
           <h2>#WinterCozy</h2>
           <p>Uncompromising style for the cold season!</p>
         </section>
@@ -219,10 +280,19 @@
     <h1>Premium Cozy Essentials</h1>
     <p class="lead-text">Discover our latest arrivals designed specifically to provide optimal warmth without sacrificing contemporary style. From heavyweight tactical shirts to beautifully knit formal wear, find your new cold-weather favorite today.</p>
 
-    <!-- Product Grid for Winter Arrivals -->
-    <div id="product1" class="section-p1" style="width: 100%; padding: 0;">
-      <div class="pro-container" id="winter-products"></div>
+    <section class="coming-soon">
+  <div class="coming-container">
+    <h1><i class="fas fa-snowflake fa-spin"></i> Coming Soon</h1>
+    <p>Our winter collection drops in:</p>
+    <div class="countdown-wrapper" id="countdown">
+      <div class="countdown-box"><span id="cd-days">00</span><small>Days</small></div>
+      <div class="countdown-box"><span id="cd-hours">00</span><small>Hours</small></div>
+      <div class="countdown-box"><span id="cd-minutes">00</span><small>Minutes</small></div>
+      <div class="countdown-box"><span id="cd-seconds">00</span><small>Seconds</small></div>
     </div>
+    <a href="index.html" class="back-btn">Back to Home</a>
+  </div>
+</section>
 
     <!-- Navigation CTAs -->
     <div class="action-group">
@@ -301,7 +371,7 @@
       </div>
 
       <div class="footer-socials">
-        <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+        <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
         <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
         <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
         <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
@@ -335,6 +405,99 @@
         );
       }
     });
+
+    // ── Countdown Timer ──
+    (function startCountdown() {
+      var target = new Date('December 1, 2026 00:00:00').getTime();
+
+      function tick() {
+        var now = new Date().getTime();
+        var diff = target - now;
+
+        if (diff <= 0) {
+          document.getElementById('cd-days').textContent = '00';
+          document.getElementById('cd-hours').textContent = '00';
+          document.getElementById('cd-minutes').textContent = '00';
+          document.getElementById('cd-seconds').textContent = '00';
+          return;
+        }
+
+        var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
+        document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+        document.getElementById('cd-minutes').textContent = String(minutes).padStart(2, '0');
+        document.getElementById('cd-seconds').textContent = String(seconds).padStart(2, '0');
+      }
+
+      tick();
+      setInterval(tick, 1000);
+    })();
+
+    // ── Canvas Snowflakes ──
+    (function initSnowflakes() {
+      var canvas = document.getElementById('snowflakes-canvas');
+      if (!canvas) return;
+
+      var ctx = canvas.getContext('2d');
+      var flakes = [];
+      var W, H;
+
+      function resize() {
+        var parent = canvas.parentElement;
+        W = canvas.width = parent.offsetWidth;
+        H = canvas.height = parent.offsetHeight;
+      }
+
+      window.addEventListener('resize', resize);
+      resize();
+
+      var COUNT = 80;
+
+      for (var i = 0; i < COUNT; i++) {
+        flakes.push({
+          x: Math.random() * W,
+          y: Math.random() * H,
+          r: Math.random() * 3 + 1.5,
+          d: Math.random() * COUNT,
+          speed: Math.random() * 1 + 0.5,
+          opacity: Math.random() * 0.6 + 0.2
+        });
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+
+        for (var i = 0; i < COUNT; i++) {
+          var f = flakes[i];
+          ctx.beginPath();
+          ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(255, 255, 255, ' + f.opacity + ')';
+          ctx.fill();
+        }
+
+        animate();
+      }
+
+      function animate() {
+        for (var i = 0; i < COUNT; i++) {
+          var f = flakes[i];
+          f.y += f.speed;
+
+          if (f.y > H) {
+            f.y = -f.r;
+            f.x = Math.random() * W;
+          }
+        }
+
+        draw();
+      }
+
+      animate();
+    })();
 
     const scrollTopBtn = document.getElementById("scrollTopBtn");
     window.addEventListener("scroll", () => {

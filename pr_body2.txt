@@ -1,0 +1,6 @@
+﻿Closes #1370
+
+## Changes
+- Added ole="region" and ria-live="polite" to sort containers for live region announcements
+- Added ria-describedby with hidden descriptive hint text for the sort dropdown
+- Added ria-live="polite" and ria-label="Product listings" to the product grid container

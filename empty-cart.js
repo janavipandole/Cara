@@ -1,7 +1,15 @@
+function safeParseJSON(key, fallback = '[]') {
+  try {
+    return JSON.parse(localStorage.getItem(key) || fallback);
+  } catch {
+    try { return JSON.parse(fallback); } catch { return []; }
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     // Override the existing handleEmptyCartView in app.js
     window.handleEmptyCartView = function() {
-        const cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+        const cart = safeParseJSON('productsInCart');
         const cartMain = document.querySelector('.cartmain');
         const cartGrid = document.getElementById('cart');
         const cartAdd = document.getElementById('cart-add');

@@ -1,6 +1,7 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey, JSON
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, JSON, Boolean, DateTime
 from sqlalchemy.orm import relationship
 from .database import Base
+from datetime import datetime, timezone
 
 class Product(Base):
     __tablename__ = "products"
@@ -25,3 +26,15 @@ class Interaction(Base):
     interaction_type = Column(String) # click, view, buy
     
     product = relationship("Product")
+
+
+class User(Base):
+    __tablename__ = "users"
+ 
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String, unique=True, index=True, nullable=False)
+    email = Column(String, unique=True, index=True, nullable=False)
+    hashed_password = Column(String, nullable=False)
+    role            = Column(String, default="USER", nullable=False) 
+    is_active = Column(Boolean, default=True)
+    created_at = Column(DateTime,  default=lambda: datetime.now(timezone.utc))

@@ -33,6 +33,24 @@
       padding: 20px;
       line-height: 1.8;
     }
+    #topBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: none;
+      background-color: #088178;
+      color: white;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      transition: 0.3s;
+    }
+
+    #topBtn:hover {
+      background-color: #555;
+    }
     </style>
   </head>
   <body>
@@ -214,7 +232,7 @@
               target="_blank"
               rel="noopener noreferrer"
             >
-              <i class="fab fa-twitter"></i>
+              <i class="fa-brands fa-x-twitter"></i>
             </a>
             <a
               href="https://github.com/janavipandole"
@@ -343,31 +361,32 @@
         </p>
       </div>
     </footer>
-    <button id="topBtn">↑</button>
-
+<button id="topBtn">↑</button>
     <script src="navbar.js"></script>
     <script>loadNavbar();</script>
     <script src="app.js"></script>
     <script>
       const topBtn = document.getElementById("topBtn");
 
-    // Show button when user scrolls down
-    window.onscroll = function () {
-      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-        topBtn.style.display = "block";
-      } else {
+      if (topBtn) {
         topBtn.style.display = "none";
-      }
-    };
 
-    // Scroll to top smoothly
-    topBtn.addEventListener("click", function () {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-    });
-       
+        window.addEventListener("scroll", () => {
+          if (window.scrollY > 200) {
+            topBtn.style.display = "block";
+          } else {
+            topBtn.style.display = "none";
+          }
+        });
+
+        topBtn.addEventListener("click", function () {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+          });
+        });
+      }
+
       // Form submission simulation
       document
         .getElementById('ambassador-form')
@@ -384,3 +403,5 @@
     </script>
 </body>
 </html>
+
+<!-- Accessibility and structural improvements -->

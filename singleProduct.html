@@ -49,134 +49,10 @@
 </head>
 
 <body>
-
-    <section id="header">
-        <a href="index.html"><img src="images/logo.png" alt=""></a>
-
-        <div>
-            <ul id="navbar">
-                <li><a href="index.html">Home</a></li>
-                <li><a class="active" href="shop.html">Shop</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="login.html">Login</a></li>
-                <li><a href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
-                <li>
-                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-                        <i class="ri-moon-line" id="themeIcon"></i>
-                    </button>
-                </li>
-
-                <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
-            </ul>
-        </div>
-        <div class="mobile">
-            <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
-            <i class="fas fa-outdent" id="bar"></i>
-        </div>
-        <button onclick="history.back()" class="back-btn">Back</button>
-    </section>
-
-    <section id="pro-details" class="section-p1">
-        <div class="single-pro-image">
-            <img src="images/products/f1.jpg" width="100%" id="MainImg">
-            <div class="small-img-group">
-                <div class="small-img-col">
-                    <img src="images/products/f1.jpg" width="100%" class="small-img" alt="">
-                </div>
-                <div class="small-img-col">
-                    <img src="images/products/f2.jpg" width="100%" class="small-img" alt="">
-                </div>
-                <div class="small-img-col">
-                    <img src="images/products/f3.jpg" width="100%" class="small-img" alt="">
-                </div>
-                <div class="small-img-col">
-                    <img src="images/products/f4.jpg" width="100%" class="small-img" alt="">
-                </div>
-            </div>
-        </div>
-        <div class="single-pro-details">
-            <h6>Home / T-Shirt</h6>
-            <h4 id="product-name">Men's Fashion T-Shirt</h4>
-            <h2 id="product-price">$139.00</h2>
-            <select id="product-size" name="">
-                <option>Select Size</option>
-                <option>S</option>
-                <option>M</option>
-                <option>L</option>
-                <option>XL</option>
-                <option>XXL</option>
-                <option>XXXL</option>
-            </select>
-            <div class="cart-action-group">
-                <div class="quantity-selector">
-                    <button type="button" class="qty-btn minus" onclick="updateQty(-1)" aria-label="Decrease quantity">
-                        <i class="fa-solid fa-minus"></i>
-                    </button>
-                    <input id="product-quantity" type="number" value="1" min="1" readonly>
-                    <button type="button" class="qty-btn plus" onclick="updateQty(1)" aria-label="Increase quantity">
-                        <i class="fa-solid fa-plus"></i>
-                    </button>
-                </div>
-                <button class="normal" onclick="handleAddToCart()">Add to Cart</button>
-            </div>
-            <h4>Product Details</h4>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officia tenetur, exercitationem velit maxime
-                sit beatae ea tempore a itaque natus placeat, neque fuga cumque aperiam nemo quia atque ducimus ipsam.
-            </p>
-
-        </div>
-        </div>
-    </section>
-      
-        <!-- Product Reviews Section -->
-    <section id="product-reviews" class="section-p1">
-        <div class="reviews-container">
-            <h3>Customer Reviews</h3>
-            
-            <!-- Where existing reviews will show up -->
-            <div id="reviews-list">
-                <div class="single-review">
-                    <div class="review-header">
-                        <strong>Alex Johnson</strong>
-                        <span class="stars">★★★★★</span>
-                    </div>
-                    <p>This T-Shirt is incredibly comfortable and the fabric is premium quality! Highly recommend.</p>
-                </div>
-            </div>
-
-            <!-- The Form to write a new review -->
-            <div class="write-review-box">
-                <h4>Write a Review</h4>
-                <form id="reviewForm">
-                    <input type="text" id="reviewerName" placeholder="Enter Your Name" required>
-                    
-                    <div class="rating-select">
-                        <label for="rating">Rating:</label>
-                        <select id="rating" required>
-                            <option value="5">★★★★★ (5/5)</option>
-                            <option value="4">★★★★☆ (4/5)</option>
-                            <option value="3">★★★☆☆ (3/5)</option>
-                            <option value="2">★★☆☆☆ (2/5)</option>
-                            <option value="1">★☆☆☆☆ (1/5)</option>
-                        </select>
-                    </div>
-
-                    <textarea id="reviewText" placeholder="What did you think about this product?" rows="4" required></textarea>
-                    
-                    <button type="submit" class="normal">Submit Review</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-
   <section id="header">
     <a id="siteLogo" href="index.html">
       <img src="images/logo.png" alt="Cara logo">
     </a>
-
 
     <div>
       <ul id="navbar">
@@ -189,6 +65,12 @@
         <li><a href="try-on.html">Try-On</a></li>
         <li><a href="community.html">Community</a></li>
         <li><a href="promotions.html">Promotions</a></li>
+        <li>
+          <a href="wishlist.html" class="wishlist-nav-link" aria-label="Wishlist">
+            <i class="ri-heart-line"></i>
+            <span class="wishlist-count hidden">0</span>
+          </a>
+        </li>
         <li><a href="cart.html" id="lg-bag" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a></li>
         <li>
           <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
@@ -200,6 +82,10 @@
       </ul>
     </div>
     <div class="mobile">
+      <a href="wishlist.html" class="wishlist-nav-link" aria-label="Wishlist">
+        <i class="ri-heart-line"></i>
+        <span class="wishlist-count hidden">0</span>
+      </a>
       <a href="cart.html" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a>
       <i class="fas fa-outdent" id="bar"></i>
     </div>
@@ -319,6 +205,17 @@
           <button class="normal" onclick="handleAddToCart()">Add to Cart</button>
           <button class="normal" style="background: #088178; color: white; margin-left: 10px;"
             onclick="handleBuyNow()">Buy Now</button>
+          <button
+            class="normal product-wishlist-btn wishlist-btn"
+            id="single-product-wishlist"
+            type="button"
+            data-product-name="Men's Fashion T-Shirt"
+            aria-pressed="false"
+            aria-label="Add product to wishlist"
+          >
+            <i class="ri-heart-line" aria-hidden="true"></i>
+            <span>Wishlist</span>
+          </button>
           <button class="normal" style="background: var(--accent); color: white; margin-left: 10px;"
             onclick="window.location.href='try-on.html'">Try it On Virtually!</button>
         </div>
@@ -330,6 +227,117 @@
       </div>
     </div>
   </section>
+
+  <section id="product-reviews" class="section-p1" style="border-top: 1px solid #eef; padding-top: 40px; margin-top: 20px;">
+    <h2>Customer Reviews</h2>
+    <p>What our customers are saying about this product</p>
+    
+    <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 40px; margin-top: 30px;">
+      <!-- Aggregate Rating -->
+      <div style="background: #f9f9f9; padding: 25px; border-radius: 8px; border: 1px solid #eee;">
+        <h3 style="font-size: 32px; margin: 0; color: #222;">4.8</h3>
+        <div style="color: #ffbd27; font-size: 18px; margin: 8px 0;">
+          <i class="ri-star-fill"></i>
+          <i class="ri-star-fill"></i>
+          <i class="ri-star-fill"></i>
+          <i class="ri-star-fill"></i>
+          <i class="ri-star-half-fill"></i>
+        </div>
+        <p style="margin: 0; font-size: 14px; color: #555;">Based on 124 reviews</p>
+      </div>
+
+      <!-- Add Review Form -->
+      <div style="background: #ffffff; padding: 25px; border-radius: 8px; border: 1px solid #eee;">
+        <h3 style="margin-top: 0;">Write a Review</h3>
+        <form id="review-form" onsubmit="submitReview(event)" style="display: flex; flex-direction: column; gap: 12px;">
+          <div>
+            <label style="display: block; font-weight: 600; margin-bottom: 5px;">Rating:</label>
+            <div id="star-rating-selector" style="display: flex; gap: 5px; font-size: 24px; color: #ccc; cursor: pointer;">
+              <i class="ri-star-line" data-rating="1" onclick="setRating(1)"></i>
+              <i class="ri-star-line" data-rating="2" onclick="setRating(2)"></i>
+              <i class="ri-star-line" data-rating="3" onclick="setRating(3)"></i>
+              <i class="ri-star-line" data-rating="4" onclick="setRating(4)"></i>
+              <i class="ri-star-line" data-rating="5" onclick="setRating(5)"></i>
+            </div>
+            <input type="hidden" id="review-rating" value="0">
+          </div>
+          <div>
+            <label for="review-text" style="display: block; font-weight: 600; margin-bottom: 5px;">Your Comment:</label>
+            <textarea id="review-text" rows="3" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px;" required placeholder="Share your experience..."></textarea>
+          </div>
+          <button type="submit" class="normal" style="align-self: flex-start;">Submit Review</button>
+          <div id="review-status" style="margin-top: 10px; font-weight: 600;"></div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Review List -->
+    <div id="reviews-list" style="margin-top: 30px; display: flex; flex-direction: column; gap: 20px;">
+      <div style="border-bottom: 1px solid #eee; padding-bottom: 15px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <h4 style="margin: 0; font-size: 16px;">Debasmita B. <span style="color: #088178; font-size: 12px; margin-left: 8px;"><i class="ri-checkbox-circle-fill"></i> Verified Buyer</span></h4>
+          <span style="font-size: 12px; color: #777;">May 24, 2026</span>
+        </div>
+        <div style="color: #ffbd27; margin: 5px 0;"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
+        <p style="margin: 0; color: #555;">Excellent fit and fabric quality! Perfect summer wear.</p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    let currentRating = 0;
+    function setRating(rating) {
+      currentRating = rating;
+      document.getElementById('review-rating').value = rating;
+      const stars = document.querySelectorAll('#star-rating-selector i');
+      stars.forEach((star, idx) => {
+        if (idx < rating) {
+          star.className = 'ri-star-fill';
+          star.style.color = '#ffbd27';
+        } else {
+          star.className = 'ri-star-line';
+          star.style.color = '';
+        }
+      });
+    }
+
+    function submitReview(e) {
+      e.preventDefault();
+      const text = document.getElementById('review-text').value;
+      const status = document.getElementById('review-status');
+      
+      if (currentRating === 0) {
+        status.innerHTML = `<span style="color: #ef4444;"><i class="ri-error-warning-line"></i> Please select a star rating.</span>`;
+        return;
+      }
+
+      status.innerHTML = `<span style="color: #088178;"><i class="ri-checkbox-circle-line"></i> Thank you! Review submitted successfully.</span>`;
+      
+      const list = document.getElementById('reviews-list');
+      const newReview = document.createElement('div');
+      newReview.style.borderBottom = '1px solid #eee';
+      newReview.style.paddingBottom = '15px';
+      
+      let starHtml = '';
+      for (let i = 0; i < 5; i++) {
+        starHtml += i < currentRating ? '<i class="ri-star-fill" style="color: #ffbd27;"></i>' : '<i class="ri-star-line"></i>';
+      }
+
+      newReview.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <h4 style="margin: 0; font-size: 16px;">Anonymous <span style="color: #088178; font-size: 12px; margin-left: 8px;"><i class="ri-checkbox-circle-fill"></i> Verified Buyer</span></h4>
+          <span style="font-size: 12px; color: #777;">Today</span>
+        </div>
+        <div style="color: #ffbd27; margin: 5px 0;">${starHtml}</div>
+        <p style="margin: 0; color: #555;">${text}</p>
+      `;
+      list.insertBefore(newReview, list.firstChild);
+      
+      document.getElementById('review-form').reset();
+      setRating(0);
+      setTimeout(() => status.innerHTML = '', 3000);
+    }
+  </script>
 
   <section id="product1" class="section-p1">
     <h2>Featured Product</h2>
@@ -357,7 +365,7 @@
         <h4>Follow us</h4>
         <div class="icon">
           <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-twitter"></i>
+            <i class="fa-brands fa-x-twitter"></i>
           </a>
           <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
             <i class="fab fa-github"></i>
@@ -391,14 +399,6 @@
       <a href="cart.html">Track My Order</a>
       <a href="contact.html">Help</a>
     </div>
-
-    <script>
-        document.getElementById("MainImg").src =
-            localStorage.getItem("productImage") || "images/products/f1.jpg";
-    </script>
-        <script src="reviews.js"></script>
-</body>
-
 
     <!-- Newsletter Column -->
     <div class="col newsletter-footer">
@@ -468,5 +468,4 @@
   </script>
 </body>
 <script src="singleProduct.js"></script>
-
 </html>
