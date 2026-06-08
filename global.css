@@ -1408,11 +1408,6 @@ footer .copyright {
                     overflow: hidden;
                 }
 
-                /* Mobile overlay when nav open */
-                body.nav-open {
-                    overflow: hidden;
-                }
-
                 body.nav-open::after {
                     content: '';
                     position: fixed;
@@ -3453,7 +3448,7 @@ footer .copyright {
                 color: #ccc;
                 }
 
-                /* Dark mode — empty stars */
+                /* Dark mode ï¿½ empty stars */
                 body.dark .star i.ri-star-line {
                 color: #555;
                 }

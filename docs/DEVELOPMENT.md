@@ -15,3 +15,6 @@ npm run format
 ## ?? Class and Tag Naming Rules
 - Use kebab-case for CSS classes (e.g., e-box, qty-btn).
 - Interactive elements must support descriptive visual labels (ria-label, ria-current).
+
+
+<!-- Developer handbook detailing environmental setup, dependencies, and caching configs. -->

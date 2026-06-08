@@ -1,0 +1,102 @@
+openapi: 3.0.3
+info:
+  title: Cara E-Commerce REST API
+  description: API specifications for the frontend clients of the Cara E-Commerce storefront, including shopping cart persistence, checkout, user authentication, and order tracking services.
+  version: 1.0.0
+servers:
+  - url: https://api.cara-store.local/v1
+    description: Mock development server
+paths:
+  /auth/login:
+    post:
+      summary: User Authentication
+      description: Logs a user in using email and password, returning a JWT token.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: user@example.com
+                password:
+                  type: string
+                  format: password
+                  example: SecurePassword123
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: jwt_token_here
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: usr_9983
+                      name:
+                        type: string
+                        example: Jane Doe
+                      email:
+                        type: string
+                        example: user@example.com
+        '401':
+          description: Invalid email or password
+
+  /cart:
+    get:
+      summary: Retrieve Shopping Cart
+      description: Returns the user's active shopping cart. Requires authentication.
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Cart retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: prod_001
+                        title:
+                          type: string
+                          example: Cartoon Astronaut T-Shirts
+                        price:
+                          type: number
+                          format: float
+                          example: 78.0
+                        quantity:
+                          type: integer
+                          example: 2
+                  total:
+                    type: number
+                    format: float
+                    example: 156.0
+        '401':
+          description: Unauthorized request
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
