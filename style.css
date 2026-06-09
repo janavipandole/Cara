@@ -690,6 +690,11 @@ button.white .ripple-effect {
     z-index: 1;
 }
 
+/* Hide injected product forms after footer */
+footer ~ * {
+    display: none !important;
+}
+
 /* ───────────────── OVERLAY ───────────────── */
 
 .hero-slider .slide::before {

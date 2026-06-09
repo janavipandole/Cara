@@ -17,8 +17,8 @@
 .cartmain {
     display: flex;
     flex-direction: column;
-    gap: 28px;
-    width: 100%;
+    gap: 100%;
+    width: center;
 }
 
         #page-header.about-header {
@@ -49,7 +49,7 @@
 
 @media (min-width: 992px) {
     .cart-grid-layout {
-        grid-template-columns: 7fr 3fr; /* Creates the perfect 70/30 split */
+        grid-template-columns: 5fr 5fr; /* Creates the perfect 70/30 split */
     }
 }
 
