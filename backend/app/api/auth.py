@@ -10,7 +10,12 @@ from app import models
 from app.schemas import UserRegister, UserLogin, Token, UserOut
 from app.limiter import limiter
 
-SECRET_KEY = os.environ["SECRET_KEY"] #set it in .env 
+SECRET_KEY = os.environ.get("SECRET_KEY")
+if not SECRET_KEY:
+    raise RuntimeError(
+        "SECRET_KEY environment variable is not set. "
+        "Add SECRET_KEY=<your-secret> to your .env file before starting the server."
+    )
 ALGORITHM  = "HS256"
 TOKEN_DAYS = 7
 
