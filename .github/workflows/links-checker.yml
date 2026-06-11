@@ -12,6 +12,6 @@ jobs:
       - name: Check Broken HTML and MD Links
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --verbose --no-progress --exclude "(linkedin\.com|twitter\.com|x\.com|github\.com/janavipandole|vercel\.app)" --accept 429,403,999 './**/*.html' './**/*.md'
+          args: --verbose --no-progress --exclude "(linkedin\.com|twitter\.com|x\.com|github\.com/janavipandole|vercel\.app)" './**/*.html' './**/*.md'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
