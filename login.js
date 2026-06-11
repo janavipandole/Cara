@@ -139,8 +139,22 @@ document.addEventListener('DOMContentLoaded', function () {
         );
     }
 
+    // Load remembered email
+    const rememberedEmail = localStorage.getItem('rememberedEmail');
+    if (rememberedEmail && loginEmailEl) {
+        loginEmailEl.value = rememberedEmail;
+        const rememberMeCheckbox = document.getElementById('remember-me');
+        if (rememberMeCheckbox) rememberMeCheckbox.checked = true;
+    }
+
     // FORM SUBMIT
     form.addEventListener('submit', async function (e) {
+        const rememberMeCheckbox = document.getElementById('remember-me');
+        if (rememberMeCheckbox && rememberMeCheckbox.checked) {
+            localStorage.setItem('rememberedEmail', loginEmailEl.value.trim());
+        } else {
+            localStorage.removeItem('rememberedEmail');
+        }
 
         e.preventDefault();
 
