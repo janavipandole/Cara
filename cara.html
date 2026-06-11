@@ -30,9 +30,11 @@
       box-sizing: border-box
     }
 
-    html,
-    body {
-      height: 100%
+    html, body {
+
+    
+    
+      height: 100%;
     }
 
     body {
@@ -50,7 +52,7 @@
       max-width: 1200px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 1fr 360px;
+      grid-template-columns: 1fr minmax(300px, 360px);
       gap: 24px;
       align-items: start;
     }
