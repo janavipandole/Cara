@@ -43,5 +43,26 @@ document.addEventListener("DOMContentLoaded", () => {
             Estimated Cost: ₹${total} <br>
             Estimated Time: ${days}
         `;
+
+        // Dynamically update Cart Totals summary if elements exist
+        const shippingEl = document.getElementById("summary-shipping");
+        const totalEl = document.getElementById("summary-total");
+        const subtotalEl = document.getElementById("summary-subtotal");
+        const taxEl = document.getElementById("summary-tax");
+        const discountEl = document.getElementById("summary-discount");
+        if (shippingEl && totalEl && subtotalEl && taxEl) {
+            shippingEl.textContent = total === 0 ? "FREE" : "₹" + total;
+            
+            const subtotalText = subtotalEl.textContent.replace(/[^\d\.]/g, "");
+            const subtotal = parseFloat(subtotalText) || 0;
+            const taxText = taxEl.textContent.replace(/[^\d\.]/g, "");
+            const tax = parseFloat(taxText) || 0;
+            const discount = discountEl ? (parseFloat(discountEl.textContent.replace(/[^\d\.]/g, "")) || 0) : 0;
+            
+            const newTotal = Math.max(0, subtotal + tax + total - discount);
+            totalEl.textContent = "₹" + Math.round(newTotal).toLocaleString("en-IN");
+        }
     });
 });
+
+// Shipping calculator applying regional fee rates inside cart summary containers.
