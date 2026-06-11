@@ -244,12 +244,30 @@ form.addEventListener("submit", function (e) {
     return;
   }
 
-  // ── Loading state: disable button & show spinner ──
-  const submitBtn = form.querySelector(".submit-btn");
-  if (submitBtn) {
-    submitBtn.classList.add("btn-loading");
-    submitBtn.disabled = true;
+// Required contact/address fields
+const requiredFields = ['fullName', 'email', 'phone', 'address', 'city', 'zip'];
+
+for (const id of requiredFields) {
+  const el = document.getElementById(id);
+
+  if (!el) {
+    console.error(`Missing input field with id: ${id}`);
+    return;
   }
+
+  if (!el.value.trim()) {
+    highlightError(el);
+    return;
+  }
+}
+
+// ── Loading state: disable button & show spinner ──
+const submitBtn = form.querySelector(".submit-btn");
+
+if (submitBtn) {
+  submitBtn.classList.add("btn-loading");
+  submitBtn.disabled = true;
+}
 
   // Simulate async order processing
   setTimeout(function () {
