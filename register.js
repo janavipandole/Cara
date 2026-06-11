@@ -27,6 +27,11 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
+        if (password.length < 8) {
+            messageBox.innerText = "Password must be at least 8 characters long!";
+            messageBox.style.color = "red";
+            return;
+        }
         if (password !== confirmPassword) {
             messageBox.innerText = "Passwords do not match!";
             messageBox.style.color = "red";
