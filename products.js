@@ -940,6 +940,10 @@ function renderSearchSuggestions(query) {
   });
 }
 
+/**
+ * Resolves #1692
+ * Filters the products array based on search input and updates the UI.
+ */
 function filterProducts() {
   const input = document.getElementById('searchInput');
   const categorySelect = document.getElementById('categoryFilter');
@@ -1014,7 +1018,11 @@ function attachSearchListeners() {
   const searchBtn = document.getElementById('searchBtn');
 
   if (input) {
-    input.addEventListener('input', filterProducts);
+    let debounceTimer;
+    input.addEventListener('input', () => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(filterProducts, 300);
+    });
     input.addEventListener('keydown', (event) => {
       if (event.key === 'Enter') {
         event.preventDefault();
