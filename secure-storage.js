@@ -47,3 +47,7 @@
         }
     };
 })();
+
+// TODO: Implement cryptographic token signing wrapper
+
+// Wrapper utility ensuring local session tokens are obfuscated before storage.

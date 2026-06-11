@@ -63,11 +63,45 @@ if (form) {
   form.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    const orderIdRaw = document.getElementById("orderId").value.trim().toUpperCase();
-    const emailRaw   = document.getElementById("orderEmail").value.trim().toLowerCase();
+    const orderIdInput = document.getElementById("orderId");
+    const emailInput   = document.getElementById("orderEmail");
+    const orderIdRaw   = orderIdInput.value.trim().toUpperCase();
+    const emailRaw     = emailInput.value.trim().toLowerCase();
 
-    // Basic validation
-    if (!orderIdRaw || !emailRaw) return;
+    // Reset previous validation visual states and message tags
+    document.querySelectorAll(".track-error-msg").forEach(el => el.remove());
+    orderIdInput.classList.remove("input-error");
+    emailInput.classList.remove("input-error");
+
+    function showTrackError(inputElement, msgText) {
+      const errorMsg = document.createElement("small");
+      errorMsg.className = "track-error-msg";
+      errorMsg.style.cssText = "color: #ef4444; display: block; margin-top: 4px; font-weight: 600;";
+      errorMsg.textContent = msgText;
+      inputElement.classList.add("input-error");
+      inputElement.parentNode.insertBefore(errorMsg, inputElement.nextSibling);
+    }
+
+    let isTrackValid = true;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!orderIdRaw) {
+      showTrackError(orderIdInput, "Order ID is required");
+      isTrackValid = false;
+    } else if (!/^CARA-\d+$/.test(orderIdRaw)) {
+      showTrackError(orderIdInput, "Invalid Format. Pattern should be CARA-XXXXXXXX (e.g. CARA-20261234)");
+      isTrackValid = false;
+    }
+
+    if (!emailRaw) {
+      showTrackError(emailInput, "Email is required");
+      isTrackValid = false;
+    } else if (!emailRegex.test(emailRaw)) {
+      showTrackError(emailInput, "Please enter a valid email address");
+      isTrackValid = false;
+    }
+
+    if (!isTrackValid) return;
 
     // Simulate an async API call with a loading state
     setLoading(true);
@@ -262,3 +296,5 @@ function toggleFaq(questionEl) {
     if (answerEl) answerEl.classList.add("open");
   }
 }
+
+// Timeline animator simulating transitions through shipping progress milestones.

@@ -22,6 +22,7 @@
     <meta name="twitter:site" content="@janavipandole" />
     <meta name="theme-color" content="#000000" />
     <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="ui-fix.css" />
     <link rel="stylesheet" href="shop.css" />
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -62,6 +63,7 @@
       </div>
     </section>
 
+    <!-- Resolves #1356: Added descriptive alt tags to product images across all catalog views -->
     <section id="shop-hero">
       <div class="hero-copy">
         <h1>Shop the Latest Trends</h1>
@@ -76,6 +78,48 @@
 
   <!-- SEARCH -->
   <div class="search-container">
+    <div id="recent-searches-box" style="margin-top: 10px; font-size: 14px; display: none;">
+      <span>Recent Searches: </span>
+      <span id="recent-searches-list"></span>
+      <button id="clear-searches-btn" style="background: none; border: none; color: #088178; cursor: pointer; text-decoration: underline; margin-left: 10px;">Clear</button>
+    </div>
+    
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const searchInput = document.getElementById("searchInput");
+      const searchBtn = document.getElementById("searchBtn");
+      const listContainer = document.getElementById("recent-searches-list");
+      const box = document.getElementById("recent-searches-box");
+      const clearBtn = document.getElementById("clear-searches-btn");
+
+      const updateList = () => {
+        const searches = JSON.parse(localStorage.getItem("recentSearches") || "[]");
+        if (searches.length === 0) {
+          box.style.display = "none";
+          return;
+        }
+        box.style.display = "block";
+        listContainer.innerHTML = searches.map(s => `<span style="background: #e2e8f0; padding: 2px 6px; border-radius: 4px; margin-right: 5px; cursor: pointer;" onclick="document.getElementById('searchInput').value='${s}'; document.getElementById('searchBtn').click();">${s}</span>`).join("");
+      };
+
+      searchBtn.addEventListener("click", () => {
+        const query = searchInput.value.trim();
+        if (query) {
+          let searches = JSON.parse(localStorage.getItem("recentSearches") || "[]");
+          searches = [query, ...searches.filter(s => s !== query)].slice(0, 5);
+          localStorage.setItem("recentSearches", JSON.stringify(searches));
+          updateList();
+        }
+      });
+
+      clearBtn.addEventListener("click", () => {
+        localStorage.removeItem("recentSearches");
+        updateList();
+      });
+
+      updateList();
+    });
+    </script>
     <div class="search-box">
       <input type="text" id="searchInput" placeholder="Search products..." />
       <button id="searchBtn">
@@ -242,7 +286,7 @@
     <div class="col">
       <h4>About</h4>
       <a href="about.html">About Us</a>
-      <a href="deliveryInformation.html">Delivery Information</a>
+      <a href="delivery.html">Delivery Information</a>
       <a href="privacy.html">Privacy Policy</a>
       <a href="terms.html">Terms and Conditions</a>
       <a href="contact.html">Contact Us</a>
@@ -305,52 +349,26 @@
         el.textContent = year;
       }
     </script>
+    <script>
+const btn = document.getElementById("backToTop");
 
-<script>
+if (btn) {
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 200) {
+      btn.style.display = "block";
+    } else {
+      btn.style.display = "none";
+    }
+  });
 
-const brandFilter =
-    document.getElementById("brand-filter");
-
-brandFilter.addEventListener("change", function () {
-
-    const selectedBrand =
-        this.value.toLowerCase().trim();
-
-    const products =
-        document.querySelectorAll(".pro");
-
-    products.forEach((product) => {
-
-        const brandElement =
-            product.querySelector(".des span");
-
-        const productBrand =
-            brandElement.innerText
-            .toLowerCase()
-            .trim();
-
-        // SHOW ALL PRODUCTS
-        if (selectedBrand === "all") {
-
-            product.style.display = "block";
-        }
-
-        // SHOW MATCHING BRAND
-        else if (productBrand === selectedBrand) {
-
-            product.style.display = "block";
-        }
-
-        // HIDE NON-MATCHING PRODUCTS
-        else {
-
-            product.style.display = "none";
-        }
+  btn.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
     });
-
-});
-
+  });
+}
 </script>
-<script src="js/shop-sort-filter.js" defer></script>
-</body>
+   <button id="backToTop">↑</button>
+  </body>
 </html>

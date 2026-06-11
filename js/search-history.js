@@ -81,3 +81,5 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+// Local storage parser populating clickable search history suggestion bubbles.
