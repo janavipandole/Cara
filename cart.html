@@ -467,6 +467,18 @@ button + button {
                   <div id="coupon-feedback" style="font-size: 12px; font-weight: 600; min-height: 18px; margin-top: 5px;"></div>
                 </div>
 
+                <!-- Loyalty Rewards Section inside Summary -->
+                <div id="loyalty-points-container" style="background: rgba(8, 129, 120, 0.05); margin: 20px 0; padding: 15px; border: 1px solid rgba(8, 129, 120, 0.2); border-radius: 6px; font-family: sans-serif; font-size: 14px;">
+                    <h4 style="color: #088178; margin-top: 0; margin-bottom: 8px;"><i class="ri-medal-line"></i> Cara Loyalty Rewards</h4>
+                    <p style="margin: 4px 0;">Balance: <strong id="loyalty-balance" style="color: #088178;">0</strong> pts</p>
+                    <p style="margin: 4px 0;">Earn from order: <strong id="points-to-earn">0</strong> pts</p>
+                    <div id="loyalty-apply-section" style="margin-top: 8px; display: flex; gap: 6px;">
+                        <input type="number" id="points-to-apply" placeholder="Redeem" style="padding: 6px; width: 80px; border: 1px solid #ccc; border-radius: 4px;" />
+                        <button id="apply-points-btn" style="padding: 6px 10px; background: #088178; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: 600;">Redeem</button>
+                    </div>
+                    <p id="loyalty-msg" style="margin: 6px 0 0 0; font-size: 12px; font-weight: 600; min-height: 15px;"></p>
+                </div>
+
                 <div class="summary-breakdown">
                   <div class="summary-row">
                     <span>Subtotal</span>
@@ -517,6 +529,7 @@ button + button {
 
     <script src="js/shipping-calc.js" defer></script>
     <script src="app.js?v=1779120917210"></script>
+    <script src="js/loyalty.js" defer></script>
     <script>
       document.getElementById("Current-Year").textContent = new Date().getFullYear();
     </script>
