@@ -44,7 +44,6 @@ class UserRegister(BaseModel):
     username: str
     email:    EmailStr
     password: str
-    role:     RoleEnum = RoleEnum.USER
 
 
 class UserLogin(BaseModel):
