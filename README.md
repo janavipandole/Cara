@@ -6,6 +6,12 @@
 - **Workflows**: GitHub actions verify builds, run dependency checks, and auto-label code triage.
 - **Asset Assets**: Located under `assets/` and `images/` directories.
 
+## Architecture Overview
+- **Frontend**: Clean semantic HTML5, modern vanilla CSS, responsive layouts, and app.js state handling.
+- **Database**: SQLite `cara.db` file mapping backend models.
+- **Workflows**: GitHub actions verify builds, run dependency checks, and auto-label code triage.
+- **Asset Assets**: Located under `assets/` and `images/` directories.
+
 > Officially participating in
 ## GSSOC 2026
 ## ELUSOC 2026
@@ -101,7 +107,7 @@ Cara is a fully responsive e-commerce website that provides users with a seamles
 ## 🚀 Getting Started
 
 ### Prerequisites
-All you need is a modern web browser and a text editor!
+All you need is a modern web browser and a text editor! Cara is designed for lightweight deployment and simple styling customizability.
 
 ### Installation
 1. **Clone the repository**
@@ -322,3 +328,8 @@ Made with ❤️ by [Janavi Pandole](https://github.com/janavipandole)
 
 </div>
 
+
+<!-- TODO: Add local linting troubleshooting instructions -->
+
+
+<!-- Setup guidelines including package-lock node_modules cleanup directives. -->

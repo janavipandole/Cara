@@ -2,6 +2,14 @@
 <html lang="en">
 
 <head>
+    <body>
+
+        <script>
+            document.body.setAttribute(
+                "data-theme",
+                localStorage.getItem("theme") || "light"
+            );
+        </script>
     <!-- Character Encoding -->
     <meta charset="UTF-8">
     
@@ -11,6 +19,7 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="ui-fix.css" />
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
 
@@ -26,6 +35,18 @@
             --wishlist-bg: #f7faf9;
         }
 
+
+        body[data-theme="dark"]{
+        --wishlist-ink: #f3f4f6;
+        --wishlist-muted: #9ca3af;
+        --wishlist-border: rgba(255,255,255,0.08);
+        --wishlist-surface: rgba(31,41,55,0.88);
+        --wishlist-bg: #0f172a;
+
+        background:
+            radial-gradient(circle at top left, rgba(8,129,120,0.15), transparent 32rem),
+            linear-gradient(180deg, #0f172a 0%, #111827 48%, #1f2937 100%);
+}
         body {
             font-family: 'League Spartan', sans-serif;
             background:
@@ -128,9 +149,9 @@
         }
 
         .btn-secondary {
-            background: #fff;
+            background: var(--wishlist-surface);
+            color: var(--wishlist-ink);
             border: 1px solid rgba(255, 255, 255, 0.58);
-            color: var(--wishlist-teal-dark);
             box-shadow: 0 18px 34px rgba(4, 47, 46, 0.2);
         }
 
@@ -210,7 +231,7 @@
             left: 12px;
             padding: 7px 10px;
             border-radius: 999px;
-            background: rgba(255, 255, 255, 0.9);
+            background: var(--wishlist-surface);
             color: var(--wishlist-rose);
             font-size: 12px;
             font-weight: 800;
@@ -252,6 +273,21 @@
             font-weight: 800;
         }
 
+        .price-drop-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-top: 8px;
+            padding: 0.45rem 0.75rem;
+            background: #ecfdf5;
+            color: #047857;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            border: 1px solid rgba(4, 120, 87, 0.15);
+            width: fit-content;
+        }
+
         .card-actions {
             display: grid;
             grid-template-columns: 1fr 46px;
@@ -287,7 +323,7 @@
         }
 
         .remove-icon-btn {
-            background: #fff1f2;
+            background: var(--wishlist-surface);
             color: var(--wishlist-rose);
             font-size: 18px;
         }
@@ -322,7 +358,7 @@
             height: 86px;
             margin: 0 auto 24px;
             border-radius: 50%;
-            background: #fff1f2;
+            background: var(--wishlist-surface);
             color: var(--wishlist-rose);
             font-size: 42px;
             display: grid;
@@ -368,7 +404,7 @@
             position: fixed;
             bottom: 30px;
             right: 30px;
-            background: #fff;
+            background: var(--wishlist-surface);
             padding: 15px 25px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.15);
             border-radius: 14px;
@@ -378,6 +414,7 @@
             align-items: center;
             gap: 10px;
             transform: translateY(100px);
+            color: var(--wishlist-ink);
             opacity: 0;
             transition: 0.4s;
         }
@@ -433,6 +470,24 @@
         <div class="wishlist-container" id="wishlistContainer" aria-live="polite"></div>
     </main>
 
+    <script src="products.js"></script>
+
+    <!-- Wishlist Sharing Utility -->
+    <div style="max-width: 1200px; margin: 20px auto; padding: 0 20px; text-align: center;">
+      <button onclick="shareWishlist()" style="background: #088178; color: #fff; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 16px;">
+        <i class="ri-share-line"></i> Copy Shareable Wishlist Link
+      </button>
+    </div>
+    <script>
+    function shareWishlist() {
+      const items = localStorage.getItem("wishlist") || "[]";
+      const encoded = btoa(items);
+      const shareUrl = `${window.location.origin}${window.location.pathname}?import=${encoded}`;
+      navigator.clipboard.writeText(shareUrl).then(() => {
+        alert("Wishlist sharing link copied to clipboard!");
+      });
+    }
+    </script>
     <!-- Global Toast Component -->
     <div id="toast">
         <i class="ri-checkbox-circle-line" style="color: #088178; font-size: 20px;"></i>
@@ -451,23 +506,65 @@
             }
         }
 
+        function parsePriceString(priceStr) {
+            if (typeof priceStr === 'number') return Number.isFinite(priceStr) ? priceStr : 0;
+            if (!priceStr) return 0;
+            return parseFloat(String(priceStr).replace(/[₹$\s,]/g, '')) || 0;
+        }
+
+        function formatRupee(amount) {
+            const value = parsePriceString(amount);
+            return '₹' + Math.round(value).toLocaleString('en-IN');
+        }
+
+        function hasPriceDropped(item) {
+            return (
+                typeof item.currentPrice === 'number' &&
+                typeof item.previousPrice === 'number' &&
+                item.currentPrice < item.previousPrice
+            );
+        }
+
+        function getPriceDropAmount(item) {
+            return hasPriceDropped(item) ? item.previousPrice - item.currentPrice : 0;
+        }
+
         function normalizeWishlistItem(item) {
+            const rawPrice = item.price || '₹0';
+            const currentPrice = typeof item.currentPrice === 'number'
+                ? item.currentPrice
+                : parsePriceString(rawPrice);
+            const previousPrice = typeof item.previousPrice === 'number'
+                ? item.previousPrice
+                : currentPrice;
+
             return {
                 id: item.id || item.name,
                 name: item.name || "Product",
                 brand: item.brand || "Cara",
-                price: item.price || "₹0",
+                price: formatRupee(currentPrice),
                 image: item.image || item.img || "images/products/f1.jpg",
+                currentPrice,
+                previousPrice,
             };
         }
 
         function getWishlistItems() {
+            if (typeof window.getWishlist === 'function') {
+                return window.getWishlist();
+            }
+
             const items = parseStoredList("wishlist");
             return Array.isArray(items) ? items.map(normalizeWishlistItem) : [];
         }
 
         function saveWishlistItems(items) {
+            if (typeof window.saveWishlist === 'function') {
+                return window.saveWishlist(items);
+            }
+
             localStorage.setItem("wishlist", JSON.stringify(items.map(normalizeWishlistItem)));
+            if (typeof window.updateWishlistCount === 'function') window.updateWishlistCount();
         }
 
         let wishlist = getWishlistItems();
@@ -524,7 +621,16 @@
                     title.textContent = product.name;
                     const price = document.createElement("p");
                     price.textContent = product.price;
+
                     details.append(brand, title, price);
+
+                    if (hasPriceDropped(product)) {
+                        const dropBadge = document.createElement("span");
+                        dropBadge.className = "price-drop-pill";
+                        dropBadge.textContent = `Price dropped by ${formatRupee(getPriceDropAmount(product))}`;
+                        details.appendChild(dropBadge);
+                    }
+
                     card.appendChild(details);
 
                     const actions = document.createElement("div");

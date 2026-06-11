@@ -47,6 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
               // Save logged in user
              localStorage.setItem('loggedInUser', email);
+             localStorage.setItem('loggedInUserName', user.name);
 
              // Remove loading state
               if (submitBtn) {

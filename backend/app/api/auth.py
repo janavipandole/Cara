@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta, timezone
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 from passlib.context import CryptContext
@@ -8,6 +8,7 @@ import os
 from app.database import get_db
 from app import models
 from app.schemas import UserRegister, UserLogin, Token, UserOut
+from app.limiter import limiter
 
 SECRET_KEY = os.environ["SECRET_KEY"] #set it in .env 
 ALGORITHM  = "HS256"
@@ -51,7 +52,8 @@ def get_current_user(
 
 # -- Register --
 @router.post("/register", response_model=Token, status_code=201)
-def register(payload: UserRegister, db: Session = Depends(get_db)):
+@limiter.limit("5/minute")
+def register(request: Request, payload: UserRegister, db: Session = Depends(get_db)):
     if db.query(models.User).filter(models.User.email == payload.email).first():
         raise HTTPException(409, "Email already registered.")
     if db.query(models.User).filter(models.User.username == payload.username).first():
@@ -76,7 +78,8 @@ def register(payload: UserRegister, db: Session = Depends(get_db)):
 
 # -- Login --
 @router.post("/login", response_model=Token)
-def login(payload: UserLogin, db: Session = Depends(get_db)):
+@limiter.limit("5/minute")
+def login(request: Request, payload: UserLogin, db: Session = Depends(get_db)):
     user = db.query(models.User).filter(models.User.email == payload.email).first()
 
     if not user or not pwd.verify(payload.password, user.hashed_password):

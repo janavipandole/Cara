@@ -15,3 +15,5 @@ document.addEventListener('DOMContentLoaded', () => {
     
     document.body.insertBefore(skipLink, document.body.firstChild);
 });
+
+// Focus listener positioning bypass button visible upon keyboard tab event.

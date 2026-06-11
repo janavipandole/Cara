@@ -1408,11 +1408,6 @@ footer .copyright {
                     overflow: hidden;
                 }
 
-                /* Mobile overlay when nav open */
-                body.nav-open {
-                    overflow: hidden;
-                }
-
                 body.nav-open::after {
                     content: '';
                     position: fixed;
@@ -2264,6 +2259,20 @@ footer .copyright {
             /* ============================================
    MOBILE SMALL (≤ 477px)
    ============================================ */
+
+            /* ============================================
+   MOBILE MID (≤ 540px)
+   ============================================ */
+
+            @media (max-width: 540px) {
+                .mobile {
+                    justify-content: center;
+                }
+
+                .mobile i {
+                    padding-left: 14px;
+                }
+            }
 
             @media (max-width: 477px) {
                 #header {
@@ -3453,7 +3462,7 @@ footer .copyright {
                 color: #ccc;
                 }
 
-                /* Dark mode � empty stars */
+                /* Dark mode � empty stars */
                 body.dark .star i.ri-star-line {
                 color: #555;
                 }
@@ -3475,3 +3484,5 @@ footer .copyright {
   --transition-speed: 0.3s;
   --element-spacing: 1.5rem;
 }
+
+/* TODO: Refactor utility color styles to custom properties */

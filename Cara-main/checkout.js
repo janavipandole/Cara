@@ -163,6 +163,15 @@ form.addEventListener("submit", function (e) {
 
   // Simulate async order processing (replace with real API call)
   setTimeout(function () {
+    const order = {
+      id: 'ORD-' + Date.now(),
+      date: new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }),
+      items: cart,
+      total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0)
+    };
+    const history = JSON.parse(localStorage.getItem('orderHistory') || '[]');
+    history.unshift(order);
+    localStorage.setItem('orderHistory', JSON.stringify(history));
     // CLEAR CART AFTER SUCCESSFUL ORDER
     localStorage.removeItem("productsInCart");
     localStorage.removeItem("appliedCoupon");
