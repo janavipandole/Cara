@@ -270,6 +270,7 @@ form.addEventListener("submit", function (e) {
 
     // HIDE CARD DETAILS AGAIN
     cardDetails.style.display = "none";
+    popup.classList.add("active");
 
     // Clear all validation states post-submit
     inputs.forEach((input) => {
