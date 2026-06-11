@@ -2247,6 +2247,8 @@ footer {
     height: 48px; /* Lock the height */
     box-shadow: 0 4px 10px var(--shadow);
     transition: all 0.3s ease;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .search-container:focus-within {
@@ -2262,6 +2264,8 @@ footer {
     font-size: 16px;
     color: var(--text-primary);
     outline: none;
+    box-sizing: border-box;
+    width: 100%;
 }
 
 #searchBtn {
