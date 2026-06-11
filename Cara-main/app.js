@@ -1059,7 +1059,42 @@ document.addEventListener('DOMContentLoaded', () => {
         el.textContent = year;
     });
 });
+async function hashPassword(password) {
+      const msgBuffer = new TextEncoder().encode(password);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+      return Array.from(new Uint8Array(hashBuffer))
+        .map(b => b.toString(16).padStart(2, '0')).join('');
+}
 /* --- END: CURRENT YEAR FUNCTIONALITY --- */
+/* --- Sort by Price Logic --- */
+document.addEventListener('DOMContentLoaded', () => {
+    const sortMenu = document.getElementById('sort-price');
+    const proContainer = document.querySelector('.pro-container');
+
+    if (sortMenu && proContainer) {
+        const originalProducts = Array.from(proContainer.querySelectorAll('.pro'));
+        sortMenu.addEventListener('change', (e) => {
+            const sortValue = e.target.value;
+            let productsToAppend;
+
+            if (sortValue === 'default') {
+                productsToAppend = originalProducts;
+            } else {
+                productsToAppend = [...originalProducts].sort((a, b) => {
+                    
+                    const priceA = parseFloat(a.querySelector('h4').innerText.replace(/[₹$,]/g, '').trim());
+                    const priceB = parseFloat(b.querySelector('h4').innerText.replace(/[₹$,]/g, '').trim());
+
+                    if (sortValue === 'low-high') return priceA - priceB;
+                    if (sortValue === 'high-low') return priceB - priceA;
+                });
+            }
+            productsToAppend.forEach(product => {
+                proContainer.appendChild(product);
+            });
+        });
+    }
+});
 document.addEventListener('DOMContentLoaded', () => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   document.querySelectorAll('.newsletter-form').forEach(function (form) {

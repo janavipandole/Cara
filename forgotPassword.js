@@ -21,12 +21,10 @@ document.getElementById('toggleConfirmPass').addEventListener('click', function 
 });
 
 /* form submit */
-const form = document.getElementById('forgotForm');
-if (form) form.addEventListener('submit', function (e) {
+document.getElementById('forgotForm').addEventListener('submit', function (e) {
   e.preventDefault();
 
-  const email = document.getElementById('forgotEmail').value.trim().replace(/[<>\"']/g, "");
-  if(!/\\S+@\\S+\\.\\S+/.test(email)) { showToast("Invalid email format.", "warning"); return; }
+  const email       = document.getElementById('forgotEmail').value.trim();
   const newPass     = document.getElementById('forgotNewPass').value;
   const confirmPass = document.getElementById('forgotConfirmPass').value;
 
@@ -36,6 +34,8 @@ if (form) form.addEventListener('submit', function (e) {
     return;
   }
 
+  if (!newPass || newPass.length < 6) {
+    showToast('Password must be at least 6 characters!', 'warning');
   if (/\s/.test(newPass)) {
     showToast('Password must not contain spaces.', 'warning');
     return;
@@ -95,6 +95,7 @@ if (form) form.addEventListener('submit', function (e) {
     }
 
     /* update password */
+    users[userIndex].password = await hashPassword(newPass); 
     users[userIndex].password = newPass;
     localStorage.setItem('users', JSON.stringify(users));
 
