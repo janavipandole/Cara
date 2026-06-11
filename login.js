@@ -139,8 +139,22 @@ document.addEventListener('DOMContentLoaded', function () {
         );
     }
 
+    // Load remembered email
+    const rememberedEmail = localStorage.getItem('rememberedEmail');
+    if (rememberedEmail && loginEmailEl) {
+        loginEmailEl.value = rememberedEmail;
+        const rememberMeCheckbox = document.getElementById('remember-me');
+        if (rememberMeCheckbox) rememberMeCheckbox.checked = true;
+    }
+
     // FORM SUBMIT
     form.addEventListener('submit', async function (e) {
+        const rememberMeCheckbox = document.getElementById('remember-me');
+        if (rememberMeCheckbox && rememberMeCheckbox.checked) {
+            localStorage.setItem('rememberedEmail', loginEmailEl.value.trim());
+        } else {
+            localStorage.removeItem('rememberedEmail');
+        }
 
         e.preventDefault();
 
@@ -206,7 +220,7 @@ document.addEventListener('DOMContentLoaded', function () {
         try {
 
             const response = await fetch(
-                'http://127.0.0.1:8000/api/auth/login',
+                '/api/auth/login',
                 {
                     method: 'POST',
                     headers: {

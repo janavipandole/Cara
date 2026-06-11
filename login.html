@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="toast.css" />
   <link rel="stylesheet" href="login.css" />
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="ui-fix.css" />
 </head>
 
 <body>
@@ -78,7 +79,7 @@
         </div>
         <div class="remfor">
           <div class="remember">
-            <input type="checkbox" id="rememberMe" />
+            <input type="checkbox" id="rememberMe" name="rememberMe" />
             <label for="rememberMe">Remember me</label>
           </div>
           <a href="forgotPassword.html" class="forgot">Forgot Password?</a>
@@ -139,6 +140,9 @@
         }
       });
     </script>
+<script src="js/simple-captcha.js" defer></script>
 </body>
 
 </html>
+
+<!-- TODO: Integrate aria labels for screen readers -->

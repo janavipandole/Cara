@@ -773,3 +773,5 @@ document.addEventListener("click", function (e) {
     if (icon) icon.className = cls;
     if (iconM) iconM.className = cls;
 });
+
+// Scaling calculation formulas rendering overlay models over uploaded targets.

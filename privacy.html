@@ -11,6 +11,7 @@
     <meta http-equiv="Content-Language" content="en" />
     <meta name="theme-color" content="#000000" />
     <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="ui-fix.css" />
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link
       rel="stylesheet"
@@ -411,9 +412,9 @@
     </main>
 
     <!-- Cookie Consent Drawer -->
-    <div id="cookie-consent" role="dialog" aria-label="Cookie consent">
+    <div id="cookie-consent" role="dialog" aria-label="Cookie consent" aria-describedby="cookie-desc">
       <div class="cookie-inner">
-        <p>
+        <p id="cookie-desc">
           <i class="fas fa-cookie-bite" style="margin-right: 6px; color: #088178;"></i>
           We use cookies to improve your experience. By continuing, you agree to our
           <a href="privacy.html">Privacy Policy</a>.
@@ -545,7 +546,8 @@
     <script id="Current-Year">
         document.getElementById("Current-Year").textContent = new Date().getFullYear();
     </script>
-  </body>
+  <script src="js/toc.js" defer></script>
+</body>
 </html>
 
 <!-- Accessibility and structural improvements -->

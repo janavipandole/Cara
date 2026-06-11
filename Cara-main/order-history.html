@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Order History — Cara</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="order-history.css" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet"/>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-logo">
+      <a href="index.html"><img src="images/logo.png" alt="Cara"/></a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="cart.html">Cart</a></li>
+      <li><a href="order-history.html" class="active">Orders</a></li>
+    </ul>
+  </nav>
+
+  <section class="order-history-section">
+    <div class="container">
+      <h1 class="order-history-title">My Orders</h1>
+
+      <!-- Empty state -->
+      <div class="empty-orders" id="emptyOrders">
+        <i class="ri-shopping-bag-line"></i>
+        <p>No orders yet.</p>
+        <a href="shop.html" class="btn-shop-now">Start Shopping</a>
+      </div>
+
+      <!-- Orders list -->
+      <div class="orders-list" id="ordersList"></div>
+    </div>
+  </section>
+
+  <script src="app.js"></script>
+  <script src="order-history.js"></script>
+</body>
+</html>

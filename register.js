@@ -27,6 +27,11 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
+        if (password.length < 8) {
+            messageBox.innerText = "Password must be at least 8 characters long!";
+            messageBox.style.color = "red";
+            return;
+        }
         if (password !== confirmPassword) {
             messageBox.innerText = "Passwords do not match!";
             messageBox.style.color = "red";
@@ -34,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         try {
-            const res = await fetch("http://localhost:8000/api/auth/register", {
+            const res = await fetch("/api/auth/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -72,3 +77,4 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+// TODO: Prevent signup triggers if password complexity score is poor
