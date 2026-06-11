@@ -84,6 +84,22 @@
 }
 
 
+@media (max-width: 767px) {
+  .milestone-item {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+  .milestone-item div {
+    width: 100% !important;
+    text-align: left !important;
+    padding-left: 50px !important;
+    padding-right: 0 !important;
+  }
+  .milestone-dot {
+    left: 20px !important;
+    transform: none !important;
+  }
+}
 /* Typography enhancements */
 .about-header h2 {
   font-size: clamp(2rem, 5vw, 3.5rem) !important;
