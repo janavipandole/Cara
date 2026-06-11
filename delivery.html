@@ -466,6 +466,18 @@
   </style>
 </head>
 <body>
+    <!-- Print Details Utility -->
+    <div style="max-width: 1200px; margin: 10px auto; padding: 0 20px; text-align: right;" class="no-print">
+      <button onclick="window.print()" style="background: #088178; color: #fff; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-weight: 500;">
+        <i class="ri-printer-line"></i> Print Shipping Policy
+      </button>
+    </div>
+    <style>
+    @media print {
+      .no-print, #header, #newsletter, footer, #backToTop, #scroll-top { display: none !important; }
+      body { background: white; color: black; }
+    }
+    </style>
 
   <!-- HEADER -->
   <!-- HEADER -->
