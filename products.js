@@ -1036,15 +1036,37 @@ function attachSearchListeners() {
   }
 }
 
+/**
+ * Resolves #1691
+ * Adds an item to the cart and persists it to localStorage.
+ */
 function addToCart(name, price, img, quantity, size) {
   const cart = safeParseJSON('productsInCart');
   cart.push({ name, price, img, quantity, size, id: Date.now() });
-  localStorage.setItem('productsInCart', JSON.stringify(cart));
-  if (typeof updateCartCount === 'function') {
-    updateCartCount();
+  try {
+    localStorage.setItem('productsInCart', JSON.stringify(cart));
+    if (typeof showToast === 'function') {
+      showToast(name + ' added to cart!', 'success');
+    }
+  } catch (e) {
+    console.error('Failed to save cart:', e);
+    if (typeof showToast === 'function') {
+      showToast('Storage limit reached! Cannot add to cart.', 'error');
+    }
   }
-  if (typeof showToast === 'function') {
-    showToast(`${name} added to cart`, 'success');
+}
+
+function buyNow(name, price, img, quantity, size) {
+  const cart = safeParseJSON('productsInCart');
+  cart.push({ name, price, img, quantity, size, id: Date.now() });
+  try {
+    localStorage.setItem('productsInCart', JSON.stringify(cart));
+    window.location.href = 'checkout.html';
+  } catch (e) {
+    console.error('Failed to save cart:', e);
+    if (typeof showToast === 'function') {
+      showToast('Storage limit reached! Cannot proceed to checkout.', 'error');
+    }
   }
 }
 
