@@ -1,0 +1,7 @@
+backend:
+  - 'backend/**/*'
+frontend:
+  - 'src/**/*'
+  - '*.html'
+  - '*.css'
+  - '*.js'
