@@ -11,7 +11,7 @@
     <title>Cara — Modern E‑Commerce</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
+    <link rel="icon" type="image/jpeg" sizes="32x32" href="images/favicon.jpg" />
 
     <!-- SEO Meta Tags -->
     <meta
@@ -26,7 +26,7 @@
     <meta name="robots" content="index, follow" />
 
     <!-- Language -->
-    <meta http-equiv="Content-Language" content="en" />
+    
 
     <!-- Open Graph (OG) Tags for Social Sharing -->
     <meta property="og:title" content="E-commerce - Dark Theme Working" />
@@ -57,8 +57,16 @@
     <!-- Theme Color for Mobile Browser -->
     <meta name="theme-color" content="#000000" />
 
+    <!-- Performance: DNS Prefetch & Preconnect hints for external CDN origins -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="style.css" />
+     <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="ui-fix.css" />
+    <link rel="stylesheet" href="about.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
       rel="stylesheet"
@@ -273,7 +281,7 @@
       }
 
       [data-theme="dark"] .cara-features {
-        background: linear-gradient(180deg, rgba(15, 20, 25, 0.98) 0%, rgba(15, 20, 25, 0.94) 100%);
+        background: linear-gradient(180deg, rgba(15, 20, 25, 0.99) 0%, rgba(15, 20, 25, 0.94) 100%);
       }
 
       [data-theme="dark"] .cara-features::before {
@@ -328,7 +336,7 @@
       }
 
       [data-theme="dark"] .cara-card p {
-        color: #98a8b5;
+        color: #99a8b5;
       }
 
       @media (max-width: 991px) {
@@ -462,13 +470,13 @@
     
     <main>
       <section id="about-head">
-        <h2>#KnowUs</h2>
+        <h1>#KnowUs</h1>
         <p>Read all case studies about Us!</p>
       </section>
 
-    <section id="about-us" class="section-p1">
+    <div class="about-us">
       <div class="about-image-container">
-        <img src="images/about/a6.jpg" alt="About Cara" />
+        <img src="images/about/a6.jpg" alt="Team collaborating on Cara design" loading="lazy" />
       </div>
       <div class="about-content">
         <span class="about-eyebrow">Who We Are</span>
@@ -504,8 +512,44 @@
           </div>
         </div>
       </div>
-    </section>
+    </div>
 
+    <!-- FAQ Accordion -->
+    <section id="faq-accordion-section" class="section-p1" style="max-width: 800px; margin: 40px auto; padding: 0 20px;">
+      <h2 style="text-align: center; margin-bottom: 20px;">Frequently Asked Questions</h2>
+      <div class="faq-item" style="border-bottom: 1px solid #cbd5e1; padding: 15px 0;">
+        <button onclick="toggleFaq(this)" style="width: 100%; text-align: left; background: none; border: none; font-size: 18px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+          <span>What is the return policy?</span>
+          <i class="ri-add-line"></i>
+        </button>
+        <div class="faq-answer" style="display: none; padding-top: 10px; color: #475569;">
+          We offer a 30-day return policy for all unworn apparel items with tags intact.
+        </div>
+      </div>
+      <div class="faq-item" style="border-bottom: 1px solid #cbd5e1; padding: 15px 0;">
+        <button onclick="toggleFaq(this)" style="width: 100%; text-align: left; background: none; border: none; font-size: 18px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+          <span>Do you ship internationally?</span>
+          <i class="ri-add-line"></i>
+        </button>
+        <div class="faq-answer" style="display: none; padding-top: 10px; color: #475569;">
+          Yes! We ship to over 50 countries worldwide. Shipping fees are calculated at checkout.
+        </div>
+      </div>
+    </section>
+    
+    <script>
+    function toggleFaq(btn) {
+      const answer = btn.nextElementSibling;
+      const icon = btn.querySelector("i");
+      if (answer.style.display === "none" || !answer.style.display) {
+        answer.style.display = "block";
+        icon.className = "ri-subtract-line";
+      } else {
+        answer.style.display = "none";
+        icon.className = "ri-add-line";
+      }
+    }
+    </script>
     <section id="about-app">
       <h1>Download Our <a href="#">App</a></h1>
       <div class="video">
@@ -587,22 +631,22 @@
         <div style="position: absolute; left: 50%; top: 0; bottom: 0; width: 4px; background: #088178; transform: translateX(-50%); opacity: 0.2;"></div>
         
         <!-- Milestone 1 -->
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; position: relative;">
+        <div class="milestone-item milestone-left" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; position: relative;">
           <div style="width: 45%; text-align: right; padding-right: 30px;">
             <span style="font-weight: 700; color: #088178; font-size: 20px;">2024</span>
             <h4 style="margin: 5px 0; font-size: 16px;">Platform Inception</h4>
             <p style="margin: 0; font-size: 14px; color: #666;">Cara was launched with a core vision of fast, beautiful e-commerce.</p>
           </div>
-          <div style="position: absolute; left: 50%; transform: translateX(-50%); width: 40px; height: 40px; border-radius: 50%; background: #088178; color: white; display: flex; align-items: center; justify-content: center; z-index: 2; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+          <div class="milestone-dot" style="position: absolute; left: 50%; width: 40px; height: 40px; border-radius: 50%; background: #088178; color: white; display: flex; align-items: center; justify-content: center; z-index: 2; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
             <i class="ri-rocket-2-line"></i>
           </div>
           <div style="width: 45%;"></div>
         </div>
 
         <!-- Milestone 2 -->
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; position: relative;">
+        <div class="milestone-item milestone-right" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; position: relative;">
           <div style="width: 45%;"></div>
-          <div style="position: absolute; left: 50%; transform: translateX(-50%); width: 40px; height: 40px; border-radius: 50%; background: #088178; color: white; display: flex; align-items: center; justify-content: center; z-index: 2; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+          <div class="milestone-dot" style="position: absolute; left: 50%; width: 40px; height: 40px; border-radius: 50%; background: #088178; color: white; display: flex; align-items: center; justify-content: center; z-index: 2; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
             <i class="ri-team-line"></i>
           </div>
           <div style="width: 45%; padding-left: 30px;">
@@ -613,13 +657,13 @@
         </div>
 
         <!-- Milestone 3 -->
-        <div style="display: flex; justify-content: space-between; align-items: center; position: relative;">
+        <div class="milestone-item milestone-left" style="display: flex; justify-content: space-between; align-items: center; position: relative;">
           <div style="width: 45%; text-align: right; padding-right: 30px;">
             <span style="font-weight: 700; color: #088178; font-size: 20px;">2026</span>
             <h4 style="margin: 5px 0; font-size: 16px;">AI Stylist Launch</h4>
             <p style="margin: 0; font-size: 14px; color: #666;">Pioneered custom AI-powered stylist assistance for virtual selections.</p>
           </div>
-          <div style="position: absolute; left: 50%; transform: translateX(-50%); width: 40px; height: 40px; border-radius: 50%; background: #088178; color: white; display: flex; align-items: center; justify-content: center; z-index: 2; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+          <div class="milestone-dot" style="position: absolute; left: 50%; width: 40px; height: 40px; border-radius: 50%; background: #088178; color: white; display: flex; align-items: center; justify-content: center; z-index: 2; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
             <i class="ri-sparkling-line"></i>
           </div>
           <div style="width: 45%;"></div>
@@ -649,7 +693,7 @@
               rel="noopener noreferrer"
               aria-label="Twitter / X"
             >
-              <i class="fab fa-twitter"></i>
+              <i class="fa-brands fa-x-twitter"></i>
             </a>
             <a
               href="https://github.com/janavipandole"
@@ -683,7 +727,7 @@
       <div class="col">
         <h4>About</h4>
         <a href="about.html">About Us</a>
-        <a href="deliveryInformation.html">Delivery Information</a>
+        <a href="delivery.html">Delivery Information</a>
         <a href="privacy.html">Privacy Policy</a>
         <a href="terms.html">Terms and Conditions</a>
         <a href="contact.html">Contact Us</a>
@@ -790,6 +834,26 @@
     <script src="navbar.js"></script>
     <script>
       loadNavbar('about');
+    </script>
+
+    <script>
+      (function initTimelineAnimations() {
+        var items = document.querySelectorAll('.milestone-item');
+        if (!items.length || !('IntersectionObserver' in window)) return;
+
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('milestone-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.25 });
+
+        items.forEach(function (item) {
+          observer.observe(item);
+        });
+      })();
     </script>
 
     <script src="app.js"></script>

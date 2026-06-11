@@ -263,3 +263,15 @@
 [data-theme="dark"] .back-button {
     color: #94a3b8;
 }
+.required {
+  color: red;
+  font-weight: bold;
+  margin-left: 2px;
+}
+
+.required-note {
+  font-size: 14px;
+  margin-bottom: 12px;
+  color: #555;
+}
+/* TODO: Prevent password strength layout shifts */

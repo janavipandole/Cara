@@ -584,6 +584,7 @@
                     width: 100% !important;
                     box-sizing: border-box !important;
                     overflow: hidden !important;
+                    
                 }
             }
 
@@ -609,4 +610,9 @@
                 right: 10px;
             }
         }
+
+#feature {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
 

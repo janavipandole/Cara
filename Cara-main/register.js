@@ -35,13 +35,15 @@ document.addEventListener('DOMContentLoaded', function () {
             showToast('Username already exists.', 'error');
             return;
         }
-
-        users.push({ name, email, password });
+        
+        const hashedPassword = await hashPassword(password);
+        users.push({ name, email, password: hashedPassword });
         localStorage.setItem('users', JSON.stringify(users));
 
         // On successful registration
         showToast('Signup successful! Welcome to Cara.', 'success');
         localStorage.setItem('loggedInUser', email);
+        localStorage.setItem('loggedInUserName', name);
         setTimeout(() => {
             window.location.href = 'index.html';
         }, 1500);

@@ -50,6 +50,7 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="ui-fix.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
       rel="stylesheet"
@@ -453,7 +454,7 @@
           <h4>Follow us</h4>
           <div class="icon">
             <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer">
-              <i class="fab fa-twitter"></i>
+              <i class="fa-brands fa-x-twitter"></i>
             </a>
             <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
               <i class="fab fa-github"></i>
@@ -545,5 +546,32 @@
     <div id="toast-container"></div>
     <script src="app.js"></script>
     <script src="track-order.js"></script>
+    <!-- Cancel Order Support -->
+    <div id="cancel-simulation-box" style="max-width: 600px; margin: 20px auto; padding: 20px; border: 1px dashed #f87171; border-radius: 8px; text-align: center; display: none;">
+      <h3 style="color: #ef4444; margin-bottom: 10px;">Cancel Order Request</h3>
+      <p style="margin-bottom: 15px;">Your order is currently processing. You can cancel this order before shipping.</p>
+      <button onclick="simulateCancellation()" style="background: #ef4444; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-weight: 600;">
+        Cancel Order Now
+      </button>
+    </div>
+    
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Check status from tracking layout
+      setTimeout(() => {
+        const statusEl = document.querySelector(".status-text");
+        if (statusEl && statusEl.textContent.toLowerCase().includes("processing")) {
+          document.getElementById("cancel-simulation-box").style.display = "block";
+        }
+      }, 1000);
+    });
+    
+    function simulateCancellation() {
+      if (confirm("Are you sure you want to cancel this order?")) {
+        alert("Cancellation request sent successfully. Your refund will be processed.");
+        document.getElementById("cancel-simulation-box").innerHTML = "<h3>Order Cancelled</h3><p>This order has been cancelled.</p>";
+      }
+    }
+    </script>
   </body>
 </html>

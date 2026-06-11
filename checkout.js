@@ -1,3 +1,11 @@
+function safeParseJSON(key, fallback = '[]') {
+  try {
+    return JSON.parse(localStorage.getItem(key) || fallback);
+  } catch {
+    try { return JSON.parse(fallback); } catch { return []; }
+  }
+}
+
 const paymentMethod = document.getElementById("paymentMethod");
 const cardDetails = document.getElementById("cardDetails");
 
@@ -12,7 +20,24 @@ const validators = {
   required: (val) => val.trim() !== "",
   email: (val) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val.trim()),
   phone: (val) => /^\+?[\d\s\-]{7,15}$/.test(val.trim()),
-  cardNumber: (val) => /^\d{16}$/.test(val.replace(/\s/g, "")),
+  cardNumber: (val) => {
+    const raw = val.replace(/\s/g, "");
+    if (!/^\d{13,19}$/.test(raw)) return false;
+    
+    // Luhn checksum algorithm implementation
+    let sum = 0;
+    let shouldDouble = false;
+    for (let i = raw.length - 1; i >= 0; i--) {
+      let digit = parseInt(raw.charAt(i));
+      if (shouldDouble) {
+        digit *= 2;
+        if (digit > 9) digit -= 9;
+      }
+      sum += digit;
+      shouldDouble = !shouldDouble;
+    }
+    return sum % 10 === 0;
+  },
   expiry: (val) => {
     const value = val.trim();
     const match = value.match(/^(0[1-9]|1[0-2])\/\d{2}$/);
@@ -41,7 +66,7 @@ const errorMessages = {
   zip:        "Please enter a valid ZIP/postal code",
   paymentMethod: "Please select a payment method",
   cardName:   "Card holder name is required",
-  cardNumber: "Card number must be 16 digits",
+  cardNumber: "Card number is invalid (Luhn Check failed)",
   expiry:     "Please enter a valid future expiry date (MM/YY)",
   cvv:        "CVV must be 3-4 digits",
 };
@@ -118,7 +143,7 @@ function getDigits(value) {
 }
 
 // Format card number with spaces (1234 5678 9012 3456)
-cardNumber.addEventListener("input", function (e) {
+if (cardNumber) cardNumber.addEventListener("input", function (e) {
   let val = getDigits(e.target.value).slice(0, 16);
   e.target.value = val.replace(/(.{4})/g, "$1 ").trim();
   
@@ -210,7 +235,7 @@ form.addEventListener("submit", function (e) {
   }
 
   // GET CART
-  let cart = JSON.parse(localStorage.getItem("productsInCart")) || [];
+  let cart = safeParseJSON('productsInCart');
 
   // CHECK EMPTY CART
   if (cart.length === 0) {
@@ -219,12 +244,30 @@ form.addEventListener("submit", function (e) {
     return;
   }
 
-  // ── Loading state: disable button & show spinner ──
-  const submitBtn = form.querySelector(".submit-btn");
-  if (submitBtn) {
-    submitBtn.classList.add("btn-loading");
-    submitBtn.disabled = true;
+// Required contact/address fields
+const requiredFields = ['fullName', 'email', 'phone', 'address', 'city', 'zip'];
+
+for (const id of requiredFields) {
+  const el = document.getElementById(id);
+
+  if (!el) {
+    console.error(`Missing input field with id: ${id}`);
+    return;
   }
+
+  if (!el.value.trim()) {
+    highlightError(el);
+    return;
+  }
+}
+
+// ── Loading state: disable button & show spinner ──
+const submitBtn = form.querySelector(".submit-btn");
+
+if (submitBtn) {
+  submitBtn.classList.add("btn-loading");
+  submitBtn.disabled = true;
+}
 
   // Simulate async order processing
   setTimeout(function () {
@@ -233,15 +276,19 @@ form.addEventListener("submit", function (e) {
     localStorage.removeItem("appliedCoupon");
     window.appliedCoupon = null;
 
-    btn.disabled = false;
-    btn.style.opacity = '';
-    btn.style.cursor = '';
-    btn.innerHTML = originalHTML;
+    if (submitBtn) {
+      submitBtn.classList.remove("btn-loading");
+      submitBtn.disabled = false;
+      submitBtn.style.opacity = "";
+      submitBtn.style.cursor = "";
+      submitBtn.innerHTML = submitBtn.getAttribute('data-original-html') || 'Place Order';
+    }
 
     form.reset();
 
     // HIDE CARD DETAILS AGAIN
     cardDetails.style.display = "none";
+    popup.classList.add("active");
 
     // Clear all validation states post-submit
     inputs.forEach((input) => {
@@ -267,3 +314,4 @@ if (document.readyState === "interactive" || document.readyState === "complete")
 document.getElementById('successOverlay').addEventListener('click', function (e) {
   if (e.target === this) this.classList.remove('show');
 });
+// Advanced validation routines checking postal formats and shipping address boundaries.

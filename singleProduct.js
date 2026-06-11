@@ -11,7 +11,7 @@ const sizeRadios = document.querySelectorAll('.size-chart input[type="radio"]');
 
 // OPEN MODAL
 
-openBtn.addEventListener("click", () => {
+if (openBtn && modal) openBtn.addEventListener("click", () => {
 
     modal.style.display = "flex";
 
@@ -20,7 +20,7 @@ openBtn.addEventListener("click", () => {
 
 // CLOSE MODAL
 
-closeBtn.addEventListener("click", () => {
+if (closeBtn) closeBtn.addEventListener("click", () => {
 
     modal.style.display = "none";
 
@@ -61,3 +61,58 @@ sizeRadios.forEach((radio) => {
     });
 
 });
+
+// OVERRIDE ADD TO CART AND BUY NOW FOR SIZE VALIDATION
+if (sizeDropdown) {
+  const originalAddToCart = window.handleAddToCart;
+  window.handleAddToCart = function() {
+    if (sizeDropdown.value === "Select Size" || sizeDropdown.value === "") {
+      sizeDropdown.style.border = "2px solid #ef4444";
+      sizeDropdown.style.borderRadius = "4px";
+      
+      let errLabel = document.getElementById("size-error-label");
+      if (!errLabel) {
+        errLabel = document.createElement("span");
+        errLabel.id = "size-error-label";
+        errLabel.style.cssText = "color:#ef4444; font-size:12px; font-weight:700; display:block; margin-top:5px;";
+        errLabel.textContent = "Please select a size before adding to cart!";
+        sizeDropdown.parentNode.appendChild(errLabel);
+      }
+      if (typeof showToast === 'function') {
+        showToast("Please select a size before adding to cart!", "warning");
+      }
+      return;
+    }
+    if (originalAddToCart) originalAddToCart();
+  };
+
+  const originalBuyNow = window.handleBuyNow;
+  window.handleBuyNow = function() {
+    if (sizeDropdown.value === "Select Size" || sizeDropdown.value === "") {
+      sizeDropdown.style.border = "2px solid #ef4444";
+      sizeDropdown.style.borderRadius = "4px";
+      
+      let errLabel = document.getElementById("size-error-label");
+      if (!errLabel) {
+        errLabel = document.createElement("span");
+        errLabel.id = "size-error-label";
+        errLabel.style.cssText = "color:#ef4444; font-size:12px; font-weight:700; display:block; margin-top:5px;";
+        errLabel.textContent = "Please select a size before proceeding!";
+        sizeDropdown.parentNode.appendChild(errLabel);
+      }
+      if (typeof showToast === 'function') {
+        showToast("Please select a size before proceeding!", "warning");
+      }
+      return;
+    }
+    if (originalBuyNow) originalBuyNow();
+  };
+
+  sizeDropdown.addEventListener("change", () => {
+    if (sizeDropdown.value !== "Select Size" && sizeDropdown.value !== "") {
+      sizeDropdown.style.border = "";
+      const errLabel = document.getElementById("size-error-label");
+      if (errLabel) errLabel.remove();
+    }
+  });
+}

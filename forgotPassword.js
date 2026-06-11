@@ -1,11 +1,11 @@
 /* ===== FORGOT PASSWORD JS ===== */
- 
 
-/* toggle new password visibility */
-if (!document.getElementById('forgotForm')) 
-      return;
+document.addEventListener('DOMContentLoaded', function () {
+  if (!document.getElementById('forgotForm')) 
+        return;
 
-document.getElementById('toggleNewPass').addEventListener('click', function () {
+const toggleNewPass = document.getElementById('toggleNewPass');
+if (toggleNewPass) toggleNewPass.addEventListener('click', function () {
   const pwd = document.getElementById('forgotNewPass');
   pwd.type = pwd.type === 'password' ? 'text' : 'password';
   this.classList.toggle('ri-eye-line');
@@ -21,7 +21,7 @@ document.getElementById('toggleConfirmPass').addEventListener('click', function 
 });
 
 /* form submit */
-form.addEventListener('submit', function (e) {
+document.getElementById('forgotForm').addEventListener('submit', function (e) {
   e.preventDefault();
 
   const email       = document.getElementById('forgotEmail').value.trim();
@@ -34,6 +34,8 @@ form.addEventListener('submit', function (e) {
     return;
   }
 
+  if (!newPass || newPass.length < 6) {
+    showToast('Password must be at least 6 characters!', 'warning');
   if (/\s/.test(newPass)) {
     showToast('Password must not contain spaces.', 'warning');
     return;
@@ -93,6 +95,7 @@ form.addEventListener('submit', function (e) {
     }
 
     /* update password */
+    users[userIndex].password = await hashPassword(newPass); 
     users[userIndex].password = newPass;
     localStorage.setItem('users', JSON.stringify(users));
 
@@ -103,5 +106,6 @@ form.addEventListener('submit', function (e) {
       window.location.href = 'login.html';
     }, 2000);
   }, 1500);
+});
 });
 

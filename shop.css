@@ -632,6 +632,7 @@
     box-shadow: 0 6px 18px rgba(0,0,0,0.08);
     z-index: 20;
     border: 1px solid var(--border-color);
+    cursor: pointer;
 }
 
 .wishlist-btn i{
@@ -651,6 +652,54 @@
     color: #e0245e;
 }
 
+.wishlist-btn:focus-visible {
+    outline: 3px solid rgba(224, 36, 94, 0.28);
+    outline-offset: 3px;
+}
+#newsletter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+        #scrollTopBtn {
+        position: fixed;
+        bottom: 30px;
+        right: 30px; /* keeps button on right side */
+
+        width: 55px;
+        height: 55px;
+
+        border: none;
+        border-radius: 50%;
+
+        background-color: #088178;
+        color: white;
+
+        font-size: 24px;
+        font-weight: bold;
+
+        cursor: pointer;
+        z-index: 999;
+
+        display: none;
+
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      #scrollTopBtn:hover {
+        background-color: #065f5b;
+        transform: scale(1.1);
+      }
+@media (max-width: 1024px) {
+    #product1 .pro-container,
+    #shop-container {
+        gap: 18px;
+        padding: 20px 40px;
+    }
+}
+
 @media (max-width: 900px) {
     #product1 .pro-container,
     #shop-container {
@@ -660,6 +709,7 @@
     }
 
     #product1 .pro {
+        padding: 12px;
         padding-bottom: 64px;
         border-radius: 14px;
     }
@@ -680,4 +730,19 @@
   font-size: 14px;
 }
 
+}
+
+
+/* Spacing tuning for standard shop card viewports */
+.pro-container {
+  grid-gap: 25px;
+}
+
+/* Highlights styling for search match terms */
+.highlight {
+    background-color: rgba(8, 129, 120, 0.15);
+    color: var(--accent, #088178);
+    font-weight: 700;
+    padding: 0 4px;
+    border-radius: 4px;
 }

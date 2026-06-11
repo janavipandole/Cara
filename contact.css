@@ -238,3 +238,43 @@
         width: 100%;
     }
 }
+
+
+/* Focus state outline and shadow enhancements */
+.contact-details form input:focus,
+.contact-details form textarea:focus {
+  border-color: #088178 !important;
+  box-shadow: 0 0 8px rgba(8, 129, 120, 0.2) !important;
+  outline: none;
+}
+
+/* FAQ ACCORDION */
+#contact-faq {
+    padding: 80px 40px;
+    max-width: 1200px;
+    margin: 40px auto;
+    background: var(--card-bg, #ffffff);
+    border-radius: 16px;
+    border: 1px solid var(--border-color, #cde7d8);
+    box-shadow: 0 10px 30px var(--shadow, rgba(0, 0, 0, 0.05));
+}
+.faq-item {
+    transition: all 0.3s ease;
+}
+.faq-item[open] {
+    border-color: var(--accent, #088178) !important;
+    background: var(--input-bg, #f4faf6) !important;
+}
+.faq-trigger {
+    outline: none;
+}
+.faq-trigger i {
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+.faq-item[open] .faq-trigger i {
+    transform: rotate(180deg);
+    color: var(--accent, #088178);
+}
+
+/* CSS classes styling FAQ accordion panel expand/collapse transition sequences. */
