@@ -36576,3 +36576,12 @@ html {
   background: #f3fffd !important;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
+
+@media (max-width: 540px) {
+  .mobile {
+    justify-content: center;
+  }
+  .mobile i {
+    padding-left: 14px;
+  }
+}
