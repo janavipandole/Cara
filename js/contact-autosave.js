@@ -40,7 +40,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 2000);
     }
 
-    form.addEventListener("submit", () => {
+    form.addEventListener("submit", (e) => {
+        if (form.checkValidity && !form.checkValidity()) {
+            return;
+        }
         fields.forEach(field => {
             localStorage.removeItem(`cara_contact_draft_${field}`);
         });
