@@ -887,6 +887,7 @@ if (msgArea && charCount) {
 const form = document.querySelector(".contact-form");
 
 form.addEventListener("submit", function (e) {
+  // Resolves #1690: Client-side input validation for the contact form
   e.preventDefault();
 
   let isValid = true;
@@ -909,7 +910,8 @@ form.addEventListener("submit", function (e) {
   }
 
   if (name.value.trim() === "") showError(name, "Name is required");
-  if (!email.value.includes("@")) showError(email, "Valid email required");
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email.value)) showError(email, "Valid email required");
   if (message.value.trim().length < 10) showError(message, "Message must be at least 10 characters");
 
   if (isValid) {
