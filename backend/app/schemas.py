@@ -1,5 +1,5 @@
 from pydantic import BaseModel, EmailStr
-from typing import Optional
+from typing import List, Optional
 from enum import Enum
 
 class ProductBase(BaseModel):
@@ -21,6 +21,12 @@ class Product(ProductBase):
 
     class Config:
         from_attributes = True
+
+class ProductPage(BaseModel):
+    total: int
+    limit: int
+    offset: int
+    items: List["Product"]
 
 class InteractionCreate(BaseModel):
     user_id: str
