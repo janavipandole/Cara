@@ -2,6 +2,14 @@
 <html lang="en">
 
 <head>
+    <body>
+
+        <script>
+            document.body.setAttribute(
+                "data-theme",
+                localStorage.getItem("theme") || "light"
+            );
+        </script>
     <!-- Character Encoding -->
     <meta charset="UTF-8">
     
@@ -27,6 +35,18 @@
             --wishlist-bg: #f7faf9;
         }
 
+
+        body[data-theme="dark"]{
+        --wishlist-ink: #f3f4f6;
+        --wishlist-muted: #9ca3af;
+        --wishlist-border: rgba(255,255,255,0.08);
+        --wishlist-surface: rgba(31,41,55,0.88);
+        --wishlist-bg: #0f172a;
+
+        background:
+            radial-gradient(circle at top left, rgba(8,129,120,0.15), transparent 32rem),
+            linear-gradient(180deg, #0f172a 0%, #111827 48%, #1f2937 100%);
+}
         body {
             font-family: 'League Spartan', sans-serif;
             background:
@@ -129,9 +149,9 @@
         }
 
         .btn-secondary {
-            background: #fff;
+            background: var(--wishlist-surface);
+            color: var(--wishlist-ink);
             border: 1px solid rgba(255, 255, 255, 0.58);
-            color: var(--wishlist-teal-dark);
             box-shadow: 0 18px 34px rgba(4, 47, 46, 0.2);
         }
 
@@ -211,7 +231,7 @@
             left: 12px;
             padding: 7px 10px;
             border-radius: 999px;
-            background: rgba(255, 255, 255, 0.9);
+            background: var(--wishlist-surface);
             color: var(--wishlist-rose);
             font-size: 12px;
             font-weight: 800;
@@ -303,7 +323,7 @@
         }
 
         .remove-icon-btn {
-            background: #fff1f2;
+            background: var(--wishlist-surface);
             color: var(--wishlist-rose);
             font-size: 18px;
         }
@@ -338,7 +358,7 @@
             height: 86px;
             margin: 0 auto 24px;
             border-radius: 50%;
-            background: #fff1f2;
+            background: var(--wishlist-surface);
             color: var(--wishlist-rose);
             font-size: 42px;
             display: grid;
@@ -384,7 +404,7 @@
             position: fixed;
             bottom: 30px;
             right: 30px;
-            background: #fff;
+            background: var(--wishlist-surface);
             padding: 15px 25px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.15);
             border-radius: 14px;
@@ -394,6 +414,7 @@
             align-items: center;
             gap: 10px;
             transform: translateY(100px);
+            color: var(--wishlist-ink);
             opacity: 0;
             transition: 0.4s;
         }

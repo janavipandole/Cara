@@ -52,22 +52,7 @@
       background-color: #555;
     }
 
-            :root {
-    --accent: #088178;
-    --text-primary: #333;
-    --text-secondary: #6b7280;
-    --bg-secondary: #f5f5f5;
-    --card-bg: #ffffff;
-    --border-color: #ddd;
-    }
 
-    body[data-theme="dark"]{
-    --text-primary: #f3f4f6;
-    --text-secondary: #d1d5db;
-    --bg-secondary: #111827;
-    --card-bg: #1f2937;
-    --border-color: #374151;
-    }
         /* ============================================
            VIRTUAL TRY-ON PAGE STYLES
            ============================================ */
@@ -527,7 +512,7 @@
             }
         }
         
-    </style>
+  </style>
     <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="ui-fix.css" />
 </head>
@@ -535,7 +520,7 @@
 
         <!-- HEADER -->
         <!-- <section id="header"> -->
-            <section id="header">
+   <section id="header">
   <!-- Logo -->
   <a href="index.html">
     <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
@@ -867,9 +852,14 @@
    <button id="topBtn">↑</button>
      <script src="try-on.js"></script> 
     <script src="navbar.js"></script>
+    <script src="app.js"></script>
+    <script>loadNavbar('tryon');</script>
+    <script src="js/theme.js"></script>
 <!-- <script>loadNavbar('tryon');</script> -->
         <script id="Current-Year">
         document.getElementById("Current-Year").textContent = new Date().getFullYear();
+
+        
     </script>
 </body>
 </html>
