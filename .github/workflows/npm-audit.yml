@@ -1,0 +1,22 @@
+name: Weekly NPM Security Audit
+
+on:
+  schedule:
+    - cron: '0 0 * * 0'
+  pull_request:
+    paths:
+      - 'package.json'
+      - 'package-lock.json'
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Security Check Audit
+        run: npm audit --audit-level=high || true
