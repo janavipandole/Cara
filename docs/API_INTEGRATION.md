@@ -3,7 +3,9 @@
 This document details the schema patterns, endpoint contracts, and network request formats defined for migrating the frontend client to a stateful RESTful API backend.
 
 ## 🔑 Authentication Service
+
 ### `POST /api/v1/auth/login`
+
 - **Request Body**:
   ```json
   {
@@ -24,7 +26,9 @@ This document details the schema patterns, endpoint contracts, and network reque
   ```
 
 ## 🛒 Shopping Cart Persistence
+
 ### `GET /api/v1/cart`
+
 - **Headers**: `Authorization: Bearer <token>`
 - **Response**:
   ```json

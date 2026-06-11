@@ -5,9 +5,9 @@ from sqlalchemy.orm import Session
 from passlib.context import CryptContext
 from jose import jwt, JWTError
 import os
-from app.database import get_db
-from app import models
-from app.schemas import UserRegister, UserLogin, Token, UserOut
+from ..database import get_db
+from .. import models
+from ..schemas import UserRegister, UserLogin, Token, UserOut
 
 SECRET_KEY = os.environ["SECRET_KEY"] #set it in .env 
 ALGORITHM  = "HS256"

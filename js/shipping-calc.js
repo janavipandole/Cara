@@ -1,9 +1,9 @@
 // Delivery Shipping Calculator
-document.addEventListener("DOMContentLoaded", () => {
-    const container = document.getElementById("shipping-calculator-target");
-    if (!container) return;
+document.addEventListener('DOMContentLoaded', () => {
+  const container = document.getElementById('shipping-calculator-target');
+  if (!container) return;
 
-    container.innerHTML = `
+  container.innerHTML = `
         <div style="background: rgba(8,129,120,0.04); border: 1px solid rgba(8,129,120,0.2); border-radius: 8px; padding: 20px; margin: 30px 0; font-family: sans-serif;">
             <h3 style="color:#088178; margin-top:0;"><i class="ri-truck-line"></i> Shipping Cost Estimator</h3>
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
@@ -28,20 +28,20 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
     `;
 
-    document.getElementById("calc-shipping-btn").addEventListener("click", () => {
-        const country = document.getElementById("ship-country").value;
-        const speed = document.getElementById("ship-speed").value;
-        let total = speed === "exp" ? 150 : 0;
-        let days = speed === "exp" ? "2-3 days" : "5-7 days";
+  document.getElementById('calc-shipping-btn').addEventListener('click', () => {
+    const country = document.getElementById('ship-country').value;
+    const speed = document.getElementById('ship-speed').value;
+    let total = speed === 'exp' ? 150 : 0;
+    let days = speed === 'exp' ? '2-3 days' : '5-7 days';
 
-        if (country !== "IN") {
-            total += 450; // International shipping
-            days = speed === "exp" ? "4-5 days" : "9-12 days";
-        }
+    if (country !== 'IN') {
+      total += 450; // International shipping
+      days = speed === 'exp' ? '4-5 days' : '9-12 days';
+    }
 
-        document.getElementById("calc-feedback").innerHTML = `
+    document.getElementById('calc-feedback').innerHTML = `
             Estimated Cost: ₹${total} <br>
             Estimated Time: ${days}
         `;
-    });
+  });
 });

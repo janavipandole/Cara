@@ -76,4 +76,4 @@ document.getElementById('forgotForm').addEventListener('submit', function (e) {
     }, 2000);
   }, 1500);
 });
-
+

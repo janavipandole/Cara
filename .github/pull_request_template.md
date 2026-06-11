@@ -30,12 +30,12 @@ If your changes include UI updates or visual changes, add screenshots or GIFs he
 
 Select the type of change your PR introduces (check all that apply):
 
-- [ ] 🐛 Bug Fix  
-- [ ] ✨ New Feature  
-- [ ] ⚡ Enhancement / Optimization  
-- [ ] 🧰 Refactoring  
-- [ ] 🧾 Documentation Update  
-- [ ] 🔧 Other (please specify): ____________
+- [ ] 🐛 Bug Fix
+- [ ] ✨ New Feature
+- [ ] ⚡ Enhancement / Optimization
+- [ ] 🧰 Refactoring
+- [ ] 🧾 Documentation Update
+- [ ] 🔧 Other (please specify): \***\*\_\_\_\_\*\***
 
 ---
 
@@ -43,11 +43,11 @@ Select the type of change your PR introduces (check all that apply):
 
 Before submitting your PR, please confirm the following:
 
-- [ ] Code follows project style guidelines  
-- [ ] Tests added/updated and passing  
-- [ ] Responsive design verified on mobile/tablet/desktop  
-- [ ] Accessibility checked (keyboard nav, screen readers)  
-- [ ] Screenshots attached (if UI changes)  
+- [ ] Code follows project style guidelines
+- [ ] Tests added/updated and passing
+- [ ] Responsive design verified on mobile/tablet/desktop
+- [ ] Accessibility checked (keyboard nav, screen readers)
+- [ ] Screenshots attached (if UI changes)
 - [ ] Self-review completed
 
 ---

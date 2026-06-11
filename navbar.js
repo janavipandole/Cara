@@ -97,7 +97,6 @@ function loadNavbar(activePage) {
     console.error('navbar-container not found!');
     return;
   }
-
   if (typeof window.updateWishlistCount === 'function') {
     window.updateWishlistCount();
   }

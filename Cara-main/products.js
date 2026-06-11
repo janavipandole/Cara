@@ -28,12 +28,13 @@ function renderProducts(containerId, list) {
   if (list.length === 0) {
     const message = document.createElement('div');
     message.className = 'no-results-message';
-    message.textContent = 'No products found. Try a different search or category.';
+    message.textContent =
+      'No products found. Try a different search or category.';
     container.appendChild(message);
     return;
   }
 
-  list.forEach(p => {
+  list.forEach((p) => {
     // Create product card container
     const card = document.createElement('div');
     card.className = 'pro';
@@ -146,7 +147,11 @@ function renderSearchSuggestions(query) {
 
   const normalizedQuery = query.trim().toLowerCase();
   const suggestions = products
-    .filter(p => p.name.toLowerCase().includes(normalizedQuery) || p.brand.toLowerCase().includes(normalizedQuery))
+    .filter(
+      (p) =>
+        p.name.toLowerCase().includes(normalizedQuery) ||
+        p.brand.toLowerCase().includes(normalizedQuery)
+    )
     .slice(0, 5);
 
   if (suggestions.length === 0) {
@@ -156,7 +161,7 @@ function renderSearchSuggestions(query) {
     return;
   }
 
-  suggestions.forEach(item => {
+  suggestions.forEach((item) => {
     const button = document.createElement('button');
     button.type = 'button';
     button.textContent = `${item.name} — ${item.brand}`;
@@ -181,9 +186,12 @@ function filterProducts() {
   const category = categorySelect ? categorySelect.value : 'all';
   const sortValue = sortSelect ? sortSelect.value : 'default';
 
-  let filteredProducts = products.filter(product => {
+  let filteredProducts = products.filter((product) => {
     const matchesCategory = category === 'all' || product.category === category;
-    const matchesSearch = query === '' || product.name.toLowerCase().includes(query) || product.brand.toLowerCase().includes(query);
+    const matchesSearch =
+      query === '' ||
+      product.name.toLowerCase().includes(query) ||
+      product.brand.toLowerCase().includes(query);
     return matchesCategory && matchesSearch;
   });
 

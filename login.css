@@ -2,222 +2,230 @@
    1. LAYOUT STRUCTURAL BASELINE (Direct alignment with main template framework)
    ========================================================================== */
 #main {
-    width: 100%;
-    height: auto;
-    min-height: 100vh; /* Matches layout rule from style.css */
+  width: 100%;
+  height: auto;
+  min-height: 100vh; /* Matches layout rule from style.css */
 }
 
 #top {
-    position: relative;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: auto;
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
 }
 
 #workingArea {
-    position: relative;
-    margin: 0 auto;
-    width: 100%;
-    max-width: 1920px; /* Matches layout boundary from style.css */
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1920px; /* Matches layout boundary from style.css */
 }
 
 /* ==========================================================================
    2. LOGIN CONTAINER & CARD ELEMENT TYPOGRAPHY (Synced with style.css)
    ========================================================================== */
 #login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 70vh;
-    padding: 60px 20px;
-    background-color: var(--bg-secondary, #f8f9fa); /* Automatically handles light/dark mode */
-    box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+  padding: 60px 20px;
+  background-color: var(
+    --bg-secondary,
+    #f8f9fa
+  ); /* Automatically handles light/dark mode */
+  box-sizing: border-box;
 }
 
 .login-box {
-    width: 100%;
-    max-width: 450px;
-    background: var(--card-bg, #ffffff);
-    padding: 40px;
-    border-radius: 16px; /* Matches product card rounding rule from style.css */
-    border: 1.5px solid var(--border-color); /* Matches template line decorations */
-    box-shadow: 0 8px 22px var(--shadow);
-    box-sizing: border-box;
+  width: 100%;
+  max-width: 450px;
+  background: var(--card-bg, #ffffff);
+  padding: 40px;
+  border-radius: 16px; /* Matches product card rounding rule from style.css */
+  border: 1.5px solid var(--border-color); /* Matches template line decorations */
+  box-shadow: 0 8px 22px var(--shadow);
+  box-sizing: border-box;
 }
 
 /* Form Title - Scaling down from your core template 56px scale down to look balanced */
 .login-box h2 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: var(--text-primary);
-    font-size: 38px !important; /* Forces layout proportions down from template h2: 56px */
-    line-height: 44px !important;
-    font-weight: 700;
-    margin-top: 0;
+  text-align: center;
+  margin-bottom: 30px;
+  color: var(--text-primary);
+  font-size: 38px !important; /* Forces layout proportions down from template h2: 56px */
+  line-height: 44px !important;
+  font-weight: 700;
+  margin-top: 0;
 }
 
 .login-box .input-field {
-    margin-bottom: 24px;
+  margin-bottom: 24px;
 }
 
 /* Form Inputs - Forces font size matching the index input configs (16px) */
 .login-box .input-field input {
-    display: block;
-    width: 100%;
-    padding: 12px 16px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    background-color: var(--input-bg);
-    color: var(--text-primary);
-    font-size: 16px !important; /* Synced direct to template search/filter parameters */
-    outline: none;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
+  display: block;
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  font-size: 16px !important; /* Synced direct to template search/filter parameters */
+  outline: none;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
 }
 
 .login-box .input-field input:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 1px var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
 }
 
 .login-box .forgot-pass {
-    text-align: right;
-    margin-bottom: 24px;
+  text-align: right;
+  margin-bottom: 24px;
 }
 
 /* Secondary Actions / Links - Matches standard template body font rules */
 .login-box .forgot-pass a {
-    color: var(--accent);
-    font-size: 16px !important; 
-    font-weight: 500;
-    text-decoration: none;
+  color: var(--accent);
+  font-size: 16px !important;
+  font-weight: 500;
+  text-decoration: none;
 }
 
 /* Primary Form Button - Synced exactly to .btn-shop-now & button.normal settings */
 .login-box .login-btn {
-    width: 100%;
-    padding: 14px 36px;
-    background-color: var(--accent);
-    color: #ffffff;
-    border: none;
-    font-size: 15px !important; /* Direct match to .btn-shop-now font-size definition */
-    font-weight: 700 !important; /* Direct match to .btn-shop-now font-weight definition */
-    border-radius: 6px;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(8, 129, 120, 0.35);
-    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  width: 100%;
+  padding: 14px 36px;
+  background-color: var(--accent);
+  color: #ffffff;
+  border: none;
+  font-size: 15px !important; /* Direct match to .btn-shop-now font-size definition */
+  font-weight: 700 !important; /* Direct match to .btn-shop-now font-weight definition */
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(8, 129, 120, 0.35);
+  transition:
+    background 0.3s ease,
+    transform 0.2s ease,
+    box-shadow 0.3s ease;
 }
 
 .login-box .login-btn:hover {
-    background-color: #000000;
-    transform: translateY(-2px);
+  background-color: #000000;
+  transform: translateY(-2px);
 }
 
 .login-box .signup-link {
-    text-align: center;
-    margin-top: 25px;
-    font-size: 16px !important; /* Scaled to legibility bounds */
-    color: var(--text-secondary);
+  text-align: center;
+  margin-top: 25px;
+  font-size: 16px !important; /* Scaled to legibility bounds */
+  color: var(--text-secondary);
 }
 
 .login-box .signup-link a {
-    color: var(--accent);
-    text-decoration: none;
-    font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 700;
 }
 
 /* ==========================================================================
    3. REPLICATED INDEX FOOTER CLASSES (Direct matching values from style.css)
    ========================================================================== */
 footer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    background-color: var(--bg-secondary); /* Dynamic template utility alignment */
-    transition: background-color 0.3s ease;
-    width: 100%;
-    box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background-color: var(
+    --bg-secondary
+  ); /* Dynamic template utility alignment */
+  transition: background-color 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 footer.section-p1 {
-    padding: 40px 80px; /* Aligned section padding rules */
+  padding: 40px 80px; /* Aligned section padding rules */
 }
 
 footer .col {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 20px;
 }
 
 footer .logo {
-    margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 /* Footer Section Header Match */
 footer h4 {
-    margin-bottom: 20px;
-    font-size: 20px !important; /* Hardcoded exact match from your template style.css line */
-    color: var(--footer-text);
-    font-weight: 700;
+  margin-bottom: 20px;
+  font-size: 20px !important; /* Hardcoded exact match from your template style.css line */
+  color: var(--footer-text);
+  font-weight: 700;
 }
 
 /* Footer Paragraph Match */
 footer p {
-    margin: 0 0 8px 0;
-    font-size: 20px !important; /* Hardcoded exact match from your template style.css line */
-    color: var(--footer-text);
+  margin: 0 0 8px 0;
+  font-size: 20px !important; /* Hardcoded exact match from your template style.css line */
+  color: var(--footer-text);
 }
 
 /* Footer Navigation Link Match */
 footer a {
-    font-size: 18px !important; /* Hardcoded exact match from your template style.css line */
-    text-decoration: none;
-    color: var(--footer-text);
-    margin-bottom: 10px;
-    transition: color 0.3s ease;
+  font-size: 18px !important; /* Hardcoded exact match from your template style.css line */
+  text-decoration: none;
+  color: var(--footer-text);
+  margin-bottom: 10px;
+  transition: color 0.3s ease;
 }
 
-footer a:hover, 
+footer a:hover,
 footer .follow i:hover {
-    color: var(--accent);
+  color: var(--accent);
 }
 
 footer .follow {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 footer .follow i {
-    color: var(--text-secondary);
-    padding-right: 4px;
-    cursor: pointer;
-    font-size: 18px !important;
-    transition: color 0.3s ease;
+  color: var(--text-secondary);
+  padding-right: 4px;
+  cursor: pointer;
+  font-size: 18px !important;
+  transition: color 0.3s ease;
 }
 
 footer .install .row img {
-    border: 1px solid #088178;
-    border-radius: 6px;
+  border: 1px solid #088178;
+  border-radius: 6px;
 }
 
 footer .install img {
-    margin: 10px 0 15px 0;
+  margin: 10px 0 15px 0;
 }
 
 footer .copyright {
-    text-align: center;
-    width: 100%;
-    margin-top: 20px;
+  text-align: center;
+  width: 100%;
+  margin-top: 20px;
 }
 
 /* ==========================================================================
    4. RESPONSIVE RESET BREAKPOINTS
    ========================================================================== */
 @media (max-width: 799px) {
-    footer.section-p1 {
-        padding: 24px; /* Scaled wrapper alignment */
-    }
+  footer.section-p1 {
+    padding: 24px; /* Scaled wrapper alignment */
+  }
 }
 
 /* CAPTCHA Section */
@@ -244,7 +252,7 @@ footer .copyright {
   margin-bottom: 8px;
 }
 
-[data-theme="dark"] #captcha-canvas {
+[data-theme='dark'] #captcha-canvas {
   background: #2a2a3e;
   border-color: #444;
 }
@@ -277,21 +285,21 @@ footer .copyright {
 }
 
 @media (max-width: 640px) {
-    #top {
-        position: relative !important;
-        height: auto !important;
-    }
+  #top {
+    position: relative !important;
+    height: auto !important;
+  }
 
-    .section-p1 {
-        padding: 24px !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-    }
+  .section-p1 {
+    padding: 24px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
 
-    .login-box h2 {
-        font-size: 30px !important; 
-        line-height: 36px !important;
-    }
+  .login-box h2 {
+    font-size: 30px !important;
+    line-height: 36px !important;
+  }
 }
 .required {
   color: red;

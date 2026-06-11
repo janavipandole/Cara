@@ -51,15 +51,16 @@ function initDarkMode() {
   if (isDarkSaved) {
     document.body.setAttribute('data-theme', 'dark');
     if (themeIcon) themeIcon.classList.replace('ri-moon-line', 'ri-sun-line');
-    if (themeIconMobile) themeIconMobile.classList.replace('ri-moon-line', 'ri-sun-line');
+    if (themeIconMobile)
+      themeIconMobile.classList.replace('ri-moon-line', 'ri-sun-line');
   }
 
   function handleToggle() {
     const isDark = document.body.getAttribute('data-theme') === 'dark';
     if (isDark) {
-        document.body.removeAttribute('data-theme');
+      document.body.removeAttribute('data-theme');
     } else {
-        document.body.setAttribute('data-theme', 'dark');
+      document.body.setAttribute('data-theme', 'dark');
     }
     const newIsDark = !isDark;
     localStorage.setItem('theme', newIsDark ? 'dark' : 'light');
@@ -70,5 +71,6 @@ function initDarkMode() {
   }
 
   if (themeToggle) themeToggle.addEventListener('click', handleToggle);
-  if (themeToggleMobile) themeToggleMobile.addEventListener('click', handleToggle);
+  if (themeToggleMobile)
+    themeToggleMobile.addEventListener('click', handleToggle);
 }

@@ -364,7 +364,9 @@ const products = [
  */
 function renderStars(baseRating, productId) {
   // Load user's saved rating if it exists, else use base rating
-  const savedRating = parseFloat(localStorage.getItem('userRating_' + productId));
+  const savedRating = parseFloat(
+    localStorage.getItem('userRating_' + productId)
+  );
   const displayRating = !isNaN(savedRating) ? savedRating : baseRating;
 
   const starDiv = document.createElement('div');
@@ -402,16 +404,18 @@ function renderStars(baseRating, productId) {
 
   // Reset highlight on mouse leave
   starDiv.addEventListener('mouseleave', () => {
-    const currentRating = parseFloat(localStorage.getItem('userRating_' + productId)) || baseRating;
+    const currentRating =
+      parseFloat(localStorage.getItem('userRating_' + productId)) || baseRating;
     updateStarDisplay(starDiv, currentRating);
   });
 
   // Numeric rating text
   const ratingText = document.createElement('span');
   ratingText.className = 'rating-value';
-  ratingText.textContent = displayRating % 1 === 0
-    ? displayRating.toFixed(1)
-    : displayRating.toString();
+  ratingText.textContent =
+    displayRating % 1 === 0
+      ? displayRating.toFixed(1)
+      : displayRating.toString();
   starDiv.appendChild(ratingText);
 
   return starDiv;
@@ -494,7 +498,10 @@ function getWishlist() {
 }
 
 function saveWishlist(wishlist) {
-  localStorage.setItem('wishlist', JSON.stringify(wishlist.map(normalizeWishlistItem)));
+  localStorage.setItem(
+    'wishlist',
+    JSON.stringify(wishlist.map(normalizeWishlistItem))
+  );
   if (typeof window.updateWishlistCount === 'function') {
     window.updateWishlistCount();
   }
@@ -512,7 +519,9 @@ function updateWishlistButtonState(button, isSaved) {
   button.setAttribute('aria-pressed', String(isSaved));
   button.setAttribute(
     'aria-label',
-    isSaved ? `Remove ${productName} from wishlist` : `Add ${productName} to wishlist`
+    isSaved
+      ? `Remove ${productName} from wishlist`
+      : `Add ${productName} to wishlist`
   );
   button.title = isSaved ? 'Remove from wishlist' : 'Add to wishlist';
   button.innerHTML = `<i class="${isSaved ? 'ri-heart-fill' : 'ri-heart-line'}" aria-hidden="true"></i>`;
@@ -525,9 +534,14 @@ function updateWishlistButtonState(button, isSaved) {
 }
 
 function syncWishlistButtons() {
-  document.querySelectorAll('.wishlist-btn[data-product-name]').forEach((button) => {
-    updateWishlistButtonState(button, isInWishlist(button.dataset.productName));
-  });
+  document
+    .querySelectorAll('.wishlist-btn[data-product-name]')
+    .forEach((button) => {
+      updateWishlistButtonState(
+        button,
+        isInWishlist(button.dataset.productName)
+      );
+    });
 }
 
 function toggleWishlistItem(product, button) {
@@ -537,10 +551,12 @@ function toggleWishlistItem(product, button) {
 
   if (exists) {
     wishlist = wishlist.filter((wishItem) => wishItem.name !== item.name);
-    if (typeof showToast === 'function') showToast(`${item.name} removed from wishlist`, 'info');
+    if (typeof showToast === 'function')
+      showToast(`${item.name} removed from wishlist`, 'info');
   } else {
     wishlist.push(item);
-    if (typeof showToast === 'function') showToast(`${item.name} added to wishlist`, 'success');
+    if (typeof showToast === 'function')
+      showToast(`${item.name} added to wishlist`, 'success');
   }
 
   saveWishlist(wishlist);
@@ -568,12 +584,12 @@ function highlightText(text, query) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;');
-    
+
   if (!query || !query.trim()) {
     return escapedText;
   }
-  
-  const escapedQuery = query.trim().replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+
+  const escapedQuery = query.trim().replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
   const regex = new RegExp(`(${escapedQuery})`, 'gi');
   return escapedText.replace(regex, '<span class="highlight">$1</span>');
 }
@@ -581,7 +597,7 @@ function highlightText(text, query) {
 function renderProducts(containerId, list, query = '') {
   const container = document.getElementById(containerId);
   if (!container) return;
-  
+
   if (query === '') {
     const searchInput = document.getElementById('searchInput');
     query = searchInput ? searchInput.value.trim() : '';
@@ -804,9 +820,15 @@ function filterProducts() {
   const query = rawQuery.toLowerCase();
   const category = categorySelect ? categorySelect.value : 'all';
   const sortValue = sortSelect ? sortSelect.value : 'default';
-  const brandValue = brandSelect ? brandSelect.value.toLowerCase().trim() : 'all';
-  const colorValue = colorSelect ? colorSelect.value.toLowerCase().trim() : 'all';
-  const styleValue = styleSelect ? styleSelect.value.toLowerCase().trim() : 'all';
+  const brandValue = brandSelect
+    ? brandSelect.value.toLowerCase().trim()
+    : 'all';
+  const colorValue = colorSelect
+    ? colorSelect.value.toLowerCase().trim()
+    : 'all';
+  const styleValue = styleSelect
+    ? styleSelect.value.toLowerCase().trim()
+    : 'all';
 
   let filteredProducts = products.filter((product) => {
     const matchesCategory = category === 'all' || product.category === category;
@@ -822,9 +844,14 @@ function filterProducts() {
 
   // Apply brand/color/style filters
   filteredProducts = filteredProducts.filter((product) => {
-    const matchesBrand = brandValue === 'all' || product.brand.toLowerCase() === brandValue;
-    const matchesColor = colorValue === 'all' || (product.color && product.color.toLowerCase() === colorValue);
-    const matchesStyle = styleValue === 'all' || (product.style && product.style.toLowerCase() === styleValue);
+    const matchesBrand =
+      brandValue === 'all' || product.brand.toLowerCase() === brandValue;
+    const matchesColor =
+      colorValue === 'all' ||
+      (product.color && product.color.toLowerCase() === colorValue);
+    const matchesStyle =
+      styleValue === 'all' ||
+      (product.style && product.style.toLowerCase() === styleValue);
     return matchesBrand && matchesColor && matchesStyle;
   });
 
@@ -878,14 +905,39 @@ function attachSearchListeners() {
 }
 
 function addToCart(name, price, img, quantity, size) {
-  const cart = safeParseJSON('productsInCart');
-  cart.push({ name, price, img, quantity, size, id: Date.now() });
+  let cart = [];
+  try {
+    cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+  } catch (err) {
+    cart = [];
+  }
+  const parsedQty = parseInt(quantity) || 1;
+  const parsedSize = size ? size.replace('Size', '').trim() : 'M';
+
+  const existingItem = cart.find(
+    (p) => p.name === name && p.size === parsedSize
+  );
+  if (existingItem) {
+    existingItem.quantity += parsedQty;
+  } else {
+    cart.push({
+      name: name,
+      price:
+        typeof price === 'number'
+          ? price
+          : parseFloat(String(price).replace(/[₹$,\s]/g, '')),
+      image: img,
+      quantity: parsedQty,
+      size: parsedSize,
+    });
+  }
+
   localStorage.setItem('productsInCart', JSON.stringify(cart));
+  if (typeof showToast === 'function') {
+    showToast(`${name} (Size: ${parsedSize}) added to cart!`, 'success');
+  }
   if (typeof updateCartCount === 'function') {
     updateCartCount();
-  }
-  if (typeof showToast === 'function') {
-    showToast(`${name} added to cart`, 'success');
   }
 }
 
@@ -898,41 +950,41 @@ document.addEventListener('DOMContentLoaded', () => {
   syncWishlistButtons();
 });
 
- // --- GLOBAL TOAST NOTIFICATION HANDLER ---
+// --- GLOBAL TOAST NOTIFICATION HANDLER ---
 function showToast(message, type = 'success') {
-    // Check if container already exists, else create it
-    let container = document.getElementById('toast-container');
-    if (!container) {
-        container = document.createElement('div');
-        container.id = 'toast-container';
-        document.body.appendChild(container);
-    }
+  // Check if container already exists, else create it
+  let container = document.getElementById('toast-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.id = 'toast-container';
+    document.body.appendChild(container);
+  }
 
-    // Create Toast element wrapper
-    const toast = document.createElement('div');
-    toast.className = `toast toast-${type}`;
+  // Create Toast element wrapper
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
 
-    // Select icon based on variant types
-    let icon = '🛒';
-    if (type === 'error') icon = '❌';
-    if (type === 'warning') icon = '⚠️';
-    if (type === 'info') icon = 'ℹ️';
+  // Select icon based on variant types
+  let icon = '🛒';
+  if (type === 'error') icon = '❌';
+  if (type === 'warning') icon = '⚠️';
+  if (type === 'info') icon = 'ℹ️';
 
-    // Build Toast inner body to match your existing CSS layout (.toast-icon, .toast-msg, .toast-close, .toast-progress)
-    toast.innerHTML = `
+  // Build Toast inner body to match your existing CSS layout (.toast-icon, .toast-msg, .toast-close, .toast-progress)
+  toast.innerHTML = `
         <div class="toast-icon">${icon}</div>
         <div class="toast-msg">${message}</div>
         <button class="toast-close" onclick="this.parentElement.remove()">&times;</button>
         <div class="toast-progress"></div>
     `;
 
-    container.appendChild(toast);
+  container.appendChild(toast);
 
-    // Auto-remove animation sequence handling (Matches CSS timers smoothly)
+  // Auto-remove animation sequence handling (Matches CSS timers smoothly)
+  setTimeout(() => {
+    toast.classList.add('toast-hiding');
     setTimeout(() => {
-        toast.classList.add('toast-hiding');
-        setTimeout(() => {
-            toast.remove();
-        }, 350); // Exact exit duration specified in .toast-hiding cubic-bezier curve
-    }, 3650); // Active visibility shelf life before auto dismissal
+      toast.remove();
+    }, 350); // Exact exit duration specified in .toast-hiding cubic-bezier curve
+  }, 3650); // Active visibility shelf life before auto dismissal
 }
