@@ -251,7 +251,7 @@ See the [open issues](https://github.com/janavipandole/Cara/issues) for a full l
 ## 🤝 Contributing
 
 Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-Please read our [Contributing Guidelines](CONTRIBUTING.md) before submitting a Pull Request.
+Please read our [Contributing](./CONTRIBUTING.md) before submitting a Pull Request.
 
 ### How to Contribute
 1. **Fork the Project**
