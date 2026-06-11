@@ -349,52 +349,26 @@
         el.textContent = year;
       }
     </script>
+    <script>
+const btn = document.getElementById("backToTop");
 
-<script>
+if (btn) {
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 200) {
+      btn.style.display = "block";
+    } else {
+      btn.style.display = "none";
+    }
+  });
 
-const brandFilter =
-    document.getElementById("brand-filter");
-
-brandFilter.addEventListener("change", function () {
-
-    const selectedBrand =
-        this.value.toLowerCase().trim();
-
-    const products =
-        document.querySelectorAll(".pro");
-
-    products.forEach((product) => {
-
-        const brandElement =
-            product.querySelector(".des span");
-
-        const productBrand =
-            brandElement.innerText
-            .toLowerCase()
-            .trim();
-
-        // SHOW ALL PRODUCTS
-        if (selectedBrand === "all") {
-
-            product.style.display = "block";
-        }
-
-        // SHOW MATCHING BRAND
-        else if (productBrand === selectedBrand) {
-
-            product.style.display = "block";
-        }
-
-        // HIDE NON-MATCHING PRODUCTS
-        else {
-
-            product.style.display = "none";
-        }
+  btn.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
     });
-
-});
-
+  });
+}
 </script>
-<script src="js/shop-sort-filter.js" defer></script>
-</body>
+   <button id="backToTop">↑</button>
+  </body>
 </html>
