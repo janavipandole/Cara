@@ -1,7 +1,7 @@
 fastapi
 uvicorn
 sqlalchemy
-pydantic
+pydantic>=2.0
 transformers
 faiss-cpu
 pillow
