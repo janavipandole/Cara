@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, Field
 from typing import Optional
 from enum import Enum
 
@@ -37,7 +37,7 @@ class InteractionCreate(BaseModel):
 class RecommendationRequest(BaseModel):
     product_id: int
     user_id: Optional[str] = None
-    limit: Optional[int] = 4
+    limit: int = Field(default=4, ge=1, le=50)
 
 
 # -- Role --
