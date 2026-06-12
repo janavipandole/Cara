@@ -22,10 +22,17 @@ class Product(ProductBase):
     class Config:
         from_attributes = True
 
+class InteractionType(str, Enum):
+    view     = "view"
+    click    = "click"
+    wishlist = "wishlist"
+    cart     = "cart"
+    buy      = "buy"
+
 class InteractionCreate(BaseModel):
     user_id: str
     product_id: int
-    interaction_type: str
+    interaction_type: InteractionType
 
 class RecommendationRequest(BaseModel):
     product_id: int

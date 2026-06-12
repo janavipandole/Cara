@@ -35,6 +35,9 @@ def recommend_outfit(req: schemas.RecommendationRequest, db: Session = Depends(g
 
 @router.post("/feedback")
 def track_feedback(interaction: schemas.InteractionCreate, db: Session = Depends(get_db)):
+    product = db.query(models.Product).filter(models.Product.id == interaction.product_id).first()
+    if not product:
+        raise HTTPException(status_code=404, detail="Product not found")
     new_interaction = models.Interaction(**interaction.dict())
     db.add(new_interaction)
     db.commit()
