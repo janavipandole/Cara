@@ -16,8 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const password = document.getElementById("registerPassword")?.value.trim();
         const confirmPassword = document.getElementById("confirmPassword")?.value.trim();
 
-        const role = document.querySelector('input[name="registerRole"]:checked')?.value || "USER";
-
         const messageBox = document.getElementById("formMessage");
 
         // basic validation
@@ -47,8 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 body: JSON.stringify({
                     username,
                     email,
-                    password,
-                    role
+                    password
                 })
             });
 
