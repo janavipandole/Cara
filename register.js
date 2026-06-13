@@ -1,10 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("register.js loaded");
-
     const btn = document.getElementById("registerSubmitBtn");
 
     if (!btn) {
-        console.error("Submit button not found!");
         return;
     }
 
@@ -55,8 +52,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 throw new Error(data.detail || "Registration failed");
             }
 
-            console.log("Success:", data);
-
             localStorage.setItem("token", data.access_token);
             localStorage.setItem("user", JSON.stringify(data.user));
 
@@ -68,7 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 1200);
 
         } catch (err) {
-            console.error(err);
             messageBox.style.color = "red";
             messageBox.innerText = err.message;
         }
