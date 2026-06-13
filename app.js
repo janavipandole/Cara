@@ -643,7 +643,7 @@ window.buyNow = function (productName, productPrice, productImage, quantity, siz
         if (themeIconMobile) themeIconMobile.className = iconClass;
 
         const siteLogo = document.getElementById("siteLogo");
-        if (siteLogo) siteLogo.src = theme === "dark" ? "images/Dlogo.png" : "images/logo.png";
+        if (siteLogo) siteLogo.src = theme === "dark" ? "images/Dlogo.png" : "images/oldlogo.png";
     }
 
     function toggleTheme() {
