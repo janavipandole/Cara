@@ -1,6 +1,7 @@
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, EmailStr, Field, field_validator
 from typing import Optional
 from enum import Enum
+import re
 
 class ProductBase(BaseModel):
     brand: str
@@ -48,9 +49,18 @@ class RoleEnum(str, Enum):
 
 # -- Request Schemas --
 class UserRegister(BaseModel):
-    username: str
+    username: str = Field(min_length=3, max_length=30)
     email:    EmailStr
-    password: str
+    password: str = Field(min_length=8, max_length=128)
+
+    @field_validator("password")
+    @classmethod
+    def password_complexity(cls, v: str) -> str:
+        if not re.search(r"[A-Z]", v):
+            raise ValueError("Password must contain at least one uppercase letter.")
+        if not re.search(r"\d", v):
+            raise ValueError("Password must contain at least one digit.")
+        return v
 
 
 class UserLogin(BaseModel):
