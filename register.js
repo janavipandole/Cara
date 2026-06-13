@@ -30,6 +30,14 @@ document.addEventListener("DOMContentLoaded", () => {
             messageBox.style.color = "red";
             return;
         }
+
+        // Password complexity: at least one uppercase, one lowercase, one number, and one special character
+        const complexityRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$/;
+        if (!complexityRegex.test(password)) {
+            messageBox.innerText = "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character!";
+            messageBox.style.color = "red";
+            return;
+        }
         if (password !== confirmPassword) {
             messageBox.innerText = "Passwords do not match!";
             messageBox.style.color = "red";
@@ -74,4 +82,3 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
-// TODO: Prevent signup triggers if password complexity score is poor
