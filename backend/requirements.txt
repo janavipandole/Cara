@@ -16,3 +16,5 @@ passlib[bcrypt]
 python-jose[cryptography]
 email-validator
 slowapi
+pytest
+httpx
