@@ -433,7 +433,7 @@ window.handleBuyNow = function () {
 
 window.appliedCoupon = localStorage.getItem("appliedCoupon") || null;
 
-window.loadCart = function () {
+window.loadCart = async function () {
     let cart = JSON.parse(localStorage.getItem("productsInCart")) || [];
 
     handleEmptyCartView();
@@ -441,12 +441,30 @@ window.loadCart = function () {
 
     const itemsContainer = document.getElementById("cart-items-container");
     if (!itemsContainer) return;
+    
+    // Fetch authentic prices from backend
+    let dbProducts = [];
+    try {
+        const res = await fetch("/api/products");
+        if (res.ok) {
+            dbProducts = await res.json();
+        }
+    } catch (err) {
+        console.error("Failed to fetch secure prices:", err);
+    }
 
     itemsContainer.innerHTML = "";
     let subtotal = 0;
 
     cart.forEach((item, index) => {
-        const itemPrice    = parsePriceString(item.price);
+        // Enforce true price from database instead of trusting local storage
+        let authenticPrice = item.price;
+        const dbMatch = dbProducts.find(p => p.name === item.name);
+        if (dbMatch) {
+            authenticPrice = dbMatch.price;
+        }
+
+        const itemPrice    = parsePriceString(authenticPrice);
         const itemQty      = parseInt(item.quantity) || 1;
         const itemSubtotal = itemPrice * itemQty;
         subtotal          += itemSubtotal;
