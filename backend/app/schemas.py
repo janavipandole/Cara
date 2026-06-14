@@ -84,3 +84,17 @@ class Token(BaseModel):
     access_token: str
     token_type:   str
     user:         UserOut
+
+class OrderItemCreate(BaseModel):
+    product_name: str
+    quantity: int
+    price: float
+
+class OrderCreate(BaseModel):
+    fullName: str
+    email: EmailStr
+    address: str
+    city: str
+    zip: str
+    items: list[OrderItemCreate]
+    coupon: Optional[str] = None
