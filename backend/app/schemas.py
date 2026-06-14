@@ -66,6 +66,8 @@ class UserRegister(BaseModel):
 class UserLogin(BaseModel):
     email:    EmailStr
     password: str
+    captcha_answer: Optional[str] = None
+    captcha_token:  Optional[str] = None
 
 
 # -- Response Schemas --
