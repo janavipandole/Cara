@@ -4,7 +4,9 @@
   "description": "A modern, responsive e-commerce platform built with vanilla HTML, CSS, and JavaScript",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
@@ -12,8 +14,13 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "*.js": ["eslint --fix", "prettier --write"],
-    "*.css": ["prettier --write"]
+    "*.js": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.css": [
+      "prettier --write"
+    ]
   },
   "repository": {
     "type": "git",
@@ -29,17 +36,19 @@
   "license": "MIT",
   "devDependencies": {
     "@eslint/js": "^9.21.0",
+    "@vitest/coverage-v8": "^4.1.8",
     "eslint": "^9.21.0",
     "eslint-config-prettier": "^10.0.2",
     "eslint-plugin-prettier": "^5.2.3",
     "globals": "^16.0.0",
     "husky": "^9.1.7",
+    "jsdom": "^29.1.1",
     "lint-staged": "^15.4.3",
-    "prettier": "^3.5.2"
+    "prettier": "^3.5.2",
+    "vitest": "^4.1.8"
   },
   "bugs": {
     "url": "https://github.com/janavipandole/Cara/issues"
   },
   "homepage": "https://github.com/janavipandole/Cara#readme"
 }
-
