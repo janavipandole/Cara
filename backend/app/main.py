@@ -20,7 +20,7 @@ app.add_middleware(
     "http://localhost:5500",
     "https://cara-janavipandoles-projects.vercel.app",],  # update as needed
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["*"],
 )
 
