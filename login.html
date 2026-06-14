@@ -21,7 +21,7 @@
 <body>
   <section id="header">
     <!-- Logo -->
-    <a href="index.html">
+    <a href="index.html" aria-label="Home">
       <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
     </a>
 
@@ -54,7 +54,7 @@
       <h2>Welcome Back!</h2>
       <p class="subtitle">Please enter your details to sign in</p>
 
-      <form id="loginForm" class="login-form" novalidate>
+      <form id="loginForm" class="login-form" aria-label="Login form" novalidate>
         <div class="input-group">
           <label for="loginEmail">Email Address</label>
           <input type="email" id="loginEmail" name="email" class="input-field" placeholder="Enter your email address"
@@ -93,7 +93,7 @@
           <label>Login As</label>
           <div class="role-selector">
             <label class="role-option">
-              <input type="radio" name="loginRole" value="USER" checked />
+              <input type="radio" name="loginRole" value="USER" aria-label="Login as User" checked />
               <span class="role-card">
                 <i class="ri-user-3-line"></i>
                 <strong>User</strong>
@@ -101,7 +101,7 @@
               </span>
             </label>
             <label class="role-option">
-              <input type="radio" name="loginRole" value="ADMIN" />
+              <input type="radio" name="loginRole" value="ADMIN" aria-label="Login as Admin" />
               <span class="role-card">
                 <i class="ri-shield-user-line"></i>
                 <strong>Admin</strong>
@@ -111,7 +111,7 @@
           </div>
         </div>
 
-        <button type="submit" class="login-btn"><span>Sign In</span></button>
+        <button type="submit" class="login-btn" aria-label="Sign In"><span>Sign In</span></button>
       </form>
 
       <div class="signup-link">
@@ -148,5 +148,3 @@
 </body>
 
 </html>
-
-<!-- TODO: Integrate aria labels for screen readers -->
