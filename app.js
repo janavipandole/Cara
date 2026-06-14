@@ -29,30 +29,35 @@ document.addEventListener("click", function (e) {
         return;
     }
 
-    const nameElement  = proCard.querySelector("h5");
-    const priceElement = proCard.querySelector("h4");
-    const brandElement = proCard.querySelector(".des span");
-    const imageElement = proCard.querySelector("img");
+    // Identify product by name (acting as unique ID for now) instead of fragile DOM scraping
+    const nameElement = proCard.querySelector("h5");
+    const productName = nameElement ? nameElement.textContent.trim() : "Product";
 
-    const selectedProduct = {
-        name:  nameElement  ? nameElement.textContent.trim()  : "Product",
-        price: priceElement ? priceElement.textContent.trim() : "$0.00",
-        brand: brandElement ? brandElement.textContent.trim() : "Brand",
-        image: imageElement ? imageElement.src                : ""
-    };
-
-    localStorage.setItem("selectedProduct", JSON.stringify(selectedProduct));
+    localStorage.setItem("selectedProductId", productName);
     window.location.href = "singleProduct.html";
 }, true);
 
 // Dynamic Render on singleProduct.html
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     if (window.location.pathname.includes("singleProduct")) {
-        const storedProductJSON = localStorage.getItem("selectedProduct");
-
-        if (storedProductJSON) {
+        let productName = localStorage.getItem("selectedProductId");
+        
+        // Legacy fallback
+        if (!productName) {
             try {
-                const product = JSON.parse(storedProductJSON);
+                productName = JSON.parse(localStorage.getItem("selectedProduct") || "{}").name;
+            } catch (e) {}
+        }
+
+        if (productName) {
+            try {
+                // Fetch authentic data from backend instead of relying on scraped client DOM data
+                const res = await fetch("/api/products");
+                let dbProduct = null;
+                if (res.ok) {
+                    const products = await res.json();
+                    dbProduct = products.find(p => p.name === productName);
+                }
 
                 const nameEl       = document.getElementById("product-name");
                 const priceEl      = document.getElementById("product-price");
@@ -60,24 +65,29 @@ document.addEventListener("DOMContentLoaded", () => {
                 const breadcrumbEl = document.querySelector(".single-pro-details h6");
                 const smallImgs    = document.querySelectorAll(".small-img");
 
-                if (nameEl)    nameEl.textContent    = product.name;
-                if (priceEl)   priceEl.textContent   = product.price;
-                if (mainImgEl) mainImgEl.src          = product.image;
+                const finalName = dbProduct ? dbProduct.name : productName;
+                const finalPrice = dbProduct ? formatCurrency(dbProduct.price) : "Contact for Price";
+                const finalImage = dbProduct ? dbProduct.img : "";
+                const finalBrand = dbProduct ? dbProduct.brand : "Brand";
 
-                if (breadcrumbEl && product.brand) {
+                if (nameEl)    nameEl.textContent    = finalName;
+                if (priceEl)   priceEl.textContent   = finalPrice;
+                if (mainImgEl) mainImgEl.src          = finalImage;
+
+                if (breadcrumbEl && finalBrand) {
                     let productType = "T-Shirt";
-                    if      (product.name.toLowerCase().includes("trousers")) productType = "Trousers";
-                    else if (product.name.toLowerCase().includes("shorts"))   productType = "Shorts";
-                    else if (product.name.toLowerCase().includes("blouse"))   productType = "Blouse";
-                    else if (product.name.toLowerCase().includes("shirt"))    productType = "Shirt";
-                    breadcrumbEl.textContent = `Home / ${product.brand} / ${productType}`;
+                    if      (finalName.toLowerCase().includes("trousers")) productType = "Trousers";
+                    else if (finalName.toLowerCase().includes("shorts"))   productType = "Shorts";
+                    else if (finalName.toLowerCase().includes("blouse"))   productType = "Blouse";
+                    else if (finalName.toLowerCase().includes("shirt"))    productType = "Shirt";
+                    breadcrumbEl.textContent = `Home / ${finalBrand} / ${productType}`;
                 }
 
-                if (smallImgs.length > 0 && product.image) {
-                    smallImgs[0].src = product.image;
+                if (smallImgs.length > 0 && finalImage) {
+                    smallImgs[0].src = finalImage;
                 }
             } catch (error) {
-                console.error("Error parsing stored product:", error);
+                console.error("Error fetching product details:", error);
             }
         }
 
