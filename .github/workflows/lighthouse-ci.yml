@@ -1,0 +1,22 @@
+name: Lighthouse Performance Audit
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lighthouse-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Run Lighthouse Audit
+        uses: treosh/lighthouse-ci-action@v11
+        with:
+          urls: |
+            https://cara-ecomm.netlify.app/
+          budgetPath: ./budgets.json
+          uploadArtifacts: true

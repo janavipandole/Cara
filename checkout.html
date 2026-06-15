@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Checkout – Cara</title>
+  <title>Secure Checkout – Cara</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
@@ -21,8 +21,11 @@
         <a href="cart.html" class="back-link" aria-label="Back to cart"><i class="ri-arrow-left-line"></i> Back to Cart</a>
         <a href="#" id="logout-btn" style="display:none">Logout</a>
       </div>
-      <div class="logo">
+      <div class="logo" style="display: flex; align-items: center; gap: 15px;">
         <span>Cara</span>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" style="background: transparent; border: none; cursor: pointer;">
+          <i class="ri-moon-line" id="themeIcon" style="font-size: 20px;"></i>
+        </button>
       </div>
     </div>
 
@@ -42,6 +45,30 @@
       <p>Fill all details to complete your order</p>
     </div>
 
+    <!-- Countdown Timer Banner -->
+    <div id="checkout-timer-banner" style="background: #fff3cd; color: #856404; padding: 12px; border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; border: 1px solid #ffeeba; font-weight: 500;">
+      <i class="ri-time-line" style="font-size: 20px;"></i>
+      <span>Items are reserved! Complete your purchase within <strong id="countdown-timer">10:00</strong> minutes.</span>
+    </div>
+    
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const timerElement = document.getElementById("countdown-timer");
+      if (!timerElement) return;
+      let timeRemaining = 600;
+      const interval = setInterval(() => {
+        const minutes = Math.floor(timeRemaining / 60);
+        const seconds = timeRemaining % 60;
+        timerElement.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        if (timeRemaining <= 0) {
+          clearInterval(interval);
+          alert("Reservation time expired. Please refresh the page to reserve items again.");
+          window.location.href = "cart.html";
+        }
+        timeRemaining--;
+      }, 1000);
+    });
+    </script>
     <form id="checkoutForm" novalidate>
 
       <div class="input-group">
@@ -219,6 +246,8 @@
   </div>
 
   <script src="checkout.js"></script>
+  <script src="js/checkout-timer.js" defer></script>
 
+<script src="js/checkout-autosave.js" defer></script>
 </body>
 </html>

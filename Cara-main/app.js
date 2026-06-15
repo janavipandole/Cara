@@ -49,33 +49,33 @@ const close = document.getElementById("close");
 
 function updateAuthUI() {
     const loggedInUser = localStorage.getItem("loggedInUser");
-    const loginLinks = document.querySelectorAll('a[href="login.html"]');
+    const loggedInName = localStorage.getItem("loggedInUserName");
+    const loginLinks   = document.querySelectorAll('a[href="login.html"]');
 
     loginLinks.forEach(link => {
-        // Skip links in the footer or elsewhere if they don't have icons (optional)
-        // But for simplicity, we can transform them all.
         if (loggedInUser) {
-            // Change to Logout
             if (link.innerHTML.includes('ri-user-3-line') || link.innerHTML.includes('fa-user')) {
+                // Icon-based link — swap to logout icon with name in aria-label
                 link.innerHTML = '<i class="ri-logout-box-r-line"></i>';
-                link.setAttribute('aria-label', 'Logout');
+                link.setAttribute('aria-label', loggedInName ? `Logout ${loggedInName}` : 'Logout');
             } else {
-                link.innerText = "Logout";
+                // Text-based link — show personalised greeting
+                link.innerText = loggedInName ? `Hi, ${loggedInName}` : 'Logout';
             }
             link.href = "#";
             link.onclick = function (e) {
                 e.preventDefault();
                 localStorage.removeItem("loggedInUser");
+                localStorage.removeItem("loggedInUserName");
                 localStorage.removeItem("appliedCoupon");
                 window.location.href = "login.html";
             };
         } else {
-            // Revert to Login
             if (link.innerHTML.includes('ri-logout-box-r-line')) {
                 link.innerHTML = '<i class="ri-user-3-line"></i>';
                 link.setAttribute('aria-label', 'Login');
-            } else if (link.innerText === "Logout") {
-                link.innerText = "Login"; // or "Sign In"
+            } else if (link.innerText.startsWith('Hi,') || link.innerText === 'Logout') {
+                link.innerText = "Login";
             }
             link.href = "login.html";
             link.onclick = null;
@@ -303,6 +303,9 @@ function showToast(message, type) {
     if (!container) {
         container = document.createElement('div');
         container.id = 'toast-container';
+        container.setAttribute('role', 'status');
+        container.setAttribute('aria-live', 'polite');
+        container.setAttribute('aria-atomic', 'false');
         document.body.appendChild(container);
     }
 
@@ -465,6 +468,20 @@ window.handleAddToCart = function () {
 
 window.appliedCoupon = localStorage.getItem('appliedCoupon') || null;
 
+// Coupon codes are stored ONLY as SHA-256 hashes — the original strings never
+// appear in source. To add a new coupon: compute sha256(CODE).toHex() and add
+// an entry below with a non-sensitive id and discount rate.
+const COUPON_REGISTRY = {
+    'fd067210df0811a19713e64078eac1c083e4f921367c3456d77f476a38bd53b8': { id: 'PROMO_20', pct: 0.20, label: '20%' },
+    '22b0493861832fff303c27eb48a8c1436174fb13675ced0361a01ae698154379': { id: 'PROMO_10', pct: 0.10, label: '10%' },
+};
+
+async function hashString(str) {
+    const data = new TextEncoder().encode(str);
+    const buf  = await crypto.subtle.digest('SHA-256', data);
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
 window.loadCart = function () {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
 
@@ -528,15 +545,14 @@ window.loadCart = function () {
     const taxRate = 0.18;
     const tax = subtotal * taxRate;
 
-    // Apply Coupon Discount
+    // Apply Coupon Discount — compare stored identifier against registry
     let discount = 0;
-    const coupon = window.appliedCoupon || localStorage.getItem('appliedCoupon');
-    if (coupon === 'CARA20') {
-        discount = subtotal * 0.20;
-        if (discountRow) discountRow.style.display = 'flex';
-        if (discountEl) discountEl.innerText = `-₹${discount.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
-    } else if (coupon === 'WELCOME10') {
-        discount = subtotal * 0.10;
+    const couponId  = window.appliedCoupon || localStorage.getItem('appliedCoupon');
+    const couponDef = couponId
+        ? Object.values(COUPON_REGISTRY).find(c => c.id === couponId)
+        : null;
+    if (couponDef) {
+        discount = subtotal * couponDef.pct;
         if (discountRow) discountRow.style.display = 'flex';
         if (discountEl) discountEl.innerText = `-₹${discount.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
     } else {
@@ -571,25 +587,26 @@ window.changeQuantity = function (index, change) {
     updateCartCount();
 }
 
-window.applyCoupon = function () {
+window.applyCoupon = async function () {
     const promoInput = document.getElementById('coupon-code');
     if (!promoInput) return;
 
     const code = promoInput.value.trim().toUpperCase();
-    if (code === 'CARA20') {
-        window.appliedCoupon = 'CARA20';
-        localStorage.setItem('appliedCoupon', 'CARA20');
-        showToast('CARA20 promo code applied! 20% discount added.', 'success');
-        loadCart();
-    } else if (code === 'WELCOME10') {
-        window.appliedCoupon = 'WELCOME10';
-        localStorage.setItem('appliedCoupon', 'WELCOME10');
-        showToast('WELCOME10 promo code applied! 10% discount added.', 'success');
-        loadCart();
-    } else if (code === '') {
+    if (!code) {
         showToast('Please enter a coupon code.', 'warning');
+        return;
+    }
+
+    const codeHash = await hashString(code);
+    const matched  = COUPON_REGISTRY[codeHash];
+
+    if (matched) {
+        window.appliedCoupon = matched.id;
+        localStorage.setItem('appliedCoupon', matched.id);
+        showToast(`Promo code applied! ${matched.label} discount added.`, 'success');
+        loadCart();
     } else {
-        showToast('Invalid promo code. Try CARA20 for 20% off!', 'error');
+        showToast('Invalid promo code. Please check and try again.', 'error');
     }
 }
 
@@ -1042,14 +1059,53 @@ document.addEventListener('DOMContentLoaded', () => {
         el.textContent = year;
     });
 });
+async function hashPassword(password) {
+      const msgBuffer = new TextEncoder().encode(password);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+      return Array.from(new Uint8Array(hashBuffer))
+        .map(b => b.toString(16).padStart(2, '0')).join('');
+}
 /* --- END: CURRENT YEAR FUNCTIONALITY --- */
+/* --- Sort by Price Logic --- */
 document.addEventListener('DOMContentLoaded', () => {
-  const newsletterForm = document.querySelector('.newsletter-form');
-  if (newsletterForm) {
-    newsletterForm.addEventListener('submit', function (e) {
+    const sortMenu = document.getElementById('sort-price');
+    const proContainer = document.querySelector('.pro-container');
+
+    if (sortMenu && proContainer) {
+        const originalProducts = Array.from(proContainer.querySelectorAll('.pro'));
+        sortMenu.addEventListener('change', (e) => {
+            const sortValue = e.target.value;
+            let productsToAppend;
+
+            if (sortValue === 'default') {
+                productsToAppend = originalProducts;
+            } else {
+                productsToAppend = [...originalProducts].sort((a, b) => {
+                    
+                    const priceA = parseFloat(a.querySelector('h4').innerText.replace(/[₹$,]/g, '').trim());
+                    const priceB = parseFloat(b.querySelector('h4').innerText.replace(/[₹$,]/g, '').trim());
+
+                    if (sortValue === 'low-high') return priceA - priceB;
+                    if (sortValue === 'high-low') return priceB - priceA;
+                });
+            }
+            productsToAppend.forEach(product => {
+                proContainer.appendChild(product);
+            });
+        });
+    }
+});
+document.addEventListener('DOMContentLoaded', () => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  document.querySelectorAll('.newsletter-form').forEach(function (form) {
+    form.addEventListener('submit', function (e) {
       e.preventDefault();
       const email = this.querySelector('input[type="email"]').value.trim();
-      if (email) showToast('Thanks for subscribing!', 'success');
+      if (email && emailRegex.test(email)) {
+        showToast('Thanks for subscribing!', 'success');
+      } else {
+        showToast('Please enter a valid email address.', 'warning');
+      }
     });
-  }
+  });
 });

@@ -205,6 +205,20 @@ window.stopCamera=function() {
     document.getElementById('stop-camera-btn').style.display = 'none';
 }
 
+// Stop camera when the user navigates away or hides the tab
+window.addEventListener('beforeunload', () => {
+    if (cameraStream) {
+        cameraStream.getTracks().forEach(t => t.stop());
+        cameraStream = null;
+    }
+});
+
+document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden' && cameraStream) {
+        window.stopCamera();
+    }
+});
+
 // ============================================
 // IMAGE UPLOAD HANDLING
 // ============================================
@@ -773,3 +787,5 @@ document.addEventListener("click", function (e) {
     if (icon) icon.className = cls;
     if (iconM) iconM.className = cls;
 });
+
+// Scaling calculation formulas rendering overlay models over uploaded targets.

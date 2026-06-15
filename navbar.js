@@ -32,8 +32,8 @@ function loadNavbar(activePage) {
         </li>
 
         <li>
-          <a ${activePage === 'tryon' ? 'class="active" aria-current="page"' : ''} href="try-on.html" title="Try-On">
-            Try-On
+          <a ${activePage === 'outfit' ? 'class="active" aria-current="page"' : ''} href="outfit-compatibility.html" title="Outfit Checker">
+            Outfit Checker
           </a>
         </li>
 
@@ -94,7 +94,7 @@ function loadNavbar(activePage) {
   if (container) {
     container.innerHTML = navbarHTML;
   } else {
-    console.error('navbar-container not found!');
+    // Silently return for pages that use a hardcoded navbar (e.g. index.html)
     return;
   }
 

@@ -1,15 +1,12 @@
-// Search History Dropdown Manager
+// Search History Dropdown Manager for Product Search Bar
 document.addEventListener("DOMContentLoaded", () => {
-    const searchForm = document.querySelector(".newsletter-form") || document.querySelector("form");
-    if (!searchForm) return;
-
-    const input = searchForm.querySelector("input[type='email']") || searchForm.querySelector("input");
+    const input = document.getElementById("searchBar");
     if (!input) return;
 
     // Create search suggestions dropdown
     const dropdown = document.createElement("div");
     dropdown.id = "search-history-dropdown";
-    dropdown.style.cssText = "display:none; position:absolute; background:#fff; border:1px solid #ccc; width:100%; z-index:9999; border-radius:4px; box-shadow:0 4px 8px rgba(0,0,0,0.1); padding:10px; max-height:200px; overflow-y:auto; color: #333;";
+    dropdown.style.cssText = "display:none; position:absolute; background:#fff; border:1px solid #ccc; width:100%; z-index:9999; border-radius:4px; box-shadow:0 4px 8px rgba(0,0,0,0.1); padding:10px; max-height:200px; overflow-y:auto; color: #333; top: 100%; left: 0;";
     
     // Ensure parent container is relative
     input.parentNode.style.position = "relative";
@@ -34,14 +31,20 @@ document.addEventListener("DOMContentLoaded", () => {
             
             const textSpan = document.createElement("span");
             textSpan.textContent = item;
+            textSpan.style.flex = "1";
             textSpan.addEventListener("click", () => {
                 input.value = item;
+                // Trigger any search change handler if needed
+                const event = new Event('input', { bubbles: true });
+                input.dispatchEvent(event);
+                const keyupEvent = new KeyboardEvent('keyup', { bubbles: true });
+                input.dispatchEvent(keyupEvent);
                 dropdown.style.display = "none";
             });
 
             const delBtn = document.createElement("i");
             delBtn.className = "ri-delete-bin-line";
-            delBtn.style.cssText = "color:#e23e57; cursor:pointer; font-size:12px;";
+            delBtn.style.cssText = "color:#e23e57; cursor:pointer; font-size:12px; padding: 2px 6px;";
             delBtn.addEventListener("click", (e) => {
                 e.stopPropagation();
                 removeFromHistory(item);
@@ -71,13 +74,18 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    searchForm.addEventListener("submit", (e) => {
-        const val = input.value.trim();
-        if (val) {
-            let history = JSON.parse(localStorage.getItem("cara_search_history")) || [];
-            history = history.filter(x => x !== val);
-            history.unshift(val);
-            localStorage.setItem("cara_search_history", JSON.stringify(history.slice(0, 5)));
+    input.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+            const val = input.value.trim();
+            if (val) {
+                let history = JSON.parse(localStorage.getItem("cara_search_history")) || [];
+                history = history.filter(x => x !== val);
+                history.unshift(val);
+                localStorage.setItem("cara_search_history", JSON.stringify(history.slice(0, 5)));
+            }
+            dropdown.style.display = "none";
         }
     });
 });
+
+// Local storage parser populating clickable search history suggestion bubbles.

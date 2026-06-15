@@ -1,0 +1,52 @@
+name: PR Template Validator
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+
+jobs:
+  validate:
+    name: Validate PR Body
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Check PR Body
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = context.payload.pull_request.body;
+            if (!body) {
+              core.setFailed("PR description is empty! Please fill out the pull request template.");
+              return;
+            }
+
+            const requiredSections = [
+              "## 📄 Description",
+              "## 🔗 Related Issues",
+              "## 🧩 Type of Change",
+              "## ✅ Checklist"
+            ];
+
+            const missing = [];
+            for (const section of requiredSections) {
+              if (!body.includes(section)) {
+                missing.push(section);
+              }
+            }
+
+            if (missing.length > 0) {
+              core.setFailed(`PR body is missing required sections from the template: ${missing.join(', ')}`);
+              return;
+            }
+
+            // Check if user left the default instructions untouched
+            if (body.includes("Provide a clear and concise description") || body.includes("Link any related issues using the format below")) {
+              core.setFailed("Please replace the default template placeholder text with your actual PR details.");
+              return;
+            }
+
+            console.log("PR body successfully validated against the template!");
+
+# Verifies that Pull Request descriptions follow structural template rules.

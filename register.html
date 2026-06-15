@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="toast.css">
     <link rel="stylesheet" href="register.css">
     <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="ui-fix.css" />
 </head>
 <body>
 
@@ -62,6 +63,10 @@
             <i class="ri-shopping-bag-4-line"></i>
         </a>
         <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
+      <!-- Theme Toggle -->
+      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
+        <i class="ri-moon-line" id="themeIconMobile"></i>
+      </button>
     </div>
 </section>
 
@@ -148,7 +153,16 @@
                 <small id="confirmHint"></small>
             </div>
 
-            <!-- Role Selection -->
+            <!-- Interest Group Selection -->
+          <div class="form-group" style="margin-bottom: 15px;">
+            <label style="font-weight: 500;">Shopping Preferences</label>
+            <div style="display: flex; gap: 15px; margin-top: 5px;">
+              <label style="cursor: pointer;"><input type="checkbox" name="interest" value="menswear"> Menswear</label>
+              <label style="cursor: pointer;"><input type="checkbox" name="interest" value="womenswear"> Womenswear</label>
+              <label style="cursor: pointer;"><input type="checkbox" name="interest" value="kids"> Accessories</label>
+            </div>
+          </div>
+          <!-- Role Selection -->
             <div class="form-group">
                 <label>Register As</label>
                 <div class="role-selector">
@@ -272,5 +286,7 @@
 <script src="register.js"></script>
 
 <script src="js/register-interests.js" defer></script>
+<script src="js/simple-captcha.js" defer></script>
+<script src="js/describedby-tooltips.js" defer></script>
 </body>
 </html>

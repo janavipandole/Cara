@@ -1,0 +1,130 @@
+name: HTML Validation & Code Quality
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '**.html'
+      - '**.css'
+      - '**.js'
+  push:
+    branches: [main]
+    paths:
+      - '**.html'
+      - '**.css'
+      - '**.js'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  html-validation:
+    name: HTML W3C Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install html-validate
+        run: npm install -g html-validate
+
+      - name: Run HTML validation on all pages
+        run: |
+          echo "=== Validating HTML files ==="
+          # Validate core HTML pages (exclude Cara-main subfolder)
+          find . -maxdepth 1 -name "*.html" | sort | while read file; do
+            echo "Validating: $file"
+            html-validate "$file" || true
+          done
+        continue-on-error: true
+
+      - name: Summary
+        if: always()
+        run: echo "HTML validation complete. Review any warnings above."
+
+  lint-js:
+    name: JavaScript Linting (ESLint)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+        continue-on-error: true
+
+  format-check:
+    name: Code Formatting (Prettier)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check formatting with Prettier
+        run: npm run format:check
+        continue-on-error: true
+
+  broken-links:
+    name: Check Internal Link Integrity
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install link checker
+        run: npm install -g broken-link-checker-local
+
+      - name: Start local HTTP server and check links
+        run: |
+          npx serve -p 8080 . &
+          sleep 3
+          blcl http://localhost:8080 \
+            --recursive \
+            --exclude "https://fonts.googleapis.com" \
+            --exclude "https://cdnjs.cloudflare.com" \
+            --exclude "https://cdn.jsdelivr.net" \
+            --exclude "https://www.visa.com" \
+            --exclude "https://www.mastercard.com" \
+            --exclude "https://www.paypal.com" \
+            --exclude "https://www.americanexpress.com" \
+            --exclude "https://stripe.com" \
+            --exclude "https://x.com" \
+            --exclude "https://linkedin.com" \
+            --exclude "https://youtube.com" \
+            --exclude "https://github.com" \
+            || true
+        continue-on-error: true

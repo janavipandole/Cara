@@ -1,0 +1,27 @@
+name: Stylelint CSS Validator
+
+on:
+  push:
+    paths:
+      - '**/*.css'
+  pull_request:
+    paths:
+      - '**/*.css'
+
+jobs:
+  stylelint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Linting dependencies
+        run: npm install stylelint stylelint-config-standard --save-dev
+
+      - name: CSS Lint Audit
+        run: npx stylelint "**/*.css" || true

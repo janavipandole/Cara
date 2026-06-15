@@ -23,6 +23,7 @@
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="ui-fix.css" />
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -181,7 +182,10 @@
     <div id="navbar-container"></div>
     <div id="mobile">
       <a href="cart.html" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a>
-      <a href="#" id="bar" aria-label="Open menu" aria-expanded="false">
+      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode" style="margin-left: 10px; border: none; background: transparent; cursor: pointer;">
+        <i class="ri-moon-line" id="themeIconMobile" style="font-size: 20px;"></i>
+      </button>
+      <a href="#" id="bar" aria-label="Open menu" aria-expanded="false" style="margin-left: 10px;">
         <i class="fa-solid fa-bars"></i>
       </a>
     </div>

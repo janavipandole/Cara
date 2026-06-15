@@ -6,6 +6,7 @@
     <title>Cara — Community & Inspiration</title>
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
     <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="ui-fix.css" />
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
@@ -309,6 +310,10 @@
       aria-expanded="false"
       tabindex="0"
     ></i>
+      <!-- Theme Toggle -->
+      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
+        <i class="ri-moon-line" id="themeIconMobile"></i>
+      </button>
 
   </div>
 </section>
@@ -330,7 +335,11 @@
             <p class="cara-text">PNG, JPG up to 5MB</p>
         </div>
         <input type="file" id="community-upload" accept="image/*">
+    <div id="upload-success" style="display:none; color: green; margin-top: 15px; font-weight: bold; text-align: center;">Photo uploaded successfully!</div>
     </label>
+    <div id="upload-success" style="display: none; color: #088178; font-weight: 600; margin-top: 15px; text-align: center;">
+        <i class="ri-checkbox-circle-fill"></i> Upload Successful! Your look is being reviewed.
+    </div>
 </section>
 
     <section id="gallery">
@@ -432,7 +441,7 @@
     <div class="col">
       <h4>About</h4>
       <a href="about.html">About Us</a>
-      <a href="deliveryInformation.html">Delivery Information</a>
+      <a href="delivery.html">Delivery Information</a>
       <a href="privacy.html">Privacy Policy</a>
       <a href="terms.html">Terms and Conditions</a>
       <a href="contact.html">Contact Us</a>

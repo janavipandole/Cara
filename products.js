@@ -1,5 +1,7 @@
 /* Reusable modal display element */
 const modalTemplate = `<div class="quick-view-modal" style="display:none;"></div>`;
+/* Reusable modal display element */
+const modalTemplate = `<div class="quick-view-modal" style="display:none;"></div>`;
 const products = [
   {
     id: 1,
@@ -364,7 +366,9 @@ const products = [
  */
 function renderStars(baseRating, productId) {
   // Load user's saved rating if it exists, else use base rating
-  const savedRating = parseFloat(localStorage.getItem('userRating_' + productId));
+  const savedRating = parseFloat(
+    localStorage.getItem('userRating_' + productId)
+  );
   const displayRating = !isNaN(savedRating) ? savedRating : baseRating;
 
   const starDiv = document.createElement('div');
@@ -402,16 +406,18 @@ function renderStars(baseRating, productId) {
 
   // Reset highlight on mouse leave
   starDiv.addEventListener('mouseleave', () => {
-    const currentRating = parseFloat(localStorage.getItem('userRating_' + productId)) || baseRating;
+    const currentRating =
+      parseFloat(localStorage.getItem('userRating_' + productId)) || baseRating;
     updateStarDisplay(starDiv, currentRating);
   });
 
   // Numeric rating text
   const ratingText = document.createElement('span');
   ratingText.className = 'rating-value';
-  ratingText.textContent = displayRating % 1 === 0
-    ? displayRating.toFixed(1)
-    : displayRating.toString();
+  ratingText.textContent =
+    displayRating % 1 === 0
+      ? displayRating.toFixed(1)
+      : displayRating.toString();
   starDiv.appendChild(ratingText);
 
   return starDiv;
@@ -568,7 +574,10 @@ function getWishlist() {
 }
 
 function saveWishlist(wishlist) {
-  localStorage.setItem('wishlist', JSON.stringify(wishlist.map(normalizeWishlistItem)));
+  localStorage.setItem(
+    'wishlist',
+    JSON.stringify(wishlist.map(normalizeWishlistItem))
+  );
   if (typeof window.updateWishlistCount === 'function') {
     window.updateWishlistCount();
   }
@@ -586,7 +595,9 @@ function updateWishlistButtonState(button, isSaved) {
   button.setAttribute('aria-pressed', String(isSaved));
   button.setAttribute(
     'aria-label',
-    isSaved ? `Remove ${productName} from wishlist` : `Add ${productName} to wishlist`
+    isSaved
+      ? `Remove ${productName} from wishlist`
+      : `Add ${productName} to wishlist`
   );
   button.title = isSaved ? 'Remove from wishlist' : 'Add to wishlist';
   button.innerHTML = `<i class="${isSaved ? 'ri-heart-fill' : 'ri-heart-line'}" aria-hidden="true"></i>`;
@@ -599,9 +610,14 @@ function updateWishlistButtonState(button, isSaved) {
 }
 
 function syncWishlistButtons() {
-  document.querySelectorAll('.wishlist-btn[data-product-name]').forEach((button) => {
-    updateWishlistButtonState(button, isInWishlist(button.dataset.productName));
-  });
+  document
+    .querySelectorAll('.wishlist-btn[data-product-name]')
+    .forEach((button) => {
+      updateWishlistButtonState(
+        button,
+        isInWishlist(button.dataset.productName)
+      );
+    });
 }
 
 function toggleWishlistItem(product, button) {
@@ -611,10 +627,12 @@ function toggleWishlistItem(product, button) {
 
   if (exists) {
     wishlist = wishlist.filter((wishItem) => wishItem.name !== item.name);
-    if (typeof showToast === 'function') showToast(`${item.name} removed from wishlist`, 'info');
+    if (typeof showToast === 'function')
+      showToast(`${item.name} removed from wishlist`, 'info');
   } else {
     wishlist.push(item);
-    if (typeof showToast === 'function') showToast(`${item.name} added to wishlist`, 'success');
+    if (typeof showToast === 'function')
+      showToast(`${item.name} added to wishlist`, 'success');
   }
 
   saveWishlist(wishlist);
@@ -630,34 +648,53 @@ window.hasPriceDropped = hasPriceDropped;
 window.getPriceDropAmount = getPriceDropAmount;
 
 /**
- * Safely escapes HTML and highlights matched search query terms.
+ * Appends text with highlighted query matches without parsing it as HTML.
+ * @param {HTMLElement} target - Element that receives the rendered text
  * @param {string} text - The original text to display
  * @param {string} query - The search query term
- * @returns {string} - Highlighted HTML string
  */
-function highlightText(text, query) {
-  if (!text) return '';
-  // Return HTML-escaped text to prevent XSS
-  const escapedText = text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
-    
-  if (!query || !query.trim()) {
-    return escapedText;
+function appendHighlightedText(target, text, query) {
+  const safeText = String(text || '');
+  const safeQuery = String(query || '').trim();
+
+  target.textContent = '';
+  if (!safeText || !safeQuery) {
+    target.textContent = safeText;
+    return;
   }
-  
-  const escapedQuery = query.trim().replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-  const regex = new RegExp(`(${escapedQuery})`, 'gi');
-  return escapedText.replace(regex, '<span class="highlight">$1</span>');
+
+  const lowerText = safeText.toLowerCase();
+  const lowerQuery = safeQuery.toLowerCase();
+  let cursor = 0;
+
+  while (cursor < safeText.length) {
+    const matchIndex = lowerText.indexOf(lowerQuery, cursor);
+    if (matchIndex === -1) {
+      target.appendChild(document.createTextNode(safeText.slice(cursor)));
+      break;
+    }
+
+    if (matchIndex > cursor) {
+      target.appendChild(
+        document.createTextNode(safeText.slice(cursor, matchIndex))
+      );
+    }
+
+    const highlight = document.createElement('span');
+    highlight.className = 'highlight';
+    highlight.textContent = safeText.slice(
+      matchIndex,
+      matchIndex + safeQuery.length
+    );
+    target.appendChild(highlight);
+    cursor = matchIndex + safeQuery.length;
+  }
 }
 
 function renderProducts(containerId, list, query = '') {
   const container = document.getElementById(containerId);
   if (!container) return;
-  
+
   if (query === '') {
     const searchInput = document.getElementById('searchInput');
     query = searchInput ? searchInput.value.trim() : '';
@@ -671,15 +708,30 @@ function renderProducts(containerId, list, query = '') {
     const searchInput = document.getElementById('searchInput');
     const searchTerm = searchInput ? searchInput.value : '';
 
-    container.innerHTML = `
-        <div id="no-results-message" style="width: 100%; text-align: center; padding: 60px 20px;">
-            <div class="no-results-content">
-                <i class="ri-search-line" style="font-size: 3rem; color: #888; margin-bottom: 15px; display: block;"></i>
-                <h3 style="font-size: 1.5rem; margin-bottom: 10px;">No matching products found</h3>
-                <p style="color: #666;">We couldn't find any products matching "${searchTerm}". Please try a different search term or change your category filter.</p>
-            </div>
-        </div>
-    `;
+    const message = document.createElement('div');
+    message.id = 'no-results-message';
+    message.style.cssText =
+      'width: 100%; text-align: center; padding: 60px 20px;';
+
+    const content = document.createElement('div');
+    content.className = 'no-results-content';
+
+    const icon = document.createElement('i');
+    icon.className = 'ri-search-line';
+    icon.style.cssText =
+      'font-size: 3rem; color: #888; margin-bottom: 15px; display: block;';
+
+    const heading = document.createElement('h3');
+    heading.style.cssText = 'font-size: 1.5rem; margin-bottom: 10px;';
+    heading.textContent = 'No matching products found';
+
+    const copy = document.createElement('p');
+    copy.style.color = '#666';
+    copy.textContent = `We couldn't find any products matching "${searchTerm}". Please try a different search term or change your category filter.`;
+
+    content.append(icon, heading, copy);
+    message.appendChild(content);
+    container.appendChild(message);
     return;
   }
 
@@ -704,7 +756,7 @@ function renderProducts(containerId, list, query = '') {
     imgWrap.className = 'pro-img-wrap';
     const img = document.createElement('img');
     img.src = p.img;
-    img.alt = p.name;
+    img.alt = p.brand + ' - ' + p.name;
     img.loading = 'lazy';
     imgWrap.appendChild(img);
 
@@ -767,16 +819,17 @@ function renderProducts(containerId, list, query = '') {
 
     const brandRow = document.createElement('div');
     brandRow.className = 'pro-brand-row';
-    brandRow.innerHTML = `
-      <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-        <path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/>
-      </svg>
-      <span>${highlightText(p.brand, query)}</span>
-    `;
+    brandRow.insertAdjacentHTML(
+      'beforeend',
+      '<svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>'
+    );
+    const brandText = document.createElement('span');
+    appendHighlightedText(brandText, p.brand, query);
+    brandRow.appendChild(brandText);
     des.appendChild(brandRow);
 
     const nameH5 = document.createElement('h5');
-    nameH5.innerHTML = highlightText(p.name, query);
+    appendHighlightedText(nameH5, p.name, query);
     des.appendChild(nameH5);
 
     // Dynamic interactive star rating
@@ -889,6 +942,10 @@ function renderSearchSuggestions(query) {
   });
 }
 
+/**
+ * Resolves #1692
+ * Filters the products array based on search input and updates the UI.
+ */
 function filterProducts() {
   const input = document.getElementById('searchInput');
   const categorySelect = document.getElementById('categoryFilter');
@@ -901,9 +958,15 @@ function filterProducts() {
   const query = rawQuery.toLowerCase();
   const category = categorySelect ? categorySelect.value : 'all';
   const sortValue = sortSelect ? sortSelect.value : 'default';
-  const brandValue = brandSelect ? brandSelect.value.toLowerCase().trim() : 'all';
-  const colorValue = colorSelect ? colorSelect.value.toLowerCase().trim() : 'all';
-  const styleValue = styleSelect ? styleSelect.value.toLowerCase().trim() : 'all';
+  const brandValue = brandSelect
+    ? brandSelect.value.toLowerCase().trim()
+    : 'all';
+  const colorValue = colorSelect
+    ? colorSelect.value.toLowerCase().trim()
+    : 'all';
+  const styleValue = styleSelect
+    ? styleSelect.value.toLowerCase().trim()
+    : 'all';
 
   let filteredProducts = products.filter((product) => {
     const matchesCategory = category === 'all' || product.category === category;
@@ -919,9 +982,14 @@ function filterProducts() {
 
   // Apply brand/color/style filters
   filteredProducts = filteredProducts.filter((product) => {
-    const matchesBrand = brandValue === 'all' || product.brand.toLowerCase() === brandValue;
-    const matchesColor = colorValue === 'all' || (product.color && product.color.toLowerCase() === colorValue);
-    const matchesStyle = styleValue === 'all' || (product.style && product.style.toLowerCase() === styleValue);
+    const matchesBrand =
+      brandValue === 'all' || product.brand.toLowerCase() === brandValue;
+    const matchesColor =
+      colorValue === 'all' ||
+      (product.color && product.color.toLowerCase() === colorValue);
+    const matchesStyle =
+      styleValue === 'all' ||
+      (product.style && product.style.toLowerCase() === styleValue);
     return matchesBrand && matchesColor && matchesStyle;
   });
 
@@ -952,7 +1020,11 @@ function attachSearchListeners() {
   const searchBtn = document.getElementById('searchBtn');
 
   if (input) {
-    input.addEventListener('input', filterProducts);
+    let debounceTimer;
+    input.addEventListener('input', () => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(filterProducts, 300);
+    });
     input.addEventListener('keydown', (event) => {
       if (event.key === 'Enter') {
         event.preventDefault();
@@ -974,15 +1046,37 @@ function attachSearchListeners() {
   }
 }
 
+/**
+ * Resolves #1691
+ * Adds an item to the cart and persists it to localStorage.
+ */
 function addToCart(name, price, img, quantity, size) {
   const cart = safeParseJSON('productsInCart');
   cart.push({ name, price, img, quantity, size, id: Date.now() });
-  localStorage.setItem('productsInCart', JSON.stringify(cart));
-  if (typeof updateCartCount === 'function') {
-    updateCartCount();
+  try {
+    localStorage.setItem('productsInCart', JSON.stringify(cart));
+    if (typeof showToast === 'function') {
+      showToast(name + ' added to cart!', 'success');
+    }
+  } catch (e) {
+    console.error('Failed to save cart:', e);
+    if (typeof showToast === 'function') {
+      showToast('Storage limit reached! Cannot add to cart.', 'error');
+    }
   }
-  if (typeof showToast === 'function') {
-    showToast(`${name} added to cart`, 'success');
+}
+
+function buyNow(name, price, img, quantity, size) {
+  const cart = safeParseJSON('productsInCart');
+  cart.push({ name, price, img, quantity, size, id: Date.now() });
+  try {
+    localStorage.setItem('productsInCart', JSON.stringify(cart));
+    window.location.href = 'checkout.html';
+  } catch (e) {
+    console.error('Failed to save cart:', e);
+    if (typeof showToast === 'function') {
+      showToast('Storage limit reached! Cannot proceed to checkout.', 'error');
+    }
   }
 }
 
@@ -995,41 +1089,41 @@ document.addEventListener('DOMContentLoaded', () => {
   syncWishlistButtons();
 });
 
- // --- GLOBAL TOAST NOTIFICATION HANDLER ---
+// --- GLOBAL TOAST NOTIFICATION HANDLER ---
 function showToast(message, type = 'success') {
-    // Check if container already exists, else create it
-    let container = document.getElementById('toast-container');
-    if (!container) {
-        container = document.createElement('div');
-        container.id = 'toast-container';
-        document.body.appendChild(container);
-    }
+  // Check if container already exists, else create it
+  let container = document.getElementById('toast-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.id = 'toast-container';
+    document.body.appendChild(container);
+  }
 
-    // Create Toast element wrapper
-    const toast = document.createElement('div');
-    toast.className = `toast toast-${type}`;
+  // Create Toast element wrapper
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
 
-    // Select icon based on variant types
-    let icon = '🛒';
-    if (type === 'error') icon = '❌';
-    if (type === 'warning') icon = '⚠️';
-    if (type === 'info') icon = 'ℹ️';
+  // Select icon based on variant types
+  let icon = '🛒';
+  if (type === 'error') icon = '❌';
+  if (type === 'warning') icon = '⚠️';
+  if (type === 'info') icon = 'ℹ️';
 
-    // Build Toast inner body to match your existing CSS layout (.toast-icon, .toast-msg, .toast-close, .toast-progress)
-    toast.innerHTML = `
+  // Build Toast inner body to match your existing CSS layout (.toast-icon, .toast-msg, .toast-close, .toast-progress)
+  toast.innerHTML = `
         <div class="toast-icon">${icon}</div>
         <div class="toast-msg">${message}</div>
         <button class="toast-close" onclick="this.parentElement.remove()">&times;</button>
         <div class="toast-progress"></div>
     `;
 
-    container.appendChild(toast);
+  container.appendChild(toast);
 
-    // Auto-remove animation sequence handling (Matches CSS timers smoothly)
+  // Auto-remove animation sequence handling (Matches CSS timers smoothly)
+  setTimeout(() => {
+    toast.classList.add('toast-hiding');
     setTimeout(() => {
-        toast.classList.add('toast-hiding');
-        setTimeout(() => {
-            toast.remove();
-        }, 350); // Exact exit duration specified in .toast-hiding cubic-bezier curve
-    }, 3650); // Active visibility shelf life before auto dismissal
+      toast.remove();
+    }, 350); // Exact exit duration specified in .toast-hiding cubic-bezier curve
+  }, 3650); // Active visibility shelf life before auto dismissal
 }

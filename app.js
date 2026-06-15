@@ -143,7 +143,12 @@ function formatCurrency(amount) {
 
 // Update cart count badge
 function updateCartCount() {
-    const cart       = JSON.parse(localStorage.getItem("productsInCart")) || [];
+    let cart = [];
+    try {
+        cart = JSON.parse(localStorage.getItem("productsInCart")) || [];
+    } catch (e) {
+        console.error("LocalStorage Parse Error", e);
+    }
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
     const desktopCount = document.getElementById("desktopCartCount");
@@ -638,7 +643,7 @@ window.buyNow = function (productName, productPrice, productImage, quantity, siz
         if (themeIconMobile) themeIconMobile.className = iconClass;
 
         const siteLogo = document.getElementById("siteLogo");
-        if (siteLogo) siteLogo.src = theme === "dark" ? "images/Dlogo.png" : "images/logo.png";
+        if (siteLogo) siteLogo.src = theme === "dark" ? "images/Dlogo.png" : "images/oldlogo.png";
     }
 
     function toggleTheme() {
@@ -914,11 +919,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (sortValue === "default") {
                 productsToAppend = originalProducts;
-            } else {
+            } else if (sortValue === "low-high") {
                 productsToAppend = [...originalProducts].sort((a, b) => {
-                    const priceA = parsePriceString(a.querySelector("h4")?.innerText);
-                    const priceB = parsePriceString(b.querySelector("h4")?.innerText);
-                    return sortValue === "low-high" ? priceA - priceB : priceB - priceA;
+                    return parsePriceString(a.querySelector("h4")?.innerText) - parsePriceString(b.querySelector("h4")?.innerText);
+                });
+            } else if (sortValue === "high-low") {
+                productsToAppend = [...originalProducts].sort((a, b) => {
+                    return parsePriceString(b.querySelector("h4")?.innerText) - parsePriceString(a.querySelector("h4")?.innerText);
+                });
+            } else if (sortValue === "rating") {
+                productsToAppend = [...originalProducts].sort((a, b) => {
+                    const starsA = a.querySelectorAll(".star i.fas, .star i.ri-star-fill").length;
+                    const starsB = b.querySelectorAll(".star i.fas, .star i.ri-star-fill").length;
+                    return starsB - starsA;
+                });
+            } else if (sortValue === "alphabetical") {
+                productsToAppend = [...originalProducts].sort((a, b) => {
+                    const nameA = a.querySelector("h5")?.innerText.toLowerCase() || "";
+                    const nameB = b.querySelector("h5")?.innerText.toLowerCase() || "";
+                    return nameA.localeCompare(nameB);
                 });
             }
             productsToAppend.forEach(product => { proContainer.appendChild(product); });

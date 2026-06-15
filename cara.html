@@ -30,9 +30,11 @@
       box-sizing: border-box
     }
 
-    html,
-    body {
-      height: 100%
+    html, body {
+
+    
+    
+      height: 100%;
     }
 
     body {
@@ -50,7 +52,7 @@
       max-width: 1200px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 1fr 360px;
+      grid-template-columns: 1fr minmax(300px, 360px);
       gap: 24px;
       align-items: start;
     }
@@ -540,6 +542,9 @@
           <path d="M6 6h15l-1.5 9h-12zM6 6L4 2H2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
             stroke-linejoin="round" />
         </svg>
+      </button>
+      <button class="icon-btn theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <i class="ri-moon-line" id="themeIcon" style="font-size: 18px;"></i>
       </button>
     </div>
   </header>
