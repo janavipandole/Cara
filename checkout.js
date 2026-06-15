@@ -71,6 +71,73 @@ const errorMessages = {
   cvv:        "CVV must be 3-4 digits",
 };
 
+// --- Utility Functions ---
+function parsePriceString(priceStr) {
+  if (typeof priceStr === "number") return isFinite(priceStr) ? priceStr : 0;
+  if (!priceStr) return 0;
+  var cleaned = String(priceStr).replace(/[₹$,\s]/g, "").replace(/&#?\w+;/g, "");
+  var num = parseFloat(cleaned);
+  return isFinite(num) ? num : 0;
+}
+
+function formatCurrency(amount) {
+  var num = typeof amount === "number" ? amount : parsePriceString(amount);
+  if (!isFinite(num)) num = 0;
+  return "₹" + Math.round(num).toLocaleString("en-IN");
+}
+
+// --- Dynamic Summary Rendering ---
+function loadCheckoutSummary() {
+  const cart = safeParseJSON("productsInCart");
+  const container = document.getElementById("checkout-items-container");
+  if (!container) return;
+
+  if (cart.length === 0) {
+    container.innerHTML = '<p style="padding: 20px; text-align: center;">Your cart is empty.</p>';
+    return;
+  }
+
+  container.innerHTML = "";
+  let subtotal = 0;
+
+  cart.forEach((item) => {
+    const itemPrice = parsePriceString(item.price);
+    const itemQty = parseInt(item.quantity) || 1;
+    const itemSubtotal = itemPrice * itemQty;
+    subtotal += itemSubtotal;
+
+    const div = document.createElement("div");
+    div.className = "order-item";
+    div.innerHTML = `
+      <div class="item-thumb"><img src="${item.image}" alt="${item.name}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;"></div>
+      <div class="item-info">
+        <div class="item-name">${item.name}</div>
+        <div class="item-meta">${item.brand || "Premium Brand"} · Size ${item.size || "N/A"} · Qty ${itemQty}</div>
+      </div>
+      <div class="item-price">${formatCurrency(itemSubtotal)}</div>
+    `;
+    container.appendChild(div);
+  });
+
+  const subtotalEl = document.getElementById("checkout-subtotal");
+  const shippingEl = document.getElementById("checkout-shipping");
+  const taxEl = document.getElementById("checkout-tax");
+  const totalEl = document.getElementById("checkout-total");
+
+  if (subtotalEl) subtotalEl.textContent = formatCurrency(subtotal);
+
+  const shipping = subtotal >= 3000 ? 0 : 150;
+  if (shippingEl) {
+    shippingEl.textContent = shipping === 0 ? "Free" : formatCurrency(shipping);
+  }
+
+  const tax = Math.round(subtotal * 0.18); // 18% GST as per cart.html
+  if (taxEl) taxEl.textContent = formatCurrency(tax);
+
+  const grandTotal = subtotal + shipping + tax;
+  if (totalEl) totalEl.textContent = formatCurrency(grandTotal);
+}
+
 // --- Validate a single field ---
 function validateField(input) {
   const field = input.dataset.validate;
@@ -210,7 +277,7 @@ paymentMethod.addEventListener("change", function () {
 
 // --- Form Submission & Final Validation Check ---
 const form = document.getElementById("checkoutForm");
-const popup = document.getElementById("successPopup");
+const popup = document.getElementById("successOverlay");
 
 form.addEventListener("submit", function (e) {
   e.preventDefault();
@@ -252,14 +319,16 @@ for (const id of requiredFields) {
 
   if (!el) {
     console.error(`Missing input field with id: ${id}`);
-    return;
+    continue;
   }
 
   if (!el.value.trim()) {
-    highlightError(el);
-    return;
+    allValid = false;
+    validateField(el);
   }
 }
+
+if (!allValid) return;
 
 // ── Loading state: disable button & show spinner ──
 const submitBtn = form.querySelector(".submit-btn");
@@ -279,9 +348,6 @@ if (submitBtn) {
     if (submitBtn) {
       submitBtn.classList.remove("btn-loading");
       submitBtn.disabled = false;
-      submitBtn.style.opacity = "";
-      submitBtn.style.cursor = "";
-      submitBtn.innerHTML = submitBtn.getAttribute('data-original-html') || 'Place Order';
     }
 
     form.reset();
@@ -296,6 +362,9 @@ if (submitBtn) {
       const errEl = input.parentElement.querySelector(".error-msg");
       if (errEl) errEl.textContent = "";
     });
+    
+    // Refresh summary (it will be empty)
+    loadCheckoutSummary();
   }, 1500);
 });
 
@@ -304,14 +373,22 @@ function closePopup() {
 }
 
 // Call init on DOM ready
-document.addEventListener("DOMContentLoaded", initCheckoutValidation);
+function init() {
+  initCheckoutValidation();
+  loadCheckoutSummary();
+}
+
+document.addEventListener("DOMContentLoaded", init);
 // If DOMContentLoaded already fired, call it directly
 if (document.readyState === "interactive" || document.readyState === "complete") {
-  initCheckoutValidation();
+  init();
 }
 
 // ── Close popup when clicking outside the box ─────────────
-document.getElementById('successOverlay').addEventListener('click', function (e) {
-  if (e.target === this) this.classList.remove('show');
-});
+const successOverlay = document.getElementById('successOverlay');
+if (successOverlay) {
+  successOverlay.addEventListener('click', function (e) {
+    if (e.target === this) this.classList.remove('active');
+  });
+}
 // Advanced validation routines checking postal formats and shipping address boundaries.

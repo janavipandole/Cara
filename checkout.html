@@ -197,30 +197,33 @@
           <legend class="card-title">
             <i class="ri-shopping-bag-3-line"></i> Order Summary
           </legend>
-          <div class="order-item">
-            <div class="item-thumb"><i class="ri-shirt-line"></i></div>
-            <div class="item-info">
-              <div class="item-name">Tropical Print Shirt</div>
-              <div class="item-meta">H&M · Size L · Qty 2</div>
+          <div id="checkout-items-container">
+            <!-- Items will be injected here -->
+            <div class="order-item">
+              <div class="item-thumb"><i class="ri-shirt-line"></i></div>
+              <div class="item-info">
+                <div class="item-name">Tropical Print Shirt</div>
+                <div class="item-meta">H&M · Size L · Qty 2</div>
+              </div>
+              <div class="item-price">₹1,799</div>
             </div>
-            <div class="item-price">₹1,799</div>
           </div>
           <div class="totals">
             <div class="total-row">
               <span>Subtotal</span>
-              <span>₹4,097</span>
+              <span id="checkout-subtotal">₹0</span>
             </div>
             <div class="total-row free-ship">
               <span>Shipping</span>
-              <span>Free</span>
+              <span id="checkout-shipping">Free</span>
             </div>
             <div class="total-row">
-              <span>Tax (5%)</span>
-              <span>₹205</span>
+              <span>Tax (18% GST)</span>
+              <span id="checkout-tax">₹0</span>
             </div>
             <div class="total-row grand">
               <span>Total</span>
-              <span>₹4,302</span>
+              <span id="checkout-total">₹0</span>
             </div>
           </div>
           <button type="submit" class="submit-btn">
