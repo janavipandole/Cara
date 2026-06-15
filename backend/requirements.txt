@@ -1,7 +1,7 @@
 fastapi
 uvicorn
 sqlalchemy
-pydantic
+pydantic>=2.0
 transformers
 faiss-cpu
 pillow
@@ -16,3 +16,5 @@ passlib[bcrypt]
 python-jose[cryptography]
 email-validator
 slowapi
+pytest
+httpx

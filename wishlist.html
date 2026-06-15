@@ -460,9 +460,11 @@
                 <h1>Wishlist</h1>
                 <p>Keep your favorite Cara pieces in one polished place, then move them to cart when the moment feels right.</p>
             </div>
-            <div class="nav-buttons">
                 <a href="shop.html" class="btn-secondary"><i class="ri-arrow-left-line" aria-hidden="true"></i> Back to Shop</a>
                 <button id="clearAllBtn" class="btn-danger-outline" onclick="clearWishlist()"><i class="ri-delete-bin-6-line" aria-hidden="true"></i> Clear All</button>
+                <button class="theme-toggle btn-secondary" id="themeToggle" aria-label="Toggle dark mode" style="padding: 8px 12px; border-radius: 999px;">
+                  <i class="ri-moon-line" id="themeIcon"></i>
+                </button>
             </div>
         </div>
     </header>
@@ -597,6 +599,7 @@
                 wishlist.forEach((product, index) => {
                     const card = document.createElement("article");
                     card.className = "wishlist-card";
+                    card.dataset.id = product.id;
 
                     const media = document.createElement("div");
                     media.className = "wishlist-media";

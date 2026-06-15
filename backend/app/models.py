@@ -24,7 +24,8 @@ class Interaction(Base):
     user_id = Column(String, index=True) # IP or generic session id
     product_id = Column(Integer, ForeignKey("products.id"))
     interaction_type = Column(String) # click, view, buy
-    
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), nullable=False, index=True)
+
     product = relationship("Product")
 
 

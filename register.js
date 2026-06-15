@@ -1,10 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("register.js loaded");
-
     const btn = document.getElementById("registerSubmitBtn");
 
     if (!btn) {
-        console.error("Submit button not found!");
         return;
     }
 
@@ -15,8 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const email = document.getElementById("registerEmail")?.value.trim();
         const password = document.getElementById("registerPassword")?.value.trim();
         const confirmPassword = document.getElementById("confirmPassword")?.value.trim();
-
-        const role = document.querySelector('input[name="registerRole"]:checked')?.value || "USER";
 
         const messageBox = document.getElementById("formMessage");
 
@@ -29,6 +24,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (password.length < 8) {
             messageBox.innerText = "Password must be at least 8 characters long!";
+            messageBox.style.color = "red";
+            return;
+        }
+
+        // Password complexity: at least one uppercase, one lowercase, one number, and one special character
+        const complexityRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$/;
+        if (!complexityRegex.test(password)) {
+            messageBox.innerText = "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character!";
             messageBox.style.color = "red";
             return;
         }
@@ -47,8 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 body: JSON.stringify({
                     username,
                     email,
-                    password,
-                    role
+                    password
                 })
             });
 
@@ -57,8 +59,6 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!res.ok) {
                 throw new Error(data.detail || "Registration failed");
             }
-
-            console.log("Success:", data);
 
             localStorage.setItem("token", data.access_token);
             localStorage.setItem("user", JSON.stringify(data.user));
@@ -71,10 +71,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 1200);
 
         } catch (err) {
-            console.error(err);
             messageBox.style.color = "red";
             messageBox.innerText = err.message;
         }
     });
 });
-// TODO: Prevent signup triggers if password complexity score is poor

@@ -263,6 +263,10 @@
 
             <!-- Hamburger Menu -->
             <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
+      <!-- Theme Toggle -->
+      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
+        <i class="ri-moon-line" id="themeIconMobile"></i>
+      </button>
           </div>
         </section>
 
@@ -281,19 +285,106 @@
     <h1>Premium Cozy Essentials</h1>
     <p class="lead-text">Discover our latest arrivals designed specifically to provide optimal warmth without sacrificing contemporary style. From heavyweight tactical shirts to beautifully knit formal wear, find your new cold-weather favorite today.</p>
 
-    <section class="coming-soon">
-  <div class="coming-container">
-    <h1><i class="fas fa-snowflake fa-spin"></i> Coming Soon</h1>
-    <p>Our winter collection drops in:</p>
-    <div class="countdown-wrapper" id="countdown">
-      <div class="countdown-box"><span id="cd-days">00</span><small>Days</small></div>
-      <div class="countdown-box"><span id="cd-hours">00</span><small>Hours</small></div>
-      <div class="countdown-box"><span id="cd-minutes">00</span><small>Minutes</small></div>
-      <div class="countdown-box"><span id="cd-seconds">00</span><small>Seconds</small></div>
-    </div>
-    <a href="index.html" class="back-btn">Back to Home</a>
-  </div>
-</section>
+    <section class="coming-soon" style="position: relative; overflow: hidden; background: #0f172a; padding: 60px 20px; border-radius: 16px; margin: 40px auto; max-width: 800px; color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+      <!-- Falling Snow Canvas Background -->
+      <canvas id="snowCanvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1;"></canvas>
+      
+      <div class="coming-container" style="position: relative; z-index: 2; text-align: center;">
+        <h1 style="font-size: 38px; color: #38bdf8; display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 10px;">
+          <i class="fas fa-snowflake fa-spin" style="color: #38bdf8;"></i> Coming Soon
+        </h1>
+        <p style="font-size: 16px; color: #94a3b8; margin-bottom: 30px;">Our exclusive, high-end winter collection drops in:</p>
+        
+        <!-- Countdown Grid -->
+        <div class="countdown-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; max-width: 500px; margin: 0 auto 30px auto;">
+          <div style="background: rgba(255,255,255,0.06); padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
+            <span id="days" style="display: block; font-size: 32px; font-weight: 800; color: #38bdf8; font-family: monospace;">00</span>
+            <span style="font-size: 11px; text-transform: uppercase; color: #94a3b8; tracking-spacing: 1px;">Days</span>
+          </div>
+          <div style="background: rgba(255,255,255,0.06); padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
+            <span id="hours" style="display: block; font-size: 32px; font-weight: 800; color: #38bdf8; font-family: monospace;">00</span>
+            <span style="font-size: 11px; text-transform: uppercase; color: #94a3b8; tracking-spacing: 1px;">Hours</span>
+          </div>
+          <div style="background: rgba(255,255,255,0.06); padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
+            <span id="minutes" style="display: block; font-size: 32px; font-weight: 800; color: #38bdf8; font-family: monospace;">00</span>
+            <span style="font-size: 11px; text-transform: uppercase; color: #94a3b8; tracking-spacing: 1px;">Mins</span>
+          </div>
+          <div style="background: rgba(255,255,255,0.06); padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
+            <span id="seconds" style="display: block; font-size: 32px; font-weight: 800; color: #38bdf8; font-family: monospace;">00</span>
+            <span style="font-size: 11px; text-transform: uppercase; color: #94a3b8; tracking-spacing: 1px;">Secs</span>
+          </div>
+        </div>
+
+        <a href="index.html" class="btn-action btn-primary" style="padding: 10px 24px; font-size: 13px; border-radius: 30px;">Notify Me on Launch</a>
+      </div>
+
+      <!-- Snowflake Fall Logic & Live Countdown -->
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          // --- Canvas Snow Particles ---
+          const canvas = document.getElementById('snowCanvas');
+          const ctx = canvas.getContext('2d');
+          let width = canvas.width = canvas.offsetWidth;
+          let height = canvas.height = canvas.offsetHeight;
+
+          window.addEventListener('resize', () => {
+            width = canvas.width = canvas.offsetWidth;
+            height = canvas.height = canvas.offsetHeight;
+          });
+
+          const snowflakes = Array.from({ length: 45 }, () => ({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            r: Math.random() * 3 + 1,
+            d: Math.random() * 1 + 0.5,
+            v: Math.random() * 1 - 0.5
+          }));
+
+          function drawSnow() {
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
+            ctx.beginPath();
+            snowflakes.forEach(f => {
+              ctx.moveTo(f.x, f.y);
+              ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2, true);
+              f.y += f.d;
+              f.x += f.v;
+              if (f.y > height) {
+                f.y = -10;
+                f.x = Math.random() * width;
+              }
+              if (f.x > width || f.x < 0) {
+                f.x = Math.random() * width;
+              }
+            });
+            ctx.fill();
+            requestAnimationFrame(drawSnow);
+          }
+          drawSnow();
+
+          // --- Live Interactive Countdown ---
+          const launchDate = new Date();
+          launchDate.setDate(launchDate.getDate() + 24); // Launch in 24 days
+
+          function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = launchDate - now;
+
+            const d = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = String(d).padStart(2, '0');
+            document.getElementById('hours').innerText = String(h).padStart(2, '0');
+            document.getElementById('minutes').innerText = String(m).padStart(2, '0');
+            document.getElementById('seconds').innerText = String(s).padStart(2, '0');
+          }
+          updateCountdown();
+          setInterval(updateCountdown, 1000);
+        });
+      </script>
+    </section>
 
     <!-- Navigation CTAs -->
     <div class="action-group">

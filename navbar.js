@@ -94,7 +94,7 @@ function loadNavbar(activePage) {
   if (container) {
     container.innerHTML = navbarHTML;
   } else {
-    console.error('navbar-container not found!');
+    // Silently return for pages that use a hardcoded navbar (e.g. index.html)
     return;
   }
 

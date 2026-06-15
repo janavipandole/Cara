@@ -1,6 +1,7 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, Field, field_validator
 from typing import Optional
 from enum import Enum
+import re
 
 class ProductBase(BaseModel):
     brand: str
@@ -22,15 +23,22 @@ class Product(ProductBase):
     class Config:
         from_attributes = True
 
+class InteractionType(str, Enum):
+    view     = "view"
+    click    = "click"
+    wishlist = "wishlist"
+    cart     = "cart"
+    buy      = "buy"
+
 class InteractionCreate(BaseModel):
     user_id: str
     product_id: int
-    interaction_type: str
+    interaction_type: InteractionType
 
 class RecommendationRequest(BaseModel):
     product_id: int
     user_id: Optional[str] = None
-    limit: Optional[int] = 4
+    limit: int = Field(default=4, ge=1, le=50)
 
 
 # -- Role --
@@ -41,10 +49,18 @@ class RoleEnum(str, Enum):
 
 # -- Request Schemas --
 class UserRegister(BaseModel):
-    username: str
+    username: str = Field(min_length=3, max_length=30)
     email:    EmailStr
-    password: str
-    role:     RoleEnum = RoleEnum.USER
+    password: str = Field(min_length=8, max_length=128)
+
+    @field_validator("password")
+    @classmethod
+    def password_complexity(cls, v: str) -> str:
+        if not re.search(r"[A-Z]", v):
+            raise ValueError("Password must contain at least one uppercase letter.")
+        if not re.search(r"\d", v):
+            raise ValueError("Password must contain at least one digit.")
+        return v
 
 
 class UserLogin(BaseModel):

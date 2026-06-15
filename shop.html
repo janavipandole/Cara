@@ -74,7 +74,7 @@
           </li>
           <li class="nav-icon"><a href="cart.html" id="lg-bag" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a></li>
           <li class="nav-icon"><button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><i class="ri-moon-line" id="themeIcon"></i></button></li>
-          <a href="#" id="close" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></a>
+          <a href="javascript:void(0)" id="close" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></a>
         </ul>
       </div>
       <div class="mobile">
@@ -85,6 +85,10 @@
         </a>
         <a href="cart.html" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a>
         <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
+      <!-- Theme Toggle -->
+      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
+        <i class="ri-moon-line" id="themeIconMobile"></i>
+      </button>
       </div>
     </section>
 
@@ -212,7 +216,6 @@
           </select>
           <i class="ri-arrow-down-s-line sort-chevron" aria-hidden="true"></i>
         </div>
-      </div>
       <div class="pro-container" id="shop-container"></div>
     </section>
 
@@ -322,7 +325,7 @@
       <h4>My Account</h4>
       <a href="login.html">Sign In</a>
       <a href="cart.html">View Cart</a>
-      <a href="#">My Wishlist</a>
+      <a href="javascript:void(0)">My Wishlist</a>
       <a href="cart.html">Track My Order</a>
       <a href="contact.html">Help</a>
     </div>
@@ -395,5 +398,6 @@ if (btn) {
 }
 </script>
    <button id="backToTop">↑</button>
-  </body>
+  <script src="js/shimmer-loader.js" defer></script>
+</body>
 </html>
