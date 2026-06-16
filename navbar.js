@@ -14,44 +14,44 @@ function loadNavbar(activePage) {
         </li>
 
         <li>
-          <a ${activePage === 'shop' ? 'class="active" aria-current="page"' : ''} href="shop.html" title="Shop">
+          <a class="protected" ${activePage === 'shop' ? 'class="active" aria-current="page"' : ''} href="shop.html" title="Shop">
             Shop
           </a>
         </li>
 
         <li>
-          <a ${activePage === 'blog' ? 'class="active" aria-current="page"' : ''} href="blog.html" title="Blog">
+          <a class="protected" ${activePage === 'blog' ? 'class="active" aria-current="page"' : ''} href="blog.html" title="Blog">
             Blog
           </a>
         </li>
 
         <li>
-          <a ${activePage === 'about' ? 'class="active" aria-current="page"' : ''} href="about.html" title="About">
+          <a class="protected" ${activePage === 'about' ? 'class="active" aria-current="page"' : ''} href="about.html" title="About">
             About
           </a>
         </li>
 
         <li>
-          <a ${activePage === 'outfit' ? 'class="active" aria-current="page"' : ''} href="outfit-compatibility.html" title="Outfit Checker">
+          <a class="protected" ${activePage === 'outfit' ? 'class="active" aria-current="page"' : ''} href="outfit-compatibility.html" title="Outfit Checker">
             Outfit Checker
           </a>
         </li>
 
         <li>
-          <a ${activePage === 'community' ? 'class="active" aria-current="page"' : ''} href="community.html" title="Community">
+          <a class="protected" ${activePage === 'community' ? 'class="active" aria-current="page"' : ''} href="community.html" title="Community">
             Community
           </a>
         </li>
 
         <li>
-          <a ${activePage === 'promotions' ? 'class="active" aria-current="page"' : ''} href="promotions.html" title="Promotions">
+          <a class="protected" ${activePage === 'promotions' ? 'class="active" aria-current="page"' : ''} href="promotions.html" title="Promotions">
             Promotions
           </a>
         </li>
 
         <!-- Contact Icon -->
         <li class="nav-icon">
-          <a href="contact.html" title="Contact Us" aria-label="Contact">
+          <a href="contact.html" aria-label="Contact">
             <i class="ri-customer-service-2-line"></i>
           </a>
         </li>
@@ -65,7 +65,7 @@ function loadNavbar(activePage) {
 
         <!-- Wishlist Icon -->
         <li class="nav-icon">
-          <a ${activePage === 'wishlist' ? 'class="active" aria-current="page"' : ''} href="wishlist.html" title="View Wishlist" aria-label="Wishlist">
+          <a ${activePage === 'wishlist' ? 'class="active" aria-current="page"' : ''} href="wishlist.html" class="wishlist-nav-link" aria-label="Wishlist">
             <i class="ri-heart-line"></i>
             <span class="wishlist-count hidden">0</span>
           </a>
@@ -93,6 +93,18 @@ function loadNavbar(activePage) {
   const container = document.getElementById('navbar-container');
   if (container) {
     container.innerHTML = navbarHTML;
+    // Authentication guard for protected links
+    const protectedLinks = container.querySelectorAll('a.protected');
+    protectedLinks.forEach((link) => {
+      link.addEventListener('click', (e) => {
+        const token = localStorage.getItem('authToken');
+        if (!token) {
+          e.preventDefault();
+          // Redirect to login page
+          window.location.href = 'login.html';
+        }
+      });
+    });
   } else {
     // Silently return for pages that use a hardcoded navbar (e.g. index.html)
     return;

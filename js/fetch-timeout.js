@@ -8,15 +8,15 @@
  * @returns {Promise<Response>}
  */
 function fetchWithTimeout(url, options = {}, ms = 10000) {
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), ms);
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), ms);
 
-    return fetch(url, { ...options, signal: controller.signal }).finally(() =>
-        clearTimeout(timer)
-    );
+  return fetch(url, { ...options, signal: controller.signal }).finally(() =>
+    clearTimeout(timer)
+  );
 }
 
 // Allow import in test / Node environments
 if (typeof module !== 'undefined') {
-    module.exports = { fetchWithTimeout };
+  module.exports = { fetchWithTimeout };
 }
