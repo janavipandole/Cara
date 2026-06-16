@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Character Encoding -->
+  <meta charset="UTF-8">
+
+  <!-- Viewport for Responsive Design -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Page Title -->
+  <title>Cara — Modern E‑Commerce</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
+
+  <!-- SEO Meta Tags -->
+  <meta name="description"
+    content="Shop the latest trends on our e-commerce store. Dark theme supported for a better user experience.">
+  <meta name="keywords" content="e-commerce, shopping, online store, dark mode, buy online, latest fashion">
+  <meta name="author" content=" Cara">
+  <meta name="robots" content="index, follow">
+
+  <!-- Language -->
+  <meta http-equiv="Content-Language" content="en">
+
+  <!-- Open Graph (OG) Tags for Social Sharing -->
+  <meta property="og:title" content="E-commerce - Dark Theme Working">
+  <meta property="og:description" content="Shop the latest trends with our dark mode-enabled e-commerce experience.">
+  <meta property="og:image" content="https://cara-seven-ashen.vercel.app/images/logo.png">
+  <meta property="og:url" content="https://cara-seven-ashen.vercel.app/">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Card Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="E-commerce - Dark Theme Working">
+  <meta name="twitter:description" content="Dark theme e-commerce site with modern features.">
+  <meta name="twitter:image" content="https://cara-seven-ashen.vercel.app/images/logo.png">
+  <meta name="twitter:site" content="@janavipandole">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="ui-fix.css" />
+  <link rel="stylesheet" href="singleProduct.css" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+
+<body>
+  <section id="header">
+    <a id="siteLogo" href="index.html">
+      <img src="images/logo.png" alt="Cara logo">
+    </a>
+
+    <div>
+      <ul id="navbar">
+        <li><a href="index.html">Home</a></li>
+        <li><a class="active" href="shop.html">Shop</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="login.html" id="login-btn">Login</a></li>
+        <li><a href="try-on.html">Try-On</a></li>
+        <li><a href="community.html">Community</a></li>
+        <li><a href="promotions.html">Promotions</a></li>
+        <li>
+          <a href="wishlist.html" class="wishlist-nav-link" aria-label="Wishlist">
+            <i class="ri-heart-line"></i>
+            <span class="wishlist-count hidden">0</span>
+          </a>
+        </li>
+        <li><a href="cart.html" id="lg-bag" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a></li>
+        <li>
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+            <i class="ri-moon-line" id="themeIcon"></i>
+          </button>
+        </li>
+
+        <a href="#" id="close" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></a>
+      </ul>
+    </div>
+    <div class="mobile">
+      <a href="wishlist.html" class="wishlist-nav-link" aria-label="Wishlist">
+        <i class="ri-heart-line"></i>
+        <span class="wishlist-count hidden">0</span>
+      </a>
+      <a href="cart.html" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a>
+      <i class="fas fa-outdent" id="bar"></i>
+      <!-- Theme Toggle -->
+      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
+        <i class="ri-moon-line" id="themeIconMobile"></i>
+      </button>
+    </div>
+    <button onclick="history.back()" class="back-btn" aria-label="Go back">Back</button>
+  </section>
+
+  <section id="pro-details" class="section-p1">
+    <div class="single-pro-image">
+      <img src="images/products/f1.jpg" width="100%" id="MainImg" alt="Main product image" title="Main product image" loading="lazy">
+      <div class="small-img-group">
+        <div class="small-img-col">
+          <img src="images/products/f1.jpg" width="100%" class="small-img" alt="Product thumbnail 1"
+            title="Product thumbnail 1" loading="lazy">
+        </div>
+        <div class="small-img-col">
+          <img src="images/products/f2.jpg" width="100%" class="small-img" alt="Product thumbnail 2"
+            title="Product thumbnail 2" loading="lazy">
+        </div>
+        <div class="small-img-col">
+          <img src="images/products/f3.jpg" width="100%" class="small-img" alt="Product thumbnail 3"
+            title="Product thumbnail 3" loading="lazy">
+        </div>
+        <div class="small-img-col">
+          <img src="images/products/f4.jpg" width="100%" class="small-img" alt="Product thumbnail 4"
+            title="Product thumbnail 4" loading="lazy">
+        </div>
+      </div>
+    </div>
+    <div class="single-pro-details">
+      <h6>Home / T-Shirt</h6>
+      <!-- Stock Urgency Badge -->
+      <div id="stock-urgency-badge" style="background: #f87171; color: white; display: inline-block; padding: 4px 8px; border-radius: 4px; font-weight: 600; font-size: 13px; margin-bottom: 10px; display: none;">
+        🔥 Only <span id="stock-items-count">3</span> left in stock!
+      </div>
+      
+      <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const badge = document.getElementById("stock-urgency-badge");
+        const count = document.getElementById("stock-items-count");
+        if (badge && count) {
+          const randomStock = Math.floor(Math.random() * 8) + 2;
+          count.textContent = randomStock;
+          badge.style.display = "inline-block";
+        }
+      });
+      </script>
+      <h4 id="product-name">Men's Fashion T-Shirt</h4>
+      <h2 id="product-price">$139.00</h2>
+      <div class="size-section">
+        <select id="product-size" name="product-size" aria-label="Select product size">
+          <option>Select Size</option>
+          <option>XXS</option>
+          <option>XS</option>
+          <option>S</option>
+          <option>M</option>
+          <option>L</option>
+        </select>
+        <div id="stock-alert-container"></div>
+
+        <!-- Size Chart Button -->
+       <button id="size-chart-btn">View Size Chart</button>
+
+<!-- Modal -->
+<div id="size-chart-modal" class="modal">
+
+    <div class="modal-content">
+
+        <span class="close-btn">&times;</span>
+
+        <h2>Size Chart</h2>
+
+        <table class="size-chart">
+
+            <thead>
+
+                <tr>
+                    <th>Size</th>
+                    <th>Chest (in)</th>
+                    <th>Length (in)</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>XXS</td>
+                    <td>30.0</td>
+                    <td>21.8</td>
+                </tr>
+
+                <tr>
+                    <td>XS</td>
+                    <td>32.0</td>
+                    <td>21.9</td>
+                </tr>
+
+                <tr>
+                    <td>S</td>
+                    <td>34.0</td>
+                    <td>22.0</td>
+                </tr>
+
+                <tr>
+                    <td>M</td>
+                    <td>36.0</td>
+                    <td>22.1</td>
+                </tr>
+
+                <tr>
+                    <td>L</td>
+                    <td>38.0</td>
+                    <td>22.2</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+        <div class="cart-action-group">
+          <div class="quantity-selector">
+            <button type="button" class="qty-btn minus" onclick="updateQty(-1)" aria-label="Decrease quantity">
+              <i class="fa-solid fa-minus"></i>
+            </button>
+            <input id="product-quantity" type="number" value="1" min="1" readonly title="Product quantity"
+              aria-label="Product quantity">
+            <button type="button" class="qty-btn plus" onclick="updateQty(1)" aria-label="Increase quantity">
+              <i class="fa-solid fa-plus"></i>
+            </button>
+          </div>
+          <button class="normal" onclick="handleAddToCart()">Add to Cart</button>
+          <button class="normal" style="background: #088178; color: white; margin-left: 10px;"
+            onclick="handleBuyNow()">Buy Now</button>
+          <button
+            class="normal product-wishlist-btn wishlist-btn"
+            id="single-product-wishlist"
+            type="button"
+            data-product-name="Men's Fashion T-Shirt"
+            aria-pressed="false"
+            aria-label="Add product to wishlist"
+          >
+            <i class="ri-heart-line" aria-hidden="true"></i>
+            <span>Wishlist</span>
+          </button>
+          <button class="normal" style="background: var(--accent); color: white; margin-left: 10px;"
+            onclick="window.location.href='try-on.html'">Try it On Virtually!</button>
+        </div>
+        <h4>Product Details</h4>
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officia tenetur, exercitationem velit maxime
+          sit beatae ea tempore a itaque natus placeat, neque fuga cumque aperiam nemo quia atque ducimus ipsam.
+        </p>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="product-reviews" class="section-p1" style="border-top: 1px solid #eef; padding-top: 40px; margin-top: 20px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px;">
+      <div>
+        <h2>Customer Reviews</h2>
+        <p>What our customers are saying about this product</p>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <label for="review-sort" style="font-weight: 600;">Sort by:</label>
+        <select id="review-sort" onchange="sortReviews()" style="padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px; background: var(--bg-primary, #fff); color: var(--text-primary, #222); cursor: pointer;">
+          <option value="recent">Most Recent</option>
+          <option value="rating-desc">Rating: High to Low</option>
+          <option value="rating-asc">Rating: Low to High</option>
+        </select>
+      </div>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 40px; margin-top: 30px;">
+      <!-- Aggregate Rating -->
+      <div style="background: #f9f9f9; padding: 25px; border-radius: 8px; border: 1px solid #eee;">
+        <h3 style="font-size: 32px; margin: 0; color: #222;">4.8</h3>
+        <div style="color: #ffbd27; font-size: 18px; margin: 8px 0;">
+          <i class="ri-star-fill"></i>
+          <i class="ri-star-fill"></i>
+          <i class="ri-star-fill"></i>
+          <i class="ri-star-fill"></i>
+          <i class="ri-star-half-fill"></i>
+        </div>
+        <p style="margin: 0; font-size: 14px; color: #555;">Based on 124 reviews</p>
+      </div>
+
+      <!-- Add Review Form -->
+      <div style="background: #ffffff; padding: 25px; border-radius: 8px; border: 1px solid #eee;">
+        <h3 style="margin-top: 0;">Write a Review</h3>
+        <form id="review-form" onsubmit="submitReview(event)" style="display: flex; flex-direction: column; gap: 12px;">
+          <div>
+            <label style="display: block; font-weight: 600; margin-bottom: 5px;">Rating:</label>
+            <div id="star-rating-selector" style="display: flex; gap: 5px; font-size: 24px; color: #ccc; cursor: pointer;">
+              <i class="ri-star-line" data-rating="1" onclick="setRating(1)"></i>
+              <i class="ri-star-line" data-rating="2" onclick="setRating(2)"></i>
+              <i class="ri-star-line" data-rating="3" onclick="setRating(3)"></i>
+              <i class="ri-star-line" data-rating="4" onclick="setRating(4)"></i>
+              <i class="ri-star-line" data-rating="5" onclick="setRating(5)"></i>
+            </div>
+            <input type="hidden" id="review-rating" value="0">
+          </div>
+          <div>
+            <label for="review-text" style="display: block; font-weight: 600; margin-bottom: 5px;">Your Comment:</label>
+            <textarea id="review-text" rows="3" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px;" required placeholder="Share your experience..."></textarea>
+          </div>
+          <button type="submit" class="normal" style="align-self: flex-start;">Submit Review</button>
+          <div id="review-status" style="margin-top: 10px; font-weight: 600;"></div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Review List -->
+    <div id="reviews-list" style="margin-top: 30px; display: flex; flex-direction: column; gap: 20px;">
+      <!-- Loaded dynamically via JS -->
+    </div>
+  </section>
+
+  <script>
+    // State management for reviews
+    const reviewsState = [
+      {
+        id: 1,
+        name: "Debasmita B.",
+        verified: true,
+        date: new Date("2026-05-24T12:00:00Z"),
+        rating: 5,
+        text: "Excellent fit and fabric quality! Perfect summer wear."
+      },
+      {
+        id: 2,
+        name: "Aarav S.",
+        verified: true,
+        date: new Date("2026-06-01T15:30:00Z"),
+        rating: 4,
+        text: "Comfortable material, stitching is strong. Delivery took 3 days."
+      },
+      {
+        id: 3,
+        name: "Kiara J.",
+        verified: false,
+        date: new Date("2026-05-15T09:00:00Z"),
+        rating: 3,
+        text: "Average product, color is slightly dimmer than the picture but fit is okay."
+      }
+    ];
+
+    let currentRating = 0;
+    
+    function setRating(rating) {
+      currentRating = rating;
+      document.getElementById('review-rating').value = rating;
+      const stars = document.querySelectorAll('#star-rating-selector i');
+      stars.forEach((star, idx) => {
+        if (idx < rating) {
+          star.className = 'ri-star-fill';
+          star.style.color = '#ffbd27';
+        } else {
+          star.className = 'ri-star-line';
+          star.style.color = '';
+        }
+      });
+    }
+
+    function renderReviews() {
+      const list = document.getElementById('reviews-list');
+      if (!list) return;
+      list.innerHTML = '';
+
+      reviewsState.forEach(review => {
+        const item = document.createElement('div');
+        item.style.borderBottom = '1px solid #eee';
+        item.style.paddingBottom = '15px';
+
+        let starHtml = '';
+        for (let i = 0; i < 5; i++) {
+          if (i < review.rating) {
+            starHtml += '<i class="ri-star-fill" style="color: #ffbd27;"></i>';
+          } else {
+            starHtml += '<i class="ri-star-line" style="color: #ccc;"></i>';
+          }
+        }
+
+        const dateStr = review.date.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        });
+
+        item.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h4 style="margin: 0; font-size: 16px;">
+              ${sanitizeHTML(review.name)} 
+              ${review.verified ? '<span style="color: #088178; font-size: 12px; margin-left: 8px;"><i class="ri-checkbox-circle-fill"></i> Verified Buyer</span>' : ''}
+            </h4>
+            <span style="font-size: 12px; color: #777;">${dateStr}</span>
+          </div>
+          <div style="color: #ffbd27; margin: 5px 0;">${starHtml}</div>
+          <p style="margin: 0; color: #555;">${sanitizeHTML(review.text)}</p>
+        `;
+        list.appendChild(item);
+      });
+    }
+
+    function sortReviews() {
+      const sortVal = document.getElementById('review-sort').value;
+      if (sortVal === 'recent') {
+        reviewsState.sort((a, b) => b.date - a.date);
+      } else if (sortVal === 'rating-desc') {
+        reviewsState.sort((a, b) => b.rating - a.rating || b.date - a.date);
+      } else if (sortVal === 'rating-asc') {
+        reviewsState.sort((a, b) => a.rating - b.rating || b.date - a.date);
+      }
+      renderReviews();
+    }
+
+    function submitReview(e) {
+      e.preventDefault();
+      const text = document.getElementById('review-text').value;
+      const status = document.getElementById('review-status');
+      
+      if (currentRating === 0) {
+        status.innerHTML = `<span style="color: #ef4444;"><i class="ri-error-warning-line"></i> Please select a star rating.</span>`;
+        return;
+      }
+
+      const newReview = {
+        id: reviewsState.length + 1,
+        name: "Anonymous",
+        verified: true,
+        date: new Date(),
+        rating: currentRating,
+        text: text
+      };
+
+      reviewsState.push(newReview);
+      
+      // Auto switch/reset to recent sorting
+      document.getElementById('review-sort').value = 'recent';
+      sortReviews();
+
+      status.innerHTML = `<span style="color: #088178;"><i class="ri-checkbox-circle-line"></i> Thank you! Review submitted successfully.</span>`;
+      
+      document.getElementById('review-form').reset();
+      setRating(0);
+      setTimeout(() => status.innerHTML = '', 3000);
+    }
+
+    // Initialize rendering
+    document.addEventListener('DOMContentLoaded', () => {
+      sortReviews();
+    });
+  </script>
+
+  <section id="product1" class="section-p1">
+    <h2>Featured Product</h2>
+    <p>Summer Collection New Morden Design</p>
+
+    <!-- Dynamic Js container  {csritik-max }-->
+    <div class="pro-container" id="featured-container"></div>
+    <!--   -->
+  </section>
+
+  <!-- Footer -->
+  <footer class="section-p1">
+    <!-- Contact Column -->
+    <div class="col">
+      <img class="logo" src="images/logo.png" alt="Cara Logo" />
+      <h4>Contact</h4>
+      <p>
+        <strong>Address:</strong> 562 Wellington Road, Street 32, San
+        Francisco
+      </p>
+      <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
+      <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
+
+      <div class="follow">
+        <h4>Follow us</h4>
+        <div class="icon">
+          <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-x-twitter"></i>
+          </a>
+          <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-youtube"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- About Column -->
+    <div class="col">
+      <h4>About</h4>
+      <a href="about.html">About Us</a>
+      <a href="#">Delivery Information</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms and Conditions</a>
+      <a href="contact.html">Contact Us</a>
+    </div>
+
+    <!-- My Account Column -->
+    <div class="col">
+      <h4>My Account</h4>
+      <a href="login.html">Sign In</a>
+      <a href="cart.html">View Cart</a>
+      <a href="#">My Wishlist</a>
+      <a href="cart.html">Track My Order</a>
+      <a href="contact.html">Help</a>
+    </div>
+
+    <!-- Newsletter Column -->
+    <div class="col newsletter-footer">
+      <h4>Newsletter</h4>
+      <p>
+        Get email updates about our latest shop and
+        <span>special offers.</span>
+      </p>
+
+      <form class="newsletter-form">
+        <input type="email" placeholder="Your email address" required />
+        <button type="submit" class="normal">Sign Up</button>
+      </form>
+    </div>
+
+    <!-- Install App Column -->
+    <div class="col install">
+      <h4>Install App</h4>
+      <p>From App Store or Google Play</p>
+
+      <div class="row">
+        <img src="images/pay/app.jpg" alt="Download from App Store" />
+        <img src="images/pay/play.jpg" alt="Get it on Google Play" />
+      </div>
+
+      <p>Secured Payment Gateways</p>
+
+      <div class="payment-icons">
+        <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer" aria-label="Visa">
+          <i class="fab fa-cc-visa"></i>
+        </a>
+
+        <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer" aria-label="Mastercard">
+          <i class="fab fa-cc-mastercard"></i>
+        </a>
+
+        <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" aria-label="PayPal">
+          <i class="fab fa-cc-paypal"></i>
+        </a>
+
+        <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer"
+          aria-label="American Express">
+          <i class="fab fa-cc-amex"></i>
+        </a>
+
+        <a href="https://stripe.com" target="_blank" rel="noopener noreferrer" aria-label="Stripe">
+          <i class="fab fa-cc-stripe"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="copyright">
+      <p>
+        © Cara 2026. All rights reserved. |
+        <a href="license.html" style="color: #088178"> MIT License </a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="products.js?v=1779120917220"></script>
+  <script src="../main.js"></script>
+  <!-- csritik-max -->
+
+  <script>
+    document.getElementById("Current-Year").textContent = new Date().getFullYear();
+  </script>
+<script src="js/reviews.js"></script>
+<script src="js/image-zoom.js" defer></script>
+</body>
+<script src="singleProduct.js"></script>
+<script src="js/stock-simulator.js" defer></script>
+</html>
