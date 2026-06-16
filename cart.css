@@ -167,7 +167,7 @@ body footer.section-p1 .copyright a {
         /* â”€â”€ Cart rows: black background on ALL screen sizes â”€â”€ */
         /* #cart table tbody tr td,
         #cart table tbody td {
-            background-color: #000000 !important;
+            background-color: var(--card-bg) !important;
             color: #ffffff !important;
             transition: background-color 0.25s ease, box-shadow 0.25s ease;
         }
@@ -303,19 +303,19 @@ body footer.section-p1 .copyright a {
                 border-radius: 4px;
                 width: 60%;
                 margin-right: 10px;
-                border: 1px solid #e2e9e1;
+                border: 1px solid var(--border-color);
             }
 
             #cart-add .coupon button {
-                background-color: #088178;
-                color: #fff;
+                background-color: var(--accent);
+                color: var(--text-primary);
                 cursor: pointer;
             }
 
             .subtotal {
                 width: 50%;
                 margin-bottom: 30px;
-                border: 1px solid #c9cbce;
+                border: 1px solid var(--border-color);
                 padding: 30px;
             }
 
@@ -329,12 +329,12 @@ body footer.section-p1 .copyright a {
                 width: 50%;
                 padding: 10px;
                 font-size: 16px;
-                border: 1px solid #c9cbce;
+                border: 1px solid var(--border-color);
             }
 
             .subtotal button {
-                background-color: #088178;
-                color: #fff;
+                background-color: var(--accent);
+                color: var(--text-primary);
                 cursor: pointer;
             }
 
@@ -968,4 +968,5 @@ body footer.section-p1 .copyright a {
 }
 .coupon-input-group input {
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
 }
