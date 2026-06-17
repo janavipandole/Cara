@@ -29,20 +29,35 @@
     <meta http-equiv="Content-Language" content="en" />
 
     <!-- Open Graph Tags -->
-    <meta property="og:title" content="Track My Order | Cara — Modern E-Commerce" />
+    <meta
+      property="og:title"
+      content="Track My Order | Cara — Modern E-Commerce"
+    />
     <meta
       property="og:description"
       content="Track your Cara order in real-time. Enter your order ID and email to get live shipping status and delivery updates."
     />
-    <meta property="og:image" content="https://example.com/images/preview.jpg" />
+    <meta
+      property="og:image"
+      content="https://example.com/images/preview.jpg"
+    />
     <meta property="og:url" content="https://example.com/track-order" />
     <meta property="og:type" content="website" />
 
     <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Track My Order | Cara — Modern E-Commerce" />
-    <meta name="twitter:description" content="Track your Cara order in real-time." />
-    <meta name="twitter:image" content="https://example.com/images/preview.jpg" />
+    <meta
+      name="twitter:title"
+      content="Track My Order | Cara — Modern E-Commerce"
+    />
+    <meta
+      name="twitter:description"
+      content="Track your Cara order in real-time."
+    />
+    <meta
+      name="twitter:image"
+      content="https://example.com/images/preview.jpg"
+    />
     <meta name="twitter:site" content="@janavipandole" />
 
     <!-- Theme Color -->
@@ -66,97 +81,92 @@
   <body>
     <!-- Header -->
     <section id="header">
-  <!-- Logo -->
-  <a href="index.html">
-    <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
-  </a>
+      <!-- Logo -->
+      <a href="index.html">
+        <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
+      </a>
 
-  <div>
-    <ul id="navbar">
+      <div>
+        <ul id="navbar">
+          <!-- Main Navigation Links -->
+          <li><a class="active" href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="try-on.html">Try-On</a></li>
+          <li><a href="community.html">Community</a></li>
+          <li><a href="promotions.html">Promotions</a></li>
 
-      <!-- Main Navigation Links -->
-      <li><a class="active" href="index.html">Home</a></li>
-      <li><a href="shop.html">Shop</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="try-on.html">Try-On</a></li>
-      <li><a href="community.html">Community</a></li>
-      <li><a href="promotions.html">Promotions</a></li>
+          <!-- Contact Icon -->
+          <li class="nav-icon">
+            <a href="contact.html" aria-label="Contact">
+              <i class="ri-customer-service-2-line"></i>
+            </a>
+          </li>
 
-      <!-- Contact Icon -->
-      <li class="nav-icon">
-        <a href="contact.html" aria-label="Contact">
-          <i class="ri-customer-service-2-line"></i>
-        </a>
-      </li>
+          <!-- Login Icon -->
+          <li class="nav-icon">
+            <a href="login.html" aria-label="Login">
+              <i class="ri-user-3-line"></i>
+            </a>
+          </li>
 
-      <!-- Login Icon -->
-      <li class="nav-icon">
+          <!-- Cart Icon -->
+          <li class="nav-icon">
+            <a href="cart.html" id="lg-bag" aria-label="Cart">
+              <i class="ri-shopping-bag-4-line"></i>
+            </a>
+          </li>
+
+          <!-- Theme Toggle -->
+          <li class="nav-icon">
+            <button
+              class="theme-toggle"
+              id="themeToggle"
+              aria-label="Toggle dark mode"
+            >
+              <i class="ri-moon-line" id="themeIcon"></i>
+            </button>
+          </li>
+
+          <!-- Close Button -->
+          <a href="#" id="close" aria-label="Close menu" aria-hidden="false">
+            <i class="fa-solid fa-xmark"></i>
+          </a>
+        </ul>
+      </div>
+
+      <!-- Mobile Navbar -->
+      <div class="mobile">
+        <!-- Login Icon -->
         <a href="login.html" aria-label="Login">
           <i class="ri-user-3-line"></i>
         </a>
-      </li>
 
-      <!-- Cart Icon -->
-      <li class="nav-icon">
-        <a href="cart.html" id="lg-bag" aria-label="Cart">
+        <!-- Cart Icon -->
+        <a href="cart.html" aria-label="Cart">
           <i class="ri-shopping-bag-4-line"></i>
         </a>
-      </li>
 
-      <!-- Theme Toggle -->
-      <li class="nav-icon">
+        <!-- Hamburger Menu -->
+        <i
+          class="fas fa-outdent"
+          id="bar"
+          role="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+          tabindex="0"
+        ></i>
+        <!-- Theme Toggle -->
         <button
           class="theme-toggle"
-          id="themeToggle"
+          id="themeToggleMobile"
           aria-label="Toggle dark mode"
         >
-          <i class="ri-moon-line" id="themeIcon"></i>
+          <i class="ri-moon-line" id="themeIconMobile"></i>
         </button>
-      </li>
-
-      <!-- Close Button -->
-      <a
-        href="#"
-        id="close"
-        aria-label="Close menu"
-        aria-hidden="false"
-      >
-        <i class="fa-solid fa-xmark"></i>
-      </a>
-
-    </ul>
-  </div>
-
-  <!-- Mobile Navbar -->
-  <div class="mobile">
-
-    <!-- Login Icon -->
-    <a href="login.html" aria-label="Login">
-      <i class="ri-user-3-line"></i>
-    </a>
-
-    <!-- Cart Icon -->
-    <a href="cart.html" aria-label="Cart">
-      <i class="ri-shopping-bag-4-line"></i>
-    </a>
-
-    <!-- Hamburger Menu -->
-    <i
-      class="fas fa-outdent"
-      id="bar"
-      role="button"
-      aria-label="Open menu"
-      aria-expanded="false"
-      tabindex="0"
-    ></i>
-      <!-- Theme Toggle -->
-      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
-        <i class="ri-moon-line" id="themeIconMobile"></i>
-      </button>
-
-  </div>
-</section>
+      </div>
+    </section>
 
     <!-- Page Hero -->
     <section id="about-head">
@@ -169,7 +179,6 @@
 
     <!-- Main Track Order Section -->
     <section id="track-order-section">
-
       <!-- Lookup Form Card -->
       <div class="track-form-card">
         <div class="track-form-header">
@@ -180,9 +189,7 @@
 
         <form class="track-form" id="trackOrderForm" novalidate>
           <div class="form-group">
-            <label for="orderId">
-              <i class="ri-hashtag"></i> Order ID
-            </label>
+            <label for="orderId"> <i class="ri-hashtag"></i> Order ID </label>
             <input
               type="text"
               id="orderId"
@@ -205,7 +212,9 @@
               placeholder="youremail@example.com"
               required
             />
-            <span class="field-hint">The email you used when placing the order</span>
+            <span class="field-hint"
+              >The email you used when placing the order</span
+            >
           </div>
 
           <button type="submit" class="track-btn" id="trackBtn">
@@ -218,13 +227,15 @@
         <!-- Demo hint -->
         <div class="demo-hint">
           <i class="ri-information-line"></i>
-          <span>Demo: Use Order ID <strong>CARA-20261234</strong> with any email to see a sample result.</span>
+          <span
+            >Demo: Use Order ID <strong>CARA-20261234</strong> with any email to
+            see a sample result.</span
+          >
         </div>
       </div>
 
       <!-- Order Result Card (hidden by default) -->
       <div class="track-result-card" id="trackResult" aria-live="polite">
-
         <!-- Order Header -->
         <div class="result-header">
           <div class="order-meta">
@@ -273,7 +284,6 @@
         <div class="timeline-section">
           <h3>Shipment Progress</h3>
           <div class="timeline" id="timeline">
-
             <div class="timeline-step completed" id="step-ordered">
               <div class="step-icon">
                 <i class="ri-shopping-bag-check-line"></i>
@@ -328,7 +338,6 @@
                 <time>Expected: May 20, 2026</time>
               </div>
             </div>
-
           </div>
         </div>
 
@@ -337,7 +346,10 @@
           <h3>Items in This Order</h3>
           <div class="order-items-list" id="orderItemsList">
             <div class="order-item">
-              <img src="images/products/f1.jpg" alt="Cartoon Astronaut T-Shirt" />
+              <img
+                src="images/products/f1.jpg"
+                alt="Cartoon Astronaut T-Shirt"
+              />
               <div class="item-info">
                 <h4>Cartoon Astronaut T-Shirt</h4>
                 <span>Size: M &nbsp;|&nbsp; Qty: 1</span>
@@ -375,21 +387,19 @@
         <i class="ri-error-warning-line"></i>
         <h3>Order Not Found</h3>
         <p>
-          We couldn't find an order matching that ID and email. Please double-check your
-          confirmation email and try again.
+          We couldn't find an order matching that ID and email. Please
+          double-check your confirmation email and try again.
         </p>
         <button class="action-btn secondary" onclick="resetTracker()">
           <i class="ri-arrow-left-line"></i> Try Again
         </button>
       </div>
-
     </section>
 
     <!-- FAQ Section -->
     <section id="track-faq" class="section-p1">
       <h2>Frequently Asked Questions</h2>
       <div class="faq-grid">
-
         <div class="faq-item">
           <div class="faq-question" onclick="toggleFaq(this)">
             <span>Where is my Order ID?</span>
@@ -409,8 +419,8 @@
           </div>
           <div class="faq-answer">
             Standard shipping takes 5–7 business days. Express shipping takes
-            2–3 business days. International orders may take 10–15 business
-            days depending on the destination country.
+            2–3 business days. International orders may take 10–15 business days
+            depending on the destination country.
           </div>
         </div>
 
@@ -437,7 +447,6 @@
             delivery date and we will investigate immediately.
           </div>
         </div>
-
       </div>
     </section>
 
@@ -457,16 +466,32 @@
         <div class="follow">
           <h4>Follow us</h4>
           <div class="icon">
-            <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://x.com/JanaviPandole"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <i class="fa-brands fa-x-twitter"></i>
             </a>
-            <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://github.com/janavipandole"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <i class="fab fa-github"></i>
             </a>
-            <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://www.linkedin.com/in/janavi-pandole-80a7b2290"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <i class="fab fa-linkedin"></i>
             </a>
-            <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://www.youtube.com/@JanaviPandole"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <i class="fab fa-youtube"></i>
             </a>
           </div>
@@ -477,7 +502,7 @@
       <div class="col">
         <h4>About</h4>
         <a href="about.html">About Us</a>
-       <a href="delivery.html">Delivery Information</a>
+        <a href="delivery.html">Delivery Information</a>
         <a href="privacy.html">Privacy Policy</a>
         <a href="terms.html">Terms and Conditions</a>
         <a href="contact.html">Contact Us</a>
@@ -520,19 +545,44 @@
         <p>Secured Payment Gateways</p>
 
         <div class="payment-icons">
-          <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer" aria-label="Visa">
+          <a
+            href="https://www.visa.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visa"
+          >
             <i class="fab fa-cc-visa"></i>
           </a>
-          <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer" aria-label="Mastercard">
+          <a
+            href="https://www.mastercard.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Mastercard"
+          >
             <i class="fab fa-cc-mastercard"></i>
           </a>
-          <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" aria-label="PayPal">
+          <a
+            href="https://www.paypal.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="PayPal"
+          >
             <i class="fab fa-cc-paypal"></i>
           </a>
-          <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer" aria-label="American Express">
+          <a
+            href="https://www.americanexpress.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="American Express"
+          >
             <i class="fab fa-cc-amex"></i>
           </a>
-          <a href="https://stripe.com" target="_blank" rel="noopener noreferrer" aria-label="Stripe">
+          <a
+            href="https://stripe.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Stripe"
+          >
             <i class="fab fa-cc-stripe"></i>
           </a>
         </div>

@@ -1,253 +1,325 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net;"
+    />
+    <!-- Character Encoding -->
+    <meta charset="UTF-8" />
 
-<head>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net;" />
-  <!-- Character Encoding -->
-  <meta charset="UTF-8" />
+    <!-- Viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Viewport -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Page Title -->
+    <title>404 - Page Not Found | Cara</title>
 
-  <!-- Page Title -->
-  <title>404 - Page Not Found | Cara</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
+    <!-- SEO -->
+    <meta name="robots" content="noindex, nofollow" />
 
-  <!-- SEO -->
-  <meta name="robots" content="noindex, nofollow" />
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#000000" />
 
-  <!-- Theme Color -->
-  <meta name="theme-color" content="#000000" />
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="ui-fix.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
 
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="ui-fix.css" />
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+      /* ── 404 Page Styles ── */
+      #not-found {
+        min-height: 70vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 60px 20px;
+        background: var(--bg-primary, #fff);
+        transition: background 0.3s ease;
+      }
 
-  <style>
-    /* ── 404 Page Styles ── */
-    #not-found {
-      min-height: 70vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 60px 20px;
-      background: var(--bg-primary, #fff);
-      transition: background 0.3s ease;
-    }
+      .not-found-icon {
+        font-size: 80px;
+        color: #088178;
+        margin-bottom: 10px;
+        animation: bounce 1.5s infinite;
+      }
 
-    .not-found-icon {
-      font-size: 80px;
-      color: #088178;
-      margin-bottom: 10px;
-      animation: bounce 1.5s infinite;
-    }
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-12px);
+        }
+      }
 
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50%       { transform: translateY(-12px); }
-    }
+      .not-found-code {
+        font-size: clamp(80px, 15vw, 150px);
+        font-weight: 900;
+        color: #088178;
+        line-height: 1;
+        margin: 0;
+        letter-spacing: -4px;
+      }
 
-    .not-found-code {
-      font-size: clamp(80px, 15vw, 150px);
-      font-weight: 900;
-      color: #088178;
-      line-height: 1;
-      margin: 0;
-      letter-spacing: -4px;
-    }
+      .not-found-title {
+        font-size: clamp(20px, 4vw, 32px);
+        font-weight: 700;
+        color: var(--text-primary, #222);
+        margin: 16px 0 10px;
+      }
 
-    .not-found-title {
-      font-size: clamp(20px, 4vw, 32px);
-      font-weight: 700;
-      color: var(--text-primary, #222);
-      margin: 16px 0 10px;
-    }
+      .not-found-subtitle {
+        font-size: 15px;
+        color: var(--text-secondary, #666);
+        max-width: 420px;
+        line-height: 1.7;
+        margin-bottom: 36px;
+      }
 
-    .not-found-subtitle {
-      font-size: 15px;
-      color: var(--text-secondary, #666);
-      max-width: 420px;
-      line-height: 1.7;
-      margin-bottom: 36px;
-    }
+      /* Buttons */
+      .not-found-actions {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: 48px;
+      }
 
-    /* Buttons */
-    .not-found-actions {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-bottom: 48px;
-    }
+      .btn-primary-404 {
+        background: #088178;
+        color: #fff;
+        padding: 13px 30px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        letter-spacing: 0.5px;
+        transition:
+          background 0.2s ease,
+          transform 0.2s ease;
+        border: 2px solid #088178;
+      }
 
-    .btn-primary-404 {
-      background: #088178;
-      color: #fff;
-      padding: 13px 30px;
-      border-radius: 6px;
-      font-size: 14px;
-      font-weight: 600;
-      text-decoration: none;
-      letter-spacing: 0.5px;
-      transition: background 0.2s ease, transform 0.2s ease;
-      border: 2px solid #088178;
-    }
+      .btn-primary-404:hover {
+        background: #066b63;
+        transform: translateY(-2px);
+      }
 
-    .btn-primary-404:hover {
-      background: #066b63;
-      transform: translateY(-2px);
-    }
+      .btn-outline-404 {
+        background: transparent;
+        color: #088178;
+        padding: 13px 30px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        letter-spacing: 0.5px;
+        border: 2px solid #088178;
+        transition:
+          background 0.2s ease,
+          color 0.2s ease,
+          transform 0.2s ease;
+      }
 
-    .btn-outline-404 {
-      background: transparent;
-      color: #088178;
-      padding: 13px 30px;
-      border-radius: 6px;
-      font-size: 14px;
-      font-weight: 600;
-      text-decoration: none;
-      letter-spacing: 0.5px;
-      border: 2px solid #088178;
-      transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
-    }
+      .btn-outline-404:hover {
+        background: #088178;
+        color: #fff;
+        transform: translateY(-2px);
+      }
 
-    .btn-outline-404:hover {
-      background: #088178;
-      color: #fff;
-      transform: translateY(-2px);
-    }
+      /* Quick nav links */
+      .not-found-links {
+        display: flex;
+        gap: 24px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
 
-    /* Quick nav links */
-    .not-found-links {
-      display: flex;
-      gap: 24px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
+      .not-found-links p {
+        width: 100%;
+        text-align: center;
+        font-size: 13px;
+        color: var(--text-secondary, #888);
+        margin-bottom: 10px;
+      }
 
-    .not-found-links p {
-      width: 100%;
-      text-align: center;
-      font-size: 13px;
-      color: var(--text-secondary, #888);
-      margin-bottom: 10px;
-    }
+      .not-found-links a {
+        font-size: 13px;
+        color: #088178;
+        text-decoration: none;
+        font-weight: 600;
+        border-bottom: 1px dashed #088178;
+        padding-bottom: 2px;
+        transition: opacity 0.2s;
+      }
 
-    .not-found-links a {
-      font-size: 13px;
-      color: #088178;
-      text-decoration: none;
-      font-weight: 600;
-      border-bottom: 1px dashed #088178;
-      padding-bottom: 2px;
-      transition: opacity 0.2s;
-    }
+      .not-found-links a:hover {
+        opacity: 0.7;
+      }
 
-    .not-found-links a:hover {
-      opacity: 0.7;
-    }
+      /* Dark mode */
+      body.dark #not-found {
+        background: var(--bg-primary, #0f1419);
+      }
 
-    /* Dark mode */
-    body.dark #not-found {
-      background: var(--bg-primary, #0f1419);
-    }
+      body.dark .not-found-title {
+        color: var(--text-primary, #e6eef8);
+      }
 
-    body.dark .not-found-title {
-      color: var(--text-primary, #e6eef8);
-    }
+      body.dark .not-found-subtitle {
+        color: var(--text-secondary, #94a3b8);
+      }
 
-    body.dark .not-found-subtitle {
-      color: var(--text-secondary, #94a3b8);
-    }
+      body.dark .not-found-links p {
+        color: var(--text-secondary, #94a3b8);
+      }
+    </style>
+  </head>
 
-    body.dark .not-found-links p {
-      color: var(--text-secondary, #94a3b8);
-    }
-  </style>
-</head>
-
-<body>
-  <!-- ── HEADER ── -->
-  <section id="header">
-    <a href="index.html">
-      <img loading="lazy" id="siteLogo" src="images/logo.png" alt="Cara Logo" width="130" height="40" />
-    </a>
-    <div id="navbar-container"></div>
-    <div id="mobile">
-      <a href="cart.html" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a>
-      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode" style="margin-left: 10px; border: none; background: transparent; cursor: pointer;">
-        <i class="ri-moon-line" id="themeIconMobile" style="font-size: 20px;"></i>
-      </button>
-      <a href="#" id="bar" aria-label="Open menu" aria-expanded="false" style="margin-left: 10px;">
-        <i class="fa-solid fa-bars"></i>
+  <body>
+    <!-- ── HEADER ── -->
+    <section id="header">
+      <a href="index.html">
+        <img
+          loading="lazy"
+          id="siteLogo"
+          src="images/logo.png"
+          alt="Cara Logo"
+          width="130"
+          height="40"
+        />
       </a>
-    </div>
-  </section>
-
-  <!-- ── 404 SECTION ── -->
-  <main id="main-content">
-  <section id="not-found">
-
-    <i class="ri-map-pin-line not-found-icon"></i>
-
-    <h1 class="not-found-code">404</h1>
-
-    <h2 class="not-found-title">Oops! Page Not Found</h2>
-
-    <p class="not-found-subtitle">
-      Looks like this page wandered off the runway. The URL you entered
-      doesn't exist or may have been moved.
-    </p>
-
-    <div class="not-found-actions">
-      <a href="index.html" class="btn-primary-404">
-        <i class="ri-home-4-line"></i> Go Back Home
-      </a>
-      <a href="shop.html" class="btn-outline-404">
-        <i class="ri-store-2-line"></i> Browse Shop
-      </a>
-    </div>
-
-    <div class="not-found-links">
-      <p>Or explore one of these pages:</p>
-      <a href="about.html">About</a>
-      <a href="blog.html">Blog</a>
-      <a href="contact.html">Contact</a>
-      <a href="cart.html">Cart</a>
-    </div>
-
-  </section>
-  </main>
-
-  <!-- ── FOOTER ── -->
-  <footer class="main-footer">
-    <div class="footer-top">
-      <div class="footer-logo-box">
-        <img class="footer-logo" src="images/logo.png" alt="Cara Logo" width="110" height="34" loading="lazy" />
+      <div id="navbar-container"></div>
+      <div id="mobile">
+        <a href="cart.html" aria-label="Cart"
+          ><i class="ri-shopping-bag-4-line"></i
+        ></a>
+        <button
+          class="theme-toggle"
+          id="themeToggleMobile"
+          aria-label="Toggle dark mode"
+          style="
+            margin-left: 10px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+          "
+        >
+          <i
+            class="ri-moon-line"
+            id="themeIconMobile"
+            style="font-size: 20px"
+          ></i>
+        </button>
+        <a
+          href="#"
+          id="bar"
+          aria-label="Open menu"
+          aria-expanded="false"
+          style="margin-left: 10px"
+        >
+          <i class="fa-solid fa-bars"></i>
+        </a>
       </div>
-      <div class="footer-socials">
-        <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
-        <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
-        <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
-        <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+    </section>
+
+    <!-- ── 404 SECTION ── -->
+    <main id="main-content">
+      <section id="not-found">
+        <i class="ri-map-pin-line not-found-icon"></i>
+
+        <h1 class="not-found-code">404</h1>
+
+        <h2 class="not-found-title">Oops! Page Not Found</h2>
+
+        <p class="not-found-subtitle">
+          Looks like this page wandered off the runway. The URL you entered
+          doesn't exist or may have been moved.
+        </p>
+
+        <div class="not-found-actions">
+          <a href="index.html" class="btn-primary-404">
+            <i class="ri-home-4-line"></i> Go Back Home
+          </a>
+          <a href="shop.html" class="btn-outline-404">
+            <i class="ri-store-2-line"></i> Browse Shop
+          </a>
+        </div>
+
+        <div class="not-found-links">
+          <p>Or explore one of these pages:</p>
+          <a href="about.html">About</a>
+          <a href="blog.html">Blog</a>
+          <a href="contact.html">Contact</a>
+          <a href="cart.html">Cart</a>
+        </div>
+      </section>
+    </main>
+
+    <!-- ── FOOTER ── -->
+    <footer class="main-footer">
+      <div class="footer-top">
+        <div class="footer-logo-box">
+          <img
+            class="footer-logo"
+            src="images/logo.png"
+            alt="Cara Logo"
+            width="110"
+            height="34"
+            loading="lazy"
+          />
+        </div>
+        <div class="footer-socials">
+          <a
+            href="https://x.com/JanaviPandole"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fa-brands fa-x-twitter"></i
+          ></a>
+          <a
+            href="https://github.com/janavipandole"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fab fa-github"></i
+          ></a>
+          <a
+            href="https://www.linkedin.com/in/janavi-pandole-80a7b2290"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fab fa-linkedin"></i
+          ></a>
+          <a
+            href="https://www.youtube.com/@JanaviPandole"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fab fa-youtube"></i
+          ></a>
+        </div>
       </div>
-    </div>
-    <hr class="footer-divider">
-    <div class="footer-bottom">
-      <p>© 2024 Cara. All Rights Reserved.</p>
-    </div>
-  </footer>
+      <hr class="footer-divider" />
+      <div class="footer-bottom">
+        <p>© 2024 Cara. All Rights Reserved.</p>
+      </div>
+    </footer>
 
-  <!-- ── SCRIPTS ── -->
-  <script src="navbar.js"></script>
-  <script src="app.js"></script>
-
-</body>
+    <!-- ── SCRIPTS ── -->
+    <script src="navbar.js"></script>
+    <script src="app.js"></script>
+  </body>
 </html>
