@@ -1112,10 +1112,11 @@ function showToast(message, type = 'success') {
   // Build Toast inner body to match your existing CSS layout (.toast-icon, .toast-msg, .toast-close, .toast-progress)
   toast.innerHTML = `
         <div class="toast-icon">${icon}</div>
-        <div class="toast-msg">${message}</div>
+        <div class="toast-msg"></div>
         <button class="toast-close" onclick="this.parentElement.remove()">&times;</button>
         <div class="toast-progress"></div>
     `;
+  toast.querySelector('.toast-msg').textContent = message;
 
   container.appendChild(toast);
 

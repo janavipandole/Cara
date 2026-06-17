@@ -456,12 +456,12 @@ window.loadCart = function () {
         row.innerHTML   = `
             <div class="cart-item-left">
                 <div class="cart-item-img-wrap">
-                    <img src="${item.image}" alt="${item.name}" loading="lazy" />
+                    <img src="" alt="" loading="lazy" />
                 </div>
                 <div class="cart-item-details">
-                    <span class="cart-item-brand">${item.brand || "Premium Brand"}</span>
-                    <h5 class="cart-item-title">${item.name}</h5>
-                    <span class="cart-item-size">Size: ${item.size}</span>
+                    <span class="cart-item-brand"></span>
+                    <h5 class="cart-item-title"></h5>
+                    <span class="cart-item-size"></span>
                 </div>
             </div>
             <div class="cart-item-right">
@@ -493,6 +493,11 @@ window.loadCart = function () {
                 </div>
             </div>
         `;
+        row.querySelector("img").src = item.image;
+        row.querySelector("img").alt = item.name;
+        row.querySelector(".cart-item-brand").textContent = item.brand || "Premium Brand";
+        row.querySelector(".cart-item-title").textContent = item.name;
+        row.querySelector(".cart-item-size").textContent = "Size: " + item.size;
         itemsContainer.appendChild(row);
     });
 
@@ -1349,12 +1354,12 @@ window.loadSavedItems = function () {
         row.innerHTML   = `
             <div class="cart-item-left" style="opacity:0.8;">
                 <div class="cart-item-img-wrap">
-                    <img src="${item.image}" alt="${item.name}" loading="lazy" />
+                    <img src="" alt="" loading="lazy" />
                 </div>
                 <div class="cart-item-details">
-                    <span class="cart-item-brand">${item.brand || "Premium Brand"}</span>
-                    <h5 class="cart-item-title">${item.name}</h5>
-                    <span class="cart-item-size">Size: ${item.size}</span>
+                    <span class="cart-item-brand"></span>
+                    <h5 class="cart-item-title"></h5>
+                    <span class="cart-item-size"></span>
                 </div>
             </div>
             <div class="cart-item-right" style="flex-direction:row;align-items:center;justify-content:space-between;">
@@ -1373,6 +1378,11 @@ window.loadSavedItems = function () {
                 </div>
             </div>
         `;
+        row.querySelector("img").src = item.image;
+        row.querySelector("img").alt = item.name;
+        row.querySelector(".cart-item-brand").textContent = item.brand || "Premium Brand";
+        row.querySelector(".cart-item-title").textContent = item.name;
+        row.querySelector(".cart-item-size").textContent = "Size: " + item.size;
         savedContainer.appendChild(row);
     });
 };

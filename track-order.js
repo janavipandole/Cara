@@ -213,18 +213,25 @@ function renderResult(order) {
   // Populate order items
   const itemsList = document.getElementById("orderItemsList");
   if (itemsList && order.items) {
-    itemsList.innerHTML = order.items.map(function (item) {
-      return `
-        <div class="order-item">
-          <img src="${item.img}" alt="${item.name}" loading="lazy" />
+    itemsList.innerHTML = "";
+    order.items.forEach(function (item) {
+      const div = document.createElement("div");
+      div.className = "order-item";
+      div.innerHTML = `
+          <img src="" alt="" loading="lazy" />
           <div class="item-info">
-            <h4>${item.name}</h4>
-            <span>Size: ${item.size} &nbsp;|&nbsp; Qty: ${item.qty}</span>
+            <h4></h4>
+            <span></span>
           </div>
-          <span class="item-price">${item.price}</span>
-        </div>
+          <span class="item-price"></span>
       `;
-    }).join("");
+      div.querySelector("img").src = item.img;
+      div.querySelector("img").alt = item.name;
+      div.querySelector("h4").textContent = item.name;
+      div.querySelector(".item-info span").textContent = `Size: ${item.size}  |  Qty: ${item.qty}`;
+      div.querySelector(".item-price").textContent = item.price;
+      itemsList.appendChild(div);
+    });
 
     // Update total
     const totalEl = document.querySelector(".order-total-row strong");
