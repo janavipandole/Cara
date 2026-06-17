@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 );
             }
 
-            localStorage.setItem(
+            sessionStorage.setItem(
                 'token',
                 data.access_token
             );
