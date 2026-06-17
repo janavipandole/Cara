@@ -249,32 +249,79 @@
 }
 
 /* FAQ ACCORDION */
+/* ============================================
+   FAQ SECTION
+============================================ */
+
 #contact-faq {
     padding: 80px 40px;
     max-width: 1200px;
     margin: 40px auto;
-    background: var(--card-bg, #ffffff);
+    background: var(--card-bg);
     border-radius: 16px;
-    border: 1px solid var(--border-color, #cde7d8);
-    box-shadow: 0 10px 30px var(--shadow, rgba(0, 0, 0, 0.05));
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 30px var(--shadow);
 }
+
+.faq-title {
+    font-size: 32px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--text-primary);
+    width:100%;
+}
+
+.faq-accordion {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
 .faq-item {
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 15px;
     transition: all 0.3s ease;
 }
+
 .faq-item[open] {
-    border-color: var(--accent, #088178) !important;
-    background: var(--input-bg, #f4faf6) !important;
+    border-color: var(--accent);
 }
+
 .faq-trigger {
-    outline: none;
+    padding: 18px 22px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
 }
+
+.faq-trigger::-webkit-details-marker {
+    display: none;
+}
+
 .faq-trigger i {
-    font-size: 12px;
     transition: transform 0.3s ease;
 }
+
 .faq-item[open] .faq-trigger i {
     transform: rotate(180deg);
-    color: var(--accent, #088178);
+    color: var(--accent);
 }
+
+.faq-content {
+    padding: 15px 22px;
+    color: var(--text-secondary);
+    border-top: 1px solid var(--border-color);
+    line-height: 1.7;
+}
+
+
 
 /* CSS classes styling FAQ accordion panel expand/collapse transition sequences. */
