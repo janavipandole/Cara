@@ -239,6 +239,29 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .saved-pill:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 28px rgba(224, 36, 94, 0.2);
+        }
+
+        .saved-pill i {
+            transition: transform 0.3s ease;
+        }
+
+        .saved-pill:hover i {
+            animation: heartbeat 1s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            15% { transform: scale(1.25); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.25); }
+            60% { transform: scale(1); }
         }
 
         .wishlist-details {
