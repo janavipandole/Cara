@@ -186,6 +186,202 @@ function updateWishlistCount() {
 
 window.updateWishlistCount = updateWishlistCount;
 
+// GLOBAL WISHLIST LOGIC
+function formatRupee(amount) {
+    const num = parsePriceString(amount);
+    return "₹" + Math.round(num).toLocaleString("en-IN");
+}
+
+function hasPriceDropped(item) {
+    return (
+        typeof item.currentPrice === "number" &&
+        typeof item.previousPrice === "number" &&
+        item.currentPrice < item.previousPrice
+    );
+}
+
+function getPriceDropAmount(item) {
+    return hasPriceDropped(item) ? item.previousPrice - item.currentPrice : 0;
+}
+
+function normalizeWishlistItem(item) {
+    const rawPrice = item.price || item.priceText || "₹0";
+    const currentPrice =
+        typeof item.currentPrice === "number"
+            ? item.currentPrice
+            : parsePriceString(rawPrice);
+    const previousPrice =
+        typeof item.previousPrice === "number"
+            ? item.previousPrice
+            : currentPrice;
+
+    return {
+        id: item.id || item.name,
+        name: item.name || "Product",
+        brand: item.brand || "Cara",
+        image: item.image || item.img || "images/products/f1.jpg",
+        price: formatRupee(currentPrice),
+        priceValue: currentPrice,
+        currentPrice,
+        previousPrice,
+    };
+}
+
+function refreshWishlistPrices(items) {
+    if (!Array.isArray(items) || typeof products === "undefined") return items;
+
+    let changed = false;
+    const catalog = products;
+
+    const updated = items.map((item) => {
+        const normalized = normalizeWishlistItem(item);
+        const catalogItem = catalog.find(
+            (p) => p.id === normalized.id || p.name === normalized.name
+        );
+
+        if (!catalogItem) return normalized;
+
+        const actualPrice = parsePriceString(catalogItem.price);
+        if (actualPrice !== normalized.currentPrice) {
+            normalized.previousPrice = normalized.currentPrice;
+            normalized.currentPrice = actualPrice;
+            normalized.price = formatRupee(actualPrice);
+            normalized.priceValue = actualPrice;
+            changed = true;
+        }
+
+        return normalized;
+    });
+
+    if (changed) {
+        localStorage.setItem("wishlist", JSON.stringify(updated));
+    }
+
+    return updated;
+}
+
+function getWishlist() {
+    let wishlist = [];
+    try {
+        const val = localStorage.getItem("wishlist");
+        wishlist = val ? JSON.parse(val) : [];
+    } catch (e) {
+        wishlist = [];
+    }
+    const normalized = Array.isArray(wishlist)
+        ? wishlist.map(normalizeWishlistItem)
+        : [];
+    return refreshWishlistPrices(normalized);
+}
+
+function saveWishlist(wishlist) {
+    localStorage.setItem(
+        "wishlist",
+        JSON.stringify(wishlist.map(normalizeWishlistItem))
+    );
+    if (typeof updateWishlistCount === "function") {
+        updateWishlistCount();
+    }
+}
+
+function isInWishlist(productName) {
+    return getWishlist().some((item) => item.name === productName);
+}
+
+function updateWishlistButtonState(button, isSaved) {
+    if (!button) return;
+
+    const productName = button.dataset.productName || "product";
+    button.classList.toggle("active", isSaved);
+    button.setAttribute("aria-pressed", String(isSaved));
+    button.setAttribute(
+        "aria-label",
+        isSaved
+            ? `Remove ${productName} from wishlist`
+            : `Add ${productName} to wishlist`
+    );
+    button.title = isSaved ? "Remove from wishlist" : "Add to wishlist";
+    button.innerHTML = `<i class="${isSaved ? "ri-heart-fill" : "ri-heart-line"}" aria-hidden="true"></i>`;
+
+    if (button.classList.contains("product-wishlist-btn")) {
+        const label = document.createElement("span");
+        label.textContent = isSaved ? "Saved" : "Wishlist";
+        button.appendChild(label);
+    }
+}
+
+function syncWishlistButtons() {
+    document
+        .querySelectorAll(".wishlist-btn[data-product-name]")
+        .forEach((button) => {
+            updateWishlistButtonState(
+                button,
+                isInWishlist(button.dataset.productName)
+            );
+        });
+}
+
+function toggleWishlistItem(product, button) {
+    const item = normalizeWishlistItem(product);
+    let wishlist = getWishlist();
+    const exists = wishlist.some((wishItem) => wishItem.name === item.name);
+
+    if (exists) {
+        wishlist = wishlist.filter((wishItem) => wishItem.name !== item.name);
+        if (typeof showToast === "function")
+            showToast(`${item.name} removed from wishlist`, "info");
+    } else {
+        wishlist.push(item);
+        if (typeof showToast === "function")
+            showToast(`${item.name} added to wishlist`, "success");
+    }
+
+    saveWishlist(wishlist);
+    updateWishlistButtonState(button, !exists);
+    syncWishlistButtons();
+}
+
+window.getWishlist = getWishlist;
+window.saveWishlist = saveWishlist;
+window.toggleWishlistItem = toggleWishlistItem;
+window.syncWishlistButtons = syncWishlistButtons;
+window.hasPriceDropped = hasPriceDropped;
+window.getPriceDropAmount = getPriceDropAmount;
+
+function injectGlobalWishlistButtons() {
+    document.querySelectorAll(".pro").forEach((card) => {
+        const actionBar = card.querySelector(".pro-action-bar");
+        if (!actionBar) return;
+        
+        if (actionBar.querySelector(".wishlist-btn")) return;
+
+        const nameElem = card.querySelector(".des h5");
+        const priceElem = card.querySelector(".des h4");
+        const imgElem = card.querySelector(".pro-img-wrap img");
+        const brandElem = card.querySelector(".pro-brand-row span");
+
+        const name = nameElem ? nameElem.textContent.trim() : "Product";
+        const price = priceElem ? priceElem.textContent.trim() : "₹0";
+        const img = imgElem ? imgElem.src : "images/products/f1.jpg";
+        const brand = brandElem ? brandElem.textContent.trim() : "Cara";
+
+        const wishlistBtn = document.createElement("button");
+        wishlistBtn.type = "button";
+        wishlistBtn.className = "wishlist-btn";
+        wishlistBtn.dataset.productName = name;
+        
+        updateWishlistButtonState(wishlistBtn, isInWishlist(name));
+        
+        wishlistBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            toggleWishlistItem({ id: Date.now(), name, brand, price, image: img, currentPrice: price, previousPrice: price }, wishlistBtn);
+        });
+
+        actionBar.appendChild(wishlistBtn);
+    });
+}
+
 function createWishlistNavLink() {
     const link = document.createElement("a");
     link.href = "wishlist.html";
@@ -263,6 +459,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updateCartCount();
     updateWishlistCount();
     initSingleProductWishlist();
+    injectGlobalWishlistButtons();
 });
 
 // Toggle empty-cart view
