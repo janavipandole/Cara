@@ -274,4 +274,13 @@
   margin-bottom: 12px;
   color: #555;
 }
-/* TODO: Prevent password strength layout shifts */
+/* Prevent password strength layout shifts */
+.password-wrapper {
+  margin-bottom: 30px;
+}
+#strength-meter-container {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+}
