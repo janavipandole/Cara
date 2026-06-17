@@ -288,7 +288,7 @@ if (submitBtn) {
 
     // HIDE CARD DETAILS AGAIN
     cardDetails.style.display = "none";
-    popup.classList.add("active");
+    if (popup) popup.classList.add("show");
 
     // Clear all validation states post-submit
     inputs.forEach((input) => {
@@ -300,7 +300,8 @@ if (submitBtn) {
 });
 
 function closePopup() {
-  popup.classList.remove("active");
+  const popup = document.getElementById("successPopup");
+  if (popup) popup.classList.remove("show");
 }
 
 // Call init on DOM ready
@@ -311,7 +312,10 @@ if (document.readyState === "interactive" || document.readyState === "complete")
 }
 
 // ── Close popup when clicking outside the box ─────────────
-document.getElementById('successOverlay').addEventListener('click', function (e) {
-  if (e.target === this) this.classList.remove('show');
-});
+const successOverlay = document.getElementById('successPopup');
+if (successOverlay) {
+  successOverlay.addEventListener('click', function (e) {
+    if (e.target === this) this.classList.remove('show');
+  });
+}
 // Advanced validation routines checking postal formats and shipping address boundaries.
