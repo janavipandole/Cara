@@ -269,25 +269,30 @@ if (submitBtn) {
   submitBtn.disabled = true;
 }
 
-  // Make atomic stock verification request
-  try {
-    const itemsPayload = cart.map(item => ({
-      name: item.name,
-      quantity: item.inCart || 1
-    }));
+  // Prepare order data
+  const orderData = {
+    fullName: document.getElementById("fullName").value.trim(),
+    email: document.getElementById("email").value.trim(),
+    address: document.getElementById("address").value.trim(),
+    city: document.getElementById("city").value.trim(),
+    zip: document.getElementById("zip").value.trim(),
+    coupon: window.appliedCoupon,
+    items: cart.map(item => ({
+      product_name: item.name,
+      quantity: item.quantity,
+      price: item.price
+    }))
+  };
 
-    const response = await fetch('/api/products/checkout', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ items: itemsPayload })
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.detail || 'Checkout failed');
+  fetch('/api/orders', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(orderData)
+  })
+  .then(res => res.json().then(data => ({ status: res.status, ok: res.ok, body: data })))
+  .then(res => {
+    if (!res.ok) {
+      throw new Error(res.body.detail || 'Failed to place order');
     }
 
     // CLEAR CART AFTER SUCCESSFUL ORDER
@@ -307,7 +312,7 @@ if (submitBtn) {
 
     // HIDE CARD DETAILS AGAIN
     cardDetails.style.display = "none";
-    popup.classList.add("active");
+    if (popup) popup.classList.add("show");
 
     // Clear all validation states post-submit
     inputs.forEach((input) => {
@@ -315,25 +320,21 @@ if (submitBtn) {
       const errEl = input.parentElement.querySelector(".error-msg");
       if (errEl) errEl.textContent = "";
     });
+  })
+  .catch(err => {
+    if (typeof showToast === 'function') showToast(err.message, 'error');
+    else alert(err.message);
 
-  } catch (err) {
-    console.error('Checkout error:', err);
-    if (typeof showToast === 'function') {
-      showToast(err.message, 'error');
-    } else {
-      alert(err.message);
-    }
-    
     if (submitBtn) {
       submitBtn.classList.remove("btn-loading");
       submitBtn.disabled = false;
-      submitBtn.innerHTML = submitBtn.getAttribute('data-original-html') || 'Place Order';
     }
-  }
+  });
 });
 
 function closePopup() {
-  popup.classList.remove("active");
+  const popup = document.getElementById("successPopup");
+  if (popup) popup.classList.remove("show");
 }
 
 // Call init on DOM ready
@@ -344,7 +345,10 @@ if (document.readyState === "interactive" || document.readyState === "complete")
 }
 
 // ── Close popup when clicking outside the box ─────────────
-document.getElementById('successOverlay').addEventListener('click', function (e) {
-  if (e.target === this) this.classList.remove('show');
-});
+const successOverlay = document.getElementById('successPopup');
+if (successOverlay) {
+  successOverlay.addEventListener('click', function (e) {
+    if (e.target === this) this.classList.remove('show');
+  });
+}
 // Advanced validation routines checking postal formats and shipping address boundaries.
