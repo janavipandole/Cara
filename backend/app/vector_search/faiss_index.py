@@ -23,8 +23,7 @@ def get_similar_product_ids(product_id: int, top_k: int = 10):
         # A simpler way is to just generate the synthetic vector again using the same seed to query.
         
         # In a real system, we'd fetch the vector from a DB or memory store.
-        rng = np.random.default_rng(product_id)
-        emb = rng.random(512).astype('float32')
+        emb = embedding_store[product_id]
         emb = emb / np.linalg.norm(emb)
         
         # Search
