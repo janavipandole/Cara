@@ -15,7 +15,7 @@ import base64
 import random
 
 # In-memory tracking of failed attempts by email to enforce captcha
-failed_login_attempts = {}
+
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
 if not SECRET_KEY:
