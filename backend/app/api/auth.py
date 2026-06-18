@@ -9,6 +9,13 @@ from app.database import get_db
 from app import models
 from app.schemas import UserRegister, UserLogin, Token, UserOut
 from app.limiter import limiter
+from PIL import Image, ImageDraw
+import io
+import base64
+import random
+
+# In-memory tracking of failed attempts by email to enforce captcha
+failed_login_attempts = {}
 
 SECRET_KEY = os.environ.get("SECRET_KEY", "fallback_secret_key_for_dev")
 if not SECRET_KEY:
@@ -123,22 +130,60 @@ def register(request: Request, response: Response, payload: UserRegister, db: Se
     )
 
 
+# -- Captcha --
+@router.get("/captcha")
+def get_captcha():
+    chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
+    code = ''.join(random.choices(chars, k=5))
+    
+    img = Image.new('RGB', (160, 50), color=(243, 243, 243))
+    d = ImageDraw.Draw(img)
+    # Simple text drawing since specific fonts might not be installed
+    d.text((40, 20), code, fill=(8, 129, 120))
+    
+    for _ in range(5):
+        d.line([(random.randint(0,160), random.randint(0,50)), 
+                (random.randint(0,160), random.randint(0,50))], fill=(100,100,100), width=1)
+                
+    buffered = io.BytesIO()
+    img.save(buffered, format="PNG")
+    img_str = base64.b64encode(buffered.getvalue()).decode()
+    
+    token = jwt.encode(
+        {"captcha_answer": code, "exp": datetime.now(timezone.utc) + timedelta(minutes=5)},
+        SECRET_KEY,
+        algorithm=ALGORITHM
+    )
+    return {"captcha_image": f"data:image/png;base64,{img_str}", "captcha_token": token}
+
+
 # -- Login --
 @router.post("/login", response_model=Token)
 @limiter.limit("5/minute")
-def login(request: Request, response: Response, payload: UserLogin, db: Session = Depends(get_db)):
+def login(request: Request, payload: UserLogin, db: Session = Depends(get_db)):
+    attempts = failed_login_attempts.get(payload.email, 0)
+    
+    if attempts >= 1:
+        if not payload.captcha_token or not payload.captcha_answer:
+            raise HTTPException(403, "Security captcha required.")
+        try:
+            token_payload = jwt.decode(payload.captcha_token, SECRET_KEY, algorithms=[ALGORITHM])
+            expected = token_payload.get("captcha_answer")
+            if not expected or expected.upper() != payload.captcha_answer.upper():
+                raise HTTPException(403, "Invalid security code.")
+        except JWTError:
+            raise HTTPException(403, "Invalid or expired security code.")
+
     user = db.query(models.User).filter(models.User.email == payload.email).first()
 
     if not user or not pwd.verify(payload.password, user.hashed_password):
+        failed_login_attempts[payload.email] = attempts + 1
         raise HTTPException(401, "Invalid email or password.")
 
     if not user.is_active:
         raise HTTPException(403, "Account is deactivated.")
 
-    access_token = create_access_token(user.email)
-    refresh_token = create_refresh_token(user.email)
-    
-    set_auth_cookies(response, access_token, refresh_token)
+    failed_login_attempts.pop(payload.email, None)
 
     return Token(
         access_token = access_token,
