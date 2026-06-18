@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // CAPTCHA
     let loginAttempts = 0;
-    let captchaCode = '';
+    let currentCaptchaToken = '';
 
     const captchaSection =
         document.getElementById('captcha-section');
@@ -70,72 +70,34 @@ document.addEventListener('DOMContentLoaded', function () {
     const captchaRefresh =
         document.getElementById('captcha-refresh');
 
-    function generateCaptcha() {
-
-        const chars =
-            'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-
-        let code = '';
-
-        for (let i = 0; i < 5; i++) {
-
-            code += chars.charAt(
-                Math.floor(Math.random() * chars.length)
-            );
+    async function fetchCaptcha() {
+        try {
+            const res = await fetch('/api/auth/captcha');
+            if (res.ok) {
+                const data = await res.json();
+                currentCaptchaToken = data.captcha_token;
+                if (captchaCanvas) {
+                    const ctx = captchaCanvas.getContext('2d');
+                    const img = new Image();
+                    img.onload = function() {
+                        ctx.clearRect(0, 0, captchaCanvas.width, captchaCanvas.height);
+                        ctx.drawImage(img, 0, 0, captchaCanvas.width, captchaCanvas.height);
+                    };
+                    img.src = data.captcha_image;
+                }
+            }
+        } catch(e) {
+            console.error("Failed to fetch secure captcha");
         }
-
-        captchaCode = code;
-
-        drawCaptcha(code);
-
         if (captchaInput) {
             captchaInput.value = '';
-        }
-    }
-
-    function drawCaptcha(code) {
-
-        if (!captchaCanvas) return;
-
-        const ctx =
-            captchaCanvas.getContext('2d');
-
-        const w = captchaCanvas.width;
-        const h = captchaCanvas.height;
-
-        ctx.clearRect(0, 0, w, h);
-
-        ctx.fillStyle = '#f3f3f3';
-        ctx.fillRect(0, 0, w, h);
-
-        ctx.font = 'bold 28px monospace';
-        ctx.fillStyle = '#088178';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-
-        for (let i = 0; i < code.length; i++) {
-
-            const x = 40 + i * 45;
-            const y = h / 2;
-
-            ctx.save();
-
-            ctx.translate(x, y);
-
-            ctx.rotate(
-                (Math.random() - 0.5) * 0.4
-            );
-
-            ctx.fillText(code[i], 0, 0);
-
-            ctx.restore();
         }
     }
 
     if (captchaRefresh) {
         captchaRefresh.addEventListener(
             'click',
-            generateCaptcha
+            fetchCaptcha
         );
     }
 
@@ -174,35 +136,19 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        // CAPTCHA AFTER FAILED LOGIN
-        if (loginAttempts >= 1) {
+        // ENFORCE CAPTCHA REQUIREMENT
+        let payload = { email, password };
 
-            const userCode =
-                captchaInput.value
-                    .trim()
-                    .toUpperCase();
+        if (loginAttempts >= 1) {
+            const userCode = captchaInput.value.trim();
 
             if (!userCode) {
-
-                showToast(
-                    'Please enter the security code.',
-                    'warning'
-                );
-
+                showToast('Please enter the security code.', 'warning');
                 return;
             }
-
-            if (userCode !== captchaCode) {
-
-                showToast(
-                    'Incorrect security code.',
-                    'error'
-                );
-
-                generateCaptcha();
-
-                return;
-            }
+            
+            payload.captcha_answer = userCode;
+            payload.captcha_token = currentCaptchaToken;
         }
 
         const submitBtn =
@@ -219,18 +165,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
         try {
 
-            const response = await fetch(
+            const response = await fetchWithTimeout(
                 '/api/auth/login',
                 {
                     method: 'POST',
                     headers: {
-                        'Content-Type':
-                            'application/json'
+                        'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({
-                        email,
-                        password
-                    })
+                    body: JSON.stringify(payload)
                 }
             );
 
@@ -284,15 +226,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
             loginAttempts++;
 
-            if (
-                captchaSection &&
-                loginAttempts >= 1
-            ) {
-
-                captchaSection.style.display =
-                    'block';
-
-                generateCaptcha();
+            if (captchaSection && loginAttempts >= 1) {
+                captchaSection.style.display = 'block';
+                fetchCaptcha();
             }
 
         } finally {
