@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Character Encoding -->
+    <meta charset="UTF-8" />
+
+    <!-- Viewport for Responsive Design -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Page Title -->
+    <title>Track My Order | Cara — Modern E-Commerce</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpg" sizes="32x32" href="../images/favicon.jpg" />
+
+    <!-- SEO Meta Tags -->
+    <meta
+      name="description"
+      content="Track your Cara order in real-time. Enter your order ID and email to get live shipping status and delivery updates."
+    />
+    <meta
+      name="keywords"
+      content="track order, order status, shipping, delivery, Cara, e-commerce"
+    />
+    <meta name="author" content="Cara" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Language -->
+    <meta http-equiv="Content-Language" content="en" />
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Track My Order | Cara — Modern E-Commerce" />
+    <meta
+      property="og:description"
+      content="Track your Cara order in real-time. Enter your order ID and email to get live shipping status and delivery updates."
+    />
+    <meta property="og:image" content="https://cara-seven-ashen.vercel.app/images/logo.png" />
+    <meta property="og:url" content="https://cara-seven-ashen.vercel.app/track-order" />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Track My Order | Cara — Modern E-Commerce" />
+    <meta name="twitter:description" content="Track your Cara order in real-time." />
+    <meta name="twitter:image" content="https://cara-seven-ashen.vercel.app/images/logo.png" />
+    <meta name="twitter:site" content="@janavipandole" />
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#000000" />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../styles/style.css" />
+  <link rel="stylesheet" href="../styles/ui-fix.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="../styles/track-order.css" />
+  </head>
+
+  <body>
+    <!-- Header -->
+    <section id="header">
+  <!-- Logo -->
+  <a href="../index.html">
+    <img id="siteLogo" src="../images/logo.png" alt="Cara Logo" width="130" height="40" />
+  </a>
+
+  <div>
+    <ul id="navbar">
+
+      <!-- Main Navigation Links -->
+      <li><a class="active" href="../index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="try-on.html">Try-On</a></li>
+      <li><a href="community.html">Community</a></li>
+      <li><a href="promotions.html">Promotions</a></li>
+
+      <!-- Contact Icon -->
+      <li class="nav-icon">
+        <a href="contact.html" aria-label="Contact">
+          <i class="ri-customer-service-2-line"></i>
+        </a>
+      </li>
+
+      <!-- Login Icon -->
+      <li class="nav-icon">
+        <a href="login.html" aria-label="Login">
+          <i class="ri-user-3-line"></i>
+        </a>
+      </li>
+
+      <!-- Cart Icon -->
+      <li class="nav-icon">
+        <a href="cart.html" id="lg-bag" aria-label="Cart">
+          <i class="ri-shopping-bag-4-line"></i>
+        </a>
+      </li>
+
+      <!-- Theme Toggle -->
+      <li class="nav-icon">
+        <button
+          class="theme-toggle"
+          id="themeToggle"
+          aria-label="Toggle dark mode"
+        >
+          <i class="ri-moon-line" id="themeIcon"></i>
+        </button>
+      </li>
+
+      <!-- Close Button -->
+      <a
+        href="#"
+        id="close"
+        aria-label="Close menu"
+        aria-hidden="false"
+      >
+        <i class="fa-solid fa-xmark"></i>
+      </a>
+
+    </ul>
+  </div>
+
+  <!-- Mobile Navbar -->
+  <div class="mobile">
+
+    <!-- Login Icon -->
+    <a href="login.html" aria-label="Login">
+      <i class="ri-user-3-line"></i>
+    </a>
+
+    <!-- Cart Icon -->
+    <a href="cart.html" aria-label="Cart">
+      <i class="ri-shopping-bag-4-line"></i>
+    </a>
+
+    <!-- Hamburger Menu -->
+    <i
+      class="fas fa-outdent"
+      id="bar"
+      role="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+      tabindex="0"
+    ></i>
+      <!-- Theme Toggle -->
+      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
+        <i class="ri-moon-line" id="themeIconMobile"></i>
+      </button>
+
+  </div>
+</section>
+
+    <!-- Page Hero -->
+    <section id="about-head">
+      <h2>#Track_My_Order</h2>
+      <p>
+        Enter your order details below to get real-time shipping and delivery
+        updates.
+      </p>
+    </section>
+
+    <!-- Main Track Order Section -->
+    <section id="track-order-section">
+
+      <!-- Lookup Form Card -->
+      <div class="track-form-card">
+        <div class="track-form-header">
+          <i class="ri-map-pin-time-line"></i>
+          <h2>Order Lookup</h2>
+          <p>Enter your Order ID and the email you used at checkout.</p>
+        </div>
+
+        <form class="track-form" id="trackOrderForm" novalidate>
+          <div class="form-group">
+            <label for="orderId">
+              <i class="ri-hashtag"></i> Order ID
+            </label>
+            <input
+              type="text"
+              id="orderId"
+              name="orderId"
+              placeholder="e.g. CARA-20261234"
+              required
+              autocomplete="off"
+            />
+            <span class="field-hint">Found in your confirmation email</span>
+          </div>
+
+          <div class="form-group">
+            <label for="orderEmail">
+              <i class="ri-mail-line"></i> Email Address
+            </label>
+            <input
+              type="email"
+              id="orderEmail"
+              name="orderEmail"
+              placeholder="youremail@example.com"
+              required
+            />
+            <span class="field-hint">The email you used when placing the order</span>
+          </div>
+
+          <button type="submit" class="track-btn" id="trackBtn">
+            <i class="ri-search-line"></i>
+            <span>Track Order</span>
+            <div class="btn-loader" id="btnLoader"></div>
+          </button>
+        </form>
+
+        <!-- Demo hint -->
+        <div class="demo-hint">
+          <i class="ri-information-line"></i>
+          <span>Demo: Use Order ID <strong>CARA-20261234</strong> with any email to see a sample result.</span>
+        </div>
+      </div>
+
+      <!-- Order Result Card (hidden by default) -->
+      <div class="track-result-card" id="trackResult" aria-live="polite">
+
+        <!-- Order Header -->
+        <div class="result-header">
+          <div class="order-meta">
+            <span class="order-id-label">Order ID</span>
+            <strong id="resultOrderId">CARA-20261234</strong>
+          </div>
+          <div class="order-status-badge" id="statusBadge">
+            <i class="ri-truck-line"></i>
+            <span id="statusText">In Transit</span>
+          </div>
+        </div>
+
+        <!-- Order Details Row -->
+        <div class="order-details-grid">
+          <div class="detail-item">
+            <i class="ri-calendar-line"></i>
+            <div>
+              <span class="detail-label">Order Date</span>
+              <span class="detail-value" id="orderDate">May 14, 2026</span>
+            </div>
+          </div>
+          <div class="detail-item">
+            <i class="ri-truck-line"></i>
+            <div>
+              <span class="detail-label">Carrier</span>
+              <span class="detail-value" id="orderCarrier">FedEx Express</span>
+            </div>
+          </div>
+          <div class="detail-item">
+            <i class="ri-barcode-line"></i>
+            <div>
+              <span class="detail-label">Tracking No.</span>
+              <span class="detail-value" id="trackingNo">7489 2091 3847</span>
+            </div>
+          </div>
+          <div class="detail-item">
+            <i class="ri-map-pin-2-line"></i>
+            <div>
+              <span class="detail-label">Est. Delivery</span>
+              <span class="detail-value" id="estDelivery">May 20, 2026</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Progress Timeline -->
+        <div class="timeline-section">
+          <h3>Shipment Progress</h3>
+          <div class="timeline" id="timeline" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="80" aria-valuetext="In Transit">
+
+            <div class="timeline-step completed" id="step-ordered" aria-label="Step 1: Order Placed (Completed)">
+              <div class="step-icon">
+                <i class="ri-shopping-bag-check-line"></i>
+              </div>
+              <div class="step-content">
+                <h4>Order Placed</h4>
+                <p>Your order has been confirmed and is being processed.</p>
+                <time>May 14, 2026 — 10:32 AM</time>
+              </div>
+            </div>
+
+            <div class="timeline-step completed" id="step-packed" aria-label="Step 2: Order Packed (Completed)">
+              <div class="step-icon">
+                <i class="ri-archive-2-line"></i>
+              </div>
+              <div class="step-content">
+                <h4>Order Packed</h4>
+                <p>Your items have been packed and are ready for pickup.</p>
+                <time>May 15, 2026 — 2:14 PM</time>
+              </div>
+            </div>
+
+            <div class="timeline-step completed" id="step-shipped" aria-label="Step 3: Shipped (Completed)">
+              <div class="step-icon">
+                <i class="ri-send-plane-line"></i>
+              </div>
+              <div class="step-content">
+                <h4>Shipped</h4>
+                <p>Your package has been handed off to FedEx Express.</p>
+                <time>May 16, 2026 — 9:05 AM</time>
+              </div>
+            </div>
+
+            <div class="timeline-step active" id="step-transit" aria-current="step" aria-label="Step 4: In Transit (Current Step)">
+              <div class="step-icon">
+                <i class="ri-truck-line"></i>
+              </div>
+              <div class="step-content">
+                <h4>In Transit</h4>
+                <p>Your package is on its way — currently in Chicago, IL.</p>
+                <time>May 18, 2026 — 6:45 AM</time>
+              </div>
+            </div>
+
+            <div class="timeline-step" id="step-delivered" aria-label="Step 5: Delivered (Pending)">
+              <div class="step-icon">
+                <i class="ri-home-check-line"></i>
+              </div>
+              <div class="step-content">
+                <h4>Delivered</h4>
+                <p>Your package will be delivered to your door.</p>
+                <time>Expected: May 20, 2026</time>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Items in Order -->
+        <div class="order-items-section">
+          <h3>Items in This Order</h3>
+          <div class="order-items-list" id="orderItemsList">
+            <div class="order-item">
+              <img src="../images/products/f1.jpg" alt="Cartoon Astronaut T-Shirt" />
+              <div class="item-info">
+                <h4>Cartoon Astronaut T-Shirt</h4>
+                <span>Size: M &nbsp;|&nbsp; Qty: 1</span>
+              </div>
+              <span class="item-price">$78.00</span>
+            </div>
+            <div class="order-item">
+              <img src="../images/products/n2.jpg" alt="Classic Hoodie" />
+              <div class="item-info">
+                <h4>Classic Hoodie</h4>
+                <span>Size: L &nbsp;|&nbsp; Qty: 2</span>
+              </div>
+              <span class="item-price">$156.00</span>
+            </div>
+          </div>
+          <div class="order-total-row">
+            <span>Order Total</span>
+            <strong>$234.00</strong>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="result-actions">
+          <button class="action-btn secondary" onclick="resetTracker()">
+            <i class="ri-arrow-left-line"></i> Track Another Order
+          </button>
+          <a href="contact.html" class="action-btn primary">
+            <i class="ri-customer-service-2-line"></i> Contact Support
+          </a>
+        </div>
+      </div>
+
+      <!-- Error Card (hidden by default) -->
+      <div class="track-error-card" id="trackError">
+        <i class="ri-error-warning-line"></i>
+        <h3>Order Not Found</h3>
+        <p>
+          We couldn't find an order matching that ID and email. Please double-check your
+          confirmation email and try again.
+        </p>
+        <button class="action-btn secondary" onclick="resetTracker()">
+          <i class="ri-arrow-left-line"></i> Try Again
+        </button>
+      </div>
+
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="track-faq" class="section-p1">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-grid">
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Where is my Order ID?</span>
+            <i class="ri-add-line"></i>
+          </div>
+          <div class="faq-answer">
+            Your Order ID (e.g. CARA-20261234) is included in the confirmation
+            email sent to you immediately after placing your order. You can also
+            find it in your account under <strong>My Orders</strong>.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>How long does shipping take?</span>
+            <i class="ri-add-line"></i>
+          </div>
+          <div class="faq-answer">
+            Standard shipping takes 5–7 business days. Express shipping takes
+            2–3 business days. International orders may take 10–15 business
+            days depending on the destination country.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>My tracking hasn't updated. What should I do?</span>
+            <i class="ri-add-line"></i>
+          </div>
+          <div class="faq-answer">
+            Tracking updates can sometimes take 24–48 hours to reflect after a
+            scan. If your tracking hasn't updated in over 3 business days,
+            please <a href="contact.html">contact our support team</a>.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>My order shows "Delivered" but I didn't receive it.</span>
+            <i class="ri-add-line"></i>
+          </div>
+          <div class="faq-answer">
+            Please check with your neighbours and around your property for the
+            package. If it is still not found, contact us within 5 days of the
+            delivery date and we will investigate immediately.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <footer class="section-p1">
+      <!-- Contact Column -->
+      <div class="col">
+        <img class="logo" src="../images/logo.png" alt="Cara Logo" width="130" height="40" loading="lazy" />
+        <h4>Contact</h4>
+        <p>
+          <strong>Address:</strong> 562 Wellington Road, Street 32, San
+          Francisco
+        </p>
+        <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
+        <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
+
+        <div class="follow">
+          <h4>Follow us</h4>
+          <div class="icon">
+            <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer">
+              <i class="fa-brands fa-x-twitter"></i>
+            </a>
+            <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-youtube"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- About Column -->
+      <div class="col">
+        <h4>About</h4>
+        <a href="about.html">About Us</a>
+       <a href="delivery.html">Delivery Information</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms and Conditions</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+
+      <!-- My Account Column -->
+      <div class="col">
+        <h4>My Account</h4>
+        <a href="login.html">Sign In</a>
+        <a href="cart.html">View Cart</a>
+        <a href="wishlist.html">My Wishlist</a>
+        <a href="cart.html">Track My Order</a>
+        <a href="contact.html">Help</a>
+      </div>
+
+      <!-- Newsletter Column -->
+      <div class="col newsletter-footer">
+        <h4>Newsletter</h4>
+        <p>
+          Get email updates about our latest shop and
+          <span>special offers.</span>
+        </p>
+
+        <form class="newsletter-form">
+          <input type="email" placeholder="Your email address" required />
+          <button type="submit" class="normal">Sign Up</button>
+        </form>
+      </div>
+
+      <!-- Install App Column -->
+      <div class="col install">
+        <h4>Install App</h4>
+        <p>From App Store or Google Play</p>
+
+        <div class="row">
+          <img src="../images/pay/app.jpg" alt="Download from App Store" width="180" height="54" loading="lazy" />
+          <img src="../images/pay/play.jpg" alt="Get it on Google Play" width="180" height="54" loading="lazy" />
+        </div>
+
+        <p>Secured Payment Gateways</p>
+
+        <div class="payment-icons">
+          <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer" aria-label="Visa">
+            <i class="fab fa-cc-visa"></i>
+          </a>
+          <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer" aria-label="Mastercard">
+            <i class="fab fa-cc-mastercard"></i>
+          </a>
+          <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" aria-label="PayPal">
+            <i class="fab fa-cc-paypal"></i>
+          </a>
+          <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer" aria-label="American Express">
+            <i class="fab fa-cc-amex"></i>
+          </a>
+          <a href="https://stripe.com" target="_blank" rel="noopener noreferrer" aria-label="Stripe">
+            <i class="fab fa-cc-stripe"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Copyright -->
+      <div class="copyright">
+        <p>
+          © Cara 2026. All rights reserved. |
+          <a href="license.html" style="color: #088178"> MIT License </a>
+        </p>
+      </div>
+    </footer>
+
+    <div id="toast-container"></div>
+    <script src="../scripts/app.js"></script>
+    <script src="../scripts/track-order.js"></script>
+    <!-- Cancel Order Support -->
+    <div id="cancel-simulation-box" style="max-width: 600px; margin: 20px auto; padding: 20px; border: 1px dashed #f87171; border-radius: 8px; text-align: center; display: none;">
+      <h3 style="color: #ef4444; margin-bottom: 10px;">Cancel Order Request</h3>
+      <p style="margin-bottom: 15px;">Your order is currently processing. You can cancel this order before shipping.</p>
+      <button onclick="simulateCancellation()" style="background: #ef4444; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-weight: 600;">
+        Cancel Order Now
+      </button>
+    </div>
+    
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Check status from tracking layout
+      setTimeout(() => {
+        const statusEl = document.querySelector(".status-text");
+        if (statusEl && statusEl.textContent.toLowerCase().includes("processing")) {
+          document.getElementById("cancel-simulation-box").style.display = "block";
+        }
+      }, 1000);
+    });
+    
+    function simulateCancellation() {
+      if (confirm("Are you sure you want to cancel this order?")) {
+        alert("Cancellation request sent successfully. Your refund will be processed.");
+        document.getElementById("cancel-simulation-box").innerHTML = "<h3>Order Cancelled</h3><p>This order has been cancelled.</p>";
+      }
+    }
+    </script>
+  </body>
+</html>

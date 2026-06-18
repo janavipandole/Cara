@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cara — Footwear Collection</title>
+
+    <link rel="icon" type="image/jpg" href="../images/favicon.jpg" />
+    <link rel="stylesheet" href="../styles/style.css" />
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+
+    <style>
+        .footwear-hero {
+            min-height: 85vh;
+            background:
+                linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+                url("../images/banner/b18.jpg") center/cover no-repeat;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .footwear-content {
+            max-width: 900px;
+            color: #fff;
+        }
+
+        .footwear-badge {
+            display: inline-block;
+            padding: 14px 28px;
+            border-radius: 40px;
+            background: #fff;
+            color: #111827;
+            font-weight: 900;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+        }
+
+        .footwear-content h1 {
+            font-size: 75px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        .footwear-content h1 span {
+            color: #f59e0b;
+        }
+
+        .footwear-content p {
+            font-size: 22px;
+            line-height: 1.8;
+            font-weight: 600;
+            margin-bottom: 35px;
+            color: #f3f4f6;
+        }
+
+        .footwear-btn {
+            display: inline-block;
+            background: #f59e0b;
+            color: #111827;
+            padding: 18px 40px;
+            border-radius: 12px;
+            font-weight: 900;
+            text-decoration: none;
+            transition: 0.3s ease;
+        }
+
+        .footwear-btn:hover {
+            transform: translateY(-5px);
+            background: #fff;
+        }
+
+        .footwear-features {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            padding: 60px 8%;
+            background: #f9fafb;
+        }
+
+        .foot-card {
+            width: 260px;
+            background: #fff;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+            transition: 0.3s ease;
+        }
+
+        .foot-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .foot-card i {
+            font-size: 40px;
+            color: #f59e0b;
+            margin-bottom: 15px;
+        }
+
+        .foot-card h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #111827;
+        }
+
+        .foot-card p {
+            color: #6b7280;
+            line-height: 1.7;
+            font-weight: 500;
+        }
+
+        .section-title {
+            text-align: center;
+            padding: 70px 20px 20px;
+        }
+
+        .section-title span {
+            color: #f59e0b;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+        .section-title h2 {
+            font-size: 50px;
+            color: #111827;
+            margin: 12px 0;
+            font-weight: 900;
+        }
+
+        .section-title p {
+            color: #6b7280;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        #product1 .pro {
+            position: relative;
+            transition: 0.3s ease;
+        }
+
+        #product1 .pro:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .shoe-tag {
+            position: absolute;
+            top: 18px;
+            left: 18px;
+            background: #111827;
+            color: #fff;
+            padding: 7px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .back-btn {
+            text-align: center;
+            margin: 20px 0 70px;
+        }
+
+        .back-btn a {
+            display: inline-block;
+            background: #111827;
+            color: #fff;
+            padding: 15px 35px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 800;
+            transition: 0.3s ease;
+        }
+
+        .back-btn a:hover {
+            background: #f59e0b;
+            color: #111827;
+        }
+
+        @media(max-width:900px) {
+
+            .footwear-content h1 {
+                font-size: 48px;
+            }
+
+            .footwear-content p {
+                font-size: 18px;
+            }
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <section id="header">
+        <a href="../index.html"><img src="../images/logo.png" alt=""></a>
+
+        <div>
+            <ul id="navbar">
+                <li><a href="../index.html">Home</a></li>
+                <li><a class="active" href="shop.html">Shop</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="login.html">Login</a></li>
+
+                <li>
+                    <a href="cart.html" id="lg-bag">
+                        <i class="ri-shopping-bag-4-line"></i>
+                    </a>
+                </li>
+
+                <li>
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="ri-moon-line"></i>
+                    </button>
+                </li>
+
+                <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+            </ul>
+        </div>
+
+        <div class="mobile">
+            <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
+            <i class="fas fa-outdent" id="bar"></i>
+      <!-- Theme Toggle -->
+      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
+        <i class="ri-moon-line" id="themeIconMobile"></i>
+      </button>
+        </div>
+    </section>
+
+
+    <section class="footwear-hero">
+
+        <div class="footwear-content">
+
+            <span class="footwear-badge">
+                PREMIUM FOOTWEAR COLLECTION
+            </span>
+
+            <h1>
+                Walk With <span>Confidence</span>
+            </h1>
+
+            <p>
+                Discover stylish sneakers, casual shoes, streetwear footwear,
+                sporty collections, and premium comfort shoes designed for
+                everyday fashion and performance.
+            </p>
+
+            <a href="#footwear-products" class="footwear-btn">
+                Explore Footwear →
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <section class="footwear-features">
+
+        <div class="foot-card">
+            <i class="ri-footprint-line"></i>
+            <h3>Premium Comfort</h3>
+            <p>Soft cushioning and lightweight feel for all-day comfort.</p>
+        </div>
+
+        <div class="foot-card">
+            <i class="ri-fire-line"></i>
+            <h3>Trending Styles</h3>
+            <p>Modern streetwear and fashion-inspired shoe collections.</p>
+        </div>
+
+        <div class="foot-card">
+            <i class="ri-shield-check-line"></i>
+            <h3>Durable Quality</h3>
+            <p>Built using premium materials for long-lasting durability.</p>
+        </div>
+
+        <div class="foot-card">
+            <i class="ri-truck-line"></i>
+            <h3>Fast Delivery</h3>
+            <p>Quick delivery with secure packaging and easy returns.</p>
+        </div>
+
+    </section>
+
+
+    <section class="section-title">
+
+        <span>NEW FOOTWEAR ARRIVALS</span>
+
+        <h2>Trending Footwear Collection</h2>
+
+        <p>
+            Upgrade your fashion with stylish sneakers and premium footwear.
+        </p>
+
+    </section>
+
+
+    <section id="product1" class="section-p1">
+
+        <div id="footwear-products" class="pro-container">
+
+
+            <div class="pro">
+                <span class="shoe-tag">NEW</span>
+
+                <img src="../images/products/urban_white.avif" alt="">
+
+                <div class="des">
+                    <span>Cara</span>
+                    <h5>Urban White Sneakers</h5>
+
+                    <div class="star">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                    </div>
+
+                    <h4>$89</h4>
+                </div>
+
+                <a href="#"><i class="ri-shopping-cart-2-line cart"></i></a>
+            </div>
+
+
+
+            <div class="pro">
+                <span class="shoe-tag">HOT</span>
+
+                <img src="../images/products/runner.avif" alt="">
+
+                <div class="des">
+                    <span>Cara</span>
+                    <h5>Street Runner Shoes</h5>
+
+                    <div class="star">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                    </div>
+
+                    <h4>$95</h4>
+                </div>
+
+                <a href="#"><i class="ri-shopping-cart-2-line cart"></i></a>
+            </div>
+
+
+
+            <div class="pro">
+                <span class="shoe-tag">TRENDING</span>
+
+                <img src="../images/products/classic_biege.avif" alt="">
+
+                <div class="des">
+                    <span>Cara</span>
+                    <h5>Classic Beige Sneakers</h5>
+
+                    <div class="star">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                    </div>
+
+                    <h4>$99</h4>
+                </div>
+
+                <a href="#"><i class="ri-shopping-cart-2-line cart"></i></a>
+            </div>
+
+
+
+            <div class="pro">
+                <span class="shoe-tag">LIMITED</span>
+
+                <img src="../images/products/black.jpg" alt="">
+
+                <div class="des">
+                    <span>Cara</span>
+                    <h5>Black Sports Sneakers</h5>
+
+                    <div class="star">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                    </div>
+
+                    <h4>$110</h4>
+                </div>
+
+                <a href="#"><i class="ri-shopping-cart-2-line cart"></i></a>
+            </div>
+
+
+
+            <div class="pro">
+                <span class="shoe-tag">NEW</span>
+
+                <img src="../images/products/chuncky.webp" alt="">
+
+                <div class="des">
+                    <span>Cara</span>
+                    <h5>Chunky Fashion Sneakers</h5>
+
+                    <div class="star">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                    </div>
+
+                    <h4>$120</h4>
+                </div>
+
+                <a href="#"><i class="ri-shopping-cart-2-line cart"></i></a>
+            </div>
+
+
+
+            <div class="pro">
+                <span class="shoe-tag">SPORT</span>
+
+                <img src="../images/products/air_flex.avif" alt="">
+
+                <div class="des">
+                    <span>Cara</span>
+                    <h5>Air Flex Running Shoes</h5>
+
+                    <div class="star">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                    </div>
+
+                    <h4>$130</h4>
+                </div>
+
+                <a href="#"><i class="ri-shopping-cart-2-line cart"></i></a>
+            </div>
+
+
+
+            <div class="pro">
+                <span class="shoe-tag">HOT</span>
+
+                <img src="../images/products/foot2.jpg" alt="">
+
+                <div class="des">
+                    <span>Cara</span>
+                    <h5>Luxury Leather Shoes</h5>
+
+                    <div class="star">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                    </div>
+
+                    <h4>$149</h4>
+                </div>
+
+                <a href="#"><i class="ri-shopping-cart-2-line cart"></i></a>
+            </div>
+
+
+
+            <div class="pro">
+                <span class="shoe-tag">NEW</span>
+
+                <img src="../images/products/Foot1.jpg" alt="">
+
+                <div class="des">
+                    <span>Cara</span>
+                    <h5>Minimal Casual Sneakers</h5>
+
+                    <div class="star">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                    </div>
+
+                    <h4>$105</h4>
+                </div>
+
+                <a href="#"><i class="ri-shopping-cart-2-line cart"></i></a>
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <div class="back-btn">
+        <a href="shop.html">← Back To Shop</a>
+    </div>
+
+
+
+    <section id="newsletter" class="section-p1 section-m1">
+        <div class="newstext">
+            <h4>Sign Up For Newsletters</h4>
+            <p>Get updates about latest footwear arrivals and <span>special offers.</span></p>
+        </div>
+
+        <div class="form">
+            <input type="email" placeholder="Your email address">
+            <button class="normal">Sign Up</button>
+        </div>
+    </section>
+
+
+
+    <footer class="section-p1">
+
+        <div class="col">
+            <img class="logo" src="../images/logo.png" alt="">
+
+            <h4>Contact</h4>
+
+            <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
+
+            <p><strong>Phone:</strong> +01 2222 365 /(+91) 01 2345 6789</p>
+
+            <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
+        </div>
+
+
+
+        <div class="col">
+            <h4>About</h4>
+
+            <a href="about.html">About us</a>
+            <a href="#">Delivery Information</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="contact.html">Contact Us</a>
+        </div>
+
+
+
+        <div class="col">
+            <h4>My Account</h4>
+
+            <a href="login.html">Sign In</a>
+            <a href="cart.html">View Cart</a>
+            <a href="wishlist.html">My Wishlist</a>
+            <a href="cart.html">Track My Order</a>
+            <a href="contact.html">Help</a>
+        </div>
+
+
+
+        <div class="copyright">
+            <p>© Cara 2025. All rights reserved.</p>
+        </div>
+
+    </footer>
+
+
+    <script src="../scripts/app.js"></script>
+
+</body>
+
+</html>

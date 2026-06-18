@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Character Encoding -->
+    <meta charset="UTF-8">
+
+    <!-- Viewport for Responsive Design -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Page Title -->
+    <title>Cara — Winter Sale</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpg" sizes="32x32" href="../images/favicon.jpg">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../styles/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <style>
+        .winter-hero {
+            min-height: 75vh;
+            background:
+                linear-gradient(rgba(255, 255, 255, 0.72),
+                    rgba(255, 255, 255, 0.78)),
+                url("../images/banner/b7.jpg") center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 90px 20px;
+            color: #111827;
+        }
+
+        .winter-hero-content {
+            max-width: 900px;
+        }
+
+        .winter-badge {
+            display: inline-block;
+            background: #ffffff;
+            color: #0f766e;
+            padding: 14px 34px;
+            border-radius: 40px;
+            font-size: 16px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .winter-hero h1 {
+            font-size: 72px;
+            font-weight: 900;
+            color: #111827;
+            margin: 28px 0 20px;
+            line-height: 1.1;
+            text-shadow: 0 4px 18px rgba(255, 255, 255, 0.8);
+        }
+
+        .winter-hero p {
+            font-size: 22px;
+            font-weight: 800;
+            color: #374151;
+            max-width: 850px;
+            margin: 0 auto 38px;
+            line-height: 1.8;
+            text-shadow: 0 3px 12px rgba(255, 255, 255, 0.9);
+        }
+
+        .winter-hero p span {
+            color: #e11d48;
+            font-weight: 900;
+        }
+
+        .winter-btn {
+            display: inline-block;
+            background: #111827;
+            color: #ffffff;
+            padding: 18px 42px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 900;
+            transition: 0.3s ease;
+            box-shadow: 0 12px 30px rgba(17, 24, 39, 0.25);
+        }
+
+        .winter-btn:hover {
+            background: #088178;
+            transform: translateY(-5px);
+        }
+
+        .winter-btn {
+            display: inline-block;
+            background: #fff;
+            color: #088178;
+            padding: 14px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 800;
+            transition: 0.3s ease;
+        }
+
+        .winter-btn:hover {
+            background: #222;
+            color: #fff;
+            transform: translateY(-5px);
+        }
+
+        .winter-info {
+            text-align: center;
+            padding: 50px 20px 20px;
+        }
+
+        .winter-info h2 {
+            font-size: 36px;
+            color: #222;
+        }
+
+        .winter-info p {
+            color: #666;
+            margin-top: 10px;
+        }
+
+        .winter-features {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            padding: 40px 80px;
+        }
+
+        .winter-card {
+            width: 280px;
+            padding: 30px;
+            border-radius: 18px;
+            text-align: center;
+            background: #fff;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+            transition: 0.3s ease;
+        }
+
+        .winter-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 18px 35px rgba(0, 0, 0, 0.18);
+        }
+
+        .winter-card i {
+            font-size: 38px;
+            color: #088178;
+        }
+
+        .winter-card h3 {
+            margin: 15px 0;
+            font-size: 22px;
+        }
+
+        #product1 .pro {
+            position: relative;
+            transition: 0.3s ease;
+        }
+
+        #product1 .pro:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .sale-tag {
+            position: absolute;
+            top: 18px;
+            left: 18px;
+            background: #ff4d4d;
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .old-price {
+            color: #999;
+            text-decoration: line-through;
+            font-size: 14px;
+            margin-left: 8px;
+        }
+
+        .back-shop {
+            text-align: center;
+            margin: 30px 0 60px;
+        }
+
+        .back-shop a {
+            background: #088178;
+            color: #fff;
+            padding: 14px 28px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 800;
+        }
+
+        @media (max-width: 768px) {
+            .winter-hero h1 {
+                font-size: 38px;
+            }
+
+            .winter-hero p {
+                font-size: 16px;
+            }
+
+            .winter-features {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header Section -->
+    <section id="header">
+        <a href="../index.html"><img src="../images/logo.png" alt="Cara Logo"></a>
+
+        <div>
+            <ul id="navbar">
+                <li><a href="../index.html">Home</a></li>
+                <li><a class="active" href="shop.html">Shop</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
+                <li>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                        <i class="ri-moon-line" id="themeIcon"></i>
+                    </button>
+                </li>
+                <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+            </ul>
+        </div>
+
+        <div class="mobile">
+            <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
+            <i class="fas fa-outdent" id="bar"></i>
+      <!-- Theme Toggle -->
+      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
+        <i class="ri-moon-line" id="themeIconMobile"></i>
+      </button>
+        </div>
+    </section>
+    <!-- Hero Section -->
+    <section class="winter-hero">
+        <div class="winter-hero-content">
+            <span class="winter-badge">❄ WINTER COLLECTION ❄</span>
+            <h1>Seasonal Sale</h1>
+            <p>
+                Explore premium winter fashion, cozy hoodies, stylish jackets,
+                sweatshirts, and seasonal outfits with up to <span>50% OFF.</span>
+            </p>
+            <a href="#winter-products" class="winter-btn">Shop Winter Sale →</a>
+        </div>
+    </section>
+
+    <!-- Info Section -->
+    <section class="winter-info">
+        <h2>Warm Styles, Cool Discounts</h2>
+        <p>Upgrade your winter wardrobe with trendy fashion picks at special seasonal prices.</p>
+    </section>
+
+    <section class="winter-features">
+        <div class="winter-card">
+            <i class="ri-fire-line"></i>
+            <h3>Hot Winter Deals</h3>
+            <p>Save more on selected jackets, hoodies, and warm outfits.</p>
+        </div>
+
+        <div class="winter-card">
+            <i class="ri-t-shirt-line"></i>
+            <h3>Premium Comfort</h3>
+            <p>Soft, stylish, and comfortable clothing for winter days.</p>
+        </div>
+
+        <div class="winter-card">
+            <i class="ri-truck-line"></i>
+            <h3>Fast Delivery</h3>
+            <p>Get your favorite winter collection delivered quickly.</p>
+        </div>
+    </section>
+
+    <!-- Product Section -->
+    <section id="product1" class="section-p1">
+        <div id="winter-products" class="pro-container">
+
+            <div class="pro" onclick="window.location.href='singleProduct.html';">
+                <span class="sale-tag">50% OFF</span>
+                <img src="../images/products/n1.jpg" alt="">
+                <div class="des">
+                    <span>Nike</span>
+                    <h5>Winter Hoodie Collection</h5>
+                    <div class="star">
+                        <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i
+                            class="ri-star-fill"></i><i class="ri-star-fill"></i>
+                    </div>
+                    <h4>$65 <span class="old-price">$120</span></h4>
+                </div>
+                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+            </div>
+
+            <div class="pro" onclick="window.location.href='singleProduct.html';">
+                <span class="sale-tag">40% OFF</span>
+                <img src="../images/products/n2.jpg" alt="">
+                <div class="des">
+                    <span>Adidas</span>
+                    <h5>Premium Sweatshirt</h5>
+                    <div class="star">
+                        <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i
+                            class="ri-star-fill"></i><i class="ri-star-fill"></i>
+                    </div>
+                    <h4>$72 <span class="old-price">$115</span></h4>
+                </div>
+                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+            </div>
+
+            <div class="pro" onclick="window.location.href='singleProduct.html';">
+                <span class="sale-tag">45% OFF</span>
+                <img src="../images/products/n3.jpg" alt="">
+                <div class="des">
+                    <span>Puma</span>
+                    <h5>Classic Wool Jacket</h5>
+                    <div class="star">
+                        <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i
+                            class="ri-star-fill"></i><i class="ri-star-fill"></i>
+                    </div>
+                    <h4>$89 <span class="old-price">$150</span></h4>
+                </div>
+                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+            </div>
+
+            <div class="pro" onclick="window.location.href='singleProduct.html';">
+                <span class="sale-tag">30% OFF</span>
+                <img src="../images/products/n4.jpg" alt="">
+                <div class="des">
+                    <span>Zara</span>
+                    <h5>Oversized Winter Hoodie</h5>
+                    <div class="star">
+                        <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i
+                            class="ri-star-fill"></i><i class="ri-star-fill"></i>
+                    </div>
+                    <h4>$78 <span class="old-price">$105</span></h4>
+                </div>
+                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+            </div>
+
+            <div class="pro" onclick="window.location.href='singleProduct.html';">
+                <span class="sale-tag">35% OFF</span>
+                <img src="../images/products/n5.jpg" alt="">
+                <div class="des">
+                    <span>H&M</span>
+                    <h5>Winter Casual Shirt</h5>
+                    <div class="star">
+                        <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i
+                            class="ri-star-fill"></i><i class="ri-star-fill"></i>
+                    </div>
+                    <h4>$69 <span class="old-price">$99</span></h4>
+                </div>
+                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+            </div>
+
+            <div class="pro" onclick="window.location.href='singleProduct.html';">
+                <span class="sale-tag">50% OFF</span>
+                <img src="../images/products/n6.jpg" alt="">
+                <div class="des">
+                    <span>Roadster</span>
+                    <h5>Snow Edition Jacket</h5>
+                    <div class="star">
+                        <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i
+                            class="ri-star-fill"></i><i class="ri-star-fill"></i>
+                    </div>
+                    <h4>$95 <span class="old-price">$180</span></h4>
+                </div>
+                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+            </div>
+
+            <div class="pro" onclick="window.location.href='singleProduct.html';">
+                <span class="sale-tag">25% OFF</span>
+                <img src="../images/products/n7.jpg" alt="">
+                <div class="des">
+                    <span>Levis</span>
+                    <h5>Streetwear Winter Combo</h5>
+                    <div class="star">
+                        <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i
+                            class="ri-star-fill"></i><i class="ri-star-fill"></i>
+                    </div>
+                    <h4>$84 <span class="old-price">$110</span></h4>
+                </div>
+                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+            </div>
+
+            <div class="pro" onclick="window.location.href='singleProduct.html';">
+                <span class="sale-tag">40% OFF</span>
+                <img src="../images/products/n8.jpg" alt="">
+                <div class="des">
+                    <span>Allen Solly</span>
+                    <h5>Modern Winter Fit</h5>
+                    <div class="star">
+                        <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i
+                            class="ri-star-fill"></i><i class="ri-star-fill"></i>
+                    </div>
+                    <h4>$76 <span class="old-price">$125</span></h4>
+                </div>
+                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="back-shop">
+        <a href="shop.html">Back to Shop</a>
+    </div>
+
+    <!-- Newsletter Section -->
+    <section id="newsletter" class="section-p1 section-m1">
+        <div class="newstext">
+            <h4>Sign Up For Newsletters</h4>
+            <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
+        </div>
+        <div class="form">
+            <input type="email" placeholder="Your email address">
+            <button class="normal">Sign Up</button>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="section-p1">
+        <div class="col">
+            <img class="logo" src="../images/logo.png" alt="">
+            <h4>Contact</h4>
+            <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
+            <p><strong>Phone:</strong> +01 2222 365 /(+91) 01 2345 6789</p>
+            <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
+
+            <div class="follow">
+                <h4>Follow us</h4>
+                <div class="icon">
+                    <a href="https://x.com/JanaviPandole"><i class="fab fa-twitter"></i></a>
+                    <a href="https://github.com/janavipandole"><i class="fab fa-github"></i></a>
+                    <a href="../www.linkedin.com/in/janavi-pandole-80a7b2290"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.youtube.com/@JanaviPandole"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Section -->
+        <div class="col">
+            <h4>About</h4>
+            <a href="about.html">About us</a>
+            <a href="#">Delivery Information</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="contact.html">Contact Us</a>
+        </div>
+
+        <!-- My Account Section -->
+        <div class="col">
+            <h4>My Account</h4>
+            <a href="login.html">Sign In</a>
+            <a href="cart.html">View Cart</a>
+            <a href="#">My Wishlist</a>
+            <a href="cart.html">Track My Order</a>
+            <a href="contact.html">Help</a>
+        </div>
+
+        <!-- Install Section -->
+        <div class="col install">
+            <h4>Install App</h4>
+            <p>From App Store or Google Play</p>
+            <div class="row">
+                <img src="../images/pay/app.jpg" alt="">
+                <img src="../images/pay/play.jpg" alt="">
+            </div>
+            <p>Secured Payment Gateways</p>
+            <img src="../images/pay/pay.png" alt="">
+        </div>
+
+        <!-- Copyright Section -->
+        <div class="copyright">
+            <p>&copy; Cara 2025. All rights reserved. | <a href="license.html" style="color:#088178;">MIT License</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="../scripts/app.js"></script>
+</body>
+
+</html>

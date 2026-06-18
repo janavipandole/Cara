@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Character encoding -->
+  <meta charset="UTF-8" />
+
+  <!-- Viewport for responsive design -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Page title -->
+  <title>Outfit Compatibility Checker | Cara</title>
+
+  <!-- Stylesheets -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../styles/style.css" />
+  <style>
+    .compat-page { 
+    min-height:100vh; 
+    background:linear-gradient(135deg,#f0f4ff 0%,#faf5ff 100%); 
+    padding:40px 20px 80px; 
+  }
+    .compat-hero {
+    text-align:center; 
+    margin-bottom:40px; 
+  }
+    .compat-hero h1 {
+      font-size:clamp(1.8rem,4vw,2.8rem); 
+      font-weight:800; 
+      color:#1e1b4b; 
+      margin-bottom:10px; 
+    }
+    .compat-hero p { 
+      color:#6b7280; 
+      font-size:1rem; 
+      max-width:560px; 
+      margin:0 auto; 
+    }
+    .compat-card { 
+      background:#fff; 
+      border-radius:24px; 
+      box-shadow:0 8px 40px rgba(99,102,241,0.10); 
+      max-width:780px; 
+      margin:0 auto 32px; 
+      padding:40px 44px; 
+    }
+    @media(max-width:600px){ 
+      .compat-card{ 
+        padding:28px 20px; 
+      } 
+    }
+    .section-label { 
+      font-size:0.75rem; 
+      font-weight:700; 
+      letter-spacing:0.1em; 
+      text-transform:uppercase; 
+      color:#6366f1; 
+      margin-bottom:18px; 
+    }
+    .item-grid { 
+      display:grid; 
+      grid-template-columns:1fr 1fr; 
+      gap:24px; 
+      margin-bottom:28px; 
+    }
+    @media(max-width:520px){ 
+      .item-grid{ 
+        grid-template-columns:1fr; 
+      } 
+    }
+    .item-col { 
+      background:#f9fafb; 
+      border:1.5px solid #e5e7eb; 
+      border-radius:16px; 
+      padding:20px; 
+    }
+    .item-col h3 { 
+      font-size:0.85rem; 
+      font-weight:700; 
+      color:#374151; 
+      margin-bottom:14px; 
+      display:flex; 
+      align-items:center; 
+      gap:6px; 
+    }
+    .item-col h3 i { 
+      font-size:1rem; 
+      color:#6366f1; 
+    }
+    label.field-label { 
+      display:block; 
+      font-size:0.78rem; 
+      font-weight:600; 
+      color:#6b7280; 
+      margin-bottom:5px; 
+      margin-top:12px; 
+    }
+    label.field-label:first-of-type { 
+      margin-top:0; 
+    }
+    input[type="text"], select.compat-select { 
+      width:100%; 
+      padding:10px 14px; 
+      border:1.5px solid #e5e7eb; 
+      border-radius:10px; 
+      font-size:0.9rem; 
+      color:#1f2937; 
+      background:#fff; 
+      transition:border-color 0.2s,box-shadow 0.2s; 
+      appearance:none; 
+    }
+    input[type="text"]:focus, select.compat-select:focus { 
+      outline:none; 
+      border-color:#6366f1; 
+      box-shadow:0 0 0 3px rgba(99,102,241,0.15); 
+    }
+    .color-row { 
+      display:flex; 
+      align-items:center; 
+      gap:10px; 
+    }
+    .color-row select { 
+      flex:1; 
+    }
+    .color-swatch { 
+      width:34px; 
+      height:34px; 
+      border-radius:50%; 
+      flex-shrink:0; 
+      background:#ccc; 
+      transition:background 0.25s; 
+    }
+    .occasion-row { 
+      margin-bottom:28px; 
+    }
+    .occasion-row label { 
+      display:block; 
+      font-size:0.78rem; 
+      font-weight:600; 
+      color:#6b7280; 
+      margin-bottom:6px; 
+    }
+    .btn-row { 
+      display:flex; 
+      gap:12px; 
+      flex-wrap:wrap; 
+    }
+    .btn-check { 
+      flex:1; 
+      min-width:160px; 
+      padding:13px 24px; 
+      background:linear-gradient(135deg,#6366f1 0%,#8b5cf6 100%); 
+      color:#fff; 
+      font-weight:700; 
+      font-size:1rem; 
+      border:none; 
+      border-radius:12px; 
+      cursor:pointer; 
+      display:flex; 
+      align-items:center; 
+      justify-content:center; 
+      gap:8px; 
+      transition:transform 0.15s,box-shadow 0.15s; 
+    }
+    .btn-check:hover { 
+      transform:translateY(-2px); 
+      box-shadow:0 6px 24px rgba(99,102,241,0.35); 
+    }
+    .btn-reset { 
+      padding:13px 20px; 
+      background:#f3f4f6; 
+      color:#6b7280; 
+      font-weight:600; 
+      font-size:0.9rem; 
+      border:none; 
+      border-radius:12px; 
+      cursor:pointer; 
+    }
+    .btn-reset:hover { 
+      background:#e5e7eb; 
+    }
+    #result-section { 
+      display:none; 
+    }
+    .result-card { 
+      background:#fff; 
+      border-radius:24px; 
+      box-shadow:0 8px 40px rgba(99,102,241,0.10); 
+      max-width:780px; 
+      margin:0 auto; 
+      padding:36px 44px; 
+    }
+    @media(max-width:600px){ 
+      .result-card{ 
+        padding:24px 20px; 
+      } 
+    }
+    .result-card h2 { 
+      font-size:1.15rem; 
+      font-weight:800; 
+      color:#1e1b4b; 
+      margin-bottom:24px; 
+    }
+    .score-ring { 
+      display:flex; 
+      flex-direction:column; 
+      align-items:center; 
+      margin-bottom:24px; 
+    }
+    .score-label { 
+      font-size:1.1rem; 
+      font-weight:700; 
+      margin-top:8px; 
+    }
+    .msg-list { 
+      display:flex; 
+      flex-direction:column; 
+      gap:10px; 
+    }
+    .msg-card { 
+      padding:12px 16px; 
+      border-radius:12px; 
+      font-size:0.9rem; 
+      line-height:1.5; 
+      font-weight:500; 
+    }
+    .msg-success { 
+      background:#f0fdf4; 
+      color:#166534; 
+      border-left:4px solid #22c55e; 
+    }
+    .msg-warning { 
+      background:#fffbeb; 
+      color:#92400e; 
+      border-left:4px solid #f59e0b; 
+    }
+    .msg-error   { 
+      background:#fef2f2; 
+      color:#991b1b; 
+      border-left:4px solid #ef4444; 
+    }
+    .info-banner { 
+      max-width:780px; 
+      margin:28px auto 0; 
+      background:#eef2ff; 
+      border-radius:14px; 
+      padding:16px 20px; 
+      font-size:0.82rem; 
+      color:#4338ca; 
+      display:flex; 
+      gap:10px; 
+      align-items:flex-start; 
+    }
+    .info-banner i { 
+      flex-shrink:0; 
+      margin-top:2px; 
+      font-size:1rem; 
+    }
+  </style>
+
+</head>
+<body>
+  <!-- Header Section -->
+  <header>
+    <div id="header">
+      <a href="../index.html" style="flex-shrink:0;">
+        <img id="siteLogo" loading="lazy" src="../images/logo.png" alt="Cara Logo" style="height:50px;min-width:120px;object-fit:contain;" />
+      </a>
+      <div id="navbar-container"></div>
+      <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
+    </div>
+  </header>
+
+  <main class="compat-page">
+    <div class="compat-hero">
+      <h1><i class="ri-t-shirt-line" style="color:#6366f1;"></i> Outfit Compatibility Checker</h1>
+      <p>Check if your top and bottom pieces work together — colour harmony, style matching, and occasion suitability all in one click.</p>
+    </div>
+
+    <div class="compat-card">
+      <form id="compatibility-form" novalidate>
+        <p class="section-label">Your Outfit</p>
+        <div class="item-grid">
+          <div class="item-col">
+            <h3><i class="ri-shirt-line"></i> Top</h3>
+            <label class="field-label" for="top-item">Item description</label>
+            <input type="text" id="top-item" placeholder="e.g. white dress shirt, blue hoodie" required />
+            <label class="field-label" for="top-color">Colour</label>
+            <div class="color-row">
+              <select id="top-color" class="compat-select">
+                <option value="white">White</option>
+                <option value="black">Black</option>
+                <option value="grey">Grey</option>
+                <option value="red">Red</option>
+                <option value="orange">Orange</option>
+                <option value="yellow">Yellow</option>
+                <option value="green">Green</option>
+                <option value="blue" selected>Blue</option>
+                <option value="navy">Navy</option>
+                <option value="purple">Purple</option>
+                <option value="pink">Pink</option>
+                <option value="brown">Brown</option>
+                <option value="beige">Beige</option>
+              </select>
+              <div class="color-swatch" id="top-swatch"></div>
+            </div>
+          </div>
+          <div class="item-col">
+            <h3><i class="ri-scissors-cut-line"></i> Bottom</h3>
+            <label class="field-label" for="bottom-item">Item description</label>
+            <input type="text" id="bottom-item" placeholder="e.g. black jeans, khaki chinos" required />
+            <label class="field-label" for="bottom-color">Colour</label>
+            <div class="color-row">
+              <select id="bottom-color" class="compat-select">
+                <option value="white">White</option>
+                <option value="black" selected>Black</option>
+                <option value="grey">Grey</option>
+                <option value="red">Red</option>
+                <option value="orange">Orange</option>
+                <option value="yellow">Yellow</option>
+                <option value="green">Green</option>
+                <option value="blue">Blue</option>
+                <option value="navy">Navy</option>
+                <option value="purple">Purple</option>
+                <option value="pink">Pink</option>
+                <option value="brown">Brown</option>
+                <option value="beige">Beige</option>
+              </select>
+              <div class="color-swatch" id="bottom-swatch"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="occasion-row">
+          <p class="section-label">Occasion</p>
+          <label for="occasion">Where are you wearing this?</label>
+          <select id="occasion" class="compat-select">
+            <option value="Any">Any / Not sure</option>
+            <option value="Casual Day Out">Casual Day Out</option>
+            <option value="Office / Work">Office / Work</option>
+            <option value="Party / Night Out">Party / Night Out</option>
+            <option value="Wedding / Formal Event">Wedding / Formal Event</option>
+            <option value="Gym / Sport">Gym / Sport</option>
+            <option value="Date Night">Date Night</option>
+          </select>
+        </div>
+
+        <div class="btn-row">
+          <button type="submit" class="btn-check"><i class="ri-magic-line"></i> Check Compatibility</button>
+          <button type="button" id="reset-btn" class="btn-reset"><i class="ri-refresh-line"></i> Reset</button>
+        </div>
+      </form>
+    </div>
+
+    <div id="result-section">
+      <div class="result-card">
+        <h2><i class="ri-bar-chart-2-line" style="color:#6366f1;"></i> Your Results</h2>
+        <div id="result-area"></div>
+      </div>
+    </div>
+
+    <div class="info-banner">
+      <i class="ri-information-line"></i>
+      <span>This tool analyses colour harmony and style cohesion based on widely accepted fashion principles. Results are suggestions — personal style always wins!</span>
+    </div>
+  </main>
+
+  <footer id="footer">
+    <p>&copy; 2025 Cara. All Rights Reserved.</p>
+  </footer>
+
+  <script src="../scripts/navbar.js"></script>
+  <script>loadNavbar('outfit');</script>
+  <script src="../scripts/app.js"></script>
+  <script src="../scripts/outfit-compatibility.js"></script>
+</body>
+</html>
