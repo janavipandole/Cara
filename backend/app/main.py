@@ -20,7 +20,7 @@ app.add_middleware(
     "http://localhost:5500",
     "https://cara-janavipandoles-projects.vercel.app",],  # update as needed
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["*"],
 )
 
@@ -52,7 +52,8 @@ def root():
     return {"message": "Cara AI Outfit Recommendation API is running."}
 
 # Include routers here later
-from .api import recommendation, products
+from .api import recommendation, products, auth, orders
 app.include_router(recommendation.router, prefix="/api/outfit", tags=["outfit"])
 app.include_router(products.router, prefix="/api/products", tags=["products"])
 app.include_router(auth.router,prefix="/api/auth",tags=["auth"])
+app.include_router(orders.router, prefix="/api/orders", tags=["orders"])

@@ -1,35 +1,60 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Character Encoding -->
     <meta charset="UTF-8" />
+
+    <!-- Viewport for Responsive Design -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Page Title -->
     <title>Cara — Modern E-Commerce</title>
+
+    <!-- Favicon -->
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
+
+    <!-- SEO Meta Tags -->
     <meta name="description" content="Shop the latest trends on our e-commerce store. Dark theme supported for a better user experience." />
     <meta name="keywords" content="e-commerce, shopping, online store, dark mode, buy online, latest fashion" />
     <meta name="author" content="Cara" />
     <meta name="robots" content="index, follow" />
+
+    <!-- Language -->
     <meta http-equiv="Content-Language" content="en" />
+
+    <!-- Open Graph tags for social media -->
     <meta property="og:title" content="Cara Shop" />
     <meta property="og:description" content="Shop the latest trends in our e-commerce store." />
     <meta property="og:image" content="images/logo.png" />
     <meta property="og:url" content="https://example.com/" />
     <meta property="og:type" content="website" />
+
+    <!-- Twitter Card tags -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Cara Shop" />
     <meta name="twitter:description" content="Shop the latest trends in our e-commerce store." />
     <meta name="twitter:image" content="images/logo.png" />
     <meta name="twitter:site" content="@janavipandole" />
+
+    <!-- Theme Color -->
     <meta name="theme-color" content="#000000" />
+
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="ui-fix.css" />
     <link rel="stylesheet" href="shop.css" />
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
+
   <body>
+    <!-- HEADER -->
     <section id="header">
+
+      <!-- logo-->
       <a href="index.html"><img src="images/logo.png" alt="Cara Logo" /></a>
+
+      <!-- Navigation -->
       <div>
         <ul id="navbar">
           <li><a href="index.html">Home</a></li>
@@ -49,7 +74,7 @@
           </li>
           <li class="nav-icon"><a href="cart.html" id="lg-bag" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a></li>
           <li class="nav-icon"><button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><i class="ri-moon-line" id="themeIcon"></i></button></li>
-          <a href="#" id="close" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></a>
+          <a href="javascript:void(0)" id="close" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></a>
         </ul>
       </div>
       <div class="mobile">
@@ -60,6 +85,10 @@
         </a>
         <a href="cart.html" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a>
         <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
+      <!-- Theme Toggle -->
+      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
+        <i class="ri-moon-line" id="themeIconMobile"></i>
+      </button>
       </div>
     </section>
 
@@ -121,8 +150,9 @@
     });
     </script>
     <div class="search-box">
+      <label for="searchInput" class="sr-only" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">Search Products</label>
       <input type="text" id="searchInput" placeholder="Search products..." />
-      <button id="searchBtn">
+      <button id="searchBtn" aria-label="Search">
         <i class="ri-search-line"></i>
       </button>
     </div>
@@ -132,7 +162,7 @@
   <div class="filters-row">
 
     <div class="filter-container">
-      <label>Category</label>
+      <label for="categoryFilter">Category</label>
       <select id="categoryFilter">
         <option value="all">All</option>
         <option value="street">Street</option>
@@ -142,21 +172,21 @@
     </div>
 
     <div class="filter-container">
-      <label>Style</label>
+      <label for="style-filter">Style</label>
       <select id="style-filter">
         <option value="all">All</option>
       </select>
     </div>
 
     <div class="filter-container">
-      <label>Brand</label>
+      <label for="brand-filter">Brand</label>
       <select id="brand-filter">
         <option value="all">All</option>
       </select>
     </div>
 
     <div class="filter-container">
-      <label>Color</label>
+      <label for="color-filter">Color</label>
       <select id="color-filter">
         <option value="all">All</option>
       </select>
@@ -164,7 +194,7 @@
 
     <!-- RESET BUTTON -->
     <div class="filter-container reset-wrapper">
-      <label style="visibility:hidden;">Reset</label>
+      <label for="resetFiltersBtn" style="visibility:hidden;">Reset</label>
       <button id="resetFiltersBtn" class="reset-btn">
         Reset Filters
       </button>
@@ -196,8 +226,8 @@
         <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
       </div>
       <form class="form newsletter-form">
-        <input type="email" placeholder="Your email address" required />
-        <button type="submit" class="normal">Sign Up</button>
+        <input type="email" placeholder="Your email address" aria-label="Email address for newsletter" required />
+        <button type="submit" class="normal" aria-label="Sign up for newsletter">Sign Up</button>
       </form>
     </section>
 
@@ -229,8 +259,8 @@
         <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
       </div>
       <form class="form newsletter-form">
-        <input type="email" placeholder="Your email address" required />
-        <button type="submit" class="normal">Sign Up</button>
+        <input type="email" placeholder="Your email address" aria-label="Email address for newsletter" required />
+        <button type="submit" class="normal" aria-label="Sign up for newsletter">Sign Up</button>
       </form>
     </section>
 
@@ -257,6 +287,7 @@
     width="500%"
     height="350"
     style="border:0; border-radius:10px;"
+    title="Location Map"
     allowfullscreen=""
     loading="lazy">
   </iframe>
@@ -265,16 +296,16 @@
       <div class="follow">
         <h4>Follow us</h4>
         <div class="icon">
-          <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer">
+          <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer" aria-label="X (formerly Twitter)">
             <i class="fa-brands fa-x-twitter"></i>
           </a>
-          <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
+          <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
             <i class="fab fa-github"></i>
           </a>
-          <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
+          <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
             <i class="fab fa-linkedin"></i>
           </a>
-          <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer">
+          <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
             <i class="fab fa-youtube"></i>
           </a>
         </div>
@@ -296,7 +327,8 @@
       <h4>My Account</h4>
       <a href="login.html">Sign In</a>
       <a href="cart.html">View Cart</a>
-      <a href="#">My Wishlist</a>
+      <a href="wishlist.html">My Wishlist</a>
+      <a href="javascript:void(0)">My Wishlist</a>
       <a href="cart.html">Track My Order</a>
       <a href="contact.html">Help</a>
     </div>
@@ -310,8 +342,8 @@
       </p>
 
       <form class="newsletter-form">
-        <input type="email" placeholder="Your email address" required="">
-        <button type="submit" class="normal">Sign Up</button>
+        <input type="email" placeholder="Your email address" aria-label="Email address for newsletter" required="">
+        <button type="submit" class="normal" aria-label="Sign up for newsletter">Sign Up</button>
       </form>
     </div>
 

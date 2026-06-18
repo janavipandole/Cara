@@ -4,7 +4,7 @@ async function fetchContributors() {
 
   try {
 
-    const response = await fetch(
+    const response = await fetchWithTimeout(
       "https://api.github.com/repos/janavipandole/Cara/contributors"
     );
 
