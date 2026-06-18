@@ -1,77 +1,245 @@
-document.addEventListener("DOMContentLoaded", () => {
-    console.log("register.js loaded");
+document.addEventListener('DOMContentLoaded', function () {
+  const submitBtn = document.getElementById('registerSubmitBtn');
+  const nameInput = document.getElementById('registerUsername');
+  const emailInput = document.getElementById('registerEmail');
+  const passwordInput = document.getElementById('registerPassword');
+  const confirmInput = document.getElementById('confirmPassword');
+  const confirmHint = document.getElementById('confirmHint');
 
-    const btn = document.getElementById("registerSubmitBtn");
+  // ============================================================
+  // HELPER: show a toast notification (same function as login.js)
+  // type = 'success' | 'error'
+  // ============================================================
+  function showToast(message, type) {
+    const container = document.getElementById('toast-container');
+    if (!container) return;
 
-    if (!btn) {
-        console.error("Submit button not found!");
+    const toast = document.createElement('div');
+    toast.className = 'toast toast-' + type;
+    toast.textContent = message;
+    container.appendChild(toast);
+
+    setTimeout(function () {
+      toast.classList.add('show');
+    }, 10);
+
+    setTimeout(function () {
+      toast.classList.remove('show');
+      setTimeout(function () {
+        toast.remove();
+      }, 400);
+    }, 3000);
+  }
+
+  // ============================================================
+  // HELPER: show an inline error under a field
+  // ============================================================
+  function showFieldError(inputEl, message) {
+    inputEl.classList.add('is-invalid');
+    inputEl.classList.remove('is-valid');
+
+    // look for the next sibling <span class="error-message">
+    // if it doesn't exist yet, create one right after the input (or its wrapper)
+    let errorSpan = inputEl.parentElement.querySelector('.error-message');
+    if (!errorSpan) {
+      // input might be inside a .password-wrapper, so go up one more level
+      errorSpan = inputEl
+        .closest('.form-group')
+        .querySelector('.error-message');
+    }
+    if (errorSpan) {
+      errorSpan.textContent = message;
+    }
+  }
+
+  // ============================================================
+  // HELPER: clear a field's error state
+  // ============================================================
+  function clearFieldError(inputEl) {
+    inputEl.classList.remove('is-invalid');
+    const group = inputEl.closest('.form-group');
+    if (group) {
+      const errorSpan = group.querySelector('.error-message');
+      if (errorSpan) errorSpan.textContent = '';
+    }
+  }
+
+  // ============================================================
+  // HELPER: clear ALL field errors
+  // ============================================================
+  function clearAllErrors() {
+    [nameInput, emailInput, passwordInput, confirmInput].forEach(function (el) {
+      if (el) clearFieldError(el);
+    });
+    // also clear the old formMessage div if it's being used
+    const msg = document.getElementById('formMessage');
+    if (msg) msg.textContent = '';
+  }
+
+  // ============================================================
+  // LIVE confirm-password hint
+  // Shows "Passwords match ✓" or "Passwords do not match" as they type.
+  // ============================================================
+  if (confirmInput && confirmHint) {
+    confirmInput.addEventListener('input', function () {
+      if (confirmInput.value === '') {
+        confirmHint.textContent = '';
+        confirmHint.style.color = '';
         return;
+      }
+      if (confirmInput.value === passwordInput.value) {
+        confirmHint.textContent = 'Passwords match ✓';
+        confirmHint.style.color = '#28a745';
+        confirmInput.classList.add('is-valid');
+        confirmInput.classList.remove('is-invalid');
+      } else {
+        confirmHint.textContent = 'Passwords do not match';
+        confirmHint.style.color = '#dc3545';
+        confirmInput.classList.remove('is-valid');
+        confirmInput.classList.add('is-invalid');
+      }
+    });
+  }
+
+  // ============================================================
+  // PASSWORD TOGGLE — main password field
+  // ============================================================
+  const togglePassword = document.getElementById('togglePassword');
+  if (togglePassword) {
+    togglePassword.addEventListener('click', function () {
+      const icon = document.getElementById('registerToggleIcon');
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        icon.className = 'ri-eye-off-line';
+      } else {
+        passwordInput.type = 'password';
+        icon.className = 'ri-eye-line';
+      }
+    });
+  }
+
+  // ============================================================
+  // PASSWORD TOGGLE — confirm password field
+  // ============================================================
+  const confirmToggle = document.getElementById('confirmTogglePassword');
+  if (confirmToggle) {
+    confirmToggle.addEventListener('click', function () {
+      const icon = document.getElementById('confirmToggleIcon');
+      if (confirmInput.type === 'password') {
+        confirmInput.type = 'text';
+        icon.className = 'ri-eye-off-line';
+      } else {
+        confirmInput.type = 'password';
+        icon.className = 'ri-eye-line';
+      }
+    });
+  }
+
+  // ============================================================
+  // FORM SUBMIT
+  // ============================================================
+  if (!submitBtn) return;
+
+  submitBtn.addEventListener('click', function (e) {
+    e.preventDefault();
+    clearAllErrors(); // wipe previous errors first
+
+    const fullName = nameInput ? nameInput.value.trim() : '';
+    const email = emailInput ? emailInput.value.trim() : '';
+    const password = passwordInput ? passwordInput.value.trim() : '';
+    const confirmPwd = confirmInput ? confirmInput.value : '';
+
+    // collect checked interests
+    const interests = [];
+    document
+      .querySelectorAll('input[name="interest"]:checked')
+      .forEach(function (cb) {
+        interests.push(cb.value);
+      });
+
+    // --- INLINE VALIDATION ---
+    let hasError = false;
+
+    if (!fullName) {
+      showFieldError(nameInput, 'Full name is required.');
+      hasError = true;
     }
 
-    btn.addEventListener("click", async (e) => {
-        e.preventDefault();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email) {
+      showFieldError(emailInput, 'Email address is required.');
+      hasError = true;
+    } else if (!emailRegex.test(email)) {
+      showFieldError(emailInput, 'Please enter a valid email address.');
+      hasError = true;
+    }
 
-        const username = document.getElementById("registerUsername")?.value.trim();
-        const email = document.getElementById("registerEmail")?.value.trim();
-        const password = document.getElementById("registerPassword")?.value.trim();
-        const confirmPassword = document.getElementById("confirmPassword")?.value.trim();
+    if (!password) {
+      showFieldError(passwordInput, 'Password is required.');
+      hasError = true;
+    } else if (password.length < 8) {
+      showFieldError(passwordInput, 'Password must be at least 8 characters.');
+      hasError = true;
+    } else if (!/\d/.test(password)) {
+      showFieldError(
+        passwordInput,
+        'Password must include at least one number.'
+      );
+      hasError = true;
+    }
 
-        const messageBox = document.getElementById("formMessage");
+    if (!confirmPwd) {
+      showFieldError(confirmInput, 'Please confirm your password.');
+      hasError = true;
+    } else if (password && confirmPwd !== password) {
+      showFieldError(confirmInput, 'Passwords do not match.');
+      hasError = true;
+    }
 
-        // basic validation
-        if (!username || !email || !password) {
-            messageBox.innerText = "All fields are required!";
-            messageBox.style.color = "red";
-            return;
-        }
+    if (hasError) return; // stop here — don't touch localStorage
 
-        if (password.length < 8) {
-            messageBox.innerText = "Password must be at least 8 characters long!";
-            messageBox.style.color = "red";
-            return;
-        }
-        if (password !== confirmPassword) {
-            messageBox.innerText = "Passwords do not match!";
-            messageBox.style.color = "red";
-            return;
-        }
+    // --- CHECK IF EMAIL ALREADY EXISTS ---
+    try {
+      const existingUsers =
+        JSON.parse(localStorage.getItem('cara_users')) || [];
 
-        try {
-            const res = await fetch("/api/auth/register", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    username,
-                    email,
-                    password
-                })
-            });
+      const userExists = existingUsers.find(function (u) {
+        return u.email === email;
+      });
+      if (userExists) {
+        // inline error on the email field, NOT an alert
+        showFieldError(
+          emailInput,
+          'An account with this email already exists.'
+        );
+        return;
+      }
 
-            const data = await res.json();
+      // --- SAVE NEW USER ---
+      const newUser = {
+        fullName: fullName,
+        email: email,
+        password: password,
+        interests: interests,
+        role: 'USER',
+      };
 
-            if (!res.ok) {
-                throw new Error(data.detail || "Registration failed");
-            }
+      existingUsers.push(newUser);
+      localStorage.setItem('cara_users', JSON.stringify(existingUsers));
 
-            console.log("Success:", data);
+      // --- SUCCESS TOAST + disable button + redirect ---
+      showToast(
+        'Account created successfully! Redirecting to login…',
+        'success'
+      );
+      submitBtn.disabled = true; // prevent double-clicks while toast shows
 
-            localStorage.setItem("token", data.access_token);
-            localStorage.setItem("user", JSON.stringify(data.user));
-
-            messageBox.style.color = "green";
-            messageBox.innerText = "Account created successfully! Redirecting...";
-
-            setTimeout(() => {
-                window.location.href = "index.html";
-            }, 1200);
-
-        } catch (err) {
-            console.error(err);
-            messageBox.style.color = "red";
-            messageBox.innerText = err.message;
-        }
-    });
+      setTimeout(function () {
+        window.location.href = 'login.html';
+      }, 1500);
+    } catch (err) {
+      console.error('Registration Error:', err);
+      showToast('Something went wrong. Please try again.', 'error');
+    }
+  });
 });
-// TODO: Prevent signup triggers if password complexity score is poor
