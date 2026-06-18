@@ -1,10 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Character Encoding -->
   <meta charset="UTF-8" />
+
+   <!-- Viewport for Responsive Design -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <!-- Page Title -->
   <title>Secure Checkout – Cara</title>
 
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
@@ -21,8 +30,11 @@
         <a href="cart.html" class="back-link" aria-label="Back to cart"><i class="ri-arrow-left-line"></i> Back to Cart</a>
         <a href="#" id="logout-btn" style="display:none">Logout</a>
       </div>
-      <div class="logo">
+      <div class="logo" style="display: flex; align-items: center; gap: 15px;">
         <span>Cara</span>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" style="background: transparent; border: none; cursor: pointer;">
+          <i class="ri-moon-line" id="themeIcon" style="font-size: 20px;"></i>
+        </button>
       </div>
     </div>
 
@@ -233,9 +245,9 @@
   </div><!-- /page-wrapper -->
 
   <!-- ══ SUCCESS POPUP ══ -->
-  <div class="success-overlay" id="successOverlay">
+  <div class="success-overlay" id="successPopup">
     <div class="popup-box">
-      <div class="check-circle"><i class="ri-check-line"></i></div>
+      <div class="check-circle" aria-hidden="true"><i class="ri-check-line"></i></div>
       <h2>Order Successful!</h2>
       <p>Your order has been placed successfully. We'll send you a confirmation shortly.</p>
       <button class="popup-btn" onclick="window.location.href='shop.html'">Continue Shopping</button>

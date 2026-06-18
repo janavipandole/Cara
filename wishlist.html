@@ -239,6 +239,29 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .saved-pill:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 28px rgba(224, 36, 94, 0.2);
+        }
+
+        .saved-pill i {
+            transition: transform 0.3s ease;
+        }
+
+        .saved-pill:hover i {
+            animation: heartbeat 1s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            15% { transform: scale(1.25); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.25); }
+            60% { transform: scale(1); }
         }
 
         .wishlist-details {
@@ -452,6 +475,7 @@
 
 <body>
 
+    <!-- Header Section -->
     <header class="header-section">
         <div class="header-inner">
             <div>
@@ -459,9 +483,11 @@
                 <h1>Wishlist</h1>
                 <p>Keep your favorite Cara pieces in one polished place, then move them to cart when the moment feels right.</p>
             </div>
-            <div class="nav-buttons">
                 <a href="shop.html" class="btn-secondary"><i class="ri-arrow-left-line" aria-hidden="true"></i> Back to Shop</a>
                 <button id="clearAllBtn" class="btn-danger-outline" onclick="clearWishlist()"><i class="ri-delete-bin-6-line" aria-hidden="true"></i> Clear All</button>
+                <button class="theme-toggle btn-secondary" id="themeToggle" aria-label="Toggle dark mode" style="padding: 8px 12px; border-radius: 999px;">
+                  <i class="ri-moon-line" id="themeIcon"></i>
+                </button>
             </div>
         </div>
     </header>
