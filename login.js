@@ -245,10 +245,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 );
             }
 
-            localStorage.setItem(
-                'token',
-                data.access_token
-            );
+            // Token is now set as an HttpOnly cookie automatically
 
             localStorage.setItem(
                 'loggedInUser',

@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             console.log("Success:", data);
 
-            localStorage.setItem("token", data.access_token);
+            // Token is now set as an HttpOnly cookie automatically
             localStorage.setItem("user", JSON.stringify(data.user));
 
             messageBox.style.color = "green";
