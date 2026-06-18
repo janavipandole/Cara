@@ -89,8 +89,7 @@ class Token(BaseModel):
 
 class OrderItemCreate(BaseModel):
     product_name: str
-    quantity: int
-    price: float
+    quantity: int = Field(gt=0)
 
 class OrderCreate(BaseModel):
     fullName: str
