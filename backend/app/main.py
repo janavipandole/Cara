@@ -7,8 +7,6 @@ from .limiter import limiter
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 
-models.Base.metadata.create_all(bind=engine)
-
 app = FastAPI(title="Cara AI Outfit Recommendation API")
 
 app.state.limiter = limiter
