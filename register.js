@@ -25,11 +25,13 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        if (password.length < 8) {
-            messageBox.innerText = "Password must be at least 8 characters long!";
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
+        if (!passwordRegex.test(password)) {
+            messageBox.innerText = "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character.";
             messageBox.style.color = "red";
             return;
         }
+
         if (password !== confirmPassword) {
             messageBox.innerText = "Passwords do not match!";
             messageBox.style.color = "red";
@@ -74,4 +76,3 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
-// TODO: Prevent signup triggers if password complexity score is poor
