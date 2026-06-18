@@ -269,8 +269,27 @@ if (submitBtn) {
   submitBtn.disabled = true;
 }
 
-  // Simulate async order processing
-  setTimeout(function () {
+  // Make atomic stock verification request
+  try {
+    const itemsPayload = cart.map(item => ({
+      name: item.name,
+      quantity: item.inCart || 1
+    }));
+
+    const response = await fetch('/api/products/checkout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ items: itemsPayload })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.detail || 'Checkout failed');
+    }
+
     // CLEAR CART AFTER SUCCESSFUL ORDER
     localStorage.removeItem("productsInCart");
     localStorage.removeItem("appliedCoupon");
@@ -296,7 +315,21 @@ if (submitBtn) {
       const errEl = input.parentElement.querySelector(".error-msg");
       if (errEl) errEl.textContent = "";
     });
-  }, 1500);
+
+  } catch (err) {
+    console.error('Checkout error:', err);
+    if (typeof showToast === 'function') {
+      showToast(err.message, 'error');
+    } else {
+      alert(err.message);
+    }
+    
+    if (submitBtn) {
+      submitBtn.classList.remove("btn-loading");
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = submitBtn.getAttribute('data-original-html') || 'Place Order';
+    }
+  }
 });
 
 function closePopup() {
