@@ -176,6 +176,11 @@
 </head>
 
 <body>
+    <!-- Floating Theme Toggle for Non-Standard Pages -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999; background: #088178; color: white; border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center;">
+      <i class="ri-moon-line" id="themeIcon" style="font-size: 24px;"></i>
+    </button>
+
 
   <section id="stylist-page">
 
@@ -236,6 +241,18 @@
             <option value="Winter">Winter</option>
           </select>
 
+          <!-- Body Measurements -->
+          <div style="display: flex; gap: 10px; align-items: center;">
+            <input type="number" id="bust" placeholder="Bust" style="flex: 1; padding: 13px; border-radius: 10px; border: 1px solid #ccc; font-size: 15px; outline: none; width: 100%;">
+            <input type="number" id="waist" placeholder="Waist" style="flex: 1; padding: 13px; border-radius: 10px; border: 1px solid #ccc; font-size: 15px; outline: none; width: 100%;">
+            <input type="number" id="hip" placeholder="Hip" style="flex: 1; padding: 13px; border-radius: 10px; border: 1px solid #ccc; font-size: 15px; outline: none; width: 100%;">
+            <select id="unit" style="padding: 13px; border-radius: 10px; border: 1px solid #ccc; font-size: 15px; outline: none; width: auto;">
+              <option value="cm">cm</option>
+              <option value="in">in</option>
+            </select>
+          </div>
+          <small style="color: #666; font-size: 12px; margin-top: -10px;">Please enter realistic body measurements. Validation enforced.</small>
+
           <button id="generate-btn">
 
             Generate AI Recommendation
@@ -281,6 +298,41 @@ generateBtn.addEventListener("click", () => {
   const gender = document.getElementById("gender").value;
   const color = document.getElementById("color").value;
   const occasion = document.getElementById("occasion").value;
+
+  const bustRaw = parseFloat(document.getElementById("bust").value);
+  const waistRaw = parseFloat(document.getElementById("waist").value);
+  const hipRaw = parseFloat(document.getElementById("hip").value);
+  const unit = document.getElementById("unit").value;
+
+  // Validation
+  if (!isNaN(bustRaw) || !isNaN(waistRaw) || !isNaN(hipRaw)) {
+    const factor = unit === "in" ? 2.54 : 1;
+    const bust = bustRaw * factor;
+    const waist = waistRaw * factor;
+    const hip = hipRaw * factor;
+
+    let errors = [];
+
+    // Realistic range validation
+    if (!isNaN(bust) && (bust < 60 || bust > 150)) errors.push(`Bust measurement (${bust.toFixed(1)} cm) is out of realistic range (60-150 cm).`);
+    if (!isNaN(waist) && (waist < 50 || waist > 130)) errors.push(`Waist measurement (${waist.toFixed(1)} cm) is out of realistic range (50-130 cm).`);
+    if (!isNaN(hip) && (hip < 70 || hip > 160)) errors.push(`Hip measurement (${hip.toFixed(1)} cm) is out of realistic range (70-160 cm).`);
+
+    if (errors.length > 0) {
+      alert("Invalid Measurements:\n\n" + errors.join("\n"));
+      return;
+    }
+
+    // Cross-validation warnings
+    let warnings = [];
+    if (!isNaN(bust) && !isNaN(waist) && waist >= bust) warnings.push("Waist measurement is typically smaller than bust.");
+    if (!isNaN(waist) && !isNaN(hip) && waist >= hip) warnings.push("Waist measurement is typically smaller than hip.");
+
+    if (warnings.length > 0) {
+      const confirmProceed = confirm("Unusual Measurements Detected:\n\n" + warnings.join("\n") + "\n\nAre you sure you want to proceed?");
+      if (!confirmProceed) return;
+    }
+  }
 
   const resultCard = document.getElementById("result-card");
 
@@ -420,11 +472,18 @@ generateBtn.addEventListener("click", () => {
 
   /* FINAL OUTPUT */
 
+  let measurementText = "";
+  if (!isNaN(bustRaw) || !isNaN(waistRaw) || !isNaN(hipRaw)) {
+      measurementText = `<p><strong>Your Measurements:</strong> Bust: ${isNaN(bustRaw) ? '-' : bustRaw} ${unit}, Waist: ${isNaN(waistRaw) ? '-' : waistRaw} ${unit}, Hip: ${isNaN(hipRaw) ? '-' : hipRaw} ${unit}</p>`;
+  }
+
   resultCard.innerHTML = `
 
     <div class="result-content">
 
       <h2>${outfit}</h2>
+
+      ${measurementText}
 
       <p><strong>Best Tops/Shirts:</strong> ${tops}</p>
 
