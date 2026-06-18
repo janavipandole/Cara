@@ -1,3 +1,4 @@
+/* global showToast */
 document.addEventListener('DOMContentLoaded', function () {
   const submitBtn = document.getElementById('registerSubmitBtn');
   const nameInput = document.getElementById('registerUsername');
@@ -6,10 +7,9 @@ document.addEventListener('DOMContentLoaded', function () {
   const confirmInput = document.getElementById('confirmPassword');
   const confirmHint = document.getElementById('confirmHint');
 
-  // ============================================================
-  // HELPER: show a toast notification (same function as login.js)
+  // helper: show a toast notification (same function as login.js)
   // type = 'success' | 'error'
-  // ============================================================
+
   function showToast(message, type) {
     const container = document.getElementById('toast-container');
     if (!container) return;
@@ -31,15 +31,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 3000);
   }
 
-  // ============================================================
-  // HELPER: show an inline error under a field
-  // ============================================================
+  // helper: show an inline error under a field
+
   function showFieldError(inputEl, message) {
     inputEl.classList.add('is-invalid');
     inputEl.classList.remove('is-valid');
 
-    // look for the next sibling <span class="error-message">
-    // if it doesn't exist yet, create one right after the input (or its wrapper)
     let errorSpan = inputEl.parentElement.querySelector('.error-message');
     if (!errorSpan) {
       // input might be inside a .password-wrapper, so go up one more level
@@ -52,9 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  // ============================================================
-  // HELPER: clear a field's error state
-  // ============================================================
+  // helper: clear a field's error state
   function clearFieldError(inputEl) {
     inputEl.classList.remove('is-invalid');
     const group = inputEl.closest('.form-group');
@@ -64,22 +59,17 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  // ============================================================
-  // HELPER: clear ALL field errors
-  // ============================================================
+  // helper: clear all field errors
   function clearAllErrors() {
     [nameInput, emailInput, passwordInput, confirmInput].forEach(function (el) {
       if (el) clearFieldError(el);
     });
-    // also clear the old formMessage div if it's being used
     const msg = document.getElementById('formMessage');
     if (msg) msg.textContent = '';
   }
 
-  // ============================================================
-  // LIVE confirm-password hint
   // Shows "Passwords match ✓" or "Passwords do not match" as they type.
-  // ============================================================
+
   if (confirmInput && confirmHint) {
     confirmInput.addEventListener('input', function () {
       if (confirmInput.value === '') {
@@ -101,9 +91,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // ============================================================
-  // PASSWORD TOGGLE — main password field
-  // ============================================================
+  // password toggle — main password field
+
   const togglePassword = document.getElementById('togglePassword');
   if (togglePassword) {
     togglePassword.addEventListener('click', function () {
@@ -118,9 +107,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // ============================================================
-  // PASSWORD TOGGLE — confirm password field
-  // ============================================================
+  // password toggle — confirm password field
+
   const confirmToggle = document.getElementById('confirmTogglePassword');
   if (confirmToggle) {
     confirmToggle.addEventListener('click', function () {
@@ -135,12 +123,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // ============================================================
-  // FORM SUBMIT
-  // ============================================================
+  // form submit
+
   if (!submitBtn) return;
 
-  submitBtn.addEventListener('click', function (e) {
+  submitBtn.addEventListener('click', async function (e) {
     e.preventDefault();
     clearAllErrors(); // wipe previous errors first
 
@@ -157,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
         interests.push(cb.value);
       });
 
-    // --- INLINE VALIDATION ---
+    //inline validation
     let hasError = false;
 
     if (!fullName) {
@@ -198,7 +185,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (hasError) return; // stop here — don't touch localStorage
 
-    // --- CHECK IF EMAIL ALREADY EXISTS ---
+    // check if email already exists
     try {
       const existingUsers =
         JSON.parse(localStorage.getItem('cara_users')) || [];
@@ -207,7 +194,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return u.email === email;
       });
       if (userExists) {
-        // inline error on the email field, NOT an alert
+        // inline error on the email field
         showFieldError(
           emailInput,
           'An account with this email already exists.'
@@ -215,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
       }
 
-      // --- SAVE NEW USER ---
+      //save new user
       const newUser = {
         fullName: fullName,
         email: email,
@@ -227,7 +214,7 @@ document.addEventListener('DOMContentLoaded', function () {
       existingUsers.push(newUser);
       localStorage.setItem('cara_users', JSON.stringify(existingUsers));
 
-      // --- SUCCESS TOAST + disable button + redirect ---
+      //success toast + disable button + redirect
       showToast(
         'Account created successfully! Redirecting to login…',
         'success'
