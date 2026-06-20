@@ -4,6 +4,8 @@ from typing import List
 from .. import models, schemas
 from ..database import get_db
 from ..vector_search.faiss_index import get_similar_product_ids
+import hashlib
+import os
 from ..rules.engine import filter_by_rules
 from ..limiter import limiter
 
@@ -41,7 +43,14 @@ def track_feedback(request: Request, interaction: schemas.InteractionCreate, db:
     product = db.query(models.Product).filter(models.Product.id == interaction.product_id).first()
     if not product:
         raise HTTPException(status_code=404, detail="Product not found")
-    new_interaction = models.Interaction(**interaction.model_dump())
+        
+    secret = os.environ.get("SECRET_KEY", "default-salt").encode()
+    anonymized_id = hashlib.sha256(interaction.user_id.encode() + secret).hexdigest()
+    
+    interaction_data = interaction.model_dump()
+    interaction_data["user_id"] = anonymized_id
+    
+    new_interaction = models.Interaction(**interaction_data)
     db.add(new_interaction)
     db.commit()
     return {"status": "success"}
