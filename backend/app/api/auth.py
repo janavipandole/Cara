@@ -13,9 +13,11 @@ from PIL import Image, ImageDraw
 import io
 import base64
 import random
+from collections import OrderedDict
 
-# In-memory tracking of failed attempts by email to enforce captcha
-failed_login_attempts = {}
+# In-memory tracking of failed attempts with an LRU bound to prevent OOM DOS attacks
+failed_login_attempts = OrderedDict()
+MAX_TRACKED_EMAILS = 1000
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
 if not SECRET_KEY:
@@ -135,7 +137,14 @@ def login(request: Request, payload: UserLogin, db: Session = Depends(get_db)):
     user = db.query(models.User).filter(models.User.email == payload.email).first()
 
     if not user or not pwd.verify(payload.password, user.hashed_password):
+        # Update attempts and move to end (Most Recently Used)
         failed_login_attempts[payload.email] = attempts + 1
+        failed_login_attempts.move_to_end(payload.email)
+        
+        # Enforce LRU bounds to prevent memory leaks from massive bot networks
+        if len(failed_login_attempts) > MAX_TRACKED_EMAILS:
+            failed_login_attempts.popitem(last=False)
+            
         raise HTTPException(401, "Invalid email or password.")
 
     if not user.is_active:
