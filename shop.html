@@ -128,7 +128,18 @@
           return;
         }
         box.style.display = "block";
-        listContainer.innerHTML = searches.map(s => `<span style="background: #e2e8f0; padding: 2px 6px; border-radius: 4px; margin-right: 5px; cursor: pointer;" onclick="document.getElementById('searchInput').value='${s}'; document.getElementById('searchBtn').click();">${s}</span>`).join("");
+        listContainer.innerHTML = "";
+        
+        searches.forEach(s => {
+          const span = document.createElement("span");
+          span.style.cssText = "background: #e2e8f0; padding: 2px 6px; border-radius: 4px; margin-right: 5px; cursor: pointer;";
+          span.textContent = s;
+          span.addEventListener("click", () => {
+            document.getElementById("searchInput").value = s;
+            document.getElementById("searchBtn").click();
+          });
+          listContainer.appendChild(span);
+        });
       };
 
       searchBtn.addEventListener("click", () => {

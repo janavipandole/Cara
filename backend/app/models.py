@@ -16,6 +16,7 @@ class Product(Base):
     subcategory = Column(String, index=True, nullable=True) # e.g. top, bottom, shoes
     color = Column(String, nullable=True)
     style = Column(String, nullable=True)
+    stock = Column(Integer, default=10, nullable=False)
     
 class Interaction(Base):
     __tablename__ = "interactions"
