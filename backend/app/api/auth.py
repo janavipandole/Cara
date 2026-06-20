@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta, timezone
-from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi import APIRouter, Depends, HTTPException, Request, Response
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 from passlib.context import CryptContext
@@ -20,7 +20,7 @@ from collections import OrderedDict
 failed_login_attempts = OrderedDict()
 MAX_TRACKED_EMAILS = 1000
 
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY", "fallback_secret_key_for_dev")
 if not SECRET_KEY:
     raise RuntimeError(
         "SECRET_KEY environment variable is not set. "
@@ -32,9 +32,10 @@ REFRESH_TOKEN_DAYS = 7
 
 pwd    = CryptContext(schemes=["bcrypt"], deprecated="auto")
 router = APIRouter()
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login", auto_error=False)
 
 
+# -- Helper: build JWT --
 def create_access_token(email: str) -> str:
     return jwt.encode(
         {
@@ -57,6 +58,23 @@ def create_refresh_token(email: str) -> str:
         algorithm=ALGORITHM
     )
 
+def set_auth_cookies(response: Response, access_token: str, refresh_token: str):
+    response.set_cookie(
+        key="access_token",
+        value=f"Bearer {access_token}",
+        httponly=True,
+        secure=True,
+        samesite="lax",
+        max_age=ACCESS_TOKEN_MINUTES * 60
+    )
+    response.set_cookie(
+        key="refresh_token",
+        value=refresh_token,
+        httponly=True,
+        secure=True,
+        samesite="lax",
+        max_age=REFRESH_TOKEN_DAYS * 24 * 60 * 60
+    )
 
 # -- Helper: get current user from token --
 def get_current_user(
@@ -64,10 +82,14 @@ def get_current_user(
     db: Session = Depends(get_db)
 ) -> models.User:
     token = request.cookies.get("access_token")
-    if not token:
-        raise HTTPException(401, "Not authenticated.")
+    if not token or not token.startswith("Bearer "):
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    token = token.split(" ")[1]
+    
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        if payload.get("type") != "access":
+            raise HTTPException(401, "Invalid token type.")
         email: str = payload.get("sub")
         token_type = payload.get("type")
         if not email or token_type != "access":
@@ -103,8 +125,7 @@ def register(request: Request, response: Response, payload: UserRegister, db: Se
     access_token = create_access_token(user.email)
     refresh_token = create_refresh_token(user.email)
     
-    response.set_cookie(key="access_token", value=access_token, httponly=True, secure=True, samesite="lax", max_age=ACCESS_TOKEN_MINUTES * 60)
-    response.set_cookie(key="refresh_token", value=refresh_token, httponly=True, secure=True, samesite="lax", max_age=REFRESH_TOKEN_DAYS * 86400)
+    set_auth_cookies(response, access_token, refresh_token)
 
     return Token(
         access_token = access_token,
@@ -189,15 +210,16 @@ def login(request: Request, response: Response, payload: UserLogin, db: Session 
 
 @router.post("/refresh")
 def refresh_token(request: Request, response: Response, db: Session = Depends(get_db)):
-    refresh_token = request.cookies.get("refresh_token")
-    if not refresh_token:
-        raise HTTPException(401, "Refresh token missing.")
-    
+    token = request.cookies.get("refresh_token")
+    if not token:
+        raise HTTPException(status_code=401, detail="Refresh token missing")
     try:
-        payload = jwt.decode(refresh_token, SECRET_KEY, algorithms=[ALGORITHM])
-        email = payload.get("sub")
-        if not email or payload.get("type") != "refresh":
-            raise HTTPException(401, "Invalid refresh token.")
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        if payload.get("type") != "refresh":
+            raise HTTPException(401, "Invalid token type.")
+        email: str = payload.get("sub")
+        if not email:
+            raise HTTPException(401, "Invalid token.")
     except JWTError:
         raise HTTPException(401, "Invalid or expired refresh token.")
         
@@ -205,16 +227,23 @@ def refresh_token(request: Request, response: Response, db: Session = Depends(ge
     if not user or not user.is_active:
         raise HTTPException(401, "User not found or inactive.")
         
-    new_access_token = create_access_token(email)
-    response.set_cookie(key="access_token", value=new_access_token, httponly=True, secure=True, samesite="lax", max_age=ACCESS_TOKEN_MINUTES * 60)
+    access_token = create_access_token(user.email)
+    # Issue a new access token while keeping the same refresh token
+    response.set_cookie(
+        key="access_token",
+        value=f"Bearer {access_token}",
+        httponly=True,
+        secure=True,
+        samesite="lax",
+        max_age=ACCESS_TOKEN_MINUTES * 60
+    )
     return {"message": "Token refreshed successfully"}
 
 @router.post("/logout")
 def logout(response: Response):
-    response.delete_cookie("access_token", httponly=True, secure=True, samesite="lax")
-    response.delete_cookie("refresh_token", httponly=True, secure=True, samesite="lax")
-    return {"message": "Logged out successfully"}
-
+    response.delete_cookie("access_token")
+    response.delete_cookie("refresh_token")
+    return {"message": "Successfully logged out"}
 
 @router.get("/me", response_model=UserOut)
 def get_me(current_user: models.User = Depends(get_current_user)):
