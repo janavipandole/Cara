@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 from passlib.context import CryptContext
 from jose import jwt, JWTError
 import os
+from fastapi import Response
 from app.database import get_db
 from app import models
 from app.schemas import UserRegister, UserLogin, Token, UserOut
@@ -26,19 +27,31 @@ if not SECRET_KEY:
         "Add SECRET_KEY=<your-secret> to your .env file before starting the server."
     )
 ALGORITHM  = "HS256"
-TOKEN_DAYS = 7
+ACCESS_TOKEN_MINUTES = 15
+REFRESH_TOKEN_DAYS = 7
 
 pwd    = CryptContext(schemes=["bcrypt"], deprecated="auto")
 router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
 
 
-# -- Helper: build JWT --
-def create_token(email: str) -> str:
+def create_access_token(email: str) -> str:
     return jwt.encode(
         {
             "sub": email,
-            "exp": datetime.now(timezone.utc) + timedelta(days=TOKEN_DAYS)
+            "type": "access",
+            "exp": datetime.now(timezone.utc) + timedelta(minutes=ACCESS_TOKEN_MINUTES)
+        },
+        SECRET_KEY,
+        algorithm=ALGORITHM
+    )
+
+def create_refresh_token(email: str) -> str:
+    return jwt.encode(
+        {
+            "sub": email,
+            "type": "refresh",
+            "exp": datetime.now(timezone.utc) + timedelta(days=REFRESH_TOKEN_DAYS)
         },
         SECRET_KEY,
         algorithm=ALGORITHM
@@ -47,14 +60,18 @@ def create_token(email: str) -> str:
 
 # -- Helper: get current user from token --
 def get_current_user(
-    token: str = Depends(oauth2_scheme),
+    request: Request,
     db: Session = Depends(get_db)
 ) -> models.User:
+    token = request.cookies.get("access_token")
+    if not token:
+        raise HTTPException(401, "Not authenticated.")
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         email: str = payload.get("sub")
-        if not email:
-            raise HTTPException(401, "Invalid token.")
+        token_type = payload.get("type")
+        if not email or token_type != "access":
+            raise HTTPException(401, "Invalid token payload.")
     except JWTError:
         raise HTTPException(401, "Invalid or expired token.")
 
@@ -67,7 +84,7 @@ def get_current_user(
 # -- Register --
 @router.post("/register", response_model=Token, status_code=201)
 @limiter.limit("5/minute")
-def register(request: Request, payload: UserRegister, db: Session = Depends(get_db)):
+def register(request: Request, response: Response, payload: UserRegister, db: Session = Depends(get_db)):
     if db.query(models.User).filter(models.User.email == payload.email).first():
         raise HTTPException(409, "Email already registered.")
     if db.query(models.User).filter(models.User.username == payload.username).first():
@@ -83,8 +100,14 @@ def register(request: Request, payload: UserRegister, db: Session = Depends(get_
     db.commit()
     db.refresh(user)
 
+    access_token = create_access_token(user.email)
+    refresh_token = create_refresh_token(user.email)
+    
+    response.set_cookie(key="access_token", value=access_token, httponly=True, secure=True, samesite="lax", max_age=ACCESS_TOKEN_MINUTES * 60)
+    response.set_cookie(key="refresh_token", value=refresh_token, httponly=True, secure=True, samesite="lax", max_age=REFRESH_TOKEN_DAYS * 86400)
+
     return Token(
-        access_token = create_token(user.email),
+        access_token = access_token,
         token_type   = "bearer",
         user         = UserOut.model_validate(user)
     )
@@ -120,7 +143,7 @@ def get_captcha():
 # -- Login --
 @router.post("/login", response_model=Token)
 @limiter.limit("5/minute")
-def login(request: Request, payload: UserLogin, db: Session = Depends(get_db)):
+def login(request: Request, response: Response, payload: UserLogin, db: Session = Depends(get_db)):
     attempts = failed_login_attempts.get(payload.email, 0)
     
     if attempts >= 1:
@@ -152,11 +175,45 @@ def login(request: Request, payload: UserLogin, db: Session = Depends(get_db)):
 
     failed_login_attempts.pop(payload.email, None)
 
+    access_token = create_access_token(user.email)
+    refresh_token = create_refresh_token(user.email)
+    
+    response.set_cookie(key="access_token", value=access_token, httponly=True, secure=True, samesite="lax", max_age=ACCESS_TOKEN_MINUTES * 60)
+    response.set_cookie(key="refresh_token", value=refresh_token, httponly=True, secure=True, samesite="lax", max_age=REFRESH_TOKEN_DAYS * 86400)
+
     return Token(
-        access_token = create_token(user.email),
+        access_token = access_token,
         token_type   = "bearer",
         user         = UserOut.model_validate(user)
     )
+
+@router.post("/refresh")
+def refresh_token(request: Request, response: Response, db: Session = Depends(get_db)):
+    refresh_token = request.cookies.get("refresh_token")
+    if not refresh_token:
+        raise HTTPException(401, "Refresh token missing.")
+    
+    try:
+        payload = jwt.decode(refresh_token, SECRET_KEY, algorithms=[ALGORITHM])
+        email = payload.get("sub")
+        if not email or payload.get("type") != "refresh":
+            raise HTTPException(401, "Invalid refresh token.")
+    except JWTError:
+        raise HTTPException(401, "Invalid or expired refresh token.")
+        
+    user = db.query(models.User).filter(models.User.email == email).first()
+    if not user or not user.is_active:
+        raise HTTPException(401, "User not found or inactive.")
+        
+    new_access_token = create_access_token(email)
+    response.set_cookie(key="access_token", value=new_access_token, httponly=True, secure=True, samesite="lax", max_age=ACCESS_TOKEN_MINUTES * 60)
+    return {"message": "Token refreshed successfully"}
+
+@router.post("/logout")
+def logout(response: Response):
+    response.delete_cookie("access_token", httponly=True, secure=True, samesite="lax")
+    response.delete_cookie("refresh_token", httponly=True, secure=True, samesite="lax")
+    return {"message": "Logged out successfully"}
 
 
 @router.get("/me", response_model=UserOut)
