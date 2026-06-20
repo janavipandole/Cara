@@ -187,10 +187,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 );
             }
 
-            localStorage.setItem(
-                'token',
-                data.access_token
-            );
+            // Token is now handled securely via HttpOnly cookies by the backend
 
             localStorage.setItem(
                 'loggedInUser',
