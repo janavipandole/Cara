@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 );
             }
 
-            // Token is now handled securely via HttpOnly cookies by the backend
+            // Token is now set as an HttpOnly cookie automatically
 
             localStorage.setItem(
                 'loggedInUser',

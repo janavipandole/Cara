@@ -1,6 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
 from typing import List
+import hashlib
+import os
 from .. import models, schemas
 from ..database import get_db
 from ..vector_search.faiss_index import get_similar_product_ids
@@ -10,6 +12,7 @@ from ..rules.engine import filter_by_rules
 from ..limiter import limiter
 
 router = APIRouter()
+SALT = os.environ.get("SECRET_KEY", "fallback_secret_key_for_dev").encode('utf-8')
 
 @router.post("/recommend", response_model=List[schemas.Product])
 @limiter.limit("20/minute")
@@ -44,13 +47,14 @@ def track_feedback(request: Request, interaction: schemas.InteractionCreate, db:
     if not product:
         raise HTTPException(status_code=404, detail="Product not found")
         
-    secret = os.environ.get("SECRET_KEY", "default-salt").encode()
-    anonymized_id = hashlib.sha256(interaction.user_id.encode() + secret).hexdigest()
+    # Anonymize PII (like raw IP addresses) via salted hashing before database insertion
+    hashed_user_id = hashlib.sha256(interaction.user_id.encode('utf-8') + SALT).hexdigest()
     
-    interaction_data = interaction.model_dump()
-    interaction_data["user_id"] = anonymized_id
-    
-    new_interaction = models.Interaction(**interaction_data)
+    new_interaction = models.Interaction(
+        user_id=hashed_user_id,
+        product_id=interaction.product_id,
+        interaction_type=interaction.interaction_type
+    )
     db.add(new_interaction)
     db.commit()
     return {"status": "success"}

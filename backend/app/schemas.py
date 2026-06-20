@@ -13,6 +13,14 @@ class ProductBase(BaseModel):
     subcategory: Optional[str] = None
     color: Optional[str] = None
     style: Optional[str] = None
+    stock: int = 10
+
+class CheckoutItem(BaseModel):
+    name: str
+    quantity: int
+
+class CheckoutRequest(BaseModel):
+    items: list[CheckoutItem]
 
 class ProductCreate(ProductBase):
     id: int
@@ -62,8 +70,8 @@ class UserRegister(BaseModel):
             raise ValueError("Password must contain at least one uppercase letter.")
         if not re.search(r"\d", v):
             raise ValueError("Password must contain at least one digit.")
-        if not re.search(r"[@$!%*?&]", v):
-            raise ValueError("Password must contain at least one special character (@$!%*?&).")
+        if not re.search(r"[!@#$%^&*(),.?\":{}|<>]", v):
+            raise ValueError("Password must contain at least one special character.")
         return v
 
 
