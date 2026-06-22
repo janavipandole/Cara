@@ -241,7 +241,7 @@ function refreshWishlistPrices(items) {
     if (!Array.isArray(items) || typeof products === "undefined") return items;
 
     let changed = false;
-    const catalog = products;
+    const catalog = typeof products !== "undefined" ? products : [];
 
     const updated = items.map((item) => {
         const normalized = normalizeWishlistItem(item);
@@ -1770,3 +1770,4 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 })();
 /* --- END: PRODUCT QUICK-VIEW MODAL FUNCTIONALITY --- */
+
