@@ -1,45 +1,33 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login - Cara</title>
-  <!-- Favicon -->
   <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
-  <link rel="stylesheet" href="toast.css" />
-  <link rel="stylesheet" href="login.css" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="ui-fix.css" />
+  <link rel="stylesheet" href="toast.css" />
+  <link rel="stylesheet" href="login.css" />
 </head>
-
 <body>
+
   <section id="header">
+<<<<<<< fix/login-register-flow
+    <a href="index.html">
+=======
     <!-- Logo -->
     <a href="index.html" aria-label="Home">
+>>>>>>> main
       <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
     </a>
-
     <div id="navbar-container"></div>
-
-    <!-- Mobile Navbar -->
     <div class="mobile">
-      <!-- Login Icon -->
-      <a href="login.html" aria-label="Login">
-        <i class="ri-user-3-line"></i>
-      </a>
-
-      <!-- Cart Icon -->
-      <a href="cart.html" aria-label="Cart">
-        <i class="ri-shopping-bag-4-line"></i>
-      </a>
-
-      <!-- Hamburger Menu -->
+      <a href="login.html" aria-label="Login"><i class="ri-user-3-line"></i></a>
+      <a href="cart.html" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a>
       <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
       <!-- Theme Toggle -->
       <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
@@ -47,6 +35,8 @@
       </button>
     </div>
   </section>
+<<<<<<< fix/login-register-flow
+=======
   <div id="login-container">
     <button class="back-btn" onclick="history.back()" aria-label="Back to Shop"><i class="ri-arrow-left-line"></i> Back
       to Shop</button>
@@ -60,35 +50,67 @@
           <input type="email" id="loginEmail" name="email" class="input-field" placeholder="Enter your email address"
             autocomplete="email" required />
         </div>
+>>>>>>> main
 
-        <div class="input-group password-group" style="position: relative">
-          <label for="loginPassword">Password</label>
-          <input type="password" id="loginPassword" name="password" class="input-field" placeholder="••••••••"
-            autocomplete="current-password" required style="padding-right: 45px; width: 100%" />
-          <button type="button" id="togglePassword" class="toggle_password" aria-label="Toggle password visibility"
-            style="
-              position: absolute;
-              right: 10px;
-              top: 56%;
-              transform: translateY(-50%);
-              padding:0;
-              background: none;
-              border: none;
-              cursor: pointer;
-              color: #666;
-              font-size: 18px;
-            ">
-            <i class="ri-eye-line" id="toggleIcon"></i>
-          </button>
-        </div>
-        <div class="remfor">
-          <div class="remember">
-            <input type="checkbox" id="rememberMe" name="rememberMe" />
-            <label for="rememberMe">Remember me</label>
+  <!-- Toast lives at body level so it overlays everything -->
+  <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- 
+    The whole page content (back button + card) lives in one wrapper.
+    This is the same pattern as register.html using .register-page-wrapper.
+    #login-section handles the background + centering, just like #register-section.
+  -->
+  <section id="login-section">
+    <div class="login-page-wrapper">
+
+      <!-- Back button: top-left, matching register page exactly -->
+      <a href="index.html" class="back-button">&#8592; Back to Shop</a>
+
+      <!-- The card -->
+      <div class="login-box">
+        <h2>Welcome Back!</h2>
+        <p class="subtitle">Sign in to your account</p>
+
+        <form id="loginForm" novalidate>
+
+          <!-- Email field -->
+          <div class="input-group">
+            <label for="loginEmail">Email Address</label>
+            <input
+              type="email"
+              id="loginEmail"
+              name="email"
+              class="input-field"
+              placeholder="Enter your email address"
+              autocomplete="email"
+              required
+            />
+            <!-- Inline error shown by JS when email is wrong -->
+            <span class="error-message" id="emailError"></span>
           </div>
-          <a href="forgotPassword.html" class="forgot">Forgot Password?</a>
-        </div>
 
+<<<<<<< fix/login-register-flow
+          <!-- Password field -->
+          <div class="input-group">
+            <label for="loginPassword">Password</label>
+            <div class="password-wrapper">
+              <input
+                type="password"
+                id="loginPassword"
+                name="password"
+                class="input-field"
+                placeholder="••••••••"
+                autocomplete="current-password"
+                required
+                aria-required="true"
+              />
+              <button type="button" id="togglePassword" class="toggle_password" aria-label="Show password">
+                <i class="ri-eye-line" id="toggleIcon" aria-hidden="true"></i>
+              </button>
+            </div>
+            <!-- Inline error for wrong password -->
+            <span class="error-message" id="passwordError"></span>
+=======
         <div class="input-group">
           <label>Login As</label>
           <div class="role-selector">
@@ -108,17 +130,61 @@
                 <small>Manage store</small>
               </span>
             </label>
+>>>>>>> main
           </div>
-        </div>
 
+<<<<<<< fix/login-register-flow
+          <!-- Remember me + Forgot password row -->
+          <div class="remfor">
+            <div class="remember">
+              <input type="checkbox" id="rememberMe" name="rememberMe" />
+              <label for="rememberMe">Remember me</label>
+            </div>
+            <a href="forgotPassword.html" class="forgot">Forgot Password?</a>
+          </div>
+=======
         <button type="submit" class="login-btn" aria-label="Sign In"><span>Sign In</span></button>
       </form>
+>>>>>>> main
 
-      <div class="signup-link">
-        Don't have an account? <a href="register.html">Register</a>
-      </div>
-    </div>
+          <!-- General form-level error (e.g. "no account found") -->
+          <span class="error-message" id="formError" style="display:block; margin-bottom: 8px;"></span>
 
+<<<<<<< fix/login-register-flow
+          <!-- Captcha — only appears after a failed attempt -->
+          <div id="captcha-section" class="captcha-section" style="display: none; margin-bottom: 20px;">
+            <label>Security Check</label>
+            <div class="captcha-row">
+              <canvas id="captcha-canvas" width="150" height="40"></canvas>
+              <button type="button" id="captcha-refresh" aria-label="Refresh Captcha">
+                <i class="ri-refresh-line"></i>
+              </button>
+            </div>
+            <input type="text" id="captcha-input" class="input-field" placeholder="Enter the code above" autocomplete="off" />
+            <span class="error-message" id="captchaError"></span>
+          </div>
+
+          <button type="submit" class="login-btn" id="loginSubmitBtn">
+            <span>Sign In</span>
+          </button>
+
+        </form>
+
+        <div class="signup-link">
+          Don't have an account? <a href="register.html">Register</a>
+        </div>
+
+      </div><!-- end .login-box -->
+    </div><!-- end .login-page-wrapper -->
+  </section><!-- end #login-section -->
+
+  <script src="navbar.js"></script>
+  <script>loadNavbar();</script>
+  <script src="app.js"></script>
+  <script src="login.js"></script>
+
+</body>
+=======
     <script src="navbar.js"></script>
     <script>
       loadNavbar();
@@ -148,4 +214,5 @@
     <script src="js/simple-captcha.js" defer></script>
 </body>
 
+>>>>>>> main
 </html>
