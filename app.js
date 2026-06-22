@@ -582,7 +582,7 @@ window.handleAddToCart = function () {
     const priceElement    = document.getElementById("product-price");
     const sizeSelect      = document.getElementById("product-size");
     const quantityInput   = document.getElementById("product-quantity");
-    const imageElement    = document.getElementById("MainImg");
+    const imageElement = document.getElementById("MainImg") || document.querySelector(".pro-img-wrap img");
 
     if (!nameElement || !priceElement || !sizeSelect || !quantityInput || !imageElement) {
         console.error("Missing product elements on page.");
@@ -1770,3 +1770,4 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 })();
 /* --- END: PRODUCT QUICK-VIEW MODAL FUNCTIONALITY --- */
+
