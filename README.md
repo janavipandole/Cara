@@ -341,7 +341,8 @@ Made with ❤️ by [Janavi Pandole](https://github.com/janavipandole)
 </div>
 
 
-<!-- TODO: Add local linting troubleshooting instructions -->
+### Linting Troubleshooting
+If you encounter issues when running `npm run lint` or `eslint` locally, ensure you have run `npm install` to install all necessary dependencies. Common errors might stem from mismatched Node versions; this project recommends Node.js v16 or above. You can automatically fix simple formatting issues by running `npm run lint -- --fix` or `npx eslint . --fix`.
 
 
 <!-- Setup guidelines including package-lock node_modules cleanup directives. -->
