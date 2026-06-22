@@ -2,11 +2,16 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from .. import models, schemas
 from ..database import get_db
+from .auth import get_current_user
 
 router = APIRouter()
 
 @router.post("/", status_code=201)
-def create_order(order_data: schemas.OrderCreate, db: Session = Depends(get_db)):
+def create_order(
+    order_data: schemas.OrderCreate, 
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user)
+):
     subtotal = 0.0
     db_items = []
     
@@ -36,7 +41,7 @@ def create_order(order_data: schemas.OrderCreate, db: Session = Depends(get_db))
     
     new_order = models.Order(
         full_name=order_data.fullName,
-        email=order_data.email,
+        email=current_user.email,  # Force email to match authenticated user
         address=order_data.address,
         city=order_data.city,
         zip_code=order_data.zip,

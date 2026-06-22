@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 from passlib.context import CryptContext
 from jose import jwt, JWTError
 import os
+from fastapi import Response
 from app.database import get_db
 from app import models
 from app.schemas import UserRegister, UserLogin, Token, UserOut
@@ -13,9 +14,11 @@ from PIL import Image, ImageDraw
 import io
 import base64
 import random
+from collections import OrderedDict
 
-# In-memory tracking of failed attempts by email to enforce captcha
-failed_login_attempts = {}
+# In-memory tracking of failed attempts with an LRU bound to prevent OOM DOS attacks
+failed_login_attempts = OrderedDict()
+MAX_TRACKED_EMAILS = 1000
 
 SECRET_KEY = os.environ.get("SECRET_KEY", "fallback_secret_key_for_dev")
 if not SECRET_KEY:
@@ -88,8 +91,9 @@ def get_current_user(
         if payload.get("type") != "access":
             raise HTTPException(401, "Invalid token type.")
         email: str = payload.get("sub")
-        if not email:
-            raise HTTPException(401, "Invalid token.")
+        token_type = payload.get("type")
+        if not email or token_type != "access":
+            raise HTTPException(401, "Invalid token payload.")
     except JWTError:
         raise HTTPException(401, "Invalid or expired token.")
 
@@ -160,7 +164,7 @@ def get_captcha():
 # -- Login --
 @router.post("/login", response_model=Token)
 @limiter.limit("5/minute")
-def login(request: Request, payload: UserLogin, db: Session = Depends(get_db)):
+def login(request: Request, response: Response, payload: UserLogin, db: Session = Depends(get_db)):
     attempts = failed_login_attempts.get(payload.email, 0)
     
     if attempts >= 1:
@@ -177,13 +181,26 @@ def login(request: Request, payload: UserLogin, db: Session = Depends(get_db)):
     user = db.query(models.User).filter(models.User.email == payload.email).first()
 
     if not user or not pwd.verify(payload.password, user.hashed_password):
+        # Update attempts and move to end (Most Recently Used)
         failed_login_attempts[payload.email] = attempts + 1
+        failed_login_attempts.move_to_end(payload.email)
+        
+        # Enforce LRU bounds to prevent memory leaks from massive bot networks
+        if len(failed_login_attempts) > MAX_TRACKED_EMAILS:
+            failed_login_attempts.popitem(last=False)
+            
         raise HTTPException(401, "Invalid email or password.")
 
     if not user.is_active:
         raise HTTPException(403, "Account is deactivated.")
 
     failed_login_attempts.pop(payload.email, None)
+
+    access_token = create_access_token(user.email)
+    refresh_token = create_refresh_token(user.email)
+    
+    response.set_cookie(key="access_token", value=access_token, httponly=True, secure=True, samesite="lax", max_age=ACCESS_TOKEN_MINUTES * 60)
+    response.set_cookie(key="refresh_token", value=refresh_token, httponly=True, secure=True, samesite="lax", max_age=REFRESH_TOKEN_DAYS * 86400)
 
     return Token(
         access_token = access_token,
