@@ -557,8 +557,8 @@ function dismissToast(toast) {
     toast.addEventListener("animationend", function () { toast.remove(); });
 }
 
-window.updateQty = function (change) {
-    let quantityElement = document.querySelector(".qty"); // check class
+window.updateQty = function (element, change) {
+    let quantityElement = element ? element.parentElement.querySelector(".qty") : document.querySelector(".qty");
     let quantity = parseInt(quantityElement.textContent);
 
     quantity += change;
@@ -1770,3 +1770,4 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 })();
 /* --- END: PRODUCT QUICK-VIEW MODAL FUNCTIONALITY --- */
+
