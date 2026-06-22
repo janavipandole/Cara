@@ -155,7 +155,7 @@ function formatCurrency(amount) {
 function updateCartCount() {
     let cart = [];
     try {
-        cart = JSON.parse(localStorage.getItem("productsInCart")) || [];
+        cart = window.cachedCartState || JSON.parse(localStorage.getItem("productsInCart")) || []; window.cachedCartState = cart;
     } catch (e) {
         console.error("LocalStorage Parse Error", e);
     }
@@ -641,7 +641,7 @@ window.handleBuyNow = function () {
 window.appliedCoupon = localStorage.getItem("appliedCoupon") || null;
 
 window.loadCart = async function () {
-    let cart = JSON.parse(localStorage.getItem("productsInCart")) || [];
+    let cart = window.cachedCartState || JSON.parse(localStorage.getItem("productsInCart")) || []; window.cachedCartState = cart;
 
     handleEmptyCartView();
     if (typeof window.loadSavedItems === "function") window.loadSavedItems();
@@ -788,7 +788,7 @@ window.loadCart = async function () {
 };
 
 window.changeQuantity = function (index, change) {
-    let cart = JSON.parse(localStorage.getItem("productsInCart")) || [];
+    let cart = window.cachedCartState || JSON.parse(localStorage.getItem("productsInCart")) || []; window.cachedCartState = cart;
     if (!cart[index]) return;
     let newQty = cart[index].quantity + change;
     if (newQty < 1) newQty = 1;
@@ -1351,7 +1351,7 @@ function showWardrobeToast(msg, isError) {
 }
 
 window.shareWardrobe = function () {
-    var cart = JSON.parse(localStorage.getItem("productsInCart")) || [];
+    var cart = window.cachedCartState || JSON.parse(localStorage.getItem("productsInCart")) || []; window.cachedCartState = cart;
     var btn  = document.getElementById("share-cart-btn");
 
     if (cart.length === 0) {
@@ -1486,7 +1486,7 @@ window.applySharedCart = function (action) {
         return;
     }
 
-    var localCart = JSON.parse(localStorage.getItem("productsInCart")) || [];
+    var localcart = window.cachedCartState || JSON.parse(localStorage.getItem("productsInCart")) || []; window.cachedCartState = cart;
 
     if (action === "overwrite") {
         localCart = window.pendingSharedCart.slice();
@@ -1770,4 +1770,5 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 })();
 /* --- END: PRODUCT QUICK-VIEW MODAL FUNCTIONALITY --- */
+
 
