@@ -685,7 +685,7 @@ window.loadCart = async function () {
                 </div>
                 <div class="cart-item-details">
                     <span class="cart-item-brand">${item.brand || "Premium Brand"}</span>
-                    <h5 class="cart-item-title">${item.name}</h5>
+                    <h5 class="cart-item-title">${item.name.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</h5>
                     <span class="cart-item-size">Size: ${item.size}</span>
                 </div>
             </div>
@@ -1578,7 +1578,7 @@ window.loadSavedItems = function () {
                 </div>
                 <div class="cart-item-details">
                     <span class="cart-item-brand">${item.brand || "Premium Brand"}</span>
-                    <h5 class="cart-item-title">${item.name}</h5>
+                    <h5 class="cart-item-title">${item.name.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</h5>
                     <span class="cart-item-size">Size: ${item.size}</span>
                 </div>
             </div>
@@ -1770,3 +1770,4 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 })();
 /* --- END: PRODUCT QUICK-VIEW MODAL FUNCTIONALITY --- */
+
