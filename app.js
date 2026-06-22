@@ -30,7 +30,7 @@ document.addEventListener("click", function (e) {
     }
 
     // Identify product by name (acting as unique ID for now) instead of fragile DOM scraping
-    const nameElement = proCard.querySelector("h5");
+    const nameElement = proCard.querySelector("[data-product-id]") || proCard.querySelector("h5");
     const productName = nameElement ? nameElement.textContent.trim() : "Product";
 
     localStorage.setItem("selectedProductId", productName);
@@ -1770,3 +1770,4 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 })();
 /* --- END: PRODUCT QUICK-VIEW MODAL FUNCTIONALITY --- */
+
