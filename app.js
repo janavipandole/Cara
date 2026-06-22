@@ -5,7 +5,7 @@ document.addEventListener("click", (e) => {
 
     if (bar) {
         const nav = document.getElementById("navbar");
-        if (nav) nav.classList.add("active");
+        if (nav) { nav.classList.add("active"); nav.setAttribute("aria-expanded", "true"); }
     }
 
     if (close) {
@@ -1770,4 +1770,5 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 })();
 /* --- END: PRODUCT QUICK-VIEW MODAL FUNCTIONALITY --- */
+
 
