@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     smallImgs[0].src = finalImage;
                 }
             } catch (error) {
-                console.error("Error fetching product details:", error);
+                console.error("Error fetching product details:", error); if(document.getElementById("product-name")) document.getElementById("product-name").textContent = "Unable to load product";
             }
         }
 
@@ -1770,3 +1770,4 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 })();
 /* --- END: PRODUCT QUICK-VIEW MODAL FUNCTIONALITY --- */
+
