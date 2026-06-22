@@ -38,7 +38,8 @@ def recommend_outfit(request: Request, req: schemas.RecommendationRequest, db: S
     # personalization_tracker.rerank(req.user_id, filtered_candidates)
     
     # Limit results
-    return filtered_candidates[:req.limit]
+  limit = max(1, min(req.limit, 20))
+return filtered_candidates[:limit]
 
 @router.post("/feedback")
 @limiter.limit("30/minute")
