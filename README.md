@@ -209,6 +209,20 @@ Cara/
 
 <img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="1920" />
 
+
+## File Responsibilities
+
+| File | Responsibility |
+|------|---------------|
+| index.html | Main homepage of the website |
+| shop.html | Displays all products |
+| singleProduct.html | Shows detailed product information |
+| cart.html | Handles shopping cart display |
+| app.js | Controls website interactions and logic |
+| style.css | Contains global styles and layouts |
+| images/ | Stores static image assets |
+
+
 ## 📸 Screenshots
 Homepage - 
 <p align="center">
