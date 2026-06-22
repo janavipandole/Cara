@@ -25,6 +25,14 @@ def create_order(
                 status_code=400,
                 detail=f"Product not found: {item.product_name}"
             )
+            
+        if db_product.stock < item.quantity:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Insufficient stock for product: {item.product_name}"
+            )
+
+        db_product.stock -= item.quantity
 
         real_price = db_product.price
         subtotal += real_price * item.quantity
