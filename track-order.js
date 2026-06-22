@@ -249,20 +249,38 @@ function renderResult(order) {
   // Populate order items
   const itemsList = document.getElementById('orderItemsList');
   if (itemsList && order.items) {
-    itemsList.innerHTML = order.items
-      .map(function (item) {
-        return `
-        <div class="order-item">
-          <img src="${item.img}" alt="${item.name}" loading="lazy" />
-          <div class="item-info">
-            <h4>${item.name}</h4>
-            <span>Size: ${item.size} &nbsp;|&nbsp; Qty: ${item.qty}</span>
-          </div>
-          <span class="item-price">${item.price}</span>
-        </div>
-      `;
-      })
-      .join('');
+    itemsList.innerHTML = '';
+    order.items.forEach(function (item) {
+      const orderItem = document.createElement('div');
+      orderItem.className = 'order-item';
+      
+      const img = document.createElement('img');
+      img.src = item.img;
+      img.alt = item.name;
+      img.loading = 'lazy';
+      
+      const info = document.createElement('div');
+      info.className = 'item-info';
+      
+      const name = document.createElement('h4');
+      name.textContent = item.name;
+      
+      const sizeQty = document.createElement('span');
+      sizeQty.textContent = `Size: ${item.size}  |  Qty: ${item.qty}`;
+      
+      info.appendChild(name);
+      info.appendChild(sizeQty);
+      
+      const price = document.createElement('span');
+      price.className = 'item-price';
+      price.textContent = item.price;
+      
+      orderItem.appendChild(img);
+      orderItem.appendChild(info);
+      orderItem.appendChild(price);
+      
+      itemsList.appendChild(orderItem);
+    });
 
     // Update total
     const totalEl = document.querySelector('.order-total-row strong');
