@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       /* Simulate async request */
       setTimeout(function () {
-        const users = JSON.parse(localStorage.getItem('users') || '[]');
+        const users = JSON.parse(localStorage.getItem('cara_users') || '[]');
         const userIndex = users.findIndex((u) => u.email === email);
 
         if (userIndex === -1) {
@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         users[userIndex].password = newPass;
-        localStorage.setItem('users', JSON.stringify(users));
+        localStorage.setItem('cara_users', JSON.stringify(users));
 
         showToast(
           'Password reset successful! Redirecting to login...',
@@ -127,3 +127,4 @@ document.addEventListener('DOMContentLoaded', function () {
       }, 1500);
     });
 });
+
