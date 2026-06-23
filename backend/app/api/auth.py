@@ -20,7 +20,7 @@ from collections import OrderedDict
 failed_login_attempts = OrderedDict()
 MAX_TRACKED_EMAILS = 1000
 
-SECRET_KEY = os.environ.get("SECRET_KEY", "fallback_secret_key_for_dev")
+SECRET_KEY = os.environ.get("SECRET_KEY")
 if not SECRET_KEY:
     raise RuntimeError(
         "SECRET_KEY environment variable is not set. "
