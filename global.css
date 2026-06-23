@@ -3485,4 +3485,11 @@ footer .copyright {
   --element-spacing: 1.5rem;
 }
 
-/* TODO: Refactor utility color styles to custom properties */
+/* Utility color styles */
+.text-primary { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.bg-primary { background-color: var(--bg-primary); }
+.bg-secondary { background-color: var(--bg-secondary); }
+.text-accent { color: var(--accent); }
+.bg-accent { background-color: var(--accent); }
+.border-accent { border-color: var(--accent); }
