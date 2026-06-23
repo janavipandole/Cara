@@ -43,11 +43,11 @@ body[data-theme="dark"] {
 }
 
 #product1 .pro .cart:hover {
-  background-color: #088178;
+  background-color: var(--primary-color, #088178);
   color: #fff;
   transform: scale(1.12) translateY(-2px);
   box-shadow: 0 4px 12px rgba(8, 129, 120, 0.35);
-  border-color: #088178;
+  border-color: var(--primary-color, #088178);
 }
 
 #product1 .pro .cart i {
@@ -259,7 +259,7 @@ body[data-theme="dark"] {
     --border-color: #cce7d0;
     --shadow: rgba(0, 0, 0, 0.02);
     --shadow-hover: rgba(0, 0, 0, 0.25);
-    --accent: #088178;
+    --accent: var(--primary-color, #088178);
     --feature-bg-1: #fddde4;
     --feature-bg-2: #cdebbc;
     --feature-bg-3: #d1e8f2;
@@ -269,7 +269,7 @@ body[data-theme="dark"] {
     --input-bg: #ffffff;
     --footer-text: #222;
     --cart-icon-bg: #e8f6ea;
-    --feature-label-color: #088178;
+    --feature-label-color: var(--primary-color, #088178);
 }
 
 [data-theme="dark"] {
@@ -755,7 +755,7 @@ footer ~ * {
 }
 
 #hero .slide-content h4 {
-    color: #088178;
+    color: var(--primary-color, #088178);
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
 }
 
@@ -1483,7 +1483,7 @@ footer ~ * {
 .pro-cart-btn:hover {
     background: #1a1a1a;
     color: #ffffff;
-    border-color: #088178;
+    border-color: var(--primary-color, #088178);
     box-shadow: 0 0 0 2px rgba(8, 129, 120, 0.3);
 }
 
@@ -1722,7 +1722,7 @@ footer ~ * {
 
 #banner button:hover {
     color: #FFF;
-    background-color: #088178;
+    background-color: var(--primary-color, #088178);
 }
 
 #sm-banner {
@@ -1869,7 +1869,7 @@ footer ~ * {
 #newsletter .form button {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-    background-color: #088178;
+    background-color: var(--primary-color, #088178);
     color: #fff;
     white-space: nowrap;
 }
@@ -1970,7 +1970,7 @@ footer .newsletter-footer p {
 }
 
 footer .newsletter-footer p span {
-    color: #088178;
+    color: var(--primary-color, #088178);
     font-weight: 600;
 }
 
@@ -1997,7 +1997,7 @@ footer .newsletter-form input {
 }
 
 footer .newsletter-form input:focus {
-    border-color: #088178;
+    border-color: var(--primary-color, #088178);
 }
 
 footer .newsletter-form button {
@@ -2005,7 +2005,7 @@ footer .newsletter-form button {
     height: 44px;
     border: none;
     border-radius: 6px;
-    background-color: #088178;
+    background-color: var(--primary-color, #088178);
     color: white;
     font-weight: 600;
     cursor: pointer;
@@ -2032,7 +2032,7 @@ footer .install .row {
 }
 
 footer .install .row img {
-    border: 1px solid #088178;
+    border: 1px solid var(--primary-color, #088178);
     border-radius: 6px;
     max-width: calc(50% - 0.25rem);
     height: auto;
@@ -2068,7 +2068,7 @@ footer .install img {
 }
 
 .payment-icons i:hover {
-    color: #088178;
+    color: var(--primary-color, #088178);
     transform: scale(1.15);
 }
 
@@ -2091,7 +2091,7 @@ footer .copyright {
 }
 
 footer .copyright a {
-    color: #088178;
+    color: var(--primary-color, #088178);
     margin-bottom: 0;
 }
 
@@ -2236,7 +2236,7 @@ footer {
 
 #pagination a {
     text-decoration: none;
-    background-color: #088178;
+    background-color: var(--primary-color, #088178);
     padding: 15px 20px;
     border-radius: 4px;
     color: #fff;
@@ -2974,7 +2974,7 @@ footer {
             font-weight: 500;
             font-family: 'Outfit', 'Segoe UI', sans-serif;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
-            border-left: 4px solid #088178;
+            border-left: 4px solid var(--primary-color, #088178);
             pointer-events: all;
             position: relative;
             overflow: hidden;
@@ -3025,15 +3025,15 @@ footer {
 
         /* --- Toast Variants --- */
         .toast-success {
-            border-left-color: #088178;
+            border-left-color: var(--primary-color, #088178);
         }
 
         .toast-success .toast-icon {
-            color: #088178;
+            color: var(--primary-color, #088178);
         }
 
         .toast-success .toast-progress {
-            background: #088178;
+            background: var(--primary-color, #088178);
         }
 
         .toast-error {
@@ -3241,11 +3241,11 @@ footer {
         }
 
         #blog .blog-details a:hover {
-            color: #088178;
+            color: var(--primary-color, #088178);
         }
 
         #blog .blog-details a:hover::after {
-            background-color: #088178;
+            background-color: var(--primary-color, #088178);
         }
 
         /* ============================================
@@ -3325,7 +3325,7 @@ footer {
     letter-spacing: 1.2px;
     text-transform: uppercase;
 
-    color: #088178;
+    color: var(--primary-color, #088178);
     background: rgba(8, 129, 120, 0.08);
 
     border: 1px solid rgba(8, 129, 120, 0.12);
@@ -3344,7 +3344,7 @@ footer {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: #088178;
+    background: var(--primary-color, #088178);
     box-shadow: 0 0 12px rgba(8, 129, 120, 0.5);
 }
 
@@ -3429,7 +3429,7 @@ footer {
     font-weight: 800;
     line-height: 1;
     margin-bottom: 10px;
-    color: #088178;
+    color: var(--primary-color, #088178);
     letter-spacing: -1px;
     position: relative;
     z-index: 1;
@@ -3636,7 +3636,7 @@ footer {
             font-weight: 700;
             letter-spacing: 0.18em;
             text-transform: uppercase;
-            color: #088178;
+            color: var(--primary-color, #088178);
         }
 
         .cara-heading h2 {
@@ -3700,7 +3700,7 @@ footer {
 
         .cara-card:hover {
             transform: translateY(-8px);
-            border-color: #088178;
+            border-color: var(--primary-color, #088178);
             box-shadow: 0 18px 50px rgba(8, 129, 120, 0.12);
         }
 
@@ -3729,7 +3729,7 @@ footer {
         .cara-icon svg {
             width: 26px;
             height: 26px;
-            stroke: #088178;
+            stroke: var(--primary-color, #088178);
             fill: none;
             stroke-width: 1.9;
             stroke-linecap: round;
@@ -3939,7 +3939,7 @@ footer {
         }
 
         #form-details form button {
-            background-color: #088178;
+            background-color: var(--primary-color, #088178);
             color: #fff;
         }
 
@@ -4034,7 +4034,7 @@ footer {
 
         #cart table tbody tr:hover td {
             background-color: #1a1a1a !important;
-            box-shadow: inset 3px 0 0 #088178;
+            box-shadow: inset 3px 0 0 var(--primary-color, #088178);
         }
 
         #cart-add {
@@ -4074,7 +4074,7 @@ footer {
         .subtotal button {
             width: 100%;
             padding: 14px 20px;
-            background-color: #088178;
+            background-color: var(--primary-color, #088178);
             color: #fff;
             border: none;
             cursor: pointer;
@@ -4207,7 +4207,7 @@ footer {
 
             #cart table tbody tr:hover td {
                 background-color: #1a1a1a;
-                box-shadow: inset 3px 0 0 #088178;
+                box-shadow: inset 3px 0 0 var(--primary-color, #088178);
             }
             #cart table td {
                 word-break: break-word;
@@ -4242,7 +4242,7 @@ footer {
             }
 
             #cart-add .coupon button {
-                background-color: #088178;
+                background-color: var(--primary-color, #088178);
                 color: #fff;
                 cursor: pointer;
             }
@@ -4268,7 +4268,7 @@ footer {
             }
 
             .subtotal button {
-                background-color: #088178;
+                background-color: var(--primary-color, #088178);
                 color: #fff;
                 cursor: pointer;
             }
@@ -4374,9 +4374,9 @@ footer {
             input:focus {
                 outline: 2px solid transparent;
                 outline-offset: 2px;
-                border-color: #088178;
+                border-color: var(--primary-color, #088178);
                 ;
-                box-shadow: 0 0 0 1px #088178, 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+                box-shadow: 0 0 0 1px var(--primary-color, #088178), 0 1px 2px 0 rgba(0, 0, 0, 0.05);
             }
 
             /* Input Grouping */
@@ -4394,7 +4394,7 @@ footer {
 
             #forgot-password-link a {
                 font-weight: 500;
-                color: #088178;
+                color: var(--primary-color, #088178);
                 text-decoration: none;
             }
 
@@ -4419,21 +4419,21 @@ footer {
                 font-size: 0.875rem;
                 font-weight: 500;
                 color: #ffffff;
-                background-color: #088178;
+                background-color: var(--primary-color, #088178);
                 ;
                 cursor: pointer;
                 transition: background-color 0.15s ease-in-out;
             }
 
             #submitButton:hover {
-                background-color: #088178;
+                background-color: var(--primary-color, #088178);
                 ;
             }
 
             #submitButton:focus {
                 outline: 2px solid transparent;
                 outline-offset: 2px;
-                box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #088178;
+                box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px var(--primary-color, #088178);
                 ;
             }
 
@@ -4446,13 +4446,13 @@ footer {
 
             .toggle-auth-footer a {
                 font-weight: 500;
-                color: #088178;
+                color: var(--primary-color, #088178);
                 ;
                 text-decoration: none;
             }
 
             .toggle-auth-footer a:hover {
-                color: #088178;
+                color: var(--primary-color, #088178);
                 ;
             }
 
@@ -4575,3 +4575,4 @@ footer {
 
                 h4 {
                     font-size: 24px;
+
