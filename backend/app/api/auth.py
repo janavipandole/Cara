@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta, timezone
-from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi import APIRouter, Depends, HTTPException, Request, Response
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 from passlib.context import CryptContext
@@ -38,9 +38,17 @@ def create_token(email: str) -> str:
 
 # -- Helper: get current user from token --
 def get_current_user(
+    request: Request,
     token: str = Depends(oauth2_scheme),
     db: Session = Depends(get_db)
 ) -> models.User:
+    if not token:
+        token = request.cookies.get("access_token")
+        if token and token.startswith("Bearer "):
+            token = token.split(" ")[1]
+            
+    if not token:
+        raise HTTPException(401, "Not authenticated.")
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         email: str = payload.get("sub")
@@ -58,7 +66,7 @@ def get_current_user(
 # -- Register --
 @router.post("/register", response_model=Token, status_code=201)
 @limiter.limit("5/minute")
-def register(request: Request, payload: UserRegister, db: Session = Depends(get_db)):
+def register(request: Request, response: Response, payload: UserRegister, db: Session = Depends(get_db)):
     if db.query(models.User).filter(models.User.email == payload.email).first():
         raise HTTPException(409, "Email already registered.")
     if db.query(models.User).filter(models.User.username == payload.username).first():
@@ -74,8 +82,19 @@ def register(request: Request, payload: UserRegister, db: Session = Depends(get_
     db.commit()
     db.refresh(user)
 
+    access_token = create_token(user.email)
+    
+    response.set_cookie(
+        key="access_token",
+        value=f"Bearer {access_token}",
+        httponly=True,
+        secure=True,
+        samesite="lax",
+        max_age=TOKEN_DAYS * 24 * 60 * 60
+    )
+
     return Token(
-        access_token = create_token(user.email),
+        access_token = access_token,
         token_type   = "bearer",
         user         = UserOut.model_validate(user)
     )
@@ -84,7 +103,7 @@ def register(request: Request, payload: UserRegister, db: Session = Depends(get_
 # -- Login --
 @router.post("/login", response_model=Token)
 @limiter.limit("5/minute")
-def login(request: Request, payload: UserLogin, db: Session = Depends(get_db)):
+def login(request: Request, response: Response, payload: UserLogin, db: Session = Depends(get_db)):
     user = db.query(models.User).filter(models.User.email == payload.email).first()
 
     if not user or not pwd.verify(payload.password, user.hashed_password):
@@ -93,8 +112,19 @@ def login(request: Request, payload: UserLogin, db: Session = Depends(get_db)):
     if not user.is_active:
         raise HTTPException(403, "Account is deactivated.")
 
+    access_token = create_token(user.email)
+    
+    response.set_cookie(
+        key="access_token",
+        value=f"Bearer {access_token}",
+        httponly=True,
+        secure=True,
+        samesite="lax",
+        max_age=TOKEN_DAYS * 24 * 60 * 60
+    )
+
     return Token(
-        access_token = create_token(user.email),
+        access_token = access_token,
         token_type   = "bearer",
         user         = UserOut.model_validate(user)
     )

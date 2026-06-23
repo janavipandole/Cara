@@ -60,7 +60,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 throw new Error(data.detail || "Registration failed");
             }
 
-            localStorage.setItem("token", data.access_token);
             localStorage.setItem("user", JSON.stringify(data.user));
 
             messageBox.style.color = "green";

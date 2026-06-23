@@ -246,11 +246,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             localStorage.setItem(
-                'token',
-                data.access_token
-            );
-
-            localStorage.setItem(
                 'loggedInUser',
                 JSON.stringify({
                     name: data.user.username,

@@ -31,9 +31,8 @@ def setup_database():
 @pytest.fixture()
 def client():
     app.dependency_overrides[get_db] = override_get_db
-    # Bypass slowapi rate limiting in tests
-    app.state.limiter = MagicMock()
-    app.state.limiter.limit = lambda *a, **kw: (lambda f: f)
+    from app.limiter import limiter
+    limiter.enabled = False
     with TestClient(app) as c:
         yield c
     app.dependency_overrides.clear()
