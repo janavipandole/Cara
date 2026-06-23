@@ -6,8 +6,7 @@ from .api import auth
 from .limiter import limiter
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
-
-models.Base.metadata.create_all(bind=engine)
+# Database schema is now managed externally by Alembic migrations
 
 app = FastAPI(title="Cara AI Outfit Recommendation API")
 
@@ -52,7 +51,8 @@ def root():
     return {"message": "Cara AI Outfit Recommendation API is running."}
 
 # Include routers here later
-from .api import recommendation, products
+from .api import recommendation, products, auth, orders
 app.include_router(recommendation.router, prefix="/api/outfit", tags=["outfit"])
 app.include_router(products.router, prefix="/api/products", tags=["products"])
 app.include_router(auth.router,prefix="/api/auth",tags=["auth"])
+app.include_router(orders.router, prefix="/api/orders", tags=["orders"])

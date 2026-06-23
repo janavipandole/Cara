@@ -1,27 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Character Encoding -->
   <meta charset="UTF-8" />
+
+  <!-- Viewport for Responsive Design -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Page Title -->
   <title>Your Cart | Cara</title>
+
+  <!-- Favicon -->
   <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
+
+  <!-- SEO Meta Tags -->
   <meta name="description"
     content="Shop the latest trends on our e-commerce store. Dark theme supported for a better user experience." />
   <meta name="keywords" content="e-commerce, shopping, online store, dark mode, buy online, latest fashion" />
   <meta name="author" content=" Cara" />
   <meta name="robots" content="index, follow" />
+
+  <!-- Language -->
   <meta http-equiv="Content-Language" content="en" />
+
+  <!-- Open Graph (OG) Tags for Social Sharing -->
   <meta property="og:title" content="E-commerce - Dark Theme Working" />
   <meta property="og:description" content="Shop the latest trends with our dark mode-enabled e-commerce experience." />
   <meta property="og:image" content="https://cara-seven-ashen.vercel.app/images/logo.png" />
   <meta property="og:url" content="https://cara-seven-ashen.vercel.app/" />
   <meta property="og:type" content="website" />
+
+  <!-- Twitter Card Tags -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="E-commerce - Dark Theme Working" />
   <meta name="twitter:description" content="Dark theme e-commerce site with modern features." />
   <meta name="twitter:image" content="https://cara-seven-ashen.vercel.app/images/logo.png" />
   <meta name="twitter:site" content="@janavipandole" />
+
+  <!-- Theme Color for Mobile Browser -->
   <meta name="theme-color" content="#000000" />
+  
+  <!-- Stylesheets -->
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="ui-fix.css" />
   <link rel="stylesheet" href="empty-cart.css" />
@@ -465,8 +484,9 @@ button + button {
                 <div class="coupon-section">
                   <p style="font-size: 13px; font-weight: 500; margin-bottom: 8px;">Have a promotional coupon?</p>
                   <div class="coupon-input-group" style="display: flex; gap: 8px; margin-bottom: 8px;">
+                    <label for="coupon-code-input" class="sr-only" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">Coupon Code</label>
                     <input type="text" id="coupon-code-input" placeholder="Enter coupon (e.g. CARA20)" style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" />
-                    <button id="apply-coupon-btn" style="background: #088178; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: 600; transition: 0.3s;">Apply</button>
+                    <button id="apply-coupon-btn" aria-label="Apply coupon" style="background: #088178; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: 600; transition: 0.3s;">Apply</button>
                   </div>
                   <div id="coupon-feedback" style="font-size: 12px; font-weight: 600; min-height: 18px; margin-top: 5px;"></div>
                 </div>
@@ -477,8 +497,9 @@ button + button {
                     <p style="margin: 4px 0;">Balance: <strong id="loyalty-balance" style="color: #088178;">0</strong> pts</p>
                     <p style="margin: 4px 0;">Earn from order: <strong id="points-to-earn">0</strong> pts</p>
                     <div id="loyalty-apply-section" style="margin-top: 8px; display: flex; gap: 6px;">
+                        <label for="points-to-apply" class="sr-only" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">Redeem Points</label>
                         <input type="number" id="points-to-apply" placeholder="Redeem" style="padding: 6px; width: 80px; border: 1px solid #ccc; border-radius: 4px;" />
-                        <button id="apply-points-btn" style="padding: 6px 10px; background: #088178; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: 600;">Redeem</button>
+                        <button id="apply-points-btn" aria-label="Redeem loyalty points" style="padding: 6px 10px; background: #088178; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: 600;">Redeem</button>
                     </div>
                     <p id="loyalty-msg" style="margin: 6px 0 0 0; font-size: 12px; font-weight: 600; min-height: 15px;"></p>
                 </div>
@@ -628,7 +649,7 @@ button + button {
     <h4 style="color: #ffffff !important; font-size: 14px !important; font-weight: 700 !important; margin: 0 0 10px 0 !important; text-transform: uppercase; letter-spacing: 0.5px;">My Account</h4>
     <a href="login.html" style="color: #cbd5e1 !important; font-size: 13px !important; text-decoration: none; margin-bottom: 6px;">Sign In</a>
     <a href="cart.html" style="color: #cbd5e1 !important; font-size: 13px !important; text-decoration: none; margin-bottom: 6px;">View Cart</a>
-    <a href="javascript:void(0)" style="color: #cbd5e1 !important; font-size: 13px !important; text-decoration: none; margin-bottom: 6px;">My Wishlist</a>
+    <a href="wishlist.html" style="color: #cbd5e1 !important; font-size: 13px !important; text-decoration: none; margin-bottom: 6px;">My Wishlist</a>
     <a href="cart.html" style="color: #cbd5e1 !important; font-size: 13px !important; text-decoration: none; margin-bottom: 6px;">Track Order</a>
     <a href="contact.html" style="color: #cbd5e1 !important; font-size: 13px !important; text-decoration: none; margin-bottom: 12px;">Help</a>
 
@@ -647,8 +668,8 @@ button + button {
     <h4 style="color: #ffffff !important; font-size: 14px !important; font-weight: 700 !important; margin: 0 0 10px 0 !important; text-transform: uppercase; letter-spacing: 0.5px;">Newsletter</h4>
     <p style="color: #f1f5f9 !important; font-size: 13px !important; line-height: 1.4 !important; margin: 4px 0 10px 0 !important;">Get updates about our latest shop and <span style="color: #ffffff !important; font-weight: 600;">special offers.</span></p>
     <form class="newsletter-form" style="display: flex !important; width: 100% !important;">
-      <input type="email" placeholder="Your email address" required="" style="height: 34px !important; font-size: 12px !important; padding: 0 10px !important; border-radius: 4px 0 0 4px !important; border: none !important; flex-grow: 1 !important; width: 50% !important; min-width: 0 !important;">
-      <button type="submit" class="normal" style="height: 34px !important; font-size: 12px !important; background-color: #088178 !important; color: #ffffff !important; border: none !important; padding: 0 12px !important; border-radius: 0 4px 4px 0 !important; font-weight: 600 !important; cursor: pointer !important; flex-shrink: 0 !important;">Sign Up</button>
+      <input type="email" id="newsletter-email" placeholder="Your email address" aria-label="Email address for newsletter" required="" style="height: 34px !important; font-size: 12px !important; padding: 0 10px !important; border-radius: 4px 0 0 4px !important; border: none !important; flex-grow: 1 !important; width: 50% !important; min-width: 0 !important;">
+      <button type="submit" class="normal" aria-label="Sign up for newsletter" style="height: 34px !important; font-size: 12px !important; background-color: #088178 !important; color: #ffffff !important; border: none !important; padding: 0 12px !important; border-radius: 0 4px 4px 0 !important; font-weight: 600 !important; cursor: pointer !important; flex-shrink: 0 !important;">Sign Up</button>
     </form>
   </div>
 

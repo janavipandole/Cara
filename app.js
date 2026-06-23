@@ -5,7 +5,7 @@ document.addEventListener("click", (e) => {
 
     if (bar) {
         const nav = document.getElementById("navbar");
-        if (nav) nav.classList.add("active");
+        if (nav) { nav.classList.add("active"); nav.setAttribute("aria-expanded", "true"); }
     }
 
     if (close) {
@@ -29,30 +29,35 @@ document.addEventListener("click", function (e) {
         return;
     }
 
-    const nameElement  = proCard.querySelector("h5");
-    const priceElement = proCard.querySelector("h4");
-    const brandElement = proCard.querySelector(".des span");
-    const imageElement = proCard.querySelector("img");
+    // Identify product by name (acting as unique ID for now) instead of fragile DOM scraping
+    const nameElement = proCard.querySelector("h5");
+    const productName = nameElement ? nameElement.textContent.trim() : "Product";
 
-    const selectedProduct = {
-        name:  nameElement  ? nameElement.textContent.trim()  : "Product",
-        price: priceElement ? priceElement.textContent.trim() : "$0.00",
-        brand: brandElement ? brandElement.textContent.trim() : "Brand",
-        image: imageElement ? imageElement.src                : ""
-    };
-
-    localStorage.setItem("selectedProduct", JSON.stringify(selectedProduct));
+    localStorage.setItem("selectedProductId", productName);
     window.location.href = "singleProduct.html";
 }, true);
 
 // Dynamic Render on singleProduct.html
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     if (window.location.pathname.includes("singleProduct")) {
-        const storedProductJSON = localStorage.getItem("selectedProduct");
-
-        if (storedProductJSON) {
+        let productName = localStorage.getItem("selectedProductId");
+        
+        // Legacy fallback
+        if (!productName) {
             try {
-                const product = JSON.parse(storedProductJSON);
+                productName = JSON.parse(localStorage.getItem("selectedProduct") || "{}").name;
+            } catch (e) {}
+        }
+
+        if (productName) {
+            try {
+                // Fetch authentic data from backend instead of relying on scraped client DOM data
+                const res = await fetch("/api/products");
+                let dbProduct = null;
+                if (res.ok) {
+                    const products = await res.json();
+                    dbProduct = products.find(p => p.name === productName);
+                }
 
                 const nameEl       = document.getElementById("product-name");
                 const priceEl      = document.getElementById("product-price");
@@ -60,24 +65,29 @@ document.addEventListener("DOMContentLoaded", () => {
                 const breadcrumbEl = document.querySelector(".single-pro-details h6");
                 const smallImgs    = document.querySelectorAll(".small-img");
 
-                if (nameEl)    nameEl.textContent    = product.name;
-                if (priceEl)   priceEl.textContent   = product.price;
-                if (mainImgEl) mainImgEl.src          = product.image;
+                const finalName = dbProduct ? dbProduct.name : productName;
+                const finalPrice = dbProduct ? formatCurrency(dbProduct.price) : "Contact for Price";
+                const finalImage = dbProduct ? dbProduct.img : "";
+                const finalBrand = dbProduct ? dbProduct.brand : "Brand";
 
-                if (breadcrumbEl && product.brand) {
+                if (nameEl)    nameEl.textContent    = finalName;
+                if (priceEl)   priceEl.textContent   = finalPrice;
+                if (mainImgEl) mainImgEl.src          = finalImage;
+
+                if (breadcrumbEl && finalBrand) {
                     let productType = "T-Shirt";
-                    if      (product.name.toLowerCase().includes("trousers")) productType = "Trousers";
-                    else if (product.name.toLowerCase().includes("shorts"))   productType = "Shorts";
-                    else if (product.name.toLowerCase().includes("blouse"))   productType = "Blouse";
-                    else if (product.name.toLowerCase().includes("shirt"))    productType = "Shirt";
-                    breadcrumbEl.textContent = `Home / ${product.brand} / ${productType}`;
+                    if      (finalName.toLowerCase().includes("trousers")) productType = "Trousers";
+                    else if (finalName.toLowerCase().includes("shorts"))   productType = "Shorts";
+                    else if (finalName.toLowerCase().includes("blouse"))   productType = "Blouse";
+                    else if (finalName.toLowerCase().includes("shirt"))    productType = "Shirt";
+                    breadcrumbEl.textContent = `Home / ${finalBrand} / ${productType}`;
                 }
 
-                if (smallImgs.length > 0 && product.image) {
-                    smallImgs[0].src = product.image;
+                if (smallImgs.length > 0 && finalImage) {
+                    smallImgs[0].src = finalImage;
                 }
             } catch (error) {
-                console.error("Error parsing stored product:", error);
+                console.error("Error fetching product details:", error); if(document.getElementById("product-name")) document.getElementById("product-name").textContent = "Unable to load product";
             }
         }
 
@@ -145,7 +155,7 @@ function formatCurrency(amount) {
 function updateCartCount() {
     let cart = [];
     try {
-        cart = JSON.parse(localStorage.getItem("productsInCart")) || [];
+        cart = window.cachedCartState || JSON.parse(localStorage.getItem("productsInCart")) || []; window.cachedCartState = cart;
     } catch (e) {
         console.error("LocalStorage Parse Error", e);
     }
@@ -185,6 +195,202 @@ function updateWishlistCount() {
 }
 
 window.updateWishlistCount = updateWishlistCount;
+
+// GLOBAL WISHLIST LOGIC
+function formatRupee(amount) {
+    const num = parsePriceString(amount);
+    return "₹" + Math.round(num).toLocaleString("en-IN");
+}
+
+function hasPriceDropped(item) {
+    return (
+        typeof item.currentPrice === "number" &&
+        typeof item.previousPrice === "number" &&
+        item.currentPrice < item.previousPrice
+    );
+}
+
+function getPriceDropAmount(item) {
+    return hasPriceDropped(item) ? item.previousPrice - item.currentPrice : 0;
+}
+
+function normalizeWishlistItem(item) {
+    const rawPrice = item.price || item.priceText || "₹0";
+    const currentPrice =
+        typeof item.currentPrice === "number"
+            ? item.currentPrice
+            : parsePriceString(rawPrice);
+    const previousPrice =
+        typeof item.previousPrice === "number"
+            ? item.previousPrice
+            : currentPrice;
+
+    return {
+        id: item.id || item.name,
+        name: item.name || "Product",
+        brand: item.brand || "Cara",
+        image: item.image || item.img || "images/products/f1.jpg",
+        price: formatRupee(currentPrice),
+        priceValue: currentPrice,
+        currentPrice,
+        previousPrice,
+    };
+}
+
+function refreshWishlistPrices(items) {
+    if (!Array.isArray(items) || typeof products === "undefined") return items;
+
+    let changed = false;
+    const catalog = products;
+
+    const updated = items.map((item) => {
+        const normalized = normalizeWishlistItem(item);
+        const catalogItem = catalog.find(
+            (p) => p.id === normalized.id || p.name === normalized.name
+        );
+
+        if (!catalogItem) return normalized;
+
+        const actualPrice = parsePriceString(catalogItem.price);
+        if (actualPrice !== normalized.currentPrice) {
+            normalized.previousPrice = normalized.currentPrice;
+            normalized.currentPrice = actualPrice;
+            normalized.price = formatRupee(actualPrice);
+            normalized.priceValue = actualPrice;
+            changed = true;
+        }
+
+        return normalized;
+    });
+
+    if (changed) {
+        localStorage.setItem("wishlist", JSON.stringify(updated));
+    }
+
+    return updated;
+}
+
+function getWishlist() {
+    let wishlist = [];
+    try {
+        const val = localStorage.getItem("wishlist");
+        wishlist = val ? JSON.parse(val) : [];
+    } catch (e) {
+        wishlist = [];
+    }
+    const normalized = Array.isArray(wishlist)
+        ? wishlist.map(normalizeWishlistItem)
+        : [];
+    return refreshWishlistPrices(normalized);
+}
+
+function saveWishlist(wishlist) {
+    localStorage.setItem(
+        "wishlist",
+        JSON.stringify(wishlist.map(normalizeWishlistItem))
+    );
+    if (typeof updateWishlistCount === "function") {
+        updateWishlistCount();
+    }
+}
+
+function isInWishlist(productName) {
+    return getWishlist().some((item) => item.name === productName);
+}
+
+function updateWishlistButtonState(button, isSaved) {
+    if (!button) return;
+
+    const productName = button.dataset.productName || "product";
+    button.classList.toggle("active", isSaved);
+    button.setAttribute("aria-pressed", String(isSaved));
+    button.setAttribute(
+        "aria-label",
+        isSaved
+            ? `Remove ${productName} from wishlist`
+            : `Add ${productName} to wishlist`
+    );
+    button.title = isSaved ? "Remove from wishlist" : "Add to wishlist";
+    button.innerHTML = `<i class="${isSaved ? "ri-heart-fill" : "ri-heart-line"}" aria-hidden="true"></i>`;
+
+    if (button.classList.contains("product-wishlist-btn")) {
+        const label = document.createElement("span");
+        label.textContent = isSaved ? "Saved" : "Wishlist";
+        button.appendChild(label);
+    }
+}
+
+function syncWishlistButtons() {
+    document
+        .querySelectorAll(".wishlist-btn[data-product-name]")
+        .forEach((button) => {
+            updateWishlistButtonState(
+                button,
+                isInWishlist(button.dataset.productName)
+            );
+        });
+}
+
+function toggleWishlistItem(product, button) {
+    const item = normalizeWishlistItem(product);
+    let wishlist = getWishlist();
+    const exists = wishlist.some((wishItem) => wishItem.name === item.name);
+
+    if (exists) {
+        wishlist = wishlist.filter((wishItem) => wishItem.name !== item.name);
+        if (typeof showToast === "function")
+            showToast(`${item.name} removed from wishlist`, "info");
+    } else {
+        wishlist.push(item);
+        if (typeof showToast === "function")
+            showToast(`${item.name} added to wishlist`, "success");
+    }
+
+    saveWishlist(wishlist);
+    updateWishlistButtonState(button, !exists);
+    syncWishlistButtons();
+}
+
+window.getWishlist = getWishlist;
+window.saveWishlist = saveWishlist;
+window.toggleWishlistItem = toggleWishlistItem;
+window.syncWishlistButtons = syncWishlistButtons;
+window.hasPriceDropped = hasPriceDropped;
+window.getPriceDropAmount = getPriceDropAmount;
+
+function injectGlobalWishlistButtons() {
+    document.querySelectorAll(".pro").forEach((card) => {
+        const actionBar = card.querySelector(".pro-action-bar");
+        if (!actionBar) return;
+        
+        if (actionBar.querySelector(".wishlist-btn")) return;
+
+        const nameElem = card.querySelector(".des h5");
+        const priceElem = card.querySelector(".des h4");
+        const imgElem = card.querySelector(".pro-img-wrap img");
+        const brandElem = card.querySelector(".pro-brand-row span");
+
+        const name = nameElem ? nameElem.textContent.trim() : "Product";
+        const price = priceElem ? priceElem.textContent.trim() : "₹0";
+        const img = imgElem ? imgElem.src : "images/products/f1.jpg";
+        const brand = brandElem ? brandElem.textContent.trim() : "Cara";
+
+        const wishlistBtn = document.createElement("button");
+        wishlistBtn.type = "button";
+        wishlistBtn.className = "wishlist-btn";
+        wishlistBtn.dataset.productName = name;
+        
+        updateWishlistButtonState(wishlistBtn, isInWishlist(name));
+        
+        wishlistBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            toggleWishlistItem({ id: Date.now(), name, brand, price, image: img, currentPrice: price, previousPrice: price }, wishlistBtn);
+        });
+
+        actionBar.appendChild(wishlistBtn);
+    });
+}
 
 function createWishlistNavLink() {
     const link = document.createElement("a");
@@ -263,6 +469,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updateCartCount();
     updateWishlistCount();
     initSingleProductWishlist();
+    injectGlobalWishlistButtons();
 });
 
 // Toggle empty-cart view
@@ -433,20 +640,38 @@ window.handleBuyNow = function () {
 
 window.appliedCoupon = localStorage.getItem("appliedCoupon") || null;
 
-window.loadCart = function () {
-    let cart = JSON.parse(localStorage.getItem("productsInCart")) || [];
+window.loadCart = async function () {
+    let cart = window.cachedCartState || JSON.parse(localStorage.getItem("productsInCart")) || []; window.cachedCartState = cart;
 
     handleEmptyCartView();
     if (typeof window.loadSavedItems === "function") window.loadSavedItems();
 
     const itemsContainer = document.getElementById("cart-items-container");
     if (!itemsContainer) return;
+    
+    // Fetch authentic prices from backend
+    let dbProducts = [];
+    try {
+        const res = await fetch("/api/products");
+        if (res.ok) {
+            dbProducts = await res.json();
+        }
+    } catch (err) {
+        console.error("Failed to fetch secure prices:", err);
+    }
 
     itemsContainer.innerHTML = "";
     let subtotal = 0;
 
     cart.forEach((item, index) => {
-        const itemPrice    = parsePriceString(item.price);
+        // Enforce true price from database instead of trusting local storage
+        let authenticPrice = item.price;
+        const dbMatch = dbProducts.find(p => p.name === item.name);
+        if (dbMatch) {
+            authenticPrice = dbMatch.price;
+        }
+
+        const itemPrice    = parsePriceString(authenticPrice);
         const itemQty      = parseInt(item.quantity) || 1;
         const itemSubtotal = itemPrice * itemQty;
         subtotal          += itemSubtotal;
@@ -563,7 +788,7 @@ window.loadCart = function () {
 };
 
 window.changeQuantity = function (index, change) {
-    let cart = JSON.parse(localStorage.getItem("productsInCart")) || [];
+    let cart = window.cachedCartState || JSON.parse(localStorage.getItem("productsInCart")) || []; window.cachedCartState = cart;
     if (!cart[index]) return;
     let newQty = cart[index].quantity + change;
     if (newQty < 1) newQty = 1;
@@ -1126,7 +1351,7 @@ function showWardrobeToast(msg, isError) {
 }
 
 window.shareWardrobe = function () {
-    var cart = JSON.parse(localStorage.getItem("productsInCart")) || [];
+    var cart = window.cachedCartState || JSON.parse(localStorage.getItem("productsInCart")) || []; window.cachedCartState = cart;
     var btn  = document.getElementById("share-cart-btn");
 
     if (cart.length === 0) {
@@ -1261,7 +1486,7 @@ window.applySharedCart = function (action) {
         return;
     }
 
-    var localCart = JSON.parse(localStorage.getItem("productsInCart")) || [];
+    var localcart = window.cachedCartState || JSON.parse(localStorage.getItem("productsInCart")) || []; window.cachedCartState = cart;
 
     if (action === "overwrite") {
         localCart = window.pendingSharedCart.slice();
@@ -1545,3 +1770,5 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 })();
 /* --- END: PRODUCT QUICK-VIEW MODAL FUNCTIONALITY --- */
+
+

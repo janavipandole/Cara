@@ -16,6 +16,7 @@ class Product(Base):
     subcategory = Column(String, index=True, nullable=True) # e.g. top, bottom, shoes
     color = Column(String, nullable=True)
     style = Column(String, nullable=True)
+    stock = Column(Integer, default=10, nullable=False)
     
 class Interaction(Base):
     __tablename__ = "interactions"
@@ -39,3 +40,28 @@ class User(Base):
     role            = Column(String, default="USER", nullable=False) 
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime,  default=lambda: datetime.now(timezone.utc))
+
+class Order(Base):
+    __tablename__ = "orders"
+    id = Column(Integer, primary_key=True, index=True)
+    full_name = Column(String, nullable=False)
+    email = Column(String, nullable=False)
+    address = Column(String, nullable=False)
+    city = Column(String, nullable=False)
+    zip_code = Column(String, nullable=False)
+    total_amount = Column(Float, nullable=False)
+    status = Column(String, default="PENDING")
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+class OrderItem(Base):
+    __tablename__ = "order_items"
+    id = Column(Integer, primary_key=True, index=True)
+   order_id = Column(
+    Integer,
+    ForeignKey("orders.id"),
+    nullable=False
+)
+    product_name = Column(String, nullable=False)
+    quantity = Column(Integer, nullable=False)
+    price = Column(Float, nullable=False)
+    order = relationship("Order")

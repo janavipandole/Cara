@@ -6,12 +6,6 @@
 - **Workflows**: GitHub actions verify builds, run dependency checks, and auto-label code triage.
 - **Asset Assets**: Located under `assets/` and `images/` directories.
 
-## Architecture Overview
-- **Frontend**: Clean semantic HTML5, modern vanilla CSS, responsive layouts, and app.js state handling.
-- **Database**: SQLite `cara.db` file mapping backend models.
-- **Workflows**: GitHub actions verify builds, run dependency checks, and auto-label code triage.
-- **Asset Assets**: Located under `assets/` and `images/` directories.
-
 > Officially participating in
 ## GSSOC 2026
 ## ELUSOC 2026
@@ -202,12 +196,30 @@ Cara/
 ├── singleProduct.html      # Product detail page
 ├── app.js                  # Main JavaScript file
 ├── style.css               # Main stylesheet
+├── Cara-main/              # Archive of the original source (Reference only)
 ├── LICENSE                 # MIT License
 ├── README.md               # This file
 └── CONTRIBUTING.md         # Contribution guidelines
 ```
 
+> **Note on `Cara-main/`**: This directory contains an archival copy of the original project structure. For all GSSoC 2026 contributions and active development, please modify the files in the **root directory**. The root files are the primary source of truth for deployment and maintenance.
+
+
 <img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="1920" />
+
+
+## File Responsibilities
+
+| File | Responsibility |
+|------|---------------|
+| index.html | Main homepage of the website |
+| shop.html | Displays all products |
+| singleProduct.html | Shows detailed product information |
+| cart.html | Handles shopping cart display |
+| app.js | Controls website interactions and logic |
+| style.css | Contains global styles and layouts |
+| images/ | Stores static image assets |
+
 
 ## 📸 Screenshots
 Homepage - 
@@ -329,7 +341,8 @@ Made with ❤️ by [Janavi Pandole](https://github.com/janavipandole)
 </div>
 
 
-<!-- TODO: Add local linting troubleshooting instructions -->
+### Linting Troubleshooting
+If you encounter issues when running `npm run lint` or `eslint` locally, ensure you have run `npm install` to install all necessary dependencies. Common errors might stem from mismatched Node versions; this project recommends Node.js v16 or above. You can automatically fix simple formatting issues by running `npm run lint -- --fix` or `npx eslint . --fix`.
 
 
 <!-- Setup guidelines including package-lock node_modules cleanup directives. -->

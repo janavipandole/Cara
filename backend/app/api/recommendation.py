@@ -1,13 +1,18 @@
 from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
 from typing import List
+import hashlib
+import os
 from .. import models, schemas
 from ..database import get_db
 from ..vector_search.faiss_index import get_similar_product_ids
+import hashlib
+import os
 from ..rules.engine import filter_by_rules
 from ..limiter import limiter
 
 router = APIRouter()
+SALT = os.environ.get("SECRET_KEY", "fallback_secret_key_for_dev").encode('utf-8')
 
 @router.post("/recommend", response_model=List[schemas.Product])
 @limiter.limit("20/minute")
@@ -33,7 +38,8 @@ def recommend_outfit(request: Request, req: schemas.RecommendationRequest, db: S
     # personalization_tracker.rerank(req.user_id, filtered_candidates)
     
     # Limit results
-    return filtered_candidates[:req.limit]
+  limit = max(1, min(req.limit, 20))
+return filtered_candidates[:limit]
 
 @router.post("/feedback")
 @limiter.limit("30/minute")
@@ -41,7 +47,15 @@ def track_feedback(request: Request, interaction: schemas.InteractionCreate, db:
     product = db.query(models.Product).filter(models.Product.id == interaction.product_id).first()
     if not product:
         raise HTTPException(status_code=404, detail="Product not found")
-    new_interaction = models.Interaction(**interaction.model_dump())
+        
+    # Anonymize PII (like raw IP addresses) via salted hashing before database insertion
+    hashed_user_id = hashlib.sha256(interaction.user_id.encode('utf-8') + SALT).hexdigest()
+    
+    new_interaction = models.Interaction(
+        user_id=hashed_user_id,
+        product_id=interaction.product_id,
+        interaction_type=interaction.interaction_type
+    )
     db.add(new_interaction)
     db.commit()
     return {"status": "success"}
