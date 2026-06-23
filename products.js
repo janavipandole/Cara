@@ -949,12 +949,26 @@ function showToast(message, type = 'success') {
   if (type === 'info') icon = 'ℹ️';
 
   // Build Toast inner body to match your existing CSS layout (.toast-icon, .toast-msg, .toast-close, .toast-progress)
-  toast.innerHTML = `
-        <div class="toast-icon">${icon}</div>
-        <div class="toast-msg">${message}</div>
-        <button class="toast-close" onclick="this.parentElement.remove()">&times;</button>
-        <div class="toast-progress"></div>
-    `;
+  const iconDiv = document.createElement('div');
+  iconDiv.className = 'toast-icon';
+  iconDiv.textContent = icon;
+  
+  const msgDiv = document.createElement('div');
+  msgDiv.className = 'toast-msg';
+  msgDiv.textContent = message;
+  
+  const closeBtn = document.createElement('button');
+  closeBtn.className = 'toast-close';
+  closeBtn.innerHTML = '&times;';
+  closeBtn.onclick = function() { this.parentElement.remove(); };
+  
+  const progressDiv = document.createElement('div');
+  progressDiv.className = 'toast-progress';
+  
+  toast.appendChild(iconDiv);
+  toast.appendChild(msgDiv);
+  toast.appendChild(closeBtn);
+  toast.appendChild(progressDiv);
 
   container.appendChild(toast);
 
