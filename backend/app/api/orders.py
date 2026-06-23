@@ -47,26 +47,26 @@ def create_order(
 
     shipping = 0.0 if subtotal >= 3000 else 150.0
     tax = round(subtotal * 0.18, 2)
-   discount = 0.0
+    discount = 0.0
 
-valid_coupons = {
-    "CARA20": 20,
-    "WELCOME10": 10,
-}
+    valid_coupons = {
+        "CARA20": 20,
+        "WELCOME10": 10,
+    }
 
-if order_data.coupon:
-    coupon_code = order_data.coupon.strip().upper()
+    if order_data.coupon:
+        coupon_code = order_data.coupon.strip().upper()
 
-    if coupon_code not in valid_coupons:
-        raise HTTPException(
-            status_code=400,
-            detail="Invalid coupon code"
+        if coupon_code not in valid_coupons:
+            raise HTTPException(
+                status_code=400,
+                detail="Invalid coupon code"
+            )
+
+        discount = round(
+            subtotal * valid_coupons[coupon_code] / 100,
+            2
         )
-
-    discount = round(
-        subtotal * valid_coupons[coupon_code] / 100,
-        2
-    )
 
 
     grand_total = max(0, subtotal + tax + shipping - discount)
