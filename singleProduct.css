@@ -443,3 +443,5 @@
     outline: 3px solid rgba(8, 129, 120, 0.28);
     outline-offset: 3px;
 }
+/* Fix #2419 */
+.animate-paused { animation-play-state: paused; }
