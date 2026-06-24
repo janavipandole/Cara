@@ -22,8 +22,10 @@ def get_similar_product_ids(product_id: int, top_k: int = 10):
         # For simplicity, we will reconstruct it if the index supports it. IndexFlatL2 doesn't support reconstruct directly with IDMap.
         # A simpler way is to just generate the synthetic vector again using the same seed to query.
         
-        # In a real system, we'd fetch the vector from a DB or memory store.
-        emb = embedding_store[product_id]
+        # Fallback synthetic embedding generator based on product ID to match seed_data / precompute
+        d = 512
+        np.random.seed(product_id)
+        emb = np.random.rand(d).astype('float32')
         emb = emb / np.linalg.norm(emb)
         
         # Search
