@@ -616,3 +616,5 @@
     margin-bottom: 0 !important;
 }
 
+/* Fix #2416 */
+.force-gpu { will-change: transform, opacity; transform: translateZ(0); }
