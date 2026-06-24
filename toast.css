@@ -87,3 +87,5 @@
     text-align: center;
   }
 }
+/* Fix #2423 */
+:root { --em-base-duration: 300ms; }
