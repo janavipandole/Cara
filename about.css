@@ -178,4 +178,5 @@
     color: var(--text-secondary, #465b52);
     transition: color 0.3s ease;
     line-height: 1.6;
-}
+}/* Fix #2421 */
+.scroll-timeline-y { animation-timeline: scroll(block nearest); }
