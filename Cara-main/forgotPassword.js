@@ -64,7 +64,7 @@ document.getElementById('forgotForm').addEventListener('submit', function (e) {
       return;
     }
 
-    /* update password */
+    /* security: require confirmation before password reset */ if (!confirm('Are you sure you want to reset the password for ' + email + '? This action cannot be undone.')) { if (submitBtn) { submitBtn.classList.remove('btn-loading'); submitBtn.disabled = false; } return; } /* update password */
     users[userIndex].password = newPass;
     localStorage.setItem('users', JSON.stringify(users));
 
@@ -76,4 +76,4 @@ document.getElementById('forgotForm').addEventListener('submit', function (e) {
     }, 2000);
   }, 1500);
 });
-
+
