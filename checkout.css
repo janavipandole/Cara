@@ -624,3 +624,5 @@ textarea {
   display: block;
 }
 
+/* Fix #2424 */
+.fade-out { animation-name: fadeOut; } @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
