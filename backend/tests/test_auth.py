@@ -8,7 +8,7 @@ ME_URL = "/api/auth/me"
 VALID_USER = {
     "username": "testuser",
     "email": "testuser@example.com",
-    "password": "Secure123",
+    "password": "Secure123@",
 }
 
 
@@ -50,7 +50,7 @@ def test_register_invalid_email(client):
 
 def test_login_success(client):
     client.post(REGISTER_URL, json={**VALID_USER, "username": "loginuser", "email": "login@example.com"})
-    r = client.post(LOGIN_URL, json={"email": "login@example.com", "password": "Secure123"})
+    r = client.post(LOGIN_URL, json={"email": "login@example.com", "password": "Secure123@"})
     assert r.status_code == 200
     assert "access_token" in r.json()
 
@@ -62,7 +62,7 @@ def test_login_wrong_password(client):
 
 
 def test_login_nonexistent_user(client):
-    r = client.post(LOGIN_URL, json={"email": "ghost@example.com", "password": "Secure123"})
+    r = client.post(LOGIN_URL, json={"email": "ghost@example.com", "password": "Secure123@"})
     assert r.status_code == 401
 
 
@@ -72,9 +72,9 @@ def test_login_nonexistent_user(client):
 
 def test_me_returns_user(client):
     client.post(REGISTER_URL, json={**VALID_USER, "username": "meuser", "email": "me@example.com"})
-    login = client.post(LOGIN_URL, json={"email": "me@example.com", "password": "Secure123"})
+    login = client.post(LOGIN_URL, json={"email": "me@example.com", "password": "Secure123@"})
     token = login.json()["access_token"]
-    r = client.get(ME_URL, headers={"Authorization": f"Bearer {token}"})
+    r = client.get(ME_URL, cookies={"access_token": f"Bearer {token}"})
     assert r.status_code == 200
     assert r.json()["email"] == "me@example.com"
 
@@ -85,5 +85,5 @@ def test_me_requires_auth(client):
 
 
 def test_me_rejects_invalid_token(client):
-    r = client.get(ME_URL, headers={"Authorization": "Bearer invalid.token.here"})
+    r = client.get(ME_URL, cookies={"access_token": "Bearer invalid.token.here"})
     assert r.status_code == 401
