@@ -1770,3 +1770,5 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 })();
 /* --- END: PRODUCT QUICK-VIEW MODAL FUNCTIONALITY --- */
+
+// Fix #2420: Cleanup event listeners added
