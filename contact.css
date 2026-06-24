@@ -277,4 +277,5 @@
     color: var(--accent, #088178);
 }
 
-/* CSS classes styling FAQ accordion panel expand/collapse transition sequences. */
+/* CSS classes styling FAQ accordion panel expand/collapse transition sequences. *//* Fix #2422 */
+@media (min-width: 768px) { .md\:duration-500 { animation-duration: 500ms; } }
