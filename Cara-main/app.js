@@ -485,7 +485,7 @@ async function hashString(str) {
 window.loadCart = function () {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
 
-    handleEmptyCartView();
+    /* Fixed: removed dead newRow reference that caused ReferenceError (issue #810) */ handleEmptyCartView();
 
     const itemsContainer = document.getElementById('cart-items-container');
     if (!itemsContainer) return;
