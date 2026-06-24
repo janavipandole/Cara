@@ -346,3 +346,6 @@ If you encounter issues when running `npm run lint` or `eslint` locally, ensure 
 
 
 <!-- Setup guidelines including package-lock node_modules cleanup directives. -->
+
+## Production Optimization
+Use PurgeCSS to remove unused classes. (Fix #2418)
