@@ -47,7 +47,7 @@ def create_order(
 
     shipping = 0.0 if subtotal >= 3000 else 150.0
     tax = round(subtotal * 0.18, 2)
-   discount = 0.0
+    discount = 0.0
 
 valid_coupons = {
     "CARA20": 20,
