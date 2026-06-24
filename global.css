@@ -3486,3 +3486,5 @@ footer .copyright {
 }
 
 /* TODO: Refactor utility color styles to custom properties */
+/* Fix #2415 */
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
