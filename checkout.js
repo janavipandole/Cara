@@ -279,7 +279,7 @@ if (submitBtn) {
     coupon: window.appliedCoupon,
     items: cart.map(item => ({
       product_name: item.name,
-      quantity: item.quantity,
+      quantity: parseInt(item.quantity) || 1,
       price: item.price
     }))
   };
