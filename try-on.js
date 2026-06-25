@@ -781,9 +781,9 @@ document.addEventListener("click", function (e) {
     html.setAttribute("data-theme", next);
     localStorage.setItem("theme", next);
 
-    var icon = document.getElementById("themeIcon");
-    var iconM = document.getElementById("themeIconMobile");
-    var cls = next === "dark" ? "ri-sun-line" : "ri-moon-line";
+    let icon = document.getElementById("themeIcon");
+    let iconM = document.getElementById("themeIconMobile");
+    let cls = next === "dark" ? "ri-sun-line" : "ri-moon-line";
     if (icon) icon.className = cls;
     if (iconM) iconM.className = cls;
 });

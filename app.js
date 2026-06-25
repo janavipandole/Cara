@@ -139,14 +139,14 @@ document.addEventListener("DOMContentLoaded", () => {
 function parsePriceString(priceStr) {
     if (typeof priceStr === "number") return isFinite(priceStr) ? priceStr : 0;
     if (!priceStr) return 0;
-    var cleaned = String(priceStr).replace(/[₹$,\s]/g, "").replace(/&#?\w+;/g, "");
-    var num = parseFloat(cleaned);
+    let cleaned = String(priceStr).replace(/[₹$,\s]/g, "").replace(/&#?\w+;/g, "");
+    let num = parseFloat(cleaned);
     return isFinite(num) ? num : 0;
 }
 
 // Consistent currency formatter
 function formatCurrency(amount) {
-    var num = typeof amount === "number" ? amount : parsePriceString(amount);
+    let num = typeof amount === "number" ? amount : parsePriceString(amount);
     if (!isFinite(num)) num = 0;
     return "₹" + Math.round(num).toLocaleString("en-IN");
 }
@@ -523,21 +523,21 @@ function addToCart(productName, productPrice, productImage, quantity, size) {
 function showToast(message, type) {
     type = type || "success";
 
-    var container = document.getElementById("toast-container");
+    let container = document.getElementById("toast-container");
     if (!container) {
         container    = document.createElement("div");
         container.id = "toast-container";
         document.body.appendChild(container);
     }
 
-    var icons = {
+    let icons = {
         success: "fa-circle-check",
         error:   "fa-circle-xmark",
         warning: "fa-triangle-exclamation",
         info:    "fa-circle-info"
     };
 
-    var toast       = document.createElement("div");
+    let toast       = document.createElement("div");
     toast.className = "toast toast-" + type;
     toast.innerHTML =
         '<i class="fa-solid ' + (icons[type] || icons.success) + ' toast-icon"></i>' +
@@ -1351,24 +1351,24 @@ function showWardrobeToast(msg, isError) {
 }
 
 window.shareWardrobe = function () {
-    var cart = window.cachedCartState || JSON.parse(localStorage.getItem("productsInCart")) || []; window.cachedCartState = cart;
-    var btn  = document.getElementById("share-cart-btn");
+    let cart = window.cachedCartState || JSON.parse(localStorage.getItem("productsInCart")) || []; window.cachedCartState = cart;
+    let btn  = document.getElementById("share-cart-btn");
 
     if (cart.length === 0) {
         showToast("Your cart is empty! Add some items before sharing.", "error");
         return;
     }
     try {
-        var minimizedCart  = cart.map(function (item) {
+        let minimizedCart  = cart.map(function (item) {
             return { n: item.name, p: item.price, i: item.image, q: item.quantity, s: item.size };
         });
-        var base64Payload  = btoa(unescape(encodeURIComponent(JSON.stringify(minimizedCart))));
-        var shareUrl       = window.location.origin + window.location.pathname + "#share=" + base64Payload;
+        let base64Payload  = btoa(unescape(encodeURIComponent(JSON.stringify(minimizedCart))));
+        let shareUrl       = window.location.origin + window.location.pathname + "#share=" + base64Payload;
 
         showToast("Wardrobe share link copied to clipboard!", "success");
 
         if (btn) {
-            var originalText = btn.innerHTML;
+            let originalText = btn.innerHTML;
             btn.innerHTML = '✅ Link Copied!';
             btn.style.color = '#10b991';
             setTimeout(function () { btn.innerHTML = originalText; btn.style.color = ''; }, 3000);
@@ -1381,7 +1381,7 @@ window.shareWardrobe = function () {
 
 function fallbackCopyText(text) {
     try {
-        var textArea          = document.createElement("textarea");
+        let textArea          = document.createElement("textarea");
         textArea.value        = text;
         textArea.style.cssText = "position:fixed;opacity:0;left:-9999px;";
         document.body.appendChild(textArea);
@@ -1395,7 +1395,7 @@ function fallbackCopyText(text) {
 }
 
 window.closeShareModal = function () {
-    var modal = document.getElementById("share-modal");
+    let modal = document.getElementById("share-modal");
     if (modal) modal.style.display = "none";
     if (window.history && window.history.replaceState) {
         window.history.replaceState(null, null, window.location.pathname);
@@ -1406,12 +1406,12 @@ window.closeShareModal = function () {
 };
 
 window.checkSharedWardrobe = function () {
-    var hash = window.location.hash;
+    let hash = window.location.hash;
     if (!hash || hash.indexOf("#share=") !== 0) return;
 
     try {
-        var base64Payload = hash.substring(7);
-        var decodedCart   = JSON.parse(decodeURIComponent(escape(atob(base64Payload))));
+        let base64Payload = hash.substring(7);
+        let decodedCart   = JSON.parse(decodeURIComponent(escape(atob(base64Payload))));
 
         if (!Array.isArray(decodedCart) || decodedCart.length === 0) {
             showToast("Invalid share link or empty shared collection.", "error");
@@ -1428,41 +1428,41 @@ window.checkSharedWardrobe = function () {
             };
         });
 
-        var listContainer = document.getElementById("shared-items-list");
-        var totalPriceEl  = document.getElementById("shared-total-price");
-        var modal         = document.getElementById("share-modal");
+        let listContainer = document.getElementById("shared-items-list");
+        let totalPriceEl  = document.getElementById("shared-total-price");
+        let modal         = document.getElementById("share-modal");
         if (!listContainer || !totalPriceEl || !modal) return;
 
         listContainer.innerHTML = "";
-        var total = 0;
+        let total = 0;
 
         window.pendingSharedCart.forEach(function (item) {
-            var itemSubtotal = item.price * item.quantity;
+            let itemSubtotal = item.price * item.quantity;
             total           += itemSubtotal;
 
-            var row      = document.createElement("div");
+            let row      = document.createElement("div");
             row.className = "shared-item-row";
 
-            var img      = document.createElement("img");
+            let img      = document.createElement("img");
             img.src      = item.image;
             img.className = "shared-item-img";
             img.alt      = item.name;
 
-            var details  = document.createElement("div");
+            let details  = document.createElement("div");
             details.className = "shared-item-details";
 
-            var nameEl   = document.createElement("h4");
+            let nameEl   = document.createElement("h4");
             nameEl.className = "shared-item-name";
             nameEl.textContent = item.name;
 
-            var meta     = document.createElement("span");
+            let meta     = document.createElement("span");
             meta.className = "shared-item-meta";
             meta.textContent = "Size: " + item.size + "  |  Qty: " + item.quantity;
 
             details.appendChild(nameEl);
             details.appendChild(meta);
 
-            var priceEl  = document.createElement("div");
+            let priceEl  = document.createElement("div");
             priceEl.className = "shared-item-price";
             priceEl.textContent = formatCurrency(itemSubtotal);
 
@@ -1486,14 +1486,14 @@ window.applySharedCart = function (action) {
         return;
     }
 
-    var localcart = window.cachedCartState || JSON.parse(localStorage.getItem("productsInCart")) || []; window.cachedCartState = cart;
+    let localcart = window.cachedCartState || JSON.parse(localStorage.getItem("productsInCart")) || []; window.cachedCartState = cart;
 
     if (action === "overwrite") {
         localCart = window.pendingSharedCart.slice();
         showToast("Cart replaced with shared wardrobe!", "success");
     } else if (action === "merge") {
         window.pendingSharedCart.forEach(function (sharedItem) {
-            var existing = localCart.find(function (item) {
+            let existing = localCart.find(function (item) {
                 return item.name === sharedItem.name && item.size === sharedItem.size;
             });
             if (existing) { existing.quantity += sharedItem.quantity; }
