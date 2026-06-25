@@ -487,9 +487,9 @@
   <button id="scrollTopBtn" title="Go to top">↑</button>
 
   <div id="toast-container"></div>
-  <script src="navbar.js"></script>
-  <script src="products.js"></script>
-  <script src="app.js"></script>
+  <script src="navbar.js" defer></script>
+  <script src="products.js" defer></script>
+  <script src="app.js" defer></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       if (typeof renderProducts === 'function' && typeof products !== 'undefined') {
