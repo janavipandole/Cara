@@ -667,7 +667,7 @@
                     cartButton.className = "add-to-cart-btn";
                     cartButton.type = "button";
                     cartButton.setAttribute("aria-label", `Add ${product.name} to cart`);
-                    cartButton.innerHTML = '<i class="ri-shopping-cart-2-line" aria-hidden="true"></i> Add to Cart';
+                    cartButton.innerHTML = '<i class="ri-shopping-cart-2-line" aria-label="Cart" aria-hidden="true"></i> Add to Cart';
                     cartButton.addEventListener("click", () => moveToCart(index));
 
                     const removeButton = document.createElement("button");
