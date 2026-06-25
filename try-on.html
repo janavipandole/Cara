@@ -619,7 +619,7 @@
 </section>
 
             <!-- <div class="mobile">
-            <button class="theme-toggle" id="themeToggleMobile"
+            <button type="button" class="theme-toggle" id="themeToggleMobile"
                 aria-label="Toggle dark mode">
                 <i class="ri-moon-line" id="themeIconMobile"></i>
             </button>
@@ -660,23 +660,23 @@
                 <!-- Step 1: Input Mode -->
                 <h3>1. Choose Input</h3>
                 <div class="mode-toggle">
-                    <button class="mode-btn active" id="btn-camera" onclick="switchMode('camera')">
+                    <button type="button" class="mode-btn active" id="btn-camera" onclick="switchMode('camera')">
                         <i class="ri-camera-line"></i> Camera
                     </button>
-                    <button class="mode-btn" id="btn-upload" onclick="switchMode('upload')">
+                    <button type="button" class="mode-btn" id="btn-upload" onclick="switchMode('upload')">
                         <i class="ri-upload-cloud-2-line"></i> Upload
                     </button>
                 </div>
 
                 <!-- Camera Controls -->
                 <div class="camera-area visible" id="camera-area">
-                    <button class="camera-btn" id="open-camera-btn" onclick="openCamera()">
+                    <button type="button" class="camera-btn" id="open-camera-btn" onclick="openCamera()">
                         <i class="ri-camera-line"></i> Open Camera
                     </button>
-                    <button class="camera-btn capture" id="capture-btn" style="display:none;" onclick="capturePhoto()">
+                    <button type="button" class="camera-btn capture" id="capture-btn" style="display:none;" onclick="capturePhoto()">
                         <i class="ri-camera-switch-line"></i> Capture Photo
                     </button>
-                    <button class="camera-btn" id="stop-camera-btn" style="display:none;" onclick="stopCamera()">
+                    <button type="button" class="camera-btn" id="stop-camera-btn" style="display:none;" onclick="stopCamera()">
                         <i class="ri-close-circle-line"></i> Stop Camera
                     </button>
                 </div>
@@ -699,7 +699,7 @@
                 <div style="flex-grow: 1;"></div>
 
                 <!-- Step 3: Generate -->
-                <button class="action-btn" id="generate-btn" disabled>
+                <button type="button" class="action-btn" id="generate-btn" disabled>
                     <i class="ri-sparkling-fill"></i> Generate AI Try-On
                 </button>
             </div>
@@ -737,9 +737,9 @@
                 
                 <!-- Share Controls -->
                 <div class="share-controls" id="share-controls">
-                    <button class="share-btn" onclick="downloadResult()"><i class="ri-download-2-line"></i> Download</button>
-                    <button class="share-btn" onclick="shareResult()"><i class="ri-share-line"></i> Share</button>
-                    <button class="share-btn" onclick="resetTryOn()"><i class="ri-refresh-line"></i> Retry</button>
+                    <button type="button" class="share-btn" onclick="downloadResult()"><i class="ri-download-2-line"></i> Download</button>
+                    <button type="button" class="share-btn" onclick="shareResult()"><i class="ri-share-line"></i> Share</button>
+                    <button type="button" class="share-btn" onclick="resetTryOn()"><i class="ri-refresh-line"></i> Retry</button>
                 </div>
             </div>
         </div>
@@ -858,7 +858,7 @@
       </p>
     </div>
   </footer>
-   <button id="topBtn">↑</button>
+   <button type="button" id="topBtn">↑</button>
      <script src="try-on.js"></script> 
     <script src="navbar.js"></script>
     <script src="app.js"></script>

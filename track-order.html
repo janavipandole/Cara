@@ -152,7 +152,7 @@
       tabindex="0"
     ></i>
       <!-- Theme Toggle -->
-      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
+      <button type="button" class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
         <i class="ri-moon-line" id="themeIconMobile"></i>
       </button>
 
@@ -362,7 +362,7 @@
 
         <!-- Actions -->
         <div class="result-actions">
-          <button class="action-btn secondary" onclick="resetTracker()">
+          <button type="button" class="action-btn secondary" onclick="resetTracker()">
             <i class="ri-arrow-left-line"></i> Track Another Order
           </button>
           <a href="contact.html" class="action-btn primary">
@@ -379,7 +379,7 @@
           We couldn't find an order matching that ID and email. Please double-check your
           confirmation email and try again.
         </p>
-        <button class="action-btn secondary" onclick="resetTracker()">
+        <button type="button" class="action-btn secondary" onclick="resetTracker()">
           <i class="ri-arrow-left-line"></i> Try Again
         </button>
       </div>
@@ -554,7 +554,7 @@
     <div id="cancel-simulation-box" style="max-width: 600px; margin: 20px auto; padding: 20px; border: 1px dashed #f87171; border-radius: 8px; text-align: center; display: none;">
       <h3 style="color: #ef4444; margin-bottom: 10px;">Cancel Order Request</h3>
       <p style="margin-bottom: 15px;">Your order is currently processing. You can cancel this order before shipping.</p>
-      <button onclick="simulateCancellation()" style="background: #ef4444; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-weight: 600;">
+      <button type="button" onclick="simulateCancellation()" style="background: #ef4444; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-weight: 600;">
         Cancel Order Now
       </button>
     </div>

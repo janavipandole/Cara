@@ -74,7 +74,7 @@
         </li>
         <li><a href="cart.html" id="lg-bag" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a></li>
         <li>
-          <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+          <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
             <i class="ri-moon-line" id="themeIcon"></i>
           </button>
         </li>
@@ -90,11 +90,11 @@
       <a href="cart.html" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a>
       <i class="fas fa-outdent" id="bar"></i>
       <!-- Theme Toggle -->
-      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
+      <button type="button" class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
         <i class="ri-moon-line" id="themeIconMobile"></i>
       </button>
     </div>
-    <button onclick="history.back()" class="back-btn" aria-label="Go back">Back</button>
+    <button type="button" onclick="history.back()" class="back-btn" aria-label="Go back">Back</button>
   </section>
 
   <section id="pro-details" class="section-p1">
@@ -151,7 +151,7 @@
         <div id="stock-alert-container"></div>
 
         <!-- Size Chart Button -->
-       <button id="size-chart-btn">View Size Chart</button>
+       <button type="button" id="size-chart-btn">View Size Chart</button>
 
 <!-- Modal -->
 <div id="size-chart-modal" class="modal">
@@ -215,17 +215,17 @@
 </div>
         <div class="cart-action-group">
           <div class="quantity-selector">
-            <button type="button" class="qty-btn minus" onclick="updateQty(-1)" aria-label="Decrease quantity">
+            <button type="button" type="button" class="qty-btn minus" onclick="updateQty(-1)" aria-label="Decrease quantity">
               <i class="fa-solid fa-minus"></i>
             </button>
             <input id="product-quantity" type="number" value="1" min="1" readonly title="Product quantity"
               aria-label="Product quantity">
-            <button type="button" class="qty-btn plus" onclick="updateQty(1)" aria-label="Increase quantity">
+            <button type="button" type="button" class="qty-btn plus" onclick="updateQty(1)" aria-label="Increase quantity">
               <i class="fa-solid fa-plus"></i>
             </button>
           </div>
-          <button class="normal" onclick="handleAddToCart()">Add to Cart</button>
-          <button class="normal" style="background: #088178; color: white; margin-left: 10px;"
+          <button type="button" class="normal" onclick="handleAddToCart()">Add to Cart</button>
+          <button type="button" class="normal" style="background: #088178; color: white; margin-left: 10px;"
             onclick="handleBuyNow()">Buy Now</button>
           <button
             class="normal product-wishlist-btn wishlist-btn"
@@ -238,7 +238,7 @@
             <i class="ri-heart-line" aria-hidden="true"></i>
             <span>Wishlist</span>
           </button>
-          <button class="normal" style="background: var(--accent); color: white; margin-left: 10px;"
+          <button type="button" class="normal" style="background: var(--accent); color: white; margin-left: 10px;"
             onclick="window.location.href='try-on.html'">Try it On Virtually!</button>
         </div>
         <h4>Product Details</h4>
