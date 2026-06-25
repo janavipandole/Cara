@@ -550,21 +550,21 @@
       <!-- Contact Icon -->
       <li class="nav-icon">
         <a href="contact.html" aria-label="Contact">
-          <i class="ri-customer-service-2-line"></i>
+          <span aria-hidden="true" class="ri-customer-service-2-line"></span>
         </a>
       </li>
 
       <!-- Login Icon -->
       <li class="nav-icon">
         <a href="login.html" aria-label="Login">
-          <i class="ri-user-3-line"></i>
+          <span aria-hidden="true" class="ri-user-3-line"></span>
         </a>
       </li>
 
       <!-- Cart Icon -->
       <li class="nav-icon">
         <a href="cart.html" id="lg-bag" aria-label="Cart">
-          <i class="ri-shopping-bag-4-line"></i>
+          <span aria-hidden="true" class="ri-shopping-bag-4-line"></span>
         </a>
       </li>
 
@@ -575,7 +575,7 @@
           id="themeToggle"
           aria-label="Toggle dark mode"
         >
-          <i class="ri-moon-line" id="themeIcon"></i>
+          <span aria-hidden="true" class="ri-moon-line" id="themeIcon"></span>
         </button>
       </li>
 
@@ -586,7 +586,7 @@
         aria-label="Close menu"
         aria-hidden="false"
       >
-        <i class="fa-solid fa-xmark"></i>
+        <span aria-hidden="true" class="fa-solid fa-xmark"></span>
       </a>
 
     </ul>
@@ -597,12 +597,12 @@
 
     <!-- Login Icon -->
     <a href="login.html" aria-label="Login">
-      <i class="ri-user-3-line"></i>
+      <span aria-hidden="true" class="ri-user-3-line"></span>
     </a>
 
     <!-- Cart Icon -->
     <a href="cart.html" aria-label="Cart">
-      <i class="ri-shopping-bag-4-line"></i>
+      <span aria-hidden="true" class="ri-shopping-bag-4-line"></span>
     </a>
 
     <!-- Hamburger Menu -->
@@ -621,10 +621,10 @@
             <!-- <div class="mobile">
             <button class="theme-toggle" id="themeToggleMobile"
                 aria-label="Toggle dark mode">
-                <i class="ri-moon-line" id="themeIconMobile"></i>
+                <span aria-hidden="true" class="ri-moon-line" id="themeIconMobile"></span>
             </button>
             <a href="cart.html" id="mobile-cart-icon">
-                <i class="ri-shopping-bag-4-line"></i>
+                <span aria-hidden="true" class="ri-shopping-bag-4-line"></span>
                 <span class="cart-count" id="mobileCartCount">0</span>
             </a>
             <i class="fas fa-outdent" id="bar"></i>
@@ -654,37 +654,37 @@
         <div class="tryon-layout">
             <!-- Left: Controls -->
             <div class="controls">
-                <h2><i class="ri-magic-line"></i> AI Virtual Try-On</h2>
+                <h2><span aria-hidden="true" class="ri-magic-line"></span> AI Virtual Try-On</h2>
                 <p>Use your camera or upload a photo. Our AI detects your body shape and fits the clothing on you.</p>
                 
                 <!-- Step 1: Input Mode -->
                 <h3>1. Choose Input</h3>
                 <div class="mode-toggle">
                     <button class="mode-btn active" id="btn-camera" onclick="switchMode('camera')">
-                        <i class="ri-camera-line"></i> Camera
+                        <span aria-hidden="true" class="ri-camera-line"></span> Camera
                     </button>
                     <button class="mode-btn" id="btn-upload" onclick="switchMode('upload')">
-                        <i class="ri-upload-cloud-2-line"></i> Upload
+                        <span aria-hidden="true" class="ri-upload-cloud-2-line"></span> Upload
                     </button>
                 </div>
 
                 <!-- Camera Controls -->
                 <div class="camera-area visible" id="camera-area">
                     <button class="camera-btn" id="open-camera-btn" onclick="openCamera()">
-                        <i class="ri-camera-line"></i> Open Camera
+                        <span aria-hidden="true" class="ri-camera-line"></span> Open Camera
                     </button>
                     <button class="camera-btn capture" id="capture-btn" style="display:none;" onclick="capturePhoto()">
-                        <i class="ri-camera-switch-line"></i> Capture Photo
+                        <span aria-hidden="true" class="ri-camera-switch-line"></span> Capture Photo
                     </button>
                     <button class="camera-btn" id="stop-camera-btn" style="display:none;" onclick="stopCamera()">
-                        <i class="ri-close-circle-line"></i> Stop Camera
+                        <span aria-hidden="true" class="ri-close-circle-line"></span> Stop Camera
                     </button>
                 </div>
 
                 <!-- Upload Controls -->
                 <div class="upload-area" id="upload-area">
                     <label class="upload-btn">
-                        <i class="ri-upload-cloud-2-line"></i>
+                        <span aria-hidden="true" class="ri-upload-cloud-2-line"></span>
                         <span id="upload-text">Click to upload full-body photo</span>
                         <input type="file" id="photo-upload" accept="image/*">
                     </label>
@@ -700,7 +700,7 @@
 
                 <!-- Step 3: Generate -->
                 <button class="action-btn" id="generate-btn" disabled>
-                    <i class="ri-sparkling-fill"></i> Generate AI Try-On
+                    <span aria-hidden="true" class="ri-sparkling-fill"></span> Generate AI Try-On
                 </button>
             </div>
 
@@ -731,15 +731,15 @@
                 <!-- Scanning Animation -->
                 <div class="scanning-container" id="scanner">
                     <div class="scanner-line"></div>
-                    <i class="ri-focus-3-line" style="font-size: 60px; color: var(--accent); animation: pulse 1s infinite alternate;"></i>
+                    <span aria-hidden="true" class="ri-focus-3-line" style="font-size: 60px; color: var(--accent); animation: pulse 1s infinite alternate;"></span>
                     <div class="ai-text" id="ai-status">DETECTING BODY...</div>
                 </div>
                 
                 <!-- Share Controls -->
                 <div class="share-controls" id="share-controls">
-                    <button class="share-btn" onclick="downloadResult()"><i class="ri-download-2-line"></i> Download</button>
-                    <button class="share-btn" onclick="shareResult()"><i class="ri-share-line"></i> Share</button>
-                    <button class="share-btn" onclick="resetTryOn()"><i class="ri-refresh-line"></i> Retry</button>
+                    <button class="share-btn" onclick="downloadResult()"><span aria-hidden="true" class="ri-download-2-line"></span> Download</button>
+                    <button class="share-btn" onclick="shareResult()"><span aria-hidden="true" class="ri-share-line"></span> Share</button>
+                    <button class="share-btn" onclick="resetTryOn()"><span aria-hidden="true" class="ri-refresh-line"></span> Retry</button>
                 </div>
             </div>
         </div>
@@ -763,7 +763,7 @@
         <h4>Follow us</h4>
         <div class="icon">
           <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer">
-            <i class="fa-brands fa-x-twitter"></i>
+            <span aria-hidden="true" class="fa-brands fa-x-twitter"></span>
           </a>
           <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
             <i class="fab fa-github"></i>

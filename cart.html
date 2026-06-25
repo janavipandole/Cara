@@ -379,34 +379,34 @@ button + button {
         <!-- Contact Icon -->
         <li class="nav-icon">
           <a href="contact.html" aria-label="Contact">
-            <i class="ri-customer-service-2-line"></i>
+            <span aria-hidden="true" class="ri-customer-service-2-line"></span>
           </a>
         </li>
 
         <!-- Login Icon -->
         <li class="nav-icon">
           <a href="login.html" aria-label="Login">
-            <i class="ri-user-3-line"></i>
+            <span aria-hidden="true" class="ri-user-3-line"></span>
           </a>
         </li>
 
         <!-- Cart Icon -->
         <li class="nav-icon">
           <a class="active" href="cart.html" id="lg-bag" aria-label="Cart">
-            <i class="ri-shopping-bag-4-line"></i>
+            <span aria-hidden="true" class="ri-shopping-bag-4-line"></span>
           </a>
         </li>
 
         <!-- Theme Toggle -->
         <li class="nav-icon">
           <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-            <i class="ri-moon-line" id="themeIcon"></i>
+            <span aria-hidden="true" class="ri-moon-line" id="themeIcon"></span>
           </button>
         </li>
 
         <!-- Close Button -->
         <a href="javascript:void(0)" id="close" aria-label="Close menu" aria-hidden="false">
-          <i class="fa-solid fa-xmark"></i>
+          <span aria-hidden="true" class="fa-solid fa-xmark"></span>
         </a>
 
       </ul>
@@ -417,19 +417,19 @@ button + button {
 
       <!-- Login Icon -->
       <a href="login.html" aria-label="Login">
-        <i class="ri-user-3-line"></i>
+        <span aria-hidden="true" class="ri-user-3-line"></span>
       </a>
 
       <!-- Cart Icon -->
       <a href="cart.html" aria-label="Cart">
-        <i class="ri-shopping-bag-4-line"></i>
+        <span aria-hidden="true" class="ri-shopping-bag-4-line"></span>
       </a>
 
       <!-- Hamburger Menu -->
       <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
       <!-- Theme Toggle -->
       <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
-        <i class="ri-moon-line" id="themeIconMobile"></i>
+        <span aria-hidden="true" class="ri-moon-line" id="themeIconMobile"></span>
       </button>
 
     </div>
@@ -472,7 +472,7 @@ button + button {
               <div id="cart-items-container"></div>
               <div class="cart-actions-bottom">
                 <a href="shop.html" class="continue-shopping-btn">
-                  <i class="ri-arrow-left-line"></i> Continue Shopping
+                  <span aria-hidden="true" class="ri-arrow-left-line"></span> Continue Shopping
                 </a>
               </div>
             </div>
@@ -493,7 +493,7 @@ button + button {
 
                 <!-- Loyalty Rewards Section inside Summary -->
                 <div id="loyalty-points-container" style="background: rgba(8, 129, 120, 0.05); margin: 20px 0; padding: 15px; border: 1px solid rgba(8, 129, 120, 0.2); border-radius: 6px; font-family: sans-serif; font-size: 14px;">
-                    <h4 style="color: #088178; margin-top: 0; margin-bottom: 8px;"><i class="ri-medal-line"></i> Cara Loyalty Rewards</h4>
+                    <h4 style="color: #088178; margin-top: 0; margin-bottom: 8px;"><span aria-hidden="true" class="ri-medal-line"></span> Cara Loyalty Rewards</h4>
                     <p style="margin: 4px 0;">Balance: <strong id="loyalty-balance" style="color: #088178;">0</strong> pts</p>
                     <p style="margin: 4px 0;">Earn from order: <strong id="points-to-earn">0</strong> pts</p>
                     <div id="loyalty-apply-section" style="margin-top: 8px; display: flex; gap: 6px;">
@@ -529,7 +529,7 @@ button + button {
                 </div>
 
                 <button class="checkout-btn" onclick="window.location.href='checkout.html'">
-                  PROCEED TO CHECKOUT <i class="ri-arrow-right-line"></i>
+                  PROCEED TO CHECKOUT <span aria-hidden="true" class="ri-arrow-right-line"></span>
                 </button>
               </div>
             </div>
@@ -540,7 +540,7 @@ button + button {
   <div class="empty-cart-card">
     
     <div class="empty-cart-icon">
-      <i class="ri-shopping-cart-2-line"></i>
+      <span aria-hidden="true" class="ri-shopping-cart-2-line"></span>
     </div>
     
     <h2>Your Cart is Empty!</h2>
@@ -571,7 +571,7 @@ button + button {
         const val = couponInput.value.trim().toUpperCase();
         
         if (val === "CARA20") {
-          feedback.innerHTML = `<span style="color: #088178;"><i class="ri-checkbox-circle-fill"></i> Coupon CARA20 Applied! 20% Discount active.</span>`;
+          feedback.innerHTML = `<span style="color: #088178;"><span aria-hidden="true" class="ri-checkbox-circle-fill"></span> Coupon CARA20 Applied! 20% Discount active.</span>`;
           
           if (discountRow && discountVal) {
             discountRow.style.display = "flex";
@@ -594,9 +594,9 @@ button + button {
             document.getElementById("summary-total").textContent = "₹" + total.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
           }
         } else if (val === "") {
-          feedback.innerHTML = `<span style="color: #ef4444;"><i class="ri-error-warning-fill"></i> Please enter a coupon code.</span>`;
+          feedback.innerHTML = `<span style="color: #ef4444;"><span aria-hidden="true" class="ri-error-warning-fill"></span> Please enter a coupon code.</span>`;
         } else {
-          feedback.innerHTML = `<span style="color: #ef4444;"><i class="ri-error-warning-fill"></i> Invalid coupon code. Try CARA20.</span>`;
+          feedback.innerHTML = `<span style="color: #ef4444;"><span aria-hidden="true" class="ri-error-warning-fill"></span> Invalid coupon code. Try CARA20.</span>`;
           if (discountRow) discountRow.style.display = "none";
         }
       });
@@ -621,7 +621,7 @@ button + button {
     
     <h4 style="color: #ffffff !important; font-size: 13px !important; font-weight: 700 !important; margin: 15px 0 8px 0 !important; text-transform: uppercase; letter-spacing: 0.5px;">Follow us</h4>
     <div class="icon" style="display: flex !important; gap: 12px !important; font-size: 15px !important;">
-      <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer" style="color: #cbd5e1 !important;"><i class="ri-twitter-x-fill"></i></a>
+      <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer" style="color: #cbd5e1 !important;"><span aria-hidden="true" class="ri-twitter-x-fill"></span></a>
       <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer" style="color: #cbd5e1 !important;"><i class="fab fa-github"></i></a>
       <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer" style="color: #cbd5e1 !important;"><i class="fab fa-linkedin"></i></a>
       <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer" style="color: #cbd5e1 !important;"><i class="fab fa-youtube"></i></a>

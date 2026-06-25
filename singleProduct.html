@@ -68,30 +68,30 @@
         <li><a href="promotions.html">Promotions</a></li>
         <li>
           <a href="wishlist.html" class="wishlist-nav-link" aria-label="Wishlist">
-            <i class="ri-heart-line"></i>
+            <span aria-hidden="true" class="ri-heart-line"></span>
             <span class="wishlist-count hidden">0</span>
           </a>
         </li>
-        <li><a href="cart.html" id="lg-bag" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a></li>
+        <li><a href="cart.html" id="lg-bag" aria-label="Cart"><span aria-hidden="true" class="ri-shopping-bag-4-line"></span></a></li>
         <li>
           <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-            <i class="ri-moon-line" id="themeIcon"></i>
+            <span aria-hidden="true" class="ri-moon-line" id="themeIcon"></span>
           </button>
         </li>
 
-        <a href="#" id="close" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></a>
+        <a href="#" id="close" aria-label="Close menu"><span aria-hidden="true" class="fa-solid fa-xmark"></span></a>
       </ul>
     </div>
     <div class="mobile">
       <a href="wishlist.html" class="wishlist-nav-link" aria-label="Wishlist">
-        <i class="ri-heart-line"></i>
+        <span aria-hidden="true" class="ri-heart-line"></span>
         <span class="wishlist-count hidden">0</span>
       </a>
-      <a href="cart.html" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a>
+      <a href="cart.html" aria-label="Cart"><span aria-hidden="true" class="ri-shopping-bag-4-line"></span></a>
       <i class="fas fa-outdent" id="bar"></i>
       <!-- Theme Toggle -->
       <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
-        <i class="ri-moon-line" id="themeIconMobile"></i>
+        <span aria-hidden="true" class="ri-moon-line" id="themeIconMobile"></span>
       </button>
     </div>
     <button onclick="history.back()" class="back-btn" aria-label="Go back">Back</button>
@@ -216,12 +216,12 @@
         <div class="cart-action-group">
           <div class="quantity-selector">
             <button type="button" class="qty-btn minus" onclick="updateQty(-1)" aria-label="Decrease quantity">
-              <i class="fa-solid fa-minus"></i>
+              <span aria-hidden="true" class="fa-solid fa-minus"></span>
             </button>
             <input id="product-quantity" type="number" value="1" min="1" readonly title="Product quantity"
               aria-label="Product quantity">
             <button type="button" class="qty-btn plus" onclick="updateQty(1)" aria-label="Increase quantity">
-              <i class="fa-solid fa-plus"></i>
+              <span aria-hidden="true" class="fa-solid fa-plus"></span>
             </button>
           </div>
           <button class="normal" onclick="handleAddToCart()">Add to Cart</button>
@@ -235,7 +235,7 @@
             aria-pressed="false"
             aria-label="Add product to wishlist"
           >
-            <i class="ri-heart-line" aria-hidden="true"></i>
+            <span aria-hidden="true" class="ri-heart-line" aria-hidden="true"></span>
             <span>Wishlist</span>
           </button>
           <button class="normal" style="background: var(--accent); color: white; margin-left: 10px;"
@@ -271,11 +271,11 @@
       <div style="background: #f9f9f9; padding: 25px; border-radius: 8px; border: 1px solid #eee;">
         <h3 style="font-size: 32px; margin: 0; color: #222;">4.8</h3>
         <div style="color: #ffbd27; font-size: 18px; margin: 8px 0;">
-          <i class="ri-star-fill"></i>
-          <i class="ri-star-fill"></i>
-          <i class="ri-star-fill"></i>
-          <i class="ri-star-fill"></i>
-          <i class="ri-star-half-fill"></i>
+          <span aria-hidden="true" class="ri-star-fill"></span>
+          <span aria-hidden="true" class="ri-star-fill"></span>
+          <span aria-hidden="true" class="ri-star-fill"></span>
+          <span aria-hidden="true" class="ri-star-fill"></span>
+          <span aria-hidden="true" class="ri-star-half-fill"></span>
         </div>
         <p style="margin: 0; font-size: 14px; color: #555;">Based on 124 reviews</p>
       </div>
@@ -287,11 +287,11 @@
           <div>
             <label style="display: block; font-weight: 600; margin-bottom: 5px;">Rating:</label>
             <div id="star-rating-selector" style="display: flex; gap: 5px; font-size: 24px; color: #ccc; cursor: pointer;">
-              <i class="ri-star-line" data-rating="1" onclick="setRating(1)"></i>
-              <i class="ri-star-line" data-rating="2" onclick="setRating(2)"></i>
-              <i class="ri-star-line" data-rating="3" onclick="setRating(3)"></i>
-              <i class="ri-star-line" data-rating="4" onclick="setRating(4)"></i>
-              <i class="ri-star-line" data-rating="5" onclick="setRating(5)"></i>
+              <span aria-hidden="true" class="ri-star-line" data-rating="1" onclick="setRating(1)"></span>
+              <span aria-hidden="true" class="ri-star-line" data-rating="2" onclick="setRating(2)"></span>
+              <span aria-hidden="true" class="ri-star-line" data-rating="3" onclick="setRating(3)"></span>
+              <span aria-hidden="true" class="ri-star-line" data-rating="4" onclick="setRating(4)"></span>
+              <span aria-hidden="true" class="ri-star-line" data-rating="5" onclick="setRating(5)"></span>
             </div>
             <input type="hidden" id="review-rating" value="0">
           </div>
@@ -370,9 +370,9 @@
         let starHtml = '';
         for (let i = 0; i < 5; i++) {
           if (i < review.rating) {
-            starHtml += '<i class="ri-star-fill" style="color: #ffbd27;"></i>';
+            starHtml += '<span aria-hidden="true" class="ri-star-fill" style="color: #ffbd27;"></span>';
           } else {
-            starHtml += '<i class="ri-star-line" style="color: #ccc;"></i>';
+            starHtml += '<span aria-hidden="true" class="ri-star-line" style="color: #ccc;"></span>';
           }
         }
 
@@ -386,7 +386,7 @@
           <div style="display: flex; justify-content: space-between; align-items: center;">
             <h4 style="margin: 0; font-size: 16px;">
               ${sanitizeHTML(review.name)} 
-              ${review.verified ? '<span style="color: #088178; font-size: 12px; margin-left: 8px;"><i class="ri-checkbox-circle-fill"></i> Verified Buyer</span>' : ''}
+              ${review.verified ? '<span style="color: #088178; font-size: 12px; margin-left: 8px;"><span aria-hidden="true" class="ri-checkbox-circle-fill"></span> Verified Buyer</span>' : ''}
             </h4>
             <span style="font-size: 12px; color: #777;">${dateStr}</span>
           </div>
@@ -415,7 +415,7 @@
       const status = document.getElementById('review-status');
       
       if (currentRating === 0) {
-        status.innerHTML = `<span style="color: #ef4444;"><i class="ri-error-warning-line"></i> Please select a star rating.</span>`;
+        status.innerHTML = `<span style="color: #ef4444;"><span aria-hidden="true" class="ri-error-warning-line"></span> Please select a star rating.</span>`;
         return;
       }
 
@@ -434,7 +434,7 @@
       document.getElementById('review-sort').value = 'recent';
       sortReviews();
 
-      status.innerHTML = `<span style="color: #088178;"><i class="ri-checkbox-circle-line"></i> Thank you! Review submitted successfully.</span>`;
+      status.innerHTML = `<span style="color: #088178;"><span aria-hidden="true" class="ri-checkbox-circle-line"></span> Thank you! Review submitted successfully.</span>`;
       
       document.getElementById('review-form').reset();
       setRating(0);
@@ -473,7 +473,7 @@
         <h4>Follow us</h4>
         <div class="icon">
           <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer">
-            <i class="fa-brands fa-x-twitter"></i>
+            <span aria-hidden="true" class="fa-brands fa-x-twitter"></span>
           </a>
           <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
             <i class="fab fa-github"></i>

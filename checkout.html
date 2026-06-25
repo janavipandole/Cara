@@ -27,13 +27,13 @@
 
     <div class="checkout-header">
       <div class="back-to-cart">
-        <a href="cart.html" class="back-link" aria-label="Back to cart"><i class="ri-arrow-left-line"></i> Back to Cart</a>
+        <a href="cart.html" class="back-link" aria-label="Back to cart"><span aria-hidden="true" class="ri-arrow-left-line"></span> Back to Cart</a>
         <a href="#" id="logout-btn" style="display:none">Logout</a>
       </div>
       <div class="logo" style="display: flex; align-items: center; gap: 15px;">
         <span>Cara</span>
         <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" style="background: transparent; border: none; cursor: pointer;">
-          <i class="ri-moon-line" id="themeIcon" style="font-size: 20px;"></i>
+          <span aria-hidden="true" class="ri-moon-line" id="themeIcon" style="font-size: 20px;"></span>
         </button>
       </div>
     </div>
@@ -44,7 +44,7 @@
 
     <!-- Back button -->
     <button class="back-btn" onclick="window.location.href='cart.html'">
-      <i class="ri-arrow-left-line"></i> Back to Cart
+      <span aria-hidden="true" class="ri-arrow-left-line"></span> Back to Cart
     </button>
 
     <!-- Page title -->
@@ -56,7 +56,7 @@
 
     <!-- Countdown Timer Banner -->
     <div id="checkout-timer-banner" style="background: #fff3cd; color: #856404; padding: 12px; border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; border: 1px solid #ffeeba; font-weight: 500;">
-      <i class="ri-time-line" style="font-size: 20px;"></i>
+      <span aria-hidden="true" class="ri-time-line" style="font-size: 20px;"></span>
       <span>Items are reserved! Complete your purchase within <strong id="countdown-timer">10:00</strong> minutes.</span>
     </div>
     
@@ -89,7 +89,7 @@
         <!-- Contact Information -->
         <fieldset class="card">
           <legend class="card-title">
-            <i class="ri-user-3-line"></i> Contact Information
+            <span aria-hidden="true" class="ri-user-3-line"></span> Contact Information
           </legend>
 
         <div class="input-group">
@@ -142,10 +142,10 @@
 
           <div class="payment-tabs">
             <div class="payment-tab active" id="tabCOD" onclick="selectPayment('cod')">
-              <i class="ri-money-rupee-circle-line"></i> Cash on Delivery
+              <span aria-hidden="true" class="ri-money-rupee-circle-line"></span> Cash on Delivery
             </div>
             <div class="payment-tab" id="tabOnline" onclick="selectPayment('online')">
-              <i class="ri-bank-card-2-line"></i> Online Payment
+              <span aria-hidden="true" class="ri-bank-card-2-line"></span> Online Payment
             </div>
           </div>
 
@@ -204,10 +204,10 @@
         <!-- Preview and Totals -->
         <fieldset class="card">
           <legend class="card-title">
-            <i class="ri-shopping-bag-3-line"></i> Order Summary
+            <span aria-hidden="true" class="ri-shopping-bag-3-line"></span> Order Summary
           </legend>
           <div class="order-item">
-            <div class="item-thumb"><i class="ri-shirt-line"></i></div>
+            <div class="item-thumb"><span aria-hidden="true" class="ri-shirt-line"></span></div>
             <div class="item-info">
               <div class="item-name">Tropical Print Shirt</div>
               <div class="item-meta">H&M · Size L · Qty 2</div>
@@ -233,10 +233,10 @@
             </div>
           </div>
           <button type="submit" class="submit-btn">
-            <i class="ri-shield-check-line"></i> Place Your Order
+            <span aria-hidden="true" class="ri-shield-check-line"></span> Place Your Order
           </button>
           <div class="secure-badge">
-            <i class="ri-lock-line"></i> 100% Secure Checkout
+            <span aria-hidden="true" class="ri-lock-line"></span> 100% Secure Checkout
           </div>
         </fieldset>
       </div>
@@ -247,7 +247,7 @@
   <!-- ══ SUCCESS POPUP ══ -->
   <div class="success-overlay" id="successPopup">
     <div class="popup-box">
-      <div class="check-circle" aria-hidden="true"><i class="ri-check-line"></i></div>
+      <div class="check-circle" aria-hidden="true"><span aria-hidden="true" class="ri-check-line"></span></div>
       <h2>Order Successful!</h2>
       <p>Your order has been placed successfully. We'll send you a confirmation shortly.</p>
       <button class="popup-btn" onclick="window.location.href='shop.html'">Continue Shopping</button>
