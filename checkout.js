@@ -240,7 +240,7 @@ form.addEventListener("submit", function (e) {
   // CHECK EMPTY CART
   if (cart.length === 0) {
     if (typeof showToast === 'function') showToast('Your cart is empty!', 'error');
-    else alert('Your cart is empty!');
+    else console.log("Toast: " + 'Your cart is empty!');
     return;
   }
 
@@ -323,7 +323,7 @@ if (submitBtn) {
   })
   .catch(err => {
     if (typeof showToast === 'function') showToast(err.message, 'error');
-    else alert(err.message);
+    else console.log("Toast: " + err.message);
 
     if (submitBtn) {
       submitBtn.classList.remove("btn-loading");

@@ -179,7 +179,7 @@ function initCompatibilityChecker() {
     const topItem     = document.getElementById('top-item').value.trim();
     const bottomItem  = document.getElementById('bottom-item').value.trim();
     const occasion    = document.getElementById('occasion').value;
-    if (!topItem || !bottomItem) { alert('Please describe both your top and bottom clothing items.'); return; }
+    if (!topItem || !bottomItem) { console.log("Toast: " + 'Please describe both your top and bottom clothing items.'); return; }
     renderResult(checkOutfitCompatibility({ topColor, bottomColor, topItem, bottomItem, occasion }));
   });
 

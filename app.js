@@ -1052,7 +1052,7 @@ window.selectStyle = function (style) {
     });
     const productSection = document.getElementById("product1");
     if (productSection) productSection.scrollIntoView({ behavior: "smooth", block: "start" });
-    alert(`Showing ${style} style recommendations!`);
+    console.log("Toast: " + `Showing ${style} style recommendations!`);
 };
 
 /* ============================================================
