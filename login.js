@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       }
     } catch (e) {
-      console.error('Failed to fetch secure captcha');
+      window.logError('Failed to fetch secure captcha');
     }
     if (captchaInput) {
       captchaInput.value = '';

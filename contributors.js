@@ -20,7 +20,7 @@ async function fetchContributors() {
       </p>
     `;
 
-    console.error(error);
+    window.logError(error);
 
   }
 

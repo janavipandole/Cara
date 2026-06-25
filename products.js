@@ -898,7 +898,7 @@ function addToCart(name, price, img, quantity, size) {
       showToast(name + ' added to cart!', 'success');
     }
   } catch (e) {
-    console.error('Failed to save cart:', e);
+    window.logError('Failed to save cart:', e);
     if (typeof showToast === 'function') {
       showToast('Storage limit reached! Cannot add to cart.', 'error');
     }
@@ -912,7 +912,7 @@ function buyNow(name, price, img, quantity, size) {
     localStorage.setItem('productsInCart', JSON.stringify(cart));
     window.location.href = 'checkout.html';
   } catch (e) {
-    console.error('Failed to save cart:', e);
+    window.logError('Failed to save cart:', e);
     if (typeof showToast === 'function') {
       showToast('Storage limit reached! Cannot proceed to checkout.', 'error');
     }
