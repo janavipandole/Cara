@@ -485,7 +485,7 @@
             </div>
                 <a href="shop.html" class="btn-secondary"><i class="ri-arrow-left-line" aria-hidden="true"></i> Back to Shop</a>
                 <button id="clearAllBtn" class="btn-danger-outline" onclick="clearWishlist()"><i class="ri-delete-bin-6-line" aria-hidden="true"></i> Clear All</button>
-                <button class="theme-toggle btn-secondary" id="themeToggle" aria-label="Toggle dark mode" style="padding: 8px 12px; border-radius: 999px;">
+                <button class="theme-toggle btn-secondary" id="themeToggle" aria-label="Toggle dark mode" data-old-style="padding: 8px 12px; border-radius: 999px;">
                   <i class="ri-moon-line" id="themeIcon"></i>
                 </button>
             </div>
@@ -499,8 +499,8 @@
     <script src="products.js"></script>
 
     <!-- Wishlist Sharing Utility -->
-    <div style="max-width: 1200px; margin: 20px auto; padding: 0 20px; text-align: center;">
-      <button onclick="shareWishlist()" style="background: #088178; color: #fff; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 16px;">
+    <div data-old-style="max-width: 1200px; margin: 20px auto; padding: 0 20px; text-align: center;">
+      <button onclick="shareWishlist()" data-old-style="background: #088178; color: #fff; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 16px;">
         <i class="ri-share-line"></i> Copy Shareable Wishlist Link
       </button>
     </div>
@@ -516,7 +516,7 @@
     </script>
     <!-- Global Toast Component -->
     <div id="toast">
-        <i class="ri-checkbox-circle-line" style="color: #088178; font-size: 20px;"></i>
+        <i class="ri-checkbox-circle-line" data-old-style="color: #088178; font-size: 20px;"></i>
         <span id="toast-msg">Item added to cart!</span>
     </div>
 

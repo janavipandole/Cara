@@ -673,10 +673,10 @@
                     <button class="camera-btn" id="open-camera-btn" onclick="openCamera()">
                         <i class="ri-camera-line"></i> Open Camera
                     </button>
-                    <button class="camera-btn capture" id="capture-btn" style="display:none;" onclick="capturePhoto()">
+                    <button class="camera-btn capture" id="capture-btn" data-old-style="display:none;" onclick="capturePhoto()">
                         <i class="ri-camera-switch-line"></i> Capture Photo
                     </button>
-                    <button class="camera-btn" id="stop-camera-btn" style="display:none;" onclick="stopCamera()">
+                    <button class="camera-btn" id="stop-camera-btn" data-old-style="display:none;" onclick="stopCamera()">
                         <i class="ri-close-circle-line"></i> Stop Camera
                     </button>
                 </div>
@@ -696,7 +696,7 @@
                     <!-- Populated by JS from products array -->
                 </div>
 
-                <div style="flex-grow: 1;"></div>
+                <div data-old-style="flex-grow: 1;"></div>
 
                 <!-- Step 3: Generate -->
                 <button class="action-btn" id="generate-btn" disabled>
@@ -711,7 +711,7 @@
                     </i>
                 
                     <h3>Open your camera or upload a photo</h3>
-                    <p style="font-size:14px; margin-top:8px;">We'll detect your body shape automatically</p>
+                    <p data-old-style="font-size:14px; margin-top:8px;">We'll detect your body shape automatically</p>
                 </div>
 
                 <!-- Hidden webcam feed -->
@@ -731,7 +731,7 @@
                 <!-- Scanning Animation -->
                 <div class="scanning-container" id="scanner">
                     <div class="scanner-line"></div>
-                    <i class="ri-focus-3-line" style="font-size: 60px; color: var(--accent); animation: pulse 1s infinite alternate;"></i>
+                    <i class="ri-focus-3-line" data-old-style="font-size: 60px; color: var(--accent); animation: pulse 1s infinite alternate;"></i>
                     <div class="ai-text" id="ai-status">DETECTING BODY...</div>
                 </div>
                 
@@ -854,7 +854,7 @@
     <div class="copyright">
       <p>
         © Cara 2026. All rights reserved. |
-        <a href="license.html" style="color: #088178"> MIT License </a>
+        <a href="license.html" data-old-style="color: #088178"> MIT License </a>
       </p>
     </div>
   </footer>

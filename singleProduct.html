@@ -122,7 +122,7 @@
     <div class="single-pro-details">
       <h6>Home / T-Shirt</h6>
       <!-- Stock Urgency Badge -->
-      <div id="stock-urgency-badge" style="background: #f87171; color: white; display: inline-block; padding: 4px 8px; border-radius: 4px; font-weight: 600; font-size: 13px; margin-bottom: 10px; display: none;">
+      <div id="stock-urgency-badge" data-old-style="background: #f87171; color: white; display: inline-block; padding: 4px 8px; border-radius: 4px; font-weight: 600; font-size: 13px; margin-bottom: 10px; display: none;">
         🔥 Only <span id="stock-items-count">3</span> left in stock!
       </div>
       
@@ -225,7 +225,7 @@
             </button>
           </div>
           <button class="normal" onclick="handleAddToCart()">Add to Cart</button>
-          <button class="normal" style="background: #088178; color: white; margin-left: 10px;"
+          <button class="normal" data-old-style="background: #088178; color: white; margin-left: 10px;"
             onclick="handleBuyNow()">Buy Now</button>
           <button
             class="normal product-wishlist-btn wishlist-btn"
@@ -238,7 +238,7 @@
             <i class="ri-heart-line" aria-hidden="true"></i>
             <span>Wishlist</span>
           </button>
-          <button class="normal" style="background: var(--accent); color: white; margin-left: 10px;"
+          <button class="normal" data-old-style="background: var(--accent); color: white; margin-left: 10px;"
             onclick="window.location.href='try-on.html'">Try it On Virtually!</button>
         </div>
         <h4>Product Details</h4>
@@ -250,15 +250,15 @@
     </div>
   </section>
 
-  <section id="product-reviews" class="section-p1" style="border-top: 1px solid #eef; padding-top: 40px; margin-top: 20px;">
-    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px;">
+  <section id="product-reviews" class="section-p1" data-old-style="border-top: 1px solid #eef; padding-top: 40px; margin-top: 20px;">
+    <div data-old-style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px;">
       <div>
         <h2>Customer Reviews</h2>
         <p>What our customers are saying about this product</p>
       </div>
-      <div style="display: flex; align-items: center; gap: 8px;">
-        <label for="review-sort" style="font-weight: 600;">Sort by:</label>
-        <select id="review-sort" onchange="sortReviews()" style="padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px; background: var(--bg-primary, #fff); color: var(--text-primary, #222); cursor: pointer;">
+      <div data-old-style="display: flex; align-items: center; gap: 8px;">
+        <label for="review-sort" data-old-style="font-weight: 600;">Sort by:</label>
+        <select id="review-sort" onchange="sortReviews()" data-old-style="padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px; background: var(--bg-primary, #fff); color: var(--text-primary, #222); cursor: pointer;">
           <option value="recent">Most Recent</option>
           <option value="rating-desc">Rating: High to Low</option>
           <option value="rating-asc">Rating: Low to High</option>
@@ -266,27 +266,27 @@
       </div>
     </div>
     
-    <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 40px; margin-top: 30px;">
+    <div data-old-style="display: grid; grid-template-columns: 1fr 2fr; gap: 40px; margin-top: 30px;">
       <!-- Aggregate Rating -->
-      <div style="background: #f9f9f9; padding: 25px; border-radius: 8px; border: 1px solid #eee;">
-        <h3 style="font-size: 32px; margin: 0; color: #222;">4.8</h3>
-        <div style="color: #ffbd27; font-size: 18px; margin: 8px 0;">
+      <div data-old-style="background: #f9f9f9; padding: 25px; border-radius: 8px; border: 1px solid #eee;">
+        <h3 data-old-style="font-size: 32px; margin: 0; color: #222;">4.8</h3>
+        <div data-old-style="color: #ffbd27; font-size: 18px; margin: 8px 0;">
           <i class="ri-star-fill"></i>
           <i class="ri-star-fill"></i>
           <i class="ri-star-fill"></i>
           <i class="ri-star-fill"></i>
           <i class="ri-star-half-fill"></i>
         </div>
-        <p style="margin: 0; font-size: 14px; color: #555;">Based on 124 reviews</p>
+        <p data-old-style="margin: 0; font-size: 14px; color: #555;">Based on 124 reviews</p>
       </div>
 
       <!-- Add Review Form -->
-      <div style="background: #ffffff; padding: 25px; border-radius: 8px; border: 1px solid #eee;">
-        <h3 style="margin-top: 0;">Write a Review</h3>
-        <form id="review-form" onsubmit="submitReview(event)" style="display: flex; flex-direction: column; gap: 12px;">
+      <div data-old-style="background: #ffffff; padding: 25px; border-radius: 8px; border: 1px solid #eee;">
+        <h3 data-old-style="margin-top: 0;">Write a Review</h3>
+        <form id="review-form" onsubmit="submitReview(event)" data-old-style="display: flex; flex-direction: column; gap: 12px;">
           <div>
-            <label style="display: block; font-weight: 600; margin-bottom: 5px;">Rating:</label>
-            <div id="star-rating-selector" style="display: flex; gap: 5px; font-size: 24px; color: #ccc; cursor: pointer;">
+            <label data-old-style="display: block; font-weight: 600; margin-bottom: 5px;">Rating:</label>
+            <div id="star-rating-selector" data-old-style="display: flex; gap: 5px; font-size: 24px; color: #ccc; cursor: pointer;">
               <i class="ri-star-line" data-rating="1" onclick="setRating(1)"></i>
               <i class="ri-star-line" data-rating="2" onclick="setRating(2)"></i>
               <i class="ri-star-line" data-rating="3" onclick="setRating(3)"></i>
@@ -296,17 +296,17 @@
             <input type="hidden" id="review-rating" value="0">
           </div>
           <div>
-            <label for="review-text" style="display: block; font-weight: 600; margin-bottom: 5px;">Your Comment:</label>
-            <textarea id="review-text" rows="3" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px;" required placeholder="Share your experience..."></textarea>
+            <label for="review-text" data-old-style="display: block; font-weight: 600; margin-bottom: 5px;">Your Comment:</label>
+            <textarea id="review-text" rows="3" data-old-style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px;" required placeholder="Share your experience..."></textarea>
           </div>
-          <button type="submit" class="normal" style="align-self: flex-start;">Submit Review</button>
-          <div id="review-status" style="margin-top: 10px; font-weight: 600;"></div>
+          <button type="submit" class="normal" data-old-style="align-self: flex-start;">Submit Review</button>
+          <div id="review-status" data-old-style="margin-top: 10px; font-weight: 600;"></div>
         </form>
       </div>
     </div>
 
     <!-- Review List -->
-    <div id="reviews-list" style="margin-top: 30px; display: flex; flex-direction: column; gap: 20px;">
+    <div id="reviews-list" data-old-style="margin-top: 30px; display: flex; flex-direction: column; gap: 20px;">
       <!-- Loaded dynamically via JS -->
     </div>
   </section>
@@ -370,9 +370,9 @@
         let starHtml = '';
         for (let i = 0; i < 5; i++) {
           if (i < review.rating) {
-            starHtml += '<i class="ri-star-fill" style="color: #ffbd27;"></i>';
+            starHtml += '<i class="ri-star-fill" data-old-style="color: #ffbd27;"></i>';
           } else {
-            starHtml += '<i class="ri-star-line" style="color: #ccc;"></i>';
+            starHtml += '<i class="ri-star-line" data-old-style="color: #ccc;"></i>';
           }
         }
 
@@ -383,15 +383,15 @@
         });
 
         item.innerHTML = `
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <h4 style="margin: 0; font-size: 16px;">
+          <div data-old-style="display: flex; justify-content: space-between; align-items: center;">
+            <h4 data-old-style="margin: 0; font-size: 16px;">
               ${sanitizeHTML(review.name)} 
-              ${review.verified ? '<span style="color: #088178; font-size: 12px; margin-left: 8px;"><i class="ri-checkbox-circle-fill"></i> Verified Buyer</span>' : ''}
+              ${review.verified ? '<span data-old-style="color: #088178; font-size: 12px; margin-left: 8px;"><i class="ri-checkbox-circle-fill"></i> Verified Buyer</span>' : ''}
             </h4>
-            <span style="font-size: 12px; color: #777;">${dateStr}</span>
+            <span data-old-style="font-size: 12px; color: #777;">${dateStr}</span>
           </div>
-          <div style="color: #ffbd27; margin: 5px 0;">${starHtml}</div>
-          <p style="margin: 0; color: #555;">${sanitizeHTML(review.text)}</p>
+          <div data-old-style="color: #ffbd27; margin: 5px 0;">${starHtml}</div>
+          <p data-old-style="margin: 0; color: #555;">${sanitizeHTML(review.text)}</p>
         `;
         list.appendChild(item);
       });
@@ -415,7 +415,7 @@
       const status = document.getElementById('review-status');
       
       if (currentRating === 0) {
-        status.innerHTML = `<span style="color: #ef4444;"><i class="ri-error-warning-line"></i> Please select a star rating.</span>`;
+        status.innerHTML = `<span data-old-style="color: #ef4444;"><i class="ri-error-warning-line"></i> Please select a star rating.</span>`;
         return;
       }
 
@@ -434,7 +434,7 @@
       document.getElementById('review-sort').value = 'recent';
       sortReviews();
 
-      status.innerHTML = `<span style="color: #088178;"><i class="ri-checkbox-circle-line"></i> Thank you! Review submitted successfully.</span>`;
+      status.innerHTML = `<span data-old-style="color: #088178;"><i class="ri-checkbox-circle-line"></i> Thank you! Review submitted successfully.</span>`;
       
       document.getElementById('review-form').reset();
       setRating(0);
@@ -562,7 +562,7 @@
     <div class="copyright">
       <p>
         © Cara 2026. All rights reserved. |
-        <a href="license.html" style="color: #088178"> MIT License </a>
+        <a href="license.html" data-old-style="color: #088178"> MIT License </a>
       </p>
     </div>
   </footer>

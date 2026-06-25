@@ -555,7 +555,7 @@
         </svg>
       </button>
       <button class="icon-btn theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-        <i class="ri-moon-line" id="themeIcon" style="font-size: 18px;"></i>
+        <i class="ri-moon-line" id="themeIcon" data-old-style="font-size: 18px;"></i>
       </button>
     </div>
   </header>
@@ -565,8 +565,8 @@
       <div class="toolbar">
         <div>
           <div class="muted">Showing <span id="count">0</span> products</div>
-          <h2 style="margin:6px 0 0">Featured
-            <small class="muted" style="margin-left:8px;font-weight:500;font-size:13px">Hand-picked, best
+          <h2 data-old-style="margin:6px 0 0">Featured
+            <small class="muted" data-old-style="margin-left:8px;font-weight:500;font-size:13px">Hand-picked, best
               sellers</small>
           </h2>
         </div>
@@ -587,14 +587,14 @@
 
       <div id="grid" class="grid" aria-live="polite"></div>
 
-      <div id="empty" class="empty" style="display:none;margin-top:14px">No products match your search. Try different
+      <div id="empty" class="empty" data-old-style="display:none;margin-top:14px">No products match your search. Try different
         keywords or clear filters.</div>
     </section>
 
     <aside class="sidebar" aria-label="Cart and summary">
-      <div style="display:flex;justify-content:space-between;align-items:center;">
+      <div data-old-style="display:flex;justify-content:space-between;align-items:center;">
         <div>
-          <h3 style="margin:0">Your Cart</h3>
+          <h3 data-old-style="margin:0">Your Cart</h3>
           <div class="muted">Keep items for later or checkout quickly</div>
         </div>
         <button id="clearCart" class="icon-btn" title="Clear cart">Clear</button>
@@ -604,10 +604,10 @@
         <div class="muted">Cart is empty</div>
       </div>
 
-      <div style="margin-top:12px">
-        <div style="display:flex;justify-content:space-between;align-items:center">
+      <div data-old-style="margin-top:12px">
+        <div data-old-style="display:flex;justify-content:space-between;align-items:center">
           <div class="muted">Subtotal</div>
-          <div id="subtotal" style="font-weight:800">$0.00</div>
+          <div id="subtotal" data-old-style="font-weight:800">$0.00</div>
         </div>
         <button id="checkout" class="checkout">Proceed to Checkout</button>
       </div>
@@ -618,7 +618,7 @@
 </button>
 
   <!-- Quick view modal (hidden by default) -->
-  <div id="modalRoot" style="display:none"></div>
+  <div id="modalRoot" data-old-style="display:none"></div>
 
   <script>
     /* Cara — lightweight product catalogue + cart
