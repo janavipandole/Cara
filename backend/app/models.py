@@ -65,3 +65,36 @@ class OrderItem(Base):
     quantity = Column(Integer, nullable=False)
     price = Column(Float, nullable=False)
     order = relationship("Order")
+
+
+class WishlistItem(Base):
+    """Server-side wishlist entry scoped to an authenticated user."""
+    __tablename__ = "wishlist_items"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(
+        Integer,
+        ForeignKey("users.id", ondelete="CASCADE"),
+        nullable=False,
+        index=True,
+    )
+    product_id = Column(
+        Integer,
+        ForeignKey("products.id", ondelete="CASCADE"),
+        nullable=False,
+    )
+    added_at = Column(
+        DateTime,
+        default=lambda: datetime.now(timezone.utc),
+        nullable=False,
+    )
+
+    user = relationship("User")
+    product = relationship("Product")
+
+    # Prevent a user from adding the same product to their wishlist twice
+    __table_args__ = (
+        __import__("sqlalchemy").UniqueConstraint(
+            "user_id", "product_id", name="uq_wishlist_user_product"
+        ),
+    )
