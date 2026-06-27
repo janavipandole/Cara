@@ -952,19 +952,21 @@ function showToast(message, type = 'success') {
   const iconDiv = document.createElement('div');
   iconDiv.className = 'toast-icon';
   iconDiv.textContent = icon;
-  
+
   const msgDiv = document.createElement('div');
   msgDiv.className = 'toast-msg';
   msgDiv.textContent = message;
-  
+
   const closeBtn = document.createElement('button');
   closeBtn.className = 'toast-close';
   closeBtn.innerHTML = '&times;';
-  closeBtn.onclick = function() { this.parentElement.remove(); };
-  
+  closeBtn.onclick = function () {
+    this.parentElement.remove();
+  };
+
   const progressDiv = document.createElement('div');
   progressDiv.className = 'toast-progress';
-  
+
   toast.appendChild(iconDiv);
   toast.appendChild(msgDiv);
   toast.appendChild(closeBtn);

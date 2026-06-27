@@ -88,4 +88,6 @@
   }
 }
 /* Fix #2423 */
-:root { --em-base-duration: 300ms; }
+:root {
+  --em-base-duration: 300ms;
+}

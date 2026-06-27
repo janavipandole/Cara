@@ -86,23 +86,26 @@ document.addEventListener('DOMContentLoaded', function () {
     let payload = { email, password };
 
     // Support both simple math captcha and backend generated captcha validations
-    const mathCaptchaInput = document.getElementById("captcha-input");
-    if (mathCaptchaInput && mathCaptchaInput.closest(".login-captcha-container")) {
-        const mathAnswer = mathCaptchaInput.value.trim();
-        if (!mathAnswer) {
-            showToast("Please enter the human verification answer.", "warning");
-            return;
-        }
+    const mathCaptchaInput = document.getElementById('captcha-input');
+    if (
+      mathCaptchaInput &&
+      mathCaptchaInput.closest('.login-captcha-container')
+    ) {
+      const mathAnswer = mathCaptchaInput.value.trim();
+      if (!mathAnswer) {
+        showToast('Please enter the human verification answer.', 'warning');
+        return;
+      }
     }
 
     if (loginAttempts >= 1) {
-        const userCode = captchaInput ? captchaInput.value.trim() : '';
-        if (!userCode) {
-            showToast('Please enter the security code.', 'warning');
-            return;
-        }
-        payload.captcha_answer = userCode;
-        payload.captcha_token = currentCaptchaToken;
+      const userCode = captchaInput ? captchaInput.value.trim() : '';
+      if (!userCode) {
+        showToast('Please enter the security code.', 'warning');
+        return;
+      }
+      payload.captcha_answer = userCode;
+      payload.captcha_token = currentCaptchaToken;
     }
 
     if (submitBtn) {
@@ -111,11 +114,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     try {
-      const fetchFunc = typeof fetchWithTimeout === 'function' ? fetchWithTimeout : fetch;
+      const fetchFunc =
+        typeof fetchWithTimeout === 'function' ? fetchWithTimeout : fetch;
       const response = await fetchFunc('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
       });
 
       const data = await response.json();
@@ -127,9 +131,9 @@ document.addEventListener('DOMContentLoaded', function () {
       showToast('Welcome back, ' + data.user.username + '!', 'success');
 
       setTimeout(() => {
-        window.location.href = data.user.role === 'ADMIN' ? 'admin.html' : 'index.html';
+        window.location.href =
+          data.user.role === 'ADMIN' ? 'admin.html' : 'index.html';
       }, 1000);
-
     } catch (err) {
       showToast(err.message, 'error');
       loginAttempts++;

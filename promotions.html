@@ -1,49 +1,44 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <script>
-      // Immediately apply saved theme to prevent flash
-      (function () {
-        const currentTheme = localStorage.getItem('theme') || 'light';
-        document.documentElement.setAttribute('data-theme', currentTheme);
-      })();
-    </script>
 
-    <!-- Character encoding -->
-    <meta charset="UTF-8" />
+<head>
+  <script>
+    // Immediately apply saved theme to prevent flash
+    (function () {
+      const currentTheme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', currentTheme);
+    })();
+  </script>
 
-    <!-- Viewport for responsive design -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Character encoding -->
+  <meta charset="UTF-8" />
 
-    <!-- Page title -->
-    <title>Cara — Promotions & Ambassador Program</title>
+  <!-- Viewport for responsive design -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
+  <!-- Page title -->
+  <title>Cara — Promotions & Ambassador Program</title>
 
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="style.css" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="ui-fix.css" />
-    <link rel="stylesheet" href="promotions.css" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <!-- Promotions-specific styles moved to promotions.css -->
-     <style>
+  <link rel="stylesheet" href="promotions.css" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Promotions-specific styles moved to promotions.css -->
+  <style>
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 20px;
       line-height: 1.8;
     }
+
     #topBtn {
       position: fixed;
       bottom: 20px;
@@ -62,364 +57,212 @@
     #topBtn:hover {
       background-color: #555;
     }
-    </style>
-  </head>
+  </style>
+</head>
 
-  <body>
-    <!-- Header Section -->
-    <section id="header">
-      <!-- Logo -->
-      <a href="index.html">
-        <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
+<body>
+  <!-- Header Section -->
+  <section id="header">
+    <!-- Logo -->
+    <a href="index.html">
+      <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
+    </a>
+
+    <div id="navbar-container"></div>
+
+    <!-- Mobile Navbar -->
+    <div class="mobile">
+      <!-- Login Icon -->
+      <a href="login.html" aria-label="Login">
+        <i class="ri-user-3-line"></i>
       </a>
 
-      <div id="navbar-container"></div>
+      <!-- Cart Icon -->
+      <a href="cart.html" aria-label="Cart">
+        <i class="ri-shopping-bag-4-line"></i>
+      </a>
 
-      <!-- Mobile Navbar -->
-      <div class="mobile">
-        <!-- Login Icon -->
-        <a href="login.html" aria-label="Login">
-          <i class="ri-user-3-line"></i>
-        </a>
-
-        <!-- Cart Icon -->
-        <a href="cart.html" aria-label="Cart">
-          <i class="ri-shopping-bag-4-line"></i>
-        </a>
-
-        <!-- Hamburger Menu -->
-        <i
-          class="fas fa-outdent"
-          id="bar"
-          role="button"
-          aria-label="Open menu"
-          aria-expanded="false"
-          tabindex="0"
-        ></i>
+      <!-- Hamburger Menu -->
+      <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
       <!-- Theme Toggle -->
       <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
         <i class="ri-moon-line" id="themeIconMobile"></i>
       </button>
-      </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="promo-header">
-      <h2>#CaraAmbassador</h2>
-      <p>Join our community. Get freebies. Share your style.</p>
-    </section>
+  <section id="promo-header">
+    <h2>#CaraAmbassador</h2>
+    <p>Join our community. Get freebies. Share your style.</p>
+  </section>
 
-    <section class="section-p1 promo-container">
-      <div class="promo-details">
-        <h3>Why join the Cara Community?</h3>
+  <section class="section-p1 promo-container">
+    <div class="promo-details">
+      <h3>Why join the Cara Community?</h3>
+      <p>
+        We love working with creators and fashion enthusiasts. Apply for our
+        ambassador program to unlock exclusive perks.
+      </p>
+
+      <div class="perk-box">
+        <h4>
+          <i class="ri-gift-line" style="color: var(--accent)"></i> Monthly
+          Freebies
+        </h4>
         <p>
-          We love working with creators and fashion enthusiasts. Apply for our
-          ambassador program to unlock exclusive perks.
+          Receive exclusive clothing items every month to style and share with
+          your followers.
         </p>
-
-        <div class="perk-box">
-          <h4>
-            <i class="ri-gift-line" style="color: var(--accent)"></i> Monthly
-            Freebies
-          </h4>
-          <p>
-            Receive exclusive clothing items every month to style and share with
-            your followers.
-          </p>
-        </div>
-
-        <div class="perk-box">
-          <h4>
-            <i class="ri-percent-line" style="color: var(--accent)"></i> Custom
-            Discount Codes
-          </h4>
-          <p>
-            Get a unique discount code to share with your audience and earn
-            commission on sales.
-          </p>
-        </div>
-
-        <div class="perk-box">
-          <h4>
-            <i class="ri-star-smile-line" style="color: var(--accent)"></i>
-            Featured Spotlights
-          </h4>
-          <p>
-            Get featured on our official Instagram page and website homepage.
-          </p>
-        </div>
       </div>
 
-      <div class="influencer-form">
-        <h3>Apply for Freebies & Trials</h3>
-        <form id="ambassador-form">
-          <div class="form-group">
-            <label>Full Name</label>
-            <input type="text" placeholder="Enter Name" required />
-          </div>
-          <div class="form-group">
-            <label>Email Address</label>
-            <input type="email" placeholder="Enter Email" required />
-          </div>
-          <div class="form-group">
-            <label>Instagram Handle</label>
-            <input type="text" placeholder="Enter Instagram Handle" required />
-          </div>
-          <div class="form-group">
-            <label>Follower Count</label>
-            <input type="number" placeholder="e.g. 15000" required />
-          </div>
-          <div class="form-group">
-            <label>Why do you love Cara?</label>
-            <textarea
-              rows="4"
-              placeholder="Tell us about your style..."
-            ></textarea>
-          </div>
-          <button
-            type="submit"
-            class="normal"
-            style="background: var(--accent); color: white; width: 100%"
-          >
-            Submit Application
-          </button>
-          <p
-            id="form-success"
-            style="
+      <div class="perk-box">
+        <h4>
+          <i class="ri-percent-line" style="color: var(--accent)"></i> Custom
+          Discount Codes
+        </h4>
+        <p>
+          Get a unique discount code to share with your audience and earn
+          commission on sales.
+        </p>
+      </div>
+
+      <div class="perk-box">
+        <h4>
+          <i class="ri-star-smile-line" style="color: var(--accent)"></i>
+          Featured Spotlights
+        </h4>
+        <p>
+          Get featured on our official Instagram page and website homepage.
+        </p>
+      </div>
+    </div>
+
+    <div class="influencer-form">
+      <h3>Apply for Freebies & Trials</h3>
+      <form id="ambassador-form">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" placeholder="Enter Name" required />
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="Enter Email" required />
+        </div>
+        <div class="form-group">
+          <label>Instagram Handle</label>
+          <input type="text" placeholder="Enter Instagram Handle" required />
+        </div>
+        <div class="form-group">
+          <label>Follower Count</label>
+          <input type="number" placeholder="e.g. 15000" required />
+        </div>
+        <div class="form-group">
+          <label>Why do you love Cara?</label>
+          <textarea rows="4" placeholder="Tell us about your style..."></textarea>
+        </div>
+        <button type="submit" class="normal" style="background: var(--accent); color: white; width: 100%">
+          Submit Application
+        </button>
+        <p id="form-success" style="
               display: none;
               color: var(--accent);
               margin-top: 15px;
               font-weight: bold;
               text-align: center;
-            "
-          >
-            Application Submitted! We will review it shortly.
-          </p>
-        </form>
-      </div>
-    </section>
+            ">
+          Application Submitted! We will review it shortly.
+        </p>
+      </form>
+    </div>
+  </section>
 
-    <!-- Discount Popup Element -->
-    <div id="discount-popup" role="dialog" aria-labelledby="popup-title" aria-describedby="promo-text" aria-live="polite">
-      <button
-        class="close-btn"
-        aria-label="Close gift popup"
-        style="background: transparent; border: none; color: #fff; position: absolute; top: 8px; right: 10px; cursor: pointer; font-size: 18px;"
-        onclick="
-          document.getElementById('discount-popup').style.display = 'none';
-        "
-      >
-        <i class="ri-close-line"></i>
-      </button>
-      <h4 id="popup-title">Surprise Gift! <i class="fas fa-gift"></i></h4>
-      <p id="promo-text">
-        Thanks for checking out our promotions. Use this code at checkout for
-        15% off your first order!
-      </p>
-      <button
-        class="copy-code"
-        aria-label="Copy coupon code CARA15 for 15% off"
-        style="border: none; font-family: inherit; cursor: pointer; font-size: inherit; text-transform: none; line-height: inherit;"
-        onclick="
+  <!-- Discount Popup Element -->
+  <div id="discount-popup" role="dialog" aria-labelledby="popup-title" aria-describedby="promo-text" aria-live="polite">
+    <button class="close-btn" aria-label="Close gift popup" style="
+          background: transparent;
+          border: none;
+          color: #fff;
+          position: absolute;
+          top: 8px;
+          right: 10px;
+          cursor: pointer;
+          font-size: 18px;
+        " onclick="
+          document.getElementById('discount-popup').style.display = 'none'
+        ">
+      <i class="ri-close-line"></i>
+    </button>
+    <h4 id="popup-title">Surprise Gift! <i class="fas fa-gift"></i></h4>
+    <p id="promo-text">
+      Thanks for checking out our promotions. Use this code at checkout for
+      15% off your first order!
+    </p>
+    <button class="copy-code" aria-label="Copy coupon code CARA15 for 15% off" style="
+          border: none;
+          font-family: inherit;
+          cursor: pointer;
+          font-size: inherit;
+          text-transform: none;
+          line-height: inherit;
+        " onclick="
           navigator.clipboard.writeText('CARA15');
           this.innerText = 'COPIED!';
-          this.setAttribute('aria-label', 'Coupon code CARA15 copied to clipboard');
-        "
-      >
-        CARA15
-      </button>
-    </div>
+          this.setAttribute(
+            'aria-label',
+            'Coupon code CARA15 copied to clipboard'
+          );
+        ">
+      CARA15
+    </button>
+  </div>
 
-    <!-- Footer Section -->
-    <footer class="section-p1">
-      <!-- Contact Column -->
-      <div class="col">
-        <img class="logo" src="images/logo.png" alt="Cara Logo" />
-        <h4>Contact</h4>
-        <p>
-          <strong>Address:</strong> 562 Wellington Road, Street 32, San
-          Francisco
-        </p>
-        <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
-        <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
+  <footer id="footer"></footer>
 
-        <div class="follow">
-          <h4>Follow us</h4>
-          <div class="icon">
-            <a
-              href="https://x.com/JanaviPandole"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <i class="fa-brands fa-x-twitter"></i>
-            </a>
-            <a
-              href="https://github.com/janavipandole"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <i class="fab fa-github"></i>
-            </a>
-            <a
-              href="https://www.linkedin.com/in/janavi-pandole-80a7b2290"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <i class="fab fa-linkedin"></i>
-            </a>
-            <a
-              href="https://www.youtube.com/@JanaviPandole"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <i class="fab fa-youtube"></i>
-            </a>
-          </div>
-        </div>
-      </div>
+  <script src="js/footer.js"></script>
+  <button id="topBtn">↑</button>
+  <script src="navbar.js"></script>
+  <script>
+    loadNavbar();
+  </script>
+  <script src="app.js"></script>
+  <script>
+    const topBtn = document.getElementById('topBtn');
 
-      <!-- About Column -->
-      <div class="col">
-        <h4>About</h4>
-        <a href="about.html">About Us</a>
-        <a href="delivery.html">Delivery Information</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="terms.html">Terms and Conditions</a>
-        <a href="contact.html">Contact Us</a>
-      </div>
+    if (topBtn) {
+      topBtn.style.display = 'none';
 
-      <!-- My Account Column -->
-      <div class="col">
-        <h4>My Account</h4>
-        <a href="login.html">Sign In</a>
-        <a href="cart.html">View Cart</a>
-        <a href="#">My Wishlist</a>
-        <a href="cart.html">Track My Order</a>
-        <a href="contact.html">Help</a>
-      </div>
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 200) {
+          topBtn.style.display = 'block';
+        } else {
+          topBtn.style.display = 'none';
+        }
+      });
 
-      <!-- Newsletter Column -->
-      <div class="col newsletter-footer">
-        <h4>Newsletter</h4>
-        <p>
-          Get email updates about our latest shop and
-          <span>special offers.</span>
-        </p>
-
-        <form class="newsletter-form">
-          <input type="email" placeholder="Your email address" required="" />
-          <button type="submit" class="normal">Sign Up</button>
-        </form>
-      </div>
-
-      <!-- Install App Column -->
-      <div class="col install">
-        <h4>Install App</h4>
-        <p>From App Store or Google Play</p>
-
-        <div class="row">
-          <img src="images/pay/app.jpg" alt="Download from App Store" />
-          <img src="images/pay/play.jpg" alt="Get it on Google Play" />
-        </div>
-
-        <p>Secured Payment Gateways</p>
-
-        <div class="payment-icons">
-          <a
-            href="https://www.visa.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Visa"
-          >
-            <i class="fab fa-cc-visa"></i>
-          </a>
-
-          <a
-            href="https://www.mastercard.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Mastercard"
-          >
-            <i class="fab fa-cc-mastercard"></i>
-          </a>
-
-          <a
-            href="https://www.paypal.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="PayPal"
-          >
-            <i class="fab fa-cc-paypal"></i>
-          </a>
-
-          <a
-            href="https://www.americanexpress.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="American Express"
-          >
-            <i class="fab fa-cc-amex"></i>
-          </a>
-
-          <a
-            href="https://stripe.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Stripe"
-          >
-            <i class="fab fa-cc-stripe"></i>
-          </a>
-        </div>
-      </div>
-
-      <!-- Copyright -->
-      <div class="copyright">
-        <p>
-          © Cara 2026. All rights reserved. |
-          <a href="license.html" style="color: #088178"> MIT License </a>
-        </p>
-      </div>
-    </footer>
-<button id="topBtn">↑</button>
-    <script src="navbar.js"></script>
-    <script>loadNavbar();</script>
-    <script src="app.js"></script>
-    <script>
-      const topBtn = document.getElementById("topBtn");
-
-      if (topBtn) {
-        topBtn.style.display = "none";
-
-        window.addEventListener("scroll", () => {
-          if (window.scrollY > 200) {
-            topBtn.style.display = "block";
-          } else {
-            topBtn.style.display = "none";
-          }
+      topBtn.addEventListener('click', function () {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
         });
+      });
+    }
 
-        topBtn.addEventListener("click", function () {
-          window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-          });
-        });
-      }
+    // Form submission simulation
+    document
+      .getElementById('ambassador-form')
+      .addEventListener('submit', function (e) {
+        e.preventDefault();
+        document.getElementById('form-success').style.display = 'block';
+        this.reset();
+      });
 
-      // Form submission simulation
-      document
-        .getElementById('ambassador-form')
-        .addEventListener('submit', function (e) {
-          e.preventDefault();
-          document.getElementById('form-success').style.display = 'block';
-          this.reset();
-        });
-
-      // Trigger discount popup after 5 seconds of engagement
-      setTimeout(() => {
-        document.getElementById('discount-popup').style.display = 'block';
-      }, 5000);
-    </script>
+    // Trigger discount popup after 5 seconds of engagement
+    setTimeout(() => {
+      document.getElementById('discount-popup').style.display = 'block';
+    }, 5000);
+  </script>
 </body>
+
 </html>
 
 <!-- Accessibility and structural improvements -->

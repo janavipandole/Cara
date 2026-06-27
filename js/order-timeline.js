@@ -1,9 +1,9 @@
 // Interactive milestones tracking component
-document.addEventListener("DOMContentLoaded", () => {
-    const trackingBox = document.getElementById("order-tracking-timeline-target");
-    if (!trackingBox) return;
+document.addEventListener('DOMContentLoaded', () => {
+  const trackingBox = document.getElementById('order-tracking-timeline-target');
+  if (!trackingBox) return;
 
-    trackingBox.innerHTML = `
+  trackingBox.innerHTML = `
         <div style="display:flex; justify-content:space-between; margin: 30px 0; font-family:sans-serif; position:relative;">
             <div style="position:absolute; top:12px; left:0; width:100%; height:4px; background:#ccc; z-index:1;"></div>
             <div id="timeline-bar" style="position:absolute; top:12px; left:0; width:50%; height:4px; background:#088178; z-index:2; transition:width 0.5s;"></div>

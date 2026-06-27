@@ -32,7 +32,11 @@
   <style>
     /* Campaign Page Head Styling */
     #campaign-head {
-      background-image: linear-gradient(135deg, rgba(239, 68, 68, 0.95), rgba(245, 158, 11, 0.9)), url('images/banner/b18.jpg');
+      background-image:
+        linear-gradient(135deg,
+          rgba(239, 68, 68, 0.95),
+          rgba(245, 158, 11, 0.9)),
+        url('images/banner/b18.jpg');
       background-size: cover;
       background-position: center;
       width: 100%;
@@ -87,7 +91,7 @@
       color: #1a1a1a;
     }
 
-    [data-theme="dark"] .campaign-content h1 {
+    [data-theme='dark'] .campaign-content h1 {
       color: #f8fafc;
     }
 
@@ -99,7 +103,7 @@
       line-height: 1.6;
     }
 
-    [data-theme="dark"] .campaign-content p.lead-text {
+    [data-theme='dark'] .campaign-content p.lead-text {
       color: #cbd5e1;
     }
 
@@ -139,7 +143,7 @@
       color: #333;
     }
 
-    [data-theme="dark"] .btn-secondary {
+    [data-theme='dark'] .btn-secondary {
       color: #f8fafc;
       border-color: #475569;
     }
@@ -148,7 +152,7 @@
       background-color: rgba(0, 0, 0, 0.05);
     }
 
-    [data-theme="dark"] .btn-secondary:hover {
+    [data-theme='dark'] .btn-secondary:hover {
       background-color: rgba(255, 255, 255, 0.05);
     }
 
@@ -203,11 +207,12 @@
             </a>
 
             <!-- Hamburger Menu -->
-            <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
-      <!-- Theme Toggle -->
-      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
-        <i class="ri-moon-line" id="themeIconMobile"></i>
-      </button>
+            <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false"
+              tabindex="0"></i>
+            <!-- Theme Toggle -->
+            <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
+              <i class="ri-moon-line" id="themeIconMobile"></i>
+            </button>
           </div>
         </section>
 
@@ -223,92 +228,247 @@
   <section class="campaign-content">
     <div class="badge-deal">BOGO Promotion</div>
     <h1>Buy 1 Get 1 Free</h1>
-    <p class="lead-text">Unlock incredible savings on our top-selling apparel collection. Select any two qualifying items below, and the lower-priced item is automatically free at checkout! Use coupon code <strong>CARA20</strong> at cart for an extra 20% off.</p>
+    <p class="lead-text">
+      Unlock incredible savings on our top-selling apparel collection. Select
+      any two qualifying items below, and the lower-priced item is
+      automatically free at checkout! Use coupon code
+      <strong>CARA20</strong> at cart for an extra 20% off.
+    </p>
 
     <!-- Product Grid for Deals -->
-    <div id="product1" class="section-p1" style="width: 100%; padding: 0;">
+    <div id="product1" class="section-p1" style="width: 100%; padding: 0">
       <div class="pro-container">
-
         <div class="pro" data-category="street">
-          <div class="pro-img-wrap"><img src="images/products/f1.jpg" alt="Cartoon Astronaut T-Shirts" /></div>
+          <div class="pro-img-wrap">
+            <img src="images/products/f1.jpg" alt="Cartoon Astronaut T-Shirts" />
+          </div>
           <div class="des">
             <div class="pro-brand-row">
-              <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
+              <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z" />
+              </svg>
               <span>Nike</span>
             </div>
             <h5>Cartoon Astronaut T-Shirts</h5>
-            <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
-            <h4 style="display: flex; gap: 10px; justify-content: center; align-items: center;">
-              <span style="color: #ef4444;">&#8377;1,249</span>
-              <span style="text-decoration: line-through; font-size: 14px; color: #888; font-weight: normal;">&#8377;2,499</span>
+            <div class="star">
+              <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i
+                class="ri-star-fill"></i><i class="ri-star-fill"></i>
+            </div>
+            <h4 style="
+                  display: flex;
+                  gap: 10px;
+                  justify-content: center;
+                  align-items: center;
+                ">
+              <span style="color: #ef4444">&#8377;1,249</span>
+              <span style="
+                    text-decoration: line-through;
+                    font-size: 14px;
+                    color: #888;
+                    font-weight: normal;
+                  ">&#8377;2,499</span>
             </h4>
             <div class="pro-action-bar">
-             <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="event.stopPropagation(); buyNow('Cartoon Astronaut T-Shirts','₹1,249','images/products/f1.jpg',1,'M')">BUY NOW</button>
-              <a href="#" class="pro-cart-btn" aria-label="Add Cartoon Astronaut T-Shirts to cart" onclick="event.stopPropagation(); addToCart('Cartoon Astronaut T-Shirts','₹1,249','images/products/f1.jpg',1,'M'); return false;"><i class="ri-shopping-cart-2-line"></i></a>
+              <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="
+                    event.stopPropagation();
+                    buyNow(
+                      'Cartoon Astronaut T-Shirts',
+                      '₹1,249',
+                      'images/products/f1.jpg',
+                      1,
+                      'M'
+                    );
+                  ">
+                BUY NOW
+              </button>
+              <a href="#" class="pro-cart-btn" aria-label="Add Cartoon Astronaut T-Shirts to cart" onclick="
+                    event.stopPropagation();
+                    addToCart(
+                      'Cartoon Astronaut T-Shirts',
+                      '₹1,249',
+                      'images/products/f1.jpg',
+                      1,
+                      'M'
+                    );
+                    return false;
+                  "><i class="ri-shopping-cart-2-line"></i></a>
             </div>
           </div>
         </div>
 
         <div class="pro" data-category="minimal">
-          <div class="pro-img-wrap"><img src="images/products/f2.jpg" alt="White Palm Leaf Casual Shirt" /></div>
+          <div class="pro-img-wrap">
+            <img src="images/products/f2.jpg" alt="White Palm Leaf Casual Shirt" />
+          </div>
           <div class="des">
             <div class="pro-brand-row">
-              <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
+              <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z" />
+              </svg>
               <span>H&amp;M</span>
             </div>
             <h5>White Palm Leaf Casual Shirt</h5>
-            <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
-            <h4 style="display: flex; gap: 10px; justify-content: center; align-items: center;">
-              <span style="color: #ef4444;">&#8377;649</span>
-              <span style="text-decoration: line-through; font-size: 14px; color: #888; font-weight: normal;">&#8377;1,299</span>
+            <div class="star">
+              <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i
+                class="ri-star-fill"></i><i class="ri-star-fill"></i>
+            </div>
+            <h4 style="
+                  display: flex;
+                  gap: 10px;
+                  justify-content: center;
+                  align-items: center;
+                ">
+              <span style="color: #ef4444">&#8377;649</span>
+              <span style="
+                    text-decoration: line-through;
+                    font-size: 14px;
+                    color: #888;
+                    font-weight: normal;
+                  ">&#8377;1,299</span>
             </h4>
             <div class="pro-action-bar">
-             <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="event.stopPropagation(); buyNow('White Palm Leaf Casual Shirt','₹649','images/products/f2.jpg',1,'M')">BUY NOW</button>
-              <a href="#" class="pro-cart-btn" aria-label="Add White Palm Leaf Casual Shirt to cart" onclick="event.stopPropagation(); addToCart('White Palm Leaf Casual Shirt','₹649','images/products/f2.jpg',1,'M'); return false;"><i class="ri-shopping-cart-2-line"></i></a>
+              <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="
+                    event.stopPropagation();
+                    buyNow(
+                      'White Palm Leaf Casual Shirt',
+                      '₹649',
+                      'images/products/f2.jpg',
+                      1,
+                      'M'
+                    );
+                  ">
+                BUY NOW
+              </button>
+              <a href="#" class="pro-cart-btn" aria-label="Add White Palm Leaf Casual Shirt to cart" onclick="
+                    event.stopPropagation();
+                    addToCart(
+                      'White Palm Leaf Casual Shirt',
+                      '₹649',
+                      'images/products/f2.jpg',
+                      1,
+                      'M'
+                    );
+                    return false;
+                  "><i class="ri-shopping-cart-2-line"></i></a>
             </div>
           </div>
         </div>
 
         <div class="pro" data-category="street">
-          <div class="pro-img-wrap"><img src="images/products/f5.jpg" alt="Pink Peony Patterned Shirt" /></div>
+          <div class="pro-img-wrap">
+            <img src="images/products/f5.jpg" alt="Pink Peony Patterned Shirt" />
+          </div>
           <div class="des">
             <div class="pro-brand-row">
-              <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
+              <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z" />
+              </svg>
               <span>Puma</span>
             </div>
             <h5>Pink Peony Patterned Shirt</h5>
-            <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
-            <h4 style="display: flex; gap: 10px; justify-content: center; align-items: center;">
-              <span style="color: #ef4444;">&#8377;999</span>
-              <span style="text-decoration: line-through; font-size: 14px; color: #888; font-weight: normal;">&#8377;1,999</span>
+            <div class="star">
+              <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i
+                class="ri-star-fill"></i><i class="ri-star-fill"></i>
+            </div>
+            <h4 style="
+                  display: flex;
+                  gap: 10px;
+                  justify-content: center;
+                  align-items: center;
+                ">
+              <span style="color: #ef4444">&#8377;999</span>
+              <span style="
+                    text-decoration: line-through;
+                    font-size: 14px;
+                    color: #888;
+                    font-weight: normal;
+                  ">&#8377;1,999</span>
             </h4>
             <div class="pro-action-bar">
-             <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="event.stopPropagation(); buyNow('Pink Peony Patterned Shirt','₹999','images/products/f5.jpg',1,'M')">BUY NOW</button>
-              <a href="#" class="pro-cart-btn" aria-label="Add Pink Peony Patterned Shirt to cart" onclick="event.stopPropagation(); addToCart('Pink Peony Patterned Shirt','₹999','images/products/f5.jpg',1,'M'); return false;"><i class="ri-shopping-cart-2-line"></i></a>
+              <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="
+                    event.stopPropagation();
+                    buyNow(
+                      'Pink Peony Patterned Shirt',
+                      '₹999',
+                      'images/products/f5.jpg',
+                      1,
+                      'M'
+                    );
+                  ">
+                BUY NOW
+              </button>
+              <a href="#" class="pro-cart-btn" aria-label="Add Pink Peony Patterned Shirt to cart" onclick="
+                    event.stopPropagation();
+                    addToCart(
+                      'Pink Peony Patterned Shirt',
+                      '₹999',
+                      'images/products/f5.jpg',
+                      1,
+                      'M'
+                    );
+                    return false;
+                  "><i class="ri-shopping-cart-2-line"></i></a>
             </div>
           </div>
         </div>
 
         <div class="pro" data-category="street">
-          <div class="pro-img-wrap"><img src="images/products/f6.jpg" alt="Dual-Tone Corduroy Shirt" /></div>
+          <div class="pro-img-wrap">
+            <img src="images/products/f6.jpg" alt="Dual-Tone Corduroy Shirt" />
+          </div>
           <div class="des">
             <div class="pro-brand-row">
-              <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
+              <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z" />
+              </svg>
               <span>Gap</span>
             </div>
             <h5>Dual-Tone Corduroy Shirt</h5>
-            <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
-            <h4 style="display: flex; gap: 10px; justify-content: center; align-items: center;">
-              <span style="color: #ef4444;">&#8377;1,149</span>
-              <span style="text-decoration: line-through; font-size: 14px; color: #888; font-weight: normal;">&#8377;2,299</span>
+            <div class="star">
+              <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i
+                class="ri-star-fill"></i><i class="ri-star-fill"></i>
+            </div>
+            <h4 style="
+                  display: flex;
+                  gap: 10px;
+                  justify-content: center;
+                  align-items: center;
+                ">
+              <span style="color: #ef4444">&#8377;1,149</span>
+              <span style="
+                    text-decoration: line-through;
+                    font-size: 14px;
+                    color: #888;
+                    font-weight: normal;
+                  ">&#8377;2,299</span>
             </h4>
             <div class="pro-action-bar">
-             <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="event.stopPropagation(); buyNow('Dual-Tone Corduroy Shirt','₹1,149','images/products/f6.jpg',1,'M')">BUY NOW</button>
-              <a href="#" class="pro-cart-btn" aria-label="Add Dual-Tone Corduroy Shirt to cart" onclick="event.stopPropagation(); addToCart('Dual-Tone Corduroy Shirt','₹1,149','images/products/f6.jpg',1,'M'); return false;"><i class="ri-shopping-cart-2-line"></i></a>
+              <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="
+                    event.stopPropagation();
+                    buyNow(
+                      'Dual-Tone Corduroy Shirt',
+                      '₹1,149',
+                      'images/products/f6.jpg',
+                      1,
+                      'M'
+                    );
+                  ">
+                BUY NOW
+              </button>
+              <a href="#" class="pro-cart-btn" aria-label="Add Dual-Tone Corduroy Shirt to cart" onclick="
+                    event.stopPropagation();
+                    addToCart(
+                      'Dual-Tone Corduroy Shirt',
+                      '₹1,149',
+                      'images/products/f6.jpg',
+                      1,
+                      'M'
+                    );
+                    return false;
+                  "><i class="ri-shopping-cart-2-line"></i></a>
             </div>
           </div>
         </div>
-
       </div>
     </div>
 
@@ -320,85 +480,9 @@
   </section>
 
   <!-- Footer -->
-  <footer class="main-footer">
-    <div class="footer-top">
-      <div class="footer-logo-box">
-        <img class="footer-logo" src="images/logo.png" alt="Cara Logo" />
-      </div>
-      <div class="footer-socials">
-        <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
-        <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
-        <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
-        <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
-      </div>
-    </div>
+  <footer id="footer"></footer>
 
-    <hr class="footer-divider">
-
-    <div class="footer-middle">
-      <div class="footer-col brand-info">
-        <h4>ABOUT US</h4>
-        <p>Cara E-Commerce – Redefining your style with premium apparel, expert curation, and an absolute commitment to fashion excellence.</p>
-        <p><strong>Address: </strong>562 Wellington Road, Street 32, San Francisco</p>
-        <p><strong>Phone: </strong>+01 2222 365 / (+91) 01 2345 6789</p>
-        <p><strong>Hours: </strong>10:00 - 18:00, Mon - Sat</p>
-      </div>
-
-      <div class="footer-col">
-        <h4>QUICK LINKS</h4>
-        <a href="about.html">About Us</a>
-        <a href="delivery.html">Delivery Information</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="terms.html">Terms and Conditions</a>
-        <a href="contact.html">Contact Us</a>
-      </div>
-
-      <div class="col">
-        <h4>My Account</h4>
-        <a href="login.html">Sign In</a>
-        <a href="cart.html">View Cart</a>
-        <a href="wishlist.html">My Wishlist</a>
-        <a href="cart.html">Track My Order</a>
-        <a href="contact.html">Help</a>
-      </div>
-
-      <div class="footer-col newsletter-footer">
-        <h4>NEWSLETTER</h4>
-        <p>Get email updates about our latest shop and <span>special offers.</span></p>
-        <form class="newsletter-form">
-          <input type="email" placeholder="Your email address" required>
-          <button type="submit">Sign Up</button>
-        </form>
-
-        <div class="install-payment-box">
-          <h4>SECURED PAYMENT GATEWAYS</h4>
-          <div class="payment-icons">
-            <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer" aria-label="Visa"><i class="fab fa-cc-visa"></i></a>
-            <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer" aria-label="Mastercard"><i class="fab fa-cc-mastercard"></i></a>
-            <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" aria-label="PayPal"><i class="fab fa-cc-paypal"></i></a>
-            <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer" aria-label="American Express"><i class="fab fa-cc-amex"></i></a>
-            <a href="https://www.stripe.com" target="_blank" rel="noopener noreferrer" aria-label="Stripe"><i class="fab fa-cc-stripe"></i></a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="footer-install-box">
-      <h4>INSTALL APP</h4>
-      <p>From App Store or Google Play</p>
-      <div class="download-badges">
-        <img src="images/pay/app.jpg" alt="Download from App Store" />
-        <img src="images/pay/play.jpg" alt="Get it on Google Play" />
-      </div>
-    </div>
-
-    <div class="footer-bottom">
-      <p class="copyright">© Cara 2026. All rights reserved.</p>
-      <div class="footer-legal-links">
-        <a href="license.html" class="license-link">MIT License</a>
-      </div>
-    </div>
-  </footer>
+  <script src="js/footer.js"></script>
 
   <button id="scrollTopBtn" title="Go to top">↑</button>
 
@@ -406,16 +490,16 @@
   <script src="navbar.js"></script>
   <script src="app.js"></script>
   <script>
-    const scrollTopBtn = document.getElementById("scrollTopBtn");
-    window.addEventListener("scroll", () => {
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll', () => {
       if (window.scrollY > 300) {
-        scrollTopBtn.style.display = "block";
+        scrollTopBtn.style.display = 'block';
       } else {
-        scrollTopBtn.style.display = "none";
+        scrollTopBtn.style.display = 'none';
       }
     });
-    scrollTopBtn.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   </script>
 </body>

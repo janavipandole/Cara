@@ -5,7 +5,10 @@
 
 /* ── Sidebar alignment & toggle transition fix ── */
 #navbar {
-  transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease, visibility 0.3s ease;
+  transition:
+    right 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.3s ease,
+    visibility 0.3s ease;
   will-change: right;
 }
 
@@ -13,11 +16,11 @@
   box-shadow: 0 40px 60px rgba(0, 0, 0, 0.15);
 }
 
-[data-theme="dark"] #navbar {
+[data-theme='dark'] #navbar {
   box-shadow: 0 40px 60px rgba(0, 0, 0, 0.5);
 }
 
-[data-theme="dark"] #navbar.active {
+[data-theme='dark'] #navbar.active {
   box-shadow: 0 40px 60px rgba(0, 0, 0, 0.7);
 }
 
@@ -125,7 +128,10 @@ body.nav-open #main {
 
 /* ── Text alignment fixes on smaller breakpoints ── */
 @media (max-width: 799px) {
-  h1, h2, h4, h6 {
+  h1,
+  h2,
+  h4,
+  h6 {
     text-align: left;
   }
 
@@ -277,7 +283,7 @@ footer .col {
   justify-content: space-between;
   flex-wrap: wrap;
   align-items: center;
-  background-image: url("images/banner/b14.png");
+  background-image: url('images/banner/b14.png');
   background-size: cover;
   background-position: 20% 30%;
   background-repeat: no-repeat;

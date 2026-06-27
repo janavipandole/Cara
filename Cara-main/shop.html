@@ -82,88 +82,105 @@
 
   <body>
     <section id="header">
-  <!-- Logo -->
-  <a href="index.html">
-    <img src="images/logo.png" alt="Cara Logo" />
-  </a>
+      <!-- Logo -->
+      <a href="index.html">
+        <img src="images/logo.png" alt="Cara Logo" />
+      </a>
 
-  <div>
-    <ul id="navbar">
+      <div>
+        <ul id="navbar">
+          <!-- Main Navigation Links -->
+          <li><a href="index.html">Home</a></li>
+          <li><a class="active" href="shop.html">Shop</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="try-on.html">Try-On</a></li>
+          <li><a href="community.html">Community</a></li>
+          <li><a href="promotions.html">Promotions</a></li>
 
-      <!-- Main Navigation Links -->
-      <li><a href="index.html">Home</a></li>
-      <li><a class="active" href="shop.html">Shop</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="try-on.html">Try-On</a></li>
-      <li><a href="community.html">Community</a></li>
-      <li><a href="promotions.html">Promotions</a></li>
+          <!-- Contact Icon -->
+          <li class="nav-icon">
+            <a href="contact.html" aria-label="Contact">
+              <i class="ri-customer-service-2-line"></i>
+            </a>
+          </li>
 
-      <!-- Contact Icon -->
-      <li class="nav-icon">
-        <a href="contact.html" aria-label="Contact">
-          <i class="ri-customer-service-2-line"></i>
-        </a>
-      </li>
+          <!-- Login Icon -->
+          <li class="nav-icon">
+            <a href="login.html" aria-label="Login">
+              <i class="ri-user-3-line"></i>
+            </a>
+          </li>
 
-      <!-- Login Icon -->
-      <li class="nav-icon">
+          <!-- Cart Icon -->
+          <li class="nav-icon">
+            <a href="cart.html" id="lg-bag" aria-label="Cart">
+              <i class="ri-shopping-bag-4-line"></i>
+            </a>
+          </li>
+
+          <!-- Theme Toggle -->
+          <li class="nav-icon">
+            <button
+              class="theme-toggle"
+              id="themeToggle"
+              aria-label="Toggle dark mode"
+            >
+              <i class="ri-moon-line" id="themeIcon"></i>
+            </button>
+          </li>
+
+          <!-- Close Button -->
+          <a href="#" id="close" aria-label="Close menu" aria-hidden="false">
+            <i class="fa-solid fa-xmark"></i>
+          </a>
+        </ul>
+      </div>
+
+      <!-- Mobile Navbar -->
+      <div class="mobile">
+        <!-- Theme Toggle -->
+        <button
+          class="theme-toggle"
+          id="themeToggleMobile"
+          aria-label="Toggle dark mode"
+        >
+          <i class="ri-moon-line" id="themeIconMobile"></i>
+        </button>
+
+        <!-- Login Icon -->
         <a href="login.html" aria-label="Login">
           <i class="ri-user-3-line"></i>
         </a>
-      </li>
 
-      <!-- Cart Icon -->
-      <li class="nav-icon">
-        <a href="cart.html" id="lg-bag" aria-label="Cart">
+        <!-- Cart Icon -->
+        <a href="cart.html" aria-label="Cart">
           <i class="ri-shopping-bag-4-line"></i>
         </a>
-      </li>
 
-      <!-- Theme Toggle -->
-      <li class="nav-icon">
-        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-          <i class="ri-moon-line" id="themeIcon"></i>
-        </button>
-      </li>
-
-      <!-- Close Button -->
-      <a href="#" id="close" aria-label="Close menu" aria-hidden="false">
-        <i class="fa-solid fa-xmark"></i>
-      </a>
-
-    </ul>
-  </div>
-
-  <!-- Mobile Navbar -->
-  <div class="mobile">
-
-    <!-- Theme Toggle -->
-    <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
-      <i class="ri-moon-line" id="themeIconMobile"></i>
-    </button>
-
-    <!-- Login Icon -->
-    <a href="login.html" aria-label="Login">
-      <i class="ri-user-3-line"></i>
-    </a>
-
-    <!-- Cart Icon -->
-    <a href="cart.html" aria-label="Cart">
-      <i class="ri-shopping-bag-4-line"></i>
-    </a>
-
-    <!-- Hamburger Menu -->
-    <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
-
-  </div>
-</section>
+        <!-- Hamburger Menu -->
+        <i
+          class="fas fa-outdent"
+          id="bar"
+          role="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+          tabindex="0"
+        ></i>
+      </div>
+    </section>
 
     <!-- Advanced Filter Bar -->
     <section id="advanced-filter-bar" class="section-p1">
       <div class="afb-toprow">
         <div class="afb-left">
-          <button class="afb-toggle-btn" id="afb-toggle" aria-expanded="false" aria-controls="afb-panel" title="Open filters">
+          <button
+            class="afb-toggle-btn"
+            id="afb-toggle"
+            aria-expanded="false"
+            aria-controls="afb-panel"
+            title="Open filters"
+          >
             <i class="fa-solid fa-filter" aria-hidden="true"></i>
             <span class="afb-toggle-label">Filters</span>
             <span class="afb-active-badge" id="afb-active-badge" hidden>0</span>
@@ -188,114 +205,220 @@
       <div class="afb-panel" id="afb-panel" aria-hidden="true">
         <div class="afb-panel-inner">
           <fieldset class="afb-group" aria-labelledby="priceRangeLabel">
-            <legend id="priceRangeLabel" class="afb-group-title"><i class="ri-price-tag-3-line"></i> Price</legend>
+            <legend id="priceRangeLabel" class="afb-group-title">
+              <i class="ri-price-tag-3-line"></i> Price
+            </legend>
             <div class="afb-price-controls">
               <div class="afb-price-display">
                 <span id="afb-price-min-display">$0</span>
                 <span id="afb-price-max-display">$1000</span>
               </div>
               <div class="afb-range-wrap">
-                <input id="afb-price-min" class="afb-range" type="range" min="0" max="1000" value="0">
-                <input id="afb-price-max" class="afb-range" type="range" min="0" max="1000" value="1000">
-                <div class="afb-range-track"><div id="afb-range-fill" class="afb-range-fill"></div></div>
+                <input
+                  id="afb-price-min"
+                  class="afb-range"
+                  type="range"
+                  min="0"
+                  max="1000"
+                  value="0"
+                />
+                <input
+                  id="afb-price-max"
+                  class="afb-range"
+                  type="range"
+                  min="0"
+                  max="1000"
+                  value="1000"
+                />
+                <div class="afb-range-track">
+                  <div id="afb-range-fill" class="afb-range-fill"></div>
+                </div>
               </div>
             </div>
           </fieldset>
 
           <fieldset class="afb-group">
-            <legend class="afb-group-title"><i class="ri-stack-line"></i> Category</legend>
+            <legend class="afb-group-title">
+              <i class="ri-stack-line"></i> Category
+            </legend>
             <div class="afb-pill-group">
-              <label class="afb-pill"><input type="radio" name="afb-category" value="all" checked> <span>All</span></label>
-              <label class="afb-pill"><input type="radio" name="afb-category" value="men"> <span>Men</span></label>
-              <label class="afb-pill"><input type="radio" name="afb-category" value="women"> <span>Women</span></label>
-              <label class="afb-pill"><input type="radio" name="afb-category" value="kids"> <span>Kids</span></label>
+              <label class="afb-pill"
+                ><input type="radio" name="afb-category" value="all" checked />
+                <span>All</span></label
+              >
+              <label class="afb-pill"
+                ><input type="radio" name="afb-category" value="men" />
+                <span>Men</span></label
+              >
+              <label class="afb-pill"
+                ><input type="radio" name="afb-category" value="women" />
+                <span>Women</span></label
+              >
+              <label class="afb-pill"
+                ><input type="radio" name="afb-category" value="kids" />
+                <span>Kids</span></label
+              >
             </div>
           </fieldset>
 
           <fieldset class="afb-group">
-            <legend class="afb-group-title"><i class="ri-store-2-line"></i> Brand</legend>
+            <legend class="afb-group-title">
+              <i class="ri-store-2-line"></i> Brand
+            </legend>
             <div class="afb-check-group">
-              <label class="afb-check"><input type="checkbox" name="afb-brand" value="adidas"> <span>adidas</span></label>
-              <label class="afb-check"><input type="checkbox" name="afb-brand" value="nike"> <span>nike</span></label>
-              <label class="afb-check"><input type="checkbox" name="afb-brand" value="puma"> <span>puma</span></label>
+              <label class="afb-check"
+                ><input type="checkbox" name="afb-brand" value="adidas" />
+                <span>adidas</span></label
+              >
+              <label class="afb-check"
+                ><input type="checkbox" name="afb-brand" value="nike" />
+                <span>nike</span></label
+              >
+              <label class="afb-check"
+                ><input type="checkbox" name="afb-brand" value="puma" />
+                <span>puma</span></label
+              >
             </div>
           </fieldset>
 
           <fieldset class="afb-group">
-            <legend class="afb-group-title"><i class="ri-checkbox-circle-line"></i> Availability</legend>
+            <legend class="afb-group-title">
+              <i class="ri-checkbox-circle-line"></i> Availability
+            </legend>
             <div class="afb-check-group">
-              <label class="afb-check"><input type="checkbox" name="afb-avail" value="instock" checked> <span>In Stock</span></label>
-              <label class="afb-check"><input type="checkbox" name="afb-avail" value="preorder"> <span>Pre-Order</span></label>
-              <label class="afb-check"><input type="checkbox" name="afb-avail" value="sale"> <span>On Sale</span></label>
+              <label class="afb-check"
+                ><input
+                  type="checkbox"
+                  name="afb-avail"
+                  value="instock"
+                  checked
+                />
+                <span>In Stock</span></label
+              >
+              <label class="afb-check"
+                ><input type="checkbox" name="afb-avail" value="preorder" />
+                <span>Pre-Order</span></label
+              >
+              <label class="afb-check"
+                ><input type="checkbox" name="afb-avail" value="sale" />
+                <span>On Sale</span></label
+              >
             </div>
           </fieldset>
 
           <fieldset class="afb-group">
-            <legend class="afb-group-title"><i class="ri-star-line"></i> Min Rating</legend>
-            <div class="afb-rating-group" id="afb-rating-group" role="radiogroup" aria-label="Minimum rating">
-              <button class="afb-star-btn active" data-rating="0" aria-pressed="true" title="Any rating">Any</button>
-              <button class="afb-star-btn" data-rating="3" aria-pressed="false" title="3 stars and above"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></button>
-              <button class="afb-star-btn" data-rating="4" aria-pressed="false" title="4 stars and above"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></button>
-              <button class="afb-star-btn" data-rating="5" aria-pressed="false" title="5 stars only"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></button>
+            <legend class="afb-group-title">
+              <i class="ri-star-line"></i> Min Rating
+            </legend>
+            <div
+              class="afb-rating-group"
+              id="afb-rating-group"
+              role="radiogroup"
+              aria-label="Minimum rating"
+            >
+              <button
+                class="afb-star-btn active"
+                data-rating="0"
+                aria-pressed="true"
+                title="Any rating"
+              >
+                Any
+              </button>
+              <button
+                class="afb-star-btn"
+                data-rating="3"
+                aria-pressed="false"
+                title="3 stars and above"
+              >
+                <i class="ri-star-fill"></i><i class="ri-star-fill"></i
+                ><i class="ri-star-fill"></i>
+              </button>
+              <button
+                class="afb-star-btn"
+                data-rating="4"
+                aria-pressed="false"
+                title="4 stars and above"
+              >
+                <i class="ri-star-fill"></i><i class="ri-star-fill"></i
+                ><i class="ri-star-fill"></i><i class="ri-star-fill"></i>
+              </button>
+              <button
+                class="afb-star-btn"
+                data-rating="5"
+                aria-pressed="false"
+                title="5 stars only"
+              >
+                <i class="ri-star-fill"></i><i class="ri-star-fill"></i
+                ><i class="ri-star-fill"></i><i class="ri-star-fill"></i
+                ><i class="ri-star-fill"></i>
+              </button>
             </div>
           </fieldset>
-
-        </div><!-- /.afb-panel-inner -->
+        </div>
+        <!-- /.afb-panel-inner -->
 
         <div class="afb-panel-actions">
-          <button class="afb-clear-btn" id="afb-clear-btn" type="button"><i class="ri-refresh-line"></i> Reset Filters</button>
-          <button class="afb-apply-btn" id="afb-apply-btn" type="button">Apply Filters</button>
+          <button class="afb-clear-btn" id="afb-clear-btn" type="button">
+            <i class="ri-refresh-line"></i> Reset Filters
+          </button>
+          <button class="afb-apply-btn" id="afb-apply-btn" type="button">
+            Apply Filters
+          </button>
         </div>
-      </div><!-- /.afb-panel -->
-    </section><!-- /#advanced-filter-bar -->
+      </div>
+      <!-- /.afb-panel -->
+    </section>
+    <!-- /#advanced-filter-bar -->
 
     <div id="afb-search-row" class="section-p1">
       <div class="afb-search-wrap">
         <i class="ri-search-line afb-search-icon" aria-hidden="true"></i>
-        <input type="text" id="searchInput" class="afb-search-input"
+        <input
+          type="text"
+          id="searchInput"
+          class="afb-search-input"
           placeholder="Search products by name or brand…"
-          autocomplete="off" aria-label="Search products" />
-        <button id="searchBtn" class="afb-search-clear" aria-label="Clear search" hidden>
+          autocomplete="off"
+          aria-label="Search products"
+        />
+        <button
+          id="searchBtn"
+          class="afb-search-clear"
+          aria-label="Clear search"
+          hidden
+        >
           <i class="ri-close-line"></i>
         </button>
       </div>
-      <div id="searchSuggestions" class="search-suggestions" aria-live="polite"></div>
+      <div
+        id="searchSuggestions"
+        class="search-suggestions"
+        aria-live="polite"
+      ></div>
     </div>
 
+    <!-- AI FASHION SECTION START -->
 
-<!-- AI FASHION SECTION START -->
+    <section class="relevant-fashion-banner">
+      <div class="rf-content">
+        <span class="rf-badge"> ✨ AI-Powered Fashion Discovery </span>
 
-<section class="relevant-fashion-banner">
+        <h1>Find Styles That Match Your Vibe</h1>
 
-  <div class="rf-content">
+        <p>
+          Upload your favorite outfit inspiration and discover similar fashion
+          pieces curated from Cara’s collection.
+        </p>
 
-    <span class="rf-badge">
-      ✨ AI-Powered Fashion Discovery
-    </span>
+        <a href="relevantFashion.html" class="rf-btn"> Try AI Stylist → </a>
+      </div>
 
-    <h1>
-      Find Styles That Match Your Vibe
-    </h1>
+      <div class="rf-image">
+        <img src="images/banner/b17.jpg" alt="AI Fashion" />
+      </div>
+    </section>
 
-    <p>
-      Upload your favorite outfit inspiration and discover
-      similar fashion pieces curated from Cara’s collection.
-    </p>
-
-    <a href="relevantFashion.html" class="rf-btn">
-      Try AI Stylist →
-    </a>
-
-  </div>
-
-  <div class="rf-image">
-    <img src="images/banner/b17.jpg" alt="AI Fashion">
-  </div>
-
-</section>
-
-<!-- AI FASHION SECTION END -->
-
+    <!-- AI FASHION SECTION END -->
 
     <section id="product1" class="section-p1">
       <div class="pro-container" id="shop-container"></div>
@@ -313,7 +436,10 @@
     <section id="newsletter" class="section-p1">
       <div class="newstext">
         <h4>Sign Up For Newsletters</h4>
-        <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
+        <p>
+          Get E-mail updates about our latest shop and
+          <span>special offers.</span>
+        </p>
       </div>
       <form class="form newsletter-form">
         <input type="email" placeholder="Your email address" required />
@@ -323,27 +449,45 @@
 
     <footer class="section-p1">
       <div class="footer-container">
-        
         <div class="col">
           <img class="logo" src="images/logo.png" alt="Cara Logo" />
           <h4>Contact</h4>
-          <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
+          <p>
+            <strong>Address:</strong> 562 Wellington Road, Street 32, San
+            Francisco
+          </p>
           <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
           <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
 
           <div class="follow">
             <h4>Follow us</h4>
             <div class="icon">
-              <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://x.com/JanaviPandole"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <i class="fa-brands fa-x-twitter"></i>
               </a>
-              <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://github.com/janavipandole"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <i class="fab fa-github"></i>
               </a>
-              <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://www.linkedin.com/in/janavi-pandole-80a7b2290"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <i class="fab fa-linkedin"></i>
               </a>
-              <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://www.youtube.com/@JanaviPandole"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <i class="fab fa-youtube"></i>
               </a>
             </div>
@@ -379,29 +523,53 @@
           <p>Secured Payment Gateways</p>
 
           <div class="payment-icons">
-            <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer" aria-label="Visa">
+            <a
+              href="https://www.visa.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visa"
+            >
               <i class="fab fa-cc-visa"></i>
             </a>
-            <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer" aria-label="Mastercard">
+            <a
+              href="https://www.mastercard.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Mastercard"
+            >
               <i class="fab fa-cc-mastercard"></i>
             </a>
-            <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" aria-label="PayPal">
+            <a
+              href="https://www.paypal.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="PayPal"
+            >
               <i class="fab fa-cc-paypal"></i>
             </a>
-            <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer" aria-label="American Express">
+            <a
+              href="https://www.americanexpress.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="American Express"
+            >
               <i class="fab fa-cc-amex"></i>
             </a>
-            <a href="https://stripe.com" target="_blank" rel="noopener noreferrer" aria-label="Stripe">
+            <a
+              href="https://stripe.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Stripe"
+            >
               <i class="fab fa-cc-stripe"></i>
             </a>
           </div>
         </div>
-
       </div>
 
       <div class="copyright">
         <p>
-          &copy; Cara  <span class="Current-Year"></span>. All rights reserved. |
+          &copy; Cara <span class="Current-Year"></span>. All rights reserved. |
           <a href="license.html" style="color: #088178"> MIT License </a>
         </p>
       </div>
@@ -412,13 +580,15 @@
     <script src="products.js?v=1779120917219"></script>
     <script src="app.js?v=1779120917219"></script>
     <script src="navbar.js"></script>
-    <script>loadNavbar('home');</script>
+    <script>
+      loadNavbar('home');
+    </script>
     <!-- Corrected  -->
     <script id="Current-Year">
-        const year = new Date().getFullYear();
-        for (let el of document.querySelectorAll(".Current-Year")) {
-            el.textContent = year;
-        }
+      const year = new Date().getFullYear();
+      for (let el of document.querySelectorAll('.Current-Year')) {
+        el.textContent = year;
+      }
     </script>
     <div id="toast-container"></div>
   </body>

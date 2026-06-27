@@ -16,12 +16,8 @@
 <body>
 
   <section id="header">
-<<<<<<< fix/login-register-flow
-    <a href="index.html">
-=======
     <!-- Logo -->
     <a href="index.html" aria-label="Home">
->>>>>>> main
       <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
     </a>
     <div id="navbar-container"></div>
@@ -35,8 +31,6 @@
       </button>
     </div>
   </section>
-<<<<<<< fix/login-register-flow
-=======
   <div id="login-container">
     <button class="back-btn" onclick="history.back()" aria-label="Back to Shop"><i class="ri-arrow-left-line"></i> Back
       to Shop</button>
@@ -50,7 +44,6 @@
           <input type="email" id="loginEmail" name="email" class="input-field" placeholder="Enter your email address"
             autocomplete="email" required />
         </div>
->>>>>>> main
 
   <!-- Toast lives at body level so it overlays everything -->
   <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
@@ -89,28 +82,6 @@
             <span class="error-message" id="emailError"></span>
           </div>
 
-<<<<<<< fix/login-register-flow
-          <!-- Password field -->
-          <div class="input-group">
-            <label for="loginPassword">Password</label>
-            <div class="password-wrapper">
-              <input
-                type="password"
-                id="loginPassword"
-                name="password"
-                class="input-field"
-                placeholder="••••••••"
-                autocomplete="current-password"
-                required
-                aria-required="true"
-              />
-              <button type="button" id="togglePassword" class="toggle_password" aria-label="Show password">
-                <i class="ri-eye-line" id="toggleIcon" aria-hidden="true"></i>
-              </button>
-            </div>
-            <!-- Inline error for wrong password -->
-            <span class="error-message" id="passwordError"></span>
-=======
         <div class="input-group">
           <label>Login As</label>
           <div class="role-selector">
@@ -130,61 +101,14 @@
                 <small>Manage store</small>
               </span>
             </label>
->>>>>>> main
           </div>
 
-<<<<<<< fix/login-register-flow
-          <!-- Remember me + Forgot password row -->
-          <div class="remfor">
-            <div class="remember">
-              <input type="checkbox" id="rememberMe" name="rememberMe" />
-              <label for="rememberMe">Remember me</label>
-            </div>
-            <a href="forgotPassword.html" class="forgot">Forgot Password?</a>
-          </div>
-=======
         <button type="submit" class="login-btn" aria-label="Sign In"><span>Sign In</span></button>
       </form>
->>>>>>> main
 
           <!-- General form-level error (e.g. "no account found") -->
           <span class="error-message" id="formError" style="display:block; margin-bottom: 8px;"></span>
 
-<<<<<<< fix/login-register-flow
-          <!-- Captcha — only appears after a failed attempt -->
-          <div id="captcha-section" class="captcha-section" style="display: none; margin-bottom: 20px;">
-            <label>Security Check</label>
-            <div class="captcha-row">
-              <canvas id="captcha-canvas" width="150" height="40"></canvas>
-              <button type="button" id="captcha-refresh" aria-label="Refresh Captcha">
-                <i class="ri-refresh-line"></i>
-              </button>
-            </div>
-            <input type="text" id="captcha-input" class="input-field" placeholder="Enter the code above" autocomplete="off" />
-            <span class="error-message" id="captchaError"></span>
-          </div>
-
-          <button type="submit" class="login-btn" id="loginSubmitBtn">
-            <span>Sign In</span>
-          </button>
-
-        </form>
-
-        <div class="signup-link">
-          Don't have an account? <a href="register.html">Register</a>
-        </div>
-
-      </div><!-- end .login-box -->
-    </div><!-- end .login-page-wrapper -->
-  </section><!-- end #login-section -->
-
-  <script src="navbar.js"></script>
-  <script>loadNavbar();</script>
-  <script src="app.js"></script>
-  <script src="login.js"></script>
-
-</body>
-=======
     <script src="navbar.js"></script>
     <script>
       loadNavbar();
@@ -214,5 +138,4 @@
     <script src="js/simple-captcha.js" defer></script>
 </body>
 
->>>>>>> main
 </html>

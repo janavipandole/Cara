@@ -25,13 +25,15 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const complexityRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const complexityRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     if (!complexityRegex.test(password)) {
-      messageBox.innerText = 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character!';
+      messageBox.innerText =
+        'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character!';
       messageBox.style.color = 'red';
       return;
     }
-    
+
     if (password !== confirmPassword) {
       messageBox.innerText = 'Passwords do not match!';
       messageBox.style.color = 'red';
@@ -39,7 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
-      const fetchFunc = typeof fetchWithTimeout === 'function' ? fetchWithTimeout : fetch;
+      const fetchFunc =
+        typeof fetchWithTimeout === 'function' ? fetchWithTimeout : fetch;
       const res = await fetchFunc('/api/auth/register', {
         method: 'POST',
         headers: {
