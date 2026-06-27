@@ -113,3 +113,32 @@ class OrderCreate(BaseModel):
     zip: str
     items: list[OrderItemCreate]
     coupon: Optional[str] = None
+
+
+# -- Admin Analytics Response Schemas --
+
+class AdminSummaryResponse(BaseModel):
+    total_revenue: float
+    total_orders: int
+    total_customers: int
+
+    class Config:
+        from_attributes = True
+
+
+class CategorySalesOut(BaseModel):
+    category: str
+    units_sold: int
+    revenue: float
+
+    class Config:
+        from_attributes = True
+
+
+class StatusDistributionOut(BaseModel):
+    status: str
+    count: int
+
+    class Config:
+        from_attributes = True
+
