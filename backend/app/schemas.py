@@ -113,3 +113,50 @@ class OrderCreate(BaseModel):
     zip: str
     items: list[OrderItemCreate]
     coupon: Optional[str] = None
+
+
+# -- Order History Response Schemas --
+
+class OrderStatusHistoryOut(BaseModel):
+    id: int
+    status: str
+    changed_at: str
+    note: Optional[str] = None
+
+    class Config:
+        from_attributes = True
+
+
+class OrderItemOut(BaseModel):
+    id: int
+    product_name: str
+    quantity: int
+    price: float
+
+    class Config:
+        from_attributes = True
+
+
+class OrderOut(BaseModel):
+    """Full representation of a single order, including its line items and audit trail."""
+    id: int
+    full_name: str
+    email: str
+    address: str
+    city: str
+    zip_code: str
+    total_amount: float
+    status: str
+    created_at: str
+    items: list[OrderItemOut] = []
+    status_history: list[OrderStatusHistoryOut] = []
+
+    class Config:
+        from_attributes = True
+
+
+class PaginatedOrdersResponse(BaseModel):
+    total: int
+    page: int
+    page_size: int
+    orders: list[OrderOut]

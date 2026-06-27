@@ -32,26 +32,39 @@ class Interaction(Base):
 
 class User(Base):
     __tablename__ = "users"
- 
+
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String, unique=True, index=True, nullable=False)
     email = Column(String, unique=True, index=True, nullable=False)
     hashed_password = Column(String, nullable=False)
-    role            = Column(String, default="USER", nullable=False) 
+    role = Column(String, default="USER", nullable=False)
     is_active = Column(Boolean, default=True)
-    created_at = Column(DateTime,  default=lambda: datetime.now(timezone.utc))
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+    orders = relationship("Order", back_populates="user")
 
 class Order(Base):
     __tablename__ = "orders"
     id = Column(Integer, primary_key=True, index=True)
+    # Nullable FK so legacy rows created before auth was wired up are not orphaned
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=True, index=True)
     full_name = Column(String, nullable=False)
     email = Column(String, nullable=False)
     address = Column(String, nullable=False)
     city = Column(String, nullable=False)
     zip_code = Column(String, nullable=False)
     total_amount = Column(Float, nullable=False)
-    status = Column(String, default="PENDING")
-    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    status = Column(String, default="PENDING", index=True)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), index=True)
+
+    user = relationship("User", back_populates="orders")
+    items = relationship("OrderItem", back_populates="order", cascade="all, delete-orphan")
+    status_history = relationship(
+        "OrderStatusHistory",
+        back_populates="order",
+        cascade="all, delete-orphan",
+        order_by="OrderStatusHistory.changed_at",
+    )
 
 class OrderItem(Base):
     __tablename__ = "order_items"
@@ -59,9 +72,32 @@ class OrderItem(Base):
     order_id = Column(
         Integer,
         ForeignKey("orders.id"),
-        nullable=False
+        nullable=False,
+        index=True,
     )
     product_name = Column(String, nullable=False)
     quantity = Column(Integer, nullable=False)
     price = Column(Float, nullable=False)
-    order = relationship("Order")
+    order = relationship("Order", back_populates="items")
+
+
+class OrderStatusHistory(Base):
+    """Immutable audit trail of every status change for an order."""
+    __tablename__ = "order_status_history"
+
+    id = Column(Integer, primary_key=True, index=True)
+    order_id = Column(
+        Integer,
+        ForeignKey("orders.id", ondelete="CASCADE"),
+        nullable=False,
+        index=True,
+    )
+    status = Column(String(50), nullable=False)
+    changed_at = Column(
+        DateTime,
+        default=lambda: datetime.now(timezone.utc),
+        nullable=False,
+    )
+    note = Column(String, nullable=True)
+
+    order = relationship("Order", back_populates="status_history")
