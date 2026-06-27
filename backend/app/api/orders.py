@@ -1,13 +1,17 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
 from .. import models, schemas
 from ..database import get_db
 from .auth import get_current_user
+from app.limiter import order_limiter
+import os
 
 router = APIRouter()
 
 @router.post("/", status_code=201)
+@order_limiter.limit(os.getenv("RATE_LIMIT_ORDERS", "20/minute"))
 def create_order(
+    request: Request,
     order_data: schemas.OrderCreate, 
     db: Session = Depends(get_db),
     current_user: models.User = Depends(get_current_user)

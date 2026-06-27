@@ -9,7 +9,8 @@ from fastapi import Response
 from app.database import get_db
 from app import models
 from app.schemas import UserRegister, UserLogin, Token, UserOut
-from app.limiter import limiter
+from app.limiter import auth_limiter
+
 from PIL import Image, ImageDraw
 import io
 import base64
@@ -105,7 +106,7 @@ def get_current_user(
 
 # -- Register --
 @router.post("/register", response_model=Token, status_code=201)
-@limiter.limit("5/minute")
+@auth_limiter.limit(os.getenv("RATE_LIMIT_AUTH", "10/minute"))
 def register(request: Request, response: Response, payload: UserRegister, db: Session = Depends(get_db)):
     if db.query(models.User).filter(models.User.email == payload.email).first():
         raise HTTPException(409, "Email already registered.")
@@ -163,7 +164,7 @@ def get_captcha():
 
 # -- Login --
 @router.post("/login", response_model=Token)
-@limiter.limit("5/minute")
+@auth_limiter.limit(os.getenv("RATE_LIMIT_AUTH", "10/minute"))
 def login(request: Request, response: Response, payload: UserLogin, db: Session = Depends(get_db)):
     attempts = failed_login_attempts.get(payload.email, 0)
     
