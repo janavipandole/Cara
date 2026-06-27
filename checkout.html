@@ -205,31 +205,33 @@
         <fieldset class="card">
           <legend class="card-title">
             <i class="ri-shopping-bag-3-line"></i> Order Summary
+            <span id="summaryItemCount" aria-live="polite" style="font-size:0.85em;font-weight:400;margin-left:4px;"></span>
           </legend>
-          <div class="order-item">
-            <div class="item-thumb"><i class="ri-shirt-line"></i></div>
-            <div class="item-info">
-              <div class="item-name">Tropical Print Shirt</div>
-              <div class="item-meta">H&M · Size L · Qty 2</div>
-            </div>
-            <div class="item-price">₹1,799</div>
-          </div>
+
+          <!-- Dynamic item list rendered by checkout-summary.js -->
+          <div
+            id="summaryItemsList"
+            role="list"
+            aria-label="Cart items"
+            style="max-height:240px;overflow-y:auto;margin-bottom:12px;"
+          ></div>
+
           <div class="totals">
             <div class="total-row">
               <span>Subtotal</span>
-              <span>₹4,097</span>
-            </div>
-            <div class="total-row free-ship">
-              <span>Shipping</span>
-              <span>Free</span>
+              <span id="summarySubtotal" aria-live="polite">₹0.00</span>
             </div>
             <div class="total-row">
-              <span>Tax (5%)</span>
-              <span>₹205</span>
+              <span>Shipping</span>
+              <span id="summaryShipping" aria-live="polite">₹150.00</span>
+            </div>
+            <div class="total-row">
+              <span>Tax (18% GST)</span>
+              <span id="summaryTax" aria-live="polite">₹0.00</span>
             </div>
             <div class="total-row grand">
               <span>Total</span>
-              <span>₹4,302</span>
+              <span id="summaryGrandTotal" aria-live="polite" aria-atomic="true">₹0.00</span>
             </div>
           </div>
           <button type="submit" class="submit-btn">
@@ -256,7 +258,7 @@
 
   <script src="checkout.js"></script>
   <script src="js/checkout-timer.js" defer></script>
-
-<script src="js/checkout-autosave.js" defer></script>
+  <script src="js/checkout-autosave.js" defer></script>
+  <script src="js/checkout-summary.js" defer></script>
 </body>
 </html>
