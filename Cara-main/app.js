@@ -494,9 +494,20 @@ window.loadCart = function () {
     let subtotal = 0;
 
     cart.forEach((item, index) => {
-        const itemPrice = item.price;
-        const itemSubtotal = itemPrice * item.quantity;
-        subtotal += itemSubtotal;
+    const itemPrice = item.price;
+
+    let quantity = parseInt(item.quantity, 10);
+
+    if (isNaN(quantity) || quantity < 1) {
+        quantity = 1;
+    }
+
+    if (quantity > 99) {
+        quantity = 99;
+    }
+
+    const itemSubtotal = itemPrice * quantity;
+    subtotal += itemSubtotal;
 
         // Modern Card Grid Row (Flexbox responsive card)
         const row = document.createElement('div');
