@@ -1369,9 +1369,9 @@ window.shareWardrobe = function () {
 
         if (btn) {
             var originalText = btn.innerHTML;
-            btn.innerHTML = '✅ Link Copied!';
+            btn.textContent = '✅ Link Copied!';
             btn.style.color = '#10b991';
-            setTimeout(function () { btn.innerHTML = originalText; btn.style.color = ''; }, 3000);
+            setTimeout(function () { btn.textContent = originalText; btn.style.color = ''; }, 3000);
         }
     } catch (e) {
         console.error("Failed to generate share link: ", e);
