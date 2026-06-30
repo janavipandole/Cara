@@ -51,9 +51,9 @@ def root():
     return {"message": "Cara AI Outfit Recommendation API is running."}
 
 # Include routers here later
-from .api import recommendation, products, auth, orders, admin
+from .api import recommendation, products, auth, orders, address
 app.include_router(recommendation.router, prefix="/api/outfit", tags=["outfit"])
 app.include_router(products.router, prefix="/api/products", tags=["products"])
 app.include_router(auth.router,prefix="/api/auth",tags=["auth"])
 app.include_router(orders.router, prefix="/api/orders", tags=["orders"])
-app.include_router(admin.router, prefix="/api/admin", tags=["admin"])
+app.include_router(address.router, prefix="/api/address", tags=["address"])

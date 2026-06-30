@@ -115,30 +115,29 @@ class OrderCreate(BaseModel):
     coupon: Optional[str] = None
 
 
-# -- Admin Analytics Response Schemas --
+# -- Product Search / Filter Response Schemas --
 
-class AdminSummaryResponse(BaseModel):
-    total_revenue: float
-    total_orders: int
-    total_customers: int
-
-    class Config:
-        from_attributes = True
-
-
-class CategorySalesOut(BaseModel):
-    category: str
-    units_sold: int
-    revenue: float
+class PaginatedProductsResponse(BaseModel):
+    """Paginated wrapper returned by the /products/search/query endpoint."""
+    total: int
+    page: int
+    page_size: int
+    products: list["Product"]
 
     class Config:
         from_attributes = True
 
 
-class StatusDistributionOut(BaseModel):
-    status: str
-    count: int
+class PriceRange(BaseModel):
+    min: float
+    max: float
 
-    class Config:
-        from_attributes = True
+
+class CategorySummaryResponse(BaseModel):
+    """Catalog metadata returned by /products/search/categories for building filter UIs."""
+    categories: list[str]
+    subcategories: list[str]
+    colors: list[str]
+    styles: list[str]
+    price_range: PriceRange
 
