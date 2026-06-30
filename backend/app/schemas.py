@@ -115,48 +115,29 @@ class OrderCreate(BaseModel):
     coupon: Optional[str] = None
 
 
-# -- Order History Response Schemas --
+# -- Product Search / Filter Response Schemas --
 
-class OrderStatusHistoryOut(BaseModel):
-    id: int
-    status: str
-    changed_at: str
-    note: Optional[str] = None
-
-    class Config:
-        from_attributes = True
-
-
-class OrderItemOut(BaseModel):
-    id: int
-    product_name: str
-    quantity: int
-    price: float
-
-    class Config:
-        from_attributes = True
-
-
-class OrderOut(BaseModel):
-    """Full representation of a single order, including its line items and audit trail."""
-    id: int
-    full_name: str
-    email: str
-    address: str
-    city: str
-    zip_code: str
-    total_amount: float
-    status: str
-    created_at: str
-    items: list[OrderItemOut] = []
-    status_history: list[OrderStatusHistoryOut] = []
-
-    class Config:
-        from_attributes = True
-
-
-class PaginatedOrdersResponse(BaseModel):
+class PaginatedProductsResponse(BaseModel):
+    """Paginated wrapper returned by the /products/search/query endpoint."""
     total: int
     page: int
     page_size: int
-    orders: list[OrderOut]
+    products: list["Product"]
+
+    class Config:
+        from_attributes = True
+
+
+class PriceRange(BaseModel):
+    min: float
+    max: float
+
+
+class CategorySummaryResponse(BaseModel):
+    """Catalog metadata returned by /products/search/categories for building filter UIs."""
+    categories: list[str]
+    subcategories: list[str]
+    colors: list[str]
+    styles: list[str]
+    price_range: PriceRange
+
