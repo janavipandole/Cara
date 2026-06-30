@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
   <!-- Character Encoding -->
   <meta charset="UTF-8" />
 
@@ -28,11 +29,11 @@
     <div class="checkout-header">
       <div class="back-to-cart">
         <a href="cart.html" class="back-link" aria-label="Back to cart"><i class="ri-arrow-left-line"></i> Back to Cart</a>
-        <a href="#" id="logout-btn" style="display:none">Logout</a>
+        <a href="javascript:void(0)" id="logout-btn" style="display:none">Logout</a>
       </div>
       <div class="logo" style="display: flex; align-items: center; gap: 15px;">
         <span>Cara</span>
-        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" style="background: transparent; border: none; cursor: pointer;">
+        <button class="theme-toggle" id="themeToggleDesktop" aria-label="Toggle dark mode" style="background: transparent; border: none; cursor: pointer;">
           <i class="ri-moon-line" id="themeIcon" style="font-size: 20px;"></i>
         </button>
       </div>
@@ -256,7 +257,7 @@
 
   <script src="checkout.js"></script>
   <script src="js/checkout-timer.js" defer></script>
-
-<script src="js/checkout-autosave.js" defer></script>
+  <script src="js/checkout-autosave.js" defer></script>
+  <script src="js/address-autocomplete.js" defer></script>
 </body>
 </html>

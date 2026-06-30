@@ -202,8 +202,7 @@ def login(request: Request, response: Response, payload: UserLogin, db: Session 
     access_token = create_access_token(user.email)
     refresh_token = create_refresh_token(user.email)
     
-    response.set_cookie(key="access_token", value=access_token, httponly=True, secure=True, samesite="lax", max_age=ACCESS_TOKEN_MINUTES * 60)
-    response.set_cookie(key="refresh_token", value=refresh_token, httponly=True, secure=True, samesite="lax", max_age=REFRESH_TOKEN_DAYS * 86400)
+    set_auth_cookies(response, access_token, refresh_token)
 
     return Token(
         access_token = access_token,
