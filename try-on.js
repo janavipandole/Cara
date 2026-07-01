@@ -119,7 +119,7 @@ window.openCamera = function () {
         if (typeof showToast === 'function') {
             showToast('Camera access blocked. Please enable webcam permission.', 'error');
         } else {
-            alert('Camera access blocked. Please enable webcam permission.');
+            console.log("Toast: " + 'Camera access blocked. Please enable webcam permission.');
         }
     });
 }
