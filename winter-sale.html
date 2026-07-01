@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Page Title -->
-    <title>Cara — Winter Sale</title>
+    <title>Cara â€” Winter Sale</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
@@ -215,6 +215,14 @@
             }
         }
     </style>
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
 </head>
 
 <body>
@@ -252,13 +260,13 @@
     <!-- Hero Section -->
     <section class="winter-hero">
         <div class="winter-hero-content">
-            <span class="winter-badge">❄ WINTER COLLECTION ❄</span>
+            <span class="winter-badge">â„ WINTER COLLECTION â„</span>
             <h1>Seasonal Sale</h1>
             <p>
                 Explore premium winter fashion, cozy hoodies, stylish jackets,
                 sweatshirts, and seasonal outfits with up to <span>50% OFF.</span>
             </p>
-            <a href="#winter-products" class="winter-btn">Shop Winter Sale →</a>
+            <a href="#winter-products" class="winter-btn">Shop Winter Sale â†’</a>
         </div>
     </section>
 

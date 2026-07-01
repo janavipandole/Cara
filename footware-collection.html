@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cara — Footwear Collection</title>
+    <title>Cara â€” Footwear Collection</title>
 
     <link rel="icon" type="image/jpg" href="images/favicon.jpg" />
     <link rel="stylesheet" href="style.css" />
@@ -199,6 +199,14 @@
         }
     </style>
 
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
 </head>
 
 <body>
@@ -261,7 +269,7 @@
             </p>
 
             <a href="#footwear-products" class="footwear-btn">
-                Explore Footwear →
+                Explore Footwear â†’
             </a>
 
         </div>
@@ -521,7 +529,7 @@
 
 
     <div class="back-btn">
-        <a href="shop.html">← Back To Shop</a>
+        <a href="shop.html">â† Back To Shop</a>
     </div>
 
 
@@ -580,7 +588,7 @@
 
 
         <div class="copyright">
-            <p>© Cara 2025. All rights reserved.</p>
+            <p>Â© Cara 2025. All rights reserved.</p>
         </div>
 
     </footer>

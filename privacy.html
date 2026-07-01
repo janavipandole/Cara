@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Page title -->
-    <title>Privacy Policy | Cara — Modern E-Commerce</title>
+    <title>Privacy Policy | Cara â€” Modern E-Commerce</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
@@ -251,7 +251,15 @@
         }
       }
     </style>
-  </head>
+    <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
+</head>
 
   <body>
     <!-- Header -->
@@ -409,7 +417,7 @@
               <p>56 Glassford Street, Glasgow G1 1UL, New York</p>
               <p>contact@example.com</p>
               <p>+1 (000) 123-7788</p>
-              <p>Monday to Saturday — 9:00 AM to 6:00 PM</p>
+              <p>Monday to Saturday â€” 9:00 AM to 6:00 PM</p>
             </div>
           </dd>
         </div>
@@ -444,8 +452,8 @@
     </div>
 
     <!-- Back to Top -->
-    <button id="backToTop" title="Back to Top" aria-label="Back to top">⬆</button>
-    <button id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">⬇</button>
+    <button id="backToTop" title="Back to Top" aria-label="Back to top">â¬†</button>
+    <button id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">â¬‡</button>
 
     <!-- Footer -->
     <footer class="section-p1">
@@ -530,7 +538,7 @@
 
       <div class="copyright">
         <p>
-          © Cara 2026. All rights reserved.. |
+          Â© Cara 2026. All rights reserved.. |
           <a href="license.html" style="color: #088178"> MIT License </a>
         </p>
       </div>
@@ -568,3 +576,4 @@
 </html>
 
 <!-- Accessibility and structural improvements -->
+

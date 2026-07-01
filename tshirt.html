@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Page Title -->
-    <title>Cara — Trendy T-Shirts</title>
+    <title>Cara â€” Trendy T-Shirts</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/jpg" href="images/favicon.jpg" />
@@ -186,6 +186,14 @@
             }
         }
     </style>
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
 </head>
 
 <body>
@@ -224,7 +232,7 @@
             <span class="tshirt-badge">NEW ARRIVAL</span>
             <h1>New Theory <span>Prints</span> T-Shirts</h1>
             <p>Fresh designs, premium comfort, and vibrant printed t-shirts made for those who love to stand out.</p>
-            <a href="#tshirt-products" class="tshirt-btn">Shop Collection →</a>
+            <a href="#tshirt-products" class="tshirt-btn">Shop Collection â†’</a>
         </div>
 
         <div class="tshirt-visual">

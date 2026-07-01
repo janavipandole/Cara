@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -30,7 +30,7 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <style>
-    /* ── 404 Page Styles ── */
+    /* â”€â”€ 404 Page Styles â”€â”€ */
     #not-found {
       min-height: 70vh;
       display: flex;
@@ -172,10 +172,18 @@
       color: var(--text-secondary, #94a3b8);
     }
   </style>
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
 </head>
 
 <body>
-  <!-- ── HEADER ── -->
+  <!-- â”€â”€ HEADER â”€â”€ -->
   <section id="header">
     <a href="index.html">
       <img loading="lazy" id="siteLogo" src="images/logo.png" alt="Cara Logo" width="130" height="40" />
@@ -192,7 +200,7 @@
     </div>
   </section>
 
-  <!-- ── 404 SECTION ── -->
+  <!-- â”€â”€ 404 SECTION â”€â”€ -->
   <main id="main-content">
   <section id="not-found">
 
@@ -227,7 +235,7 @@
   </section>
   </main>
 
-  <!-- ── FOOTER ── -->
+  <!-- â”€â”€ FOOTER â”€â”€ -->
   <footer class="main-footer">
     <div class="footer-top">
       <div class="footer-logo-box">
@@ -242,13 +250,14 @@
     </div>
     <hr class="footer-divider">
     <div class="footer-bottom">
-      <p>© 2024 Cara. All Rights Reserved.</p>
+      <p>Â© 2024 Cara. All Rights Reserved.</p>
     </div>
   </footer>
 
-  <!-- ── SCRIPTS ── -->
+  <!-- â”€â”€ SCRIPTS â”€â”€ -->
   <script src="navbar.js"></script>
   <script src="app.js"></script>
 
 </body>
 </html>
+

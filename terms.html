@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Page Title -->
-    <title>Terms &amp; Conditions | Cara — Modern E-Commerce</title>
+    <title>Terms &amp; Conditions | Cara â€” Modern E-Commerce</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
@@ -139,7 +139,15 @@
         }
       }
     </style>
-  </head>
+    <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
+</head>
 
   <body>
     <!-- Header -->
@@ -270,7 +278,7 @@
         </button>
 
         <h1 style="font-size: 32px; font-weight: 700; margin-bottom: 8px;">Terms &amp; Conditions</h1>
-        <p class="subtitle" style="color: #666; font-size: 14px; margin-bottom: 25px;">Last Updated — May 2026</p>
+        <p class="subtitle" style="color: #666; font-size: 14px; margin-bottom: 25px;">Last Updated â€” May 2026</p>
 
         <p class="intro-text" style="line-height: 1.8; font-size: 14.5px; margin-bottom: 30px; color: var(--text-primary);">
           Welcome to Cara. By accessing or using our platform, you agree to comply
@@ -365,7 +373,7 @@
           </p>
         </section>
 
-        <div class="footer-note" style="text-align: center; color: #888; font-size: 12.5px; margin-top: 40px; border-top: 1px solid #eee; padding-top: 20px;">&copy; 2026 Cara — All Rights Reserved</div>
+        <div class="footer-note" style="text-align: center; color: #888; font-size: 12.5px; margin-top: 40px; border-top: 1px solid #eee; padding-top: 20px;">&copy; 2026 Cara â€” All Rights Reserved</div>
       </div>
     </main>
 
@@ -404,8 +412,8 @@
     </script>
 
     <!-- Back to Top -->
-    <button id="backToTop" title="Back to Top" aria-label="Back to top">⬆</button>
-    <button id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">⬇</button>
+    <button id="backToTop" title="Back to Top" aria-label="Back to top">â¬†</button>
+    <button id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">â¬‡</button>
 
     <!-- Footer -->
     <footer class="section-p1">
@@ -495,7 +503,7 @@
       <!-- Copyright Section -->
       <div class="copyright">
         <p>
-          © Cara 2026. All rights reserved. |
+          Â© Cara 2026. All rights reserved. |
           <a href="license.html" style="color: #088178"> MIT License </a>
         </p>
       </div>
@@ -512,3 +520,4 @@
 </html>
 
 <!-- Accessibility and structural improvements -->
+

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
@@ -10,14 +10,14 @@
 
   <!-- SEO Meta Tags -->
   <meta name="author" content="Cara" />
-  <meta name="description" content="Delivery Information — Learn about Cara's shipping policy, order processing, and return procedures." />
+  <meta name="description" content="Delivery Information â€” Learn about Cara's shipping policy, order processing, and return procedures." />
   <meta name="robots" content="index, follow" />
 
   <!-- Theme Color for Mobile Browser -->
   <meta name="theme-color" content="#000000" />
 
   <!-- Page Title -->
-  <title>Delivery Information | Cara — Modern E-Commerce</title>
+  <title>Delivery Information | Cara â€” Modern E-Commerce</title>
 
   <!-- Favicon -->
   <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
@@ -67,7 +67,7 @@
 
 
 
-    /* ── BACK BUTTON ── */
+    /* â”€â”€ BACK BUTTON â”€â”€ */
     .back-btn-wrap { padding: 20px 60px 0; }
 
     .back-btn {
@@ -83,7 +83,7 @@
 
     .back-btn:hover { opacity: 0.7; }
 
-    /* ── HERO ── */
+    /* â”€â”€ HERO â”€â”€ */
     .page-hero {
       background: var(--hero-bg);
       padding: 60px 60px 50px;
@@ -113,7 +113,7 @@
       margin: 0 auto;
     }
 
-    /* ── MAIN CONTENT ── */
+    /* â”€â”€ MAIN CONTENT â”€â”€ */
     .delivery-section {
       max-width: 900px;
       margin: 40px auto 60px;
@@ -194,7 +194,7 @@
     }
 
     .delivery-block ul li::before {
-      content: "✓";
+      content: "âœ“";
       color: var(--primary-color);
       font-weight: 700;
       flex-shrink: 0;
@@ -240,7 +240,7 @@
 
     body.dark .notice-box { background: #0d3b36; color: #ccc; }
 
-    /* ── FOOTER ── */
+    /* â”€â”€ FOOTER â”€â”€ */
     footer {
       background: var(--footer-bg);
       padding: 50px 60px 20px;
@@ -326,7 +326,7 @@
     .footer-bottom a { color: var(--primary-color); }
     .footer-bottom a:hover { opacity: 0.7; }
 
-    /* ── SCROLL TOP ── */
+    /* â”€â”€ SCROLL TOP â”€â”€ */
     #scroll-top {
       position: fixed;
       bottom: 28px;
@@ -348,7 +348,7 @@
 
     #scroll-top:hover { opacity: 0.85; }
 
-    /* ── RESPONSIVE ── */
+    /* â”€â”€ RESPONSIVE â”€â”€ */
     @media (max-width: 900px) {
       .delivery-cards { grid-template-columns: 1fr 1fr; }
       .footer-top { grid-template-columns: 1fr 1fr; }
@@ -358,7 +358,7 @@
       .back-btn-wrap { padding: 20px 20px 0; }
     }
 
-    /* ── SHIPPING ESTIMATOR ── */
+    /* â”€â”€ SHIPPING ESTIMATOR â”€â”€ */
     .estimator-wrap {
       background: var(--card-bg);
       border-radius: 12px;
@@ -476,6 +476,14 @@
       .estimator-form .field { flex: 1 1 100%; }
     }
   </style>
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
 </head>
 <body>
     <!-- Print Details Utility -->
@@ -543,7 +551,7 @@
       <div class="delivery-card">
         <div class="icon"><i class="fas fa-clock"></i></div>
         <h4>Fast Processing</h4>
-        <p>Orders dispatched within 1–2 business days</p>
+        <p>Orders dispatched within 1â€“2 business days</p>
       </div>
       <div class="delivery-card">
         <div class="icon"><i class="fas fa-undo-alt"></i></div>
@@ -567,17 +575,17 @@
         <tbody>
           <tr>
             <td>Standard Shipping (US)</td>
-            <td>3 – 5 Business Days</td>
+            <td>3 â€“ 5 Business Days</td>
             <td>Free on orders above $50</td>
           </tr>
           <tr>
             <td>Express Shipping (US)</td>
-            <td>1 – 2 Business Days</td>
+            <td>1 â€“ 2 Business Days</td>
             <td>$9.99</td>
           </tr>
           <tr>
             <td>International Shipping</td>
-            <td>7 – 14 Business Days</td>
+            <td>7 â€“ 14 Business Days</td>
             <td>Calculated at checkout</td>
           </tr>
           <tr>
@@ -627,10 +635,10 @@
       <h3><i class="fas fa-cog"></i> Order Processing</h3>
       <p>Once your order is placed and payment confirmed, our team begins processing immediately:</p>
       <ul>
-        <li>Orders placed before 2:00 PM (Mon–Sat) are processed the same day.</li>
+        <li>Orders placed before 2:00 PM (Monâ€“Sat) are processed the same day.</li>
         <li>Orders placed after 2:00 PM or on Sundays are processed the next business day.</li>
         <li>You will receive a confirmation email with tracking number once dispatched.</li>
-        <li>Processing may take 1–2 extra days during sale events or high-traffic periods.</li>
+        <li>Processing may take 1â€“2 extra days during sale events or high-traffic periods.</li>
       </ul>
     </section>
 
@@ -639,7 +647,7 @@
       <h3><i class="fas fa-globe"></i> International Shipping</h3>
       <p>We ship to over 50 countries worldwide. Please note:</p>
       <ul>
-        <li>International delivery takes 7–14 business days depending on destination.</li>
+        <li>International delivery takes 7â€“14 business days depending on destination.</li>
         <li>Customs duties, taxes, and import fees are the responsibility of the customer.</li>
         <li>We are not responsible for delays caused by customs clearance processes.</li>
         <li>Some items may not be available for international shipping due to restrictions.</li>
@@ -670,7 +678,7 @@
         <li>Items must be unused, unwashed, and in original packaging with tags attached.</li>
         <li>Sale or discounted items are not eligible for return unless defective.</li>
         <li>Exchanges are subject to stock availability.</li>
-        <li>Refunds are processed within 5–7 business days after we receive the returned item.</li>
+        <li>Refunds are processed within 5â€“7 business days after we receive the returned item.</li>
       </ul>
       <p>For full details, see our <a href="terms.html" style="color:#088178; font-weight:600;">Terms and Conditions</a>.</p>
     </section>
@@ -718,7 +726,7 @@
       <ul>
         <li><i class="fas fa-envelope"></i> Email: <a href="contact.html" style="color:#088178;">contact@cara.com</a></li>
         <li><i class="fas fa-phone"></i> Phone: +01 2222 365 / (+91) 01 2345 6789</li>
-        <li><i class="far fa-clock"></i> Hours: 10:00 – 18:00, Mon – Sat</li>
+        <li><i class="far fa-clock"></i> Hours: 10:00 â€“ 18:00, Mon â€“ Sat</li>
       </ul>
     </section>
 
@@ -732,7 +740,7 @@
         <img src="images/logo.png" alt="Cara Logo" width="110" height="34" loading="lazy" />
         <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
         <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
-        <p><strong>Hours:</strong> 10:00 – 18:00, Mon – Sat</p>
+        <p><strong>Hours:</strong> 10:00 â€“ 18:00, Mon â€“ Sat</p>
         <div class="social-links">
           <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
           <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i></a>
@@ -778,7 +786,7 @@
 
     </div>
     <div class="footer-bottom">
-      <p>© Cara 2026. All rights reserved. | <a href="license.html">MIT License</a></p>
+      <p>Â© Cara 2026. All rights reserved. | <a href="license.html">MIT License</a></p>
     </div>
   </footer>
 
@@ -831,7 +839,7 @@
         var maxStr = maxDate.toLocaleDateString('en-US', opts);
 
         costEl.textContent = '$' + cost.toFixed(2);
-        etaEl.innerHTML = 'Estimated delivery: <strong>' + minStr + ' – ' + maxStr + '</strong>';
+        etaEl.innerHTML = 'Estimated delivery: <strong>' + minStr + ' â€“ ' + maxStr + '</strong>';
         result.classList.add('show');
       });
     })();
@@ -870,3 +878,4 @@
 </html>
 
 <!-- Accessibility and structural improvements -->
+

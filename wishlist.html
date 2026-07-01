@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -16,7 +16,7 @@
     
     <!-- Viewport for Responsive Design -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wishlist — Cara</title>
+    <title>Wishlist â€” Cara</title>
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css">
@@ -472,6 +472,14 @@
             }
         }
     </style>
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
 </head>
 
 <body>
@@ -536,12 +544,12 @@
         function parsePriceString(priceStr) {
             if (typeof priceStr === 'number') return Number.isFinite(priceStr) ? priceStr : 0;
             if (!priceStr) return 0;
-            return parseFloat(String(priceStr).replace(/[₹$\s,]/g, '')) || 0;
+            return parseFloat(String(priceStr).replace(/[â‚¹$\s,]/g, '')) || 0;
         }
 
         function formatRupee(amount) {
             const value = parsePriceString(amount);
-            return '₹' + Math.round(value).toLocaleString('en-IN');
+            return 'â‚¹' + Math.round(value).toLocaleString('en-IN');
         }
 
         function hasPriceDropped(item) {
@@ -557,7 +565,7 @@
         }
 
         function normalizeWishlistItem(item) {
-            const rawPrice = item.price || '₹0';
+            const rawPrice = item.price || 'â‚¹0';
             const currentPrice = typeof item.currentPrice === 'number'
                 ? item.currentPrice
                 : parsePriceString(rawPrice);
@@ -733,3 +741,4 @@
 <script src="js/wishlist-notes.js" defer></script>
 </body>
 </html>
+

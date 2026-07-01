@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
@@ -13,6 +13,14 @@
   <link rel="stylesheet" href="ui-fix.css" />
   <link rel="stylesheet" href="toast.css" />
   <link rel="stylesheet" href="login.css" />
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
 </head>
 <body>
 
@@ -100,7 +108,7 @@
                 id="loginPassword"
                 name="password"
                 class="input-field"
-                placeholder="••••••••"
+                placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
                 autocomplete="current-password"
                 required
                 aria-required="true"
@@ -152,7 +160,7 @@
           <span class="error-message" id="formError" style="display:block; margin-bottom: 8px;"></span>
 
 <<<<<<< fix/login-register-flow
-          <!-- Captcha — only appears after a failed attempt -->
+          <!-- Captcha â€” only appears after a failed attempt -->
           <div id="captcha-section" class="captcha-section" style="display: none; margin-bottom: 20px;">
             <label>Security Check</label>
             <div class="captcha-row">

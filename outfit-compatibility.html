@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
@@ -259,6 +259,14 @@
     }
   </style>
 
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
 </head>
 <body>
   <!-- Header Section -->
@@ -275,7 +283,7 @@
   <main class="compat-page">
     <div class="compat-hero">
       <h1><i class="ri-t-shirt-line" style="color:#6366f1;"></i> Outfit Compatibility Checker</h1>
-      <p>Check if your top and bottom pieces work together — colour harmony, style matching, and occasion suitability all in one click.</p>
+      <p>Check if your top and bottom pieces work together â€” colour harmony, style matching, and occasion suitability all in one click.</p>
     </div>
 
     <div class="compat-card">
@@ -362,7 +370,7 @@
 
     <div class="info-banner">
       <i class="ri-information-line"></i>
-      <span>This tool analyses colour harmony and style cohesion based on widely accepted fashion principles. Results are suggestions — personal style always wins!</span>
+      <span>This tool analyses colour harmony and style cohesion based on widely accepted fashion principles. Results are suggestions â€” personal style always wins!</span>
     </div>
   </main>
 

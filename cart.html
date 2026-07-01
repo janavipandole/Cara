@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
@@ -52,12 +52,12 @@
 
   <style>
     /* ================================================================
-       FIX #954 — Cart page layout misaligned / empty space on left
+       FIX #954 â€” Cart page layout misaligned / empty space on left
        Root cause: .cartmain and #cart-content-wrapper had no max-width
        or centering, so content floated unanchored to the right.
     ================================================================ */
     /* ================================================================
-       FIX #954 — Cart page layout misaligned / centered layout
+       FIX #954 â€” Cart page layout misaligned / centered layout
     ================================================================ */
     body {
       font-family: Arial, sans-serif;
@@ -101,7 +101,7 @@
     }
 
     /* Header styling matching grid definitions */
-    /* Header styling matching grid definitions — Updated to 5 columns for the delete option */
+    /* Header styling matching grid definitions â€” Updated to 5 columns for the delete option */
 .cart-column-header {
   display: grid;
   /* Added a 0.5fr column at the end for the trash/remove icon */
@@ -119,7 +119,7 @@
     }
 
     /* ================================================================
-       FIX #964 — Cart item quantity & subtotal layout responsive grid
+       FIX #964 â€” Cart item quantity & subtotal layout responsive grid
     ================================================================ */
     @media (max-width: 767px) {
       .cart-item-row {
@@ -356,6 +356,14 @@ button + button {
 }
 
   </style>
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
 </head>
 
 <body>
@@ -508,15 +516,15 @@ button + button {
                 <div class="summary-breakdown">
                   <div class="summary-row">
                     <span>Subtotal</span>
-                    <span id="summary-subtotal">₹0</span>
+                    <span id="summary-subtotal">â‚¹0</span>
                   </div>
                   <div class="summary-row">
                     <span>Estimated Tax (18% GST)</span>
-                    <span id="summary-tax">₹0</span>
+                    <span id="summary-tax">â‚¹0</span>
                   </div>
                   <div class="summary-row" id="summary-discount-row" style="display: none;">
                     <span>Discount</span>
-                    <span id="summary-discount" class="discount-value">-₹0</span>
+                    <span id="summary-discount" class="discount-value">-â‚¹0</span>
                   </div>
                   <div class="summary-row">
                     <span>Shipping</span>
@@ -525,7 +533,7 @@ button + button {
                   <hr class="summary-divider" />
                   <div class="summary-row grand-total-row">
                     <span>Grand Total</span>
-                    <span id="summary-total">₹0</span>
+                    <span id="summary-total">â‚¹0</span>
                   </div>
                 </div>
 
@@ -578,8 +586,8 @@ button + button {
             discountRow.style.display = "flex";
             
             // Clean out currency symbols AND commas so strings like "7,289" parse as 7289
-            const subtotalText = document.getElementById("summary-subtotal").textContent.replace(/[₹$,]/g, "").trim();
-            const taxText = document.getElementById("summary-tax").textContent.replace(/[₹$,]/g, "").trim();
+            const subtotalText = document.getElementById("summary-subtotal").textContent.replace(/[â‚¹$,]/g, "").trim();
+            const taxText = document.getElementById("summary-tax").textContent.replace(/[â‚¹$,]/g, "").trim();
             
             const subtotal = parseFloat(subtotalText) || 0;
             const tax = parseFloat(taxText) || 0;
@@ -591,8 +599,8 @@ button + button {
             const total = subtotal + tax - discount;
             
             // Update the UI with beautiful formatting back into the summary card
-            discountVal.textContent = "-₹" + discount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            document.getElementById("summary-total").textContent = "₹" + total.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            discountVal.textContent = "-â‚¹" + discount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            document.getElementById("summary-total").textContent = "â‚¹" + total.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
           }
         } else if (val === "") {
           feedback.innerHTML = `<span style="color: #ef4444;"><i class="ri-error-warning-fill"></i> Please enter a coupon code.</span>`;
@@ -676,7 +684,7 @@ button + button {
 
   <!-- HORIZONTAL COPYRIGHT STATEMENT -->
   <div class="copyright" style="grid-column: span 4 !important; text-align: center !important; margin-top: 15px !important; padding-top: 15px !important; margin-bottom: 30px !important; border-top: 1px solid rgba(255, 255, 255, 0.1) !important;">
-    <p style="color: #94a3b8 !important; font-size: 12px !important; margin: 0 !important;">© Cara 2026. All rights reserved. | <a href="license.html" style="color: #ffffff !important; text-decoration: underline !important;"> MIT License </a></p>
+    <p style="color: #94a3b8 !important; font-size: 12px !important; margin: 0 !important;">Â© Cara 2026. All rights reserved. | <a href="license.html" style="color: #ffffff !important; text-decoration: underline !important;"> MIT License </a></p>
   </div>
 </footer>
 
@@ -695,4 +703,5 @@ button + button {
     </script>
   </body>
 </html>
+
 
