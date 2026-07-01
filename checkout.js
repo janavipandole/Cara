@@ -251,7 +251,7 @@ for (const id of requiredFields) {
   const el = document.getElementById(id);
 
   if (!el) {
-    console.error(`Missing input field with id: ${id}`);
+    window.logError(`Missing input field with id: ${id}`);
     return;
   }
 
