@@ -212,9 +212,18 @@
             <div class="item-info">
               <div class="item-name">Tropical Print Shirt</div>
               <div class="item-meta">H&M · Size L · Qty 2</div>
-            </div>
-            <div class="item-price">₹1,799</div>
           </div>
+
+          <!-- Coupon Application Form -->
+          <div class="coupon-section" style="margin-top: 16px; border-top: 1px solid var(--border); padding-top: 16px;">
+            <label for="couponCodeInput">Promo Code</label>
+            <div style="display: flex; gap: 8px; margin-top: 6px;">
+              <input type="text" id="couponCodeInput" placeholder="CARA20 or WELCOME10" autocomplete="off" style="padding: 8px 12px;">
+              <button type="button" class="back-btn" id="applyCouponBtn" style="margin-bottom: 0; padding: 8px 16px; border-radius: 8px;">Apply</button>
+            </div>
+            <div id="couponFeedback" class="coupon-feedback" style="display: none; font-size: 0.78rem; margin-top: 6px; font-weight: 500;"></div>
+          </div>
+
           <div class="totals">
             <div class="total-row">
               <span>Subtotal</span>
