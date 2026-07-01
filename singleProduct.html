@@ -141,7 +141,8 @@
       });
       </script>
       <h4 id="product-name">Men's Fashion T-Shirt</h4>
-      <h2 id="product-price">$139.00</h2>
+      <h2 id="product-price">₹0</h2>
+
       <div class="size-section">
         <select id="product-size" name="product-size" aria-label="Select product size">
           <option>Select Size</option>
@@ -380,6 +381,48 @@
 
   <script src="products.js?v=1779120917220"></script>
   <script src="app.js"></script>
+
+  <script>
+    // Render product price in INR (₹) instead of USD hardcode.
+    document.addEventListener('DOMContentLoaded', () => {
+      const priceEl = document.getElementById('product-price');
+      if (!priceEl) return;
+
+      // Prefer the backend-loaded product if app.js singleProduct handler fetched it.
+      // Otherwise fallback to whatever was stored when user clicked from shop.
+      const stored = localStorage.getItem('selectedProduct');
+      let selectedProduct = null;
+      try {
+        selectedProduct = stored ? JSON.parse(stored) : null;
+      } catch (e) {
+        selectedProduct = null;
+      }
+
+      // Case 1: app.js already set formatted INR into the element.
+      // Detect by presence of ₹.
+      if (String(priceEl.textContent || '').includes('₹')) return;
+
+      // Case 2: use storedProduct.price which may be like '₹2499' or '$139.00' or bare number.
+      let rawPrice = selectedProduct && selectedProduct.price != null ? selectedProduct.price : null;
+      if (rawPrice == null) {
+        priceEl.textContent = 'Contact for Price';
+        return;
+      }
+
+      // Parse any currency string into a number.
+      const cleaned = String(rawPrice).replace(/[₹$,\s]/g, '');
+      const num = parseFloat(cleaned);
+      if (!isFinite(num) || num <= 0) {
+        priceEl.textContent = 'Contact for Price';
+        return;
+      }
+
+      // Format as INR.
+      const rounded = Math.round(num);
+      priceEl.textContent = '₹' + rounded.toLocaleString('en-IN');
+    });
+  </script>
+
   <!-- csritik-max -->
 
   <script>
