@@ -515,6 +515,7 @@ function addToCart(productName, productPrice, productImage, quantity, size) {
     }
 
     localStorage.setItem("productsInCart", JSON.stringify(cart));
+    window.cachedCartState = cart;
     showToast(`${item.name} (Size: ${item.size}) added to cart!`, "success");
     updateCartCount();
 }
