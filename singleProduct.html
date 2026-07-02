@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Page Title -->
-  <title>Cara — Modern E‑Commerce</title>
+  <title>Cara â€” Modern Eâ€‘Commerce</title>
 
   <!-- Favicon -->
   <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
@@ -50,6 +50,14 @@
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
 </head>
 
 <body>
@@ -126,7 +134,7 @@
       <h6>Home / T-Shirt</h6>
       <!-- Stock Urgency Badge -->
       <div id="stock-urgency-badge" style="background: #f87171; color: white; display: inline-block; padding: 4px 8px; border-radius: 4px; font-weight: 600; font-size: 13px; margin-bottom: 10px; display: none;">
-        🔥 Only <span id="stock-items-count">3</span> left in stock!
+        ðŸ”¥ Only <span id="stock-items-count">3</span> left in stock!
       </div>
       
       <script>
@@ -141,7 +149,7 @@
       });
       </script>
       <h4 id="product-name">Men's Fashion T-Shirt</h4>
-      <h2 id="product-price">₹0</h2>
+      <h2 id="product-price">â‚¹0</h2>
 
       <div class="size-section">
         <select id="product-size" name="product-size" aria-label="Select product size">
@@ -373,7 +381,7 @@
     <!-- Copyright -->
     <div class="copyright">
       <p>
-        © Cara 2026. All rights reserved. |
+        Â© Cara 2026. All rights reserved. |
         <a href="license.html" style="color: #088178"> MIT License </a>
       </p>
     </div>
@@ -383,7 +391,7 @@
   <script src="app.js"></script>
 
   <script>
-    // Render product price in INR (₹) instead of USD hardcode.
+    // Render product price in INR (â‚¹) instead of USD hardcode.
     document.addEventListener('DOMContentLoaded', () => {
       const priceEl = document.getElementById('product-price');
       if (!priceEl) return;
@@ -399,10 +407,10 @@
       }
 
       // Case 1: app.js already set formatted INR into the element.
-      // Detect by presence of ₹.
-      if (String(priceEl.textContent || '').includes('₹')) return;
+      // Detect by presence of â‚¹.
+      if (String(priceEl.textContent || '').includes('â‚¹')) return;
 
-      // Case 2: use storedProduct.price which may be like '₹2499' or '$139.00' or bare number.
+      // Case 2: use storedProduct.price which may be like 'â‚¹2499' or '$139.00' or bare number.
       let rawPrice = selectedProduct && selectedProduct.price != null ? selectedProduct.price : null;
       if (rawPrice == null) {
         priceEl.textContent = 'Contact for Price';
@@ -410,7 +418,7 @@
       }
 
       // Parse any currency string into a number.
-      const cleaned = String(rawPrice).replace(/[₹$,\s]/g, '');
+      const cleaned = String(rawPrice).replace(/[â‚¹$,\s]/g, '');
       const num = parseFloat(cleaned);
       if (!isFinite(num) || num <= 0) {
         priceEl.textContent = 'Contact for Price';
@@ -419,7 +427,7 @@
 
       // Format as INR.
       const rounded = Math.round(num);
-      priceEl.textContent = '₹' + rounded.toLocaleString('en-IN');
+      priceEl.textContent = 'â‚¹' + rounded.toLocaleString('en-IN');
     });
   </script>
 
@@ -434,3 +442,4 @@
 <script src="singleProduct.js"></script>
 <script src="js/stock-simulator.js" defer></script>
 </html>
+

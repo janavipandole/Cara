@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Page Title -->
-    <title>Must-Have Skater Girls Items — Cara Blog</title>
+    <title>Must-Have Skater Girls Items â€” Cara Blog</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
@@ -132,7 +132,7 @@
 
         .back-link:hover { gap: 12px; }
 
-                /* ── Dark Mode — app.js sets data-theme="dark" on <html> ── */
+                /* â”€â”€ Dark Mode â€” app.js sets data-theme="dark" on <html> â”€â”€ */
         html[data-theme="dark"] .article-container h1,
         html[data-theme="dark"] .article-body h2 {
             color: #f0f0f0 !important;
@@ -164,10 +164,18 @@
             .article-hero img { height: 260px; }
         }
     </style>
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
 </head>
 
 <body>
-    <!-- ── Header  ── -->
+    <!-- â”€â”€ Header  â”€â”€ -->
     <section id="header">
         <a href="index.html"><img src="images/logo.png" alt=""></a>
 
@@ -197,12 +205,12 @@
         </div>
     </section>
 
-    <!-- ── Article Hero Image ── -->
+    <!-- â”€â”€ Article Hero Image â”€â”€ -->
     <div class="article-hero">
         <img src="images/blog/b3.jpg" alt="Must-Have Skater Girls Items">
     </div>
 
-    <!-- ── Article Content ── -->
+    <!-- â”€â”€ Article Content â”€â”€ -->
     <div class="article-container">
 
         <a href="blog.html" class="back-link">
@@ -220,7 +228,7 @@
         <div class="article-body">
             <p>
                 Skater girl fashion has long outgrown the half-pipe. What started as functional clothing for the
-                concrete and the curb has evolved into a full-blown aesthetic movement — blending oversized
+                concrete and the curb has evolved into a full-blown aesthetic movement â€” blending oversized
                 silhouettes, vintage graphics, and a distinct nonchalance that no other subculture has managed to
                 replicate. Here are the pieces every skater girl needs in her rotation right now.
             </p>
@@ -228,29 +236,29 @@
             <h2>The Oversized Graphic Tee</h2>
             <p>
                 No skater wardrobe is complete without at least a handful of oversized graphic tees. Vintage band
-                tees, old tour merch, and retro sports prints are the gold standard — worn loose and tucked only
+                tees, old tour merch, and retro sports prints are the gold standard â€” worn loose and tucked only
                 halfway in at the front. Size up by two for that authentic, borrowed-from-the-boys fit that's been
                 a cornerstone of skate culture since the '90s. Pair with a micro-mini skirt or baggy shorts for
                 the classic contrast that defines the aesthetic.
             </p>
 
             <blockquote>
-                "Skate style is about owning the space around you — loose, unbothered, and completely intentional."
+                "Skate style is about owning the space around you â€” loose, unbothered, and completely intentional."
             </blockquote>
 
             <h2>Baggy Cargo Pants</h2>
             <p>
                 Cargo pants are back in full force, and they've never felt more relevant. Look for wide-leg cuts in
-                heavy cotton twill — olive, khaki, and washed black are the most versatile colourways. The pockets
+                heavy cotton twill â€” olive, khaki, and washed black are the most versatile colourways. The pockets
                 are functional and the silhouette is deliberately exaggerated, which plays perfectly against a
                 fitted crop top or a tied-up flannel shirt. Roll the hems slightly to expose your socks and
-                sneakers — it's a small detail that makes a big difference.
+                sneakers â€” it's a small detail that makes a big difference.
             </p>
 
             <h2>High-Top Sneakers</h2>
             <p>
                 Footwear is everything in skate-adjacent fashion. High-top canvas sneakers in white, black, or a
-                muted neutral are the practical choice — they protect the ankle, they age beautifully, and they
+                muted neutral are the practical choice â€” they protect the ankle, they age beautifully, and they
                 work with every silhouette in this list. Look for chunky vulcanised soles for that authentic
                 skate-shoe DNA. Wear them with crew socks that peek above the ankle for maximum visual impact.
             </p>
@@ -268,7 +276,7 @@
                 The pleated mini skirt adds a playful feminine counterpoint to the otherwise relaxed, masculine
                 pieces that dominate skater style. In plaid, solid colours, or tartan, it pairs brilliantly with
                 oversized hoodies and chunky shoes to create the contrast that makes this style so compelling.
-                It's one of the most striking items in the skater girl repertoire — effortlessly cool and
+                It's one of the most striking items in the skater girl repertoire â€” effortlessly cool and
                 surprisingly easy to style.
             </p>
         </div>
@@ -420,7 +428,7 @@
       <!-- Copyright -->
       <div class="copyright">
         <p>
-          © Cara 2026. All rights reserved. |
+          Â© Cara 2026. All rights reserved. |
           <a href="license.html" style="color: #088178"> MIT License </a>
         </p>
       </div>
@@ -430,3 +438,4 @@
 </body>
 
 </html>
+

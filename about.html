@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Page Title -->
-  <title>Cara — Modern E‑Commerce</title>
+  <title>Cara â€” Modern Eâ€‘Commerce</title>
 
   <!-- Favicon -->
   <link rel="icon" type="image/jpeg" sizes="32x32" href="images/favicon.jpg" />
@@ -385,6 +385,14 @@
           }
       }
   </style>
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
 </head>
 
 <body>
@@ -825,7 +833,7 @@
   <!-- Copyright -->
   <div class="copyright">
     <p>
-      © Cara 2026. All rights reserved. |
+      Â© Cara 2026. All rights reserved. |
       <a href="license.html" style="color: #088178"> MIT License </a>
     </p>
   </div>

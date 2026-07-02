@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -118,6 +118,14 @@
             background: #066962;
         }
     </style>
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
 </head>
 
 <body>
@@ -158,7 +166,7 @@
         <p class="license-meta">This project is licensed under the <span class="highlight">MIT License</span></p>
 
         <h2>Copyright Notice</h2>
-        <p>Copyright © <span class="Current-Year"></span> <strong>Janavi Pandole</strong></p>
+        <p>Copyright Â© <span class="Current-Year"></span> <strong>Janavi Pandole</strong></p>
 
         <div class="license-box">
             <p class="license-text">Permission is hereby granted, free of charge, to any person obtaining a copy of this
@@ -180,17 +188,17 @@
         <h2>What This Means</h2>
         <p>The MIT License is a permissive open-source license that allows you to:</p>
         <ul>
-            <li>✓ Use the code commercially</li>
-            <li>✓ Modify the code</li>
-            <li>✓ Distribute the code</li>
-            <li>✓ Use the code privately</li>
-            <li>✓ Sublicense the code</li>
+            <li>âœ“ Use the code commercially</li>
+            <li>âœ“ Modify the code</li>
+            <li>âœ“ Distribute the code</li>
+            <li>âœ“ Use the code privately</li>
+            <li>âœ“ Sublicense the code</li>
         </ul>
 
         <p style="margin-top: 30px;">The only requirement is that you include the original copyright notice and license
             text in any copy or substantial portion of the software.</p>
 
-        <a href="index.html" class="back-btn">← Back to Home</a>
+        <a href="index.html" class="back-btn">â† Back to Home</a>
     </section>
 
     <!-- Footer Section -->
@@ -251,7 +259,7 @@
         </div>
         <!-- Copyright Section -->
         <div class="copyright">
-            <p>© Cara 2026. All rights reserved. | <a href="license.html" style="color: #088178;">MIT License</a></p>
+            <p>Â© Cara 2026. All rights reserved. | <a href="license.html" style="color: #088178;">MIT License</a></p>
         </div>
     </footer>
 
@@ -267,3 +275,4 @@ for (let el of document.querySelectorAll(".Current-Year")) {
 </body>
 
 </html>
+

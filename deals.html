@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Page Title -->
-    <title>Cara — Buy 1 Get 1 Free</title>
+    <title>Cara â€” Buy 1 Get 1 Free</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/jpg" href="images/favicon.jpg">
@@ -193,6 +193,14 @@
             }
         }
     </style>
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
 </head>
 
 <body>
@@ -232,7 +240,7 @@
         <span class="deals-badge">LIMITED TIME OFFER</span>
         <h1>Buy 1 Get <span>1 Free</span></h1>
         <p>Grab your favorite fashion picks and get another one absolutely free. Limited period combo deals are waiting for you.</p>
-        <a href="#deals-products" class="deals-btn">Shop Deals →</a>
+        <a href="#deals-products" class="deals-btn">Shop Deals â†’</a>
     </div>
 
     <div class="deals-visual">

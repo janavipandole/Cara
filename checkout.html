@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
   <!-- Page Title -->
-  <title>Secure Checkout – Cara</title>
+  <title>Secure Checkout â€“ Cara</title>
 
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
@@ -21,6 +21,14 @@
 
   <!-- Checkout styles -->
   <link rel="stylesheet" href="checkout.css" />
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
 </head>
 <body>
 
@@ -40,7 +48,7 @@
     </div>
 
 
-  <!-- ══ PAGE ══ -->
+  <!-- â•â• PAGE â•â• -->
   <div class="page-wrapper">
 
     <!-- Back button -->
@@ -211,7 +219,7 @@
             <div class="item-thumb"><i class="ri-shirt-line"></i></div>
             <div class="item-info">
               <div class="item-name">Tropical Print Shirt</div>
-              <div class="item-meta">H&M · Size L · Qty 2</div>
+              <div class="item-meta">H&M Â· Size L Â· Qty 2</div>
           </div>
 
           <!-- Coupon Application Form -->
@@ -227,7 +235,7 @@
           <div class="totals">
             <div class="total-row">
               <span>Subtotal</span>
-              <span>₹4,097</span>
+              <span>â‚¹4,097</span>
             </div>
             <div class="total-row free-ship">
               <span>Shipping</span>
@@ -235,11 +243,11 @@
             </div>
             <div class="total-row">
               <span>Tax (5%)</span>
-              <span>₹205</span>
+              <span>â‚¹205</span>
             </div>
             <div class="total-row grand">
               <span>Total</span>
-              <span>₹4,302</span>
+              <span>â‚¹4,302</span>
             </div>
           </div>
           <button type="submit" class="submit-btn">
@@ -254,7 +262,7 @@
     </form>
   </div><!-- /page-wrapper -->
 
-  <!-- ══ SUCCESS POPUP ══ -->
+  <!-- â•â• SUCCESS POPUP â•â• -->
   <div class="success-overlay" id="successPopup">
     <div class="popup-box">
       <div class="check-circle" aria-hidden="true"><i class="ri-check-line"></i></div>
@@ -270,3 +278,4 @@
   <script src="js/address-autocomplete.js" defer></script>
 </body>
 </html>
+

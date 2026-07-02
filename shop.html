@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Page Title -->
-    <title>Cara — Modern E-Commerce</title>
+    <title>Cara â€” Modern E-Commerce</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
@@ -46,7 +46,15 @@
     <link rel="stylesheet" href="shop.css" />
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  </head>
+    <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
+</head>
 
   <body>
     <!-- HEADER -->
@@ -243,8 +251,8 @@
       </form>
     </section>
 
-    <button id="backToTop" title="Back to Top" aria-label="Back to top">⬆</button>
-    <button id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">⬇</button>
+    <button id="backToTop" title="Back to Top" aria-label="Back to top">â¬†</button>
+    <button id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">â¬‡</button>
 
     <!-- <footer class="section-p1">
     <section id="product1" class="section-p1">
@@ -276,8 +284,8 @@
       </form>
     </section>
 
-    <button id="backToTop" title="Back to Top" aria-label="Back to top">⬆</button>
-    <button id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">⬇</button> -->
+    <button id="backToTop" title="Back to Top" aria-label="Back to top">â¬†</button>
+    <button id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">â¬‡</button> -->
 
     <footer class="section-p1">
     <!-- Contact Column -->
@@ -377,7 +385,7 @@
       </div>
     </div>
       <div class="copyright">
-        <p>© Cara 2026. All rights reserved. | <a href="license.html" style="color: #088178">MIT License</a></p>
+        <p>Â© Cara 2026. All rights reserved. | <a href="license.html" style="color: #088178">MIT License</a></p>
       </div>
     </footer>
 
@@ -412,7 +420,8 @@ if (btn) {
   });
 }
 </script>
-   <button id="backToTop">↑</button>
+   <button id="backToTop">â†‘</button>
   <script src="js/shimmer-loader.js" defer></script>
 </body>
 </html>
+
