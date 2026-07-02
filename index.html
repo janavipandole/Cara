@@ -68,72 +68,6 @@
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
-    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
-  <!-- Preconnect and prefetch resources optimized -->
-  <!-- Character Encoding -->
-  <meta charset="UTF-8" />
-
-  <!-- Content Security Policy (CSP) for Frontend Security -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: https://www.animatedimages.org https://cara-seven-ashen.vercel.app;" />
-
-  <!-- Resource Hints -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
-
-  <!-- Viewport for Responsive Design -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- Page Title -->
-  <title> Cara | Modern E-Commerce</title>
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
-
-  <!-- SEO Meta Tags -->
-  <meta name="description"
-    content="Shop the latest trends on our e-commerce store. Dark theme supported for a better user experience." />
-  <meta name="keywords" content="e-commerce, shopping, online store, dark mode, buy online, latest fashion" />
-  <meta name="author" content=" Cara" />
-  <meta name="robots" content="index, follow" />
-
-  <!-- Language -->
-  <meta http-equiv="Content-Language" content="en" />
-
-  <!-- Open Graph (OG) Tags for Social Sharing -->
-  <meta property="og:title" content="E-commerce - Dark Theme Working" />
-  <meta property="og:description" content="Shop the latest trends with our dark mode-enabled e-commerce experience." />
-  <meta
-      property="og:image"
-      content="https://cara-seven-ashen.vercel.app/images/logo.png"
-    />
-  <meta property="og:url" 
-  content="https://cara-seven-ashen.vercel.app/" />
-  <meta property="og:type" content="website" />
-
-  <!-- Twitter Card Tags -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="E-commerce - Dark Theme Working" />
-  <meta name="twitter:description" content="Dark theme e-commerce site with modern features." />
-  <meta
-      name="twitter:image"
-      content="https://cara-seven-ashen.vercel.app/images/logo.png"
-    />
-  <meta name="twitter:site" content="@janavipandole" />
-
-  <!-- Theme Color for Mobile Browser -->
-  <meta name="theme-color" content="#000000" />
-
-  <!-- Performance: DNS Prefetch & Preconnect for external CDN origins
-       These hints allow the browser to establish connections to external
-       origins before they are needed, reducing font/icon loading latency.
-  -->
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
-  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
   <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
   <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
@@ -141,7 +75,9 @@
   <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=2" />
+  <link rel="stylesheet" href="ui-fix.css" />
+  <link rel="stylesheet" href="header-fix.css" />
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
@@ -199,58 +135,108 @@
 </head>
 
 <body>
-  <a href="#product1" class="skip-link" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to Content</a>
+    <a href="#product1" class="skip-link" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to Content</a>
+    <a href="#product1" class="skip-link" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to Content</a>
   <div id="main">
     <div id="top">
       <div id="workingArea">
         <section id="header">
-          <!-- Logo -->
-          <a href="index.html">
-            <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
+    <!-- Logo -->
+    <a href="index.html">
+      <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
+    </a>
+
+    <div>
+      <ul id="navbar">
+
+        <!-- Main Navigation Links -->
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="try-on.html">Try-On</a></li>
+        <li><a href="community.html">Community</a></li>
+        <li><a href="promotions.html">Promotions</a></li>
+
+        <!-- Contact Icon -->
+        <li class="nav-icon">
+          <a href="contact.html" aria-label="Contact">
+            <i class="ri-customer-service-2-line"></i>
           </a>
+        </li>
 
-          <!-- Main Navigation Links -->
-          <ul id="navbar">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="shop.html">Shop</a></li>
-            <li><a href="blog.html">Blog</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="try-on.html">Try-On</a></li>
-            <li><a href="community.html">Community</a></li>
-            <li><a href="promotions.html">Promotions</a></li>
-          </ul>
+        <!-- Login Icon -->
+        <li class="nav-icon">
+          <a href="login.html" aria-label="Login">
+            <i class="ri-user-3-line"></i>
+          </a>
+        </li>
 
-          <!-- Utility Icons -->
-          <div class="header-utilities" style="display: flex; align-items: center; gap: 15px;">
-            <a href="contact.html" aria-label="Contact" class="nav-icon"><i class="ri-customer-service-2-line"></i></a>
-            <a href="login.html" aria-label="Login" class="nav-icon"><i class="ri-user-3-line"></i></a>
-            <a class="active nav-icon" href="cart.html" id="lg-bag" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a>
-            <button class="theme-toggle nav-icon" id="themeToggleDesktop" aria-label="Toggle dark mode" style="background: none; border: none; cursor: pointer; color: inherit; font-size: 16px;">
-              <i class="ri-moon-line" id="themeIcon"></i>
-            </button>
-            <a href="javascript:void(0)" id="close" aria-label="Close menu" aria-hidden="false" class="mobile-only" style="display: none;">
-              <i class="fa-solid fa-xmark"></i>
-            </a>
-          </div>
+        <!-- Cart Icon -->
+        <li class="nav-icon">
+          <a class="active" href="cart.html" id="lg-bag" aria-label="Cart">
+            <i class="ri-shopping-bag-4-line"></i>
+          </a>
+        </li>
 
-          <!-- Mobile Navbar -->
           <div class="mobile">
             <a href="wishlist.html" class="wishlist-nav-link" aria-label="Wishlist"><i class="ri-heart-line"></i><span class="wishlist-count hidden">0</span></a>
             <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
             <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
           </div>
         </section>
-
         <div class="search-container">
-          <label for="searchBar" class="sr-only" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">Search Products</label>
           <input 
             type="text"
             id="searchBar"
             placeholder="Search products..."
           >
-        </div>   
+        </div>
+<section id="hero" class="hero-slider">
+        <!-- Theme Toggle -->
+        <li class="nav-icon">
+          <button class="theme-toggle" id="themeToggleDesktop" aria-label="Toggle dark mode">
+            <i class="ri-moon-line" id="themeIcon"></i>
+          </button>
+        </li>
 
-        <section id="hero" class="hero-slider">
+        <!-- Close Button -->
+        <a href="javascript:void(0)" id="close" aria-label="Close menu" aria-hidden="false">
+          <i class="fa-solid fa-xmark"></i>
+        </a>
+
+      </ul>
+    </div>
+
+    <!-- Mobile Navbar -->
+    <div class="mobile">
+
+      <!-- Login Icon -->
+      <a href="login.html" aria-label="Login">
+        <i class="ri-user-3-line"></i>
+      </a>
+
+      <!-- Cart Icon -->
+      <a href="cart.html" aria-label="Cart">
+        <i class="ri-shopping-bag-4-line"></i>
+      </a>
+      <!-- Theme Toggle -->
+      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
+        <i class="ri-moon-line" id="themeIconMobile"></i>
+      </button>
+    </div>
+  </section>
+
+  <div class="search-container">
+    <label for="searchBar" class="sr-only" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">Search Products</label>
+    <input 
+      type="text"
+      id="searchBar"
+      placeholder="Search products..."
+    >
+  </div>   
+
+<section id="hero" class="hero-slider">
           <div class="slide active" style="background-image: url('images/hero4.png');">
             
             <div class="slide-content">

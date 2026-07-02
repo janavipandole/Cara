@@ -572,8 +572,6 @@ button.white .ripple-effect {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0;
-    padding: 0;
 }
 
 #navbar li {
@@ -681,8 +679,8 @@ button.white .ripple-effect {
 
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    flex-direction: row;
+    justify-content: center;
+    flex-direction: column;
 }
 #hero.hero-slider{
     overflow:hidden !important;
@@ -744,18 +742,12 @@ footer ~ * {
 
     padding: 0 80px;
     max-width: 700px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 15px;
 }
 
 /* ───────────────── TYPOGRAPHY ───────────────── */
 
 #hero h4 {
-    padding-bottom: 0px;
+    padding-bottom: 15px;
 }
 
 #hero h1 {
