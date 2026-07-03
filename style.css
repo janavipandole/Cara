@@ -1398,6 +1398,60 @@ footer ~ * {
 }
 
 /* ── Product title ── */
+
+/* ============================================================
+     FOOTER STANDARDIZATION
+     Ensures a consistent footer layout across pages and
+     prevents page-specific inline styles from breaking layout.
+     ============================================================ */
+
+footer.section-p1, footer.main-footer, footer#footer, .site-footer {
+    --footer-bg: #f8f9fb;
+    --footer-color: #333;
+    background-color: var(--footer-bg) !important;
+    color: var(--footer-color) !important;
+    padding: 36px 20px !important;
+    box-sizing: border-box !important;
+}
+
+.footer-container,
+.main-footer .footer-middle,
+footer.section-p1 .footer-container,
+.footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    align-items: start;
+}
+
+.footer-col { min-width: 0; }
+.footer-logo-box img { max-width: 160px; height: auto; }
+.footer-note { grid-column: 1 / -1; text-align: center; color: #777; font-size: 13px; padding-top: 18px; border-top: 1px solid rgba(0,0,0,0.06); }
+
+/* Make footer responsive */
+@media (max-width: 900px) {
+    .footer-container,
+    .main-footer .footer-middle,
+    .footer-bottom {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .footer-container,
+    .main-footer .footer-middle,
+    .footer-bottom {
+        grid-template-columns: 1fr;
+    }
+    .footer-col { padding: 12px 0; }
+}
+
+/* Ensure lists inside footer don't overflow */
+.footer-col ul { list-style: none; padding: 0; margin: 0; }
+.footer-col li { margin: 8px 0; color: inherit; }
+
 #product1 .pro .des h5 {
     color: var(--text-primary);
     font-weight: 600;
