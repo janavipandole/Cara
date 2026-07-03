@@ -58,6 +58,8 @@ def create_order(
         coupon_code = order_data.coupon.strip().upper()
 
         if coupon_code not in valid_coupons:
+            # Log this as a warning event for analysis of checkout friction
+            # logger.warning(f"Invalid coupon attempt: {coupon_code}")
             raise HTTPException(
                 status_code=400,
                 detail="Invalid coupon code"

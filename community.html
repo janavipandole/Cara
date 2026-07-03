@@ -1,6 +1,7 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 
     <!-- Character Encoding -->
     <meta charset="UTF-8">
@@ -9,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Page Title -->
-    <title>Cara — Community & Inspiration</title>
+    <title>Cara â€” Community & Inspiration</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
@@ -233,6 +234,14 @@
             }
         }
     </style>
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
 </head>
 <body>
     <section id="header">
@@ -278,7 +287,7 @@
       <li class="nav-icon">
         <button
           class="theme-toggle"
-          id="themeToggle"
+          id="themeToggleDesktop"
           aria-label="Toggle dark mode"
         >
           <i class="ri-moon-line" id="themeIcon"></i>
@@ -287,7 +296,7 @@
 
       <!-- Close Button -->
       <a
-        href="#"
+        href="javascript:void(0)"
         id="close"
         aria-label="Close menu"
         aria-hidden="false"
@@ -434,7 +443,7 @@
           <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer">
             <i class="fa-brands fa-x-twitter"></i>
           </a>
-          <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
+          <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
             <i class="fab fa-github"></i>
           </a>
           <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
@@ -519,12 +528,12 @@
     <!-- Copyright -->
     <div class="copyright">
       <p>
-        © Cara 2026. All rights reserved. |
+        Â© Cara 2026. All rights reserved. |
         <a href="license.html" style="color: #088178"> MIT License </a>
       </p>
     </div>
   </footer>
-   <button id="topBtn">↑</button>
+   <button id="topBtn">â†‘</button>
     <!-- <script src="navbar.js"></script>
     <script>loadNavbar('community');</script>   -->
 
@@ -563,3 +572,4 @@
 </html>
 
 <!-- Accessibility and structural improvements -->
+

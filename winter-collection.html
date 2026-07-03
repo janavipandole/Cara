@@ -1,7 +1,8 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 
 <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
   <script>
     (function () {
       const currentTheme = localStorage.getItem('theme') || 'light';
@@ -15,7 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Page Title -->
-  <title>Winter Collection — Cara</title>
+  <title>Winter Collection â€” Cara</title>
 
   <!-- Favicon -->
   <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
@@ -237,6 +238,14 @@
       transform: scale(1.1);
     }
   </style>
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
 </head>
 
 <body>
@@ -407,7 +416,7 @@
       <!-- About Section -->
       <div class="footer-col brand-info">
         <h4>ABOUT US</h4>
-        <p>Cara E-Commerce – Redefining your style with premium apparel, expert curation, and an absolute commitment to fashion excellence.</p>
+        <p>Cara E-Commerce â€“ Redefining your style with premium apparel, expert curation, and an absolute commitment to fashion excellence.</p>
         <p><strong>Address: </strong>562 Wellington Road, Street 32, San Francisco</p>
         <p><strong>Phone: </strong>+01 2222 365 / (+91) 01 2345 6789</p>
         <p><strong>Hours: </strong>10AM - 6PM, Mon - Sat</p>
@@ -468,7 +477,7 @@
 
       <div class="footer-socials">
         <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
-        <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+        <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
         <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
         <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
       </div>
@@ -476,7 +485,7 @@
 
     
     <div class="footer-bottom">
-      <p class="copyright">© Cara 2026. All rights reserved.</p>
+      <p class="copyright">Â© Cara 2026. All rights reserved.</p>
       <div class="footer-legal-links">
         <a href="license.html" class="license-link">MIT License</a>
       </div>
@@ -484,7 +493,7 @@
   </footer>
 
   <!-- Scroll To Top Button -->
-  <button id="scrollTopBtn" title="Go to top">↑</button>
+  <button id="scrollTopBtn" title="Go to top">â†‘</button>
 
   <div id="toast-container"></div>
   <script src="navbar.js"></script>
@@ -503,7 +512,7 @@
       }
     });
 
-    // ── Countdown Timer ──
+    // â”€â”€ Countdown Timer â”€â”€
     (function startCountdown() {
       var target = new Date('December 1, 2026 00:00:00').getTime();
 
@@ -534,7 +543,7 @@
       setInterval(tick, 1000);
     })();
 
-    // ── Canvas Snowflakes ──
+    // â”€â”€ Canvas Snowflakes â”€â”€
     (function initSnowflakes() {
       var canvas = document.getElementById('snowflakes-canvas');
       if (!canvas) return;
@@ -611,3 +620,4 @@
 </body>
 
 </html>
+

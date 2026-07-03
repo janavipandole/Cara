@@ -1,6 +1,7 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <!-- Character Encoding -->
     <meta charset="UTF-8" />
 
@@ -8,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Page Title -->
-    <title>Blog | Cara — Modern E‑Commerce</title>
+    <title>Blog | Cara â€” Modern Eâ€‘Commerce</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
@@ -110,7 +111,15 @@
   transform: scale(1.1);
 }
     </style>
-  </head>
+    <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
+</head>
 
   <body>
 <section id="header">
@@ -156,7 +165,7 @@
       <li class="nav-icon">
         <button
           class="theme-toggle"
-          id="themeToggle"
+          id="themeToggleDesktop"
           aria-label="Toggle dark mode"
         >
           <i class="ri-moon-line" id="themeIcon"></i>
@@ -165,7 +174,7 @@
 
       <!-- Close Button -->
       <a
-        href="#"
+        href="javascript:void(0)"
         id="close"
         aria-label="Close menu"
         aria-hidden="false"
@@ -275,7 +284,7 @@
           <h4>Must-Have Skater Girls Items</h4>
           <p>
             Street style meets skate culture in the most exciting way. We've
-            rounded up the essential pieces every skater girl needs — from
+            rounded up the essential pieces every skater girl needs â€” from
             oversized graphic tees to the perfect high-top sneakers and cargo
             pants....
           </p>
@@ -492,7 +501,7 @@
       <!-- Copyright -->
       <div class="copyright">
         <p>
-          © Cara 2026. All rights reserved. |
+          Â© Cara 2026. All rights reserved. |
           <a href="license.html" style="color: #088178"> MIT License </a>
         </p>
       </div>
@@ -544,3 +553,4 @@
 </html>
 
 <!-- A11y and structural improvements -->
+

@@ -1,7 +1,8 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <!-- Character Encoding -->
     <meta charset="UTF-8">
 
@@ -9,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Page Title -->
-    <title>AW20 Menswear Trends — Cara Blog</title>
+    <title>AW20 Menswear Trends â€” Cara Blog</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
@@ -131,7 +132,7 @@
 
         .back-link:hover { gap: 12px; }
 
-                /* ── Dark Mode — app.js sets data-theme="dark" on <html> ── */
+                /* â”€â”€ Dark Mode â€” app.js sets data-theme="dark" on <html> â”€â”€ */
         html[data-theme="dark"] .article-container h1,
         html[data-theme="dark"] .article-body h2 {
             color: #f0f0f0 !important;
@@ -163,10 +164,18 @@
             .article-hero img { height: 260px; }
         }
     </style>
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
 </head>
 
 <body>
-    <!-- ── Header  ── -->
+    <!-- â”€â”€ Header  â”€â”€ -->
     <section id="header">
         <a href="index.html"><img src="images/logo.png" alt=""></a>
 
@@ -181,11 +190,11 @@
                 <li><a href="login.html" id="login-btn">Login</a></li>
                 <li><a href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
                 <li>
-                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <button class="theme-toggle" id="themeToggleDesktop" aria-label="Toggle dark mode">
                         <i class="ri-moon-line" id="themeIcon"></i>
                     </button>
                 </li>
-                <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+                <a href="javascript:void(0)" id="close"><i class="fa-solid fa-xmark"></i></a>
             </ul>
         </div>
         <div class="mobile">
@@ -197,12 +206,12 @@
         </div>
     </section>
 
-    <!-- ── Article Hero Image ── -->
+    <!-- â”€â”€ Article Hero Image â”€â”€ -->
     <div class="article-hero">
         <img src="images/blog/b6.jpg" alt="AW20 Menswear Trends">
     </div>
 
-    <!-- ── Article Content ── -->
+    <!-- â”€â”€ Article Content â”€â”€ -->
     <div class="article-container">
 
         <a href="blog.html" class="back-link">
@@ -221,7 +230,7 @@
             <p>
                 Autumn/Winter 2020 was a menswear season defined by quiet confidence. As the fashion calendar
                 shifted and the industry recalibrated, designers responded with collections that prioritised
-                substance over spectacle — rich textures, considered silhouettes, and an earthy colour palette
+                substance over spectacle â€” rich textures, considered silhouettes, and an earthy colour palette
                 that felt both grounded and genuinely modern. Here are the key trends that defined the season
                 and how to carry them forward.
             </p>
@@ -229,20 +238,20 @@
             <h2>Relaxed Tailoring</h2>
             <p>
                 The sharp, close-cut suit continued its slow retreat in favour of something easier and more
-                human. AW20 brought roomy, unstructured blazers worn with wide-leg trousers — often in matching
+                human. AW20 brought roomy, unstructured blazers worn with wide-leg trousers â€” often in matching
                 tonal fabrics that created a cohesive, intentional look without the rigidity of traditional
                 tailoring. The key pieces were single-button suits in heavyweight wool and oversized blazers
                 in tweeds and checks, worn over simple crew-neck knits rather than shirts and ties.
             </p>
 
             <blockquote>
-                "The best menswear this season felt like it was made for living in — not for performing in."
+                "The best menswear this season felt like it was made for living in â€” not for performing in."
             </blockquote>
 
             <h2>Earthy Colour Palette</h2>
             <p>
                 Browns, burnt oranges, deep olives, and slate blues dominated AW20 collections. This shift
-                toward organic, earthy hues reflected a broader cultural moment — a turning toward warmth,
+                toward organic, earthy hues reflected a broader cultural moment â€” a turning toward warmth,
                 naturalness, and a rejection of the clinical whites and harsh blacks that had dominated
                 menswear for years. Building a wardrobe around these tones is straightforward: they are
                 inherently harmonious and easy to layer without creating clashing combinations.
@@ -252,7 +261,7 @@
             <p>
                 Outerwear was the hero category of AW20 menswear. Long overcoats in camel and charcoal,
                 shearling-lined jackets, and military-influenced field coats were everywhere. The silhouette
-                trended long — hitting at the knee or below — and the construction was deliberately heavy,
+                trended long â€” hitting at the knee or below â€” and the construction was deliberately heavy,
                 prioritising substance and warmth over lightness. If there's one investment piece worth
                 picking up from this season's direction, it's a quality long overcoat in a neutral tone.
                 It remains relevant seasons after season.
@@ -260,10 +269,10 @@
 
             <h2>Texture & Fabric Play</h2>
             <p>
-                AW20 was as much about how things felt as how they looked. Bouclé, tweed, thick ribbed knit,
+                AW20 was as much about how things felt as how they looked. BouclÃ©, tweed, thick ribbed knit,
                 heavy flannel, and corduroy were used not just for warmth but as expressive design elements.
-                Mixing textures within a single outfit — a corduroy trouser with a bouclé jacket, or a
-                ribbed knit under a smooth wool coat — became the hallmark of the best-dressed men of the
+                Mixing textures within a single outfit â€” a corduroy trouser with a bouclÃ© jacket, or a
+                ribbed knit under a smooth wool coat â€” became the hallmark of the best-dressed men of the
                 season. It's a technique that adds visual and tactile depth without requiring bold colour
                 or pattern.
             </p>
@@ -331,7 +340,7 @@
       <div class="col">
         <h4>About</h4>
         <a href="about.html">About Us</a>
-        <a href="#">Delivery Information</a>
+        <a href="javascript:void(0)">Delivery Information</a>
         <a href="privacy.html">Privacy Policy</a>
         <a href="terms.html">Terms and Conditions</a>
         <a href="contact.html">Contact Us</a>
@@ -342,7 +351,7 @@
         <h4>My Account</h4>
         <a href="login.html">Sign In</a>
         <a href="cart.html">View Cart</a>
-        <a href="#">My Wishlist</a>
+        <a href="javascript:void(0)">My Wishlist</a>
         <a href="cart.html">Track My Order</a>
         <a href="contact.html">Help</a>
       </div>
@@ -424,7 +433,7 @@
       <!-- Copyright -->
       <div class="copyright">
         <p>
-          © Cara 2026. All rights reserved. |
+          Â© Cara 2026. All rights reserved. |
           <a href="license.html" style="color: #088178"> MIT License </a>
         </p>
       </div>
@@ -434,3 +443,4 @@
 </body>
 
 </html>
+

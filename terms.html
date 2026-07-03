@@ -1,6 +1,7 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <!-- Character Encoding -->
     <meta charset="UTF-8" />
 
@@ -8,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Page Title -->
-    <title>Terms &amp; Conditions | Cara — Modern E-Commerce</title>
+    <title>Terms &amp; Conditions | Cara â€” Modern E-Commerce</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
@@ -138,7 +139,15 @@
         }
       }
     </style>
-  </head>
+    <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
+</head>
 
   <body>
     <!-- Header -->
@@ -185,7 +194,7 @@
       <li class="nav-icon">
         <button
           class="theme-toggle"
-          id="themeToggle"
+          id="themeToggleDesktop"
           aria-label="Toggle dark mode"
         >
           <i class="ri-moon-line" id="themeIcon"></i>
@@ -194,7 +203,7 @@
 
       <!-- Close Button -->
       <a
-        href="#"
+        href="javascript:void(0)"
         id="close"
         aria-label="Close menu"
         aria-hidden="false"
@@ -264,12 +273,12 @@
 
       <!-- Main Terms Texts -->
       <div class="terms-content-wrap">
-        <button onclick="javascript:history.back()" class="back-btn" aria-label="Go back to previous page" style="border: none; font-family: inherit; font-size: inherit; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 25px; background: #088178; color: #fff; padding: 8px 18px; border-radius: 4px; font-weight: 600; cursor: pointer;">
+        <button onclick="history.back()" class="back-btn" aria-label="Go back to previous page" style="border: none; font-family: inherit; font-size: inherit; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 25px; background: #088178; color: #fff; padding: 8px 18px; border-radius: 4px; font-weight: 600; cursor: pointer;">
           <i class="ri-arrow-left-line"></i> Back
         </button>
 
         <h1 style="font-size: 32px; font-weight: 700; margin-bottom: 8px;">Terms &amp; Conditions</h1>
-        <p class="subtitle" style="color: #666; font-size: 14px; margin-bottom: 25px;">Last Updated — May 2026</p>
+        <p class="subtitle" style="color: #666; font-size: 14px; margin-bottom: 25px;">Last Updated â€” May 2026</p>
 
         <p class="intro-text" style="line-height: 1.8; font-size: 14.5px; margin-bottom: 30px; color: var(--text-primary);">
           Welcome to Cara. By accessing or using our platform, you agree to comply
@@ -364,7 +373,7 @@
           </p>
         </section>
 
-        <div class="footer-note" style="text-align: center; color: #888; font-size: 12.5px; margin-top: 40px; border-top: 1px solid #eee; padding-top: 20px;">&copy; 2026 Cara — All Rights Reserved</div>
+        <div class="footer-note" style="text-align: center; color: #888; font-size: 12.5px; margin-top: 40px; border-top: 1px solid #eee; padding-top: 20px;">&copy; 2026 Cara â€” All Rights Reserved</div>
       </div>
     </main>
 
@@ -403,8 +412,8 @@
     </script>
 
     <!-- Back to Top -->
-    <button id="backToTop" title="Back to Top" aria-label="Back to top">⬆</button>
-    <button id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">⬇</button>
+    <button id="backToTop" title="Back to Top" aria-label="Back to top">â¬†</button>
+    <button id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">â¬‡</button>
 
     <!-- Footer -->
     <footer class="section-p1">
@@ -420,7 +429,7 @@
             <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer">
               <i class="fa-brands fa-x-twitter"></i>
             </a>
-            <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
+            <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
               <i class="fab fa-github"></i>
             </a>
             <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
@@ -437,7 +446,7 @@
       <div class="col">
         <h4>About</h4>
         <a href="about.html">About Us</a>
-        <a href="#">Delivery Information</a>
+        <a href="javascript:void(0)">Delivery Information</a>
         <a href="privacy.html">Privacy Policy</a>
         <a href="terms.html">Terms and Conditions</a>
         <a href="contact.html">Contact Us</a>
@@ -494,7 +503,7 @@
       <!-- Copyright Section -->
       <div class="copyright">
         <p>
-          © Cara 2026. All rights reserved. |
+          Â© Cara 2026. All rights reserved. |
           <a href="license.html" style="color: #088178"> MIT License </a>
         </p>
       </div>
@@ -511,3 +520,4 @@
 </html>
 
 <!-- Accessibility and structural improvements -->
+

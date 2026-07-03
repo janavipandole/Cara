@@ -1,7 +1,8 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <!-- Character Encoding -->
     <meta charset="UTF-8">
 
@@ -9,13 +10,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Page Title -->
-    <title>How to Style a Quiff — Cara Blog</title>
+    <title>How to Style a Quiff â€” Cara Blog</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
 
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Master the quiff hairstyle — from classic to modern interpretations.">
+    <meta name="description" content="Master the quiff hairstyle â€” from classic to modern interpretations.">
     <meta name="keywords" content="quiff hairstyle, mens hair, style guide, cara blog">
     <meta name="author" content="Cara">
     <meta name="robots" content="index, follow">
@@ -132,7 +133,7 @@
 
         .back-link:hover { gap: 12px; }
 
-                /* ── Dark Mode — app.js sets data-theme="dark" on <html> ── */
+                /* â”€â”€ Dark Mode â€” app.js sets data-theme="dark" on <html> â”€â”€ */
         html[data-theme="dark"] .article-container h1,
         html[data-theme="dark"] .article-body h2 {
             color: #f0f0f0 !important;
@@ -164,10 +165,18 @@
             .article-hero img { height: 260px; }
         }
     </style>
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
 </head>
 
 <body>
-    <!-- ── Header  ── -->
+    <!-- â”€â”€ Header  â”€â”€ -->
     <section id="header">
         <a href="index.html"><img src="images/logo.png" alt=""></a>
 
@@ -181,11 +190,11 @@
                 <li><a href="login.html" id="login-btn">Login</a></li>
                 <li><a href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
                 <li>
-                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <button class="theme-toggle" id="themeToggleDesktop" aria-label="Toggle dark mode">
                         <i class="ri-moon-line" id="themeIcon"></i>
                     </button>
                 </li>
-                <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+                <a href="javascript:void(0)" id="close"><i class="fa-solid fa-xmark"></i></a>
             </ul>
         </div>
         <div class="mobile">
@@ -197,12 +206,12 @@
         </div>
     </section>
 
-    <!-- ── Article Hero Image ── -->
+    <!-- â”€â”€ Article Hero Image â”€â”€ -->
     <div class="article-hero">
         <img src="images/blog/b2.jpg" alt="How to style a Quiff">
     </div>
 
-    <!-- ── Article Content ── -->
+    <!-- â”€â”€ Article Content â”€â”€ -->
     <div class="article-container">
 
         <a href="blog.html" class="back-link">
@@ -227,14 +236,14 @@
 
             <h2>Understanding the Quiff</h2>
             <p>
-                At its core, the quiff is defined by volume at the front of the head — hair brushed upward and
+                At its core, the quiff is defined by volume at the front of the head â€” hair brushed upward and
                 slightly back, creating a peak or wave above the forehead. The sides are typically shorter,
                 either faded or cut close, which makes the top volume the clear focal point. It's architectural
                 in its logic: clean geometry framing a bold centrepiece.
             </p>
 
             <blockquote>
-                "A great quiff isn't about perfection — it's about intention. Own it, and it works."
+                "A great quiff isn't about perfection â€” it's about intention. Own it, and it works."
             </blockquote>
 
             <h2>Products You'll Need</h2>
@@ -246,14 +255,14 @@
             </p>
             <p>
                 For fine hair, a volumising mousse applied at the roots before heat-styling adds the lift that
-                thicker hair achieves naturally. Don't skip the blow-dryer — it's your primary shaping tool.
+                thicker hair achieves naturally. Don't skip the blow-dryer â€” it's your primary shaping tool.
                 Use a medium-barrel brush and direct the airflow from root to tip while lifting the hair upward.
             </p>
 
             <h2>Step-by-Step: The Modern Quiff</h2>
             <p>
                 Start by washing and towel-drying your hair until it's about 70% dry. Apply a small amount of
-                styling clay — a pea-sized amount is usually enough — working it through from mid-lengths to ends.
+                styling clay â€” a pea-sized amount is usually enough â€” working it through from mid-lengths to ends.
                 Then, using your blow-dryer on medium heat, brush the front section upward and slightly back.
                 Once dry, use your fingers to refine the shape, then finish with a light-hold hairspray to lock
                 everything in place without killing the movement.
@@ -261,10 +270,10 @@
 
             <h2>Keeping It Fresh</h2>
             <p>
-                The quiff rewards regular trims — every 4 to 6 weeks keeps the sides tight and the top at the
+                The quiff rewards regular trims â€” every 4 to 6 weeks keeps the sides tight and the top at the
                 right length for styling. Talk to your barber about the fade you want: a skin fade gives maximum
                 contrast and a sharper look, while a scissor cut on the sides keeps things softer and more
-                relaxed. Both work — it comes down to the overall aesthetic you're going for.
+                relaxed. Both work â€” it comes down to the overall aesthetic you're going for.
             </p>
         </div>
 
@@ -322,7 +331,7 @@
       <div class="col">
         <h4>About</h4>
         <a href="about.html">About Us</a>
-        <a href="#">Delivery Information</a>
+        <a href="javascript:void(0)">Delivery Information</a>
         <a href="privacy.html">Privacy Policy</a>
         <a href="terms.html">Terms and Conditions</a>
         <a href="contact.html">Contact Us</a>
@@ -333,7 +342,7 @@
         <h4>My Account</h4>
         <a href="login.html">Sign In</a>
         <a href="cart.html">View Cart</a>
-        <a href="#">My Wishlist</a>
+        <a href="javascript:void(0)">My Wishlist</a>
         <a href="cart.html">Track My Order</a>
         <a href="contact.html">Help</a>
       </div>
@@ -415,7 +424,7 @@
       <!-- Copyright -->
       <div class="copyright">
         <p>
-          © Cara 2026. All rights reserved. |
+          Â© Cara 2026. All rights reserved. |
           <a href="license.html" style="color: #088178"> MIT License </a>
         </p>
       </div>
@@ -425,3 +434,4 @@
 </body>
 
 </html>
+

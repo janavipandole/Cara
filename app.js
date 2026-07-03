@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     smallImgs[0].src = finalImage;
                 }
             } catch (error) {
-                console.error("Error fetching product details:", error); if(document.getElementById("product-name")) document.getElementById("product-name").textContent = "Unable to load product";
+                window.logError("Error fetching product details:", error); if(document.getElementById("product-name")) document.getElementById("product-name").textContent = "Unable to load product";
             }
         }
 
@@ -157,7 +157,7 @@ function updateCartCount() {
     try {
         cart = window.cachedCartState || JSON.parse(localStorage.getItem("productsInCart")) || []; window.cachedCartState = cart;
     } catch (e) {
-        console.error("LocalStorage Parse Error", e);
+        window.logError("LocalStorage Parse Error", e);
     }
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -515,6 +515,7 @@ function addToCart(productName, productPrice, productImage, quantity, size) {
     }
 
     localStorage.setItem("productsInCart", JSON.stringify(cart));
+    window.cachedCartState = cart;
     showToast(`${item.name} (Size: ${item.size}) added to cart!`, "success");
     updateCartCount();
 }
@@ -585,7 +586,7 @@ window.handleAddToCart = function () {
     const imageElement    = document.getElementById("MainImg");
 
     if (!nameElement || !priceElement || !sizeSelect || !quantityInput || !imageElement) {
-        console.error("Missing product elements on page.");
+        window.logError("Missing product elements on page.");
         return;
     }
 
@@ -616,7 +617,7 @@ window.handleBuyNow = function () {
     const imageElement  = document.getElementById("MainImg");
 
     if (!nameElement || !priceElement || !sizeSelect || !quantityInput || !imageElement) {
-        console.error("Missing product elements on page.");
+        window.logError("Missing product elements on page.");
         return;
     }
 
@@ -657,7 +658,7 @@ window.loadCart = async function () {
             dbProducts = await res.json();
         }
     } catch (err) {
-        console.error("Failed to fetch secure prices:", err);
+        window.logError("Failed to fetch secure prices:", err);
     }
 
     itemsContainer.innerHTML = "";
@@ -1052,7 +1053,7 @@ window.selectStyle = function (style) {
     });
     const productSection = document.getElementById("product1");
     if (productSection) productSection.scrollIntoView({ behavior: "smooth", block: "start" });
-    alert(`Showing ${style} style recommendations!`);
+    console.log("Toast: " + `Showing ${style} style recommendations!`);
 };
 
 /* ============================================================
@@ -1369,12 +1370,12 @@ window.shareWardrobe = function () {
 
         if (btn) {
             var originalText = btn.innerHTML;
-            btn.innerHTML = '✅ Link Copied!';
+            btn.textContent = '✅ Link Copied!';
             btn.style.color = '#10b991';
-            setTimeout(function () { btn.innerHTML = originalText; btn.style.color = ''; }, 3000);
+            setTimeout(function () { btn.textContent = originalText; btn.style.color = ''; }, 3000);
         }
     } catch (e) {
-        console.error("Failed to generate share link: ", e);
+        window.logError("Failed to generate share link: ", e);
         showToast("Oops, something went wrong generating the link.", "error");
     }
 };
@@ -1390,7 +1391,7 @@ function fallbackCopyText(text) {
         document.execCommand("copy");
         document.body.removeChild(textArea);
     } catch (err) {
-        console.error("Fallback copy failed", err);
+        window.logError("Fallback copy failed", err);
     }
 }
 
@@ -1475,7 +1476,7 @@ window.checkSharedWardrobe = function () {
         totalPriceEl.textContent = formatCurrency(total);
         modal.style.display      = "flex";
     } catch (err) {
-        console.error("Failed to parse shared wardrobe link:", err);
+        window.logError("Failed to parse shared wardrobe link:", err);
         showToast("Could not read shared wardrobe link. It may be broken.", "error");
     }
 };
@@ -1766,7 +1767,7 @@ document.addEventListener("DOMContentLoaded", () => {
         modal.setAttribute("aria-hidden", "false");
     };
     window.addEventListener('unhandledrejection', (event) => {
-  console.error('Unhandled Promise Rejection:', event.reason);
+  window.logError('Unhandled Promise Rejection:', event.reason);
 });
 })();
 /* --- END: PRODUCT QUICK-VIEW MODAL FUNCTIONALITY --- */

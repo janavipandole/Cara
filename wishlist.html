@@ -1,7 +1,8 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <body>
 
         <script>
@@ -15,7 +16,7 @@
     
     <!-- Viewport for Responsive Design -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wishlist — Cara</title>
+    <title>Wishlist â€” Cara</title>
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css">
@@ -471,6 +472,14 @@
             }
         }
     </style>
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
 </head>
 
 <body>
@@ -485,7 +494,7 @@
             </div>
                 <a href="shop.html" class="btn-secondary"><i class="ri-arrow-left-line" aria-hidden="true"></i> Back to Shop</a>
                 <button id="clearAllBtn" class="btn-danger-outline" onclick="clearWishlist()"><i class="ri-delete-bin-6-line" aria-hidden="true"></i> Clear All</button>
-                <button class="theme-toggle btn-secondary" id="themeToggle" aria-label="Toggle dark mode" style="padding: 8px 12px; border-radius: 999px;">
+                <button class="theme-toggle btn-secondary" id="themeToggleDesktop" aria-label="Toggle dark mode" style="padding: 8px 12px; border-radius: 999px;">
                   <i class="ri-moon-line" id="themeIcon"></i>
                 </button>
             </div>
@@ -535,12 +544,12 @@
         function parsePriceString(priceStr) {
             if (typeof priceStr === 'number') return Number.isFinite(priceStr) ? priceStr : 0;
             if (!priceStr) return 0;
-            return parseFloat(String(priceStr).replace(/[₹$\s,]/g, '')) || 0;
+            return parseFloat(String(priceStr).replace(/[â‚¹$\s,]/g, '')) || 0;
         }
 
         function formatRupee(amount) {
             const value = parsePriceString(amount);
-            return '₹' + Math.round(value).toLocaleString('en-IN');
+            return 'â‚¹' + Math.round(value).toLocaleString('en-IN');
         }
 
         function hasPriceDropped(item) {
@@ -556,7 +565,7 @@
         }
 
         function normalizeWishlistItem(item) {
-            const rawPrice = item.price || '₹0';
+            const rawPrice = item.price || 'â‚¹0';
             const currentPrice = typeof item.currentPrice === 'number'
                 ? item.currentPrice
                 : parsePriceString(rawPrice);
@@ -732,3 +741,4 @@
 <script src="js/wishlist-notes.js" defer></script>
 </body>
 </html>
+

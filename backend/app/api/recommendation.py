@@ -34,12 +34,17 @@ def recommend_outfit(request: Request, req: schemas.RecommendationRequest, db: S
     # Apply strict business rules
     filtered_candidates = filter_by_rules(base_product, ordered_candidates)
     
-    # In a real app, apply personalization re-ranking here
-    # personalization_tracker.rerank(req.user_id, filtered_candidates)
+    # Apply personalization re-ranking based on user historical interactions
+    hashed_user_id = None
+    if req.user_id:
+        hashed_user_id = hashlib.sha256(req.user_id.encode('utf-8') + SALT).hexdigest()
+        
+    from ..rules.reranker import PersonalizedReranker
+    reranked_candidates = PersonalizedReranker.rerank(db, hashed_user_id, filtered_candidates)
     
     # Limit results
     limit = max(1, min(req.limit, 20))
-    return filtered_candidates[:limit]
+    return reranked_candidates[:limit]
 
 @router.post("/feedback")
 @limiter.limit("30/minute")

@@ -1,6 +1,7 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <!-- Character encoding -->
     <meta charset="UTF-8" />
 
@@ -8,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Page title -->
-    <title>Privacy Policy | Cara — Modern E-Commerce</title>
+    <title>Privacy Policy | Cara â€” Modern E-Commerce</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
@@ -250,7 +251,15 @@
         }
       }
     </style>
-  </head>
+    <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
+</head>
 
   <body>
     <!-- Header -->
@@ -275,13 +284,13 @@
           <li>
             <button
               class="theme-toggle"
-              id="themeToggle"
+              id="themeToggleDesktop"
               aria-label="Toggle dark mode"
             >
               <i class="ri-moon-line" id="themeIcon"></i>
             </button>
           </li>
-          <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+          <a href="javascript:void(0)" id="close"><i class="fa-solid fa-xmark"></i></a>
         </ul>
       </div>
       <div class="mobile">
@@ -307,7 +316,7 @@
 
     <!-- Policy Content -->
     <main id="policy-page">
-      <button onclick="javascript:history.back()" class="back-btn" aria-label="Go back to previous page" style="border: none; font-family: inherit; font-size: inherit;">
+      <button onclick="history.back()" class="back-btn" aria-label="Go back to previous page" style="border: none; font-family: inherit; font-size: inherit;">
         <i class="ri-arrow-left-line"></i> Back
       </button>
 
@@ -408,7 +417,7 @@
               <p>56 Glassford Street, Glasgow G1 1UL, New York</p>
               <p>contact@example.com</p>
               <p>+1 (000) 123-7788</p>
-              <p>Monday to Saturday — 9:00 AM to 6:00 PM</p>
+              <p>Monday to Saturday â€” 9:00 AM to 6:00 PM</p>
             </div>
           </dd>
         </div>
@@ -443,8 +452,8 @@
     </div>
 
     <!-- Back to Top -->
-    <button id="backToTop" title="Back to Top" aria-label="Back to top">⬆</button>
-    <button id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">⬇</button>
+    <button id="backToTop" title="Back to Top" aria-label="Back to top">â¬†</button>
+    <button id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">â¬‡</button>
 
     <!-- Footer -->
     <footer class="section-p1">
@@ -460,7 +469,7 @@
             <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer">
               <i class="fa-brands fa-x-twitter"></i>
             </a>
-            <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
+            <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
               <i class="fab fa-github"></i>
             </a>
             <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
@@ -476,7 +485,7 @@
       <div class="col">
         <h4>About</h4>
         <a href="about.html">About Us</a>
-        <a href="#">Delivery Information</a>
+        <a href="javascript:void(0)">Delivery Information</a>
         <a href="privacy.html">Privacy Policy</a>
         <a href="terms.html">Terms and Conditions</a>
         <a href="contact.html">Contact Us</a>
@@ -529,7 +538,7 @@
 
       <div class="copyright">
         <p>
-          © Cara 2026. All rights reserved.. |
+          Â© Cara 2026. All rights reserved.. |
           <a href="license.html" style="color: #088178"> MIT License </a>
         </p>
       </div>
@@ -567,3 +576,4 @@
 </html>
 
 <!-- Accessibility and structural improvements -->
+

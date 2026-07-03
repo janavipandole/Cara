@@ -115,11 +115,11 @@ window.openCamera = function () {
         startLiveDetection();
     })
     .catch(err => {
-        console.error('Camera error:', err);
+        window.logError('Camera error:', err);
         if (typeof showToast === 'function') {
             showToast('Camera access blocked. Please enable webcam permission.', 'error');
         } else {
-            alert('Camera access blocked. Please enable webcam permission.');
+            console.log("Toast: " + 'Camera access blocked. Please enable webcam permission.');
         }
     });
 }
@@ -144,7 +144,7 @@ function startLiveDetection() {
                 requestAnimationFrame(processFrame);
             }
         }).catch(err => {
-            console.error('Pose error:', err);
+            window.logError('Pose error:', err);
             if (isLiveMode) requestAnimationFrame(processFrame);
         });
     }
@@ -253,7 +253,7 @@ async function processSingleImage() {
     try {
         await pose.send({ image: uploadedPreview });
     } catch (err) {
-        console.error('Pose detection error:', err);
+        window.logError('Pose detection error:', err);
         aiStatus.innerText = 'DETECTION FAILED';
         setTimeout(() => { scanner.style.display = 'none'; }, 1500);
     }
@@ -633,7 +633,7 @@ generateBtn.addEventListener('click', async () => {
             renderFinalComposite();
 
         } catch (err) {
-            console.error('Try-on error:', err);
+            window.logError('Try-on error:', err);
             aiStatus.innerText = 'ERROR';
             setTimeout(() => resetTryOn(), 2000);
         }

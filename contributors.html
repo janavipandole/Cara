@@ -1,6 +1,7 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
   <!-- Character Encoding -->
   <meta charset="UTF-8" />
 
@@ -24,6 +25,14 @@
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 />
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
 </head>
 
 <body>
@@ -121,7 +130,7 @@
           <i class="fa-brands fa-x-twitter"></i>
         </a>
 
-        <a href="https://github.com/janavipandole" target="_blank">
+        <a title="GitHub" href="https://github.com/janavipandole" target="_blank">
           <i class="fab fa-github"></i>
         </a>
 
@@ -244,7 +253,7 @@
   <div class="copyright">
 
     <p>
-      © Cara 2026. All rights reserved.
+      Â© Cara 2026. All rights reserved.
       |
       <a href="license.html" style="color:#088178;">
         MIT License

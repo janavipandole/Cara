@@ -1,0 +1,430 @@
+/* ============================================================
+   reviews.css — Cara Fashion Store
+   Styles for the product review & star-rating system
+   ============================================================ */
+
+/* ── Section wrapper ──────────────────────────────────────── */
+.reviews-section {
+  margin-top: 60px;
+  padding-top: 40px;
+  border-top: 1px solid #e5e7eb;
+  font-family: 'Poppins', sans-serif;
+}
+
+.reviews-heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 28px;
+}
+
+/* ── Aggregate score row ──────────────────────────────────── */
+.reviews-aggregate {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.aggregate-score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 100px;
+}
+
+.aggregate-number {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #088178;
+  line-height: 1;
+}
+
+.aggregate-stars {
+  display: flex;
+  gap: 3px;
+}
+
+.aggregate-stars .review-star {
+  color: #fbbf24;
+  font-size: 1rem;
+}
+
+.aggregate-count {
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+/* ── Distribution bars ────────────────────────────────────── */
+.review-distribution {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 200px;
+}
+
+.review-dist-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.review-dist-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #374151;
+  width: 12px;
+  text-align: right;
+}
+
+.review-dist-star {
+  color: #fbbf24;
+  font-size: 0.8rem;
+}
+
+.review-dist-bar-wrap {
+  flex: 1;
+  height: 8px;
+  background: #f3f4f6;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.review-dist-bar {
+  height: 100%;
+  background: #088178;
+  border-radius: 4px;
+  transition: width 0.6s ease;
+}
+
+.review-dist-count {
+  font-size: 0.78rem;
+  color: #6b7280;
+  width: 24px;
+  text-align: right;
+}
+
+/* ── Write a review button ────────────────────────────────── */
+.write-review-wrap {
+  margin-bottom: 32px;
+}
+
+.btn-write-review {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 22px;
+  background: #088178;
+  color: #ffffff;
+  border: none;
+  border-radius: 30px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.btn-write-review:hover {
+  background: #065f59;
+  transform: translateY(-1px);
+}
+
+/* ── Review form ──────────────────────────────────────────── */
+.review-form {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 28px;
+  margin-top: 16px;
+  animation: slideDown 0.22s ease;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.review-form h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #1a1a1a;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label,
+.star-picker-group legend {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #374151;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 6px;
+}
+
+.review-form input[type="text"],
+.review-form textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.875rem;
+  color: #1a1a1a;
+  background: #ffffff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+.review-form input:focus,
+.review-form textarea:focus {
+  border-color: #088178;
+  box-shadow: 0 0 0 3px rgba(8, 129, 120, 0.12);
+}
+
+.review-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.char-count {
+  display: block;
+  font-size: 0.72rem;
+  color: #9ca3af;
+  text-align: right;
+  margin-top: 4px;
+}
+
+.field-error {
+  display: block;
+  font-size: 0.78rem;
+  color: #dc2626;
+  margin-top: 4px;
+  font-weight: 500;
+  min-height: 18px;
+}
+
+/* ── Interactive star picker ──────────────────────────────── */
+.star-picker {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 4px;
+  width: fit-content;
+}
+
+/* Visually hidden radio inputs */
+.review-star-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.star-label {
+  font-size: 1.8rem;
+  color: #d1d5db;
+  cursor: pointer;
+  transition: color 0.15s, transform 0.1s;
+  line-height: 1;
+}
+
+/* Highlight on hover / selected (CSS-only sibling selector trick) */
+.star-picker .star-label:hover,
+.star-picker .star-label:hover ~ .star-label,
+.review-star-input:checked ~ .star-label {
+  color: #fbbf24;
+}
+
+.star-picker .review-star-input:checked + .star-label,
+.star-picker .star-label:hover {
+  transform: scale(1.15);
+}
+
+/* ── Form action buttons ──────────────────────────────────── */
+.form-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn-submit-review {
+  padding: 11px 26px;
+  background: #088178;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.2s;
+}
+
+.btn-submit-review:hover { background: #065f59; }
+
+.btn-cancel-review {
+  padding: 11px 20px;
+  background: transparent;
+  color: #6b7280;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.btn-cancel-review:hover {
+  border-color: #6b7280;
+  color: #374151;
+}
+
+/* ── Review cards ─────────────────────────────────────────── */
+.review-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.review-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px 24px;
+  transition: box-shadow 0.2s;
+}
+
+.review-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.review-card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.review-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #088178;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.review-meta {
+  flex: 1;
+}
+
+.review-author {
+  display: block;
+  font-size: 0.88rem;
+  color: #1a1a1a;
+}
+
+.review-date {
+  display: block;
+  font-size: 0.75rem;
+  color: #9ca3af;
+  margin-top: 1px;
+}
+
+.review-stars {
+  display: flex;
+  gap: 2px;
+}
+
+.review-stars .review-star {
+  color: #fbbf24;
+  font-size: 0.9rem;
+}
+
+.ri-star-line.review-star {
+  color: #d1d5db;
+}
+
+.review-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 6px;
+}
+
+.review-body {
+  font-size: 0.875rem;
+  color: #374151;
+  line-height: 1.65;
+  white-space: pre-wrap;
+}
+
+.verified-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.72rem;
+  color: #065f59;
+  background: rgba(8, 129, 120, 0.08);
+  border: 1px solid rgba(8, 129, 120, 0.2);
+  border-radius: 20px;
+  padding: 3px 10px;
+  margin-top: 10px;
+}
+
+.reviews-empty {
+  font-size: 0.88rem;
+  color: #6b7280;
+  text-align: center;
+  padding: 30px 0;
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .reviews-aggregate {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .review-form {
+    padding: 18px;
+  }
+
+  .review-card {
+    padding: 16px;
+  }
+}
+
+/* ── Screen-reader-only utility ───────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

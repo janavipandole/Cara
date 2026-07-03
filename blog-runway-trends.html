@@ -1,7 +1,8 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <!-- Character Encoding -->
     <meta charset="UTF-8">
 
@@ -9,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Page Title -->
-    <title>Runway-Inspired Trends — Cara Blog</title>
+    <title>Runway-Inspired Trends â€” Cara Blog</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
@@ -131,7 +132,7 @@
 
         .back-link:hover { gap: 12px; }
 
-                /* ── Dark Mode — app.js sets data-theme="dark" on <html> ── */
+                /* â”€â”€ Dark Mode â€” app.js sets data-theme="dark" on <html> â”€â”€ */
         html[data-theme="dark"] .article-container h1,
         html[data-theme="dark"] .article-body h2 {
             color: #f0f0f0 !important;
@@ -163,10 +164,18 @@
             .article-hero img { height: 260px; }
         }
     </style>
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
 </head>
 
 <body>
-    <!-- ── Header  ── -->
+    <!-- â”€â”€ Header  â”€â”€ -->
     <section id="header">
         <a href="index.html"><img src="images/logo.png" alt=""></a>
 
@@ -180,11 +189,11 @@
                 <li><a href="login.html" id="login-btn">Login</a></li>
                 <li><a href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
                 <li>
-                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <button class="theme-toggle" id="themeToggleDesktop" aria-label="Toggle dark mode">
                         <i class="ri-moon-line" id="themeIcon"></i>
                     </button>
                 </li>
-                <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+                <a href="javascript:void(0)" id="close"><i class="fa-solid fa-xmark"></i></a>
             </ul>
         </div>
         <div class="mobile">
@@ -196,12 +205,12 @@
         </div>
     </section>
 
-    <!-- ── Article Hero Image ── -->
+    <!-- â”€â”€ Article Hero Image â”€â”€ -->
     <div class="article-hero">
         <img src="images/blog/b4.jpg" alt="Runway-Inspired Trends">
     </div>
 
-    <!-- ── Article Content ── -->
+    <!-- â”€â”€ Article Content â”€â”€ -->
     <div class="article-container">
 
         <a href="blog.html" class="back-link">
@@ -219,7 +228,7 @@
         <div class="article-body">
             <p>
                 Every season, the world's fashion weeks distil months of creative work into a few breathless days of
-                shows. What emerges from those runways sets the direction for everything that follows — from
+                shows. What emerges from those runways sets the direction for everything that follows â€” from
                 high-street collections to the way people dress on the street. This season, the most compelling
                 trends share a common thread: intention. Every piece feels considered, purposeful, and quietly
                 radical.
@@ -228,14 +237,14 @@
             <h2>Structured Tailoring Returns</h2>
             <p>
                 After years of oversized and deconstructed shapes dominating the conversation, structured tailoring
-                has returned with force. Sharp shoulders, nipped waists, and clean lapels are back — but updated
+                has returned with force. Sharp shoulders, nipped waists, and clean lapels are back â€” but updated
                 for now with unexpected fabric choices and relaxed trousers that prevent the look from feeling
                 too formal. The key is contrast: a razor-sharp blazer worn over a wide-leg trouser, or a fitted
                 double-breasted jacket paired with a relaxed midi skirt.
             </p>
 
             <blockquote>
-                "The runway doesn't dictate what you wear — it shows you what's possible. Take the idea, not the
+                "The runway doesn't dictate what you wear â€” it shows you what's possible. Take the idea, not the
                 outfit."
             </blockquote>
 
@@ -244,7 +253,7 @@
                 Head-to-toe colour dressing was everywhere this season, from soft sand and cream to deep rust and
                 navy. The trick to making tonal outfits work in the real world is variation in texture and weight.
                 A camel coat over a camel turtleneck and camel trousers looks considered and refined when the
-                fabrics differ — think chunky knit versus fine jersey versus heavy wool.
+                fabrics differ â€” think chunky knit versus fine jersey versus heavy wool.
             </p>
 
             <h2>Sculptural Knitwear</h2>
@@ -257,7 +266,7 @@
 
             <h2>Bringing It to Your Wardrobe</h2>
             <p>
-                The most useful takeaway from this season's runways isn't a specific garment — it's a way of
+                The most useful takeaway from this season's runways isn't a specific garment â€” it's a way of
                 thinking about your existing wardrobe. Look for opportunities to add structure where you've been
                 living in softness, try building a fully tonal outfit with what you already own, or let one
                 textured statement piece (a sculptural knit, a bold blazer) anchor an otherwise simple look.
@@ -319,7 +328,7 @@
       <div class="col">
         <h4>About</h4>
         <a href="about.html">About Us</a>
-        <a href="#">Delivery Information</a>
+        <a href="javascript:void(0)">Delivery Information</a>
         <a href="privacy.html">Privacy Policy</a>
         <a href="terms.html">Terms and Conditions</a>
         <a href="contact.html">Contact Us</a>
@@ -330,7 +339,7 @@
         <h4>My Account</h4>
         <a href="login.html">Sign In</a>
         <a href="cart.html">View Cart</a>
-        <a href="#">My Wishlist</a>
+        <a href="javascript:void(0)">My Wishlist</a>
         <a href="cart.html">Track My Order</a>
         <a href="contact.html">Help</a>
       </div>
@@ -412,7 +421,7 @@
       <!-- Copyright -->
       <div class="copyright">
         <p>
-          © Cara 2026. All rights reserved. |
+          Â© Cara 2026. All rights reserved. |
           <a href="license.html" style="color: #088178"> MIT License </a>
         </p>
       </div>
@@ -422,3 +431,4 @@
 </body>
 
 </html>
+

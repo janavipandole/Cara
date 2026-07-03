@@ -1,34 +1,47 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-  http-equiv="Content-Security-Policy"
-  content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; img-src 'self' data:; object-src 'none'; base-uri 'self';"
-/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+    <!-- Character encoding -->
+    <meta charset="UTF-8">
+
+    <!-- Viewport for Responsive Design -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Page title -->
     <title>Register - Cara</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
-
-    <!-- Stylesheets -->
-    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
     <link rel="stylesheet" href="toast.css">
     <link rel="stylesheet" href="register.css">
     <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="ui-fix.css" />
+  <link rel="manifest" href="/manifest.json">
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
 </head>
+  <body>
 
-<body>
-<!-- Header Section -->
-<section id="header">
-    <a href="index.html" aria-label="Home">
-  <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
-</a>
+    <section id="header">
+      <a href="index.html">
+        <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
+      </a>
+      <div>
 
+
+    <!-- Stylesheets -->
+    
+        
     <!-- Navigation Bar -->
     <div>
         <ul id="navbar">
@@ -49,11 +62,11 @@
             <a href="cart.html" id="lg-bag" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a>
           </li>
           <li class="nav-icon">
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+            <button class="theme-toggle" id="themeToggleDesktop" aria-label="Toggle dark mode">
               <i class="ri-moon-line" id="themeIcon"></i>
             </button>
           </li>
-          <a href="#" id="close" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></a>
+          <a href="javascript:void(0)" id="close" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></a>
         </ul>
       </div>
       <div class="mobile">
@@ -70,7 +83,7 @@
 
 
 
-    <!-- Toast container — overlays everything -->
+    <!-- Toast container overlays everything -->
     <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
 
     <section id="register-section">
@@ -197,7 +210,7 @@
         </div>
         <div class="footer-socials">
           <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
-          <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+          <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
           <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
           <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
         </div>
@@ -206,7 +219,7 @@
       <div class="footer-middle">
         <div class="footer-col brand-info">
           <h4>ABOUT US</h4>
-          <p>Cara E-Commerce – Redefining your style with premium apparel, expert curation, and an absolute commitment to fashion excellence.</p>
+          <p>Cara E-Commerce Redefining your style with premium apparel, expert curation, and an absolute commitment to fashion excellence.</p>
           <p><strong>Address: </strong>562 Wellington Road, Street 32, San Francisco</p>
           <p><strong>Phone: </strong>+01 2222 365 / (+91) 01 2345 6789</p>
           <p><strong>Hours: </strong>10:00 - 18:00, Mon - Sat</p>
@@ -214,7 +227,7 @@
         <div class="footer-col">
           <h4>QUICK LINKS</h4>
           <a href="about.html">About Us</a>
-          <a href="#">Delivery Information</a>
+          <a href="javascript:void(0)">Delivery Information</a>
           <a href="privacy.html">Privacy Policy</a>
           <a href="terms.html">Terms and Conditions</a>
           <a href="contact.html">Contact Us</a>

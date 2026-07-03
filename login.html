@@ -1,6 +1,7 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
   <meta charset="UTF-8" />
   <meta
   http-equiv="Content-Security-Policy"
@@ -16,6 +17,14 @@
   <link rel="stylesheet" href="ui-fix.css" />
   <link rel="stylesheet" href="toast.css" />
   <link rel="stylesheet" href="login.css" />
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
 </head>
 <body>
 
@@ -87,26 +96,31 @@
       required
       aria-required="true"
     />
-    <button type="button" id="togglePassword" class="toggle_password" aria-label="Show password">
+    <button
+      type="button"
+      id="togglePassword"
+      class="toggle_password"
+      aria-label="Show password"
+    >
       <i class="ri-eye-line" id="toggleIcon" aria-hidden="true"></i>
     </button>
   </div>
   <span class="error-message" id="passwordError"></span>
 </div>
-    
 
-<div class="remfor">
-  <div class="remember">
-    <input type="checkbox" id="rememberMe" name="rememberMe" />
-    <label for="rememberMe">Remember me</label>
-  </div>
-  <a href="forgotPassword.html" class="forgot">Forgot Password?</a>
-</div>
+          <!-- Remember me + Forgot password row -->
+          <div class="remfor">
+            <div class="remember">
+              <input type="checkbox" id="rememberMe" name="rememberMe" />
+              <label for="rememberMe">Remember me</label>
+            </div>
+            <a href="forgotPassword.html" class="forgot">Forgot Password?</a>
+          </div>
 
           <!-- General form-level error (e.g. "no account found") -->
           <span class="error-message" id="formError" style="display:block; margin-bottom: 8px;"></span>
-
           <!-- Captcha — only appears after a failed attempt -->
+
           <div id="captcha-section" class="captcha-section" style="display: none; margin-bottom: 20px;">
             <label>Security Check</label>
             <div class="captcha-row">
@@ -133,7 +147,7 @@
     </div><!-- end .login-page-wrapper -->
   </section><!-- end #login-section -->
 
- <script src="navbar.js"></script>
+<script src="navbar.js"></script>
 <script>
   loadNavbar();
 </script>
@@ -142,4 +156,5 @@
 <script src="js/fetch-timeout.js"></script>
 <script type="module" src="login.js"></script>
 </body>
+</html>
 </html>

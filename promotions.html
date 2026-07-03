@@ -1,6 +1,7 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <script>
       // Immediately apply saved theme to prevent flash
       (function () {
@@ -16,7 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Page title -->
-    <title>Cara — Promotions & Ambassador Program</title>
+    <title>Cara â€” Promotions & Ambassador Program</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
@@ -63,7 +64,15 @@
       background-color: #555;
     }
     </style>
-  </head>
+    <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
+</head>
 
   <body>
     <!-- Header Section -->
@@ -233,7 +242,7 @@
     <footer class="section-p1">
       <!-- Contact Column -->
       <div class="col">
-        <img class="logo" src="images/logo.png" alt="Cara Logo" />
+        <img class="logo" src="images/oldlogo.png" alt="Cara Logo" />
         <h4>Contact</h4>
         <p>
           <strong>Address:</strong> 562 Wellington Road, Street 32, San
@@ -292,7 +301,7 @@
         <h4>My Account</h4>
         <a href="login.html">Sign In</a>
         <a href="cart.html">View Cart</a>
-        <a href="#">My Wishlist</a>
+        <a href="javascript:void(0)">My Wishlist</a>
         <a href="cart.html">Track My Order</a>
         <a href="contact.html">Help</a>
       </div>
@@ -374,12 +383,12 @@
       <!-- Copyright -->
       <div class="copyright">
         <p>
-          © Cara 2026. All rights reserved. |
+          Â© Cara 2026. All rights reserved. |
           <a href="license.html" style="color: #088178"> MIT License </a>
         </p>
       </div>
     </footer>
-<button id="topBtn">↑</button>
+<button id="topBtn">â†‘</button>
     <script src="navbar.js"></script>
     <script>loadNavbar();</script>
     <script src="app.js"></script>
@@ -423,3 +432,4 @@
 </html>
 
 <!-- Accessibility and structural improvements -->
+

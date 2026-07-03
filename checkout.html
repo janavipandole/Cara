@@ -1,6 +1,7 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
   <!-- Character Encoding -->
   <meta charset="UTF-8" />
 
@@ -8,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
   <!-- Page Title -->
-  <title>Secure Checkout – Cara</title>
+  <title>Secure Checkout â€“ Cara</title>
 
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
@@ -20,6 +21,14 @@
 
   <!-- Checkout styles -->
   <link rel="stylesheet" href="checkout.css" />
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
 </head>
 <body>
 
@@ -28,18 +37,18 @@
     <div class="checkout-header">
       <div class="back-to-cart">
         <a href="cart.html" class="back-link" aria-label="Back to cart"><i class="ri-arrow-left-line"></i> Back to Cart</a>
-        <a href="#" id="logout-btn" style="display:none">Logout</a>
+        <a href="javascript:void(0)" id="logout-btn" style="display:none">Logout</a>
       </div>
       <div class="logo" style="display: flex; align-items: center; gap: 15px;">
         <span>Cara</span>
-        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" style="background: transparent; border: none; cursor: pointer;">
+        <button class="theme-toggle" id="themeToggleDesktop" aria-label="Toggle dark mode" style="background: transparent; border: none; cursor: pointer;">
           <i class="ri-moon-line" id="themeIcon" style="font-size: 20px;"></i>
         </button>
       </div>
     </div>
 
 
-  <!-- ══ PAGE ══ -->
+  <!-- â•â• PAGE â•â• -->
   <div class="page-wrapper">
 
     <!-- Back button -->
@@ -210,14 +219,23 @@
             <div class="item-thumb"><i class="ri-shirt-line"></i></div>
             <div class="item-info">
               <div class="item-name">Tropical Print Shirt</div>
-              <div class="item-meta">H&M · Size L · Qty 2</div>
-            </div>
-            <div class="item-price">₹1,799</div>
+              <div class="item-meta">H&M Â· Size L Â· Qty 2</div>
           </div>
+
+          <!-- Coupon Application Form -->
+          <div class="coupon-section" style="margin-top: 16px; border-top: 1px solid var(--border); padding-top: 16px;">
+            <label for="couponCodeInput">Promo Code</label>
+            <div style="display: flex; gap: 8px; margin-top: 6px;">
+              <input type="text" id="couponCodeInput" placeholder="CARA20 or WELCOME10" autocomplete="off" style="padding: 8px 12px;">
+              <button type="button" class="back-btn" id="applyCouponBtn" style="margin-bottom: 0; padding: 8px 16px; border-radius: 8px;">Apply</button>
+            </div>
+            <div id="couponFeedback" class="coupon-feedback" style="display: none; font-size: 0.78rem; margin-top: 6px; font-weight: 500;"></div>
+          </div>
+
           <div class="totals">
             <div class="total-row">
               <span>Subtotal</span>
-              <span>₹4,097</span>
+              <span>â‚¹4,097</span>
             </div>
             <div class="total-row free-ship">
               <span>Shipping</span>
@@ -225,11 +243,11 @@
             </div>
             <div class="total-row">
               <span>Tax (5%)</span>
-              <span>₹205</span>
+              <span>â‚¹205</span>
             </div>
             <div class="total-row grand">
               <span>Total</span>
-              <span>₹4,302</span>
+              <span>â‚¹4,302</span>
             </div>
           </div>
           <button type="submit" class="submit-btn">
@@ -244,7 +262,7 @@
     </form>
   </div><!-- /page-wrapper -->
 
-  <!-- ══ SUCCESS POPUP ══ -->
+  <!-- â•â• SUCCESS POPUP â•â• -->
   <div class="success-overlay" id="successPopup">
     <div class="popup-box">
       <div class="check-circle" aria-hidden="true"><i class="ri-check-line"></i></div>
@@ -256,7 +274,8 @@
 
   <script src="checkout.js"></script>
   <script src="js/checkout-timer.js" defer></script>
-
-<script src="js/checkout-autosave.js" defer></script>
+  <script src="js/checkout-autosave.js" defer></script>
+  <script src="js/address-autocomplete.js" defer></script>
 </body>
 </html>
+
