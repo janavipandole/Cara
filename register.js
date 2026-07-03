@@ -1,3 +1,5 @@
+import { sanitizeInput, validateEmail } from "./sanitize.js";
+
 /* global fetchWithTimeout */
 document.addEventListener('DOMContentLoaded', () => {
   const btn = document.getElementById('registerSubmitBtn');
@@ -8,11 +10,21 @@ document.addEventListener('DOMContentLoaded', () => {
   btn.addEventListener('click', async (e) => {
     e.preventDefault();
 
-    const username = document.getElementById('registerUsername')?.value.trim();
-    const email = document.getElementById('registerEmail')?.value.trim();
+   const username = sanitizeInput(
+  document.getElementById('registerUsername')?.value || ''
+);
+
+const email = sanitizeInput(
+  document.getElementById('registerEmail')?.value || ''
+);
     const password = document.getElementById('registerPassword')?.value;
     const confirmPassword = document.getElementById('confirmPassword')?.value;
 
+    if (!validateEmail(email)) {
+  messageBox.innerText = 'Please enter a valid email address!';
+  messageBox.style.color = 'red';
+  return;
+}
     if (!username || !email || !password) {
       messageBox.innerText = 'All fields are required!';
       messageBox.style.color = 'red';

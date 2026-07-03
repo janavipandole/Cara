@@ -1,3 +1,5 @@
+import { sanitizeInput, validateEmail } from "./sanitize.js";
+
 /* global fetchWithTimeout */
 document.addEventListener('DOMContentLoaded', function () {
   const form = document.getElementById('loginForm');
@@ -75,9 +77,13 @@ document.addEventListener('DOMContentLoaded', function () {
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
 
-    const email = emailInput ? emailInput.value.trim() : '';
-    const password = passwordInput ? passwordInput.value : '';
+   const email = emailInput ? sanitizeInput(emailInput.value) : '';
+const password = passwordInput ? passwordInput.value : '';
 
+if (!validateEmail(email)) {
+  showToast('Please enter a valid email address.', 'warning');
+  return;
+}
     if (!email || !password) {
       showToast('Please fill all fields.', 'warning');
       return;

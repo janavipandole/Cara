@@ -1,3 +1,5 @@
+import { sanitizeInput, validateEmail } from "./sanitize.js";
+
 function safeParseJSON(key, fallback = '[]') {
   try {
     return JSON.parse(localStorage.getItem(key) || fallback);
@@ -269,13 +271,41 @@ if (submitBtn) {
   submitBtn.disabled = true;
 }
 
+const fullName = sanitizeInput(
+  document.getElementById("fullName").value
+);
+
+const email = sanitizeInput(
+  document.getElementById("email").value
+);
+
+const address = sanitizeInput(
+  document.getElementById("address").value
+);
+
+const city = sanitizeInput(
+  document.getElementById("city").value
+);
+
+const zip = sanitizeInput(
+  document.getElementById("zip").value
+);
+
+if (!validateEmail(email)) {
+  if (typeof showToast === "function") {
+    showToast("Please enter a valid email address.", "error");
+  } else {
+    alert("Please enter a valid email address.");
+  }
+  return;
+}
   // Prepare order data
   const orderData = {
-    fullName: document.getElementById("fullName").value.trim(),
-    email: document.getElementById("email").value.trim(),
-    address: document.getElementById("address").value.trim(),
-    city: document.getElementById("city").value.trim(),
-    zip: document.getElementById("zip").value.trim(),
+  fullName,
+  email,
+  address,
+  city,
+  zip,
     coupon: window.appliedCoupon,
     items: cart.map(item => ({
       product_name: item.name,
