@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
@@ -683,6 +683,33 @@
       </div>
     </div>
   </section>
+
+  <!-- Testimonials Section -->
+  <section id="about-testimonials" class="section-p1" style="border-top: 1px solid #eee; padding-top: 50px;">
+    <div class="cara-heading">
+      <span>TESTIMONIALS</span>
+      <h2>What Our Customers Say</h2>
+      <p>Don't take our word for it — read reviews from our global community.</p>
+    </div>
+
+    <div class="testimonials-carousel-wrapper">
+      <button type="button" class="carousel-control prev" id="testimonial-prev" aria-label="Previous Testimonial">
+        <i class="ri-arrow-left-s-line"></i>
+      </button>
+      <div class="testimonials-carousel-container">
+        <div class="testimonials-carousel-track" id="testimonials-track">
+          <!-- Testimonial slide cards will render dynamically here -->
+        </div>
+      </div>
+      <button type="button" class="carousel-control next" id="testimonial-next" aria-label="Next Testimonial">
+        <i class="ri-arrow-right-s-line"></i>
+      </button>
+    </div>
+
+    <div class="testimonials-carousel-dots" id="testimonials-dots">
+      <!-- Pagination dots will render dynamically here -->
+    </div>
+  </section>
 </main>
 
 <!-- Footer -->
@@ -870,6 +897,7 @@
 </script>
 
 <script src="app.js"></script>
+<script src="js/testimonials-carousel.js" defer></script>
 
 <script>
   document.querySelector('.Current-Year').textContent =
