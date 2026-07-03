@@ -1,26 +1,11 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
-<<<<<<< fix/login-register-flow
-  <head>
-    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-=======
 <head>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
-    <!-- Character encoding -->
     <meta charset="UTF-8">
-
-    <!-- Viewport for Responsive Design -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Page title -->
->>>>>>> main
     <title>Register - Cara</title>
-
-    <!-- Favicon -->
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
-<<<<<<< fix/login-register-flow
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
@@ -37,43 +22,13 @@
     }
   </script>
 </head>
-  <body>
-
-    <section id="header">
-      <a href="index.html">
-        <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
-      </a>
-      <div>
-=======
-
-    <!-- Stylesheets -->
-    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
-    <link rel="stylesheet" href="toast.css">
-    <link rel="stylesheet" href="register.css">
-    <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="ui-fix.css" />
-  <link rel="manifest" href="/manifest.json">
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js');
-      });
-    }
-  </script>
-</head>
-
 <body>
-<!-- Header Section -->
+
 <section id="header">
     <a href="index.html">
         <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
     </a>
-
-    <!-- Navigation Bar -->
     <div>
->>>>>>> main
         <ul id="navbar">
           <li><a href="index.html">Home</a></li>
           <li><a href="shop.html">Shop</a></li>
@@ -103,19 +58,14 @@
         <a href="login.html" aria-label="Login"><i class="ri-user-3-line"></i></a>
         <a href="cart.html" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a>
         <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
-<<<<<<< fix/login-register-flow
+        <!-- Theme Toggle -->
+        <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
+          <i class="ri-moon-line" id="themeIconMobile"></i>
+        </button>
       </div>
-    </section>
-=======
-      <!-- Theme Toggle -->
-      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
-        <i class="ri-moon-line" id="themeIconMobile"></i>
-      </button>
-    </div>
 </section>
->>>>>>> main
 
-    <!-- Toast container â€” overlays everything -->
+    <!-- Toast container — overlays everything -->
     <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
 
     <section id="register-section">
@@ -142,7 +92,6 @@
                 required
                 autocomplete="name"
               />
-              <!-- JS populates this when the field fails validation -->
               <span class="error-message" id="nameError"></span>
             </div>
 
@@ -196,7 +145,6 @@
                   <i class="ri-eye-line" id="confirmToggleIcon"></i>
                 </button>
               </div>
-              <!-- confirmHint shows live "match / no match" as they type -->
               <small id="confirmHint"></small>
               <span class="error-message" id="confirmError"></span>
             </div>
@@ -231,15 +179,9 @@
       </div><!-- end .register-page-wrapper -->
     </section>
 
-<<<<<<< fix/login-register-flow
-    <!-- Footer unchanged from your original -->
-    <footer class="main-footer">
-      <div class="footer-top">
-=======
 <!-- Footer Section -->
 <footer class="main-footer">
     <div class="footer-top">
->>>>>>> main
         <div class="footer-logo-box">
           <img class="footer-logo" src="images/logo.png" alt="Cara Logo" />
         </div>
@@ -254,7 +196,7 @@
       <div class="footer-middle">
         <div class="footer-col brand-info">
           <h4>ABOUT US</h4>
-          <p>Cara E-Commerce â€“ Redefining your style with premium apparel, expert curation, and an absolute commitment to fashion excellence.</p>
+          <p>Cara E-Commerce – Redefining your style with premium apparel, expert curation, and an absolute commitment to fashion excellence.</p>
           <p><strong>Address: </strong>562 Wellington Road, Street 32, San Francisco</p>
           <p><strong>Phone: </strong>+01 2222 365 / (+91) 01 2345 6789</p>
           <p><strong>Hours: </strong>10:00 - 18:00, Mon - Sat</p>
@@ -268,21 +210,12 @@
           <a href="contact.html">Contact Us</a>
         </div>
         <div class="footer-col">
-<<<<<<< fix/login-register-flow
-          <h4>MY ACCOUNT</h4>
-          <a href="login.html">Sign In</a>
-          <a href="cart.html">View Cart</a>
-          <a href="cart.html">My Wishlist</a>
-          <a href="cart.html">Track My Order</a>
-          <a href="contact.html">Help</a>
-=======
             <h4>MY ACCOUNT</h4>
             <a href="login.html">Sign In</a>
             <a href="cart.html">View Cart</a>
             <a href="wishlist.html">My Wishlist</a>
             <a href="cart.html">Track My Order</a>
             <a href="contact.html">Help</a>
->>>>>>> main
         </div>
         <div class="footer-col newsletter-footer">
           <h4>NEWSLETTER</h4>
@@ -317,17 +250,11 @@
           <a href="license.html" class="license-link">MIT License</a>
         </div>
       </div>
-    </footer>
+</footer>
 
-<<<<<<< fix/login-register-flow
-    <script src="app.js"></script>
-    <script src="register.js"></script>
-    <script src="js/describedby-tooltips.js" defer></script>
-=======
 <script src="app.js"></script>
 <script src="js/fetch-timeout.js"></script>
 <script src="register.js"></script>
->>>>>>> main
-
-  </body>
+<script src="js/describedby-tooltips.js" defer></script>
+</body>
 </html>
