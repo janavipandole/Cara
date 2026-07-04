@@ -1526,3 +1526,52 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 })();
 /* --- END: PRODUCT QUICK-VIEW MODAL FUNCTIONALITY --- */
+
+/* ============================================================
+   SCROLL TO TOP BUTTON (injected for all pages)
+   ============================================================ */
+(function () {
+  if (document.getElementById('scrollTopBtn')) return;
+
+  const style = document.createElement('style');
+  style.textContent = `
+    #scrollTopBtn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 55px;
+      height: 55px;
+      border: none;
+      border-radius: 50%;
+      background-color: #088178;
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 999;
+      display: none;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+    }
+    #scrollTopBtn:hover {
+      background-color: #065f5b;
+      transform: scale(1.1);
+    }
+  `;
+  document.head.appendChild(style);
+
+  const btn = document.createElement('button');
+  btn.id = 'scrollTopBtn';
+  btn.title = 'Go to top';
+  btn.setAttribute('aria-label', 'Go to top');
+  btn.innerHTML = '&#8679;';
+  document.body.appendChild(btn);
+
+  window.addEventListener('scroll', function () {
+    btn.style.display = (window.scrollY > 300) ? 'block' : 'none';
+  });
+
+  btn.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
