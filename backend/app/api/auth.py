@@ -81,18 +81,25 @@ def get_current_user(
     request: Request,
     db: Session = Depends(get_db)
 ) -> models.User:
-    token = request.cookies.get("access_token")
-    if not token or not token.startswith("Bearer "):
+    auth_header = request.headers.get("Authorization", "")
+    token = None
+
+    if auth_header.startswith("Bearer "):
+        token = auth_header.split(" ", 1)[1]
+    else:
+        cookie_token = request.cookies.get("access_token")
+        if cookie_token and cookie_token.startswith("Bearer "):
+            token = cookie_token.split(" ", 1)[1]
+
+    if not token:
         raise HTTPException(status_code=401, detail="Not authenticated")
-    token = token.split(" ")[1]
     
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         if payload.get("type") != "access":
             raise HTTPException(401, "Invalid token type.")
         email: str = payload.get("sub")
-        token_type = payload.get("type")
-        if not email or token_type != "access":
+        if not email:
             raise HTTPException(401, "Invalid token payload.")
     except JWTError:
         raise HTTPException(401, "Invalid or expired token.")
