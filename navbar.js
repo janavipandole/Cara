@@ -49,6 +49,12 @@ function loadNavbar(activePage) {
           </a>
         </li>
 
+        <li>
+          <a ${activePage === 'orders' ? 'class="active" aria-current="page"' : ''} href="order-history.html" title="My Orders">
+            My Orders
+          </a>
+        </li>
+
         <!-- Contact Icon -->
         <li class="nav-icon">
           <a href="contact.html" title="Contact Us" aria-label="Contact">

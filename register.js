@@ -1,4 +1,6 @@
 /* global fetchWithTimeout */
+const API_BASE_URL = window.CARA_API_BASE_URL || 'http://127.0.0.1:8000';
+
 document.addEventListener('DOMContentLoaded', () => {
   const btn = document.getElementById('registerSubmitBtn');
   const messageBox = document.getElementById('formMessage');
@@ -40,11 +42,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
       const fetchFunc = typeof fetchWithTimeout === 'function' ? fetchWithTimeout : fetch;
-      const res = await fetchFunc('/api/auth/register', {
+      const res = await fetchFunc(`${API_BASE_URL}/api/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include',
         body: JSON.stringify({
           username,
           email,
@@ -57,6 +60,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!res.ok) {
         throw new Error(data.detail || 'Registration failed');
       }
+
+      localStorage.setItem('access_token', data.access_token);
+      localStorage.setItem('cara_user_token', data.access_token);
+      localStorage.setItem('cara_user_email', data.user.email);
+      localStorage.setItem('cara_user_name', data.user.username);
+      localStorage.setItem('cara_user_role', data.user.role);
 
       messageBox.style.color = 'green';
       messageBox.innerText = 'Account created successfully! Redirecting...';

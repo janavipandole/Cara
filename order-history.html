@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order History - Cara</title>
+  <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="ui-fix.css" />
+  <link rel="stylesheet" href="header-fix.css" />
+  <link rel="stylesheet" href="order-history.css?v=2" />
+  <script src="js/error-logger.js"></script>
+</head>
+<body>
+  <section id="header">
+    <a href="index.html" aria-label="Home">
+      <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
+    </a>
+    <div id="navbar-container"></div>
+    <div class="mobile">
+      <a href="login.html" aria-label="Login"><i class="ri-user-3-line"></i></a>
+      <a href="cart.html" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a>
+      <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
+      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
+        <i class="ri-moon-line" id="themeIconMobile"></i>
+      </button>
+    </div>
+  </section>
+
+  <main class="order-history-page">
+    <section class="order-history-hero">
+      <div>
+        <p class="eyebrow">My account</p>
+        <h1>Order History</h1>
+        <p class="hero-copy">Review your previous purchases, status, and delivery details in one place.</p>
+      </div>
+      <a class="continue-shopping" href="shop.html">Continue shopping</a>
+    </section>
+
+    <section class="order-history-shell">
+      <div id="loadingState" class="state-card">
+        <div class="spinner"></div>
+        <p>Loading your orders...</p>
+      </div>
+
+      <div id="errorState" class="state-card error-state" hidden>
+        <h2>Unable to load orders</h2>
+        <p id="errorText">Please try again.</p>
+        <button id="retryButton" class="retry-btn" type="button">Retry</button>
+      </div>
+
+      <div id="emptyState" class="state-card empty-state" hidden>
+        <h2>No orders yet</h2>
+        <p>Once you place your first order, it will appear here.</p>
+        <a href="shop.html" class="retry-btn">Browse products</a>
+      </div>
+
+      <div id="ordersCard" class="orders-card" hidden>
+        <div class="orders-table-wrap">
+          <table class="orders-table">
+            <thead>
+              <tr>
+                <th>Order</th>
+                <th>Date</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="ordersTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="orderModal" class="order-modal" hidden>
+    <div class="order-modal-panel">
+      <button id="closeModalBtn" class="modal-close" type="button" aria-label="Close order details">&times;</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <script src="navbar.js"></script>
+  <script src="order-history.js"></script>
+</body>
+</html>
