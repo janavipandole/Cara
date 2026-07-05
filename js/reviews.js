@@ -25,7 +25,9 @@
 
   function _readReviews(productId) {
     try {
-      return JSON.parse(localStorage.getItem(STORAGE_PREFIX + productId) || '[]');
+      return JSON.parse(
+        localStorage.getItem(STORAGE_PREFIX + productId) || '[]'
+      );
     } catch {
       return [];
     }
@@ -48,7 +50,9 @@
 
   function _formatDate(iso) {
     try {
-      return new Intl.DateTimeFormat('en-IN', { dateStyle: 'medium' }).format(new Date(iso));
+      return new Intl.DateTimeFormat('en-IN', { dateStyle: 'medium' }).format(
+        new Date(iso)
+      );
     } catch {
       return iso;
     }
@@ -82,12 +86,14 @@
                  aria-label="${i} star${i > 1 ? 's' : ''}">
           <label for="star${i}" class="star-label" aria-hidden="true" title="${i} star${i > 1 ? 's' : ''}">
             <i class="ri-star-fill"></i>
-          </label>`,
+          </label>`
         )
         .join('');
     }
-    return Array.from({ length: 5 }, (_, i) =>
-      `<i class="${i < Math.round(rating) ? 'ri-star-fill' : 'ri-star-line'} review-star" aria-hidden="true"></i>`,
+    return Array.from(
+      { length: 5 },
+      (_, i) =>
+        `<i class="${i < Math.round(rating) ? 'ri-star-fill' : 'ri-star-line'} review-star" aria-hidden="true"></i>`
     ).join('');
   }
 
@@ -95,13 +101,14 @@
 
   function _render(container, productId) {
     const reviews = _readReviews(productId);
-    const stats   = _calcStats(reviews);
+    const stats = _calcStats(reviews);
 
     // Build distribution bars (5 → 1)
     const distBars = [5, 4, 3, 2, 1]
       .map((star) => {
         const count = stats.dist[star - 1];
-        const pct   = stats.total > 0 ? Math.round((count / stats.total) * 100) : 0;
+        const pct =
+          stats.total > 0 ? Math.round((count / stats.total) * 100) : 0;
         return `
           <div class="review-dist-row" role="group" aria-label="${star} star reviews: ${count}">
             <span class="review-dist-label" aria-hidden="true">${star}</span>
@@ -139,7 +146,7 @@
             ${r.title ? `<h4 class="review-title">${_escape(r.title)}</h4>` : ''}
             <p class="review-body">${_escape(r.body)}</p>
             ${r.verified ? '<span class="verified-badge"><i class="ri-shield-check-line" aria-hidden="true"></i> Verified Purchase</span>' : ''}
-          </article>`,
+          </article>`
           )
           .join('')
       : '<p class="reviews-empty">No reviews yet. Be the first to share your thoughts!</p>';
@@ -224,12 +231,12 @@
   // ── Form event wiring ─────────────────────────────────────────────────────
 
   function _attachFormListeners(container, productId) {
-    const toggleBtn  = container.querySelector('#toggleReviewForm');
-    const formPanel  = container.querySelector('#reviewFormPanel');
-    const cancelBtn  = container.querySelector('#cancelReviewForm');
-    const form       = container.querySelector('.review-form');
-    const bodyArea   = container.querySelector('#reviewBody');
-    const charCount  = container.querySelector('#bodyCharCount');
+    const toggleBtn = container.querySelector('#toggleReviewForm');
+    const formPanel = container.querySelector('#reviewFormPanel');
+    const cancelBtn = container.querySelector('#cancelReviewForm');
+    const form = container.querySelector('.review-form');
+    const bodyArea = container.querySelector('#reviewBody');
+    const charCount = container.querySelector('#bodyCharCount');
 
     if (!toggleBtn || !formPanel) return;
 
@@ -241,83 +248,86 @@
       if (isHidden) formPanel.querySelector('#reviewAuthor').focus();
     });
 
-    cancelBtn && cancelBtn.addEventListener('click', () => {
-      formPanel.setAttribute('hidden', '');
-      toggleBtn.setAttribute('aria-expanded', 'false');
-      form.reset();
-    });
+    cancelBtn &&
+      cancelBtn.addEventListener('click', () => {
+        formPanel.setAttribute('hidden', '');
+        toggleBtn.setAttribute('aria-expanded', 'false');
+        form.reset();
+      });
 
     // Live character count for textarea
-    bodyArea && bodyArea.addEventListener('input', () => {
-      charCount.textContent = `${bodyArea.value.length} / 1000`;
-    });
+    bodyArea &&
+      bodyArea.addEventListener('input', () => {
+        charCount.textContent = `${bodyArea.value.length} / 1000`;
+      });
 
     // Form submission
-    form && form.addEventListener('submit', (e) => {
-      e.preventDefault();
+    form &&
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
 
-      const author = form.querySelector('#reviewAuthor').value.trim();
-      const rating = parseInt(
-        (form.querySelector('.review-star-input:checked') || {}).value,
-        10,
-      );
-      const title  = (form.querySelector('#reviewTitle').value || '').trim();
-      const body   = form.querySelector('#reviewBody').value.trim();
+        const author = form.querySelector('#reviewAuthor').value.trim();
+        const rating = parseInt(
+          (form.querySelector('.review-star-input:checked') || {}).value,
+          10
+        );
+        const title = (form.querySelector('#reviewTitle').value || '').trim();
+        const body = form.querySelector('#reviewBody').value.trim();
 
-      let valid = true;
+        let valid = true;
 
-      const authorErr = form.querySelector('#authorError');
-      const ratingErr = form.querySelector('#ratingError');
-      const bodyErr   = form.querySelector('#bodyError');
+        const authorErr = form.querySelector('#authorError');
+        const ratingErr = form.querySelector('#ratingError');
+        const bodyErr = form.querySelector('#bodyError');
 
-      if (!author) {
-        authorErr.textContent = 'Please enter your name.';
-        valid = false;
-      } else {
-        authorErr.textContent = '';
-      }
+        if (!author) {
+          authorErr.textContent = 'Please enter your name.';
+          valid = false;
+        } else {
+          authorErr.textContent = '';
+        }
 
-      if (!rating || rating < 1 || rating > 5) {
-        ratingErr.textContent = 'Please select a star rating.';
-        valid = false;
-      } else {
-        ratingErr.textContent = '';
-      }
+        if (!rating || rating < 1 || rating > 5) {
+          ratingErr.textContent = 'Please select a star rating.';
+          valid = false;
+        } else {
+          ratingErr.textContent = '';
+        }
 
-      if (!body || body.length < 10) {
-        bodyErr.textContent = 'Review must be at least 10 characters.';
-        valid = false;
-      } else {
-        bodyErr.textContent = '';
-      }
+        if (!body || body.length < 10) {
+          bodyErr.textContent = 'Review must be at least 10 characters.';
+          valid = false;
+        } else {
+          bodyErr.textContent = '';
+        }
 
-      if (!valid) return;
+        if (!valid) return;
 
-      const review = {
-        id: Date.now(),
-        author,
-        rating,
-        title,
-        body,
-        date: new Date().toISOString(),
-        verified: false,
-      };
+        const review = {
+          id: Date.now(),
+          author,
+          rating,
+          title,
+          body,
+          date: new Date().toISOString(),
+          verified: false,
+        };
 
-      const reviews = _readReviews(productId);
-      reviews.unshift(review);
-      _saveReviews(productId, reviews);
+        const reviews = _readReviews(productId);
+        reviews.unshift(review);
+        _saveReviews(productId, reviews);
 
-      // Re-render with new review included
-      _render(container, productId);
+        // Re-render with new review included
+        _render(container, productId);
 
-      // Announce success to screen readers
-      const liveRegion = document.createElement('div');
-      liveRegion.setAttribute('aria-live', 'assertive');
-      liveRegion.className = 'sr-only';
-      liveRegion.textContent = 'Your review has been submitted. Thank you!';
-      document.body.appendChild(liveRegion);
-      setTimeout(() => liveRegion.remove(), 3000);
-    });
+        // Announce success to screen readers
+        const liveRegion = document.createElement('div');
+        liveRegion.setAttribute('aria-live', 'assertive');
+        liveRegion.className = 'sr-only';
+        liveRegion.textContent = 'Your review has been submitted. Thank you!';
+        document.body.appendChild(liveRegion);
+        setTimeout(() => liveRegion.remove(), 3000);
+      });
   }
 
   // ── Bootstrap ─────────────────────────────────────────────────────────────
@@ -326,7 +336,20 @@
     const container = document.getElementById('productReviews');
     if (!container) return;
 
-    const productId = container.dataset.productId || 'unknown';
+    let productId = container.dataset.productId;
+    if (!productId || productId === '') {
+      productId = localStorage.getItem('selectedProductId');
+      if (!productId) {
+        try {
+          productId = JSON.parse(
+            localStorage.getItem('selectedProduct') || '{}'
+          ).name;
+        } catch {
+          productId = 'unknown';
+        }
+      }
+    }
+    productId = productId || 'unknown';
     _render(container, productId);
   }
 
