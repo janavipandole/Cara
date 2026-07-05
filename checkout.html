@@ -218,6 +218,22 @@
             <div id="couponFeedback" class="coupon-feedback" style="display: none; font-size: 0.78rem; margin-top: 6px; font-weight: 500;"></div>
           </div>
 
+          <!-- Loyalty Points Section -->
+          <div class="loyalty-section" style="margin-top: 16px; border-top: 1px solid var(--border); padding-top: 16px;">
+            <label for="points-to-apply">Redeem Loyalty Points</label>
+            <p style="font-size: 0.85rem; margin: 4px 0 6px; color: var(--text-muted, #555);">
+              Your Balance: <strong id="loyalty-balance">150</strong> points
+            </p>
+            <div style="display: flex; gap: 8px;">
+              <input type="number" id="points-to-apply" min="0" placeholder="e.g. 50" autocomplete="off" style="padding: 8px 12px; flex: 1;">
+              <button type="button" class="back-btn" id="apply-points-btn" style="margin-bottom: 0; padding: 8px 16px; border-radius: 8px;">Apply</button>
+            </div>
+            <div id="loyalty-msg" style="font-size: 0.78rem; margin-top: 6px; font-weight: 500;"></div>
+            <p style="font-size: 0.75rem; margin-top: 8px; color: var(--text-muted, #555); display: flex; align-items: center; gap: 4px;">
+              <i class="ri-coins-line" style="color: #088178;"></i> You will earn <strong id="points-to-earn">0</strong> points from this order.
+            </p>
+          </div>
+
           <div class="totals" style="margin-top: 20px; border-top: 1px solid var(--border); padding-top: 16px;">
             <div class="total-row summary-row">
               <span>Subtotal</span>
@@ -263,6 +279,7 @@
   <script src="js/coupon-validator.js" defer></script>
   <script src="js/gift-options.js" defer></script>
   <script src="js/checkout-timer.js" defer></script>
+  <script src="js/loyalty.js" defer></script>
   <script src="js/checkout-autosave.js" defer></script>
   <script src="js/address-autocomplete.js" defer></script>
 </body>

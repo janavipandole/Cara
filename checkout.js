@@ -318,6 +318,24 @@ form.addEventListener('submit', function (e) {
         throw new Error(res.body.detail || 'Failed to place order');
       }
 
+      // DEDUCT & ADD LOYALTY POINTS ON SUCCESSFUL ORDER
+      const appliedPoints =
+        parseInt(localStorage.getItem('cara_applied_loyalty_points')) || 0;
+      const currentBalance =
+        parseInt(localStorage.getItem('cara_loyalty_balance')) || 150;
+      const subtotal = cart.reduce(
+        (sum, item) =>
+          sum + parsePriceString(item.price) * (parseInt(item.quantity) || 1),
+        0
+      );
+      const earnedPoints = Math.floor(subtotal * 0.1);
+      const newBalance = Math.max(
+        0,
+        currentBalance - appliedPoints + earnedPoints
+      );
+      localStorage.setItem('cara_loyalty_balance', newBalance);
+      localStorage.removeItem('cara_applied_loyalty_points');
+
       // CLEAR CART AFTER SUCCESSFUL ORDER
       localStorage.removeItem('productsInCart');
       localStorage.removeItem('appliedCoupon');
@@ -437,9 +455,21 @@ window.updateCheckoutSummary = function () {
   // Calculate tax (5%)
   const tax = subtotal * 0.05;
 
+  // Check loyalty points discount (10 points = ₹1)
+  const loyaltyPoints =
+    parseInt(localStorage.getItem('cara_applied_loyalty_points')) || 0;
+  const loyaltyDiscount = loyaltyPoints * 0.1;
+
   // Grand Total
-  const grandTotal =
-    subtotal + tax + giftCharge - couponDiscount - urgencyDiscount;
+  const grandTotal = Math.max(
+    0,
+    subtotal +
+      tax +
+      giftCharge -
+      couponDiscount -
+      urgencyDiscount -
+      loyaltyDiscount
+  );
 
   // Update DOM elements
   const subtotalEl = document.getElementById('summary-subtotal');
@@ -525,6 +555,40 @@ window.updateCheckoutSummary = function () {
     }
   } else {
     if (giftRow) giftRow.remove();
+  }
+
+  // Update Loyalty Row
+  let loyaltyRow = document.getElementById('summary-loyalty-row');
+  if (loyaltyPoints > 0) {
+    if (!loyaltyRow) {
+      loyaltyRow = document.createElement('div');
+      loyaltyRow.id = 'summary-loyalty-row';
+      loyaltyRow.className = 'total-row summary-row discount';
+      loyaltyRow.style.cssText =
+        'display:flex; justify-content:space-between; margin-bottom: 8px; color: #ef4444; font-weight: 600;';
+      const grandRow = document.querySelector('.total-row.grand');
+      if (grandRow) grandRow.parentNode.insertBefore(loyaltyRow, grandRow);
+    }
+    loyaltyRow.innerHTML = `
+      <span>Redeemed Points (${loyaltyPoints} pts) <button type="button" class="btn-remove-loyalty" id="btnRemoveLoyalty" aria-label="Remove loyalty points" style="background:none; border:none; color:#ef4444; cursor:pointer; font-weight:bold; font-size:16px; margin-left:5px; padding:0;">×</button></span>
+      <span>-${formatCurrency(loyaltyDiscount)}</span>
+    `;
+    const removeLoyaltyBtn = document.getElementById('btnRemoveLoyalty');
+    if (removeLoyaltyBtn) {
+      removeLoyaltyBtn.onclick = function () {
+        localStorage.removeItem('cara_applied_loyalty_points');
+        const pointsInput = document.getElementById('points-to-apply');
+        if (pointsInput) pointsInput.value = '';
+        const msgEl = document.getElementById('loyalty-msg');
+        if (msgEl) {
+          msgEl.textContent = '';
+          msgEl.style.color = '';
+        }
+        window.updateCheckoutSummary();
+      };
+    }
+  } else {
+    if (loyaltyRow) loyaltyRow.remove();
   }
 
   const totalEl = document.getElementById('summary-total');
