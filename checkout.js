@@ -10,6 +10,27 @@ function safeParseJSON(key, fallback = '[]') {
   }
 }
 
+const API_BASE_URL = window.CARA_API_BASE_URL || 'http://127.0.0.1:8000';
+
+function getStoredAuthToken() {
+  return (
+    localStorage.getItem('access_token') ||
+    localStorage.getItem('cara_user_token') ||
+    ''
+  );
+}
+
+function buildAuthHeaders(extraHeaders = {}) {
+  const headers = { ...extraHeaders };
+  const token = getStoredAuthToken();
+
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  return headers;
+}
+
 const paymentMethod = document.getElementById('paymentMethod');
 const cardDetails = document.getElementById('cardDetails');
 
@@ -303,9 +324,10 @@ form.addEventListener('submit', function (e) {
     })),
   };
 
-  fetch('/api/orders', {
+  fetch(`${API_BASE_URL}/api/orders/`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: buildAuthHeaders({ 'Content-Type': 'application/json' }),
+    credentials: 'include',
     body: JSON.stringify(orderData),
   })
     .then((res) =>

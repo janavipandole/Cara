@@ -1,4 +1,6 @@
 /* global fetchWithTimeout */
+const API_BASE_URL = window.CARA_API_BASE_URL || 'http://127.0.0.1:8000';
+
 document.addEventListener('DOMContentLoaded', function () {
   const form = document.getElementById('loginForm');
   const passwordInput = document.getElementById('loginPassword');
@@ -44,7 +46,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   async function fetchCaptcha() {
     try {
-      const res = await fetch('/api/auth/captcha');
+      const res = await fetch(`${API_BASE_URL}/api/auth/captcha`, {
+        credentials: 'include'
+      });
       if (res.ok) {
         const data = await res.json();
         currentCaptchaToken = data.captcha_token;
@@ -112,9 +116,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     try {
       const fetchFunc = typeof fetchWithTimeout === 'function' ? fetchWithTimeout : fetch;
-      const response = await fetchFunc('/api/auth/login', {
+      const response = await fetchFunc(`${API_BASE_URL}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify(payload)
       });
 
@@ -123,6 +128,12 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!response.ok) {
         throw new Error(data.detail || 'Invalid email or password.');
       }
+
+      localStorage.setItem('access_token', data.access_token);
+      localStorage.setItem('cara_user_token', data.access_token);
+      localStorage.setItem('cara_user_email', data.user.email);
+      localStorage.setItem('cara_user_name', data.user.username);
+      localStorage.setItem('cara_user_role', data.user.role);
 
       showToast('Welcome back, ' + data.user.username + '!', 'success');
 
