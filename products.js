@@ -1,5 +1,4 @@
-/* Reusable modal display element */
-const modalTemplate = `<div class="quick-view-modal" style="display:none;"></div>`;
+/* global getWishlist, hasPriceDropped, getPriceDropAmount, updateWishlistButtonState, isInWishlist, toggleWishlistItem, syncWishlistButtons */
 /* Reusable modal display element */
 const modalTemplate = `<div class="quick-view-modal" style="display:none;"></div>`;
 const products = [
@@ -729,6 +728,22 @@ function renderProducts(containerId, list, query = '') {
     });
     actionBar.appendChild(wishlistBtn);
 
+    // Compare button overlay
+    const compareBtn = document.createElement('button');
+    compareBtn.type = 'button';
+    compareBtn.className = 'compare-card-btn';
+    compareBtn.dataset.productName = p.name;
+    compareBtn.setAttribute('aria-label', `Compare ${p.name}`);
+    compareBtn.innerHTML = '<i class="ri-arrow-left-right-line"></i>';
+    compareBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      if (typeof window.toggleCompareItem === 'function') {
+        window.toggleCompareItem(p.name);
+      }
+    });
+    actionBar.appendChild(compareBtn);
+
     des.appendChild(actionBar);
     card.appendChild(des);
     container.appendChild(card);
@@ -952,19 +967,21 @@ function showToast(message, type = 'success') {
   const iconDiv = document.createElement('div');
   iconDiv.className = 'toast-icon';
   iconDiv.textContent = icon;
-  
+
   const msgDiv = document.createElement('div');
   msgDiv.className = 'toast-msg';
   msgDiv.textContent = message;
-  
+
   const closeBtn = document.createElement('button');
   closeBtn.className = 'toast-close';
   closeBtn.innerHTML = '&times;';
-  closeBtn.onclick = function() { this.parentElement.remove(); };
-  
+  closeBtn.onclick = function () {
+    this.parentElement.remove();
+  };
+
   const progressDiv = document.createElement('div');
   progressDiv.className = 'toast-progress';
-  
+
   toast.appendChild(iconDiv);
   toast.appendChild(msgDiv);
   toast.appendChild(closeBtn);
