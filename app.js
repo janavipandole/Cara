@@ -891,7 +891,7 @@ window.buyNow = function (productName, productPrice, productImage, quantity, siz
 
     document.addEventListener("click", function (e) {
         if (!e.target) return;
-        if (e.target.closest("#themeToggle") || e.target.closest("#themeToggleMobile")) {
+        if (e.target.closest("#themeToggleDesktop") || e.target.closest("#themeToggleMobile")) {
             e.preventDefault();
             toggleTheme();
         }
