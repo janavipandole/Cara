@@ -140,13 +140,13 @@
   <div id="main">
     <div id="top">
       <div id="workingArea">
-        <section id="header">
+        <section id="header" role="banner">
     <!-- Logo -->
     <a href="index.html">
       <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
     </a>
     <div>
-      <ul id="navbar">
+      <ul id="navbar" role="navigation" aria-label="Main navigation">
         <li><a href="index.html">Home</a></li>
         <li><a href="shop.html">Shop</a></li>
         <li><a href="blog.html">Blog</a></li>
@@ -205,7 +205,7 @@
     </div>
   </section>
 
-  <div class="search-container">
+  <div class="search-container" role="search">
     <label for="searchBar" class="sr-only" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">Search Products</label>
     <input 
       type="text"
@@ -379,7 +379,7 @@
     </div>
   </section>
 
-  <section id="product1" class="section-p1">
+  <section id="product1" class="section-p1" role="region" aria-label="Products">
     <h2>Featured Product</h2>
     <p>Summer Collection New Modern Design</p>
     <div class="pro-container">
@@ -545,7 +545,7 @@
       <button class="normal"><a href="shop.html" style="color: #ffffff; text-decoration: none;">Explore More</a></button>
     </section>
 
-  <section id="product1" class="section-p1">
+  <section id="product1" class="section-p1" role="region" aria-label="Products">
     <h2>New Arrivals</h2>
     <p>Summer Collection New Modern Design</p>
     <div class="pro-container">
@@ -657,7 +657,7 @@
   </div>
 
   <!-- Footer -->
-  <footer class="section-p1">
+  <footer class="section-p1" role="contentinfo">
     <!-- Contact Column -->
     <div class="col">
       <img class="logo" src="images/logo.png" alt="Cara Logo">
@@ -718,7 +718,7 @@
         <span>special offers.</span>
       </p>
 
-      <form class="newsletter-form">
+      <form class="newsletter-form" role="form" aria-label="Newsletter subscription">
         <input type="email" placeholder="Your email address" aria-label="Email address for newsletter" required="">
         <button type="submit" class="normal" aria-label="Sign up for newsletter">Sign Up</button>
       </form>
