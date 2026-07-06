@@ -90,7 +90,6 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
       }
 
-      /* ── Loading state: disable button & show spinner ── */
       const submitBtn = document.querySelector(
         '#forgotForm button[type="submit"], #forgotForm .btn-primary'
       );
@@ -99,32 +98,59 @@ document.addEventListener('DOMContentLoaded', function () {
         submitBtn.disabled = true;
       }
 
-      /* Simulate async request */
-      setTimeout(function () {
-        const users = JSON.parse(localStorage.getItem('cara_users') || '[]');
-        const userIndex = users.findIndex((u) => u.email === email);
+      const API_BASE = window.CARA_API_BASE_URL || 'http://127.0.0.1:8000';
 
-        if (userIndex === -1) {
-          showToast('No account found with this email!', 'error');
+      fetch(API_BASE + '/api/auth/forgot-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email }),
+      })
+        .then(function (res) {
+          if (!res.ok) {
+            return res.json().then(function (data) {
+              throw new Error(data.detail || 'Request failed');
+            });
+          }
+          return res.json();
+        })
+        .then(function (data) {
+          var resetToken = data.reset_token;
+
+          return fetch(API_BASE + '/api/auth/reset-password', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              token: resetToken,
+              new_password: newPass,
+            }),
+          });
+        })
+        .then(function (res) {
+          if (!res.ok) {
+            return res.json().then(function (data) {
+              throw new Error(data.detail || 'Reset failed');
+            });
+          }
+          return res.json();
+        })
+        .then(function () {
+          showToast(
+            'Password reset successful! Redirecting to login...',
+            'success'
+          );
+          setTimeout(function () {
+            window.location.href = 'login.html';
+          }, 2000);
+        })
+        .catch(function (err) {
+          showToast(err.message || 'Password reset failed', 'error');
+        })
+        .finally(function () {
           if (submitBtn) {
             submitBtn.classList.remove('btn-loading');
             submitBtn.disabled = false;
           }
-          return;
-        }
-
-        users[userIndex].password = newPass;
-        localStorage.setItem('cara_users', JSON.stringify(users));
-
-        showToast(
-          'Password reset successful! Redirecting to login...',
-          'success'
-        );
-
-        setTimeout(() => {
-          window.location.href = 'login.html';
-        }, 2000);
-      }, 1500);
+        });
     });
 });
 
