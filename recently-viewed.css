@@ -3,109 +3,111 @@
    ============================================================ */
 
 #recently-viewed-section {
-    text-align: center;
+  text-align: center;
 }
 
 #recently-viewed-section[hidden] {
-    display: none;
+  display: none;
 }
 
 #recently-viewed-section h2 {
-    font-size: 32px;
-    line-height: 1.2;
-    margin-bottom: 6px;
+  font-size: 32px;
+  line-height: 1.2;
+  margin-bottom: 6px;
 }
 
 #recently-viewed-section .recently-viewed-subtext {
-    color: #666;
-    margin-bottom: 10px;
-    font-size: 15px;
+  color: #666;
+  margin-bottom: 10px;
+  font-size: 15px;
 }
 
-[data-theme="dark"] #recently-viewed-section .recently-viewed-subtext {
-    color: #aaa;
+[data-theme='dark'] #recently-viewed-section .recently-viewed-subtext {
+  color: #aaa;
 }
 
 .recently-viewed-track {
-    display: flex;
-    gap: 20px;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    padding: 15px 80px 25px;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-    scrollbar-color: var(--accent, #088178) transparent;
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 15px 80px 25px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent, #088178) transparent;
 }
 
 .recently-viewed-track::-webkit-scrollbar {
-    height: 8px;
+  height: 8px;
 }
 
 .recently-viewed-track::-webkit-scrollbar-track {
-    background: transparent;
+  background: transparent;
 }
 
 .recently-viewed-track::-webkit-scrollbar-thumb {
-    background: var(--accent, #088178);
-    border-radius: 10px;
+  background: var(--accent, #088178);
+  border-radius: 10px;
 }
 
 .recently-viewed-card {
-    position: relative;
-    flex: 0 0 220px;
-    max-width: 220px;
-    text-align: left;
-    cursor: pointer;
-    padding: 12px 12px 14px;
-    border: 1.5px solid var(--border-color, #e5e5e5);
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    background-color: var(--card-bg, #fff);
-    transition: box-shadow 0.3s ease, transform 0.25s ease;
+  position: relative;
+  flex: 0 0 220px;
+  max-width: 220px;
+  text-align: left;
+  cursor: pointer;
+  padding: 12px 12px 14px;
+  border: 1.5px solid var(--border-color, #e5e5e5);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  background-color: var(--card-bg, #fff);
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.25s ease;
 }
 
 .recently-viewed-card:hover {
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
-    transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+  transform: translateY(-3px);
 }
 
 .recently-viewed-card:hover .pro-img-wrap img {
-    transform: scale(1.04);
+  transform: scale(1.04);
 }
 
 .recently-viewed-card:focus-visible {
-    outline: 2px solid var(--accent, #088178);
-    outline-offset: 4px;
+  outline: 2px solid var(--accent, #088178);
+  outline-offset: 4px;
 }
 
 .recently-viewed-card .pro-img-wrap {
-    margin-bottom: 8px;
+  margin-bottom: 8px;
 }
 
 .recently-viewed-card .des h5 {
-    font-size: 15px;
-    font-weight: 600;
-    margin: 4px 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    color: var(--text-primary, #1a1a1a);
+  font-size: 15px;
+  font-weight: 600;
+  margin: 4px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text-primary, #1a1a1a);
 }
 
 .recently-viewed-card .des h4 {
-    font-size: 16px;
-    color: var(--accent, #088178);
-    font-weight: 700;
-    margin: 0;
+  font-size: 16px;
+  color: var(--accent, #088178);
+  font-weight: 700;
+  margin: 0;
 }
 
 @media (max-width: 900px) {
-    .recently-viewed-track {
-        padding: 10px 18px 20px;
-    }
+  .recently-viewed-track {
+    padding: 10px 18px 20px;
+  }
 
-    .recently-viewed-card {
-        flex: 0 0 160px;
-        max-width: 160px;
-    }
+  .recently-viewed-card {
+    flex: 0 0 160px;
+    max-width: 160px;
+  }
 }
