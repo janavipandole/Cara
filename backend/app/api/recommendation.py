@@ -6,8 +6,6 @@ import os
 from .. import models, schemas
 from ..database import get_db
 from ..vector_search.faiss_index import get_similar_product_ids
-import hashlib
-import os
 from ..rules.engine import filter_by_rules
 from ..limiter import limiter
 

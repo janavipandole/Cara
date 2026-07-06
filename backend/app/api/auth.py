@@ -6,10 +6,10 @@ from passlib.context import CryptContext
 from jose import jwt, JWTError
 import os
 from fastapi import Response
-from app.database import get_db
-from app import models
-from app.schemas import UserRegister, UserLogin, Token, UserOut
-from app.limiter import limiter
+from ..database import get_db
+from .. import models
+from ..schemas import UserRegister, UserLogin, Token, UserOut
+from ..limiter import limiter
 from PIL import Image, ImageDraw
 import io
 import base64

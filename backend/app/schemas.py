@@ -167,3 +167,23 @@ class CategorySummaryResponse(BaseModel):
     styles: list[str]
     price_range: PriceRange
 
+
+class AdminSummaryResponse(BaseModel):
+    """Lifetime dashboard indicators returned by GET /api/admin/analytics/summary."""
+    total_revenue: float
+    total_orders: int
+    total_customers: int
+
+
+class CategorySalesOut(BaseModel):
+    """Sales aggregation by category returned by GET /api/admin/analytics/category-sales."""
+    category: str
+    units_sold: int
+    revenue: float
+
+
+class StatusDistributionOut(BaseModel):
+    """Order volume distribution across statuses returned by GET /api/admin/analytics/order-status-distribution."""
+    status: str
+    count: int
+
