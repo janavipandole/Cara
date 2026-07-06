@@ -311,11 +311,27 @@ form.addEventListener('submit', function (e) {
 
   // Prepare order data
   const orderData = {
-    fullName: document.getElementById('fullName').value.trim(),
-    email: document.getElementById('email').value.trim(),
-    address: document.getElementById('address').value.trim(),
-    city: document.getElementById('city').value.trim(),
-    zip: document.getElementById('zip').value.trim(),
+    fullName: window.CaraSanitize
+      ? window.CaraSanitize.sanitizeInput(
+          document.getElementById('fullName').value
+        )
+      : document.getElementById('fullName').value.trim(),
+    email: window.CaraSanitize
+      ? window.CaraSanitize.sanitizeInput(
+          document.getElementById('email').value
+        )
+      : document.getElementById('email').value.trim(),
+    address: window.CaraSanitize
+      ? window.CaraSanitize.sanitizeInput(
+          document.getElementById('address').value
+        )
+      : document.getElementById('address').value.trim(),
+    city: window.CaraSanitize
+      ? window.CaraSanitize.sanitizeInput(document.getElementById('city').value)
+      : document.getElementById('city').value.trim(),
+    zip: window.CaraSanitize
+      ? window.CaraSanitize.sanitizeInput(document.getElementById('zip').value)
+      : document.getElementById('zip').value.trim(),
     coupon: window.appliedCoupon,
     items: cart.map((item) => ({
       product_name: item.name,

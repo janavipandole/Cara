@@ -10,8 +10,15 @@ document.addEventListener('DOMContentLoaded', () => {
   btn.addEventListener('click', async (e) => {
     e.preventDefault();
 
-    const username = document.getElementById('registerUsername')?.value.trim();
-    const email = document.getElementById('registerEmail')?.value.trim();
+    const rawUsername =
+      document.getElementById('registerUsername')?.value || '';
+    const rawEmail = document.getElementById('registerEmail')?.value || '';
+    const username = window.CaraSanitize
+      ? window.CaraSanitize.sanitizeInput(rawUsername)
+      : rawUsername.trim();
+    const email = window.CaraSanitize
+      ? window.CaraSanitize.sanitizeInput(rawEmail)
+      : rawEmail.trim();
     const password = document.getElementById('registerPassword')?.value;
     const confirmPassword = document.getElementById('confirmPassword')?.value;
 
@@ -27,13 +34,15 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const complexityRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const complexityRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     if (!complexityRegex.test(password)) {
-      messageBox.innerText = 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character!';
+      messageBox.innerText =
+        'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character!';
       messageBox.style.color = 'red';
       return;
     }
-    
+
     if (password !== confirmPassword) {
       messageBox.innerText = 'Passwords do not match!';
       messageBox.style.color = 'red';
@@ -41,7 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
-      const fetchFunc = typeof fetchWithTimeout === 'function' ? fetchWithTimeout : fetch;
+      const fetchFunc =
+        typeof fetchWithTimeout === 'function' ? fetchWithTimeout : fetch;
       const res = await fetchFunc(`${API_BASE_URL}/api/auth/register`, {
         method: 'POST',
         headers: {
