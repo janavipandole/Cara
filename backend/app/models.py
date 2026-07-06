@@ -65,3 +65,14 @@ class OrderItem(Base):
     quantity = Column(Integer, nullable=False)
     price = Column(Float, nullable=False)
     order = relationship("Order")
+
+
+class Wishlist(Base):
+    __tablename__ = "wishlist"
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    product_id = Column(Integer, ForeignKey("products.id"), nullable=False)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+    user = relationship("User", backref="wishlist_items")
+    product = relationship("Product")
