@@ -746,7 +746,10 @@ function renderSearchSuggestions(query) {
   if (!suggestionsElement) return;
 
   suggestionsElement.innerHTML = '';
-  if (!query.trim()) return;
+  if (!query.trim()) {
+    suggestionsElement.classList.remove('active');
+    return;
+  }
 
   const normalizedQuery = query.trim().toLowerCase();
   const suggestions = products
@@ -756,6 +759,8 @@ function renderSearchSuggestions(query) {
         p.brand.toLowerCase().includes(normalizedQuery)
     )
     .slice(0, 5);
+
+  suggestionsElement.classList.add('active');
 
   if (suggestions.length === 0) {
     const none = document.createElement('p');
@@ -767,12 +772,13 @@ function renderSearchSuggestions(query) {
   suggestions.forEach((item) => {
     const button = document.createElement('button');
     button.type = 'button';
-    button.textContent = `${item.name} — ${item.brand}`;
+    appendHighlightedText(button, `${item.name} — ${item.brand}`, query);
     button.addEventListener('click', () => {
       const input = document.getElementById('searchInput');
       if (input) {
         input.value = item.name;
         filterProducts();
+        suggestionsElement.classList.remove('active');
         input.focus();
       }
     });
@@ -843,6 +849,20 @@ function filterProducts() {
     filteredProducts.sort((a, b) => b.id - a.id);
   }
 
+  // Persist to URLSearchParams
+  const urlParams = new URLSearchParams();
+  if (rawQuery) urlParams.set('q', rawQuery);
+  if (category !== 'all') urlParams.set('category', category);
+  if (sortValue !== 'default') urlParams.set('sort', sortValue);
+  if (brandValue !== 'all') urlParams.set('brand', brandValue);
+  if (colorValue !== 'all') urlParams.set('color', colorValue);
+  if (styleValue !== 'all') urlParams.set('style', styleValue);
+
+  const newRelativePathQuery =
+    window.location.pathname +
+    (urlParams.toString() ? '?' + urlParams.toString() : '');
+  window.history.replaceState(null, '', newRelativePathQuery);
+
   renderProducts('shop-container', filteredProducts, rawQuery);
   updateSearchSummary(filteredProducts.length);
   renderSearchSuggestions(query);
@@ -859,14 +879,17 @@ function attachSearchListeners() {
 
   if (input) {
     let debounceTimer;
-    input.addEventListener('input', () => {
+    input.addEventListener('input', (e) => {
       clearTimeout(debounceTimer);
       debounceTimer = setTimeout(filterProducts, 300);
+      renderSearchSuggestions(e.target.value);
     });
     input.addEventListener('keydown', (event) => {
       if (event.key === 'Enter') {
         event.preventDefault();
         filterProducts();
+        const suggestionsElement = document.getElementById('searchSuggestions');
+        if (suggestionsElement) suggestionsElement.classList.remove('active');
       }
     });
   }
@@ -898,9 +921,9 @@ function addToCart(name, price, img, quantity, size) {
     }
   } catch (e) {
     window.logError('Failed to save cart:', e);
-    if (typeof showToast === 'function') {
-      showToast('Storage limit reached! Cannot add to cart.', 'error');
-    }
+  }
+  if (typeof updateCartCount === 'function') {
+    updateCartCount();
   }
 }
 
@@ -919,12 +942,48 @@ function buyNow(name, price, img, quantity, size) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  renderProducts('shop-container', products);
+  // Sync filters from URL params on load
+  const urlParams = new URLSearchParams(window.location.search);
+  const q = urlParams.get('q') || '';
+  const category = urlParams.get('category') || 'all';
+  const sort = urlParams.get('sort') || 'default';
+  const brand = urlParams.get('brand') || 'all';
+  const color = urlParams.get('color') || 'all';
+  const style = urlParams.get('style') || 'all';
+
+  const input = document.getElementById('searchInput');
+  const categorySelect = document.getElementById('categoryFilter');
+  const sortSelect = document.getElementById('sort-price');
+  const brandSelect = document.getElementById('brand-filter');
+  const colorSelect = document.getElementById('color-filter');
+  const styleSelect = document.getElementById('style-filter');
+
+  if (input) input.value = q;
+  if (categorySelect) categorySelect.value = category;
+  if (sortSelect) sortSelect.value = sort;
+  if (brandSelect) brandSelect.value = brand;
+  if (colorSelect) colorSelect.value = color;
+  if (styleSelect) styleSelect.value = style;
+
+  filterProducts();
   renderProducts('featured-container', products.slice(0, 4));
   attachSearchListeners();
   updateSearchSummary(products.length);
   renderSearchSuggestions('');
   syncWishlistButtons();
+
+  // Close suggestions when clicking outside
+  document.addEventListener('click', (e) => {
+    const suggestionsElement = document.getElementById('searchSuggestions');
+    const searchInput = document.getElementById('searchInput');
+    if (
+      suggestionsElement &&
+      e.target !== searchInput &&
+      !suggestionsElement.contains(e.target)
+    ) {
+      suggestionsElement.classList.remove('active');
+    }
+  });
 });
 
 // --- GLOBAL TOAST NOTIFICATION HANDLER ---
@@ -948,26 +1007,12 @@ function showToast(message, type = 'success') {
   if (type === 'info') icon = 'ℹ️';
 
   // Build Toast inner body to match your existing CSS layout (.toast-icon, .toast-msg, .toast-close, .toast-progress)
-  const iconDiv = document.createElement('div');
-  iconDiv.className = 'toast-icon';
-  iconDiv.textContent = icon;
-  
-  const msgDiv = document.createElement('div');
-  msgDiv.className = 'toast-msg';
-  msgDiv.textContent = message;
-  
-  const closeBtn = document.createElement('button');
-  closeBtn.className = 'toast-close';
-  closeBtn.innerHTML = '&times;';
-  closeBtn.onclick = function() { this.parentElement.remove(); };
-  
-  const progressDiv = document.createElement('div');
-  progressDiv.className = 'toast-progress';
-  
-  toast.appendChild(iconDiv);
-  toast.appendChild(msgDiv);
-  toast.appendChild(closeBtn);
-  toast.appendChild(progressDiv);
+  toast.innerHTML = `
+      <div class="toast-icon">${icon}</div>
+      <div class="toast-msg">${message}</div>
+      <button class="toast-close" onclick="this.parentElement.remove()">&times;</button>
+      <div class="toast-progress"></div>
+  `;
 
   container.appendChild(toast);
 
