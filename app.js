@@ -891,7 +891,7 @@ window.buyNow = function (productName, productPrice, productImage, quantity, siz
 
     document.addEventListener("click", function (e) {
         if (!e.target) return;
-        if (e.target.closest("#themeToggle") || e.target.closest("#themeToggleMobile")) {
+        if (e.target.closest("#themeToggleDesktop") || e.target.closest("#themeToggleMobile")) {
             e.preventDefault();
             toggleTheme();
         }
@@ -1500,7 +1500,8 @@ window.applySharedCart = function (action) {
         return;
     }
 
-    var localcart = window.cachedCartState || JSON.parse(localStorage.getItem("productsInCart")) || []; window.cachedCartState = cart;
+    var localCart = window.cachedCartState || JSON.parse(localStorage.getItem("productsInCart")) || [];
+    window.cachedCartState = localCart;
 
     if (action === "overwrite") {
         localCart = window.pendingSharedCart.slice();
@@ -1517,6 +1518,7 @@ window.applySharedCart = function (action) {
     }
 
     localStorage.setItem("productsInCart", JSON.stringify(localCart));
+    window.cachedCartState = localCart;
     window.closeShareModal();
     if (typeof loadCart        === "function") loadCart();
     if (typeof updateCartCount === "function") updateCartCount();

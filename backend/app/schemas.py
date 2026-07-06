@@ -1,3 +1,4 @@
+from datetime import datetime
 from pydantic import BaseModel, EmailStr, Field, field_validator
 from typing import Optional
 from enum import Enum
@@ -100,6 +101,31 @@ class Token(BaseModel):
     access_token: str
     token_type:   str
     user:         UserOut
+
+
+class OrderItemResponse(BaseModel):
+    product_name: str
+    quantity: int
+    price: float
+
+    class Config:
+        from_attributes = True
+
+
+class OrderResponse(BaseModel):
+    id: int
+    full_name: str
+    email: str
+    address: str
+    city: str
+    zip_code: str
+    total_amount: float
+    status: str
+    created_at: datetime
+    items: list[OrderItemResponse] = Field(default_factory=list)
+
+    class Config:
+        from_attributes = True
 
 class OrderItemCreate(BaseModel):
     product_name: str

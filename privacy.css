@@ -499,3 +499,27 @@ h2{
 .section:hover::before{
     width:100%;
 }
+#policy-layout{
+    display:flex;
+    align-items:flex-start;
+    gap:40px;
+    max-width:1200px;
+    margin:60px auto;
+    padding:0 20px;
+}
+
+#privacy-toc-sidebar{
+    position:sticky;
+    top:140px;
+    width:240px;
+    min-width:240px;
+    padding:20px;
+    background:rgba(8,129,120,.04);
+    border-left:3px solid #088178;
+    border-radius:8px;
+}
+
+#policy-page{
+    flex:1;
+    min-width:0;
+}
