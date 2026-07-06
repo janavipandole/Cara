@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
   <!-- Page Title -->
-  <title>Secure Checkout â€“ Cara</title>
+  <title>Secure Checkout – Cara</title>
 
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
@@ -48,7 +48,7 @@
     </div>
 
 
-  <!-- â•â• PAGE â•â• -->
+  <!-- PAGE -->
   <div class="page-wrapper">
 
     <!-- Back button -->
@@ -63,30 +63,6 @@
       <p>Fill all details to complete your order</p>
     </div>
 
-    <!-- Countdown Timer Banner -->
-    <div id="checkout-timer-banner" style="background: #fff3cd; color: #856404; padding: 12px; border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; border: 1px solid #ffeeba; font-weight: 500;">
-      <i class="ri-time-line" style="font-size: 20px;"></i>
-      <span>Items are reserved! Complete your purchase within <strong id="countdown-timer">10:00</strong> minutes.</span>
-    </div>
-    
-    <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const timerElement = document.getElementById("countdown-timer");
-      if (!timerElement) return;
-      let timeRemaining = 600;
-      const interval = setInterval(() => {
-        const minutes = Math.floor(timeRemaining / 60);
-        const seconds = timeRemaining % 60;
-        timerElement.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-        if (timeRemaining <= 0) {
-          clearInterval(interval);
-          alert("Reservation time expired. Please refresh the page to reserve items again.");
-          window.location.href = "cart.html";
-        }
-        timeRemaining--;
-      }, 1000);
-    });
-    </script>
     <form id="checkoutForm" novalidate>
 
       <div class="input-group">
@@ -215,11 +191,21 @@
           <legend class="card-title">
             <i class="ri-shopping-bag-3-line"></i> Order Summary
           </legend>
-          <div class="order-item">
-            <div class="item-thumb"><i class="ri-shirt-line"></i></div>
-            <div class="item-info">
-              <div class="item-name">Tropical Print Shirt</div>
-              <div class="item-meta">H&M Â· Size L Â· Qty 2</div>
+          
+          <div id="checkout-items-list" style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px;">
+            <!-- Dynamic items will render here -->
+          </div>
+
+          <!-- Gift Wrapping Option -->
+          <div class="gift-wrap-section" style="margin-top: 16px; border-top: 1px solid var(--border); padding-top: 16px;">
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 500; font-size: 14px;">
+              <input type="checkbox" id="gift-wrap-opt" style="width: auto; margin: 0;">
+              <span>Wrap this order as a gift (+₹99)</span>
+            </label>
+            <div id="gift-msg-wrap" style="display: none; margin-top: 10px;">
+              <label for="gift-message" style="font-size: 12px; margin-bottom: 4px; display: block;">Gift Message</label>
+              <textarea id="gift-message" placeholder="Enter your gift message..." style="width: 100%; padding: 8px; font-size: 13px; border: 1px solid var(--border); border-radius: 6px; height: 60px; resize: none;"></textarea>
+            </div>
           </div>
 
           <!-- Coupon Application Form -->
@@ -232,25 +218,42 @@
             <div id="couponFeedback" class="coupon-feedback" style="display: none; font-size: 0.78rem; margin-top: 6px; font-weight: 500;"></div>
           </div>
 
-          <div class="totals">
-            <div class="total-row">
+          <!-- Loyalty Points Section -->
+          <div class="loyalty-section" style="margin-top: 16px; border-top: 1px solid var(--border); padding-top: 16px;">
+            <label for="points-to-apply">Redeem Loyalty Points</label>
+            <p style="font-size: 0.85rem; margin: 4px 0 6px; color: var(--text-muted, #555);">
+              Your Balance: <strong id="loyalty-balance">150</strong> points
+            </p>
+            <div style="display: flex; gap: 8px;">
+              <input type="number" id="points-to-apply" min="0" placeholder="e.g. 50" autocomplete="off" style="padding: 8px 12px; flex: 1;">
+              <button type="button" class="back-btn" id="apply-points-btn" style="margin-bottom: 0; padding: 8px 16px; border-radius: 8px;">Apply</button>
+            </div>
+            <div id="loyalty-msg" style="font-size: 0.78rem; margin-top: 6px; font-weight: 500;"></div>
+            <p style="font-size: 0.75rem; margin-top: 8px; color: var(--text-muted, #555); display: flex; align-items: center; gap: 4px;">
+              <i class="ri-coins-line" style="color: #088178;"></i> You will earn <strong id="points-to-earn">0</strong> points from this order.
+            </p>
+          </div>
+
+          <div class="totals" style="margin-top: 20px; border-top: 1px solid var(--border); padding-top: 16px;">
+            <div class="total-row summary-row">
               <span>Subtotal</span>
-              <span>â‚¹4,097</span>
+              <span id="summary-subtotal">₹0.00</span>
             </div>
-            <div class="total-row free-ship">
+            <div class="total-row summary-row free-ship">
               <span>Shipping</span>
-              <span>Free</span>
+              <span id="summary-shipping">Free</span>
             </div>
-            <div class="total-row">
+            <div class="total-row summary-row">
               <span>Tax (5%)</span>
-              <span>â‚¹205</span>
+              <span id="summary-tax">₹0.00</span>
             </div>
-            <div class="total-row grand">
+            <hr class="summary-divider" style="border: 0; border-top: 1px solid var(--border); margin: 10px 0;">
+            <div class="total-row summary-row grand">
               <span>Total</span>
-              <span>â‚¹4,302</span>
+              <strong id="summary-total">₹0.00</strong>
             </div>
           </div>
-          <button type="submit" class="submit-btn">
+          <button type="submit" class="submit-btn" style="margin-top: 15px;">
             <i class="ri-shield-check-line"></i> Place Your Order
           </button>
           <div class="secure-badge">
@@ -262,7 +265,7 @@
     </form>
   </div><!-- /page-wrapper -->
 
-  <!-- â•â• SUCCESS POPUP â•â• -->
+  <!-- SUCCESS POPUP -->
   <div class="success-overlay" id="successPopup">
     <div class="popup-box">
       <div class="check-circle" aria-hidden="true"><i class="ri-check-line"></i></div>
@@ -273,9 +276,11 @@
   </div>
 
   <script src="checkout.js"></script>
+  <script src="js/coupon-validator.js" defer></script>
+  <script src="js/gift-options.js" defer></script>
   <script src="js/checkout-timer.js" defer></script>
+  <script src="js/loyalty.js" defer></script>
   <script src="js/checkout-autosave.js" defer></script>
   <script src="js/address-autocomplete.js" defer></script>
 </body>
 </html>
-

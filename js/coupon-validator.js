@@ -22,10 +22,9 @@
   };
 
   // ── DOM references ──────────────────────────────────────────────────────────
-  const couponInput   = document.getElementById('couponCodeInput');
-  const applyBtn      = document.getElementById('applyCouponBtn');
-  const feedbackEl    = document.getElementById('couponFeedback');
-  const summaryBlock  = document.querySelector('.totals');
+  const couponInput = document.getElementById('couponCodeInput');
+  const applyBtn = document.getElementById('applyCouponBtn');
+  const feedbackEl = document.getElementById('couponFeedback');
 
   // ── Apply coupon logic ─────────────────────────────────────────────────────
   function applyCoupon() {
@@ -38,18 +37,25 @@
       return;
     }
 
-    if (COUPONS.hasOwnProperty(code)) {
+    if (Object.prototype.hasOwnProperty.call(COUPONS, code)) {
       const discountPct = COUPONS[code];
       window.appliedCoupon = code;
       localStorage.setItem('appliedCoupon', code);
 
-      showFeedback(`Coupon "${code}" applied! You saved ${discountPct}%.`, 'success');
+      showFeedback(
+        `Coupon "${code}" applied! You saved ${discountPct}%.`,
+        'success'
+      );
       couponInput.classList.remove('is-invalid');
       couponInput.classList.add('is-valid');
 
       // Dispatch event to trigger summary re-render
-      window.dispatchEvent(new CustomEvent('couponApplied', { detail: { code, discountPct } }));
-      renderDiscountRow(code, discountPct);
+      window.dispatchEvent(
+        new CustomEvent('couponApplied', { detail: { code, discountPct } })
+      );
+      if (typeof window.updateCheckoutSummary === 'function') {
+        window.updateCheckoutSummary();
+      }
     } else {
       showFeedback('Invalid coupon code. Try CARA20 or WELCOME10.', 'error');
       couponInput.classList.remove('is-valid');
@@ -66,11 +72,15 @@
       couponInput.classList.remove('is-valid', 'is-invalid');
     }
     showFeedback('Coupon removed.', 'info');
-    const discountRow = document.getElementById('summaryDiscountRow');
-    if (discountRow) discountRow.remove();
 
     window.dispatchEvent(new CustomEvent('couponRemoved'));
+    if (typeof window.updateCheckoutSummary === 'function') {
+      window.updateCheckoutSummary();
+    }
   }
+
+  // Expose removeCoupon globally to allow integration with central calculation engine
+  window.removeCoupon = removeCoupon;
 
   // ── Show feedback message ──────────────────────────────────────────────────
   function showFeedback(msg, type) {
@@ -78,30 +88,6 @@
     feedbackEl.textContent = msg;
     feedbackEl.className = 'coupon-feedback ' + type;
     feedbackEl.style.display = 'block';
-  }
-
-  // ── Render discount line in totals ─────────────────────────────────────────
-  function renderDiscountRow(code, pct) {
-    if (!summaryBlock) return;
-    let row = document.getElementById('summaryDiscountRow');
-    if (!row) {
-      row = document.createElement('div');
-      row.className = 'total-row discount';
-      row.id = 'summaryDiscountRow';
-      // Insert right before the grand total row
-      const grandRow = summaryBlock.querySelector('.total-row.grand');
-      if (grandRow) {
-        summaryBlock.insertBefore(row, grandRow);
-      } else {
-        summaryBlock.appendChild(row);
-      }
-    }
-    row.innerHTML = `
-      <span>Discount (${code}) <button type="button" class="btn-remove-coupon" id="btnRemoveCoupon" aria-label="Remove coupon">×</button></span>
-      <span>-${pct}%</span>
-    `;
-
-    document.getElementById('btnRemoveCoupon').addEventListener('click', removeCoupon);
   }
 
   // ── Initialise ─────────────────────────────────────────────────────────────
