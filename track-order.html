@@ -1,7 +1,7 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
   <head>
-    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico" />
     <!-- Character Encoding -->
     <meta charset="UTF-8" />
 
@@ -30,20 +30,38 @@
     <meta http-equiv="Content-Language" content="en" />
 
     <!-- Open Graph Tags -->
-    <meta property="og:title" content="Track My Order | Cara â€” Modern E-Commerce" />
+    <meta
+      property="og:title"
+      content="Track My Order | Cara â€” Modern E-Commerce"
+    />
     <meta
       property="og:description"
       content="Track your Cara order in real-time. Enter your order ID and email to get live shipping status and delivery updates."
     />
-    <meta property="og:image" content="https://cara-seven-ashen.vercel.app/images/logo.png" />
-    <meta property="og:url" content="https://cara-seven-ashen.vercel.app/track-order" />
+    <meta
+      property="og:image"
+      content="https://cara-seven-ashen.vercel.app/images/logo.png"
+    />
+    <meta
+      property="og:url"
+      content="https://cara-seven-ashen.vercel.app/track-order"
+    />
     <meta property="og:type" content="website" />
 
     <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Track My Order | Cara â€” Modern E-Commerce" />
-    <meta name="twitter:description" content="Track your Cara order in real-time." />
-    <meta name="twitter:image" content="https://cara-seven-ashen.vercel.app/images/logo.png" />
+    <meta
+      name="twitter:title"
+      content="Track My Order | Cara â€” Modern E-Commerce"
+    />
+    <meta
+      name="twitter:description"
+      content="Track your Cara order in real-time."
+    />
+    <meta
+      name="twitter:image"
+      content="https://cara-seven-ashen.vercel.app/images/logo.png"
+    />
     <meta name="twitter:site" content="@janavipandole" />
 
     <!-- Theme Color -->
@@ -51,7 +69,7 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="ui-fix.css" />
+    <link rel="stylesheet" href="ui-fix.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
       rel="stylesheet"
@@ -63,102 +81,107 @@
       referrerpolicy="no-referrer"
     />
     <link rel="stylesheet" href="track-order.css" />
-    <link rel="manifest" href="/manifest.json">
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js');
-      });
-    }
-  </script>
-</head>
+    <link rel="manifest" href="/manifest.json" />
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/service-worker.js');
+        });
+      }
+    </script>
+  </head>
 
   <body>
     <!-- Header -->
     <section id="header">
-  <!-- Logo -->
-  <a href="index.html">
-    <img id="siteLogo" src="images/logo.png" alt="Cara Logo" width="130" height="40" />
-  </a>
-      <!-- Main Navigation Links -->
-      <li><a class="active" href="index.html">Home</a></li>
-      <li><a href="shop.html">Shop</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="try-on.html">Try-On</a></li>
-      <li><a href="community.html">Community</a></li>
-      <li><a href="promotions.html">Promotions</a></li>
+      <!-- Logo -->
+      <a href="index.html">
+        <img
+          id="siteLogo"
+          src="images/logo.png"
+          alt="Cara Logo"
+          width="130"
+          height="40"
+        />
+      </a>
+      <div>
+        <ul id="navbar">
+          <!-- Main Navigation Links -->
+          <li><a class="active" href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="try-on.html">Try-On</a></li>
+          <li><a href="community.html">Community</a></li>
+          <li><a href="promotions.html">Promotions</a></li>
 
-      <!-- Contact Icon -->
-      <li class="nav-icon">
-        <a href="contact.html" aria-label="Contact">
-          <i class="ri-customer-service-2-line"></i>
-        </a>
-      </li>
+          <!-- Contact Icon -->
+          <li class="nav-icon">
+            <a href="contact.html" aria-label="Contact">
+              <i class="ri-customer-service-2-line"></i>
+            </a>
+          </li>
 
-      <!-- Login Icon -->
-      <li class="nav-icon">
+          <!-- Login Icon -->
+          <li class="nav-icon">
+            <a href="login.html" aria-label="Login">
+              <i class="ri-user-3-line"></i>
+            </a>
+          </li>
+
+          <!-- Cart Icon -->
+          <li class="nav-icon">
+            <a href="cart.html" id="lg-bag" aria-label="Cart">
+              <i class="ri-shopping-bag-4-line"></i>
+            </a>
+          </li>
+
+          <!-- Theme Toggle -->
+          <li class="nav-icon">
+            <button
+              class="theme-toggle"
+              id="themeToggleDesktop"
+              aria-label="Toggle dark mode"
+            >
+              <i class="ri-moon-line" id="themeIcon"></i>
+            </button>
+          </li>
+
+          <!-- Close Button -->
+          <a
+            href="javascript:void(0)"
+            id="close"
+            aria-label="Close menu"
+            aria-hidden="false"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </a>
+        </ul>
+      </div>
+
+      <!-- Mobile Navbar -->
+      <div class="mobile">
+        <!-- Login Icon -->
         <a href="login.html" aria-label="Login">
           <i class="ri-user-3-line"></i>
         </a>
-      </li>
 
-      <!-- Cart Icon -->
-      <li class="nav-icon">
-        <a href="cart.html" id="lg-bag" aria-label="Cart">
+        <!-- Cart Icon -->
+        <a href="cart.html" aria-label="Cart">
           <i class="ri-shopping-bag-4-line"></i>
         </a>
-      </li>
 
-      <!-- Theme Toggle -->
-      <li class="nav-icon">
-        <button
-          class="theme-toggle"
-          id="themeToggleDesktop"
-          aria-label="Toggle dark mode"
-        >
-          <i class="ri-moon-line" id="themeIcon"></i>
-        </button>
-      </li>
-
-      <!-- Close Button -->
-      <a
-        href="javascript:void(0)"
-        id="close"
-        aria-label="Close menu"
-        aria-hidden="false"
-      >
-        <i class="fa-solid fa-xmark"></i>
-      </a>
-
-    </ul>
-  </div>
-
-  <!-- Mobile Navbar -->
-  <div class="mobile">
-
-    <!-- Login Icon -->
-    <a href="login.html" aria-label="Login">
-      <i class="ri-user-3-line"></i>
-    </a>
-
-    <!-- Cart Icon -->
-    <a href="cart.html" aria-label="Cart">
-      <i class="ri-shopping-bag-4-line"></i>
-    </a>
-
-    <!-- Hamburger Menu -->
-    <i
-      class="fas fa-outdent"
-      id="bar"
-      role="button"
-      aria-label="Open menu"
-      aria-expanded="false"
-      tabindex="0"
-    ></i>
-
-  </div>
-</section>
+        <!-- Hamburger Menu -->
+        <i
+          class="fas fa-outdent"
+          id="bar"
+          role="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+          tabindex="0"
+        ></i>
+      </div>
+    </section>
 
     <!-- Page Hero -->
     <section id="about-head">
@@ -171,7 +194,6 @@
 
     <!-- Main Track Order Section -->
     <section id="track-order-section">
-
       <!-- Lookup Form Card -->
       <div class="track-form-card">
         <div class="track-form-header">
@@ -182,9 +204,7 @@
 
         <form class="track-form" id="trackOrderForm" novalidate>
           <div class="form-group">
-            <label for="orderId">
-              <i class="ri-hashtag"></i> Order ID
-            </label>
+            <label for="orderId"> <i class="ri-hashtag"></i> Order ID </label>
             <input
               type="text"
               id="orderId"
@@ -207,7 +227,9 @@
               placeholder="youremail@example.com"
               required
             />
-            <span class="field-hint">The email you used when placing the order</span>
+            <span class="field-hint"
+              >The email you used when placing the order</span
+            >
           </div>
 
           <button type="submit" class="track-btn" id="trackBtn">
@@ -220,13 +242,71 @@
         <!-- Demo hint -->
         <div class="demo-hint">
           <i class="ri-information-line"></i>
-          <span>Demo: Use Order ID <strong>CARA-20261234</strong> with any email to see a sample result.</span>
+          <span
+            >Demo: Use Order ID <strong>CARA-20261234</strong> with any email to
+            see a sample result.</span
+          >
+        </div>
+
+        <!-- Toggle button for mock order creator -->
+        <button id="toggleCreatorBtn" class="creator-toggle-btn" type="button">
+          <i class="ri-add-circle-line"></i> Create Custom Mock Order
+        </button>
+
+        <!-- Custom Mock Order Creator Form -->
+        <div
+          id="mockCreatorFormContainer"
+          class="mock-creator-form-container hidden"
+        >
+          <form id="createMockForm">
+            <div class="form-group">
+              <label for="mockOrderId">Mock Order ID</label>
+              <input
+                type="text"
+                id="mockOrderId"
+                placeholder="e.g. CARA-55556666"
+                required
+                pattern="^CARA-\d+$"
+              />
+            </div>
+            <div class="form-group">
+              <label for="mockEmail">Customer Email</label>
+              <input
+                type="email"
+                id="mockEmail"
+                placeholder="youremail@example.com"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="mockCarrier">Shipping Carrier / Speed</label>
+              <select id="mockCarrier">
+                <option value="Standard Shipping">
+                  Standard Shipping (+5 days)
+                </option>
+                <option value="FedEx Express">FedEx Express (+2 days)</option>
+                <option value="Next Day Air">Next Day Air (+1 day)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="mockStatus">Current Status</label>
+              <select id="mockStatus">
+                <option value="Processing">Placed / Processing</option>
+                <option value="Packed">Packed</option>
+                <option value="Shipped">Shipped</option>
+                <option value="In Transit">In Transit</option>
+                <option value="Delivered">Delivered</option>
+              </select>
+            </div>
+            <button type="submit" class="btn-create-mock">
+              Save &amp; Track This Order
+            </button>
+          </form>
         </div>
       </div>
 
       <!-- Order Result Card (hidden by default) -->
       <div class="track-result-card" id="trackResult" aria-live="polite">
-
         <!-- Order Header -->
         <div class="result-header">
           <div class="order-meta">
@@ -274,9 +354,20 @@
         <!-- Progress Timeline -->
         <div class="timeline-section">
           <h3>Shipment Progress</h3>
-          <div class="timeline" id="timeline" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="80" aria-valuetext="In Transit">
-
-            <div class="timeline-step completed" id="step-ordered" aria-label="Step 1: Order Placed (Completed)">
+          <div
+            class="timeline"
+            id="timeline"
+            role="progressbar"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="80"
+            aria-valuetext="In Transit"
+          >
+            <div
+              class="timeline-step completed"
+              id="step-ordered"
+              aria-label="Step 1: Order Placed (Completed)"
+            >
               <div class="step-icon">
                 <i class="ri-shopping-bag-check-line"></i>
               </div>
@@ -287,7 +378,11 @@
               </div>
             </div>
 
-            <div class="timeline-step completed" id="step-packed" aria-label="Step 2: Order Packed (Completed)">
+            <div
+              class="timeline-step completed"
+              id="step-packed"
+              aria-label="Step 2: Order Packed (Completed)"
+            >
               <div class="step-icon">
                 <i class="ri-archive-2-line"></i>
               </div>
@@ -298,7 +393,11 @@
               </div>
             </div>
 
-            <div class="timeline-step completed" id="step-shipped" aria-label="Step 3: Shipped (Completed)">
+            <div
+              class="timeline-step completed"
+              id="step-shipped"
+              aria-label="Step 3: Shipped (Completed)"
+            >
               <div class="step-icon">
                 <i class="ri-send-plane-line"></i>
               </div>
@@ -309,7 +408,12 @@
               </div>
             </div>
 
-            <div class="timeline-step active" id="step-transit" aria-current="step" aria-label="Step 4: In Transit (Current Step)">
+            <div
+              class="timeline-step active"
+              id="step-transit"
+              aria-current="step"
+              aria-label="Step 4: In Transit (Current Step)"
+            >
               <div class="step-icon">
                 <i class="ri-truck-line"></i>
               </div>
@@ -320,7 +424,11 @@
               </div>
             </div>
 
-            <div class="timeline-step" id="step-delivered" aria-label="Step 5: Delivered (Pending)">
+            <div
+              class="timeline-step"
+              id="step-delivered"
+              aria-label="Step 5: Delivered (Pending)"
+            >
               <div class="step-icon">
                 <i class="ri-home-check-line"></i>
               </div>
@@ -330,7 +438,6 @@
                 <time>Expected: May 20, 2026</time>
               </div>
             </div>
-
           </div>
         </div>
 
@@ -339,7 +446,10 @@
           <h3>Items in This Order</h3>
           <div class="order-items-list" id="orderItemsList">
             <div class="order-item">
-              <img src="images/products/f1.jpg" alt="Cartoon Astronaut T-Shirt" />
+              <img
+                src="images/products/f1.jpg"
+                alt="Cartoon Astronaut T-Shirt"
+              />
               <div class="item-info">
                 <h4>Cartoon Astronaut T-Shirt</h4>
                 <span>Size: M &nbsp;|&nbsp; Qty: 1</span>
@@ -377,21 +487,19 @@
         <i class="ri-error-warning-line"></i>
         <h3>Order Not Found</h3>
         <p>
-          We couldn't find an order matching that ID and email. Please double-check your
-          confirmation email and try again.
+          We couldn't find an order matching that ID and email. Please
+          double-check your confirmation email and try again.
         </p>
         <button class="action-btn secondary" onclick="resetTracker()">
           <i class="ri-arrow-left-line"></i> Try Again
         </button>
       </div>
-
     </section>
 
     <!-- FAQ Section -->
     <section id="track-faq" class="section-p1">
       <h2>Frequently Asked Questions</h2>
       <div class="faq-grid">
-
         <div class="faq-item">
           <div class="faq-question" onclick="toggleFaq(this)">
             <span>Where is my Order ID?</span>
@@ -439,14 +547,20 @@
             delivery date and we will investigate immediately.
           </div>
         </div>
-
       </div>
     </section>
 
     <footer class="section-p1">
       <!-- Contact Column -->
       <div class="col">
-        <img class="logo" src="images/logo.png" alt="Cara Logo" width="130" height="40" loading="lazy" />
+        <img
+          class="logo"
+          src="images/logo.png"
+          alt="Cara Logo"
+          width="130"
+          height="40"
+          loading="lazy"
+        />
         <h4>Contact</h4>
         <p>
           <strong>Address:</strong> 562 Wellington Road, Street 32, San
@@ -458,16 +572,33 @@
         <div class="follow">
           <h4>Follow us</h4>
           <div class="icon">
-            <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://x.com/JanaviPandole"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <i class="fa-brands fa-x-twitter"></i>
             </a>
-            <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
+            <a
+              title="GitHub"
+              href="https://github.com/janavipandole"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <i class="fab fa-github"></i>
             </a>
-            <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://www.linkedin.com/in/janavi-pandole-80a7b2290"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <i class="fab fa-linkedin"></i>
             </a>
-            <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://www.youtube.com/@JanaviPandole"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <i class="fab fa-youtube"></i>
             </a>
           </div>
@@ -478,7 +609,7 @@
       <div class="col">
         <h4>About</h4>
         <a href="about.html">About Us</a>
-       <a href="delivery.html">Delivery Information</a>
+        <a href="delivery.html">Delivery Information</a>
         <a href="privacy.html">Privacy Policy</a>
         <a href="terms.html">Terms and Conditions</a>
         <a href="contact.html">Contact Us</a>
@@ -514,26 +645,63 @@
         <p>From App Store or Google Play</p>
 
         <div class="row">
-          <img src="images/pay/app.jpg" alt="Download from App Store" width="180" height="54" loading="lazy" />
-          <img src="images/pay/play.jpg" alt="Get it on Google Play" width="180" height="54" loading="lazy" />
+          <img
+            src="images/pay/app.jpg"
+            alt="Download from App Store"
+            width="180"
+            height="54"
+            loading="lazy"
+          />
+          <img
+            src="images/pay/play.jpg"
+            alt="Get it on Google Play"
+            width="180"
+            height="54"
+            loading="lazy"
+          />
         </div>
 
         <p>Secured Payment Gateways</p>
 
         <div class="payment-icons">
-          <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer" aria-label="Visa">
+          <a
+            href="https://www.visa.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visa"
+          >
             <i class="fab fa-cc-visa"></i>
           </a>
-          <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer" aria-label="Mastercard">
+          <a
+            href="https://www.mastercard.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Mastercard"
+          >
             <i class="fab fa-cc-mastercard"></i>
           </a>
-          <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" aria-label="PayPal">
+          <a
+            href="https://www.paypal.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="PayPal"
+          >
             <i class="fab fa-cc-paypal"></i>
           </a>
-          <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer" aria-label="American Express">
+          <a
+            href="https://www.americanexpress.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="American Express"
+          >
             <i class="fab fa-cc-amex"></i>
           </a>
-          <a href="https://stripe.com" target="_blank" rel="noopener noreferrer" aria-label="Stripe">
+          <a
+            href="https://stripe.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Stripe"
+          >
             <i class="fab fa-cc-stripe"></i>
           </a>
         </div>
@@ -552,32 +720,63 @@
     <script src="app.js"></script>
     <script src="track-order.js"></script>
     <!-- Cancel Order Support -->
-    <div id="cancel-simulation-box" style="max-width: 600px; margin: 20px auto; padding: 20px; border: 1px dashed #f87171; border-radius: 8px; text-align: center; display: none;">
-      <h3 style="color: #ef4444; margin-bottom: 10px;">Cancel Order Request</h3>
-      <p style="margin-bottom: 15px;">Your order is currently processing. You can cancel this order before shipping.</p>
-      <button onclick="simulateCancellation()" style="background: #ef4444; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-weight: 600;">
+    <div
+      id="cancel-simulation-box"
+      style="
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px dashed #f87171;
+        border-radius: 8px;
+        text-align: center;
+        display: none;
+      "
+    >
+      <h3 style="color: #ef4444; margin-bottom: 10px">Cancel Order Request</h3>
+      <p style="margin-bottom: 15px">
+        Your order is currently processing. You can cancel this order before
+        shipping.
+      </p>
+      <button
+        onclick="simulateCancellation()"
+        style="
+          background: #ef4444;
+          color: white;
+          border: none;
+          padding: 8px 16px;
+          border-radius: 4px;
+          cursor: pointer;
+          font-weight: 600;
+        "
+      >
         Cancel Order Now
       </button>
     </div>
-    
+
     <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      // Check status from tracking layout
-      setTimeout(() => {
-        const statusEl = document.querySelector(".status-text");
-        if (statusEl && statusEl.textContent.toLowerCase().includes("processing")) {
-          document.getElementById("cancel-simulation-box").style.display = "block";
+      document.addEventListener('DOMContentLoaded', () => {
+        // Check status from tracking layout
+        setTimeout(() => {
+          const statusEl = document.querySelector('.status-text');
+          if (
+            statusEl &&
+            statusEl.textContent.toLowerCase().includes('processing')
+          ) {
+            document.getElementById('cancel-simulation-box').style.display =
+              'block';
+          }
+        }, 1000);
+      });
+
+      function simulateCancellation() {
+        if (confirm('Are you sure you want to cancel this order?')) {
+          alert(
+            'Cancellation request sent successfully. Your refund will be processed.'
+          );
+          document.getElementById('cancel-simulation-box').innerHTML =
+            '<h3>Order Cancelled</h3><p>This order has been cancelled.</p>';
         }
-      }, 1000);
-    });
-    
-    function simulateCancellation() {
-      if (confirm("Are you sure you want to cancel this order?")) {
-        alert("Cancellation request sent successfully. Your refund will be processed.");
-        document.getElementById("cancel-simulation-box").innerHTML = "<h3>Order Cancelled</h3><p>This order has been cancelled.</p>";
       }
-    }
     </script>
   </body>
 </html>
-
