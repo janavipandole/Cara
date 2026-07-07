@@ -48,6 +48,16 @@ class User(Base):
     role            = Column(String, default="USER", nullable=False) 
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime,  default=lambda: datetime.now(timezone.utc))
+    full_name = Column(String, nullable=True)
+    phone = Column(String, nullable=True)
+    avatar_url = Column(String, nullable=True)
+    address_line1 = Column(String, nullable=True)
+    address_line2 = Column(String, nullable=True)
+    city = Column(String, nullable=True)
+    state = Column(String, nullable=True)
+    zip_code = Column(String, nullable=True)
+    country = Column(String, nullable=True)
+    updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 
 class Order(Base):
     __tablename__ = "orders"

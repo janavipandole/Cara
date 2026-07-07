@@ -39,6 +39,31 @@ class InteractionType(str, Enum):
     cart     = "cart"
     buy      = "buy"
 
+class UserProfileUpdate(BaseModel):
+    full_name: Optional[str] = None
+    phone: Optional[str] = None
+    avatar_url: Optional[str] = None
+    address_line1: Optional[str] = None
+    address_line2: Optional[str] = None
+    city: Optional[str] = None
+    state: Optional[str] = None
+    zip_code: Optional[str] = None
+    country: Optional[str] = None
+
+
+class UserProfileResponse(UserOut):
+    full_name: Optional[str] = None
+    phone: Optional[str] = None
+    avatar_url: Optional[str] = None
+    address_line1: Optional[str] = None
+    address_line2: Optional[str] = None
+    city: Optional[str] = None
+    state: Optional[str] = None
+    zip_code: Optional[str] = None
+    country: Optional[str] = None
+    updated_at: Optional[datetime] = None
+
+
 class InteractionCreate(BaseModel):
     user_id: str
     product_id: int
@@ -188,4 +213,24 @@ class CategorySummaryResponse(BaseModel):
     colors: list[str]
     styles: list[str]
     price_range: PriceRange
+
+
+class AdminSummaryResponse(BaseModel):
+    """Lifetime dashboard indicators returned by GET /api/admin/analytics/summary."""
+    total_revenue: float
+    total_orders: int
+    total_customers: int
+
+
+class CategorySalesOut(BaseModel):
+    """Sales aggregation by category returned by GET /api/admin/analytics/category-sales."""
+    category: str
+    units_sold: int
+    revenue: float
+
+
+class StatusDistributionOut(BaseModel):
+    """Order volume distribution across statuses returned by GET /api/admin/analytics/order-status-distribution."""
+    status: str
+    count: int
 
