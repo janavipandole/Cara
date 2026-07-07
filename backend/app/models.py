@@ -3,6 +3,14 @@ from sqlalchemy.orm import relationship
 from .database import Base
 from datetime import datetime, timezone
 
+class NewsletterSubscriber(Base):
+    __tablename__ = "newsletter_subscribers"
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String, unique=True, index=True, nullable=False)
+    subscribed_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    is_active = Column(Boolean, default=True)
+
+
 class Product(Base):
     __tablename__ = "products"
 
