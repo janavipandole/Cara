@@ -24,7 +24,7 @@
 </head>
 <body>
 
-  <section id="header">
+  <section id="header" role="banner">
     <!-- Logo -->
     <a href="index.html" aria-label="Home">
       <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
@@ -73,12 +73,13 @@
               placeholder="Enter your email address"
               autocomplete="email"
               required
+              aria-required="true"
+              aria-describedby="emailError"
+              aria-invalid="false"
             />
-            <!-- Inline error shown by JS when email is wrong -->
-            <span class="error-message" id="emailError"></span>
+            <span class="error-message" id="emailError" role="alert"></span>
           </div>
 
-          <!-- Password field -->
           <div class="input-group">
             <label for="loginPassword">Password</label>
             <div class="password-wrapper">
@@ -87,17 +88,18 @@
                 id="loginPassword"
                 name="password"
                 class="input-field"
-                placeholder="••••••••"
+                placeholder="Enter your password"
                 autocomplete="current-password"
                 required
                 aria-required="true"
+                aria-describedby="passwordError"
+                aria-invalid="false"
               />
               <button type="button" id="togglePassword" class="toggle_password" aria-label="Show password">
                 <i class="ri-eye-line" id="toggleIcon" aria-hidden="true"></i>
               </button>
             </div>
-            <!-- Inline error for wrong password -->
-            <span class="error-message" id="passwordError"></span>
+            <span class="error-message" id="passwordError" role="alert"></span>
           </div>
 
           <!-- Remember me + Forgot password row -->
