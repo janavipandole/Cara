@@ -74,15 +74,30 @@ document.addEventListener('DOMContentLoaded', function () {
     captchaRefresh.addEventListener('click', fetchCaptcha);
   }
 
+  function setValidity(input, isValid, message) {
+    if (!input) return;
+    input.setAttribute('aria-invalid', String(!isValid));
+    var errorEl = document.getElementById(input.id + 'Error') ||
+      input.parentElement.querySelector('.error-message');
+    if (errorEl) {
+      errorEl.textContent = isValid ? '' : message;
+    }
+  }
+
   if (!form) return;
 
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
 
-    const email = emailInput ? emailInput.value.trim() : '';
-    const password = passwordInput ? passwordInput.value : '';
+    var email = emailInput ? emailInput.value.trim() : '';
+    var password = passwordInput ? passwordInput.value : '';
+
+    setValidity(emailInput, true, '');
+    setValidity(passwordInput, true, '');
 
     if (!email || !password) {
+      if (!email) setValidity(emailInput, false, 'Email is required.');
+      if (!password) setValidity(passwordInput, false, 'Password is required.');
       showToast('Please fill all fields.', 'warning');
       return;
     }
@@ -142,6 +157,8 @@ document.addEventListener('DOMContentLoaded', function () {
       }, 1000);
 
     } catch (err) {
+      setValidity(emailInput, false, '');
+      setValidity(passwordInput, false, '');
       showToast(err.message, 'error');
       loginAttempts++;
       if (captchaSection && loginAttempts >= 1) {

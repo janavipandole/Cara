@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
   <head>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
@@ -59,14 +59,14 @@
 
   <body>
     <!-- HEADER -->
-    <section id="header">
+    <section id="header" role="banner">
 
       <!-- logo-->
       <a href="index.html"><img src="images/logo.png" alt="Cara Logo" /></a>
 
       <!-- Navigation -->
       <div>
-        <ul id="navbar">
+        <ul id="navbar" role="navigation" aria-label="Main navigation">
           <li><a href="index.html">Home</a></li>
           <li><a class="active" href="shop.html">Shop</a></li>
           <li><a href="blog.html">Blog</a></li>
@@ -112,7 +112,7 @@
  <section id="search-filter" class="section-p1">
 
   <!-- SEARCH -->
-  <div class="search-container">
+  <div class="search-container" role="search">
     <div id="recent-searches-box" style="margin-top: 10px; font-size: 14px; display: none;">
       <span>Recent Searches: </span>
       <span id="recent-searches-list"></span>
@@ -220,7 +220,7 @@
   </div>
 
 </section>
-    <section id="product1" class="section-p1">
+    <section id="product1" class="section-p1" role="region" aria-label="Products">
       <div class="sort-container" aria-label="Sort products list">
         <label class="sort-label" for="sort-price"><i class="ri-sorting-asc"></i> Sort by</label>
         <div class="sort-select-wrap">
@@ -258,8 +258,8 @@
     <button id="backToTop" title="Back to Top" aria-label="Back to top">â¬†</button>
     <button id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">â¬‡</button>
 
-    <!-- <footer class="section-p1">
-    <section id="product1" class="section-p1">
+    <!-- <footer class="section-p1" role="contentinfo">
+    <section id="product1" class="section-p1" role="region" aria-label="Products">
       <div class="sort-container" aria-label="Sort products list">
         <label class="sort-label" for="sort-price"><i class="ri-sorting-asc"></i> Sort by</label>
         <div class="sort-select-wrap">
@@ -291,7 +291,7 @@
     <button id="backToTop" title="Back to Top" aria-label="Back to top">â¬†</button>
     <button id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">â¬‡</button> -->
 
-    <footer class="section-p1">
+    <footer class="section-p1" role="contentinfo">
     <!-- Contact Column -->
     <div class="col">
       <img class="logo" src="images/logo.png" alt="Cara Logo">
@@ -365,7 +365,7 @@
         <span>special offers.</span>
       </p>
 
-      <form class="newsletter-form">
+      <form class="newsletter-form" role="form" aria-label="Newsletter subscription">
         <input type="email" placeholder="Your email address" aria-label="Email address for newsletter" required="">
         <button type="submit" class="normal" aria-label="Sign up for newsletter">Sign Up</button>
       </form>
