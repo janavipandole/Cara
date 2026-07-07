@@ -24,12 +24,12 @@
 </head>
 <body>
 
-<section id="header">
+<section id="header" role="banner">
     <a href="index.html">
         <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
     </a>
     <div>
-        <ul id="navbar">
+        <ul id="navbar" role="navigation" aria-label="Main navigation">
           <li><a href="index.html">Home</a></li>
           <li><a href="shop.html">Shop</a></li>
           <li><a href="blog.html">Blog</a></li>
@@ -229,7 +229,7 @@
         <div class="footer-col newsletter-footer">
           <h4>NEWSLETTER</h4>
           <p>Get email updates about our latest shop and <span>special offers.</span></p>
-          <form class="newsletter-form">
+          <form class="newsletter-form" role="form" aria-label="Newsletter subscription">
             <input type="email" placeholder="Your email address" required />
             <button type="submit" style="background-color:#088178;color:white;border:none;padding:10px 20px;cursor:pointer;">Sign Up</button>
           </form>
