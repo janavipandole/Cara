@@ -91,11 +91,13 @@
                 placeholder="Enter your full name"
                 required
                 autocomplete="name"
+                aria-required="true"
+                aria-describedby="nameError"
+                aria-invalid="false"
               />
-              <span class="error-message" id="nameError"></span>
+              <span class="error-message" id="nameError" role="alert"></span>
             </div>
 
-            <!-- Email -->
             <div class="form-group">
               <label for="registerEmail">Email <span class="required">*</span></label>
               <input
@@ -105,11 +107,13 @@
                 placeholder="Enter your email"
                 required
                 autocomplete="email"
+                aria-required="true"
+                aria-describedby="emailErrorReg"
+                aria-invalid="false"
               />
-              <span class="error-message" id="emailError"></span>
+              <span class="error-message" id="emailErrorReg" role="alert"></span>
             </div>
 
-            <!-- Password -->
             <div class="form-group">
               <label for="registerPassword">Password <span class="required">*</span></label>
               <div class="password-wrapper">
@@ -120,16 +124,18 @@
                   placeholder="Enter your password"
                   required
                   autocomplete="new-password"
+                  aria-required="true"
+                  aria-describedby="passwordHelp passwordErrorReg"
+                  aria-invalid="false"
                 />
                 <button type="button" id="togglePassword" class="toggle-eye" aria-label="Toggle password visibility">
                   <i class="ri-eye-line" id="registerToggleIcon"></i>
                 </button>
               </div>
-              <small>Use at least 8 characters with a number.</small>
-              <span class="error-message" id="passwordError"></span>
+              <small id="passwordHelp">Use at least 8 characters with a number and a special character.</small>
+              <span class="error-message" id="passwordErrorReg" role="alert"></span>
             </div>
 
-            <!-- Confirm Password -->
             <div class="form-group">
               <label for="confirmPassword">Confirm Password <span class="required">*</span></label>
               <div class="password-wrapper">
@@ -140,13 +146,16 @@
                   placeholder="Confirm your password"
                   required
                   autocomplete="new-password"
+                  aria-required="true"
+                  aria-describedby="confirmHint confirmError"
+                  aria-invalid="false"
                 />
                 <button type="button" id="confirmTogglePassword" class="toggle-eye" aria-label="Toggle confirm password visibility">
                   <i class="ri-eye-line" id="confirmToggleIcon"></i>
                 </button>
               </div>
               <small id="confirmHint"></small>
-              <span class="error-message" id="confirmError"></span>
+              <span class="error-message" id="confirmError" role="alert"></span>
             </div>
 
             <!-- Shopping Preferences -->
