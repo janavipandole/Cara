@@ -1,7 +1,0 @@
-﻿Closes #1419
-
-## Changes
-- about.css: Added milestone animation classes with staggered slide-in (left/right), dot-pulse keyframes, and prefers-reduced-motion support
-- about.html: Added .milestone-item, .milestone-left, .milestone-right, .milestone-dot class hooks to existing timeline structure
-- about.html: Added IntersectionObserver-based viewport entry detection with 0.25 threshold
-- Milestones fade + slide in from alternating sides when scrolled into view, dot markers pulse on reveal

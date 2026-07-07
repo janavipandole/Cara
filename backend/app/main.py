@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from . import models
 from .database import engine
 from .api import auth
 from .limiter import limiter
@@ -51,9 +50,10 @@ def root():
     return {"message": "Cara AI Outfit Recommendation API is running."}
 
 # Include routers here later
-from .api import recommendation, products, auth, orders, address
+from .api import recommendation, products, auth, orders, address, profile
 app.include_router(recommendation.router, prefix="/api/outfit", tags=["outfit"])
 app.include_router(products.router, prefix="/api/products", tags=["products"])
 app.include_router(auth.router,prefix="/api/auth",tags=["auth"])
 app.include_router(orders.router, prefix="/api/orders", tags=["orders"])
 app.include_router(address.router, prefix="/api/address", tags=["address"])
+app.include_router(profile.router, prefix="/api/profile", tags=["profile"])

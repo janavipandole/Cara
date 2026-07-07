@@ -1268,6 +1268,9 @@ document.addEventListener("DOMContentLoaded", () => {
 function initHeroSlider() {
     const slider = document.querySelector(".hero-slider");
     if (!slider) return;
+    // prevent double initialization when navigating or hot-reloading
+    if (slider.dataset.heroInit === 'true') return;
+    slider.dataset.heroInit = 'true';
 
     const slides  = slider.querySelectorAll(".slide");
     const prevBtn = slider.querySelector(".slider-btn.prev");
@@ -1276,15 +1279,21 @@ function initHeroSlider() {
 
     if (slides.length === 0) return;
 
-    let currentSlide    = 0;
+    // start from any slide already marked active in markup
+    let currentSlide = Array.from(slides).findIndex(s => s.classList.contains('active'));
+    if (currentSlide < 0) currentSlide = 0;
+
     let autoPlayInterval;
     const intervalTime  = 5000;
 
     function updateSlider() {
         slides.forEach(s => s.classList.remove("active"));
         dots.forEach(d   => d.classList.remove("active"));
+        // clamp index
+        currentSlide = ((currentSlide % slides.length) + slides.length) % slides.length;
         slides[currentSlide].classList.add("active");
         if (dots[currentSlide]) dots[currentSlide].classList.add("active");
+        console.debug('hero-slider: show slide', currentSlide);
     }
 
     function nextSlide() { currentSlide = (currentSlide + 1) % slides.length; updateSlider(); }
@@ -1299,6 +1308,10 @@ function initHeroSlider() {
     });
 
     resetAutoPlay();
+
+    console.debug('hero-slider: initialized', { slideCount: slides.length, startIndex: currentSlide });
+    // cleanup on page unload
+    window.addEventListener('beforeunload', () => clearInterval(autoPlayInterval));
 }
 
 if (document.readyState === "loading") {
@@ -1487,7 +1500,8 @@ window.applySharedCart = function (action) {
         return;
     }
 
-    var localcart = window.cachedCartState || JSON.parse(localStorage.getItem("productsInCart")) || []; window.cachedCartState = cart;
+    var localCart = window.cachedCartState || JSON.parse(localStorage.getItem("productsInCart")) || [];
+    window.cachedCartState = localCart;
 
     if (action === "overwrite") {
         localCart = window.pendingSharedCart.slice();
@@ -1504,6 +1518,7 @@ window.applySharedCart = function (action) {
     }
 
     localStorage.setItem("productsInCart", JSON.stringify(localCart));
+    window.cachedCartState = localCart;
     window.closeShareModal();
     if (typeof loadCart        === "function") loadCart();
     if (typeof updateCartCount === "function") updateCartCount();

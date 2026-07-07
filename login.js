@@ -1,4 +1,6 @@
 /* global fetchWithTimeout */
+const API_BASE_URL = window.CARA_API_BASE_URL || 'http://127.0.0.1:8000';
+
 document.addEventListener('DOMContentLoaded', function () {
   const form = document.getElementById('loginForm');
   const passwordInput = document.getElementById('loginPassword');
@@ -44,7 +46,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   async function fetchCaptcha() {
     try {
-      const res = await fetch('/api/auth/captcha');
+      const res = await fetch(`${API_BASE_URL}/api/auth/captcha`, {
+        credentials: 'include'
+      });
       if (res.ok) {
         const data = await res.json();
         currentCaptchaToken = data.captcha_token;
@@ -70,15 +74,30 @@ document.addEventListener('DOMContentLoaded', function () {
     captchaRefresh.addEventListener('click', fetchCaptcha);
   }
 
+  function setValidity(input, isValid, message) {
+    if (!input) return;
+    input.setAttribute('aria-invalid', String(!isValid));
+    var errorEl = document.getElementById(input.id + 'Error') ||
+      input.parentElement.querySelector('.error-message');
+    if (errorEl) {
+      errorEl.textContent = isValid ? '' : message;
+    }
+  }
+
   if (!form) return;
 
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
 
-    const email = emailInput ? emailInput.value.trim() : '';
-    const password = passwordInput ? passwordInput.value : '';
+    var email = emailInput ? emailInput.value.trim() : '';
+    var password = passwordInput ? passwordInput.value : '';
+
+    setValidity(emailInput, true, '');
+    setValidity(passwordInput, true, '');
 
     if (!email || !password) {
+      if (!email) setValidity(emailInput, false, 'Email is required.');
+      if (!password) setValidity(passwordInput, false, 'Password is required.');
       showToast('Please fill all fields.', 'warning');
       return;
     }
@@ -112,9 +131,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     try {
       const fetchFunc = typeof fetchWithTimeout === 'function' ? fetchWithTimeout : fetch;
-      const response = await fetchFunc('/api/auth/login', {
+      const response = await fetchFunc(`${API_BASE_URL}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify(payload)
       });
 
@@ -124,6 +144,12 @@ document.addEventListener('DOMContentLoaded', function () {
         throw new Error(data.detail || 'Invalid email or password.');
       }
 
+      localStorage.setItem('access_token', data.access_token);
+      localStorage.setItem('cara_user_token', data.access_token);
+      localStorage.setItem('cara_user_email', data.user.email);
+      localStorage.setItem('cara_user_name', data.user.username);
+      localStorage.setItem('cara_user_role', data.user.role);
+
       showToast('Welcome back, ' + data.user.username + '!', 'success');
 
       setTimeout(() => {
@@ -131,6 +157,8 @@ document.addEventListener('DOMContentLoaded', function () {
       }, 1000);
 
     } catch (err) {
+      setValidity(emailInput, false, '');
+      setValidity(passwordInput, false, '');
       showToast(err.message, 'error');
       loginAttempts++;
       if (captchaSection && loginAttempts >= 1) {

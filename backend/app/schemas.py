@@ -1,3 +1,4 @@
+from datetime import datetime
 from pydantic import BaseModel, EmailStr, Field, field_validator
 from typing import Optional
 from enum import Enum
@@ -37,6 +38,31 @@ class InteractionType(str, Enum):
     wishlist = "wishlist"
     cart     = "cart"
     buy      = "buy"
+
+class UserProfileUpdate(BaseModel):
+    full_name: Optional[str] = None
+    phone: Optional[str] = None
+    avatar_url: Optional[str] = None
+    address_line1: Optional[str] = None
+    address_line2: Optional[str] = None
+    city: Optional[str] = None
+    state: Optional[str] = None
+    zip_code: Optional[str] = None
+    country: Optional[str] = None
+
+
+class UserProfileResponse(UserOut):
+    full_name: Optional[str] = None
+    phone: Optional[str] = None
+    avatar_url: Optional[str] = None
+    address_line1: Optional[str] = None
+    address_line2: Optional[str] = None
+    city: Optional[str] = None
+    state: Optional[str] = None
+    zip_code: Optional[str] = None
+    country: Optional[str] = None
+    updated_at: Optional[datetime] = None
+
 
 class InteractionCreate(BaseModel):
     user_id: str
@@ -101,6 +127,31 @@ class Token(BaseModel):
     token_type:   str
     user:         UserOut
 
+
+class OrderItemResponse(BaseModel):
+    product_name: str
+    quantity: int
+    price: float
+
+    class Config:
+        from_attributes = True
+
+
+class OrderResponse(BaseModel):
+    id: int
+    full_name: str
+    email: str
+    address: str
+    city: str
+    zip_code: str
+    total_amount: float
+    status: str
+    created_at: datetime
+    items: list[OrderItemResponse] = Field(default_factory=list)
+
+    class Config:
+        from_attributes = True
+
 class OrderItemCreate(BaseModel):
     product_name: str
     quantity: int = Field(gt=0)
@@ -133,6 +184,28 @@ class PriceRange(BaseModel):
     max: float
 
 
+class ForgotPasswordRequest(BaseModel):
+    email: EmailStr
+
+
+class ResetPasswordRequest(BaseModel):
+    token: str
+    new_password: str = Field(min_length=8, max_length=128)
+
+    @field_validator("new_password")
+    @classmethod
+    def new_password_complexity(cls, v: str) -> str:
+        if not re.search(r"[a-z]", v):
+            raise ValueError("Password must contain at least one lowercase letter.")
+        if not re.search(r"[A-Z]", v):
+            raise ValueError("Password must contain at least one uppercase letter.")
+        if not re.search(r"\d", v):
+            raise ValueError("Password must contain at least one digit.")
+        if not re.search(r"[@$!%*?&]", v):
+            raise ValueError("Password must contain at least one special character (@$!%*?&).")
+        return v
+
+
 class CategorySummaryResponse(BaseModel):
     """Catalog metadata returned by /products/search/categories for building filter UIs."""
     categories: list[str]
@@ -140,4 +213,24 @@ class CategorySummaryResponse(BaseModel):
     colors: list[str]
     styles: list[str]
     price_range: PriceRange
+
+
+class AdminSummaryResponse(BaseModel):
+    """Lifetime dashboard indicators returned by GET /api/admin/analytics/summary."""
+    total_revenue: float
+    total_orders: int
+    total_customers: int
+
+
+class CategorySalesOut(BaseModel):
+    """Sales aggregation by category returned by GET /api/admin/analytics/category-sales."""
+    category: str
+    units_sold: int
+    revenue: float
+
+
+class StatusDistributionOut(BaseModel):
+    """Order volume distribution across statuses returned by GET /api/admin/analytics/order-status-distribution."""
+    status: str
+    count: int
 

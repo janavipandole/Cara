@@ -11,6 +11,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const lockSession = () => {
         localStorage.removeItem("cara_user_session");
         localStorage.removeItem("cara_user_token");
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("cara_user_email");
+        localStorage.removeItem("cara_user_name");
+        localStorage.removeItem("cara_user_role");
         console.warn("Session cleared due to inactivity.");
     };
 

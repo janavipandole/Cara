@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
@@ -367,14 +367,14 @@ button + button {
 </head>
 
 <body>
-  <section id="header">
+  <section id="header" role="banner">
     <!-- Logo -->
     <a href="index.html">
       <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
     </a>
 
     <div>
-      <ul id="navbar">
+      <ul id="navbar" role="navigation" aria-label="Main navigation">
 
         <!-- Main Navigation Links -->
         <li><a href="index.html">Home</a></li>
@@ -436,19 +436,10 @@ button + button {
 
       <!-- Hamburger Menu -->
       <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
-      <!-- Theme Toggle -->
-      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
-        <i class="ri-moon-line" id="themeIconMobile"></i>
-      </button>
-
     </div>
   </section>
 
 
-    <div id="cart-content-wrapper">
-  <div class="cartmain">
-    
-    <!-- Simple Flat Banner Section with Modern Font & Light Purple Typography -->
     <div id="cart-content-wrapper">
   <div class="cartmain">
     
@@ -562,11 +553,7 @@ button + button {
     </div>
 
     <script src="js/shipping-calc.js" defer></script>
-    <script src="app.js?v=1779120917210"></script>
     <script src="js/loyalty.js" defer></script>
-    <script>
-      document.getElementById("Current-Year").textContent = new Date().getFullYear();
-    </script>
     <script>
   document.addEventListener("DOMContentLoaded", () => {
     const couponInput = document.getElementById("coupon-code-input");
@@ -694,10 +681,6 @@ button + button {
       <div style="height: 18px !important; width: 100% !important; clear: both !important; display: block !important;"></div>
 
     <script src="app.js?v=1779120917210"></script>
-  
-    <script>
-      document.getElementById("Current-Year").textContent = new Date().getFullYear();
-    </script>
     <script>
       // ... (your coupon script stays exactly the same)
     </script>
