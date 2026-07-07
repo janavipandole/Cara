@@ -27,3 +27,9 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Generated scripts (ad-hoc cleanup utilities)
+*.bat
+*.ps1
+pr_body*.txt
+fix_css.py
