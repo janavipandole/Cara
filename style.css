@@ -2246,6 +2246,12 @@ footer .copyright a:hover {
     footer .col {
         align-items: center;
         text-align: center;
+        margin-bottom: 20px;
+    }
+
+    footer .col p, footer .col a {
+        margin-bottom: 10px;
+        line-height: 1.6;
     }
 
     footer .follow .icon {
