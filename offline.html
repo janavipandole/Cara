@@ -30,6 +30,24 @@
 <body>
   <h1>You're Offline</h1>
   <p>Please check your internet connection and try again.</p>
+
+<button type="button" id="scrollTopBtn" title="Go to top" aria-label="Go to top">
+  <i class="ri-arrow-up-line"></i>
+</button>
+
+<script>
+  const scrollBtn = document.getElementById('scrollTopBtn');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      scrollBtn.style.display = 'block';
+    } else {
+      scrollBtn.style.display = 'none';
+    }
+  });
+  scrollBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
 </body>
 </html>
 

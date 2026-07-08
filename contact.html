@@ -949,6 +949,24 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
 </script>
 <script src="js/contact-autosave.js" defer></script>
 <script src="js/input-shield.js" defer></script>
+
+<button type="button" id="scrollTopBtn" title="Go to top" aria-label="Go to top">
+  <i class="ri-arrow-up-line"></i>
+</button>
+
+<script>
+  const scrollBtn = document.getElementById('scrollTopBtn');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      scrollBtn.style.display = 'block';
+    } else {
+      scrollBtn.style.display = 'none';
+    }
+  });
+  scrollBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
 </body>
 
 </html>
