@@ -11,6 +11,7 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "minify": "terser app.js -o app.min.js && terser navbar.js -o navbar.min.js",
     "prepare": "husky"
   },
   "lint-staged": {
@@ -45,6 +46,7 @@
     "jsdom": "^29.1.1",
     "lint-staged": "^15.4.3",
     "prettier": "^3.5.2",
+    "terser": "^5.48.0",
     "vitest": "^4.1.8"
   },
   "bugs": {
