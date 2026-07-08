@@ -70,6 +70,7 @@ class Order(Base):
     total_amount = Column(Float, nullable=False)
     status = Column(String, default="PENDING")
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    idempotency_key = Column(String, unique=True, index=True, nullable=True)
 
 class PasswordResetToken(Base):
     __tablename__ = "password_reset_tokens"
