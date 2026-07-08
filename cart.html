@@ -591,14 +591,24 @@ button + button {
           }
         } else if (val === "") {
           feedback.innerHTML = `<span style="color: #ef4444;"><i class="ri-error-warning-fill"></i> Please enter a coupon code.</span>`;
+          if (discountRow) discountRow.style.display = "none";
+          const subtotalText = document.getElementById("summary-subtotal").textContent.replace(/[â‚¹$,]/g, "").trim();
+          const taxText = document.getElementById("summary-tax").textContent.replace(/[â‚¹$,]/g, "").trim();
+          const subtotal = parseFloat(subtotalText) || 0;
+          const tax = parseFloat(taxText) || 0;
+          document.getElementById("summary-total").textContent = "â‚¹" + (subtotal + tax).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         } else {
           feedback.innerHTML = `<span style="color: #ef4444;"><i class="ri-error-warning-fill"></i> Invalid coupon code. Try CARA20.</span>`;
           if (discountRow) discountRow.style.display = "none";
+          const subtotalText = document.getElementById("summary-subtotal").textContent.replace(/[â‚¹$,]/g, "").trim();
+          const taxText = document.getElementById("summary-tax").textContent.replace(/[â‚¹$,]/g, "").trim();
+          const subtotal = parseFloat(subtotalText) || 0;
+          const tax = parseFloat(taxText) || 0;
+          document.getElementById("summary-total").textContent = "â‚¹" + (subtotal + tax).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         }
       });
     }
-  });
-</script>
+  });</script>
    <footer class="section-p1" style="background-color: #3d485a !important; color: #ffffff !important; padding: 25px 40px 40px !important; margin: 40px auto 0 auto !important; border-top: 1px solid rgba(255, 255, 255, 0.1); display: grid !important; grid-template-columns: repeat(4, 1fr) !important; gap: 30px !important; max-width: 1400px !important; width: 100% !important; box-sizing: border-box !important; clear: both !important;">
         
   <!-- COLUMN 1: CONTACT & SOCIALS -->
