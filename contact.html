@@ -544,7 +544,7 @@ footer .copyright {
 
 
       <!-- FORM -->
-      <form class="contact-form" novalidate aria-label="Contact Support Form">
+      <form class="contact-form" aria-label="Contact Support Form">
         <span>LEAVE A MESSAGE</span>
         <h2>Tell us how we can help</h2>
 
@@ -832,17 +832,17 @@ const toBottom = document.getElementById("Toptoback");
 
 window.addEventListener("scroll", () => {
   if (window.scrollY > 200) {
-    backToTop.style.display = "block";
-    toBottom.style.display = "block";
+    if (backToTop) backToTop.style.display = "block";
+    if (toBottom) toBottom.style.display = "block";
   } else {
-    backToTop.style.display = "none";
-    toBottom.style.display = "none";
+    if (backToTop) backToTop.style.display = "none";
+    if (toBottom) toBottom.style.display = "none";
   }
 });
 
-backToTop.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
+if (backToTop) backToTop.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
-toBottom.onclick = () => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+if (toBottom) toBottom.onclick = () => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
 
 
 /* =========================
