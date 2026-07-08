@@ -159,13 +159,13 @@
         <div id="navbar-container"></div>
         <div class="mobile">
             <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
-            <i class="ri-moon-line" id="themeIconMobile"></i>
+            <span class="ri-moon-line" id="themeIconMobile" aria-hidden="true"></span>
             </button>
             <a href="cart.html">
-            <i class="ri-shopping-bag-4-line"></i>
+            <span class="ri-shopping-bag-4-line" aria-hidden="true"></span>
             <span class="cart-count" id="mobileCartCount">0</span>
             </a>
-            <i class="fas fa-outdent" id="bar"></i>
+            <span class="fas fa-outdent" id="bar" aria-hidden="true"></span>
         </div>
         </section>
 
@@ -180,17 +180,17 @@
             <p>We love working with creators and fashion enthusiasts. Apply for our ambassador program to unlock exclusive perks.</p>
             
             <div class="perk-box">
-                <h4><i class="ri-gift-line" style="color: var(--accent);"></i> Monthly Freebies</h4>
+                <h4><span class="ri-gift-line" style="color: var(--accent);" aria-hidden="true"></span> Monthly Freebies</h4>
                 <p>Receive exclusive clothing items every month to style and share with your followers.</p>
             </div>
             
             <div class="perk-box">
-                <h4><i class="ri-percent-line" style="color: var(--accent);"></i> Custom Discount Codes</h4>
+                <h4><span class="ri-percent-line" style="color: var(--accent);" aria-hidden="true"></span> Custom Discount Codes</h4>
                 <p>Get a unique discount code to share with your audience and earn commission on sales.</p>
             </div>
             
             <div class="perk-box">
-                <h4><i class="ri-star-smile-line" style="color: var(--accent);"></i> Featured Spotlights</h4>
+                <h4><span class="ri-star-smile-line" style="color: var(--accent);" aria-hidden="true"></span> Featured Spotlights</h4>
                 <p>Get featured on our official Instagram page and website homepage.</p>
             </div>
         </div>
@@ -226,7 +226,7 @@
 
     <!-- Discount Popup Element -->
     <div id="discount-popup">
-        <i class="ri-close-line close-btn" onclick="document.getElementById('discount-popup').style.display='none'"></i>
+        <span class="ri-close-line close-btn" onclick="document.getElementById('discount-popup').style.display='none'" aria-hidden="true"></span>
         <h4>Surprise Gift! 🎁</h4>
         <p>Thanks for checking out our promotions. Use this code at checkout for 15% off your first order!</p>
         <div class="copy-code" onclick="navigator.clipboard.writeText('CARA15'); this.innerText='COPIED!'">CARA15</div>

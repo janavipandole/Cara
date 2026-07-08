@@ -92,42 +92,42 @@
 
       <li class="nav-icon">
         <a href="contact.html" aria-label="Contact">
-          <i class="ri-customer-service-2-line"></i>
+          <span class="ri-customer-service-2-line" aria-hidden="true"></span>
         </a>
       </li>
 
       <li class="nav-icon">
         <a href="login.html" aria-label="Login">
-          <i class="ri-user-3-line"></i>
+          <span class="ri-user-3-line" aria-hidden="true"></span>
         </a>
       </li>
 
       <li class="nav-icon">
         <a href="cart.html" id="lg-bag" aria-label="Cart">
-          <i class="ri-shopping-bag-4-line"></i>
+          <span class="ri-shopping-bag-4-line" aria-hidden="true"></span>
         </a>
       </li>
 
       <li class="nav-icon">
         <button class="theme-toggle" id="themeToggleDesktop" aria-label="Toggle dark mode">
-          <i class="ri-moon-line" id="themeIcon"></i>
+          <span class="ri-moon-line" id="themeIcon" aria-hidden="true"></span>
         </button>
       </li>
 
       <a href="javascript:void(0)" id="close" aria-label="Close menu" aria-hidden="false">
-        <i class="fa-solid fa-xmark"></i>
+        <span class="fa-solid fa-xmark" aria-hidden="true"></span>
       </a>
     </ul>
   </div>
 
   <div class="mobile">
-    <a href="login.html" aria-label="Login"><i class="ri-user-3-line"></i></a>
-    <a href="cart.html" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a>
-    <i class="fas fa-outdent" id="bar" role="button"
+    <a href="login.html" aria-label="Login"><span class="ri-user-3-line" aria-hidden="true"></span></a>
+    <a href="cart.html" aria-label="Cart"><span class="ri-shopping-bag-4-line" aria-hidden="true"></span></a>
+    <span class="fas fa-outdent" id="bar" role="button"
       aria-label="Open menu"
       aria-expanded="false"
       tabindex="0"
-    ></i>
+     aria-hidden="true"></span>
 
   </div>
 </section>
@@ -147,7 +147,7 @@
       <!-- Lookup Form Card -->
       <div class="track-form-card">
         <div class="track-form-header">
-          <i class="ri-map-pin-time-line"></i>
+          <span class="ri-map-pin-time-line" aria-hidden="true"></span>
           <h2>Order Lookup</h2>
           <p>Enter your Order ID and the email you used at checkout.</p>
         </div>
@@ -155,7 +155,7 @@
         <form class="track-form" id="trackOrderForm" novalidate>
           <div class="form-group">
             <label for="orderId">
-              <i class="ri-hashtag"></i> Order ID
+              <span class="ri-hashtag" aria-hidden="true"></span> Order ID
             </label>
             <input
               type="text"
@@ -170,7 +170,7 @@
 
           <div class="form-group">
             <label for="orderEmail">
-              <i class="ri-mail-line"></i> Email Address
+              <span class="ri-mail-line" aria-hidden="true"></span> Email Address
             </label>
             <input
               type="email"
@@ -183,7 +183,7 @@
           </div>
 
           <button type="submit" class="track-btn" id="trackBtn">
-            <i class="ri-search-line"></i>
+            <span class="ri-search-line" aria-hidden="true"></span>
             <span>Track Order</span>
             <div class="btn-loader" id="btnLoader"></div>
           </button>
@@ -191,7 +191,7 @@
 
         <!-- Demo hint -->
         <div class="demo-hint">
-          <i class="ri-information-line"></i>
+          <span class="ri-information-line" aria-hidden="true"></span>
           <span>Demo: Use Order ID <strong>CARA-20261234</strong> with any email to see a sample result.</span>
         </div>
       </div>
@@ -206,7 +206,7 @@
             <strong id="resultOrderId">CARA-20261234</strong>
           </div>
           <div class="order-status-badge" id="statusBadge">
-            <i class="ri-truck-line"></i>
+            <span class="ri-truck-line" aria-hidden="true"></span>
             <span id="statusText">In Transit</span>
           </div>
         </div>
@@ -214,28 +214,28 @@
         <!-- Order Details Row -->
         <div class="order-details-grid">
           <div class="detail-item">
-            <i class="ri-calendar-line"></i>
+            <span class="ri-calendar-line" aria-hidden="true"></span>
             <div>
               <span class="detail-label">Order Date</span>
               <span class="detail-value" id="orderDate">May 14, 2026</span>
             </div>
           </div>
           <div class="detail-item">
-            <i class="ri-truck-line"></i>
+            <span class="ri-truck-line" aria-hidden="true"></span>
             <div>
               <span class="detail-label">Carrier</span>
               <span class="detail-value" id="orderCarrier">FedEx Express</span>
             </div>
           </div>
           <div class="detail-item">
-            <i class="ri-barcode-line"></i>
+            <span class="ri-barcode-line" aria-hidden="true"></span>
             <div>
               <span class="detail-label">Tracking No.</span>
               <span class="detail-value" id="trackingNo">7489 2091 3847</span>
             </div>
           </div>
           <div class="detail-item">
-            <i class="ri-map-pin-2-line"></i>
+            <span class="ri-map-pin-2-line" aria-hidden="true"></span>
             <div>
               <span class="detail-label">Est. Delivery</span>
               <span class="detail-value" id="estDelivery">May 20, 2026</span>
@@ -250,7 +250,7 @@
 
             <div class="timeline-step completed" id="step-ordered" aria-label="Step 1: Order Placed (Completed)">
               <div class="step-icon">
-                <i class="ri-shopping-bag-check-line"></i>
+                <span class="ri-shopping-bag-check-line" aria-hidden="true"></span>
               </div>
               <div class="step-content">
                 <h4>Order Placed</h4>
@@ -261,7 +261,7 @@
 
             <div class="timeline-step completed" id="step-packed" aria-label="Step 2: Order Packed (Completed)">
               <div class="step-icon">
-                <i class="ri-archive-2-line"></i>
+                <span class="ri-archive-2-line" aria-hidden="true"></span>
               </div>
               <div class="step-content">
                 <h4>Order Packed</h4>
@@ -272,7 +272,7 @@
 
             <div class="timeline-step completed" id="step-shipped" aria-label="Step 3: Shipped (Completed)">
               <div class="step-icon">
-                <i class="ri-send-plane-line"></i>
+                <span class="ri-send-plane-line" aria-hidden="true"></span>
               </div>
               <div class="step-content">
                 <h4>Shipped</h4>
@@ -283,7 +283,7 @@
 
             <div class="timeline-step active" id="step-transit" aria-current="step" aria-label="Step 4: In Transit (Current Step)">
               <div class="step-icon">
-                <i class="ri-truck-line"></i>
+                <span class="ri-truck-line" aria-hidden="true"></span>
               </div>
               <div class="step-content">
                 <h4>In Transit</h4>
@@ -294,7 +294,7 @@
 
             <div class="timeline-step" id="step-delivered" aria-label="Step 5: Delivered (Pending)">
               <div class="step-icon">
-                <i class="ri-home-check-line"></i>
+                <span class="ri-home-check-line" aria-hidden="true"></span>
               </div>
               <div class="step-content">
                 <h4>Delivered</h4>
@@ -336,24 +336,24 @@
         <!-- Actions -->
         <div class="result-actions">
           <button class="action-btn secondary" onclick="resetTracker()">
-            <i class="ri-arrow-left-line"></i> Track Another Order
+            <span class="ri-arrow-left-line" aria-hidden="true"></span> Track Another Order
           </button>
           <a href="contact.html" class="action-btn primary">
-            <i class="ri-customer-service-2-line"></i> Contact Support
+            <span class="ri-customer-service-2-line" aria-hidden="true"></span> Contact Support
           </a>
         </div>
       </div>
 
       <!-- Error Card (hidden by default) -->
       <div class="track-error-card" id="trackError">
-        <i class="ri-error-warning-line"></i>
+        <span class="ri-error-warning-line" aria-hidden="true"></span>
         <h3>Order Not Found</h3>
         <p>
           We couldn't find an order matching that ID and email. Please double-check your
           confirmation email and try again.
         </p>
         <button class="action-btn secondary" onclick="resetTracker()">
-          <i class="ri-arrow-left-line"></i> Try Again
+          <span class="ri-arrow-left-line" aria-hidden="true"></span> Try Again
         </button>
       </div>
 
@@ -367,7 +367,7 @@
         <div class="faq-item">
           <div class="faq-question" onclick="toggleFaq(this)">
             <span>Where is my Order ID?</span>
-            <i class="ri-add-line"></i>
+            <span class="ri-add-line" aria-hidden="true"></span>
           </div>
           <div class="faq-answer">
             Your Order ID (e.g. CARA-20261234) is included in the confirmation
@@ -379,7 +379,7 @@
         <div class="faq-item">
           <div class="faq-question" onclick="toggleFaq(this)">
             <span>How long does shipping take?</span>
-            <i class="ri-add-line"></i>
+            <span class="ri-add-line" aria-hidden="true"></span>
           </div>
           <div class="faq-answer">
             Standard shipping takes 5â€“7 business days. Express shipping takes
@@ -391,7 +391,7 @@
         <div class="faq-item">
           <div class="faq-question" onclick="toggleFaq(this)">
             <span>My tracking hasn't updated. What should I do?</span>
-            <i class="ri-add-line"></i>
+            <span class="ri-add-line" aria-hidden="true"></span>
           </div>
           <div class="faq-answer">
             Tracking updates can sometimes take 24â€“48 hours to reflect after a
@@ -403,7 +403,7 @@
         <div class="faq-item">
           <div class="faq-question" onclick="toggleFaq(this)">
             <span>My order shows "Delivered" but I didn't receive it.</span>
-            <i class="ri-add-line"></i>
+            <span class="ri-add-line" aria-hidden="true"></span>
           </div>
           <div class="faq-answer">
             Please check with your neighbours and around your property for the
@@ -431,16 +431,16 @@
           <h4>Follow us</h4>
           <div class="icon">
             <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer">
-              <i class="fa-brands fa-x-twitter"></i>
+              <span class="fa-brands fa-x-twitter" aria-hidden="true"></span>
             </a>
             <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
-              <i class="fab fa-github"></i>
+              <span class="fab fa-github" aria-hidden="true"></span>
             </a>
             <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
-              <i class="fab fa-linkedin"></i>
+              <span class="fab fa-linkedin" aria-hidden="true"></span>
             </a>
             <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer">
-              <i class="fab fa-youtube"></i>
+              <span class="fab fa-youtube" aria-hidden="true"></span>
             </a>
           </div>
         </div>
@@ -494,19 +494,19 @@
 
         <div class="payment-icons">
           <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer" aria-label="Visa">
-            <i class="fab fa-cc-visa"></i>
+            <span class="fab fa-cc-visa" aria-hidden="true"></span>
           </a>
           <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer" aria-label="Mastercard">
-            <i class="fab fa-cc-mastercard"></i>
+            <span class="fab fa-cc-mastercard" aria-hidden="true"></span>
           </a>
           <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" aria-label="PayPal">
-            <i class="fab fa-cc-paypal"></i>
+            <span class="fab fa-cc-paypal" aria-hidden="true"></span>
           </a>
           <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer" aria-label="American Express">
-            <i class="fab fa-cc-amex"></i>
+            <span class="fab fa-cc-amex" aria-hidden="true"></span>
           </a>
           <a href="https://stripe.com" target="_blank" rel="noopener noreferrer" aria-label="Stripe">
-            <i class="fab fa-cc-stripe"></i>
+            <span class="fab fa-cc-stripe" aria-hidden="true"></span>
           </a>
         </div>
       </div>

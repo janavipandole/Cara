@@ -276,13 +276,13 @@
         <img id="siteLogo" loading="lazy" src="images/logo.png" alt="Cara Logo" style="height:50px;min-width:120px;object-fit:contain;" />
       </a>
       <div id="navbar-container"></div>
-      <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
+      <a href="cart.html"><span class="ri-shopping-bag-4-line" aria-hidden="true"></span></a>
     </div>
   </header>
 
   <main class="compat-page">
     <div class="compat-hero">
-      <h1><i class="ri-t-shirt-line" style="color:#6366f1;"></i> Outfit Compatibility Checker</h1>
+      <h1><span class="ri-t-shirt-line" style="color:#6366f1;" aria-hidden="true"></span> Outfit Compatibility Checker</h1>
       <p>Check if your top and bottom pieces work together â€” colour harmony, style matching, and occasion suitability all in one click.</p>
     </div>
 
@@ -291,7 +291,7 @@
         <p class="section-label">Your Outfit</p>
         <div class="item-grid">
           <div class="item-col">
-            <h3><i class="ri-shirt-line"></i> Top</h3>
+            <h3><span class="ri-shirt-line" aria-hidden="true"></span> Top</h3>
             <label class="field-label" for="top-item">Item description</label>
             <input type="text" id="top-item" placeholder="e.g. white dress shirt, blue hoodie" required />
             <label class="field-label" for="top-color">Colour</label>
@@ -315,7 +315,7 @@
             </div>
           </div>
           <div class="item-col">
-            <h3><i class="ri-scissors-cut-line"></i> Bottom</h3>
+            <h3><span class="ri-scissors-cut-line" aria-hidden="true"></span> Bottom</h3>
             <label class="field-label" for="bottom-item">Item description</label>
             <input type="text" id="bottom-item" placeholder="e.g. black jeans, khaki chinos" required />
             <label class="field-label" for="bottom-color">Colour</label>
@@ -355,21 +355,21 @@
         </div>
 
         <div class="btn-row">
-          <button type="submit" class="btn-check"><i class="ri-magic-line"></i> Check Compatibility</button>
-          <button type="button" id="reset-btn" class="btn-reset"><i class="ri-refresh-line"></i> Reset</button>
+          <button type="submit" class="btn-check"><span class="ri-magic-line" aria-hidden="true"></span> Check Compatibility</button>
+          <button type="button" id="reset-btn" class="btn-reset"><span class="ri-refresh-line" aria-hidden="true"></span> Reset</button>
         </div>
       </form>
     </div>
 
     <div id="result-section">
       <div class="result-card">
-        <h2><i class="ri-bar-chart-2-line" style="color:#6366f1;"></i> Your Results</h2>
+        <h2><span class="ri-bar-chart-2-line" style="color:#6366f1;" aria-hidden="true"></span> Your Results</h2>
         <div id="result-area"></div>
       </div>
     </div>
 
     <div class="info-banner">
-      <i class="ri-information-line"></i>
+      <span class="ri-information-line" aria-hidden="true"></span>
       <span>This tool analyses colour harmony and style cohesion based on widely accepted fashion principles. Results are suggestions â€” personal style always wins!</span>
     </div>
   </main>

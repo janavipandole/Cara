@@ -489,7 +489,7 @@
     <!-- Print Details Utility -->
     <div style="max-width: 1200px; margin: 10px auto; padding: 0 20px; text-align: right;" class="no-print">
       <button onclick="window.print()" style="background: #088178; color: #fff; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-weight: 500;">
-        <i class="ri-printer-line"></i> Print Shipping Policy
+        <span class="ri-printer-line" aria-hidden="true"></span> Print Shipping Policy
       </button>
     </div>
     <style>
@@ -511,15 +511,15 @@
     <!-- Mobile Navbar -->
     <div class="mobile">
       <a href="login.html" aria-label="Login">
-        <i class="ri-user-3-line"></i>
+        <span class="ri-user-3-line" aria-hidden="true"></span>
       </a>
       <a href="cart.html" aria-label="Cart">
-        <i class="ri-shopping-bag-4-line"></i>
+        <span class="ri-shopping-bag-4-line" aria-hidden="true"></span>
       </a>
-      <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
+      <span class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0" aria-hidden="true"></span>
       <!-- Theme Toggle -->
       <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
-        <i class="ri-moon-line" id="themeIconMobile"></i>
+        <span class="ri-moon-line" id="themeIconMobile" aria-hidden="true"></span>
       </button>
     </div>
   </section>
@@ -527,7 +527,7 @@
   <!-- BACK BUTTON -->
   <div class="back-btn-wrap">
     <button class="back-btn" onclick="history.back()" aria-label="Go back to previous page" style="background: transparent; border: none; font-family: inherit; font-size: inherit; cursor: pointer;">
-      <i class="fa-solid fa-arrow-left"></i> Back
+      <span class="fa-solid fa-arrow-left" aria-hidden="true"></span> Back
     </button>
   </div>
 
@@ -544,17 +544,17 @@
     <!-- Quick Cards -->
     <div class="delivery-cards">
       <div class="delivery-card">
-        <div class="icon"><i class="fas fa-truck"></i></div>
+        <div class="icon"><span class="fas fa-truck" aria-hidden="true"></span></div>
         <h4>Free Shipping</h4>
         <p>On all orders above $50 within the US</p>
       </div>
       <div class="delivery-card">
-        <div class="icon"><i class="fas fa-clock"></i></div>
+        <div class="icon"><span class="fas fa-clock" aria-hidden="true"></span></div>
         <h4>Fast Processing</h4>
         <p>Orders dispatched within 1â€“2 business days</p>
       </div>
       <div class="delivery-card">
-        <div class="icon"><i class="fas fa-undo-alt"></i></div>
+        <div class="icon"><span class="fas fa-undo-alt" aria-hidden="true"></span></div>
         <h4>Easy Returns</h4>
         <p>30-day hassle-free return policy</p>
       </div>
@@ -562,7 +562,7 @@
 
     <!-- Shipping Policy -->
     <section class="delivery-block">
-      <h3><i class="fas fa-box"></i> Shipping Policy</h3>
+      <h3><span class="fas fa-box" aria-hidden="true"></span> Shipping Policy</h3>
       <p>We are committed to delivering your orders as quickly and safely as possible.</p>
       <table class="shipping-table">
         <thead>
@@ -596,13 +596,13 @@
         </tbody>
       </table>
       <div class="notice-box">
-        <i class="fas fa-info-circle"></i> Shipping times are estimates and may vary during peak seasons or due to courier delays outside our control.
+        <span class="fas fa-info-circle" aria-hidden="true"></span> Shipping times are estimates and may vary during peak seasons or due to courier delays outside our control.
       </div>
     </section>
 
     <!-- Shipping Fee & Delivery Estimator -->
     <section class="delivery-block estimator-wrap">
-      <h3><i class="fas fa-calculator"></i> Shipping Fee & Delivery Estimator</h3>
+      <h3><span class="fas fa-calculator" aria-hidden="true"></span> Shipping Fee & Delivery Estimator</h3>
       <p class="sub">Enter your package details to estimate shipping cost and delivery date.</p>
       <form class="estimator-form" id="estimatorForm" aria-label="Shipping Cost Estimator">
         <div class="field">
@@ -632,7 +632,7 @@
 
     <!-- Order Processing -->
     <section class="delivery-block">
-      <h3><i class="fas fa-cog"></i> Order Processing</h3>
+      <h3><span class="fas fa-cog" aria-hidden="true"></span> Order Processing</h3>
       <p>Once your order is placed and payment confirmed, our team begins processing immediately:</p>
       <ul>
         <li>Orders placed before 2:00 PM (Monâ€“Sat) are processed the same day.</li>
@@ -644,7 +644,7 @@
 
     <!-- International Shipping -->
     <section class="delivery-block">
-      <h3><i class="fas fa-globe"></i> International Shipping</h3>
+      <h3><span class="fas fa-globe" aria-hidden="true"></span> International Shipping</h3>
       <p>We ship to over 50 countries worldwide. Please note:</p>
       <ul>
         <li>International delivery takes 7â€“14 business days depending on destination.</li>
@@ -653,13 +653,13 @@
         <li>Some items may not be available for international shipping due to restrictions.</li>
       </ul>
       <div class="notice-box">
-        <i class="fas fa-info-circle"></i> Shipping cost for international orders is calculated at checkout based on your location and order weight.
+        <span class="fas fa-info-circle" aria-hidden="true"></span> Shipping cost for international orders is calculated at checkout based on your location and order weight.
       </div>
     </section>
 
     <!-- Order Tracking -->
     <section class="delivery-block">
-      <h3><i class="fas fa-map-marker-alt"></i> Order Tracking</h3>
+      <h3><span class="fas fa-map-marker-alt" aria-hidden="true"></span> Order Tracking</h3>
       <p>Once your order is shipped, you can track it anytime:</p>
       <ul>
         <li>A tracking number will be emailed to you upon dispatch.</li>
@@ -671,7 +671,7 @@
 
     <!-- Returns -->
     <section class="delivery-block">
-      <h3><i class="fas fa-undo-alt"></i> Returns & Exchanges</h3>
+      <h3><span class="fas fa-undo-alt" aria-hidden="true"></span> Returns & Exchanges</h3>
       <p>We want you to love every purchase. If something isn't right:</p>
       <ul>
         <li>Returns accepted within 30 days of delivery.</li>
@@ -685,12 +685,12 @@
 
     <!-- FAQ Accordion Section -->
     <section class="delivery-block">
-      <h3><i class="fas fa-question-circle"></i> Frequently Asked Questions</h3>
+      <h3><span class="fas fa-question-circle" aria-hidden="true"></span> Frequently Asked Questions</h3>
       <div class="faq-accordion" style="margin-top: 20px;">
         <div class="faq-item" style="border: 1px solid var(--border-color); border-radius: 6px; margin-bottom: 10px; overflow: hidden;">
           <button class="faq-toggle" style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: var(--card-bg); border: none; font-family: inherit; font-size: 15px; font-weight: 600; color: var(--text-color); cursor: pointer; text-align: left; transition: background 0.2s;">
             <span>How long will my order take to arrive?</span>
-            <i class="fas fa-chevron-down" style="font-size: 12px; transition: transform 0.2s;"></i>
+            <span class="fas fa-chevron-down" style="font-size: 12px; transition: transform 0.2s;" aria-hidden="true"></span>
           </button>
           <div class="faq-content" style="max-height: 0; overflow: hidden; transition: max-height 0.25s ease-out; background: var(--background-color);">
             <p style="padding: 15px 20px; margin: 0; font-size: 14px; color: var(--light-text); line-height: 1.6;">Standard delivery takes 3 to 5 business days, while express shipping delivers in 1 to 2 business days. International delivery varies between 7 and 14 business days.</p>
@@ -700,7 +700,7 @@
         <div class="faq-item" style="border: 1px solid var(--border-color); border-radius: 6px; margin-bottom: 10px; overflow: hidden;">
           <button class="faq-toggle" style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: var(--card-bg); border: none; font-family: inherit; font-size: 15px; font-weight: 600; color: var(--text-color); cursor: pointer; text-align: left; transition: background 0.2s;">
             <span>What is your return policy?</span>
-            <i class="fas fa-chevron-down" style="font-size: 12px; transition: transform 0.2s;"></i>
+            <span class="fas fa-chevron-down" style="font-size: 12px; transition: transform 0.2s;" aria-hidden="true"></span>
           </button>
           <div class="faq-content" style="max-height: 0; overflow: hidden; transition: max-height 0.25s ease-out; background: var(--background-color);">
             <p style="padding: 15px 20px; margin: 0; font-size: 14px; color: var(--light-text); line-height: 1.6;">We offer a 30-day return policy. Items must be unused, unwashed, and returned in their original packaging with all tags attached.</p>
@@ -710,7 +710,7 @@
         <div class="faq-item" style="border: 1px solid var(--border-color); border-radius: 6px; margin-bottom: 10px; overflow: hidden;">
           <button class="faq-toggle" style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: var(--card-bg); border: none; font-family: inherit; font-size: 15px; font-weight: 600; color: var(--text-color); cursor: pointer; text-align: left; transition: background 0.2s;">
             <span>Can I track my shipment?</span>
-            <i class="fas fa-chevron-down" style="font-size: 12px; transition: transform 0.2s;"></i>
+            <span class="fas fa-chevron-down" style="font-size: 12px; transition: transform 0.2s;" aria-hidden="true"></span>
           </button>
           <div class="faq-content" style="max-height: 0; overflow: hidden; transition: max-height 0.25s ease-out; background: var(--background-color);">
             <p style="padding: 15px 20px; margin: 0; font-size: 14px; color: var(--light-text); line-height: 1.6;">Yes, a tracking link is sent via email once your order has been dispatched. You can track updates on our tracking portal.</p>
@@ -721,12 +721,12 @@
 
     <!-- Contact -->
     <section class="delivery-block">
-      <h3><i class="fas fa-phone"></i> Need Help?</h3>
+      <h3><span class="fas fa-phone" aria-hidden="true"></span> Need Help?</h3>
       <p>Our support team is always here for you:</p>
       <ul>
-        <li><i class="fas fa-envelope"></i> Email: <a href="contact.html" style="color:#088178;">contact@cara.com</a></li>
-        <li><i class="fas fa-phone"></i> Phone: +01 2222 365 / (+91) 01 2345 6789</li>
-        <li><i class="far fa-clock"></i> Hours: 10:00 â€“ 18:00, Mon â€“ Sat</li>
+        <li><span class="fas fa-envelope" aria-hidden="true"></span> Email: <a href="contact.html" style="color:#088178;">contact@cara.com</a></li>
+        <li><span class="fas fa-phone" aria-hidden="true"></span> Phone: +01 2222 365 / (+91) 01 2345 6789</li>
+        <li><span class="far fa-clock" aria-hidden="true"></span> Hours: 10:00 â€“ 18:00, Mon â€“ Sat</li>
       </ul>
     </section>
 
@@ -742,10 +742,10 @@
         <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
         <p><strong>Hours:</strong> 10:00 â€“ 18:00, Mon â€“ Sat</p>
         <div class="social-links">
-          <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
-          <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i></a>
-          <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i></a>
-          <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-youtube"></i></a>
+          <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer"><span class="fa-brands fa-x-twitter" aria-hidden="true"></span></a>
+          <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><span class="fa-brands fa-github" aria-hidden="true"></span></a>
+          <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer"><span class="fa-brands fa-linkedin-in" aria-hidden="true"></span></a>
+          <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer"><span class="fa-brands fa-youtube" aria-hidden="true"></span></a>
         </div>
       </div>
 
@@ -792,7 +792,7 @@
 
   <!-- SCROLL TO TOP -->
   <button id="scroll-top" title="Back to top">
-    <i class="fa-solid fa-arrow-up"></i>
+    <span class="fa-solid fa-arrow-up" aria-hidden="true"></span>
   </button>
 
   <script>

@@ -488,14 +488,14 @@
     <header class="header-section">
         <div class="header-inner">
             <div>
-                <span class="wishlist-eyebrow"><i class="ri-heart-fill" aria-hidden="true"></i> Curated picks</span>
+                <span class="wishlist-eyebrow"><span class="ri-heart-fill" aria-hidden="true" aria-hidden="true"></span> Curated picks</span>
                 <h1>Wishlist</h1>
                 <p>Keep your favorite Cara pieces in one polished place, then move them to cart when the moment feels right.</p>
             </div>
-                <a href="shop.html" class="btn-secondary"><i class="ri-arrow-left-line" aria-hidden="true"></i> Back to Shop</a>
-                <button id="clearAllBtn" class="btn-danger-outline" onclick="clearWishlist()"><i class="ri-delete-bin-6-line" aria-hidden="true"></i> Clear All</button>
+                <a href="shop.html" class="btn-secondary"><span class="ri-arrow-left-line" aria-hidden="true" aria-hidden="true"></span> Back to Shop</a>
+                <button id="clearAllBtn" class="btn-danger-outline" onclick="clearWishlist()"><span class="ri-delete-bin-6-line" aria-hidden="true" aria-hidden="true"></span> Clear All</button>
                 <button class="theme-toggle btn-secondary" id="themeToggleDesktop" aria-label="Toggle dark mode" style="padding: 8px 12px; border-radius: 999px;">
-                  <i class="ri-moon-line" id="themeIcon"></i>
+                  <span class="ri-moon-line" id="themeIcon" aria-hidden="true"></span>
                 </button>
             </div>
         </div>
@@ -510,7 +510,7 @@
     <!-- Wishlist Sharing Utility -->
     <div style="max-width: 1200px; margin: 20px auto; padding: 0 20px; text-align: center;">
       <button onclick="shareWishlist()" style="background: #088178; color: #fff; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 16px;">
-        <i class="ri-share-line"></i> Copy Shareable Wishlist Link
+        <span class="ri-share-line" aria-hidden="true"></span> Copy Shareable Wishlist Link
       </button>
     </div>
     <script>
@@ -525,7 +525,7 @@
     </script>
     <!-- Global Toast Component -->
     <div id="toast">
-        <i class="ri-checkbox-circle-line" style="color: #088178; font-size: 20px;"></i>
+        <span class="ri-checkbox-circle-line" style="color: #088178; font-size: 20px;" aria-hidden="true"></span>
         <span id="toast-msg">Item added to cart!</span>
     </div>
 
@@ -619,7 +619,7 @@
                 wishlistContainer.style.display = 'block';
                 wishlistContainer.innerHTML = `
                     <div class="empty-state">
-                        <i class="ri-heart-pulse-line"></i>
+                        <span class="ri-heart-pulse-line" aria-hidden="true"></span>
                         <h2>Your wishlist is empty</h2>
                         <p>Explore our premium collections and add products you love to your personal wishlist!</p>
                         <a href="shop.html">Start Shopping</a>
@@ -643,7 +643,7 @@
 
                     const savedPill = document.createElement("span");
                     savedPill.className = "saved-pill";
-                    savedPill.innerHTML = '<i class="ri-heart-fill" aria-hidden="true"></i> Saved';
+                    savedPill.innerHTML = '<span class="ri-heart-fill" aria-hidden="true" aria-hidden="true"></span> Saved';
 
                     media.append(image, savedPill);
                     card.appendChild(media);
@@ -676,14 +676,14 @@
                     cartButton.className = "add-to-cart-btn";
                     cartButton.type = "button";
                     cartButton.setAttribute("aria-label", `Add ${product.name} to cart`);
-                    cartButton.innerHTML = '<i class="ri-shopping-cart-2-line" aria-hidden="true"></i> Add to Cart';
+                    cartButton.innerHTML = '<span class="ri-shopping-cart-2-line" aria-hidden="true" aria-hidden="true"></span> Add to Cart';
                     cartButton.addEventListener("click", () => moveToCart(index));
 
                     const removeButton = document.createElement("button");
                     removeButton.className = "remove-icon-btn";
                     removeButton.type = "button";
                     removeButton.setAttribute("aria-label", `Remove ${product.name} from wishlist`);
-                    removeButton.innerHTML = '<i class="ri-delete-bin-line" aria-hidden="true"></i>';
+                    removeButton.innerHTML = '<span class="ri-delete-bin-line" aria-hidden="true" aria-hidden="true"></span>';
                     removeButton.addEventListener("click", () => removeItem(index));
 
                     actions.append(cartButton, removeButton);

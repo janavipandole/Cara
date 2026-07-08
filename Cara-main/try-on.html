@@ -472,13 +472,13 @@
             <div class="mobile">
             <button class="theme-toggle" id="themeToggleMobile"
                 aria-label="Toggle dark mode">
-                <i class="ri-moon-line" id="themeIconMobile"></i>
+                <span class="ri-moon-line" id="themeIconMobile" aria-hidden="true"></span>
             </button>
             <a href="cart.html" id="mobile-cart-icon">
-                <i class="ri-shopping-bag-4-line"></i>
+                <span class="ri-shopping-bag-4-line" aria-hidden="true"></span>
                 <span class="cart-count" id="mobileCartCount">0</span>
             </a>
-            <i class="fas fa-outdent" id="bar"></i>
+            <span class="fas fa-outdent" id="bar" aria-hidden="true"></span>
             </div>
         </section>
     <section id="try-on-section">
@@ -504,37 +504,37 @@
         <div class="tryon-layout">
             <!-- Left: Controls -->
             <div class="controls">
-                <h2><i class="ri-magic-line"></i> AI Virtual Try-On</h2>
+                <h2><span class="ri-magic-line" aria-hidden="true"></span> AI Virtual Try-On</h2>
                 <p>Use your camera or upload a photo. Our AI detects your body shape and fits the clothing on you.</p>
                 
                 <!-- Step 1: Input Mode -->
                 <h4>1. Choose Input</h4>
                 <div class="mode-toggle">
                     <button class="mode-btn active" id="btn-camera" onclick="switchMode('camera')">
-                        <i class="ri-camera-line"></i> Camera
+                        <span class="ri-camera-line" aria-hidden="true"></span> Camera
                     </button>
                     <button class="mode-btn" id="btn-upload" onclick="switchMode('upload')">
-                        <i class="ri-upload-cloud-2-line"></i> Upload
+                        <span class="ri-upload-cloud-2-line" aria-hidden="true"></span> Upload
                     </button>
                 </div>
 
                 <!-- Camera Controls -->
                 <div class="camera-area visible" id="camera-area">
                     <button class="camera-btn" id="open-camera-btn" onclick="openCamera()">
-                        <i class="ri-camera-line"></i> Open Camera
+                        <span class="ri-camera-line" aria-hidden="true"></span> Open Camera
                     </button>
                     <button class="camera-btn capture" id="capture-btn" style="display:none;" onclick="capturePhoto()">
-                        <i class="ri-camera-switch-line"></i> Capture Photo
+                        <span class="ri-camera-switch-line" aria-hidden="true"></span> Capture Photo
                     </button>
                     <button class="camera-btn" id="stop-camera-btn" style="display:none;" onclick="stopCamera()">
-                        <i class="ri-close-circle-line"></i> Stop Camera
+                        <span class="ri-close-circle-line" aria-hidden="true"></span> Stop Camera
                     </button>
                 </div>
 
                 <!-- Upload Controls -->
                 <div class="upload-area" id="upload-area">
                     <label class="upload-btn">
-                        <i class="ri-upload-cloud-2-line"></i>
+                        <span class="ri-upload-cloud-2-line" aria-hidden="true"></span>
                         <span id="upload-text">Click to upload full-body photo</span>
                         <input type="file" id="photo-upload" accept="image/*">
                     </label>
@@ -550,14 +550,14 @@
 
                 <!-- Step 3: Generate -->
                 <button class="action-btn" id="generate-btn" disabled>
-                    <i class="ri-sparkling-fill"></i> Generate AI Try-On
+                    <span class="ri-sparkling-fill" aria-hidden="true"></span> Generate AI Try-On
                 </button>
             </div>
 
             <!-- Right: Viewport -->
             <div class="ai-viewport">
                 <div class="viewport-placeholder" id="placeholder">
-                    <i class="ri-body-scan-line"></i>
+                    <span class="ri-body-scan-line" aria-hidden="true"></span>
                     <h3>Open your camera or upload a photo</h3>
                     <p style="font-size:14px; margin-top:8px;">We'll detect your body shape automatically</p>
                 </div>
@@ -577,15 +577,15 @@
                 <!-- Scanning Animation -->
                 <div class="scanning-container" id="scanner">
                     <div class="scanner-line"></div>
-                    <i class="ri-focus-3-line" style="font-size: 60px; color: var(--accent); animation: pulse 1s infinite alternate;"></i>
+                    <span class="ri-focus-3-line" style="font-size: 60px; color: var(--accent); animation: pulse 1s infinite alternate;" aria-hidden="true"></span>
                     <div class="ai-text" id="ai-status">DETECTING BODY...</div>
                 </div>
                 
                 <!-- Share Controls -->
                 <div class="share-controls" id="share-controls">
-                    <button class="share-btn" onclick="downloadResult()"><i class="ri-download-2-line"></i> Download</button>
-                    <button class="share-btn" onclick="shareResult()"><i class="ri-share-line"></i> Share</button>
-                    <button class="share-btn" onclick="resetTryOn()"><i class="ri-refresh-line"></i> Retry</button>
+                    <button class="share-btn" onclick="downloadResult()"><span class="ri-download-2-line" aria-hidden="true"></span> Download</button>
+                    <button class="share-btn" onclick="shareResult()"><span class="ri-share-line" aria-hidden="true"></span> Share</button>
+                    <button class="share-btn" onclick="resetTryOn()"><span class="ri-refresh-line" aria-hidden="true"></span> Retry</button>
                 </div>
             </div>
         </div>

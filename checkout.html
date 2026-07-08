@@ -36,13 +36,13 @@
 
     <div class="checkout-header">
       <div class="back-to-cart">
-        <a href="cart.html" class="back-link" aria-label="Back to cart"><i class="ri-arrow-left-line"></i> Back to Cart</a>
+        <a href="cart.html" class="back-link" aria-label="Back to cart"><span class="ri-arrow-left-line" aria-hidden="true"></span> Back to Cart</a>
         <a href="javascript:void(0)" id="logout-btn" style="display:none">Logout</a>
       </div>
       <div class="logo" style="display: flex; align-items: center; gap: 15px;">
         <span>Cara</span>
         <button class="theme-toggle" id="themeToggleDesktop" aria-label="Toggle dark mode" style="background: transparent; border: none; cursor: pointer;">
-          <i class="ri-moon-line" id="themeIcon" style="font-size: 20px;"></i>
+          <span class="ri-moon-line" id="themeIcon" style="font-size: 20px;" aria-hidden="true"></span>
         </button>
       </div>
     </div>
@@ -53,7 +53,7 @@
 
     <!-- Back button -->
     <button class="back-btn" onclick="window.location.href='cart.html'">
-      <i class="ri-arrow-left-line"></i> Back to Cart
+      <span class="ri-arrow-left-line" aria-hidden="true"></span> Back to Cart
     </button>
 
     <!-- Page title -->
@@ -74,7 +74,7 @@
         <!-- Contact Information -->
         <fieldset class="card">
           <legend class="card-title">
-            <i class="ri-user-3-line"></i> Contact Information
+            <span class="ri-user-3-line" aria-hidden="true"></span> Contact Information
           </legend>
 
         <div class="input-group">
@@ -127,10 +127,10 @@
 
           <div class="payment-tabs">
             <div class="payment-tab active" id="tabCOD" onclick="selectPayment('cod')">
-              <i class="ri-money-rupee-circle-line"></i> Cash on Delivery
+              <span class="ri-money-rupee-circle-line" aria-hidden="true"></span> Cash on Delivery
             </div>
             <div class="payment-tab" id="tabOnline" onclick="selectPayment('online')">
-              <i class="ri-bank-card-2-line"></i> Online Payment
+              <span class="ri-bank-card-2-line" aria-hidden="true"></span> Online Payment
             </div>
           </div>
 
@@ -189,7 +189,7 @@
         <!-- Preview and Totals -->
         <fieldset class="card">
           <legend class="card-title">
-            <i class="ri-shopping-bag-3-line"></i> Order Summary
+            <span class="ri-shopping-bag-3-line" aria-hidden="true"></span> Order Summary
           </legend>
           
           <div id="checkout-items-list" style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px;">
@@ -230,7 +230,7 @@
             </div>
             <div id="loyalty-msg" style="font-size: 0.78rem; margin-top: 6px; font-weight: 500;"></div>
             <p style="font-size: 0.75rem; margin-top: 8px; color: var(--text-muted, #555); display: flex; align-items: center; gap: 4px;">
-              <i class="ri-coins-line" style="color: #088178;"></i> You will earn <strong id="points-to-earn">0</strong> points from this order.
+              <span class="ri-coins-line" style="color: #088178;" aria-hidden="true"></span> You will earn <strong id="points-to-earn">0</strong> points from this order.
             </p>
           </div>
 
@@ -254,10 +254,10 @@
             </div>
           </div>
           <button type="submit" class="submit-btn" style="margin-top: 15px;">
-            <i class="ri-shield-check-line"></i> Place Your Order
+            <span class="ri-shield-check-line" aria-hidden="true"></span> Place Your Order
           </button>
           <div class="secure-badge">
-            <i class="ri-lock-line"></i> 100% Secure Checkout
+            <span class="ri-lock-line" aria-hidden="true"></span> 100% Secure Checkout
           </div>
         </fieldset>
       </div>
@@ -268,7 +268,7 @@
   <!-- SUCCESS POPUP -->
   <div class="success-overlay" id="successPopup">
     <div class="popup-box">
-      <div class="check-circle" aria-hidden="true"><i class="ri-check-line"></i></div>
+      <div class="check-circle" aria-hidden="true"><span class="ri-check-line" aria-hidden="true"></span></div>
       <h2>Order Successful!</h2>
       <p>Your order has been placed successfully. We'll send you a confirmation shortly.</p>
       <button class="popup-btn" onclick="window.location.href='shop.html'">Continue Shopping</button>

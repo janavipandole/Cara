@@ -77,27 +77,27 @@
       <li><a href="promotions.html">Promotions</a></li>
       <li><a href="contact.html">Contact</a></li>
       <li class="nav-icon">
-        <a href="login.html" aria-label="Login"><i class="ri-user-3-line"></i></a>
+        <a href="login.html" aria-label="Login"><span class="ri-user-3-line" aria-hidden="true"></span></a>
       </li>
       <li>
         <a href="wishlist.html" class="wishlist-nav-link" aria-label="Wishlist">
-          <i class="ri-heart-line"></i>
+          <span class="ri-heart-line" aria-hidden="true"></span>
           <span class="wishlist-count hidden">0</span>
         </a>
       </li>
-      <li><a href="cart.html" id="lg-bag" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a></li>
+      <li><a href="cart.html" id="lg-bag" aria-label="Cart"><span class="ri-shopping-bag-4-line" aria-hidden="true"></span></a></li>
       <li>
         <button class="theme-toggle" id="themeToggleDesktop" aria-label="Toggle dark mode">
-          <i class="ri-moon-line" id="themeIcon"></i>
+          <span class="ri-moon-line" id="themeIcon" aria-hidden="true"></span>
         </button>
       </li>
-      <a href="javascript:void(0)" id="close" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></a>
+      <a href="javascript:void(0)" id="close" aria-label="Close menu"><span class="fa-solid fa-xmark" aria-hidden="true"></span></a>
     </ul>
   </div>
   <div class="mobile">
-    <a href="wishlist.html" class="wishlist-nav-link" aria-label="Wishlist"><i class="ri-heart-line"></i><span class="wishlist-count hidden">0</span></a>
-    <a href="cart.html" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a>
-    <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
+    <a href="wishlist.html" class="wishlist-nav-link" aria-label="Wishlist"><span class="ri-heart-line" aria-hidden="true"></span><span class="wishlist-count hidden">0</span></a>
+    <a href="cart.html" aria-label="Cart"><span class="ri-shopping-bag-4-line" aria-hidden="true"></span></a>
+    <span class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0" aria-hidden="true"></span>
   </div>
     <button onclick="history.back()" class="back-btn" aria-label="Go back">Back</button>
   </section>
@@ -222,12 +222,12 @@
         <div class="cart-action-group">
           <div class="quantity-selector">
             <button type="button" class="qty-btn minus" onclick="updateQty(-1)" aria-label="Decrease quantity">
-              <i class="fa-solid fa-minus"></i>
+              <span class="fa-solid fa-minus" aria-hidden="true"></span>
             </button>
             <input id="product-quantity" type="number" value="1" min="1" readonly title="Product quantity"
               aria-label="Product quantity">
             <button type="button" class="qty-btn plus" onclick="updateQty(1)" aria-label="Increase quantity">
-              <i class="fa-solid fa-plus"></i>
+              <span class="fa-solid fa-plus" aria-hidden="true"></span>
             </button>
           </div>
           <button class="normal" onclick="handleAddToCart()">Add to Cart</button>
@@ -241,7 +241,7 @@
             aria-pressed="false"
             aria-label="Add product to wishlist"
           >
-            <i class="ri-heart-line" aria-hidden="true"></i>
+            <span class="ri-heart-line" aria-hidden="true" aria-hidden="true"></span>
             <span>Wishlist</span>
           </button>
           <button class="normal" style="background: var(--accent); color: white; margin-left: 10px;"
@@ -294,16 +294,16 @@
         <h4>Follow us</h4>
         <div class="icon">
           <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer">
-            <i class="fa-brands fa-x-twitter"></i>
+            <span class="fa-brands fa-x-twitter" aria-hidden="true"></span>
           </a>
           <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-github"></i>
+            <span class="fab fa-github" aria-hidden="true"></span>
           </a>
           <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-linkedin"></i>
+            <span class="fab fa-linkedin" aria-hidden="true"></span>
           </a>
           <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-youtube"></i>
+            <span class="fab fa-youtube" aria-hidden="true"></span>
           </a>
         </div>
       </div>
@@ -357,24 +357,24 @@
 
       <div class="payment-icons">
         <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer" aria-label="Visa">
-          <i class="fab fa-cc-visa"></i>
+          <span class="fab fa-cc-visa" aria-hidden="true"></span>
         </a>
 
         <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer" aria-label="Mastercard">
-          <i class="fab fa-cc-mastercard"></i>
+          <span class="fab fa-cc-mastercard" aria-hidden="true"></span>
         </a>
 
         <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" aria-label="PayPal">
-          <i class="fab fa-cc-paypal"></i>
+          <span class="fab fa-cc-paypal" aria-hidden="true"></span>
         </a>
 
         <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer"
           aria-label="American Express">
-          <i class="fab fa-cc-amex"></i>
+          <span class="fab fa-cc-amex" aria-hidden="true"></span>
         </a>
 
         <a href="https://stripe.com" target="_blank" rel="noopener noreferrer" aria-label="Stripe">
-          <i class="fab fa-cc-stripe"></i>
+          <span class="fab fa-cc-stripe" aria-hidden="true"></span>
         </a>
       </div>
     </div>

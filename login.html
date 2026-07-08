@@ -31,12 +31,12 @@
     </a>
     <div id="navbar-container"></div>
     <div class="mobile">
-      <a href="login.html" aria-label="Login"><i class="ri-user-3-line"></i></a>
-      <a href="cart.html" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a>
-      <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
+      <a href="login.html" aria-label="Login"><span class="ri-user-3-line" aria-hidden="true"></span></a>
+      <a href="cart.html" aria-label="Cart"><span class="ri-shopping-bag-4-line" aria-hidden="true"></span></a>
+      <span class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0" aria-hidden="true"></span>
       <!-- Theme Toggle -->
       <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
-        <i class="ri-moon-line" id="themeIconMobile"></i>
+        <span class="ri-moon-line" id="themeIconMobile" aria-hidden="true"></span>
       </button>
     </div>
   </section>
@@ -96,7 +96,7 @@
                 aria-invalid="false"
               />
               <button type="button" id="togglePassword" class="toggle_password" aria-label="Show password">
-                <i class="ri-eye-line" id="toggleIcon" aria-hidden="true"></i>
+                <span class="ri-eye-line" id="toggleIcon" aria-hidden="true" aria-hidden="true"></span>
               </button>
             </div>
             <span class="error-message" id="passwordError" role="alert"></span>
@@ -120,7 +120,7 @@
             <div class="captcha-row">
               <canvas id="captcha-canvas" width="150" height="40"></canvas>
               <button type="button" id="captcha-refresh" aria-label="Refresh Captcha">
-                <i class="ri-refresh-line"></i>
+                <span class="ri-refresh-line" aria-hidden="true"></span>
               </button>
             </div>
             <input type="text" id="captcha-input" class="input-field" placeholder="Enter the code above" autocomplete="off" />
