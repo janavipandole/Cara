@@ -94,7 +94,7 @@
 </head>
 <body>
     <!-- Floating Theme Toggle for Non-Standard Pages -->
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999; background: #088178; color: white; border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center;">
+    <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999; background: #088178; color: white; border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center;">
       <i class="ri-moon-line" id="themeIcon" style="font-size: 24px;"></i>
     </button>
 
@@ -123,7 +123,7 @@
         <label for="fileInput">↩ Change photo</label>
       </div>
 
-      <button class="find-btn" id="findBtn" disabled>Find Similar Styles</button>
+      <button type="button" class="find-btn" id="findBtn" disabled>Find Similar Styles</button>
     </div>
 
     <!-- RIGHT: Recommendations -->
@@ -131,8 +131,8 @@
       <h2>Recommended Styles</h2>
 
       <div class="view-toggle" id="viewToggle" style="display:none;">
-        <button class="toggle-btn active" id="btnAI" onclick="switchView('ai')">AI Insights</button>
-        <button class="toggle-btn" id="btnProducts" onclick="switchView('products')">Shop Items</button>
+        <button type="button" class="toggle-btn active" id="btnAI" onclick="switchView('ai')">AI Insights</button>
+        <button type="button" class="toggle-btn" id="btnProducts" onclick="switchView('products')">Shop Items</button>
       </div>
 
       <!-- Loading -->
@@ -156,7 +156,7 @@
           <h3>Embroidered Pink Anarkali</h3>
           <p class="card-sub">Full flare with dupatta — festive wear</p>
           <p class="price">₹3,499</p>
-          <button class="shop-btn">Shop Now</button>
+          <button type="button" class="shop-btn">Shop Now</button>
         </div>
 
         <div class="card">
@@ -166,7 +166,7 @@
           <h3>Magenta Ethnic Suit Set</h3>
           <p class="card-sub">Kurta + palazzo + dupatta</p>
           <p class="price">₹2,899</p>
-          <button class="shop-btn">Shop Now</button>
+          <button type="button" class="shop-btn">Shop Now</button>
         </div>
 
         <div class="card">
@@ -176,7 +176,7 @@
           <h3>Designer Floral Anarkali</h3>
           <p class="card-sub">Printed georgette with churidar</p>
           <p class="price">₹4,199</p>
-          <button class="shop-btn">Shop Now</button>
+          <button type="button" class="shop-btn">Shop Now</button>
         </div>
 
         <div class="card">
@@ -186,7 +186,7 @@
           <h3>Black Jacket Kurta Set</h3>
           <p class="card-sub">Indo-western with contrast dupatta</p>
           <p class="price">₹3,199</p>
-          <button class="shop-btn">Shop Now</button>
+          <button type="button" class="shop-btn">Shop Now</button>
         </div>
 
       </div>

@@ -83,7 +83,7 @@
             </a>
           </li>
           <li class="nav-icon"><a href="cart.html" id="lg-bag" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a></li>
-          <li class="nav-icon"><button class="theme-toggle" id="themeToggleDesktop" aria-label="Toggle dark mode"><i class="ri-moon-line" id="themeIcon"></i></button></li>
+          <li class="nav-icon"><button type="button" class="theme-toggle" id="themeToggleDesktop" aria-label="Toggle dark mode"><i class="ri-moon-line" id="themeIcon"></i></button></li>
           <a href="javascript:void(0)" id="close" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></a>
         </ul>
       </div>
@@ -116,7 +116,7 @@
     <div id="recent-searches-box" style="margin-top: 10px; font-size: 14px; display: none;">
       <span>Recent Searches: </span>
       <span id="recent-searches-list"></span>
-      <button id="clear-searches-btn" style="background: none; border: none; color: #088178; cursor: pointer; text-decoration: underline; margin-left: 10px;">Clear</button>
+      <button type="button" id="clear-searches-btn" style="background: none; border: none; color: #088178; cursor: pointer; text-decoration: underline; margin-left: 10px;">Clear</button>
     </div>
     
     <script>
@@ -169,7 +169,7 @@
     <div class="search-box">
       <label for="searchInput" class="sr-only" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">Search Products</label>
       <input type="text" id="searchInput" placeholder="Search products..." />
-      <button id="searchBtn" aria-label="Search">
+      <button type="button" id="searchBtn" aria-label="Search">
         <i class="ri-search-line"></i>
       </button>
     </div>
@@ -212,7 +212,7 @@
     <!-- RESET BUTTON -->
     <div class="filter-container reset-wrapper">
       <label for="resetFiltersBtn" style="visibility:hidden;">Reset</label>
-      <button id="resetFiltersBtn" class="reset-btn">
+      <button type="button" id="resetFiltersBtn" class="reset-btn">
         Reset Filters
       </button>
     </div>
@@ -256,8 +256,8 @@
       </form>
     </section>
 
-    <button id="backToTop" title="Back to Top" aria-label="Back to top">â¬†</button>
-    <button id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">â¬‡</button>
+    <button type="button" id="backToTop" title="Back to Top" aria-label="Back to top">â¬†</button>
+    <button type="button" id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">â¬‡</button>
 
     <footer class="section-p1">
     <!-- Contact Column -->
@@ -392,7 +392,7 @@ if (btn) {
   });
 }
 </script>
-   <button id="backToTop">â†‘</button>
+   <button type="button" id="backToTop">â†‘</button>
   <script src="js/shimmer-loader.js" defer></script>
   <script src="js/recently-viewed.js"></script>
 </body>

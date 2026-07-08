@@ -87,7 +87,7 @@
       </li>
       <li><a href="cart.html" id="lg-bag" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a></li>
       <li>
-        <button class="theme-toggle" id="themeToggleDesktop" aria-label="Toggle dark mode">
+        <button type="button" class="theme-toggle" id="themeToggleDesktop" aria-label="Toggle dark mode">
           <i class="ri-moon-line" id="themeIcon"></i>
         </button>
       </li>
@@ -99,7 +99,7 @@
     <a href="cart.html" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a>
     <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
   </div>
-    <button onclick="history.back()" class="back-btn" aria-label="Go back">Back</button>
+    <button type="button" onclick="history.back()" class="back-btn" aria-label="Go back">Back</button>
   </section>
 
   <section id="pro-details" class="section-p1">
@@ -157,7 +157,7 @@
         <div id="stock-alert-container"></div>
 
         <!-- Size Chart Button -->
-       <button id="size-chart-btn">View Size Chart</button>
+       <button type="button" id="size-chart-btn">View Size Chart</button>
 
 <!-- Modal -->
 <div id="size-chart-modal" class="modal">
@@ -230,8 +230,8 @@
               <i class="fa-solid fa-plus"></i>
             </button>
           </div>
-          <button class="normal" onclick="handleAddToCart()">Add to Cart</button>
-          <button class="normal" style="background: #088178; color: white; margin-left: 10px;"
+          <button type="button" class="normal" onclick="handleAddToCart()">Add to Cart</button>
+          <button type="button" class="normal" style="background: #088178; color: white; margin-left: 10px;"
             onclick="handleBuyNow()">Buy Now</button>
           <button
             class="normal product-wishlist-btn wishlist-btn"
@@ -244,7 +244,7 @@
             <i class="ri-heart-line" aria-hidden="true"></i>
             <span>Wishlist</span>
           </button>
-          <button class="normal" style="background: var(--accent); color: white; margin-left: 10px;"
+          <button type="button" class="normal" style="background: var(--accent); color: white; margin-left: 10px;"
             onclick="window.location.href='try-on.html'">Try it On Virtually!</button>
         </div>
         <h4>Product Details</h4>

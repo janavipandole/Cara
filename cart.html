@@ -408,7 +408,7 @@ button + button {
 
         <!-- Theme Toggle -->
         <li class="nav-icon">
-          <button class="theme-toggle" id="themeToggleDesktop" aria-label="Toggle dark mode">
+          <button type="button" class="theme-toggle" id="themeToggleDesktop" aria-label="Toggle dark mode">
             <i class="ri-moon-line" id="themeIcon"></i>
           </button>
         </li>
@@ -486,7 +486,7 @@ button + button {
                   <div class="coupon-input-group" style="display: flex; gap: 8px; margin-bottom: 8px;">
                     <label for="coupon-code-input" class="sr-only" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">Coupon Code</label>
                     <input type="text" id="coupon-code-input" placeholder="Enter coupon (e.g. CARA20)" style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" />
-                    <button id="apply-coupon-btn" aria-label="Apply coupon" style="background: #088178; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: 600; transition: 0.3s;">Apply</button>
+                    <button type="button" id="apply-coupon-btn" aria-label="Apply coupon" style="background: #088178; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: 600; transition: 0.3s;">Apply</button>
                   </div>
                   <div id="coupon-feedback" style="font-size: 12px; font-weight: 600; min-height: 18px; margin-top: 5px;"></div>
                 </div>
@@ -499,7 +499,7 @@ button + button {
                     <div id="loyalty-apply-section" style="margin-top: 8px; display: flex; gap: 6px;">
                         <label for="points-to-apply" class="sr-only" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">Redeem Points</label>
                         <input type="number" id="points-to-apply" placeholder="Redeem" style="padding: 6px; width: 80px; border: 1px solid #ccc; border-radius: 4px;" />
-                        <button id="apply-points-btn" aria-label="Redeem loyalty points" style="padding: 6px 10px; background: #088178; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: 600;">Redeem</button>
+                        <button type="button" id="apply-points-btn" aria-label="Redeem loyalty points" style="padding: 6px 10px; background: #088178; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: 600;">Redeem</button>
                     </div>
                     <p id="loyalty-msg" style="margin: 6px 0 0 0; font-size: 12px; font-weight: 600; min-height: 15px;"></p>
                 </div>
@@ -528,7 +528,7 @@ button + button {
                   </div>
                 </div>
 
-                <button class="checkout-btn" onclick="window.location.href='checkout.html'">
+                <button type="button" class="checkout-btn" onclick="window.location.href='checkout.html'">
                   PROCEED TO CHECKOUT <i class="ri-arrow-right-line"></i>
                 </button>
               </div>
