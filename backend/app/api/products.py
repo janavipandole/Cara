@@ -18,6 +18,7 @@ def get_products(
     limit: int = 50,
     db: Session = Depends(get_db),
 ):
+    limit = min(limit, 100)
     return db.query(models.Product).offset(skip).limit(limit).all()
 
 

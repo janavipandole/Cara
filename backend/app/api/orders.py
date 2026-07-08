@@ -44,11 +44,16 @@ def serialize_order(order: models.Order, db: Session, include_items: bool = True
 def get_user_orders(
     db: Session = Depends(get_db),
     current_user: models.User = Depends(get_current_user),
+    skip: int = 0,
+    limit: int = 50,
 ):
+    limit = min(limit, 100)
     orders = (
         db.query(models.Order)
         .filter(models.Order.email == current_user.email)
         .order_by(models.Order.created_at.desc())
+        .offset(skip)
+        .limit(limit)
         .all()
     )
 
