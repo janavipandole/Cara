@@ -1,195 +1,91 @@
-/* ============================================
-   TOAST NOTIFICATION SYSTEM
-   ============================================ */
+/* toast.css — shared by login and register pages */
+
+/* ============================================================
+   TOAST CONTAINER
+   Fixed to the top-right corner, above everything else.
+   Each toast stacks below the previous one automatically.
+   ============================================================ */
 #toast-container {
-    position: fixed;
-    top: 24px;
-    right: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    z-index: 10000;
-    pointer-events: none;
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none; /* clicks pass through the empty container */
 }
 
+/* ============================================================
+   INDIVIDUAL TOAST
+   Starts invisible + shifted right, slides in when .show is added.
+   ============================================================ */
 .toast {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    min-width: 300px;
-    max-width: 420px;
-    padding: 14px 18px;
-    border-radius: 12px;
-    background: #ffffff;
-    color: #1e293b;
-    font-size: 14px;
-    font-weight: 500;
-    font-family: 'Outfit', 'Poppins', 'Segoe UI', sans-serif;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
-    border-left: 4px solid #088178;
-    pointer-events: all;
-    position: relative;
-    overflow: hidden;
-    animation: toastSlideIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  min-width: 260px;
+  max-width: 380px;
+  padding: 14px 18px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.4;
+  color: #ffffff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  pointer-events: auto;
+
+  /* start position: invisible + slid off to the right */
+  opacity: 0;
+  transform: translateX(110%);
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
 }
 
-.toast-hiding {
-    animation: toastSlideOut 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+/* When JS adds .show, it animates in */
+.toast.show {
+  opacity: 1;
+  transform: translateX(0);
 }
 
-.toast-icon {
-    font-size: 20px;
-    flex-shrink: 0;
-    width: 24px;
-    text-align: center;
-}
+/* ============================================================
+   TOAST TYPES
+   ============================================================ */
 
-.toast-msg {
-    flex: 1;
-    line-height: 1.4;
-}
-
-.toast-close {
-    background: none;
-    border: none;
-    font-size: 20px;
-    color: #94a3b8;
-    cursor: pointer;
-    padding: 0 2px;
-    line-height: 1;
-    flex-shrink: 0;
-    transition: color 0.2s ease, transform 0.2s ease;
-}
-
-.toast-close:hover {
-    color: #334155;
-    transform: scale(1.2);
-}
-
-.toast-progress {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 3px;
-    border-radius: 0 0 0 12px;
-    animation: toastProgress 4s linear forwards;
-}
-
-/* --- Toast Variants --- */
+/* Green for success ("Welcome back!", "Account created") */
 .toast-success {
-    border-left-color: #088178;
-}
-.toast-success .toast-icon {
-    color: #088178;
-}
-.toast-success .toast-progress {
-    background: #088178;
+  background-color: #088178;
+  border-left: 4px solid #055f5a;
 }
 
+/* Red for errors ("Something went wrong") */
 .toast-error {
-    border-left-color: #dc2626;
-}
-.toast-error .toast-icon {
-    color: #dc2626;
-}
-.toast-error .toast-progress {
-    background: #dc2626;
+  background-color: #dc3545;
+  border-left: 4px solid #a71d2a;
 }
 
-.toast-warning {
-    border-left-color: #f59e0b;
-}
-.toast-warning .toast-icon {
-    color: #f59e0b;
-}
-.toast-warning .toast-progress {
-    background: #f59e0b;
-}
-
+/* Optional: info style (blue) — not used yet but handy to have */
 .toast-info {
-    border-left-color: #3b82f6;
-}
-.toast-info .toast-icon {
-    color: #3b82f6;
-}
-.toast-info .toast-progress {
-    background: #3b82f6;
+  background-color: #0891b2;
+  border-left: 4px solid #0369a1;
 }
 
-/* --- Toast Animations --- */
-@keyframes toastSlideIn {
-    from {
-        opacity: 0;
-        transform: translateX(100%);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
+/* ============================================================
+   MOBILE: move toasts to the bottom-center on narrow screens
+   so they don't overlap the card
+   ============================================================ */
+@media (max-width: 540px) {
+  #toast-container {
+    top: auto;
+    bottom: 24px;
+    right: 50%;
+    transform: translateX(50%);
+    align-items: center;
+  }
 
-@keyframes toastSlideOut {
-    from {
-        opacity: 1;
-        transform: translateX(0);
-    }
-    to {
-        opacity: 0;
-        transform: translateX(100%);
-    }
+  .toast {
+    min-width: 80vw;
+    text-align: center;
+  }
 }
-
-@keyframes toastProgress {
-    from { width: 100%; }
-    to { width: 0%; }
-}
-
-/* --- Dark Theme Toast --- */
-[data-theme="dark"] .toast {
-    background: #1e293b;
-    color: #e2e8f0;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-[data-theme="dark"] .toast-close {
-    color: #64748b;
-}
-
-[data-theme="dark"] .toast-close:hover {
-    color: #e2e8f0;
-}
-
-/* --- Mobile Responsive Toast --- */
-@media (max-width: 480px) {
-    #toast-container {
-        top: auto;
-        bottom: 20px;
-        right: 12px;
-        left: 12px;
-    }
-    .toast {
-        min-width: unset;
-        max-width: 100%;
-        width: 100%;
-    }
-    @keyframes toastSlideIn {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-    @keyframes toastSlideOut {
-        from {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        to {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-    }
-}
+/* Fix #2423 */
+:root { --em-base-duration: 300ms; }

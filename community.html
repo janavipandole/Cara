@@ -1,11 +1,23 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+
+    <!-- Character Encoding -->
     <meta charset="UTF-8">
+  
+     <!-- Viewport for Responsive Design -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cara — Community & Inspiration</title>
+
+    <!-- Page Title -->
+    <title>Cara â€” Community & Inspiration</title>
+
+    <!-- Favicon -->
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
+
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="ui-fix.css" />
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
@@ -222,6 +234,14 @@
             }
         }
     </style>
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
 </head>
 <body>
     <section id="header">
@@ -267,7 +287,7 @@
       <li class="nav-icon">
         <button
           class="theme-toggle"
-          id="themeToggle"
+          id="themeToggleDesktop"
           aria-label="Toggle dark mode"
         >
           <i class="ri-moon-line" id="themeIcon"></i>
@@ -276,7 +296,7 @@
 
       <!-- Close Button -->
       <a
-        href="#"
+        href="javascript:void(0)"
         id="close"
         aria-label="Close menu"
         aria-hidden="false"
@@ -309,7 +329,6 @@
       aria-expanded="false"
       tabindex="0"
     ></i>
-
   </div>
 </section>
 
@@ -330,7 +349,11 @@
             <p class="cara-text">PNG, JPG up to 5MB</p>
         </div>
         <input type="file" id="community-upload" accept="image/*">
+    <div id="upload-success" style="display:none; color: green; margin-top: 15px; font-weight: bold; text-align: center;">Photo uploaded successfully!</div>
     </label>
+    <div id="upload-success" style="display: none; color: #088178; font-weight: 600; margin-top: 15px; text-align: center;">
+        <i class="ri-checkbox-circle-fill"></i> Upload Successful! Your look is being reviewed.
+    </div>
 </section>
 
     <section id="gallery">
@@ -413,9 +436,9 @@
         <h4>Follow us</h4>
         <div class="icon">
           <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-twitter"></i>
+            <i class="fa-brands fa-x-twitter"></i>
           </a>
-          <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
+          <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
             <i class="fab fa-github"></i>
           </a>
           <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
@@ -432,18 +455,18 @@
     <div class="col">
       <h4>About</h4>
       <a href="about.html">About Us</a>
-      <a href="deliveryInformation.html">Delivery Information</a>
+      <a href="delivery.html">Delivery Information</a>
       <a href="privacy.html">Privacy Policy</a>
       <a href="terms.html">Terms and Conditions</a>
       <a href="contact.html">Contact Us</a>
     </div>
 
     <!-- My Account Column -->
-    <div class="col">
-      <h4>My Account</h4>
+    <div class="footer-col">
+      <h4>MY ACCOUNT</h4>
       <a href="login.html">Sign In</a>
       <a href="cart.html">View Cart</a>
-      <a href="#">My Wishlist</a>
+      <a href="wishlist.html">My Wishlist</a>
       <a href="cart.html">Track My Order</a>
       <a href="contact.html">Help</a>
     </div>
@@ -500,12 +523,12 @@
     <!-- Copyright -->
     <div class="copyright">
       <p>
-        © Cara 2026. All rights reserved. |
+        Â© Cara 2026. All rights reserved. |
         <a href="license.html" style="color: #088178"> MIT License </a>
       </p>
     </div>
   </footer>
-   <button id="topBtn">↑</button>
+   <button id="topBtn">â†‘</button>
     <!-- <script src="navbar.js"></script>
     <script>loadNavbar('community');</script>   -->
 
@@ -544,3 +567,4 @@
 </html>
 
 <!-- Accessibility and structural improvements -->
+

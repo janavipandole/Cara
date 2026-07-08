@@ -1,7 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net;" />
   <!-- Character Encoding -->
   <meta charset="UTF-8" />
 
@@ -22,12 +24,13 @@
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="ui-fix.css" />
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <style>
-    /* ── 404 Page Styles ── */
+    /* â”€â”€ 404 Page Styles â”€â”€ */
     #not-found {
       min-height: 70vh;
       display: flex;
@@ -169,10 +172,18 @@
       color: var(--text-secondary, #94a3b8);
     }
   </style>
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
 </head>
 
 <body>
-  <!-- ── HEADER ── -->
+  <!-- â”€â”€ HEADER â”€â”€ -->
   <section id="header">
     <a href="index.html">
       <img loading="lazy" id="siteLogo" src="images/logo.png" alt="Cara Logo" width="130" height="40" />
@@ -180,13 +191,16 @@
     <div id="navbar-container"></div>
     <div id="mobile">
       <a href="cart.html" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a>
-      <a href="#" id="bar" aria-label="Open menu" aria-expanded="false">
+      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode" style="margin-left: 10px; border: none; background: transparent; cursor: pointer;">
+        <i class="ri-moon-line" id="themeIconMobile" style="font-size: 20px;"></i>
+      </button>
+      <a href="javascript:void(0)" id="bar" aria-label="Open menu" aria-expanded="false" style="margin-left: 10px;">
         <i class="fa-solid fa-bars"></i>
       </a>
     </div>
   </section>
 
-  <!-- ── 404 SECTION ── -->
+  <!-- â”€â”€ 404 SECTION â”€â”€ -->
   <main id="main-content">
   <section id="not-found">
 
@@ -221,28 +235,29 @@
   </section>
   </main>
 
-  <!-- ── FOOTER ── -->
+  <!-- â”€â”€ FOOTER â”€â”€ -->
   <footer class="main-footer">
     <div class="footer-top">
       <div class="footer-logo-box">
         <img class="footer-logo" src="images/logo.png" alt="Cara Logo" width="110" height="34" loading="lazy" />
       </div>
       <div class="footer-socials">
-        <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
-        <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+        <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
+        <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
         <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
         <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
       </div>
     </div>
     <hr class="footer-divider">
     <div class="footer-bottom">
-      <p>© 2024 Cara. All Rights Reserved.</p>
+      <p>Â© 2024 Cara. All Rights Reserved.</p>
     </div>
   </footer>
 
-  <!-- ── SCRIPTS ── -->
+  <!-- â”€â”€ SCRIPTS â”€â”€ -->
   <script src="navbar.js"></script>
   <script src="app.js"></script>
 
 </body>
 </html>
+

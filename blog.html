@@ -1,6 +1,7 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <!-- Character Encoding -->
     <meta charset="UTF-8" />
 
@@ -8,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Page Title -->
-    <title>Cara — Modern E‑Commerce</title>
+    <title>Blog | Cara â€” Modern Eâ€‘Commerce</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
@@ -59,6 +60,7 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="ui-fix.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
       rel="stylesheet"
@@ -109,7 +111,15 @@
   transform: scale(1.1);
 }
     </style>
-  </head>
+    <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
+</head>
 
   <body>
 <section id="header">
@@ -155,7 +165,7 @@
       <li class="nav-icon">
         <button
           class="theme-toggle"
-          id="themeToggle"
+          id="themeToggleDesktop"
           aria-label="Toggle dark mode"
         >
           <i class="ri-moon-line" id="themeIcon"></i>
@@ -164,7 +174,7 @@
 
       <!-- Close Button -->
       <a
-        href="#"
+        href="javascript:void(0)"
         id="close"
         aria-label="Close menu"
         aria-hidden="false"
@@ -197,7 +207,6 @@
       aria-expanded="false"
       tabindex="0"
     ></i>
-
   </div>
 </section>
 
@@ -212,7 +221,7 @@
     </section>
 
     <section id="blog">
-      <div class="blog-box">
+      <article class="blog-box">
         <div class="blog-img">
           <img src="images/blog/b1.jpg" alt="A person wearing a Cotton-Jersey Zip-Up Hoodie" width="600" height="400" loading="lazy" />
         </div>
@@ -230,10 +239,16 @@
           >
             CONTINUE READING
           </a>
+          <div class="blog-share" style="margin-top: 15px; display: flex; gap: 10px; align-items: center;">
+            <span style="font-size: 13px; font-weight: 700; color: #777;">Share:</span>
+            <a href="https://twitter.com/intent/tweet?text=Check out this blog post: The Cotton-Jersey Zip-Up Hoodie&url=https://cara-seven-ashen.vercel.app/blog-cotton-jersey-hoodie.html" target="_blank" rel="noopener noreferrer" aria-label="Share on X" style="color: #088178; font-size: 14px;"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://cara-seven-ashen.vercel.app/blog-cotton-jersey-hoodie.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook" style="color: #088178; font-size: 14px;"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://pinterest.com/pin/create/button/?url=https://cara-seven-ashen.vercel.app/blog-cotton-jersey-hoodie.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Pinterest" style="color: #088178; font-size: 14px;"><i class="fab fa-pinterest"></i></a>
+          </div>
         </div>
         <h1>13/01</h1>
-      </div>
-      <div class="blog-box">
+      </article>
+      <article class="blog-box">
         <div class="blog-img">
           <img src="images/blog/b2.jpg" alt="A professional styling a Quiff haircut" width="600" height="400" loading="lazy" />
         </div>
@@ -247,10 +262,16 @@
           <a href="blog-quiff-styling.html" class="read-more"
             >CONTINUE READING</a
           >
+          <div class="blog-share" style="margin-top: 15px; display: flex; gap: 10px; align-items: center;">
+            <span style="font-size: 13px; font-weight: 700; color: #777;">Share:</span>
+            <a href="https://twitter.com/intent/tweet?text=Check out this blog post: How to style a Quiff&url=https://cara-seven-ashen.vercel.app/blog-quiff-styling.html" target="_blank" rel="noopener noreferrer" aria-label="Share on X" style="color: #088178; font-size: 14px;"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://cara-seven-ashen.vercel.app/blog-quiff-styling.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook" style="color: #088178; font-size: 14px;"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://pinterest.com/pin/create/button/?url=https://cara-seven-ashen.vercel.app/blog-quiff-styling.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Pinterest" style="color: #088178; font-size: 14px;"><i class="fab fa-pinterest"></i></a>
+          </div>
         </div>
         <h1>13/04</h1>
-      </div>
-      <div class="blog-box">
+      </article>
+      <article class="blog-box">
         <div class="blog-img">
           <img src="images/blog/b3.jpg" alt="A variety of Must-Have Skater Girls Items laid out" width="600" height="400" loading="lazy" />
         </div>
@@ -258,17 +279,23 @@
           <h4>Must-Have Skater Girls Items</h4>
           <p>
             Street style meets skate culture in the most exciting way. We've
-            rounded up the essential pieces every skater girl needs — from
+            rounded up the essential pieces every skater girl needs â€” from
             oversized graphic tees to the perfect high-top sneakers and cargo
             pants....
           </p>
           <a href="blog-skater-girls.html" class="read-more"
             >CONTINUE READING</a
           >
+          <div class="blog-share" style="margin-top: 15px; display: flex; gap: 10px; align-items: center;">
+            <span style="font-size: 13px; font-weight: 700; color: #777;">Share:</span>
+            <a href="https://twitter.com/intent/tweet?text=Check out this blog post: Must-Have Skater Girls Items&url=https://cara-seven-ashen.vercel.app/blog-skater-girls.html" target="_blank" rel="noopener noreferrer" aria-label="Share on X" style="color: #088178; font-size: 14px;"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://cara-seven-ashen.vercel.app/blog-skater-girls.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook" style="color: #088178; font-size: 14px;"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://pinterest.com/pin/create/button/?url=https://cara-seven-ashen.vercel.app/blog-skater-girls.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Pinterest" style="color: #088178; font-size: 14px;"><i class="fab fa-pinterest"></i></a>
+          </div>
         </div>
         <h1>12/01</h1>
-      </div>
-      <div class="blog-box">
+      </article>
+      <article class="blog-box">
         <div class="blog-img">
           <img src="images/blog/b4.jpg" alt="Models showcasing Runway-Inspired Trends" width="600" height="400" loading="lazy" />
         </div>
@@ -282,10 +309,16 @@
           <a href="blog-runway-trends.html" class="read-more"
             >CONTINUE READING</a
           >
+          <div class="blog-share" style="margin-top: 15px; display: flex; gap: 10px; align-items: center;">
+            <span style="font-size: 13px; font-weight: 700; color: #777;">Share:</span>
+            <a href="https://twitter.com/intent/tweet?text=Check out this blog post: Runway-Inspired Trends&url=https://cara-seven-ashen.vercel.app/blog-runway-trends.html" target="_blank" rel="noopener noreferrer" aria-label="Share on X" style="color: #088178; font-size: 14px;"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://cara-seven-ashen.vercel.app/blog-runway-trends.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook" style="color: #088178; font-size: 14px;"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://pinterest.com/pin/create/button/?url=https://cara-seven-ashen.vercel.app/blog-runway-trends.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Pinterest" style="color: #088178; font-size: 14px;"><i class="fab fa-pinterest"></i></a>
+          </div>
         </div>
         <h1>16/01</h1>
-      </div>
-      <div class="blog-box">
+      </article>
+      <article class="blog-box">
         <div class="blog-img">
           <img src="images/blog/b6.jpg" alt="Menswear autumn winter collection presentation" width="600" height="400" loading="lazy" />
         </div>
@@ -299,9 +332,15 @@
           <a href="blog-aw20-menswear.html" class="read-more"
             >CONTINUE READING</a
           >
+          <div class="blog-share" style="margin-top: 15px; display: flex; gap: 10px; align-items: center;">
+            <span style="font-size: 13px; font-weight: 700; color: #777;">Share:</span>
+            <a href="https://twitter.com/intent/tweet?text=Check out this blog post: AW20 Menswear Trends&url=https://cara-seven-ashen.vercel.app/blog-aw20-menswear.html" target="_blank" rel="noopener noreferrer" aria-label="Share on X" style="color: #088178; font-size: 14px;"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://cara-seven-ashen.vercel.app/blog-aw20-menswear.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook" style="color: #088178; font-size: 14px;"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://pinterest.com/pin/create/button/?url=https://cara-seven-ashen.vercel.app/blog-aw20-menswear.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Pinterest" style="color: #088178; font-size: 14px;"><i class="fab fa-pinterest"></i></a>
+          </div>
         </div>
         <h1>10/01</h1>
-      </div>
+      </article>
     </section>
 
     <!-- Back to Top and Scroll to Bottom Buttons -->
@@ -333,7 +372,7 @@
               target="_blank"
               rel="noopener noreferrer"
             >
-              <i class="fab fa-twitter"></i>
+              <i class="fa-brands fa-x-twitter"></i>
             </a>
             <a
               href="https://github.com/janavipandole"
@@ -364,7 +403,7 @@
       <div class="col">
         <h4>About</h4>
         <a href="about.html">About Us</a>
-        <a href="deliveryInformation.html">Delivery Information</a>
+        <a href="delivery.html">Delivery Information</a>
         <a href="privacy.html">Privacy Policy</a>
         <a href="terms.html">Terms and Conditions</a>
         <a href="contact.html">Contact Us</a>
@@ -375,7 +414,7 @@
         <h4>My Account</h4>
         <a href="login.html">Sign In</a>
         <a href="cart.html">View Cart</a>
-        <a href="#">My Wishlist</a>
+        <a href="wishlist.html">My Wishlist</a>
         <a href="cart.html">Track My Order</a>
         <a href="contact.html">Help</a>
       </div>
@@ -457,7 +496,7 @@
       <!-- Copyright -->
       <div class="copyright">
         <p>
-          © Cara 2026. All rights reserved. |
+          Â© Cara 2026. All rights reserved. |
           <a href="license.html" style="color: #088178"> MIT License </a>
         </p>
       </div>
@@ -504,7 +543,9 @@
   });
 </script>
 
+<script src="js/reading-progress.js" defer></script>
 </body>
 </html>
 
 <!-- A11y and structural improvements -->
+

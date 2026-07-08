@@ -1,57 +1,91 @@
-# 📝 Pull Request Template
+# Pull Request
 
-## 📄 Description
-
-Provide a clear and concise description of what this pull request does.  
-Include any background context and the motivation behind this change.
-
-> Example:  
-> This PR adds a new feature that allows users to upload profile images.  
-> It also refactors the user controller for better maintainability.
+## Related Issue
+<!--
+Every PR MUST link to an existing issue.
+Use "Closes #ISSUE_NUMBER" so GitHub auto-closes the issue on merge.
+-->
+Closes #
 
 ---
 
-## 🔗 Related Issues
-
-Link any related issues using the format below.  
-This will **auto-close** the issue when merged:
-
-> Fixes #<issue_number>
-
----
-
-## 🖼️ Screenshots (if applicable)
-
-If your changes include UI updates or visual changes, add screenshots or GIFs here.
+## Type of Change
+<!-- Mark the boxes that apply. Remove lines that are not relevant. -->
+- [ ] 🐛 Bug fix — non-breaking change that resolves a reported issue
+- [ ] ✨ New feature — non-breaking change that adds functionality
+- [ ] 💥 Breaking change — fix or feature that changes existing behavior
+- [ ] 🎨 UI / UX improvement — visual or interaction polish
+- [ ] ♻️ Refactor — code improvement with no functional change
+- [ ] 📚 Documentation update
+- [ ] ⚙️ CI / tooling / workflow change
+- [ ] 🔒 Security fix
 
 ---
 
-## 🧩 Type of Change
-
-Select the type of change your PR introduces (check all that apply):
-
-- [ ] 🐛 Bug Fix  
-- [ ] ✨ New Feature  
-- [ ] ⚡ Enhancement / Optimization  
-- [ ] 🧰 Refactoring  
-- [ ] 🧾 Documentation Update  
-- [ ] 🔧 Other (please specify): ____________
+## Summary
+<!--
+2–5 sentence description of WHAT changed and WHY.
+Focus on the decision, not just the diff.
+-->
 
 ---
 
-## ✅ Checklist
-
-Before submitting your PR, please confirm the following:
-
-- [ ] I have performed a self-review of my code.  
-- [ ] I have commented my code, particularly in hard-to-understand areas.  
-- [ ] I have added or updated relevant documentation.  
-- [ ] My changes do not break any existing functionality.  
-- [ ] I have tested my changes locally and they work as expected.  
-- [ ] I have linked all relevant issues (if any).
+## Changes Made
+<!--
+Bullet list of the concrete changes in this PR.
+Keep each item focused and scannable.
+-->
+- 
+- 
+- 
 
 ---
 
-## 💬 Additional Notes (Optional)
+## Screenshots / Recordings
+<!--
+Required for UI changes. Add before/after screenshots or a short screen recording.
+Drag and drop images directly into this text area.
+-->
 
-Add any other information, context, or comments that reviewers might find useful.
+| Before | After |
+|--------|-------|
+|        |       |
+
+---
+
+## Testing
+<!--
+Describe how you tested these changes so reviewers can verify them quickly.
+-->
+
+### How to Test Locally
+1. 
+2. 
+3. 
+
+### Test Coverage
+- [ ] I added / updated unit tests for the new logic
+- [ ] I verified manually in Chrome (desktop)
+- [ ] I verified manually on a mobile viewport (< 480 px)
+- [ ] I ran `npm run lint` and it passes with no errors
+- [ ] I ran `npm run format:check` and it passes with no errors
+- [ ] Backend: I ran `pytest` and all tests pass (if backend changed)
+- [ ] Backend: Alembic migration applies cleanly with `alembic upgrade head` (if DB schema changed)
+
+---
+
+## Impact
+<!--
+Explain the user-facing or developer-facing benefit of this change.
+-->
+
+---
+
+## Checklist
+- [ ] My code follows the existing style and conventions of this project
+- [ ] I have self-reviewed my diff and removed debug/console logs
+- [ ] I have not introduced any unrelated changes in this PR
+- [ ] The PR title follows [Conventional Commits](https://www.conventionalcommits.org/) format (`fix:`, `feat:`, `docs:`, etc.)
+- [ ] I have updated relevant documentation (README, CONTRIBUTING, inline comments) if needed
+- [ ] All new and existing tests pass
+- [ ] This PR is independently reviewable and mergeable (no stacked dependencies)

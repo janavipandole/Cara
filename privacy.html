@@ -1,16 +1,33 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+    <!-- Character encoding -->
     <meta charset="UTF-8" />
+
+    <!-- Viewport for responsive design -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Privacy Policy | Cara — Modern E-Commerce</title>
+
+    <!-- Page title -->
+    <title>Privacy Policy | Cara â€” Modern E-Commerce</title>
+
+    <!-- Favicon -->
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
+
+    <!--SEO Meta Tags-->
     <meta name="description" content="Read Cara's Privacy Policy to understand how we collect, use, and protect your personal information." />
     <meta name="author" content="Cara" />
     <meta name="robots" content="index, follow" />
+
+    <!-- Language -->
     <meta http-equiv="Content-Language" content="en" />
+
+    <!-- Theme Color for Mobile Browser -->
     <meta name="theme-color" content="#000000" />
+
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="ui-fix.css" />
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link
       rel="stylesheet"
@@ -234,13 +251,22 @@
         }
       }
     </style>
-  </head>
+    <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
+</head>
 
   <body>
     <!-- Header -->
     <section id="header">
       <a id="siteLogo" href="index.html"><img src="images/logo.png" alt="Cara Logo" width="130" height="40" /></a>
 
+      <!-- Navigation Bar -->
       <div>
         <ul id="navbar">
           <li><a href="index.html">Home</a></li>
@@ -258,23 +284,16 @@
           <li>
             <button
               class="theme-toggle"
-              id="themeToggle"
+              id="themeToggleDesktop"
               aria-label="Toggle dark mode"
             >
               <i class="ri-moon-line" id="themeIcon"></i>
             </button>
           </li>
-          <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+          <a href="javascript:void(0)" id="close"><i class="fa-solid fa-xmark"></i></a>
         </ul>
       </div>
       <div class="mobile">
-        <button
-          class="theme-toggle"
-          id="themeToggleMobile"
-          aria-label="Toggle dark mode"
-        >
-          <i class="ri-moon-line" id="themeIconMobile"></i>
-        </button>
         <a href="cart.html" id="mobile-cart-icon">
           <i class="ri-shopping-bag-4-line"></i>
           <span class="cart-count" id="mobileCartCount">0</span>
@@ -287,10 +306,10 @@
     <section id="about-head">
       <h2>Privacy Policy</h2>
     </section>
-
-    <!-- Policy Content -->
+    <div class="policy-layout">
+        <!-- Policy Content -->
     <main id="policy-page">
-      <button onclick="javascript:history.back()" class="back-btn" aria-label="Go back to previous page" style="border: none; font-family: inherit; font-size: inherit;">
+      <button onclick="history.back()" class="back-btn" aria-label="Go back to previous page" style="border: none; font-family: inherit; font-size: inherit;">
         <i class="ri-arrow-left-line"></i> Back
       </button>
 
@@ -391,7 +410,7 @@
               <p>56 Glassford Street, Glasgow G1 1UL, New York</p>
               <p>contact@example.com</p>
               <p>+1 (000) 123-7788</p>
-              <p>Monday to Saturday — 9:00 AM to 6:00 PM</p>
+              <p>Monday to Saturday â€” 9:00 AM to 6:00 PM</p>
             </div>
           </dd>
         </div>
@@ -409,11 +428,12 @@
 
       <div class="footer-note">Last Updated: May 2026</div>
     </main>
+    </div>
 
     <!-- Cookie Consent Drawer -->
-    <div id="cookie-consent" role="dialog" aria-label="Cookie consent">
+    <div id="cookie-consent" role="dialog" aria-label="Cookie consent" aria-describedby="cookie-desc">
       <div class="cookie-inner">
-        <p>
+        <p id="cookie-desc">
           <i class="fas fa-cookie-bite" style="margin-right: 6px; color: #088178;"></i>
           We use cookies to improve your experience. By continuing, you agree to our
           <a href="privacy.html">Privacy Policy</a>.
@@ -426,8 +446,8 @@
     </div>
 
     <!-- Back to Top -->
-    <button id="backToTop" title="Back to Top" aria-label="Back to top">⬆</button>
-    <button id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">⬇</button>
+    <button id="backToTop" title="Back to Top" aria-label="Back to top">â¬†</button>
+    <button id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">â¬‡</button>
 
     <!-- Footer -->
     <footer class="section-p1">
@@ -441,9 +461,9 @@
           <h4>Follow us</h4>
           <div class="icon">
             <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer">
-              <i class="fab fa-twitter"></i>
+              <i class="fa-brands fa-x-twitter"></i>
             </a>
-            <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
+            <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
               <i class="fab fa-github"></i>
             </a>
             <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
@@ -459,7 +479,7 @@
       <div class="col">
         <h4>About</h4>
         <a href="about.html">About Us</a>
-        <a href="#">Delivery Information</a>
+        <a href="javascript:void(0)">Delivery Information</a>
         <a href="privacy.html">Privacy Policy</a>
         <a href="terms.html">Terms and Conditions</a>
         <a href="contact.html">Contact Us</a>
@@ -469,8 +489,8 @@
         <h4>My Account</h4>
         <a href="login.html">Sign In</a>
         <a href="cart.html">View Cart</a>
-        <a href="#">My Wishlist</a>
-        <a href="track-order.html">Track My Order</a>
+        <a href="wishlist.html">My Wishlist</a>
+        <a href="cart.html">Track My Order</a>
         <a href="contact.html">Help</a>
       </div>
 
@@ -512,7 +532,7 @@
 
       <div class="copyright">
         <p>
-          © Cara 2026. All rights reserved.. |
+          Â© Cara 2026. All rights reserved.. |
           <a href="license.html" style="color: #088178"> MIT License </a>
         </p>
       </div>
@@ -545,7 +565,9 @@
     <script id="Current-Year">
         document.getElementById("Current-Year").textContent = new Date().getFullYear();
     </script>
-  </body>
+  <script src="js/toc.js" defer></script>
+</body>
 </html>
 
 <!-- Accessibility and structural improvements -->
+

@@ -1,7 +1,8 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <!-- Character Encoding -->
     <meta charset="UTF-8">
 
@@ -9,19 +10,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Page Title -->
-    <title>The Cotton-Jersey Zip-Up Hoodie — Cara Blog</title>
+    <title>The Cotton-Jersey Zip-Up Hoodie â€” Cara Blog</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
+    <link rel="icon" type="image/jpeg" sizes="32x32" href="images/favicon.jpg">
 
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Discover the ultimate comfort piece of the season — the Cotton-Jersey Zip-Up Hoodie.">
+    <meta name="description" content="Discover the ultimate comfort piece of the season â€” the Cotton-Jersey Zip-Up Hoodie.">
     <meta name="keywords" content="cotton jersey hoodie, fashion, style, cara blog">
-    <meta name="author" content="Cara">
+    <meta name="author" content="Your Name">
     <meta name="robots" content="index, follow">
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="ui-fix.css" />
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
@@ -29,7 +31,7 @@
 
     <!-- Article Page Styles -->
     <style>
-        /* ── Article Hero ── */
+        /* â”€â”€ Article Hero â”€â”€ */
         .article-hero {
             width: 100%;
             max-height: 520px;
@@ -44,14 +46,15 @@
             display: block;
         }
 
-        /* ── Article Container ── */
+        /* â”€â”€ Article Container â”€â”€ */
         .article-container {
             max-width: 820px;
             margin: 0 auto;
             padding: 50px 20px 70px;
+            line-height: 1.6;
         }
 
-        /* ── Article Meta ── */
+        /* â”€â”€ Article Meta â”€â”€ */
         .article-meta {
             display: flex;
             align-items: center;
@@ -76,7 +79,7 @@
             border-radius: 2px;
         }
 
-        /* ── Article Title ── */
+        /* â”€â”€ Article Title â”€â”€ */
         .article-container h1 {
             font-size: 38px;
             font-weight: 700;
@@ -86,7 +89,7 @@
             letter-spacing: -0.5px;
         }
 
-        /* ── Divider ── */
+        /* â”€â”€ Divider â”€â”€ */
         .article-divider {
             width: 60px;
             height: 3px;
@@ -95,7 +98,7 @@
             border: none;
         }
 
-        /* ── Body Text ── */
+        /* â”€â”€ Body Text â”€â”€ */
         .article-body p {
             font-size: 16px;
             line-height: 1.9;
@@ -121,7 +124,7 @@
             line-height: 1.8;
         }
 
-        /* ── Back Link ── */
+        /* â”€â”€ Back Link â”€â”€ */
         .back-link {
             display: inline-flex;
             align-items: center;
@@ -140,7 +143,7 @@
             gap: 12px;
         }
 
-                /* ── Dark Mode — app.js sets data-theme="dark" on <html> ── */
+                /* â”€â”€ Dark Mode â€” app.js sets data-theme="dark" on <html> â”€â”€ */
         html[data-theme="dark"] .article-container h1,
         html[data-theme="dark"] .article-body h2 {
             color: #f0f0f0 !important;
@@ -177,10 +180,18 @@
             }
         }
     </style>
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
 </head>
 
 <body>
-    <!-- ── Header  ── -->
+    <!-- â”€â”€ Header  â”€â”€ -->
     <section id="header">
         <a href="index.html"><img src="images/logo.png" alt=""></a>
 
@@ -194,28 +205,25 @@
                 <li><a href="login.html" id="login-btn">Login</a></li>
                 <li><a href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
                 <li>
-                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <button class="theme-toggle" id="themeToggleDesktop" aria-label="Toggle dark mode">
                         <i class="ri-moon-line" id="themeIcon"></i>
                     </button>
                 </li>
-                <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+                <a href="javascript:void(0)" id="close"><i class="fa-solid fa-xmark"></i></a>
             </ul>
         </div>
         <div class="mobile">
             <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
-            <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
-                <i class="ri-moon-line" id="themeIconMobile"></i>
-            </button>
             <i class="fas fa-outdent" id="bar"></i>
         </div>
     </section>
 
-    <!-- ── Article Hero Image ── -->
+    <!-- â”€â”€ Article Hero Image â”€â”€ -->
     <div class="article-hero">
         <img src="images/blog/b1.jpg" alt="The Cotton-Jersey Zip-Up Hoodie">
     </div>
 
-    <!-- ── Article Content ── -->
+    <!-- â”€â”€ Article Content â”€â”€ -->
     <div class="article-container">
 
         <!-- Back to Blog -->
@@ -238,7 +246,7 @@
             <p>
                 When it comes to wardrobe staples that effortlessly bridge the gap between comfort and style, the
                 cotton-jersey zip-up hoodie stands in a league of its own. Crafted from a premium cotton-jersey blend,
-                this piece offers the kind of breathable softness that makes it suitable for year-round wear — from
+                this piece offers the kind of breathable softness that makes it suitable for year-round wear â€” from
                 crisp autumn mornings to breezy summer evenings.
             </p>
 
@@ -251,7 +259,7 @@
             </p>
 
             <blockquote>
-                "The best wardrobe pieces are those you reach for without thinking — soft enough to sleep in, sharp
+                "The best wardrobe pieces are those you reach for without thinking â€” soft enough to sleep in, sharp
                 enough to wear out."
             </blockquote>
 
@@ -264,7 +272,7 @@
                 style for the past few seasons.
             </p>
             <p>
-                Colour choice matters too. Neutral tones — oatmeal, charcoal, and slate — make the hoodie a
+                Colour choice matters too. Neutral tones â€” oatmeal, charcoal, and slate â€” make the hoodie a
                 near-invisible layering tool, sliding beneath a trench coat or over a slip dress without disrupting
                 the overall palette. Meanwhile, richer hues like burgundy or forest green can serve as the anchor
                 colour of an otherwise tonal outfit.
@@ -273,12 +281,12 @@
             <h2>Care & Longevity</h2>
             <p>
                 To get the most out of your cotton-jersey zip-up, wash inside-out on a gentle cold cycle and lay flat
-                to dry. Avoid the tumble dryer where possible — it's the single biggest cause of shrinkage and fabric
+                to dry. Avoid the tumble dryer where possible â€” it's the single biggest cause of shrinkage and fabric
                 fatigue in cotton garments. With the right care, a quality piece like this should remain a wardrobe
                 constant for years, not seasons.
             </p>
             <p>
-                Invest in one, style it endlessly. The cotton-jersey zip-up hoodie is not a trend — it's a
+                Invest in one, style it endlessly. The cotton-jersey zip-up hoodie is not a trend â€” it's a
                 foundation piece that every considered wardrobe deserves.
             </p>
         </div>
@@ -306,7 +314,7 @@
               target="_blank"
               rel="noopener noreferrer"
             >
-              <i class="fab fa-twitter"></i>
+              <i class="fa-brands fa-x-twitter"></i>
             </a>
             <a
               href="https://github.com/janavipandole"
@@ -337,7 +345,7 @@
       <div class="col">
         <h4>About</h4>
         <a href="about.html">About Us</a>
-        <a href="#">Delivery Information</a>
+        <a href="javascript:void(0)">Delivery Information</a>
         <a href="privacy.html">Privacy Policy</a>
         <a href="terms.html">Terms and Conditions</a>
         <a href="contact.html">Contact Us</a>
@@ -348,7 +356,7 @@
         <h4>My Account</h4>
         <a href="login.html">Sign In</a>
         <a href="cart.html">View Cart</a>
-        <a href="#">My Wishlist</a>
+        <a href="javascript:void(0)">My Wishlist</a>
         <a href="cart.html">Track My Order</a>
         <a href="contact.html">Help</a>
       </div>
@@ -430,7 +438,7 @@
       <!-- Copyright -->
       <div class="copyright">
         <p>
-          © Cara 2026. All rights reserved. |
+          Â© Cara 2026. All rights reserved. |
           <a href="license.html" style="color: #088178"> MIT License </a>
         </p>
       </div>
@@ -440,3 +448,4 @@
 </body>
 
 </html>
+

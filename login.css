@@ -1,228 +1,321 @@
-/* ==========================================================================
-   1. LAYOUT STRUCTURAL BASELINE (Direct alignment with main template framework)
-   ========================================================================== */
-#main {
-    width: 100%;
-    height: auto;
-    min-height: 100vh; /* Matches layout rule from style.css */
+/* login.css — written by a first year student, keeping it simple! */
+
+/* ============================================================
+   PAGE LAYOUT
+   Mirrors #register-section exactly so both pages look the same.
+   padding-top: 100px gives room below the fixed header.
+   ============================================================ */
+#login-section {
+  min-height: calc(100vh - 80px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 20px 60px;
+  background: var(--bg-secondary);
+  transition: background-color 0.3s ease;
 }
 
-#top {
-    position: relative;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: auto;
+/* Stacks the back button on top of the card, same as .register-page-wrapper */
+.login-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
-#workingArea {
-    position: relative;
-    margin: 0 auto;
-    width: 100%;
-    max-width: 1920px; /* Matches layout boundary from style.css */
+/* ============================================================
+   BACK BUTTON
+   Copy-paste of register.css .back-button so they are identical.
+   align-self: flex-start pushes it to the left inside the
+   flex-column wrapper — no position:absolute needed at all.
+   ============================================================ */
+.login-page-wrapper .back-button {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--text-secondary, #666);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  margin-bottom: 20px;
+  transition: color 0.3s ease;
 }
 
-/* ==========================================================================
-   2. LOGIN CONTAINER & CARD ELEMENT TYPOGRAPHY (Synced with style.css)
-   ========================================================================== */
-#login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 70vh;
-    padding: 60px 20px;
-    background-color: var(--bg-secondary, #f8f9fa); /* Automatically handles light/dark mode */
-    box-sizing: border-box;
+.login-page-wrapper .back-button:hover {
+  color: var(--accent, #088178);
 }
 
+[data-theme='dark'] .login-page-wrapper .back-button {
+  color: #94a3b8;
+}
+
+/* ============================================================
+   THE CARD
+   Matches register's .auth-card values exactly:
+   same max-width, padding, border-radius, shadow, animation.
+   ============================================================ */
 .login-box {
-    width: 100%;
-    max-width: 450px;
-    background: var(--card-bg, #ffffff);
-    padding: 40px;
-    border-radius: 16px; /* Matches product card rounding rule from style.css */
-    border: 1.5px solid var(--border-color); /* Matches template line decorations */
-    box-shadow: 0 8px 22px var(--shadow);
-    box-sizing: border-box;
+  width: 100%;
+  max-width: 480px;
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 48px 40px;
+  box-shadow: 0 10px 40px var(--shadow);
+  border: 1px solid var(--border-color);
+  /* same slide-up animation as register */
+  opacity: 0;
+  transform: translateY(80px);
+  animation: loginSlideUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
 }
 
-/* Form Title - Scaling down from your core template 56px scale down to look balanced */
+@keyframes loginSlideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Heading — same as .auth-card h2 */
 .login-box h2 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: var(--text-primary);
-    font-size: 38px !important; /* Forces layout proportions down from template h2: 56px */
-    line-height: 44px !important;
-    font-weight: 700;
-    margin-top: 0;
+  font-family: 'League Spartan', sans-serif;
+  font-size: 32px;
+  text-align: center;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  font-weight: 700;
+  transition: color 0.3s ease;
 }
 
-.login-box .input-field {
-    margin-bottom: 24px;
+/* Subtitle — same as .auth-card .subtitle */
+.login-box .subtitle {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 15px;
+  margin-bottom: 32px;
+  transition: color 0.3s ease;
 }
 
-/* Form Inputs - Forces font size matching the index input configs (16px) */
-.login-box .input-field input {
-    display: block;
-    width: 100%;
-    padding: 12px 16px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    background-color: var(--input-bg);
-    color: var(--text-primary);
-    font-size: 16px !important; /* Synced direct to template search/filter parameters */
-    outline: none;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
+/* ============================================================
+   FORM GROUPS — mirrors register's .form-group
+   ============================================================ */
+.input-group {
+  margin-bottom: 20px;
+  position: relative;
 }
 
-.login-box .input-field input:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 1px var(--accent);
+.input-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  transition: color 0.3s ease;
 }
 
-.login-box .forgot-pass {
-    text-align: right;
-    margin-bottom: 24px;
+/* ============================================================
+   INPUTS — mirrors register's .form-group input
+   ============================================================ */
+.input-field {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: inherit;
+  background: var(--input-bg);
+  color: var(--text-primary);
+  outline: none;
+  box-sizing: border-box;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
-/* Secondary Actions / Links - Matches standard template body font rules */
-.login-box .forgot-pass a {
-    color: var(--accent);
-    font-size: 16px !important; 
-    font-weight: 500;
-    text-decoration: none;
+.input-field::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.75;
 }
 
-/* Primary Form Button - Synced exactly to .btn-shop-now & button.normal settings */
-.login-box .login-btn {
-    width: 100%;
-    padding: 14px 36px;
-    background-color: var(--accent);
-    color: #ffffff;
-    border: none;
-    font-size: 15px !important; /* Direct match to .btn-shop-now font-size definition */
-    font-weight: 700 !important; /* Direct match to .btn-shop-now font-weight definition */
-    border-radius: 6px;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(8, 129, 120, 0.35);
-    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+.input-field:focus {
+  border-color: var(--accent, #088178);
+  box-shadow: 0 0 0 3px rgba(8, 129, 120, 0.15);
 }
 
-.login-box .login-btn:hover {
-    background-color: #000000;
-    transform: translateY(-2px);
+[data-theme='dark'] .input-field:focus {
+  box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.18);
 }
 
-.login-box .signup-link {
-    text-align: center;
-    margin-top: 25px;
-    font-size: 16px !important; /* Scaled to legibility bounds */
-    color: var(--text-secondary);
+/* Validation state borders */
+.input-field.is-valid {
+  border-color: #28a745;
+}
+.input-field.is-invalid {
+  border-color: #dc3545;
 }
 
-.login-box .signup-link a {
-    color: var(--accent);
-    text-decoration: none;
-    font-weight: 700;
+/* ============================================================
+   INLINE ERROR MESSAGES
+   Hidden by default (empty span takes no space).
+   JS sets textContent to show them.
+   ============================================================ */
+.error-message {
+  display: block;
+  font-size: 12px;
+  color: #dc3545;
+  margin-top: 5px;
+  min-height: 16px; /* reserves space so layout doesn't jump */
 }
 
-/* ==========================================================================
-   3. REPLICATED INDEX FOOTER CLASSES (Direct matching values from style.css)
-   ========================================================================== */
-footer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    background-color: var(--bg-secondary); /* Dynamic template utility alignment */
-    transition: background-color 0.3s ease;
-    width: 100%;
-    box-sizing: border-box;
+/* ============================================================
+   PASSWORD WRAPPER — same as register's .password-wrapper
+   ============================================================ */
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
-footer.section-p1 {
-    padding: 40px 80px; /* Aligned section padding rules */
+.password-wrapper .input-field {
+  padding-right: 46px;
 }
 
-footer .col {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 20px;
+.toggle_password {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary, #888);
+  font-size: 18px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
 }
 
-footer .logo {
-    margin-bottom: 30px;
+.toggle_password:hover {
+  color: var(--accent, #088178);
 }
 
-/* Footer Section Header Match */
-footer h4 {
-    margin-bottom: 20px;
-    font-size: 20px !important; /* Hardcoded exact match from your template style.css line */
-    color: var(--footer-text);
-    font-weight: 700;
+/* ============================================================
+   REMEMBER ME + FORGOT PASSWORD ROW
+   ============================================================ */
+.remfor {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
-/* Footer Paragraph Match */
-footer p {
-    margin: 0 0 8px 0;
-    font-size: 20px !important; /* Hardcoded exact match from your template style.css line */
-    color: var(--footer-text);
+.remember {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--text-primary);
 }
 
-/* Footer Navigation Link Match */
-footer a {
-    font-size: 18px !important; /* Hardcoded exact match from your template style.css line */
-    text-decoration: none;
-    color: var(--footer-text);
-    margin-bottom: 10px;
-    transition: color 0.3s ease;
+.remember input[type='checkbox'] {
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+  accent-color: var(--accent, #088178);
 }
 
-footer a:hover, 
-footer .follow i:hover {
-    color: var(--accent);
+.forgot {
+  font-size: 14px;
+  color: var(--accent, #088178);
+  text-decoration: none;
+  font-weight: 500;
 }
 
-footer .follow {
-    margin-top: 20px;
+.forgot:hover {
+  text-decoration: underline;
 }
 
-footer .follow i {
-    color: var(--text-secondary);
-    padding-right: 4px;
-    cursor: pointer;
-    font-size: 18px !important;
-    transition: color 0.3s ease;
+/* ============================================================
+   SIGN IN BUTTON — mirrors register's .btn-primary
+   ============================================================ */
+.login-btn {
+  width: 100%;
+  padding: 15px;
+  background: var(--accent, #088178);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition:
+    background 0.25s ease,
+    transform 0.15s ease,
+    box-shadow 0.25s ease,
+    opacity 0.2s ease;
 }
 
-footer .install .row img {
-    border: 1px solid #088178;
-    border-radius: 6px;
+.login-btn:hover {
+  background: #066b63;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(8, 129, 120, 0.3);
 }
 
-footer .install img {
-    margin: 10px 0 15px 0;
+[data-theme='dark'] .login-btn:hover {
+  background: #0891b2;
+  box-shadow: 0 6px 20px rgba(6, 182, 212, 0.3);
 }
 
-footer .copyright {
-    text-align: center;
-    width: 100%;
-    margin-top: 20px;
+.login-btn:active {
+  transform: translateY(0);
 }
 
-/* ==========================================================================
-   4. RESPONSIVE RESET BREAKPOINTS
-   ========================================================================== */
-@media (max-width: 799px) {
-    footer.section-p1 {
-        padding: 24px; /* Scaled wrapper alignment */
-    }
+/* Disabled state while redirecting after success */
+.login-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }
 
-/* CAPTCHA Section */
+/* ============================================================
+   REGISTER LINK AT THE BOTTOM — mirrors .switch-auth
+   ============================================================ */
+.signup-link {
+  text-align: center;
+  margin-top: 24px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+}
+
+.signup-link a {
+  color: var(--accent, #088178);
+  font-weight: 700;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.signup-link a:hover {
+  opacity: 0.8;
+}
+
+/* ============================================================
+   CAPTCHA SECTION
+   ============================================================ */
 .captcha-section {
   margin-top: 16px;
+  padding: 14px;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
 }
 
 .captcha-section label {
@@ -230,75 +323,46 @@ footer .copyright {
   font-size: 13px;
   font-weight: 600;
   margin-bottom: 8px;
-  color: var(--text-primary, #333);
-}
-
-#captcha-canvas {
-  width: 100%;
-  max-width: 280px;
-  height: 80px;
-  border-radius: 8px;
-  border: 1px solid var(--border-color, #ddd);
-  background: #f5f5f5;
-  display: block;
-  margin-bottom: 8px;
-}
-
-[data-theme="dark"] #captcha-canvas {
-  background: #2a2a3e;
-  border-color: #444;
+  color: var(--text-primary);
 }
 
 .captcha-row {
   display: flex;
-  gap: 8px;
   align-items: center;
-}
-
-.captcha-refresh {
-  width: 42px;
-  height: 42px;
-  border: 1px solid var(--border-color, #ddd);
-  border-radius: 8px;
-  background: var(--card-bg, #fff);
-  color: var(--text-primary, #333);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s;
-  flex-shrink: 0;
-}
-
-.captcha-refresh:hover {
-  background: rgba(8, 129, 120, 0.1);
-  border-color: var(--primary-color, #088178);
-  color: var(--primary-color, #088178);
-}
-
-@media (max-width: 640px) {
-    #top {
-        position: relative !important;
-        height: auto !important;
-    }
-
-    .section-p1 {
-        padding: 24px !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-    }
-
-    .login-box h2 {
-        font-size: 30px !important; 
-        line-height: 36px !important;
-    }
-}
-.required {
-  color: red;
-  font-weight: bold;
-}
-
-.required-note {
-  font-size: 14px;
+  gap: 10px;
   margin-bottom: 10px;
+}
+
+#captcha-canvas {
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: #f3f3f3;
+}
+
+#captcha-refresh {
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--card-bg);
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--text-secondary);
+}
+
+#captcha-refresh:hover {
+  border-color: var(--accent, #088178);
+  color: var(--accent, #088178);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 540px) {
+  .login-box {
+    padding: 36px 24px;
+  }
+
+  .login-box h2 {
+    font-size: 26px;
+  }
 }

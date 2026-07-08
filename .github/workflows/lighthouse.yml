@@ -1,0 +1,26 @@
+name: Lighthouse CI
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Start local server
+        run: |
+          npx serve -p 3000 . &
+          sleep 5
+      - name: Audit HTML Pages using Lighthouse
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          urls: |
+            http://localhost:3000/index.html
+            http://localhost:3000/shop.html
+          budgetPath: ./budgets.json
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+
+# Runs Google Lighthouse audits to measure performance, SEO, and accessibility metrics.

@@ -80,6 +80,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     // Save logged-in user
                     localStorage.setItem('loggedInUser', email);
 
+                    // Save user name (if available)
+                    if (user.name) {
+                        localStorage.setItem('loggedInUserName', user.name);
+                    }
+
                     // Remember Me
                     if (rememberMe && rememberMe.checked) {
                         localStorage.setItem('rememberedUser', email);

@@ -1,6 +1,7 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <!-- Character Encoding -->
     <meta charset="UTF-8" />
 
@@ -8,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Page Title -->
-    <title>Track My Order | Cara — Modern E-Commerce</title>
+    <title>Track My Order | Cara â€” Modern E-Commerce</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
@@ -29,7 +30,7 @@
     <meta http-equiv="Content-Language" content="en" />
 
     <!-- Open Graph Tags -->
-    <meta property="og:title" content="Track My Order | Cara — Modern E-Commerce" />
+    <meta property="og:title" content="Track My Order | Cara â€” Modern E-Commerce" />
     <meta
       property="og:description"
       content="Track your Cara order in real-time. Enter your order ID and email to get live shipping status and delivery updates."
@@ -40,7 +41,7 @@
 
     <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Track My Order | Cara — Modern E-Commerce" />
+    <meta name="twitter:title" content="Track My Order | Cara â€” Modern E-Commerce" />
     <meta name="twitter:description" content="Track your Cara order in real-time." />
     <meta name="twitter:image" content="https://cara-seven-ashen.vercel.app/images/logo.png" />
     <meta name="twitter:site" content="@janavipandole" />
@@ -50,6 +51,7 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="ui-fix.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
       rel="stylesheet"
@@ -61,7 +63,15 @@
       referrerpolicy="no-referrer"
     />
     <link rel="stylesheet" href="track-order.css" />
-  </head>
+    <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
+</head>
 
   <body>
     <!-- Header -->
@@ -70,11 +80,8 @@
   <a href="index.html">
     <img id="siteLogo" src="images/logo.png" alt="Cara Logo" width="130" height="40" />
   </a>
-
   <div>
     <ul id="navbar">
-
-      <!-- Main Navigation Links -->
       <li><a class="active" href="index.html">Home</a></li>
       <li><a href="shop.html">Shop</a></li>
       <li><a href="blog.html">Blog</a></li>
@@ -83,69 +90,40 @@
       <li><a href="community.html">Community</a></li>
       <li><a href="promotions.html">Promotions</a></li>
 
-      <!-- Contact Icon -->
       <li class="nav-icon">
         <a href="contact.html" aria-label="Contact">
           <i class="ri-customer-service-2-line"></i>
         </a>
       </li>
 
-      <!-- Login Icon -->
       <li class="nav-icon">
         <a href="login.html" aria-label="Login">
           <i class="ri-user-3-line"></i>
         </a>
       </li>
 
-      <!-- Cart Icon -->
       <li class="nav-icon">
         <a href="cart.html" id="lg-bag" aria-label="Cart">
           <i class="ri-shopping-bag-4-line"></i>
         </a>
       </li>
 
-      <!-- Theme Toggle -->
       <li class="nav-icon">
-        <button
-          class="theme-toggle"
-          id="themeToggle"
-          aria-label="Toggle dark mode"
-        >
+        <button class="theme-toggle" id="themeToggleDesktop" aria-label="Toggle dark mode">
           <i class="ri-moon-line" id="themeIcon"></i>
         </button>
       </li>
 
-      <!-- Close Button -->
-      <a
-        href="#"
-        id="close"
-        aria-label="Close menu"
-        aria-hidden="false"
-      >
+      <a href="javascript:void(0)" id="close" aria-label="Close menu" aria-hidden="false">
         <i class="fa-solid fa-xmark"></i>
       </a>
-
     </ul>
   </div>
 
-  <!-- Mobile Navbar -->
   <div class="mobile">
-
-    <!-- Login Icon -->
-    <a href="login.html" aria-label="Login">
-      <i class="ri-user-3-line"></i>
-    </a>
-
-    <!-- Cart Icon -->
-    <a href="cart.html" aria-label="Cart">
-      <i class="ri-shopping-bag-4-line"></i>
-    </a>
-
-    <!-- Hamburger Menu -->
-    <i
-      class="fas fa-outdent"
-      id="bar"
-      role="button"
+    <a href="login.html" aria-label="Login"><i class="ri-user-3-line"></i></a>
+    <a href="cart.html" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a>
+    <i class="fas fa-outdent" id="bar" role="button"
       aria-label="Open menu"
       aria-expanded="false"
       tabindex="0"
@@ -277,7 +255,7 @@
               <div class="step-content">
                 <h4>Order Placed</h4>
                 <p>Your order has been confirmed and is being processed.</p>
-                <time>May 14, 2026 — 10:32 AM</time>
+                <time>May 14, 2026 â€” 10:32 AM</time>
               </div>
             </div>
 
@@ -288,7 +266,7 @@
               <div class="step-content">
                 <h4>Order Packed</h4>
                 <p>Your items have been packed and are ready for pickup.</p>
-                <time>May 15, 2026 — 2:14 PM</time>
+                <time>May 15, 2026 â€” 2:14 PM</time>
               </div>
             </div>
 
@@ -299,7 +277,7 @@
               <div class="step-content">
                 <h4>Shipped</h4>
                 <p>Your package has been handed off to FedEx Express.</p>
-                <time>May 16, 2026 — 9:05 AM</time>
+                <time>May 16, 2026 â€” 9:05 AM</time>
               </div>
             </div>
 
@@ -309,8 +287,8 @@
               </div>
               <div class="step-content">
                 <h4>In Transit</h4>
-                <p>Your package is on its way — currently in Chicago, IL.</p>
-                <time>May 18, 2026 — 6:45 AM</time>
+                <p>Your package is on its way â€” currently in Chicago, IL.</p>
+                <time>May 18, 2026 â€” 6:45 AM</time>
               </div>
             </div>
 
@@ -404,8 +382,8 @@
             <i class="ri-add-line"></i>
           </div>
           <div class="faq-answer">
-            Standard shipping takes 5–7 business days. Express shipping takes
-            2–3 business days. International orders may take 10–15 business
+            Standard shipping takes 5â€“7 business days. Express shipping takes
+            2â€“3 business days. International orders may take 10â€“15 business
             days depending on the destination country.
           </div>
         </div>
@@ -416,7 +394,7 @@
             <i class="ri-add-line"></i>
           </div>
           <div class="faq-answer">
-            Tracking updates can sometimes take 24–48 hours to reflect after a
+            Tracking updates can sometimes take 24â€“48 hours to reflect after a
             scan. If your tracking hasn't updated in over 3 business days,
             please <a href="contact.html">contact our support team</a>.
           </div>
@@ -453,9 +431,9 @@
           <h4>Follow us</h4>
           <div class="icon">
             <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer">
-              <i class="fab fa-twitter"></i>
+              <i class="fa-brands fa-x-twitter"></i>
             </a>
-            <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
+            <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
               <i class="fab fa-github"></i>
             </a>
             <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
@@ -483,8 +461,8 @@
         <h4>My Account</h4>
         <a href="login.html">Sign In</a>
         <a href="cart.html">View Cart</a>
-        <a href="#">My Wishlist</a>
-        <a href="track-order.html" class="active">Track My Order</a>
+        <a href="wishlist.html">My Wishlist</a>
+        <a href="cart.html">Track My Order</a>
         <a href="contact.html">Help</a>
       </div>
 
@@ -536,7 +514,7 @@
       <!-- Copyright -->
       <div class="copyright">
         <p>
-          © Cara 2026. All rights reserved. |
+          Â© Cara 2026. All rights reserved. |
           <a href="license.html" style="color: #088178"> MIT License </a>
         </p>
       </div>
@@ -545,5 +523,33 @@
     <div id="toast-container"></div>
     <script src="app.js"></script>
     <script src="track-order.js"></script>
+    <!-- Cancel Order Support -->
+    <div id="cancel-simulation-box" style="max-width: 600px; margin: 20px auto; padding: 20px; border: 1px dashed #f87171; border-radius: 8px; text-align: center; display: none;">
+      <h3 style="color: #ef4444; margin-bottom: 10px;">Cancel Order Request</h3>
+      <p style="margin-bottom: 15px;">Your order is currently processing. You can cancel this order before shipping.</p>
+      <button onclick="simulateCancellation()" style="background: #ef4444; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-weight: 600;">
+        Cancel Order Now
+      </button>
+    </div>
+    
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Check status from tracking layout
+      setTimeout(() => {
+        const statusEl = document.querySelector(".status-text");
+        if (statusEl && statusEl.textContent.toLowerCase().includes("processing")) {
+          document.getElementById("cancel-simulation-box").style.display = "block";
+        }
+      }, 1000);
+    });
+    
+    function simulateCancellation() {
+      if (confirm("Are you sure you want to cancel this order?")) {
+        alert("Cancellation request sent successfully. Your refund will be processed.");
+        document.getElementById("cancel-simulation-box").innerHTML = "<h3>Order Cancelled</h3><p>This order has been cancelled.</p>";
+      }
+    }
+    </script>
   </body>
 </html>
+

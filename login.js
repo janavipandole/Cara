@@ -1,296 +1,175 @@
+/* global fetchWithTimeout */
+const API_BASE_URL = window.CARA_API_BASE_URL || 'http://127.0.0.1:8000';
+
 document.addEventListener('DOMContentLoaded', function () {
+  const form = document.getElementById('loginForm');
+  const passwordInput = document.getElementById('loginPassword');
+  const toggleBtn = document.getElementById('togglePassword');
+  const toggleIcon = document.getElementById('toggleIcon');
+  const emailInput = document.getElementById('loginEmail');
+  const submitBtn = document.getElementById('loginSubmitBtn');
 
-    const form = document.getElementById('loginForm');
-    const passwordInput = document.getElementById('loginPassword');
-    const togglePassword = document.getElementById('togglePassword');
-    const toggleIcon = document.getElementById('toggleIcon');
-    const loginEmailEl = document.getElementById('loginEmail');
+  // captcha stuff
+  const captchaSection = document.getElementById('captcha-section');
+  const captchaCanvas = document.getElementById('captcha-canvas');
+  const captchaInput = document.getElementById('captcha-input');
+  const captchaRefresh = document.getElementById('captcha-refresh');
 
-    // PASSWORD TOGGLE
-    if (passwordInput && togglePassword && toggleIcon) {
+  let loginAttempts = 0;
+  let currentCaptchaToken = '';
 
-        togglePassword.addEventListener('click', function () {
+  function showToast(message, type) {
+    const container = document.getElementById('toast-container');
+    if (!container) return;
+    const toast = document.createElement('div');
+    toast.className = 'toast toast-' + type;
+    toast.textContent = message;
+    container.appendChild(toast);
+    setTimeout(() => toast.classList.add('show'), 10);
+    setTimeout(() => {
+      toast.classList.remove('show');
+      setTimeout(() => toast.remove(), 400);
+    }, 3000);
+  }
 
-            const isPasswordHidden =
-                passwordInput.type === 'password';
+  if (toggleBtn && passwordInput && toggleIcon) {
+    toggleBtn.addEventListener('click', function () {
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        toggleIcon.className = 'ri-eye-off-line';
+      } else {
+        passwordInput.type = 'password';
+        toggleIcon.className = 'ri-eye-line';
+      }
+    });
+  }
 
-            passwordInput.type =
-                isPasswordHidden ? 'text' : 'password';
-
-            toggleIcon.classList.toggle(
-                'ri-eye-line',
-                !isPasswordHidden
-            );
-
-            toggleIcon.classList.toggle(
-                'ri-eye-off-line',
-                isPasswordHidden
-            );
-        });
-    }
-
-    if (!form) return;
-
-    // EMAIL VALIDATION
-    if (loginEmailEl) {
-
-        loginEmailEl.addEventListener('blur', function () {
-
-            const emailVal =
-                loginEmailEl.value.trim();
-
-            const isValid =
-                /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal);
-
-            loginEmailEl.classList.toggle(
-                'is-valid',
-                isValid && emailVal !== ''
-            );
-
-            loginEmailEl.classList.toggle(
-                'is-invalid',
-                !isValid && emailVal !== ''
-            );
-        });
-    }
-
-    // CAPTCHA
-    let loginAttempts = 0;
-    let captchaCode = '';
-
-    const captchaSection =
-        document.getElementById('captcha-section');
-
-    const captchaCanvas =
-        document.getElementById('captcha-canvas');
-
-    const captchaInput =
-        document.getElementById('captcha-input');
-
-    const captchaRefresh =
-        document.getElementById('captcha-refresh');
-
-    function generateCaptcha() {
-
-        const chars =
-            'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-
-        let code = '';
-
-        for (let i = 0; i < 5; i++) {
-
-            code += chars.charAt(
-                Math.floor(Math.random() * chars.length)
-            );
+  async function fetchCaptcha() {
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/auth/captcha`, {
+        credentials: 'include'
+      });
+      if (res.ok) {
+        const data = await res.json();
+        currentCaptchaToken = data.captcha_token;
+        if (captchaCanvas) {
+          const ctx = captchaCanvas.getContext('2d');
+          const img = new Image();
+          img.onload = function () {
+            ctx.clearRect(0, 0, captchaCanvas.width, captchaCanvas.height);
+            ctx.drawImage(img, 0, 0, captchaCanvas.width, captchaCanvas.height);
+          };
+          img.src = data.captcha_image;
         }
+      }
+    } catch (e) {
+      window.logError('Failed to fetch secure captcha');
+    }
+    if (captchaInput) {
+      captchaInput.value = '';
+    }
+  }
 
-        captchaCode = code;
+  if (captchaRefresh) {
+    captchaRefresh.addEventListener('click', fetchCaptcha);
+  }
 
-        drawCaptcha(code);
+  function setValidity(input, isValid, message) {
+    if (!input) return;
+    input.setAttribute('aria-invalid', String(!isValid));
+    var errorEl = document.getElementById(input.id + 'Error') ||
+      input.parentElement.querySelector('.error-message');
+    if (errorEl) {
+      errorEl.textContent = isValid ? '' : message;
+    }
+  }
 
-        if (captchaInput) {
-            captchaInput.value = '';
-        }
+  if (!form) return;
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    var email = emailInput ? emailInput.value.trim() : '';
+    var password = passwordInput ? passwordInput.value : '';
+
+    setValidity(emailInput, true, '');
+    setValidity(passwordInput, true, '');
+
+    if (!email || !password) {
+      if (!email) setValidity(emailInput, false, 'Email is required.');
+      if (!password) setValidity(passwordInput, false, 'Password is required.');
+      showToast('Please fill all fields.', 'warning');
+      return;
     }
 
-    function drawCaptcha(code) {
+    let payload = { email, password };
 
-        if (!captchaCanvas) return;
-
-        const ctx =
-            captchaCanvas.getContext('2d');
-
-        const w = captchaCanvas.width;
-        const h = captchaCanvas.height;
-
-        ctx.clearRect(0, 0, w, h);
-
-        ctx.fillStyle = '#f3f3f3';
-        ctx.fillRect(0, 0, w, h);
-
-        ctx.font = 'bold 28px monospace';
-        ctx.fillStyle = '#088178';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-
-        for (let i = 0; i < code.length; i++) {
-
-            const x = 40 + i * 45;
-            const y = h / 2;
-
-            ctx.save();
-
-            ctx.translate(x, y);
-
-            ctx.rotate(
-                (Math.random() - 0.5) * 0.4
-            );
-
-            ctx.fillText(code[i], 0, 0);
-
-            ctx.restore();
-        }
-    }
-
-    if (captchaRefresh) {
-        captchaRefresh.addEventListener(
-            'click',
-            generateCaptcha
-        );
-    }
-
-    // FORM SUBMIT
-    form.addEventListener('submit', async function (e) {
-
-        e.preventDefault();
-
-        const email =
-            loginEmailEl.value.trim();
-
-        const password =
-            passwordInput.value;
-
-        if (!email || !password) {
-
-            showToast(
-                'Please fill all fields.',
-                'warning'
-            );
-
+    // Support both simple math captcha and backend generated captcha validations
+    const mathCaptchaInput = document.getElementById("captcha-input");
+    if (mathCaptchaInput && mathCaptchaInput.closest(".login-captcha-container")) {
+        const mathAnswer = mathCaptchaInput.value.trim();
+        if (!mathAnswer) {
+            showToast("Please enter the human verification answer.", "warning");
             return;
         }
+    }
 
-        // CAPTCHA AFTER FAILED LOGIN
-        if (loginAttempts >= 1) {
-
-            const userCode =
-                captchaInput.value
-                    .trim()
-                    .toUpperCase();
-
-            if (!userCode) {
-
-                showToast(
-                    'Please enter the security code.',
-                    'warning'
-                );
-
-                return;
-            }
-
-            if (userCode !== captchaCode) {
-
-                showToast(
-                    'Incorrect security code.',
-                    'error'
-                );
-
-                generateCaptcha();
-
-                return;
-            }
+    if (loginAttempts >= 1) {
+        const userCode = captchaInput ? captchaInput.value.trim() : '';
+        if (!userCode) {
+            showToast('Please enter the security code.', 'warning');
+            return;
         }
+        payload.captcha_answer = userCode;
+        payload.captcha_token = currentCaptchaToken;
+    }
 
-        const submitBtn =
-            form.querySelector('.login-btn');
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.classList.add('btn-loading');
+    }
 
-        if (submitBtn) {
+    try {
+      const fetchFunc = typeof fetchWithTimeout === 'function' ? fetchWithTimeout : fetch;
+      const response = await fetchFunc(`${API_BASE_URL}/api/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(payload)
+      });
 
-            submitBtn.disabled = true;
+      const data = await response.json();
 
-            submitBtn.classList.add(
-                'btn-loading'
-            );
-        }
+      if (!response.ok) {
+        throw new Error(data.detail || 'Invalid email or password.');
+      }
 
-        try {
+      localStorage.setItem('access_token', data.access_token);
+      localStorage.setItem('cara_user_token', data.access_token);
+      localStorage.setItem('cara_user_email', data.user.email);
+      localStorage.setItem('cara_user_name', data.user.username);
+      localStorage.setItem('cara_user_role', data.user.role);
 
-            const response = await fetch(
-                'http://127.0.0.1:8000/api/auth/login',
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type':
-                            'application/json'
-                    },
-                    body: JSON.stringify({
-                        email,
-                        password
-                    })
-                }
-            );
+      showToast('Welcome back, ' + data.user.username + '!', 'success');
 
-            const data =
-                await response.json();
+      setTimeout(() => {
+        window.location.href = data.user.role === 'ADMIN' ? 'admin.html' : 'index.html';
+      }, 1000);
 
-            if (!response.ok) {
-
-                throw new Error(
-                    data.detail ||
-                    'Invalid email or password.'
-                );
-            }
-
-            localStorage.setItem(
-                'token',
-                data.access_token
-            );
-
-            localStorage.setItem(
-                'loggedInUser',
-                JSON.stringify({
-                    name: data.user.username,
-                    email: data.user.email,
-                    role: data.user.role
-                })
-            );
-
-            showToast(
-                'Welcome back, ' +
-                data.user.username +
-                '!',
-                'success'
-            );
-
-            setTimeout(() => {
-
-                window.location.href =
-                    data.user.role === 'ADMIN'
-                        ? 'admin.html'
-                        : 'index.html';
-
-            }, 1000);
-
-        } catch (err) {
-
-            showToast(
-                err.message,
-                'error'
-            );
-
-            loginAttempts++;
-
-            if (
-                captchaSection &&
-                loginAttempts >= 1
-            ) {
-
-                captchaSection.style.display =
-                    'block';
-
-                generateCaptcha();
-            }
-
-        } finally {
-
-            if (submitBtn) {
-
-                submitBtn.disabled = false;
-
-                submitBtn.classList.remove(
-                    'btn-loading'
-                );
-            }
-        }
-    });
+    } catch (err) {
+      setValidity(emailInput, false, '');
+      setValidity(passwordInput, false, '');
+      showToast(err.message, 'error');
+      loginAttempts++;
+      if (captchaSection && loginAttempts >= 1) {
+        captchaSection.style.display = 'block';
+        fetchCaptcha();
+      }
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('btn-loading');
+      }
+    }
+  });
 });

@@ -1,0 +1,18 @@
+frontend:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '*.html'
+          - '*.css'
+          - '*.js'
+          - 'js/**/*'
+          - 'assets/**/*'
+
+backend:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'backend/**/*'
+
+workflows:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '.github/workflows/**/*'

@@ -32,8 +32,8 @@ function loadNavbar(activePage) {
         </li>
 
         <li>
-          <a ${activePage === 'tryon' ? 'class="active" aria-current="page"' : ''} href="try-on.html" title="Try-On">
-            Try-On
+          <a ${activePage === 'outfit' ? 'class="active" aria-current="page"' : ''} href="outfit-compatibility.html" title="Outfit Checker">
+            Outfit Checker
           </a>
         </li>
 
@@ -49,6 +49,12 @@ function loadNavbar(activePage) {
           </a>
         </li>
 
+        <li>
+          <a ${activePage === 'orders' ? 'class="active" aria-current="page"' : ''} href="order-history.html" title="My Orders">
+            My Orders
+          </a>
+        </li>
+
         <!-- Contact Icon -->
         <li class="nav-icon">
           <a href="contact.html" title="Contact Us" aria-label="Contact">
@@ -60,6 +66,14 @@ function loadNavbar(activePage) {
         <li class="nav-icon">
           <a ${activePage === 'login' ? 'class="active" aria-current="page"' : ''} href="login.html" title="Sign In" aria-label="Login">
             <i class="ri-user-3-line"></i>
+          </a>
+        </li>
+
+        <!-- Wishlist Icon -->
+        <li class="nav-icon">
+          <a ${activePage === 'wishlist' ? 'class="active" aria-current="page"' : ''} href="wishlist.html" title="View Wishlist" aria-label="Wishlist">
+            <i class="ri-heart-line"></i>
+            <span class="wishlist-count hidden">0</span>
           </a>
         </li>
 
@@ -86,8 +100,11 @@ function loadNavbar(activePage) {
   if (container) {
     container.innerHTML = navbarHTML;
   } else {
-    console.error('navbar-container not found!');
+    // Silently return for pages that use a hardcoded navbar (e.g. index.html)
     return;
   }
 
+  if (typeof window.updateWishlistCount === 'function') {
+    window.updateWishlistCount();
+  }
 }
