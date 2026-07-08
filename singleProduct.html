@@ -224,7 +224,7 @@
             <button type="button" class="qty-btn minus" onclick="updateQty(-1)" aria-label="Decrease quantity">
               <i class="fa-solid fa-minus"></i>
             </button>
-            <input id="product-quantity" type="number" value="1" min="1" readonly title="Product quantity"
+            <input autocomplete="on" id="product-quantity" type="number" value="1" min="1" readonly title="Product quantity"
               aria-label="Product quantity">
             <button type="button" class="qty-btn plus" onclick="updateQty(1)" aria-label="Increase quantity">
               <i class="fa-solid fa-plus"></i>
@@ -338,7 +338,7 @@
       </p>
 
       <form class="newsletter-form">
-        <input type="email" placeholder="Your email address" required />
+        <input autocomplete="on" type="email" placeholder="Your email address" required />
         <button type="submit" class="normal">Sign Up</button>
       </form>
     </div>

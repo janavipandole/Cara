@@ -130,12 +130,12 @@
     <form id="loginForm" class="login-form" novalidate>
         <div class="input-group">
             <label for="loginEmail">Email Address</label>
-            <input type="email" id="loginEmail" class="input-field" placeholder="example@domain.com" required>
+            <input autocomplete="on" type="email" id="loginEmail" class="input-field" placeholder="example@domain.com" required>
         </div>
         
         <div class="input-group password-group">
             <label for="loginPassword">Password</label>
-            <input type="password" id="loginPassword" class="input-field" placeholder="••••••••" required>
+            <input autocomplete="on" type="password" id="loginPassword" class="input-field" placeholder="••••••••" required>
             <button type="button" id="togglePassword" class="toggle_password">
                 <i class="ri-eye-line"></i>
             </button>
@@ -143,7 +143,7 @@
         
         <div class="remember-forgot">
             <div class="remember">
-                <input type="checkbox" id="rememberMe">
+                <input autocomplete="on" type="checkbox" id="rememberMe">
                 <label for="rememberMe">Remember me</label>
             </div>
             <a href="forgotPassword.html" class="forgot">Forgot Password?</a>
