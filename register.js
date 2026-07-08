@@ -36,6 +36,22 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    const usernameRegex = /^[a-zA-Z0-9.\\-_ ]{3,20}$/;
+    if (!usernameRegex.test(username)) {
+      setValidity('registerUsername', false, 'Username must be 3-20 characters (letters, numbers, spaces, dots, hyphens, underscores).');
+      messageBox.innerText = 'Invalid username!';
+      messageBox.style.color = 'red';
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setValidity('registerEmail', false, 'Invalid email format.');
+      messageBox.innerText = 'Invalid email address!';
+      messageBox.style.color = 'red';
+      return;
+    }
+
     if (password.length < 8) {
       setValidity('registerPassword', false, 'Password must be at least 8 characters.');
       messageBox.innerText = 'Password must be at least 8 characters long!';
