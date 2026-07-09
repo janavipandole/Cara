@@ -9,13 +9,23 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import '../../js/recently-viewed.js';
 
 const RecentlyViewed = window.RecentlyViewed;
-
 beforeEach(() => {
+  if (typeof localStorage === 'undefined' || typeof localStorage.clear !== 'function') {
+    const store = {};
+    const mockStorage = {
+      getItem: (k) => store[k] ?? null,
+      setItem: (k, v) => { store[k] = String(v); },
+      removeItem: (k) => { delete store[k]; },
+      clear: () => { for (const k in store) delete store[k]; },
+      length: 0
+    };
+    Object.defineProperty(window, 'localStorage', { value: mockStorage, writable: true });
+    Object.defineProperty(global, 'localStorage', { value: mockStorage, writable: true });
+  }
   localStorage.clear();
   document.body.innerHTML = '';
   expect(RecentlyViewed).toBeTruthy();
 });
-
 function product(overrides) {
   return {
     id: 1,

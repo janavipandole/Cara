@@ -98,10 +98,14 @@
                 placeholder="Enter your email address"
                 autocomplete="email"
                 required
+                aria-required="true"
+                aria-describedby="emailError"
+                aria-invalid="false"
               />
               <!-- Inline error shown by JS when email is wrong -->
               <span class="error-message" id="emailError"></span>
             </div>
+
 
             <!-- Password field -->
             <div class="input-group">

@@ -36,12 +36,12 @@
     </script>
   </head>
   <body>
-    <section id="header">
+    <section id="header" role="banner">
       <a href="index.html">
         <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
       </a>
       <div>
-        <ul id="navbar">
+        <ul id="navbar" role="navigation" aria-label="Main navigation">
           <li><a href="index.html">Home</a></li>
           <li><a href="shop.html">Shop</a></li>
           <li><a href="blog.html">Blog</a></li>
@@ -132,11 +132,13 @@
                 placeholder="Enter your full name"
                 required
                 autocomplete="name"
+                aria-required="true"
+                aria-describedby="nameError"
+                aria-invalid="false"
               />
-              <span class="error-message" id="nameError"></span>
+              <span class="error-message" id="nameError" role="alert"></span>
             </div>
 
-            <!-- Email -->
             <div class="form-group">
               <label for="registerEmail"
                 >Email <span class="required">*</span></label
@@ -148,11 +150,13 @@
                 placeholder="Enter your email"
                 required
                 autocomplete="email"
+                aria-required="true"
+                aria-describedby="emailErrorReg"
+                aria-invalid="false"
               />
-              <span class="error-message" id="emailError"></span>
+              <span class="error-message" id="emailErrorReg" role="alert"></span>
             </div>
 
-            <!-- Password -->
             <div class="form-group">
               <label for="registerPassword"
                 >Password <span class="required">*</span></label
@@ -165,6 +169,9 @@
                   placeholder="Enter your password"
                   required
                   autocomplete="new-password"
+                  aria-required="true"
+                  aria-describedby="passwordHelp passwordErrorReg"
+                  aria-invalid="false"
                 />
                 <button
                   type="button"
@@ -175,11 +182,10 @@
                   <i class="ri-eye-line" id="registerToggleIcon"></i>
                 </button>
               </div>
-              <small>Use at least 8 characters with a number.</small>
-              <span class="error-message" id="passwordError"></span>
+              <small id="passwordHelp">Use at least 8 characters with a number and a special character.</small>
+              <span class="error-message" id="passwordErrorReg" role="alert"></span>
             </div>
 
-            <!-- Confirm Password -->
             <div class="form-group">
               <label for="confirmPassword"
                 >Confirm Password <span class="required">*</span></label
@@ -192,6 +198,9 @@
                   placeholder="Confirm your password"
                   required
                   autocomplete="new-password"
+                  aria-required="true"
+                  aria-describedby="confirmHint confirmError"
+                  aria-invalid="false"
                 />
                 <button
                   type="button"
@@ -203,7 +212,7 @@
                 </button>
               </div>
               <small id="confirmHint"></small>
-              <span class="error-message" id="confirmError"></span>
+              <span class="error-message" id="confirmError" role="alert"></span>
             </div>
 
             <!-- Shopping Preferences -->
@@ -298,20 +307,17 @@
           <a href="contact.html">Contact Us</a>
         </div>
         <div class="footer-col">
-          <h4>MY ACCOUNT</h4>
-          <a href="login.html">Sign In</a>
-          <a href="cart.html">View Cart</a>
-          <a href="wishlist.html">My Wishlist</a>
-          <a href="cart.html">Track My Order</a>
-          <a href="contact.html">Help</a>
+            <h4>MY ACCOUNT</h4>
+            <a href="login.html">Sign In</a>
+            <a aria-label="Cart" href="cart.html">View Cart</a>
+            <a aria-label="Wishlist" href="wishlist.html">My Wishlist</a>
+            <a href="track-order.html">Track My Order</a>
+            <a href="contact.html">Help</a>
         </div>
         <div class="footer-col newsletter-footer">
           <h4>NEWSLETTER</h4>
-          <p>
-            Get email updates about our latest shop and
-            <span>special offers.</span>
-          </p>
-          <form class="newsletter-form">
+          <p>Get email updates about our latest shop and <span>special offers.</span></p>
+          <form class="newsletter-form" role="form" aria-label="Newsletter subscription">
             <input type="email" placeholder="Your email address" required />
             <button
               type="submit"

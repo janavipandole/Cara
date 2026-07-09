@@ -3,6 +3,14 @@ from sqlalchemy.orm import relationship
 from .database import Base
 from datetime import datetime, timezone
 
+class NewsletterSubscriber(Base):
+    __tablename__ = "newsletter_subscribers"
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String, unique=True, index=True, nullable=False)
+    subscribed_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    is_active = Column(Boolean, default=True)
+
+
 class Product(Base):
     __tablename__ = "products"
 
@@ -40,6 +48,16 @@ class User(Base):
     role            = Column(String, default="USER", nullable=False) 
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime,  default=lambda: datetime.now(timezone.utc))
+    full_name = Column(String, nullable=True)
+    phone = Column(String, nullable=True)
+    avatar_url = Column(String, nullable=True)
+    address_line1 = Column(String, nullable=True)
+    address_line2 = Column(String, nullable=True)
+    city = Column(String, nullable=True)
+    state = Column(String, nullable=True)
+    zip_code = Column(String, nullable=True)
+    country = Column(String, nullable=True)
+    updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 
 class Order(Base):
     __tablename__ = "orders"
@@ -52,6 +70,18 @@ class Order(Base):
     total_amount = Column(Float, nullable=False)
     status = Column(String, default="PENDING")
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+class PasswordResetToken(Base):
+    __tablename__ = "password_reset_tokens"
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    token = Column(String, unique=True, index=True, nullable=False)
+    expires_at = Column(DateTime, nullable=False)
+    used = Column(Boolean, default=False)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+    user = relationship("User")
+
 
 class OrderItem(Base):
     __tablename__ = "order_items"
