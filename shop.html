@@ -80,13 +80,18 @@
 
   <body>
     <!-- HEADER -->
+<<<<<<< HEAD
     <section id="header">
+=======
+    <section id="header" role="banner">
+
+>>>>>>> main
       <!-- logo-->
       <a href="index.html"><img src="images/logo.png" alt="Cara Logo" /></a>
 
       <!-- Navigation -->
       <div>
-        <ul id="navbar">
+        <ul id="navbar" role="navigation" aria-label="Main navigation">
           <li><a href="index.html">Home</a></li>
           <li><a class="active" href="shop.html">Shop</a></li>
           <li><a href="blog.html">Blog</a></li>
@@ -193,6 +198,7 @@
           </button>
         </div>
 
+<<<<<<< HEAD
         <script>
           document.addEventListener('DOMContentLoaded', () => {
             const searchInput = document.getElementById('searchInput');
@@ -202,6 +208,23 @@
             );
             const box = document.getElementById('recent-searches-box');
             const clearBtn = document.getElementById('clear-searches-btn');
+=======
+  <!-- SEARCH -->
+  <div class="search-container" role="search">
+    <div id="recent-searches-box" style="margin-top: 10px; font-size: 14px; display: none;">
+      <span>Recent Searches: </span>
+      <span id="recent-searches-list"></span>
+      <button id="clear-searches-btn" style="background: none; border: none; color: #088178; cursor: pointer; text-decoration: underline; margin-left: 10px;">Clear</button>
+    </div>
+    
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const searchInput = document.getElementById("searchInput");
+      const searchBtn = document.getElementById("searchBtn");
+      const listContainer = document.getElementById("recent-searches-list");
+      const box = document.getElementById("recent-searches-box");
+      const clearBtn = document.getElementById("clear-searches-btn");
+>>>>>>> main
 
             const updateList = () => {
               const searches = JSON.parse(
@@ -326,7 +349,7 @@
         </div>
       </div>
     </section>
-    <section id="product1" class="section-p1">
+    <section id="product1" class="section-p1" role="region" aria-label="Products">
       <div class="sort-container" aria-label="Sort products list">
         <label class="sort-label" for="sort-price"
           ><i class="ri-sorting-asc"></i> Sort by</label
@@ -343,6 +366,7 @@
         </div>
       </div>
       <div class="pro-container" id="shop-container"></div>
+      </div>
     </section>
 
     <!-- Recently Viewed Products (hidden automatically when the list is empty) -->
@@ -383,39 +407,6 @@
     <button id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">
       â¬‡
     </button>
-
-    <!-- <footer class="section-p1">
-    <section id="product1" class="section-p1">
-      <div class="sort-container" aria-label="Sort products list">
-        <label class="sort-label" for="sort-price"><i class="ri-sorting-asc"></i> Sort by</label>
-        <div class="sort-select-wrap">
-          <select id="sort-price" class="sort-dropdown">
-            <option value="default">Default Sorting</option>
-            <option value="low-high">Price: Low to High</option>
-            <option value="high-low">Price: High to Low</option>
-            <option value="rating-high">Rating: High to Low</option>
-            <option value="rating-low">Rating: Low to High</option>
-            <option value="newest">Newest</option>
-          </select>
-          <i class="ri-arrow-down-s-line sort-chevron" aria-hidden="true"></i>
-        </div>
-      </div>
-      <div class="pro-container" id="shop-container"></div>
-    </section>
-
-    <section id="newsletter" class="section-p1">
-      <div class="newstext">
-        <h4>Sign Up For Newsletters</h4>
-        <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
-      </div>
-      <form class="form newsletter-form">
-        <input type="email" placeholder="Your email address" aria-label="Email address for newsletter" required />
-        <button type="submit" class="normal" aria-label="Sign up for newsletter">Sign Up</button>
-      </form>
-    </section>
-
-    <button id="backToTop" title="Back to Top" aria-label="Back to top">â¬†</button>
-    <button id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">â¬‡</button> -->
 
     <footer class="section-p1">
       <!-- Contact Column -->
@@ -498,10 +489,9 @@
       <div class="col">
         <h4>My Account</h4>
         <a href="login.html">Sign In</a>
-        <a href="cart.html">View Cart</a>
-        <a href="wishlist.html">My Wishlist</a>
-        <a href="javascript:void(0)">My Wishlist</a>
-        <a href="cart.html">Track My Order</a>
+        <a aria-label="Cart" href="cart.html">View Cart</a>
+        <a aria-label="Wishlist" href="wishlist.html">My Wishlist</a>
+        <a href="track-order.html">Track My Order</a>
         <a href="contact.html">Help</a>
       </div>
 
@@ -513,20 +503,9 @@
           <span>special offers.</span>
         </p>
 
-        <form class="newsletter-form">
-          <input
-            type="email"
-            placeholder="Your email address"
-            aria-label="Email address for newsletter"
-            required=""
-          />
-          <button
-            type="submit"
-            class="normal"
-            aria-label="Sign up for newsletter"
-          >
-            Sign Up
-          </button>
+        <form class="newsletter-form" role="form" aria-label="Newsletter subscription">
+          <input type="email" placeholder="Your email address" aria-label="Email address for newsletter" required="">
+          <button type="submit" class="normal" aria-label="Sign up for newsletter">Sign Up</button>
         </form>
       </div>
 
@@ -540,41 +519,11 @@
         </div>
         <p>Secured Payment Gateways</p>
         <div class="payment-icons">
-          <a
-            href="https://www.visa.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Visa"
-            ><i class="fab fa-cc-visa"></i
-          ></a>
-          <a
-            href="https://www.mastercard.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Mastercard"
-            ><i class="fab fa-cc-mastercard"></i
-          ></a>
-          <a
-            href="https://www.paypal.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="PayPal"
-            ><i class="fab fa-cc-paypal"></i
-          ></a>
-          <a
-            href="https://www.americanexpress.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="American Express"
-            ><i class="fab fa-cc-amex"></i
-          ></a>
-          <a
-            href="https://stripe.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Stripe"
-            ><i class="fab fa-cc-stripe"></i
-          ></a>
+          <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer" aria-label="Visa"><i class="fab fa-cc-visa"></i></a>
+          <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer" aria-label="Mastercard"><i class="fab fa-cc-mastercard"></i></a>
+          <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" aria-label="PayPal"><i class="fab fa-cc-paypal"></i></a>
+          <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer" aria-label="American Express"><i class="fab fa-cc-amex"></i></a>
+          <a href="https://stripe.com" target="_blank" rel="noopener noreferrer" aria-label="Stripe"><i class="fab fa-cc-stripe"></i></a>
         </div>
       </div>
       <div class="copyright">
@@ -589,6 +538,7 @@
     <script src="products.js?v=1779120917219"></script>
     <script src="app.js?v=1779120917219"></script>
     <script src="navbar.js"></script>
+    <script src="js/newsletter-subscribe.js" defer></script>
     <script>
       loadNavbar('shop');
     </script>
