@@ -1,4 +1,83 @@
 const modal = document.getElementById("size-chart-modal");
+const PRODUCT_DETAILS_REQUEST_KEY = "product-details";
+
+function abortProductDetailsRequest() {
+    if (window.CaraAPI && typeof window.CaraAPI.abortRequest === "function") {
+        window.CaraAPI.abortRequest(PRODUCT_DETAILS_REQUEST_KEY);
+    }
+}
+
+function renderProductDetails(product) {
+    const nameEl = document.getElementById("product-name");
+    const priceEl = document.getElementById("product-price");
+    const mainImgEl = document.getElementById("MainImg");
+    const breadcrumbEl = document.querySelector(".single-pro-details h6");
+    const smallImgs = document.querySelectorAll(".small-img");
+
+    if (nameEl) nameEl.textContent = product.name;
+    if (priceEl) priceEl.textContent = product.price;
+    if (mainImgEl) mainImgEl.src = product.image;
+
+    if (breadcrumbEl && product.brand) {
+        let productType = "T-Shirt";
+        if (product.name.toLowerCase().includes("trousers")) {
+            productType = "Trousers";
+        } else if (product.name.toLowerCase().includes("shorts")) {
+            productType = "Shorts";
+        } else if (product.name.toLowerCase().includes("blouse")) {
+            productType = "Blouse";
+        } else if (product.name.toLowerCase().includes("shirt")) {
+            productType = "Shirt";
+        }
+        breadcrumbEl.textContent = `Home / ${product.brand} / ${productType}`;
+    }
+
+    if (smallImgs.length > 0 && product.image) {
+        smallImgs[0].src = product.image;
+    }
+}
+
+function loadProductDetails() {
+    const storedProductJSON = localStorage.getItem("selectedProduct");
+    if (!storedProductJSON) return;
+
+    try {
+        const product = JSON.parse(storedProductJSON);
+        if (!product) return;
+
+        renderProductDetails({
+            name: product.name || "Product",
+            price: product.price || "$0.00",
+            image: product.image || "images/products/f1.jpg",
+            brand: product.brand || "Brand",
+        });
+
+        if (product.id && window.CaraAPI && typeof window.CaraAPI.fetchData === "function") {
+            window.CaraAPI.fetchData(`/api/products/${product.id}`, {
+                requestKey: PRODUCT_DETAILS_REQUEST_KEY,
+                headers: {
+                    Accept: "application/json",
+                },
+            })
+                .then((apiProduct) => {
+                    if (!apiProduct) return;
+                    renderProductDetails({
+                        name: apiProduct.name || product.name || "Product",
+                        price: apiProduct.price ? `₹${apiProduct.price}` : product.price || "$0.00",
+                        image: apiProduct.img || product.image || "images/products/f1.jpg",
+                        brand: apiProduct.brand || product.brand || "Brand",
+                    });
+                })
+                .catch((error) => {
+                    if (error && error.name !== "AbortError") {
+                        console.error("Failed to load product details:", error);
+                    }
+                });
+        }
+    } catch (error) {
+        console.error("Error parsing stored product:", error);
+    }
+}
 
 const openBtn = document.getElementById("size-chart-btn");
 
