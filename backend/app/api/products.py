@@ -1,3 +1,4 @@
+import time
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 from sqlalchemy import or_, func
@@ -7,7 +8,9 @@ from ..database import get_db
 
 router = APIRouter()
 
-
+# Cache for category metadata to prevent N+1 DB starvation
+_CATEGORY_CACHE = {}
+_CACHE_TTL = 300  # 5 minutes
 # ---------------------------------------------------------------------------
 # Existing endpoints (preserved exactly)
 # ---------------------------------------------------------------------------
@@ -188,6 +191,10 @@ def get_category_summary(db: Session = Depends(get_db)) -> dict:
     present in the catalog — useful for populating filter dropdown menus
     on the frontend without hard-coding values.
     """
+    now = time.time()
+    if "data" in _CATEGORY_CACHE and now - _CATEGORY_CACHE["time"] < _CACHE_TTL:
+        return _CATEGORY_CACHE["data"]
+
     categories   = [r[0] for r in db.query(func.distinct(models.Product.category)).filter(models.Product.category.isnot(None)).all()]
     subcategories = [r[0] for r in db.query(func.distinct(models.Product.subcategory)).filter(models.Product.subcategory.isnot(None)).all()]
     colors       = [r[0] for r in db.query(func.distinct(models.Product.color)).filter(models.Product.color.isnot(None)).all()]
@@ -198,7 +205,7 @@ def get_category_summary(db: Session = Depends(get_db)) -> dict:
         func.max(models.Product.price),
     ).first()
 
-    return {
+    result = {
         "categories": sorted(categories),
         "subcategories": sorted(subcategories),
         "colors": sorted(colors),
@@ -208,3 +215,8 @@ def get_category_summary(db: Session = Depends(get_db)) -> dict:
             "max": price_range[1] if price_range[1] is not None else 0,
         },
     }
+
+    _CATEGORY_CACHE["data"] = result
+    _CATEGORY_CACHE["time"] = now
+
+    return result
