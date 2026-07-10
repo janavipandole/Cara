@@ -164,6 +164,7 @@ class OrderCreate(BaseModel):
     zip: str
     items: list[OrderItemCreate]
     coupon: Optional[str] = None
+    idempotency_key: Optional[str] = None
 
 
 # -- Product Search / Filter Response Schemas --
@@ -233,4 +234,3 @@ class StatusDistributionOut(BaseModel):
     """Order volume distribution across statuses returned by GET /api/admin/analytics/order-status-distribution."""
     status: str
     count: int
-
