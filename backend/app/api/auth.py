@@ -8,7 +8,7 @@ import os
 from fastapi import Response
 from ..database import get_db
 from .. import models
-from ..schemas import UserRegister, UserLogin, Token, UserOut
+from ..schemas import UserRegister, UserLogin, Token, UserOut, ForgotPasswordRequest, ResetPasswordRequest
 from ..limiter import limiter
 from PIL import Image, ImageDraw
 import io
