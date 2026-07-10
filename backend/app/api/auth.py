@@ -269,7 +269,7 @@ def forgot_password(
     db.add(reset_token)
     db.commit()
 
-    return {"message": "If the email exists, a reset link has been sent", "reset_token": token}
+    return {"message": "If the email exists, a reset link has been sent"}
 
 
 @router.post("/reset-password")
