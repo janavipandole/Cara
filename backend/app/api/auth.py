@@ -189,15 +189,13 @@ def login(request: Request, response: Response, payload: UserLogin, db: Session 
     user = db.query(models.User).filter(models.User.email == payload.email).first()
 
     if not user or not pwd.verify(payload.password, user.hashed_password):
-        # Only track failed attempts for valid emails to prevent botnets from 
-        # flushing the LRU cache with random dummy emails (cache padding attack).
-        if user:
-            failed_login_attempts[payload.email] = attempts + 1
-            failed_login_attempts.move_to_end(payload.email)
-            
-            # Enforce LRU bounds to prevent memory leaks from massive bot networks
-            if len(failed_login_attempts) > MAX_TRACKED_EMAILS:
-                failed_login_attempts.popitem(last=False)
+        # Track failed attempts for all emails to prevent username enumeration via rate limit oracles.
+        # Enforce LRU bounds to prevent memory leaks from massive bot networks
+        failed_login_attempts[payload.email] = attempts + 1
+        failed_login_attempts.move_to_end(payload.email)
+        
+        if len(failed_login_attempts) > MAX_TRACKED_EMAILS:
+            failed_login_attempts.popitem(last=False)
             
         raise HTTPException(401, "Invalid email or password.")
 
