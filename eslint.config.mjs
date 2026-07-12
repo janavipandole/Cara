@@ -5,7 +5,13 @@ import configPrettier from 'eslint-config-prettier';
 
 export default [
   {
-    ignores: ['node_modules/**', 'dist/**', 'build/**'],
+    ignores: [
+      'node_modules/**',
+      'dist/**',
+      'build/**',
+      'Cara-main/**',
+      '**/*.min.js',
+    ],
   },
   js.configs.recommended,
 
@@ -24,6 +30,7 @@ export default [
     rules: {
       'prettier/prettier': 'error',
       'no-unused-vars': 'warn',
+      'no-undef': 'off',
       'no-console': 'off',
     },
   },

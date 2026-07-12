@@ -15,10 +15,13 @@ function checkCouponCode(rawCode) {
   if (!code) {
     return { valid: false, message: 'Please enter a coupon code.' };
   }
-  if (COUPONS.hasOwnProperty(code)) {
+  if (Object.prototype.hasOwnProperty.call(COUPONS, code)) {
     return { valid: true, discountPct: COUPONS[code], code };
   }
-  return { valid: false, message: 'Invalid coupon code. Try CARA20 or WELCOME10.' };
+  return {
+    valid: false,
+    message: 'Invalid coupon code. Try CARA20 or WELCOME10.',
+  };
 }
 
 describe('Coupon Validation Logic', () => {

@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
       isDragging = true;
       stopAutoplay();
     },
-    { passive: true }
+    { passive: true },
   );
 
   track.addEventListener(
@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.cancelable) e.preventDefault();
       }
     },
-    { passive: false }
+    { passive: false },
   );
 
   track.addEventListener(
@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       startAutoplay();
     },
-    { passive: true }
+    { passive: true },
   );
 
   // Init execution

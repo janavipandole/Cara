@@ -80,13 +80,7 @@
   </head>
 
   <body>
-    <!-- HEADER -->
-<<<<<<< HEAD
-    <section id="header">
-=======
     <section id="header" role="banner">
-
->>>>>>> main
       <!-- logo-->
       <a href="index.html"><img src="images/logo.png" alt="Cara Logo" /></a>
 
@@ -204,14 +198,14 @@
             const searchInput = document.getElementById('searchInput');
             const searchBtn = document.getElementById('searchBtn');
             const listContainer = document.getElementById(
-              'recent-searches-list'
+              'recent-searches-list',
             );
             const box = document.getElementById('recent-searches-box');
             const clearBtn = document.getElementById('clear-searches-btn');
 
             const updateList = () => {
               const searches = JSON.parse(
-                localStorage.getItem('recentSearches') || '[]'
+                localStorage.getItem('recentSearches') || '[]',
               );
               if (searches.length === 0) {
                 box.style.display = 'none';
@@ -237,7 +231,7 @@
               const query = searchInput.value.trim();
               if (query) {
                 let searches = JSON.parse(
-                  localStorage.getItem('recentSearches') || '[]'
+                  localStorage.getItem('recentSearches') || '[]',
                 );
                 searches = [
                   query,
@@ -245,7 +239,7 @@
                 ].slice(0, 5);
                 localStorage.setItem(
                   'recentSearches',
-                  JSON.stringify(searches)
+                  JSON.stringify(searches),
                 );
                 updateList();
               }
@@ -319,7 +313,6 @@
           </select>
         </div>
 
-<<<<<<< HEAD
         <!-- RESET BUTTON -->
         <div class="filter-container reset-wrapper">
           <label for="resetFiltersBtn" style="visibility: hidden">Reset</label>
@@ -327,52 +320,12 @@
         </div>
       </div>
     </section>
-    <section id="product1" class="section-p1">
-=======
-    <div class="filter-container">
-      <label for="categoryFilter">Category</label>
-      <select id="categoryFilter">
-        <option value="all">All</option>
-        <option value="street">Street</option>
-        <option value="minimal">Minimal</option>
-        <option value="formal">Formal</option>
-      </select>
-    </div>
-
-    <div class="filter-container">
-      <label for="style-filter">Style</label>
-      <select id="style-filter">
-        <option value="all">All</option>
-      </select>
-    </div>
-
-    <div class="filter-container">
-      <label for="brand-filter">Brand</label>
-      <select id="brand-filter">
-        <option value="all">All</option>
-      </select>
-    </div>
-
-    <div class="filter-container">
-      <label for="color-filter">Color</label>
-      <select id="color-filter">
-        <option value="all">All</option>
-      </select>
-    </div>
-
-    <!-- RESET BUTTON -->
-    <div class="filter-container reset-wrapper">
-      <label for="resetFiltersBtn" style="visibility:hidden;">Reset</label>
-      <button id="resetFiltersBtn" class="reset-btn">
-        Reset Filters
-      </button>
-    </div>
-
-  </div>
-
-</section>
-    <section id="product1" class="section-p1" role="region" aria-label="Products">
->>>>>>> main
+    <section
+      id="product1"
+      class="section-p1"
+      role="region"
+      aria-label="Products"
+    >
       <div class="sort-container" aria-label="Sort products list">
         <label class="sort-label" for="sort-price"
           ><i class="ri-sorting-asc"></i> Sort by</label
@@ -390,7 +343,6 @@
         </div>
       </div>
       <div class="pro-container" id="shop-container"></div>
-      </div>
     </section>
 
     <!-- Recently Viewed Products (hidden automatically when the list is empty) -->
@@ -527,9 +479,24 @@
           <span>special offers.</span>
         </p>
 
-        <form class="newsletter-form" role="form" aria-label="Newsletter subscription">
-          <input type="email" placeholder="Your email address" aria-label="Email address for newsletter" required="">
-          <button type="submit" class="normal" aria-label="Sign up for newsletter">Sign Up</button>
+        <form
+          class="newsletter-form"
+          role="form"
+          aria-label="Newsletter subscription"
+        >
+          <input
+            type="email"
+            placeholder="Your email address"
+            aria-label="Email address for newsletter"
+            required=""
+          />
+          <button
+            type="submit"
+            class="normal"
+            aria-label="Sign up for newsletter"
+          >
+            Sign Up
+          </button>
         </form>
       </div>
 
@@ -543,11 +510,41 @@
         </div>
         <p>Secured Payment Gateways</p>
         <div class="payment-icons">
-          <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer" aria-label="Visa"><i class="fab fa-cc-visa"></i></a>
-          <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer" aria-label="Mastercard"><i class="fab fa-cc-mastercard"></i></a>
-          <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" aria-label="PayPal"><i class="fab fa-cc-paypal"></i></a>
-          <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer" aria-label="American Express"><i class="fab fa-cc-amex"></i></a>
-          <a href="https://stripe.com" target="_blank" rel="noopener noreferrer" aria-label="Stripe"><i class="fab fa-cc-stripe"></i></a>
+          <a
+            href="https://www.visa.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visa"
+            ><i class="fab fa-cc-visa"></i
+          ></a>
+          <a
+            href="https://www.mastercard.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Mastercard"
+            ><i class="fab fa-cc-mastercard"></i
+          ></a>
+          <a
+            href="https://www.paypal.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="PayPal"
+            ><i class="fab fa-cc-paypal"></i
+          ></a>
+          <a
+            href="https://www.americanexpress.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="American Express"
+            ><i class="fab fa-cc-amex"></i
+          ></a>
+          <a
+            href="https://stripe.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Stripe"
+            ><i class="fab fa-cc-stripe"></i
+          ></a>
         </div>
       </div>
       <div class="copyright">

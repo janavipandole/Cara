@@ -6,3 +6,6 @@ build/
 *.min.css
 package-lock.json
 package.json
+Cara-main/
+bundle.css
+

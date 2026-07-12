@@ -15,16 +15,21 @@
   const STATUS_API = '/api/admin/analytics/order-status-distribution';
 
   // ── DOM References ─────────────────────────────────────────────────────────
-  const revEl       = document.getElementById('analyticsRevenue');
-  const volumeEl    = document.getElementById('analyticsOrders');
+  const revEl = document.getElementById('analyticsRevenue');
+  const volumeEl = document.getElementById('analyticsOrders');
   const customersEl = document.getElementById('analyticsCustomers');
-  const catTable    = document.getElementById('analyticsCategoryTable');
-  const statusWrap  = document.getElementById('analyticsStatusWrap');
-  const errorAlert  = document.getElementById('analyticsError');
+  const catTable = document.getElementById('analyticsCategoryTable');
+  const statusWrap = document.getElementById('analyticsStatusWrap');
+  const errorAlert = document.getElementById('analyticsError');
 
   // ── Format helpers ─────────────────────────────────────────────────────────
   function _fmtRev(val) {
-    return '₹' + parseFloat(val).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+    return (
+      '₹' +
+      parseFloat(val)
+        .toFixed(2)
+        .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+    );
   }
 
   function _escape(str) {
@@ -39,14 +44,17 @@
   // ── Render functions ───────────────────────────────────────────────────────
   function renderSummary(data) {
     if (revEl) revEl.textContent = _fmtRev(data.total_revenue || 0);
-    if (volumeEl) volumeEl.textContent = (data.total_orders || 0).toLocaleString();
-    if (customersEl) customersEl.textContent = (data.total_customers || 0).toLocaleString();
+    if (volumeEl)
+      volumeEl.textContent = (data.total_orders || 0).toLocaleString();
+    if (customersEl)
+      customersEl.textContent = (data.total_customers || 0).toLocaleString();
   }
 
   function renderCategorySales(list) {
     if (!catTable) return;
     if (list.length === 0) {
-      catTable.innerHTML = '<tr><td colspan="3" class="text-muted text-center">No sales recorded yet.</td></tr>';
+      catTable.innerHTML =
+        '<tr><td colspan="3" class="text-muted text-center">No sales recorded yet.</td></tr>';
       return;
     }
     catTable.innerHTML = list
@@ -64,7 +72,8 @@
   function renderStatusDistribution(list) {
     if (!statusWrap) return;
     if (list.length === 0) {
-      statusWrap.innerHTML = '<p class="text-muted text-center">No orders to categorize.</p>';
+      statusWrap.innerHTML =
+        '<p class="text-muted text-center">No orders to categorize.</p>';
       return;
     }
     const maxVal = Math.max(...list.map((r) => r.count), 1);
