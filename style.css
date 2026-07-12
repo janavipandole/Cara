@@ -4636,3 +4636,5 @@ footer {
                 h4 {
                     font-size: 24px;
 
+
+*:focus { outline: 3px solid #088178; outline-offset: 2px; }

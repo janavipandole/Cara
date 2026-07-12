@@ -1791,3 +1791,5 @@ document.addEventListener("DOMContentLoaded", () => {
 /* --- END: PRODUCT QUICK-VIEW MODAL FUNCTIONALITY --- */
 
 
+
+document.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', 'false'));
