@@ -23,9 +23,9 @@
     />
     <meta
       property="og:image"
-      content="https://example.com/images/preview.jpg"
+      content="https://cara-ecommerce.netlify.app/images/preview.jpg"
     />
-    <meta property="og:url" content="https://example.com/" />
+    <meta property="og:url" content="https://cara-ecommerce.netlify.app/" />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="E-commerce - Dark Theme Working" />
@@ -35,7 +35,7 @@
     />
     <meta
       name="twitter:image"
-      content="https://example.com/images/preview.jpg"
+      content="https://cara-ecommerce.netlify.app/images/preview.jpg"
     />
     <meta name="twitter:site" content="@janavipandole" />
     <meta name="theme-color" content="#000000" />
@@ -51,7 +51,8 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-  </head>
+    <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
+</head>
 
   <body>
     <section id="header">
@@ -139,6 +140,10 @@
       aria-expanded="false"
       tabindex="0"
     ></i>
+      <!-- Theme Toggle -->
+      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
+        <i class="ri-moon-line" id="themeIconMobile"></i>
+      </button>
 
   </div>
 </section>
@@ -180,7 +185,7 @@
                   <p>Have a promotional coupon?</p>
                   <div class="coupon-input-group">
                     <input type="text" id="coupon-code" placeholder="Enter coupon (e.g. CARA20)" />
-                    <button id="apply-coupon-btn">Apply</button>
+                    <button id="apply-coupon-btn" aria-label="Apply coupon">Apply</button>
                   </div>
                 </div>
 
@@ -208,7 +213,7 @@
                   </div>
                 </div>
 
-                <button class="checkout-btn" onclick="window.location.href='checkout.html'">
+                <button class="checkout-btn" onclick="window.location.href='checkout.html'" aria-label="Proceed to checkout">
                   PROCEED TO CHECKOUT <i class="ri-arrow-right-line"></i>
                 </button>
               </div>
@@ -246,7 +251,7 @@
             <div class="follow">
                 <h4>Follow us</h4>
                 <div class="icon">
-                    <a href="https://x.com/JanaviPandole"><i class="fab fa-twitter"></i></a>
+                    <a href="https://x.com/JanaviPandole"><i class="fa-brands fa-x-twitter"></i></a>
                     <a href="https://github.com/janavipandole"><i class="fab fa-github"></i></a>
                     <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank"
                         rel="noopener noreferrer">
@@ -271,7 +276,7 @@
           <div class="col">
             <h4>My Account</h4>
             <a href="login.html">Sign In</a>
-            <a href="cart.html">View Cart</a>
+            <a aria-label="Cart" href="cart.html">View Cart</a>
             <a href="#">My Wishlist</a>
             <a href="track-order.html">Track My Order</a>
             <a href="contact.html">Help</a>
@@ -287,7 +292,7 @@
 
             <form class="newsletter-form">
               <input type="email" placeholder="Your email address" required />
-              <button type="submit" class="normal">Sign Up</button>
+              <button type="submit" class="normal" aria-label="Sign up for newsletter">Sign Up</button>
             </form>
           </div>
 

@@ -1,16 +1,33 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+    <!-- Character encoding -->
     <meta charset="UTF-8" />
+
+    <!-- Viewport for responsive design -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Privacy Policy | Cara — Modern E-Commerce</title>
+
+    <!-- Page title -->
+    <title>Privacy Policy | Cara â€” Modern E-Commerce</title>
+
+    <!-- Favicon -->
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
+
+    <!--SEO Meta Tags-->
     <meta name="description" content="Read Cara's Privacy Policy to understand how we collect, use, and protect your personal information." />
     <meta name="author" content="Cara" />
     <meta name="robots" content="index, follow" />
+
+    <!-- Language -->
     <meta http-equiv="Content-Language" content="en" />
+
+    <!-- Theme Color for Mobile Browser -->
     <meta name="theme-color" content="#000000" />
+
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="ui-fix.css" />
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link
       rel="stylesheet"
@@ -123,6 +140,89 @@
         border-top: 1px solid var(--border-color, #e0e0e0);
       }
 
+      /* Cookie Consent Drawer */
+      #cookie-consent {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: var(--bg-secondary);
+        border-top: 2px solid #088178;
+        padding: 20px 32px;
+        display: none;
+        z-index: 10000;
+        box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      #cookie-consent.show {
+        display: block;
+        animation: slideUp 0.35s ease-out;
+      }
+
+      @keyframes slideUp {
+        from { transform: translateY(100%); opacity: 0; }
+        to   { transform: translateY(0);    opacity: 1; }
+      }
+
+      .cookie-inner {
+        max-width: 960px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+
+      .cookie-inner p {
+        margin: 0;
+        font-size: 14px;
+        color: var(--text-primary);
+        flex: 1;
+        min-width: 220px;
+        line-height: 1.7;
+      }
+
+      .cookie-inner p a {
+        color: #088178;
+        text-decoration: underline;
+      }
+
+      .cookie-actions {
+        display: flex;
+        gap: 10px;
+        flex-shrink: 0;
+      }
+
+      .cookie-btn {
+        border: none;
+        padding: 10px 22px;
+        border-radius: 4px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .cookie-btn-accept {
+        background: #088178;
+        color: #fff;
+      }
+
+      .cookie-btn-accept:hover {
+        background: #066b63;
+      }
+
+      .cookie-btn-reject {
+        background: transparent;
+        color: var(--text-primary);
+        border: 1px solid var(--border-color, #ccc);
+      }
+
+      .cookie-btn-reject:hover {
+        background: rgba(0, 0, 0, 0.05);
+      }
+
       @media (max-width: 768px) {
         #policy-page {
           padding: 30px 24px 40px;
@@ -135,15 +235,38 @@
         #policy-page .policy-section {
           padding: 18px 16px;
         }
+
+        #cookie-consent {
+          padding: 16px;
+        }
+
+        .cookie-inner {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .cookie-actions {
+          width: 100%;
+          justify-content: center;
+        }
       }
     </style>
-  </head>
+    <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
+</head>
 
   <body>
     <!-- Header -->
     <section id="header">
       <a id="siteLogo" href="index.html"><img src="images/logo.png" alt="Cara Logo" width="130" height="40" /></a>
 
+      <!-- Navigation Bar -->
       <div>
         <ul id="navbar">
           <li><a href="index.html">Home</a></li>
@@ -153,7 +276,7 @@
           <li><a href="contact.html">Contact</a></li>
           <li><a href="login.html" id="login-btn">Login</a></li>
           <li>
-            <a href="cart.html" id="lg-bag" class="cart-icon-wrapper"
+            <a aria-label="Cart" href="cart.html" id="lg-bag" class="cart-icon-wrapper"
               ><i class="ri-shopping-bag-4-line"></i
               ><span class="cart-count" id="desktopCartCount">0</span></a
             >
@@ -161,24 +284,17 @@
           <li>
             <button
               class="theme-toggle"
-              id="themeToggle"
+              id="themeToggleDesktop"
               aria-label="Toggle dark mode"
             >
               <i class="ri-moon-line" id="themeIcon"></i>
             </button>
           </li>
-          <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+          <a href="javascript:void(0)" id="close"><i class="fa-solid fa-xmark"></i></a>
         </ul>
       </div>
       <div class="mobile">
-        <button
-          class="theme-toggle"
-          id="themeToggleMobile"
-          aria-label="Toggle dark mode"
-        >
-          <i class="ri-moon-line" id="themeIconMobile"></i>
-        </button>
-        <a href="cart.html" id="mobile-cart-icon">
+        <a aria-label="Cart" href="cart.html" id="mobile-cart-icon">
           <i class="ri-shopping-bag-4-line"></i>
           <span class="cart-count" id="mobileCartCount">0</span>
         </a>
@@ -190,10 +306,10 @@
     <section id="about-head">
       <h2>Privacy Policy</h2>
     </section>
-
-    <!-- Policy Content -->
+    <div class="policy-layout">
+        <!-- Policy Content -->
     <main id="policy-page">
-      <button onclick="javascript:history.back()" class="back-btn" aria-label="Go back to previous page" style="border: none; font-family: inherit; font-size: inherit;">
+      <button onclick="history.back()" class="back-btn" aria-label="Go back to previous page" style="border: none; font-family: inherit; font-size: inherit;">
         <i class="ri-arrow-left-line"></i> Back
       </button>
 
@@ -205,9 +321,24 @@
         use, and protect your information when you use our website.
       </p>
 
+      <!-- Sidebar Quick Links Table of Contents -->
+      <div class="policy-quick-nav" style="background: var(--bg-secondary); padding: 15px 20px; border-radius: 6px; margin-bottom: 30px; border: 1px solid var(--border-color, #e0e0e0);">
+        <p style="margin: 0 0 10px; font-weight: 600; font-size: 14px; color: var(--text-primary);">Quick Navigation</p>
+        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 15px; font-size: 13px;">
+          <li><a href="#section-1" style="color: #088178; text-decoration: none; font-weight: 500;">1. Collection</a></li>
+          <li><a href="#section-2" style="color: #088178; text-decoration: none; font-weight: 500;">2. Use</a></li>
+          <li><a href="#section-3" style="color: #088178; text-decoration: none; font-weight: 500;">3. Cookies</a></li>
+          <li><a href="#section-4" style="color: #088178; text-decoration: none; font-weight: 500;">4. Security</a></li>
+          <li><a href="#section-5" style="color: #088178; text-decoration: none; font-weight: 500;">5. Third Parties</a></li>
+          <li><a href="#section-6" style="color: #088178; text-decoration: none; font-weight: 500;">6. Rights</a></li>
+          <li><a href="#section-7" style="color: #088178; text-decoration: none; font-weight: 500;">7. Contact</a></li>
+          <li><a href="#section-8" style="color: #088178; text-decoration: none; font-weight: 500;">8. Updates</a></li>
+        </ul>
+      </div>
+
       <dl class="policy-list">
-        <div class="policy-section">
-          <dt><h2>📌 1. Information We Collect</h2></dt>
+        <div class="policy-section" id="section-1">
+          <dt><h2><i class="fas fa-thumbtack"></i> 1. Information We Collect</h2></dt>
           <dd>
             <p>
               We may collect personal information such as your name, email address, phone number,
@@ -216,8 +347,8 @@
           </dd>
         </div>
 
-        <div class="policy-section">
-          <dt><h2>⚡ 2. How We Use Your Information</h2></dt>
+        <div class="policy-section" id="section-2">
+           <dt><h2><i class="fas fa-bolt"></i> 2. How We Use Your Information</h2></dt>
           <dd>
             <p>The information collected is used to:</p>
             <ul>
@@ -230,8 +361,8 @@
           </dd>
         </div>
 
-        <div class="policy-section">
-          <dt><h2>🍪 3. Cookies</h2></dt>
+        <div class="policy-section" id="section-3">
+          <dt><h2><i class="fas fa-cookie"></i> 3. Cookies</h2></dt>
           <dd>
             <p>
               Our website may use cookies to improve browsing experience and analyze website traffic.
@@ -240,8 +371,8 @@
           </dd>
         </div>
 
-        <div class="policy-section">
-          <dt><h2>🔒 4. Data Protection</h2></dt>
+        <div class="policy-section" id="section-4">
+          <dt><h2><i class="fas fa-lock"></i> 4. Data Protection</h2></dt>
           <dd>
             <p>
               We implement security measures to protect your personal data from unauthorized access,
@@ -250,8 +381,8 @@
           </dd>
         </div>
 
-        <div class="policy-section">
-          <dt><h2>🌐 5. Third-Party Services</h2></dt>
+        <div class="policy-section" id="section-5">
+          <dt><h2><i class="fas fa-globe"></i> 5. Third-Party Services</h2></dt>
           <dd>
             <p>
               We may use trusted third-party services such as payment gateways and analytics tools.
@@ -260,8 +391,8 @@
           </dd>
         </div>
 
-        <div class="policy-section">
-          <dt><h2>🛡️ 6. Your Rights</h2></dt>
+        <div class="policy-section" id="section-6">
+          <dt><h2><i class="fas fa-shield-alt"></i> 6. Your Rights</h2></dt>
           <dd>
             <p>
               You have the right to access, update, or request deletion of your personal information.
@@ -270,22 +401,22 @@
           </dd>
         </div>
 
-        <div class="policy-section">
-          <dt><h2>📞 7. Contact Us</h2></dt>
+        <div class="policy-section" id="section-7">
+          <dt><h2><i class="fas fa-phone"></i> 7. Contact Us</h2></dt>
           <dd>
             <p>If you have any questions regarding this Privacy Policy, please contact us at:</p>
             <div class="contact-box">
               <p><strong>Head Office</strong></p>
               <p>56 Glassford Street, Glasgow G1 1UL, New York</p>
-              <p>contact@example.com</p>
+              <p>contact@cara-ecommerce.netlify.app</p>
               <p>+1 (000) 123-7788</p>
-              <p>Monday to Saturday — 9:00 AM to 6:00 PM</p>
+              <p>Monday to Saturday â€” 9:00 AM to 6:00 PM</p>
             </div>
           </dd>
         </div>
 
-        <div class="policy-section">
-          <dt><h2>🔄 8. Updates to This Policy</h2></dt>
+        <div class="policy-section" id="section-8">
+          <dt><h2><i class="fas fa-sync"></i> 8. Updates to This Policy</h2></dt>
           <dd>
             <p>
               We may update this Privacy Policy from time to time. Changes will be posted on this page
@@ -297,10 +428,26 @@
 
       <div class="footer-note">Last Updated: May 2026</div>
     </main>
+    </div>
+
+    <!-- Cookie Consent Drawer -->
+    <div id="cookie-consent" role="dialog" aria-label="Cookie consent" aria-describedby="cookie-desc">
+      <div class="cookie-inner">
+        <p id="cookie-desc">
+          <i class="fas fa-cookie-bite" style="margin-right: 6px; color: #088178;"></i>
+          We use cookies to improve your experience. By continuing, you agree to our
+          <a href="privacy.html">Privacy Policy</a>.
+        </p>
+        <div class="cookie-actions">
+          <button class="cookie-btn cookie-btn-reject" id="cookie-reject">Decline</button>
+          <button class="cookie-btn cookie-btn-accept" id="cookie-accept">Accept All</button>
+        </div>
+      </div>
+    </div>
 
     <!-- Back to Top -->
-    <button id="backToTop" title="Back to Top" aria-label="Back to top">⬆</button>
-    <button id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">⬇</button>
+    <button id="backToTop" title="Back to Top" aria-label="Back to top">â¬†</button>
+    <button id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">â¬‡</button>
 
     <!-- Footer -->
     <footer class="section-p1">
@@ -314,9 +461,9 @@
           <h4>Follow us</h4>
           <div class="icon">
             <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer">
-              <i class="fab fa-twitter"></i>
+              <i class="fa-brands fa-x-twitter"></i>
             </a>
-            <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
+            <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
               <i class="fab fa-github"></i>
             </a>
             <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
@@ -332,7 +479,7 @@
       <div class="col">
         <h4>About</h4>
         <a href="about.html">About Us</a>
-        <a href="#">Delivery Information</a>
+        <a href="javascript:void(0)">Delivery Information</a>
         <a href="privacy.html">Privacy Policy</a>
         <a href="terms.html">Terms and Conditions</a>
         <a href="contact.html">Contact Us</a>
@@ -341,9 +488,9 @@
       <div class="col">
         <h4>My Account</h4>
         <a href="login.html">Sign In</a>
-        <a href="cart.html">View Cart</a>
-        <a href="#">My Wishlist</a>
-        <a href="track-order.html">Track My Order</a>
+        <a aria-label="Cart" href="cart.html">View Cart</a>
+        <a aria-label="Wishlist" href="wishlist.html">My Wishlist</a>
+        <a aria-label="Cart" href="cart.html">Track My Order</a>
         <a href="contact.html">Help</a>
       </div>
 
@@ -385,7 +532,7 @@
 
       <div class="copyright">
         <p>
-          © Cara 2026. All rights reserved.. |
+          Â© Cara 2026. All rights reserved.. |
           <a href="license.html" style="color: #088178"> MIT License </a>
         </p>
       </div>
@@ -393,8 +540,34 @@
 
     <div id="toast-container"></div>
     <script src="app.js"></script>
-            <script id="Current-Year">
+    <script>
+      (function initCookieConsent() {
+        var consent = localStorage.getItem('cara_cookie_consent');
+        if (consent) return;
+
+        var drawer = document.getElementById('cookie-consent');
+        var accept = document.getElementById('cookie-accept');
+        var reject = document.getElementById('cookie-reject');
+
+        drawer.classList.add('show');
+
+        accept.addEventListener('click', function () {
+          localStorage.setItem('cara_cookie_consent', 'accepted');
+          drawer.classList.remove('show');
+        });
+
+        reject.addEventListener('click', function () {
+          localStorage.setItem('cara_cookie_consent', 'rejected');
+          drawer.classList.remove('show');
+        });
+      })();
+    </script>
+    <script id="Current-Year">
         document.getElementById("Current-Year").textContent = new Date().getFullYear();
     </script>
-  </body>
+  <script src="js/toc.js" defer></script>
+</body>
 </html>
+
+<!-- Accessibility and structural improvements -->
+

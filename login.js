@@ -1,94 +1,175 @@
+/* global fetchWithTimeout */
+const API_BASE_URL = window.CARA_API_BASE_URL || 'http://127.0.0.1:8000';
+
 document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('loginForm');
-    const passwordInput = document.getElementById('loginPassword');
-    const togglePassword = document.getElementById('togglePassword');
-    const toggleIcon = document.getElementById('toggleIcon');
+  const form = document.getElementById('loginForm');
+  const passwordInput = document.getElementById('loginPassword');
+  const toggleBtn = document.getElementById('togglePassword');
+  const toggleIcon = document.getElementById('toggleIcon');
+  const emailInput = document.getElementById('loginEmail');
+  const submitBtn = document.getElementById('loginSubmitBtn');
 
-    // ── Password Visibility Toggle Logic ──
-    if (passwordInput && togglePassword && toggleIcon) {
-        togglePassword.addEventListener('click', function () {
-            // Toggle the input field's type attribute
-            const isPasswordHidden = passwordInput.type === 'password';
-            passwordInput.type = isPasswordHidden ? 'text' : 'password';
+  // captcha stuff
+  const captchaSection = document.getElementById('captcha-section');
+  const captchaCanvas = document.getElementById('captcha-canvas');
+  const captchaInput = document.getElementById('captcha-input');
+  const captchaRefresh = document.getElementById('captcha-refresh');
 
-            // Toggle the Remix Icon classes cleanly without modifying innerHTML structure
-            if (isPasswordHidden) {
-                toggleIcon.classList.remove('ri-eye-line');
-                toggleIcon.classList.add('ri-eye-off-line');
-            } else {
-                toggleIcon.classList.remove('ri-eye-off-line');
-                toggleIcon.classList.add('ri-eye-line');
-            }
-        });
+  let loginAttempts = 0;
+  let currentCaptchaToken = '';
+
+  function showToast(message, type) {
+    const container = document.getElementById('toast-container');
+    if (!container) return;
+    const toast = document.createElement('div');
+    toast.className = 'toast toast-' + type;
+    toast.textContent = message;
+    container.appendChild(toast);
+    setTimeout(() => toast.classList.add('show'), 10);
+    setTimeout(() => {
+      toast.classList.remove('show');
+      setTimeout(() => toast.remove(), 400);
+    }, 3000);
+  }
+
+  if (toggleBtn && passwordInput && toggleIcon) {
+    toggleBtn.addEventListener('click', function () {
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        toggleIcon.className = 'ri-eye-off-line';
+      } else {
+        passwordInput.type = 'password';
+        toggleIcon.className = 'ri-eye-line';
+      }
+    });
+  }
+
+  async function fetchCaptcha() {
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/auth/captcha`, {
+        credentials: 'include'
+      });
+      if (res.ok) {
+        const data = await res.json();
+        currentCaptchaToken = data.captcha_token;
+        if (captchaCanvas) {
+          const ctx = captchaCanvas.getContext('2d');
+          const img = new Image();
+          img.onload = function () {
+            ctx.clearRect(0, 0, captchaCanvas.width, captchaCanvas.height);
+            ctx.drawImage(img, 0, 0, captchaCanvas.width, captchaCanvas.height);
+          };
+          img.src = data.captcha_image;
+        }
+      }
+    } catch (e) {
+      window.logError('Failed to fetch secure captcha');
+    }
+    if (captchaInput) {
+      captchaInput.value = '';
+    }
+  }
+
+  if (captchaRefresh) {
+    captchaRefresh.addEventListener('click', fetchCaptcha);
+  }
+
+  function setValidity(input, isValid, message) {
+    if (!input) return;
+    input.setAttribute('aria-invalid', String(!isValid));
+    var errorEl = document.getElementById(input.id + 'Error') ||
+      input.parentElement.querySelector('.error-message');
+    if (errorEl) {
+      errorEl.textContent = isValid ? '' : message;
+    }
+  }
+
+  if (!form) return;
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    var email = emailInput ? emailInput.value.trim() : '';
+    var password = passwordInput ? passwordInput.value : '';
+
+    setValidity(emailInput, true, '');
+    setValidity(passwordInput, true, '');
+
+    if (!email || !password) {
+      if (!email) setValidity(emailInput, false, 'Email is required.');
+      if (!password) setValidity(passwordInput, false, 'Password is required.');
+      showToast('Please fill all fields.', 'warning');
+      return;
     }
 
-    if (!form) return;
+    let payload = { email, password };
 
-    // ── Form Submission Logic ──
-    form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        const email = document.getElementById('loginEmail').value.trim();
-        const password = document.getElementById('loginPassword').value;
-
-        if (!email || !password) {
-            showToast('Please fill all fields.', 'warning');
+    // Support both simple math captcha and backend generated captcha validations
+    const mathCaptchaInput = document.getElementById("captcha-input");
+    if (mathCaptchaInput && mathCaptchaInput.closest(".login-captcha-container")) {
+        const mathAnswer = mathCaptchaInput.value.trim();
+        if (!mathAnswer) {
+            showToast("Please enter the human verification answer.", "warning");
             return;
         }
+    }
 
-        // ── Loading state: disable button & show spinner ──
-        const submitBtn = form.querySelector('.login-btn');
-        if (submitBtn) {
-            submitBtn.classList.add('btn-loading');
-            submitBtn.disabled = true;
+    if (loginAttempts >= 1) {
+        const userCode = captchaInput ? captchaInput.value.trim() : '';
+        if (!userCode) {
+            showToast('Please enter the security code.', 'warning');
+            return;
         }
+        payload.captcha_answer = userCode;
+        payload.captcha_token = currentCaptchaToken;
+    }
 
-        // Simulate async request (replace with real API call)
-        setTimeout(function () {
-            const users = JSON.parse(localStorage.getItem('users') || '[]');
-            const user = users.find(u => u.email === email && u.password === password);
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.classList.add('btn-loading');
+    }
 
-            // Get selected role from the radio buttons
-            const selectedRoleInput = document.querySelector('input[name="loginRole"]:checked');
-            const selectedRole = selectedRoleInput ? selectedRoleInput.value : 'USER';
+    try {
+      const fetchFunc = typeof fetchWithTimeout === 'function' ? fetchWithTimeout : fetch;
+      const response = await fetchFunc(`${API_BASE_URL}/api/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(payload)
+      });
 
-            if (user) {
-                const userRole = user.role || 'USER';
+      const data = await response.json();
 
-                // Role mismatch check
-                if (userRole !== selectedRole) {
-                    showToast(`This account is registered as ${userRole}. Please select the correct role.`, 'error');
-                    if (submitBtn) {
-                        submitBtn.classList.remove('btn-loading');
-                        submitBtn.disabled = false;
-                    }
-                    return;
-                }
+      if (!response.ok) {
+        throw new Error(data.detail || 'Invalid email or password.');
+      }
 
-                // Store full user object with role
-                localStorage.setItem('loggedInUser', JSON.stringify({
-                    name: user.username,
-                    email: user.email,
-                    role: userRole
-                }));
+      localStorage.setItem('access_token', data.access_token);
+      localStorage.setItem('cara_user_token', data.access_token);
+      localStorage.setItem('cara_user_email', data.user.email);
+      localStorage.setItem('cara_user_name', data.user.username);
+      localStorage.setItem('cara_user_role', data.user.role);
 
-                showToast(`Welcome back, ${user.username}!`, 'success');
+      showToast('Welcome back, ' + data.user.username + '!', 'success');
 
-                // Role-based redirect
-                setTimeout(function () {
-                    if (userRole === 'ADMIN') {
-                        window.location.href = 'admin.html';
-                    } else {
-                        window.location.href = 'index.html';
-                    }
-                }, 1000);
+      setTimeout(() => {
+        window.location.href = data.user.role === 'ADMIN' ? 'admin.html' : 'index.html';
+      }, 1000);
 
-            } else {
-                showToast("Invalid email or password", "error");
-                if (submitBtn) {
-                    submitBtn.classList.remove('btn-loading');
-                    submitBtn.disabled = false;
-                }
-            }
-        }, 1500);
-    });
+    } catch (err) {
+      setValidity(emailInput, false, '');
+      setValidity(passwordInput, false, '');
+      showToast(err.message, 'error');
+      loginAttempts++;
+      if (captchaSection && loginAttempts >= 1) {
+        captchaSection.style.display = 'block';
+        fetchCaptcha();
+      }
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('btn-loading');
+      }
+    }
+  });
 });

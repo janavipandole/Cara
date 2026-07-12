@@ -1,7 +1,8 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 
 <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
   <script>
     (function () {
       const currentTheme = localStorage.getItem('theme') || 'light';
@@ -15,13 +16,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Page Title -->
-  <title>Crazy Deals — Cara</title>
+  <title>Crazy Deals â€” Cara</title>
 
   <!-- Favicon -->
   <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="style.css?v=2" />
+  <link rel="stylesheet" href="ui-fix.css" />
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
@@ -176,6 +178,15 @@
       transform: scale(1.1);
     }
   </style>
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
+  <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
 </head>
 
 <body>
@@ -203,6 +214,10 @@
 
             <!-- Hamburger Menu -->
             <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
+      <!-- Theme Toggle -->
+      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
+        <i class="ri-moon-line" id="themeIconMobile"></i>
+      </button>
           </div>
         </section>
 
@@ -238,8 +253,8 @@
               <span style="text-decoration: line-through; font-size: 14px; color: #888; font-weight: normal;">&#8377;2,499</span>
             </h4>
             <div class="pro-action-bar">
-              <button class="pro-buy-btn" onclick="event.stopPropagation(); buyNow('Cartoon Astronaut T-Shirts','₹1,249','images/products/f1.jpg',1,'M')">BUY NOW</button>
-              <a href="#" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation(); addToCart('Cartoon Astronaut T-Shirts','₹1,249','images/products/f1.jpg',1,'M'); return false;"><i class="ri-shopping-cart-2-line"></i></a>
+             <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="event.stopPropagation(); buyNow('Cartoon Astronaut T-Shirts','â‚¹1,249','images/products/f1.jpg',1,'M')">BUY NOW</button>
+              <a href="javascript:void(0)" class="pro-cart-btn" aria-label="Add Cartoon Astronaut T-Shirts to cart" onclick="event.stopPropagation(); addToCart('Cartoon Astronaut T-Shirts','â‚¹1,249','images/products/f1.jpg',1,'M'); return false;"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
           </div>
         </div>
@@ -258,8 +273,8 @@
               <span style="text-decoration: line-through; font-size: 14px; color: #888; font-weight: normal;">&#8377;1,299</span>
             </h4>
             <div class="pro-action-bar">
-              <button class="pro-buy-btn" onclick="event.stopPropagation(); buyNow('White Palm Leaf Casual Shirt','₹649','images/products/f2.jpg',1,'M')">BUY NOW</button>
-              <a href="#" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation(); addToCart('White Palm Leaf Casual Shirt','₹649','images/products/f2.jpg',1,'M'); return false;"><i class="ri-shopping-cart-2-line"></i></a>
+             <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="event.stopPropagation(); buyNow('White Palm Leaf Casual Shirt','â‚¹649','images/products/f2.jpg',1,'M')">BUY NOW</button>
+              <a href="javascript:void(0)" class="pro-cart-btn" aria-label="Add White Palm Leaf Casual Shirt to cart" onclick="event.stopPropagation(); addToCart('White Palm Leaf Casual Shirt','â‚¹649','images/products/f2.jpg',1,'M'); return false;"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
           </div>
         </div>
@@ -278,8 +293,8 @@
               <span style="text-decoration: line-through; font-size: 14px; color: #888; font-weight: normal;">&#8377;1,999</span>
             </h4>
             <div class="pro-action-bar">
-              <button class="pro-buy-btn" onclick="event.stopPropagation(); buyNow('Pink Peony Patterned Shirt','₹999','images/products/f5.jpg',1,'M')">BUY NOW</button>
-              <a href="#" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation(); addToCart('Pink Peony Patterned Shirt','₹999','images/products/f5.jpg',1,'M'); return false;"><i class="ri-shopping-cart-2-line"></i></a>
+             <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="event.stopPropagation(); buyNow('Pink Peony Patterned Shirt','â‚¹999','images/products/f5.jpg',1,'M')">BUY NOW</button>
+              <a href="javascript:void(0)" class="pro-cart-btn" aria-label="Add Pink Peony Patterned Shirt to cart" onclick="event.stopPropagation(); addToCart('Pink Peony Patterned Shirt','â‚¹999','images/products/f5.jpg',1,'M'); return false;"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
           </div>
         </div>
@@ -298,8 +313,8 @@
               <span style="text-decoration: line-through; font-size: 14px; color: #888; font-weight: normal;">&#8377;2,299</span>
             </h4>
             <div class="pro-action-bar">
-              <button class="pro-buy-btn" onclick="event.stopPropagation(); buyNow('Dual-Tone Corduroy Shirt','₹1,149','images/products/f6.jpg',1,'M')">BUY NOW</button>
-              <a href="#" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation(); addToCart('Dual-Tone Corduroy Shirt','₹1,149','images/products/f6.jpg',1,'M'); return false;"><i class="ri-shopping-cart-2-line"></i></a>
+             <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="event.stopPropagation(); buyNow('Dual-Tone Corduroy Shirt','â‚¹1,149','images/products/f6.jpg',1,'M')">BUY NOW</button>
+              <a href="javascript:void(0)" class="pro-cart-btn" aria-label="Add Dual-Tone Corduroy Shirt to cart" onclick="event.stopPropagation(); addToCart('Dual-Tone Corduroy Shirt','â‚¹1,149','images/products/f6.jpg',1,'M'); return false;"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
           </div>
         </div>
@@ -321,8 +336,8 @@
         <img class="footer-logo" src="images/logo.png" alt="Cara Logo" />
       </div>
       <div class="footer-socials">
-        <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
-        <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+        <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
+        <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
         <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
         <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
       </div>
@@ -333,7 +348,7 @@
     <div class="footer-middle">
       <div class="footer-col brand-info">
         <h4>ABOUT US</h4>
-        <p>Cara E-Commerce – Redefining your style with premium apparel, expert curation, and an absolute commitment to fashion excellence.</p>
+        <p>Cara E-Commerce â€“ Redefining your style with premium apparel, expert curation, and an absolute commitment to fashion excellence.</p>
         <p><strong>Address: </strong>562 Wellington Road, Street 32, San Francisco</p>
         <p><strong>Phone: </strong>+01 2222 365 / (+91) 01 2345 6789</p>
         <p><strong>Hours: </strong>10:00 - 18:00, Mon - Sat</p>
@@ -348,12 +363,12 @@
         <a href="contact.html">Contact Us</a>
       </div>
 
-      <div class="footer-col">
-        <h4>MY ACCOUNT</h4>
+      <div class="col">
+        <h4>My Account</h4>
         <a href="login.html">Sign In</a>
-        <a href="cart.html">View Cart</a>
-        <a href="cart.html">My Wishlist</a>
-        <a href="track-order.html">Track My Order</a>
+        <a aria-label="Cart" href="cart.html">View Cart</a>
+        <a aria-label="Wishlist" href="wishlist.html">My Wishlist</a>
+        <a aria-label="Cart" href="cart.html">Track My Order</a>
         <a href="contact.html">Help</a>
       </div>
 
@@ -388,14 +403,14 @@
     </div>
 
     <div class="footer-bottom">
-      <p class="copyright">© Cara 2026. All rights reserved.</p>
+      <p class="copyright">Â© Cara 2026. All rights reserved.</p>
       <div class="footer-legal-links">
         <a href="license.html" class="license-link">MIT License</a>
       </div>
     </div>
   </footer>
 
-  <button id="scrollTopBtn" title="Go to top">↑</button>
+  <button id="scrollTopBtn" title="Go to top">â†‘</button>
 
   <div id="toast-container"></div>
   <script src="navbar.js"></script>
@@ -416,3 +431,4 @@
 </body>
 
 </html>
+

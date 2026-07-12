@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <!-- Character Encoding -->
     <meta charset="UTF-8" />
 
@@ -39,7 +40,7 @@
     />
     <meta
       name="twitter:description"
-      content="We’re here to help — contact Cara for assistance or feedback."
+      content="We're here to help — contact Cara for assistance or feedback."
     />
     <meta
       name="twitter:image"
@@ -52,6 +53,7 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="ui-fix.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
       rel="stylesheet"
@@ -296,90 +298,6 @@ button.normal:hover {
 
 
 /* ===============================
-   FOOTER
-================================ */
-/* footer {
-  background: #f3f3f3;
-  padding: 40px 80px;
-}
-
-.footer-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  
-}
-
-footer .col {
-  display: flex;
-  flex-direction:column;
-  margin-bottom: 20px;
-  min-width: 310px;
-}
-
-footer h4 {
-  font-size: 16px;
-  padding-bottom: 15px;
-}
-
-footer p {
-  font-size: 13px;
-  margin: 0 0 8px 0;
-}
-
-footer a {
-  font-size: 13px;
-  text-decoration: none;
-  color: #222;
-  margin-bottom: 10px;
-  transition: 0.3s;
-}
-
-footer a:hover {
-  color: #088178;
-}
-
-footer .logo {
-  margin-bottom: 20px;
-}
-
-footer .follow i {
-  color: #465b52;
-  padding-right: 8px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-footer .follow i:hover {
-  color: #088178;
-}
-
-footer .install .row img {
-  border: 1px solid #088178;
-  border-radius: 6px;
-  width: 120px;
-  margin-right: 10px;
-}
-
-footer .payment-icons i {
-  font-size: 24px;
-  margin-right: 10px;
-  color: #465b52;
-  transition: 0.3s;
-}
-
-footer .payment-icons i:hover {
-  color: #088178;
-}
-
-footer .copyright {
-  text-align: center;
-  margin-top: 30px;
-  font-size: 16px;
-} */
-
-
-/* ===============================
    RESPONSIVE
 ================================ */
 @media (max-width: 799px) {
@@ -406,14 +324,12 @@ footer .copyright {
     width: 100%;
   }
 }
-  </style>
 
 /* FIX NAVBAR VISIBILITY */
-#header {
+  #header {
   position: sticky;
   top: 0;
   z-index: 9999;
-  background: white;
   width: 100%;
 }
 
@@ -429,20 +345,24 @@ footer .copyright {
 
 </style>
 
-  </style>
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
 </head>
   <body>
     <!-- HEADER -->
-  <section id="header">
+  <section id="header" role="banner">
   <!-- Logo -->
   <a href="index.html">
     <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
   </a>
-
   <div>
     <ul id="navbar">
-
-      <!-- Main Navigation Links -->
       <li><a href="index.html">Home</a></li>
       <li><a href="shop.html">Shop</a></li>
       <li><a href="blog.html">Blog</a></li>
@@ -451,93 +371,46 @@ footer .copyright {
       <li><a href="community.html">Community</a></li>
       <li><a href="promotions.html">Promotions</a></li>
 
-      <!-- Contact Icon -->
       <li class="nav-icon">
         <a class="active" href="contact.html" aria-label="Contact">
           <i class="ri-customer-service-2-line"></i>
         </a>
       </li>
 
-      <!-- Login Icon -->
       <li class="nav-icon">
         <a href="login.html" aria-label="Login">
           <i class="ri-user-3-line"></i>
         </a>
       </li>
 
-      <!-- Cart Icon -->
       <li class="nav-icon">
         <a href="cart.html" id="lg-bag" aria-label="Cart">
           <i class="ri-shopping-bag-4-line"></i>
         </a>
       </li>
 
-      <!-- Theme Toggle -->
       <li class="nav-icon">
-        <button
-          class="theme-toggle"
-          id="themeToggle"
-          aria-label="Toggle dark mode"
-        >
+        <button class="theme-toggle" id="themeToggleDesktop" aria-label="Toggle dark mode">
           <i class="ri-moon-line" id="themeIcon"></i>
         </button>
       </li>
 
-      <!-- Close Button -->
-      <a
-        href="#"
-        id="close"
-        aria-label="Close menu"
-        aria-hidden="false"
-      >
+      <a href="javascript:void(0)" id="close" aria-label="Close menu" aria-hidden="false">
         <i class="fa-solid fa-xmark"></i>
       </a>
-
     </ul>
   </div>
 
-  <!-- Mobile Navbar -->
   <div class="mobile">
-
-    <!-- Login Icon -->
-    <a href="login.html" aria-label="Login">
-      <i class="ri-user-3-line"></i>
-    </a>
-
-    <!-- Cart Icon -->
-    <a href="cart.html" aria-label="Cart">
-      <i class="ri-shopping-bag-4-line"></i>
-    </a>
-
-    <!-- Hamburger Menu -->
-    <i
-      class="fas fa-outdent"
-      id="bar"
-      role="button"
-      aria-label="Open menu"
-      aria-expanded="false"
-      tabindex="0"
-    ></i>
-
+    <a href="login.html" aria-label="Login"><i class="ri-user-3-line"></i></a>
+    <a href="cart.html" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a>
+    <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
   </div>
 </section>
-
-    <div class="mobile">
-      <button class="theme-toggle" id="themeToggleMobile"
-        aria-label="Toggle dark mode">
-        <i class="ri-moon-line" id="themeIconMobile"></i>
-      </button>
-      <a href="cart.html" id="mobile-cart-icon">
-        <i class="ri-shopping-bag-4-line"></i>
-        <span class="cart-count" id="mobileCartCount">0</span>
-      </a>
-      <i class="fas fa-outdent" id="bar"></i>
-    </div>
-  </section>
     <!-- Contact Header -->
     <section id="about-head">
         <h2>#Let's_Talk</h2>
-        <p>We’d love to hear from you! Whether you have a question, feedback, or partnership idea — our team is here to
+        <p>We'd love to hear from you! Whether you have a question, feedback, or partnership idea — our team is here to
             help.</p>
     </section>
 
@@ -587,13 +460,13 @@ footer .copyright {
 
 
       <!-- FORM -->
-      <form class="contact-form" novalidate>
+      <form class="contact-form" aria-label="Contact Support Form">
         <span>LEAVE A MESSAGE</span>
         <h2>Tell us how we can help</h2>
 
         <!-- NAME -->
         <label for="name">Full Name <span style="color: red;">*</span></label>
-        <input id="name" type="text" name="name" placeholder="Enter your full name" autocomplete="name" required aria-required="true">
+        <input id="name" type="text" name="name" placeholder="Your Full Name" autocomplete="name" required aria-required="true">
 
         <!-- EMAIL -->
         <label for="email">Email <span style="color: red;">*</span></label>
@@ -601,11 +474,11 @@ footer .copyright {
 
         <!-- SUBJECT -->
         <label for="subject">Subject</label>
-        <input id="subject" type="text" name="subject" placeholder="What is this regarding?">
+        <input id="subject" type="text" name="subject" placeholder="What is this regarding?" required>
 
         <!-- DEPARTMENT -->
         <label for="department">Department</label>
-        <select id="department" name="department">
+        <select id="department" name="department" required>
           <option value="">Choose a department</option>
           <option value="orders">Orders & Shipping</option>
           <option value="returns">Returns & Refunds</option>
@@ -617,6 +490,7 @@ footer .copyright {
         <!-- MESSAGE -->
         <label for="message">Message <span style="color: red;">*</span></label>
         <textarea id="message" name="message" rows="6" placeholder="Write your message here" required aria-required="true"></textarea>
+        <small id="char-count" style="display:block; text-align:right; color:#777; margin-top:4px; margin-bottom:10px;">0 / 500 characters</small>
 
         <button type="submit" class="normal">Send Message</button>
 
@@ -633,12 +507,12 @@ footer .copyright {
       <div class="social-media">
         <div>
           <img src="images/people/1.png" alt="John Doe">
-          <p><span>John Doe</span> Senior Marketing Manager <br> Phone: +000 123 000 77 88 <br> Email: contact@example.com</p>
+          <p><span>John Doe</span> Senior Marketing Manager <br> Phone: +000 123 000 77 88 <br> Email: contact@cara-ecommerce.netlify.app</p>
         </div>
 
         <div>
           <img src="images/people/2.png" alt="Jane Smith">
-          <p><span>Jane Smith</span> Customer Relations <br> Phone: +000 123 111 44 55 <br> Email: support@example.com</p>
+          <p><span>Jane Smith</span> Customer Relations <br> Phone: +000 123 111 44 55 <br> Email: support@cara-ecommerce.netlify.app</p>
         </div>
       </div>
 
@@ -649,7 +523,7 @@ footer .copyright {
           <h4>Sophia Chen</h4>
           <span>Technical Support</span>
           <a href="mailto:tech@cara.com">tech@cara.com</a>
-          <a href="tel:+10009876543">+1 (000) 987-6543</a>
+          <a href="tel:+10009976543">+1 (000) 997-6543</a>
           <small>Website issues and account assistance</small>
         </div>
       </div>
@@ -674,16 +548,42 @@ footer .copyright {
   </div>
 </section>
 
-    <!-- Back to Top and Scroll to Bottom Buttons -->
+    
+<section id="contact-faq" class="section-p1">
+  <span style="font-size: 13px; color: #088178; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; display: block; text-align: center; margin-bottom: 5px;">QUESTIONS?</span>
+  <h2 style="font-size: 32px; font-weight: 700; color: var(--text-primary); text-align: center; margin-bottom: 30px;">Frequently Asked Questions</h2>
+  <div class="faq-accordion" style="max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px;">
+    <details class="faq-item" style="background: #f7f7f7; border: 1px solid #cde7d8; border-radius: 8px; overflow: hidden; padding: 10px;">
+      <summary class="faq-trigger" style="padding: 14px 20px; font-size: 16px; font-weight: 600; color: #222; cursor: pointer; display: flex; justify-content: space-between; align-items: center; list-style: none;">How long does shipping take? <i class="fa-solid fa-chevron-down"></i></summary>
+      <div class="faq-content" style="padding: 10px 20px; font-size: 14px; color: #6c757d; line-height: 1.6; border-top: 1px solid #cde7d8; margin-top: 5px;">
+        Standard shipping takes 3-5 business days. Express shipping is delivered in 1-2 business days.
+      </div>
+    </details>
+    <details class="faq-item" style="background: #f7f7f7; border: 1px solid #cde7d8; border-radius: 8px; overflow: hidden; padding: 10px;">
+      <summary class="faq-trigger" style="padding: 14px 20px; font-size: 16px; font-weight: 600; color: #222; cursor: pointer; display: flex; justify-content: space-between; align-items: center; list-style: none;">What is your return policy? <i class="fa-solid fa-chevron-down"></i></summary>
+      <div class="faq-content" style="padding: 10px 20px; font-size: 14px; color: #6c757d; line-height: 1.6; border-top: 1px solid #cde7d8; margin-top: 5px;">
+        We offer a 30-day return policy. Items must be in their original condition and packaging.
+      </div>
+    </details>
+    <details class="faq-item" style="background: #f7f7f7; border: 1px solid #cde7d8; border-radius: 8px; overflow: hidden; padding: 10px;">
+      <summary class="faq-trigger" style="padding: 14px 20px; font-size: 16px; font-weight: 600; color: #222; cursor: pointer; display: flex; justify-content: space-between; align-items: center; list-style: none;">How do I track my order? <i class="fa-solid fa-chevron-down"></i></summary>
+      <div class="faq-content" style="padding: 10px 20px; font-size: 14px; color: #6c757d; line-height: 1.6; border-top: 1px solid #cde7d8; margin-top: 5px;">
+        You can track your order using the Order Tracking page with your tracking number sent via email.
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- Back to Top and Scroll to Bottom Buttons -->
     <button id="backToTop" title="Back to Top" aria-label="Back to top">
-      ⬆
+      <i class="ri-arrow-up-line"></i>
     </button>
     <button id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">
-      ⬇
+      <i class="ri-arrow-down-line"></i>
     </button>
 
     <!-- Footer -->
-    <footer class="section-p1">
+    <footer class="section-p1" role="contentinfo">
       <!-- Contact Column -->
       <div class="col">
         <img class="logo" src="images/logo.png" alt="Cara Logo" />
@@ -703,7 +603,7 @@ footer .copyright {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <i class="fab fa-twitter"></i>
+              <i class="fa-brands fa-x-twitter"></i>
             </a>
             <a
               href="https://github.com/janavipandole"
@@ -734,7 +634,7 @@ footer .copyright {
       <div class="col">
         <h4>About</h4>
         <a href="about.html">About Us</a>
-        <a href="#">Delivery Information</a>
+        <a href="deliveryInformation.html">Delivery Information</a>
         <a href="privacy.html">Privacy Policy</a>
         <a href="terms.html">Terms and Conditions</a>
         <a href="contact.html">Contact Us</a>
@@ -744,9 +644,9 @@ footer .copyright {
       <div class="col">
         <h4>My Account</h4>
         <a href="login.html">Sign In</a>
-        <a href="cart.html">View Cart</a>
-        <a href="#">My Wishlist</a>
-        <a href="cart.html">Track My Order</a>
+        <a aria-label="Cart" href="cart.html">View Cart</a>
+        <a aria-label="Wishlist" href="wishlist.html">My Wishlist</a>
+        <a aria-label="Cart" href="cart.html">Track My Order</a>
         <a href="contact.html">Help</a>
       </div>
 
@@ -758,7 +658,7 @@ footer .copyright {
           <span>special offers.</span>
         </p>
 
-        <form class="newsletter-form">
+        <form class="newsletter-form" role="form" aria-label="Newsletter subscription">
           <input type="email" placeholder="Your email address" required />
           <button type="submit" class="normal">Sign Up</button>
         </form>
@@ -848,8 +748,8 @@ const toBottom = document.getElementById("Toptoback");
 
 window.addEventListener("scroll", () => {
   if (window.scrollY > 200) {
-    backToTop.style.display = "block";
-    toBottom.style.display = "block";
+    backToTop.style.display = "flex";
+    toBottom.style.display = "flex";
   } else {
     backToTop.style.display = "none";
     toBottom.style.display = "none";
@@ -864,9 +764,28 @@ toBottom.onclick = () => window.scrollTo({ top: document.body.scrollHeight, beha
 /* =========================
    FORM VALIDATION
 ========================= */
+const msgArea = document.getElementById("message");
+const charCount = document.getElementById("char-count");
+if (msgArea && charCount) {
+  msgArea.addEventListener("input", () => {
+    const len = msgArea.value.length;
+    charCount.textContent = `${len} / 500 characters`;
+    if (len >= 500) {
+      msgArea.value = msgArea.value.substring(0, 500);
+      charCount.style.color = "#ef4444";
+      charCount.textContent = "500 / 500 characters (limit reached)";
+    } else if (len >= 450) {
+      charCount.style.color = "#ffbd27";
+    } else {
+      charCount.style.color = "#777";
+    }
+  });
+}
+
 const form = document.querySelector(".contact-form");
 
 form.addEventListener("submit", function (e) {
+  // Resolves #1690: Client-side input validation for the contact form
   e.preventDefault();
 
   let isValid = true;
@@ -889,7 +808,8 @@ form.addEventListener("submit", function (e) {
   }
 
   if (name.value.trim() === "") showError(name, "Name is required");
-  if (!email.value.includes("@")) showError(email, "Valid email required");
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email.value)) showError(email, "Valid email required");
   if (message.value.trim().length < 10) showError(message, "Message must be at least 10 characters");
 
   if (isValid) {
@@ -899,7 +819,7 @@ form.addEventListener("submit", function (e) {
     setTimeout(() => {
       btn.classList.remove("btn-loading");
       form.reset();
-      document.getElementById("form-status").innerText = "✅ Message sent successfully!";
+      document.getElementById("form-status").innerHTML = `<div style="display: flex; align-items: center; gap: 8px; color: #088178; margin-top: 15px; font-weight: 600;"><i class="ri-checkbox-circle-line" style="font-size: 20px;"></i> Message sent successfully!</div>`;
     }, 1500);
   }
 });
@@ -919,10 +839,18 @@ document.addEventListener("DOMContentLoaded", function () {
       const input = this.querySelector("input");
 
       if (input.value.includes("@")) {
-        alert("✅ Subscribed successfully!");
+        if (typeof showToast === 'function') {
+          showToast("Subscribed successfully!");
+        } else {
+          alert("Subscribed successfully!");
+        }
         input.value = "";
       } else {
-        alert("❌ Enter a valid email");
+        if (typeof showToast === 'function') {
+          showToast("Enter a valid email", true);
+        } else {
+          alert("Enter a valid email");
+        }
       }
     });
   }
@@ -931,14 +859,12 @@ document.addEventListener("DOMContentLoaded", function () {
 /* =========================
    CURRENT YEAR (FOOTER)
 ========================= */
-document.querySelector(".Current-Year").textContent = new Date().getFullYear();
+const yearEl = document.querySelector(".Current-Year");
+if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 </script>
-<script src="navbar.js"></script>
-
-<script>
-  loadNavbar('contact');
-</script>
+<script src="js/contact-autosave.js" defer></script>
+<script src="js/input-shield.js" defer></script>
 </body>
 
 </html>

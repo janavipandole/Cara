@@ -27,15 +27,15 @@
     <!-- Open Graph (OG) Tags for Social Sharing -->
     <meta property="og:title" content="E-commerce - Dark Theme Working">
     <meta property="og:description" content="Shop the latest trends with our dark mode-enabled e-commerce experience.">
-    <meta property="og:image" content="https://example.com/images/preview.jpg">
-    <meta property="og:url" content="https://example.com/">
+    <meta property="og:image" content="https://cara-ecommerce.netlify.app/images/preview.jpg">
+    <meta property="og:url" content="https://cara-ecommerce.netlify.app/">
     <meta property="og:type" content="website">
 
     <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="E-commerce - Dark Theme Working">
     <meta name="twitter:description" content="Dark theme e-commerce site with modern features.">
-    <meta name="twitter:image" content="https://example.com/images/preview.jpg">
+    <meta name="twitter:image" content="https://cara-ecommerce.netlify.app/images/preview.jpg">
     <meta name="twitter:site" content="@janavipandole">
 
     <!-- Stylesheets -->
@@ -62,7 +62,7 @@
                 <li><a href="try-on.html">Try-On</a></li>
                 <li><a href="community.html">Community</a></li>
                 <li><a href="promotions.html">Promotions</a></li>
-                <li><a href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
+                <li><a aria-label="Cart" href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
                 <li>
                     <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
                         <i class="ri-moon-line" id="themeIcon"></i>
@@ -73,8 +73,12 @@
             </ul>
         </div>
         <div class="mobile">
-            <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
+            <a aria-label="Cart" href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
             <i class="fas fa-outdent" id="bar"></i>
+      <!-- Theme Toggle -->
+      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
+        <i class="ri-moon-line" id="themeIconMobile"></i>
+      </button>
         </div>
         <button onclick="history.back()" class="back-btn">Back</button>
     </section>
@@ -162,7 +166,7 @@
               target="_blank"
               rel="noopener noreferrer"
             >
-              <i class="fab fa-twitter"></i>
+              <i class="fa-brands fa-x-twitter"></i>
             </a>
             <a
               href="https://github.com/janavipandole"
@@ -203,9 +207,9 @@
       <div class="col">
         <h4>My Account</h4>
         <a href="login.html">Sign In</a>
-        <a href="cart.html">View Cart</a>
+        <a aria-label="Cart" href="cart.html">View Cart</a>
         <a href="#">My Wishlist</a>
-        <a href="cart.html">Track My Order</a>
+        <a aria-label="Cart" href="cart.html">Track My Order</a>
         <a href="contact.html">Help</a>
       </div>
 

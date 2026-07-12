@@ -1,7 +1,8 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
   <!-- Character Encoding -->
   <meta charset="UTF-8">
 
@@ -9,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Page Title -->
-  <title>Cara — Modern E‑Commerce</title>
+  <title>Cara â€” Modern Eâ€‘Commerce</title>
 
   <!-- Favicon -->
   <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
@@ -40,12 +41,24 @@
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="ui-fix.css" />
   <link rel="stylesheet" href="singleProduct.css" />
+  <link rel="stylesheet" href="reviews.css" />
+  <link rel="stylesheet" href="recently-viewed.css" />
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
 </head>
 
 <body>
@@ -53,32 +66,39 @@
     <a id="siteLogo" href="index.html">
       <img src="images/logo.png" alt="Cara logo">
     </a>
-
-    <div>
-      <ul id="navbar">
-        <li><a href="index.html">Home</a></li>
-        <li><a class="active" href="shop.html">Shop</a></li>
-        <li><a href="blog.html">Blog</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="login.html" id="login-btn">Login</a></li>
-        <li><a href="try-on.html">Try-On</a></li>
-        <li><a href="community.html">Community</a></li>
-        <li><a href="promotions.html">Promotions</a></li>
-        <li><a href="cart.html" id="lg-bag" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a></li>
-        <li>
-          <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-            <i class="ri-moon-line" id="themeIcon"></i>
-          </button>
-        </li>
-
-        <a href="#" id="close" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></a>
-      </ul>
-    </div>
-    <div class="mobile">
-      <a href="cart.html" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a>
-      <i class="fas fa-outdent" id="bar"></i>
-    </div>
+  <div>
+    <ul id="navbar">
+      <li><a href="index.html">Home</a></li>
+      <li><a class="active" href="shop.html">Shop</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="try-on.html">Try-On</a></li>
+      <li><a href="community.html">Community</a></li>
+      <li><a href="promotions.html">Promotions</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="nav-icon">
+        <a href="login.html" aria-label="Login"><i class="ri-user-3-line"></i></a>
+      </li>
+      <li>
+        <a href="wishlist.html" class="wishlist-nav-link" aria-label="Wishlist">
+          <i class="ri-heart-line"></i>
+          <span class="wishlist-count hidden">0</span>
+        </a>
+      </li>
+      <li><a href="cart.html" id="lg-bag" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a></li>
+      <li>
+        <button class="theme-toggle" id="themeToggleDesktop" aria-label="Toggle dark mode">
+          <i class="ri-moon-line" id="themeIcon"></i>
+        </button>
+      </li>
+      <a href="javascript:void(0)" id="close" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></a>
+    </ul>
+  </div>
+  <div class="mobile">
+    <a href="wishlist.html" class="wishlist-nav-link" aria-label="Wishlist"><i class="ri-heart-line"></i><span class="wishlist-count hidden">0</span></a>
+    <a href="cart.html" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a>
+    <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
+  </div>
     <button onclick="history.back()" class="back-btn" aria-label="Go back">Back</button>
   </section>
 
@@ -106,8 +126,25 @@
     </div>
     <div class="single-pro-details">
       <h6>Home / T-Shirt</h6>
+      <!-- Stock Urgency Badge -->
+      <div id="stock-urgency-badge" style="background: #f87171; color: white; display: inline-block; padding: 4px 8px; border-radius: 4px; font-weight: 600; font-size: 13px; margin-bottom: 10px; display: none;">
+        ðŸ”¥ Only <span id="stock-items-count">3</span> left in stock!
+      </div>
+      
+      <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const badge = document.getElementById("stock-urgency-badge");
+        const count = document.getElementById("stock-items-count");
+        if (badge && count) {
+          const randomStock = Math.floor(Math.random() * 8) + 2;
+          count.textContent = randomStock;
+          badge.style.display = "inline-block";
+        }
+      });
+      </script>
       <h4 id="product-name">Men's Fashion T-Shirt</h4>
-      <h2 id="product-price">$139.00</h2>
+      <h2 id="product-price">â‚¹0</h2>
+
       <div class="size-section">
         <select id="product-size" name="product-size" aria-label="Select product size">
           <option>Select Size</option>
@@ -117,6 +154,7 @@
           <option>M</option>
           <option>L</option>
         </select>
+        <div id="stock-alert-container"></div>
 
         <!-- Size Chart Button -->
        <button id="size-chart-btn">View Size Chart</button>
@@ -195,6 +233,17 @@
           <button class="normal"  type="button" onclick="handleAddToCart()">Add to Cart</button>
           <button class="normal"  type="button" style="background: #088178; color: white; margin-left: 10px;"
             onclick="handleBuyNow()">Buy Now</button>
+          <button
+            class="normal product-wishlist-btn wishlist-btn"
+            id="single-product-wishlist"
+            type="button"
+            data-product-name="Men's Fashion T-Shirt"
+            aria-pressed="false"
+            aria-label="Add product to wishlist"
+          >
+            <i class="ri-heart-line" aria-hidden="true"></i>
+            <span>Wishlist</span>
+          </button>
           <button class="normal" style="background: var(--accent); color: white; margin-left: 10px;"
             onclick="window.location.href='try-on.html'">Try it On Virtually!</button>
         </div>
@@ -207,6 +256,11 @@
     </div>
   </section>
 
+  <!-- Dynamic review system (reviews.js + reviews.css) -->
+  <section class="section-p1">
+    <div id="productReviews" data-product-id="" aria-label="Customer reviews section"></div>
+  </section>
+
   <section id="product1" class="section-p1">
     <h2>Featured Product</h2>
     <p>Summer Collection New Morden Design</p>
@@ -214,6 +268,13 @@
     <!-- Dynamic Js container  {csritik-max }-->
     <div class="pro-container" id="featured-container"></div>
     <!--   -->
+  </section>
+
+  <!-- Recently Viewed Products (hidden automatically when the list is empty) -->
+  <section id="recently-viewed-section" class="section-p1" hidden>
+    <h2>Recently Viewed</h2>
+    <p class="recently-viewed-subtext">Pick up where you left off</p>
+    <div class="recently-viewed-track" id="recently-viewed-container"></div>
   </section>
 
   <!-- Footer -->
@@ -233,9 +294,9 @@
         <h4>Follow us</h4>
         <div class="icon">
           <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-twitter"></i>
+            <i class="fa-brands fa-x-twitter"></i>
           </a>
-          <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
+          <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
             <i class="fab fa-github"></i>
           </a>
           <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
@@ -252,7 +313,7 @@
     <div class="col">
       <h4>About</h4>
       <a href="about.html">About Us</a>
-      <a href="#">Delivery Information</a>
+      <a href="javascript:void(0)">Delivery Information</a>
       <a href="privacy.html">Privacy Policy</a>
       <a href="terms.html">Terms and Conditions</a>
       <a href="contact.html">Contact Us</a>
@@ -262,9 +323,9 @@
     <div class="col">
       <h4>My Account</h4>
       <a href="login.html">Sign In</a>
-      <a href="cart.html">View Cart</a>
-      <a href="#">My Wishlist</a>
-      <a href="cart.html">Track My Order</a>
+      <a aria-label="Cart" href="cart.html">View Cart</a>
+      <a aria-label="Wishlist" href="wishlist.html">My Wishlist</a>
+      <a aria-label="Cart" href="cart.html">Track My Order</a>
       <a href="contact.html">Help</a>
     </div>
 
@@ -321,19 +382,68 @@
     <!-- Copyright -->
     <div class="copyright">
       <p>
-        © Cara 2026. All rights reserved. |
+        Â© Cara 2026. All rights reserved. |
         <a href="license.html" style="color: #088178"> MIT License </a>
       </p>
     </div>
   </footer>
 
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/api.js"></script>
   <script src="products.js?v=1779120917220"></script>
   <script src="app.js"></script>
+
+  <script>
+    // Render product price in INR (â‚¹) instead of USD hardcode.
+    document.addEventListener('DOMContentLoaded', () => {
+      const priceEl = document.getElementById('product-price');
+      if (!priceEl) return;
+
+      // Prefer the backend-loaded product if app.js singleProduct handler fetched it.
+      // Otherwise fallback to whatever was stored when user clicked from shop.
+      const stored = localStorage.getItem('selectedProduct');
+      let selectedProduct = null;
+      try {
+        selectedProduct = stored ? JSON.parse(stored) : null;
+      } catch (e) {
+        selectedProduct = null;
+      }
+
+      // Case 1: app.js already set formatted INR into the element.
+      // Detect by presence of â‚¹.
+      if (String(priceEl.textContent || '').includes('â‚¹')) return;
+
+      // Case 2: use storedProduct.price which may be like 'â‚¹2499' or '$139.00' or bare number.
+      let rawPrice = selectedProduct && selectedProduct.price != null ? selectedProduct.price : null;
+      if (rawPrice == null) {
+        priceEl.textContent = 'Contact for Price';
+        return;
+      }
+
+      // Parse any currency string into a number.
+      const cleaned = String(rawPrice).replace(/[â‚¹$,\s]/g, '');
+      const num = parseFloat(cleaned);
+      if (!isFinite(num) || num <= 0) {
+        priceEl.textContent = 'Contact for Price';
+        return;
+      }
+
+      // Format as INR.
+      const rounded = Math.round(num);
+      priceEl.textContent = 'â‚¹' + rounded.toLocaleString('en-IN');
+    });
+  </script>
+
   <!-- csritik-max -->
 
   <script>
     document.getElementById("Current-Year").textContent = new Date().getFullYear();
   </script>
+<script src="js/reviews.js"></script>
+<script src="js/image-zoom.js" defer></script>
+<script src="js/recently-viewed.js"></script>
 </body>
 <script src="singleProduct.js"></script>
+<script src="js/stock-simulator.js" defer></script>
 </html>
+

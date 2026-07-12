@@ -1,402 +1,270 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Cara</title>
-    <!-- Favicon -->
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
-    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
-    <link rel="stylesheet" href="toast.css">
-    <link rel="stylesheet" href="register.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="toast.css" />
+    <link rel="stylesheet" href="register.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="ui-fix.css" />
+    <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
+  <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
 </head>
 <body>
 
-        <section id="header">
-  <!-- Logo -->
-  <a href="index.html">
-    <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
-  </a>
-
-  <div>
-    <ul id="navbar">
-
-      <!-- Main Navigation Links -->
-      <li><a href="index.html">Home</a></li>
-      <li><a href="shop.html">Shop</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="try-on.html">Try-On</a></li>
-      <li><a href="community.html">Community</a></li>
-      <li><a href="promotions.html">Promotions</a></li>
-
-      <!-- Contact Icon -->
-      <li class="nav-icon">
-        <a href="contact.html" aria-label="Contact">
-          <i class="ri-customer-service-2-line"></i>
-        </a>
-      </li>
-
-      <!-- Login Icon -->
-      <li class="nav-icon">
-        <a class="active" href="login.html" aria-label="Login">
-          <i class="ri-user-3-line"></i>
-        </a>
-      </li>
-
-      <!-- Cart Icon -->
-      <li class="nav-icon">
-        <a href="cart.html" id="lg-bag" aria-label="Cart">
-          <i class="ri-shopping-bag-4-line"></i>
-        </a>
-      </li>
-
-      <!-- Theme Toggle -->
-      <li class="nav-icon">
-        <button
-          class="theme-toggle"
-          id="themeToggle"
-          aria-label="Toggle dark mode"
-        >
-          <i class="ri-moon-line" id="themeIcon"></i>
+<section id="header" role="banner">
+    <a href="index.html">
+        <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
+    </a>
+    <div>
+        <ul id="navbar" role="navigation" aria-label="Main navigation">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="try-on.html">Try-On</a></li>
+          <li><a href="community.html">Community</a></li>
+          <li><a href="promotions.html">Promotions</a></li>
+          <li class="nav-icon">
+            <a href="contact.html" aria-label="Contact"><i class="ri-customer-service-2-line"></i></a>
+          </li>
+          <li class="nav-icon">
+            <a class="active" href="login.html" aria-label="Login"><i class="ri-user-3-line"></i></a>
+          </li>
+          <li class="nav-icon">
+            <a href="cart.html" id="lg-bag" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a>
+          </li>
+          <li class="nav-icon">
+            <button class="theme-toggle" id="themeToggleDesktop" aria-label="Toggle dark mode">
+              <i class="ri-moon-line" id="themeIcon"></i>
+            </button>
+          </li>
+          <a href="javascript:void(0)" id="close" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></a>
+        </ul>
+      </div>
+      <div class="mobile">
+        <a href="login.html" aria-label="Login"><i class="ri-user-3-line"></i></a>
+        <a href="cart.html" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a>
+        <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
+        <!-- Theme Toggle -->
+        <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
+          <i class="ri-moon-line" id="themeIconMobile"></i>
         </button>
-      </li>
-
-      <!-- Close Button -->
-      <a
-        href="#"
-        id="close"
-        aria-label="Close menu"
-        aria-hidden="false"
-      >
-        <i class="fa-solid fa-xmark"></i>
-      </a>
-
-    </ul>
-  </div>
-
-  <!-- Mobile Navbar -->
-  <div class="mobile">
-
-    <!-- Login Icon -->
-    <a href="login.html" aria-label="Login">
-      <i class="ri-user-3-line"></i>
-    </a>
-
-    <!-- Cart Icon -->
-    <a href="cart.html" aria-label="Cart">
-      <i class="ri-shopping-bag-4-line"></i>
-    </a>
-
-    <!-- Hamburger Menu -->
-    <i
-      class="fas fa-outdent"
-      id="bar"
-      role="button"
-      aria-label="Open menu"
-      aria-expanded="false"
-      tabindex="0"
-    ></i>
-
-  </div>
-</section>
-
-<section id="register-section">
-  <div class="auth-card">
-    <h2>Register</h2>
-    <p class="subtitle">Create your account 😊</p>
-
-    <form id="registerForm" novalidate>
-
-      <!-- FULL NAME -->
-      <div class="form-group">
-        <label for="registerUsername">Full Name</label>
-        <input
-          type="text"
-          id="registerUsername"
-          name="name"
-          placeholder="Enter your full name"
-          required
-          autocomplete="name"
-        >
       </div>
+    </section>
 
-      <!-- EMAIL -->
-      <div class="form-group">
-        <label for="registerEmail">Email</label>
-        <input
-          type="email"
-          id="registerEmail"
-          name="email"
-          placeholder="Enter your email"
-          required
-          autocomplete="email"
-        >
-      </div>
+    <!-- Toast container — overlays everything -->
+    <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
 
-      <!-- PASSWORD -->
-      <div class="form-group">
-        <label for="registerPassword">Password</label>
+    <section id="register-section">
+      <div class="register-page-wrapper">
 
-        <div class="password-wrapper">
-          <input
-            type="password"
-            id="registerPassword"
-            name="password"
-            placeholder="Enter your password"
-            required
-            autocomplete="new-password"
-            aria-describedby="passwordHint"
-          >
+        <!-- Back button: top-left, in normal document flow -->
+        <a href="index.html" class="back-button">&#8592; Back to Shop</a>
 
-          <button
-            type="button"
-            id="togglePassword"
-            class="toggle-eye"
-            aria-label="Toggle password visibility"
-          >
-            <i
-              class="ri-eye-line"
-              id="registerToggleIcon"
-            ></i>
-          </button>
-        </div>
+        <div class="auth-card">
+          <h2>Register</h2>
+          <p class="subtitle">Create your account <i class="fas fa-smile"></i></p>
+          <p class="required-note">Fields marked with * are required.</p>
 
-        <!-- PASSWORD STRENGTH HINT -->
-        <small id="passwordHint">Use at least 8 characters with a number.</small>
-      </div>
+          <form id="registerForm" novalidate>
 
-      <!-- CONFIRM PASSWORD -->
-      <div class="form-group">
-        <label for="confirmPassword">
-          Confirm Password
-        </label>
-
-        <div class="password-wrapper">
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            placeholder="Confirm your password"
-            required
-            autocomplete="new-password"
-            aria-describedby="confirmHint"
-          >
-
-          <button
-            type="button"
-            id="confirmTogglePassword"
-            class="toggle-eye"
-            aria-label="Toggle confirm password visibility"
-          >
-            <i
-              class="ri-eye-line"
-              id="confirmToggleIcon"
-            ></i>
-          </button>
-        </div>
-
-        <!-- CONFIRM PASSWORD HINT -->
-        <small id="confirmHint"></small>
-      </div>
-
-      <!-- FORM MESSAGE -->
-      <div id="formMessage"></div>
-
-                <!-- PASSWORD -->
-                <div class="form-group">
-                    <label>Password</label>
-                    <div class="password-wrapper">
-                        <input type="password"
-                            placeholder="Enter your password"
-                            id="registerPassword" required>
-                        <i class="ri-eye-line toggle-eye"></i>
-                        <small id="passwordHint" style="display:block; margin-top:5px; font-size:12px;"></small>
-                    </div>
-                </div>
-
-    <!-- LOGIN LINK -->
-    <div class="switch-auth">
-      Already have an account?
-      <a href="login.html">Login</a>
-    </div>
-  </div>
-</section>
-
-                <!-- ROLE SELECTION -->
-                <div class="form-group">
-                    <label>Register As</label>
-                    <div class="role-selector">
-                        <label class="role-option">
-                            <input type="radio" name="registerRole" value="USER" checked>
-                            <span class="role-card">
-                                <i class="ri-user-3-line"></i>
-                                <strong>User</strong>
-                                <small>Shop &amp; browse products</small>
-                            </span>
-                        </label>
-                        <label class="role-option">
-                            <input type="radio" name="registerRole" value="ADMIN">
-                            <span class="role-card">
-                                <i class="ri-shield-user-line"></i>
-                                <strong>Admin</strong>
-                                <small>Manage the store</small>
-                            </span>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- BUTTON -->
-                <button type="submit" class="btn-primary">
-                    CREATE ACCOUNT
-                </button>
-            </form>
-            <div class="install-payment-box">
-                <h4>SECURED PAYMENT GATEWAYS</h4>
-                <div class="payment-icons">
-                    <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer"><i class="fab fa-cc-visa"></i></a>
-                    <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer"><i class="fab fa-cc-mastercard"></i></a>
-                    <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer"><i class="fab fa-cc-paypal"></i></a>
-                    <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer"><i class="fab fa-cc-amex"></i></a>
-                    <a href="https://www.stripe.com" target="_blank" rel="noopener noreferrer"><i class="fab fa-cc-stripe"></i></a>
-                </div>
+            <!-- Full Name -->
+            <div class="form-group">
+              <label for="registerUsername">Full Name <span class="required">*</span></label>
+              <input
+                type="text"
+                id="registerUsername"
+                name="name"
+                placeholder="Enter your full name"
+                required
+                autocomplete="name"
+                aria-required="true"
+                aria-describedby="nameError"
+                aria-invalid="false"
+              />
+              <span class="error-message" id="nameError" role="alert"></span>
             </div>
+
+            <div class="form-group">
+              <label for="registerEmail">Email <span class="required">*</span></label>
+              <input
+                type="email"
+                id="registerEmail"
+                name="email"
+                placeholder="Enter your email"
+                required
+                autocomplete="email"
+                aria-required="true"
+                aria-describedby="emailErrorReg"
+                aria-invalid="false"
+              />
+              <span class="error-message" id="emailErrorReg" role="alert"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="registerPassword">Password <span class="required">*</span></label>
+              <div class="password-wrapper">
+                <input
+                  type="password"
+                  id="registerPassword"
+                  name="password"
+                  placeholder="Enter your password"
+                  required
+                  autocomplete="new-password"
+                  aria-required="true"
+                  aria-describedby="passwordHelp passwordErrorReg"
+                  aria-invalid="false"
+                />
+                <button type="button" id="togglePassword" class="toggle-eye" aria-label="Toggle password visibility">
+                  <i class="ri-eye-line" id="registerToggleIcon"></i>
+                </button>
+              </div>
+              <small id="passwordHelp">Use at least 8 characters with a number and a special character.</small>
+              <span class="error-message" id="passwordErrorReg" role="alert"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="confirmPassword">Confirm Password <span class="required">*</span></label>
+              <div class="password-wrapper">
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  placeholder="Confirm your password"
+                  required
+                  autocomplete="new-password"
+                  aria-required="true"
+                  aria-describedby="confirmHint confirmError"
+                  aria-invalid="false"
+                />
+                <button type="button" id="confirmTogglePassword" class="toggle-eye" aria-label="Toggle confirm password visibility">
+                  <i class="ri-eye-line" id="confirmToggleIcon"></i>
+                </button>
+              </div>
+              <small id="confirmHint"></small>
+              <span class="error-message" id="confirmError" role="alert"></span>
+            </div>
+
+            <!-- Shopping Preferences -->
+            <div class="form-group">
+              <label>Shopping Preferences</label>
+              <div class="preferences-group">
+                <label class="pref-item">
+                  <input type="checkbox" name="interest" value="menswear" /> Menswear
+                </label>
+                <label class="pref-item">
+                  <input type="checkbox" name="interest" value="womenswear" /> Womenswear
+                </label>
+                <label class="pref-item">
+                  <input type="checkbox" name="interest" value="accessories" /> Accessories
+                </label>
+              </div>
+            </div>
+
+            <!-- Submit -->
+            <button type="button" id="registerSubmitBtn" class="btn-primary">
+              CREATE ACCOUNT
+            </button>
+
+            <div class="switch-auth">
+              Already have an account? <a href="login.html">Login</a>
+            </div>
+
+          </form>
+        </div><!-- end .auth-card -->
+      </div><!-- end .register-page-wrapper -->
+    </section>
+
+<!-- Footer Section -->
+<footer class="main-footer">
+    <div class="footer-top">
+        <div class="footer-logo-box">
+          <img class="footer-logo" src="images/logo.png" alt="Cara Logo" />
         </div>
-    </div>
-    <div class="footer-install-box">
+        <div class="footer-socials">
+          <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
+          <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+          <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <hr class="footer-divider" />
+      <div class="footer-middle">
+        <div class="footer-col brand-info">
+          <h4>ABOUT US</h4>
+          <p>Cara E-Commerce – Redefining your style with premium apparel, expert curation, and an absolute commitment to fashion excellence.</p>
+          <p><strong>Address: </strong>562 Wellington Road, Street 32, San Francisco</p>
+          <p><strong>Phone: </strong>+01 2222 365 / (+91) 01 2345 6789</p>
+          <p><strong>Hours: </strong>10:00 - 18:00, Mon - Sat</p>
+        </div>
+        <div class="footer-col">
+          <h4>QUICK LINKS</h4>
+          <a href="about.html">About Us</a>
+          <a href="javascript:void(0)">Delivery Information</a>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms and Conditions</a>
+          <a href="contact.html">Contact Us</a>
+        </div>
+        <div class="footer-col">
+            <h4>MY ACCOUNT</h4>
+            <a href="login.html">Sign In</a>
+            <a aria-label="Cart" href="cart.html">View Cart</a>
+            <a aria-label="Wishlist" href="wishlist.html">My Wishlist</a>
+            <a aria-label="Cart" href="cart.html">Track My Order</a>
+            <a href="contact.html">Help</a>
+        </div>
+        <div class="footer-col newsletter-footer">
+          <h4>NEWSLETTER</h4>
+          <p>Get email updates about our latest shop and <span>special offers.</span></p>
+          <form class="newsletter-form" role="form" aria-label="Newsletter subscription">
+            <input type="email" placeholder="Your email address" required />
+            <button type="submit" style="background-color:#088178;color:white;border:none;padding:10px 20px;cursor:pointer;">Sign Up</button>
+          </form>
+          <div class="install-payment-box">
+            <h4>SECURED PAYMENT GATEWAYS</h4>
+            <div class="payment-icons">
+              <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer" aria-label="Visa"><i class="fab fa-cc-visa"></i></a>
+              <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer" aria-label="Mastercard"><i class="fab fa-cc-mastercard"></i></a>
+              <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" aria-label="PayPal"><i class="fab fa-cc-paypal"></i></a>
+              <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer" aria-label="American Express"><i class="fab fa-cc-amex"></i></a>
+              <a href="https://www.stripe.com" target="_blank" rel="noopener noreferrer" aria-label="Stripe"><i class="fab fa-cc-stripe"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-install-box">
         <h4>INSTALL APP</h4>
         <p>From App Store or Google Play</p>
         <div class="download-badges">
-            <img src="images/pay/app.jpg" alt="Download from App Store" />
-            <img src="images/pay/play.jpg" alt="Get it on Google Play" />
+          <img src="images/pay/app.jpg" alt="Download from App Store" />
+          <img src="images/pay/play.jpg" alt="Get it on Google Play" />
         </div>
-    </div>
-    <div class="footer-bottom">
+      </div>
+      <div class="footer-bottom">
         <p class="copyright">&copy; Cara 2026. All rights reserved.</p>
-        <div class="footer-legal-links"><a href="license.html" class="license-link">MIT License</a></div>
-    </div>
+        <div class="footer-legal-links">
+          <a href="license.html" class="license-link">MIT License</a>
+        </div>
+      </div>
 </footer>
 
-    </section>
-
-    <!-- Footer -->
-    <footer class="main-footer">
-        <div class="footer-top">
-            <div class="footer-logo-box">
-                <img class="footer-logo" src="images/logo.png" alt="Cara Logo" />
-            </div>
-            <div class="footer-socials">
-                <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
-                <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
-                <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
-            </div>
-        </div>
-
-        <hr class="footer-divider">
-
-        <div class="footer-middle">
-            <div class="footer-col brand-info">
-                <h4>ABOUT US</h4>
-                <p>Cara E-Commerce – Redefining your style with premium apparel, expert curation, and an absolute commitment to fashion excellence.</p>
-                <p><strong>Address: </strong>562 Wellington Road, Street 32, San Francisco</p>
-                <p><strong>Phone: </strong>+01 2222 365 / (+91) 01 2345 6789</p>
-                <p><strong>Hours: </strong>10:00 - 18:00, Mon - Sat</p>
-            </div>
-
-            <div class="footer-col">
-                <h4>QUICK LINKS</h4>
-                <a href="about.html">About Us</a>
-                <a href="#">Delivery Information</a>
-                <a href="privacy.html">Privacy Policy</a>
-                <a href="terms.html">Terms and Conditions</a>
-                <a href="contact.html">Contact Us</a>
-            </div>
-
-            <div class="footer-col">
-                <h4>MY ACCOUNT</h4>
-                <a href="login.html">Sign In</a>
-                <a href="cart.html">View Cart</a>
-                <a href="cart.html">My Wishlist</a>
-                <a href="cart.html">Track My Order</a>
-                <a href="contact.html">Help</a>
-            </div>
-
-            <div class="footer-col newsletter-footer">
-                <h4>NEWSLETTER</h4>
-                <p>Get email updates about our latest shop and <span>special offers.</span></p>
-                <form class="newsletter-form">
-                    <input type="email" placeholder="Your email address" required>
-                    <button type="submit" style="background-color: #088178; color: white; border: none; padding: 10px 20px; cursor: pointer;">Sign Up</button>
-                </form>
-                
-                <div class="install-payment-box">
-                    <h4>SECURED PAYMENT GATEWAYS</h4>
-                    <div class="payment-icons">
-                        <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer" aria-label="Visa"><i class="fab fa-cc-visa"></i></a>
-                        <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer" aria-label="Mastercard"><i class="fab fa-cc-mastercard"></i></a>
-                        <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" aria-label="PayPal"><i class="fab fa-cc-paypal"></i></a>
-                        <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer" aria-label="American Express"><i class="fab fa-cc-amex"></i></a>
-                        <a href="https://www.stripe.com" target="_blank" rel="noopener noreferrer" aria-label="Stripe"><i class="fab fa-cc-stripe"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="footer-install-box">
-            <h4>INSTALL APP</h4>
-            <p>From App Store or Google Play</p>
-            <div class="download-badges">
-                <img src="images/pay/app.jpg" alt="Download from App Store" />
-                <img src="images/pay/play.jpg" alt="Get it on Google Play" />
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <p class="copyright">&copy; Cara 2026. All rights reserved.</p>
-            <div class="footer-legal-links">
-                <a href="license.html" class="license-link">MIT License</a>
-            </div>
-        </div>
-    </footer>
-
-    <div id="toast-container"></div>
-
-    <script>
-    const toggleEyes = document.querySelectorAll(".toggle-eye");
-
-    toggleEyes.forEach((eye) => {
-
-        eye.addEventListener("click", () => {
-
-            const passwordInput = eye.previousElementSibling;
-
-            if (passwordInput.type === "password") {
-
-                passwordInput.type = "text";
-
-                eye.classList.remove("ri-eye-line");
-                eye.classList.add("ri-eye-off-line");
-
-            } else {
-
-                passwordInput.type = "password";
-
-                eye.classList.remove("ri-eye-off-line");
-                eye.classList.add("ri-eye-line");
-            }
-
-        });
-
-    });
-</script>
-
-    <script src="app.js"></script>
-    <script src="app.js?v=1779120917216"></script>
-    <script src="register.js"></script>
+<script src="app.js"></script>
+<script src="js/fetch-timeout.js"></script>
+<script src="register.js"></script>
+<script src="js/describedby-tooltips.js" defer></script>
 </body>
-
 </html>

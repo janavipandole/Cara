@@ -1,18 +1,31 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+  <!-- Character Encoding -->
   <meta charset="UTF-8" />
+
+  <!-- Viewport for Responsive Design -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO Meta Tags -->
   <meta name="author" content="Cara" />
-  <meta name="description" content="Delivery Information — Learn about Cara's shipping policy, order processing, and return procedures." />
+  <meta name="description" content="Delivery Information â€” Learn about Cara's shipping policy, order processing, and return procedures." />
   <meta name="robots" content="index, follow" />
+
+  <!-- Theme Color for Mobile Browser -->
   <meta name="theme-color" content="#000000" />
-  <title>Delivery Information | Cara — Modern E-Commerce</title>
+
+  <!-- Page Title -->
+  <title>Delivery Information | Cara â€” Modern E-Commerce</title>
+
   <!-- Favicon -->
   <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
 
+  <!-- Stylesheets -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="ui-fix.css" />
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
 
   <style>
@@ -54,7 +67,7 @@
 
 
 
-    /* ── BACK BUTTON ── */
+    /* â”€â”€ BACK BUTTON â”€â”€ */
     .back-btn-wrap { padding: 20px 60px 0; }
 
     .back-btn {
@@ -70,7 +83,7 @@
 
     .back-btn:hover { opacity: 0.7; }
 
-    /* ── HERO ── */
+    /* â”€â”€ HERO â”€â”€ */
     .page-hero {
       background: var(--hero-bg);
       padding: 60px 60px 50px;
@@ -100,7 +113,7 @@
       margin: 0 auto;
     }
 
-    /* ── MAIN CONTENT ── */
+    /* â”€â”€ MAIN CONTENT â”€â”€ */
     .delivery-section {
       max-width: 900px;
       margin: 40px auto 60px;
@@ -181,7 +194,7 @@
     }
 
     .delivery-block ul li::before {
-      content: "✓";
+      content: "âœ“";
       color: var(--primary-color);
       font-weight: 700;
       flex-shrink: 0;
@@ -227,7 +240,7 @@
 
     body.dark .notice-box { background: #0d3b36; color: #ccc; }
 
-    /* ── FOOTER ── */
+    /* â”€â”€ FOOTER â”€â”€ */
     footer {
       background: var(--footer-bg);
       padding: 50px 60px 20px;
@@ -313,7 +326,7 @@
     .footer-bottom a { color: var(--primary-color); }
     .footer-bottom a:hover { opacity: 0.7; }
 
-    /* ── SCROLL TOP ── */
+    /* â”€â”€ SCROLL TOP â”€â”€ */
     #scroll-top {
       position: fixed;
       bottom: 28px;
@@ -335,7 +348,7 @@
 
     #scroll-top:hover { opacity: 0.85; }
 
-    /* ── RESPONSIVE ── */
+    /* â”€â”€ RESPONSIVE â”€â”€ */
     @media (max-width: 900px) {
       .delivery-cards { grid-template-columns: 1fr 1fr; }
       .footer-top { grid-template-columns: 1fr 1fr; }
@@ -345,15 +358,146 @@
       .back-btn-wrap { padding: 20px 20px 0; }
     }
 
+    /* â”€â”€ SHIPPING ESTIMATOR â”€â”€ */
+    .estimator-wrap {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 32px;
+      margin: 32px 0;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border-color);
+    }
+
+    .estimator-wrap h3 {
+      margin-bottom: 8px;
+      color: var(--text-color);
+    }
+
+    .estimator-wrap .sub {
+      font-size: 14px;
+      color: var(--light-text);
+      margin-bottom: 20px;
+    }
+
+    .estimator-form {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: flex-end;
+    }
+
+    .estimator-form .field {
+      flex: 1 1 180px;
+      min-width: 140px;
+    }
+
+    .estimator-form label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text-color);
+    }
+
+    .estimator-form input,
+    .estimator-form select {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 14px;
+      background: var(--background-color);
+      color: var(--text-color);
+    }
+
+    .estimator-form input:focus,
+    .estimator-form select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .estimator-form .btn-estimate {
+      padding: 10px 28px;
+      background: var(--primary-color);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .estimator-form .btn-estimate:hover {
+      opacity: 0.85;
+    }
+
+    .estimator-result {
+      display: none;
+      margin-top: 20px;
+      padding: 18px 22px;
+      border-radius: 8px;
+      background: rgba(8, 129, 120, 0.08);
+      border-left: 4px solid var(--primary-color);
+    }
+
+    .estimator-result.show {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .estimator-result .cost {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .estimator-result .eta {
+      font-size: 14px;
+      color: var(--light-text);
+      margin-top: 4px;
+    }
+
+    .estimator-result .eta strong {
+      color: var(--text-color);
+    }
+
     @media (max-width: 600px) {
       .delivery-cards { grid-template-columns: 1fr; }
       .footer-top { grid-template-columns: 1fr; gap: 28px; }
       .page-hero h2 { font-size: 26px; }
       .shipping-table { font-size: 12px; }
+      .estimator-wrap { padding: 20px; }
+      .estimator-form .field { flex: 1 1 100%; }
     }
   </style>
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
 </head>
 <body>
+    <!-- Print Details Utility -->
+    <div style="max-width: 1200px; margin: 10px auto; padding: 0 20px; text-align: right;" class="no-print">
+      <button onclick="window.print()" style="background: #088178; color: #fff; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-weight: 500;">
+        <i class="ri-printer-line"></i> Print Shipping Policy
+      </button>
+    </div>
+    <style>
+    @media print {
+      .no-print, #header, #newsletter, footer, #backToTop, #scroll-top { display: none !important; }
+      body { background: white; color: black; }
+    }
+    </style>
 
   <!-- HEADER -->
   <!-- HEADER -->
@@ -373,6 +517,10 @@
         <i class="ri-shopping-bag-4-line"></i>
       </a>
       <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
+      <!-- Theme Toggle -->
+      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
+        <i class="ri-moon-line" id="themeIconMobile"></i>
+      </button>
     </div>
   </section>
 
@@ -396,17 +544,17 @@
     <!-- Quick Cards -->
     <div class="delivery-cards">
       <div class="delivery-card">
-        <div class="icon">🚚</div>
+        <div class="icon"><i class="fas fa-truck"></i></div>
         <h4>Free Shipping</h4>
         <p>On all orders above $50 within the US</p>
       </div>
       <div class="delivery-card">
-        <div class="icon">⏱️</div>
+        <div class="icon"><i class="fas fa-clock"></i></div>
         <h4>Fast Processing</h4>
-        <p>Orders dispatched within 1–2 business days</p>
+        <p>Orders dispatched within 1â€“2 business days</p>
       </div>
       <div class="delivery-card">
-        <div class="icon">↩️</div>
+        <div class="icon"><i class="fas fa-undo-alt"></i></div>
         <h4>Easy Returns</h4>
         <p>30-day hassle-free return policy</p>
       </div>
@@ -414,7 +562,7 @@
 
     <!-- Shipping Policy -->
     <section class="delivery-block">
-      <h3>📦 Shipping Policy</h3>
+      <h3><i class="fas fa-box"></i> Shipping Policy</h3>
       <p>We are committed to delivering your orders as quickly and safely as possible.</p>
       <table class="shipping-table">
         <thead>
@@ -427,17 +575,17 @@
         <tbody>
           <tr>
             <td>Standard Shipping (US)</td>
-            <td>3 – 5 Business Days</td>
+            <td>3 â€“ 5 Business Days</td>
             <td>Free on orders above $50</td>
           </tr>
           <tr>
             <td>Express Shipping (US)</td>
-            <td>1 – 2 Business Days</td>
+            <td>1 â€“ 2 Business Days</td>
             <td>$9.99</td>
           </tr>
           <tr>
             <td>International Shipping</td>
-            <td>7 – 14 Business Days</td>
+            <td>7 â€“ 14 Business Days</td>
             <td>Calculated at checkout</td>
           </tr>
           <tr>
@@ -448,44 +596,74 @@
         </tbody>
       </table>
       <div class="notice-box">
-        ℹ️ Shipping times are estimates and may vary during peak seasons or due to courier delays outside our control.
+        <i class="fas fa-info-circle"></i> Shipping times are estimates and may vary during peak seasons or due to courier delays outside our control.
+      </div>
+    </section>
+
+    <!-- Shipping Fee & Delivery Estimator -->
+    <section class="delivery-block estimator-wrap">
+      <h3><i class="fas fa-calculator"></i> Shipping Fee & Delivery Estimator</h3>
+      <p class="sub">Enter your package details to estimate shipping cost and delivery date.</p>
+      <form class="estimator-form" id="estimatorForm" aria-label="Shipping Cost Estimator">
+        <div class="field">
+          <label for="est-weight">Package Weight (kg)</label>
+          <input type="number" id="est-weight" min="0.1" step="0.1" value="1" required />
+        </div>
+        <div class="field">
+          <label for="est-country">Destination</label>
+          <select id="est-country">
+            <option value="us">United States</option>
+            <option value="ca">Canada</option>
+            <option value="uk">United Kingdom</option>
+            <option value="de">Germany</option>
+            <option value="fr">France</option>
+            <option value="au">Australia</option>
+            <option value="in">India</option>
+            <option value="other">Other International</option>
+          </select>
+        </div>
+        <button type="submit" class="btn-estimate">Estimate</button>
+      </form>
+      <div class="estimator-result" id="estimatorResult">
+        <div class="cost" id="estCost">$0.00</div>
+        <div class="eta" id="estEta">Estimated delivery: <strong></strong></div>
       </div>
     </section>
 
     <!-- Order Processing -->
     <section class="delivery-block">
-      <h3>⚙️ Order Processing</h3>
+      <h3><i class="fas fa-cog"></i> Order Processing</h3>
       <p>Once your order is placed and payment confirmed, our team begins processing immediately:</p>
       <ul>
-        <li>Orders placed before 2:00 PM (Mon–Sat) are processed the same day.</li>
+        <li>Orders placed before 2:00 PM (Monâ€“Sat) are processed the same day.</li>
         <li>Orders placed after 2:00 PM or on Sundays are processed the next business day.</li>
         <li>You will receive a confirmation email with tracking number once dispatched.</li>
-        <li>Processing may take 1–2 extra days during sale events or high-traffic periods.</li>
+        <li>Processing may take 1â€“2 extra days during sale events or high-traffic periods.</li>
       </ul>
     </section>
 
     <!-- International Shipping -->
     <section class="delivery-block">
-      <h3>🌍 International Shipping</h3>
+      <h3><i class="fas fa-globe"></i> International Shipping</h3>
       <p>We ship to over 50 countries worldwide. Please note:</p>
       <ul>
-        <li>International delivery takes 7–14 business days depending on destination.</li>
+        <li>International delivery takes 7â€“14 business days depending on destination.</li>
         <li>Customs duties, taxes, and import fees are the responsibility of the customer.</li>
         <li>We are not responsible for delays caused by customs clearance processes.</li>
         <li>Some items may not be available for international shipping due to restrictions.</li>
       </ul>
       <div class="notice-box">
-        ℹ️ Shipping cost for international orders is calculated at checkout based on your location and order weight.
+        <i class="fas fa-info-circle"></i> Shipping cost for international orders is calculated at checkout based on your location and order weight.
       </div>
     </section>
 
     <!-- Order Tracking -->
     <section class="delivery-block">
-      <h3>📍 Order Tracking</h3>
+      <h3><i class="fas fa-map-marker-alt"></i> Order Tracking</h3>
       <p>Once your order is shipped, you can track it anytime:</p>
       <ul>
         <li>A tracking number will be emailed to you upon dispatch.</li>
-        <li>Use the tracking number on our <a href="cart.html" style="color:#088178; font-weight:600;">Track My Order</a> page.</li>
+        <li>Use the tracking number on our <a aria-label="Cart" href="cart.html" style="color:#088178; font-weight:600;">Track My Order</a> page.</li>
         <li>Tracking updates may take up to 24 hours to reflect after dispatch.</li>
         <li>For any tracking issues, please contact our support team.</li>
       </ul>
@@ -493,26 +671,62 @@
 
     <!-- Returns -->
     <section class="delivery-block">
-      <h3>↩️ Returns & Exchanges</h3>
+      <h3><i class="fas fa-undo-alt"></i> Returns & Exchanges</h3>
       <p>We want you to love every purchase. If something isn't right:</p>
       <ul>
         <li>Returns accepted within 30 days of delivery.</li>
         <li>Items must be unused, unwashed, and in original packaging with tags attached.</li>
         <li>Sale or discounted items are not eligible for return unless defective.</li>
         <li>Exchanges are subject to stock availability.</li>
-        <li>Refunds are processed within 5–7 business days after we receive the returned item.</li>
+        <li>Refunds are processed within 5â€“7 business days after we receive the returned item.</li>
       </ul>
       <p>For full details, see our <a href="terms.html" style="color:#088178; font-weight:600;">Terms and Conditions</a>.</p>
     </section>
 
+    <!-- FAQ Accordion Section -->
+    <section class="delivery-block">
+      <h3><i class="fas fa-question-circle"></i> Frequently Asked Questions</h3>
+      <div class="faq-accordion" style="margin-top: 20px;">
+        <div class="faq-item" style="border: 1px solid var(--border-color); border-radius: 6px; margin-bottom: 10px; overflow: hidden;">
+          <button class="faq-toggle" style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: var(--card-bg); border: none; font-family: inherit; font-size: 15px; font-weight: 600; color: var(--text-color); cursor: pointer; text-align: left; transition: background 0.2s;">
+            <span>How long will my order take to arrive?</span>
+            <i class="fas fa-chevron-down" style="font-size: 12px; transition: transform 0.2s;"></i>
+          </button>
+          <div class="faq-content" style="max-height: 0; overflow: hidden; transition: max-height 0.25s ease-out; background: var(--background-color);">
+            <p style="padding: 15px 20px; margin: 0; font-size: 14px; color: var(--light-text); line-height: 1.6;">Standard delivery takes 3 to 5 business days, while express shipping delivers in 1 to 2 business days. International delivery varies between 7 and 14 business days.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" style="border: 1px solid var(--border-color); border-radius: 6px; margin-bottom: 10px; overflow: hidden;">
+          <button class="faq-toggle" style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: var(--card-bg); border: none; font-family: inherit; font-size: 15px; font-weight: 600; color: var(--text-color); cursor: pointer; text-align: left; transition: background 0.2s;">
+            <span>What is your return policy?</span>
+            <i class="fas fa-chevron-down" style="font-size: 12px; transition: transform 0.2s;"></i>
+          </button>
+          <div class="faq-content" style="max-height: 0; overflow: hidden; transition: max-height 0.25s ease-out; background: var(--background-color);">
+            <p style="padding: 15px 20px; margin: 0; font-size: 14px; color: var(--light-text); line-height: 1.6;">We offer a 30-day return policy. Items must be unused, unwashed, and returned in their original packaging with all tags attached.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" style="border: 1px solid var(--border-color); border-radius: 6px; margin-bottom: 10px; overflow: hidden;">
+          <button class="faq-toggle" style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: var(--card-bg); border: none; font-family: inherit; font-size: 15px; font-weight: 600; color: var(--text-color); cursor: pointer; text-align: left; transition: background 0.2s;">
+            <span>Can I track my shipment?</span>
+            <i class="fas fa-chevron-down" style="font-size: 12px; transition: transform 0.2s;"></i>
+          </button>
+          <div class="faq-content" style="max-height: 0; overflow: hidden; transition: max-height 0.25s ease-out; background: var(--background-color);">
+            <p style="padding: 15px 20px; margin: 0; font-size: 14px; color: var(--light-text); line-height: 1.6;">Yes, a tracking link is sent via email once your order has been dispatched. You can track updates on our tracking portal.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Contact -->
     <section class="delivery-block">
-      <h3>📞 Need Help?</h3>
+      <h3><i class="fas fa-phone"></i> Need Help?</h3>
       <p>Our support team is always here for you:</p>
       <ul>
-        <li>📧 Email: <a href="contact.html" style="color:#088178;">contact@cara.com</a></li>
-        <li>📞 Phone: +01 2222 365 / (+91) 01 2345 6789</li>
-        <li>🕙 Hours: 10:00 – 18:00, Mon – Sat</li>
+        <li><i class="fas fa-envelope"></i> Email: <a href="contact.html" style="color:#088178;">contact@cara.com</a></li>
+        <li><i class="fas fa-phone"></i> Phone: +01 2222 365 / (+91) 01 2345 6789</li>
+        <li><i class="far fa-clock"></i> Hours: 10:00 â€“ 18:00, Mon â€“ Sat</li>
       </ul>
     </section>
 
@@ -526,10 +740,10 @@
         <img src="images/logo.png" alt="Cara Logo" width="110" height="34" loading="lazy" />
         <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
         <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
-        <p><strong>Hours:</strong> 10:00 – 18:00, Mon – Sat</p>
+        <p><strong>Hours:</strong> 10:00 â€“ 18:00, Mon â€“ Sat</p>
         <div class="social-links">
           <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
-          <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i></a>
+          <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i></a>
           <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i></a>
           <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-youtube"></i></a>
         </div>
@@ -550,9 +764,9 @@
         <h4>My Account</h4>
         <ul>
           <li><a href="login.html">Sign In</a></li>
-          <li><a href="cart.html">View Cart</a></li>
-          <li><a href="#">My Wishlist</a></li>
-          <li><a href="cart.html">Track My Order</a></li>
+          <li><a aria-label="Cart" href="cart.html">View Cart</a></li>
+          <li><a aria-label="Wishlist" href="wishlist.html">My Wishlist</a></li>
+          <li><a aria-label="Cart" href="cart.html">Track My Order</a></li>
           <li><a href="contact.html">Help</a></li>
         </ul>
       </div>
@@ -572,22 +786,86 @@
 
     </div>
     <div class="footer-bottom">
-      <p>© Cara 2026. All rights reserved. | <a href="license.html">MIT License</a></p>
+      <p>Â© Cara 2026. All rights reserved. | <a href="license.html">MIT License</a></p>
     </div>
   </footer>
 
   <!-- SCROLL TO TOP -->
-  <button id="scroll-top" title="Back to top">
+  <button aria-label="Button"  id="scroll-top" title="Back to top">>
     <i class="fa-solid fa-arrow-up"></i>
   </button>
 
   <script>
+    (function initEstimator() {
+      var form = document.getElementById('estimatorForm');
+      if (!form) return;
+
+      var result = document.getElementById('estimatorResult');
+      var costEl = document.getElementById('estCost');
+      var etaEl = document.getElementById('estEta');
+
+      var rates = {
+        us: { base: 5.99, perKg: 1.50, min: 3, max: 7, label: 'United States' },
+        ca: { base: 8.99, perKg: 2.00, min: 5, max: 10, label: 'Canada' },
+        uk: { base: 12.99, perKg: 3.00, min: 7, max: 12, label: 'United Kingdom' },
+        de: { base: 13.99, perKg: 3.50, min: 7, max: 12, label: 'Germany' },
+        fr: { base: 13.99, perKg: 3.50, min: 7, max: 12, label: 'France' },
+        au: { base: 15.99, perKg: 4.00, min: 10, max: 16, label: 'Australia' },
+        in: { base: 10.99, perKg: 2.50, min: 8, max: 14, label: 'India' },
+        other: { base: 18.99, perKg: 5.00, min: 10, max: 20, label: 'International' }
+      };
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        var weight = parseFloat(document.getElementById('est-weight').value);
+        var country = document.getElementById('est-country').value;
+        var rate = rates[country] || rates.other;
+
+        if (!weight || weight <= 0) weight = 1;
+
+        var cost = rate.base + rate.perKg * weight;
+        var etaMin = rate.min;
+        var etaMax = rate.max;
+
+        var today = new Date();
+        var minDate = new Date(today);
+        minDate.setDate(today.getDate() + etaMin);
+        var maxDate = new Date(today);
+        maxDate.setDate(today.getDate() + etaMax);
+
+        var opts = { weekday: 'short', month: 'short', day: 'numeric' };
+        var minStr = minDate.toLocaleDateString('en-US', opts);
+        var maxStr = maxDate.toLocaleDateString('en-US', opts);
+
+        costEl.textContent = '$' + cost.toFixed(2);
+        etaEl.innerHTML = 'Estimated delivery: <strong>' + minStr + ' â€“ ' + maxStr + '</strong>';
+        result.classList.add('show');
+      });
+    })();
+
     const scrollBtn = document.getElementById('scroll-top');
     window.addEventListener('scroll', () => {
       scrollBtn.style.display = window.scrollY > 300 ? 'flex' : 'none';
     });
     scrollBtn.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Accordion active toggling logic
+    document.querySelectorAll('.faq-toggle').forEach(button => {
+      button.addEventListener('click', () => {
+        const faqContent = button.nextElementSibling;
+        const icon = button.querySelector('i');
+        button.classList.toggle('active');
+        if (button.classList.contains('active')) {
+          faqContent.style.maxHeight = faqContent.scrollHeight + 'px';
+          icon.style.transform = 'rotate(180deg)';
+        } else {
+          faqContent.style.maxHeight = 0;
+          icon.style.transform = 'rotate(0deg)';
+        }
+      });
     });
   </script>
 
@@ -598,3 +876,6 @@
   <script src="app.js"></script>
 </body>
 </html>
+
+<!-- Accessibility and structural improvements -->
+

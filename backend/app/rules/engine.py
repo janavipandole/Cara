@@ -43,8 +43,12 @@ def filter_by_rules(base_product, candidates):
         if base_product.style and c.style:
             base_pattern = base_product.style.lower() in pattern_styles
             cand_pattern = c.style.lower() in pattern_styles
-            if base_pattern and cand_pattern:
-                continue # Too busy!
+            if (
+                base_pattern
+                and cand_pattern
+                and base_product.style.lower() != c.style.lower()
+            ):
+                continue  # Too busy!
                 
         valid_candidates.append(c)
         

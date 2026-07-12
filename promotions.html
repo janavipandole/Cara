@@ -1,6 +1,7 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <script>
       // Immediately apply saved theme to prevent flash
       (function () {
@@ -8,11 +9,22 @@
         document.documentElement.setAttribute('data-theme', currentTheme);
       })();
     </script>
+
+    <!-- Character encoding -->
     <meta charset="UTF-8" />
+
+    <!-- Viewport for responsive design -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cara — Promotions & Ambassador Program</title>
+
+    <!-- Page title -->
+    <title>Cara â€” Promotions & Ambassador Program</title>
+
+    <!-- Favicon -->
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
+
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="ui-fix.css" />
     <link rel="stylesheet" href="promotions.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
@@ -33,9 +45,38 @@
       padding: 20px;
       line-height: 1.8;
     }
+    #topBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: none;
+      background-color: #088178;
+      color: white;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      transition: 0.3s;
+    }
+
+    #topBtn:hover {
+      background-color: #555;
+    }
     </style>
-  </head>
+    <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
+  <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
+</head>
+
   <body>
+    <!-- Header Section -->
     <section id="header">
       <!-- Logo -->
       <a href="index.html">
@@ -65,6 +106,10 @@
           aria-expanded="false"
           tabindex="0"
         ></i>
+      <!-- Theme Toggle -->
+      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
+        <i class="ri-moon-line" id="themeIconMobile"></i>
+      </button>
       </div>
     </section>
 
@@ -175,7 +220,7 @@
       >
         <i class="ri-close-line"></i>
       </button>
-      <h4 id="popup-title">Surprise Gift! 🎁</h4>
+      <h4 id="popup-title">Surprise Gift! <i class="fas fa-gift"></i></h4>
       <p id="promo-text">
         Thanks for checking out our promotions. Use this code at checkout for
         15% off your first order!
@@ -194,10 +239,11 @@
       </button>
     </div>
 
+    <!-- Footer Section -->
     <footer class="section-p1">
       <!-- Contact Column -->
       <div class="col">
-        <img class="logo" src="images/logo.png" alt="Cara Logo" />
+        <img class="logo" src="images/oldlogo.png" alt="Cara Logo" />
         <h4>Contact</h4>
         <p>
           <strong>Address:</strong> 562 Wellington Road, Street 32, San
@@ -214,7 +260,7 @@
               target="_blank"
               rel="noopener noreferrer"
             >
-              <i class="fab fa-twitter"></i>
+              <i class="fa-brands fa-x-twitter"></i>
             </a>
             <a
               href="https://github.com/janavipandole"
@@ -245,7 +291,7 @@
       <div class="col">
         <h4>About</h4>
         <a href="about.html">About Us</a>
-        <a href="#">Delivery Information</a>
+        <a href="delivery.html">Delivery Information</a>
         <a href="privacy.html">Privacy Policy</a>
         <a href="terms.html">Terms and Conditions</a>
         <a href="contact.html">Contact Us</a>
@@ -255,9 +301,9 @@
       <div class="col">
         <h4>My Account</h4>
         <a href="login.html">Sign In</a>
-        <a href="cart.html">View Cart</a>
-        <a href="#">My Wishlist</a>
-        <a href="cart.html">Track My Order</a>
+        <a aria-label="Cart" href="cart.html">View Cart</a>
+        <a href="javascript:void(0)">My Wishlist</a>
+        <a aria-label="Cart" href="cart.html">Track My Order</a>
         <a href="contact.html">Help</a>
       </div>
 
@@ -338,36 +384,37 @@
       <!-- Copyright -->
       <div class="copyright">
         <p>
-          © Cara 2026. All rights reserved. |
+          Â© Cara 2026. All rights reserved. |
           <a href="license.html" style="color: #088178"> MIT License </a>
         </p>
       </div>
     </footer>
-    <button id="topBtn">↑</button>
-
+<button id="topBtn">â†‘</button>
     <script src="navbar.js"></script>
     <script>loadNavbar();</script>
     <script src="app.js"></script>
     <script>
       const topBtn = document.getElementById("topBtn");
 
-    // Show button when user scrolls down
-    window.onscroll = function () {
-      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-        topBtn.style.display = "block";
-      } else {
+      if (topBtn) {
         topBtn.style.display = "none";
-      }
-    };
 
-    // Scroll to top smoothly
-    topBtn.addEventListener("click", function () {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-    });
-       
+        window.addEventListener("scroll", () => {
+          if (window.scrollY > 200) {
+            topBtn.style.display = "block";
+          } else {
+            topBtn.style.display = "none";
+          }
+        });
+
+        topBtn.addEventListener("click", function () {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+          });
+        });
+      }
+
       // Form submission simulation
       document
         .getElementById('ambassador-form')
@@ -384,3 +431,6 @@
     </script>
 </body>
 </html>
+
+<!-- Accessibility and structural improvements -->
+

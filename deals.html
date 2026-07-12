@@ -1,0 +1,383 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+    <!-- Character Encoding -->
+    <meta charset="UTF-8">
+
+    <!-- Viewport for Responsive Design -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Page Title -->
+    <title>Cara â€” Buy 1 Get 1 Free</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpg" href="images/favicon.jpg">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <style>
+        .deals-hero {
+            min-height: 78vh;
+            background: linear-gradient(120deg, #fff7ed, #ecfeff);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 80px 9%;
+            gap: 40px;
+        }
+
+        .deals-content {
+            max-width: 580px;
+        }
+
+        .deals-badge {
+            display: inline-block;
+            background: #fff;
+            color: #e11d48;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 900;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .deals-content h1 {
+            font-size: 64px;
+            font-weight: 900;
+            color: #111827;
+            line-height: 1.1;
+            margin-bottom: 22px;
+        }
+
+        .deals-content h1 span {
+            color: #e11d48;
+        }
+
+        .deals-content p {
+            font-size: 21px;
+            font-weight: 700;
+            color: #374151;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .deals-btn {
+            display: inline-block;
+            background: #111827;
+            color: #fff;
+            padding: 16px 38px;
+            border-radius: 10px;
+            font-weight: 800;
+            text-decoration: none;
+            transition: 0.3s ease;
+        }
+
+        .deals-btn:hover {
+            background: #e11d48;
+            transform: translateY(-5px);
+        }
+
+        .deals-visual img {
+            width: 470px;
+            max-width: 100%;
+            border-radius: 30px;
+            box-shadow: 0 25px 55px rgba(0,0,0,0.18);
+        }
+
+        .deals-features {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            padding: 55px 8%;
+            background: #fff;
+        }
+
+        .deal-card {
+            width: 260px;
+            padding: 30px;
+            text-align: center;
+            border-radius: 20px;
+            background: #fff;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+            transition: 0.3s ease;
+        }
+
+        .deal-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .deal-card i {
+            font-size: 40px;
+            color: #e11d48;
+        }
+
+        .deal-card h3 {
+            margin: 15px 0 8px;
+            color: #111827;
+            font-size: 22px;
+        }
+
+        .section-heading {
+            text-align: center;
+            padding: 45px 20px 10px;
+        }
+
+        .section-heading span {
+            color: #e11d48;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .section-heading h2 {
+            font-size: 38px;
+            color: #111827;
+            margin: 10px 0;
+        }
+
+        .bogo-tag {
+            position: absolute;
+            top: 18px;
+            left: 18px;
+            background: #e11d48;
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .old-price {
+            color: #999;
+            text-decoration: line-through;
+            font-size: 14px;
+            margin-left: 8px;
+        }
+
+        #product1 .pro {
+            position: relative;
+            transition: 0.3s ease;
+        }
+
+        #product1 .pro:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .back-shop {
+            text-align: center;
+            margin: 30px 0 60px;
+        }
+
+        .back-shop a {
+            background: #e11d48;
+            color: #fff;
+            padding: 14px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 800;
+        }
+
+        @media (max-width: 900px) {
+            .deals-hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .deals-content h1 {
+                font-size: 42px;
+            }
+        }
+    </style>
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
+  <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
+</head>
+
+<body>
+<!-- HEADER -->
+<section id="header">
+    <a href="index.html"><img src="images/logo.png" alt="Cara Logo"></a>
+    <div>
+        <ul id="navbar">
+            <li><a href="index.html">Home</a></li>
+            <li><a class="active" href="shop.html">Shop</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a aria-label="Cart" href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
+            <li>
+        </ul>
+    </div>
+    <div class="mobile">
+        <a aria-label="Cart" href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
+        <i class="fas fa-outdent" id="bar"></i>
+      <!-- Theme Toggle -->
+      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
+        <i class="ri-moon-line" id="themeIconMobile"></i>
+      </button>
+    </div>
+</section>
+
+<!-- HERO SECTION -->
+<section class="deals-hero">
+    <div class="deals-content">
+        <span class="deals-badge">LIMITED TIME OFFER</span>
+        <h1>Buy 1 Get <span>1 Free</span></h1>
+        <p>Grab your favorite fashion picks and get another one absolutely free. Limited period combo deals are waiting for you.</p>
+        <a href="#deals-products" class="deals-btn">Shop Deals â†’</a>
+    </div>
+
+    <div class="deals-visual">
+        <img src="images/products/f1.jpg" alt="Buy 1 Get 1 Free">
+    </div>
+</section>
+
+<!-- FEATURES SECTION -->
+<section class="deals-features">
+    <div class="deal-card">
+        <i class="ri-shopping-bag-line"></i>
+        <h3>Pick One</h3>
+        <p>Select your favourite product from the offer collection.</p>
+    </div>
+
+    <div class="deal-card">
+        <i class="ri-gift-line"></i>
+        <h3>Get One Free</h3>
+        <p>Add another eligible product and enjoy the free deal.</p>
+    </div>
+
+    <div class="deal-card">
+        <i class="ri-price-tag-3-line"></i>
+        <h3>Best Value</h3>
+        <p>Save more with special combo offers on selected items.</p>
+    </div>
+
+    <div class="deal-card">
+        <i class="ri-truck-line"></i>
+        <h3>Fast Delivery</h3>
+        <p>Quick delivery with safe packaging and easy checkout.</p>
+    </div>
+</section>
+
+<section class="section-heading">
+    <span>BOGO DEALS</span>
+    <h2>Buy 1 Get 1 Free Products</h2>
+    <p>Explore selected products available under the combo offer.</p>
+</section>
+
+<section id="product1" class="section-p1">
+    <div id="deals-products" class="pro-container">
+
+        <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <span class="bogo-tag">BOGO</span>
+            <img src="images/products/f1.jpg" alt="Floral Summer Shirt Combo">
+            <div class="des">
+                <span>Cara</span>
+                <h5>Floral Summer Shirt Combo</h5>
+                <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
+                <h4>$78 <span class="old-price">$120</span></h4>
+            </div>
+            <a href="javascript:void(0)" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+        </div>
+
+        <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <span class="bogo-tag">BOGO</span>
+           <img src="images/products/f2.jpg" alt="Printed Casual Shirt Deal">
+            <div class="des">
+                <span>Cara</span>
+                <h5>Printed Casual Shirt Deal</h5>
+                <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
+                <h4>$82 <span class="old-price">$130</span></h4>
+            </div>
+            <a href="javascript:void(0)" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+        </div>
+
+        <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <span class="bogo-tag">BOGO</span>
+            <img src="images/products/f3.jpg" alt="Classic Floral Combo">
+            <div class="des">
+                <span>Cara</span>
+                <h5>Classic Floral Combo</h5>
+                <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
+                <h4>$75 <span class="old-price">$115</span></h4>
+            </div>
+            <a href="javascript:void(0)" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+        </div>
+
+        <div class="pro" onclick="window.location.href='singleProduct.html';">
+            <span class="bogo-tag">BOGO</span>
+            <img src="images/products/f4.jpg" alt="Premium White Shirt Offer">
+            <div class="des">
+                <span>Cara</span>
+                <h5>Premium White Shirt Offer</h5>
+                <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
+                <h4>$79 <span class="old-price">$125</span></h4>
+            </div>
+            <a href="javascript:void(0)" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+        </div>
+
+    </div>
+</section>
+
+<div class="back-shop">
+    <a href="shop.html">Back to Shop</a>
+</div>
+
+<section id="newsletter" class="section-p1 section-m1">
+    <div class="newstext">
+        <h4>Sign Up For Newsletters</h4>
+        <p>Get E-mail updates about latest deals and <span>special offers.</span></p>
+    </div>
+    <div class="form">
+        <input type="email" placeholder="Your email address">
+        <button class="normal">Sign Up</button>
+    </div>
+</section>
+
+<footer class="section-p1">
+    <div class="col">
+        <img class="logo" src="images/logo.png" alt="Cara Logo">
+        <h4>Contact</h4>
+        <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
+        <p><strong>Phone:</strong> +01 2222 365 /(+91) 01 2345 6789</p>
+        <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
+    </div>
+
+    <div class="col">
+        <h4>About</h4>
+        <a href="about.html">About us</a>
+        <a href="javascript:void(0)">Delivery Information</a>
+        <a href="javascript:void(0)">Privacy Policy</a>
+        <a href="javascript:void(0)">Terms & Conditions</a>
+        <a href="contact.html">Contact Us</a>
+    </div>
+
+    <div class="col">
+      <h4>My Account</h4>
+      <a href="login.html">Sign In</a>
+      <a aria-label="Cart" href="cart.html">View Cart</a>
+      <a aria-label="Wishlist" href="wishlist.html">My Wishlist</a>
+      <a aria-label="Cart" href="cart.html">Track My Order</a>
+      <a href="contact.html">Help</a>
+    </div>
+
+    <div class="copyright">
+        <p>&copy; Cara 2025. All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

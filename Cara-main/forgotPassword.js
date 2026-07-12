@@ -30,8 +30,9 @@ document.getElementById('forgotForm').addEventListener('submit', function (e) {
     return;
   }
 
-  if (!newPass || newPass.length < 6) {
-    showToast('Password must be at least 6 characters!', 'warning');
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
+  if (!newPass || !passwordRegex.test(newPass)) {
+    showToast('Password must have 8+ chars, 1 uppercase, 1 lowercase, 1 number, and 1 special character.', 'warning');
     return;
   }
 
@@ -63,7 +64,7 @@ document.getElementById('forgotForm').addEventListener('submit', function (e) {
       return;
     }
 
-    /* update password */
+    /* security: require confirmation before password reset */ if (!confirm('Are you sure you want to reset the password for ' + email + '? This action cannot be undone.')) { if (submitBtn) { submitBtn.classList.remove('btn-loading'); submitBtn.disabled = false; } return; } /* update password */
     users[userIndex].password = newPass;
     localStorage.setItem('users', JSON.stringify(users));
 
@@ -75,4 +76,4 @@ document.getElementById('forgotForm').addEventListener('submit', function (e) {
     }, 2000);
   }, 1500);
 });
-
+

@@ -36,9 +36,9 @@
     />
     <meta
       property="og:image"
-      content="https://example.com/images/preview.jpg"
+      content="https://cara-ecommerce.netlify.app/images/preview.jpg"
     />
-    <meta property="og:url" content="https://example.com/" />
+    <meta property="og:url" content="https://cara-ecommerce.netlify.app/" />
     <meta property="og:type" content="website" />
 
     <!-- Twitter Card Tags -->
@@ -50,7 +50,7 @@
     />
     <meta
       name="twitter:image"
-      content="https://example.com/images/preview.jpg"
+      content="https://cara-ecommerce.netlify.app/images/preview.jpg"
     />
     <meta name="twitter:site" content="@janavipandole" />
 
@@ -104,14 +104,15 @@
   transform: scale(1.1);
 }
 </style>
-  </head>
+    <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
+</head>
 
   <body>
           <!-- HEADER -->
           <section id="header">
   <!-- Logo -->
   <a href="index.html">
-    <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
+    <img loading="lazy" id="siteLogo" src="images/logo.png" alt="Cara Logo" />
   </a>
 
   <div>
@@ -193,6 +194,10 @@
       aria-expanded="false"
       tabindex="0"
     ></i>
+      <!-- Theme Toggle -->
+      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
+        <i class="ri-moon-line" id="themeIconMobile"></i>
+      </button>
 
   </div>
 </section>
@@ -202,7 +207,7 @@
     </section>
 
     <section id="about-us" class="section-p1">
-      <img src="images/about/a6.jpg" alt="" />
+      <img loading="lazy" src="images/about/a6.jpg" alt="Cara team showcasing modern fashion" />
       <div>
         <h2>Who We Are</h2>
         <p>
@@ -308,7 +313,7 @@
     <footer class="section-p1">
       <!-- Contact Column -->
       <div class="col">
-        <img class="logo" src="images/logo.png" alt="Cara Logo" />
+        <img loading="lazy" class="logo" src="images/logo.png" alt="Cara Logo" />
         <h4>Contact</h4>
         <p>
           <strong>Address:</strong> 562 Wellington Road, Street 32, San
@@ -325,7 +330,7 @@
               target="_blank"
               rel="noopener noreferrer"
             >
-              <i class="fab fa-twitter"></i>
+              <i class="fa-brands fa-x-twitter"></i>
             </a>
             <a
               href="https://github.com/janavipandole"
@@ -366,9 +371,9 @@
       <div class="col">
         <h4>My Account</h4>
         <a href="login.html">Sign In</a>
-        <a href="cart.html">View Cart</a>
+        <a aria-label="Cart" href="cart.html">View Cart</a>
         <a href="#">My Wishlist</a>
-        <a href="cart.html">Track My Order</a>
+        <a aria-label="Cart" href="cart.html">Track My Order</a>
         <a href="contact.html">Help</a>
       </div>
 
@@ -392,8 +397,8 @@
         <p>From App Store or Google Play</p>
 
         <div class="row">
-          <img src="images/pay/app.jpg" alt="Download from App Store" />
-          <img src="images/pay/play.jpg" alt="Get it on Google Play" />
+          <img loading="lazy" src="images/pay/app.jpg" alt="Download from App Store" />
+          <img loading="lazy" src="images/pay/play.jpg" alt="Get it on Google Play" />
         </div>
 
         <p>Secured Payment Gateways</p>

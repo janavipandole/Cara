@@ -1,11 +1,22 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+  <!-- Character Encoding -->
     <meta charset="UTF-8">
+
+    <!-- Viewport for Responsive Design -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cara — AI Virtual Try-On</title>
+
+    <!-- Page Title -->
+    <title>Cara â€” AI Virtual Try-On</title>
+
+    <!-- Favicon -->
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
+
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="ui-fix.css" />
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
@@ -51,22 +62,7 @@
       background-color: #555;
     }
 
-            :root {
-    --accent: #088178;
-    --text-primary: #333;
-    --text-secondary: #6b7280;
-    --bg-secondary: #f5f5f5;
-    --card-bg: #ffffff;
-    --border-color: #ddd;
-    }
 
-    body[data-theme="dark"]{
-    --text-primary: #f3f4f6;
-    --text-secondary: #d1d5db;
-    --bg-secondary: #111827;
-    --card-bg: #1f2937;
-    --border-color: #374151;
-    }
         /* ============================================
            VIRTUAL TRY-ON PAGE STYLES
            ============================================ */
@@ -83,17 +79,6 @@
             justify-content: center;
             gap: 40px;
             margin-bottom: 40px;
-        }
-
-        .step-indicator {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            opacity: 0.4;
-            transition: opacity 0.4s ease;
-        }
-
-        .step-indicator.active {
             opacity: 1;
         }
 
@@ -389,7 +374,7 @@
             transform: scaleX(-1); /* Mirror view */
         }
 
-        /* 🌟 Main Canvas (Absolute hokar video ke theek UPAR bethega) 🌟 */
+        /* <i class="fas fa-star"></i> Main Canvas (Absolute hokar video ke theek UPAR bethega) <i class="fas fa-star"></i> */
         .video-wrapper #output-canvas {
             position: absolute !important;
             top: 0 !important;
@@ -526,14 +511,24 @@
             }
         }
         
-    </style>
+  </style>
     <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="ui-fix.css" />
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
+  <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
 </head>
 <body>
 
         <!-- HEADER -->
         <!-- <section id="header"> -->
-            <section id="header">
+   <section id="header">
   <!-- Logo -->
   <a href="index.html">
     <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
@@ -576,7 +571,7 @@
       <li class="nav-icon">
         <button
           class="theme-toggle"
-          id="themeToggle"
+          id="themeToggleDesktop"
           aria-label="Toggle dark mode"
         >
           <i class="ri-moon-line" id="themeIcon"></i>
@@ -585,7 +580,7 @@
 
       <!-- Close Button -->
       <a
-        href="#"
+        href="javascript:void(0)"
         id="close"
         aria-label="Close menu"
         aria-hidden="false"
@@ -627,7 +622,7 @@
                 aria-label="Toggle dark mode">
                 <i class="ri-moon-line" id="themeIconMobile"></i>
             </button>
-            <a href="cart.html" id="mobile-cart-icon">
+            <a aria-label="Cart" href="cart.html" id="mobile-cart-icon">
                 <i class="ri-shopping-bag-4-line"></i>
                 <span class="cart-count" id="mobileCartCount">0</span>
             </a>
@@ -756,19 +751,20 @@
       <img class="logo" src="images/logo.png" alt="Cara Logo">
       <h4>Contact</h4>
       <p>
-        <strong>Address:</strong> 562 Wellington Road, Street 32, San
-        Francisco
+        <strong>Address:</strong> 562 Wellington Road, 
       </p>
-      <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
-      <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
+      <p>Street 32, San Francisco</p>
+      <p><strong>Phone:</strong> +01 2222 365 / </p>
+      <p>(+91) 01 2345 6789</p>
+      <p><strong>Time:</strong> 10AM - 6PM, Mon - Sat</p>
 
       <div class="follow">
         <h4>Follow us</h4>
         <div class="icon">
           <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-twitter"></i>
+            <i class="fa-brands fa-x-twitter"></i>
           </a>
-          <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
+          <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
             <i class="fab fa-github"></i>
           </a>
           <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
@@ -785,7 +781,7 @@
     <div class="col">
       <h4>About</h4>
       <a href="about.html">About Us</a>
-      <a href="#">Delivery Information</a>
+      <a href="delivery.html">Delivery Information</a>
       <a href="privacy.html">Privacy Policy</a>
       <a href="terms.html">Terms and Conditions</a>
       <a href="contact.html">Contact Us</a>
@@ -795,9 +791,9 @@
     <div class="col">
       <h4>My Account</h4>
       <a href="login.html">Sign In</a>
-      <a href="cart.html">View Cart</a>
-      <a href="#">My Wishlist</a>
-      <a href="cart.html">Track My Order</a>
+      <a aria-label="Cart" href="cart.html">View Cart</a>
+      <a href="javascript:void(0)">My Wishlist</a>
+      <a aria-label="Cart" href="cart.html">Track My Order</a>
       <a href="contact.html">Help</a>
     </div>
 
@@ -818,13 +814,16 @@
     <!-- Install App Column -->
     <div class="col install">
       <h4>Install App</h4>
-      <p>From App Store or Google Play</p>
+      <p>App Store</p>
 
       <div class="row">
         <img src="images/pay/app.jpg" alt="Download from App Store">
-        <img src="images/pay/play.jpg" alt="Get it on Google Play">
       </div>
 
+      <p>Google Play</p>
+      <div class="row">
+        <img src="images/pay/play.jpg" alt="Get it on Google Play">
+      </div>
       <p>Secured Payment Gateways</p>
 
       <div class="payment-icons">
@@ -853,17 +852,23 @@
     <!-- Copyright -->
     <div class="copyright">
       <p>
-        © Cara 2026. All rights reserved. |
+        Â© Cara 2026. All rights reserved. |
         <a href="license.html" style="color: #088178"> MIT License </a>
       </p>
     </div>
   </footer>
-   <button id="topBtn">↑</button>
+   <button id="topBtn">â†‘</button>
      <script src="try-on.js"></script> 
     <script src="navbar.js"></script>
+    <script src="app.js"></script>
+    <script>loadNavbar('tryon');</script>
+    <script src="js/theme.js"></script>
 <!-- <script>loadNavbar('tryon');</script> -->
         <script id="Current-Year">
         document.getElementById("Current-Year").textContent = new Date().getFullYear();
+
+        
     </script>
 </body>
 </html>
+
