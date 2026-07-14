@@ -30,6 +30,7 @@
     page: 1,
     page_size: DEFAULT_PAGE_SIZE,
   };
+  let activeController = null;
 
   // ── DOM references ──────────────────────────────────────────────────────────
   const searchInput = document.getElementById('productSearchInput');
@@ -151,9 +152,16 @@
 
   // ── Main fetch + render cycle ──────────────────────────────────────────────
   function fetchAndRender() {
+    // Cancel any previous in-flight request before starting a new one
+    if (activeController) {
+      activeController.abort();
+    }
+    activeController = new AbortController();
+    const thisController = activeController;
+
     if (searchLoader) searchLoader.style.display = 'block';
 
-    fetch(`${API_BASE}?${buildQueryString()}`)
+    fetch(`${API_BASE}?${buildQueryString()}`, { signal: thisController.signal })
       .then((res) => {
         if (!res.ok) throw new Error(`API error: ${res.status}`);
         return res.json();
@@ -167,6 +175,10 @@
         }
       })
       .catch((err) => {
+        if (err.name === 'AbortError') {
+          // Expected when a newer request supersedes this one — ignore silently
+          return;
+        }
         console.error('[product-search] Fetch failed:', err);
         if (productGrid) {
           productGrid.innerHTML =
@@ -174,7 +186,10 @@
         }
       })
       .finally(() => {
-        if (searchLoader) searchLoader.style.display = 'none';
+        // Only hide loader if this is still the active (latest) request
+        if (thisController === activeController && searchLoader) {
+          searchLoader.style.display = 'none';
+        }
       });
   }
 

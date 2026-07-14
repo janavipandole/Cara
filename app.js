@@ -697,7 +697,7 @@ window.loadCart = async function () {
                         onclick="event.stopPropagation(); changeQuantity(${index}, -1)">
                         <i class="ri-subtract-line"></i>
                     </button>
-                    <input type="number" class="qty-input" value="${itemQty}" readonly />
+                    <input type="number" class="qty-input" value="${itemQty}" min="1" max="99" readonly />
                     <button class="qty-btn plus" aria-label="Increase quantity"
                         onclick="event.stopPropagation(); changeQuantity(${index}, 1)">
                         <i class="ri-add-line"></i>
@@ -793,6 +793,10 @@ window.changeQuantity = function (index, change) {
     if (!cart[index]) return;
     let newQty = cart[index].quantity + change;
     if (newQty < 1) newQty = 1;
+    if (newQty > 99) {
+        newQty = 99;
+        if (typeof showToast === "function") showToast("Maximum quantity is 99.", "warning");
+    }
     cart[index].quantity = newQty;
     localStorage.setItem("productsInCart", JSON.stringify(cart));
     loadCart();
@@ -1053,7 +1057,6 @@ window.selectStyle = function (style) {
     });
     const productSection = document.getElementById("product1");
     if (productSection) productSection.scrollIntoView({ behavior: "smooth", block: "start" });
-    console.log("Toast: " + `Showing ${style} style recommendations!`);
 };
 
 /* ============================================================

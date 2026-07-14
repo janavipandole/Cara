@@ -1,3 +1,5 @@
+let checkoutIdempotencyKey = null;
+
 function safeParseJSON(key, fallback = '[]') {
   try {
     return JSON.parse(localStorage.getItem(key) || fallback);
@@ -309,6 +311,10 @@ form.addEventListener('submit', function (e) {
     submitBtn.disabled = true;
   }
 
+  if (!checkoutIdempotencyKey) {
+    checkoutIdempotencyKey = crypto.randomUUID();
+  }
+
   // Prepare order data
   const orderData = {
     fullName: document.getElementById('fullName').value.trim(),
@@ -317,6 +323,7 @@ form.addEventListener('submit', function (e) {
     city: document.getElementById('city').value.trim(),
     zip: document.getElementById('zip').value.trim(),
     coupon: window.appliedCoupon,
+    idempotency_key: checkoutIdempotencyKey,
     items: cart.map((item) => ({
       product_name: item.name,
       quantity: parseInt(item.quantity) || 1,
@@ -326,7 +333,10 @@ form.addEventListener('submit', function (e) {
 
   fetch(`${API_BASE_URL}/api/orders/`, {
     method: 'POST',
-    headers: buildAuthHeaders({ 'Content-Type': 'application/json' }),
+    headers: buildAuthHeaders({
+      'Content-Type': 'application/json',
+      'Idempotency-Key': checkoutIdempotencyKey,
+    }),
     credentials: 'include',
     body: JSON.stringify(orderData),
   })
@@ -362,6 +372,7 @@ form.addEventListener('submit', function (e) {
       localStorage.removeItem('productsInCart');
       localStorage.removeItem('appliedCoupon');
       window.appliedCoupon = null;
+      checkoutIdempotencyKey = null;
 
       if (submitBtn) {
         submitBtn.classList.remove('btn-loading');
