@@ -393,6 +393,7 @@
       });
     }
   </script>
+  <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
 </head>
 
 <body>
@@ -896,8 +897,10 @@
 <script src="js/testimonials-carousel.js" defer></script>
 
 <script>
-  document.querySelector('.Current-Year').textContent =
-    new Date().getFullYear();
+  const currentYearEl = document.querySelector('.Current-Year');
+  if (currentYearEl) {
+    currentYearEl.textContent = new Date().getFullYear();
+  }
 </script>
 
 <script>
