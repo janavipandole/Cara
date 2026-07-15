@@ -172,3 +172,4 @@ Thank you for contributing to Cara! Together.
 
 
 <!-- Guidelines for Git branching conventions and PR template structures. -->
+- Added CI Linter rules.
