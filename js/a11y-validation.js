@@ -1,1 +1,1 @@
-console.log('A11y');
+console.log('A11y validation running');
