@@ -178,8 +178,8 @@
 
   function getStaticProductByName(name) {
     var list =
-      typeof products !== 'undefined' && Array.isArray(products) // eslint-disable-line no-undef
-        ? products // eslint-disable-line no-undef
+      typeof products !== 'undefined' && Array.isArray(products)
+        ? products
         : Array.isArray(root.products)
           ? root.products
           : [];

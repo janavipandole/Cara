@@ -1,7 +1,7 @@
 ---
 name: ⚡ Enhancement / Optimization
 about: Suggest performance improvements or code optimizations
-title: "[ENHANCEMENT] <short description>"
+title: '[ENHANCEMENT] <short description>'
 labels: enhancement
 ---
 
@@ -31,5 +31,5 @@ Share details or snippets if you have ideas on how to implement it.
 
 ## ✅ Checklist
 
-- [ ] I’ve reviewed existing issues to ensure this isn’t a duplicate.  
-- [ ] I’ve explained how this improves performance or readability.  
+- [ ] I’ve reviewed existing issues to ensure this isn’t a duplicate.
+- [ ] I’ve explained how this improves performance or readability.

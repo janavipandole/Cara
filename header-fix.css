@@ -7,11 +7,15 @@
 }
 
 @media (max-width: 1024px) {
-  :root { --header-height: 72px; }
+  :root {
+    --header-height: 72px;
+  }
 }
 
 @media (max-width: 640px) {
-  :root { --header-height: 64px; }
+  :root {
+    --header-height: 64px;
+  }
 }
 
 /* apply the offset to the document body so the hero/products are pushed below the header */

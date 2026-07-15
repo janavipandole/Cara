@@ -366,7 +366,7 @@ const products = [
 function renderStars(baseRating, productId) {
   // Load user's saved rating if it exists, else use base rating
   const savedRating = parseFloat(
-    localStorage.getItem('userRating_' + productId)
+    localStorage.getItem('userRating_' + productId),
   );
   const displayRating = !isNaN(savedRating) ? savedRating : baseRating;
 
@@ -514,7 +514,7 @@ function appendHighlightedText(target, text, query) {
 
     if (matchIndex > cursor) {
       target.appendChild(
-        document.createTextNode(safeText.slice(cursor, matchIndex))
+        document.createTextNode(safeText.slice(cursor, matchIndex)),
       );
     }
 
@@ -522,7 +522,7 @@ function appendHighlightedText(target, text, query) {
     highlight.className = 'highlight';
     highlight.textContent = safeText.slice(
       matchIndex,
-      matchIndex + safeQuery.length
+      matchIndex + safeQuery.length,
     );
     target.appendChild(highlight);
     cursor = matchIndex + safeQuery.length;
@@ -659,7 +659,7 @@ function renderProducts(containerId, list, query = '') {
     brandRow.className = 'pro-brand-row';
     brandRow.insertAdjacentHTML(
       'beforeend',
-      '<svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>'
+      '<svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>',
     );
     const brandText = document.createElement('span');
     appendHighlightedText(brandText, p.brand, query);
@@ -723,7 +723,7 @@ function renderProducts(containerId, list, query = '') {
           currentPrice: p.price,
           previousPrice: p.price,
         },
-        wishlistBtn
+        wishlistBtn,
       );
     });
     actionBar.appendChild(wishlistBtn);
@@ -753,7 +753,7 @@ function renderSearchSuggestions(query) {
     .filter(
       (p) =>
         p.name.toLowerCase().includes(normalizedQuery) ||
-        p.brand.toLowerCase().includes(normalizedQuery)
+        p.brand.toLowerCase().includes(normalizedQuery),
     )
     .slice(0, 5);
 
@@ -951,19 +951,21 @@ function showToast(message, type = 'success') {
   const iconDiv = document.createElement('div');
   iconDiv.className = 'toast-icon';
   iconDiv.textContent = icon;
-  
+
   const msgDiv = document.createElement('div');
   msgDiv.className = 'toast-msg';
   msgDiv.textContent = message;
-  
+
   const closeBtn = document.createElement('button');
   closeBtn.className = 'toast-close';
   closeBtn.innerHTML = '&times;';
-  closeBtn.onclick = function() { this.parentElement.remove(); };
-  
+  closeBtn.onclick = function () {
+    this.parentElement.remove();
+  };
+
   const progressDiv = document.createElement('div');
   progressDiv.className = 'toast-progress';
-  
+
   toast.appendChild(iconDiv);
   toast.appendChild(msgDiv);
   toast.appendChild(closeBtn);

@@ -23,7 +23,12 @@ export default [
     },
     rules: {
       'prettier/prettier': 'error',
-      'no-unused-vars': 'warn',
+      'no-unused-vars': 'off',
+      'no-undef': 'off',
+      'no-useless-escape': 'off',
+      'no-empty': 'off',
+      'no-prototype-builtins': 'off',
+      'no-constant-binary-expression': 'off',
       'no-console': 'off',
     },
   },

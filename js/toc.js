@@ -1,26 +1,25 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
+  const policyPage = document.querySelector('#policy-page');
+  if (!policyPage) return;
 
-    const policyPage = document.querySelector("#policy-page");
-    if (!policyPage) return;
+  // Create wrapper
+  const wrapper = document.createElement('div');
+  wrapper.id = 'policy-layout';
 
-    // Create wrapper
-    const wrapper = document.createElement("div");
-    wrapper.id = "policy-layout";
+  wrapper.style.display = 'flex';
+  wrapper.style.alignItems = 'flex-start';
+  wrapper.style.maxWidth = '1200px';
+  wrapper.style.margin = '0 auto';
+  wrapper.style.gap = '25px';
 
-    wrapper.style.display = "flex";
-    wrapper.style.alignItems = "flex-start";
-    wrapper.style.maxWidth = "1200px";
-    wrapper.style.margin = "0 auto";
-    wrapper.style.gap = "25px";
+  policyPage.parentNode.insertBefore(wrapper, policyPage);
+  wrapper.appendChild(policyPage);
 
-    policyPage.parentNode.insertBefore(wrapper, policyPage);
-    wrapper.appendChild(policyPage);
+  // Create sidebar
+  const toc = document.createElement('div');
+  toc.id = 'privacy-toc-sidebar';
 
-    // Create sidebar
-    const toc = document.createElement("div");
-    toc.id = "privacy-toc-sidebar";
-
-    toc.style.cssText = `
+  toc.style.cssText = `
         position:sticky;
         top:120px;
         width:220px;
@@ -30,28 +29,26 @@ document.addEventListener("DOMContentLoaded", () => {
         flex-shrink:0;
     `;
 
-    wrapper.prepend(toc);
+  wrapper.prepend(toc);
 
-    // Only policy headings
-    const headers = policyPage.querySelectorAll(".policy-section h2");
+  // Only policy headings
+  const headers = policyPage.querySelectorAll('.policy-section h2');
 
-    headers.forEach((header, index) => {
+  headers.forEach((header, index) => {
+    header.id = `policy-sec-${index}`;
 
-        header.id = `policy-sec-${index}`;
+    const link = document.createElement('a');
 
-        const link = document.createElement("a");
+    link.href = '#' + header.id;
+    link.textContent = header.textContent;
 
-        link.href = "#" + header.id;
-        link.textContent = header.textContent;
-
-        link.style.cssText = `
+    link.style.cssText = `
             display:block;
             margin-bottom:8px;
             color:#555;
             text-decoration:none;
         `;
 
-        toc.appendChild(link);
-    });
-
+    toc.appendChild(link);
+  });
 });

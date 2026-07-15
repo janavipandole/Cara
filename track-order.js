@@ -116,7 +116,7 @@ if (form) {
     } else if (!/^CARA-\d+$/.test(orderIdRaw)) {
       showTrackError(
         orderIdInput,
-        'Invalid Format. Pattern should be CARA-XXXXXXXX (e.g. CARA-20261234)'
+        'Invalid Format. Pattern should be CARA-XXXXXXXX (e.g. CARA-20261234)',
       );
       isTrackValid = false;
     }
@@ -253,32 +253,32 @@ function renderResult(order) {
     order.items.forEach(function (item) {
       const orderItem = document.createElement('div');
       orderItem.className = 'order-item';
-      
+
       const img = document.createElement('img');
       img.src = item.img;
       img.alt = item.name;
       img.loading = 'lazy';
-      
+
       const info = document.createElement('div');
       info.className = 'item-info';
-      
+
       const name = document.createElement('h4');
       name.textContent = item.name;
-      
+
       const sizeQty = document.createElement('span');
       sizeQty.textContent = `Size: ${item.size}  |  Qty: ${item.qty}`;
-      
+
       info.appendChild(name);
       info.appendChild(sizeQty);
-      
+
       const price = document.createElement('span');
       price.className = 'item-price';
       price.textContent = item.price;
-      
+
       orderItem.appendChild(img);
       orderItem.appendChild(info);
       orderItem.appendChild(price);
-      
+
       itemsList.appendChild(orderItem);
     });
 

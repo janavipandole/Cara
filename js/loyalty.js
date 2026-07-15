@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const discountAmount = pointsToUse * 0.1; // 10 points = ₹1
     msgEl.textContent = `Applied ${pointsToUse} points! Saved ₹${discountAmount.toFixed(
-      2
+      2,
     )}`;
     msgEl.style.color = '#088178';
 

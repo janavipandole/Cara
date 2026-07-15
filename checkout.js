@@ -1,8 +1,18 @@
+const safeStorage =
+  typeof window !== 'undefined' && window.localStorage
+    ? window.localStorage
+    : {
+        getItem: () => null,
+        setItem: () => {},
+        removeItem: () => {},
+        clear: () => {},
+      };
+
 let checkoutIdempotencyKey = null;
 
 function safeParseJSON(key, fallback = '[]') {
   try {
-    return JSON.parse(localStorage.getItem(key) || fallback);
+    return JSON.parse(safeStorage.getItem(key) || fallback);
   } catch {
     try {
       return JSON.parse(fallback);
@@ -16,8 +26,8 @@ const API_BASE_URL = window.CARA_API_BASE_URL || 'http://127.0.0.1:8000';
 
 function getStoredAuthToken() {
   return (
-    localStorage.getItem('access_token') ||
-    localStorage.getItem('cara_user_token') ||
+    safeStorage.getItem('access_token') ||
+    safeStorage.getItem('cara_user_token') ||
     ''
   );
 }
@@ -145,7 +155,7 @@ function initCheckoutValidation() {
   if (!form) return;
 
   const inputs = form.querySelectorAll(
-    'input[data-validate], textarea[data-validate], select[data-validate]'
+    'input[data-validate], textarea[data-validate], select[data-validate]',
   );
 
   inputs.forEach((input) => {
@@ -185,228 +195,240 @@ if (cardNumber)
   });
 
 // Format expiry date (MM/YY)
-expiry.addEventListener('input', function (e) {
-  let val = getDigits(e.target.value).slice(0, 4);
-  if (val.length >= 3) {
-    val = val.slice(0, 2) + '/' + val.slice(2);
-  }
-  e.target.value = val;
+if (expiry) {
+  expiry.addEventListener('input', function (e) {
+    let val = getDigits(e.target.value).slice(0, 4);
+    if (val.length >= 3) {
+      val = val.slice(0, 2) + '/' + val.slice(2);
+    }
+    e.target.value = val;
 
-  if (this.classList.contains('is-invalid')) {
-    validateField(this);
-  }
-});
+    if (this.classList.contains('is-invalid')) {
+      validateField(this);
+    }
+  });
+}
 
 // Restrict CVV input to digits and length
-cvv.addEventListener('input', function () {
-  this.value = getDigits(this.value).slice(0, 4);
-  if (this.classList.contains('is-invalid')) {
-    validateField(this);
-  }
-});
+if (cvv) {
+  cvv.addEventListener('input', function () {
+    this.value = getDigits(this.value).slice(0, 4);
+    if (this.classList.contains('is-invalid')) {
+      validateField(this);
+    }
+  });
+}
 
-cardName.addEventListener('input', function () {
-  if (this.classList.contains('is-invalid')) {
-    validateField(this);
-  }
-});
+if (cardName) {
+  cardName.addEventListener('input', function () {
+    if (this.classList.contains('is-invalid')) {
+      validateField(this);
+    }
+  });
+}
 
 // --- Show/Hide Card Details and clear validation states ---
-paymentMethod.addEventListener('change', function () {
-  if (this.value === 'online') {
-    cardDetails.style.display = 'block';
-    cardName.required = true;
-    cardNumber.required = true;
-    expiry.required = true;
-    cvv.required = true;
-  } else {
-    cardDetails.style.display = 'none';
-    cardName.required = false;
-    cardNumber.required = false;
-    expiry.required = false;
-    cvv.required = false;
+if (paymentMethod) {
+  paymentMethod.addEventListener('change', function () {
+    if (this.value === 'online') {
+      cardDetails.style.display = 'block';
+      cardName.required = true;
+      cardNumber.required = true;
+      expiry.required = true;
+      cvv.required = true;
+    } else {
+      cardDetails.style.display = 'none';
+      cardName.required = false;
+      cardNumber.required = false;
+      expiry.required = false;
+      cvv.required = false;
 
-    // Clear card fields and errors
-    paymentFields.forEach(function (field) {
-      field.value = '';
-      field.classList.remove('is-valid', 'is-invalid');
-      const errEl = field.parentElement.querySelector('.error-msg');
-      if (errEl) errEl.textContent = '';
-    });
-  }
+      // Clear card fields and errors
+      paymentFields.forEach(function (field) {
+        if (field) {
+          field.value = '';
+          field.classList.remove('is-valid', 'is-invalid');
+          const errEl = field.parentElement.querySelector('.error-msg');
+          if (errEl) errEl.textContent = '';
+        }
+      });
+    }
 
-  if (this.classList.contains('is-invalid')) {
-    validateField(this);
-  }
-});
+    if (this.classList.contains('is-invalid')) {
+      validateField(this);
+    }
+  });
+}
 
 // --- Form Submission & Final Validation Check ---
 const form = document.getElementById('checkoutForm');
 const popup = document.getElementById('successPopup');
 
-form.addEventListener('submit', function (e) {
-  e.preventDefault();
+if (form) {
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
 
-  const inputs = form.querySelectorAll(
-    'input[data-validate], textarea[data-validate], select[data-validate]'
-  );
-  let allValid = true;
+    const inputs = form.querySelectorAll(
+      'input[data-validate], textarea[data-validate], select[data-validate]',
+    );
+    let allValid = true;
 
-  inputs.forEach((input) => {
-    if (!validateField(input)) {
-      allValid = false;
-    }
-  });
-
-  if (!allValid) {
-    // Scroll to the first invalid field
-    const firstInvalid = form.querySelector('.is-invalid');
-    if (firstInvalid) {
-      firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      firstInvalid.focus();
-    }
-    return;
-  }
-
-  // GET CART
-  let cart = safeParseJSON('productsInCart');
-
-  // CHECK EMPTY CART
-  if (cart.length === 0) {
-    if (typeof window.showToast === 'function')
-      window.showToast('Your cart is empty!', 'error');
-    else console.log('Toast: ' + 'Your cart is empty!');
-    return;
-  }
-
-  // Required contact/address fields
-  const requiredFields = [
-    'fullName',
-    'email',
-    'phone',
-    'address',
-    'city',
-    'zip',
-  ];
-
-  for (const id of requiredFields) {
-    const el = document.getElementById(id);
-
-    if (!el) {
-      window.logError(`Missing input field with id: ${id}`);
-      return;
-    }
-
-    if (!el.value.trim()) {
-      highlightError(el);
-      return;
-    }
-  }
-
-  // ── Loading state: disable button & show spinner ──
-  const submitBtn = form.querySelector('.submit-btn');
-
-  if (submitBtn) {
-    submitBtn.classList.add('btn-loading');
-    submitBtn.disabled = true;
-  }
-
-  if (!checkoutIdempotencyKey) {
-    checkoutIdempotencyKey = crypto.randomUUID();
-  }
-
-  // Prepare order data
-  const orderData = {
-    fullName: document.getElementById('fullName').value.trim(),
-    email: document.getElementById('email').value.trim(),
-    address: document.getElementById('address').value.trim(),
-    city: document.getElementById('city').value.trim(),
-    zip: document.getElementById('zip').value.trim(),
-    coupon: window.appliedCoupon,
-    idempotency_key: checkoutIdempotencyKey,
-    items: cart.map((item) => ({
-      product_name: item.name,
-      quantity: parseInt(item.quantity) || 1,
-      price: item.price,
-    })),
-  };
-
-  fetch(`${API_BASE_URL}/api/orders/`, {
-    method: 'POST',
-    headers: buildAuthHeaders({
-      'Content-Type': 'application/json',
-      'Idempotency-Key': checkoutIdempotencyKey,
-    }),
-    credentials: 'include',
-    body: JSON.stringify(orderData),
-  })
-    .then((res) =>
-      res
-        .json()
-        .then((data) => ({ status: res.status, ok: res.ok, body: data }))
-    )
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error(res.body.detail || 'Failed to place order');
-      }
-
-      // DEDUCT & ADD LOYALTY POINTS ON SUCCESSFUL ORDER
-      const appliedPoints =
-        parseInt(localStorage.getItem('cara_applied_loyalty_points')) || 0;
-      const currentBalance =
-        parseInt(localStorage.getItem('cara_loyalty_balance')) || 150;
-      const subtotal = cart.reduce(
-        (sum, item) =>
-          sum + parsePriceString(item.price) * (parseInt(item.quantity) || 1),
-        0
-      );
-      const earnedPoints = Math.floor(subtotal * 0.1);
-      const newBalance = Math.max(
-        0,
-        currentBalance - appliedPoints + earnedPoints
-      );
-      localStorage.setItem('cara_loyalty_balance', newBalance);
-      localStorage.removeItem('cara_applied_loyalty_points');
-
-      // CLEAR CART AFTER SUCCESSFUL ORDER
-      localStorage.removeItem('productsInCart');
-      localStorage.removeItem('appliedCoupon');
-      window.appliedCoupon = null;
-      checkoutIdempotencyKey = null;
-
-      if (submitBtn) {
-        submitBtn.classList.remove('btn-loading');
-        submitBtn.disabled = false;
-        submitBtn.style.opacity = '';
-        submitBtn.style.cursor = '';
-        submitBtn.innerHTML =
-          submitBtn.getAttribute('data-original-html') || 'Place Order';
-      }
-
-      form.reset();
-
-      // HIDE CARD DETAILS AGAIN
-      cardDetails.style.display = 'none';
-      if (popup) popup.classList.add('show');
-
-      // Clear all validation states post-submit
-      inputs.forEach((input) => {
-        input.classList.remove('is-valid', 'is-invalid');
-        const errEl = input.parentElement.querySelector('.error-msg');
-        if (errEl) errEl.textContent = '';
-      });
-    })
-    .catch((err) => {
-      if (typeof window.showToast === 'function')
-        window.showToast(err.message, 'error');
-      else console.log('Toast: ' + err.message);
-
-      if (submitBtn) {
-        submitBtn.classList.remove('btn-loading');
-        submitBtn.disabled = false;
+    inputs.forEach((input) => {
+      if (!validateField(input)) {
+        allValid = false;
       }
     });
-});
+
+    if (!allValid) {
+      // Scroll to the first invalid field
+      const firstInvalid = form.querySelector('.is-invalid');
+      if (firstInvalid) {
+        firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        firstInvalid.focus();
+      }
+      return;
+    }
+
+    // GET CART
+    let cart = safeParseJSON('productsInCart');
+
+    // CHECK EMPTY CART
+    if (cart.length === 0) {
+      if (typeof window.showToast === 'function')
+        window.showToast('Your cart is empty!', 'error');
+      else console.log('Toast: ' + 'Your cart is empty!');
+      return;
+    }
+
+    // Required contact/address fields
+    const requiredFields = [
+      'fullName',
+      'email',
+      'phone',
+      'address',
+      'city',
+      'zip',
+    ];
+
+    for (const id of requiredFields) {
+      const el = document.getElementById(id);
+
+      if (!el) {
+        window.logError(`Missing input field with id: ${id}`);
+        return;
+      }
+
+      if (!el.value.trim()) {
+        highlightError(el);
+        return;
+      }
+    }
+
+    // ── Loading state: disable button & show spinner ──
+    const submitBtn = form.querySelector('.submit-btn');
+
+    if (submitBtn) {
+      submitBtn.classList.add('btn-loading');
+      submitBtn.disabled = true;
+    }
+
+    if (!checkoutIdempotencyKey) {
+      checkoutIdempotencyKey = crypto.randomUUID();
+    }
+
+    // Prepare order data
+    const orderData = {
+      fullName: document.getElementById('fullName').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      address: document.getElementById('address').value.trim(),
+      city: document.getElementById('city').value.trim(),
+      zip: document.getElementById('zip').value.trim(),
+      coupon: window.appliedCoupon,
+      idempotency_key: checkoutIdempotencyKey,
+      items: cart.map((item) => ({
+        product_name: item.name,
+        quantity: parseInt(item.quantity) || 1,
+        price: item.price,
+      })),
+    };
+
+    fetch(`${API_BASE_URL}/api/orders/`, {
+      method: 'POST',
+      headers: buildAuthHeaders({
+        'Content-Type': 'application/json',
+        'Idempotency-Key': checkoutIdempotencyKey,
+      }),
+      credentials: 'include',
+      body: JSON.stringify(orderData),
+    })
+      .then((res) =>
+        res
+          .json()
+          .then((data) => ({ status: res.status, ok: res.ok, body: data })),
+      )
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(res.body.detail || 'Failed to place order');
+        }
+
+        // DEDUCT & ADD LOYALTY POINTS ON SUCCESSFUL ORDER
+        const appliedPoints =
+          parseInt(safeStorage.getItem('cara_applied_loyalty_points')) || 0;
+        const currentBalance =
+          parseInt(safeStorage.getItem('cara_loyalty_balance')) || 150;
+        const subtotal = cart.reduce(
+          (sum, item) =>
+            sum + parsePriceString(item.price) * (parseInt(item.quantity) || 1),
+          0,
+        );
+        const earnedPoints = Math.floor(subtotal * 0.1);
+        const newBalance = Math.max(
+          0,
+          currentBalance - appliedPoints + earnedPoints,
+        );
+        safeStorage.setItem('cara_loyalty_balance', newBalance);
+        safeStorage.removeItem('cara_applied_loyalty_points');
+
+        // CLEAR CART AFTER SUCCESSFUL ORDER
+        safeStorage.removeItem('productsInCart');
+        safeStorage.removeItem('appliedCoupon');
+        window.appliedCoupon = null;
+        checkoutIdempotencyKey = null;
+
+        if (submitBtn) {
+          submitBtn.classList.remove('btn-loading');
+          submitBtn.disabled = false;
+          submitBtn.style.opacity = '';
+          submitBtn.style.cursor = '';
+          submitBtn.innerHTML =
+            submitBtn.getAttribute('data-original-html') || 'Place Order';
+        }
+
+        form.reset();
+
+        // HIDE CARD DETAILS AGAIN
+        cardDetails.style.display = 'none';
+        if (popup) popup.classList.add('show');
+
+        // Clear all validation states post-submit
+        inputs.forEach((input) => {
+          input.classList.remove('is-valid', 'is-invalid');
+          const errEl = input.parentElement.querySelector('.error-msg');
+          if (errEl) errEl.textContent = '';
+        });
+      })
+      .catch((err) => {
+        if (typeof window.showToast === 'function')
+          window.showToast(err.message, 'error');
+        else console.log('Toast: ' + err.message);
+
+        if (submitBtn) {
+          submitBtn.classList.remove('btn-loading');
+          submitBtn.disabled = false;
+        }
+      });
+  });
+}
 
 window.closePopup = function () {
   const popup = document.getElementById('successPopup');
@@ -461,36 +483,33 @@ function renderCheckoutItems() {
     .join('');
 }
 
-window.updateCheckoutSummary = function () {
-  const cart = safeParseJSON('productsInCart');
+function calculateOrderTotals(
+  cart,
+  appliedCouponCode = '',
+  hasUrgency = false,
+  hasGiftWrap = false,
+  loyaltyPoints = 0,
+) {
   const subtotal = cart.reduce(
     (sum, item) =>
       sum + parsePriceString(item.price) * (parseInt(item.quantity) || 1),
-    0
+    0,
   );
 
-  // Check coupon discount
-  const couponCode = localStorage.getItem('appliedCoupon') || '';
   const COUPONS = { CARA20: 20, WELCOME10: 10 };
-  const couponPct = COUPONS[couponCode] || 0;
+  const couponPct = COUPONS[appliedCouponCode] || 0;
   const couponDiscount = subtotal * (couponPct / 100);
 
-  // Check urgency discount (5%) if the timer is running
-  const hasUrgency =
-    !window.urgencyTimerExpired &&
-    document.getElementById('checkout-promo-alert-bar');
   const urgencyDiscount = hasUrgency ? subtotal * 0.05 : 0;
-
-  // Check gift wrap
-  const hasGiftWrap = document.getElementById('gift-wrap-opt')?.checked;
   const giftCharge = hasGiftWrap ? 99 : 0;
 
-  // Calculate tax (5%)
-  const tax = subtotal * 0.05;
+  // Calculate tax (18% GST)
+  const tax = subtotal * 0.18;
+
+  // Calculate shipping cost: ₹150 for orders below ₹3,000, free for orders ₹3,000 and above
+  const shipping = subtotal > 0 ? (subtotal >= 3000 ? 0 : 150) : 0;
 
   // Check loyalty points discount (10 points = ₹1)
-  const loyaltyPoints =
-    parseInt(localStorage.getItem('cara_applied_loyalty_points')) || 0;
   const loyaltyDiscount = loyaltyPoints * 0.1;
 
   // Grand Total
@@ -498,10 +517,50 @@ window.updateCheckoutSummary = function () {
     0,
     subtotal +
       tax +
+      shipping +
       giftCharge -
       couponDiscount -
       urgencyDiscount -
-      loyaltyDiscount
+      loyaltyDiscount,
+  );
+
+  return {
+    subtotal,
+    couponDiscount,
+    urgencyDiscount,
+    giftCharge,
+    tax,
+    shipping,
+    loyaltyDiscount,
+    grandTotal,
+  };
+}
+
+window.updateCheckoutSummary = function () {
+  const cart = safeParseJSON('productsInCart');
+  const couponCode = safeStorage.getItem('appliedCoupon') || '';
+  const hasUrgency =
+    !window.urgencyTimerExpired &&
+    !!document.getElementById('checkout-promo-alert-bar');
+  const hasGiftWrap = !!document.getElementById('gift-wrap-opt')?.checked;
+  const loyaltyPoints =
+    parseInt(safeStorage.getItem('cara_applied_loyalty_points')) || 0;
+
+  const {
+    subtotal,
+    couponDiscount,
+    urgencyDiscount,
+    giftCharge,
+    tax,
+    shipping,
+    loyaltyDiscount,
+    grandTotal,
+  } = calculateOrderTotals(
+    cart,
+    couponCode,
+    hasUrgency,
+    hasGiftWrap,
+    loyaltyPoints,
   );
 
   // Update DOM elements
@@ -510,6 +569,11 @@ window.updateCheckoutSummary = function () {
 
   const taxEl = document.getElementById('summary-tax');
   if (taxEl) taxEl.textContent = formatCurrency(tax);
+
+  const shippingEl = document.getElementById('summary-shipping');
+  if (shippingEl) {
+    shippingEl.textContent = shipping === 0 ? 'Free' : formatCurrency(shipping);
+  }
 
   // Update Coupon Row
   let couponRow = document.getElementById('summaryDiscountRow');
@@ -533,7 +597,7 @@ window.updateCheckoutSummary = function () {
         if (typeof window.removeCoupon === 'function') {
           window.removeCoupon();
         } else {
-          localStorage.removeItem('appliedCoupon');
+          safeStorage.removeItem('appliedCoupon');
           window.updateCheckoutSummary();
           const couponInput = document.getElementById('couponCodeInput');
           if (couponInput) {
@@ -609,7 +673,7 @@ window.updateCheckoutSummary = function () {
     const removeLoyaltyBtn = document.getElementById('btnRemoveLoyalty');
     if (removeLoyaltyBtn) {
       removeLoyaltyBtn.onclick = function () {
-        localStorage.removeItem('cara_applied_loyalty_points');
+        safeStorage.removeItem('cara_applied_loyalty_points');
         const pointsInput = document.getElementById('points-to-apply');
         if (pointsInput) pointsInput.value = '';
         const msgEl = document.getElementById('loyalty-msg');
@@ -665,5 +729,14 @@ if (successOverlay) {
   successOverlay.addEventListener('click', function (e) {
     if (e.target === this) this.classList.remove('show');
   });
+}
+
+// Allow import in test / Node environments
+if (typeof module !== 'undefined') {
+  module.exports = {
+    calculateOrderTotals,
+    parsePriceString,
+    formatCurrency,
+  };
 }
 // Advanced validation routines checking postal formats and shipping address boundaries.

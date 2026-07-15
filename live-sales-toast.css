@@ -116,20 +116,20 @@
 }
 
 /* Dark mode theme overrides */
-[data-theme="dark"] .live-sales-toast {
+[data-theme='dark'] .live-sales-toast {
   background: rgba(28, 36, 49, 0.9);
   border-color: rgba(255, 255, 255, 0.08);
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
 }
 
-[data-theme="dark"] .live-sales-message {
+[data-theme='dark'] .live-sales-message {
   color: #f3f4f6;
 }
 
-[data-theme="dark"] .live-sales-close {
+[data-theme='dark'] .live-sales-close {
   color: #aaa;
 }
 
-[data-theme="dark"] .live-sales-close:hover {
+[data-theme='dark'] .live-sales-close:hover {
   color: #f87171;
 }

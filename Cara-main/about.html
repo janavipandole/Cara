@@ -71,143 +71,148 @@
       referrerpolicy="no-referrer"
     />
     <style>
+      #scrollTopBtn {
+        position: fixed;
+        bottom: 30px;
+        right: 30px; /* keeps button on right side */
 
-    
-#scrollTopBtn {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;   /* keeps button on right side */
+        width: 55px;
+        height: 55px;
 
-  width: 55px;
-  height: 55px;
+        border: none;
+        border-radius: 50%;
 
-  border: none;
-  border-radius: 50%;
+        background-color: #088178;
+        color: white;
 
-  background-color: #088178;
-  color: white;
+        font-size: 24px;
+        font-weight: bold;
 
-  font-size: 24px;
-  font-weight: bold;
+        cursor: pointer;
+        z-index: 999;
 
-  cursor: pointer;
-  z-index: 999;
+        display: none;
 
-  display: none;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+      }
 
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  transition: all 0.3s ease;
-}
-
-#scrollTopBtn:hover {
-  background-color: #065f5b;
-  transform: scale(1.1);
-}
-</style>
-    <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
-</head>
+      #scrollTopBtn:hover {
+        background-color: #065f5b;
+        transform: scale(1.1);
+      }
+    </style>
+    <meta
+      name="description"
+      content="Cara - The best ecommerce store for modern fashion and clothing."
+    />
+  </head>
 
   <body>
-          <!-- HEADER -->
-          <section id="header">
-  <!-- Logo -->
-  <a href="index.html">
-    <img loading="lazy" id="siteLogo" src="images/logo.png" alt="Cara Logo" />
-  </a>
+    <!-- HEADER -->
+    <section id="header">
+      <!-- Logo -->
+      <a href="index.html">
+        <img
+          loading="lazy"
+          id="siteLogo"
+          src="images/logo.png"
+          alt="Cara Logo"
+        />
+      </a>
 
-  <div>
-    <ul id="navbar">
+      <div>
+        <ul id="navbar">
+          <!-- Main Navigation Links -->
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a class="active" href="about.html">About</a></li>
+          <li><a href="try-on.html">Try-On</a></li>
+          <li><a href="community.html">Community</a></li>
+          <li><a href="promotions.html">Promotions</a></li>
 
-      <!-- Main Navigation Links -->
-      <li><a href="index.html">Home</a></li>
-      <li><a href="shop.html">Shop</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a class="active" href="about.html">About</a></li>
-      <li><a href="try-on.html">Try-On</a></li>
-      <li><a href="community.html">Community</a></li>
-      <li><a href="promotions.html">Promotions</a></li>
+          <!-- Contact Icon -->
+          <li class="nav-icon">
+            <a href="contact.html" aria-label="Contact">
+              <i class="ri-customer-service-2-line"></i>
+            </a>
+          </li>
 
-      <!-- Contact Icon -->
-      <li class="nav-icon">
-        <a href="contact.html" aria-label="Contact">
-          <i class="ri-customer-service-2-line"></i>
-        </a>
-      </li>
+          <!-- Login Icon -->
+          <li class="nav-icon">
+            <a href="login.html" aria-label="Login">
+              <i class="ri-user-3-line"></i>
+            </a>
+          </li>
 
-      <!-- Login Icon -->
-      <li class="nav-icon">
+          <!-- Cart Icon -->
+          <li class="nav-icon">
+            <a href="cart.html" id="lg-bag" aria-label="Cart">
+              <i class="ri-shopping-bag-4-line"></i>
+            </a>
+          </li>
+
+          <!-- Theme Toggle -->
+          <li class="nav-icon">
+            <button
+              class="theme-toggle"
+              id="themeToggle"
+              aria-label="Toggle dark mode"
+            >
+              <i class="ri-moon-line" id="themeIcon"></i>
+            </button>
+          </li>
+
+          <!-- Close Button -->
+          <a href="#" id="close" aria-label="Close menu" aria-hidden="false">
+            <i class="fa-solid fa-xmark"></i>
+          </a>
+        </ul>
+      </div>
+
+      <!-- Mobile Navbar -->
+      <div class="mobile">
+        <!-- Login Icon -->
         <a href="login.html" aria-label="Login">
           <i class="ri-user-3-line"></i>
         </a>
-      </li>
 
-      <!-- Cart Icon -->
-      <li class="nav-icon">
-        <a href="cart.html" id="lg-bag" aria-label="Cart">
+        <!-- Cart Icon -->
+        <a href="cart.html" aria-label="Cart">
           <i class="ri-shopping-bag-4-line"></i>
         </a>
-      </li>
 
-      <!-- Theme Toggle -->
-      <li class="nav-icon">
+        <!-- Hamburger Menu -->
+        <i
+          class="fas fa-outdent"
+          id="bar"
+          role="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+          tabindex="0"
+        ></i>
+        <!-- Theme Toggle -->
         <button
           class="theme-toggle"
-          id="themeToggle"
+          id="themeToggleMobile"
           aria-label="Toggle dark mode"
         >
-          <i class="ri-moon-line" id="themeIcon"></i>
+          <i class="ri-moon-line" id="themeIconMobile"></i>
         </button>
-      </li>
-
-      <!-- Close Button -->
-      <a
-        href="#"
-        id="close"
-        aria-label="Close menu"
-        aria-hidden="false"
-      >
-        <i class="fa-solid fa-xmark"></i>
-      </a>
-
-    </ul>
-  </div>
-
-  <!-- Mobile Navbar -->
-  <div class="mobile">
-
-    <!-- Login Icon -->
-    <a href="login.html" aria-label="Login">
-      <i class="ri-user-3-line"></i>
-    </a>
-
-    <!-- Cart Icon -->
-    <a href="cart.html" aria-label="Cart">
-      <i class="ri-shopping-bag-4-line"></i>
-    </a>
-
-    <!-- Hamburger Menu -->
-    <i
-      class="fas fa-outdent"
-      id="bar"
-      role="button"
-      aria-label="Open menu"
-      aria-expanded="false"
-      tabindex="0"
-    ></i>
-      <!-- Theme Toggle -->
-      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
-        <i class="ri-moon-line" id="themeIconMobile"></i>
-      </button>
-
-  </div>
-</section>
+      </div>
+    </section>
     <section id="about-head">
       <h2>#KnowUs</h2>
       <p>Read all case studies about Us!</p>
     </section>
 
     <section id="about-us" class="section-p1">
-      <img loading="lazy" src="images/about/a6.jpg" alt="Cara team showcasing modern fashion" />
+      <img
+        loading="lazy"
+        src="images/about/a6.jpg"
+        alt="Cara team showcasing modern fashion"
+      />
       <div>
         <h2>Who We Are</h2>
         <p>
@@ -313,7 +318,12 @@
     <footer class="section-p1">
       <!-- Contact Column -->
       <div class="col">
-        <img loading="lazy" class="logo" src="images/logo.png" alt="Cara Logo" />
+        <img
+          loading="lazy"
+          class="logo"
+          src="images/logo.png"
+          alt="Cara Logo"
+        />
         <h4>Contact</h4>
         <p>
           <strong>Address:</strong> 562 Wellington Road, Street 32, San
@@ -397,8 +407,16 @@
         <p>From App Store or Google Play</p>
 
         <div class="row">
-          <img loading="lazy" src="images/pay/app.jpg" alt="Download from App Store" />
-          <img loading="lazy" src="images/pay/play.jpg" alt="Get it on Google Play" />
+          <img
+            loading="lazy"
+            src="images/pay/app.jpg"
+            alt="Download from App Store"
+          />
+          <img
+            loading="lazy"
+            src="images/pay/play.jpg"
+            alt="Get it on Google Play"
+          />
         </div>
 
         <p>Secured Payment Gateways</p>
@@ -459,50 +477,39 @@
         </p>
       </div>
     </footer>
-          <button id="scrollTopBtn" title="Go to top" width="120px" height="120px">
-  ↑
-</button>
+    <button id="scrollTopBtn" title="Go to top" width="120px" height="120px">
+      ↑
+    </button>
 
     <script src="app.js?v=1779120917201"></script>
-    
+
     <!-- Corrected -->
-   <script id="Current-Year">
-        document.getElementById("Current-Year").textContent = new Date().getFullYear();
-    </script>
-
-                  // Disconnect observer so it doesn't run again
-                  observer.unobserve(entry.target);
-                }
-              });
-            },
-            observerOptions,
-          );
-
-          // Track the feature section itself instead of the app section
-          scrollObserver.observe(featureSection);
-        }
-      });
+    <script id="Current-Year">
+      document.getElementById('Current-Year').textContent =
+        new Date().getFullYear();
     </script>
     <script src="navbar.js"></script>
-    <script>loadNavbar('about');</script>
-    <script src="app.js"></script>  
     <script>
-  const scrollBtn = document.getElementById("scrollTopBtn");
+      loadNavbar('about');
+    </script>
+    <script src="app.js"></script>
+    <script>
+      const scrollBtn = document.getElementById('scrollTopBtn');
 
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 300) {
-      scrollBtn.style.display = "block";
-    } else {
-      scrollBtn.style.display = "none";
-    }
-  });
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+          scrollBtn.style.display = 'block';
+        } else {
+          scrollBtn.style.display = 'none';
+        }
+      });
 
-  scrollBtn.addEventListener("click", () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-  });
-</script>
+      scrollBtn.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+      });
+    </script>
   </body>
 </html>
