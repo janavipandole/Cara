@@ -15,6 +15,7 @@ import io
 import base64
 import random
 import secrets
+import hashlib
 from collections import OrderedDict
 
 # In-memory tracking of failed attempts with an LRU bound to prevent OOM DOS attacks
@@ -173,7 +174,8 @@ def get_captcha():
 @router.post("/login", response_model=Token)
 @limiter.limit("5/minute")
 def login(request: Request, response: Response, payload: UserLogin, db: Session = Depends(get_db)):
-    attempts = failed_login_attempts.get(payload.email, 0)
+    email_hash = hashlib.sha256(payload.email.encode('utf-8')).hexdigest()
+    attempts = failed_login_attempts.get(email_hash, 0)
     
     if attempts >= 1:
         if not payload.captcha_token or not payload.captcha_answer:
@@ -189,22 +191,19 @@ def login(request: Request, response: Response, payload: UserLogin, db: Session 
     user = db.query(models.User).filter(models.User.email == payload.email).first()
 
     if not user or not pwd.verify(payload.password, user.hashed_password):
-        # Only track failed attempts for valid emails to prevent botnets from 
-        # flushing the LRU cache with random dummy emails (cache padding attack).
-        if user:
-            failed_login_attempts[payload.email] = attempts + 1
-            failed_login_attempts.move_to_end(payload.email)
-            
-            # Enforce LRU bounds to prevent memory leaks from massive bot networks
-            if len(failed_login_attempts) > MAX_TRACKED_EMAILS:
-                failed_login_attempts.popitem(last=False)
+        failed_login_attempts[email_hash] = attempts + 1
+        failed_login_attempts.move_to_end(email_hash)
+        
+        # Enforce LRU bounds to prevent memory leaks from massive bot networks
+        if len(failed_login_attempts) > MAX_TRACKED_EMAILS:
+            failed_login_attempts.popitem(last=False)
             
         raise HTTPException(401, "Invalid email or password.")
 
     if not user.is_active:
         raise HTTPException(403, "Account is deactivated.")
 
-    failed_login_attempts.pop(payload.email, None)
+    failed_login_attempts.pop(email_hash, None)
 
     access_token = create_access_token(user.email)
     refresh_token = create_refresh_token(user.email)
