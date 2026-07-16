@@ -969,3 +969,5 @@ body footer.section-p1 .copyright a {
 .coupon-input-group input {
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
+
+@import url('assets/css/toast-notifications.css');
