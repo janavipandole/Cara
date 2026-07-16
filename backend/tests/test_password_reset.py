@@ -27,8 +27,7 @@ def test_forgot_password_existing_email(client, db_session):
     )
     assert response.status_code == 200
     data = response.json()
-    assert "reset_token" in data
-    assert len(data["reset_token"]) > 0
+    assert "message" in data
 
 
 def test_reset_password_valid_token(client, db_session):

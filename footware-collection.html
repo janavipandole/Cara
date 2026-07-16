@@ -207,6 +207,7 @@
       });
     }
   </script>
+  <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
 </head>
 
 <body>
@@ -225,18 +226,18 @@
 
                 <li>
                 <li>
-                    <button class="theme-toggle" id="themeToggleDesktop">
+                    <button aria-label="Button"  class="theme-toggle" id="themeToggleDesktop">>
                         <i class="ri-moon-line"></i>
                     </button>
                 </li>
 
-                <a href="javascript:void(0)" id="close"><i class="fa-solid fa-xmark"></i></a>
+                <a href="javascript:void(0)" id="close" aria-label="Close menu" aria-hidden="false"><i class="fa-solid fa-xmark"></i></a>
             </ul>
         </div>
 
         <div class="mobile">
             <a aria-label="Cart" href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
-            <i class="fas fa-outdent" id="bar"></i>
+            <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
         </div>
     </section>
 

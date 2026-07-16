@@ -83,6 +83,7 @@
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="global.css">
+  <link rel="stylesheet" href="live-sales-toast.css">
 
   <!-- Inline Critical CSS -->
   <style>
@@ -183,7 +184,7 @@
         </li>
 
         <!-- Close Button -->
-        <a href="javascript:void(0)" id="close" aria-hidden="false">
+        <a href="javascript:void(0)" id="close" aria-label="Close menu" aria-hidden="false">
           <i class="fa-solid fa-xmark"></i>
         </a>
       </ul>
@@ -208,7 +209,7 @@
 </section>
 
 <section id="hero" class="hero-slider">
-          <div class="slide active" style="background-image: url('images/hero4.png');">
+          <div class="slide active" style="background-image: url('images/hero4.png');" role="img" aria-label="Promotional banner featuring trending fashion for 2025">
             
             <div class="slide-content">
 
@@ -245,7 +246,7 @@
           </div>
 
           <!-- Slide 2 -->
-          <div class="slide" style="background-image: url('images/banner/b1.png');">
+          <div class="slide" style="background-image: url('images/banner/b1.png');" role="img" aria-label="Promotional banner featuring new summer collection">
 
             <div class="slide-content">
 
@@ -282,7 +283,7 @@
           </div>
 
           <!-- Slide 3 -->
-          <div class="slide" style="background-image: url('images/banner/b2.png');">
+          <div class="slide" style="background-image: url('images/banner/b2.png');" role="img" aria-label="Promotional banner featuring new arrivals">
 
             <div class="slide-content">
 
@@ -527,7 +528,7 @@
     <section id="banner" class="section-m1">
       <h4 >Repair Services</h4>
       <h2 >Up to <span>70% off</span> All t-Shirts & Accessories</h2>
-      <button class="normal"><a href="shop.html" style="color: #ffffff; text-decoration: none;">Explore More</a></button>
+      <button class="normal"  type="button"><a href="shop.html" style="color: #ffffff; text-decoration: none;">Explore More</a></button>
     </section>
 
   <section id="product1" class="section-p1" role="region" aria-label="Products">
@@ -595,7 +596,7 @@
 
    <section id="banner3">
 
-    <div class="banner-box banner-box1">
+    <div class="banner-box banner-box1" role="img" aria-label="Seasonal sale on winter collection">
         <h2>SEASONAL SALE</h2>
         <h3>Winter Collection - 50% OFF</h3>
 
@@ -605,7 +606,7 @@
     </div>
 
 
-    <div class="banner-box banner-box3">
+    <div class="banner-box banner-box3" role="img" aria-label="New trendy prints on T-shirts">
         <h2>T-SHIRTS</h2>
         <h3>New Trendy Prints</h3>
 
@@ -615,7 +616,7 @@
     </div>
     
 
-    <div class="banner-box banner-box2">
+    <div class="banner-box banner-box2" role="img" aria-label="New footwear collection for spring summer">
         <h2>NEW FOOTWEAR COLLECTION</h2>
         <h3>Spring/Summer 2022</h3>
 
@@ -835,8 +836,11 @@ if (btn) {
 </script>
 <button id="backToTop">â†‘</button>
 <script src="js/session-lock.js" defer></script>
+<script src="js/live-sales-toast.js" defer></script>
 </body>
 
 </html>
 
 <!-- Meta Content Security Policy configuration restricting script origins. -->
+
+<!-- FAB Script --><script src='js/scroll-top.js'></script>

@@ -95,8 +95,7 @@
         fetch(STATUS_API, { credentials: 'include' }),
       ]);
 
-      if (sumRes.status === 403 || catRes.status === 403) {
-        throw new Error('Admin privilege required.');
+if (sumRes.status === 403 || catRes.status === 403 || statRes.status === 403) {        throw new Error('Admin privilege required.');
       }
       if (!sumRes.ok || !catRes.ok || !statRes.ok) {
         throw new Error('Failed to retrieve dashboard analytics.');

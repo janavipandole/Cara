@@ -697,7 +697,7 @@ window.loadCart = async function () {
                         onclick="event.stopPropagation(); changeQuantity(${index}, -1)">
                         <i class="ri-subtract-line"></i>
                     </button>
-                    <input type="number" class="qty-input" value="${itemQty}" readonly />
+                    <input type="number" class="qty-input" value="${itemQty}" min="1" max="99" readonly />
                     <button class="qty-btn plus" aria-label="Increase quantity"
                         onclick="event.stopPropagation(); changeQuantity(${index}, 1)">
                         <i class="ri-add-line"></i>
@@ -793,6 +793,10 @@ window.changeQuantity = function (index, change) {
     if (!cart[index]) return;
     let newQty = cart[index].quantity + change;
     if (newQty < 1) newQty = 1;
+    if (newQty > 99) {
+        newQty = 99;
+        if (typeof showToast === "function") showToast("Maximum quantity is 99.", "warning");
+    }
     cart[index].quantity = newQty;
     localStorage.setItem("productsInCart", JSON.stringify(cart));
     loadCart();
@@ -993,46 +997,6 @@ window.buyNow = function (productName, productPrice, productImage, quantity, siz
 })();
 
 /* ============================================================
-   BACK TO TOP / SCROLL TO BOTTOM
-   ============================================================ */
-(function () {
-    const backToTopBtn = document.getElementById("backToTop");
-    const ToptobackBtn = document.getElementById("Toptoback");
-    const topBtn       = document.getElementById("topBtn");
-
-    if (backToTopBtn && ToptobackBtn) {
-        window.addEventListener("scroll", () => {
-            if (window.scrollY <= 300) {
-                ToptobackBtn.classList.add("show");
-                backToTopBtn.classList.remove("show");
-            } else {
-                backToTopBtn.classList.add("show");
-                ToptobackBtn.classList.remove("show");
-            }
-        });
-
-        backToTopBtn.addEventListener("click", () => {
-            window.scrollTo({ top: 0, behavior: "smooth" });
-        });
-
-        ToptobackBtn.addEventListener("click", () => {
-            window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-        });
-    }
-
-    if (topBtn) {
-        window.onscroll = function () {
-            topBtn.style.display =
-                (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200)
-                    ? "block" : "none";
-        };
-        topBtn.addEventListener("click", function () {
-            window.scrollTo({ top: 0, behavior: "smooth" });
-        });
-    }
-})();
-
-/* ============================================================
    STYLE QUIZ
    ============================================================ */
 window.openQuiz = function () {
@@ -1053,7 +1017,6 @@ window.selectStyle = function (style) {
     });
     const productSection = document.getElementById("product1");
     if (productSection) productSection.scrollIntoView({ behavior: "smooth", block: "start" });
-    console.log("Toast: " + `Showing ${style} style recommendations!`);
 };
 
 /* ============================================================
@@ -1785,6 +1748,31 @@ document.addEventListener("DOMContentLoaded", () => {
   window.logError('Unhandled Promise Rejection:', event.reason);
 });
 })();
+// Sleek Dynamic Scroll-to-Top Button
+document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.createElement('button');
+    btn.id = 'scroll-to-top-btn';
+    btn.setAttribute('aria-label', 'Scroll to top');
+    btn.innerHTML = '&#8593;';
+    btn.style.cssText = 'position:fixed;bottom:20px;right:20px;width:45px;height:45px;border-radius:50%;background:#088178;color:#fff;border:none;cursor:pointer;opacity:0;transition:all 0.3s ease;z-index:9999;font-weight:bold;font-size:18px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,0.15);transform:scale(0.8);';
+    document.body.appendChild(btn);
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            btn.style.opacity = '1';
+            btn.style.transform = 'scale(1)';
+        } else {
+            btn.style.opacity = '0';
+            btn.style.transform = 'scale(0.8)';
+        }
+    });
+
+    btn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+});
 /* --- END: PRODUCT QUICK-VIEW MODAL FUNCTIONALITY --- */
 
 
+
+// Toast module loaded

@@ -39,8 +39,13 @@
 }
 
 @keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50%       { transform: scale(1.08); }
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
 }
 
 .track-form-header h2 {
@@ -87,7 +92,9 @@
   font-size: 0.95rem;
   color: #1a1a2e;
   background: #fafafa;
-  transition: border-color 0.25s, box-shadow 0.25s;
+  transition:
+    border-color 0.25s,
+    box-shadow 0.25s;
   outline: none;
 }
 
@@ -120,7 +127,10 @@
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.25s, transform 0.2s, box-shadow 0.25s;
+  transition:
+    background 0.25s,
+    transform 0.2s,
+    box-shadow 0.25s;
   position: relative;
   overflow: hidden;
   margin-top: 4px;
@@ -146,7 +156,7 @@
   display: none;
   width: 20px;
   height: 20px;
-  border: 2.5px solid rgba(255,255,255,0.4);
+  border: 2.5px solid rgba(255, 255, 255, 0.4);
   border-top-color: #fff;
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
@@ -154,7 +164,9 @@
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .track-btn.loading .btn-loader {
@@ -194,8 +206,14 @@
 }
 
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Result Header */
@@ -212,7 +230,7 @@
 .order-meta .order-id-label {
   display: block;
   font-size: 0.78rem;
-  color: rgba(255,255,255,0.75);
+  color: rgba(255, 255, 255, 0.75);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin-bottom: 4px;
@@ -228,9 +246,9 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: rgba(255,255,255,0.2);
+  background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(4px);
-  border: 1px solid rgba(255,255,255,0.35);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 30px;
   padding: 8px 18px;
   color: #fff;
@@ -303,29 +321,38 @@
 .timeline {
   position: relative;
   display: flex;
-  flex-direction: column;
-  gap: 0;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+  overflow-x: auto;
+  padding-bottom: 10px;
 }
 
-/* Connecting vertical line */
+/* Connecting horizontal line */
 .timeline::before {
-  content: "";
+  content: '';
   position: absolute;
-  left: 22px;
-  top: 0;
-  bottom: 0;
-  width: 2px;
+  left: 0;
+  right: 0;
+  top: 23px;
+  height: 4px;
+  width: 100%;
   background: #e8e8e8;
   z-index: 0;
 }
 
 .timeline-step {
   display: flex;
-  align-items: flex-start;
-  gap: 20px;
-  padding: 12px 0;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
   position: relative;
   z-index: 1;
+  flex: 1;
+  min-width: 130px;
+  transition: all 0.3s ease;
 }
 
 /* Step icon circle */
@@ -360,8 +387,13 @@
 }
 
 @keyframes activePulse {
-  0%, 100% { box-shadow: 0 0 0 4px rgba(8, 129, 120, 0.15); }
-  50%       { box-shadow: 0 0 0 8px rgba(8, 129, 120, 0.08); }
+  0%,
+  100% {
+    box-shadow: 0 0 0 4px rgba(8, 129, 120, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(8, 129, 120, 0.08);
+  }
 }
 
 .step-content h4 {
@@ -598,7 +630,9 @@
 .faq-answer {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.35s ease, padding 0.3s ease;
+  transition:
+    max-height 0.35s ease,
+    padding 0.3s ease;
   padding: 0 24px;
   font-size: 0.9rem;
   color: #666;
@@ -754,5 +788,69 @@ body.dark-theme .demo-hint {
   .detail-item {
     border-right: none;
     border-bottom: 1px solid #f0f0f0;
+  }
+}
+
+/* Custom Mock Order Creator Form Styling */
+.creator-toggle-btn {
+  background: none;
+  border: 1px dashed var(--accent, #088178);
+  color: var(--accent, #088178);
+  padding: 12px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+  width: 100%;
+  transition: all 0.2s ease;
+}
+
+.creator-toggle-btn:hover {
+  background: rgba(8, 129, 120, 0.05);
+}
+
+.mock-creator-form-container {
+  margin-top: 20px;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 8px;
+  animation: slideDown 0.3s ease-out;
+  text-align: left;
+}
+
+.mock-creator-form-container.hidden {
+  display: none;
+}
+
+.btn-create-mock {
+  background-color: var(--accent, #088178);
+  color: #fff;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 15px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-create-mock:hover {
+  background-color: #066b63;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
