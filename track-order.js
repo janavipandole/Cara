@@ -136,7 +136,11 @@ if (form) {
 
     setTimeout(function () {
       setLoading(false);
-      const order = MOCK_ORDERS[orderIdRaw];
+      // Check localStorage for custom mock orders first
+      const customOrders = JSON.parse(
+        localStorage.getItem('cara_custom_mock_orders') || '{}'
+      );
+      const order = customOrders[orderIdRaw] || MOCK_ORDERS[orderIdRaw];
 
       // For demo purposes any email works for the demo order
       if (order) {
@@ -224,26 +228,38 @@ function renderResult(order) {
     }
   }, 3000);
 
-  // Populate timeline
+  // Populate timeline with sequential stagger transitions
   const steps = ['ordered', 'packed', 'shipped', 'transit', 'delivered'];
-  steps.forEach(function (key) {
+  steps.forEach(function (key, index) {
     const stepEl = document.getElementById('step-' + key);
     if (!stepEl) return;
 
     const stepData = order.timeline[key];
     stepEl.classList.remove('completed', 'active');
 
-    if (stepData.active) {
-      stepEl.classList.add('active');
-    } else if (stepData.done) {
-      stepEl.classList.add('completed');
-    }
-
-    // Update text
+    // Update text immediately
     const pEl = stepEl.querySelector('.step-content p');
     const timeEl = stepEl.querySelector('.step-content time');
     if (pEl) pEl.textContent = stepData.note;
     if (timeEl) timeEl.textContent = stepData.date;
+
+    // Stagger transition animations by applying active/completed classes with timeouts
+    setTimeout(() => {
+      if (stepData.active) {
+        stepEl.classList.add('active');
+      } else if (stepData.done) {
+        stepEl.classList.add('completed');
+      }
+
+      // Trigger a slight scale transition on the icon
+      const icon = stepEl.querySelector('.step-icon');
+      if (icon) {
+        icon.style.transform = 'scale(1.1)';
+        setTimeout(() => {
+          icon.style.transform = 'scale(1)';
+        }, 300);
+      }
+    }, index * 200); // 200ms stagger delay
   });
 
   // Populate order items
@@ -253,32 +269,32 @@ function renderResult(order) {
     order.items.forEach(function (item) {
       const orderItem = document.createElement('div');
       orderItem.className = 'order-item';
-      
+
       const img = document.createElement('img');
       img.src = item.img;
       img.alt = item.name;
       img.loading = 'lazy';
-      
+
       const info = document.createElement('div');
       info.className = 'item-info';
-      
+
       const name = document.createElement('h4');
       name.textContent = item.name;
-      
+
       const sizeQty = document.createElement('span');
       sizeQty.textContent = `Size: ${item.size}  |  Qty: ${item.qty}`;
-      
+
       info.appendChild(name);
       info.appendChild(sizeQty);
-      
+
       const price = document.createElement('span');
       price.className = 'item-price';
       price.textContent = item.price;
-      
+
       orderItem.appendChild(img);
       orderItem.appendChild(info);
       orderItem.appendChild(price);
-      
+
       itemsList.appendChild(orderItem);
     });
 
@@ -293,6 +309,19 @@ function renderResult(order) {
   resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
+function calculateEstimatedDelivery(orderDateStr, carrier) {
+  const orderDate = new Date(orderDateStr);
+  if (isNaN(orderDate.getTime())) return orderDateStr;
+
+  let daysToAdd = 5; // Standard Shipping
+  if (carrier === 'FedEx Express') daysToAdd = 2;
+  if (carrier === 'Next Day Air') daysToAdd = 1;
+
+  orderDate.setDate(orderDate.getDate() + daysToAdd);
+  const options = { month: 'long', day: 'numeric', year: 'numeric' };
+  return orderDate.toLocaleDateString('en-US', options);
+}
+
 // Auto-fill tracked order from localStorage if available
 document.addEventListener('DOMContentLoaded', () => {
   const cachedId = localStorage.getItem('cara_last_tracked_id');
@@ -302,6 +331,143 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   if (cachedEmail && document.getElementById('orderEmail')) {
     document.getElementById('orderEmail').value = cachedEmail;
+  }
+
+  // Toggle creator form visibility
+  const toggleBtn = document.getElementById('toggleCreatorBtn');
+  const creatorContainer = document.getElementById('mockCreatorFormContainer');
+  if (toggleBtn && creatorContainer) {
+    toggleBtn.addEventListener('click', () => {
+      creatorContainer.classList.toggle('hidden');
+    });
+  }
+
+  // Handle Mock Order Form Submission
+  const createMockForm = document.getElementById('createMockForm');
+  if (createMockForm) {
+    createMockForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const orderId = document
+        .getElementById('mockOrderId')
+        .value.trim()
+        .toUpperCase();
+      const email = document
+        .getElementById('mockEmail')
+        .value.trim()
+        .toLowerCase();
+      const carrier = document.getElementById('mockCarrier').value;
+      const status = document.getElementById('mockStatus').value;
+
+      const now = new Date();
+      const options = { month: 'long', day: 'numeric', year: 'numeric' };
+      const dateStr = now.toLocaleDateString('en-US', options);
+
+      // Calculate dynamic estimated delivery
+      const estDelivery = calculateEstimatedDelivery(dateStr, carrier);
+
+      // Map status to current step
+      let currentStep = 'ordered';
+      if (status === 'Packed') currentStep = 'packed';
+      if (status === 'Shipped') currentStep = 'shipped';
+      if (status === 'In Transit') currentStep = 'transit';
+      if (status === 'Delivered') currentStep = 'delivered';
+
+      // Build dynamic timeline step info
+      const customMockOrder = {
+        id: orderId,
+        date: dateStr,
+        carrier: carrier,
+        trackingNo: Math.floor(100000000000 + Math.random() * 900000000000)
+          .toString()
+          .replace(/(\d{4})/g, '$1 ')
+          .trim(),
+        estDelivery: estDelivery,
+        status: status,
+        currentStep: currentStep,
+        location: 'Local Sort Facility',
+        items: [
+          {
+            name: 'Cartoon Astronaut T-Shirt',
+            img: 'images/products/f1.jpg',
+            size: 'M',
+            qty: 1,
+            price: '$78.00',
+          },
+        ],
+        total: '$78.00',
+        timeline: {
+          ordered: {
+            done: true,
+            date: dateStr + ' — 10:00 AM',
+            note: 'Your order has been confirmed and is being processed.',
+          },
+          packed: {
+            done: status !== 'Processing',
+            active: status === 'Packed',
+            date: status === 'Processing' ? 'Pending' : dateStr + ' — 2:00 PM',
+            note: 'Your items have been packed and are ready for pickup.',
+          },
+          shipped: {
+            done: status !== 'Processing' && status !== 'Packed',
+            active: status === 'Shipped',
+            date:
+              status === 'Processing' || status === 'Packed'
+                ? 'Pending'
+                : dateStr + ' — 5:00 PM',
+            note: 'Your package has been handed off to the carrier.',
+          },
+          transit: {
+            done: status === 'Delivered',
+            active: status === 'In Transit',
+            date:
+              status === 'Delivered'
+                ? dateStr + ' — 9:00 AM'
+                : status === 'In Transit'
+                  ? 'Today'
+                  : 'Pending',
+            note: 'Your package is on its way.',
+          },
+          delivered: {
+            done: status === 'Delivered',
+            active: status === 'Delivered',
+            date:
+              status === 'Delivered'
+                ? dateStr + ' — 12:00 PM'
+                : 'Expected: ' + estDelivery,
+            note:
+              status === 'Delivered'
+                ? 'Your package has been delivered.'
+                : 'Your package will be delivered to your door.',
+          },
+        },
+      };
+
+      // Retrieve existing custom mock orders
+      const customOrders = JSON.parse(
+        localStorage.getItem('cara_custom_mock_orders') || '{}'
+      );
+      customOrders[orderId] = customMockOrder;
+      localStorage.setItem(
+        'cara_custom_mock_orders',
+        JSON.stringify(customOrders)
+      );
+
+      // Auto pre-fill track form
+      const orderIdInput = document.getElementById('orderId');
+      const emailInput = document.getElementById('orderEmail');
+      if (orderIdInput) orderIdInput.value = orderId;
+      if (emailInput) emailInput.value = email;
+
+      // Reset forms and hide mock form
+      createMockForm.reset();
+      creatorContainer.classList.add('hidden');
+
+      // Trigger search submission
+      document
+        .getElementById('trackOrderForm')
+        .dispatchEvent(new Event('submit'));
+    });
   }
 });
 
@@ -367,4 +533,6 @@ window.addEventListener('beforeunload', function () {
   }
 });
 
-// Timeline animator simulating transitions through shipping progress milestones.
+// Bind globally to satisfy linter for inline HTML attributes
+window.resetTracker = resetTracker;
+window.toggleFaq = toggleFaq;
