@@ -474,7 +474,11 @@ function updateStarDisplay(starDiv, rating) {
 function safeParseJSON(key, fallback = '[]') {
   try {
     return JSON.parse(localStorage.getItem(key) || fallback);
-  } catch {
+  } catch (e) {
+    window.logError(`Corrupted localStorage data for "${key}":`, e);
+    if (typeof showToast === 'function') {
+      showToast('Some saved data was corrupted and has been reset. Please re-add your items.', 'warning');
+    }
     try {
       return JSON.parse(fallback);
     } catch {

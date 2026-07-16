@@ -843,6 +843,40 @@
         <i class="fab fa-cc-amex"></i>
       </a>
 
+      <!-- Copyright -->
+      <div class="copyright">
+        <p>
+          © Cara 2026. All rights reserved. |
+          <a href="license.html" style="color: #088178"> MIT License </a>
+        </p>
+      </div>
+    </footer>
+    
+    <button id="scrollTopBtn" type="button" title="Go to top">
+      ↑
+    </button>
+
+    <!-- Scripts -->
+    <script src="navbar.js"></script>
+    <script>
+      loadNavbar('about');
+    </script>
+
+    <script src="app.js"></script>
+
+    <script>
+      document.querySelector('.Current-Year').textContent =
+        new Date().getFullYear();
+    </script>
+    
+    <script>
+      const scrollBtn = document.getElementById('scrollTopBtn');
+
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+          scrollBtn.style.display = 'block';
+        } else {
+          scrollBtn.style.display = 'none';
       <a
         href="https://stripe.com"
         target="_blank"

@@ -15,7 +15,7 @@ router = APIRouter()
 @router.get("/", response_model=List[schemas.Product])
 def get_products(
     skip: int = 0,
-    limit: int = 50,
+    limit: int = Query(default=50, le=100),
     db: Session = Depends(get_db),
 ):
     return db.query(models.Product).offset(skip).limit(limit).all()
@@ -188,10 +188,19 @@ def get_category_summary(db: Session = Depends(get_db)) -> dict:
     present in the catalog — useful for populating filter dropdown menus
     on the frontend without hard-coding values.
     """
-    categories   = [r[0] for r in db.query(func.distinct(models.Product.category)).filter(models.Product.category.isnot(None)).all()]
-    subcategories = [r[0] for r in db.query(func.distinct(models.Product.subcategory)).filter(models.Product.subcategory.isnot(None)).all()]
-    colors       = [r[0] for r in db.query(func.distinct(models.Product.color)).filter(models.Product.color.isnot(None)).all()]
-    styles       = [r[0] for r in db.query(func.distinct(models.Product.style)).filter(models.Product.style.isnot(None)).all()]
+    rows = db.query(
+        models.Product.category,
+        models.Product.subcategory,
+        models.Product.color,
+        models.Product.style
+    ).distinct().all()
+
+    cat_set, sub_set, col_set, sty_set = set(), set(), set(), set()
+    for r in rows:
+        if r[0]: cat_set.add(r[0])
+        if r[1]: sub_set.add(r[1])
+        if r[2]: col_set.add(r[2])
+        if r[3]: sty_set.add(r[3])
 
     price_range = db.query(
         func.min(models.Product.price),
@@ -199,10 +208,10 @@ def get_category_summary(db: Session = Depends(get_db)) -> dict:
     ).first()
 
     return {
-        "categories": sorted(categories),
-        "subcategories": sorted(subcategories),
-        "colors": sorted(colors),
-        "styles": sorted(styles),
+        "categories": sorted(list(cat_set)),
+        "subcategories": sorted(list(sub_set)),
+        "colors": sorted(list(col_set)),
+        "styles": sorted(list(sty_set)),
         "price_range": {
             "min": price_range[0] if price_range[0] is not None else 0,
             "max": price_range[1] if price_range[1] is not None else 0,
