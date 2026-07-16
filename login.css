@@ -366,3 +366,5 @@
     font-size: 26px;
   }
 }
+
+@import url('assets/css/a11y-forms.css');
