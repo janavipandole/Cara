@@ -3493,3 +3493,5 @@ footer .copyright {
 .text-accent { color: var(--accent); }
 .bg-accent { background-color: var(--accent); }
 .border-accent { border-color: var(--accent); }
+
+@import url('assets/css/scroll-top.css');

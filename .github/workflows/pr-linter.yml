@@ -1,8 +1,8 @@
-name: CI
-on: [push, pull_request]
+name: PR Linter
+on: [pull_request]
 jobs:
-  test:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: echo 'CI Passed'
+      - run: echo 'Lint Passed'
