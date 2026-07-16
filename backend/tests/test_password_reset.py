@@ -26,6 +26,7 @@ def test_forgot_password_existing_email(client, db_session):
         json={"email": "test@example.com"},
     )
     assert response.status_code == 200
+    data = response.json()
     assert "message" in data
 
 
