@@ -1,19 +1,15 @@
-const contributorsGrid = document.getElementById("contributorsGrid");
+const contributorsGrid = document.getElementById('contributorsGrid');
 
 async function fetchContributors() {
-
   try {
-
     const response = await fetchWithTimeout(
-      "https://api.github.com/repos/janavipandole/Cara/contributors"
+      'https://api.github.com/repos/janavipandole/Cara/contributors',
     );
 
     const data = await response.json();
 
     displayContributors(data);
-
   } catch (error) {
-
     contributorsGrid.innerHTML = `
       <p style="text-align:center;">
         Failed to load contributors.
@@ -21,20 +17,16 @@ async function fetchContributors() {
     `;
 
     window.logError(error);
-
   }
-
 }
 
 function displayContributors(contributors) {
-
-  contributorsGrid.innerHTML = "";
+  contributorsGrid.innerHTML = '';
 
   contributors.forEach((contributor) => {
+    const card = document.createElement('div');
 
-    const card = document.createElement("div");
-
-    card.className = "contributor-card";
+    card.className = 'contributor-card';
 
     card.innerHTML = `
 
@@ -72,9 +64,7 @@ function displayContributors(contributors) {
     `;
 
     contributorsGrid.appendChild(card);
-
   });
-
 }
 
 fetchContributors();
