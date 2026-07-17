@@ -110,12 +110,12 @@
 }
 
 .password-wrapper input {
-  padding-right: 46px;
+  padding-inline-end: 46px;
 }
 
 .toggle-eye {
   position: absolute;
-  right: 14px;
+  inset-inline-end: 14px;
   top: 50%;
   transform: translateY(-50%);
   background: none;
@@ -285,7 +285,7 @@
 .required {
   color: red;
   font-weight: bold;
-  margin-left: 2px;
+  margin-inline-start: 2px;
 }
 .required-note {
   font-size: 14px;

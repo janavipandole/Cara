@@ -412,7 +412,7 @@ button.white:focus-visible {
 
 .back-btn {
     position: absolute;
-    right: 110px;
+    inset-inline-end: 110px;
     top: 140px;
     padding: 11px 24px;
     border: none;
@@ -489,7 +489,7 @@ button.white .ripple-effect {
 }
 
 .mobile .theme-toggle {
-    margin-right: 10px;
+    margin-inline-end: 10px;
 }
 
 /* ============================================
@@ -519,7 +519,7 @@ button.white .ripple-effect {
     position: relative;
     position: relative;
     top: 0;
-    left: 0;
+    inset-inline-start: 0;
     width: 100%;
     height: auto;
 }
@@ -550,7 +550,7 @@ button.white .ripple-effect {
 
     position: fixed;
     top: 0;
-    left: 0;
+    inset-inline-start: 0;
 
     width: 100%;
     z-index: 999;
@@ -661,7 +661,7 @@ button.white .ripple-effect {
 .hero-slider .slide {
     position: absolute;
     top: 0;
-    left: 0;
+    inset-inline-start: 0;
 
     width: 100%;
     height: 100%;
@@ -808,11 +808,11 @@ footer ~ * {
 }
 
 .slider-btn.prev {
-    left: 20px;
+    inset-inline-start: 20px;
 }
 
 .slider-btn.next {
-    right: 20px;
+    inset-inline-end: 20px;
 }
 
 /* ───────────────── DOTS ───────────────── */
@@ -820,7 +820,7 @@ footer ~ * {
 .slider-dots {
     position: absolute;
     bottom: 30px;
-    left: 50%;
+    inset-inline-start: 50%;
 
     transform: translateX(-50%);
 
@@ -1045,8 +1045,8 @@ footer ~ * {
         height: 28px;
     }
 
-    .slider-btn.prev { left: 12px;  }
-    .slider-btn.next { right: 12px; }
+    .slider-btn.prev { inset-inline-start: 12px;  }
+    .slider-btn.next { inset-inline-end: 12px; }
 
     .slider-dots {
         bottom: 18px;
@@ -1498,7 +1498,7 @@ footer ~ * {
     border: 1.5px solid var(--border-color);
     position: absolute;
     bottom: 14px;
-    right: 12px;
+    inset-inline-end: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1571,7 +1571,7 @@ footer ~ * {
 .search-suggestions {
     position: absolute; /* This pulls it out of the flex flow so it hovers */
     top: calc(100% + 5px); /* Pushes it just below the search bar */
-    left: 0;
+    inset-inline-start: 0;
     width: 100%;
     z-index: 1000; /* Ensures it sits above the products */
     border: 1px solid var(--border-color);
@@ -1584,7 +1584,7 @@ footer ~ * {
 
 .search-suggestions button {
     width: 100%;
-    text-align: left;
+    text-align: start;
     border: none;
     background: transparent;
     padding: 12px 16px;
@@ -1634,7 +1634,7 @@ footer ~ * {
 }
 
 .search-summary {
-    text-align: right;
+    text-align: end;
     font-size: 15px;
     color: var(--text-secondary);
 }
@@ -1666,7 +1666,7 @@ footer ~ * {
     }
 
     #search-filter .search-summary {
-        text-align: left;
+        text-align: start;
     }
 }
 
@@ -1859,16 +1859,16 @@ footer ~ * {
     border: 1px solid transparent;
     outline: none;
     border-radius: 4px;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
     background-color: var(--input-bg);
     color: var(--text-primary);
     transition: all 0.3s ease;
 }
 
 #newsletter .form button {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+    border-start-start-radius: 0;
+    border-end-start-radius: 0;
     background-color: var(--primary-color, #088178);
     color: #fff;
     white-space: nowrap;
@@ -2426,7 +2426,7 @@ footer {
 .buy-now-btn {
     position: absolute;
     bottom: 18px;
-    left: 10px;
+    inset-inline-start: 10px;
     padding: 8px 16px;
     background-color: var(--accent);
     color: white;
@@ -2453,7 +2453,7 @@ footer {
     #product1 .pro .cart {
         position: absolute;
         bottom: 18px;
-        right: 15px;
+        inset-inline-end: 15px;
         width: 42px;
         height: 42px;
         line-height: 42px;
@@ -2761,7 +2761,7 @@ footer {
     #pro-details .single-pro-image {
         pointer-events: all;
         width: 40%;
-        margin-right: 50px;
+        margin-inline-end: 50px;
     }
 
     .small-img-group {
@@ -2804,9 +2804,9 @@ footer {
     #pro-details .single-pro-details input {
         width: 50px;
         height: 47px;
-        padding-left: 10px;
+        padding-inline-start: 10px;
         font-size: 16px;
-        margin-right: 10px;
+        margin-inline-end: 10px;
     }
 
     #pro-details .single-pro-details input:focus {
@@ -2952,7 +2952,7 @@ footer {
         #toast-container {
             position: fixed;
             top: 24px;
-            right: 24px;
+            inset-inline-end: 24px;
             display: flex;
             flex-direction: column;
             gap: 12px;
@@ -2974,7 +2974,7 @@ footer {
             font-weight: 500;
             font-family: 'Outfit', 'Segoe UI', sans-serif;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
-            border-left: 4px solid var(--primary-color, #088178);
+            border-inline-start: 4px solid var(--primary-color, #088178);
             pointer-events: all;
             position: relative;
             overflow: hidden;
@@ -3017,7 +3017,7 @@ footer {
         .toast-progress {
             position: absolute;
             bottom: 0;
-            left: 0;
+            inset-inline-start: 0;
             height: 3px;
             border-radius: 0 0 0 12px;
             animation: toastProgress 4s linear forwards;
@@ -3025,7 +3025,7 @@ footer {
 
         /* --- Toast Variants --- */
         .toast-success {
-            border-left-color: var(--primary-color, #088178);
+            border-inline-start-color: var(--primary-color, #088178);
         }
 
         .toast-success .toast-icon {
@@ -3037,7 +3037,7 @@ footer {
         }
 
         .toast-error {
-            border-left-color: #dc2626;
+            border-inline-start-color: #dc2626;
         }
 
         .toast-error .toast-icon {
@@ -3049,7 +3049,7 @@ footer {
         }
 
         .toast-warning {
-            border-left-color: #f59e0b;
+            border-inline-start-color: #f59e0b;
         }
 
         .toast-warning .toast-icon {
@@ -3061,7 +3061,7 @@ footer {
         }
 
         .toast-info {
-            border-left-color: #3b82f6;
+            border-inline-start-color: #3b82f6;
         }
 
         .toast-info .toast-icon {
@@ -3127,8 +3127,8 @@ footer {
             #toast-container {
                 top: auto;
                 bottom: 20px;
-                right: 12px;
-                left: 12px;
+                inset-inline-end: 12px;
+                inset-inline-start: 12px;
             }
 
             .toast {
@@ -3199,7 +3199,7 @@ footer {
         #blog .blog-box h1 {
             position: absolute;
             top: -12%;
-            left: 0;
+            inset-inline-start: 0;
             z-index: -9;
             font-size: 70px;
             font-weight: 700;
@@ -3208,7 +3208,7 @@ footer {
 
         #blog .blog-img {
             width: 50%;
-            margin-right: 50px;
+            margin-inline-end: 50px;
         }
 
         #blog img {
@@ -3237,7 +3237,7 @@ footer {
             background-color: #000;
             position: absolute;
             top: -4%;
-            right: -60%;
+            inset-inline-end: -60%;
         }
 
         #blog .blog-details a:hover {
@@ -3609,14 +3609,14 @@ footer {
             width: 180px;
             height: 180px;
             top: -24px;
-            left: -40px;
+            inset-inline-start: -40px;
             background: rgba(8, 129, 120, 0.07);
         }
 
         .cara-features::after {
             width: 220px;
             height: 220px;
-            right: -60px;
+            inset-inline-end: -60px;
             bottom: -30px;
             background: rgba(8, 129, 120, 0.045);
         }
@@ -3683,8 +3683,8 @@ footer {
             content: "";
             position: absolute;
             top: 0;
-            left: 0;
-            right: 0;
+            inset-inline-start: 0;
+            inset-inline-end: 0;
             height: 3px;
             background: linear-gradient(90deg, rgba(8, 129, 120, 0.22), rgba(8, 129, 120, 0.04));
         }
@@ -3895,7 +3895,7 @@ footer {
 
         #contact-details .details li i {
             font-size: 18px;
-            padding-right: 22px;
+            padding-inline-end: 22px;
         }
 
         #contact-details .details li p {
@@ -3953,7 +3953,7 @@ footer {
             width: 65px;
             height: 65px;
             object-fit: cover;
-            margin-right: 15px;
+            margin-inline-end: 15px;
         }
 
         #form-details .social-media div p {
@@ -4115,7 +4115,7 @@ footer {
                 justify-content: flex-start;
                 position: fixed;
                 top: 0;
-                right: -300px;
+                inset-inline-end: -300px;
                 height: 100vh;
                 width: 300px;
                 background-color: var(--card-bg);
@@ -4176,8 +4176,8 @@ footer {
 
             #cart table thead {
                 border: 1px solid #e2e9e1;
-                border-left: none;
-                border-right: none;
+                border-inline-start: none;
+                border-inline-end: none;
             }
 
             #cart table thead td {
@@ -4237,7 +4237,7 @@ footer {
                 outline: none;
                 border-radius: 4px;
                 width: 60%;
-                margin-right: 10px;
+                margin-inline-end: 10px;
                 border: 1px solid #e2e9e1;
             }
 
@@ -4291,7 +4291,7 @@ footer {
             #signUpMessage {
                 position: fixed;
                 top: 2rem;
-                left: 50%;
+                inset-inline-start: 50%;
                 padding: 0.75rem;
                 font-size: 0.875rem;
                 text-align: center;
@@ -4341,8 +4341,8 @@ footer {
 
             .divider span {
                 flex-shrink: 0;
-                margin-left: 1rem;
-                margin-right: 1rem;
+                margin-inline-start: 1rem;
+                margin-inline-end: 1rem;
                 color: #6b7280;
             }
 
@@ -4389,7 +4389,7 @@ footer {
                 font-size: 0.875rem;
                 margin-top: 1rem;
                 /* mt-4 */
-                text-align: right;
+                text-align: end;
             }
 
             #forgot-password-link a {
@@ -4459,7 +4459,7 @@ footer {
             #backToTop,
             #Toptoback {
                 position: fixed;
-                right: 25px;
+                inset-inline-end: 25px;
                 width: 55px;
                 height: 55px;
                 border: none;

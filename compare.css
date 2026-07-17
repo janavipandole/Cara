@@ -7,7 +7,7 @@
 .compare-float-btn {
   position: fixed;
   bottom: 24px;
-  right: 90px;
+  inset-inline-end: 90px;
   z-index: 9000;
   display: none;
   align-items: center;
@@ -131,7 +131,7 @@
   text-align: center;
 }
 .compare-table .row-label {
-  text-align: left;
+  text-align: start;
   font-weight: 600;
   color: #333;
   background: #f8f8f8;
@@ -274,7 +274,7 @@
     height: 110px;
   }
   .compare-float-btn {
-    right: 16px;
+    inset-inline-end: 16px;
     bottom: 70px;
     padding: 10px 16px;
     font-size: 0.82rem;

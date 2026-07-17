@@ -182,12 +182,12 @@
 }
 
 .password-wrapper .input-field {
-  padding-right: 46px;
+  padding-inline-end: 46px;
 }
 
 .toggle_password {
   position: absolute;
-  right: 14px;
+  inset-inline-end: 14px;
   top: 50%;
   transform: translateY(-50%);
   background: none;

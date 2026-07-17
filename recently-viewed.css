@@ -54,7 +54,7 @@
   position: relative;
   flex: 0 0 220px;
   max-width: 220px;
-  text-align: left;
+  text-align: start;
   cursor: pointer;
   padding: 12px 12px 14px;
   border: 1.5px solid var(--border-color, #e5e5e5);

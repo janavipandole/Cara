@@ -84,6 +84,14 @@ function loadNavbar(activePage) {
             <span class="cart-count" id="desktopCartCount">0</span>
           </a>
         </li>
+        <li class="nav-icon">
+          <select class="language-selector" aria-label="Select Language" style="background: transparent; border: 1px solid var(--text-color, #1a1a1a); color: var(--text-color, #1a1a1a); padding: 4px 6px; border-radius: 4px; font-size: 14px; cursor: pointer; outline: none; transition: 0.3s; height: 32px; display: inline-flex; align-items: center;">
+            <option value="en">EN</option>
+            <option value="ar">AR</option>
+            <option value="he">HE</option>
+            <option value="fa">FA</option>
+          </select>
+        </li>
         <li>
           <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
             <i class="ri-moon-line" id="themeIcon"></i>

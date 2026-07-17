@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!/[A-Z]/.test(newPass)) {
         showToast(
           'Password must contain at least one uppercase letter (A-Z).',
-          'warning'
+          'warning',
         );
         return;
       }
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!/[a-z]/.test(newPass)) {
         showToast(
           'Password must contain at least one lowercase letter (a-z).',
-          'warning'
+          'warning',
         );
         return;
       }
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!/[0-9]/.test(newPass)) {
         showToast(
           'Password must contain at least one number (0-9).',
-          'warning'
+          'warning',
         );
         return;
       }
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(newPass)) {
         showToast(
           'Password must contain at least one special character (e.g. @, #, $).',
-          'warning'
+          'warning',
         );
         return;
       }
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       const submitBtn = document.querySelector(
-        '#forgotForm button[type="submit"], #forgotForm .btn-primary'
+        '#forgotForm button[type="submit"], #forgotForm .btn-primary',
       );
       if (submitBtn) {
         submitBtn.classList.add('btn-loading');
@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(function () {
           showToast(
             'Password reset successful! Redirecting to login...',
-            'success'
+            'success',
           );
           setTimeout(function () {
             window.location.href = 'login.html';
@@ -153,4 +153,3 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
-

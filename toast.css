@@ -8,7 +8,7 @@
 #toast-container {
   position: fixed;
   top: 24px;
-  right: 24px;
+  inset-inline-end: 24px;
   z-index: 9999;
   display: flex;
   flex-direction: column;
@@ -54,19 +54,19 @@
 /* Green for success ("Welcome back!", "Account created") */
 .toast-success {
   background-color: #088178;
-  border-left: 4px solid #055f5a;
+  border-inline-start: 4px solid #055f5a;
 }
 
 /* Red for errors ("Something went wrong") */
 .toast-error {
   background-color: #dc3545;
-  border-left: 4px solid #a71d2a;
+  border-inline-start: 4px solid #a71d2a;
 }
 
 /* Optional: info style (blue) — not used yet but handy to have */
 .toast-info {
   background-color: #0891b2;
-  border-left: 4px solid #0369a1;
+  border-inline-start: 4px solid #0369a1;
 }
 
 /* ============================================================
@@ -77,7 +77,7 @@
   #toast-container {
     top: auto;
     bottom: 24px;
-    right: 50%;
+    inset-inline-end: 50%;
     transform: translateX(50%);
     align-items: center;
   }
@@ -88,4 +88,6 @@
   }
 }
 /* Fix #2423 */
-:root { --em-base-duration: 300ms; }
+:root {
+  --em-base-duration: 300ms;
+}

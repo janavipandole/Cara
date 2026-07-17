@@ -137,7 +137,7 @@ body footer.section-p1 .newsletter-form button {
 
 body footer.section-p1 .install .row img {
   height: 30px !important;              
-  margin-right: 6px !important;
+  margin-inline-end: 6px !important;
   margin-bottom: 5px !important;
 }
 
@@ -188,7 +188,7 @@ body footer.section-p1 .copyright a {
                 justify-content: flex-start;
                 position: fixed;
                 top: 0;
-                right: -300px;
+                inset-inline-end: -300px;
                 height: 100vh;
                 width: 300px;
                 background-color: var(--card-bg);
@@ -246,8 +246,8 @@ body footer.section-p1 .copyright a {
 
             #cart table thead {
                 border: 1px solid #e2e9e1;
-                border-left: none;
-                border-right: none;
+                border-inline-start: none;
+                border-inline-end: none;
             }
 
             #cart table thead td {
@@ -302,7 +302,7 @@ body footer.section-p1 .copyright a {
                 outline: none;
                 border-radius: 4px;
                 width: 60%;
-                margin-right: 10px;
+                margin-inline-end: 10px;
                 border: 1px solid #e2e9e1;
             }
 
@@ -388,7 +388,7 @@ body footer.section-p1 .copyright a {
                 text-align: center;
             }
             .header-subtotal {
-                text-align: right;
+                text-align: end;
             }
         }
 
@@ -581,7 +581,7 @@ body footer.section-p1 .copyright a {
 
         @media (min-width: 768px) {
             .cart-item-subtotal {
-                text-align: right;
+                text-align: end;
             }
         }
 
@@ -608,7 +608,7 @@ body footer.section-p1 .copyright a {
 
         @media (min-width: 768px) {
             .cart-item-remove {
-                margin-left: auto;
+                margin-inline-start: auto;
             }
         }
 

@@ -110,7 +110,9 @@
   color: var(--text-primary);
   font-weight: 600;
   cursor: pointer;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .afb-toggle-btn i {
@@ -118,7 +120,7 @@
 }
 
 .afb-toggle-btn:hover,
-.afb-toggle-btn[aria-expanded="true"] {
+.afb-toggle-btn[aria-expanded='true'] {
   border-color: var(--accent);
   box-shadow: 0 0 0 4px rgba(8, 129, 120, 0.08);
 }
@@ -173,7 +175,7 @@
   overflow: hidden;
 }
 
-.afb-panel[aria-hidden="false"] {
+.afb-panel[aria-hidden='false'] {
   display: block;
 }
 
@@ -226,7 +228,11 @@
 .afb-range-fill {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgba(8,129,120,0.2), rgba(8,129,120,0.4));
+  background: linear-gradient(
+    90deg,
+    rgba(8, 129, 120, 0.2),
+    rgba(8, 129, 120, 0.4)
+  );
 }
 
 .afb-range {

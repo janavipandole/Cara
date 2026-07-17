@@ -1,155 +1,238 @@
 <!doctype html>
 <html lang="en">
-<head>
-    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login - Cara</title>
-  <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
-  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="ui-fix.css" />
-  <link rel="stylesheet" href="toast.css" />
-  <link rel="stylesheet" href="login.css" />
-  <link rel="manifest" href="/manifest.json">
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js');
-      });
-    }
-  </script>
-  <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
-</head>
-<body>
+  <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Cara</title>
+    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="ui-fix.css" />
+    <link rel="stylesheet" href="toast.css" />
+    <link rel="stylesheet" href="login.css" />
+    <link rel="manifest" href="/manifest.json" />
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/service-worker.js');
+        });
+      }
+    </script>
+    <meta
+      name="description"
+      content="Cara - The best ecommerce store for modern fashion and clothing."
+    />
+  </head>
+  <body>
+    <section id="header" role="banner">
+      <!-- Logo -->
+      <a href="index.html" aria-label="Home">
+        <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
+      </a>
+      <div id="navbar-container"></div>
+      <div class="mobile">
+        <a href="login.html" aria-label="Login"
+          ><i class="ri-user-3-line"></i
+        ></a>
+        <a href="cart.html" aria-label="Cart"
+          ><i class="ri-shopping-bag-4-line"></i
+        ></a>
+        <i
+          class="fas fa-outdent"
+          id="bar"
+          role="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+          tabindex="0"
+        ></i>
 
-  <section id="header" role="banner">
-    <!-- Logo -->
-    <a href="index.html" aria-label="Home">
-      <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
-    </a>
-    <div id="navbar-container"></div>
-    <div class="mobile">
-      <a href="login.html" aria-label="Login"><i class="ri-user-3-line"></i></a>
-      <a href="cart.html" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a>
-      <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
-      <!-- Theme Toggle -->
-      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
-        <i class="ri-moon-line" id="themeIconMobile"></i>
-      </button>
-    </div>
-  </section>
+        <!-- Language Switcher -->
+        <li class="nav-icon">
+          <select
+            class="language-selector"
+            aria-label="Select Language"
+            style="
+              background: transparent;
+              border: 1px solid var(--text-color, #1a1a1a);
+              color: var(--text-color, #1a1a1a);
+              padding: 4px 6px;
+              border-radius: 4px;
+              font-size: 14px;
+              cursor: pointer;
+              outline: none;
+              transition: 0.3s;
+              height: 32px;
+              display: inline-flex;
+              align-items: center;
+            "
+          >
+            <option value="en">EN</option>
+            <option value="ar">AR</option>
+            <option value="he">HE</option>
+            <option value="fa">FA</option>
+          </select>
+        </li>
 
-  <!-- Toast lives at body level so it overlays everything -->
-  <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+        <!-- Theme Toggle -->
+        <button
+          class="theme-toggle"
+          id="themeToggleMobile"
+          aria-label="Toggle dark mode"
+        >
+          <i class="ri-moon-line" id="themeIconMobile"></i>
+        </button>
+      </div>
+    </section>
 
-  <!-- 
+    <!-- Toast lives at body level so it overlays everything -->
+    <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- 
     The whole page content (back button + card) lives in one wrapper.
     This is the same pattern as register.html using .register-page-wrapper.
     #login-section handles the background + centering, just like #register-section.
   -->
-  <section id="login-section">
-    <div class="login-page-wrapper">
+    <section id="login-section">
+      <div class="login-page-wrapper">
+        <!-- Back button: top-left, matching register page exactly -->
+        <a href="index.html" class="back-button">&#8592; Back to Shop</a>
 
-      <!-- Back button: top-left, matching register page exactly -->
-      <a href="index.html" class="back-button">&#8592; Back to Shop</a>
+        <!-- The card -->
+        <div class="login-box">
+          <h2>Welcome Back!</h2>
+          <p class="subtitle">Sign in to your account</p>
 
-      <!-- The card -->
-      <div class="login-box">
-        <h2>Welcome Back!</h2>
-        <p class="subtitle">Sign in to your account</p>
-
-        <form id="loginForm" novalidate>
-
-          <!-- Email field -->
-          <div class="input-group">
-            <label for="loginEmail">Email Address</label>
-            <input
-              type="email"
-              id="loginEmail"
-              name="email"
-              class="input-field"
-              placeholder="Enter your email address"
-              autocomplete="email"
-              required
-              aria-required="true"
-              aria-describedby="emailError"
-              aria-invalid="false"
-            />
-            <span class="error-message" id="emailError" role="alert"></span>
-          </div>
-
-          <div class="input-group">
-            <label for="loginPassword">Password</label>
-            <div class="password-wrapper">
+          <form id="loginForm" novalidate>
+            <!-- Email field -->
+            <div class="input-group">
+              <label for="loginEmail">Email Address</label>
               <input
-                type="password"
-                id="loginPassword"
-                name="password"
+                type="email"
+                id="loginEmail"
+                name="email"
                 class="input-field"
-                placeholder="Enter your password"
-                autocomplete="current-password"
+                placeholder="Enter your email address"
+                autocomplete="email"
                 required
                 aria-required="true"
-                aria-describedby="passwordError"
+                aria-describedby="emailError"
                 aria-invalid="false"
               />
-              <button type="button" id="togglePassword" class="toggle_password" aria-label="Show password">
-                <i class="ri-eye-line" id="toggleIcon" aria-hidden="true"></i>
-              </button>
+              <span class="error-message" id="emailError" role="alert"></span>
             </div>
-            <span class="error-message" id="passwordError" role="alert"></span>
-          </div>
 
-          <!-- Remember me + Forgot password row -->
-          <div class="remfor">
-            <div class="remember">
-              <input type="checkbox" id="rememberMe" name="rememberMe" />
-              <label for="rememberMe">Remember me</label>
+            <div class="input-group">
+              <label for="loginPassword">Password</label>
+              <div class="password-wrapper">
+                <input
+                  type="password"
+                  id="loginPassword"
+                  name="password"
+                  class="input-field"
+                  placeholder="Enter your password"
+                  autocomplete="current-password"
+                  required
+                  aria-required="true"
+                  aria-describedby="passwordError"
+                  aria-invalid="false"
+                />
+                <button
+                  type="button"
+                  id="togglePassword"
+                  class="toggle_password"
+                  aria-label="Show password"
+                >
+                  <i class="ri-eye-line" id="toggleIcon" aria-hidden="true"></i>
+                </button>
+              </div>
+              <span
+                class="error-message"
+                id="passwordError"
+                role="alert"
+              ></span>
             </div>
-            <a href="forgotPassword.html" class="forgot">Forgot Password?</a>
-          </div>
 
-          <!-- General form-level error (e.g. "no account found") -->
-          <span class="error-message" id="formError" style="display:block; margin-bottom: 8px;"></span>
-
-          <!-- Captcha — only appears after a failed attempt -->
-          <div id="captcha-section" class="captcha-section" style="display: none; margin-bottom: 20px;">
-            <label>Security Check</label>
-            <div class="captcha-row">
-              <canvas id="captcha-canvas" width="150" height="40"></canvas>
-              <button type="button" id="captcha-refresh" aria-label="Refresh Captcha">
-                <i class="ri-refresh-line"></i>
-              </button>
+            <!-- Remember me + Forgot password row -->
+            <div class="remfor">
+              <div class="remember">
+                <input type="checkbox" id="rememberMe" name="rememberMe" />
+                <label for="rememberMe">Remember me</label>
+              </div>
+              <a href="forgotPassword.html" class="forgot">Forgot Password?</a>
             </div>
-            <input type="text" id="captcha-input" class="input-field" placeholder="Enter the code above" autocomplete="off" />
-            <span class="error-message" id="captchaError"></span>
+
+            <!-- General form-level error (e.g. "no account found") -->
+            <span
+              class="error-message"
+              id="formError"
+              style="display: block; margin-bottom: 8px"
+            ></span>
+
+            <!-- Captcha — only appears after a failed attempt -->
+            <div
+              id="captcha-section"
+              class="captcha-section"
+              style="display: none; margin-bottom: 20px"
+            >
+              <label>Security Check</label>
+              <div class="captcha-row">
+                <canvas id="captcha-canvas" width="150" height="40"></canvas>
+                <button
+                  type="button"
+                  id="captcha-refresh"
+                  aria-label="Refresh Captcha"
+                >
+                  <i class="ri-refresh-line"></i>
+                </button>
+              </div>
+              <input
+                type="text"
+                id="captcha-input"
+                class="input-field"
+                placeholder="Enter the code above"
+                autocomplete="off"
+              />
+              <span class="error-message" id="captchaError"></span>
+            </div>
+
+            <button type="submit" class="login-btn" id="loginSubmitBtn">
+              <span>Sign In</span>
+            </button>
+          </form>
+
+          <div class="signup-link">
+            Don't have an account? <a href="register.html">Register</a>
           </div>
-
-          <button type="submit" class="login-btn" id="loginSubmitBtn">
-            <span>Sign In</span>
-          </button>
-
-        </form>
-
-        <div class="signup-link">
-          Don't have an account? <a href="register.html">Register</a>
         </div>
+        <!-- end .login-box -->
+      </div>
+      <!-- end .login-page-wrapper -->
+    </section>
+    <!-- end #login-section -->
 
-      </div><!-- end .login-box -->
-    </div><!-- end .login-page-wrapper -->
-  </section><!-- end #login-section -->
-
-  <script src="navbar.js"></script>
-  <script>loadNavbar();</script>
-  <script src="app.js"></script>
-  <script src="js/fetch-timeout.js"></script>
-  <script src="login.js"></script>
-  <script src="js/simple-captcha.js" defer></script>
-</body>
+    <script src="navbar.js"></script>
+    <script>
+      loadNavbar();
+    </script>
+    <script src="app.js"></script>
+    <script src="js/fetch-timeout.js"></script>
+    <script src="login.js"></script>
+    <script src="js/simple-captcha.js" defer></script>
+  </body>
 </html>
 
-<script src='js/a11y-validation.js'></script>
-<!-- A11y fix --><script src='js/a11y-validation.js'></script>
+<script src="js/a11y-validation.js"></script>
+<!-- A11y fix -->
+<script src="js/a11y-validation.js"></script>

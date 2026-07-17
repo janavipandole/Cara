@@ -1,7 +1,7 @@
 ﻿<!doctype html>
 <html lang="en">
   <head>
-    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico" />
     <!-- Character encoding -->
     <meta charset="UTF-8" />
 
@@ -15,7 +15,10 @@
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
 
     <!--SEO Meta Tags-->
-    <meta name="description" content="Read Cara's Privacy Policy to understand how we collect, use, and protect your personal information." />
+    <meta
+      name="description"
+      content="Read Cara's Privacy Policy to understand how we collect, use, and protect your personal information."
+    />
     <meta name="author" content="Cara" />
     <meta name="robots" content="index, follow" />
 
@@ -27,8 +30,11 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="ui-fix.css" />
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="ui-fix.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
@@ -57,7 +63,9 @@
         font-weight: 600;
         cursor: pointer;
         text-decoration: none;
-        transition: background-color 0.2s ease, box-shadow 0.2s ease;
+        transition:
+          background-color 0.2s ease,
+          box-shadow 0.2s ease;
       }
 
       #policy-page .back-btn:hover {
@@ -160,8 +168,14 @@
       }
 
       @keyframes slideUp {
-        from { transform: translateY(100%); opacity: 0; }
-        to   { transform: translateY(0);    opacity: 1; }
+        from {
+          transform: translateY(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
       }
 
       .cookie-inner {
@@ -251,20 +265,22 @@
         }
       }
     </style>
-    <link rel="manifest" href="/manifest.json">
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js');
-      });
-    }
-  </script>
-</head>
+    <link rel="manifest" href="/manifest.json" />
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/service-worker.js');
+        });
+      }
+    </script>
+  </head>
 
   <body>
     <!-- Header -->
     <section id="header">
-      <a id="siteLogo" href="index.html"><img src="images/logo.png" alt="Cara Logo" width="130" height="40" /></a>
+      <a id="siteLogo" href="index.html"
+        ><img src="images/logo.png" alt="Cara Logo" width="130" height="40"
+      /></a>
 
       <!-- Navigation Bar -->
       <div>
@@ -276,7 +292,11 @@
           <li><a href="contact.html">Contact</a></li>
           <li><a href="login.html" id="login-btn">Login</a></li>
           <li>
-            <a aria-label="Cart" href="cart.html" id="lg-bag" class="cart-icon-wrapper"
+            <a
+              aria-label="Cart"
+              href="cart.html"
+              id="lg-bag"
+              class="cart-icon-wrapper"
               ><i class="ri-shopping-bag-4-line"></i
               ><span class="cart-count" id="desktopCartCount">0</span></a
             >
@@ -290,7 +310,13 @@
               <i class="ri-moon-line" id="themeIcon"></i>
             </button>
           </li>
-          <a href="javascript:void(0)" id="close" aria-label="Close menu" aria-hidden="false"><i class="fa-solid fa-xmark"></i></a>
+          <a
+            href="javascript:void(0)"
+            id="close"
+            aria-label="Close menu"
+            aria-hidden="false"
+            ><i class="fa-solid fa-xmark"></i
+          ></a>
         </ul>
       </div>
       <div class="mobile">
@@ -298,7 +324,14 @@
           <i class="ri-shopping-bag-4-line"></i>
           <span class="cart-count" id="mobileCartCount">0</span>
         </a>
-        <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
+        <i
+          class="fas fa-outdent"
+          id="bar"
+          role="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+          tabindex="0"
+        ></i>
       </div>
     </section>
 
@@ -307,169 +340,322 @@
       <h2>Privacy Policy</h2>
     </section>
     <div class="policy-layout">
-        <!-- Policy Content -->
-    <main id="policy-page">
-      <button onclick="history.back()" class="back-btn" aria-label="Go back to previous page" style="border: none; font-family: inherit; font-size: inherit;">
-        <i class="ri-arrow-left-line"></i> Back
-      </button>
+      <!-- Policy Content -->
+      <main id="policy-page">
+        <button
+          onclick="history.back()"
+          class="back-btn"
+          aria-label="Go back to previous page"
+          style="border: none; font-family: inherit; font-size: inherit"
+        >
+          <i class="ri-arrow-left-line"></i> Back
+        </button>
 
-      <h1>Privacy Policy</h1>
-      <p class="subtitle">Last Updated: May 2026</p>
+        <h1>Privacy Policy</h1>
+        <p class="subtitle">Last Updated: May 2026</p>
 
-      <p class="intro-text">
-        Welcome to Cara. Your privacy is important to us. This Privacy Policy explains how we collect,
-        use, and protect your information when you use our website.
-      </p>
+        <p class="intro-text">
+          Welcome to Cara. Your privacy is important to us. This Privacy Policy
+          explains how we collect, use, and protect your information when you
+          use our website.
+        </p>
 
-      <!-- Sidebar Quick Links Table of Contents -->
-      <div class="policy-quick-nav" style="background: var(--bg-secondary); padding: 15px 20px; border-radius: 6px; margin-bottom: 30px; border: 1px solid var(--border-color, #e0e0e0);">
-        <p style="margin: 0 0 10px; font-weight: 600; font-size: 14px; color: var(--text-primary);">Quick Navigation</p>
-        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 15px; font-size: 13px;">
-          <li><a href="#section-1" style="color: #088178; text-decoration: none; font-weight: 500;">1. Collection</a></li>
-          <li><a href="#section-2" style="color: #088178; text-decoration: none; font-weight: 500;">2. Use</a></li>
-          <li><a href="#section-3" style="color: #088178; text-decoration: none; font-weight: 500;">3. Cookies</a></li>
-          <li><a href="#section-4" style="color: #088178; text-decoration: none; font-weight: 500;">4. Security</a></li>
-          <li><a href="#section-5" style="color: #088178; text-decoration: none; font-weight: 500;">5. Third Parties</a></li>
-          <li><a href="#section-6" style="color: #088178; text-decoration: none; font-weight: 500;">6. Rights</a></li>
-          <li><a href="#section-7" style="color: #088178; text-decoration: none; font-weight: 500;">7. Contact</a></li>
-          <li><a href="#section-8" style="color: #088178; text-decoration: none; font-weight: 500;">8. Updates</a></li>
-        </ul>
-      </div>
-
-      <dl class="policy-list">
-        <div class="policy-section" id="section-1">
-          <dt><h2><i class="fas fa-thumbtack"></i> 1. Information We Collect</h2></dt>
-          <dd>
-            <p>
-              We may collect personal information such as your name, email address, phone number,
-              shipping address, and payment details when you place an order or contact us.
-            </p>
-          </dd>
+        <!-- Sidebar Quick Links Table of Contents -->
+        <div
+          class="policy-quick-nav"
+          style="
+            background: var(--bg-secondary);
+            padding: 15px 20px;
+            border-radius: 6px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color, #e0e0e0);
+          "
+        >
+          <p
+            style="
+              margin: 0 0 10px;
+              font-weight: 600;
+              font-size: 14px;
+              color: var(--text-primary);
+            "
+          >
+            Quick Navigation
+          </p>
+          <ul
+            style="
+              list-style: none;
+              padding: 0;
+              margin: 0;
+              display: flex;
+              flex-wrap: wrap;
+              gap: 15px;
+              font-size: 13px;
+            "
+          >
+            <li>
+              <a
+                href="#section-1"
+                style="color: #088178; text-decoration: none; font-weight: 500"
+                >1. Collection</a
+              >
+            </li>
+            <li>
+              <a
+                href="#section-2"
+                style="color: #088178; text-decoration: none; font-weight: 500"
+                >2. Use</a
+              >
+            </li>
+            <li>
+              <a
+                href="#section-3"
+                style="color: #088178; text-decoration: none; font-weight: 500"
+                >3. Cookies</a
+              >
+            </li>
+            <li>
+              <a
+                href="#section-4"
+                style="color: #088178; text-decoration: none; font-weight: 500"
+                >4. Security</a
+              >
+            </li>
+            <li>
+              <a
+                href="#section-5"
+                style="color: #088178; text-decoration: none; font-weight: 500"
+                >5. Third Parties</a
+              >
+            </li>
+            <li>
+              <a
+                href="#section-6"
+                style="color: #088178; text-decoration: none; font-weight: 500"
+                >6. Rights</a
+              >
+            </li>
+            <li>
+              <a
+                href="#section-7"
+                style="color: #088178; text-decoration: none; font-weight: 500"
+                >7. Contact</a
+              >
+            </li>
+            <li>
+              <a
+                href="#section-8"
+                style="color: #088178; text-decoration: none; font-weight: 500"
+                >8. Updates</a
+              >
+            </li>
+          </ul>
         </div>
 
-        <div class="policy-section" id="section-2">
-           <dt><h2><i class="fas fa-bolt"></i> 2. How We Use Your Information</h2></dt>
-          <dd>
-            <p>The information collected is used to:</p>
-            <ul>
-              <li>Process and deliver orders</li>
-              <li>Improve user experience</li>
-              <li>Provide customer support</li>
-              <li>Send updates and promotional offers</li>
-              <li>Maintain website security</li>
-            </ul>
-          </dd>
-        </div>
+        <dl class="policy-list">
+          <div class="policy-section" id="section-1">
+            <dt>
+              <h2>
+                <i class="fas fa-thumbtack"></i> 1. Information We Collect
+              </h2>
+            </dt>
+            <dd>
+              <p>
+                We may collect personal information such as your name, email
+                address, phone number, shipping address, and payment details
+                when you place an order or contact us.
+              </p>
+            </dd>
+          </div>
 
-        <div class="policy-section" id="section-3">
-          <dt><h2><i class="fas fa-cookie"></i> 3. Cookies</h2></dt>
-          <dd>
-            <p>
-              Our website may use cookies to improve browsing experience and analyze website traffic.
-              You can disable cookies through your browser settings if you prefer.
-            </p>
-          </dd>
-        </div>
+          <div class="policy-section" id="section-2">
+            <dt>
+              <h2>
+                <i class="fas fa-bolt"></i> 2. How We Use Your Information
+              </h2>
+            </dt>
+            <dd>
+              <p>The information collected is used to:</p>
+              <ul>
+                <li>Process and deliver orders</li>
+                <li>Improve user experience</li>
+                <li>Provide customer support</li>
+                <li>Send updates and promotional offers</li>
+                <li>Maintain website security</li>
+              </ul>
+            </dd>
+          </div>
 
-        <div class="policy-section" id="section-4">
-          <dt><h2><i class="fas fa-lock"></i> 4. Data Protection</h2></dt>
-          <dd>
-            <p>
-              We implement security measures to protect your personal data from unauthorized access,
-              alteration, or disclosure.
-            </p>
-          </dd>
-        </div>
+          <div class="policy-section" id="section-3">
+            <dt>
+              <h2><i class="fas fa-cookie"></i> 3. Cookies</h2>
+            </dt>
+            <dd>
+              <p>
+                Our website may use cookies to improve browsing experience and
+                analyze website traffic. You can disable cookies through your
+                browser settings if you prefer.
+              </p>
+            </dd>
+          </div>
 
-        <div class="policy-section" id="section-5">
-          <dt><h2><i class="fas fa-globe"></i> 5. Third-Party Services</h2></dt>
-          <dd>
-            <p>
-              We may use trusted third-party services such as payment gateways and analytics tools.
-              These services may collect information according to their own privacy policies.
-            </p>
-          </dd>
-        </div>
+          <div class="policy-section" id="section-4">
+            <dt>
+              <h2><i class="fas fa-lock"></i> 4. Data Protection</h2>
+            </dt>
+            <dd>
+              <p>
+                We implement security measures to protect your personal data
+                from unauthorized access, alteration, or disclosure.
+              </p>
+            </dd>
+          </div>
 
-        <div class="policy-section" id="section-6">
-          <dt><h2><i class="fas fa-shield-alt"></i> 6. Your Rights</h2></dt>
-          <dd>
-            <p>
-              You have the right to access, update, or request deletion of your personal information.
-              To make such requests, contact us using the details below.
-            </p>
-          </dd>
-        </div>
+          <div class="policy-section" id="section-5">
+            <dt>
+              <h2><i class="fas fa-globe"></i> 5. Third-Party Services</h2>
+            </dt>
+            <dd>
+              <p>
+                We may use trusted third-party services such as payment gateways
+                and analytics tools. These services may collect information
+                according to their own privacy policies.
+              </p>
+            </dd>
+          </div>
 
-        <div class="policy-section" id="section-7">
-          <dt><h2><i class="fas fa-phone"></i> 7. Contact Us</h2></dt>
-          <dd>
-            <p>If you have any questions regarding this Privacy Policy, please contact us at:</p>
-            <div class="contact-box">
-              <p><strong>Head Office</strong></p>
-              <p>56 Glassford Street, Glasgow G1 1UL, New York</p>
-              <p>contact@cara-ecommerce.netlify.app</p>
-              <p>+1 (000) 123-7788</p>
-              <p>Monday to Saturday â€” 9:00 AM to 6:00 PM</p>
-            </div>
-          </dd>
-        </div>
+          <div class="policy-section" id="section-6">
+            <dt>
+              <h2><i class="fas fa-shield-alt"></i> 6. Your Rights</h2>
+            </dt>
+            <dd>
+              <p>
+                You have the right to access, update, or request deletion of
+                your personal information. To make such requests, contact us
+                using the details below.
+              </p>
+            </dd>
+          </div>
 
-        <div class="policy-section" id="section-8">
-          <dt><h2><i class="fas fa-sync"></i> 8. Updates to This Policy</h2></dt>
-          <dd>
-            <p>
-              We may update this Privacy Policy from time to time. Changes will be posted on this page
-              with the updated effective date.
-            </p>
-          </dd>
-        </div>
-      </dl>
+          <div class="policy-section" id="section-7">
+            <dt>
+              <h2><i class="fas fa-phone"></i> 7. Contact Us</h2>
+            </dt>
+            <dd>
+              <p>
+                If you have any questions regarding this Privacy Policy, please
+                contact us at:
+              </p>
+              <div class="contact-box">
+                <p><strong>Head Office</strong></p>
+                <p>56 Glassford Street, Glasgow G1 1UL, New York</p>
+                <p>contact@cara-ecommerce.netlify.app</p>
+                <p>+1 (000) 123-7788</p>
+                <p>Monday to Saturday â€” 9:00 AM to 6:00 PM</p>
+              </div>
+            </dd>
+          </div>
 
-      <div class="footer-note">Last Updated: May 2026</div>
-    </main>
+          <div class="policy-section" id="section-8">
+            <dt>
+              <h2><i class="fas fa-sync"></i> 8. Updates to This Policy</h2>
+            </dt>
+            <dd>
+              <p>
+                We may update this Privacy Policy from time to time. Changes
+                will be posted on this page with the updated effective date.
+              </p>
+            </dd>
+          </div>
+        </dl>
+
+        <div class="footer-note">Last Updated: May 2026</div>
+      </main>
     </div>
 
     <!-- Cookie Consent Drawer -->
-    <div id="cookie-consent" role="dialog" aria-label="Cookie consent" aria-describedby="cookie-desc">
+    <div
+      id="cookie-consent"
+      role="dialog"
+      aria-label="Cookie consent"
+      aria-describedby="cookie-desc"
+    >
       <div class="cookie-inner">
         <p id="cookie-desc">
-          <i class="fas fa-cookie-bite" style="margin-right: 6px; color: #088178;"></i>
-          We use cookies to improve your experience. By continuing, you agree to our
+          <i
+            class="fas fa-cookie-bite"
+            style="margin-right: 6px; color: #088178"
+          ></i>
+          We use cookies to improve your experience. By continuing, you agree to
+          our
           <a href="privacy.html">Privacy Policy</a>.
         </p>
         <div class="cookie-actions">
-          <button class="cookie-btn cookie-btn-reject" id="cookie-reject">Decline</button>
-          <button class="cookie-btn cookie-btn-accept" id="cookie-accept">Accept All</button>
+          <button class="cookie-btn cookie-btn-reject" id="cookie-reject">
+            Decline
+          </button>
+          <button class="cookie-btn cookie-btn-accept" id="cookie-accept">
+            Accept All
+          </button>
         </div>
       </div>
     </div>
 
     <!-- Back to Top -->
-    <button id="backToTop" title="Back to Top" aria-label="Back to top">â¬†</button>
-    <button id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">â¬‡</button>
+    <button id="backToTop" title="Back to Top" aria-label="Back to top">
+      â¬†
+    </button>
+    <button id="Toptoback" title="Top To Back" aria-label="Scroll to bottom">
+      â¬‡
+    </button>
 
     <!-- Footer -->
     <footer class="section-p1">
       <div class="col">
-        <img class="logo" src="images/logo.png" alt="Cara Logo" width="130" height="40" loading="lazy" />
+        <img
+          class="logo"
+          src="images/logo.png"
+          alt="Cara Logo"
+          width="130"
+          height="40"
+          loading="lazy"
+        />
         <h4>Contact</h4>
-        <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
+        <p>
+          <strong>Address:</strong> 562 Wellington Road, Street 32, San
+          Francisco
+        </p>
         <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
         <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
         <div class="follow">
           <h4>Follow us</h4>
           <div class="icon">
-            <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://x.com/JanaviPandole"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <i class="fa-brands fa-x-twitter"></i>
             </a>
-            <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
+            <a
+              title="GitHub"
+              href="https://github.com/janavipandole"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <i class="fab fa-github"></i>
             </a>
-            <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://www.linkedin.com/in/janavi-pandole-80a7b2290"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <i class="fab fa-linkedin"></i>
             </a>
-            <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://www.youtube.com/@JanaviPandole"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <i class="fab fa-youtube"></i>
             </a>
           </div>
@@ -496,7 +682,10 @@
 
       <div class="col newsletter-footer">
         <h4>Newsletter</h4>
-        <p>Get email updates about our latest shop and <span>special offers.</span></p>
+        <p>
+          Get email updates about our latest shop and
+          <span>special offers.</span>
+        </p>
         <form class="newsletter-form">
           <input type="email" placeholder="Your email address" required />
           <button type="submit" class="normal">Sign Up</button>
@@ -507,24 +696,61 @@
         <h4>Install App</h4>
         <p>From App Store or Google Play</p>
         <div class="row">
-          <img src="images/pay/app.jpg" alt="Download from App Store" width="180" height="54" loading="lazy" />
-          <img src="images/pay/play.jpg" alt="Get it on Google Play" width="180" height="54" loading="lazy" />
+          <img
+            src="images/pay/app.jpg"
+            alt="Download from App Store"
+            width="180"
+            height="54"
+            loading="lazy"
+          />
+          <img
+            src="images/pay/play.jpg"
+            alt="Get it on Google Play"
+            width="180"
+            height="54"
+            loading="lazy"
+          />
         </div>
         <p>Secured Payment Gateways</p>
         <div class="payment-icons">
-          <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer" aria-label="Visa">
+          <a
+            href="https://www.visa.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visa"
+          >
             <i class="fab fa-cc-visa"></i>
           </a>
-          <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer" aria-label="Mastercard">
+          <a
+            href="https://www.mastercard.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Mastercard"
+          >
             <i class="fab fa-cc-mastercard"></i>
           </a>
-          <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" aria-label="PayPal">
+          <a
+            href="https://www.paypal.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="PayPal"
+          >
             <i class="fab fa-cc-paypal"></i>
           </a>
-          <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer" aria-label="American Express">
+          <a
+            href="https://www.americanexpress.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="American Express"
+          >
             <i class="fab fa-cc-amex"></i>
           </a>
-          <a href="https://stripe.com" target="_blank" rel="noopener noreferrer" aria-label="Stripe">
+          <a
+            href="https://stripe.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Stripe"
+          >
             <i class="fab fa-cc-stripe"></i>
           </a>
         </div>
@@ -563,11 +789,11 @@
       })();
     </script>
     <script id="Current-Year">
-        document.getElementById("Current-Year").textContent = new Date().getFullYear();
+      document.getElementById('Current-Year').textContent =
+        new Date().getFullYear();
     </script>
-  <script src="js/toc.js" defer></script>
-</body>
+    <script src="js/toc.js" defer></script>
+  </body>
 </html>
 
 <!-- Accessibility and structural improvements -->
-
