@@ -151,9 +151,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const breadcrumbEl = document.querySelector('.single-pro-details h6');
         const smallImgs = document.querySelectorAll('.small-img');
 
-        if (nameEl) nameEl.textContent = product.name;
-        if (priceEl) priceEl.textContent = product.price;
-        if (mainImgEl) mainImgEl.src = product.image;
+        if (nameEl) {
+          nameEl.innerHTML = '';
+          nameEl.appendChild(document.createTextNode(product.name));
+        }
+        if (priceEl) {
+          priceEl.innerHTML = '';
+          priceEl.appendChild(document.createTextNode(product.price));
+        }
+        if (mainImgEl) mainImgEl.setAttribute('src', encodeURI(product.image));
 
         if (breadcrumbEl && product.brand) {
           // Dynamically determine product type from name (e.g. Trousers, Shorts, Shirt)
@@ -979,8 +985,14 @@ document.addEventListener('DOMContentLoaded', function () {
             container.appendChild(noResultsMsg);
           }
         } else {
-          noResultsMsg.querySelector('p').textContent =
-            `We couldn't find any products matching "${searchInput.value}". Please try a different search term or change your category filter.`;
+          noResultsMsg.querySelector('p').innerHTML = '';
+          noResultsMsg
+            .querySelector('p')
+            .appendChild(
+              document.createTextNode(
+                `We couldn't find any products matching "${searchInput.value}". Please try a different search term or change your category filter.`,
+              ),
+            );
           noResultsMsg.style.display = 'block';
         }
       } else {

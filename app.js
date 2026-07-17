@@ -83,9 +83,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         const finalImage = dbProduct ? dbProduct.img : '';
         const finalBrand = dbProduct ? dbProduct.brand : 'Brand';
 
-        if (nameEl) nameEl.textContent = finalName;
-        if (priceEl) priceEl.textContent = finalPrice;
-        if (mainImgEl) mainImgEl.src = finalImage;
+        if (nameEl) {
+          nameEl.innerHTML = '';
+          nameEl.appendChild(document.createTextNode(finalName));
+        }
+        if (priceEl) {
+          priceEl.innerHTML = '';
+          priceEl.appendChild(document.createTextNode(finalPrice));
+        }
+        if (mainImgEl) mainImgEl.setAttribute('src', encodeURI(finalImage));
 
         if (breadcrumbEl && finalBrand) {
           let productType = 'T-Shirt';
@@ -1189,13 +1195,25 @@ document.addEventListener('DOMContentLoaded', function () {
                         <h3>No matching products found</h3>
                         <p></p>
                     </div>`;
-        noResultsMsg.querySelector('p').textContent =
-          `We couldn't find any products matching "${searchInput.value}". Please try a different search term or change your category filter.`;
+        noResultsMsg.querySelector('p').innerHTML = '';
+        noResultsMsg
+          .querySelector('p')
+          .appendChild(
+            document.createTextNode(
+              `We couldn't find any products matching "${searchInput.value}". Please try a different search term or change your category filter.`,
+            ),
+          );
         const container = document.getElementById('shop-container');
         if (container) container.appendChild(noResultsMsg);
       } else {
-        noResultsMsg.querySelector('p').textContent =
-          `We couldn't find any products matching "${searchInput.value}". Please try a different search term or change your category filter.`;
+        noResultsMsg.querySelector('p').innerHTML = '';
+        noResultsMsg
+          .querySelector('p')
+          .appendChild(
+            document.createTextNode(
+              `We couldn't find any products matching "${searchInput.value}". Please try a different search term or change your category filter.`,
+            ),
+          );
         noResultsMsg.style.display = 'block';
       }
     } else {

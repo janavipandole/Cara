@@ -588,10 +588,9 @@
        ============================================ */
 footer .footer-container {
   display: grid;
-  grid-template-columns: minmax(260px, 1.25fr) repeat(
-      2,
-      minmax(150px, 0.9fr)
-    ) minmax(240px, 1.2fr);
+  grid-template-columns:
+    minmax(260px, 1.25fr) repeat(2, minmax(150px, 0.9fr))
+    minmax(240px, 1.2fr);
   gap: 48px;
   width: 100%;
   align-items: start;

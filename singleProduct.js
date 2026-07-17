@@ -14,9 +14,15 @@ function renderProductDetails(product) {
   const breadcrumbEl = document.querySelector('.single-pro-details h6');
   const smallImgs = document.querySelectorAll('.small-img');
 
-  if (nameEl) nameEl.textContent = product.name;
-  if (priceEl) priceEl.textContent = product.price;
-  if (mainImgEl) mainImgEl.src = product.image;
+  if (nameEl) {
+    nameEl.innerHTML = '';
+    nameEl.appendChild(document.createTextNode(product.name));
+  }
+  if (priceEl) {
+    priceEl.innerHTML = '';
+    priceEl.appendChild(document.createTextNode(product.price));
+  }
+  if (mainImgEl) mainImgEl.setAttribute('src', encodeURI(product.image));
 
   if (breadcrumbEl && product.brand) {
     let productType = 'T-Shirt';
