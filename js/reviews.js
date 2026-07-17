@@ -26,7 +26,7 @@
   function _readReviews(productId) {
     try {
       return JSON.parse(
-        localStorage.getItem(STORAGE_PREFIX + productId) || '[]'
+        localStorage.getItem(STORAGE_PREFIX + productId) || '[]',
       );
     } catch {
       return [];
@@ -51,7 +51,7 @@
   function _formatDate(iso) {
     try {
       return new Intl.DateTimeFormat('en-IN', { dateStyle: 'medium' }).format(
-        new Date(iso)
+        new Date(iso),
       );
     } catch {
       return iso;
@@ -86,14 +86,14 @@
                  aria-label="${i} star${i > 1 ? 's' : ''}">
           <label for="star${i}" class="star-label" aria-hidden="true" title="${i} star${i > 1 ? 's' : ''}">
             <i class="ri-star-fill"></i>
-          </label>`
+          </label>`,
         )
         .join('');
     }
     return Array.from(
       { length: 5 },
       (_, i) =>
-        `<i class="${i < Math.round(rating) ? 'ri-star-fill' : 'ri-star-line'} review-star" aria-hidden="true"></i>`
+        `<i class="${i < Math.round(rating) ? 'ri-star-fill' : 'ri-star-line'} review-star" aria-hidden="true"></i>`,
     ).join('');
   }
 
@@ -146,7 +146,7 @@
             ${r.title ? `<h4 class="review-title">${_escape(r.title)}</h4>` : ''}
             <p class="review-body">${_escape(r.body)}</p>
             ${r.verified ? '<span class="verified-badge"><i class="ri-shield-check-line" aria-hidden="true"></i> Verified Purchase</span>' : ''}
-          </article>`
+          </article>`,
           )
           .join('')
       : '<p class="reviews-empty">No reviews yet. Be the first to share your thoughts!</p>';
@@ -269,7 +269,7 @@
         const author = form.querySelector('#reviewAuthor').value.trim();
         const rating = parseInt(
           (form.querySelector('.review-star-input:checked') || {}).value,
-          10
+          10,
         );
         const title = (form.querySelector('#reviewTitle').value || '').trim();
         const body = form.querySelector('#reviewBody').value.trim();
@@ -342,7 +342,7 @@
       if (!productId) {
         try {
           productId = JSON.parse(
-            localStorage.getItem('selectedProduct') || '{}'
+            localStorage.getItem('selectedProduct') || '{}',
           ).name;
         } catch {
           productId = 'unknown';

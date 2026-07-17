@@ -2,22 +2,150 @@
 // Only add new entries here when you have a corresponding unique image file.
 // Currently 16 unique images exist: f1-f8.jpg and n1-n8.jpg.
 const products = [
-  { id: 1,  brand: "Nike",          name: "Tropical Hibiscus Summer Shirt",   price: 2499, img: "images/products/f1.jpg", rating: 5,   category: "street"  },
-  { id: 2,  brand: "H&M",           name: "White Palm Leaf Casual Shirt",     price: 1299, img: "images/products/f2.jpg", rating: 5,   category: "minimal" },
-  { id: 3,  brand: "Zara",          name: "Vintage Rose Garden Shirt",        price: 3490, img: "images/products/f3.jpg", rating: 5,   category: "minimal" },
-  { id: 4,  brand: "Levi's",        name: "Sakura Blossom Floral Shirt",      price: 2799, img: "images/products/f4.jpg", rating: 5,   category: "minimal" },
-  { id: 5,  brand: "Puma",          name: "Pink Peony Patterned Shirt",       price: 1999, img: "images/products/f5.jpg", rating: 5,   category: "street"  },
-  { id: 6,  brand: "Gap",           name: "Dual-Tone Corduroy Shirt",         price: 2299, img: "images/products/f6.jpg", rating: 5,   category: "street"  },
-  { id: 7,  brand: "Uniqlo",        name: "Embroidered Linen Trousers",       price: 3990, img: "images/products/f7.jpg", rating: 5,   category: "street"  },
-  { id: 8,  brand: "Mango",         name: "Cat Print Long Sleeve Blouse",     price: 2699, img: "images/products/f8.jpg", rating: 5,   category: "minimal" },
-  { id: 9,  brand: "Tommy Hilfiger",name: "Sky Blue Mandarin Collar Shirt",   price: 4499, img: "images/products/n1.jpg", rating: 5,   category: "formal"  },
-  { id: 10, brand: "Ralph Lauren",  name: "Navy Textured Formal Shirt",       price: 6999, img: "images/products/n2.jpg", rating: 5,   category: "formal"  },
-  { id: 11, brand: "Calvin Klein",  name: "Classic White Cotton Shirt",       price: 5499, img: "images/products/n3.jpg", rating: 5,   category: "formal"  },
-  { id: 12, brand: "Zara",          name: "Sandstone Tactical Utility Shirt", price: 3990, img: "images/products/n4.jpg", rating: 5,   category: "formal"  },
-  { id: 13, brand: "Nike",          name: "Denim Blue Everyday Shirt",        price: 2799, img: "images/products/n5.jpg", rating: 5,   category: "minimal" },
-  { id: 14, brand: "Levi's",        name: "Vertical Stripe Chino Shorts",     price: 2499, img: "images/products/n6.jpg", rating: 5,   category: "minimal" },
-  { id: 15, brand: "Uniqlo",        name: "Khaki Safari Work Shirt",          price: 3499, img: "images/products/n7.jpg", rating: 5,   category: "minimal" },
-  { id: 16, brand: "Puma",          name: "Deep Charcoal Casual Shirt",       price: 1799, img: "images/products/n8.jpg", rating: 5,   category: "minimal" },
+  {
+    id: 1,
+    brand: 'Nike',
+    name: 'Tropical Hibiscus Summer Shirt',
+    price: 2499,
+    img: 'images/products/f1.jpg',
+    rating: 5,
+    category: 'street',
+  },
+  {
+    id: 2,
+    brand: 'H&M',
+    name: 'White Palm Leaf Casual Shirt',
+    price: 1299,
+    img: 'images/products/f2.jpg',
+    rating: 5,
+    category: 'minimal',
+  },
+  {
+    id: 3,
+    brand: 'Zara',
+    name: 'Vintage Rose Garden Shirt',
+    price: 3490,
+    img: 'images/products/f3.jpg',
+    rating: 5,
+    category: 'minimal',
+  },
+  {
+    id: 4,
+    brand: "Levi's",
+    name: 'Sakura Blossom Floral Shirt',
+    price: 2799,
+    img: 'images/products/f4.jpg',
+    rating: 5,
+    category: 'minimal',
+  },
+  {
+    id: 5,
+    brand: 'Puma',
+    name: 'Pink Peony Patterned Shirt',
+    price: 1999,
+    img: 'images/products/f5.jpg',
+    rating: 5,
+    category: 'street',
+  },
+  {
+    id: 6,
+    brand: 'Gap',
+    name: 'Dual-Tone Corduroy Shirt',
+    price: 2299,
+    img: 'images/products/f6.jpg',
+    rating: 5,
+    category: 'street',
+  },
+  {
+    id: 7,
+    brand: 'Uniqlo',
+    name: 'Embroidered Linen Trousers',
+    price: 3990,
+    img: 'images/products/f7.jpg',
+    rating: 5,
+    category: 'street',
+  },
+  {
+    id: 8,
+    brand: 'Mango',
+    name: 'Cat Print Long Sleeve Blouse',
+    price: 2699,
+    img: 'images/products/f8.jpg',
+    rating: 5,
+    category: 'minimal',
+  },
+  {
+    id: 9,
+    brand: 'Tommy Hilfiger',
+    name: 'Sky Blue Mandarin Collar Shirt',
+    price: 4499,
+    img: 'images/products/n1.jpg',
+    rating: 5,
+    category: 'formal',
+  },
+  {
+    id: 10,
+    brand: 'Ralph Lauren',
+    name: 'Navy Textured Formal Shirt',
+    price: 6999,
+    img: 'images/products/n2.jpg',
+    rating: 5,
+    category: 'formal',
+  },
+  {
+    id: 11,
+    brand: 'Calvin Klein',
+    name: 'Classic White Cotton Shirt',
+    price: 5499,
+    img: 'images/products/n3.jpg',
+    rating: 5,
+    category: 'formal',
+  },
+  {
+    id: 12,
+    brand: 'Zara',
+    name: 'Sandstone Tactical Utility Shirt',
+    price: 3990,
+    img: 'images/products/n4.jpg',
+    rating: 5,
+    category: 'formal',
+  },
+  {
+    id: 13,
+    brand: 'Nike',
+    name: 'Denim Blue Everyday Shirt',
+    price: 2799,
+    img: 'images/products/n5.jpg',
+    rating: 5,
+    category: 'minimal',
+  },
+  {
+    id: 14,
+    brand: "Levi's",
+    name: 'Vertical Stripe Chino Shorts',
+    price: 2499,
+    img: 'images/products/n6.jpg',
+    rating: 5,
+    category: 'minimal',
+  },
+  {
+    id: 15,
+    brand: 'Uniqlo',
+    name: 'Khaki Safari Work Shirt',
+    price: 3499,
+    img: 'images/products/n7.jpg',
+    rating: 5,
+    category: 'minimal',
+  },
+  {
+    id: 16,
+    brand: 'Puma',
+    name: 'Deep Charcoal Casual Shirt',
+    price: 1799,
+    img: 'images/products/n8.jpg',
+    rating: 5,
+    category: 'minimal',
+  },
 ];
 
 function renderProducts(containerId, list) {
@@ -28,12 +156,13 @@ function renderProducts(containerId, list) {
   if (list.length === 0) {
     const message = document.createElement('div');
     message.className = 'no-results-message';
-    message.textContent = 'No products found. Try a different search or category.';
+    message.textContent =
+      'No products found. Try a different search or category.';
     container.appendChild(message);
     return;
   }
 
-  list.forEach(p => {
+  list.forEach((p) => {
     // Create product card container
     const card = document.createElement('div');
     card.className = 'pro';
@@ -75,7 +204,7 @@ function renderProducts(containerId, list) {
     starDiv.className = 'star';
     starDiv.setAttribute('aria-label', `Rating: ${p.rating} out of 5 stars`);
     const fullStars = Math.floor(p.rating);
-    const hasHalf = (p.rating % 1) >= 0.5;
+    const hasHalf = p.rating % 1 >= 0.5;
     for (let i = 0; i < fullStars; i++) {
       const starIcon = document.createElement('i');
       starIcon.className = 'ri-star-fill';
@@ -146,7 +275,11 @@ function renderSearchSuggestions(query) {
 
   const normalizedQuery = query.trim().toLowerCase();
   const suggestions = products
-    .filter(p => p.name.toLowerCase().includes(normalizedQuery) || p.brand.toLowerCase().includes(normalizedQuery))
+    .filter(
+      (p) =>
+        p.name.toLowerCase().includes(normalizedQuery) ||
+        p.brand.toLowerCase().includes(normalizedQuery),
+    )
     .slice(0, 5);
 
   if (suggestions.length === 0) {
@@ -156,7 +289,7 @@ function renderSearchSuggestions(query) {
     return;
   }
 
-  suggestions.forEach(item => {
+  suggestions.forEach((item) => {
     const button = document.createElement('button');
     button.type = 'button';
     button.textContent = `${item.name} — ${item.brand}`;
@@ -181,9 +314,12 @@ function filterProducts() {
   const category = categorySelect ? categorySelect.value : 'all';
   const sortValue = sortSelect ? sortSelect.value : 'default';
 
-  let filteredProducts = products.filter(product => {
+  let filteredProducts = products.filter((product) => {
     const matchesCategory = category === 'all' || product.category === category;
-    const matchesSearch = query === '' || product.name.toLowerCase().includes(query) || product.brand.toLowerCase().includes(query);
+    const matchesSearch =
+      query === '' ||
+      product.name.toLowerCase().includes(query) ||
+      product.brand.toLowerCase().includes(query);
     return matchesCategory && matchesSearch;
   });
 

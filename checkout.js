@@ -145,7 +145,7 @@ function initCheckoutValidation() {
   if (!form) return;
 
   const inputs = form.querySelectorAll(
-    'input[data-validate], textarea[data-validate], select[data-validate]'
+    'input[data-validate], textarea[data-validate], select[data-validate]',
   );
 
   inputs.forEach((input) => {
@@ -248,7 +248,7 @@ form.addEventListener('submit', function (e) {
   e.preventDefault();
 
   const inputs = form.querySelectorAll(
-    'input[data-validate], textarea[data-validate], select[data-validate]'
+    'input[data-validate], textarea[data-validate], select[data-validate]',
   );
   let allValid = true;
 
@@ -343,7 +343,7 @@ form.addEventListener('submit', function (e) {
     .then((res) =>
       res
         .json()
-        .then((data) => ({ status: res.status, ok: res.ok, body: data }))
+        .then((data) => ({ status: res.status, ok: res.ok, body: data })),
     )
     .then((res) => {
       if (!res.ok) {
@@ -358,12 +358,12 @@ form.addEventListener('submit', function (e) {
       const subtotal = cart.reduce(
         (sum, item) =>
           sum + parsePriceString(item.price) * (parseInt(item.quantity) || 1),
-        0
+        0,
       );
       const earnedPoints = Math.floor(subtotal * 0.1);
       const newBalance = Math.max(
         0,
-        currentBalance - appliedPoints + earnedPoints
+        currentBalance - appliedPoints + earnedPoints,
       );
       localStorage.setItem('cara_loyalty_balance', newBalance);
       localStorage.removeItem('cara_applied_loyalty_points');
@@ -466,7 +466,7 @@ window.updateCheckoutSummary = function () {
   const subtotal = cart.reduce(
     (sum, item) =>
       sum + parsePriceString(item.price) * (parseInt(item.quantity) || 1),
-    0
+    0,
   );
 
   // Check coupon discount
@@ -501,7 +501,7 @@ window.updateCheckoutSummary = function () {
       giftCharge -
       couponDiscount -
       urgencyDiscount -
-      loyaltyDiscount
+      loyaltyDiscount,
   );
 
   // Update DOM elements
