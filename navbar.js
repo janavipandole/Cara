@@ -1,8 +1,8 @@
 function loadNavbar(activePage) {
   const navbarHTML = `
-    <div class="nav-search-container">
-      <i class="ri-search-line search-icon"></i>
-      <input type="text" id="searchBar" class="nav-search-input" placeholder="Search products...">
+    <div class="search-container" role="search">
+      <label for="searchBar" class="sr-only" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">Search Products</label>
+      <input type="text" id="searchBar" placeholder="Search products...">
     </div>
     <div>
       <ul id="navbar">
