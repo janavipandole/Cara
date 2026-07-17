@@ -174,7 +174,7 @@ button.white:focus-visible {
 
 .back-btn {
   position: absolute;
-  inset-inline-end: 110px;
+  right: 110px;
   top: 140px;
   padding: 11px 24px;
   border: none;
@@ -357,7 +357,7 @@ button.white .ripple-effect {
 #navbar li:not(.nav-icon) a::after {
   content: '';
   position: absolute;
-  inset-inline-start: 0;
+  left: 0;
   bottom: -4px;
   height: 2px;
   width: 0%;
@@ -590,7 +590,7 @@ button.white .ripple-effect {
   border: 1.5px solid var(--border-color);
   position: absolute;
   bottom: 14px;
-  inset-inline-end: 12px;
+  right: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -769,7 +769,7 @@ footer .copyright {
 #toast-container {
   position: fixed;
   top: 24px;
-  inset-inline-end: 24px;
+  right: 24px;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -838,7 +838,7 @@ footer .copyright {
 .toast-progress {
   position: absolute;
   bottom: 0;
-  inset-inline-start: 0;
+  left: 0;
   height: 3px;
   border-radius: 0 0 0 12px;
   animation: toastProgress 4s linear forwards;
@@ -846,7 +846,7 @@ footer .copyright {
 
 /* --- Toast Variants --- */
 .toast-success {
-  border-inline-start-color: #088178;
+  border-left-color: #088178;
 }
 
 .toast-success .toast-icon {
@@ -858,7 +858,7 @@ footer .copyright {
 }
 
 .toast-error {
-  border-inline-start-color: #dc2626;
+  border-left-color: #dc2626;
 }
 
 .toast-error .toast-icon {
@@ -870,7 +870,7 @@ footer .copyright {
 }
 
 .toast-warning {
-  border-inline-start-color: #f59e0b;
+  border-left-color: #f59e0b;
 }
 
 .toast-warning .toast-icon {
@@ -882,7 +882,7 @@ footer .copyright {
 }
 
 .toast-info {
-  border-inline-start-color: #3b82f6;
+  border-left-color: #3b82f6;
 }
 
 .toast-info .toast-icon {
@@ -950,8 +950,8 @@ footer .copyright {
   #toast-container {
     top: auto;
     bottom: 20px;
-    inset-inline-end: 12px;
-    inset-inline-start: 12px;
+    right: 12px;
+    left: 12px;
   }
 
   .toast {
@@ -1002,7 +1002,7 @@ footer .copyright {
 #signUpMessage {
   position: fixed;
   top: 2rem;
-  inset-inline-start: 50%;
+  left: 50%;
   padding: 0.75rem;
   font-size: 0.875rem;
   text-align: center;
@@ -1173,7 +1173,7 @@ input:focus {
 #backToTop,
 #Toptoback {
   position: fixed;
-  inset-inline-end: 25px;
+  right: 25px;
   width: 55px;
   height: 55px;
   border: none;
@@ -1386,7 +1386,7 @@ button,
     justify-content: flex-start;
     position: fixed;
     top: 0;
-    inset-inline-end: -300px;
+    right: -300px;
     height: 100vh;
     width: 300px;
     background-color: var(--card-bg);
@@ -1398,7 +1398,7 @@ button,
   }
 
   #navbar.active {
-    inset-inline-end: 0;
+    right: 0;
   }
 
   #navbar li {
@@ -1417,7 +1417,7 @@ button,
     display: block;
     position: absolute;
     top: 20px;
-    inset-inline-start: 20px;
+    left: 20px;
     font-size: 24px;
     color: var(--text-primary);
     cursor: pointer;
@@ -2782,7 +2782,7 @@ button,
 canvas {
   position: fixed;
   top: 0;
-  inset-inline-start: 0;
+  left: 0;
   pointer-events: none;
   z-index: -100;
 }
@@ -2862,7 +2862,7 @@ canvas {
   display: none;
   position: fixed;
   z-index: 1000;
-  inset-inline-start: 0;
+  left: 0;
   top: 0;
   width: 100%;
   height: 100%;
@@ -2887,7 +2887,7 @@ canvas {
 .close {
   position: absolute;
   top: 14px;
-  inset-inline-end: 16px;
+  right: 16px;
   font-size: 24px;
   cursor: pointer;
   color: #666;
@@ -3115,7 +3115,7 @@ select:focus-visible {
 .buy-now-btn {
   position: absolute;
   bottom: 18px;
-  inset-inline-start: 10px;
+  left: 10px;
   padding: 8px 16px;
   background-color: var(--accent);
   color: white;
@@ -3533,4 +3533,4 @@ body.dark .rating-value {
   border-color: var(--accent);
 }
 
-@import url('assets/css/scroll-top.css');
+@import url('assets/css/search-results.css');

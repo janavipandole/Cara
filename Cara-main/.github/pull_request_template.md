@@ -35,7 +35,7 @@ Select the type of change your PR introduces (check all that apply):
 - [ ] ⚡ Enhancement / Optimization
 - [ ] 🧰 Refactoring
 - [ ] 🧾 Documentation Update
-- [ ] 🔧 Other (please specify): ****\_\_\_\_****
+- [ ] 🔧 Other (please specify): \***\*\_\_\_\_\*\***
 
 ---
 

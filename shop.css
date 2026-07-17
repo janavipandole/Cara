@@ -494,7 +494,7 @@
 #product1 .pro .buy-now-btn {
   position: absolute;
   bottom: 18px;
-  inset-inline-start: 15px;
+  left: 15px;
   width: calc(100% - 75px);
   /* Flexible width avoiding cart icon */
   background-color: var(--accent);
@@ -519,7 +519,7 @@
 #product1 .pro .cart {
   position: absolute;
   bottom: 18px;
-  inset-inline-end: 15px;
+  right: 15px;
   width: 42px;
   height: 42px;
   line-height: 42px;
@@ -628,7 +628,7 @@ footer .footer-container .install .row {
 .wishlist-btn {
   position: absolute;
   top: 12px;
-  inset-inline-end: 12px;
+  right: 12px;
   width: 44px;
   height: 44px;
   background: var(--card-bg);
@@ -675,7 +675,7 @@ footer .footer-container .install .row {
 #scrollTopBtn {
   position: fixed;
   bottom: 30px;
-  inset-inline-end: 30px; /* keeps button on right side */
+  right: 30px; /* keeps button on right side */
 
   width: 55px;
   height: 55px;
@@ -726,7 +726,7 @@ footer .footer-container .install .row {
 
   .wishlist-btn {
     top: 8px;
-    inset-inline-end: 8px;
+    right: 8px;
     width: 36px;
     height: 36px;
   }
@@ -758,3 +758,5 @@ footer .footer-container .install .row {
 .delay-stagger-1 {
   animation-delay: 100ms;
 }
+
+@import url('assets/css/skeleton-loader.css');

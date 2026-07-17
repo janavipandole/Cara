@@ -1985,7 +1985,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 /* --- END: PRODUCT QUICK-VIEW MODAL FUNCTIONALITY --- */
 
-// Toast module loaded
+// Debounce initialized
+
 // Language Switcher Logic for RTL Support
 function initLanguageSwitcher() {
   const rtlLanguages = ['ar', 'he', 'fa', 'ur'];
@@ -2007,22 +2008,18 @@ function initLanguageSwitcher() {
       const newLang = e.target.value;
       localStorage.setItem('selectedLanguage', newLang);
       applyLanguage(newLang);
-
-      // Sync all selectors
       document.querySelectorAll('.language-selector').forEach((select) => {
         select.value = newLang;
       });
     }
   });
 
-  // Initial sync for any rendered selectors
   setTimeout(() => {
     document.querySelectorAll('.language-selector').forEach((select) => {
       select.value = savedLang;
     });
   }, 100);
 }
-
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initLanguageSwitcher);
 } else {

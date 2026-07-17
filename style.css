@@ -464,28 +464,20 @@ button.white .ripple-effect {
 
 .theme-toggle {
     background: transparent;
-    border: 2px solid var(--border-color);
-    border-radius: 50%;
-    width: 48px;
-    height: 48px;
-    min-width: 48px;
-    min-height: 48px;
+    border: none;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     color: var(--text-primary);
-    font-size: 18px;
+    font-size: 16px;
+    padding: 0;
     transition: all 0.3s ease;
-    flex-shrink: 0;
-    aspect-ratio: 1 / 1;
 }
 
 .theme-toggle:hover {
-    background-color: var(--accent);
-    border-color: var(--accent);
-    color: white;
-    transform: rotate(180deg);
+    color: var(--accent);
+    transform: scale(1.1);
 }
 
 .mobile .theme-toggle {
@@ -543,6 +535,7 @@ button.white .ripple-effect {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 20px;
 
     padding: 6px 35px;
 
@@ -2309,12 +2302,14 @@ footer {
     border-radius: 50px;
     padding: 6px 20px;
     width: 100%;
-    max-width: 450px;
+    flex: 1;
+    max-width: 400px;
     height: 48px; /* Lock the height */
     box-shadow: 0 4px 10px var(--shadow);
     transition: all 0.3s ease;
     box-sizing: border-box;
     overflow: hidden;
+    margin-left: auto;
 }
 
 .search-container:focus-within {
