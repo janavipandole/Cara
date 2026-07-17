@@ -559,8 +559,8 @@ function dismissToast(toast) {
 }
 
 window.updateQty = function (change) {
-    let quantityElement = document.querySelector(".qty"); // check class
-    let quantity = parseInt(quantityElement.textContent);
+    const quantityElement = document.getElementById("product-quantity"); 
+    let quantity = parseInt(quantityElement.value);
 
     quantity += change;
 
@@ -574,9 +574,11 @@ window.updateQty = function (change) {
     }
     // ✅ Fix ends here
 
-    quantityElement.textContent = quantity;
+    quantityElement.value = quantity;
+    
 
-    updateCartTotal(); // already present function
+    // Quantity selector only updates the selected quantity.
+    // Cart totals are recalculated after the product is added to the cart.
 };
 window.handleAddToCart = function () {
     const nameElement     = document.getElementById("product-name");
