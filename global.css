@@ -3495,3 +3495,12 @@ footer .copyright {
 .border-accent { border-color: var(--accent); }
 
 @import url('assets/css/search-results.css');
+
+/* Autocomplete spinner animation */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.autocomplete-spinner {
+  animation: spin 0.6s linear infinite;
+}

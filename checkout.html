@@ -93,7 +93,10 @@
 
       <div class="input-group">
         <label for="address">Delivery Address</label>
-        <textarea id="address" placeholder="Enter full address" data-validate="address" autocomplete="street-address" required></textarea>
+        <div class="address-input-wrapper" style="position: relative;">
+          <textarea id="address" placeholder="Enter full address" data-validate="address" autocomplete="street-address" required></textarea>
+          <div id="address-loader" class="autocomplete-spinner" style="display: none; position: absolute; right: 10px; bottom: 10px; width: 16px; height: 16px; border: 2px solid #ccc; border-top-color: #088178; border-radius: 50%; animation: spin 0.6s linear infinite; z-index: 10;"></div>
+        </div>
         <span class="error-msg"></span>
       </div>
 
@@ -282,6 +285,7 @@
   <script src="js/checkout-timer.js" defer></script>
   <script src="js/loyalty.js" defer></script>
   <script src="js/checkout-autosave.js" defer></script>
+  <script src="js/autocomplete-loader.js" defer></script>
   <script src="js/address-autocomplete.js" defer></script>
 </body>
 </html>
