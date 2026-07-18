@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
@@ -689,10 +689,23 @@
                     </label>
                 </div>
 
-                <!-- Step 2: Outfit -->
-                <h3>2. Select Outfit</h3>
+                <!-- Step 2: Outfit & Bottom Selection -->
+                <h3>2. Select Top & Bottom</h3>
                 <div class="clothing-list" id="clothing-list">
                     <!-- Populated by JS from products array -->
+                </div>
+                <div class="bottoms-select-section" style="margin-top: 15px;">
+                  <label for="bottom-color-select" style="font-weight: 600; font-size: 14px;">Select Bottom Garment Color:</label>
+                  <select id="bottom-color-select" style="width: 100%; padding: 8px; margin-top: 6px; border: 1px solid var(--border-color); border-radius: 6px;">
+                    <option value="khaki">Khaki Trousers</option>
+                    <option value="black">Black Jeans</option>
+                    <option value="white">White Linen Pants</option>
+                    <option value="navy">Navy Chinos</option>
+                    <option value="red">Red Shorts</option>
+                  </select>
+                </div>
+                <div id="outfit-compatibility-feedback" style="margin-top: 15px; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 500; display: none;">
+                  <!-- Dynamic feedback will render here -->
                 </div>
 
                 <div style="flex-grow: 1;"></div>
@@ -858,6 +871,7 @@
     </div>
   </footer>
    <button id="topBtn">â†‘</button>
+     <script src="js/outfit-compatibility.js"></script>
      <script src="try-on.js"></script> 
     <script src="navbar.js"></script>
     <script src="app.js"></script>
