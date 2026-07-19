@@ -44,14 +44,14 @@
 
       showFeedback(
         `Coupon "${code}" applied! You saved ${discountPct}%.`,
-        'success'
+        'success',
       );
       couponInput.classList.remove('is-invalid');
       couponInput.classList.add('is-valid');
 
       // Dispatch event to trigger summary re-render
       window.dispatchEvent(
-        new CustomEvent('couponApplied', { detail: { code, discountPct } })
+        new CustomEvent('couponApplied', { detail: { code, discountPct } }),
       );
       if (typeof window.updateCheckoutSummary === 'function') {
         window.updateCheckoutSummary();

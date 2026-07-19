@@ -20,14 +20,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const webcamVideo = document.getElementById('webcam-video');
 
   // ---- State ----
-  let currentMode = 'camera'; // 'camera' or 'upload'
+
   let hasPhoto = false;
   let hasOutfit = false;
-  let selectedGarmentImg = null;
+
   let cleanedGarmentCanvas = null; // garment with background removed
   let cameraStream = null;
   let isLiveMode = false; // true when webcam is live
-  let mediaPipeCamera = null;
+
   let detectedLandmarks = null; // store last detected landmarks
 
   // ---- Product catalog for clothing grid ----
@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // MODE SWITCHING (Camera / Upload)
   // ============================================
   function switchMode(mode) {
-    currentMode = mode;
+
     document
       .getElementById('btn-camera')
       .classList.toggle('active', mode === 'camera');
@@ -171,12 +171,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof showToast === 'function') {
           showToast(
             'Camera access blocked. Please enable webcam permission.',
-            'error'
+            'error',
           );
         } else {
           console.log(
             'Toast: ' +
-              'Camera access blocked. Please enable webcam permission.'
+              'Camera access blocked. Please enable webcam permission.',
           );
         }
       });
@@ -240,7 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
       0,
       0,
       captureCanvas.width,
-      captureCanvas.height
+      captureCanvas.height,
     );
     captureCtx.restore();
 
@@ -346,7 +346,7 @@ document.addEventListener('DOMContentLoaded', () => {
     img.crossOrigin = 'anonymous';
     img.src = element.src;
     img.onload = () => {
-      selectedGarmentImg = img;
+
       cleanedGarmentCanvas = removeGarmentBackground(img);
       checkReady();
     };
@@ -430,17 +430,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const rShoulder = landmarks[12];
     const lHip = landmarks[23];
     const rHip = landmarks[24];
-    const lElbow = landmarks[13];
-    const rElbow = landmarks[14];
+
 
     // Pixel distances
     const shoulderWidth = Math.sqrt(
       Math.pow((lShoulder.x - rShoulder.x) * canvasW, 2) +
-        Math.pow((lShoulder.y - rShoulder.y) * canvasH, 2)
+        Math.pow((lShoulder.y - rShoulder.y) * canvasH, 2),
     );
     const hipWidth = Math.sqrt(
       Math.pow((lHip.x - rHip.x) * canvasW, 2) +
-        Math.pow((lHip.y - rHip.y) * canvasH, 2)
+        Math.pow((lHip.y - rHip.y) * canvasH, 2),
     );
 
     const shoulderMidY = ((lShoulder.y + rShoulder.y) / 2) * canvasH;
@@ -503,12 +502,12 @@ document.addEventListener('DOMContentLoaded', () => {
           results.poseLandmarks,
           canvas.width,
           canvas.height,
-          true
+          true,
         );
         const bodyInfo = analyzeBody(
           results.poseLandmarks,
           canvas.width,
-          canvas.height
+          canvas.height,
         );
         showBodyInfo(bodyInfo);
       }
@@ -534,14 +533,14 @@ document.addEventListener('DOMContentLoaded', () => {
         results.poseLandmarks,
         canvas.width,
         canvas.height,
-        false
+        false,
       );
 
       // Analyze body
       const bodyInfo = analyzeBody(
         results.poseLandmarks,
         canvas.width,
-        canvas.height
+        canvas.height,
       );
       showBodyInfo(bodyInfo);
     }
@@ -618,7 +617,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let garmentScale = 1.0;
   let garmentOffsetY = 0.0;
   let garmentOpacity = 0.9;
-  let garmentBlendMode = 'multiply';
+
 
   // Dynamically inject Adjustment Sliders panel into the controls sidebar
   (function injectAdjustmentSliders() {
@@ -708,7 +707,7 @@ document.addEventListener('DOMContentLoaded', () => {
       -garmentWidth / 2,
       -garmentHeight * 0.15, // offset up for neckline
       garmentWidth,
-      garmentHeight
+      garmentHeight,
     );
 
     ctx.globalAlpha = 1.0;
@@ -778,7 +777,7 @@ document.addEventListener('DOMContentLoaded', () => {
       detectedLandmarks,
       canvas.width,
       canvas.height,
-      cleanedGarmentCanvas
+      cleanedGarmentCanvas,
     );
 
     // UI updates
@@ -821,7 +820,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     hasPhoto = false;
     hasOutfit = false;
-    selectedGarmentImg = null;
+
     cleanedGarmentCanvas = null;
     detectedLandmarks = null;
 
