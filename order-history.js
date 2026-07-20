@@ -1,13 +1,17 @@
 const ORDER_API_BASE_URL = window.CARA_API_BASE_URL || 'http://127.0.0.1:8000';
 
 function getAuthToken() {
-  return localStorage.getItem('access_token') || localStorage.getItem('cara_user_token') || '';
+  return (
+    localStorage.getItem('access_token') ||
+    localStorage.getItem('cara_user_token') ||
+    ''
+  );
 }
 
 function formatCurrency(amount) {
   return new Intl.NumberFormat('en-IN', {
     style: 'currency',
-    currency: 'INR'
+    currency: 'INR',
   }).format(amount || 0);
 }
 
@@ -22,11 +26,16 @@ function authFetch(url, options = {}) {
   return fetch(url, {
     ...options,
     headers,
-    credentials: 'include'
+    credentials: 'include',
   });
 }
 
-function setStateVisibility({ loading = false, error = false, empty = false, orders = false } = {}) {
+function setStateVisibility({
+  loading = false,
+  error = false,
+  empty = false,
+  orders = false,
+} = {}) {
   document.getElementById('loadingState').hidden = !loading;
   document.getElementById('errorState').hidden = !error;
   document.getElementById('emptyState').hidden = !empty;
@@ -40,13 +49,17 @@ function statusClass(status) {
 // (full_name, address, city, product_name, etc.) can never be
 // interpreted as markup when interpolated into innerHTML.
 function escapeHtml(value) {
-  return String(value ?? '').replace(/[&<>"']/g, (ch) => ({
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#39;',
-  }[ch]));
+  return String(value ?? '').replace(
+    /[&<>"']/g,
+    (ch) =>
+      ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;',
+      })[ch],
+  );
 }
 function renderOrders(orders) {
   const tbody = document.getElementById('ordersTableBody');
@@ -54,7 +67,9 @@ function renderOrders(orders) {
 
   orders.forEach((order) => {
     const row = document.createElement('tr');
-    const createdAt = order.created_at ? new Date(order.created_at).toLocaleDateString() : 'N/A';
+    const createdAt = order.created_at
+      ? new Date(order.created_at).toLocaleDateString()
+      : 'N/A';
 
     row.innerHTML = `
       <td>#${escapeHtml(order.id)}</td>
@@ -91,7 +106,10 @@ function renderOrderDetails(order) {
 
     <h3 style="margin: 0 0 12px;">Items</h3>
     <div class="order-items">
-      ${items.map((item) => `
+      ${
+        items
+          .map(
+            (item) => `
         <div class="item-card">
           <div>
             <p class="item-name">${escapeHtml(item.product_name)}</p>
@@ -99,7 +117,10 @@ function renderOrderDetails(order) {
           </div>
           <strong>${escapeHtml(formatCurrency(item.price))}</strong>
         </div>
-      `).join('') || '<p>No item details available.</p>'}
+      `,
+          )
+          .join('') || '<p>No item details available.</p>'
+      }
     </div>
   `;
 
@@ -142,7 +163,8 @@ async function fetchOrders() {
     renderOrders(orders);
   } catch (error) {
     setStateVisibility({ error: true });
-    document.getElementById('errorText').textContent = error.message || 'Something went wrong.';
+    document.getElementById('errorText').textContent =
+      error.message || 'Something went wrong.';
 
     if (typeof window.logError === 'function') {
       window.logError('Failed to fetch order history:', error);
@@ -173,29 +195,34 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 
-  document.getElementById('ordersTableBody').addEventListener('click', async (event) => {
-    const trigger = event.target.closest('[data-order-id]');
-    if (!trigger) {
-      return;
-    }
-
-    try {
-      const response = await authFetch(`${ORDER_API_BASE_URL}/api/orders/${trigger.dataset.orderId}`);
-
-      if (!response.ok) {
-        throw new Error('Failed to load order details');
+  document
+    .getElementById('ordersTableBody')
+    .addEventListener('click', async (event) => {
+      const trigger = event.target.closest('[data-order-id]');
+      if (!trigger) {
+        return;
       }
 
-      const order = await response.json();
-      renderOrderDetails(order);
-    } catch (error) {
-      if (typeof window.logError === 'function') {
-        window.logError('Failed to fetch order detail:', error);
+      try {
+        const response = await authFetch(
+          `${ORDER_API_BASE_URL}/api/orders/${trigger.dataset.orderId}`,
+        );
+
+        if (!response.ok) {
+          throw new Error('Failed to load order details');
+        }
+
+        const order = await response.json();
+        renderOrderDetails(order);
+      } catch (error) {
+        if (typeof window.logError === 'function') {
+          window.logError('Failed to fetch order detail:', error);
+        }
+        document.getElementById('errorText').textContent =
+          error.message || 'Something went wrong.';
+        setStateVisibility({ error: true });
       }
-      document.getElementById('errorText').textContent = error.message || 'Something went wrong.';
-      setStateVisibility({ error: true });
-    }
-  });
+    });
 
   await fetchOrders();
 });

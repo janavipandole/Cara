@@ -127,7 +127,8 @@
       return;
     }
 
-    let html = '<nav class="search-pagination" aria-label="Search results pages"><ul>';
+    let html =
+      '<nav class="search-pagination" aria-label="Search results pages"><ul>';
     for (let i = 1; i <= totalPages; i++) {
       html += `<li>
         <button class="page-btn ${i === page ? 'active' : ''}"
@@ -145,7 +146,8 @@
       btn.addEventListener('click', function () {
         filters.page = parseInt(this.dataset.page, 10);
         fetchAndRender();
-        productGrid && productGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        productGrid &&
+          productGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
   }
@@ -161,7 +163,9 @@
 
     if (searchLoader) searchLoader.style.display = 'block';
 
-    fetch(`${API_BASE}?${buildQueryString()}`, { signal: thisController.signal })
+    fetch(`${API_BASE}?${buildQueryString()}`, {
+      signal: thisController.signal,
+    })
       .then((res) => {
         if (!res.ok) throw new Error(`API error: ${res.status}`);
         return res.json();

@@ -1,1 +1,3 @@
-function debounce(f, t) { return f; }
+function debounce(f, t) {
+  return f;
+}
