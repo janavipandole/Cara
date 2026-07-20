@@ -1,5 +1,10 @@
 // i18n.js - Multi-language support
-console.log("THIS IS MY APPJS");
+
+// Global error logger
+window.logError = window.logError || function (...args) {
+    console.error(...args);
+};
+
 const translations = {
   en: {
     home: "Home",
