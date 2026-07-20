@@ -247,6 +247,17 @@ const popup = document.getElementById('successPopup');
 form.addEventListener('submit', function (e) {
   e.preventDefault();
 
+  try {
+    submitCheckoutForm();
+  } catch (error) {
+    CaraErrorBoundary.logError(error, '#checkoutForm submit');
+    if (typeof window.showToast === 'function') {
+      window.showToast('Something went wrong. Please try again.', 'error');
+    }
+  }
+});
+
+function submitCheckoutForm() {
   const inputs = form.querySelectorAll(
     'input[data-validate], textarea[data-validate], select[data-validate]',
   );
@@ -396,7 +407,7 @@ form.addEventListener('submit', function (e) {
         if (errEl) errEl.textContent = '';
       });
     })
-    .catch((err) => {
+   .catch((err) => {
       if (typeof window.showToast === 'function')
         window.showToast(err.message, 'error');
       else console.log('Toast: ' + err.message);
@@ -406,7 +417,7 @@ form.addEventListener('submit', function (e) {
         submitBtn.disabled = false;
       }
     });
-});
+}
 
 window.closePopup = function () {
   const popup = document.getElementById('successPopup');
@@ -640,8 +651,11 @@ function highlightError(el) {
 // Call init on DOM ready
 function initCheckoutPage() {
   initCheckoutValidation();
-  renderCheckoutItems();
-  window.updateCheckoutSummary();
+
+  CaraErrorBoundary.wrap('#checkoutForm', function () {
+    renderCheckoutItems();
+    window.updateCheckoutSummary();
+  });
 }
 
 document.addEventListener('DOMContentLoaded', initCheckoutPage);

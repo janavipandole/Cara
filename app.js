@@ -1133,9 +1133,96 @@ window.buyNow = function (
   const paginationSection = document.getElementById('pagination');
   if (!paginationSection) return;
 
-  const productsPerPage = 16;
   const productSection = document.getElementById('product1');
   if (!productSection) return;
+
+  CaraErrorBoundary.wrap('#product1', function () {
+    const productsPerPage = 16;
+
+    const productContainers = Array.from(
+      productSection.querySelectorAll('.pro-container'),
+    );
+    let allProducts = [];
+    productContainers.forEach((container) => {
+      allProducts = allProducts.concat(
+        Array.from(container.querySelectorAll('.pro')),
+      );
+    });
+
+    if (allProducts.length === 0) return;
+
+    const totalPages = Math.ceil(allProducts.length / productsPerPage);
+
+    if (productContainers.length > 1) {
+      productContainers.forEach((container, index) => {
+        if (index > 0) container.style.display = 'none';
+      });
+    }
+
+    window._showShopPage = function showPage(pageNumber) {
+      allProducts.forEach((product) => {
+        product.style.display = 'none';
+      });
+
+      const startIndex = (pageNumber - 1) * productsPerPage;
+      const productsToShow = allProducts.slice(
+        startIndex,
+        startIndex + productsPerPage,
+      );
+      const firstContainer = productContainers[0];
+
+      firstContainer.innerHTML = '';
+      firstContainer.style.display = 'flex';
+      productsToShow.forEach((product) => {
+        product.style.display = 'block';
+        firstContainer.appendChild(product);
+      });
+
+      productSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      updatePaginationUI(pageNumber);
+    };
+
+    function updatePaginationUI(activePage) {
+      paginationSection.innerHTML = '';
+
+      const prevArrow = document.createElement('a');
+      prevArrow.href = '#';
+      prevArrow.innerHTML = '<i class="fa-solid fa-arrow-left"></i>';
+      prevArrow.classList.add('pagination-arrow');
+      if (activePage === 1) prevArrow.classList.add('disabled');
+      prevArrow.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (activePage > 1) window._showShopPage(activePage - 1);
+      });
+      paginationSection.appendChild(prevArrow);
+
+      for (let i = 1; i <= totalPages; i++) {
+        const pageLink = document.createElement('a');
+        pageLink.href = '#';
+        pageLink.textContent = i;
+        if (i === activePage) pageLink.classList.add('active');
+        pageLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          window._showShopPage(i);
+        });
+        paginationSection.appendChild(pageLink);
+      }
+
+      const nextArrow = document.createElement('a');
+      nextArrow.href = '#';
+      nextArrow.innerHTML = '<i class="fa-solid fa-arrow-right"></i>';
+      nextArrow.classList.add('pagination-arrow');
+      if (activePage === totalPages) nextArrow.classList.add('disabled');
+      nextArrow.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (activePage < totalPages) window._showShopPage(activePage + 1);
+      });
+      paginationSection.appendChild(nextArrow);
+    }
+
+    window._showShopPage(1);
+  });
+})();
 
   const productContainers = Array.from(
     productSection.querySelectorAll('.pro-container'),
