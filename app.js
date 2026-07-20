@@ -1,4 +1,8 @@
 // i18n.js - Multi-language support
+// Global error logger
+window.logError = window.logError || function (...args) {
+    console.error(...args);
+};
 
 const translations = {
   en: {
