@@ -1,4 +1,4 @@
-﻿/**
+/**
  * compare.js — Product Comparison Feature
  * Issue #2576: Side-by-side product comparison table with sessionStorage (max 3 items)
  */
@@ -278,6 +278,15 @@
      ============================================================ */
 
   document.addEventListener('DOMContentLoaded', function () {
+    if (typeof window.CompareAnimationController === 'function') {
+      const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const animController = new window.CompareAnimationController();
+      animController.applyMotionPreferences(animController.shouldDisableMotion(motionQuery.matches));
+      motionQuery.addEventListener('change', (e) => {
+        animController.applyMotionPreferences(animController.shouldDisableMotion(e.matches));
+      });
+    }
+
     if (document.getElementById('compareTableWrapper')) {
       initComparePage();
     } else {
