@@ -115,6 +115,13 @@
       return;
     }
 
+    let loader = null;
+    if (typeof window.AutocompleteLoader === 'function') {
+      const loaderEl = document.getElementById('address-loader');
+      loader = new window.AutocompleteLoader(loaderEl);
+      loader.showLoader();
+    }
+
     try {
       const res = await fetch(`${SUGGEST_API}?q=${encodeURIComponent(val)}`);
       if (!res.ok) throw new Error('API error');
@@ -122,6 +129,10 @@
       showSuggestions(list);
     } catch {
       hideSuggestions();
+    } finally {
+      if (loader) {
+        loader.hideLoader();
+      }
     }
   }
 
