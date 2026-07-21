@@ -134,6 +134,29 @@
 
         </div>
         </div>
+        </div>
+    </section>
+
+    <section id="reviews" class="section-p1">
+        <h2>Customer Reviews</h2>
+        <div id="reviews-list"></div>
+        
+        <div class="review-form">
+            <h3>Write a Review</h3>
+            <form id="submit-review-form">
+                <input type="text" id="reviewer-name" placeholder="Your Name" required style="width:100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                <select id="review-rating" required style="width:100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                    <option value="" disabled selected>Select Rating (1-5)</option>
+                    <option value="5">5 Stars</option>
+                    <option value="4">4 Stars</option>
+                    <option value="3">3 Stars</option>
+                    <option value="2">2 Stars</option>
+                    <option value="1">1 Star</option>
+                </select>
+                <textarea id="review-text" placeholder="Your Review" required style="width:100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; height: 80px;"></textarea>
+                <button type="submit" class="normal">Submit Review</button>
+            </form>
+        </div>
     </section>
 
     <section id="product1" class="section-p1">
@@ -305,6 +328,45 @@
 </div>
 <script>
     document.getElementById("Current-Year").textContent=new Date().getFullYear();
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const reviewForm = document.getElementById('submit-review-form');
+        const reviewsList = document.getElementById('reviews-list');
+        const productId = new URLSearchParams(window.location.search).get('id') || '1'; // Default to 1 if no ID in URL
+        const STORAGE_PREFIX = 'cara_reviews_';
+        
+        function loadReviews() {
+            const stored = JSON.parse(localStorage.getItem(STORAGE_PREFIX + productId) || '[]');
+            reviewsList.innerHTML = stored.map(r => `
+                <div style="border-bottom: 1px solid #ccc; padding-bottom: 10px; margin-bottom: 10px;">
+                    <strong>${r.name}</strong> - <span>${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</span>
+                    <p style="margin-top: 5px;">${r.text}</p>
+                </div>
+            `).join('');
+        }
+
+        if (reviewForm) {
+            reviewForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('reviewer-name').value;
+                const rating = parseInt(document.getElementById('review-rating').value, 10);
+                const text = document.getElementById('review-text').value;
+
+                const stored = JSON.parse(localStorage.getItem(STORAGE_PREFIX + productId) || '[]');
+                stored.push({ name, rating, text, date: new Date().toISOString() });
+                localStorage.setItem(STORAGE_PREFIX + productId, JSON.stringify(stored));
+                
+                reviewForm.reset();
+                loadReviews();
+                
+                // Show success toast if function exists
+                if(typeof showToast === 'function') showToast('Review submitted successfully!');
+            });
+            
+            loadReviews();
+        }
+    });
 </script>
 </body>
 
