@@ -40,6 +40,7 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="recently-viewed.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
@@ -143,6 +144,12 @@
         <!-- Dynamic Js container  {csritik-max }-->
         <div class="pro-container" id="featured-container"></div>
         <!--   -->
+    </section>
+
+    <section id="recently-viewed-section" class="section-p1" style="display: none;">
+      <h2>Recently Viewed</h2>
+      <p>Pick up where you left off</p>
+      <div class="pro-container" id="recently-viewed-container"></div>
     </section>
 
     <!-- Footer -->
@@ -306,6 +313,7 @@
 <script>
     document.getElementById("Current-Year").textContent=new Date().getFullYear();
 </script>
+<script src="../js/recently-viewed.js"></script>
 </body>
 
 </html>
