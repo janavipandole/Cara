@@ -15,7 +15,7 @@ async function getTestKey(storage) {
       raw,
       { name: 'HMAC', hash: 'SHA-256' },
       false,
-      ['sign', 'verify']
+      ['sign', 'verify'],
     );
   }
   const keyMaterial = crypto.getRandomValues(new Uint8Array(32));
@@ -25,7 +25,7 @@ async function getTestKey(storage) {
     keyMaterial,
     { name: 'HMAC', hash: 'SHA-256' },
     false,
-    ['sign', 'verify']
+    ['sign', 'verify'],
   );
 }
 
@@ -34,7 +34,7 @@ async function sign(data, storage) {
   const sig = await crypto.subtle.sign(
     'HMAC',
     key,
-    new TextEncoder().encode(data)
+    new TextEncoder().encode(data),
   );
   return btoa(String.fromCharCode(...new Uint8Array(sig)));
 }
@@ -46,7 +46,7 @@ async function verify(data, sigB64, storage) {
     'HMAC',
     key,
     sigBytes,
-    new TextEncoder().encode(data)
+    new TextEncoder().encode(data),
   );
 }
 
@@ -82,13 +82,13 @@ describe('secure-storage session key management', () => {
     const sig = await crypto.subtle.sign(
       'HMAC',
       k1,
-      new TextEncoder().encode(data)
+      new TextEncoder().encode(data),
     );
     const valid = await crypto.subtle.verify(
       'HMAC',
       k2,
       sig,
-      new TextEncoder().encode(data)
+      new TextEncoder().encode(data),
     );
     expect(valid).toBe(true);
   });
@@ -123,7 +123,7 @@ describe('secure-storage session key management', () => {
     await getTestKey(sessionB);
 
     expect(sessionA.getItem(KEY_STORAGE_NAME)).not.toBe(
-      sessionB.getItem(KEY_STORAGE_NAME)
+      sessionB.getItem(KEY_STORAGE_NAME),
     );
   });
 

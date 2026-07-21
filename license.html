@@ -119,7 +119,8 @@
         }
     </style>
   <link rel="manifest" href="/manifest.json">
-  <script>
+  <script src="js/error-boundary.js"></script>
+<script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/service-worker.js');

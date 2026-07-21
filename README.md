@@ -250,13 +250,13 @@ Cart -
 - [x] Blog section
 
 ### Upcoming Features
-- [ ] **Product Search** - Search functionality with filters
-- [ ] **User Authentication** - Login and registration
-- [ ] **Product Filters** - Filter by category, price, rating
-- [ ] **Wishlist** - Save favorite products
+- [x] **Product Search** - Search functionality with filters
+- [x] **User Authentication** - Login and registration
+- [x] **Product Filters** - Filter by category, price, rating
+- [x] **Wishlist** - Save favorite products
 - [ ] **Product Reviews** - Customer ratings and reviews
-- [ ] **Order Tracking** - Track order status
-- [ ] **Dark Mode** - Theme toggle functionality
+- [x] **Order Tracking** - Track order status
+- [x] **Dark Mode** - Theme toggle functionality
 - [ ] **Multi-language Support** - Internationalization
 - [ ] **Backend Integration** - Connect to API/database
 - [ ] **Payment Gateway** - Integrate payment processing
