@@ -199,12 +199,25 @@ function renderProducts(containerId, list) {
     nameH5.textContent = p.name;
     des.appendChild(nameH5);
 
+    // Dynamic rating calculation from localStorage review entries
+    let activeRating = p.rating;
+    try {
+      const STORAGE_PREFIX = 'cara_reviews_';
+      const storedReviews = JSON.parse(localStorage.getItem(STORAGE_PREFIX + p.id) || '[]');
+      if (storedReviews.length > 0) {
+        const sum = storedReviews.reduce((acc, r) => acc + r.rating, 0);
+        activeRating = parseFloat((sum / storedReviews.length).toFixed(1));
+      }
+    } catch (e) {
+      // Use static fallback
+    }
+
     // Star rating
     const starDiv = document.createElement('div');
     starDiv.className = 'star';
-    starDiv.setAttribute('aria-label', `Rating: ${p.rating} out of 5 stars`);
-    const fullStars = Math.floor(p.rating);
-    const hasHalf = p.rating % 1 >= 0.5;
+    starDiv.setAttribute('aria-label', `Rating: ${activeRating} out of 5 stars`);
+    const fullStars = Math.floor(activeRating);
+    const hasHalf = activeRating % 1 >= 0.5;
     for (let i = 0; i < fullStars; i++) {
       const starIcon = document.createElement('i');
       starIcon.className = 'ri-star-fill';
