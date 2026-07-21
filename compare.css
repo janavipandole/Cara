@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    COMPARE PAGE — compare.css
    Styles for compare.html and the floating compare badge
    ============================================================ */
@@ -280,3 +280,17 @@
     font-size: 0.82rem;
   }
 }
+
+/* Accessibility: Prefers Reduced Motion */
+body.reduce-motion *,
+body.reduce-motion *::before,
+body.reduce-motion *::after {
+  animation-delay: -1ms !important;
+  animation-duration: 1ms !important;
+  animation-iteration-count: 1 !important;
+  background-attachment: scroll !important;
+  scroll-behavior: auto !important;
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
+}
+

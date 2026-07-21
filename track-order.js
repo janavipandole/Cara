@@ -74,7 +74,7 @@ const MOCK_ORDERS = {
 // ── DOM references ────────────────────────────────────────
 const form = document.getElementById('trackOrderForm');
 const trackBtn = document.getElementById('trackBtn');
-const btnLoader = document.getElementById('btnLoader');
+
 const formCard = document.querySelector('.track-form-card');
 const resultCard = document.getElementById('trackResult');
 const errorCard = document.getElementById('trackError');
@@ -116,7 +116,7 @@ if (form) {
     } else if (!/^CARA-\d+$/.test(orderIdRaw)) {
       showTrackError(
         orderIdInput,
-        'Invalid Format. Pattern should be CARA-XXXXXXXX (e.g. CARA-20261234)'
+        'Invalid Format. Pattern should be CARA-XXXXXXXX (e.g. CARA-20261234)',
       );
       isTrackValid = false;
     }
@@ -138,7 +138,7 @@ if (form) {
       setLoading(false);
       // Check localStorage for custom mock orders first
       const customOrders = JSON.parse(
-        localStorage.getItem('cara_custom_mock_orders') || '{}'
+        localStorage.getItem('cara_custom_mock_orders') || '{}',
       );
       const order = customOrders[orderIdRaw] || MOCK_ORDERS[orderIdRaw];
 
@@ -445,12 +445,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Retrieve existing custom mock orders
       const customOrders = JSON.parse(
-        localStorage.getItem('cara_custom_mock_orders') || '{}'
+        localStorage.getItem('cara_custom_mock_orders') || '{}',
       );
       customOrders[orderId] = customMockOrder;
       localStorage.setItem(
         'cara_custom_mock_orders',
-        JSON.stringify(customOrders)
+        JSON.stringify(customOrders),
       );
 
       // Auto pre-fill track form

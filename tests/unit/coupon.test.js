@@ -18,7 +18,10 @@ function checkCouponCode(rawCode) {
   if (COUPONS.hasOwnProperty(code)) {
     return { valid: true, discountPct: COUPONS[code], code };
   }
-  return { valid: false, message: 'Invalid coupon code. Try CARA20 or WELCOME10.' };
+  return {
+    valid: false,
+    message: 'Invalid coupon code. Try CARA20 or WELCOME10.',
+  };
 }
 
 describe('Coupon Validation Logic', () => {

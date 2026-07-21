@@ -26,4 +26,8 @@ describe('js/utils/sanitize.js input validation and sanitization', () => {
       'text&#x2F;html,payload',
     );
   });
+
+  it('should prevent multi-character sanitization bypasses', () => {
+    expect(sanitizeHTML('oonload=alert(1)')).toBe('oalert(1)');
+  });
 });

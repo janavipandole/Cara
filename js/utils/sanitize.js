@@ -17,9 +17,14 @@ function sanitizeHTML(input) {
     .replace(/\//g, '&#x2F;');
 
   // Prevent inline event handlers and scripting attributes
-  clean = clean.replace(/on\w+\s*=/gi, '');
-  clean = clean.replace(/javascript\s*:/gi, '');
-  clean = clean.replace(/data\s*:/gi, '');
+  let prev;
+  do {
+    prev = clean;
+    clean = clean
+      .replace(/on\w+\s*=/gi, '')
+      .replace(/javascript\s*:/gi, '')
+      .replace(/data\s*:/gi, '');
+  } while (clean !== prev);
 
   return clean;
 }
