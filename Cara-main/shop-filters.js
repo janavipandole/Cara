@@ -206,10 +206,14 @@ const loadMoreItems = () => {
   applyFilters();
 };
 
+let scrollTimeout;
 window.addEventListener('scroll', () => {
-  if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 150) {
-    loadMoreItems();
-  }
+  if (scrollTimeout) clearTimeout(scrollTimeout);
+  scrollTimeout = setTimeout(() => {
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 150) {
+      loadMoreItems();
+    }
+  }, 100);
 });
 
 /* ── Search input ─────────────────────────────────────────── */

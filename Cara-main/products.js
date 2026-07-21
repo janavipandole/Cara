@@ -177,6 +177,7 @@ function renderProducts(containerId, list) {
     const img = document.createElement('img');
     img.src = p.img;
     img.alt = p.name;
+    img.loading = 'lazy'; // Lazy load feature
     imgWrap.appendChild(img);
     card.appendChild(imgWrap);
 
