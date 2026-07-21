@@ -18,6 +18,9 @@ const categoryRadios = Array.from(
 const brandCheckboxes = Array.from(
   document.querySelectorAll('input[name="afb-brand"]'),
 );
+const colorCheckboxes = Array.from(
+  document.querySelectorAll('input[name="afb-color"]'),
+);
 const availCheckboxes = Array.from(
   document.querySelectorAll('input[name="afb-avail"]'),
 );
@@ -73,7 +76,7 @@ const refreshPillStates = () =>
   );
 
 const refreshCheckStates = () =>
-  [...brandCheckboxes, ...availCheckboxes].forEach((c) =>
+  [...brandCheckboxes, ...availCheckboxes, ...colorCheckboxes].forEach((c) =>
     c.closest('.afb-check')?.classList.toggle('active', c.checked),
   );
 
@@ -102,6 +105,9 @@ const updateChips = () => {
   brandCheckboxes
     .filter((c) => c.checked)
     .forEach((c) => chips.push(`Brand: ${c.value}`));
+  colorCheckboxes
+    .filter((c) => c.checked)
+    .forEach((c) => chips.push(`Color: ${c.value}`));
   const rating = getActiveRating();
   if (rating > 0) chips.push(`Rating: ${rating}+`);
   availCheckboxes
@@ -141,6 +147,9 @@ const applyFilters = () => {
   const selBrands = brandCheckboxes
     .filter((c) => c.checked)
     .map((c) => c.value.toLowerCase());
+  const selColors = colorCheckboxes
+    .filter((c) => c.checked)
+    .map((c) => c.value.toLowerCase());
   const selAvail = availCheckboxes
     .filter((c) => c.checked)
     .map((c) => c.value.toLowerCase());
@@ -157,6 +166,10 @@ const applyFilters = () => {
 
     // Brand (only when at least one brand box is checked)
     if (selBrands.length && !selBrands.includes(p.brand.toLowerCase()))
+      return false;
+
+    // Color (only when at least one color box is checked)
+    if (selColors.length && !selColors.includes((p.color || '').toLowerCase()))
       return false;
 
     // Availability — products.js has no avail field; treat all as instock
@@ -233,6 +246,12 @@ brandCheckboxes.forEach((c) =>
     applyFilters();
   }),
 );
+colorCheckboxes.forEach((c) =>
+  c.addEventListener('change', () => {
+    refreshCheckStates();
+    applyFilters();
+  }),
+);
 availCheckboxes.forEach((c) =>
   c.addEventListener('change', () => {
     refreshCheckStates();
@@ -259,6 +278,9 @@ clearBtn?.addEventListener('click', () => {
     r.checked = r.value === 'all';
   });
   brandCheckboxes.forEach((c) => {
+    c.checked = false;
+  });
+  colorCheckboxes.forEach((c) => {
     c.checked = false;
   });
   availCheckboxes.forEach((c) => {
