@@ -1651,8 +1651,12 @@ window.shareWardrobe = function () {
         s: item.size,
       };
     });
+    var sharePayload = {
+      t: Date.now(),
+      items: minimizedCart,
+    };
     var base64Payload = btoa(
-      unescape(encodeURIComponent(JSON.stringify(minimizedCart))),
+      unescape(encodeURIComponent(JSON.stringify(sharePayload))),
     );
     var shareUrl =
       window.location.origin +
@@ -1700,6 +1704,7 @@ window.closeShareModal = function () {
   } else {
     window.location.hash = '';
   }
+  var SHARED_WARDROBE_EXPIRY_MS = 14 * 24 * 60 * 60 * 1000; 
   window.pendingSharedCart = null;
 };
 
@@ -1709,12 +1714,28 @@ window.checkSharedWardrobe = function () {
 
   try {
     var base64Payload = hash.substring(7);
-    var decodedCart = JSON.parse(
+    var decodedPayload = JSON.parse(
       decodeURIComponent(escape(atob(base64Payload))),
     );
 
+    var decodedCart = Array.isArray(decodedPayload)
+      ? decodedPayload
+      : decodedPayload.items;
+    var sharedAt = Array.isArray(decodedPayload) ? null : decodedPayload.t;
+
     if (!Array.isArray(decodedCart) || decodedCart.length === 0) {
       showToast('Invalid share link or empty shared collection.', 'error');
+      return;
+    }
+
+    if (
+      sharedAt &&
+      Date.now() - sharedAt > SHARED_WARDROBE_EXPIRY_MS
+    ) {
+      showToast(
+        'This shared wardrobe link has expired. Prices or availability may have changed.',
+        'warning',
+      );
       return;
     }
 
@@ -1727,6 +1748,7 @@ window.checkSharedWardrobe = function () {
         size: item.s || 'M',
       };
     });
+
 
     var listContainer = document.getElementById('shared-items-list');
     var totalPriceEl = document.getElementById('shared-total-price');
