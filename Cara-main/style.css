@@ -1,9 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=League+Spartan:wght@100..900&display=swap');
 
+
 /* ============================================
    ADD-TO-CART BUTTON HOVER ANIMATION
    Issue #316 — Hover micro-interactions
    ============================================ */
+.mobile { display: none; }
+   @media (max-width: 768px) {
+     .mobile { display: flex; }
+   }
 
 #product1 .pro .cart {
     transition: all 0.3s ease;
