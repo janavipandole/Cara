@@ -181,20 +181,40 @@ const applyFilters = () => {
   if (sortVal === 'low-high') filtered.sort((a, b) => a.price - b.price);
   else if (sortVal === 'high-low') filtered.sort((a, b) => b.price - a.price);
 
+  // Infinite Scroll Slice chunking
+  const totalCount = filtered.length;
+  filtered = filtered.slice(0, currentVisibleCount);
+
   // Re-render via products.js helper
   renderProducts('shop-container', filtered);
 
   // Update counts
-  const n = filtered.length;
-  if (countEl) countEl.textContent = n;
+  if (countEl) countEl.textContent = totalCount;
   const legacy = document.getElementById('searchCount');
-  if (legacy) legacy.textContent = `${n} product${n !== 1 ? 's' : ''}`;
+  if (legacy) legacy.textContent = `${totalCount} product${totalCount !== 1 ? 's' : ''}`;
 
   // Suggestions
   renderSearchSuggestions(query);
 
   updateChips();
 };
+
+/* ── Infinite Scroll Scroll listener ──────────────────────── */
+let currentVisibleCount = 8;
+const loadMoreItems = () => {
+  currentVisibleCount += 8;
+  applyFilters();
+};
+
+let scrollTimeout;
+window.addEventListener('scroll', () => {
+  if (scrollTimeout) clearTimeout(scrollTimeout);
+  scrollTimeout = setTimeout(() => {
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 150) {
+      loadMoreItems();
+    }
+  }, 100);
+});
 
 /* ── Search input ─────────────────────────────────────────── */
 if (searchInput) {
