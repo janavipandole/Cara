@@ -19,6 +19,7 @@
 
   var STORAGE_KEY = 'recentlyViewed';
   var MAX_ITEMS = 6;
+  var memoryFallbackList = [];
 
   function safeParseList(raw) {
     if (!raw) return [];
@@ -32,22 +33,28 @@
 
   function getRecentlyViewed() {
     try {
-      return safeParseList(localStorage.getItem(STORAGE_KEY));
+      if (typeof localStorage !== 'undefined') {
+        return safeParseList(localStorage.getItem(STORAGE_KEY));
+      }
     } catch (e) {
-      return [];
+      /* ignore storage exception, return memory fallback */
     }
+    return memoryFallbackList;
   }
 
   function saveRecentlyViewed(list) {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
-      return true;
+      if (typeof localStorage !== 'undefined') {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+        return true;
+      }
     } catch (e) {
       if (typeof root.logError === 'function') {
         root.logError('Failed to save recently viewed products:', e);
       }
-      return false;
     }
+    memoryFallbackList = list;
+    return false;
   }
 
   /**
