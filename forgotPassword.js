@@ -28,7 +28,13 @@ document.addEventListener('DOMContentLoaded', function () {
     .addEventListener('submit', function (e) {
       e.preventDefault();
 
-      const email = document.getElementById('forgotEmail').value.trim();
+      let email = document.getElementById('forgotEmail').value.trim();
+      if (
+        typeof window !== 'undefined' &&
+        typeof window.sanitizeHTML === 'function'
+      ) {
+        email = window.sanitizeHTML(email);
+      }
       const newPass = document.getElementById('forgotNewPass').value;
       const confirmPass = document.getElementById('forgotConfirmPass').value;
 

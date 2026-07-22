@@ -854,3 +854,12 @@ body.dark-theme .demo-hint {
     transform: translateY(0);
   }
 }
+
+/* Simulated timeline time stamps */
+.timeline-time {
+  font-size: 10px;
+  color: #777;
+  margin-top: 4px;
+  font-style: italic;
+}
+

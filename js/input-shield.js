@@ -17,6 +17,12 @@ document.addEventListener('DOMContentLoaded', () => {
       ) {
         blocked = true;
         input.value = '';
+      } else if (
+        typeof window !== 'undefined' &&
+        typeof window.sanitizeHTML === 'function'
+      ) {
+        // Perform additional sanitization in-place
+        input.value = window.sanitizeHTML(rawVal);
       }
     });
 

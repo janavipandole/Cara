@@ -223,6 +223,20 @@
           </fieldset>
 
           <fieldset class="afb-group">
+            <legend class="afb-group-title"><i class="ri-palette-line"></i> Color</legend>
+            <div class="afb-check-group">
+              <label class="afb-check"><input type="checkbox" name="afb-color" value="black"> <span>Black</span></label>
+              <label class="afb-check"><input type="checkbox" name="afb-color" value="white"> <span>White</span></label>
+              <label class="afb-check"><input type="checkbox" name="afb-color" value="blue"> <span>Blue</span></label>
+              <label class="afb-check"><input type="checkbox" name="afb-color" value="red"> <span>Red</span></label>
+              <label class="afb-check"><input type="checkbox" name="afb-color" value="pink"> <span>Pink</span></label>
+              <label class="afb-check"><input type="checkbox" name="afb-color" value="green"> <span>Green</span></label>
+              <label class="afb-check"><input type="checkbox" name="afb-color" value="beige"> <span>Beige</span></label>
+              <label class="afb-check"><input type="checkbox" name="afb-color" value="brown"> <span>Brown</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="afb-group">
             <legend class="afb-group-title"><i class="ri-checkbox-circle-line"></i> Availability</legend>
             <div class="afb-check-group">
               <label class="afb-check"><input type="checkbox" name="afb-avail" value="instock" checked> <span>In Stock</span></label>
@@ -317,7 +331,7 @@
         <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
       </div>
       <form class="form newsletter-form">
-        <input type="email" placeholder="Your email address" required />
+        <input type="email" placeholder="Your email address" aria-label="Your email address" required />
         <button type="submit" class="normal">Sign Up</button>
       </form>
     </section>

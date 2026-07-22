@@ -21,13 +21,18 @@ document.addEventListener('DOMContentLoaded', () => {
         el.value = savedVal;
       }
 
-      // Save on input
-      el.addEventListener('input', () => {
-        localStorage.setItem(`cara_contact_draft_${field}`, el.value);
-        showAutosaveStatus();
-      });
-    }
-  });
+            // Save on input
+            el.addEventListener("input", () => {
+                let val = el.value;
+                if (typeof window.BackendProfileSecurity === 'function') {
+                    const sec = new window.BackendProfileSecurity();
+                    val = sec.sanitizeField(val);
+                }
+                localStorage.setItem(`cara_contact_draft_${field}`, val);
+                showAutosaveStatus();
+            });
+        }
+    });
 
   // Create a visual indicator for draft state
   const indicator = document.createElement('div');

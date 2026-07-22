@@ -24,6 +24,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     var username = document.getElementById('registerUsername')?.value.trim();
     var email = document.getElementById('registerEmail')?.value.trim();
+    if (
+      typeof window !== 'undefined' &&
+      typeof window.sanitizeHTML === 'function'
+    ) {
+      username = window.sanitizeHTML(username);
+      email = window.sanitizeHTML(email);
+    }
     var password = document.getElementById('registerPassword')?.value;
     var confirmPassword = document.getElementById('confirmPassword')?.value;
 
