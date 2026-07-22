@@ -607,13 +607,9 @@ button.white .ripple-effect {
    HERO SECTION
    ============================================ */
 
-#hero.hero-slider {
-    height: 100vh;
-    min-height: 500px;
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-    padding: 0;
+#hero.hero-slider:not(:has(.slide.active)) {
+    min-height: auto;
+    height: auto;
 }
 
 .hero-slider .slide {
