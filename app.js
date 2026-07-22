@@ -1,4 +1,5 @@
 // i18n.js - Multi-language support
+
 // Global error logger
 window.logError = window.logError || function (...args) {
     console.error(...args);
@@ -731,8 +732,8 @@ function dismissToast(toast) {
 }
 
 window.updateQty = function (change) {
-  let quantityElement = document.querySelector('.qty'); // check class
-  let quantity = parseInt(quantityElement.textContent);
+    const quantityElement = document.getElementById("product-quantity"); 
+    let quantity = parseInt(quantityElement.value);
 
   quantity += change;
 
@@ -746,9 +747,11 @@ window.updateQty = function (change) {
   }
   // ✅ Fix ends here
 
-  quantityElement.textContent = quantity;
+    quantityElement.value = quantity;
+    
 
-  updateCartTotal(); // already present function
+    // Quantity selector only updates the selected quantity.
+    // Cart totals are recalculated after the product is added to the cart.
 };
 window.handleAddToCart = function () {
   const nameElement = document.getElementById('product-name');
@@ -870,7 +873,7 @@ window.loadCart = async function () {
     row.innerHTML = `
             <div class="cart-item-left">
                 <div class="cart-item-img-wrap">
-                    <img src="${item.image}" alt="${item.name}" loading="lazy" />
+                    <img src="${item.img}" alt="${item.name}" loading="lazy" />
                 </div>
                 <div class="cart-item-details">
                     <span class="cart-item-brand">${item.brand || 'Premium Brand'}</span>
@@ -1228,89 +1231,7 @@ window.buyNow = function (
   });
 })();
 
-  const productContainers = Array.from(
-    productSection.querySelectorAll('.pro-container'),
-  );
-  let allProducts = [];
-  productContainers.forEach((container) => {
-    allProducts = allProducts.concat(
-      Array.from(container.querySelectorAll('.pro')),
-    );
-  });
 
-  if (allProducts.length === 0) return;
-
-  const totalPages = Math.ceil(allProducts.length / productsPerPage);
-
-  if (productContainers.length > 1) {
-    productContainers.forEach((container, index) => {
-      if (index > 0) container.style.display = 'none';
-    });
-  }
-
-  window._showShopPage = function showPage(pageNumber) {
-    allProducts.forEach((product) => {
-      product.style.display = 'none';
-    });
-
-    const startIndex = (pageNumber - 1) * productsPerPage;
-    const productsToShow = allProducts.slice(
-      startIndex,
-      startIndex + productsPerPage,
-    );
-    const firstContainer = productContainers[0];
-
-    firstContainer.innerHTML = '';
-    firstContainer.style.display = 'flex';
-    productsToShow.forEach((product) => {
-      product.style.display = 'block';
-      firstContainer.appendChild(product);
-    });
-
-    productSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    updatePaginationUI(pageNumber);
-  };
-
-  function updatePaginationUI(activePage) {
-    paginationSection.innerHTML = '';
-
-    const prevArrow = document.createElement('a');
-    prevArrow.href = '#';
-    prevArrow.innerHTML = '<i class="fa-solid fa-arrow-left"></i>';
-    prevArrow.classList.add('pagination-arrow');
-    if (activePage === 1) prevArrow.classList.add('disabled');
-    prevArrow.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (activePage > 1) window._showShopPage(activePage - 1);
-    });
-    paginationSection.appendChild(prevArrow);
-
-    for (let i = 1; i <= totalPages; i++) {
-      const pageLink = document.createElement('a');
-      pageLink.href = '#';
-      pageLink.textContent = i;
-      if (i === activePage) pageLink.classList.add('active');
-      pageLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        window._showShopPage(i);
-      });
-      paginationSection.appendChild(pageLink);
-    }
-
-    const nextArrow = document.createElement('a');
-    nextArrow.href = '#';
-    nextArrow.innerHTML = '<i class="fa-solid fa-arrow-right"></i>';
-    nextArrow.classList.add('pagination-arrow');
-    if (activePage === totalPages) nextArrow.classList.add('disabled');
-    nextArrow.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (activePage < totalPages) window._showShopPage(activePage + 1);
-    });
-    paginationSection.appendChild(nextArrow);
-  }
-
-  window._showShopPage(1);
-})();
 
 /* ============================================================
    STYLE QUIZ
