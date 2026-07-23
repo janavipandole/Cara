@@ -2114,20 +2114,27 @@ document.addEventListener('DOMContentLoaded', () => {
 // Sleek Dynamic Scroll-to-Top Button
 document.addEventListener('DOMContentLoaded', () => {
   const btn = document.createElement('button');
-  btn.id = 'scroll-to-top-btn';
+  btn.id = 'scrollTopBtn';
   btn.setAttribute('aria-label', 'Scroll to top');
-  btn.innerHTML = '&#8593;';
-  btn.style.cssText =
-    'position:fixed;bottom:20px;right:20px;width:45px;height:45px;border-radius:50%;background:#088178;color:#fff;border:none;cursor:pointer;opacity:0;transition:all 0.3s ease;z-index:9999;font-weight:bold;font-size:18px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,0.15);transform:scale(0.8);';
+  btn.innerHTML = '<i class="fas fa-arrow-up"></i>';
+  btn.style.opacity = '0';
+  btn.style.transform = 'translateY(10px) scale(0.8)';
   document.body.appendChild(btn);
 
   window.addEventListener('scroll', () => {
     if (window.scrollY > 300) {
-      btn.style.opacity = '1';
-      btn.style.transform = 'scale(1)';
+      btn.style.display = 'flex';
+      // Use a short timeout to allow display:flex to apply before changing opacity/transform if needed
+      setTimeout(() => {
+        btn.style.opacity = '1';
+        btn.style.transform = 'translateY(0) scale(1)';
+      }, 10);
     } else {
       btn.style.opacity = '0';
-      btn.style.transform = 'scale(0.8)';
+      btn.style.transform = 'translateY(10px) scale(0.8)';
+      setTimeout(() => {
+        if (window.scrollY <= 300) btn.style.display = 'none';
+      }, 300);
     }
   });
 

@@ -86,36 +86,9 @@
           padding: 20px;
           line-height: 1.8;
       }
-      #scrollTopBtn {
-          position: fixed;
-          bottom: 30px;
-          right: 30px; /* keeps button on right side */
+      
 
-          width: 55px;
-          height: 55px;
-
-          border: none;
-          border-radius: 50%;
-
-          background-color: #088178;
-          color: white;
-
-          font-size: 24px;
-          font-weight: bold;
-
-          cursor: pointer;
-          z-index: 999;
-
-          display: none;
-
-          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-          transition: all 0.3s ease;
-      }
-
-      #scrollTopBtn:hover {
-          background-color: #065f5b;
-          transform: scale(1.1);
-      }
+      
 
       .cara-features {
           position: relative;
@@ -853,9 +826,7 @@
       </div>
     </footer>
     
-    <button id="scrollTopBtn" type="button" title="Go to top">
-      ↑
-    </button>
+    
 
     <!-- Scripts -->
     <script src="navbar.js"></script>
@@ -870,40 +841,7 @@
         new Date().getFullYear();
     </script>
     
-    <script>
-      const scrollBtn = document.getElementById('scrollTopBtn');
-
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
-          scrollBtn.style.display = 'block';
-        } else {
-          scrollBtn.style.display = 'none';
-      <a
-        href="https://stripe.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Stripe"
-      >
-        <i class="fab fa-cc-stripe"></i>
-      </a>
-    </div>
-  </div>
-
-  <!-- Copyright -->
-  <div class="copyright">
-    <p>
-      Â© Cara 2026. All rights reserved. |
-      <a href="license.html" style="color: #088178"> MIT License </a>
-    </p>
-  </div>
-</footer>
-
-<button id="scrollTopBtn" title="Go to top" aria-label="Go to top">
-  <i class="ri-arrow-up-line"></i>
-</button>
-
-<!-- Scripts -->
-<script src="navbar.js"></script>
+    
 <script>
   loadNavbar('about');
 </script>
@@ -938,23 +876,6 @@
   }
 </script>
 
-<script>
-  const scrollBtn = document.getElementById('scrollTopBtn');
 
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 300) {
-      scrollBtn.style.display = 'block';
-    } else {
-      scrollBtn.style.display = 'none';
-    }
-  });
-
-  scrollBtn.addEventListener('click', () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  });
-</script>
 </body>
 </html>
