@@ -80,36 +80,9 @@
       padding: 20px;
       line-height: 1.8;
     }
-#scrollTopBtn {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;   /* keeps button on right side */
 
-  width: 55px;
-  height: 55px;
 
-  border: none;
-  border-radius: 50%;
 
-  background-color: #088178;
-  color: white;
-
-  font-size: 24px;
-  font-weight: bold;
-
-  cursor: pointer;
-  z-index: 999;
-
-  display: none;
-
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  transition: all 0.3s ease;
-}
-
-#scrollTopBtn:hover {
-  background-color: #065f5b;
-  transform: scale(1.1);
-}
     </style>
     <link rel="manifest" href="/manifest.json">
   <script src="js/error-boundary.js"></script>
@@ -503,9 +476,7 @@
         </p>
       </div>
     </footer>
-    <button id="scrollTopBtn" title="Go to top" aria-label="Go to top">
-      <i class="ri-arrow-up-line"></i>
-    </button>
+    
 
 
     <script src="app.js"></script>
@@ -516,34 +487,7 @@
   el.textContent = year;
 }
     </script>
-    <script>
-  const scrollBtn = document.getElementById("scrollTopBtn");
-  const progressBar = document.getElementById("reading-progress-bar");
-
-  window.addEventListener("scroll", () => {
-    // Scroll Top Button visibility
-    if (window.scrollY > 300) {
-      scrollBtn.style.display = "block";
-    } else {
-      scrollBtn.style.display = "none";
-    }
-
-    // Dynamic Reading Progress Bar calculation
-    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    if (height > 0) {
-      const scrolled = (winScroll / height) * 100;
-      progressBar.style.width = scrolled + "%";
-    }
-  });
-
-  scrollBtn.addEventListener("click", () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-  });
-</script>
+    
 
 <script src="js/reading-progress.js" defer></script>
 </body>
