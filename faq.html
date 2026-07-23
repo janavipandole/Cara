@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cara — FAQ</title>
+  <link rel="icon" type="image/jpeg" sizes="32x32" href="images/favicon.jpg" />
+  
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="faq.css" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+</head>
+
+<body>
+<section id="header" role="banner">
+  <a href="index.html">
+    <img src="images/logo.png" alt="Cara Logo" />
+  </a>
+  <div>
+    <ul id="navbar" role="navigation">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="nav-icon"><a href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
+      <li class="nav-icon">
+        <button class="theme-toggle" id="themeToggleDesktop"><i class="ri-moon-line" id="themeIcon"></i></button>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<main>
+  <section id="page-header" class="about-header" style="text-align: center; padding: 40px; background-color: var(--card); color: white;">
+    <h2>#AskUs</h2>
+    <p>Read all our frequently asked questions</p>
+  </section>
+
+  <section id="faq-section" class="section-p1">
+    <div class="faq-container">
+      <h2>General Questions</h2>
+      
+      <div class="faq-item">
+        <button class="faq-accordion-btn">
+          <span>What is the return policy?</span>
+          <i class="ri-add-line"></i>
+        </button>
+        <div class="faq-answer">
+          <p>We offer a 30-day return policy for all unworn apparel items with tags intact. Please visit our returns page to initiate a return.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <button class="faq-accordion-btn">
+          <span>Do you ship internationally?</span>
+          <i class="ri-add-line"></i>
+        </button>
+        <div class="faq-answer">
+          <p>Yes! We ship to over 50 countries worldwide. Shipping fees are calculated at checkout based on your location and the weight of your order.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-accordion-btn">
+          <span>How can I track my order?</span>
+          <i class="ri-add-line"></i>
+        </button>
+        <div class="faq-answer">
+          <p>Once your order has been shipped, you will receive an email with a tracking link. You can also track your order directly on our <a href="track-order.html">Track Order</a> page.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="faq.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
