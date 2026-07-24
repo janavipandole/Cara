@@ -18,6 +18,9 @@ const categoryRadios = Array.from(
 const brandCheckboxes = Array.from(
   document.querySelectorAll('input[name="afb-brand"]'),
 );
+const colorCheckboxes = Array.from(
+  document.querySelectorAll('input[name="afb-color"]'),
+);
 const availCheckboxes = Array.from(
   document.querySelectorAll('input[name="afb-avail"]'),
 );
@@ -73,7 +76,7 @@ const refreshPillStates = () =>
   );
 
 const refreshCheckStates = () =>
-  [...brandCheckboxes, ...availCheckboxes].forEach((c) =>
+  [...brandCheckboxes, ...availCheckboxes, ...colorCheckboxes].forEach((c) =>
     c.closest('.afb-check')?.classList.toggle('active', c.checked),
   );
 
@@ -102,6 +105,9 @@ const updateChips = () => {
   brandCheckboxes
     .filter((c) => c.checked)
     .forEach((c) => chips.push(`Brand: ${c.value}`));
+  colorCheckboxes
+    .filter((c) => c.checked)
+    .forEach((c) => chips.push(`Color: ${c.value}`));
   const rating = getActiveRating();
   if (rating > 0) chips.push(`Rating: ${rating}+`);
   availCheckboxes
@@ -141,6 +147,9 @@ const applyFilters = () => {
   const selBrands = brandCheckboxes
     .filter((c) => c.checked)
     .map((c) => c.value.toLowerCase());
+  const selColors = colorCheckboxes
+    .filter((c) => c.checked)
+    .map((c) => c.value.toLowerCase());
   const selAvail = availCheckboxes
     .filter((c) => c.checked)
     .map((c) => c.value.toLowerCase());
@@ -157,6 +166,10 @@ const applyFilters = () => {
 
     // Brand (only when at least one brand box is checked)
     if (selBrands.length && !selBrands.includes(p.brand.toLowerCase()))
+      return false;
+
+    // Color (only when at least one color box is checked)
+    if (selColors.length && !selColors.includes((p.color || '').toLowerCase()))
       return false;
 
     // Availability — products.js has no avail field; treat all as instock
@@ -181,20 +194,40 @@ const applyFilters = () => {
   if (sortVal === 'low-high') filtered.sort((a, b) => a.price - b.price);
   else if (sortVal === 'high-low') filtered.sort((a, b) => b.price - a.price);
 
+  // Infinite Scroll Slice chunking
+  const totalCount = filtered.length;
+  filtered = filtered.slice(0, currentVisibleCount);
+
   // Re-render via products.js helper
   renderProducts('shop-container', filtered);
 
   // Update counts
-  const n = filtered.length;
-  if (countEl) countEl.textContent = n;
+  if (countEl) countEl.textContent = totalCount;
   const legacy = document.getElementById('searchCount');
-  if (legacy) legacy.textContent = `${n} product${n !== 1 ? 's' : ''}`;
+  if (legacy) legacy.textContent = `${totalCount} product${totalCount !== 1 ? 's' : ''}`;
 
   // Suggestions
   renderSearchSuggestions(query);
 
   updateChips();
 };
+
+/* ── Infinite Scroll Scroll listener ──────────────────────── */
+let currentVisibleCount = 8;
+const loadMoreItems = () => {
+  currentVisibleCount += 8;
+  applyFilters();
+};
+
+let scrollTimeout;
+window.addEventListener('scroll', () => {
+  if (scrollTimeout) clearTimeout(scrollTimeout);
+  scrollTimeout = setTimeout(() => {
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 150) {
+      loadMoreItems();
+    }
+  }, 100);
+});
 
 /* ── Search input ─────────────────────────────────────────── */
 if (searchInput) {
@@ -233,6 +266,12 @@ brandCheckboxes.forEach((c) =>
     applyFilters();
   }),
 );
+colorCheckboxes.forEach((c) =>
+  c.addEventListener('change', () => {
+    refreshCheckStates();
+    applyFilters();
+  }),
+);
 availCheckboxes.forEach((c) =>
   c.addEventListener('change', () => {
     refreshCheckStates();
@@ -259,6 +298,9 @@ clearBtn?.addEventListener('click', () => {
     r.checked = r.value === 'all';
   });
   brandCheckboxes.forEach((c) => {
+    c.checked = false;
+  });
+  colorCheckboxes.forEach((c) => {
     c.checked = false;
   });
   availCheckboxes.forEach((c) => {

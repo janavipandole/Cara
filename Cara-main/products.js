@@ -10,6 +10,7 @@ const products = [
     img: 'images/products/f1.jpg',
     rating: 5,
     category: 'street',
+    color: 'red',
   },
   {
     id: 2,
@@ -19,6 +20,7 @@ const products = [
     img: 'images/products/f2.jpg',
     rating: 5,
     category: 'minimal',
+    color: 'white',
   },
   {
     id: 3,
@@ -28,6 +30,7 @@ const products = [
     img: 'images/products/f3.jpg',
     rating: 5,
     category: 'minimal',
+    color: 'pink',
   },
   {
     id: 4,
@@ -37,6 +40,7 @@ const products = [
     img: 'images/products/f4.jpg',
     rating: 5,
     category: 'minimal',
+    color: 'pink',
   },
   {
     id: 5,
@@ -46,6 +50,7 @@ const products = [
     img: 'images/products/f5.jpg',
     rating: 5,
     category: 'street',
+    color: 'pink',
   },
   {
     id: 6,
@@ -55,6 +60,7 @@ const products = [
     img: 'images/products/f6.jpg',
     rating: 5,
     category: 'street',
+    color: 'brown',
   },
   {
     id: 7,
@@ -64,6 +70,7 @@ const products = [
     img: 'images/products/f7.jpg',
     rating: 5,
     category: 'street',
+    color: 'beige',
   },
   {
     id: 8,
@@ -73,6 +80,7 @@ const products = [
     img: 'images/products/f8.jpg',
     rating: 5,
     category: 'minimal',
+    color: 'white',
   },
   {
     id: 9,
@@ -82,6 +90,7 @@ const products = [
     img: 'images/products/n1.jpg',
     rating: 5,
     category: 'formal',
+    color: 'blue',
   },
   {
     id: 10,
@@ -91,6 +100,7 @@ const products = [
     img: 'images/products/n2.jpg',
     rating: 5,
     category: 'formal',
+    color: 'blue',
   },
   {
     id: 11,
@@ -100,6 +110,7 @@ const products = [
     img: 'images/products/n3.jpg',
     rating: 5,
     category: 'formal',
+    color: 'white',
   },
   {
     id: 12,
@@ -109,6 +120,7 @@ const products = [
     img: 'images/products/n4.jpg',
     rating: 5,
     category: 'formal',
+    color: 'beige',
   },
   {
     id: 13,
@@ -118,6 +130,7 @@ const products = [
     img: 'images/products/n5.jpg',
     rating: 5,
     category: 'minimal',
+    color: 'blue',
   },
   {
     id: 14,
@@ -127,6 +140,7 @@ const products = [
     img: 'images/products/n6.jpg',
     rating: 5,
     category: 'minimal',
+    color: 'beige',
   },
   {
     id: 15,
@@ -136,6 +150,7 @@ const products = [
     img: 'images/products/n7.jpg',
     rating: 5,
     category: 'minimal',
+    color: 'green',
   },
   {
     id: 16,
@@ -145,6 +160,7 @@ const products = [
     img: 'images/products/n8.jpg',
     rating: 5,
     category: 'minimal',
+    color: 'black',
   },
 ];
 
@@ -177,6 +193,7 @@ function renderProducts(containerId, list) {
     const img = document.createElement('img');
     img.src = p.img;
     img.alt = p.name;
+    img.loading = 'lazy'; // Lazy load feature
     imgWrap.appendChild(img);
     card.appendChild(imgWrap);
 
