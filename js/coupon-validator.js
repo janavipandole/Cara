@@ -16,10 +16,7 @@
 (function () {
   'use strict';
 
-  const COUPONS = {
-    CARA20: 20,
-    WELCOME10: 10,
-  };
+  const COUPONS = window.CARA_COUPONS || {};
 
   // ── DOM references ──────────────────────────────────────────────────────────
   const couponInput = document.getElementById('couponCodeInput');

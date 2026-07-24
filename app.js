@@ -1,56 +1,58 @@
 // i18n.js - Multi-language support
 
 // Global error logger
-window.logError = window.logError || function (...args) {
+window.logError =
+  window.logError ||
+  function (...args) {
     console.error(...args);
-};
+  };
 
 const translations = {
   en: {
-    home: "Home",
-    shop: "Shop",
-    blog: "Blog",
-    about: "About",
-    contact: "Contact",
-    cart: "Cart",
-    wishlist: "Wishlist",
-    login: "Login",
-    promotions: "Promotions",
-    community: "Community",
-    orders: "My Orders",
-    outfit: "Outfit Checker",
-    addToCart: "Add to Cart",
-    buyNow: "Buy Now",
-    search: "Search products..."
+    home: 'Home',
+    shop: 'Shop',
+    blog: 'Blog',
+    about: 'About',
+    contact: 'Contact',
+    cart: 'Cart',
+    wishlist: 'Wishlist',
+    login: 'Login',
+    promotions: 'Promotions',
+    community: 'Community',
+    orders: 'My Orders',
+    outfit: 'Outfit Checker',
+    addToCart: 'Add to Cart',
+    buyNow: 'Buy Now',
+    search: 'Search products...',
   },
   es: {
-    home: "Inicio",
-    shop: "Tienda",
-    blog: "Blog",
-    about: "Nosotros",
-    contact: "Contacto",
-    cart: "Carrito",
-    wishlist: "Deseos",
-    login: "Entrar",
-    promotions: "Promociones",
-    community: "Comunidad",
-    orders: "Mis Pedidos",
-    outfit: "Verificar Atuendo",
-    addToCart: "Añadir al Carrito",
-    buyNow: "Comprar Ahora",
-    search: "Buscar productos..."
-  }
+    home: 'Inicio',
+    shop: 'Tienda',
+    blog: 'Blog',
+    about: 'Nosotros',
+    contact: 'Contacto',
+    cart: 'Carrito',
+    wishlist: 'Deseos',
+    login: 'Entrar',
+    promotions: 'Promociones',
+    community: 'Comunidad',
+    orders: 'Mis Pedidos',
+    outfit: 'Verificar Atuendo',
+    addToCart: 'Añadir al Carrito',
+    buyNow: 'Comprar Ahora',
+    search: 'Buscar productos...',
+  },
 };
 
 function changeLanguage(lang) {
   if (!translations[lang]) return;
-  localStorage.setItem("selectedLanguage", lang);
+  localStorage.setItem('selectedLanguage', lang);
 
-  document.querySelectorAll("[data-i18n]").forEach((el) => {
-    const key = el.getAttribute("data-i18n");
+  document.querySelectorAll('[data-i18n]').forEach((el) => {
+    const key = el.getAttribute('data-i18n');
     if (translations[lang][key]) {
-      if (el.tagName === "INPUT" && el.hasAttribute("placeholder")) {
-        el.setAttribute("placeholder", translations[lang][key]);
+      if (el.tagName === 'INPUT' && el.hasAttribute('placeholder')) {
+        el.setAttribute('placeholder', translations[lang][key]);
       } else {
         el.textContent = translations[lang][key];
       }
@@ -58,11 +60,11 @@ function changeLanguage(lang) {
   });
 
   // Update active state in switcher
-  document.querySelectorAll(".lang-btn").forEach((btn) => {
-    if (btn.getAttribute("data-lang") === lang) {
-      btn.classList.add("active");
+  document.querySelectorAll('.lang-btn').forEach((btn) => {
+    if (btn.getAttribute('data-lang') === lang) {
+      btn.classList.add('active');
     } else {
-      btn.classList.remove("active");
+      btn.classList.remove('active');
     }
   });
 }
@@ -70,16 +72,16 @@ function changeLanguage(lang) {
 function initLanguage() {
   // Auto-tag hardcoded navbars
   const routeToI18n = {
-    "index.html": "home",
-    "shop.html": "shop",
-    "blog.html": "blog",
-    "about.html": "about",
-    "outfit-compatibility.html": "outfit",
-    "community.html": "community",
-    "promotions.html": "promotions",
-    "order-history.html": "orders"
+    'index.html': 'home',
+    'shop.html': 'shop',
+    'blog.html': 'blog',
+    'about.html': 'about',
+    'outfit-compatibility.html': 'outfit',
+    'community.html': 'community',
+    'promotions.html': 'promotions',
+    'order-history.html': 'orders',
   };
-  document.querySelectorAll('#navbar a').forEach(a => {
+  document.querySelectorAll('#navbar a').forEach((a) => {
     const href = a.getAttribute('href');
     if (href && routeToI18n[href] && !a.hasAttribute('data-i18n')) {
       a.setAttribute('data-i18n', routeToI18n[href]);
@@ -90,7 +92,8 @@ function initLanguage() {
   const navbar = document.getElementById('navbar');
   if (navbar && !navbar.querySelector('.lang-btn')) {
     const li = document.createElement('li');
-    li.style.cssText = "display: flex; gap: 5px; align-items: center; margin-left: 10px;";
+    li.style.cssText =
+      'display: flex; gap: 5px; align-items: center; margin-left: 10px;';
     li.innerHTML = `
       <a href="#" class="lang-btn" data-lang="en" style="padding: 0; font-size: 14px;">EN</a>
       <span style="color: var(--text-color); font-size: 14px;">|</span>
@@ -105,17 +108,17 @@ function initLanguage() {
     }
   }
 
-  const savedLang = localStorage.getItem("selectedLanguage") || "en";
+  const savedLang = localStorage.getItem('selectedLanguage') || 'en';
   changeLanguage(savedLang);
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
   initLanguage();
 
-  document.body.addEventListener("click", (e) => {
-    if (e.target.classList.contains("lang-btn")) {
+  document.body.addEventListener('click', (e) => {
+    if (e.target.classList.contains('lang-btn')) {
       e.preventDefault();
-      const lang = e.target.getAttribute("data-lang");
+      const lang = e.target.getAttribute('data-lang');
       changeLanguage(lang);
     }
   });
@@ -732,8 +735,8 @@ function dismissToast(toast) {
 }
 
 window.updateQty = function (change) {
-    const quantityElement = document.getElementById("product-quantity"); 
-    let quantity = parseInt(quantityElement.value);
+  const quantityElement = document.getElementById('product-quantity');
+  let quantity = parseInt(quantityElement.value);
 
   quantity += change;
 
@@ -747,11 +750,10 @@ window.updateQty = function (change) {
   }
   // ✅ Fix ends here
 
-    quantityElement.value = quantity;
-    
+  quantityElement.value = quantity;
 
-    // Quantity selector only updates the selected quantity.
-    // Cart totals are recalculated after the product is added to the cart.
+  // Quantity selector only updates the selected quantity.
+  // Cart totals are recalculated after the product is added to the cart.
 };
 window.handleAddToCart = function () {
   const nameElement = document.getElementById('product-name');
@@ -938,10 +940,11 @@ window.loadCart = async function () {
   if (taxEl) taxEl.innerText = formatCurrency(tax);
 
   let discount = 0;
-  if (window.appliedCoupon === 'CARA20' && subtotal > 0)
-    discount = Math.round(subtotal * 0.2);
-  else if (window.appliedCoupon === 'WELCOME10' && subtotal > 0)
-    discount = Math.round(subtotal * 0.1);
+  const couponPct =
+    window.CARA_COUPONS && window.CARA_COUPONS[window.appliedCoupon];
+  if (couponPct && subtotal > 0) {
+    discount = Math.round(subtotal * (couponPct / 100));
+  }
 
   if (discountRow && discountEl) {
     if (discount > 0) {
@@ -1017,19 +1020,18 @@ window.applyCoupon = function () {
   const promoInput = document.getElementById('coupon-code');
   if (!promoInput) return;
   const code = promoInput.value.trim().toUpperCase();
+  const coupons = window.CARA_COUPONS || {};
 
-  if (code === 'CARA20') {
-    window.appliedCoupon = 'CARA20';
-    localStorage.setItem('appliedCoupon', 'CARA20');
-    showToast('CARA20 applied! 20% discount added.', 'success');
-    loadCart();
-  } else if (code === 'WELCOME10') {
-    window.appliedCoupon = 'WELCOME10';
-    localStorage.setItem('appliedCoupon', 'WELCOME10');
-    showToast('WELCOME10 applied! 10% discount added.', 'success');
-    loadCart();
-  } else if (code === '') {
+  if (code === '') {
     showToast('Please enter a coupon code.', 'warning');
+    return;
+  }
+
+  if (Object.prototype.hasOwnProperty.call(coupons, code)) {
+    window.appliedCoupon = code;
+    localStorage.setItem('appliedCoupon', code);
+    showToast(`${code} applied! ${coupons[code]}% discount added.`, 'success');
+    loadCart();
   } else {
     showToast('Invalid promo code. Try CARA20 for 20% off!', 'error');
   }
@@ -1230,8 +1232,6 @@ window.buyNow = function (
     window._showShopPage(1);
   });
 })();
-
-
 
 /* ============================================================
    STYLE QUIZ
@@ -1696,6 +1696,8 @@ function fallbackCopyText(text) {
   }
 }
 
+var SHARED_WARDROBE_EXPIRY_MS = 14 * 24 * 60 * 60 * 1000;
+
 window.closeShareModal = function () {
   var modal = document.getElementById('share-modal');
   if (modal) modal.style.display = 'none';
@@ -1704,7 +1706,6 @@ window.closeShareModal = function () {
   } else {
     window.location.hash = '';
   }
-  var SHARED_WARDROBE_EXPIRY_MS = 14 * 24 * 60 * 60 * 1000; 
   window.pendingSharedCart = null;
 };
 
@@ -1728,10 +1729,7 @@ window.checkSharedWardrobe = function () {
       return;
     }
 
-    if (
-      sharedAt &&
-      Date.now() - sharedAt > SHARED_WARDROBE_EXPIRY_MS
-    ) {
+    if (sharedAt && Date.now() - sharedAt > SHARED_WARDROBE_EXPIRY_MS) {
       showToast(
         'This shared wardrobe link has expired. Prices or availability may have changed.',
         'warning',
@@ -1748,7 +1746,6 @@ window.checkSharedWardrobe = function () {
         size: item.s || 'M',
       };
     });
-
 
     var listContainer = document.getElementById('shared-items-list');
     var totalPriceEl = document.getElementById('shared-total-price');
