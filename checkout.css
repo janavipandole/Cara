@@ -19,6 +19,24 @@
   --bg:         #f5f5f5;
   --white:      #ffffff;
   --radius:     12px;
+  --error:      #e74c3c;
+  --success:    #27ae60;
+}
+
+input.is-invalid, select.is-invalid {
+  border-color: var(--error) !important;
+  background-color: rgba(231, 76, 60, 0.05) !important;
+}
+
+input.is-valid, select.is-valid {
+  border-color: var(--success) !important;
+}
+
+.invalid-feedback {
+  color: var(--error);
+  font-size: 11px;
+  margin-top: 4px;
+  display: block;
 }
 
 body {
