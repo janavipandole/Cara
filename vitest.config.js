@@ -7,7 +7,7 @@ export default defineConfig({
     include: ['tests/unit/**/*.test.js'],
     coverage: {
       provider: 'v8',
-      reporter: ['text', 'lcov'],
+      reporter: ['text', 'lcov', 'json'],
       include: ['js/**/*.js', 'fetch-timeout.js'],
     },
   },
