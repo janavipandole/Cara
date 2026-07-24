@@ -10,6 +10,7 @@ First off, thank you for considering contributing to Cara!
 - [Development Setup](#development-setup)
 - [Pull Request Process](#pull-request-process)
 - [Style Guidelines](#style-guidelines)
+- [Issue & PR Guidelines (ELUSoC_2026)](#issue--pr-guidelines-elusoc_2026)
 - [Issue Guidelines](#issue-guidelines)
 
 ## Code of Conduct
