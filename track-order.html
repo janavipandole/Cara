@@ -775,14 +775,11 @@
       });
 
       function simulateCancellation() {
-        if (confirm('Are you sure you want to cancel this order?')) {
-          alert(
-            'Cancellation request sent successfully. Your refund will be processed.'
-          );
-          document.getElementById('cancel-simulation-box').innerHTML =
-            '<h3>Order Cancelled</h3><p>This order has been cancelled.</p>';
-        }
-      }
+  if (confirm('Are you sure you want to cancel this order?')) {
+    document.getElementById('cancel-simulation-box').innerHTML =
+      '<h3>Order Cancelled (Demo)</h3><p>This is a demo tracking page and does not affect a real order. Order cancellation for real orders is coming soon.</p>';
+  }
+}
     </script>
   </body>
 </html>

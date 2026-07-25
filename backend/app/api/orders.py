@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from .. import models, schemas
 from ..database import get_db
 from .auth import get_current_user
+from datetime import datetime, timezone, timedelta
 
 router = APIRouter()
 
@@ -168,3 +169,37 @@ def create_order(
         "message": "Order created successfully",
         "order_id": new_order.id
     }
+
+CANCELLABLE_WINDOW_HOURS = 24
+
+@router.post("/{order_id}/cancel")
+def cancel_order(
+    order_id: int,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user),
+):
+    order = (
+        db.query(models.Order)
+        .filter(
+            models.Order.id == order_id,
+            models.Order.email == current_user.email,
+        )
+        .first()
+    )
+    if not order:
+        raise HTTPException(status_code=404, detail="Order not found")
+
+    if order.status == "CANCELLED":
+        raise HTTPException(status_code=400, detail="Order is already cancelled")
+
+    order_age = datetime.now(timezone.utc) - order.created_at.replace(tzinfo=timezone.utc)
+    if order_age > timedelta(hours=CANCELLABLE_WINDOW_HOURS):
+        raise HTTPException(
+            status_code=400,
+            detail=f"Orders can only be cancelled within {CANCELLABLE_WINDOW_HOURS} hours of placing them.",
+        )
+
+    order.status = "CANCELLED"
+    db.commit()
+
+    return {"message": "Order cancelled successfully", "status": order.status}
