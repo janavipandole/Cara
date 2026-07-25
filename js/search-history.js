@@ -34,27 +34,36 @@ document.addEventListener('DOMContentLoaded', () => {
       row.style.cssText =
         'display:flex; justify-content:space-between; align-items:center; padding:5px 0; cursor:pointer; font-size:13px; border-bottom:1px solid #eee;';
 
-      const textSpan = document.createElement('span');
-      textSpan.textContent = item;
-      textSpan.style.flex = '1';
-      textSpan.addEventListener('click', () => {
+      const selectItem = () => {
         input.value = item;
-        // Trigger any search change handler if needed
         const event = new Event('input', { bubbles: true });
         input.dispatchEvent(event);
         const keyupEvent = new KeyboardEvent('keyup', { bubbles: true });
         input.dispatchEvent(keyupEvent);
         dropdown.style.display = 'none';
-      });
+      };
 
-      const delBtn = document.createElement('i');
-      delBtn.className = 'ri-delete-bin-line';
-      delBtn.style.cssText =
-        'color:#e23e57; cursor:pointer; font-size:12px; padding: 2px 6px;';
-      delBtn.addEventListener('click', (e) => {
+      const textSpan = document.createElement('button');
+      textSpan.type = 'button';
+      textSpan.textContent = item;
+      textSpan.setAttribute('aria-label', `Search for ${item}`);
+      textSpan.style.cssText =
+        'flex:1; text-align:left; background:none; border:none; padding:0; font:inherit; color:inherit; cursor:pointer;';
+      textSpan.addEventListener('click', selectItem);
+
+      const removeItem = (e) => {
         e.stopPropagation();
         removeFromHistory(item);
-      });
+      };
+
+      const delBtn = document.createElement('button');
+      delBtn.type = 'button';
+      delBtn.setAttribute('aria-label', `Remove ${item} from search history`);
+      delBtn.innerHTML =
+        '<i class="ri-delete-bin-line" aria-hidden="true"></i>';
+      delBtn.style.cssText =
+        'color:#e23e57; cursor:pointer; font-size:12px; padding: 2px 6px; background:none; border:none;';
+      delBtn.addEventListener('click', removeItem);
 
       row.appendChild(textSpan);
       row.appendChild(delBtn);
