@@ -9,6 +9,7 @@ class NewsletterSubscriber(Base):
     email = Column(String, unique=True, index=True, nullable=False)
     subscribed_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     is_active = Column(Boolean, default=True)
+    unsubscribe_token = Column(String, unique=True, index=True, nullable=True)
 
 
 class Product(Base):

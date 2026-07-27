@@ -1,10 +1,11 @@
 # 🛍️ Cara - E-commerce Platform
 
 ## Architecture Overview
-- **Frontend**: Clean semantic HTML5, modern vanilla CSS, responsive layouts, and app.js state handling.
-- **Database**: SQLite `cara.db` file mapping backend models.
-- **Workflows**: GitHub actions verify builds, run dependency checks, and auto-label code triage.
-- **Asset Assets**: Located under `assets/` and `images/` directories.
+- **Architecture Specification**: Detailed system design and flow diagrams in [ARCHITECTURE.md](ARCHITECTURE.md).
+- **API Reference**: Comprehensive module API endpoints in [API Reference](docs/API_REFERENCE.md).
+- **Development Standards**: Coding guidelines and CSS tokens in [Style Guide](docs/STYLE_GUIDE.md).
+- **Deployment Guide**: Containerized Docker setup in [Deployment Guide](docs/DEPLOYMENT.md).
+- **Frontend**: Clean semantic HTML5, modern vanilla CSS, responsive layouts, and ES JavaScript modules.
 
 > Officially participating in
 ## GSSOC 2026
