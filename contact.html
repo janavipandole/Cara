@@ -808,12 +808,18 @@ form.addEventListener("submit", function (e) {
     isValid = false;
   }
 
+  
+const subject = document.getElementById("subject");
+  const department = document.getElementById("department");
+
   if (name.value.trim() === "") showError(name, "Name is required");
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email.value)) showError(email, "Valid email required");
+  if (subject.value.trim() === "") showError(subject, "Subject cannot be empty");
+  if (department.value === "") showError(department, "Please select a department");
   if (message.value.trim().length < 10) showError(message, "Message must be at least 10 characters");
 
-  if (isValid) {
+if (isValid) {
     const btn = form.querySelector("button");
     btn.classList.add("btn-loading");
 
@@ -825,7 +831,15 @@ form.addEventListener("submit", function (e) {
   }
 });
 
-
+[name, email, subject, department, message].forEach((field) => {
+  ["input", "change"].forEach((evt) => {
+    field.addEventListener(evt, () => {
+      field.classList.remove("input-error");
+      const next = field.nextElementSibling;
+      if (next && next.classList.contains("error-msg")) next.remove();
+    });
+  });
+});
 /* =========================
    NEWSLETTER FORM
 ========================= */
