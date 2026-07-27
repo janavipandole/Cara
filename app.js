@@ -873,7 +873,7 @@ window.loadCart = async function () {
     row.innerHTML = `
             <div class="cart-item-left">
                 <div class="cart-item-img-wrap">
-                    <img src="${item.img}" alt="${item.name}" loading="lazy" />
+                    <img src="${item.image}" alt="${item.name}" loading="lazy" />
                 </div>
                 <div class="cart-item-details">
                     <span class="cart-item-brand">${item.brand || 'Premium Brand'}</span>
