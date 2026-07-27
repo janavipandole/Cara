@@ -248,6 +248,7 @@ def refresh_token(request: Request, response: Response, db: Session = Depends(ge
     return {"message": "Token refreshed successfully"}
 
 @router.post("/forgot-password")
+@limiter.limit("5/minute")
 def forgot_password(
     request: Request,
     payload: ForgotPasswordRequest,
@@ -272,6 +273,7 @@ def forgot_password(
 
 
 @router.post("/reset-password")
+@limiter.limit("5/minute")
 def reset_password(
     request: Request,
     payload: ResetPasswordRequest,
