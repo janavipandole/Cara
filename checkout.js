@@ -482,7 +482,7 @@ window.updateCheckoutSummary = function () {
 
   // Check coupon discount
   const couponCode = localStorage.getItem('appliedCoupon') || '';
-  const COUPONS = { CARA20: 20, WELCOME10: 10 };
+  const COUPONS = window.CARA_COUPONS || {};
   const couponPct = COUPONS[couponCode] || 0;
   const couponDiscount = subtotal * (couponPct / 100);
 
