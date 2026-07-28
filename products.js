@@ -588,7 +588,7 @@ function renderProducts(containerId, list, query = '') {
       const selectedProduct = {
         id: p.id,
         name: p.name,
-        price: '$' + p.price,
+        price: '₹' + Math.round(Number(p.price)).toLocaleString('en-IN'),
         brand: p.brand,
         image: p.img,
       };
