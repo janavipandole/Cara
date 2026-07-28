@@ -237,8 +237,8 @@
           .join('');
         categorySelect.innerHTML = placeholder + opts;
       })
-      .catch(() => {
-        // Silently fail — static options in HTML serve as fallback
+      .catch((err) => {
+        console.warn('[product-search] Failed to load categories:', err);
       });
   }
 
