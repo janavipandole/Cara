@@ -7,6 +7,13 @@ window.logError =
     console.error(...args);
   };
 
+// Sync cart state across browser tabs
+window.addEventListener('storage', (e) => {
+  if (e.key === 'productsInCart') {
+    window.cachedCartState = null;
+  }
+});
+
 const translations = {
   en: {
     home: 'Home',
