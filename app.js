@@ -183,7 +183,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         productName = JSON.parse(
           localStorage.getItem('selectedProduct') || '{}',
         ).name;
-      } catch (e) {}
+      } catch (e) {
+        console.warn('Failed to parse legacy product data:', e);
+      }
     }
 
     if (productName) {
