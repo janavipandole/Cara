@@ -75,7 +75,7 @@
     var list = getRecentlyViewed().filter(function (item) {
       var sameId = entry.id != null && item.id != null && item.id === entry.id;
       var sameName = item.name === entry.name;
-      return !(sameId || (entry.id == null && sameName));
+      return !(sameId || (entry.id === null && sameName));
     });
 
     list.unshift(entry);
@@ -277,7 +277,7 @@
       containerId: 'recently-viewed-container',
       sectionId: 'recently-viewed-section',
       excludeId: current && current.id != null ? current.id : undefined,
-      excludeName: current && current.id == null ? current.name : undefined,
+      excludeName: current && current.id === null ? current.name : undefined,
     });
   }
 
