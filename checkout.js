@@ -496,8 +496,8 @@ window.updateCheckoutSummary = function () {
   const hasGiftWrap = document.getElementById('gift-wrap-opt')?.checked;
   const giftCharge = hasGiftWrap ? 99 : 0;
 
-  // Calculate tax (5%)
-  const tax = subtotal * 0.05;
+  // Calculate tax (18% GST) — must match app.js line 939 and backend orders.py
+  const tax = subtotal * 0.18;
 
   // Check loyalty points discount (10 points = ₹1)
   const loyaltyPoints =
