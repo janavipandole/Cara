@@ -666,7 +666,7 @@ function handleEmptyCartView() {
 
 function addToCart(productName, productPrice, productImage, quantity, size) {
   let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
-  let parsedQty = parseInt(quantity);
+  let parsedQty = parseInt(quantity, 10);
   if (isNaN(parsedQty) || parsedQty < 1) parsedQty = 1;
 
   let item = {
