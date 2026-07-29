@@ -76,7 +76,7 @@ function loadProductDetails() {
         })
         .catch((error) => {
           if (error && error.name !== 'AbortError') {
-            console.error('Failed to load product details:', error);
+            console.warn("[SingleProduct] Failed:", error);
           }
         });
     }
