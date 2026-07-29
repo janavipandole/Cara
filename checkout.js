@@ -286,7 +286,7 @@ function submitCheckoutForm() {
   if (cart.length === 0) {
     if (typeof window.showToast === 'function')
       window.showToast('Your cart is empty!', 'error');
-    else console.log('Toast: ' + 'Your cart is empty!');
+    else console.info('Toast: Your cart is empty!');
     return;
   }
 
