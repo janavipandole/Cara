@@ -410,7 +410,7 @@ function submitCheckoutForm() {
    .catch((err) => {
       if (typeof window.showToast === 'function')
         window.showToast(err.message, 'error');
-      else console.log('Toast: ' + err.message);
+      else console.info('Toast: ' + err.message);
 
       if (submitBtn) {
         submitBtn.classList.remove('btn-loading');
