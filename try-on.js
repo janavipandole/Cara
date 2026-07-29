@@ -175,6 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
         startLiveDetection();
       })
       .catch((err) => {
+        console.warn("[TryOn] Failed:", err);
         window.logError('Camera error:', err);
         if (typeof showToast === 'function') {
           showToast(
@@ -182,9 +183,8 @@ document.addEventListener('DOMContentLoaded', () => {
             'error',
           );
         } else {
-          console.log(
-            'Toast: ' +
-              'Camera access blocked. Please enable webcam permission.',
+          console.info(
+            '[TryOn] Camera access blocked. Please enable webcam permission.',
           );
         }
       });
@@ -214,6 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         })
         .catch((err) => {
+          console.warn("[TryOn] Failed:", err);
           window.logError('Pose error:', err);
           if (isLiveMode) requestAnimationFrame(processFrame);
         });
@@ -785,6 +786,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Now render the final composite
         renderFinalComposite();
       } catch (err) {
+        console.warn("[TryOn] Failed:", err);
         window.logError('Try-on error:', err);
         aiStatus.innerText = 'ERROR';
         setTimeout(() => resetTryOn(), 2000);
