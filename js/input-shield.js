@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!form) return;
 
   form.addEventListener('submit', (e) => {
-    const textInputs = form.querySelectorAll("input[type='text'], textarea");
+    const textInputs = form.querySelectorAll("input[type='text'], input[type='search'], input[type='url'], input[type='tel'], textarea");
     let blocked = false;
 
     textInputs.forEach((input) => {
