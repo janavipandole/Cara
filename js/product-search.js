@@ -183,7 +183,7 @@
           // Expected when a newer request supersedes this one — ignore silently
           return;
         }
-        console.error('[product-search] Fetch failed:', err);
+        console.warn("[ProductSearch] Failed:", err);
         if (productGrid) {
           productGrid.innerHTML =
             '<p class="search-error" role="alert">Failed to load results. Please try again.</p>';
@@ -238,7 +238,7 @@
         categorySelect.innerHTML = placeholder + opts;
       })
       .catch((err) => {
-        console.warn('[product-search] Failed to load categories:', err);
+        console.warn("[ProductSearch] Failed:", err);
       });
   }
 
