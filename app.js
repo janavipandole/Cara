@@ -344,7 +344,8 @@ function updateWishlistCount() {
 
   try {
     wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-  } catch {
+  } catch (err) {
+    console.warn('Failed to parse wishlist:', err);
     wishlist = [];
   }
 
