@@ -28,7 +28,9 @@
       return JSON.parse(
         localStorage.getItem(STORAGE_PREFIX + productId) || '[]',
       );
-    } catch {
+    } catch (err) {
+      console.warn('Reviews data parsing failed:', err);
+    }
       return [];
     }
   }
@@ -53,7 +55,9 @@
       return new Intl.DateTimeFormat('en-IN', { dateStyle: 'medium' }).format(
         new Date(iso),
       );
-    } catch {
+    } catch (err) {
+      console.warn('Reviews data parsing failed:', err);
+    }
       return iso;
     }
   }
@@ -344,7 +348,9 @@
           productId = JSON.parse(
             localStorage.getItem('selectedProduct') || '{}',
           ).name;
-        } catch {
+        } catch (err) {
+      console.warn('Reviews data parsing failed:', err);
+    }
           productId = 'unknown';
         }
       }
