@@ -318,7 +318,7 @@ function addToCart(productName, productPrice, productImage, quantity, size) {
 function showToast(message, type) {
   type = type || 'success';
   // Ensure container exists (create if needed)
-  var container = document.getElementById('toast-container');
+  let container = document.getElementById('toast-container');
   if (!container) {
     container = document.createElement('div');
     container.id = 'toast-container';
@@ -329,7 +329,7 @@ function showToast(message, type) {
   }
 
   // Icon map
-  var icons = {
+  const icons = {
     success: 'fa-circle-check',
     error: 'fa-circle-xmark',
     warning: 'fa-triangle-exclamation',
@@ -337,7 +337,7 @@ function showToast(message, type) {
   };
 
   // Build toast element
-  var toast = document.createElement('div');
+  const toast = document.createElement('div');
   toast.className = 'toast toast-' + type;
   toast.innerHTML =
     '<i class="fa-solid ' +
