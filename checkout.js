@@ -100,6 +100,7 @@ const errorMessages = {
 
 // --- Validate a single field ---
 function validateField(input) {
+  if (!input) return false;
   const field = input.dataset.validate;
   if (!field) return true;
 
@@ -258,6 +259,7 @@ form.addEventListener('submit', function (e) {
 });
 
 function submitCheckoutForm() {
+  if (!form) return;
   const inputs = form.querySelectorAll(
     'input[data-validate], textarea[data-validate], select[data-validate]',
   );
