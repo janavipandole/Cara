@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function () {
           return res.json();
         })
         .then(function (data) {
-          var resetToken = data.reset_token;
+          const resetToken = data.reset_token;
 
           return fetch(API_BASE + '/api/auth/reset-password', {
             method: 'POST',
