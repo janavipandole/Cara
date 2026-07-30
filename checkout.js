@@ -363,7 +363,7 @@ function submitCheckoutForm() {
 
       // DEDUCT & ADD LOYALTY POINTS ON SUCCESSFUL ORDER
       const appliedPoints =
-        parseInt(localStorage.getItem('cara_applied_loyalty_points')) || 0;
+        parseInt(localStorage.getItem('cara_applied_loyalty_points'), 10) || 0;
       const currentBalance =
         parseInt(localStorage.getItem('cara_loyalty_balance')) || 150;
       const subtotal = cart.reduce(
@@ -501,7 +501,7 @@ window.updateCheckoutSummary = function () {
 
   // Check loyalty points discount (10 points = ₹1)
   const loyaltyPoints =
-    parseInt(localStorage.getItem('cara_applied_loyalty_points')) || 0;
+    parseInt(localStorage.getItem('cara_applied_loyalty_points'), 10) || 0;
   const loyaltyDiscount = loyaltyPoints * 0.1;
 
   // Grand Total
