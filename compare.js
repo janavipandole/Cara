@@ -16,7 +16,9 @@
   function getCompareList() {
     try {
       return JSON.parse(sessionStorage.getItem(STORAGE_KEY)) || [];
-    } catch {
+    } catch (err) {
+    console.warn('Failed to compare products:', err);
+  }
       return [];
     }
   }
