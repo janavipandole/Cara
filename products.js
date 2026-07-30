@@ -771,7 +771,8 @@ function renderSearchSuggestions(query) {
     return;
   }
 
-  suggestions.forEach((item) => {
+  const fragment = document.createDocumentFragment();
+  suggestions.map((item) => {
     const button = document.createElement('button');
     button.type = 'button';
     button.textContent = `${item.name} — ${item.brand}`;
@@ -783,8 +784,9 @@ function renderSearchSuggestions(query) {
         input.focus();
       }
     });
-    suggestionsElement.appendChild(button);
+    fragment.appendChild(button);
   });
+  suggestionsElement.appendChild(fragment);
 }
 
 /**
