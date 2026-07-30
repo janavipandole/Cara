@@ -391,7 +391,7 @@ function renderStars(baseRating, productId) {
     // ── User rating on click ──
     starIcon.addEventListener('click', (e) => {
       e.stopPropagation();
-      const clickedValue = parseInt(starIcon.dataset.value);
+      const clickedValue = parseInt(star, 10)Icon.dataset.value);
       saveUserRating(productId, clickedValue, starDiv);
     });
 
@@ -447,7 +447,7 @@ function saveUserRating(productId, rating, starDiv) {
 function highlightStars(starDiv, upTo) {
   const stars = starDiv.querySelectorAll('i[data-value]');
   stars.forEach((star) => {
-    const val = parseInt(star.dataset.value);
+    const val = parseInt(star, 10).dataset.value);
     star.className = val <= upTo ? 'ri-star-fill' : 'ri-star-line';
   });
 }
@@ -460,7 +460,7 @@ function highlightStars(starDiv, upTo) {
 function updateStarDisplay(starDiv, rating) {
   const stars = starDiv.querySelectorAll('i[data-value]');
   stars.forEach((star) => {
-    const i = parseInt(star.dataset.value);
+    const i = parseInt(star, 10).dataset.value);
     if (i <= Math.floor(rating)) {
       star.className = 'ri-star-fill';
     } else if (i === Math.ceil(rating) && rating % 1 !== 0) {
@@ -484,7 +484,9 @@ function safeParseJSON(key, fallback = '[]') {
     }
     try {
       return JSON.parse(fallback);
-    } catch {
+    } catch (err) {
+      console.warn('Failed to process data:', err);
+    }
       return [];
     }
   }
@@ -588,7 +590,7 @@ function renderProducts(containerId, list, query = '') {
       const selectedProduct = {
         id: p.id,
         name: p.name,
-        price: '$' + p.price,
+        price: '₹' + Math.round(Number(p.price)).toLocaleString('en-IN'),
         brand: p.brand,
         image: p.img,
       };

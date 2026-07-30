@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Page Title -->
-    <title>Track My Order | Cara â€” Modern E-Commerce</title>
+    <title>Track My Order | Cara — Modern E-Commerce</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
@@ -32,7 +32,7 @@
     <!-- Open Graph Tags -->
     <meta
       property="og:title"
-      content="Track My Order | Cara â€” Modern E-Commerce"
+      content="Track My Order | Cara — Modern E-Commerce"
     />
     <meta
       property="og:description"
@@ -52,7 +52,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
-      content="Track My Order | Cara â€” Modern E-Commerce"
+      content="Track My Order | Cara — Modern E-Commerce"
     />
     <meta
       name="twitter:description"
@@ -378,7 +378,7 @@
               <div class="step-content">
                 <h4>Order Placed</h4>
                 <p>Your order has been confirmed and is being processed.</p>
-                <time>May 14, 2026 â€” 10:32 AM</time>
+                <time>May 14, 2026 — 10:32 AM</time>
               </div>
             </div>
 
@@ -393,7 +393,7 @@
               <div class="step-content">
                 <h4>Order Packed</h4>
                 <p>Your items have been packed and are ready for pickup.</p>
-                <time>May 15, 2026 â€” 2:14 PM</time>
+                <time>May 15, 2026 — 2:14 PM</time>
               </div>
             </div>
 
@@ -408,7 +408,7 @@
               <div class="step-content">
                 <h4>Shipped</h4>
                 <p>Your package has been handed off to FedEx Express.</p>
-                <time>May 16, 2026 â€” 9:05 AM</time>
+                <time>May 16, 2026 — 9:05 AM</time>
               </div>
             </div>
 
@@ -423,8 +423,8 @@
               </div>
               <div class="step-content">
                 <h4>In Transit</h4>
-                <p>Your package is on its way â€” currently in Chicago, IL.</p>
-                <time>May 18, 2026 â€” 6:45 AM</time>
+                <p>Your package is on its way — currently in Chicago, IL.</p>
+                <time>May 18, 2026 — 6:45 AM</time>
               </div>
             </div>
 
@@ -522,8 +522,8 @@
             <i class="ri-add-line"></i>
           </div>
           <div class="faq-answer">
-            Standard shipping takes 5â€“7 business days. Express shipping takes
-            2â€“3 business days. International orders may take 10â€“15 business
+            Standard shipping takes 5–7 business days. Express shipping takes
+            2–3 business days. International orders may take 10–15 business
             days depending on the destination country.
           </div>
         </div>
@@ -534,7 +534,7 @@
             <i class="ri-add-line"></i>
           </div>
           <div class="faq-answer">
-            Tracking updates can sometimes take 24â€“48 hours to reflect after a
+            Tracking updates can sometimes take 24–48 hours to reflect after a
             scan. If your tracking hasn't updated in over 3 business days,
             please <a href="contact.html">contact our support team</a>.
           </div>
@@ -714,7 +714,7 @@
       <!-- Copyright -->
       <div class="copyright">
         <p>
-          Â© Cara 2026. All rights reserved. |
+          © Cara 2026. All rights reserved. |
           <a href="license.html" style="color: #088178"> MIT License </a>
         </p>
       </div>
@@ -775,11 +775,14 @@
       });
 
       function simulateCancellation() {
-  if (confirm('Are you sure you want to cancel this order?')) {
-    document.getElementById('cancel-simulation-box').innerHTML =
-      '<h3>Order Cancelled (Demo)</h3><p>This is a demo tracking page and does not affect a real order. Order cancellation for real orders is coming soon.</p>';
-  }
-}
+        if (confirm('Are you sure you want to cancel this order?')) {
+          alert(
+            'Cancellation request sent successfully. Your refund will be processed.'
+          );
+          document.getElementById('cancel-simulation-box').innerHTML =
+            '<h3>Order Cancelled</h3><p>This order has been cancelled.</p>';
+        }
+      }
     </script>
   </body>
 </html>

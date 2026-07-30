@@ -1,61 +1,87 @@
-// Size-specific Stock Level Tracker
-document.addEventListener('DOMContentLoaded', () => {
+// Size-specific Stock Level Tracker & Inventory Reservation Engine
+
+export const mockStockData = {
+  'Select Size': { count: 100, status: 'normal' },
+  XL: { count: 0, status: 'out' },
+  XXL: { count: 2, status: 'low' },
+  Small: { count: 15, status: 'normal' },
+  Medium: { count: 1, status: 'low' },
+  Large: { count: 0, status: 'out' },
+};
+
+export function getStockInfo(size) {
+  if (!size) return { count: 0, status: 'unknown' };
+  return mockStockData[size] || { count: 5, status: 'normal' };
+}
+
+export function startStockReservationTimer(durationSeconds, onTick, onExpire) {
+  let remaining = durationSeconds;
+  const interval = setInterval(() => {
+    remaining -= 1;
+    if (onTick) onTick(remaining);
+    if (remaining <= 0) {
+      clearInterval(interval);
+      if (onExpire) onExpire();
+    }
+  }, 1000);
+  return interval;
+}
+
+export function initStockSimulator() {
+  if (typeof document === 'undefined') return;
   const sizeSelect =
     document.getElementById('sizeSelect') || document.querySelector('select');
   const stockContainer = document.getElementById('stock-alert-container');
 
   if (!sizeSelect || !stockContainer) return;
 
-  const mockStock = {
-    'Select Size': { count: 100, status: 'normal' },
-    XL: { count: 0, status: 'out' },
-    XXL: { count: 2, status: 'low' },
-    Small: { count: 15, status: 'normal' },
-    Medium: { count: 1, status: 'low' },
-    Large: { count: 0, status: 'out' },
-  };
-
   sizeSelect.addEventListener('change', (e) => {
     const size = e.target.value;
-    const info = mockStock[size] || { count: 5, status: 'normal' };
+    const info = getStockInfo(size);
 
     if (info.status === 'out') {
       stockContainer.innerHTML = `
-                <div style="background: rgba(226, 62, 87, 0.08); border: 1px solid #e23e57; padding: 12px; border-radius: 6px; margin: 10px 0;">
-                    <span style="color: #e23e57; font-weight: 700;"><i class="ri-error-warning-fill"></i> Out of Stock!</span>
-                    <p style="margin: 5px 0 0 0; font-size: 12px; color: #555;">Get notified when this size returns:</p>
-                    <div style="display: flex; gap: 6px; margin-top: 8px;">
-                        <input type="email" id="restock-email" placeholder="Your Email" style="padding: 6px; flex: 1; border: 1px solid #ccc; border-radius: 4px; font-size: 12px;" />
-                        <button id="notify-restock-btn" style="background:#088178; color:white; border:none; padding:6px 12px; border-radius:4px; font-size:12px; cursor:pointer;">Notify Me</button>
-                    </div>
-                    <span id="restock-feedback" style="display:block; font-size:11px; margin-top:4px;"></span>
-                </div>
-            `;
-      document
-        .getElementById('notify-restock-btn')
-        .addEventListener('click', () => {
-          const email = document.getElementById('restock-email').value.trim();
+        <div class="stock-alert-box out-of-stock">
+          <span class="stock-title"><i class="ri-error-warning-fill"></i> Out of Stock!</span>
+          <p class="stock-desc">Get notified when this size returns:</p>
+          <div class="stock-notify-group">
+            <input type="email" id="restock-email" placeholder="Your Email" class="stock-email-input" />
+            <button id="notify-restock-btn" class="stock-notify-btn">Notify Me</button>
+          </div>
+          <span id="restock-feedback" class="stock-feedback"></span>
+        </div>
+      `;
+      const btn = document.getElementById('notify-restock-btn');
+      if (btn) {
+        btn.addEventListener('click', () => {
+          const emailInput = document.getElementById('restock-email');
           const feedback = document.getElementById('restock-feedback');
-          if (email) {
+          const email = emailInput ? emailInput.value.trim() : '';
+          if (email && feedback) {
             feedback.textContent = 'Successfully subscribed to Restock alert!';
-            feedback.style.color = '#088178';
-          } else {
-            feedback.textContent = 'Please fill email.';
-            feedback.style.color = '#e23e57';
+            feedback.className = 'stock-feedback success';
+          } else if (feedback) {
+            feedback.textContent = 'Please provide a valid email address.';
+            feedback.className = 'stock-feedback error';
           }
         });
+      }
     } else if (info.status === 'low') {
       stockContainer.innerHTML = `
-                <div style="background: rgba(243, 156, 18, 0.08); border: 1px solid #f39c12; padding: 10px; border-radius: 6px; margin: 10px 0; color: #d35400; font-weight: 700; font-size: 13px;">
-                    <i class="ri-alert-fill"></i> Only ${info.count} item(s) left in stock! Order soon.
-                </div>
-            `;
+        <div class="stock-alert-box low-stock">
+          <i class="ri-alert-fill"></i> Only ${info.count} item(s) left in stock! Order soon.
+        </div>
+      `;
     } else {
       stockContainer.innerHTML = `
-                <div style="background: rgba(8, 129, 120, 0.08); border: 1px solid #088178; padding: 10px; border-radius: 6px; margin: 10px 0; color: #088178; font-weight: 700; font-size: 13px;">
-                    <i class="ri-checkbox-circle-fill"></i> Size available! Ready to ship.
-                </div>
-            `;
+        <div class="stock-alert-box in-stock">
+          <i class="ri-checkbox-circle-fill"></i> Size available! Ready to ship.
+        </div>
+      `;
     }
   });
-});
+}
+
+if (typeof document !== 'undefined') {
+  document.addEventListener('DOMContentLoaded', initStockSimulator);
+}

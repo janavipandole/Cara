@@ -2,7 +2,7 @@
  * Sanitize user input strings to prevent XSS payloads and HTML injection.
  * Escapes common HTML special characters and filters dangerous attributes.
  */
-function sanitizeHTML(input) {
+export function sanitizeHTML(input) {
   if (typeof input !== 'string') {
     return input;
   }
@@ -29,8 +29,12 @@ function sanitizeHTML(input) {
   return clean;
 }
 
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { sanitizeHTML };
-} else if (typeof window !== 'undefined') {
+export function sanitizeDOMNode(element) {
+  if (!element || typeof element.querySelectorAll !== 'function') return;
+  const scriptTags = element.querySelectorAll('script, iframe, object, embed');
+  scriptTags.forEach((tag) => tag.remove());
+}
+
+if (typeof window !== 'undefined') {
   window.sanitizeHTML = sanitizeHTML;
 }
