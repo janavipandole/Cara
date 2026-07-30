@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'error',
           );
         } else {
-          console.log(
+          console.info(
             'Toast: ' +
               'Camera access blocked. Please enable webcam permission.',
           );
