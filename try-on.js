@@ -954,9 +954,9 @@ document.addEventListener('click', function (e) {
   html.setAttribute('data-theme', next);
   localStorage.setItem('theme', next);
 
-  var icon = document.getElementById('themeIcon');
-  var iconM = document.getElementById('themeIconMobile');
-  var cls = next === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
+  const icon = document.getElementById('themeIcon');
+  const iconM = document.getElementById('themeIconMobile');
+  const cls = next === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
   if (icon) icon.className = cls;
   if (iconM) iconM.className = cls;
 });
