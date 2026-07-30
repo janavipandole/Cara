@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   loginForm.addEventListener('submit', (e) => {
-    const userAnswer = parseInt(document.getElementById('captcha-input').value);
+    const userAnswer = parseInt(document.getElementById('captcha-input').value, 10);
     if (userAnswer !== answer) {
       e.preventDefault();
       document.getElementById('captcha-feedback').textContent =
