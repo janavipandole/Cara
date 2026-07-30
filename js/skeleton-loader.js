@@ -1,1 +1,1 @@
-console.log('Skeleton loader initialized');
+console.info('Skeleton loader initialized');
