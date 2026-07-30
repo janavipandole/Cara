@@ -286,7 +286,7 @@ function initCompatibilityChecker() {
     const bottomItem = document.getElementById('bottom-item').value.trim();
     const occasion = document.getElementById('occasion').value;
     if (!topItem || !bottomItem) {
-      console.log(
+      console.info(
         'Toast: ' + 'Please describe both your top and bottom clothing items.',
       );
       return;
