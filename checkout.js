@@ -286,7 +286,7 @@ function submitCheckoutForm() {
   if (cart.length === 0) {
     if (typeof window.showToast === 'function')
       window.showToast('Your cart is empty!', 'error');
-    else console.log('Toast: ' + 'Your cart is empty!');
+    else console.info('[Checkout] Cart is empty');
     return;
   }
 
@@ -410,7 +410,7 @@ function submitCheckoutForm() {
    .catch((err) => {
       if (typeof window.showToast === 'function')
         window.showToast(err.message, 'error');
-      else console.log('Toast: ' + err.message);
+      else console.warn('[Checkout] Toast error:', err.message);
 
       if (submitBtn) {
         submitBtn.classList.remove('btn-loading');
