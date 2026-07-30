@@ -17,14 +17,14 @@
 (function (root) {
   'use strict';
 
-  var STORAGE_KEY = 'recentlyViewed';
-  var MAX_ITEMS = 6;
-  var memoryFallbackList = [];
+  const STORAGE_KEY = 'recentlyViewed';
+  const MAX_ITEMS = 6;
+  let memoryFallbackList = [];
 
   function safeParseList(raw) {
     if (!raw) return [];
     try {
-      var parsed = JSON.parse(raw);
+      const parsed = JSON.parse(raw);
       return Array.isArray(parsed) ? parsed : [];
     } catch (e) {
       return [];
@@ -65,16 +65,16 @@
   function addRecentlyViewed(product) {
     if (!product || !product.name) return getRecentlyViewed();
 
-    var entry = {
+    const entry = {
       id: product.id != null ? product.id : null,
       name: product.name,
       price: product.price != null ? product.price : null,
       image: product.image || '',
     };
 
-    var list = getRecentlyViewed().filter(function (item) {
-      var sameId = entry.id != null && item.id != null && item.id === entry.id;
-      var sameName = item.name === entry.name;
+    let list = getRecentlyViewed().filter(function (item) {
+      const sameId = entry.id != null && item.id != null && item.id === entry.id;
+      const sameName = item.name === entry.name;
       return !(sameId || (entry.id == null && sameName));
     });
 
@@ -105,7 +105,7 @@
   }
 
   function buildCard(item, doc) {
-    var card = doc.createElement('div');
+    const card = doc.createElement('div');
     card.className = 'recently-viewed-card';
     card.setAttribute('role', 'button');
     card.setAttribute('tabindex', '0');
@@ -121,23 +121,23 @@
       }
     });
 
-    var imgWrap = doc.createElement('div');
+    const imgWrap = doc.createElement('div');
     imgWrap.className = 'pro-img-wrap';
-    var img = doc.createElement('img');
+    const img = doc.createElement('img');
     img.src = item.image || 'images/products/f1.jpg';
     img.alt = item.name;
     img.loading = 'lazy';
     imgWrap.appendChild(img);
     card.appendChild(imgWrap);
 
-    var des = doc.createElement('div');
+    const des = doc.createElement('div');
     des.className = 'des';
 
-    var name = doc.createElement('h5');
+    const name = doc.createElement('h5');
     name.textContent = item.name;
     des.appendChild(name);
 
-    var price = doc.createElement('h4');
+    const price = doc.createElement('h4');
     price.textContent = formatPrice(item.price);
     des.appendChild(price);
 
@@ -152,15 +152,15 @@
    */
   function renderRecentlyViewed(options) {
     options = options || {};
-    var doc = options.doc || document;
-    var container = doc.getElementById(options.containerId);
+    const doc = options.doc || document;
+    const container = doc.getElementById(options.containerId);
     if (!container) return [];
 
-    var section = options.sectionId
+    const section = options.sectionId
       ? doc.getElementById(options.sectionId)
       : null;
 
-    var list = getRecentlyViewed().filter(function (item) {
+    const list = getRecentlyViewed().filter(function (item) {
       if (options.excludeId != null) return item.id !== options.excludeId;
       if (options.excludeName) return item.name !== options.excludeName;
       return true;
@@ -184,13 +184,13 @@
   // ---- Page wiring -------------------------------------------------
 
   function getStaticProductByName(name) {
-    var list =
+    const list =
       typeof products !== 'undefined' && Array.isArray(products) // eslint-disable-line no-undef
         ? products // eslint-disable-line no-undef
         : Array.isArray(root.products)
           ? root.products
           : [];
-    var match = list.filter(function (p) {
+    const match = list.filter(function (p) {
       return p.name === name;
     })[0];
     return match
@@ -199,9 +199,9 @@
   }
 
   function readCurrentProductFromDom(doc) {
-    var nameEl = doc.getElementById('product-name');
-    var imgEl = doc.getElementById('MainImg');
-    var name = nameEl ? nameEl.textContent.trim() : '';
+    const nameEl = doc.getElementById('product-name');
+    const imgEl = doc.getElementById('MainImg');
+    const name = nameEl ? nameEl.textContent.trim() : '';
     if (!name || name === 'Unable to load product') return null;
     return {
       id: null,
@@ -215,9 +215,9 @@
 
   function resolveSelectedProductName() {
     try {
-      var id = localStorage.getItem('selectedProductId');
+      const id = localStorage.getItem('selectedProductId');
       if (id) return id;
-      var legacy = JSON.parse(localStorage.getItem('selectedProduct') || '{}');
+      const legacy = JSON.parse(localStorage.getItem('selectedProduct') || '{}');
       return legacy.name || null;
     } catch (e) {
       return null;
@@ -226,10 +226,10 @@
 
   async function fetchProductByName(name) {
     try {
-      var res = await root.fetch('/api/products');
+      const res = await root.fetch('/api/products');
       if (res && res.ok) {
-        var list = await res.json();
-        var match = list.filter(function (p) {
+        const list = await res.json();
+        const match = list.filter(function (p) {
           return p.name === name;
         })[0];
         if (match) {
@@ -248,8 +248,8 @@
   }
 
   async function initSingleProductPage() {
-    var name = resolveSelectedProductName();
-    var current = null;
+    const name = resolveSelectedProductName();
+    let current = null;
 
     if (name) {
       current = await fetchProductByName(name);
@@ -259,7 +259,7 @@
     // Backend/static lookups can miss (e.g. name mismatch); fall back to
     // whatever ended up rendered on the page after app.js ran.
     if (!current) {
-      for (var attempt = 0; attempt < 5 && !current; attempt++) {
+      for (let attempt = 0; attempt < 5 && !current; attempt++) {
         current = readCurrentProductFromDom(document);
         if (!current) {
           await new Promise(function (resolve) {
