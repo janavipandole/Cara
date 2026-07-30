@@ -26,6 +26,7 @@
   }
 
   function addToCompare(product) {
+    if (!product) return false;
     const list = getCompareList();
     if (list.length >= MAX_ITEMS) {
       if (typeof showToast === 'function') {
@@ -45,6 +46,7 @@
   }
 
   function removeFromCompare(id) {
+    if (id == null) return;
     const list = getCompareList().filter((p) => String(p.id) !== String(id));
     saveCompareList(list);
   }
@@ -72,6 +74,7 @@
   }
 
   function injectCompareCheckbox(card) {
+    if (!card) return;
     // Avoid duplicates
     if (card.querySelector('.compare-check-label')) return;
 
