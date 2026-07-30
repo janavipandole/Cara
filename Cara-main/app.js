@@ -231,7 +231,7 @@ function updateCartCount() {
 
   // 🔥 FIX: sanitize stored quantities
   cart = cart.map((item) => {
-    let qty = parseInt(item.quantity);
+    let qty = parseInt(item.quantity, 10);
 
     if (isNaN(qty) || qty < 1) qty = 1;
     if (qty > 99) qty = 99;
@@ -242,7 +242,7 @@ function updateCartCount() {
   // Save corrected data back
   localStorage.setItem('productsInCart', JSON.stringify(cart));
   const totalItems = cart.reduce((sum, item) => {
-    let quantity = parseInt(item.quantity);
+    let quantity = parseInt(item.quantity, 10);
 
     // ✅ VALIDATION (CRITICAL FIX)
     if (isNaN(quantity) || quantity < 1) {
