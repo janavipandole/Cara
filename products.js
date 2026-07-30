@@ -484,7 +484,9 @@ function safeParseJSON(key, fallback = '[]') {
     }
     try {
       return JSON.parse(fallback);
-    } catch {
+    } catch (err) {
+      console.warn('Failed to process data:', err);
+    }
       return [];
     }
   }
