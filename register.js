@@ -6,8 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const messageBox = document.getElementById('formMessage');
 
   function setValidity(inputId, isValid, message) {
-    var input = document.getElementById(inputId);
-    var errorEl = input
+    const input = document.getElementById(inputId);
+    const errorEl = input
       ? input.parentElement.querySelector('.error-message') ||
         document.getElementById(
           inputId.replace('register', '').toLowerCase() + 'ErrorReg',
@@ -22,8 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
   btn.addEventListener('click', async (e) => {
     e.preventDefault();
 
-    var username = document.getElementById('registerUsername')?.value.trim();
-    var email = document.getElementById('registerEmail')?.value.trim();
+    let username = document.getElementById('registerUsername')?.value.trim();
+    let email = document.getElementById('registerEmail')?.value.trim();
     if (
       typeof window !== 'undefined' &&
       typeof window.sanitizeHTML === 'function'
@@ -31,8 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
       username = window.sanitizeHTML(username);
       email = window.sanitizeHTML(email);
     }
-    var password = document.getElementById('registerPassword')?.value;
-    var confirmPassword = document.getElementById('confirmPassword')?.value;
+    const password = document.getElementById('registerPassword')?.value;
+    const confirmPassword = document.getElementById('confirmPassword')?.value;
 
     setValidity('registerUsername', true, '');
     setValidity('registerEmail', true, '');
