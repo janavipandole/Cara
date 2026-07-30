@@ -127,7 +127,9 @@
       if (!res.ok) throw new Error('API error');
       const list = await res.json();
       showSuggestions(list);
-    } catch {
+    } catch (err) {
+      console.warn('Address autocomplete failed:', err);
+    }
       hideSuggestions();
     } finally {
       if (loader) {

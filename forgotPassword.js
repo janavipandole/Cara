@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
         submitBtn.disabled = true;
       }
 
-      const API_BASE = window.CARA_API_BASE_URL || 'http://127.0.0.1:8000';
+      const API_BASE = window.CARA_API_BASE_URL || '';
 
       fetch(API_BASE + '/api/auth/forgot-password', {
         method: 'POST',

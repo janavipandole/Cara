@@ -1,1 +1,1 @@
-console.log('Toast system initialized');
+console.info('Toast system initialized');

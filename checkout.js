@@ -3,16 +3,18 @@ let checkoutIdempotencyKey = null;
 function safeParseJSON(key, fallback = '[]') {
   try {
     return JSON.parse(localStorage.getItem(key) || fallback);
-  } catch {
+  } catch (err) {
+    console.warn('Failed to parse stored data:', err);
     try {
       return JSON.parse(fallback);
-    } catch {
+    } catch (err2) {
+      console.warn('Failed to parse fallback data:', err2);
       return [];
     }
   }
 }
 
-const API_BASE_URL = window.CARA_API_BASE_URL || 'http://127.0.0.1:8000';
+const API_BASE_URL = window.CARA_API_BASE_URL || '';
 
 function getStoredAuthToken() {
   return (
@@ -55,7 +57,7 @@ const validators = {
     let sum = 0;
     let shouldDouble = false;
     for (let i = raw.length - 1; i >= 0; i--) {
-      let digit = parseInt(raw.charAt(i));
+      let digit = parseInt(raw.charAt(i), 10);
       if (shouldDouble) {
         digit *= 2;
         if (digit > 9) digit -= 9;
@@ -286,7 +288,7 @@ function submitCheckoutForm() {
   if (cart.length === 0) {
     if (typeof window.showToast === 'function')
       window.showToast('Your cart is empty!', 'error');
-    else console.log('Toast: ' + 'Your cart is empty!');
+    else console.info('Toast: Your cart is empty!');
     return;
   }
 
@@ -337,7 +339,7 @@ function submitCheckoutForm() {
     idempotency_key: checkoutIdempotencyKey,
     items: cart.map((item) => ({
       product_name: item.name,
-      quantity: parseInt(item.quantity) || 1,
+      quantity: parseInt(item.quantity, 10) || 1,
       price: item.price,
     })),
   };
@@ -363,12 +365,12 @@ function submitCheckoutForm() {
 
       // DEDUCT & ADD LOYALTY POINTS ON SUCCESSFUL ORDER
       const appliedPoints =
-        parseInt(localStorage.getItem('cara_applied_loyalty_points')) || 0;
+        parseInt(localStorage.getItem('cara_applied_loyalty_points'), 10) || 0;
       const currentBalance =
         parseInt(localStorage.getItem('cara_loyalty_balance')) || 150;
       const subtotal = cart.reduce(
         (sum, item) =>
-          sum + parsePriceString(item.price) * (parseInt(item.quantity) || 1),
+          sum + parsePriceString(item.price) * (parseInt(item.quantity, 10) || 1),
         0,
       );
       const earnedPoints = Math.floor(subtotal * 0.1);
@@ -410,7 +412,7 @@ function submitCheckoutForm() {
    .catch((err) => {
       if (typeof window.showToast === 'function')
         window.showToast(err.message, 'error');
-      else console.log('Toast: ' + err.message);
+      else console.info('Toast: ' + err.message);
 
       if (submitBtn) {
         submitBtn.classList.remove('btn-loading');
@@ -454,7 +456,7 @@ function renderCheckoutItems() {
   container.innerHTML = cart
     .map((item) => {
       const itemPrice = parsePriceString(item.price);
-      const itemQty = parseInt(item.quantity) || 1;
+      const itemQty = parseInt(item.quantity, 10) || 1;
       const sizeStr = item.size ? `Size ${item.size}` : 'Standard';
       return `
       <div class="order-item" style="display: flex; gap: 15px; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 12px;">
@@ -476,13 +478,13 @@ window.updateCheckoutSummary = function () {
   const cart = safeParseJSON('productsInCart');
   const subtotal = cart.reduce(
     (sum, item) =>
-      sum + parsePriceString(item.price) * (parseInt(item.quantity) || 1),
+      sum + parsePriceString(item.price) * (parseInt(item.quantity, 10) || 1),
     0,
   );
 
   // Check coupon discount
   const couponCode = localStorage.getItem('appliedCoupon') || '';
-  const COUPONS = { CARA20: 20, WELCOME10: 10 };
+  const COUPONS = window.CARA_COUPONS || {};
   const couponPct = COUPONS[couponCode] || 0;
   const couponDiscount = subtotal * (couponPct / 100);
 
@@ -496,12 +498,12 @@ window.updateCheckoutSummary = function () {
   const hasGiftWrap = document.getElementById('gift-wrap-opt')?.checked;
   const giftCharge = hasGiftWrap ? 99 : 0;
 
-  // Calculate tax (5%)
-  const tax = subtotal * 0.05;
+  // Calculate tax (18% GST) — must match app.js line 939 and backend orders.py
+  const tax = subtotal * 0.18;
 
   // Check loyalty points discount (10 points = ₹1)
   const loyaltyPoints =
-    parseInt(localStorage.getItem('cara_applied_loyalty_points')) || 0;
+    parseInt(localStorage.getItem('cara_applied_loyalty_points'), 10) || 0;
   const loyaltyDiscount = loyaltyPoints * 0.1;
 
   // Grand Total

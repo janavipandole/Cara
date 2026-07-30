@@ -1,10 +1,11 @@
 # 🛍️ Cara - E-commerce Platform
 
 ## Architecture Overview
-- **Frontend**: Clean semantic HTML5, modern vanilla CSS, responsive layouts, and app.js state handling.
-- **Database**: SQLite `cara.db` file mapping backend models.
-- **Workflows**: GitHub actions verify builds, run dependency checks, and auto-label code triage.
-- **Asset Assets**: Located under `assets/` and `images/` directories.
+- **Architecture Specification**: Detailed system design and flow diagrams in [ARCHITECTURE.md](ARCHITECTURE.md).
+- **API Reference**: Comprehensive module API endpoints in [API Reference](docs/API_REFERENCE.md).
+- **Development Standards**: Coding guidelines and CSS tokens in [Style Guide](docs/STYLE_GUIDE.md).
+- **Deployment Guide**: Containerized Docker setup in [Deployment Guide](docs/DEPLOYMENT.md).
+- **Frontend**: Clean semantic HTML5, modern vanilla CSS, responsive layouts, and ES JavaScript modules.
 
 > Officially participating in
 ## GSSOC 2026
@@ -352,3 +353,29 @@ Use PurgeCSS to remove unused classes. (Fix #2418)
 
 - CI/CD workflow integrated.
 - PR and Issue templates added.
+
+## Troubleshooting
+
+### Installation fails
+- Ensure you are using the supported Node.js version.
+- Run `npm install` or `npm ci`.
+- Delete `node_modules` and reinstall dependencies if necessary.
+
+### Environment variables not loading
+- Verify that a `.env` file exists.
+- Ensure all required variables are defined.
+- Restart the development server after making changes.
+
+## FAQ
+
+### How do I start the project?
+Run:
+
+```bash
+npm install
+npm run dev
+```
+
+### How do I report a bug?
+Please open a GitHub issue with reproduction steps and relevant logs.
+

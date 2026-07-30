@@ -27,7 +27,7 @@
   <!-- Open Graph (OG) Tags for Social Sharing -->
   <meta property="og:title" content="E-commerce - Dark Theme Working" />
   <meta property="og:description" content="Shop the latest trends with our dark mode-enabled e-commerce experience." />
-  <meta property="og:image" content="https://cara-seven-ashen.vercel.app/images/logo.png" />
+  <meta property="og:image" content="https://cara-seven-ashen.vercel.app/images/Dlogo.png" />
   <meta property="og:url" content="https://cara-seven-ashen.vercel.app/" />
   <meta property="og:type" content="website" />
 
@@ -35,29 +35,36 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="E-commerce - Dark Theme Working" />
   <meta name="twitter:description" content="Dark theme e-commerce site with modern features." />
-  <meta name="twitter:image" content="https://cara-seven-ashen.vercel.app/images/logo.png" />
+  <meta name="twitter:image" content="https://cara-seven-ashen.vercel.app/images/Dlogo.png" />
   <meta name="twitter:site" content="@janavipandole" />
 
   <!-- Theme Color for Mobile Browser -->
   <meta name="theme-color" content="#000000" />
   
   <!-- Stylesheets -->
+  <link rel="stylesheet" href="a11y-utilities.css">
+  <link rel="stylesheet" href="toast-queue.css">
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="stock-alert.css">
+  <link rel="stylesheet" href="currency-converter.css">
   <link rel="stylesheet" href="ui-fix.css" />
+  <link rel="stylesheet" href="currency-converter.css">
+  <link rel="stylesheet" href="a11y-utilities.css">
   <link rel="stylesheet" href="empty-cart.css" />
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="stock-alert.css">
 
   <style>
     /* ================================================================
-       FIX #954 â€” Cart page layout misaligned / empty space on left
+       FIX #954 — Cart page layout misaligned / empty space on left
        Root cause: .cartmain and #cart-content-wrapper had no max-width
        or centering, so content floated unanchored to the right.
     ================================================================ */
     /* ================================================================
-       FIX #954 â€” Cart page layout misaligned / centered layout
+       FIX #954 — Cart page layout misaligned / centered layout
     ================================================================ */
     body {
       font-family: Arial, sans-serif;
@@ -101,7 +108,7 @@
     }
 
     /* Header styling matching grid definitions */
-    /* Header styling matching grid definitions â€” Updated to 5 columns for the delete option */
+    /* Header styling matching grid definitions — Updated to 5 columns for the delete option */
 .cart-column-header {
   display: grid;
   /* Added a 0.5fr column at the end for the trash/remove icon */
@@ -119,7 +126,7 @@
     }
 
     /* ================================================================
-       FIX #964 â€” Cart item quantity & subtotal layout responsive grid
+       FIX #964 — Cart item quantity & subtotal layout responsive grid
     ================================================================ */
     @media (max-width: 767px) {
       .cart-item-row {
@@ -371,7 +378,7 @@ button + button {
   <section id="header" role="banner">
     <!-- Logo -->
     <a href="index.html">
-      <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
+      <img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" />
     </a>
 
     <div>
@@ -508,15 +515,15 @@ button + button {
                 <div class="summary-breakdown">
                   <div class="summary-row">
                     <span>Subtotal</span>
-                    <span id="summary-subtotal">â‚¹0</span>
+                    <span id="summary-subtotal">₹0</span>
                   </div>
                   <div class="summary-row">
                     <span>Estimated Tax (18% GST)</span>
-                    <span id="summary-tax">â‚¹0</span>
+                    <span id="summary-tax">₹0</span>
                   </div>
                   <div class="summary-row" id="summary-discount-row" style="display: none;">
                     <span>Discount</span>
-                    <span id="summary-discount" class="discount-value">-â‚¹0</span>
+                    <span id="summary-discount" class="discount-value">-₹0</span>
                   </div>
                   <div class="summary-row">
                     <span>Shipping</span>
@@ -525,7 +532,7 @@ button + button {
                   <hr class="summary-divider" />
                   <div class="summary-row grand-total-row">
                     <span>Grand Total</span>
-                    <span id="summary-total">â‚¹0</span>
+                    <span id="summary-total">₹0</span>
                   </div>
                 </div>
 
@@ -574,8 +581,8 @@ button + button {
             discountRow.style.display = "flex";
             
             // Clean out currency symbols AND commas so strings like "7,289" parse as 7289
-            const subtotalText = document.getElementById("summary-subtotal").textContent.replace(/[â‚¹$,]/g, "").trim();
-            const taxText = document.getElementById("summary-tax").textContent.replace(/[â‚¹$,]/g, "").trim();
+            const subtotalText = document.getElementById("summary-subtotal").textContent.replace(/[₹$,]/g, "").trim();
+            const taxText = document.getElementById("summary-tax").textContent.replace(/[₹$,]/g, "").trim();
             
             const subtotal = parseFloat(subtotalText) || 0;
             const tax = parseFloat(taxText) || 0;
@@ -587,25 +594,25 @@ button + button {
             const total = subtotal + tax - discount;
             
             // Update the UI with beautiful formatting back into the summary card
-            discountVal.textContent = "-â‚¹" + discount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            document.getElementById("summary-total").textContent = "â‚¹" + total.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            discountVal.textContent = "-₹" + discount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            document.getElementById("summary-total").textContent = "₹" + total.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
           }
         } else if (val === "") {
           feedback.innerHTML = `<span style="color: #ef4444;"><i class="ri-error-warning-fill"></i> Please enter a coupon code.</span>`;
           if (discountRow) discountRow.style.display = "none";
-          const subtotalText = document.getElementById("summary-subtotal").textContent.replace(/[â‚¹$,]/g, "").trim();
-          const taxText = document.getElementById("summary-tax").textContent.replace(/[â‚¹$,]/g, "").trim();
+          const subtotalText = document.getElementById("summary-subtotal").textContent.replace(/[₹$,]/g, "").trim();
+          const taxText = document.getElementById("summary-tax").textContent.replace(/[₹$,]/g, "").trim();
           const subtotal = parseFloat(subtotalText) || 0;
           const tax = parseFloat(taxText) || 0;
-          document.getElementById("summary-total").textContent = "â‚¹" + (subtotal + tax).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          document.getElementById("summary-total").textContent = "₹" + (subtotal + tax).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         } else {
           feedback.innerHTML = `<span style="color: #ef4444;"><i class="ri-error-warning-fill"></i> Invalid coupon code. Try CARA20.</span>`;
           if (discountRow) discountRow.style.display = "none";
-          const subtotalText = document.getElementById("summary-subtotal").textContent.replace(/[â‚¹$,]/g, "").trim();
-          const taxText = document.getElementById("summary-tax").textContent.replace(/[â‚¹$,]/g, "").trim();
+          const subtotalText = document.getElementById("summary-subtotal").textContent.replace(/[₹$,]/g, "").trim();
+          const taxText = document.getElementById("summary-tax").textContent.replace(/[₹$,]/g, "").trim();
           const subtotal = parseFloat(subtotalText) || 0;
           const tax = parseFloat(taxText) || 0;
-          document.getElementById("summary-total").textContent = "â‚¹" + (subtotal + tax).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          document.getElementById("summary-total").textContent = "₹" + (subtotal + tax).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         }
       });
     }
@@ -614,7 +621,7 @@ button + button {
         
   <!-- COLUMN 1: CONTACT & SOCIALS -->
   <div class="col" style="display: flex !important; flex-direction: column !important; align-items: flex-start !important; width: 100% !important;">
-    <img class="logo" src="images/logo.png" alt="Cara Logo" style="margin-bottom: 12px; height: auto; max-width: 120px;">
+    <img class="logo" src="images/Dlogo.png" alt="Cara Logo" style="margin-bottom: 12px; height: auto; max-width: 120px;">
     <h4 style="color: #ffffff !important; font-size: 14px !important; font-weight: 700 !important; margin: 0 0 10px 0 !important; text-transform: uppercase; letter-spacing: 0.5px;">Contact</h4>
     <p style="color: #f1f5f9 !important; font-size: 13px !important; line-height: 1.4 !important; margin: 4px 0 !important;">
       <strong style="color: #ffffff !important;">Address:</strong> 562 Wellington Road, SF
@@ -682,7 +689,7 @@ button + button {
 
   <!-- HORIZONTAL COPYRIGHT STATEMENT -->
   <div class="copyright" style="grid-column: span 4 !important; text-align: center !important; margin-top: 15px !important; padding-top: 15px !important; margin-bottom: 30px !important; border-top: 1px solid rgba(255, 255, 255, 0.1) !important;">
-    <p style="color: #94a3b8 !important; font-size: 12px !important; margin: 0 !important;">Â© Cara 2026. All rights reserved. | <a href="license.html" style="color: #ffffff !important; text-decoration: underline !important;"> MIT License </a></p>
+    <p style="color: #94a3b8 !important; font-size: 12px !important; margin: 0 !important;">© Cara 2026. All rights reserved. | <a href="license.html" style="color: #ffffff !important; text-decoration: underline !important;"> MIT License </a></p>
   </div>
 </footer>
 
@@ -690,7 +697,7 @@ button + button {
 
       <!-- FORCE A BLANK LAYOUT GAP AT THE BOTTOM OF THE ENTIRE PAGE -->
       <div style="height: 18px !important; width: 100% !important; clear: both !important; display: block !important;"></div>
-
+      <script src="js/coupon-config.js"></script>
     <script src="app.js?v=1779120917210"></script>
     <script>
       // ... (your coupon script stays exactly the same)

@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.removeItem('cara_user_email');
     localStorage.removeItem('cara_user_name');
     localStorage.removeItem('cara_user_role');
-    console.warn('Session cleared due to inactivity.');
+    console.info('Session cleared due to inactivity.');
   };
 
   // User activity listeners

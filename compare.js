@@ -16,7 +16,9 @@
   function getCompareList() {
     try {
       return JSON.parse(sessionStorage.getItem(STORAGE_KEY)) || [];
-    } catch {
+    } catch (err) {
+    console.warn('Failed to compare products:', err);
+  }
       return [];
     }
   }
@@ -28,8 +30,15 @@
   function addToCompare(product) {
     const list = getCompareList();
     if (list.length >= MAX_ITEMS) {
-      alert('You can compare up to ' + MAX_ITEMS + ' products at a time.');
-      return false;
+      if (typeof showToast === 'function') {
+        showToast(
+          `You can compare up to ${MAX_ITEMS} products at a time.`,
+          'warning',
+        );
+      } else {
+        alert('You can compare up to ' + MAX_ITEMS + ' products at a time.');
+      }
+      return;
     }
     if (list.find((p) => p.id === product.id)) return false;
     list.push(product);
@@ -281,9 +290,13 @@
     if (typeof window.CompareAnimationController === 'function') {
       const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
       const animController = new window.CompareAnimationController();
-      animController.applyMotionPreferences(animController.shouldDisableMotion(motionQuery.matches));
+      animController.applyMotionPreferences(
+        animController.shouldDisableMotion(motionQuery.matches),
+      );
       motionQuery.addEventListener('change', (e) => {
-        animController.applyMotionPreferences(animController.shouldDisableMotion(e.matches));
+        animController.applyMotionPreferences(
+          animController.shouldDisableMotion(e.matches),
+        );
       });
     }
 
