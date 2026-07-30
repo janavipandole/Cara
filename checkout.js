@@ -337,7 +337,7 @@ function submitCheckoutForm() {
     idempotency_key: checkoutIdempotencyKey,
     items: cart.map((item) => ({
       product_name: item.name,
-      quantity: parseInt(item.quantity) || 1,
+      quantity: parseInt(item.quantity, 10) || 1,
       price: item.price,
     })),
   };
@@ -363,12 +363,12 @@ function submitCheckoutForm() {
 
       // DEDUCT & ADD LOYALTY POINTS ON SUCCESSFUL ORDER
       const appliedPoints =
-        parseInt(localStorage.getItem('cara_applied_loyalty_points')) || 0;
+        parseInt(localStorage.getItem('cara_applied_loyalty_points'), 10) || 0;
       const currentBalance =
-        parseInt(localStorage.getItem('cara_loyalty_balance')) || 150;
+        parseInt(localStorage.getItem('cara_loyalty_balance'), 10) || 150;
       const subtotal = cart.reduce(
         (sum, item) =>
-          sum + parsePriceString(item.price) * (parseInt(item.quantity) || 1),
+          sum + parsePriceString(item.price) * (parseInt(item.quantity, 10) || 1),
         0,
       );
       const earnedPoints = Math.floor(subtotal * 0.1);
@@ -454,7 +454,7 @@ function renderCheckoutItems() {
   container.innerHTML = cart
     .map((item) => {
       const itemPrice = parsePriceString(item.price);
-      const itemQty = parseInt(item.quantity) || 1;
+      const itemQty = parseInt(item.quantity, 10) || 1;
       const sizeStr = item.size ? `Size ${item.size}` : 'Standard';
       return `
       <div class="order-item" style="display: flex; gap: 15px; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 12px;">
@@ -476,7 +476,7 @@ window.updateCheckoutSummary = function () {
   const cart = safeParseJSON('productsInCart');
   const subtotal = cart.reduce(
     (sum, item) =>
-      sum + parsePriceString(item.price) * (parseInt(item.quantity) || 1),
+      sum + parsePriceString(item.price) * (parseInt(item.quantity, 10) || 1),
     0,
   );
 
@@ -501,7 +501,7 @@ window.updateCheckoutSummary = function () {
 
   // Check loyalty points discount (10 points = ₹1)
   const loyaltyPoints =
-    parseInt(localStorage.getItem('cara_applied_loyalty_points')) || 0;
+    parseInt(localStorage.getItem('cara_applied_loyalty_points'), 10) || 0;
   const loyaltyDiscount = loyaltyPoints * 0.1;
 
   // Grand Total
