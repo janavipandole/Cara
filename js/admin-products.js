@@ -1,11 +1,11 @@
-var API_BASE = window.CARA_API_BASE_URL || 'http://127.0.0.1:8000';
+const API_BASE = window.CARA_API_BASE_URL || 'http://127.0.0.1:8000';
 
 function getAuthToken() {
   return localStorage.getItem('access_token') || '';
 }
 
 function adminRequest(method, path, body) {
-  var opts = {
+  const opts = {
     method: method,
     headers: {
       'Content-Type': 'application/json',
