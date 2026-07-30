@@ -1,1 +1,1 @@
-console.log('FAB initialized');
+console.info('[ScrollTop] FAB initialized');
