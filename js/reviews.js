@@ -266,13 +266,16 @@
       form.addEventListener('submit', (e) => {
         e.preventDefault();
 
-        const author = form.querySelector('#reviewAuthor').value.trim();
-        const rating = parseInt(
-          (form.querySelector('.review-star-input:checked') || {}).value,
-          10,
-        );
-        const title = (form.querySelector('#reviewTitle').value || '').trim();
-        const body = form.querySelector('#reviewBody').value.trim();
+        const authorEl = form.querySelector('#reviewAuthor');
+        const ratingEl = form.querySelector('.review-star-input:checked');
+        const titleEl = form.querySelector('#reviewTitle');
+        const bodyEl = form.querySelector('#reviewBody');
+        if (!authorEl || !bodyEl) return;
+
+        const author = authorEl.value.trim();
+        const rating = parseInt((ratingEl || {}).value, 10);
+        const title = (titleEl ? titleEl.value : '').trim();
+        const body = bodyEl.value.trim();
 
         let valid = true;
 
@@ -281,24 +284,24 @@
         const bodyErr = form.querySelector('#bodyError');
 
         if (!author) {
-          authorErr.textContent = 'Please enter your name.';
+          if (authorErr) authorErr.textContent = 'Please enter your name.';
           valid = false;
         } else {
-          authorErr.textContent = '';
+          if (authorErr) authorErr.textContent = '';
         }
 
         if (!rating || rating < 1 || rating > 5) {
-          ratingErr.textContent = 'Please select a star rating.';
+          if (ratingErr) ratingErr.textContent = 'Please select a star rating.';
           valid = false;
         } else {
-          ratingErr.textContent = '';
+          if (ratingErr) ratingErr.textContent = '';
         }
 
         if (!body || body.length < 10) {
-          bodyErr.textContent = 'Review must be at least 10 characters.';
+          if (bodyErr) bodyErr.textContent = 'Review must be at least 10 characters.';
           valid = false;
         } else {
-          bodyErr.textContent = '';
+          if (bodyErr) bodyErr.textContent = '';
         }
 
         if (!valid) return;
