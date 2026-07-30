@@ -1630,19 +1630,19 @@ function showWardrobeToast(msg, isError) {
 }
 
 window.shareWardrobe = function () {
-  var cart =
+  const cart =
     window.cachedCartState ||
     JSON.parse(localStorage.getItem('productsInCart')) ||
     [];
   window.cachedCartState = cart;
-  var btn = document.getElementById('share-cart-btn');
+  const btn = document.getElementById('share-cart-btn');
 
   if (cart.length === 0) {
     showToast('Your cart is empty! Add some items before sharing.', 'error');
     return;
   }
   try {
-    var minimizedCart = cart.map(function (item) {
+    const minimizedCart = cart.map(function (item) {
       return {
         n: item.name,
         p: item.price,
@@ -1651,14 +1651,14 @@ window.shareWardrobe = function () {
         s: item.size,
       };
     });
-    var sharePayload = {
+    const sharePayload = {
       t: Date.now(),
       items: minimizedCart,
     };
-    var base64Payload = btoa(
+    const base64Payload = btoa(
       unescape(encodeURIComponent(JSON.stringify(sharePayload))),
     );
-    var shareUrl =
+    const shareUrl =
       window.location.origin +
       window.location.pathname +
       '#share=' +
@@ -1667,7 +1667,7 @@ window.shareWardrobe = function () {
     showToast('Wardrobe share link copied to clipboard!', 'success');
 
     if (btn) {
-      var originalText = btn.innerHTML;
+      const originalText = btn.innerHTML;
       btn.textContent = '✅ Link Copied!';
       btn.style.color = '#10b991';
       setTimeout(function () {
@@ -1683,7 +1683,7 @@ window.shareWardrobe = function () {
 
 function fallbackCopyText(text) {
   try {
-    var textArea = document.createElement('textarea');
+    const textArea = document.createElement('textarea');
     textArea.value = text;
     textArea.style.cssText = 'position:fixed;opacity:0;left:-9999px;';
     document.body.appendChild(textArea);
@@ -1696,7 +1696,7 @@ function fallbackCopyText(text) {
   }
 }
 
-var SHARED_WARDROBE_EXPIRY_MS = 14 * 24 * 60 * 60 * 1000;
+const SHARED_WARDROBE_EXPIRY_MS = 14 * 24 * 60 * 60 * 1000;
 
 window.closeShareModal = function () {
   var modal = document.getElementById('share-modal');
@@ -1710,19 +1710,19 @@ window.closeShareModal = function () {
 };
 
 window.checkSharedWardrobe = function () {
-  var hash = window.location.hash;
+  const hash = window.location.hash;
   if (!hash || hash.indexOf('#share=') !== 0) return;
 
   try {
-    var base64Payload = hash.substring(7);
-    var decodedPayload = JSON.parse(
+    const base64Payload = hash.substring(7);
+    const decodedPayload = JSON.parse(
       decodeURIComponent(escape(atob(base64Payload))),
     );
 
-    var decodedCart = Array.isArray(decodedPayload)
+    const decodedCart = Array.isArray(decodedPayload)
       ? decodedPayload
       : decodedPayload.items;
-    var sharedAt = Array.isArray(decodedPayload) ? null : decodedPayload.t;
+    const sharedAt = Array.isArray(decodedPayload) ? null : decodedPayload.t;
 
     if (!Array.isArray(decodedCart) || decodedCart.length === 0) {
       showToast('Invalid share link or empty shared collection.', 'error');
@@ -1747,41 +1747,41 @@ window.checkSharedWardrobe = function () {
       };
     });
 
-    var listContainer = document.getElementById('shared-items-list');
-    var totalPriceEl = document.getElementById('shared-total-price');
-    var modal = document.getElementById('share-modal');
+    const listContainer = document.getElementById('shared-items-list');
+    const totalPriceEl = document.getElementById('shared-total-price');
+    const modal = document.getElementById('share-modal');
     if (!listContainer || !totalPriceEl || !modal) return;
 
     listContainer.innerHTML = '';
-    var total = 0;
+    let total = 0;
 
     window.pendingSharedCart.forEach(function (item) {
-      var itemSubtotal = item.price * item.quantity;
+      const itemSubtotal = item.price * item.quantity;
       total += itemSubtotal;
 
-      var row = document.createElement('div');
+      const row = document.createElement('div');
       row.className = 'shared-item-row';
 
-      var img = document.createElement('img');
+      const img = document.createElement('img');
       img.src = item.image;
       img.className = 'shared-item-img';
       img.alt = item.name;
 
-      var details = document.createElement('div');
+      const details = document.createElement('div');
       details.className = 'shared-item-details';
 
-      var nameEl = document.createElement('h4');
+      const nameEl = document.createElement('h4');
       nameEl.className = 'shared-item-name';
       nameEl.textContent = item.name;
 
-      var meta = document.createElement('span');
+      const meta = document.createElement('span');
       meta.className = 'shared-item-meta';
       meta.textContent = 'Size: ' + item.size + '  |  Qty: ' + item.quantity;
 
       details.appendChild(nameEl);
       details.appendChild(meta);
 
-      var priceEl = document.createElement('div');
+      const priceEl = document.createElement('div');
       priceEl.className = 'shared-item-price';
       priceEl.textContent = formatCurrency(itemSubtotal);
 
@@ -1808,7 +1808,7 @@ window.applySharedCart = function (action) {
     return;
   }
 
-  var localCart =
+  let localCart =
     window.cachedCartState ||
     JSON.parse(localStorage.getItem('productsInCart')) ||
     [];
@@ -1819,7 +1819,7 @@ window.applySharedCart = function (action) {
     showToast('Cart replaced with shared wardrobe!', 'success');
   } else if (action === 'merge') {
     window.pendingSharedCart.forEach(function (sharedItem) {
-      var existing = localCart.find(function (item) {
+      const existing = localCart.find(function (item) {
         return item.name === sharedItem.name && item.size === sharedItem.size;
       });
       if (existing) {
