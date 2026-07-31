@@ -3493,3 +3493,6 @@ footer .copyright {
 .text-accent { color: var(--accent); }
 .bg-accent { background-color: var(--accent); }
 .border-accent { border-color: var(--accent); }
+
+[data-theme="dark-high-contrast"] { background-color: #000 !important; color: #fff !important; }
+.theme-float-btn { position: fixed; bottom: 20px; right: 20px; padding: 10px 18px; border-radius: 20px; background: #088178; color: #fff; border: none; cursor: pointer; z-index: 9999; }
