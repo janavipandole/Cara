@@ -31,6 +31,7 @@
     page_size: DEFAULT_PAGE_SIZE,
   };
   let activeController = null;
+  const smartEngine = typeof SmartSearchEngine !== 'undefined' ? new SmartSearchEngine() : null;
 
   // ── DOM references ──────────────────────────────────────────────────────────
   const searchInput = document.getElementById('productSearchInput');
