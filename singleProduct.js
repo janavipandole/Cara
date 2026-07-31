@@ -116,3 +116,4 @@ if (sizeDropdown) {
     }
   });
 }
+console.log("Single Product Size Guide initialized.");

@@ -445,3 +445,5 @@
 }
 /* Fix #2419 */
 .animate-paused { animation-play-state: paused; }
+
+#open-size-guide { margin-top: 10px; background: #e8f6ea; color: #088178; font-weight: 600; }
