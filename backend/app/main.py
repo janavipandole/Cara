@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from . import models
 from .database import engine
 from .api import auth
 from .limiter import limiter
@@ -19,7 +18,7 @@ app.add_middleware(
     "http://localhost:5500",
     "https://cara-janavipandoles-projects.vercel.app",],  # update as needed
     allow_credentials=True,
-    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_methods=["GET", "POST", "OPTIONS", "PUT", "PATCH", "DELETE"],
     allow_headers=["*"],
 )
 
@@ -27,6 +26,12 @@ app.add_middleware(
 async def security_headers(request, call_next):
     response = await call_next(request)
 
+    response.headers["Content-Security-Policy"] = (
+        "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; "
+        "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com; "
+        "font-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.gstatic.com; "
+        "img-src 'self' data: https:;"
+    )
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["X-Frame-Options"] = "DENY"
     response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
@@ -51,8 +56,13 @@ def root():
     return {"message": "Cara AI Outfit Recommendation API is running."}
 
 # Include routers here later
-from .api import recommendation, products, auth, orders
+from .api import recommendation, products, auth, orders, address, newsletter, admin, admin_products, profile
 app.include_router(recommendation.router, prefix="/api/outfit", tags=["outfit"])
 app.include_router(products.router, prefix="/api/products", tags=["products"])
 app.include_router(auth.router,prefix="/api/auth",tags=["auth"])
 app.include_router(orders.router, prefix="/api/orders", tags=["orders"])
+app.include_router(address.router, prefix="/api/address", tags=["address"])
+app.include_router(newsletter.router, prefix="/api/newsletter", tags=["newsletter"])
+app.include_router(admin.router, prefix="/api/admin", tags=["admin"])
+app.include_router(admin_products.router, prefix="/api/admin/products", tags=["admin-products"])
+app.include_router(profile.router, prefix="/api/profile", tags=["profile"])
