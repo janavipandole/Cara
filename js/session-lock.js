@@ -9,13 +9,27 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const lockSession = () => {
+    // Clear any legacy identity values left over from before tokens moved
+    // to httpOnly cookies.
     localStorage.removeItem('cara_user_session');
     localStorage.removeItem('cara_user_token');
     localStorage.removeItem('access_token');
     localStorage.removeItem('cara_user_email');
     localStorage.removeItem('cara_user_name');
     localStorage.removeItem('cara_user_role');
-    console.info('Session cleared due to inactivity.');
+
+    // The real session lives in httpOnly cookies, which JS can't clear
+    // directly, so ask the server to invalidate them.
+    const apiBase = window.CARA_API_BASE_URL || '';
+    fetch(`${apiBase}/api/auth/logout`, {
+      method: 'POST',
+      credentials: 'include',
+    })
+      .catch((err) => console.warn('Failed to end session on server:', err))
+      .finally(() => {
+        console.info('Session cleared due to inactivity.');
+        window.location.href = 'login.html';
+      });
   };
 
   // User activity listeners

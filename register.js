@@ -123,13 +123,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!res.ok) {
         throw new Error(data.detail || 'Registration failed');
       }
-
-      localStorage.setItem('access_token', data.access_token);
-      localStorage.setItem('cara_user_token', data.access_token);
-      localStorage.setItem('cara_user_email', data.user.email);
-      localStorage.setItem('cara_user_name', data.user.username);
-      localStorage.setItem('cara_user_role', data.user.role);
-
+  
+        // The server already issued the access/refresh tokens as httpOnly,
+       // Secure, SameSite cookies (see set_auth_cookies in backend/app/api/auth.py).
+      // Do NOT mirror them into localStorage - that would defeat the whole
+     // point of httpOnly cookies and expose the JWT to any XSS on the page.
+     
       messageBox.style.color = 'green';
       messageBox.innerText = 'Account created successfully! Redirecting...';
 
