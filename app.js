@@ -1772,3 +1772,5 @@ document.addEventListener("DOMContentLoaded", () => {
 /* --- END: PRODUCT QUICK-VIEW MODAL FUNCTIONALITY --- */
 
 
+
+console.log("App loaded with Wishlist Export features.");
