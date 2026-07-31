@@ -1,24 +1,11 @@
 <!doctype html>
 <html lang="en">
-<<<<<<< fix/login-register-flow
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-=======
 <head>
-    <!-- Character encoding -->
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <meta charset="UTF-8">
-
-    <!-- Viewport for Responsive Design -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Page title -->
->>>>>>> main
     <title>Register - Cara</title>
-
-    <!-- Favicon -->
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
-<<<<<<< fix/login-register-flow
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
@@ -26,37 +13,25 @@
     <link rel="stylesheet" href="register.css" />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="ui-fix.css" />
-  </head>
-  <body>
-
-    <section id="header">
-      <a href="index.html">
-        <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
-      </a>
-      <div>
-=======
-
-    <!-- Stylesheets -->
-    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
-    <link rel="stylesheet" href="toast.css">
-    <link rel="stylesheet" href="register.css">
-    <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="ui-fix.css" />
+    <link rel="manifest" href="/manifest.json">
+  <script src="js/error-boundary.js"></script>
+<script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
+  <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
 </head>
-
 <body>
-<!-- Header Section -->
-<section id="header">
-    <a href="index.html">
-        <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
-    </a>
 
-    <!-- Navigation Bar -->
+<section id="header" role="banner">
+    <a href="index.html">
+        <img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" />
+    </a>
     <div>
->>>>>>> main
-        <ul id="navbar">
+        <ul id="navbar" role="navigation" aria-label="Main navigation">
           <li><a href="index.html">Home</a></li>
           <li><a href="shop.html">Shop</a></li>
           <li><a href="blog.html">Blog</a></li>
@@ -74,28 +49,23 @@
             <a href="cart.html" id="lg-bag" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a>
           </li>
           <li class="nav-icon">
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+            <button class="theme-toggle" id="themeToggleDesktop" aria-label="Toggle dark mode">
               <i class="ri-moon-line" id="themeIcon"></i>
             </button>
           </li>
-          <a href="#" id="close" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></a>
+          <a href="javascript:void(0)" id="close" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></a>
         </ul>
       </div>
       <div class="mobile">
         <a href="login.html" aria-label="Login"><i class="ri-user-3-line"></i></a>
         <a href="cart.html" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a>
         <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
-<<<<<<< fix/login-register-flow
+        <!-- Theme Toggle -->
+        <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
+          <i class="ri-moon-line" id="themeIconMobile"></i>
+        </button>
       </div>
     </section>
-=======
-      <!-- Theme Toggle -->
-      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
-        <i class="ri-moon-line" id="themeIconMobile"></i>
-      </button>
-    </div>
-</section>
->>>>>>> main
 
     <!-- Toast container — overlays everything -->
     <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
@@ -123,12 +93,13 @@
                 placeholder="Enter your full name"
                 required
                 autocomplete="name"
+                aria-required="true"
+                aria-describedby="nameError"
+                aria-invalid="false"
               />
-              <!-- JS populates this when the field fails validation -->
-              <span class="error-message" id="nameError"></span>
+              <span class="error-message" id="nameError" role="alert"></span>
             </div>
 
-            <!-- Email -->
             <div class="form-group">
               <label for="registerEmail">Email <span class="required">*</span></label>
               <input
@@ -138,11 +109,13 @@
                 placeholder="Enter your email"
                 required
                 autocomplete="email"
+                aria-required="true"
+                aria-describedby="emailErrorReg"
+                aria-invalid="false"
               />
-              <span class="error-message" id="emailError"></span>
+              <span class="error-message" id="emailErrorReg" role="alert"></span>
             </div>
 
-            <!-- Password -->
             <div class="form-group">
               <label for="registerPassword">Password <span class="required">*</span></label>
               <div class="password-wrapper">
@@ -153,16 +126,18 @@
                   placeholder="Enter your password"
                   required
                   autocomplete="new-password"
+                  aria-required="true"
+                  aria-describedby="passwordHelp passwordErrorReg"
+                  aria-invalid="false"
                 />
                 <button type="button" id="togglePassword" class="toggle-eye" aria-label="Toggle password visibility">
                   <i class="ri-eye-line" id="registerToggleIcon"></i>
                 </button>
               </div>
-              <small>Use at least 8 characters with a number.</small>
-              <span class="error-message" id="passwordError"></span>
+              <small id="passwordHelp">Use at least 8 characters with a number and a special character.</small>
+              <span class="error-message" id="passwordErrorReg" role="alert"></span>
             </div>
 
-            <!-- Confirm Password -->
             <div class="form-group">
               <label for="confirmPassword">Confirm Password <span class="required">*</span></label>
               <div class="password-wrapper">
@@ -173,14 +148,16 @@
                   placeholder="Confirm your password"
                   required
                   autocomplete="new-password"
+                  aria-required="true"
+                  aria-describedby="confirmHint confirmError"
+                  aria-invalid="false"
                 />
                 <button type="button" id="confirmTogglePassword" class="toggle-eye" aria-label="Toggle confirm password visibility">
                   <i class="ri-eye-line" id="confirmToggleIcon"></i>
                 </button>
               </div>
-              <!-- confirmHint shows live "match / no match" as they type -->
               <small id="confirmHint"></small>
-              <span class="error-message" id="confirmError"></span>
+              <span class="error-message" id="confirmError" role="alert"></span>
             </div>
 
             <!-- Shopping Preferences -->
@@ -213,21 +190,15 @@
       </div><!-- end .register-page-wrapper -->
     </section>
 
-<<<<<<< fix/login-register-flow
-    <!-- Footer unchanged from your original -->
-    <footer class="main-footer">
-      <div class="footer-top">
-=======
 <!-- Footer Section -->
 <footer class="main-footer">
     <div class="footer-top">
->>>>>>> main
         <div class="footer-logo-box">
-          <img class="footer-logo" src="images/logo.png" alt="Cara Logo" />
+          <img class="footer-logo" src="images/Dlogo.png" alt="Cara Logo" />
         </div>
         <div class="footer-socials">
           <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
-          <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+          <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
           <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
           <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
         </div>
@@ -244,32 +215,23 @@
         <div class="footer-col">
           <h4>QUICK LINKS</h4>
           <a href="about.html">About Us</a>
-          <a href="#">Delivery Information</a>
+          <a href="javascript:void(0)">Delivery Information</a>
           <a href="privacy.html">Privacy Policy</a>
           <a href="terms.html">Terms and Conditions</a>
           <a href="contact.html">Contact Us</a>
         </div>
         <div class="footer-col">
-<<<<<<< fix/login-register-flow
-          <h4>MY ACCOUNT</h4>
-          <a href="login.html">Sign In</a>
-          <a href="cart.html">View Cart</a>
-          <a href="cart.html">My Wishlist</a>
-          <a href="cart.html">Track My Order</a>
-          <a href="contact.html">Help</a>
-=======
             <h4>MY ACCOUNT</h4>
             <a href="login.html">Sign In</a>
-            <a href="cart.html">View Cart</a>
-            <a href="wishlist.html">My Wishlist</a>
-            <a href="cart.html">Track My Order</a>
+            <a aria-label="Cart" href="cart.html">View Cart</a>
+            <a aria-label="Wishlist" href="wishlist.html">My Wishlist</a>
+            <a aria-label="Cart" href="cart.html">Track My Order</a>
             <a href="contact.html">Help</a>
->>>>>>> main
         </div>
         <div class="footer-col newsletter-footer">
           <h4>NEWSLETTER</h4>
           <p>Get email updates about our latest shop and <span>special offers.</span></p>
-          <form class="newsletter-form">
+          <form class="newsletter-form" role="form" aria-label="Newsletter subscription">
             <input type="email" placeholder="Your email address" required />
             <button type="submit" style="background-color:#088178;color:white;border:none;padding:10px 20px;cursor:pointer;">Sign Up</button>
           </form>
@@ -299,17 +261,13 @@
           <a href="license.html" class="license-link">MIT License</a>
         </div>
       </div>
-    </footer>
+</footer>
 
-<<<<<<< fix/login-register-flow
-    <script src="app.js"></script>
-    <script src="register.js"></script>
-    <script src="js/describedby-tooltips.js" defer></script>
-=======
 <script src="app.js"></script>
 <script src="js/fetch-timeout.js"></script>
 <script src="register.js"></script>
->>>>>>> main
-
-  </body>
+<script src="js/describedby-tooltips.js" defer></script>
+</body>
 </html>
+
+<!-- A11y fix --><script src='js/a11y-validation.js'></script>
