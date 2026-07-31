@@ -7,6 +7,35 @@ window.logError =
     console.error(...args);
   };
 
+/**
+ * Sanitizes return URL query parameters to prevent Open Redirect and SSRF vulnerabilities.
+ * Enforces strictly relative URLs and blocks external origins.
+ */
+function sanitizeReturnUrl(url) {
+  if (!url || typeof url !== 'string') return 'index.html';
+
+  var trimmed = url.trim();
+
+  // Block protocol handlers, protocol-relative URLs, and control characters
+  if (
+    trimmed.startsWith('//') ||
+    trimmed.startsWith('\\\\') ||
+    /^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(trimmed) ||
+    /[\r\n\t]/.test(trimmed)
+  ) {
+    return 'index.html';
+  }
+
+  // Allow relative filenames (e.g., 'cart.html', 'shop.html') or relative paths starting with '/'
+  if (!trimmed.startsWith('/') && !/^[a-zA-Z0-9_.-]+\.html$/i.test(trimmed)) {
+    return 'index.html';
+  }
+
+  return trimmed;
+}
+
+window.sanitizeReturnUrl = sanitizeReturnUrl;
+
 // Sync cart state across browser tabs
 window.addEventListener('storage', (e) => {
   if (e.key === 'productsInCart') {
