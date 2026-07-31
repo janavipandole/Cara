@@ -349,3 +349,8 @@ If you encounter issues when running `npm run lint` or `eslint` locally, ensure 
 
 ## Production Optimization
 Use PurgeCSS to remove unused classes. (Fix #2418)
+
+
+## CI/CD Pipeline
+- Automated E2E Link Checker
+- Automated Accessibility Audit
