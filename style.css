@@ -4576,3 +4576,5 @@ footer {
                 h4 {
                     font-size: 24px;
 
+
+.loyalty-badge-widget { position: fixed; bottom: 70px; right: 20px; background: #fff3cd; border: 1px solid #ffeba2; padding: 8px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; }
