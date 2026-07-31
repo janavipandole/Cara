@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <body>
 
         <script>
@@ -19,7 +20,8 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="ui-fix.css" />
+    <link rel="stylesheet" href="ui-fix.css" />
+    <link rel="stylesheet" href="toast-queue.css" />
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
 
@@ -471,6 +473,15 @@
             }
         }
     </style>
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
+  <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
 </head>
 
 <body>
@@ -485,7 +496,7 @@
             </div>
                 <a href="shop.html" class="btn-secondary"><i class="ri-arrow-left-line" aria-hidden="true"></i> Back to Shop</a>
                 <button id="clearAllBtn" class="btn-danger-outline" onclick="clearWishlist()"><i class="ri-delete-bin-6-line" aria-hidden="true"></i> Clear All</button>
-                <button class="theme-toggle btn-secondary" id="themeToggle" aria-label="Toggle dark mode" style="padding: 8px 12px; border-radius: 999px;">
+                <button class="theme-toggle btn-secondary" id="themeToggleDesktop" aria-label="Toggle dark mode" style="padding: 8px 12px; border-radius: 999px;">
                   <i class="ri-moon-line" id="themeIcon"></i>
                 </button>
             </div>
@@ -729,6 +740,7 @@
         renderWishlist();
     </script>
 
-<script src="js/wishlist-notes.js" defer></script>
+<script src="js/wishlist-notes-tag-manager.js" defer></script>
 </body>
 </html>
+

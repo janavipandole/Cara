@@ -6,14 +6,16 @@ from passlib.context import CryptContext
 from jose import jwt, JWTError
 import os
 from fastapi import Response
-from app.database import get_db
-from app import models
-from app.schemas import UserRegister, UserLogin, Token, UserOut
-from app.limiter import limiter
+from ..database import get_db
+from .. import models
+from ..schemas import UserRegister, UserLogin, Token, UserOut, ForgotPasswordRequest, ResetPasswordRequest
+from ..limiter import limiter
 from PIL import Image, ImageDraw
 import io
 import base64
 import random
+import secrets
+import hashlib
 from collections import OrderedDict
 
 # In-memory tracking of failed attempts with an LRU bound to prevent OOM DOS attacks
@@ -81,18 +83,25 @@ def get_current_user(
     request: Request,
     db: Session = Depends(get_db)
 ) -> models.User:
-    token = request.cookies.get("access_token")
-    if not token or not token.startswith("Bearer "):
+    auth_header = request.headers.get("Authorization", "")
+    token = None
+
+    if auth_header.startswith("Bearer "):
+        token = auth_header.split(" ", 1)[1]
+    else:
+        cookie_token = request.cookies.get("access_token")
+        if cookie_token and cookie_token.startswith("Bearer "):
+            token = cookie_token.split(" ", 1)[1]
+
+    if not token:
         raise HTTPException(status_code=401, detail="Not authenticated")
-    token = token.split(" ")[1]
     
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         if payload.get("type") != "access":
             raise HTTPException(401, "Invalid token type.")
         email: str = payload.get("sub")
-        token_type = payload.get("type")
-        if not email or token_type != "access":
+        if not email:
             raise HTTPException(401, "Invalid token payload.")
     except JWTError:
         raise HTTPException(401, "Invalid or expired token.")
@@ -165,7 +174,8 @@ def get_captcha():
 @router.post("/login", response_model=Token)
 @limiter.limit("5/minute")
 def login(request: Request, response: Response, payload: UserLogin, db: Session = Depends(get_db)):
-    attempts = failed_login_attempts.get(payload.email, 0)
+    email_hash = hashlib.sha256(payload.email.encode('utf-8')).hexdigest()
+    attempts = failed_login_attempts.get(email_hash, 0)
     
     if attempts >= 1:
         if not payload.captcha_token or not payload.captcha_answer:
@@ -181,28 +191,24 @@ def login(request: Request, response: Response, payload: UserLogin, db: Session 
     user = db.query(models.User).filter(models.User.email == payload.email).first()
 
     if not user or not pwd.verify(payload.password, user.hashed_password):
-        # Only track failed attempts for valid emails to prevent botnets from 
-        # flushing the LRU cache with random dummy emails (cache padding attack).
-        if user:
-            failed_login_attempts[payload.email] = attempts + 1
-            failed_login_attempts.move_to_end(payload.email)
-            
-            # Enforce LRU bounds to prevent memory leaks from massive bot networks
-            if len(failed_login_attempts) > MAX_TRACKED_EMAILS:
-                failed_login_attempts.popitem(last=False)
+        failed_login_attempts[email_hash] = attempts + 1
+        failed_login_attempts.move_to_end(email_hash)
+        
+        # Enforce LRU bounds to prevent memory leaks from massive bot networks
+        if len(failed_login_attempts) > MAX_TRACKED_EMAILS:
+            failed_login_attempts.popitem(last=False)
             
         raise HTTPException(401, "Invalid email or password.")
 
     if not user.is_active:
         raise HTTPException(403, "Account is deactivated.")
 
-    failed_login_attempts.pop(payload.email, None)
+    failed_login_attempts.pop(email_hash, None)
 
     access_token = create_access_token(user.email)
     refresh_token = create_refresh_token(user.email)
     
-    response.set_cookie(key="access_token", value=access_token, httponly=True, secure=True, samesite="lax", max_age=ACCESS_TOKEN_MINUTES * 60)
-    response.set_cookie(key="refresh_token", value=refresh_token, httponly=True, secure=True, samesite="lax", max_age=REFRESH_TOKEN_DAYS * 86400)
+    set_auth_cookies(response, access_token, refresh_token)
 
     return Token(
         access_token = access_token,
@@ -240,6 +246,61 @@ def refresh_token(request: Request, response: Response, db: Session = Depends(ge
         max_age=ACCESS_TOKEN_MINUTES * 60
     )
     return {"message": "Token refreshed successfully"}
+
+@router.post("/forgot-password")
+@limiter.limit("5/minute")
+def forgot_password(
+    request: Request,
+    payload: ForgotPasswordRequest,
+    db: Session = Depends(get_db),
+):
+    user = db.query(models.User).filter(models.User.email == payload.email).first()
+    if not user:
+        return {"message": "If the email exists, a reset link has been sent"}
+
+    token = secrets.token_urlsafe(32)
+    expires_at = datetime.now(timezone.utc) + timedelta(hours=1)
+
+    reset_token = models.PasswordResetToken(
+        user_id=user.id,
+        token=token,
+        expires_at=expires_at,
+    )
+    db.add(reset_token)
+    db.commit()
+
+    return {"message": "If the email exists, a reset link has been sent"}
+
+
+@router.post("/reset-password")
+@limiter.limit("5/minute")
+def reset_password(
+    request: Request,
+    payload: ResetPasswordRequest,
+    db: Session = Depends(get_db),
+):
+    reset_token = (
+        db.query(models.PasswordResetToken)
+        .filter(
+            models.PasswordResetToken.token == payload.token,
+            models.PasswordResetToken.used == False,
+            models.PasswordResetToken.expires_at > datetime.now(timezone.utc),
+        )
+        .first()
+    )
+    if not reset_token:
+        raise HTTPException(status_code=400, detail="Invalid or expired reset token")
+
+    user = db.query(models.User).filter(models.User.id == reset_token.user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    user.hashed_password = pwd.hash(payload.new_password)
+    reset_token.used = True
+    db.commit()
+
+    return {"message": "Password has been reset successfully"}
+
 
 @router.post("/logout")
 def logout(response: Response):
