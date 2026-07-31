@@ -341,10 +341,10 @@ document.addEventListener('DOMContentLoaded', () => {
 function parsePriceString(priceStr) {
   if (typeof priceStr === 'number') return isFinite(priceStr) ? priceStr : 0;
   if (!priceStr) return 0;
-  var cleaned = String(priceStr)
+  const cleaned = String(priceStr)
     .replace(/[₹$,\s]/g, '')
     .replace(/&#?\w+;/g, '');
-  var num = parseFloat(cleaned);
+  const num = parseFloat(cleaned);
   return isFinite(num) ? num : 0;
 }
 
@@ -762,21 +762,21 @@ window.addToCart = addToCart;
 function showToast(message, type) {
   type = type || 'success';
 
-  var container = document.getElementById('toast-container');
+  let container = document.getElementById('toast-container');
   if (!container) {
     container = document.createElement('div');
     container.id = 'toast-container';
     document.body.appendChild(container);
   }
 
-  var icons = {
+  const icons = {
     success: 'fa-circle-check',
     error: 'fa-circle-xmark',
     warning: 'fa-triangle-exclamation',
     info: 'fa-circle-info',
   };
 
-  var toast = document.createElement('div');
+  const toast = document.createElement('div');
   toast.className = 'toast toast-' + type;
   toast.innerHTML =
     '<i class="fa-solid ' +
