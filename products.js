@@ -980,3 +980,5 @@ function showToast(message, type = 'success') {
     }, 350); // Exact exit duration specified in .toast-hiding cubic-bezier curve
   }, 3650); // Active visibility shelf life before auto dismissal
 }
+
+console.log("Products loaded with rating system support.");
