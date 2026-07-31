@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
   <script>
     (function () {
       const currentTheme = localStorage.getItem('theme') || 'light';
@@ -237,6 +238,15 @@
       transform: scale(1.1);
     }
   </style>
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
+  <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
 </head>
 
 <body>
@@ -245,7 +255,7 @@
       <div id="workingArea">
         <section id="header">
           <a href="index.html">
-            <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
+            <img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" />
           </a>
 
           <div id="navbar-container"></div>
@@ -397,7 +407,7 @@
   <footer class="main-footer">
     <div class="footer-top">
       <div class="footer-logo-box">
-        <img class="footer-logo" src="images/logo.png" alt="Cara Logo" />
+        <img class="footer-logo" src="images/Dlogo.png" alt="Cara Logo" />
       </div>
     </div>
 
@@ -426,8 +436,8 @@
       <div class="footer-col">
         <h4>MY ACCOUNT</h4>
         <a href="login.html">Sign In</a>
-        <a href="cart.html">View Cart</a>
-        <a href="cart.html">My Wishlist</a>
+        <a aria-label="Cart" href="cart.html">View Cart</a>
+        <a aria-label="Cart" href="cart.html">My Wishlist</a>
         <a href="track-order.html">Track My Order</a>
         <a href="contact.html">Help</a>
       </div>
@@ -468,7 +478,7 @@
 
       <div class="footer-socials">
         <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
-        <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+        <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
         <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
         <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
       </div>
@@ -611,3 +621,4 @@
 </body>
 
 </html>
+
