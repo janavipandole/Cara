@@ -77,12 +77,50 @@ function renderOrders(orders) {
       <td>${escapeHtml(formatCurrency(order.total_amount))}</td>
       <td><span class="${escapeHtml(statusClass(order.status))}">${escapeHtml(order.status)}</span></td>
       <td><button class="details-btn" type="button" data-order-id="${escapeHtml(order.id)}">View</button></td>
+       <td><button class="cancel-btn" type="button" data-order-id="${escapeHtml(order.id)}">Cancel</button></td>
     `;
 
     tbody.appendChild(row);
   });
 
   setStateVisibility({ orders: true });
+}
+
+async function cancelOrder(orderId) {
+  if (!confirm('Are you sure you want to cancel this order?')) return;
+
+  try {
+    const res = await authFetch(
+      `${ORDER_API_BASE_URL}/api/orders/${orderId}/cancel`,
+      {
+        method: 'POST',
+      },
+    );
+    const data = await res.json();
+
+    if (!res.ok) {
+      if (typeof showToast === 'function') {
+        showToast(data.detail || 'Unable to cancel order.', 'error');
+      } else {
+        alert(data.detail || 'Unable to cancel order.');
+      }
+      return;
+    }
+
+    if (typeof showToast === 'function') {
+      showToast('Order cancelled successfully.', 'success');
+    }
+    // Refresh the order list so the cancelled status shows immediately
+    await fetchOrders();
+  } catch (err) {
+    if (typeof window.logError === 'function')
+      window.logError('Cancel order failed:', err);
+    if (typeof showToast === 'function') {
+      showToast('Something went wrong. Please try again.', 'error');
+    } else {
+      alert('Something went wrong. Please try again.');
+    }
+  }
 }
 
 function renderOrderDetails(order) {
@@ -198,6 +236,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   document
     .getElementById('ordersTableBody')
     .addEventListener('click', async (event) => {
+      const cancelTrigger = event.target.closest('.cancel-btn');
+      if (cancelTrigger) {
+        await cancelOrder(cancelTrigger.dataset.orderId);
+        return;
+      }
+
       const trigger = event.target.closest('[data-order-id]');
       if (!trigger) {
         return;
