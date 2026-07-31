@@ -356,7 +356,11 @@ function submitCheckoutForm() {
     .then((res) =>
       res
         .json()
-        .then((data) => ({ status: res.status, ok: res.ok, body: data })),
+        .then((data) => ({ status: res.status, ok: res.ok, body: data }))
+        .catch(err => {
+          console.warn("[Checkout] Operation failed:", err);
+          throw err;
+        }),
     )
     .then((res) => {
       if (!res.ok) {
