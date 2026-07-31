@@ -296,7 +296,7 @@ function addToCart(productName, productPrice, productImage, quantity, size) {
     name: productName,
     price: parseFloat(productPrice.replace(/[₹$,]/g, '')),
     image: productImage,
-    quantity: parseInt(quantity),
+    quantity: parseInt(quantity, 10),
     size: size.replace('Size ', ''),
   };
 
@@ -374,7 +374,7 @@ const MAX_QTY = 100;
 function changeQty(id, delta) {
   if (!cart[id]) return;
 
-  let quantity = parseInt(cart[id]) || 1;
+  let quantity = parseInt(cart[id], 10) || 1;
 
   quantity += delta;
 
@@ -488,7 +488,7 @@ window.handleAddToCart = function () {
   const name = nameElement.innerText;
   const price = priceElement.innerText;
   const size = sizeSelect.value;
-  const quantity = parseInt(quantityInput.value);
+  const quantity = parseInt(quantityInput.value, 10);
   const image = imageElement.src;
 
   if (size === 'Select Size' || size === '') {
