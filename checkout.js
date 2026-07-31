@@ -16,23 +16,12 @@ function safeParseJSON(key, fallback = '[]') {
 
 const API_BASE_URL = window.CARA_API_BASE_URL || '';
 
-function getStoredAuthToken() {
-  return (
-    localStorage.getItem('access_token') ||
-    localStorage.getItem('cara_user_token') ||
-    ''
-  );
-}
 
 function buildAuthHeaders(extraHeaders = {}) {
-  const headers = { ...extraHeaders };
-  const token = getStoredAuthToken();
-
-  if (token) {
-    headers.Authorization = `Bearer ${token}`;
-  }
-
-  return headers;
+  // Auth is handled entirely by the httpOnly access_token cookie, which the
+  // browser attaches automatically because these fetch calls use
+  // credentials: 'include'. There is nothing to read from localStorage.
+  return { ...extraHeaders };
 }
 
 const paymentMethod = document.getElementById('paymentMethod');
