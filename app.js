@@ -36,6 +36,20 @@ function sanitizeReturnUrl(url) {
 
 window.sanitizeReturnUrl = sanitizeReturnUrl;
 
+/**
+ * Verifies object-level authorization (BOLA) to ensure the current authenticated user owns the requested order resource.
+ */
+function verifyOrderOwnership(order, currentUserId, isAdmin) {
+  if (isAdmin) return true;
+  if (!order || typeof order !== 'object') return false;
+  if (!currentUserId) return false;
+
+  var ownerId = order.userId || order.user_id || order.ownerId || order.customerId;
+  return String(ownerId) === String(currentUserId);
+}
+
+window.verifyOrderOwnership = verifyOrderOwnership;
+
 // Sync cart state across browser tabs
 window.addEventListener('storage', (e) => {
   if (e.key === 'productsInCart') {
