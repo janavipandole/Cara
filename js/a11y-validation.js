@@ -5,11 +5,11 @@
   function runA11yAudit() {
     if (typeof document === 'undefined') return;
 
-    var errors = [];
-    var warnings = [];
+    const errors = [];
+    const warnings = [];
 
     // 1. Check images for alt attributes
-    var images = document.querySelectorAll('img');
+    const images = document.querySelectorAll('img');
     images.forEach(function (img, i) {
       if (!img.hasAttribute('alt')) {
         errors.push({
@@ -20,11 +20,11 @@
     });
 
     // 2. Check buttons for accessible text
-    var buttons = document.querySelectorAll('button');
+    const buttons = document.querySelectorAll('button');
     buttons.forEach(function (btn, i) {
-      var hasText = !!btn.textContent.trim();
-      var hasAriaLabel = btn.hasAttribute('aria-label') && !!btn.getAttribute('aria-label').trim();
-      var hasAriaLabelledby = btn.hasAttribute('aria-labelledby');
+      const hasText = !!btn.textContent.trim();
+      const hasAriaLabel = btn.hasAttribute('aria-label') && !!btn.getAttribute('aria-label').trim();
+      const hasAriaLabelledby = btn.hasAttribute('aria-labelledby');
 
       if (!hasText && !hasAriaLabel && !hasAriaLabelledby) {
         errors.push({
@@ -35,16 +35,16 @@
     });
 
     // 3. Check inputs for associated labels
-    var inputs = document.querySelectorAll('input, select, textarea');
+    const inputs = document.querySelectorAll('input, select, textarea');
     inputs.forEach(function (input, i) {
       // Skip hidden inputs
       if (input.type === 'hidden') return;
 
-      var id = input.id;
-      var hasLabel = false;
+      const id = input.id;
+      let hasLabel = false;
 
       if (id) {
-        var label = document.querySelector('label[for="' + id + '"]');
+        const label = document.querySelector('label[for="' + id + '"]');
         if (label && label.textContent.trim()) {
           hasLabel = true;
         }
@@ -52,7 +52,7 @@
 
       // Check if wrapped inside a label
       if (!hasLabel) {
-        var parent = input.parentElement;
+        let parent = input.parentElement;
         while (parent) {
           if (parent.tagName === 'LABEL') {
             hasLabel = true;
@@ -62,8 +62,8 @@
         }
       }
 
-      var hasAriaLabel = input.hasAttribute('aria-label') && !!input.getAttribute('aria-label').trim();
-      var hasAriaLabelledby = input.hasAttribute('aria-labelledby');
+      const hasAriaLabel = input.hasAttribute('aria-label') && !!input.getAttribute('aria-label').trim();
+      const hasAriaLabelledby = input.hasAttribute('aria-labelledby');
 
       if (!hasLabel && !hasAriaLabel && !hasAriaLabelledby) {
         warnings.push({
