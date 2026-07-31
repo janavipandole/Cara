@@ -3493,3 +3493,5 @@ footer .copyright {
 .text-accent { color: var(--accent); }
 .bg-accent { background-color: var(--accent); }
 .border-accent { border-color: var(--accent); }
+
+.currency-dropdown { padding: 6px 12px; border-radius: 6px; border: 1px solid #ccc; background: #fff; font-size: 14px; }
