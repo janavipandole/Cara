@@ -626,3 +626,5 @@ textarea {
 
 /* Fix #2424 */
 .fade-out { animation-name: fadeOut; } @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+
+.checkout-wizard-steps { display: flex; justify-content: space-between; margin-bottom: 20px; }
