@@ -20,6 +20,7 @@
 
   const STORAGE_PREFIX = 'cara_reviews_';
   const MAX_REVIEWS_STORED = 50;
+  const reviewEngine = typeof ProductReviewAggregator !== 'undefined' ? new ProductReviewAggregator() : null;
 
   // ── Utility helpers ────────────────────────────────────────────────────────
 
