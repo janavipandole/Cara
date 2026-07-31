@@ -969,3 +969,5 @@ body footer.section-p1 .copyright a {
 .coupon-input-group input {
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
+
+#top-promo-banner { background: #ffbd27; text-align: center; padding: 8px; font-size: 14px; font-weight: 600; } #top-promo-banner button { margin-left: 10px; padding: 3px 10px; cursor: pointer; border-radius: 4px; border: none; background: #222; color: #fff; }
