@@ -1,10 +1,6 @@
 /* global Pose, showToast */
 document.addEventListener('DOMContentLoaded', () => {
-  // ============================================
-  // CARA VIRTUAL TRY-ON — Full Implementation
-  // Uses MediaPipe Pose (BlazePose) for body detection
-  // Canvas-based garment overlay with background removal
-  // ============================================
+  const tryOnCanvasEngine = typeof VirtualTryOnEngine !== 'undefined' ? new VirtualTryOnEngine() : null;
 
   // ---- DOM References ----
   const uploadInput = document.getElementById('photo-upload');
