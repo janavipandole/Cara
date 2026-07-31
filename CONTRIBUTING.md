@@ -10,6 +10,7 @@ First off, thank you for considering contributing to Cara!
 - [Development Setup](#development-setup)
 - [Pull Request Process](#pull-request-process)
 - [Style Guidelines](#style-guidelines)
+- [Issue & PR Guidelines (ELUSoC_2026)](#issue--pr-guidelines-elusoc_2026)
 - [Issue Guidelines](#issue-guidelines)
 
 ## Code of Conduct
@@ -26,10 +27,12 @@ We pledge to make participation in our project a harassment-free experience for 
 
 1. **Fork the repository** on GitHub
 2. **Clone your fork** locally:
-   ```bash
-   git clone https://github.com/YOUR_USERNAME/Cara.git
-   cd Cara
-   ```
+
+```
+git clone https://github.com/YOUR_USERNAME/Cara.git
+cd Cara
+```
+
 ## How Can I Contribute?
 
 ### 🐛 Reporting Bugs
@@ -75,25 +78,28 @@ Look for issues labeled `good first issue` or `beginner-friendly`. These are spe
 ### Development Workflow
 
 1. **Create a new branch** for your feature/fix:
-   ```bash
-   git checkout -b feature/your-feature-name
-   # or
-   git checkout -b fix/your-bug-fix
-   ```
+
+```
+git checkout -b feature/your-feature-name
+# or
+git checkout -b fix/your-bug-fix
+```
 
 2. **Make your changes** following our style guidelines
 
 3. **Test your changes** thoroughly
 
 4. **Commit your changes** using conventional commits:
-   ```bash
-   git commit -m "feat: add feature"
-   ```
+
+```
+git commit -m "feat: add feature"
+```
 
 5. **Push to your fork**:
-   ```bash
-   git push origin feature/your-feature-name
-   ```
+
+```
+git push origin feature/your-feature-name
+```
 
 6. **Create a Pull Request** on GitHub
 
@@ -111,6 +117,7 @@ Look for issues labeled `good first issue` or `beginner-friendly`. These are spe
 ### PR Requirements
 
 1. **Title**: Use a clear and descriptive title
+
 2. **Description**: Include:
    - What changes you made and why
    - Link to any related issues
@@ -132,12 +139,13 @@ Look for issues labeled `good first issue` or `beginner-friendly`. These are spe
 #### JavaScript/
 
 #### CSS/Styling
- 
+
 ## Issue Guidelines
 
 ### Bug Reports
 
 Use the bug report template and include:
+
 - **Environment**: OS, browser, Node.js version
 - **Steps to reproduce**: Clear, numbered steps
 - **Expected behavior**: What should happen
@@ -147,6 +155,7 @@ Use the bug report template and include:
 ### Feature Requests
 
 Use the feature request template and include:
+
 - **Problem description**: What problem does this solve?
 - **Proposed solution**: How should it work?
 - **Alternatives considered**: Other approaches you've thought of
@@ -155,6 +164,7 @@ Use the feature request template and include:
 ## Recognition
 
 Contributors will be recognized in:
+
 - README.md contributors section
 - GitHub contributors page
 - Release notes for significant contributions
@@ -162,6 +172,7 @@ Contributors will be recognized in:
 ## Questions?
 
 Feel free to ask questions by:
+
 - Creating a discussion on GitHub
 - Joining our Discord community
 - Reaching out to maintainers
@@ -169,6 +180,3 @@ Feel free to ask questions by:
 ---
 
 Thank you for contributing to Cara! Together.
-
-
-<!-- Guidelines for Git branching conventions and PR template structures. -->
