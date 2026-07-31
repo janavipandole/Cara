@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
   <!-- Character Encoding -->
   <meta charset="UTF-8" />
 
@@ -26,7 +27,7 @@
   <!-- Open Graph (OG) Tags for Social Sharing -->
   <meta property="og:title" content="E-commerce - Dark Theme Working" />
   <meta property="og:description" content="Shop the latest trends with our dark mode-enabled e-commerce experience." />
-  <meta property="og:image" content="https://cara-seven-ashen.vercel.app/images/logo.png" />
+  <meta property="og:image" content="https://cara-seven-ashen.vercel.app/images/Dlogo.png" />
   <meta property="og:url" content="https://cara-seven-ashen.vercel.app/" />
   <meta property="og:type" content="website" />
 
@@ -34,20 +35,27 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="E-commerce - Dark Theme Working" />
   <meta name="twitter:description" content="Dark theme e-commerce site with modern features." />
-  <meta name="twitter:image" content="https://cara-seven-ashen.vercel.app/images/logo.png" />
+  <meta name="twitter:image" content="https://cara-seven-ashen.vercel.app/images/Dlogo.png" />
   <meta name="twitter:site" content="@janavipandole" />
 
   <!-- Theme Color for Mobile Browser -->
   <meta name="theme-color" content="#000000" />
   
   <!-- Stylesheets -->
+  <link rel="stylesheet" href="a11y-utilities.css">
+  <link rel="stylesheet" href="toast-queue.css">
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="stock-alert.css">
+  <link rel="stylesheet" href="currency-converter.css">
   <link rel="stylesheet" href="ui-fix.css" />
+  <link rel="stylesheet" href="currency-converter.css">
+  <link rel="stylesheet" href="a11y-utilities.css">
   <link rel="stylesheet" href="empty-cart.css" />
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="stock-alert.css">
 
   <style>
     /* ================================================================
@@ -355,17 +363,26 @@ button + button {
 }
 
   </style>
+  <link rel="manifest" href="/manifest.json">
+  <script src="js/error-boundary.js"></script>
+<script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
 </head>
 
 <body>
-  <section id="header">
+  <section id="header" role="banner">
     <!-- Logo -->
     <a href="index.html">
-      <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
+      <img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" />
     </a>
 
     <div>
-      <ul id="navbar">
+      <ul id="navbar" role="navigation" aria-label="Main navigation">
 
         <!-- Main Navigation Links -->
         <li><a href="index.html">Home</a></li>
@@ -399,7 +416,7 @@ button + button {
 
         <!-- Theme Toggle -->
         <li class="nav-icon">
-          <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+          <button class="theme-toggle" id="themeToggleDesktop" aria-label="Toggle dark mode">
             <i class="ri-moon-line" id="themeIcon"></i>
           </button>
         </li>
@@ -427,19 +444,10 @@ button + button {
 
       <!-- Hamburger Menu -->
       <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
-      <!-- Theme Toggle -->
-      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
-        <i class="ri-moon-line" id="themeIconMobile"></i>
-      </button>
-
     </div>
   </section>
 
 
-    <div id="cart-content-wrapper">
-  <div class="cartmain">
-    
-    <!-- Simple Flat Banner Section with Modern Font & Light Purple Typography -->
     <div id="cart-content-wrapper">
   <div class="cartmain">
     
@@ -553,11 +561,7 @@ button + button {
     </div>
 
     <script src="js/shipping-calc.js" defer></script>
-    <script src="app.js?v=1779120917210"></script>
-    <script src="js/loyalty.js" defer></script>
-    <script>
-      document.getElementById("Current-Year").textContent = new Date().getFullYear();
-    </script>
+    <script src="js/loyalty-rewards-engine.js" defer></script>
     <script>
   document.addEventListener("DOMContentLoaded", () => {
     const couponInput = document.getElementById("coupon-code-input");
@@ -595,19 +599,29 @@ button + button {
           }
         } else if (val === "") {
           feedback.innerHTML = `<span style="color: #ef4444;"><i class="ri-error-warning-fill"></i> Please enter a coupon code.</span>`;
+          if (discountRow) discountRow.style.display = "none";
+          const subtotalText = document.getElementById("summary-subtotal").textContent.replace(/[₹$,]/g, "").trim();
+          const taxText = document.getElementById("summary-tax").textContent.replace(/[₹$,]/g, "").trim();
+          const subtotal = parseFloat(subtotalText) || 0;
+          const tax = parseFloat(taxText) || 0;
+          document.getElementById("summary-total").textContent = "₹" + (subtotal + tax).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         } else {
           feedback.innerHTML = `<span style="color: #ef4444;"><i class="ri-error-warning-fill"></i> Invalid coupon code. Try CARA20.</span>`;
           if (discountRow) discountRow.style.display = "none";
+          const subtotalText = document.getElementById("summary-subtotal").textContent.replace(/[₹$,]/g, "").trim();
+          const taxText = document.getElementById("summary-tax").textContent.replace(/[₹$,]/g, "").trim();
+          const subtotal = parseFloat(subtotalText) || 0;
+          const tax = parseFloat(taxText) || 0;
+          document.getElementById("summary-total").textContent = "₹" + (subtotal + tax).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         }
       });
     }
-  });
-</script>
+  });</script>
    <footer class="section-p1" style="background-color: #3d485a !important; color: #ffffff !important; padding: 25px 40px 40px !important; margin: 40px auto 0 auto !important; border-top: 1px solid rgba(255, 255, 255, 0.1); display: grid !important; grid-template-columns: repeat(4, 1fr) !important; gap: 30px !important; max-width: 1400px !important; width: 100% !important; box-sizing: border-box !important; clear: both !important;">
         
   <!-- COLUMN 1: CONTACT & SOCIALS -->
   <div class="col" style="display: flex !important; flex-direction: column !important; align-items: flex-start !important; width: 100% !important;">
-    <img class="logo" src="images/logo.png" alt="Cara Logo" style="margin-bottom: 12px; height: auto; max-width: 120px;">
+    <img class="logo" src="images/Dlogo.png" alt="Cara Logo" style="margin-bottom: 12px; height: auto; max-width: 120px;">
     <h4 style="color: #ffffff !important; font-size: 14px !important; font-weight: 700 !important; margin: 0 0 10px 0 !important; text-transform: uppercase; letter-spacing: 0.5px;">Contact</h4>
     <p style="color: #f1f5f9 !important; font-size: 13px !important; line-height: 1.4 !important; margin: 4px 0 !important;">
       <strong style="color: #ffffff !important;">Address:</strong> 562 Wellington Road, SF
@@ -622,7 +636,7 @@ button + button {
     <h4 style="color: #ffffff !important; font-size: 13px !important; font-weight: 700 !important; margin: 15px 0 8px 0 !important; text-transform: uppercase; letter-spacing: 0.5px;">Follow us</h4>
     <div class="icon" style="display: flex !important; gap: 12px !important; font-size: 15px !important;">
       <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer" style="color: #cbd5e1 !important;"><i class="ri-twitter-x-fill"></i></a>
-      <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer" style="color: #cbd5e1 !important;"><i class="fab fa-github"></i></a>
+      <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer" style="color: #cbd5e1 !important;"><i class="fab fa-github"></i></a>
       <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer" style="color: #cbd5e1 !important;"><i class="fab fa-linkedin"></i></a>
       <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer" style="color: #cbd5e1 !important;"><i class="fab fa-youtube"></i></a>
     </div>
@@ -648,9 +662,9 @@ button + button {
   <div class="col" style="display: flex !important; flex-direction: column !important; align-items: flex-start !important; width: 100% !important;">
     <h4 style="color: #ffffff !important; font-size: 14px !important; font-weight: 700 !important; margin: 0 0 10px 0 !important; text-transform: uppercase; letter-spacing: 0.5px;">My Account</h4>
     <a href="login.html" style="color: #cbd5e1 !important; font-size: 13px !important; text-decoration: none; margin-bottom: 6px;">Sign In</a>
-    <a href="cart.html" style="color: #cbd5e1 !important; font-size: 13px !important; text-decoration: none; margin-bottom: 6px;">View Cart</a>
-    <a href="wishlist.html" style="color: #cbd5e1 !important; font-size: 13px !important; text-decoration: none; margin-bottom: 6px;">My Wishlist</a>
-    <a href="cart.html" style="color: #cbd5e1 !important; font-size: 13px !important; text-decoration: none; margin-bottom: 6px;">Track Order</a>
+    <a aria-label="Cart" href="cart.html" style="color: #cbd5e1 !important; font-size: 13px !important; text-decoration: none; margin-bottom: 6px;">View Cart</a>
+    <a aria-label="Wishlist" href="wishlist.html" style="color: #cbd5e1 !important; font-size: 13px !important; text-decoration: none; margin-bottom: 6px;">My Wishlist</a>
+    <a aria-label="Cart" href="cart.html" style="color: #cbd5e1 !important; font-size: 13px !important; text-decoration: none; margin-bottom: 6px;">Track Order</a>
     <a href="contact.html" style="color: #cbd5e1 !important; font-size: 13px !important; text-decoration: none; margin-bottom: 12px;">Help</a>
 
   <!-- Secured Payments aligned horizontally underneath Account links -->
@@ -683,12 +697,8 @@ button + button {
 
       <!-- FORCE A BLANK LAYOUT GAP AT THE BOTTOM OF THE ENTIRE PAGE -->
       <div style="height: 18px !important; width: 100% !important; clear: both !important; display: block !important;"></div>
-
+      <script src="js/coupon-config.js"></script>
     <script src="app.js?v=1779120917210"></script>
-  
-    <script>
-      document.getElementById("Current-Year").textContent = new Date().getFullYear();
-    </script>
     <script>
       // ... (your coupon script stays exactly the same)
     </script>

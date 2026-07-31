@@ -1,0 +1,115 @@
+/* Stock Alert & Inventory Banner Styling */
+
+.stock-alert-box {
+  padding: 12px;
+  border-radius: 6px;
+  margin: 10px 0;
+  font-family: inherit;
+}
+
+.stock-alert-box.out-of-stock {
+  background: rgba(226, 62, 87, 0.08);
+  border: 1px solid #e23e57;
+}
+
+.stock-alert-box.low-stock {
+  background: rgba(243, 156, 18, 0.08);
+  border: 1px solid #f39c12;
+  color: #d35400;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.stock-alert-box.in-stock {
+  background: rgba(8, 129, 120, 0.08);
+  border: 1px solid #088178;
+  color: #088178;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.stock-title {
+  color: #e23e57;
+  font-weight: 700;
+  display: block;
+}
+
+.stock-desc {
+  margin: 5px 0 0 0;
+  font-size: 12px;
+  color: #555;
+}
+
+.stock-notify-group {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.stock-email-input {
+  padding: 6px;
+  flex: 1;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.stock-notify-btn {
+  background: #088178;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.stock-notify-btn:hover {
+  background: #06655e;
+}
+
+.stock-feedback {
+  display: block;
+  font-size: 11px;
+  margin-top: 4px;
+}
+
+.stock-feedback.success {
+  color: #088178;
+}
+
+.stock-feedback.error {
+  color: #e23e57;
+}
+
+.inventory-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-radius: 6px;
+  margin: 12px 0;
+  font-size: 14px;
+}
+
+.inventory-banner-warning {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeeba;
+}
+
+.inventory-banner-info {
+  background-color: #d1ecf1;
+  color: #0c5460;
+  border: 1px solid #bee5eb;
+}
+
+.inventory-banner-close {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: inherit;
+  line-height: 1;
+}
