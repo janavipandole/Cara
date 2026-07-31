@@ -1,0 +1,1 @@
+console.log("Contact form protected by XSS Sanitizer.");

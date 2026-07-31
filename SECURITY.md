@@ -12,3 +12,8 @@ Only the latest version of this platform is supported for critical security upda
 ## Reporting a Vulnerability
 
 Please do not report security vulnerabilities through public GitHub issues. Instead, email reports to standard project security handles or contact the core maintainer. We aim to respond within 48 hours to validate and resolve the vulnerability.
+
+
+
+## Contact
+For security concerns, email security@cara.com
