@@ -1,0 +1,30 @@
+/* CSRF Protection & Security Field Styling */
+
+.security-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: #27ae60;
+  background: rgba(39, 174, 96, 0.1);
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-top: 6px;
+}
+
+.security-badge i {
+  font-size: 13px;
+}
+
+.form-security-status {
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.form-security-status.valid {
+  color: #27ae60;
+}
+
+.form-security-status.invalid {
+  color: #e74c3c;
+}

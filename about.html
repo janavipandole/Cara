@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
   <!-- Character Encoding -->
   <meta charset="UTF-8" />
 
@@ -36,7 +37,7 @@
   />
   <meta
     property="og:image"
-    content="https://cara-seven-ashen.vercel.app/images/logo.png"
+    content="https://cara-seven-ashen.vercel.app/images/Dlogo.png"
   />
   <meta property="og:url" content="https://cara-seven-ashen.vercel.app/" />
   <meta property="og:type" content="website" />
@@ -50,7 +51,7 @@
   />
   <meta
     name="twitter:image"
-    content="https://cara-seven-ashen.vercel.app/images/logo.png"
+    content="https://cara-seven-ashen.vercel.app/images/Dlogo.png"
   />
   <meta name="twitter:site" content="@janavipandole" />
 
@@ -67,6 +68,7 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="ui-fix.css" />
   <link rel="stylesheet" href="about.css" />
+  <link rel="stylesheet" href="theme-engine.css" />
   <link
     href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
     rel="stylesheet"
@@ -384,18 +386,28 @@
           }
       }
   </style>
+  <link rel="manifest" href="/manifest.json">
+  <script src="js/error-boundary.js"></script>
+<script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
+  <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
 </head>
 
 <body>
 <!-- HEADER -->
-<section id="header">
+<section id="header" role="banner">
   <!-- Logo -->
   <a href="index.html">
-    <img src="images/logo.png" alt="Cara Logo" />
+    <img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" />
   </a>
 
   <div>
-    <ul id="navbar">
+    <ul id="navbar" role="navigation" aria-label="Main navigation">
       <!-- Main Navigation Links -->
       <li><a href="index.html">Home</a></li>
       <li><a href="shop.html">Shop</a></li>
@@ -430,7 +442,7 @@
       <li class="nav-icon">
         <button
           class="theme-toggle"
-          id="themeToggle"
+          id="themeToggleDesktop"
           aria-label="Toggle dark mode"
         >
           <i class="ri-moon-line" id="themeIcon"></i>
@@ -438,7 +450,7 @@
       </li>
 
       <!-- Close Button -->
-      <a href="#" id="close" aria-label="Close menu" aria-hidden="false">
+      <a href="javascript:void(0)" id="close" aria-label="Close menu" aria-hidden="false">
         <i class="fa-solid fa-xmark"></i>
       </a>
     </ul>
@@ -465,10 +477,6 @@
       aria-expanded="false"
       tabindex="0"
     ></i>
-      <!-- Theme Toggle -->
-      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
-        <i class="ri-moon-line" id="themeIconMobile"></i>
-      </button>
   </div>
 </section>
 
@@ -555,7 +563,7 @@
     }
   </script>
   <section id="about-app">
-    <h1>Download Our <a href="#">App</a></h1>
+    <h1>Download Our <a href="javascript:void(0)">App</a></h1>
     <div class="video">
       <video autoplay muted loop src="images/about/1.mp4"></video>
     </div>
@@ -674,13 +682,40 @@
       </div>
     </div>
   </section>
+
+  <!-- Testimonials Section -->
+  <section id="about-testimonials" class="section-p1" style="border-top: 1px solid #eee; padding-top: 50px;">
+    <div class="cara-heading">
+      <span>TESTIMONIALS</span>
+      <h2>What Our Customers Say</h2>
+      <p>Don't take our word for it — read reviews from our global community.</p>
+    </div>
+
+    <div class="testimonials-carousel-wrapper">
+      <button type="button" class="carousel-control prev" id="testimonial-prev" aria-label="Previous Testimonial">
+        <i class="ri-arrow-left-s-line"></i>
+      </button>
+      <div class="testimonials-carousel-container">
+        <div class="testimonials-carousel-track" id="testimonials-track">
+          <!-- Testimonial slide cards will render dynamically here -->
+        </div>
+      </div>
+      <button type="button" class="carousel-control next" id="testimonial-next" aria-label="Next Testimonial">
+        <i class="ri-arrow-right-s-line"></i>
+      </button>
+    </div>
+
+    <div class="testimonials-carousel-dots" id="testimonials-dots">
+      <!-- Pagination dots will render dynamically here -->
+    </div>
+  </section>
 </main>
 
 <!-- Footer -->
-<footer class="section-p1">
+<footer class="section-p1" role="contentinfo">
   <!-- Contact Column -->
   <div class="col">
-    <img class="logo" src="images/logo.png" alt="Cara Logo" />
+    <img class="logo" src="images/Dlogo.png" alt="Cara Logo" />
     <h4>Contact</h4>
     <p>
       <strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco
@@ -741,9 +776,9 @@
   <div class="col">
     <h4>My Account</h4>
     <a href="login.html">Sign In</a>
-    <a href="cart.html">View Cart</a>
-    <a href="wishlist.html">My Wishlist</a>
-    <a href="cart.html">Track My Order</a>
+    <a aria-label="Cart" href="cart.html">View Cart</a>
+    <a aria-label="Wishlist" href="wishlist.html">My Wishlist</a>
+    <a aria-label="Cart" href="cart.html">Track My Order</a>
     <a href="contact.html">Help</a>
   </div>
 
@@ -755,7 +790,7 @@
       <span>special offers.</span>
     </p>
 
-    <form class="newsletter-form">
+    <form class="newsletter-form" role="form" aria-label="Newsletter subscription">
       <input type="email" placeholder="Your email address" required />
       <button type="submit" class="normal">Sign Up</button>
     </form>
@@ -810,6 +845,40 @@
         <i class="fab fa-cc-amex"></i>
       </a>
 
+      <!-- Copyright -->
+      <div class="copyright">
+        <p>
+          © Cara 2026. All rights reserved. |
+          <a href="license.html" style="color: #088178"> MIT License </a>
+        </p>
+      </div>
+    </footer>
+    
+    <button id="scrollTopBtn" type="button" title="Go to top">
+      ↑
+    </button>
+
+    <!-- Scripts -->
+    <script src="navbar.js"></script>
+    <script>
+      loadNavbar('about');
+    </script>
+
+    <script src="app.js"></script>
+
+    <script>
+      document.querySelector('.Current-Year').textContent =
+        new Date().getFullYear();
+    </script>
+    
+    <script>
+      const scrollBtn = document.getElementById('scrollTopBtn');
+
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+          scrollBtn.style.display = 'block';
+        } else {
+          scrollBtn.style.display = 'none';
       <a
         href="https://stripe.com"
         target="_blank"
@@ -860,11 +929,15 @@
   })();
 </script>
 
+<script src="js/loyalty-rewards-engine.js"></script>
 <script src="app.js"></script>
+<script src="js/testimonials-carousel.js" defer></script>
 
 <script>
-  document.querySelector('.Current-Year').textContent =
-    new Date().getFullYear();
+  const currentYearEl = document.querySelector('.Current-Year');
+  if (currentYearEl) {
+    currentYearEl.textContent = new Date().getFullYear();
+  }
 </script>
 
 <script>
