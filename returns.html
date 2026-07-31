@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Returns & Refunds - Cara</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="cart.css">
+</head>
+<body>
+    <header id="header"><a href="index.html"><img src="images/logo.png" class="logo" alt="Cara"></a></header>
+    <section class="section-p1">
+        <h2>Initiate Return / Refund Request</h2>
+        <form id="return-form">
+            <input type="text" id="orderId" placeholder="Order ID (e.g. #CARA-1082)" required>
+            <input type="email" id="userEmail" placeholder="Email Address" required>
+            <select id="returnReason" required>
+                <option value="">Select Reason</option>
+                <option value="defective">Defective / Damaged Item</option>
+                <option value="wrong_size">Wrong Size Received</option>
+                <option value="not_as_described">Not as Described</option>
+            </select>
+            <textarea id="reasonDetails" placeholder="Detailed explanation"></textarea>
+            <button type="submit" class="normal">Submit Request</button>
+        </form>
+    </section>
+    <script src="js/returns-manager.js"></script>
+</body>
+</html>

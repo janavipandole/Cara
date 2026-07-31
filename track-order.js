@@ -368,3 +368,5 @@ window.addEventListener('beforeunload', function () {
 });
 
 // Timeline animator simulating transitions through shipping progress milestones.
+
+console.log("Track order initialized with Return Workflow support.");

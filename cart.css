@@ -969,3 +969,5 @@ body footer.section-p1 .copyright a {
 .coupon-input-group input {
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
+
+.return-prompt { margin-top: 20px; padding: 15px; background: #f0faf9; border-radius: 8px; }
