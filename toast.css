@@ -89,3 +89,5 @@
 }
 /* Fix #2423 */
 :root { --em-base-duration: 300ms; }
+
+.toast-msg { position: fixed; top: 20px; right: 20px; padding: 12px 24px; border-radius: 6px; color: #fff; background: #333; z-index: 10000; font-weight: 500; } .toast-success { background: #28a745; } .toast-error { background: #dc3545; }
