@@ -15,6 +15,7 @@ function safeParseJSON(key, fallback = '[]') {
 }
 
 const API_BASE_URL = window.CARA_API_BASE_URL || '';
+const promoCalcEngine = typeof PromoDiscountCalculator !== 'undefined' ? new PromoDiscountCalculator() : null;
 
 function getStoredAuthToken() {
   return (
