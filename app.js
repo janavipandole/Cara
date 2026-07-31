@@ -746,7 +746,7 @@ function dismissToast(toast) {
 
 window.updateQty = function (change) {
   const quantityElement = document.getElementById('product-quantity');
-  let quantity = parseInt(quantityElement.value);
+  let quantity = parseInt(quantityElement.value, 10);
 
   quantity += change;
 
@@ -786,7 +786,7 @@ window.handleAddToCart = function () {
   const name = nameElement.innerText;
   const price = priceElement.innerText;
   const size = sizeSelect.value;
-  const quantity = parseInt(quantityInput.value);
+  const quantity = parseInt(quantityInput.value, 10);
   const image = imageElement.src;
 
   if (size === 'Select Size' || size === '') {
@@ -823,7 +823,7 @@ window.handleBuyNow = function () {
   const name = nameElement.innerText;
   const price = priceElement.innerText;
   const size = sizeSelect.value;
-  const quantity = parseInt(quantityInput.value);
+  const quantity = parseInt(quantityInput.value, 10);
   const image = imageElement.src;
 
   if (size === 'Select Size' || size === '') {
@@ -876,7 +876,7 @@ window.loadCart = async function () {
     }
 
     const itemPrice = parsePriceString(authenticPrice);
-    const itemQty = parseInt(item.quantity) || 1;
+    const itemQty = parseInt(item.quantity, 10) || 1;
     const itemSubtotal = itemPrice * itemQty;
     subtotal += itemSubtotal;
 
@@ -1752,7 +1752,7 @@ window.checkSharedWardrobe = function () {
         name: item.n || 'Fashion Product',
         price: parseFloat(item.p) || 0,
         image: item.i || 'images/products/f1.jpg',
-        quantity: parseInt(item.q) || 1,
+        quantity: parseInt(item.q, 10) || 1,
         size: item.s || 'M',
       };
     });
@@ -2020,11 +2020,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     qtyMinus.addEventListener('click', () => {
-      let val = parseInt(qtyInput.value);
+      let val = parseInt(qtyInput.value, 10);
       if (val > 1) qtyInput.value = val - 1;
     });
     qtyPlus.addEventListener('click', () => {
-      qtyInput.value = parseInt(qtyInput.value) + 1;
+      qtyInput.value = parseInt(qtyInput.value, 10) + 1;
     });
 
     injectQuickViewOverlays();
@@ -2099,14 +2099,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     newAddToCart.addEventListener('click', () => {
       const size = document.getElementById('qvModalSize').value;
-      const qty = parseInt(document.getElementById('qvQtyInput').value);
+      const qty = parseInt(document.getElementById('qvQtyInput').value, 10);
       addToCart(product.name, product.price, product.img, qty, size);
       modal.classList.remove('active');
     });
 
     newBuyNow.addEventListener('click', () => {
       const size = document.getElementById('qvModalSize').value;
-      const qty = parseInt(document.getElementById('qvQtyInput').value);
+      const qty = parseInt(document.getElementById('qvQtyInput').value, 10);
       modal.classList.remove('active');
       window.buyNow(product.name, product.price, product.img, qty, size);
     });
