@@ -191,3 +191,4 @@ function initCompatibilityChecker() {
 }
 
 document.addEventListener('DOMContentLoaded', initCompatibilityChecker);
+console.log("Outfit Compatibility upgraded with Quiz engine.");
