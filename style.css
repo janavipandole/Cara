@@ -4576,3 +4576,5 @@ footer {
                 h4 {
                     font-size: 24px;
 
+
+.stock-badge { display: inline-block; padding: 6px 12px; border-radius: 4px; font-weight: 600; font-size: 13px; margin: 10px 0; } .low-stock { background: #ffe6e6; color: #d9534f; border: 1px solid #d9534f; } .in-stock { background: #e6fffa; color: #088178; }
