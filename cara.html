@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
   <!-- Character encoding -->
   <meta charset="utf-8" />
 
@@ -519,6 +520,14 @@
   transform: scale(1.1);
 }
   </style>
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
 </head>
 
 <body>
@@ -554,7 +563,7 @@
             stroke-linejoin="round" />
         </svg>
       </button>
-      <button class="icon-btn theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+      <button class="icon-btn theme-toggle" id="themeToggleDesktop" aria-label="Toggle dark mode">
         <i class="ri-moon-line" id="themeIcon" style="font-size: 18px;"></i>
       </button>
     </div>

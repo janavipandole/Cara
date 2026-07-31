@@ -1,31 +1,105 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 from .. import models, schemas
 from ..database import get_db
 from .auth import get_current_user
+from datetime import datetime, timezone, timedelta
 
 router = APIRouter()
 
+
+def serialize_order(order: models.Order, db: Session, include_items: bool = True) -> dict:
+    payload = {
+        "id": order.id,
+        "full_name": order.full_name,
+        "email": order.email,
+        "address": order.address,
+        "city": order.city,
+        "zip_code": order.zip_code,
+        "total_amount": order.total_amount,
+        "status": order.status,
+        "created_at": order.created_at,
+        "items": [],
+    }
+
+    if include_items:
+        items = (
+            db.query(models.OrderItem)
+            .filter(models.OrderItem.order_id == order.id)
+            .order_by(models.OrderItem.id.asc())
+            .all()
+        )
+        payload["items"] = [
+            {
+                "product_name": item.product_name,
+                "quantity": item.quantity,
+                "price": item.price,
+            }
+            for item in items
+        ]
+
+    return payload
+
+
+@router.get("/", response_model=list[schemas.OrderResponse])
+def get_user_orders(
+    skip: int = 0,
+    limit: int = Query(default=50, le=100),
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user),
+):
+    orders = (
+        db.query(models.Order)
+        .filter(models.Order.email == current_user.email)
+        .order_by(models.Order.created_at.desc())
+        .offset(skip)
+        .limit(limit)
+        .all()
+    )
+
+    return [serialize_order(order, db, include_items=False) for order in orders]
+
+
 @router.post("/", status_code=201)
 def create_order(
-    order_data: schemas.OrderCreate, 
+    order_data: schemas.OrderCreate,
     db: Session = Depends(get_db),
     current_user: models.User = Depends(get_current_user)
 ):
+    # --- Idempotency check: if this key was already used, return the existing order ---
+    if order_data.idempotency_key:
+        existing = (
+            db.query(models.Order)
+            .filter(
+                models.Order.email == current_user.email,
+                models.Order.idempotency_key == order_data.idempotency_key,
+            )
+            .first()
+        )
+        if existing:
+            return {
+                "message": "Order already created",
+                "order_id": existing.id
+            }
+
     subtotal = 0.0
     db_items = []
 
     for item in order_data.items:
-        db_product = db.query(models.Product).filter(
-            models.Product.name == item.product_name
-        ).first()
+        # --- Row lock: prevent two concurrent requests from reading stale stock ---
+        db_product = (
+            db.query(models.Product)
+            .filter(models.Product.name == item.product_name)
+            .with_for_update()
+            .first()
+        )
 
         if not db_product:
             raise HTTPException(
                 status_code=400,
                 detail=f"Product not found: {item.product_name}"
             )
-            
+
         if db_product.stock < item.quantity:
             raise HTTPException(
                 status_code=400,
@@ -68,17 +142,17 @@ def create_order(
             2
         )
 
-
     grand_total = max(0, subtotal + tax + shipping - discount)
 
     new_order = models.Order(
         full_name=order_data.fullName,
-        email=current_user.email,  # Force email to match authenticated user
+        email=current_user.email,
         address=order_data.address,
         city=order_data.city,
         zip_code=order_data.zip,
         total_amount=grand_total,
-        status="CONFIRMED"
+        status="CONFIRMED",
+        idempotency_key=order_data.idempotency_key,   # ADDED
     )
 
     db.add(new_order)
@@ -95,3 +169,37 @@ def create_order(
         "message": "Order created successfully",
         "order_id": new_order.id
     }
+
+CANCELLABLE_WINDOW_HOURS = 24
+
+@router.post("/{order_id}/cancel")
+def cancel_order(
+    order_id: int,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user),
+):
+    order = (
+        db.query(models.Order)
+        .filter(
+            models.Order.id == order_id,
+            models.Order.email == current_user.email,
+        )
+        .first()
+    )
+    if not order:
+        raise HTTPException(status_code=404, detail="Order not found")
+
+    if order.status == "CANCELLED":
+        raise HTTPException(status_code=400, detail="Order is already cancelled")
+
+    order_age = datetime.now(timezone.utc) - order.created_at.replace(tzinfo=timezone.utc)
+    if order_age > timedelta(hours=CANCELLABLE_WINDOW_HOURS):
+        raise HTTPException(
+            status_code=400,
+            detail=f"Orders can only be cancelled within {CANCELLABLE_WINDOW_HOURS} hours of placing them.",
+        )
+
+    order.status = "CANCELLED"
+    db.commit()
+
+    return {"message": "Order cancelled successfully", "status": order.status}

@@ -1,10 +1,11 @@
 # 🛍️ Cara - E-commerce Platform
 
 ## Architecture Overview
-- **Frontend**: Clean semantic HTML5, modern vanilla CSS, responsive layouts, and app.js state handling.
-- **Database**: SQLite `cara.db` file mapping backend models.
-- **Workflows**: GitHub actions verify builds, run dependency checks, and auto-label code triage.
-- **Asset Assets**: Located under `assets/` and `images/` directories.
+- **Architecture Specification**: Detailed system design and flow diagrams in [ARCHITECTURE.md](ARCHITECTURE.md).
+- **API Reference**: Comprehensive module API endpoints in [API Reference](docs/API_REFERENCE.md).
+- **Development Standards**: Coding guidelines and CSS tokens in [Style Guide](docs/STYLE_GUIDE.md).
+- **Deployment Guide**: Containerized Docker setup in [Deployment Guide](docs/DEPLOYMENT.md).
+- **Frontend**: Clean semantic HTML5, modern vanilla CSS, responsive layouts, and ES JavaScript modules.
 
 > Officially participating in
 ## GSSOC 2026
@@ -250,13 +251,13 @@ Cart -
 - [x] Blog section
 
 ### Upcoming Features
-- [ ] **Product Search** - Search functionality with filters
-- [ ] **User Authentication** - Login and registration
-- [ ] **Product Filters** - Filter by category, price, rating
-- [ ] **Wishlist** - Save favorite products
+- [x] **Product Search** - Search functionality with filters
+- [x] **User Authentication** - Login and registration
+- [x] **Product Filters** - Filter by category, price, rating
+- [x] **Wishlist** - Save favorite products
 - [ ] **Product Reviews** - Customer ratings and reviews
-- [ ] **Order Tracking** - Track order status
-- [ ] **Dark Mode** - Theme toggle functionality
+- [x] **Order Tracking** - Track order status
+- [x] **Dark Mode** - Theme toggle functionality
 - [ ] **Multi-language Support** - Internationalization
 - [ ] **Backend Integration** - Connect to API/database
 - [ ] **Payment Gateway** - Integrate payment processing

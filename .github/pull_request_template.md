@@ -1,29 +1,78 @@
-# PR Description
+# 📋 Summary
+Briefly describe what this PR does and why.
 
-## Summary of Changes
-Provide a brief summary of the changes made and the problem being solved.
+---
 
-## Related Issue
-Fixes # (issue number)
+## 🔗 Related Issue
+Closes #
 
-## Type of Change
-- [ ] Bug fix (non-breaking change which fixes an issue)
-- [ ] New feature (non-breaking change which adds functionality)
-- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
+---
+
+please put ✓ symbol on correct block depending n your changes.
+
+## 🔄 Type of Change
+
+- [ ] Bug fix
+- [ ] New feature
 - [ ] Documentation update
+- [ ] Style / UI improvement
+- [ ] Refactor
+- [ ] Test
+- [ ] Chore / dependency update
 
-## Verification & Testing
-### Local Verification
-- [ ] Built successfully locally
-- [ ] Console has zero errors or warnings
+---
 
-### Devices/Browsers Tested
-- [ ] Chrome (Desktop)
-- [ ] Safari (Mobile)
-- [ ] Firefox
+## 🛠️ What Was Changed
+Briefly decribe what changes you made.
 
-## Checklist
-- [ ] Code follows project styling guidelines
-- [ ] Changes are fully responsive and accessible
-- [ ] No extraneous logs or debug code left
-- [ ] Documentation updated accordingly
+- 
+- 
+- 
+
+---
+## why this needed
+Describe why this project needed this changes.
+-
+-
+-
+---
+## 🧪 How Has This Been Tested?
+
+Describe how you tested your changes locally.
+
+- [ ] Tested backend API endpoints manually
+- [ ] Ran frontend locally with `npm run dev`
+- [ ] Ran `npm run lint` — no errors
+- [ ] Ran `npm run build` — no errors
+- [ ] Uploaded a test document and verified output
+- [ ] Tested on mobile view
+
+---
+
+## 📸 Screenshots (if applicable)
+
+If your PR includes UI changes, attach before and after screenshots here.
+
+| Before | After |
+|--------|-------|
+|        |       |
+
+---
+
+## ✅ Self-Review Checklist
+
+- [ ] My branch name follows the convention (`feat/`, `fix/`, `docs/`)
+- [ ] My commit messages follow the convention (`feat:`, `fix:`, `docs:`)
+- [ ] I have linked the related issue (`Closes #IssueNumber`)
+- [ ] I have tested my changes locally
+- [ ] I have added screenshots for UI changes
+- [ ] My changes do not break existing functionality
+- [ ] I have not pushed any `.env` file or API keys
+- [ ] My PR contains only changes related to the linked issue
+
+---
+
+## 📋 Additional Notes
+
+Any additional information for the reviewer.
+
