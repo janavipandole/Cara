@@ -367,7 +367,7 @@ function submitCheckoutForm() {
       const appliedPoints =
         parseInt(localStorage.getItem('cara_applied_loyalty_points'), 10) || 0;
       const currentBalance =
-        parseInt(localStorage.getItem('cara_loyalty_balance')) || 150;
+        parseInt(localStorage.getItem('cara_loyalty_balance'), 10) || 150;
       const subtotal = cart.reduce(
         (sum, item) =>
           sum + parsePriceString(item.price) * (parseInt(item.quantity, 10) || 1),
