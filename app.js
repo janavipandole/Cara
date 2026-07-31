@@ -694,38 +694,55 @@ function handleEmptyCartView() {
   }
 }
 
-function addToCart(productName, productPrice, productImage, quantity, size) {
-  let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
-  let parsedQty = parseInt(quantity, 10);
-  if (isNaN(parsedQty) || parsedQty < 1) parsedQty = 1;
+let cartLockPromise = Promise.resolve();
 
-  let item = {
-    name: productName,
-    price: parsePriceString(productPrice),
-    image: productImage,
-    quantity: parsedQty,
-    size: size ? size.replace('Size', '').trim() : null,
-  };
-
-  if (!item.size) {
-    showToast('Please select a size before adding to cart!', 'warning');
-    return;
-  }
-
-  let existingItem = cart.find(
-    (p) => p.name === item.name && p.size === item.size,
-  );
-  if (existingItem) {
-    existingItem.quantity += item.quantity;
-  } else {
-    cart.push(item);
-  }
-
-  localStorage.setItem('productsInCart', JSON.stringify(cart));
-  window.cachedCartState = cart;
-  showToast(`${item.name} (Size: ${item.size}) added to cart!`, 'success');
-  updateCartCount();
+function withCartLock(fn) {
+  cartLockPromise = cartLockPromise
+    .then(async () => {
+      window.cachedCartState = null;
+      return await fn();
+    })
+    .catch((err) => {
+      console.error('Cart lock execution error:', err);
+    });
+  return cartLockPromise;
 }
+
+function addToCart(productName, productPrice, productImage, quantity, size) {
+  return withCartLock(() => {
+    let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+    let parsedQty = parseInt(quantity, 10);
+    if (isNaN(parsedQty) || parsedQty < 1) parsedQty = 1;
+
+    let item = {
+      name: productName,
+      price: parsePriceString(productPrice),
+      image: productImage,
+      quantity: parsedQty,
+      size: size ? size.replace('Size', '').trim() : null,
+    };
+
+    if (!item.size) {
+      showToast('Please select a size before adding to cart!', 'warning');
+      return;
+    }
+
+    let existingItem = cart.find(
+      (p) => p.name === item.name && p.size === item.size,
+    );
+    if (existingItem) {
+      existingItem.quantity += item.quantity;
+    } else {
+      cart.push(item);
+    }
+
+    localStorage.setItem('productsInCart', JSON.stringify(cart));
+    window.cachedCartState = cart;
+    showToast(`${item.name} (Size: ${item.size}) added to cart!`, 'success');
+    updateCartCount();
+  });
+}
+window.addToCart = addToCart;
 
 // Toast notification
 function showToast(message, type) {
