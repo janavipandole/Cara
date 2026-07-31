@@ -1,15 +1,15 @@
 document.addEventListener('DOMContentLoaded', function () {
-  var forms = document.querySelectorAll('.newsletter-form');
+  const forms = document.querySelectorAll('.newsletter-form');
 
   forms.forEach(function (form) {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      var input = form.querySelector('input[type="email"]');
-      var email = input ? input.value.trim() : '';
-      var button = form.querySelector('button[type="submit"]');
+      const input = form.querySelector('input[type="email"]');
+      const email = input ? input.value.trim() : '';
+      const button = form.querySelector('button[type="submit"]');
 
       // Email validation regex
-      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
       if (!email || !emailRegex.test(email)) {
         if (typeof showToast === 'function') {
