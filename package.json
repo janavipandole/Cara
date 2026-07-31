@@ -11,6 +11,7 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "minify": "terser app.js -o app.min.js && terser navbar.js -o navbar.min.js",
     "prepare": "husky"
   },
   "lint-staged": {
@@ -37,14 +38,15 @@
   "devDependencies": {
     "@eslint/js": "^9.21.0",
     "@vitest/coverage-v8": "^4.1.8",
-    "eslint": "^9.21.0",
-    "eslint-config-prettier": "^10.0.2",
-    "eslint-plugin-prettier": "^5.2.3",
-    "globals": "^16.0.0",
+    "eslint": "^9.39.5",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.6",
+    "globals": "^16.5.0",
     "husky": "^9.1.7",
     "jsdom": "^29.1.1",
-    "lint-staged": "^15.4.3",
-    "prettier": "^3.5.2",
+    "lint-staged": "^15.5.2",
+    "prettier": "^3.9.6",
+    "terser": "^5.49.0",
     "vitest": "^4.1.8"
   },
   "bugs": {
