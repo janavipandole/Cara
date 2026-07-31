@@ -1,0 +1,77 @@
+---
+name: ⚡ Performance Issue
+description: Report a performance degradation, slow page load, or memory leak in Cara
+title: "[Performance]: "
+labels: ["performance", "needs-triage"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Performance Issues
+        Use this template to report pages that load slowly, animations that stutter, or memory leaks.
+
+  - type: input
+    id: affected-page
+    attributes:
+      label: Affected Page / Feature
+      placeholder: e.g. shop.html product grid — loads slowly on mobile
+    validations:
+      required: true
+
+  - type: dropdown
+    id: issue-type
+    attributes:
+      label: Type of Performance Issue
+      options:
+        - Slow initial page load (LCP / FCP)
+        - Janky scroll / animation
+        - Memory leak
+        - Excessive network requests
+        - Large asset / bundle size
+        - Layout shift (CLS)
+        - Long input latency (INP)
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe the performance issue and when it occurs.
+    validations:
+      required: true
+
+  - type: textarea
+    id: metrics
+    attributes:
+      label: Measured Metrics
+      description: |
+        If you have profiling data, Lighthouse scores, or network timings — paste them here.
+        Even rough numbers (e.g. "3s to first paint on a mid-range phone") are helpful.
+
+  - type: dropdown
+    id: device
+    attributes:
+      label: Device Type
+      options:
+        - Desktop (fast internet)
+        - Desktop (throttled — Fast 3G)
+        - Mobile (mid-range)
+        - Mobile (low-end)
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggested-fix
+    attributes:
+      label: Suggested Fix (optional)
+      description: Do you have ideas on how to address this? (lazy loading, memoisation, image optimisation, etc.)
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-submission Checklist
+      options:
+        - label: I searched existing issues and this is not a duplicate
+          required: true

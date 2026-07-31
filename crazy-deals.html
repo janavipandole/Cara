@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
   <script>
     (function () {
       const currentTheme = localStorage.getItem('theme') || 'light';
@@ -177,6 +178,15 @@
       transform: scale(1.1);
     }
   </style>
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
+  <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
 </head>
 
 <body>
@@ -186,7 +196,7 @@
         <section id="header">
           <!-- Logo -->
           <a href="index.html">
-            <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
+            <img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" />
           </a>
 
           <div id="navbar-container"></div>
@@ -244,7 +254,7 @@
             </h4>
             <div class="pro-action-bar">
              <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="event.stopPropagation(); buyNow('Cartoon Astronaut T-Shirts','₹1,249','images/products/f1.jpg',1,'M')">BUY NOW</button>
-              <a href="#" class="pro-cart-btn" aria-label="Add Cartoon Astronaut T-Shirts to cart" onclick="event.stopPropagation(); addToCart('Cartoon Astronaut T-Shirts','₹1,249','images/products/f1.jpg',1,'M'); return false;"><i class="ri-shopping-cart-2-line"></i></a>
+              <a href="javascript:void(0)" class="pro-cart-btn" aria-label="Add Cartoon Astronaut T-Shirts to cart" onclick="event.stopPropagation(); addToCart('Cartoon Astronaut T-Shirts','₹1,249','images/products/f1.jpg',1,'M'); return false;"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
           </div>
         </div>
@@ -264,7 +274,7 @@
             </h4>
             <div class="pro-action-bar">
              <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="event.stopPropagation(); buyNow('White Palm Leaf Casual Shirt','₹649','images/products/f2.jpg',1,'M')">BUY NOW</button>
-              <a href="#" class="pro-cart-btn" aria-label="Add White Palm Leaf Casual Shirt to cart" onclick="event.stopPropagation(); addToCart('White Palm Leaf Casual Shirt','₹649','images/products/f2.jpg',1,'M'); return false;"><i class="ri-shopping-cart-2-line"></i></a>
+              <a href="javascript:void(0)" class="pro-cart-btn" aria-label="Add White Palm Leaf Casual Shirt to cart" onclick="event.stopPropagation(); addToCart('White Palm Leaf Casual Shirt','₹649','images/products/f2.jpg',1,'M'); return false;"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
           </div>
         </div>
@@ -284,7 +294,7 @@
             </h4>
             <div class="pro-action-bar">
              <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="event.stopPropagation(); buyNow('Pink Peony Patterned Shirt','₹999','images/products/f5.jpg',1,'M')">BUY NOW</button>
-              <a href="#" class="pro-cart-btn" aria-label="Add Pink Peony Patterned Shirt to cart" onclick="event.stopPropagation(); addToCart('Pink Peony Patterned Shirt','₹999','images/products/f5.jpg',1,'M'); return false;"><i class="ri-shopping-cart-2-line"></i></a>
+              <a href="javascript:void(0)" class="pro-cart-btn" aria-label="Add Pink Peony Patterned Shirt to cart" onclick="event.stopPropagation(); addToCart('Pink Peony Patterned Shirt','₹999','images/products/f5.jpg',1,'M'); return false;"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
           </div>
         </div>
@@ -304,7 +314,7 @@
             </h4>
             <div class="pro-action-bar">
              <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="event.stopPropagation(); buyNow('Dual-Tone Corduroy Shirt','₹1,149','images/products/f6.jpg',1,'M')">BUY NOW</button>
-              <a href="#" class="pro-cart-btn" aria-label="Add Dual-Tone Corduroy Shirt to cart" onclick="event.stopPropagation(); addToCart('Dual-Tone Corduroy Shirt','₹1,149','images/products/f6.jpg',1,'M'); return false;"><i class="ri-shopping-cart-2-line"></i></a>
+              <a href="javascript:void(0)" class="pro-cart-btn" aria-label="Add Dual-Tone Corduroy Shirt to cart" onclick="event.stopPropagation(); addToCart('Dual-Tone Corduroy Shirt','₹1,149','images/products/f6.jpg',1,'M'); return false;"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
           </div>
         </div>
@@ -323,11 +333,11 @@
   <footer class="main-footer">
     <div class="footer-top">
       <div class="footer-logo-box">
-        <img class="footer-logo" src="images/logo.png" alt="Cara Logo" />
+        <img class="footer-logo" src="images/Dlogo.png" alt="Cara Logo" />
       </div>
       <div class="footer-socials">
         <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
-        <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+        <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
         <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
         <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
       </div>
@@ -356,9 +366,9 @@
       <div class="col">
         <h4>My Account</h4>
         <a href="login.html">Sign In</a>
-        <a href="cart.html">View Cart</a>
-        <a href="wishlist.html">My Wishlist</a>
-        <a href="cart.html">Track My Order</a>
+        <a aria-label="Cart" href="cart.html">View Cart</a>
+        <a aria-label="Wishlist" href="wishlist.html">My Wishlist</a>
+        <a aria-label="Cart" href="cart.html">Track My Order</a>
         <a href="contact.html">Help</a>
       </div>
 

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 
     <!-- Character Encoding -->
     <meta charset="UTF-8">
@@ -233,12 +234,21 @@
             }
         }
     </style>
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
+  <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
 </head>
 <body>
     <section id="header">
   <!-- Logo -->
   <a href="index.html">
-    <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
+    <img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" />
   </a>
 
   <div>
@@ -278,7 +288,7 @@
       <li class="nav-icon">
         <button
           class="theme-toggle"
-          id="themeToggle"
+          id="themeToggleDesktop"
           aria-label="Toggle dark mode"
         >
           <i class="ri-moon-line" id="themeIcon"></i>
@@ -287,7 +297,7 @@
 
       <!-- Close Button -->
       <a
-        href="#"
+        href="javascript:void(0)"
         id="close"
         aria-label="Close menu"
         aria-hidden="false"
@@ -320,11 +330,6 @@
       aria-expanded="false"
       tabindex="0"
     ></i>
-      <!-- Theme Toggle -->
-      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
-        <i class="ri-moon-line" id="themeIconMobile"></i>
-      </button>
-
   </div>
 </section>
 
@@ -419,7 +424,7 @@
     <footer class="section-p1">
     <!-- Contact Column -->
     <div class="col">
-      <img class="logo" src="images/logo.png" alt="Cara Logo">
+      <img class="logo" src="images/Dlogo.png" alt="Cara Logo">
       <h4>Contact</h4>
       <p>
         <strong>Address:</strong> 562 Wellington Road, Street 32, San
@@ -434,7 +439,7 @@
           <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer">
             <i class="fa-brands fa-x-twitter"></i>
           </a>
-          <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
+          <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
             <i class="fab fa-github"></i>
           </a>
           <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
@@ -461,9 +466,9 @@
     <div class="footer-col">
       <h4>MY ACCOUNT</h4>
       <a href="login.html">Sign In</a>
-      <a href="cart.html">View Cart</a>
-      <a href="wishlist.html">My Wishlist</a>
-      <a href="cart.html">Track My Order</a>
+      <a aria-label="Cart" href="cart.html">View Cart</a>
+      <a aria-label="Wishlist" href="wishlist.html">My Wishlist</a>
+      <a aria-label="Cart" href="cart.html">Track My Order</a>
       <a href="contact.html">Help</a>
     </div>
 
@@ -563,3 +568,4 @@
 </html>
 
 <!-- Accessibility and structural improvements -->
+
