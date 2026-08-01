@@ -338,7 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
    ============================================================ */
 
 // Robust price parser
-function parsePriceString(priceStr) {
+function escapeHtml(str){return String(str===undefined||str===null?'':str).replace(/[&<>"']/g,function(ch){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];});} function parsePriceString(priceStr) {
   if (typeof priceStr === 'number') return isFinite(priceStr) ? priceStr : 0;
   if (!priceStr) return 0;
   const cleaned = String(priceStr)
@@ -945,12 +945,12 @@ window.loadCart = async function () {
     row.innerHTML = `
             <div class="cart-item-left">
                 <div class="cart-item-img-wrap">
-                    <img src="${item.image}" alt="${item.name}" loading="lazy" />
+                    <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}" loading="lazy" />
                 </div>
                 <div class="cart-item-details">
-                    <span class="cart-item-brand">${item.brand || 'Premium Brand'}</span>
-                    <h5 class="cart-item-title">${item.name}</h5>
-                    <span class="cart-item-size">Size: ${item.size}</span>
+                    <span class="cart-item-brand">${escapeHtml(item.brand || 'Premium Brand')}</span>
+                    <h5 class="cart-item-title">${escapeHtml(item.name)}</h5>
+                    <span class="cart-item-size">Size: ${escapeHtml(String(item.size))}</span>
                 </div>
             </div>
             <div class="cart-item-right">
@@ -1974,12 +1974,12 @@ window.loadSavedItems = function () {
     row.innerHTML = `
             <div class="cart-item-left" style="opacity:0.8;">
                 <div class="cart-item-img-wrap">
-                    <img src="${item.image}" alt="${item.name}" loading="lazy" />
+                    <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}" loading="lazy" />
                 </div>
                 <div class="cart-item-details">
-                    <span class="cart-item-brand">${item.brand || 'Premium Brand'}</span>
-                    <h5 class="cart-item-title">${item.name}</h5>
-                    <span class="cart-item-size">Size: ${item.size}</span>
+                    <span class="cart-item-brand">${escapeHtml(item.brand || 'Premium Brand')}</span>
+                    <h5 class="cart-item-title">${escapeHtml(item.name)}</h5>
+                    <span class="cart-item-size">Size: ${escapeHtml(String(item.size))}</span>
                 </div>
             </div>
             <div class="cart-item-right" style="flex-direction:row;align-items:center;justify-content:space-between;">
