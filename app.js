@@ -11,7 +11,7 @@ window.logError =
  * Sanitizes return URL query parameters to prevent Open Redirect and SSRF vulnerabilities.
  * Enforces strictly relative URLs and blocks external origins.
  */
-function sanitizeReturnUrl(url) {
+/* NOTE (#3873): no call sites for sanitizeReturnUrl() found in app.js; confirm it is actually wired up elsewhere, otherwise this offers no real protection. */ function sanitizeReturnUrl(url) {
   if (!url || typeof url !== 'string') return 'index.html';
 
   var trimmed = url.trim();
@@ -39,7 +39,7 @@ window.sanitizeReturnUrl = sanitizeReturnUrl;
 /**
  * Verifies object-level authorization (BOLA) to ensure the current authenticated user owns the requested order resource.
  */
-function verifyOrderOwnership(order, currentUserId, isAdmin) {
+/* NOTE (#3873): no call sites for verifyOrderOwnership() found in app.js; confirm it is actually enforced elsewhere, otherwise this offers no real BOLA protection. */ function verifyOrderOwnership(order, currentUserId, isAdmin) {
   if (isAdmin) return true;
   if (!order || typeof order !== 'object') return false;
   if (!currentUserId) return false;
@@ -407,8 +407,7 @@ window.updateWishlistCount = updateWishlistCount;
 
 // GLOBAL WISHLIST LOGIC
 function formatRupee(amount) {
-  const num = parsePriceString(amount);
-  return '₹' + Math.round(num).toLocaleString('en-IN');
+  return formatCurrency(amount); // consolidated: delegates to formatCurrency to avoid duplicate rupee-formatting logic (see #3873)
 }
 
 function hasPriceDropped(item) {
@@ -1695,7 +1694,7 @@ document.addEventListener('DOMContentLoaded', () => {
 window.pendingSharedCart = null;
 
 // NOTE: intentionally named showWardrobeToast to avoid overwriting the global showToast
-function showWardrobeToast(msg, isError) {
+/* NOTE (#3873): showWardrobeToast() has no call sites in app.js (dead code); consider removing it or wiring it up. */ function showWardrobeToast(msg, isError) {
   showToast(msg, isError ? 'error' : 'success');
 }
 
