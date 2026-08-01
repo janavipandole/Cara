@@ -1734,7 +1734,7 @@ window.shareWardrobe = function () {
       '#share=' +
       base64Payload;
 
-    showToast('Wardrobe share link copied to clipboard!', 'success');
+    if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(shareUrl).catch(function(){ fallbackCopyText(shareUrl); }); } else { fallbackCopyText(shareUrl); } showToast('Wardrobe share link copied to clipboard!', 'success');
 
     if (btn) {
       const originalText = btn.innerHTML;
