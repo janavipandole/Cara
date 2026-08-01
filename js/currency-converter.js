@@ -29,9 +29,16 @@ export async function fetchExchangeRates(fetchImpl = globalThis.fetch) {
       const cachedData = localStorage.getItem(CACHE_KEY);
       if (cachedData) {
         const parsed = JSON.parse(cachedData);
-        if (Date.now() - parsed.timestamp < CACHE_TTL_MS && parsed.rates) {
-          Object.assign(EXCHANGE_RATES, parsed.rates);
-          return EXCHANGE_RATES;
+        if (parsed && parsed.rates) {
+          for (const code of Object.keys(DEFAULT_EXCHANGE_RATES)) {
+            if (parsed.rates[code] != null) EXCHANGE_RATES[code] = parsed.rates[code];
+          }
+          if (
+            typeof parsed.timestamp === 'number' &&
+            Date.now() - parsed.timestamp < CACHE_TTL_MS
+          ) {
+            return EXCHANGE_RATES;
+          }
         }
       }
     } catch {
@@ -45,11 +52,13 @@ export async function fetchExchangeRates(fetchImpl = globalThis.fetch) {
       if (response.ok) {
         const data = await response.json();
         if (data && data.rates) {
-          Object.assign(EXCHANGE_RATES, data.rates);
+          for (const code of Object.keys(DEFAULT_EXCHANGE_RATES)) {
+            if (data.rates[code] != null) EXCHANGE_RATES[code] = data.rates[code];
+          }
           if (typeof localStorage !== 'undefined') {
             localStorage.setItem(
               CACHE_KEY,
-              JSON.stringify({ timestamp: Date.now(), rates: data.rates })
+              JSON.stringify({ timestamp: Date.now(), rates: EXCHANGE_RATES })
             );
           }
         }
