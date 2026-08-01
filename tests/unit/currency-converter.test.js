@@ -1,15 +1,18 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import {
   EXCHANGE_RATES,
+  DEFAULT_EXCHANGE_RATES,
   getActiveCurrency,
   setActiveCurrency,
   convertPrice,
-  formatCurrency
+  formatCurrency,
+  fetchExchangeRates,
 } from '../../js/currency-converter.js';
 
 describe('Currency Converter Unit Tests', () => {
   beforeEach(() => {
     localStorage.clear();
+    Object.assign(EXCHANGE_RATES, DEFAULT_EXCHANGE_RATES);
   });
 
   it('should default active currency to USD', () => {
@@ -39,5 +42,20 @@ describe('Currency Converter Unit Tests', () => {
     expect(formatCurrency(100, 'EUR')).toBe('€92.00');
     expect(formatCurrency(100, 'GBP')).toBe('£79.00');
     expect(formatCurrency(100, 'INR')).toBe('₹8325.00');
+  });
+
+  it('should fetch and cache exchange rates in localStorage with 12-hour TTL', async () => {
+    const mockFetch = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ rates: { EUR: 0.95, GBP: 0.82 } }),
+    });
+
+    const rates = await fetchExchangeRates(mockFetch);
+    expect(rates.EUR).toBe(0.95);
+    expect(rates.GBP).toBe(0.82);
+
+    const cached = JSON.parse(localStorage.getItem('cara_exchange_rates_cache'));
+    expect(cached.rates.EUR).toBe(0.95);
+    expect(cached.timestamp).toBeGreaterThan(0);
   });
 });
