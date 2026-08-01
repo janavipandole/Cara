@@ -3,6 +3,8 @@
  * Resolves: https://github.com/janavipandole/Cara/issues/2112
  */
 
+const outfitEngine = typeof OutfitCompatibilityEngine !== 'undefined' ? new OutfitCompatibilityEngine() : null;
+
 const COLOR_HARMONY = {
   red: ['white', 'black', 'navy', 'beige', 'grey'],
   orange: ['white', 'black', 'brown', 'navy', 'beige'],

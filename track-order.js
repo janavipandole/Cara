@@ -10,7 +10,7 @@ if (copyrightYearEl) {
   copyrightYearEl.textContent = new Date().getFullYear();
 }
 
-// ── Mock order database ───────────────────────────────────
+const telemetryEngine = typeof OrderTelemetryTracker !== 'undefined' ? new OrderTelemetryTracker() : null;
 // In a real app this would be a backend API call.
 // We use a demo entry so reviewers can test the UI immediately.
 const MOCK_ORDERS = {
@@ -165,6 +165,7 @@ function setLoading(isLoading) {
 
 // ── Render the result card ────────────────────────────────
 function renderResult(order) {
+  if (!order) return;
   // Save order tracking parameters to localStorage for history retention
   localStorage.setItem('cara_last_tracked_id', order.id);
   const emailInput = document.getElementById('orderEmail');
@@ -182,9 +183,11 @@ function renderResult(order) {
 
   // Status badge colour
   const badge = document.getElementById('statusBadge');
-  badge.className = 'order-status-badge';
-  if (order.status === 'Delivered') badge.classList.add('delivered');
-  if (order.status === 'In Transit') badge.classList.add('in-transit');
+  if (badge) {
+    badge.className = 'order-status-badge';
+    if (order.status === 'Delivered') badge.classList.add('delivered');
+    if (order.status === 'In Transit') badge.classList.add('in-transit');
+  }
 
   // Dynamic live progress bar tracker (Simulated Distance Cover)
   let liveContainer = document.getElementById('liveProgressBarWrap');

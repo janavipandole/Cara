@@ -15,24 +15,14 @@ function safeParseJSON(key, fallback = '[]') {
 }
 
 const API_BASE_URL = window.CARA_API_BASE_URL || '';
+const promoCalcEngine = typeof PromoDiscountCalculator !== 'undefined' ? new PromoDiscountCalculator() : null;
 
-function getStoredAuthToken() {
-  return (
-    localStorage.getItem('access_token') ||
-    localStorage.getItem('cara_user_token') ||
-    ''
-  );
-}
 
 function buildAuthHeaders(extraHeaders = {}) {
-  const headers = { ...extraHeaders };
-  const token = getStoredAuthToken();
-
-  if (token) {
-    headers.Authorization = `Bearer ${token}`;
-  }
-
-  return headers;
+  // Auth is handled entirely by the httpOnly access_token cookie, which the
+  // browser attaches automatically because these fetch calls use
+  // credentials: 'include'. There is nothing to read from localStorage.
+  return { ...extraHeaders };
 }
 
 const paymentMethod = document.getElementById('paymentMethod');
@@ -102,6 +92,7 @@ const errorMessages = {
 
 // --- Validate a single field ---
 function validateField(input) {
+  if (!input) return false;
   const field = input.dataset.validate;
   if (!field) return true;
 
@@ -260,6 +251,7 @@ form.addEventListener('submit', function (e) {
 });
 
 function submitCheckoutForm() {
+  if (!form) return;
   const inputs = form.querySelectorAll(
     'input[data-validate], textarea[data-validate], select[data-validate]',
   );

@@ -23,7 +23,8 @@ async function fetchContributors() {
 function displayContributors(contributors) {
   contributorsGrid.innerHTML = '';
 
-  contributors.forEach((contributor) => {
+  const fragment = document.createDocumentFragment();
+  contributors.map((contributor) => {
     const card = document.createElement('div');
 
     card.className = 'contributor-card';
@@ -63,8 +64,9 @@ function displayContributors(contributors) {
 
     `;
 
-    contributorsGrid.appendChild(card);
+    fragment.appendChild(card);
   });
+  contributorsGrid.appendChild(fragment);
 }
 
 fetchContributors();

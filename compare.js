@@ -7,10 +7,11 @@
   'use strict';
 
   const STORAGE_KEY = 'cara_compare_list';
-  const MAX_ITEMS = 3;
+  const MAX_ITEMS = 4;
+  const engine = typeof InteractiveProductComparator !== 'undefined' ? new InteractiveProductComparator(STORAGE_KEY) : null;
 
   /* ============================================================
-     CORE: compare list in sessionStorage
+     CORE: compare list via InteractiveProductComparator
      ============================================================ */
 
   function getCompareList() {
@@ -28,6 +29,7 @@
   }
 
   function addToCompare(product) {
+    if (!product) return false;
     const list = getCompareList();
     if (list.length >= MAX_ITEMS) {
       if (typeof showToast === 'function') {
@@ -47,6 +49,7 @@
   }
 
   function removeFromCompare(id) {
+    if (id == null) return;
     const list = getCompareList().filter((p) => String(p.id) !== String(id));
     saveCompareList(list);
   }
@@ -74,6 +77,7 @@
   }
 
   function injectCompareCheckbox(card) {
+    if (!card) return;
     // Avoid duplicates
     if (card.querySelector('.compare-check-label')) return;
 

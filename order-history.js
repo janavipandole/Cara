@@ -1,12 +1,6 @@
 const ORDER_API_BASE_URL = window.CARA_API_BASE_URL || '';
 
-function getAuthToken() {
-  return (
-    localStorage.getItem('access_token') ||
-    localStorage.getItem('cara_user_token') ||
-    ''
-  );
-}
+
 
 function formatCurrency(amount) {
   return new Intl.NumberFormat('en-IN', {
@@ -16,16 +10,10 @@ function formatCurrency(amount) {
 }
 
 function authFetch(url, options = {}) {
-  const headers = { ...(options.headers || {}) };
-  const token = getAuthToken();
-
-  if (token) {
-    headers.Authorization = `Bearer ${token}`;
-  }
-
+  // Auth is carried by the httpOnly access_token cookie, attached
+  // automatically because of credentials: 'include'.
   return fetch(url, {
     ...options,
-    headers,
     credentials: 'include',
   });
 }
