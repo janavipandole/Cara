@@ -18,8 +18,7 @@
     try {
       return JSON.parse(sessionStorage.getItem(STORAGE_KEY)) || [];
     } catch (err) {
-    console.warn('Failed to compare products:', err);
-  }
+      console.warn('Failed to compare products:', err);
       return [];
     }
   }
@@ -200,53 +199,94 @@
       { label: 'Action', key: 'action' },
     ];
 
-    let html =
-      '<div class="compare-table-wrapper"><table class="compare-table"><tbody>';
+    const goToProduct = (name) => {
+      window.localStorage.setItem('selectedProductId', name);
+      window.location.href = 'singleProduct.html';
+    };
+
+    wrapper.innerHTML = '';
+    const container = document.createElement('div');
+    container.className = 'compare-table-wrapper';
+    const table = document.createElement('table');
+    table.className = 'compare-table';
+    const tbody = document.createElement('tbody');
 
     rows.forEach(({ label, key }) => {
-      html += '<tr>';
-      html += '<td class="row-label">' + label + '</td>';
+      const tr = document.createElement('tr');
+
+      const labelCell = document.createElement('td');
+      labelCell.className = 'row-label';
+      labelCell.textContent = label;
+      tr.appendChild(labelCell);
 
       list.forEach((p) => {
         if (key === 'header') {
-          html += '<th class="product-header">';
-          html +=
-            '<img src="' +
-            (p.img || 'images/products/f1.jpg') +
-            '" alt="' +
-            p.name +
-            "\" onclick=\"window.localStorage.setItem('selectedProductId','" +
-            p.name.replace(/'/g, '') +
-            "');window.location.href='singleProduct.html'\" />";
-          html += '<div class="prod-name">' + p.name + '</div>';
-          html += '<div class="prod-brand">' + (p.brand || '—') + '</div>';
-          html +=
-            '<button class="remove-compare-btn" onclick="window.CaraCompare.remove(\'' +
-            p.id +
-            '\')">✕ Remove</button>';
-          html += '</th>';
+          const th = document.createElement('th');
+          th.className = 'product-header';
+
+          const img = document.createElement('img');
+          img.src = p.img || 'images/products/f1.jpg';
+          img.alt = p.name;
+          img.addEventListener('click', () => goToProduct(p.name));
+          th.appendChild(img);
+
+          const nameDiv = document.createElement('div');
+          nameDiv.className = 'prod-name';
+          nameDiv.textContent = p.name;
+          th.appendChild(nameDiv);
+
+          const brandDiv = document.createElement('div');
+          brandDiv.className = 'prod-brand';
+          brandDiv.textContent = p.brand || '—';
+          th.appendChild(brandDiv);
+
+          const removeBtn = document.createElement('button');
+          removeBtn.className = 'remove-compare-btn';
+          removeBtn.textContent = '✕ Remove';
+          removeBtn.addEventListener('click', () =>
+            window.CaraCompare.remove(p.id),
+          );
+          th.appendChild(removeBtn);
+
+          tr.appendChild(th);
         } else if (key === 'price') {
-          html += '<td class="price-val">' + (p.price || '—') + '</td>';
+          const td = document.createElement('td');
+          td.className = 'price-val';
+          td.textContent = p.price || '—';
+          tr.appendChild(td);
         } else if (key === 'rating') {
-          html += '<td>' + (p.rating ? renderStars(p.rating) : '—') + '</td>';
+          const td = document.createElement('td');
+          // renderStars() output is built from numeric values only, safe to insert.
+          td.innerHTML = p.rating ? renderStars(p.rating) : '—';
+          tr.appendChild(td);
         } else if (key === 'action') {
-          html +=
-            '<td><button class="add-cart-btn" onclick="window.localStorage.setItem(\'selectedProductId\',\'' +
-            p.name.replace(/'/g, '') +
-            "');window.location.href='singleProduct.html'\">View Product</button></td>";
+          const td = document.createElement('td');
+          const btn = document.createElement('button');
+          btn.className = 'add-cart-btn';
+          btn.textContent = 'View Product';
+          btn.addEventListener('click', () => goToProduct(p.name));
+          td.appendChild(btn);
+          tr.appendChild(td);
         } else if (['category', 'color', 'style'].includes(key)) {
-          html +=
-            '<td class="badge-cell"><span>' + (p[key] || '—') + '</span></td>';
+          const td = document.createElement('td');
+          td.className = 'badge-cell';
+          const span = document.createElement('span');
+          span.textContent = p[key] || '—';
+          td.appendChild(span);
+          tr.appendChild(td);
         } else {
-          html += '<td>' + (p[key] || '—') + '</td>';
+          const td = document.createElement('td');
+          td.textContent = p[key] || '—';
+          tr.appendChild(td);
         }
       });
 
-      html += '</tr>';
+      tbody.appendChild(tr);
     });
 
-    html += '</tbody></table></div>';
-    wrapper.innerHTML = html;
+    table.appendChild(tbody);
+    container.appendChild(table);
+    wrapper.appendChild(container);
   }
 
   function initComparePage() {

@@ -449,25 +449,33 @@ function renderCheckoutItems() {
     return;
   }
 
-  container.innerHTML = cart
-    .map((item) => {
-      const itemPrice = parsePriceString(item.price);
-      const itemQty = parseInt(item.quantity, 10) || 1;
-      const sizeStr = item.size ? `Size ${item.size}` : 'Standard';
-      return `
-      <div class="order-item" style="display: flex; gap: 15px; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 12px;">
+  container.innerHTML = '';
+  cart.forEach((item) => {
+    const itemPrice = parsePriceString(item.price);
+    const itemQty = parseInt(item.quantity, 10) || 1;
+    const sizeStr = item.size ? `Size ${item.size}` : 'Standard';
+
+    const row = document.createElement('div');
+    row.className = 'order-item';
+    row.style.cssText =
+      'display: flex; gap: 15px; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 12px;';
+    row.innerHTML = `
         <div class="item-thumb" style="width: 50px; height: 50px; border-radius: 6px; overflow: hidden; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; background: #fff;">
-          <img src="${item.img || 'images/products/placeholder.jpg'}" alt="${item.name}" style="max-width: 100%; max-height: 100%; object-fit: cover;" onerror="this.src='images/products/placeholder.jpg'">
+          <img class="item-thumb-img" alt="" style="max-width: 100%; max-height: 100%; object-fit: cover;" onerror="this.src='images/products/placeholder.jpg'">
         </div>
         <div class="item-info" style="flex: 1;">
-          <div class="item-name" style="font-weight: 600; font-size: 14px; color: var(--color-heading);">${item.name}</div>
-          <div class="item-meta" style="font-size: 12px; color: #777;">${sizeStr} · Qty ${itemQty}</div>
+          <div class="item-name" style="font-weight: 600; font-size: 14px; color: var(--color-heading);"></div>
+          <div class="item-meta" style="font-size: 12px; color: #777;"></div>
         </div>
         <span class="item-price-col" style="font-weight: 600; font-size: 14px; color: #088178;">${formatCurrency(itemPrice * itemQty)}</span>
-      </div>
-    `;
-    })
-    .join('');
+      `;
+    row.querySelector('.item-thumb-img').src =
+      item.img || 'images/products/placeholder.jpg';
+    row.querySelector('.item-thumb-img').alt = item.name;
+    row.querySelector('.item-name').textContent = item.name;
+    row.querySelector('.item-meta').textContent = `${sizeStr} · Qty ${itemQty}`;
+    container.appendChild(row);
+  });
 }
 
 window.updateCheckoutSummary = function () {
@@ -533,9 +541,10 @@ window.updateCheckoutSummary = function () {
       if (grandRow) grandRow.parentNode.insertBefore(couponRow, grandRow);
     }
     couponRow.innerHTML = `
-      <span>Discount (${couponCode}) <button type="button" class="btn-remove-coupon" id="btnRemoveCoupon" aria-label="Remove coupon" style="background:none; border:none; color:#ef4444; cursor:pointer; font-weight:bold; font-size:16px; margin-left:5px; padding:0;">×</button></span>
+      <span>Discount (<span class="coupon-code-label"></span>) <button type="button" class="btn-remove-coupon" id="btnRemoveCoupon" aria-label="Remove coupon" style="background:none; border:none; color:#ef4444; cursor:pointer; font-weight:bold; font-size:16px; margin-left:5px; padding:0;">×</button></span>
       <span>-${formatCurrency(couponDiscount)}</span>
     `;
+    couponRow.querySelector('.coupon-code-label').textContent = couponCode;
     const removeBtn = document.getElementById('btnRemoveCoupon');
     if (removeBtn) {
       removeBtn.onclick = function () {
