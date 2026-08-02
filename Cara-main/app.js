@@ -227,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Update cart count badge
 function updateCartCount() {
-  let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+  let cart = (JSON.parse(localStorage.getItem('productsInCart') ?? "null") ?? null) || [];
 
   // 🔥 FIX: sanitize stored quantities
   cart = (cart ?? []).map((item) => {
@@ -275,7 +275,7 @@ document.addEventListener('DOMContentLoaded', updateCartCount);
 
 // NEW: Function to toggle visibility of empty cart message
 function handleEmptyCartView() {
-  const cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+  const cart = (JSON.parse(localStorage.getItem('productsInCart') ?? "null") ?? null) || [];
   const cartGrid = document.getElementById('cart-container');
   const emptyContainer = document.getElementById('empty-cart-container');
 
@@ -291,7 +291,7 @@ function handleEmptyCartView() {
 }
 
 function addToCart(productName, productPrice, productImage, quantity, size) {
-  let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+  let cart = (JSON.parse(localStorage.getItem('productsInCart') ?? "null") ?? null) || [];
   let item = {
     name: productName,
     price: parseFloat(productPrice.replace(/[₹$,]/g, '')),
@@ -531,7 +531,7 @@ async function hashString(str) {
 }
 
 window.loadCart = function () {
-  let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+  let cart = (JSON.parse(localStorage.getItem('productsInCart') ?? "null") ?? null) || [];
 
   /* Fixed: removed dead newRow reference that caused ReferenceError (issue #810) */ handleEmptyCartView();
 
@@ -644,7 +644,7 @@ window.loadCart = function () {
 };
 
 window.changeQuantity = function (index, change) {
-  let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+  let cart = (JSON.parse(localStorage.getItem('productsInCart') ?? "null") ?? null) || [];
   if (!cart[index]) return;
 
   let newQty = cart[index].quantity + change;
@@ -683,7 +683,7 @@ window.applyCoupon = async function () {
 };
 
 window.removeItem = function (index) {
-  let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+  let cart = (JSON.parse(localStorage.getItem('productsInCart') ?? "null") ?? null) || [];
   const removedName = cart[index] ? cart[index].name : 'Item';
   cart.splice(index, 1);
   localStorage.setItem('productsInCart', JSON.stringify(cart));

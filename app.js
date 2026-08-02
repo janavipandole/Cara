@@ -486,7 +486,7 @@ function getWishlist() {
     wishlist = [];
   }
   const normalized = Array.isArray(wishlist)
-    ? wishlist.map(normalizeWishlistItem)
+    ? (wishlist ?? []).map(normalizeWishlistItem)
     : [];
   return refreshWishlistPrices(normalized);
 }
