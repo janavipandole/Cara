@@ -292,7 +292,7 @@
     document.addEventListener('DOMContentLoaded', function () {
       if (!document.getElementById('recently-viewed-container')) return;
 
-      if (root.location.pathname.indexOf('singleProduct') !== -1) {
+      if (root.location.pathname.includes('singleProduct')) {
         initSingleProductPage();
       } else {
         initShopPage();

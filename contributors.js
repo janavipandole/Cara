@@ -6,7 +6,8 @@ async function fetchContributors() {
       'https://api.github.com/repos/janavipandole/Cara/contributors',
     );
 
-    const data = await response.json();
+    if (!response.ok) throw new Error("Request failed");
+const data = await response.json();
 
     displayContributors(data);
   } catch (error) {
