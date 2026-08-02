@@ -103,7 +103,7 @@ function loadNavbar(activePage) {
 
   const container = document.getElementById('navbar-container');
   if (container) {
-    container.innerHTML = navbarHTML;
+    container.textContent = navbarHTML;
   } else {
     // Silently return for pages that use a hardcoded navbar (e.g. index.html)
     return;

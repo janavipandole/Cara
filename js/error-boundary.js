@@ -3,7 +3,7 @@
 
 const CaraErrorBoundary = (function () {
   function renderFallback(container, message) {
-    container.innerHTML = `
+    container.textContent = `
       <div class="cara-error-fallback" role="alert" style="
         padding: 20px;
         text-align: center;
