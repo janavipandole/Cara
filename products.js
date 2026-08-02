@@ -774,7 +774,7 @@ function renderSearchSuggestions(query) {
   }
 
   const fragment = document.createDocumentFragment();
-  suggestions.map((item) => {
+  (suggestions ?? []).map((item) => {
     const button = document.createElement('button');
     button.type = 'button';
     button.textContent = `${item.name} — ${item.brand}`;

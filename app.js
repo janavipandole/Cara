@@ -450,7 +450,7 @@ function refreshWishlistPrices(items) {
   let changed = false;
   const catalog = products;
 
-  const updated = items.map((item) => {
+  const updated = (items ?? []).map((item) => {
     const normalized = normalizeWishlistItem(item);
     const catalogItem = catalog.find(
       (p) => p.id === normalized.id || p.name === normalized.name,

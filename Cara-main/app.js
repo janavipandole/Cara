@@ -230,7 +230,7 @@ function updateCartCount() {
   let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
 
   // 🔥 FIX: sanitize stored quantities
-  cart = cart.map((item) => {
+  cart = (cart ?? []).map((item) => {
     let qty = parseInt(item.quantity, 10);
 
     if (Number.isNaN(qty) || qty < 1) qty = 1;
