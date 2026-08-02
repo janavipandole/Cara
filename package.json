@@ -12,17 +12,21 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "minify": "terser app.js -o app.min.js && terser navbar.js -o navbar.min.js",
-    "prepare": "husky"
+    "prepare": "husky",
+    "check-links": "node scripts/check-external-links.js"
   },
   "lint-staged": {
-    "*.js": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.css": [
-      "prettier --write"
-    ]
-  },
+  "*.js": [
+    "eslint --fix",
+    "prettier --write"
+  ],
+  "*.css": [
+    "prettier --write"
+  ],
+  "*.html": [
+    "node scripts/check-external-links.js"
+  ]
+},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/janavipandole/Cara.git"
