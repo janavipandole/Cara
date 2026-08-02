@@ -1,7 +1,7 @@
 // Client-Side Error Boundary and Logger
 window.addEventListener('error', (event) => {
   console.error('Runtime exception caught: ', event.error);
-  const errors = JSON.parse(localStorage.getItem('cara_runtime_errors')) || [];
+  const errors = (JSON.parse(localStorage.getItem('cara_runtime_errors') ?? "null") ?? null) || [];
   errors.push({
     message: event.message,
     filename: event.filename,

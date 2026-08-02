@@ -151,7 +151,7 @@
     setTimeout(() => {
       showLiveToast();
       // Setup recurring timer afterwards
-      setInterval(showLiveToast, POPUP_INTERVAL);
+      clearInterval(window.__iv); window.__iv = setInterval(showLiveToast, POPUP_INTERVAL);
     }, 6000);
   }
 
