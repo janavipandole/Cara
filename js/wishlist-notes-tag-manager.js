@@ -60,7 +60,7 @@ class WishlistNotesTagManager {
   }
 
   setPriority(productId, priority) {
-    const validPriority = Math.max(0, Math.min(5, parseInt(priority) || 0));
+    const validPriority = Math.max(0, Math.min(5, parseInt(priority, 10) || 0));
     if (!this.data[productId]) {
       this.data[productId] = { note: '', tags: [], priority: validPriority, addedAt: new Date().toISOString() };
     } else {
