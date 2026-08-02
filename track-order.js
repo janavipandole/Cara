@@ -314,7 +314,7 @@ function renderResult(order) {
 
 function calculateEstimatedDelivery(orderDateStr, carrier) {
   const orderDate = new Date(orderDateStr);
-  if (isNaN(orderDate.getTime())) return orderDateStr;
+  if (Number.isNaN(orderDate.getTime())) return orderDateStr;
 
   let daysToAdd = 5; // Standard Shipping
   if (carrier === 'FedEx Express') daysToAdd = 2;

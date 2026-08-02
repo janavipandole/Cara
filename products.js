@@ -368,7 +368,7 @@ function renderStars(baseRating, productId) {
   const savedRating = parseFloat(
     localStorage.getItem('userRating_' + productId),
   );
-  const displayRating = !isNaN(savedRating) ? savedRating : baseRating;
+  const displayRating = !Number.isNaN(savedRating) ? savedRating : baseRating;
 
   const starDiv = document.createElement('div');
   starDiv.className = 'star';

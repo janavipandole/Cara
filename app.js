@@ -726,7 +726,7 @@ function addToCart(productName, productPrice, productImage, quantity, size) {
   return withCartLock(() => {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
     let parsedQty = parseInt(quantity, 10);
-    if (isNaN(parsedQty) || parsedQty < 1) parsedQty = 1;
+    if (Number.isNaN(parsedQty) || parsedQty < 1) parsedQty = 1;
 
     let item = {
       name: productName,
@@ -811,7 +811,7 @@ window.updateQty = function (change) {
   quantity += change;
 
   // ✅ Fix starts here
-  if (isNaN(quantity) || quantity < 1) {
+  if (Number.isNaN(quantity) || quantity < 1) {
     quantity = 1;
   }
 
@@ -853,7 +853,7 @@ window.handleAddToCart = function () {
     showToast('Please select a size before adding to cart!', 'warning');
     return;
   }
-  if (quantity < 1 || isNaN(quantity)) {
+  if (quantity < 1 || Number.isNaN(quantity)) {
     showToast('Please enter a valid quantity.', 'warning');
     return;
   }
@@ -890,7 +890,7 @@ window.handleBuyNow = function () {
     showToast('Please select a size before proceeding!', 'warning');
     return;
   }
-  if (quantity < 1 || isNaN(quantity)) {
+  if (quantity < 1 || Number.isNaN(quantity)) {
     showToast('Please enter a valid quantity.', 'warning');
     return;
   }
