@@ -45,17 +45,13 @@
   <link rel="stylesheet" href="a11y-utilities.css">
   <link rel="stylesheet" href="toast-queue.css">
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="cart.css" />
   <link rel="stylesheet" href="stock-alert.css">
   <link rel="stylesheet" href="currency-converter.css">
-  <link rel="stylesheet" href="ui-fix.css" />
-  <link rel="stylesheet" href="currency-converter.css">
-  <link rel="stylesheet" href="a11y-utilities.css">
-  <link rel="stylesheet" href="empty-cart.css" />
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="stock-alert.css">
 
   <style>
     /* ================================================================
@@ -269,6 +265,7 @@ body footer.section-p1 .copyright a {
 
     /* Obliterate the dynamic template from the viewport */
 body > div:not(#header):not(#cart-content-wrapper),
+body > section:not(#header):not(#cart-content-wrapper),
 body > span,
 form + div:not(.col),
 button + button {

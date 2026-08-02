@@ -17,8 +17,8 @@
 .cartmain {
     display: flex;
     flex-direction: column;
-    gap: 100%;
-    width: center;
+    width: 100%;
+    margin: 40px 0;
 }
 
         #page-header.about-header {
@@ -49,7 +49,7 @@
 
 @media (min-width: 992px) {
     .cart-grid-layout {
-        grid-template-columns: 5fr 5fr; /* Creates the perfect 70/30 split */
+        grid-template-columns: 7fr 3fr; /* Creates the perfect 70/30 split */
     }
 }
 
@@ -558,6 +558,7 @@ body footer.section-p1 .copyright a {
             font-weight: 700;
             color: var(--text-primary);
             pointer-events: none;
+            appearance: textfield;
             -moz-appearance: textfield;
         }
 
@@ -971,3 +972,4 @@ body footer.section-p1 .copyright a {
 }
 
 @import url('assets/css/toast-notifications.css');
+}
