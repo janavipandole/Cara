@@ -139,7 +139,7 @@ form.addEventListener('submit', function (e) {
   e.preventDefault();
 
   // GET CART
-  let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+  let cart = (() => { try { return JSON.parse(localStorage.getItem('productsInCart')) } catch { return null } })() || [];
 
   // CHECK EMPTY CART
   if (cart.length === 0) {
