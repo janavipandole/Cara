@@ -1600,7 +1600,10 @@ function initHeroSlider() {
       ((currentSlide % slides.length) + slides.length) % slides.length;
     slides[currentSlide].classList.add('active');
     if (dots[currentSlide]) dots[currentSlide].classList.add('active');
-    console.debug('hero-slider: show slide', currentSlide);
+    console.debug('hero-slider: initialized', {
+  slideCount: slides.length,
+  startIndex: currentSlide,
+});
   }
 
   function nextSlide() {

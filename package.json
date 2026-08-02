@@ -11,7 +11,7 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "minify": "terser app.js -o app.min.js && terser navbar.js -o navbar.min.js",
+"minify": "terser app.js -c pure_funcs=['console.log','console.debug','console.info'],passes=2 -m -o app.min.js && terser navbar.js -c pure_funcs=['console.log','console.debug','console.info'],passes=2 -m -o navbar.min.js",
     "prepare": "husky"
   },
   "lint-staged": {
