@@ -233,7 +233,7 @@ function updateCartCount() {
   cart = cart.map((item) => {
     let qty = parseInt(item.quantity, 10);
 
-    if (isNaN(qty) || qty < 1) qty = 1;
+    if (Number.isNaN(qty) || qty < 1) qty = 1;
     if (qty > 99) qty = 99;
 
     return { ...item, quantity: qty };
@@ -245,7 +245,7 @@ function updateCartCount() {
     let quantity = parseInt(item.quantity, 10);
 
     // ✅ VALIDATION (CRITICAL FIX)
-    if (isNaN(quantity) || quantity < 1) {
+    if (Number.isNaN(quantity) || quantity < 1) {
       quantity = 1;
     }
 
@@ -495,7 +495,7 @@ window.handleAddToCart = function () {
     showToast('Please select a size before adding to cart!', 'warning');
     return;
   }
-  if (quantity < 1 || isNaN(quantity)) {
+  if (quantity < 1 || Number.isNaN(quantity)) {
     showToast('Please enter a valid quantity.', 'warning');
     return;
   }
@@ -546,7 +546,7 @@ window.loadCart = function () {
 
     let quantity = parseInt(item.quantity, 10);
 
-    if (isNaN(quantity) || quantity < 1) {
+    if (Number.isNaN(quantity) || quantity < 1) {
       quantity = 1;
     }
 

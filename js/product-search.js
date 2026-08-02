@@ -273,7 +273,7 @@
   if (priceMinInput) {
     priceMinInput.addEventListener('change', () => {
       const val = parseFloat(priceMinInput.value);
-      if (priceMinInput.value !== '' && (isNaN(val) || val < 0)) {
+      if (priceMinInput.value !== '' && (Number.isNaN(val) || val < 0)) {
         priceMinInput.value = '';
         return;
       }
@@ -286,7 +286,7 @@
   if (priceMaxInput) {
     priceMaxInput.addEventListener('change', () => {
       const val = parseFloat(priceMaxInput.value);
-      if (priceMaxInput.value !== '' && (isNaN(val) || val < 0)) {
+      if (priceMaxInput.value !== '' && (Number.isNaN(val) || val < 0)) {
         priceMaxInput.value = '';
         return;
       }
