@@ -40,7 +40,7 @@ class ProductReviewAggregator {
     const newReview = {
       id: `rev_${Date.now()}`,
       productId,
-      rating: parseInt(rating),
+      rating: parseInt(rating, 10),
       title: (title || '').trim().slice(0, 80),
       body: (body || '').trim().slice(0, 500),
       author: (author || 'Anonymous').trim().slice(0, 40),
