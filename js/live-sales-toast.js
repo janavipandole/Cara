@@ -81,7 +81,7 @@
     // Create toast element
     const toast = document.createElement('div');
     toast.className = 'live-sales-toast';
-    toast.innerHTML = `
+    toast.textContent = `
       <button class="live-sales-close" aria-label="Dismiss">&times;</button>
       <div class="live-sales-img-wrapper">
         <img src="${product.img}" alt="${product.name}">
@@ -96,7 +96,7 @@
       </div>
     `;
 
-    container.innerHTML = '';
+    container.textContent = '';
     container.appendChild(toast);
 
     // Slide-in after a tick
