@@ -104,7 +104,7 @@ function getStyleGroup(item) {
 }
 
 function capitalise(str) {
-  return str ? str.charAt(0).toUpperCase() + str.slice(1) : str;
+  return str ? str[0].toUpperCase() + str.slice(1) : str;
 }
 
 function checkOutfitCompatibility({
@@ -123,7 +123,7 @@ function checkOutfitCompatibility({
     const suggestions = COLOR_HARMONY[topColor] || [];
     messages.push({
       type: 'error',
-      text: `⚠️ ${capitalise(topColor)} and ${capitalise(bottomColor)} clash. Try pairing ${capitalise(topColor)} with: ${suggestions.map(capitalise).join(', ')}.`,
+      text: `⚠️ ${capitalise(topColor)} and ${capitalise(bottomColor)} clash. Try pairing ${capitalise(topColor)} with: ${(suggestions ?? []).map(capitalise).join(', ')}.`,
     });
   } else {
     const harmonious = COLOR_HARMONY[topColor]?.includes(bottomColor);
