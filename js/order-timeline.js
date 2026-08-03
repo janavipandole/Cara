@@ -3,7 +3,16 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!trackingBox) return;
 
     let stageIndex = 1; // Start at 'Confirmed'/'Processing' (index 1)
-    
+
+    function _escape(str) {
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+
     function renderTimeline() {
         let simulator = null;
         let stages = ['Placed', 'Processing', 'Shipped', 'Delivered'];
@@ -29,12 +38,12 @@ document.addEventListener("DOMContentLoaded", () => {
             const bg = isActive ? '#088178' : '#ccc';
             const color = 'white';
             const timeStr = isActive ? (simulator ? simulator.getSimulatedTimestamp(idx, baseTime) : new Date().toLocaleTimeString()) : '';
-            
+
             html += `
                 <div class="timeline-step" style="z-index:3; text-align:center;">
                     <div style="width:28px; height:28px; border-radius:50%; background:${bg}; color:${color}; line-height:28px; margin:0 auto; font-weight:bold;">${idx + 1}</div>
-                    <p style="font-size:12px; margin-top:5px; font-weight:600;">${stage}</p>
-                    <p class="timeline-time" style="font-size:10px; color:#777; margin-top:2px;">${timeStr}</p>
+                    <p style="font-size:12px; margin-top:5px; font-weight:600;">${_escape(stage)}</p>
+                    <p class="timeline-time" style="font-size:10px; color:#777; margin-top:2px;">${_escape(timeStr)}</p>
                 </div>
             `;
         });
