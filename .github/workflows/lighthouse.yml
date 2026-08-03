@@ -1,4 +1,4 @@
-name: Lighthouse CI
+﻿name: Lighthouse CI
 
 on:
   pull_request:
@@ -18,8 +18,8 @@ jobs:
         with:
           urls: |
             http://localhost:3000/index.html
-            http://localhost:3000/shop.html
-          budgetPath: ./budgets.json
+            http://localhost:3000/pages/shop.html
+          budgetPath: ./config/budgets.json
           uploadArtifacts: true
           temporaryPublicStorage: true
 

@@ -1,4 +1,4 @@
-name: HTML Validation & Code Quality
+﻿name: HTML Validation & Code Quality
 
 on:
   pull_request:
@@ -42,7 +42,7 @@ jobs:
         run: |
           echo "=== Validating HTML files ==="
           # Validate core HTML pages (exclude Cara-main subfolder)
-          find . -maxdepth 1 -name "*.html" | sort | while read file; do
+          find . -maxdepth 1 -name "*.html" -o -path "./pages/*.html" | sort | while read file; do
             echo "Validating: $file"
             html-validate "$file" || true
           done

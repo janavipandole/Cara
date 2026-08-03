@@ -1,8 +1,8 @@
-# 🛍️ Cara - E-commerce Platform
+﻿# 🛍️ Cara - E-commerce Platform
 
 ## Architecture Overview
 
-- **Architecture Specification**: Detailed system design and flow diagrams in [ARCHITECTURE.md](ARCHITECTURE.md).
+- **Architecture Specification**: Detailed system design and flow diagrams in [ARCHITECTURE.md](docs/ARCHITECTURE.md).
 - **API Reference**: Comprehensive module API endpoints in [API Reference](docs/API_REFERENCE.md).
 - **Development Standards**: Coding guidelines and CSS tokens in [Style Guide](docs/STYLE_GUIDE.md).
 - **Deployment Guide**: Containerized Docker setup in [Deployment Guide](docs/DEPLOYMENT.md).
@@ -20,7 +20,7 @@
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26.svg?&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6.svg?&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E.svg?&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](/.github/.github/CONTRIBUTING.md)
 [![GitHub Contributors](https://img.shields.io/github/contributors/janavipandole/Cara)](https://github.com/janavipandole/Cara/graphs/contributors)
 [![GitHub Last Commit](https://img.shields.io/github/last-commit/janavipandole/Cara)](https://github.com/janavipandole/Cara/commits/main)
 
@@ -296,7 +296,7 @@ See the [open issues](https://github.com/janavipandole/Cara/issues) for a full l
 ## 🤝 Contributing
 
 Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-Please read our [Contributing Guidelines](CONTRIBUTING.md) before submitting a Pull Request.
+Please read our [Contributing Guidelines](/.github/.github/CONTRIBUTING.md) before submitting a Pull Request.
 
 ### How to Contribute
 

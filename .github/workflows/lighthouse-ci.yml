@@ -1,4 +1,4 @@
-name: Lighthouse Performance Audit
+﻿name: Lighthouse Performance Audit
 
 on:
   push:
@@ -18,5 +18,5 @@ jobs:
         with:
           urls: |
             https://cara-ecomm.netlify.app/
-          budgetPath: ./budgets.json
+          budgetPath: ./config/budgets.json
           uploadArtifacts: true
