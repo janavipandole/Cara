@@ -1,1 +1,1 @@
-console.info('FAB initialized');
+
