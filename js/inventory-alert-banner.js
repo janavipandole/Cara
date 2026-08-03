@@ -11,7 +11,7 @@ export function renderInventoryBanner(containerId, message, type = 'warning') {
   banner.setAttribute('aria-live', 'polite');
   banner.innerHTML = `
     <div class="inventory-banner-content">
-      <span class="inventory-banner-icon">${type === 'warning' ? '⚠️' : 'ℹ️'}</span>
+      <span class="inventory-banner-icon">${type === 'warning' ? 'Warning:' : 'Info:'}</span>
       <span class="inventory-banner-text">${message}</span>
     </div>
     <button class="inventory-banner-close" aria-label="Dismiss banner">&times;</button>
