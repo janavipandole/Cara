@@ -1,4 +1,3 @@
-/* global fetchWithTimeout */
 const API_BASE_URL = window.CARA_API_BASE_URL || '';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -123,12 +122,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!res.ok) {
         throw new Error(data.detail || 'Registration failed');
       }
-  
-        // The server already issued the access/refresh tokens as httpOnly,
-       // Secure, SameSite cookies (see set_auth_cookies in backend/app/api/auth.py).
+
+      // The server already issued the access/refresh tokens as httpOnly,
+      // Secure, SameSite cookies (see set_auth_cookies in backend/app/api/auth.py).
       // Do NOT mirror them into localStorage - that would defeat the whole
-     // point of httpOnly cookies and expose the JWT to any XSS on the page.
-     
+      // point of httpOnly cookies and expose the JWT to any XSS on the page.
+
       messageBox.style.color = 'green';
       messageBox.innerText = 'Account created successfully! Redirecting...';
 

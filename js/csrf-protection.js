@@ -9,7 +9,9 @@ export function generateCSRFToken() {
       array[i] = Math.floor(Math.random() * 256);
     }
   }
-  return Array.from(array, (byte) => byte.toString(16).padStart(2, '0')).join('');
+  return Array.from(array, (byte) => byte.toString(16).padStart(2, '0')).join(
+    '',
+  );
 }
 
 export function getOrCreateCSRFToken() {
@@ -23,7 +25,8 @@ export function getOrCreateCSRFToken() {
 }
 
 export function injectCSRFInputs(formContainer = document) {
-  if (!formContainer || typeof formContainer.querySelectorAll !== 'function') return;
+  if (!formContainer || typeof formContainer.querySelectorAll !== 'function')
+    return;
   const token = getOrCreateCSRFToken();
   const forms = formContainer.querySelectorAll('form');
 

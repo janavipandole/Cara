@@ -1,1 +1,4 @@
-.skeleton { background: #ccc; animation: pulse 1.5s infinite; }
+.skeleton {
+  background: #ccc;
+  animation: pulse 1.5s infinite;
+}

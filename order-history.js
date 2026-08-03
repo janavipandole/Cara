@@ -1,7 +1,5 @@
 const ORDER_API_BASE_URL = window.CARA_API_BASE_URL || '';
 
-
-
 function formatCurrency(amount) {
   return new Intl.NumberFormat('en-IN', {
     style: 'currency',

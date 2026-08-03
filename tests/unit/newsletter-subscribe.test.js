@@ -28,7 +28,10 @@ describe('newsletter-subscribe Unit Tests', () => {
     const input = document.querySelector('input[type="email"]');
     const form = document.querySelector('.newsletter-form');
     input.value = emailValue;
-    const submitEvent = new Event('submit', { bubbles: true, cancelable: true });
+    const submitEvent = new Event('submit', {
+      bubbles: true,
+      cancelable: true,
+    });
     form.dispatchEvent(submitEvent);
   }
 
@@ -60,7 +63,9 @@ describe('newsletter-subscribe Unit Tests', () => {
     // Advance timers to fire the setTimeout callback in the module
     vi.advanceTimersByTime(900);
 
-    expect(alertSpy).toHaveBeenCalledWith('Successfully subscribed to newsletter!');
+    expect(alertSpy).toHaveBeenCalledWith(
+      'Successfully subscribed to newsletter!',
+    );
 
     vi.useRealTimers();
   });
@@ -86,7 +91,9 @@ describe('newsletter-subscribe Unit Tests', () => {
     const input = document.querySelector('input[type="email"]');
     input.value = 'user@example.com';
     const form = document.querySelector('.newsletter-form');
-    form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+    form.dispatchEvent(
+      new Event('submit', { bubbles: true, cancelable: true }),
+    );
 
     vi.advanceTimersByTime(900);
 

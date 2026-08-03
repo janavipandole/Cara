@@ -41,7 +41,11 @@ export class ProductReviewManager {
     }
 
     const parsedRating = Number(rating);
-    if (!Number.isInteger(parsedRating) || parsedRating < 1 || parsedRating > 5) {
+    if (
+      !Number.isInteger(parsedRating) ||
+      parsedRating < 1 ||
+      parsedRating > 5
+    ) {
       errors.push('Rating must be an integer between 1 and 5.');
     }
 

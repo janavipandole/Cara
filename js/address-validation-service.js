@@ -10,7 +10,7 @@ class AddressValidationService {
       IN: /^\d{6}$/,
       UK: /^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$/i,
       CA: /^[A-Z]\d[A-Z] ?\d[A-Z]\d$/i,
-      AU: /^\d{4}$/
+      AU: /^\d{4}$/,
     };
   }
 
@@ -20,16 +20,26 @@ class AddressValidationService {
     }
 
     const clean = postalCode.trim().toUpperCase();
-    const regex = this.postalRegex[country.toUpperCase()] || /^[A-Z0-9 -]{3,10}$/i;
+    const regex =
+      this.postalRegex[country.toUpperCase()] || /^[A-Z0-9 -]{3,10}$/i;
 
     if (!regex.test(clean)) {
-      return { valid: false, message: `Invalid postal code format for ${country}.` };
+      return {
+        valid: false,
+        message: `Invalid postal code format for ${country}.`,
+      };
     }
 
     return { valid: true, postalCode: clean };
   }
 
-  validateAddress({ street = '', city = '', state = '', postalCode = '', country = 'US' } = {}) {
+  validateAddress({
+    street = '',
+    city = '',
+    state = '',
+    postalCode = '',
+    country = 'US',
+  } = {}) {
     const errors = {};
 
     if (!street.trim() || street.trim().length < 5) {
@@ -60,9 +70,9 @@ class AddressValidationService {
             city: city.trim(),
             state: state.trim().toUpperCase(),
             postalCode: postalCode.trim().toUpperCase(),
-            country: country.trim().toUpperCase()
+            country: country.trim().toUpperCase(),
           }
-        : null
+        : null,
     };
   }
 }

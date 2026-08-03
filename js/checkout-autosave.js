@@ -15,7 +15,9 @@ export function getDraftField(id) {
 
 export function clearCheckoutDraft(fields = []) {
   if (typeof sessionStorage === 'undefined') return;
-  fields.forEach((id) => sessionStorage.removeItem(`cara_checkout_draft_${id}`));
+  fields.forEach((id) =>
+    sessionStorage.removeItem(`cara_checkout_draft_${id}`),
+  );
 }
 
 export function initCheckoutAutosave() {

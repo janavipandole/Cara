@@ -138,7 +138,9 @@ describe('i18n Unit Tests', () => {
     it('should have English and Spanish translation keys', () => {
       expect(translations.en.home).toBe('Home');
       expect(translations.es.home).toBe('Inicio');
-      expect(Object.keys(translations.en)).toEqual(Object.keys(translations.es));
+      expect(Object.keys(translations.en)).toEqual(
+        Object.keys(translations.es),
+      );
     });
   });
 });

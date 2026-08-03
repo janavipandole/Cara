@@ -10,12 +10,17 @@ class OutfitCompatibilityEngine {
       black: ['white', 'red', 'yellow', 'gray', 'denim'],
       blue: ['white', 'black', 'beige', 'gray', 'tan'],
       red: ['black', 'white', 'navy'],
-      green: ['white', 'beige', 'black']
+      green: ['white', 'beige', 'black'],
     };
   }
 
   evaluatePair(top, bottom) {
-    if (!top || !bottom) return { score: 0, rating: 'Incomplete', feedback: 'Please select both a top and a bottom item.' };
+    if (!top || !bottom)
+      return {
+        score: 0,
+        rating: 'Incomplete',
+        feedback: 'Please select both a top and a bottom item.',
+      };
 
     const topColor = (top.color || 'white').toLowerCase();
     const bottomColor = (bottom.color || 'black').toLowerCase();
@@ -27,7 +32,11 @@ class OutfitCompatibilityEngine {
       score += 20;
     }
 
-    if (top.style && bottom.style && top.style.toLowerCase() === bottom.style.toLowerCase()) {
+    if (
+      top.style &&
+      bottom.style &&
+      top.style.toLowerCase() === bottom.style.toLowerCase()
+    ) {
       score += 10;
     }
 
@@ -41,7 +50,7 @@ class OutfitCompatibilityEngine {
     return {
       score,
       rating,
-      feedback: `Color harmony between ${topColor} and ${bottomColor} scored ${score}%.`
+      feedback: `Color harmony between ${topColor} and ${bottomColor} scored ${score}%.`,
     };
   }
 }

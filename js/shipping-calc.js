@@ -53,12 +53,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (shippingEl && totalEl && subtotalEl && taxEl) {
       shippingEl.textContent = total === 0 ? 'FREE' : '₹' + total;
 
-      const subtotalText = subtotalEl.textContent.replace(/[^\d\.]/g, '');
+      const subtotalText = subtotalEl.textContent.replace(/[^\d.]/g, '');
       const subtotal = parseFloat(subtotalText) || 0;
-      const taxText = taxEl.textContent.replace(/[^\d\.]/g, '');
+      const taxText = taxEl.textContent.replace(/[^\d.]/g, '');
       const tax = parseFloat(taxText) || 0;
       const discount = discountEl
-        ? parseFloat(discountEl.textContent.replace(/[^\d\.]/g, '')) || 0
+        ? parseFloat(discountEl.textContent.replace(/[^\d.]/g, '')) || 0
         : 0;
 
       const newTotal = Math.max(0, subtotal + tax + total - discount);

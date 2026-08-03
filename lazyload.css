@@ -18,7 +18,7 @@ img.lazyloaded {
 }
 
 .image-skeleton-wrapper::after {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   right: 0;

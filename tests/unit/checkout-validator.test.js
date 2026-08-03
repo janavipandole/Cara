@@ -4,7 +4,7 @@ import {
   validateExpiryDate,
   validatePostalCode,
   validateEmail,
-  validatePhone
+  validatePhone,
 } from '../../js/checkout-validator.js';
 
 describe('Checkout Form Validator Unit Tests', () => {

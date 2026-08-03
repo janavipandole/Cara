@@ -31,7 +31,8 @@
     page_size: DEFAULT_PAGE_SIZE,
   };
   let activeController = null;
-  const smartEngine = typeof SmartSearchEngine !== 'undefined' ? new SmartSearchEngine() : null;
+  const smartEngine =
+    typeof SmartSearchEngine !== 'undefined' ? new SmartSearchEngine() : null;
 
   // ── DOM references ──────────────────────────────────────────────────────────
   const searchInput = document.getElementById('productSearchInput');
@@ -184,7 +185,7 @@
           // Expected when a newer request supersedes this one — ignore silently
           return;
         }
-        console.warn("[ProductSearch] Failed:", err);
+        console.warn('[ProductSearch] Failed:', err);
         if (productGrid) {
           productGrid.innerHTML =
             '<p class="search-error" role="alert">Failed to load results. Please try again.</p>';
@@ -239,7 +240,7 @@
         categorySelect.innerHTML = placeholder + opts;
       })
       .catch((err) => {
-        console.warn("[ProductSearch] Failed:", err);
+        console.warn('[ProductSearch] Failed:', err);
       });
   }
 

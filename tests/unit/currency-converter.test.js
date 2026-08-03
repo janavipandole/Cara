@@ -57,7 +57,9 @@ describe('Currency Converter Unit Tests', () => {
     expect(rates.EUR).toBe(0.95);
     expect(rates.GBP).toBe(0.82);
 
-    const cached = JSON.parse(localStorage.getItem('cara_exchange_rates_cache'));
+    const cached = JSON.parse(
+      localStorage.getItem('cara_exchange_rates_cache'),
+    );
     expect(cached.rates.EUR).toBe(0.95);
     expect(cached.timestamp).toBe(baseNow);
 

@@ -1,5 +1,9 @@
 import { describe, it, expect, vi } from 'vitest';
-import { getStockInfo, startStockReservationTimer, mockStockData } from '../../js/stock-simulator.js';
+import {
+  getStockInfo,
+  startStockReservationTimer,
+  mockStockData,
+} from '../../js/stock-simulator.js';
 
 describe('Stock Simulator Unit Tests', () => {
   it('should return stock details for a valid size', () => {
@@ -30,7 +34,7 @@ describe('Stock Simulator Unit Tests', () => {
     const onExpire = vi.fn();
 
     const interval = startStockReservationTimer(3, onTick, onExpire);
-    
+
     vi.advanceTimersByTime(1000);
     expect(onTick).toHaveBeenCalledWith(2);
 

@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (priceVal !== 'all') {
       filtered = filtered.filter((card) => {
         const priceText = card.querySelector('h4')?.textContent || '0';
-        const price = parseFloat(priceText.replace(/[^\d\.]/g, '')) || 0;
+        const price = parseFloat(priceText.replace(/[^\d.]/g, '')) || 0;
         return priceVal === 'low' ? price < 100 : price >= 100;
       });
     }
@@ -53,11 +53,11 @@ document.addEventListener('DOMContentLoaded', () => {
       filtered.sort((a, b) => {
         const pA =
           parseFloat(
-            a.querySelector('h4')?.textContent.replace(/[^\d\.]/g, ''),
+            a.querySelector('h4')?.textContent.replace(/[^\d.]/g, ''),
           ) || 0;
         const pB =
           parseFloat(
-            b.querySelector('h4')?.textContent.replace(/[^\d\.]/g, ''),
+            b.querySelector('h4')?.textContent.replace(/[^\d.]/g, ''),
           ) || 0;
         return sortVal === 'asc' ? pA - pB : pB - pA;
       });

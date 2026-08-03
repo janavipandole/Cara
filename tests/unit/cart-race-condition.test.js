@@ -51,7 +51,13 @@ describe('Cart Race Condition & Mutex Locking', () => {
   test('serializes concurrent addToCart calls without state overwrite', async () => {
     // Simulate 10 rapid concurrent addToCart invocations
     const additions = Array.from({ length: 10 }).map(() =>
-      addToCart('Cartoon Astronaut T-Shirts', '$78', 'img/products/f1.jpg', 1, 'M')
+      addToCart(
+        'Cartoon Astronaut T-Shirts',
+        '$78',
+        'img/products/f1.jpg',
+        1,
+        'M',
+      ),
     );
 
     await Promise.all(additions);

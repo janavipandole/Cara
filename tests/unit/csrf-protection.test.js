@@ -3,7 +3,7 @@ import {
   generateCSRFToken,
   getOrCreateCSRFToken,
   injectCSRFInputs,
-  attachCSRFHeader
+  attachCSRFHeader,
 } from '../../js/csrf-protection.js';
 
 describe('CSRF Protection Unit Tests', () => {

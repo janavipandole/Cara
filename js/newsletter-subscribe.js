@@ -32,9 +32,9 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
           alert('Successfully subscribed to newsletter!');
         }
-        
+
         if (input) input.value = '';
-        
+
         if (button) {
           button.disabled = false;
           button.textContent = 'Sign Up';

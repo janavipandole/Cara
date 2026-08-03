@@ -14,7 +14,10 @@
       if (!img.hasAttribute('alt')) {
         errors.push({
           element: img,
-          message: 'Image ' + (img.src ? '"' + img.src + '"' : '#' + i) + ' is missing an alt attribute.'
+          message:
+            'Image ' +
+            (img.src ? '"' + img.src + '"' : '#' + i) +
+            ' is missing an alt attribute.',
         });
       }
     });
@@ -23,13 +26,18 @@
     const buttons = document.querySelectorAll('button');
     buttons.forEach(function (btn, i) {
       const hasText = !!btn.textContent.trim();
-      const hasAriaLabel = btn.hasAttribute('aria-label') && !!btn.getAttribute('aria-label').trim();
+      const hasAriaLabel =
+        btn.hasAttribute('aria-label') &&
+        !!btn.getAttribute('aria-label').trim();
       const hasAriaLabelledby = btn.hasAttribute('aria-labelledby');
 
       if (!hasText && !hasAriaLabel && !hasAriaLabelledby) {
         errors.push({
           element: btn,
-          message: 'Button ' + (btn.id ? '"#' + btn.id + '"' : '#' + i) + ' has no accessible name.'
+          message:
+            'Button ' +
+            (btn.id ? '"#' + btn.id + '"' : '#' + i) +
+            ' has no accessible name.',
         });
       }
     });
@@ -62,13 +70,18 @@
         }
       }
 
-      const hasAriaLabel = input.hasAttribute('aria-label') && !!input.getAttribute('aria-label').trim();
+      const hasAriaLabel =
+        input.hasAttribute('aria-label') &&
+        !!input.getAttribute('aria-label').trim();
       const hasAriaLabelledby = input.hasAttribute('aria-labelledby');
 
       if (!hasLabel && !hasAriaLabel && !hasAriaLabelledby) {
         warnings.push({
           element: input,
-          message: 'Input ' + (input.name ? '"' + input.name + '"' : '#' + i) + ' has no associated label or aria-label.'
+          message:
+            'Input ' +
+            (input.name ? '"' + input.name + '"' : '#' + i) +
+            ' has no associated label or aria-label.',
         });
       }
     });

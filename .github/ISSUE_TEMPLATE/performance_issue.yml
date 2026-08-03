@@ -1,8 +1,8 @@
 ---
 name: ⚡ Performance Issue
 description: Report a performance degradation, slow page load, or memory leak in Cara
-title: "[Performance]: "
-labels: ["performance", "needs-triage"]
+title: '[Performance]: '
+labels: ['performance', 'needs-triage']
 assignees: []
 body:
   - type: markdown

@@ -10,7 +10,7 @@ class LoyaltyRewardsEngine {
       { name: 'Bronze', minPoints: 0, multiplier: 1 },
       { name: 'Silver', minPoints: 500, multiplier: 1.25 },
       { name: 'Gold', minPoints: 1500, multiplier: 1.5 },
-      { name: 'Platinum', minPoints: 3000, multiplier: 2.0 }
+      { name: 'Platinum', minPoints: 3000, multiplier: 2.0 },
     ];
     this.data = this.loadData();
   }
@@ -51,13 +51,13 @@ class LoyaltyRewardsEngine {
     const currentTier = this.getTier();
     const basePoints = Math.floor(purchaseAmount);
     const earned = Math.floor(basePoints * currentTier.multiplier);
-    
+
     this.data.points += earned;
     this.data.history.push({
       type: 'EARN',
       amount: purchaseAmount,
       points: earned,
-      date: new Date().toISOString()
+      date: new Date().toISOString(),
     });
 
     this.saveData();
@@ -68,18 +68,22 @@ class LoyaltyRewardsEngine {
     if (pointsToRedeem <= 0 || pointsToRedeem > this.data.points) {
       return { success: false, reason: 'Insufficient points balance' };
     }
-    
+
     const discountValue = parseFloat((pointsToRedeem / 100).toFixed(2));
     this.data.points -= pointsToRedeem;
     this.data.history.push({
       type: 'REDEEM',
       points: pointsToRedeem,
       discount: discountValue,
-      date: new Date().toISOString()
+      date: new Date().toISOString(),
     });
 
     this.saveData();
-    return { success: true, discount: discountValue, remainingPoints: this.data.points };
+    return {
+      success: true,
+      discount: discountValue,
+      remainingPoints: this.data.points,
+    };
   }
 }
 

@@ -15,8 +15,10 @@ function safeParseJSON(key, fallback = '[]') {
 }
 
 const API_BASE_URL = window.CARA_API_BASE_URL || '';
-const promoCalcEngine = typeof PromoDiscountCalculator !== 'undefined' ? new PromoDiscountCalculator() : null;
-
+const promoCalcEngine =
+  typeof PromoDiscountCalculator !== 'undefined'
+    ? new PromoDiscountCalculator()
+    : null;
 
 function buildAuthHeaders(extraHeaders = {}) {
   // Auth is handled entirely by the httpOnly access_token cookie, which the
@@ -349,8 +351,8 @@ function submitCheckoutForm() {
       res
         .json()
         .then((data) => ({ status: res.status, ok: res.ok, body: data }))
-        .catch(err => {
-          console.warn("[Checkout] Operation failed:", err);
+        .catch((err) => {
+          console.warn('[Checkout] Operation failed:', err);
           throw err;
         }),
     )
@@ -366,7 +368,8 @@ function submitCheckoutForm() {
         parseInt(localStorage.getItem('cara_loyalty_balance'), 10) || 150;
       const subtotal = cart.reduce(
         (sum, item) =>
-          sum + parsePriceString(item.price) * (parseInt(item.quantity, 10) || 1),
+          sum +
+          parsePriceString(item.price) * (parseInt(item.quantity, 10) || 1),
         0,
       );
       const earnedPoints = Math.floor(subtotal * 0.1);
@@ -405,7 +408,7 @@ function submitCheckoutForm() {
         if (errEl) errEl.textContent = '';
       });
     })
-   .catch((err) => {
+    .catch((err) => {
       if (typeof window.showToast === 'function')
         window.showToast(err.message, 'error');
       else console.info('Toast: ' + err.message);
@@ -478,7 +481,9 @@ window.updateCheckoutSummary = function () {
   // parsePriceString returns rupees (float); multiply by 100 and round to get integer paise.
   const subtotalCents = cart.reduce(
     (sum, item) =>
-      sum + Math.round(parsePriceString(item.price) * 100) * (parseInt(item.quantity, 10) || 1),
+      sum +
+      Math.round(parsePriceString(item.price) * 100) *
+        (parseInt(item.quantity, 10) || 1),
     0,
   );
 
@@ -486,13 +491,15 @@ window.updateCheckoutSummary = function () {
   const couponCode = localStorage.getItem('appliedCoupon') || '';
   const COUPONS = window.CARA_COUPONS || {};
   const couponPct = COUPONS[couponCode] || 0;
-  const couponDiscountCents = Math.round(subtotalCents * couponPct / 100);
+  const couponDiscountCents = Math.round((subtotalCents * couponPct) / 100);
 
   // Check urgency discount (5%) if the timer is running
   const hasUrgency =
     !window.urgencyTimerExpired &&
     document.getElementById('checkout-promo-alert-bar');
-  const urgencyDiscountCents = hasUrgency ? Math.round(subtotalCents * 0.05) : 0;
+  const urgencyDiscountCents = hasUrgency
+    ? Math.round(subtotalCents * 0.05)
+    : 0;
 
   // Check gift wrap
   const hasGiftWrap = document.getElementById('gift-wrap-opt')?.checked;
@@ -683,4 +690,4 @@ if (successOverlay) {
   });
 }
 // Advanced validation routines checking postal formats and shipping address boundaries.
-console.log("Checkout script updated with Vault integration.");
+console.log('Checkout script updated with Vault integration.');

@@ -29,7 +29,7 @@ describe('AddressValidationService Unit Tests', () => {
       city: 'San Francisco',
       state: 'CA',
       postalCode: '94105',
-      country: 'US'
+      country: 'US',
     });
 
     expect(result.isValid).toBe(true);

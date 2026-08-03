@@ -16,17 +16,17 @@
     "check-links": "node scripts/check-external-links.js"
   },
   "lint-staged": {
-  "*.js": [
-    "eslint --fix",
-    "prettier --write"
-  ],
-  "*.css": [
-    "prettier --write"
-  ],
-  "*.html": [
-    "node scripts/check-external-links.js"
-  ]
-},
+    "*.js": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.css": [
+      "prettier --write"
+    ],
+    "*.html": [
+      "node scripts/check-external-links.js"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/janavipandole/Cara.git"
@@ -58,4 +58,3 @@
   },
   "homepage": "https://github.com/janavipandole/Cara#readme"
 }
-

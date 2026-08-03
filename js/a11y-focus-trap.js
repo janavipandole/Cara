@@ -6,7 +6,7 @@ export const TABBABLE_SELECTOR =
 export function getTabbableElements(container) {
   if (!container || typeof container.querySelectorAll !== 'function') return [];
   return Array.from(container.querySelectorAll(TABBABLE_SELECTOR)).filter(
-    (el) => el.style.display !== 'none' && el.style.visibility !== 'hidden'
+    (el) => el.style.display !== 'none' && el.style.visibility !== 'hidden',
   );
 }
 
@@ -36,7 +36,8 @@ export function trapFocus(container, event) {
 }
 
 export function createFocusTrap(containerElement) {
-  let previousActiveElement = typeof document !== 'undefined' ? document.activeElement : null;
+  let previousActiveElement =
+    typeof document !== 'undefined' ? document.activeElement : null;
 
   const handleKeyDown = (e) => {
     if (e.key === 'Tab') {
@@ -57,7 +58,10 @@ export function createFocusTrap(containerElement) {
     },
     deactivate() {
       containerElement.removeEventListener('keydown', handleKeyDown);
-      if (previousActiveElement && typeof previousActiveElement.focus === 'function') {
+      if (
+        previousActiveElement &&
+        typeof previousActiveElement.focus === 'function'
+      ) {
         previousActiveElement.focus();
       }
     },

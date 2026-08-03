@@ -31,7 +31,8 @@ export function announce(message, politeness = 'polite') {
   if (typeof document === 'undefined') return;
   initAnnouncer();
 
-  const targetRegion = politeness === 'assertive' ? liveRegionAssertive : liveRegionPolite;
+  const targetRegion =
+    politeness === 'assertive' ? liveRegionAssertive : liveRegionPolite;
   if (targetRegion) {
     targetRegion.textContent = '';
     setTimeout(() => {

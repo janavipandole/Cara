@@ -12,7 +12,7 @@ class VirtualTryOnEngine {
       garmentImage: null,
       scale: 1.0,
       rotation: 0,
-      position: { x: 0, y: 0 }
+      position: { x: 0, y: 0 },
     };
   }
 
@@ -22,7 +22,8 @@ class VirtualTryOnEngine {
   }
 
   updateTransform({ scale, rotation, offsetX, offsetY }) {
-    if (typeof scale === 'number') this.state.scale = Math.max(0.2, Math.min(3.0, scale));
+    if (typeof scale === 'number')
+      this.state.scale = Math.max(0.2, Math.min(3.0, scale));
     if (typeof rotation === 'number') this.state.rotation = rotation % 360;
     if (typeof offsetX === 'number') this.state.position.x = offsetX;
     if (typeof offsetY === 'number') this.state.position.y = offsetY;
@@ -30,7 +31,12 @@ class VirtualTryOnEngine {
     return { ...this.state };
   }
 
-  calculateGarmentBounds(canvasWidth, canvasHeight, garmentWidth, garmentHeight) {
+  calculateGarmentBounds(
+    canvasWidth,
+    canvasHeight,
+    garmentWidth,
+    garmentHeight,
+  ) {
     const scaledW = garmentWidth * this.state.scale;
     const scaledH = garmentHeight * this.state.scale;
 
@@ -49,7 +55,13 @@ class VirtualTryOnEngine {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     if (this.state.modelImage) {
-      this.ctx.drawImage(this.state.modelImage, 0, 0, this.canvas.width, this.canvas.height);
+      this.ctx.drawImage(
+        this.state.modelImage,
+        0,
+        0,
+        this.canvas.width,
+        this.canvas.height,
+      );
     }
 
     if (this.state.garmentImage) {
@@ -57,7 +69,7 @@ class VirtualTryOnEngine {
         this.canvas.width,
         this.canvas.height,
         this.state.garmentImage.width,
-        this.state.garmentImage.height
+        this.state.garmentImage.height,
       );
 
       this.ctx.save();
@@ -68,7 +80,7 @@ class VirtualTryOnEngine {
         -bounds.width / 2,
         -bounds.height / 2,
         bounds.width,
-        bounds.height
+        bounds.height,
       );
       this.ctx.restore();
     }

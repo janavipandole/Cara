@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function () {
           }, 2000);
         })
         .catch(function (err) {
-          console.warn("[ForgotPassword] Failed:", err);
+          console.warn('[ForgotPassword] Failed:', err);
           showToast(err.message || 'Password reset failed', 'error');
         })
         .finally(function () {

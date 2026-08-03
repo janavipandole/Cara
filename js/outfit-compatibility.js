@@ -11,7 +11,7 @@ class OutfitCompatibility {
       red: ['white', 'black', 'navy'],
       green: ['white', 'black', 'khaki', 'brown'],
       khaki: ['white', 'black', 'blue', 'green', 'navy'],
-      navy: ['white', 'black', 'khaki', 'gray', 'pink']
+      navy: ['white', 'black', 'khaki', 'gray', 'pink'],
     };
   }
 

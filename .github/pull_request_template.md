@@ -1,9 +1,11 @@
 # 📋 Summary
+
 Briefly describe what this PR does and why.
 
 ---
 
 ## 🔗 Related Issue
+
 Closes #
 
 ---
@@ -23,19 +25,20 @@ please put ✓ symbol on correct block depending n your changes.
 ---
 
 ## 🛠️ What Was Changed
+
 Briefly decribe what changes you made.
 
-- 
-- 
-- 
+-
+-
+- ***
 
----
 ## why this needed
-Describe why this project needed this changes.
+
+## Describe why this project needed this changes.
+
 -
--
--
----
+- ***
+
 ## 🧪 How Has This Been Tested?
 
 Describe how you tested your changes locally.
@@ -54,7 +57,7 @@ Describe how you tested your changes locally.
 If your PR includes UI changes, attach before and after screenshots here.
 
 | Before | After |
-|--------|-------|
+| ------ | ----- |
 |        |       |
 
 ---

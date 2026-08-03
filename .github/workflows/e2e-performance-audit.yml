@@ -2,9 +2,9 @@ name: E2E Performance & Accessibility Audit
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   audit:

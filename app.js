@@ -11,7 +11,9 @@ window.logError =
  * Sanitizes return URL query parameters to prevent Open Redirect and SSRF vulnerabilities.
  * Enforces strictly relative URLs and blocks external origins.
  */
-/* NOTE (#3873): no call sites for sanitizeReturnUrl() found in app.js; confirm it is actually wired up elsewhere, otherwise this offers no real protection. */ function sanitizeReturnUrl(url) {
+/* NOTE (#3873): no call sites for sanitizeReturnUrl() found in app.js; confirm it is actually wired up elsewhere, otherwise this offers no real protection. */ function sanitizeReturnUrl(
+  url,
+) {
   if (!url || typeof url !== 'string') return 'index.html';
 
   var trimmed = url.trim();
@@ -39,12 +41,17 @@ window.sanitizeReturnUrl = sanitizeReturnUrl;
 /**
  * Verifies object-level authorization (BOLA) to ensure the current authenticated user owns the requested order resource.
  */
-/* NOTE (#3873): no call sites for verifyOrderOwnership() found in app.js; confirm it is actually enforced elsewhere, otherwise this offers no real BOLA protection. */ function verifyOrderOwnership(order, currentUserId, isAdmin) {
+/* NOTE (#3873): no call sites for verifyOrderOwnership() found in app.js; confirm it is actually enforced elsewhere, otherwise this offers no real BOLA protection. */ function verifyOrderOwnership(
+  order,
+  currentUserId,
+  isAdmin,
+) {
   if (isAdmin) return true;
   if (!order || typeof order !== 'object') return false;
   if (!currentUserId) return false;
 
-  var ownerId = order.userId || order.user_id || order.ownerId || order.customerId;
+  var ownerId =
+    order.userId || order.user_id || order.ownerId || order.customerId;
   return String(ownerId) === String(currentUserId);
 }
 
@@ -338,7 +345,21 @@ document.addEventListener('DOMContentLoaded', () => {
    ============================================================ */
 
 // Robust price parser
-function escapeHtml(str){return String(str===undefined||str===null?'':str).replace(/[&<>"']/g,function(ch){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];});} function parsePriceString(priceStr) {
+function escapeHtml(str) {
+  return String(str === undefined || str === null ? '' : str).replace(
+    /[&<>"']/g,
+    function (ch) {
+      return {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;',
+      }[ch];
+    },
+  );
+}
+function parsePriceString(priceStr) {
   if (typeof priceStr === 'number') return isFinite(priceStr) ? priceStr : 0;
   if (!priceStr) return 0;
   const cleaned = String(priceStr)
@@ -1214,7 +1235,30 @@ window.buyNow = function (
   const productSection = document.getElementById('product1');
   if (!productSection) return;
 
-  if (!window.CaraErrorBoundary || typeof window.CaraErrorBoundary.wrap !== 'function') { window.CaraErrorBoundary = window.CaraErrorBoundary || {}; window.CaraErrorBoundary.wrap = function (selector, fn) { try { return fn(); } catch (e) { if (typeof window.logError === 'function') { window.logError('CaraErrorBoundary fallback caught error for ' + selector, e); } else { console.error('CaraErrorBoundary fallback caught error for ' + selector, e); } } }; } CaraErrorBoundary.wrap('#product1', function () {
+  if (
+    !window.CaraErrorBoundary ||
+    typeof window.CaraErrorBoundary.wrap !== 'function'
+  ) {
+    window.CaraErrorBoundary = window.CaraErrorBoundary || {};
+    window.CaraErrorBoundary.wrap = function (selector, fn) {
+      try {
+        return fn();
+      } catch (e) {
+        if (typeof window.logError === 'function') {
+          window.logError(
+            'CaraErrorBoundary fallback caught error for ' + selector,
+            e,
+          );
+        } else {
+          console.error(
+            'CaraErrorBoundary fallback caught error for ' + selector,
+            e,
+          );
+        }
+      }
+    };
+  }
+  CaraErrorBoundary.wrap('#product1', function () {
     const productsPerPage = 16;
 
     const productContainers = Array.from(
@@ -1456,7 +1500,10 @@ document.addEventListener('DOMContentLoaded', () => {
           return nameA.localeCompare(nameB);
         });
       }
-      if (!productsToAppend) { productsToAppend = originalProducts; } productsToAppend.forEach((product) => {
+      if (!productsToAppend) {
+        productsToAppend = originalProducts;
+      }
+      productsToAppend.forEach((product) => {
         proContainer.appendChild(product);
       });
     });
@@ -1689,7 +1736,10 @@ document.addEventListener('DOMContentLoaded', () => {
 window.pendingSharedCart = null;
 
 // NOTE: intentionally named showWardrobeToast to avoid overwriting the global showToast
-/* NOTE (#3873): showWardrobeToast() has no call sites in app.js (dead code); consider removing it or wiring it up. */ function showWardrobeToast(msg, isError) {
+/* NOTE (#3873): showWardrobeToast() has no call sites in app.js (dead code); consider removing it or wiring it up. */ function showWardrobeToast(
+  msg,
+  isError,
+) {
   showToast(msg, isError ? 'error' : 'success');
 }
 
@@ -1869,7 +1919,56 @@ window.checkSharedWardrobe = function () {
   }
 };
 
-function validateSharedCartItems(items){try{var src=(window.products||window.allProducts||window.catalogProducts||[]);if(!Array.isArray(src)||src.length===0){return items;}var names={};src.forEach(function(p){if(p&&p.name){names[String(p.name).trim().toLowerCase()]=p;}});var kept=[];var skipped=0;(items||[]).forEach(function(it){var match=it&&it.name?names[String(it.name).trim().toLowerCase()]:null;if(match){if(match.price!==undefined){it.price=match.price;}kept.push(it);}else{skipped++;}});if(skipped>0&&typeof window.showToast==='function'){window.showToast(skipped+' shared item(s) could not be verified and were skipped.','error');}return kept;}catch(e){return items;}} window.applySharedCart = function (action) { window.pendingSharedCart = validateSharedCartItems(window.pendingSharedCart);
+function validateSharedCartItems(items) {
+  try {
+    var src =
+      window.products || window.allProducts || window.catalogProducts || [];
+    if (!Array.isArray(src) || src.length === 0) {
+      return items;
+    }
+    var names = {};
+    src.forEach(function (p) {
+      if (p && p.name) {
+        names[String(p.name).trim().toLowerCase()] = p;
+      }
+    });
+    var kept = [];
+    var skipped = 0;
+    (items || []).forEach(function (it) {
+      var match =
+        it && it.name ? names[String(it.name).trim().toLowerCase()] : null;
+      if (match) {
+        if (match.price !== undefined) {
+          it.price = match.price;
+        }
+        kept.push(it);
+      } else {
+        skipped++;
+      }
+    });
+    if (skipped > 0 && typeof window.showToast === 'function') {
+      window.showToast(
+        skipped + ' shared item(s) could not be verified and were skipped.',
+        'error',
+      );
+    }
+    return kept;
+  } catch (e) {
+    return items;
+  }
+}
+window.validateSharedCartItems = validateSharedCartItems;
+
+window.applySharedCart = function (action) {
+  var validator =
+    typeof validateSharedCartItems !== 'undefined'
+      ? validateSharedCartItems
+      : typeof window.validateSharedCartItems !== 'undefined'
+        ? window.validateSharedCartItems
+        : function (x) {
+            return x;
+          };
+  window.pendingSharedCart = validator(window.pendingSharedCart);
   if (!window.pendingSharedCart || window.pendingSharedCart.length === 0) {
     window.closeShareModal();
     return;

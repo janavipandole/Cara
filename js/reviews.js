@@ -20,7 +20,10 @@
 
   const STORAGE_PREFIX = 'cara_reviews_';
   const MAX_REVIEWS_STORED = 50;
-  const reviewEngine = typeof ProductReviewAggregator !== 'undefined' ? new ProductReviewAggregator() : null;
+  const reviewEngine =
+    typeof ProductReviewAggregator !== 'undefined'
+      ? new ProductReviewAggregator()
+      : null;
 
   // ── Utility helpers ────────────────────────────────────────────────────────
 
@@ -31,7 +34,6 @@
       );
     } catch (err) {
       console.warn('Reviews data parsing failed:', err);
-    }
       return [];
     }
   }
@@ -58,7 +60,6 @@
       );
     } catch (err) {
       console.warn('Reviews data parsing failed:', err);
-    }
       return iso;
     }
   }
@@ -303,7 +304,8 @@
         }
 
         if (!body || body.length < 10) {
-          if (bodyErr) bodyErr.textContent = 'Review must be at least 10 characters.';
+          if (bodyErr)
+            bodyErr.textContent = 'Review must be at least 10 characters.';
           valid = false;
         } else {
           if (bodyErr) bodyErr.textContent = '';
@@ -353,8 +355,7 @@
             localStorage.getItem('selectedProduct') || '{}',
           ).name;
         } catch (err) {
-      console.warn('Reviews data parsing failed:', err);
-    }
+          console.warn('Reviews data parsing failed:', err);
           productId = 'unknown';
         }
       }

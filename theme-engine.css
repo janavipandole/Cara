@@ -8,7 +8,7 @@
   --accent-color: #088178;
 }
 
-[data-theme="dark"] {
+[data-theme='dark'] {
   --bg-primary: #121212;
   --text-primary: #f0f0f0;
   --card-bg: #1e1e1e;
@@ -16,7 +16,7 @@
   --accent-color: #0ba398;
 }
 
-[data-theme="high-contrast"] {
+[data-theme='high-contrast'] {
   --bg-primary: #000000;
   --text-primary: #ffffff;
   --card-bg: #000000;
@@ -27,7 +27,9 @@
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 .theme-toggle-btn {

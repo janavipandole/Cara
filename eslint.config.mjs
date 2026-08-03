@@ -33,6 +33,15 @@ const sharedAppGlobals = {
   CaraToast: 'readonly',
   CaraErrorBoundary: 'readonly',
   Pose: 'readonly',
+  PromoDiscountCalculator: 'readonly',
+  ProductReviewAggregator: 'readonly',
+  InteractiveProductComparator: 'readonly',
+  AddressValidationService: 'readonly',
+  SmartSearchEngine: 'readonly',
+  OutfitCompatibilityEngine: 'readonly',
+  OrderTelemetryTracker: 'readonly',
+  VirtualTryOnEngine: 'readonly',
+  getAuthToken: 'readonly',
 };
 
 export default [
@@ -64,6 +73,20 @@ export default [
       'prettier/prettier': 'error',
       'no-unused-vars': 'warn',
       'no-console': 'off',
+    },
+  },
+  {
+    files: ['tests/**/*.js', 'dummy.test.js'],
+    languageOptions: {
+      globals: {
+        describe: 'readonly',
+        it: 'readonly',
+        expect: 'readonly',
+        beforeEach: 'readonly',
+        afterEach: 'readonly',
+        vi: 'readonly',
+        test: 'readonly',
+      },
     },
   },
   configPrettier,
