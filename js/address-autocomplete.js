@@ -130,7 +130,6 @@
       showSuggestions(list);
     } catch (err) {
       console.warn('Address autocomplete failed:', err);
-    }
       hideSuggestions();
     } finally {
       if (loader) {
