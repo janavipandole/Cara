@@ -683,3 +683,4 @@ if (successOverlay) {
   });
 }
 // Advanced validation routines checking postal formats and shipping address boundaries.
+console.log("Checkout script updated with Vault integration.");
