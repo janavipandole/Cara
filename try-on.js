@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const tryOnCanvasEngine =
     typeof VirtualTryOnEngine !== 'undefined' ? new VirtualTryOnEngine() : null;
+  window.tryOnCanvasEngine = tryOnCanvasEngine;
 
   // ---- DOM References ----
   const uploadInput = document.getElementById('photo-upload');

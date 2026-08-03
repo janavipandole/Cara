@@ -2901,6 +2901,7 @@ footer {
   padding: 0;
   margin: 0;
   -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 #pro-details

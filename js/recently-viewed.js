@@ -11,7 +11,7 @@
       if (!raw) return [];
       const parsed = JSON.parse(raw);
       return Array.isArray(parsed) ? parsed : [];
-    } catch (e) {
+    } catch (_e) {
       return [];
     }
   }
@@ -43,7 +43,7 @@
 
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(filtered));
-    } catch (e) {
+    } catch (_e) {
       // Storage quota or error handling
     }
 

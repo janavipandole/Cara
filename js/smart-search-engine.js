@@ -111,7 +111,7 @@ class SmartSearchEngine {
     try {
       const data = localStorage.getItem(this.historyKey);
       return data ? JSON.parse(data) : [];
-    } catch (e) {
+    } catch (_e) {
       return [];
     }
   }
@@ -119,7 +119,7 @@ class SmartSearchEngine {
   clearHistory() {
     try {
       localStorage.removeItem(this.historyKey);
-    } catch (e) {
+    } catch (_e) {
       // ignore
     }
   }

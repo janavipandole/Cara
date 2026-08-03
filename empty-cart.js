@@ -23,10 +23,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (window.location.pathname.includes('cart.html')) {
       if (cart.length === 0) {
+        if (cartMain) cartMain.style.display = 'none';
         if (cartGrid) cartGrid.style.display = 'none';
         if (cartAdd) cartAdd.style.display = 'none';
         if (emptyContainer) emptyContainer.style.display = 'flex';
       } else {
+        if (cartMain) cartMain.style.display = '';
         if (cartGrid) cartGrid.style.display = '';
         if (cartAdd) cartAdd.style.display = '';
         if (emptyContainer) emptyContainer.style.display = 'none';

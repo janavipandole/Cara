@@ -502,7 +502,7 @@ function getWishlist() {
   try {
     const val = localStorage.getItem('wishlist');
     wishlist = val ? JSON.parse(val) : [];
-  } catch (e) {
+  } catch (_e) {
     wishlist = [];
   }
   const normalized = Array.isArray(wishlist)
@@ -1735,13 +1735,10 @@ document.addEventListener('DOMContentLoaded', () => {
    ============================================================ */
 window.pendingSharedCart = null;
 
-// NOTE: intentionally named showWardrobeToast to avoid overwriting the global showToast
-/* NOTE (#3873): showWardrobeToast() has no call sites in app.js (dead code); consider removing it or wiring it up. */ function showWardrobeToast(
-  msg,
-  isError,
-) {
+function showWardrobeToast(msg, isError) {
   showToast(msg, isError ? 'error' : 'success');
 }
+window.showWardrobeToast = showWardrobeToast;
 
 window.shareWardrobe = function () {
   const cart =
@@ -1953,7 +1950,7 @@ function validateSharedCartItems(items) {
       );
     }
     return kept;
-  } catch (e) {
+  } catch (_e) {
     return items;
   }
 }

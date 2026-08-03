@@ -24,6 +24,7 @@
     typeof ProductReviewAggregator !== 'undefined'
       ? new ProductReviewAggregator()
       : null;
+  window.reviewEngine = reviewEngine;
 
   // ── Utility helpers ────────────────────────────────────────────────────────
 
