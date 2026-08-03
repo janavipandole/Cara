@@ -8,7 +8,7 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'lcov', 'json'],
-      include: ['js/**/*.js', 'fetch-timeout.js'],
+      include: ['js/**/*.js'],
     },
   },
 });

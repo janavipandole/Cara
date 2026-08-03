@@ -1,4 +1,4 @@
-﻿const CACHE_NAME = 'cara-cache-v1';
+const CACHE_NAME = 'cara-cache-v1';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
@@ -14,8 +14,8 @@ const ASSETS_TO_CACHE = [
   '/privacy.html',
   '/terms.html',
   '/license.html',
-  '/style.css',
-  '/app.js',
+  '/css/style.css',
+  '/js/app.js',
   '/offline.html',
   '/images/Dlogo.png',
 ];

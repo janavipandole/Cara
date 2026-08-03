@@ -58,7 +58,7 @@ describe('applySharedCart', () => {
       },
     ];
 
-    const appJsPath = path.resolve(__dirname, '../../app.js');
+    const appJsPath = path.resolve(__dirname, '../../js/app.js');
     const appJs = readFileSync(appJsPath, 'utf8');
     const match = appJs.match(
       /window\.applySharedCart = function \(action\) \{[\s\S]*?\n\};/,
