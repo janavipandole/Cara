@@ -39,7 +39,11 @@
   function _saveReviews(productId, reviews) {
     // Cap stored reviews to prevent unbounded localStorage growth
     const trimmed = reviews.slice(0, MAX_REVIEWS_STORED);
-    localStorage.setItem(STORAGE_PREFIX + productId, JSON.stringify(trimmed));
+    try {
+      localStorage.setItem(STORAGE_PREFIX + productId, JSON.stringify(trimmed));
+    } catch (err) {
+      console.warn('Failed to save reviews to localStorage:', err);
+    }
   }
 
   function _escape(str) {
@@ -69,8 +73,11 @@
     if (!reviews.length) return { avg: 0, total: 0, dist: [0, 0, 0, 0, 0] };
     const dist = [0, 0, 0, 0, 0];
     const sum = reviews.reduce((acc, r) => {
-      dist[r.rating - 1]++;
-      return acc + r.rating;
+      if (typeof r.rating === 'number' && r.rating >= 1 && r.rating <= 5) {
+        dist[r.rating - 1]++;
+        return acc + r.rating;
+      }
+      return acc;
     }, 0);
     return {
       avg: (sum / reviews.length).toFixed(1),
