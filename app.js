@@ -1456,7 +1456,7 @@ document.addEventListener('DOMContentLoaded', () => {
           return nameA.localeCompare(nameB);
         });
       }
-      productsToAppend.forEach((product) => {
+      if (!productsToAppend) { productsToAppend = originalProducts; } productsToAppend.forEach((product) => {
         proContainer.appendChild(product);
       });
     });
