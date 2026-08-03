@@ -489,7 +489,8 @@ function safeParseJSON(key, fallback = '[]') {
       return [];
     }
   }
-}
+
+
 
 // Wishlist logic has been migrated to app.js for global availability.
 
