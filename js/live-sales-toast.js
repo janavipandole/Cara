@@ -96,7 +96,7 @@
       </div>
     `;
 
-    container.textContent = '';
+    container.innerHTML = '';
     container.appendChild(toast);
 
     // Slide-in after a tick
