@@ -208,6 +208,9 @@
       id="searchBar"
       placeholder="Search products..."
     >
+    <button id="scanBarcodeBtn" aria-label="Scan barcode" title="Scan Barcode" style="display: none;">
+      <i class="ri-barcode-box-line"></i>
+    </button>
   </div>
 </section>
 
@@ -838,6 +841,23 @@ if (btn) {
 }
 </script>
 <button id="backToTop">↑</button>
+
+<!-- Barcode Scanner Modal -->
+<div id="barcode-scanner-modal" class="scanner-modal" style="display: none;">
+  <div class="scanner-modal-content">
+    <div class="scanner-header">
+      <h3>Scan Product Barcode</h3>
+      <button id="close-scanner-btn" aria-label="Close Scanner"><i class="ri-close-line"></i></button>
+    </div>
+    <div class="scanner-video-container">
+      <video id="barcode-video" autoplay playsinline></video>
+      <div class="scanner-overlay"></div>
+    </div>
+    <p class="scanner-status" id="scanner-status">Looking for barcode...</p>
+  </div>
+</div>
+
+<script src="js/barcode-scanner.js" defer></script>
 <script src="js/session-lock.js" defer></script>
 <script src="js/live-sales-toast.js" defer></script>
 </body>
