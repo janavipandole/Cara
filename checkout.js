@@ -435,7 +435,9 @@ function parsePriceString(priceStr) {
 function formatCurrency(amount) {
   const num = typeof amount === 'number' ? amount : parsePriceString(amount);
   if (!isFinite(num)) return '₹0';
-  return '₹' + Math.round(num).toLocaleString('en-IN');
+  // All amounts are stored as integer cents; divide by 100 for display
+  const rupees = num / 100;
+  return '₹' + Math.round(rupees).toLocaleString('en-IN');
 }
 
 function renderCheckoutItems() {
@@ -463,7 +465,7 @@ function renderCheckoutItems() {
           <div class="item-name" style="font-weight: 600; font-size: 14px; color: var(--color-heading);">${item.name}</div>
           <div class="item-meta" style="font-size: 12px; color: #777;">${sizeStr} · Qty ${itemQty}</div>
         </div>
-        <span class="item-price-col" style="font-weight: 600; font-size: 14px; color: #088178;">${formatCurrency(itemPrice * itemQty)}</span>
+        <span class="item-price-col" style="font-weight: 600; font-size: 14px; color: #088178;">${formatCurrency(itemPrice * itemQty * 100)}</span>
       </div>
     `;
     })
@@ -472,9 +474,11 @@ function renderCheckoutItems() {
 
 window.updateCheckoutSummary = function () {
   const cart = safeParseJSON('productsInCart');
-  const subtotal = cart.reduce(
+  // All financial calculations use integer cents (paise) to avoid floating-point rounding errors.
+  // parsePriceString returns rupees (float); multiply by 100 and round to get integer paise.
+  const subtotalCents = cart.reduce(
     (sum, item) =>
-      sum + parsePriceString(item.price) * (parseInt(item.quantity, 10) || 1),
+      sum + Math.round(parsePriceString(item.price) * 100) * (parseInt(item.quantity, 10) || 1),
     0,
   );
 
@@ -482,43 +486,43 @@ window.updateCheckoutSummary = function () {
   const couponCode = localStorage.getItem('appliedCoupon') || '';
   const COUPONS = window.CARA_COUPONS || {};
   const couponPct = COUPONS[couponCode] || 0;
-  const couponDiscount = subtotal * (couponPct / 100);
+  const couponDiscountCents = Math.round(subtotalCents * couponPct / 100);
 
   // Check urgency discount (5%) if the timer is running
   const hasUrgency =
     !window.urgencyTimerExpired &&
     document.getElementById('checkout-promo-alert-bar');
-  const urgencyDiscount = hasUrgency ? subtotal * 0.05 : 0;
+  const urgencyDiscountCents = hasUrgency ? Math.round(subtotalCents * 0.05) : 0;
 
   // Check gift wrap
   const hasGiftWrap = document.getElementById('gift-wrap-opt')?.checked;
-  const giftCharge = hasGiftWrap ? 99 : 0;
+  const giftChargeCents = hasGiftWrap ? 99 * 100 : 0;
 
-  // Calculate tax (18% GST) — must match app.js line 939 and backend orders.py
-  const tax = subtotal * 0.18;
+  // Calculate tax (18% GST) in cents — must match app.js line 939 and backend orders.py
+  const taxCents = Math.round(subtotalCents * 0.18);
 
-  // Check loyalty points discount (10 points = ₹1)
+  // Check loyalty points discount (10 points = ₹1 = 100 paise)
   const loyaltyPoints =
     parseInt(localStorage.getItem('cara_applied_loyalty_points'), 10) || 0;
-  const loyaltyDiscount = loyaltyPoints * 0.1;
+  const loyaltyDiscountCents = loyaltyPoints * 100;
 
-  // Grand Total
-  const grandTotal = Math.max(
+  // Grand Total in cents (integer, safe for Stripe)
+  const grandTotalCents = Math.max(
     0,
-    subtotal +
-      tax +
-      giftCharge -
-      couponDiscount -
-      urgencyDiscount -
-      loyaltyDiscount,
+    subtotalCents +
+      taxCents +
+      giftChargeCents -
+      couponDiscountCents -
+      urgencyDiscountCents -
+      loyaltyDiscountCents,
   );
 
   // Update DOM elements
   const subtotalEl = document.getElementById('summary-subtotal');
-  if (subtotalEl) subtotalEl.textContent = formatCurrency(subtotal);
+  if (subtotalEl) subtotalEl.textContent = formatCurrency(subtotalCents);
 
   const taxEl = document.getElementById('summary-tax');
-  if (taxEl) taxEl.textContent = formatCurrency(tax);
+  if (taxEl) taxEl.textContent = formatCurrency(taxCents);
 
   // Update Coupon Row
   let couponRow = document.getElementById('summaryDiscountRow');
@@ -534,7 +538,7 @@ window.updateCheckoutSummary = function () {
     }
     couponRow.innerHTML = `
       <span>Discount (${couponCode}) <button type="button" class="btn-remove-coupon" id="btnRemoveCoupon" aria-label="Remove coupon" style="background:none; border:none; color:#ef4444; cursor:pointer; font-weight:bold; font-size:16px; margin-left:5px; padding:0;">×</button></span>
-      <span>-${formatCurrency(couponDiscount)}</span>
+      <span>-${formatCurrency(couponDiscountCents)}</span>
     `;
     const removeBtn = document.getElementById('btnRemoveCoupon');
     if (removeBtn) {
@@ -563,7 +567,7 @@ window.updateCheckoutSummary = function () {
 
   // Update Urgency Row
   let urgencyRow = document.getElementById('urgency-discount-row');
-  if (urgencyDiscount > 0) {
+  if (urgencyDiscountCents > 0) {
     if (!urgencyRow) {
       urgencyRow = document.createElement('div');
       urgencyRow.id = 'urgency-discount-row';
@@ -573,14 +577,14 @@ window.updateCheckoutSummary = function () {
       const divider = document.querySelector('.summary-divider');
       if (divider) divider.parentNode.insertBefore(urgencyRow, divider);
     }
-    urgencyRow.innerHTML = `<span>Urgency Promo (5%)</span><span id='urgency-discount-val'>-${formatCurrency(urgencyDiscount)}</span>`;
+    urgencyRow.innerHTML = `<span>Urgency Promo (5%)</span><span id='urgency-discount-val'>-${formatCurrency(urgencyDiscountCents)}</span>`;
   } else {
     if (urgencyRow) urgencyRow.remove();
   }
 
   // Update Gift Wrap Row
   let giftRow = document.getElementById('gift-wrap-charge-row');
-  if (giftCharge > 0) {
+  if (giftChargeCents > 0) {
     if (!giftRow) {
       giftRow = document.createElement('div');
       giftRow.id = 'gift-wrap-charge-row';
@@ -613,7 +617,7 @@ window.updateCheckoutSummary = function () {
     }
     loyaltyRow.innerHTML = `
       <span>Redeemed Points (${loyaltyPoints} pts) <button type="button" class="btn-remove-loyalty" id="btnRemoveLoyalty" aria-label="Remove loyalty points" style="background:none; border:none; color:#ef4444; cursor:pointer; font-weight:bold; font-size:16px; margin-left:5px; padding:0;">×</button></span>
-      <span>-${formatCurrency(loyaltyDiscount)}</span>
+      <span>-${formatCurrency(loyaltyDiscountCents)}</span>
     `;
     const removeLoyaltyBtn = document.getElementById('btnRemoveLoyalty');
     if (removeLoyaltyBtn) {
@@ -634,7 +638,7 @@ window.updateCheckoutSummary = function () {
   }
 
   const totalEl = document.getElementById('summary-total');
-  if (totalEl) totalEl.textContent = formatCurrency(grandTotal);
+  if (totalEl) totalEl.textContent = formatCurrency(grandTotalCents);
 };
 
 function highlightError(el) {
