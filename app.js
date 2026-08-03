@@ -1600,7 +1600,6 @@ function initHeroSlider() {
       ((currentSlide % slides.length) + slides.length) % slides.length;
     slides[currentSlide].classList.add('active');
     if (dots[currentSlide]) dots[currentSlide].classList.add('active');
-    console.debug('hero-slider: show slide', currentSlide);
   }
 
   function nextSlide() {
@@ -1637,10 +1636,6 @@ function initHeroSlider() {
 
   resetAutoPlay();
 
-  console.debug('hero-slider: initialized', {
-    slideCount: slides.length,
-    startIndex: currentSlide,
-  });
   // cleanup on page unload
   window.addEventListener('beforeunload', () =>
     clearInterval(autoPlayInterval),
