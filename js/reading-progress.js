@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const details = post.querySelector('.blog-details');
     if (details) {
       const textContent = details.innerText;
-      const wordCount = textContent.split(/\\s+/).length;
+      const wordCount = textContent.split(/\s+/).length;
       const readTime = Math.ceil(wordCount / 200); // 200 words per min avg
 
       const timeTag = document.createElement('span');
