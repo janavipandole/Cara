@@ -4629,9 +4629,5 @@ footer {
                 }
             }
 
-            /* Profile Input Security Styling */
-            .profile-security-badge {
-                font-size: 11px;
-                color: #088178;
-                font-weight: bold;
-            }
+
+#recommendations-section { padding: 40px 80px; text-align: center; }
