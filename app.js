@@ -1214,7 +1214,7 @@ window.buyNow = function (
   const productSection = document.getElementById('product1');
   if (!productSection) return;
 
-  CaraErrorBoundary.wrap('#product1', function () {
+  if (!window.CaraErrorBoundary || typeof window.CaraErrorBoundary.wrap !== 'function') { window.CaraErrorBoundary = window.CaraErrorBoundary || {}; window.CaraErrorBoundary.wrap = function (selector, fn) { try { return fn(); } catch (e) { if (typeof window.logError === 'function') { window.logError('CaraErrorBoundary fallback caught error for ' + selector, e); } else { console.error('CaraErrorBoundary fallback caught error for ' + selector, e); } } }; } CaraErrorBoundary.wrap('#product1', function () {
     const productsPerPage = 16;
 
     const productContainers = Array.from(
