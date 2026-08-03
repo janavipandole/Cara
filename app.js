@@ -1869,7 +1869,7 @@ window.checkSharedWardrobe = function () {
   }
 };
 
-window.applySharedCart = function (action) {
+function validateSharedCartItems(items){try{var src=(window.products||window.allProducts||window.catalogProducts||[]);if(!Array.isArray(src)||src.length===0){return items;}var names={};src.forEach(function(p){if(p&&p.name){names[String(p.name).trim().toLowerCase()]=p;}});var kept=[];var skipped=0;(items||[]).forEach(function(it){var match=it&&it.name?names[String(it.name).trim().toLowerCase()]:null;if(match){if(match.price!==undefined){it.price=match.price;}kept.push(it);}else{skipped++;}});if(skipped>0&&typeof window.showToast==='function'){window.showToast(skipped+' shared item(s) could not be verified and were skipped.','error');}return kept;}catch(e){return items;}} window.applySharedCart = function (action) { window.pendingSharedCart = validateSharedCartItems(window.pendingSharedCart);
   if (!window.pendingSharedCart || window.pendingSharedCart.length === 0) {
     window.closeShareModal();
     return;
