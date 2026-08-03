@@ -1734,6 +1734,9 @@ window.shareWardrobe = function () {
       '#share=' +
       base64Payload;
 
+    // Actually copy the URL to clipboard before showing success
+    fallbackCopyText(shareUrl);
+
     showToast('Wardrobe share link copied to clipboard!', 'success');
 
     if (btn) {
