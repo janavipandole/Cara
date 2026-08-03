@@ -391,7 +391,7 @@ function renderStars(baseRating, productId) {
     // ── User rating on click ──
     starIcon.addEventListener('click', (e) => {
       e.stopPropagation();
-      const clickedValue = parseInt(star, 10)Icon.dataset.value);
+      const clickedValue = parseInt(starIcon.dataset.value, 10);
       saveUserRating(productId, clickedValue, starDiv);
     });
 
@@ -447,7 +447,7 @@ function saveUserRating(productId, rating, starDiv) {
 function highlightStars(starDiv, upTo) {
   const stars = starDiv.querySelectorAll('i[data-value]');
   stars.forEach((star) => {
-    const val = parseInt(star, 10).dataset.value);
+    const val = parseInt(star.dataset.value, 10);
     star.className = val <= upTo ? 'ri-star-fill' : 'ri-star-line';
   });
 }
@@ -460,7 +460,7 @@ function highlightStars(starDiv, upTo) {
 function updateStarDisplay(starDiv, rating) {
   const stars = starDiv.querySelectorAll('i[data-value]');
   stars.forEach((star) => {
-    const i = parseInt(star, 10).dataset.value);
+    const i = parseInt(star.dataset.value, 10);
     if (i <= Math.floor(rating)) {
       star.className = 'ri-star-fill';
     } else if (i === Math.ceil(rating) && rating % 1 !== 0) {
@@ -486,7 +486,6 @@ function safeParseJSON(key, fallback = '[]') {
       return JSON.parse(fallback);
     } catch (err) {
       console.warn('Failed to process data:', err);
-    }
       return [];
     }
   }
