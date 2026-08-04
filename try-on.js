@@ -1,3 +1,4 @@
+(() => {
 /* global Pose, showToast */
 document.addEventListener('DOMContentLoaded', () => {
   const tryOnCanvasEngine = typeof VirtualTryOnEngine !== 'undefined' ? new VirtualTryOnEngine() : null;
@@ -960,3 +961,5 @@ document.addEventListener('click', function (e) {
 });
 
 // Scaling calculation formulas rendering overlay models over uploaded targets.
+
+})();

@@ -1,3 +1,4 @@
+(() => {
 document.addEventListener("DOMContentLoaded", () => {
     const trackingBox = document.getElementById("order-tracking-timeline-target");
     if (!trackingBox) return;
@@ -51,3 +52,5 @@ document.addEventListener("DOMContentLoaded", () => {
         renderTimeline();
     };
 });
+
+})();

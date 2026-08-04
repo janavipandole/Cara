@@ -1,3 +1,4 @@
+(() => {
 // Contact Form Autosave System
 document.addEventListener('DOMContentLoaded', () => {
   const form =
@@ -60,3 +61,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+})();

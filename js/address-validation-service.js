@@ -1,3 +1,4 @@
+(() => {
 /**
  * Address Validation Service
  * Validates street address formatting, postal code regex patterns per country, state detection, and sanitization.
@@ -72,3 +73,5 @@ if (typeof module !== 'undefined' && module.exports) {
 } else {
   window.AddressValidationService = AddressValidationService;
 }
+
+})();

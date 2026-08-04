@@ -1,3 +1,4 @@
+(() => {
 /**
  * Outfit Compatibility Checker
  * Resolves: https://github.com/janavipandole/Cara/issues/2112
@@ -312,3 +313,5 @@ function initCompatibilityChecker() {
 }
 
 document.addEventListener('DOMContentLoaded', initCompatibilityChecker);
+
+})();

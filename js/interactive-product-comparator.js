@@ -1,3 +1,4 @@
+(() => {
 /**
  * Interactive Product Comparator Engine
  * Supports multi-item attribute matrix comparisons, difference highlighting, persistence, and state sync.
@@ -78,3 +79,5 @@ if (typeof module !== 'undefined' && module.exports) {
 } else {
   window.InteractiveProductComparator = InteractiveProductComparator;
 }
+
+})();

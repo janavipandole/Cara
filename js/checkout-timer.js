@@ -1,3 +1,4 @@
+(() => {
 // Checkout Promo Count Down Timer
 document.addEventListener('DOMContentLoaded', () => {
   const totalEl = document.getElementById('summary-total');
@@ -59,3 +60,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 });
+
+})();

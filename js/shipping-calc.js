@@ -1,3 +1,4 @@
+(() => {
 // Delivery Shipping Calculator
 document.addEventListener('DOMContentLoaded', () => {
   const container = document.getElementById('shipping-calculator-target');
@@ -68,3 +69,5 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Shipping calculator applying regional fee rates inside cart summary containers.
+
+})();

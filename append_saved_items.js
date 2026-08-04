@@ -1,3 +1,4 @@
+(() => {
 const fs = require('fs');
 const jsCode = `
 // --- SAVE FOR LATER LOGIC ---
@@ -93,3 +94,5 @@ document.addEventListener('DOMContentLoaded', () => {
 `;
 
 fs.appendFileSync('app.js', jsCode);
+
+})();

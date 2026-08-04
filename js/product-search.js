@@ -1,3 +1,4 @@
+(() => {
 /**
  * product-search.js
  * Connects the shop page search bar to the backend /api/products/search/query
@@ -331,4 +332,6 @@
 
   // Expose resetAllFilters globally so an HTML button can call it directly
   window.resetProductFilters = resetAllFilters;
+})();
+
 })();

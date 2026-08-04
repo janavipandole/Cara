@@ -1,3 +1,4 @@
+(() => {
 // Blog Page Reading Scroll Bar Tracker
 document.addEventListener('DOMContentLoaded', () => {
   // Create progress bar element
@@ -35,3 +36,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+})();

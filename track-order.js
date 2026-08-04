@@ -1,3 +1,4 @@
+(() => {
 /**
  * track-order.js
  * Handles the Track My Order page functionality for the Cara e-commerce project.
@@ -539,3 +540,5 @@ window.addEventListener('beforeunload', function () {
 // Bind globally to satisfy linter for inline HTML attributes
 window.resetTracker = resetTracker;
 window.toggleFaq = toggleFaq;
+
+})();

@@ -1,3 +1,4 @@
+(() => {
 /**
  * Smart Search Engine Module for Cara E-Commerce
  * Features: Fuzzy keyword matching, Synonym mapping, Multi-category filtering, Price range query, and Search History management.
@@ -110,3 +111,5 @@ if (typeof module !== 'undefined' && module.exports) {
 } else {
   window.SmartSearchEngine = SmartSearchEngine;
 }
+
+})();

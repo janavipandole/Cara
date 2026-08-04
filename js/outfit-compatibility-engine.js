@@ -1,3 +1,4 @@
+(() => {
 /**
  * Outfit Compatibility Recommendation Engine
  * Calculates item style match scores based on color harmony matrix, category balance, and aesthetic tags.
@@ -51,3 +52,5 @@ if (typeof module !== 'undefined' && module.exports) {
 } else {
   window.OutfitCompatibilityEngine = OutfitCompatibilityEngine;
 }
+
+})();

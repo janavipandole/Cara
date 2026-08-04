@@ -1,3 +1,4 @@
+(() => {
 function safeParseJSON(key, fallback = '[]') {
   try {
     return JSON.parse(localStorage.getItem(key) || fallback);
@@ -41,3 +42,5 @@ document.addEventListener('DOMContentLoaded', () => {
     handleEmptyCartView();
   }
 });
+
+})();

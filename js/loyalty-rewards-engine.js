@@ -1,3 +1,4 @@
+(() => {
 /**
  * User Loyalty Rewards Tier Engine
  * Calculates customer loyalty points, tier statuses (Bronze, Silver, Gold, Platinum), and point redemption logic.
@@ -88,3 +89,5 @@ if (typeof module !== 'undefined' && module.exports) {
 } else {
   window.LoyaltyRewardsEngine = LoyaltyRewardsEngine;
 }
+
+})();

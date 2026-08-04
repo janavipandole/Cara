@@ -1,3 +1,4 @@
+(() => {
 // Real-Time Inventory Alert Banner UI Module
 
 export function renderInventoryBanner(containerId, message, type = 'warning') {
@@ -25,3 +26,5 @@ export function renderInventoryBanner(containerId, message, type = 'warning') {
   container.appendChild(banner);
   return banner;
 }
+
+})();

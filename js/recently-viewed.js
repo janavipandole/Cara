@@ -1,3 +1,4 @@
+(() => {
 /**
  * Recently Viewed Products
  * ------------------------
@@ -308,3 +309,5 @@
     renderRecentlyViewed: renderRecentlyViewed,
   };
 })(typeof window !== 'undefined' ? window : globalThis);
+
+})();

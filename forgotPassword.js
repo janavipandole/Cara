@@ -1,3 +1,4 @@
+(() => {
 /* ===== FORGOT PASSWORD JS ===== */
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -160,3 +161,5 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+})();

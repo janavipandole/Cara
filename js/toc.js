@@ -1,3 +1,4 @@
+(() => {
 document.addEventListener('DOMContentLoaded', () => {
   const policyPage = document.querySelector('#policy-page');
   if (!policyPage) return;
@@ -52,3 +53,5 @@ document.addEventListener('DOMContentLoaded', () => {
     toc.appendChild(link);
   });
 });
+
+})();

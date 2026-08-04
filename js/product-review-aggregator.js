@@ -1,3 +1,4 @@
+(() => {
 /**
  * Product Review Rating Aggregator
  * Handles review submission, star rating accumulation, sentiment scoring, and aggregated statistics.
@@ -106,3 +107,5 @@ if (typeof module !== 'undefined' && module.exports) {
 } else {
   window.ProductReviewAggregator = ProductReviewAggregator;
 }
+
+})();

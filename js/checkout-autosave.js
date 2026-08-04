@@ -1,3 +1,4 @@
+(() => {
 // Session-bound checkout draft form saver
 
 export function saveDraftField(id, value) {
@@ -51,3 +52,5 @@ export function initCheckoutAutosave() {
 if (typeof document !== 'undefined') {
   document.addEventListener('DOMContentLoaded', initCheckoutAutosave);
 }
+
+})();

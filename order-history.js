@@ -1,3 +1,4 @@
+(() => {
 const ORDER_API_BASE_URL = window.CARA_API_BASE_URL || '';
 
 
@@ -258,3 +259,5 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   await fetchOrders();
 });
+
+})();

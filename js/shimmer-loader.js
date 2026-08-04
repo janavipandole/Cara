@@ -1,3 +1,4 @@
+(() => {
 // Shimmer Skeleton Loader Handler
 document.addEventListener('DOMContentLoaded', () => {
   const productsContainer = document.querySelector('.pro-container');
@@ -32,3 +33,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
   showSkeletons();
 });
+
+})();

@@ -1,3 +1,4 @@
+(() => {
 document.addEventListener('DOMContentLoaded', function () {
   const forms = document.querySelectorAll('.newsletter-form');
 
@@ -43,3 +44,5 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
+
+})();

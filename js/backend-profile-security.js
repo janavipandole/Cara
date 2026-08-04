@@ -1,3 +1,4 @@
+(() => {
 /**
  * Profile Field Validation and Hardening Utility
  * Hardens profile editing inputs against injection and invalid formats.
@@ -32,3 +33,5 @@ if (typeof module !== 'undefined' && module.exports) {
 } else if (typeof window !== 'undefined') {
   window.BackendProfileSecurity = BackendProfileSecurity;
 }
+
+})();

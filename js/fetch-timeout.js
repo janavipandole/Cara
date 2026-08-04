@@ -1,3 +1,4 @@
+(() => {
 /**
  * Wrapper around fetch() that aborts the request after `ms` milliseconds.
  * Throws a DOMException with name "AbortError" on timeout.
@@ -23,3 +24,5 @@ function fetchWithTimeout(url, options = {}, ms = 10000) {
 if (typeof module !== 'undefined') {
   module.exports = { fetchWithTimeout };
 }
+
+})();

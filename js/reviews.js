@@ -1,3 +1,4 @@
+(() => {
 /**
  * product-reviews.js
  * Interactive star-rating and review submission system for Cara product pages.
@@ -365,4 +366,6 @@
 
   document.addEventListener('DOMContentLoaded', init);
   if (document.readyState !== 'loading') init();
+})();
+
 })();

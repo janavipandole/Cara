@@ -1,3 +1,4 @@
+(() => {
 /**
  * address-autocomplete.js
  * Enables real-time address suggestion dropdown on checkout.html.
@@ -198,4 +199,6 @@
   }
 
   document.addEventListener('DOMContentLoaded', init);
+})();
+
 })();

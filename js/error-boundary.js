@@ -1,3 +1,4 @@
+(() => {
 // CaraErrorBoundary — isolates runtime errors in dynamic sections
 // so one broken component doesn't blank out the whole page.
 
@@ -61,4 +62,5 @@ const CaraErrorBoundary = (function () {
   });
 
   return { wrap, logError };
+})();
 })();

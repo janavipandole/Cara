@@ -1,3 +1,4 @@
+(() => {
 // Accessibility (a11y) validation checking for WCAG 2.1 AA Standards compliance
 (function (root) {
   'use strict';
@@ -102,3 +103,5 @@
 
   root.runA11yAudit = runA11yAudit;
 })(typeof window !== 'undefined' ? window : globalThis);
+
+})();

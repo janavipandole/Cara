@@ -1,3 +1,4 @@
+(() => {
 function loadNavbar(activePage) {
   const navbarHTML = `
     <div class="search-container" role="search">
@@ -113,3 +114,5 @@ function loadNavbar(activePage) {
     window.updateWishlistCount();
   }
 }
+
+})();

@@ -1,3 +1,4 @@
+(() => {
 var API_BASE = window.CARA_API_BASE_URL || '';
 
 
@@ -46,3 +47,4 @@ window.AdminProducts = {
   }).catch(err => console.warn("[AdminProducts] Failed:", err));
 },
 }
+})();

@@ -1,3 +1,4 @@
+(() => {
 /* Reusable modal display element */
 const modalTemplate = `<div class="quick-view-modal" style="display:none;"></div>`;
 
@@ -994,3 +995,5 @@ function showToast(message, type = 'success') {
 }
 
 // Skeleton UI integration added
+
+})();

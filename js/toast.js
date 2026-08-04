@@ -1,3 +1,4 @@
+(() => {
 class CaraToast {
   static show(message, type = 'info', duration = 4000) {
     const container =
@@ -55,3 +56,5 @@ class CaraToast {
     setTimeout(() => toast.remove(), 350);
   }
 }
+
+})();

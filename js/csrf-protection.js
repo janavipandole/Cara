@@ -1,3 +1,4 @@
+(() => {
 // Anti-CSRF Token Generation & Validation Module for E-Commerce Forms
 
 export function generateCSRFToken() {
@@ -50,3 +51,5 @@ export function attachCSRFHeader(headers = {}) {
 if (typeof document !== 'undefined') {
   document.addEventListener('DOMContentLoaded', () => injectCSRFInputs());
 }
+
+})();
