@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
   // Check if BarcodeDetector is supported
   if (!('BarcodeDetector' in window)) {
     console.log('Barcode Detector is not supported by this browser.');
@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const scanBtn = document.getElementById('scanBarcodeBtn');
   if (!scanBtn) return; // If button not found, do nothing (e.g., on pages without it)
-  
+
   // Show the scan button since BarcodeDetector is supported
   scanBtn.style.display = 'flex';
 
@@ -132,14 +132,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const closeBtn = document.getElementById('close-scanner-btn');
   const video = document.getElementById('barcode-video');
   const status = document.getElementById('scanner-status');
-  
+
   let stream = null;
   let detector = null;
   let scanning = false;
   let animationFrameId = null;
 
   try {
-    detector = new BarcodeDetector({ formats: ['qr_code', 'ean_13', 'ean_8', 'upc_a', 'upc_e', 'code_128', 'code_39'] });
+    detector = new BarcodeDetector({
+      formats: [
+        'qr_code',
+        'ean_13',
+        'ean_8',
+        'upc_a',
+        'upc_e',
+        'code_128',
+        'code_39',
+      ],
+    });
   } catch (e) {
     console.error('BarcodeDetector initialization failed', e);
     return;
@@ -149,12 +159,12 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       modal.style.display = 'flex';
       status.textContent = 'Requesting camera access...';
-      
-      stream = await navigator.mediaDevices.getUserMedia({ 
-        video: { facingMode: 'environment' } 
+
+      stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: 'environment' },
       });
       video.srcObject = stream;
-      
+
       video.onloadedmetadata = () => {
         video.play();
         scanning = true;
@@ -173,7 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
       cancelAnimationFrame(animationFrameId);
     }
     if (stream) {
-      stream.getTracks().forEach(track => track.stop());
+      stream.getTracks().forEach((track) => track.stop());
       stream = null;
     }
     video.srcObject = null;
@@ -183,26 +193,27 @@ document.addEventListener("DOMContentLoaded", () => {
   const processBarcode = async (barcodeValue) => {
     stopScanner();
     // Assuming barcodeValue matches product name or id exactly as per current app logic
-    
+
     // Check if the barcode matches any known product in our JS mock db
     // This logic relies on `products` array being available in global scope (products.js)
     if (typeof products !== 'undefined' && Array.isArray(products)) {
-      const matchedProduct = products.find(p => 
-        p.name.toLowerCase() === barcodeValue.toLowerCase() || 
-        String(p.id) === barcodeValue
+      const matchedProduct = products.find(
+        (p) =>
+          p.name.toLowerCase() === barcodeValue.toLowerCase() ||
+          String(p.id) === barcodeValue,
       );
-      
+
       if (matchedProduct) {
-        localStorage.setItem("selectedProductId", matchedProduct.name);
-        window.location.href = "singleProduct.html";
+        localStorage.setItem('selectedProductId', matchedProduct.name);
+        window.location.href = 'singleProduct.html';
         return;
       }
     }
-    
+
     // Fallback: If no exact match or products not loaded, store the value and redirect anyway
     // The PDP page handles resolving the product.
-    localStorage.setItem("selectedProductId", barcodeValue);
-    window.location.href = "singleProduct.html";
+    localStorage.setItem('selectedProductId', barcodeValue);
+    window.location.href = 'singleProduct.html';
   };
 
   const scanFrame = async () => {
@@ -216,8 +227,8 @@ document.addEventListener("DOMContentLoaded", () => {
       if (barcodes.length > 0) {
         // Found a barcode
         const barcode = barcodes[0];
-        status.textContent = \`Found: \${barcode.rawValue}\`;
-        
+        status.textContent = `Found: ${barcode.rawValue}`;
+
         // Stop scanning and process
         processBarcode(barcode.rawValue);
         return;
@@ -237,7 +248,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   closeBtn.addEventListener('click', stopScanner);
-  
+
   // Close when clicking outside content
   modal.addEventListener('click', (e) => {
     if (e.target === modal) {

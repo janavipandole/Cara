@@ -2302,41 +2302,43 @@ document.addEventListener('DOMContentLoaded', () => {
 /* ============================================================
    EYEDROPPER API INTEGRATION
    ============================================================ */
-document.addEventListener("DOMContentLoaded", () => {
-  const eyeDropperBtn = document.getElementById("eyeDropperBtn");
+document.addEventListener('DOMContentLoaded', () => {
+  const eyeDropperBtn = document.getElementById('eyeDropperBtn');
   if (!eyeDropperBtn) return;
 
-  if ("EyeDropper" in window) {
-    eyeDropperBtn.style.display = "block";
-    
+  if ('EyeDropper' in window) {
+    eyeDropperBtn.style.display = 'block';
+
     const BASE_COLORS = {
-      pink: {r: 255, g: 192, b: 203},
-      white: {r: 255, g: 255, b: 255},
-      red: {r: 255, g: 0, b: 0},
-      yellow: {r: 255, g: 255, b: 0},
-      blue: {r: 0, g: 0, b: 255},
-      brown: {r: 165, g: 42, b: 42},
-      beige: {r: 245, g: 245, b: 220},
-      khaki: {r: 240, g: 230, b: 140},
-      black: {r: 0, g: 0, b: 0},
-      green: {r: 0, g: 128, b: 0},
-      grey: {r: 128, g: 128, b: 128}
+      pink: { r: 255, g: 192, b: 203 },
+      white: { r: 255, g: 255, b: 255 },
+      red: { r: 255, g: 0, b: 0 },
+      yellow: { r: 255, g: 255, b: 0 },
+      blue: { r: 0, g: 0, b: 255 },
+      brown: { r: 165, g: 42, b: 42 },
+      beige: { r: 245, g: 245, b: 220 },
+      khaki: { r: 240, g: 230, b: 140 },
+      black: { r: 0, g: 0, b: 0 },
+      green: { r: 0, g: 128, b: 0 },
+      grey: { r: 128, g: 128, b: 128 },
     };
 
     function hexToRgb(hex) {
       const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-      return result ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16)
-      } : null;
+      return result
+        ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16),
+          }
+        : null;
     }
 
     function getColorDistance(rgb1, rgb2) {
       return Math.sqrt(
         Math.pow(rgb1.r - rgb2.r, 2) +
-        Math.pow(rgb1.g - rgb2.g, 2) +
-        Math.pow(rgb1.b - rgb2.b, 2)
+          Math.pow(rgb1.g - rgb2.g, 2) +
+          Math.pow(rgb1.b - rgb2.b, 2),
       );
     }
 
@@ -2355,35 +2357,43 @@ document.addEventListener("DOMContentLoaded", () => {
       return closestColor;
     }
 
-    eyeDropperBtn.addEventListener("click", async () => {
+    eyeDropperBtn.addEventListener('click', async () => {
       try {
         const eyeDropper = new EyeDropper();
         const result = await eyeDropper.open();
         const closestColor = getClosestColorName(result.sRGBHex);
-        
-        const colorFilter = document.getElementById("color-filter");
+
+        const colorFilter = document.getElementById('color-filter');
         if (colorFilter && closestColor) {
-          let optionExists = Array.from(colorFilter.options).some(opt => opt.value === closestColor);
+          let optionExists = Array.from(colorFilter.options).some(
+            (opt) => opt.value === closestColor,
+          );
           if (!optionExists) {
-            const newOption = document.createElement("option");
+            const newOption = document.createElement('option');
             newOption.value = closestColor;
-            newOption.textContent = closestColor.charAt(0).toUpperCase() + closestColor.slice(1);
+            newOption.textContent =
+              closestColor.charAt(0).toUpperCase() + closestColor.slice(1);
             colorFilter.appendChild(newOption);
           }
           colorFilter.value = closestColor;
-          
-          if (typeof window.filterProducts === "function") {
-             window.filterProducts();
+
+          if (typeof window.filterProducts === 'function') {
+            window.filterProducts();
           } else {
-             colorFilter.dispatchEvent(new Event("change"));
+            colorFilter.dispatchEvent(new Event('change'));
           }
-          
-          if (typeof showToast === "function") {
-            showToast("Exact match found: filtered by closest shade (" + closestColor + ").", "success");
+
+          if (typeof showToast === 'function') {
+            showToast(
+              'Exact match found: filtered by closest shade (' +
+                closestColor +
+                ').',
+              'success',
+            );
           }
         }
       } catch (err) {
-        console.warn("EyeDropper canceled or failed", err);
+        console.warn('EyeDropper canceled or failed', err);
       }
     });
   }

@@ -32,7 +32,11 @@
   left: -10%;
   width: 50vw;
   height: 50vw;
-  background: radial-gradient(circle, var(--auth-primary-glow) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    var(--auth-primary-glow) 0%,
+    transparent 70%
+  );
   border-radius: 50%;
   filter: blur(80px);
   z-index: 0;
@@ -46,7 +50,11 @@
   right: -10%;
   width: 40vw;
   height: 40vw;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(59, 130, 246, 0.3) 0%,
+    transparent 70%
+  );
   border-radius: 50%;
   filter: blur(80px);
   z-index: 0;
@@ -54,8 +62,12 @@
 }
 
 @keyframes float {
-  0% { transform: translate(0, 0); }
-  100% { transform: translate(10%, 10%); }
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(10%, 10%);
+  }
 }
 
 .auth-container {
@@ -137,7 +149,11 @@
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: conic-gradient(from 0deg, transparent 70%, var(--auth-primary) 100%);
+  background: conic-gradient(
+    from 0deg,
+    transparent 70%,
+    var(--auth-primary) 100%
+  );
   animation: scan 2s linear infinite;
 }
 
@@ -159,12 +175,22 @@
 }
 
 @keyframes scan {
-  100% { transform: rotate(360deg); }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes pulse {
-  0% { width: 0; height: 0; opacity: 1; }
-  100% { width: 200%; height: 200%; opacity: 0; }
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    width: 200%;
+    height: 200%;
+    opacity: 0;
+  }
 }
 
 #nfc-message {
@@ -299,8 +325,14 @@
 }
 
 @keyframes slideUpFade {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .hidden {

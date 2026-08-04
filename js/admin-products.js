@@ -54,4 +54,3 @@ window.AdminProducts = {
       });
   },
 };
-
