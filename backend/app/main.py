@@ -66,3 +66,8 @@ app.include_router(newsletter.router, prefix="/api/newsletter", tags=["newslette
 app.include_router(admin.router, prefix="/api/admin", tags=["admin"])
 app.include_router(admin_products.router, prefix="/api/admin/products", tags=["admin-products"])
 app.include_router(profile.router, prefix="/api/profile", tags=["profile"])
+
+@app.post("/api/cart/sync")
+def sync_cart(item: dict):
+    # Mock endpoint for testing service worker background sync
+    return {"success": True, "message": "Item synced successfully"}

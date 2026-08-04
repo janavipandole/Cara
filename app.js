@@ -721,8 +721,75 @@ function withCartLock(fn) {
   return cartLockPromise;
 }
 
+// --- IndexedDB logic for Background Sync (Frontend) ---
+const DB_NAME = 'CaraSyncDB';
+const DB_VERSION = 1;
+const SYNCED_STORE = 'cart-synced-items';
+
+function openCartSyncDBFrontend() {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open(DB_NAME, DB_VERSION);
+    request.onupgradeneeded = (event) => {
+      const db = event.target.result;
+      if (!db.objectStoreNames.contains('cart-sync-queue')) {
+        db.createObjectStore('cart-sync-queue', { keyPath: 'id', autoIncrement: true });
+      }
+      if (!db.objectStoreNames.contains(SYNCED_STORE)) {
+        db.createObjectStore(SYNCED_STORE, { keyPath: 'id', autoIncrement: true });
+      }
+    };
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+}
+
+async function getAllSyncedCartItems() {
+  const db = await openCartSyncDBFrontend();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(SYNCED_STORE, 'readonly');
+    const store = tx.objectStore(SYNCED_STORE);
+    const request = store.getAll();
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+}
+
+async function clearSyncedCartItems() {
+  const db = await openCartSyncDBFrontend();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(SYNCED_STORE, 'readwrite');
+    const store = tx.objectStore(SYNCED_STORE);
+    const request = store.clear();
+    request.onsuccess = () => resolve();
+    request.onerror = () => reject(request.error);
+  });
+}
+
+async function mergeSyncedItemsToCart() {
+  try {
+    const syncedItems = await getAllSyncedCartItems();
+    if (syncedItems && syncedItems.length > 0) {
+      let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+      for (const item of syncedItems) {
+        let existingItem = cart.find((p) => p.name === item.name && p.size === item.size);
+        if (existingItem) existingItem.quantity += item.quantity;
+        else cart.push(item);
+      }
+      localStorage.setItem('productsInCart', JSON.stringify(cart));
+      window.cachedCartState = cart;
+      updateCartCount();
+      await clearSyncedCartItems();
+    }
+  } catch (err) {
+    console.error('Error merging synced items:', err);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', mergeSyncedItemsToCart);
+// --------------------------------------------------------
+
 function addToCart(productName, productPrice, productImage, quantity, size) {
-  return withCartLock(() => {
+  return withCartLock(async () => {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
     let parsedQty = parseInt(quantity, 10);
     if (isNaN(parsedQty) || parsedQty < 1) parsedQty = 1;
@@ -740,19 +807,40 @@ function addToCart(productName, productPrice, productImage, quantity, size) {
       return;
     }
 
-    let existingItem = cart.find(
-      (p) => p.name === item.name && p.size === item.size,
-    );
-    if (existingItem) {
-      existingItem.quantity += item.quantity;
-    } else {
-      cart.push(item);
-    }
+    try {
+      const response = await fetch('/api/cart/sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(item)
+      });
+      
+      if (response.status === 202) {
+        showToast('Offline mode - item queued for background sync', 'warning');
+      } else if (response.ok) {
+        let existingItem = cart.find(
+          (p) => p.name === item.name && p.size === item.size,
+        );
+        if (existingItem) {
+          existingItem.quantity += item.quantity;
+        } else {
+          cart.push(item);
+        }
 
-    localStorage.setItem('productsInCart', JSON.stringify(cart));
-    window.cachedCartState = cart;
-    showToast(`${item.name} (Size: ${item.size}) added to cart!`, 'success');
-    updateCartCount();
+        localStorage.setItem('productsInCart', JSON.stringify(cart));
+        window.cachedCartState = cart;
+        showToast(`${item.name} (Size: ${item.size}) added to cart!`, 'success');
+        updateCartCount();
+      }
+    } catch (err) {
+      // Fallback if fetch fails entirely (e.g. no SW)
+      let existingItem = cart.find((p) => p.name === item.name && p.size === item.size);
+      if (existingItem) existingItem.quantity += item.quantity;
+      else cart.push(item);
+      localStorage.setItem('productsInCart', JSON.stringify(cart));
+      window.cachedCartState = cart;
+      showToast(`${item.name} (Size: ${item.size}) added to cart!`, 'success');
+      updateCartCount();
+    }
   });
 }
 window.addToCart = addToCart;
