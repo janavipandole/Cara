@@ -56,14 +56,15 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <link rel="manifest" href="/manifest.json">
-  <script src="js/error-boundary.js"></script>
-  <script>
+  <script type="module" src="js/error-boundary.js"></script>
+<script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/service-worker.js');
       });
     }
   </script>
+    <script type="module" src="js/config.js"></script>
 </head>
 
 <body>
@@ -280,22 +281,85 @@
       </div>
     </div>
 
-    <!-- COLUMN 3: MY ACCOUNT & PAYMENTS -->
-    <div class="col">
-      <h4>My Account</h4>
-      <a href="login.html">Sign In</a>
-      <a aria-label="Cart" href="cart.html">View Cart</a>
-      <a aria-label="Wishlist" href="wishlist.html">My Wishlist</a>
-      <a aria-label="Track Order" href="cart.html">Track Order</a>
-      <a href="contact.html">Help</a>
-
-      <h4>Secured Payments</h4>
-      <div class="payment-icons">
-        <i class="fab fa-cc-visa"></i>
-        <i class="fab fa-cc-mastercard"></i>
-        <i class="fab fa-cc-paypal"></i>
-        <i class="fab fa-cc-stripe"></i>
-      </div>
+    <script type="module" src="js/shipping-calc.js" defer></script>
+    <script type="module" src="js/loyalty-rewards-engine.js" defer></script>
+    <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const couponInput = document.getElementById("coupon-code-input");
+    const applyBtn = document.getElementById("apply-coupon-btn");
+    const feedback = document.getElementById("coupon-feedback");
+    const discountRow = document.getElementById("summary-discount-row");
+    const discountVal = document.getElementById("summary-discount");
+    
+    if (applyBtn && couponInput && feedback) {
+      applyBtn.addEventListener("click", () => {
+        const val = couponInput.value.trim().toUpperCase();
+        
+        if (val === "CARA20") {
+          feedback.innerHTML = `<span style="color: #088178;"><i class="ri-checkbox-circle-fill"></i> Coupon CARA20 Applied! 20% Discount active.</span>`;
+          
+          if (discountRow && discountVal) {
+            discountRow.style.display = "flex";
+            
+            // Clean out currency symbols AND commas so strings like "7,289" parse as 7289
+            const subtotalText = document.getElementById("summary-subtotal").textContent.replace(/[₹$,]/g, "").trim();
+            const taxText = document.getElementById("summary-tax").textContent.replace(/[₹$,]/g, "").trim();
+            
+            const subtotal = parseFloat(subtotalText) || 0;
+            const tax = parseFloat(taxText) || 0;
+            
+            // Calculate true 20% discount
+            const discount = subtotal * 0.20;
+            
+            // Calculate correct Grand Total
+            const total = subtotal + tax - discount;
+            
+            // Update the UI with beautiful formatting back into the summary card
+            discountVal.textContent = "-₹" + discount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            document.getElementById("summary-total").textContent = "₹" + total.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          }
+        } else if (val === "") {
+          feedback.innerHTML = `<span style="color: #ef4444;"><i class="ri-error-warning-fill"></i> Please enter a coupon code.</span>`;
+          if (discountRow) discountRow.style.display = "none";
+          const subtotalText = document.getElementById("summary-subtotal").textContent.replace(/[₹$,]/g, "").trim();
+          const taxText = document.getElementById("summary-tax").textContent.replace(/[₹$,]/g, "").trim();
+          const subtotal = parseFloat(subtotalText) || 0;
+          const tax = parseFloat(taxText) || 0;
+          document.getElementById("summary-total").textContent = "₹" + (subtotal + tax).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        } else {
+          feedback.innerHTML = `<span style="color: #ef4444;"><i class="ri-error-warning-fill"></i> Invalid coupon code. Try CARA20.</span>`;
+          if (discountRow) discountRow.style.display = "none";
+          const subtotalText = document.getElementById("summary-subtotal").textContent.replace(/[₹$,]/g, "").trim();
+          const taxText = document.getElementById("summary-tax").textContent.replace(/[₹$,]/g, "").trim();
+          const subtotal = parseFloat(subtotalText) || 0;
+          const tax = parseFloat(taxText) || 0;
+          document.getElementById("summary-total").textContent = "₹" + (subtotal + tax).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+      });
+    }
+  });</script>
+   <footer class="section-p1" style="background-color: #3d485a !important; color: #ffffff !important; padding: 25px 40px 40px !important; margin: 40px auto 0 auto !important; border-top: 1px solid rgba(255, 255, 255, 0.1); display: grid !important; grid-template-columns: repeat(4, 1fr) !important; gap: 30px !important; max-width: 1400px !important; width: 100% !important; box-sizing: border-box !important; clear: both !important;">
+        
+  <!-- COLUMN 1: CONTACT & SOCIALS -->
+  <div class="col" style="display: flex !important; flex-direction: column !important; align-items: flex-start !important; width: 100% !important;">
+    <img class="logo" src="images/Dlogo.png" alt="Cara Logo" style="margin-bottom: 12px; height: auto; max-width: 120px;">
+    <h4 style="color: #ffffff !important; font-size: 14px !important; font-weight: 700 !important; margin: 0 0 10px 0 !important; text-transform: uppercase; letter-spacing: 0.5px;">Contact</h4>
+    <p style="color: #f1f5f9 !important; font-size: 13px !important; line-height: 1.4 !important; margin: 4px 0 !important;">
+      <strong style="color: #ffffff !important;">Address:</strong> 562 Wellington Road, SF
+    </p>
+    <p style="color: #f1f5f9 !important; font-size: 13px !important; line-height: 1.4 !important; margin: 4px 0 !important;">
+      <strong style="color: #ffffff !important;">Phone:</strong> +01 2222 365
+    </p>
+    <p style="color: #f1f5f9 !important; font-size: 13px !important; line-height: 1.4 !important; margin: 4px 0 !important;">
+      <strong style="color: #ffffff !important;">Hours:</strong> 10:00 - 18:00
+    </p>
+    
+    <h4 style="color: #ffffff !important; font-size: 13px !important; font-weight: 700 !important; margin: 15px 0 8px 0 !important; text-transform: uppercase; letter-spacing: 0.5px;">Follow us</h4>
+    <div class="icon" style="display: flex !important; gap: 12px !important; font-size: 15px !important;">
+      <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer" style="color: #cbd5e1 !important;"><i class="ri-twitter-x-fill"></i></a>
+      <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer" style="color: #cbd5e1 !important;"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer" style="color: #cbd5e1 !important;"><i class="fab fa-linkedin"></i></a>
+      <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer" style="color: #cbd5e1 !important;"><i class="fab fa-youtube"></i></a>
     </div>
 
     <!-- COLUMN 4: NEWSLETTER AREA -->
@@ -314,8 +378,34 @@
     </div>
   </footer>
 
-  <script src="app.js?v=1779120917210"></script>
-  <script src="js/toast-notifications.js"></script>
-  <script type="module" src="js/cart-recovery-engine.js"></script>
-</body>
+  <!-- COLUMN 4: NEWSLETTER AREA -->
+  <div class="col newsletter-footer" style="display: flex !important; flex-direction: column !important; align-items: flex-start !important; width: 100% !important;">
+    <h4 style="color: #ffffff !important; font-size: 14px !important; font-weight: 700 !important; margin: 0 0 10px 0 !important; text-transform: uppercase; letter-spacing: 0.5px;">Newsletter</h4>
+    <p style="color: #f1f5f9 !important; font-size: 13px !important; line-height: 1.4 !important; margin: 4px 0 10px 0 !important;">Get updates about our latest shop and <span style="color: #ffffff !important; font-weight: 600;">special offers.</span></p>
+    <form class="newsletter-form" style="display: flex !important; width: 100% !important;">
+      <input type="email" id="newsletter-email" placeholder="Your email address" aria-label="Email address for newsletter" required="" style="height: 34px !important; font-size: 12px !important; padding: 0 10px !important; border-radius: 4px 0 0 4px !important; border: none !important; flex-grow: 1 !important; width: 50% !important; min-width: 0 !important;">
+      <button type="submit" class="normal" aria-label="Sign up for newsletter" style="height: 34px !important; font-size: 12px !important; background-color: #088178 !important; color: #ffffff !important; border: none !important; padding: 0 12px !important; border-radius: 0 4px 4px 0 !important; font-weight: 600 !important; cursor: pointer !important; flex-shrink: 0 !important;">Sign Up</button>
+    </form>
+  </div>
+
+  <!-- HORIZONTAL COPYRIGHT STATEMENT -->
+  <div class="copyright" style="grid-column: span 4 !important; text-align: center !important; margin-top: 15px !important; padding-top: 15px !important; margin-bottom: 30px !important; border-top: 1px solid rgba(255, 255, 255, 0.1) !important;">
+    <p style="color: #94a3b8 !important; font-size: 12px !important; margin: 0 !important;">© Cara 2026. All rights reserved. | <a href="license.html" style="color: #ffffff !important; text-decoration: underline !important;"> MIT License </a></p>
+  </div>
+</footer>
+
+  <!-- This is your closing footer tag -->
+
+      <!-- FORCE A BLANK LAYOUT GAP AT THE BOTTOM OF THE ENTIRE PAGE -->
+      <div style="height: 18px !important; width: 100% !important; clear: both !important; display: block !important;"></div>
+      
+    <script type="module" src="app.js?v=1779120917210"></script>
+    <script>
+      // ... (your coupon script stays exactly the same)
+    </script>
+  </body>
 </html>
+
+
+
+<!-- Toast Script --><script type="module" src='js/toast-notifications.js'></script>

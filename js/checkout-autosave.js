@@ -51,3 +51,4 @@ export function initCheckoutAutosave() {
 if (typeof document !== 'undefined') {
   document.addEventListener('DOMContentLoaded', initCheckoutAutosave);
 }
+
