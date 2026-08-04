@@ -1,5 +1,5 @@
 (() => {
-const ORDER_API_BASE_URL = window.CARA_API_BASE_URL || '';
+const ORDER_API_BASE_URL = (window.CARA_CONFIG ? window.CARA_CONFIG.API_BASE_URL : '');
 
 
 

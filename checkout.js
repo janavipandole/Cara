@@ -15,7 +15,7 @@ function safeParseJSON(key, fallback = '[]') {
   }
 }
 
-const API_BASE_URL = window.CARA_API_BASE_URL || '';
+const API_BASE_URL = (window.CARA_CONFIG ? window.CARA_CONFIG.API_BASE_URL : '');
 const promoCalcEngine = typeof PromoDiscountCalculator !== 'undefined' ? new PromoDiscountCalculator() : null;
 
 

@@ -1,5 +1,5 @@
 (() => {
-var API_BASE = window.CARA_API_BASE_URL || '';
+var API_BASE = (window.CARA_CONFIG ? window.CARA_CONFIG.API_BASE_URL : '');
 
 
 

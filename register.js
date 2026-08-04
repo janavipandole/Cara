@@ -1,6 +1,6 @@
 (() => {
 /* global fetchWithTimeout */
-const API_BASE_URL = window.CARA_API_BASE_URL || '';
+const API_BASE_URL = (window.CARA_CONFIG ? window.CARA_CONFIG.API_BASE_URL : '');
 
 document.addEventListener('DOMContentLoaded', () => {
   const btn = document.getElementById('registerSubmitBtn');

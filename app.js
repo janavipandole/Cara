@@ -1,21 +1,4 @@
 (() => {
-window.CARA_CONFIG = {
-  TAX_RATE: 0.18,
-  SHIPPING: {
-    FEE: 150,
-    FREE_THRESHOLD: 3000
-  },
-  URGENCY_DISCOUNT_PCT: 0.05,
-  GIFT_WRAP_CHARGE: 99,
-  LOYALTY: {
-    POINTS_PER_RUPEE: 10,
-    DEFAULT_BALANCE: 150
-  }
-};
-window.CARA_COUPONS = {
-  'CARA20': 20,
-  'WELCOME10': 10
-};
 // i18n.js - Multi-language support
 
 // Global error logger

@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // The real session lives in httpOnly cookies, which JS can't clear
     // directly, so ask the server to invalidate them.
-    const apiBase = window.CARA_API_BASE_URL || '';
+    const apiBase = (window.CARA_CONFIG ? window.CARA_CONFIG.API_BASE_URL : '');
     fetch(`${apiBase}/api/auth/logout`, {
       method: 'POST',
       credentials: 'include',
