@@ -308,6 +308,19 @@ function submitCheckoutForm() {
     }
   }
 
+  if (!window.isPhoneVerified) {
+    if (typeof window.showToast === 'function') {
+      window.showToast('Please verify your phone number first.', 'error');
+    }
+    const phoneEl = document.getElementById('phone');
+    if (phoneEl) {
+      phoneEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      phoneEl.focus();
+    }
+    return;
+  }
+
+
   // ── Loading state: disable button & show spinner ──
   const submitBtn = form.querySelector('.submit-btn');
 
@@ -684,3 +697,109 @@ if (successOverlay) {
 }
 // Advanced validation routines checking postal formats and shipping address boundaries.
 console.log("Checkout script updated with Vault integration.");
+
+// --- OTP Verification Logic ---
+window.isPhoneVerified = false;
+
+document.addEventListener('DOMContentLoaded', () => {
+  const verifyBtn = document.getElementById('verifyPhoneBtn');
+  const otpSection = document.getElementById('otp-section');
+  const otpInput = document.getElementById('otp-input');
+  const confirmOtpBtn = document.getElementById('confirmOtpBtn');
+  const phoneInput = document.getElementById('phone');
+  const phoneErrorMsg = document.getElementById('phone-error-msg');
+  const otpErrorMsg = document.getElementById('otp-error-msg');
+
+  if (!verifyBtn || !otpSection) return;
+
+  verifyBtn.addEventListener('click', async () => {
+    const phone = phoneInput.value.trim();
+    if (!phone || !/^\+?[\d\s-]{7,15}$/.test(phone)) {
+      if (phoneErrorMsg) phoneErrorMsg.textContent = 'Enter a valid phone number before verifying.';
+      return;
+    }
+    
+    verifyBtn.disabled = true;
+    verifyBtn.textContent = 'Sending...';
+    if (phoneErrorMsg) phoneErrorMsg.textContent = '';
+    
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/otp/send`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone })
+      });
+      
+      if (!res.ok) throw new Error('Failed to send OTP');
+      
+      otpSection.style.display = 'block';
+      verifyBtn.textContent = 'Sent!';
+      
+      // Invoke WebOTP API
+      if ('OTPCredential' in window) {
+        const ac = new AbortController();
+        navigator.credentials.get({
+          otp: { transport: ['sms'] },
+          signal: ac.signal
+        }).then(otp => {
+          otpInput.value = otp.code;
+          confirmOtpBtn.click(); // auto verify
+        }).catch(err => {
+          console.warn('WebOTP error:', err);
+        });
+      }
+    } catch (err) {
+      if (phoneErrorMsg) phoneErrorMsg.textContent = err.message;
+      verifyBtn.disabled = false;
+      verifyBtn.textContent = 'Verify';
+    }
+  });
+
+  confirmOtpBtn.addEventListener('click', async () => {
+    const phone = phoneInput.value.trim();
+    const code = otpInput.value.trim();
+    if (!code) {
+      if (otpErrorMsg) otpErrorMsg.textContent = 'Please enter the code.';
+      return;
+    }
+    
+    confirmOtpBtn.disabled = true;
+    confirmOtpBtn.textContent = 'Checking...';
+    if (otpErrorMsg) otpErrorMsg.textContent = '';
+    
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/otp/verify`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone, code })
+      });
+      
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.detail || 'Verification failed');
+      }
+      
+      window.isPhoneVerified = true;
+      otpSection.style.display = 'none';
+      verifyBtn.style.display = 'none';
+      phoneInput.readOnly = true;
+      phoneInput.style.backgroundColor = 'var(--bg-alt)';
+      if (typeof window.showToast === 'function') {
+        window.showToast('Phone verified successfully!', 'success');
+      }
+    } catch (err) {
+      if (otpErrorMsg) otpErrorMsg.textContent = err.message;
+      confirmOtpBtn.disabled = false;
+      confirmOtpBtn.textContent = 'Confirm';
+    }
+  });
+  
+  phoneInput.addEventListener('input', () => {
+    window.isPhoneVerified = false;
+    verifyBtn.style.display = 'block';
+    verifyBtn.disabled = false;
+    verifyBtn.textContent = 'Verify';
+    otpSection.style.display = 'none';
+  });
+});
+

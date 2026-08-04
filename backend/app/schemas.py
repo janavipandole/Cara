@@ -237,3 +237,10 @@ class StatusDistributionOut(BaseModel):
     """Order volume distribution across statuses returned by GET /api/admin/analytics/order-status-distribution."""
     status: str
     count: int
+
+class SendOTPRequest(BaseModel):
+    phone: str
+
+class VerifyOTPRequest(BaseModel):
+    phone: str
+    code: str

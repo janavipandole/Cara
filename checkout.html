@@ -88,8 +88,20 @@
 
         <div class="input-group">
           <label for="phone">Phone Number</label>
-          <input type="tel" id="phone" placeholder="Enter phone number" data-validate="phone" autocomplete="tel" required>
-          <span class="error-msg"></span>
+          <div style="display: flex; gap: 8px;">
+            <input type="tel" id="phone" placeholder="Enter phone number" data-validate="phone" autocomplete="tel" required style="flex: 1;">
+            <button type="button" class="back-btn" id="verifyPhoneBtn" style="margin: 0; padding: 0 15px; border-radius: 8px; white-space: nowrap;">Verify</button>
+          </div>
+          <span class="error-msg" id="phone-error-msg"></span>
+        </div>
+
+        <div class="input-group" id="otp-section" style="display: none; background: var(--bg-alt); padding: 15px; border-radius: 8px; border: 1px solid var(--border);">
+          <label for="otp-input" style="color: var(--text-color);">Enter Verification Code (Sent via SMS)</label>
+          <div style="display: flex; gap: 8px; margin-top: 5px;">
+            <input type="text" id="otp-input" placeholder="6-digit code" autocomplete="one-time-code" style="flex: 1; letter-spacing: 2px; text-align: center; font-weight: 600;">
+            <button type="button" class="back-btn" id="confirmOtpBtn" style="margin: 0; padding: 0 15px; border-radius: 8px;">Confirm</button>
+          </div>
+          <span class="error-msg" id="otp-error-msg" style="display: block; margin-top: 5px;"></span>
         </div>
         </fieldset>
 
