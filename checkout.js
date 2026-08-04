@@ -383,6 +383,10 @@ function submitCheckoutForm() {
       window.appliedCoupon = null;
       checkoutIdempotencyKey = null;
 
+      if (typeof window.updateCartCount === 'function') {
+        window.updateCartCount();
+      }
+
       if (submitBtn) {
         submitBtn.classList.remove('btn-loading');
         submitBtn.disabled = false;
