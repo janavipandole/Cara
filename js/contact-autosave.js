@@ -28,7 +28,11 @@ document.addEventListener('DOMContentLoaded', () => {
           const sec = new window.BackendProfileSecurity();
           val = sec.sanitizeField(val);
         }
-        localStorage.setItem(`cara_contact_draft_${field}`, val);
+        try {
+          localStorage.setItem(`cara_contact_draft_${field}`, val);
+        } catch {
+          // Silently ignore localStorage failures in restricted environments
+        }
         showAutosaveStatus();
       });
     }

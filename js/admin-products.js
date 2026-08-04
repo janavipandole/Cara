@@ -17,7 +17,10 @@ function adminRequest(method, path, body) {
         });
       return r.json();
     })
-    .catch((err) => console.warn('[AdminProducts] Failed:', err));
+    .catch(function (err) {
+      console.warn('[AdminProducts] Failed:', err);
+      throw err;
+    });
 }
 
 window.AdminProducts = {
@@ -45,6 +48,10 @@ window.AdminProducts = {
           });
         return r.json();
       })
-      .catch((err) => console.warn('[AdminProducts] Failed:', err));
+      .catch(function (err) {
+        console.warn('[AdminProducts] Failed:', err);
+        throw err;
+      });
   },
 };
+
