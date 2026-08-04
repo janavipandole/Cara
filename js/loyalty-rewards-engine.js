@@ -81,10 +81,24 @@ class LoyaltyRewardsEngine {
     this.saveData();
     return { success: true, discount: discountValue, remainingPoints: this.data.points };
   }
+  calculatePoints(spent = 0) {
+    return Math.floor(spent);
+  }
+
+  getUserTier(points = 0) {
+    return this.getTier(points).name;
+  }
+
+  getMultiplier(tierName = 'Bronze') {
+    const found = this.tiers.find(t => t.name === tierName);
+    return found ? found.multiplier : 1.0;
+  }
 }
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = LoyaltyRewardsEngine;
+  module.exports = { LoyaltyRewardsEngine };
 } else {
   window.LoyaltyRewardsEngine = LoyaltyRewardsEngine;
 }
+export { LoyaltyRewardsEngine };
+
