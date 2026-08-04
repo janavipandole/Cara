@@ -750,3 +750,33 @@
 .delay-stagger-1 { animation-delay: 100ms; }
 
 @import url('assets/css/skeleton-loader.css');
+
+/* Product Facet Filter Styles */
+.facet-filter-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.facet-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.facet-chip {
+  background: #e0f2f1;
+  color: #088178;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 13px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}

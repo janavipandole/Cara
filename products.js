@@ -994,3 +994,17 @@ function showToast(message, type = 'success') {
 }
 
 // Skeleton UI integration added
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { products };
+}
+
+
+
+// Expose the product catalog on `window` so other scripts that read
+// `window.products` (e.g. js/live-sales-toast.js's getProducts(), and
+// validateSharedCartItems() in app.js) see the real catalog instead of
+// silently treating it as empty/undefined.
+if (typeof window !== 'undefined') {
+    window.products = products;
+}
+  
