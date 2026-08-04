@@ -364,13 +364,13 @@ function submitCheckoutForm() {
       const appliedPoints =
         parseInt(localStorage.getItem('cara_applied_loyalty_points'), 10) || 0;
       const currentBalance =
-        parseInt(localStorage.getItem('cara_loyalty_balance'), 10) || 150;
+        parseInt(localStorage.getItem('cara_loyalty_balance'), 10) || (window.CARA_CONFIG ? window.CARA_CONFIG.LOYALTY.DEFAULT_BALANCE : 150);
       const subtotal = cart.reduce(
         (sum, item) =>
           sum + parsePriceString(item.price) * (parseInt(item.quantity, 10) || 1),
         0,
       );
-      const earnedPoints = Math.floor(subtotal * 0.1);
+      const earnedPoints = Math.floor(subtotal * (window.CARA_CONFIG ? window.CARA_CONFIG.LOYALTY.POINTS_PER_RUPEE / 100 : 0.1));
       const newBalance = Math.max(
         0,
         currentBalance - appliedPoints + earnedPoints,
@@ -485,23 +485,23 @@ window.updateCheckoutSummary = function () {
   const couponPct = COUPONS[couponCode] || 0;
   const couponDiscount = subtotal * (couponPct / 100);
 
-  // Check urgency discount (5%) if the timer is running
+  // Check urgency discount if the timer is running
   const hasUrgency =
     !window.urgencyTimerExpired &&
     document.getElementById('checkout-promo-alert-bar');
-  const urgencyDiscount = hasUrgency ? subtotal * 0.05 : 0;
+  const urgencyDiscount = hasUrgency ? subtotal * (window.CARA_CONFIG ? window.CARA_CONFIG.URGENCY_DISCOUNT_PCT : 0.05) : 0;
 
   // Check gift wrap
   const hasGiftWrap = document.getElementById('gift-wrap-opt')?.checked;
-  const giftCharge = hasGiftWrap ? 99 : 0;
+  const giftCharge = hasGiftWrap ? (window.CARA_CONFIG ? window.CARA_CONFIG.GIFT_WRAP_CHARGE : 99) : 0;
 
-  // Calculate tax (18% GST) — must match app.js line 939 and backend orders.py
-  const tax = subtotal * 0.18;
+  // Calculate tax
+  const tax = subtotal * (window.CARA_CONFIG ? window.CARA_CONFIG.TAX_RATE : 0.18);
 
-  // Check loyalty points discount (10 points = ₹1)
+  // Check loyalty points discount
   const loyaltyPoints =
     parseInt(localStorage.getItem('cara_applied_loyalty_points'), 10) || 0;
-  const loyaltyDiscount = loyaltyPoints * 0.1;
+  const loyaltyDiscount = loyaltyPoints / (window.CARA_CONFIG ? window.CARA_CONFIG.LOYALTY.POINTS_PER_RUPEE : 10);
 
   // Grand Total
   const grandTotal = Math.max(
@@ -574,7 +574,7 @@ window.updateCheckoutSummary = function () {
       const divider = document.querySelector('.summary-divider');
       if (divider) divider.parentNode.insertBefore(urgencyRow, divider);
     }
-    urgencyRow.innerHTML = `<span>Urgency Promo (5%)</span><span id='urgency-discount-val'>-${formatCurrency(urgencyDiscount)}</span>`;
+    urgencyRow.innerHTML = `<span>Urgency Promo (${window.CARA_CONFIG ? window.CARA_CONFIG.URGENCY_DISCOUNT_PCT * 100 : 5}%)</span><span id='urgency-discount-val'>-${formatCurrency(urgencyDiscount)}</span>`;
   } else {
     if (urgencyRow) urgencyRow.remove();
   }

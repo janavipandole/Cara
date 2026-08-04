@@ -1,4 +1,21 @@
 (() => {
+window.CARA_CONFIG = {
+  TAX_RATE: 0.18,
+  SHIPPING: {
+    FEE: 150,
+    FREE_THRESHOLD: 3000
+  },
+  URGENCY_DISCOUNT_PCT: 0.05,
+  GIFT_WRAP_CHARGE: 99,
+  LOYALTY: {
+    POINTS_PER_RUPEE: 10,
+    DEFAULT_BALANCE: 150
+  }
+};
+window.CARA_COUPONS = {
+  'CARA20': 20,
+  'WELCOME10': 10
+};
 // i18n.js - Multi-language support
 
 // Global error logger
@@ -997,7 +1014,7 @@ window.loadCart = async function () {
   if (subtotalEl) subtotalEl.innerText = formatCurrency(subtotal);
 
   let shipping = 0;
-  if (subtotal > 0) shipping = subtotal >= 3000 ? 0 : 150;
+  if (subtotal > 0) shipping = subtotal >= window.CARA_CONFIG.SHIPPING.FREE_THRESHOLD ? 0 : window.CARA_CONFIG.SHIPPING.FEE;
 
   if (shippingEl) {
     shippingEl.innerText = shipping === 0 ? 'FREE' : formatCurrency(shipping);
@@ -1007,7 +1024,7 @@ window.loadCart = async function () {
     );
   }
 
-  const tax = Math.round(subtotal * 0.18);
+  const tax = Math.round(subtotal * window.CARA_CONFIG.TAX_RATE);
   if (taxEl) taxEl.innerText = formatCurrency(tax);
 
   let discount = 0;
@@ -1104,7 +1121,7 @@ window.applyCoupon = function () {
     showToast(`${code} applied! ${coupons[code]}% discount added.`, 'success');
     loadCart();
   } else {
-    showToast('Invalid promo code. Try CARA20 for 20% off!', 'error');
+    showToast(`Invalid promo code. Try ${Object.keys(coupons)[0] || 'CARA20'}!`, 'error');
   }
 };
 
