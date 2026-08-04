@@ -3517,3 +3517,63 @@ footer .copyright {
 .autocomplete-spinner {
   animation: spin 0.6s linear infinite;
 }
+
+/* Cookie Privacy Banner Styles */
+.cookie-privacy-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #1e293b;
+  color: #f8fafc;
+  padding: 16px 24px;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+}
+
+.cookie-banner-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.cookie-text {
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.cookie-text a {
+  color: #38bdf8;
+  text-decoration: underline;
+}
+
+.cookie-btn-group {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-accept {
+  background: #088178;
+  color: #ffffff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-reject {
+  background: #475569;
+  color: #ffffff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
