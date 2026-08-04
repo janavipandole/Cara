@@ -68,6 +68,12 @@
 
     <form id="checkoutForm" novalidate>
 
+      <div id="contactPickerContainer" style="display: none; margin-bottom: 20px;">
+        <button type="button" id="contactPickerBtn" style="width: 100%; padding: 12px; background-color: #e8f6f3; color: #088178; border: 1px dashed #088178; border-radius: 6px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 14px; transition: all 0.3s ease;">
+          <i class="ri-contacts-book-2-line" style="font-size: 18px;"></i> Select from Contacts
+        </button>
+      </div>
+
       <div class="input-group">
         <label for="fullName">Full Name</label>
         <input type="text" id="fullName" placeholder="Enter your full name" data-validate="fullName" required>
@@ -291,6 +297,7 @@
   <script type="module" src="js/checkout-validator.js"></script>
   <script src="js/address-validation-service.js" defer></script>
   <script src="js/address-autocomplete.js" defer></script>
+  <script src="js/contact-picker.js" defer></script>
 </body>
 </html>
 
