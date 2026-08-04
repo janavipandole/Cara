@@ -54,6 +54,15 @@
     return arr[Math.floor(Math.random() * arr.length)];
   }
 
+  function _escape(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
   function getProducts() {
     return window.products || [];
   }
@@ -81,16 +90,16 @@
     // Create toast element
     const toast = document.createElement('div');
     toast.className = 'live-sales-toast';
-    toast.textContent = `
+    toast.innerHTML = `
       <button class="live-sales-close" aria-label="Dismiss">&times;</button>
       <div class="live-sales-img-wrapper">
-        <img src="${product.img}" alt="${product.name}">
+        <img src="${_escape(product.img)}" alt="${_escape(product.name)}">
       </div>
       <div class="live-sales-details">
         <p class="live-sales-title">Recent Purchase</p>
         <p class="live-sales-message">
           <span class="buyer">${buyer}</span> from ${city} bought a 
-          <span class="product">${product.name}</span>
+          <span class="product">${_escape(product.name)}</span>
         </p>
         <span class="live-sales-time">${time}</span>
       </div>
