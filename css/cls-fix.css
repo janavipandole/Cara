@@ -1,0 +1,32 @@
+/*
+ * Product Grid Cumulative Layout Shift (CLS) Optimization Styles (#3708).
+ * Preserves exact bounding box dimensions for product thumbnails before images finish downloading.
+ */
+
+.pro-container .pro .img-container,
+.product-card .img-wrapper {
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  overflow: hidden;
+  background-color: #f1f5f9;
+  position: relative;
+  contain: layout size;
+}
+
+.pro-container .pro img,
+.product-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Skeleton Loading Placeholder */
+.pro-container .pro img.loading {
+  opacity: 0;
+}
+
+.pro-container .pro img.loaded {
+  opacity: 1;
+}
