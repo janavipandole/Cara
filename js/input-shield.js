@@ -9,10 +9,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     textInputs.forEach((input) => {
       const rawVal = input.value;
-      // Check for script tag presence or onload handlers
+      // Block script tags, all HTML event handler attributes, and javascript: URIs
       if (
         /<script/i.test(rawVal) ||
-        /onload=/i.test(rawVal) ||
+        /\bon(load|error|click|focus|blur|mouseover|mouseout|keypress|change|input|submit)[=>\s]/i.test(rawVal) ||
         /javascript:/i.test(rawVal)
       ) {
         blocked = true;
