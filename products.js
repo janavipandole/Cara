@@ -994,3 +994,7 @@ function showToast(message, type = 'success') {
 }
 
 // Skeleton UI integration added
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { products };
+}
+
