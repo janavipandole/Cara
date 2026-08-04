@@ -988,10 +988,21 @@ window.loadCart = async function () {
   if (taxEl) taxEl.innerText = formatCurrency(tax);
 
   let discount = 0;
-  const couponPct =
-    window.CARA_COUPONS && window.CARA_COUPONS[window.appliedCoupon];
-  if (couponPct && subtotal > 0) {
-    discount = Math.round(subtotal * (couponPct / 100));
+  let grandTotal = subtotal + tax + shipping;
+
+  if (window.PromoDiscountCalculator) {
+    const calculator = new window.PromoDiscountCalculator();
+    const calculation = calculator.calculateTotal(subtotal, window.appliedCoupon, shipping);
+    discount = calculation.discount;
+    shipping = calculation.shipping;
+    grandTotal = calculation.grandTotal + tax;
+  } else {
+    // Fallback if calculator is missing
+    const couponPct = window.CARA_COUPONS && window.CARA_COUPONS[window.appliedCoupon];
+    if (couponPct && subtotal > 0) {
+      discount = Math.round(subtotal * (couponPct / 100));
+    }
+    grandTotal = Math.max(0, subtotal + tax + shipping - discount);
   }
 
   if (discountRow && discountEl) {
@@ -1003,7 +1014,6 @@ window.loadCart = async function () {
     }
   }
 
-  const grandTotal = Math.max(0, subtotal + tax + shipping - discount);
   if (totalEl) totalEl.innerText = formatCurrency(grandTotal);
 
   // Legacy cart summary table (cart.html fallback)
@@ -1067,21 +1077,39 @@ window.changeQuantity = function (index, change) {
 window.applyCoupon = function () {
   const promoInput = document.getElementById('coupon-code');
   if (!promoInput) return;
-  const code = promoInput.value.trim().toUpperCase();
-  const coupons = window.CARA_COUPONS || {};
-
-  if (code === '') {
+  
+  const code = promoInput.value;
+  if (code.trim() === '') {
     showToast('Please enter a coupon code.', 'warning');
     return;
   }
 
-  if (Object.prototype.hasOwnProperty.call(coupons, code)) {
-    window.appliedCoupon = code;
-    localStorage.setItem('appliedCoupon', code);
-    showToast(`${code} applied! ${coupons[code]}% discount added.`, 'success');
-    loadCart();
+  if (window.PromoDiscountCalculator) {
+    const calculator = new window.PromoDiscountCalculator();
+    const subtotalText = document.getElementById("summary-subtotal")?.innerText.replace(/[₹$,]/g, "").trim() || "0";
+    const subtotal = parseFloat(subtotalText) || 0;
+    
+    const validation = calculator.validateCoupon(code, subtotal);
+    if (validation.valid) {
+      window.appliedCoupon = validation.code;
+      localStorage.setItem('appliedCoupon', validation.code);
+      showToast(`${validation.code} applied!`, 'success');
+      loadCart();
+    } else {
+      showToast(validation.message, 'error');
+    }
   } else {
-    showToast(`Invalid promo code. Try ${Object.keys(coupons)[0] || 'CARA20'}!`, 'error');
+    // Fallback if calculator is not loaded
+    const cleanCode = code.trim().toUpperCase();
+    const coupons = window.CARA_COUPONS || {};
+    if (Object.prototype.hasOwnProperty.call(coupons, cleanCode)) {
+      window.appliedCoupon = cleanCode;
+      localStorage.setItem('appliedCoupon', cleanCode);
+      showToast(`${cleanCode} applied!`, 'success');
+      loadCart();
+    } else {
+      showToast(`Invalid promo code.`, 'error');
+    }
   }
 };
 
