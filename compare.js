@@ -1,3 +1,4 @@
+(() => {
 /**
  * compare.js — Product Comparison Feature
  * Issue #2576: Side-by-side product comparison table with sessionStorage (max 3 items)
@@ -309,4 +310,6 @@
       initShopPage();
     }
   });
+})();
+
 })();

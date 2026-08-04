@@ -1,3 +1,4 @@
+(() => {
 // ARIA Live Region Announcement Manager for Screen Readers
 
 let liveRegionPolite = null;
@@ -39,3 +40,5 @@ export function announce(message, politeness = 'polite') {
     }, 50);
   }
 }
+
+})();

@@ -1,3 +1,4 @@
+(() => {
 /**
  * Outfit Compatibility and Fallback Suggester Utility
  * Evaluates whether clothing items match and provides alternative style suggestions.
@@ -37,3 +38,5 @@ if (typeof module !== 'undefined' && module.exports) {
 } else if (typeof window !== 'undefined') {
   window.OutfitCompatibility = OutfitCompatibility;
 }
+
+})();

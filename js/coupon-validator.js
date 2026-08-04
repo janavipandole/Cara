@@ -1,3 +1,4 @@
+(() => {
 /**
  * coupon-validator.js
  * Handles client-side coupon application and validation on the checkout page.
@@ -110,4 +111,6 @@
   }
 
   document.addEventListener('DOMContentLoaded', init);
+})();
+
 })();

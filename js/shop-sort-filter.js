@@ -1,3 +1,4 @@
+(() => {
 // Dynamic Catalog Sorter and Filter
 document.addEventListener('DOMContentLoaded', () => {
   const productsContainer =
@@ -75,3 +76,5 @@ document.addEventListener('DOMContentLoaded', () => {
     .getElementById('catalog-sorter')
     .addEventListener('change', filterAndSort);
 });
+
+})();

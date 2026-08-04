@@ -1,3 +1,4 @@
+(() => {
 /**
  * Virtual Try-On Canvas Engine
  * Manages HTML5 Canvas rendering for virtual clothing previews, drag-and-drop overlays, scale transformation, and snapshot generation.
@@ -87,3 +88,5 @@ if (typeof module !== 'undefined' && module.exports) {
 } else {
   window.VirtualTryOnEngine = VirtualTryOnEngine;
 }
+
+})();

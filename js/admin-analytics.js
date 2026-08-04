@@ -1,3 +1,4 @@
+(() => {
 /**
  * admin-analytics.js
  * Client-side script for the store manager dashboard.
@@ -143,4 +144,6 @@
   });
 
   window.AdminDashboard = { refresh: loadDashboard };
+})();
+
 })();

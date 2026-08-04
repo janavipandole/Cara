@@ -1,3 +1,4 @@
+(() => {
 // live-sales-toast.js
 // Dynamically renders social proof live sales notifications toasts periodically.
 
@@ -168,4 +169,6 @@
   document.addEventListener('DOMContentLoaded', () => {
     startToastCycle();
   });
+})();
+
 })();

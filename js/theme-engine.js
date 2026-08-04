@@ -1,3 +1,4 @@
+(() => {
 // Centralized Accessible Theme Preference Engine
 
 export const THEMES = {
@@ -74,3 +75,5 @@ export function initThemeEngine() {
 if (typeof document !== 'undefined') {
   document.addEventListener('DOMContentLoaded', initThemeEngine);
 }
+
+})();

@@ -1,3 +1,4 @@
+(() => {
 /**
  * Wishlist Notes & Tag Manager
  * Provides user notes, custom tagging, filtering, and priority ranking for wishlist items.
@@ -88,3 +89,5 @@ if (typeof module !== 'undefined' && module.exports) {
 } else {
   window.WishlistNotesTagManager = WishlistNotesTagManager;
 }
+
+})();

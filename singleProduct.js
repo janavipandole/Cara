@@ -1,3 +1,4 @@
+(() => {
 const modal = document.getElementById('size-chart-modal');
 const PRODUCT_DETAILS_REQUEST_KEY = 'product-details';
 
@@ -225,3 +226,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+})();

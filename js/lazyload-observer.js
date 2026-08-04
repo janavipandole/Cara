@@ -1,3 +1,4 @@
+(() => {
 // IntersectionObserver Image Lazy Loading Module
 
 export function initLazyLoadObserver(selector = 'img.lazyload', options = {}) {
@@ -45,3 +46,5 @@ if (typeof document !== 'undefined') {
     initLazyLoadObserver();
   });
 }
+
+})();

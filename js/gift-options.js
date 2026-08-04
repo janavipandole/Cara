@@ -1,3 +1,4 @@
+(() => {
 // Gift Wrapping Option Engine
 document.addEventListener('DOMContentLoaded', () => {
   const giftCheckbox = document.getElementById('gift-wrap-opt');
@@ -19,3 +20,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+})();

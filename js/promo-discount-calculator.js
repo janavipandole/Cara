@@ -1,3 +1,4 @@
+(() => {
 /**
  * Promo Discount Calculator Engine
  * Handles coupon validation, percentage/flat discounts, minimum subtotal thresholds, and free shipping calculation.
@@ -72,3 +73,5 @@ if (typeof module !== 'undefined' && module.exports) {
 } else {
   window.PromoDiscountCalculator = PromoDiscountCalculator;
 }
+
+})();

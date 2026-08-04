@@ -1,3 +1,4 @@
+(() => {
 // Dynamic Multi-Currency Converter & Locale Formatter Module
 
 export const DEFAULT_EXCHANGE_RATES = {
@@ -117,3 +118,5 @@ if (typeof document !== 'undefined') {
     initCurrencySelector();
   });
 }
+
+})();

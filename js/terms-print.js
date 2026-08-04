@@ -1,3 +1,4 @@
+(() => {
 // Print-Friendly Terms Optimization
 document.addEventListener('DOMContentLoaded', () => {
   const parentContainer = document.querySelector('section') || document.body;
@@ -31,3 +32,5 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
   document.head.appendChild(style);
 });
+
+})();

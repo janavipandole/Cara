@@ -1,3 +1,4 @@
+(() => {
 // Client-Side Error Boundary and Logger
 window.addEventListener('error', (event) => {
   console.error('Runtime exception caught: ', event.error);
@@ -32,3 +33,5 @@ window.addEventListener('error', (event) => {
     document.body.appendChild(notice);
   }
 });
+
+})();

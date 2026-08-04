@@ -1,3 +1,4 @@
+(() => {
 document.addEventListener('DOMContentLoaded', () => {
   const faqBtns = document.querySelectorAll('.faq-accordion-btn');
   faqBtns.forEach(btn => {
@@ -14,3 +15,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+})();

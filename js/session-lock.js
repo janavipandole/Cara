@@ -1,3 +1,4 @@
+(() => {
 // Automated Inactivity Logout Monitor
 document.addEventListener('DOMContentLoaded', () => {
   let timeout;
@@ -41,3 +42,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
   resetTimer();
 });
+})();

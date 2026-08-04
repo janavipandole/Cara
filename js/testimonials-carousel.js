@@ -1,3 +1,4 @@
+(() => {
 /**
  * testimonials-carousel.js
  * Implements a fully responsive, touch-friendly customer testimonials slider.
@@ -245,3 +246,5 @@ document.addEventListener('DOMContentLoaded', () => {
     startAutoplay();
   }, 100);
 });
+
+})();

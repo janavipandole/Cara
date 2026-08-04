@@ -1,3 +1,4 @@
+(() => {
 // Reusable Toast Notification Queue Manager
 
 export class ToastQueueManager {
@@ -83,3 +84,5 @@ export class ToastQueueManager {
 }
 
 export const globalToastQueue = new ToastQueueManager();
+
+})();

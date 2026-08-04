@@ -1,3 +1,4 @@
+(() => {
 // Accessibility Focus Trap Utility for Modals and Dialogs
 
 export const TABBABLE_SELECTOR =
@@ -63,3 +64,5 @@ export function createFocusTrap(containerElement) {
     },
   };
 }
+
+})();

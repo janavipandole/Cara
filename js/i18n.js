@@ -1,3 +1,4 @@
+(() => {
 // i18n.js - Multi-language support
 
 const translations = {
@@ -87,3 +88,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+})();

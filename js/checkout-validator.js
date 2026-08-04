@@ -1,3 +1,4 @@
+(() => {
 // Real-Time Form Validation Engine for Checkout
 
 export function validateCreditCardLuhn(cardNumber) {
@@ -56,3 +57,5 @@ export function validatePhone(phone) {
   const digits = phone.replace(/\D/g, '');
   return digits.length >= 10 && digits.length <= 15;
 }
+
+})();

@@ -1,3 +1,4 @@
+(() => {
 /**
  * Order Telemetry Tracker Engine
  * Provides live order tracking telemetry, carrier estimation, progress state calculations, and delivery milestones.
@@ -49,3 +50,5 @@ if (typeof module !== 'undefined' && module.exports) {
 } else {
   window.OrderTelemetryTracker = OrderTelemetryTracker;
 }
+
+})();

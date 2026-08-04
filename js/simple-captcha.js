@@ -1,3 +1,4 @@
+(() => {
 // Simple Login Mathematics Verification Captcha
 document.addEventListener('DOMContentLoaded', () => {
   const loginForm = document.querySelector('form');
@@ -59,3 +60,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+})();

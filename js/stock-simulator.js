@@ -1,3 +1,4 @@
+(() => {
 // Size-specific Stock Level Tracker & Inventory Reservation Engine
 
 export const mockStockData = {
@@ -85,3 +86,5 @@ export function initStockSimulator() {
 if (typeof document !== 'undefined') {
   document.addEventListener('DOMContentLoaded', initStockSimulator);
 }
+
+})();

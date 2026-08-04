@@ -1,3 +1,4 @@
+(() => {
 const contributorsGrid = document.getElementById('contributorsGrid');
 
 async function fetchContributors() {
@@ -70,3 +71,5 @@ function displayContributors(contributors) {
 }
 
 fetchContributors();
+
+})();
