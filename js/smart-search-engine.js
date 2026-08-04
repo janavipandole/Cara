@@ -24,8 +24,15 @@ class SmartSearchEngine {
   getSynonyms(query) {
     const q = query.toLowerCase().trim();
     const result = new Set([q]);
+
+    // Strip trailing 's' to handle plural forms (e.g., "shirts" -> "shirt")
+    const singular = q.endsWith('s') && q.length > 1 ? q.slice(0, -1) : q;
+    if (singular !== q) {
+      result.add(singular);
+    }
+
     for (const [key, list] of Object.entries(this.synonyms)) {
-      if (key === q || list.includes(q)) {
+      if (key === q || list.includes(q) || key === singular || list.includes(singular)) {
         result.add(key);
         list.forEach((syn) => result.add(syn));
       }
