@@ -198,9 +198,14 @@
 
     <div class="filter-container">
       <label for="color-filter">Color</label>
-      <select id="color-filter">
-        <option value="all">All</option>
-      </select>
+      <div style="display: flex; gap: 8px; width: 100%;">
+        <select id="color-filter" style="flex: 1;">
+          <option value="all">All</option>
+        </select>
+        <button id="eyeDropperBtn" aria-label="Pick exact color" style="display: none; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 0 14px; cursor: pointer; color: var(--text-primary); transition: all 0.3s ease; box-shadow: 0 4px 10px var(--shadow);">
+          <i class="fa-solid fa-eye-dropper"></i>
+        </button>
+      </div>
     </div>
 
     <!-- RESET BUTTON -->
