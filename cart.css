@@ -1001,3 +1001,56 @@ body footer.section-p1 .copyright a {
 }
 
 @import url('assets/css/toast-notifications.css');
+
+/* Cart Recovery Banner Styles */
+.cart-recovery-banner {
+  background: #088178;
+  color: #ffffff;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.cart-recovery-content {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  max-width: 1200px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.cart-recovery-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-restore {
+  background: #ffffff;
+  color: #088178;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-restore:hover {
+  background: #e0f2f1;
+}
+
+.btn-dismiss {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 18px;
+  cursor: pointer;
+}
