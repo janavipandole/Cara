@@ -131,24 +131,37 @@ def create_order(
     tax = round(subtotal * 0.18, 2)
     discount = 0.0
 
-    valid_coupons = {
-        "CARA20": 20,
-        "WELCOME10": 10,
-    }
-
+    # --- Dynamic Database-Driven Coupon Validation ---
     if order_data.coupon:
         coupon_code = order_data.coupon.strip().upper()
+        
+        db_coupon = (
+            db.query(models.Coupon)
+            .filter(models.Coupon.code == coupon_code)
+            .first()
+        )
 
-        if coupon_code not in valid_coupons:
+        now_utc = datetime.now(timezone.utc)
+
+        if not db_coupon or not getattr(db_coupon, "is_active", True):
             raise HTTPException(
                 status_code=400,
-                detail="Invalid coupon code"
+                detail="Invalid or inactive coupon code"
             )
 
-        discount = round(
-            subtotal * valid_coupons[coupon_code] / 100,
-            2
-        )
+        # Check expiration if expiry_date attribute exists on the Coupon model
+        if hasattr(db_coupon, "expiry_date") and db_coupon.expiry_date:
+            expiry = db_coupon.expiry_date
+            if expiry.tzinfo is None:
+                expiry = expiry.replace(tzinfo=timezone.utc)
+            if now_utc > expiry:
+                raise HTTPException(
+                    status_code=400,
+                    detail="Coupon code has expired"
+                )
+
+        discount_percentage = getattr(db_coupon, "discount_percentage", getattr(db_coupon, "discount", 0.0))
+        discount = round(subtotal * discount_percentage / 100, 2)
 
     grand_total = max(0, subtotal + tax + shipping - discount)
 
