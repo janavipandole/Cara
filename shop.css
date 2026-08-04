@@ -1,4 +1,4 @@
-#search-filter {
+@import url('assets/css/skeleton-loader.css');#search-filter {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -749,4 +749,3 @@
 /* Fix #2417 */
 .delay-stagger-1 { animation-delay: 100ms; }
 
-@import url('assets/css/skeleton-loader.css');

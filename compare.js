@@ -19,8 +19,7 @@
     try {
       return JSON.parse(sessionStorage.getItem(STORAGE_KEY)) || [];
     } catch (err) {
-    console.warn('Failed to compare products:', err);
-  }
+      console.warn('Failed to compare products:', err);
       return [];
     }
   }

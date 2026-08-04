@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="checkout.css" />
   <link rel="stylesheet" href="currency-converter.css" />
   <link rel="manifest" href="/manifest.json">
-  <script src="js/error-boundary.js"></script>
+  <script type="module" src="js/error-boundary.js"></script>
 <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
@@ -32,7 +32,7 @@
     }
   </script>
   <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
-    <script src="js/config.js"></script>
+    <script type="module" src="js/config.js"></script>
 </head>
 <body>
 
@@ -282,15 +282,15 @@
     </div>
   </div>
 
-  <script src="js/promo-discount-calculator.js"></script>
-  <script src="checkout.js"></script>
-  <script src="js/coupon-validator.js" defer></script>
-  <script src="js/gift-options.js" defer></script>
-  <script src="js/checkout-timer.js" defer></script>
-  <script src="js/loyalty.js" defer></script>
-  <script src="js/checkout-autosave.js" defer></script>
+  <script type="module" src="js/promo-discount-calculator.js"></script>
+  <script type="module" src="checkout.js"></script>
+  <script type="module" src="js/coupon-validator.js" defer></script>
+  <script type="module" src="js/gift-options.js" defer></script>
+  <script type="module" src="js/checkout-timer.js" defer></script>
+  
+  <script type="module" src="js/checkout-autosave.js" defer></script>
   <script type="module" src="js/checkout-validator.js"></script>
-  <script src="js/address-validation-service.js" defer></script>
-  <script src="js/address-autocomplete.js" defer></script>
+  <script type="module" src="js/address-validation-service.js" defer></script>
+  <script type="module" src="js/address-autocomplete.js" defer></script>
 </body>
 </html>

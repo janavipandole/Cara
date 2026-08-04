@@ -364,7 +364,7 @@ button + button {
 
   </style>
   <link rel="manifest" href="/manifest.json">
-  <script src="js/error-boundary.js"></script>
+  <script type="module" src="js/error-boundary.js"></script>
 <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
@@ -372,7 +372,7 @@ button + button {
       });
     }
   </script>
-    <script src="js/config.js"></script>
+    <script type="module" src="js/config.js"></script>
 </head>
 
 <body>
@@ -561,8 +561,8 @@ button + button {
       </div>
     </div>
 
-    <script src="js/shipping-calc.js" defer></script>
-    <script src="js/loyalty-rewards-engine.js" defer></script>
+    <script type="module" src="js/shipping-calc.js" defer></script>
+    <script type="module" src="js/loyalty-rewards-engine.js" defer></script>
     <script>
   document.addEventListener("DOMContentLoaded", () => {
     const couponInput = document.getElementById("coupon-code-input");
@@ -698,8 +698,8 @@ button + button {
 
       <!-- FORCE A BLANK LAYOUT GAP AT THE BOTTOM OF THE ENTIRE PAGE -->
       <div style="height: 18px !important; width: 100% !important; clear: both !important; display: block !important;"></div>
-      <script src="js/coupon-config.js"></script>
-    <script src="app.js?v=1779120917210"></script>
+      
+    <script type="module" src="app.js?v=1779120917210"></script>
     <script>
       // ... (your coupon script stays exactly the same)
     </script>
@@ -708,4 +708,4 @@ button + button {
 
 
 
-<!-- Toast Script --><script src='js/toast-notifications.js'></script>
+<!-- Toast Script --><script type="module" src='js/toast-notifications.js'></script>

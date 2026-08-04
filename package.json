@@ -12,6 +12,9 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "minify": "terser app.js -o app.min.js && terser navbar.js -o navbar.min.js",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "prepare": "husky"
   },
   "lint-staged": {
@@ -47,6 +50,7 @@
     "lint-staged": "^15.5.2",
     "prettier": "^3.9.6",
     "terser": "^5.49.0",
+    "vite": "^8.2.0",
     "vitest": "^4.1.8"
   },
   "bugs": {
