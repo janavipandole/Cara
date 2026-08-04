@@ -387,7 +387,7 @@
       }
   </style>
   <link rel="manifest" href="/manifest.json">
-  <script src="js/error-boundary.js"></script>
+  <script defer src="js/error-boundary.js"></script>
 <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
@@ -859,12 +859,12 @@
     </button>
 
     <!-- Scripts -->
-    <script src="navbar.js"></script>
+    <script defer src="navbar.js"></script>
     <script>
       loadNavbar('about');
     </script>
 
-    <script src="app.js"></script>
+    <script defer src="app.js"></script>
 
     <script>
       document.querySelector('.Current-Year').textContent =
@@ -904,7 +904,7 @@
 </button>
 
 <!-- Scripts -->
-<script src="navbar.js"></script>
+<script defer src="navbar.js"></script>
 <script>
   loadNavbar('about');
 </script>
@@ -929,8 +929,8 @@
   })();
 </script>
 
-<script src="js/loyalty-rewards-engine.js"></script>
-<script src="app.js"></script>
+<script defer src="js/loyalty-rewards-engine.js"></script>
+<script defer src="app.js"></script>
 <script src="js/testimonials-carousel.js" defer></script>
 
 <script>

@@ -140,7 +140,7 @@
       }
     </style>
     <link rel="manifest" href="/manifest.json">
-  <script src="js/error-boundary.js"></script>
+  <script defer src="js/error-boundary.js"></script>
 <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
@@ -477,7 +477,7 @@
 
 
     <div id="toast-container"></div>
-    <script src="app.js"></script>
+    <script defer src="app.js"></script>
     <script id="Current-Year">
         document.getElementById("Current-Year").textContent = new Date().getFullYear();
     </script>

@@ -347,7 +347,7 @@ button.normal:hover {
 </style>
 
   <link rel="manifest" href="/manifest.json">
-  <script src="js/error-boundary.js"></script>
+  <script defer src="js/error-boundary.js"></script>
 <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
@@ -736,9 +736,9 @@ button.normal:hover {
     </footer>
 
  <!-- Javascript -->
-    <script src="navbar.js"></script>
+    <script defer src="navbar.js"></script>
     <script>loadNavbar('contact');</script>
-    <script src="app.js"></script>
+    <script defer src="app.js"></script>
 <script>
 
 
@@ -879,7 +879,7 @@ const yearEl = document.querySelector(".Current-Year");
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 </script>
-<script src="js/backend-profile-security.js"></script>
+<script defer src="js/backend-profile-security.js"></script>
 <script src="js/contact-autosave.js" defer></script>
 <script src="js/input-shield.js" defer></script>
 </body>

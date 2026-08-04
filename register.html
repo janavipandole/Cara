@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="ui-fix.css" />
     <link rel="manifest" href="/manifest.json">
-  <script src="js/error-boundary.js"></script>
+  <script defer src="js/error-boundary.js"></script>
 <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
@@ -263,11 +263,11 @@
       </div>
 </footer>
 
-<script src="app.js"></script>
-<script src="js/fetch-timeout.js"></script>
-<script src="register.js"></script>
+<script defer src="app.js"></script>
+<script defer src="js/fetch-timeout.js"></script>
+<script defer src="register.js"></script>
 <script src="js/describedby-tooltips.js" defer></script>
 </body>
 </html>
 
-<!-- A11y fix --><script src='js/a11y-validation.js'></script>
+<!-- A11y fix --><script defer src='js/a11y-validation.js'></script>

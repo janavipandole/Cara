@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="checkout.css" />
   <link rel="stylesheet" href="currency-converter.css" />
   <link rel="manifest" href="/manifest.json">
-  <script src="js/error-boundary.js"></script>
+  <script defer src="js/error-boundary.js"></script>
 <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
@@ -281,14 +281,14 @@
     </div>
   </div>
 
-  <script src="js/promo-discount-calculator.js"></script>
-  <script src="checkout.js"></script>
+  <script defer src="js/promo-discount-calculator.js"></script>
+  <script defer src="checkout.js"></script>
   <script src="js/coupon-validator.js" defer></script>
   <script src="js/gift-options.js" defer></script>
   <script src="js/checkout-timer.js" defer></script>
   <script src="js/loyalty.js" defer></script>
   <script src="js/checkout-autosave.js" defer></script>
-  <script type="module" src="js/checkout-validator.js"></script>
+  <script defer type="module" src="js/checkout-validator.js"></script>
   <script src="js/address-validation-service.js" defer></script>
   <script src="js/address-autocomplete.js" defer></script>
 </body>
