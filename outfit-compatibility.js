@@ -293,15 +293,17 @@ function initCompatibilityChecker() {
       );
       return;
     }
-    renderResult(
-      checkOutfitCompatibility({
-        topColor,
-        bottomColor,
-        topItem,
-        bottomItem,
-        occasion,
-      }),
-    );
+    const result = checkOutfitCompatibility({
+      topColor,
+      bottomColor,
+      topItem,
+      bottomItem,
+      occasion,
+    });
+    renderResult(result);
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('cara:outfit-checked', { detail: { topColor, bottomColor, result } }));
+    }
   });
 
   document.getElementById('reset-btn')?.addEventListener('click', () => {
