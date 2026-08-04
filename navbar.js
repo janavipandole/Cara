@@ -38,6 +38,12 @@ function loadNavbar(activePage) {
         </li>
 
         <li>
+          <a ${activePage === 'authenticity' ? 'class="active" aria-current="page"' : ''} href="authenticity.html" title="Tap-to-View" data-i18n="authenticity">
+            Authenticity
+          </a>
+        </li>
+
+        <li>
           <a ${activePage === 'community' ? 'class="active" aria-current="page"' : ''} href="community.html" title="Community" data-i18n="community">
             Community
           </a>
