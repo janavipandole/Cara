@@ -2327,3 +2327,74 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+/* ============================================================
+   SPECULATION RULES API (PRE-RENDERING)
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  const injectedUrls = new Set();
+  const HOVER_DELAY_MS = 200;
+  let hoverTimer = null;
+  let currentTargetCard = null;
+
+  document.body.addEventListener('mouseover', (e) => {
+    const proCard = e.target.closest('.pro');
+    if (!proCard) return;
+
+    if (currentTargetCard === proCard) return;
+
+    if (hoverTimer) {
+      clearTimeout(hoverTimer);
+    }
+    
+    currentTargetCard = proCard;
+
+    hoverTimer = setTimeout(() => {
+      let targetUrl = 'singleProduct.html';
+
+      const onclickAttr = proCard.getAttribute('onclick');
+      if (onclickAttr) {
+        const match = onclickAttr.match(/window\.location\.href\s*=\s*['"]([^'"]+)['"]/);
+        if (match && match[1]) {
+          targetUrl = match[1];
+        }
+      }
+
+      if (
+        HTMLScriptElement.supports &&
+        HTMLScriptElement.supports('speculationrules') &&
+        !injectedUrls.has(targetUrl)
+      ) {
+        const script = document.createElement('script');
+        script.type = 'speculationrules';
+        script.textContent = JSON.stringify({
+          prerender: [
+            {
+              source: 'list',
+              urls: [targetUrl],
+            },
+          ],
+        });
+        document.head.appendChild(script);
+        injectedUrls.add(targetUrl);
+        console.log(`[Speculation Rules] Injected prerender rule for: ${targetUrl}`);
+      }
+    }, HOVER_DELAY_MS);
+  });
+
+  document.body.addEventListener('mouseout', (e) => {
+    const proCard = e.target.closest('.pro');
+    if (!proCard) return;
+
+    const relatedTarget = e.relatedTarget;
+    if (relatedTarget && proCard.contains(relatedTarget)) {
+      return;
+    }
+
+    if (hoverTimer && currentTargetCard === proCard) {
+      clearTimeout(hoverTimer);
+      hoverTimer = null;
+      currentTargetCard = null;
+    }
+  });
+});
