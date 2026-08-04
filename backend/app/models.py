@@ -12,6 +12,19 @@ class NewsletterSubscriber(Base):
     unsubscribe_token = Column(String, unique=True, index=True, nullable=True)
 
 
+class AmbassadorApplication(Base):
+    __tablename__ = "ambassador_applications"
+
+    id = Column(Integer, primary_key=True, index=True)
+    full_name = Column(String, nullable=False)
+    email = Column(String, index=True, nullable=False)
+    instagram_handle = Column(String, nullable=False)
+    follower_count = Column(Integer, nullable=False)
+    motivation = Column(String, nullable=True)
+    submitted_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+
+
 class Product(Base):
     __tablename__ = "products"
 
