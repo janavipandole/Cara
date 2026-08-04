@@ -85,14 +85,21 @@ def create_order(
     subtotal = 0.0
     db_items = []
 
+    # --- Fetch all products in a single query to prevent N+1 issue ---
+    product_names = [item.product_name for item in order_data.items]
+    
+    db_products = (
+        db.query(models.Product)
+        .filter(models.Product.name.in_(product_names))
+        .with_for_update() # Apply row locks to all matching products simultaneously
+        .all()
+    )
+    
+    # Create a fast lookup map for the fetched products
+    product_map = {product.name: product for product in db_products}
+
     for item in order_data.items:
-        # --- Row lock: prevent two concurrent requests from reading stale stock ---
-        db_product = (
-            db.query(models.Product)
-            .filter(models.Product.name == item.product_name)
-            .with_for_update()
-            .first()
-        )
+        db_product = product_map.get(item.product_name)
 
         if not db_product:
             raise HTTPException(
@@ -106,6 +113,7 @@ def create_order(
                 detail=f"Insufficient stock for product: {item.product_name}"
             )
 
+        # Deduct stock in memory (will be committed later)
         db_product.stock -= item.quantity
 
         real_price = db_product.price
