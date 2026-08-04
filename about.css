@@ -436,3 +436,52 @@
     background: #06b6d4;
 }
 
+/* Loyalty Dashboard Widget Styles */
+.loyalty-widget-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  border: 1px solid #e0e0e0;
+  margin-top: 20px;
+}
+
+.loyalty-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.badge-tier {
+  color: #088178;
+  font-weight: 700;
+}
+
+.multiplier-tag {
+  background: #e0f2f1;
+  color: #088178;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.loyalty-progress-box {
+  margin-top: 15px;
+}
+
+.progress-bar-bg {
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: #088178;
+  transition: width 0.4s ease;
+}
+
+
