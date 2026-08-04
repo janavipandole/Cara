@@ -160,11 +160,14 @@
       updateList();
     });
     </script>
-    <div class="search-box">
+    <div class="search-box" style="display: flex; align-items: center;">
       <label for="searchInput" class="sr-only" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">Search Products</label>
-      <input type="text" id="searchInput" placeholder="Search products..." />
-      <button id="searchBtn" aria-label="Search">
+      <input type="text" id="searchInput" placeholder="Search products..." style="flex: 1; border: none; padding: 10px 5px; outline: none;" />
+      <button id="searchBtn" aria-label="Search" style="background: none; border: none; cursor: pointer; color: #1a1a1a; font-size: 18px; padding: 0 5px;">
         <i class="ri-search-line"></i>
+      </button>
+      <button id="scanBarcodeBtn" aria-label="Scan barcode" title="Scan Barcode" style="display: none; background: none; border: none; cursor: pointer; color: #088178; font-size: 20px; padding: 0 10px;">
+        <i class="ri-barcode-box-line"></i>
       </button>
     </div>
   </div>
@@ -418,6 +421,7 @@ if (btn) {
 </script>
    <button id="backToTop">↑</button>
   <script src="js/shimmer-loader.js" defer></script>
+  <script src="js/barcode-scanner.js" defer></script>
 </body>
 </html>
 
