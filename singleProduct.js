@@ -38,7 +38,7 @@ function renderProductDetails(product) {
 }
 
 function loadProductDetails() {
-  const storedProductJSON = localStorage.getItem('selectedProduct');
+  const storedProductJSON = window.safeGetItem('selectedProduct');
   if (!storedProductJSON) return;
 
   try {

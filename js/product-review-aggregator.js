@@ -11,7 +11,7 @@ class ProductReviewAggregator {
 
   loadReviews() {
     try {
-      const data = localStorage.getItem(this.storageKey);
+      const data = window.safeGetItem(this.storageKey);
       return data ? JSON.parse(data) : {};
     } catch (e) {
       return {};
@@ -20,7 +20,7 @@ class ProductReviewAggregator {
 
   saveReviews() {
     try {
-      localStorage.setItem(this.storageKey, JSON.stringify(this.reviews));
+      window.safeSetItem(this.storageKey, JSON.stringify(this.reviews));
     } catch (e) {
       console.warn('Failed to save reviews:', e);
     }

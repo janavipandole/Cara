@@ -37,7 +37,7 @@
     if (Object.prototype.hasOwnProperty.call(COUPONS, code)) {
       const discountPct = COUPONS[code];
       window.appliedCoupon = code;
-      localStorage.setItem('appliedCoupon', code);
+      window.safeSetItem('appliedCoupon', code);
 
       showFeedback(
         `Coupon "${code}" applied! You saved ${discountPct}%.`,
@@ -102,7 +102,7 @@
     }
 
     // Auto-apply saved coupon on load
-    const saved = localStorage.getItem('appliedCoupon');
+    const saved = window.safeGetItem('appliedCoupon');
     if (saved) {
       if (couponInput) couponInput.value = saved;
       applyCoupon();

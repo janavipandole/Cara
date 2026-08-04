@@ -27,7 +27,7 @@
   function _readReviews(productId) {
     try {
       return JSON.parse(
-        localStorage.getItem(STORAGE_PREFIX + productId) || '[]',
+        window.safeGetItem(STORAGE_PREFIX + productId) || '[]',
       );
     } catch (err) {
       console.warn('Reviews data parsing failed:', err);
@@ -39,11 +39,7 @@
   function _saveReviews(productId, reviews) {
     // Cap stored reviews to prevent unbounded localStorage growth
     const trimmed = reviews.slice(0, MAX_REVIEWS_STORED);
-    try {
-      localStorage.setItem(STORAGE_PREFIX + productId, JSON.stringify(trimmed));
-    } catch (err) {
-      console.warn('Failed to save reviews to localStorage:', err);
-    }
+    window.safeSetItem(STORAGE_PREFIX + productId, JSON.stringify(trimmed));
   }
 
   function _escape(str) {
@@ -353,11 +349,11 @@
 
     let productId = container.dataset.productId;
     if (!productId || productId === '') {
-      productId = localStorage.getItem('selectedProductId');
+      productId = window.safeGetItem('selectedProductId');
       if (!productId) {
         try {
           productId = JSON.parse(
-            localStorage.getItem('selectedProduct') || '{}',
+            window.safeGetItem('selectedProduct') || '{}',
           ).name;
         } catch (err) {
       console.warn('Reviews data parsing failed:', err);

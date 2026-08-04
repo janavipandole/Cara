@@ -1,5 +1,5 @@
 window.exportWishlistToCSV = function () {
-  const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+  const wishlist = JSON.parse(window.safeGetItem('wishlist')) || [];
   if (wishlist.length === 0) {
     if (typeof CaraToast !== 'undefined')
       CaraToast.show('Wishlist is empty!', 'warning');

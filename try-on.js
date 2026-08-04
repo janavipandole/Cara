@@ -950,7 +950,7 @@ document.addEventListener('click', function (e) {
   const next = current === 'dark' ? 'light' : 'dark';
 
   html.setAttribute('data-theme', next);
-  localStorage.setItem('theme', next);
+  window.safeSetItem('theme', next);
 
   const icon = document.getElementById('themeIcon');
   const iconM = document.getElementById('themeIconMobile');

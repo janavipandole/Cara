@@ -39,11 +39,7 @@ const translations = {
 
 function changeLanguage(lang) {
   if (!translations[lang]) return;
-  try {
-    localStorage.setItem("selectedLanguage", lang);
-  } catch (e) {
-    // Silently fail if localStorage is unavailable (private browsing, quota exceeded)
-  }
+  window.safeSetItem("selectedLanguage", lang);
 
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     const key = el.getAttribute("data-i18n");
@@ -67,12 +63,7 @@ function changeLanguage(lang) {
 }
 
 function initLanguage() {
-  let savedLang = "en";
-  try {
-    savedLang = localStorage.getItem("selectedLanguage") || "en";
-  } catch (e) {
-    // Fall back to English if localStorage is unavailable
-  }
+  const savedLang = window.safeGetItem("selectedLanguage") || "en";
   changeLanguage(savedLang);
 }
 

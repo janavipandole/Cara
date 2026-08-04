@@ -63,7 +63,7 @@ describe('addRecentlyViewed', () => {
 
   it('persists the list to localStorage', () => {
     RecentlyViewed.addRecentlyViewed(product());
-    const stored = JSON.parse(localStorage.getItem(RecentlyViewed.STORAGE_KEY));
+    const stored = JSON.parse(window.safeGetItem(RecentlyViewed.STORAGE_KEY));
     expect(stored).toHaveLength(1);
     expect(stored[0].name).toBe('Tropical Hibiscus Summer Shirt');
   });

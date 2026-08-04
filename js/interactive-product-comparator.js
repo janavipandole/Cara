@@ -12,7 +12,7 @@ class InteractiveProductComparator {
 
   loadItems() {
     try {
-      const data = localStorage.getItem(this.storageKey);
+      const data = window.safeGetItem(this.storageKey);
       return data ? JSON.parse(data) : [];
     } catch (e) {
       return [];
@@ -21,7 +21,7 @@ class InteractiveProductComparator {
 
   saveItems() {
     try {
-      localStorage.setItem(this.storageKey, JSON.stringify(this.items));
+      window.safeSetItem(this.storageKey, JSON.stringify(this.items));
     } catch (e) {
       console.warn('Storage save failed:', e);
     }

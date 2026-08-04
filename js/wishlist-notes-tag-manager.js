@@ -11,7 +11,7 @@ class WishlistNotesTagManager {
 
   loadData() {
     try {
-      const stored = localStorage.getItem(this.storageKey);
+      const stored = window.safeGetItem(this.storageKey);
       return stored ? JSON.parse(stored) : {};
     } catch (e) {
       return {};
@@ -20,7 +20,7 @@ class WishlistNotesTagManager {
 
   saveData() {
     try {
-      localStorage.setItem(this.storageKey, JSON.stringify(this.data));
+      window.safeSetItem(this.storageKey, JSON.stringify(this.data));
     } catch (e) {
       console.warn('Failed to save wishlist notes:', e);
     }

@@ -16,7 +16,7 @@ function withCartLock(fn) {
 
 function addToCart(productName, productPrice, productImage, quantity, size) {
   return withCartLock(() => {
-    let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+    let cart = JSON.parse(window.safeGetItem('productsInCart')) || [];
     let parsedQty = parseInt(quantity, 10);
     if (isNaN(parsedQty) || parsedQty < 1) parsedQty = 1;
 
@@ -37,7 +37,7 @@ function addToCart(productName, productPrice, productImage, quantity, size) {
       cart.push(item);
     }
 
-    localStorage.setItem('productsInCart', JSON.stringify(cart));
+    window.safeSetItem('productsInCart', JSON.stringify(cart));
     window.cachedCartState = cart;
   });
 }
@@ -56,7 +56,7 @@ describe('Cart Race Condition & Mutex Locking', () => {
 
     await Promise.all(additions);
 
-    const savedCart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+    const savedCart = JSON.parse(window.safeGetItem('productsInCart')) || [];
     expect(savedCart.length).toBe(1);
     expect(savedCart[0].quantity).toBe(10);
   });

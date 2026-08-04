@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (el) {
       inputs[field] = el;
       // Load saved draft
-      const savedVal = localStorage.getItem(`cara_contact_draft_${field}`);
+      const savedVal = window.safeGetItem(`cara_contact_draft_${field}`);
       if (savedVal) {
         el.value = savedVal;
       }
@@ -28,11 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const sec = new window.BackendProfileSecurity();
                     val = sec.sanitizeField(val);
                 }
-                try {
-                    localStorage.setItem(`cara_contact_draft_${field}`, val);
-                } catch (err) {
-                    // Silently ignore localStorage failures in restricted environments
-                }
+                window.safeSetItem(`cara_contact_draft_${field}`, val);
                 showAutosaveStatus();
             });
         }

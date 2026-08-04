@@ -20,11 +20,7 @@ export function getSystemTheme() {
 
 export function getStoredTheme() {
   if (typeof localStorage !== 'undefined') {
-    try {
-      return localStorage.getItem('cara_theme') || THEMES.SYSTEM;
-    } catch (e) {
-      return THEMES.SYSTEM;
-    }
+    return window.safeGetItem('cara_theme') || THEMES.SYSTEM;
   }
   return THEMES.SYSTEM;
 }
@@ -44,11 +40,7 @@ export function applyTheme(themeChoice) {
   }
 
   if (typeof localStorage !== 'undefined') {
-    try {
-      localStorage.setItem('cara_theme', themeChoice);
-    } catch (e) {
-      // Silently fail if localStorage is unavailable (e.g., Safari private mode, quota exceeded)
-    }
+    window.safeSetItem('cara_theme', themeChoice);
   }
 
   if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function') {

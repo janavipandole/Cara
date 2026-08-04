@@ -1,6 +1,6 @@
 function safeParseJSON(key, fallback = '[]') {
   try {
-    return JSON.parse(localStorage.getItem(key) || fallback);
+    return JSON.parse(window.safeGetItem(key) || fallback);
   } catch (err) {
     console.warn('Failed to parse stored data:', err);
   }

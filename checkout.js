@@ -2,7 +2,7 @@ let checkoutIdempotencyKey = null;
 
 function safeParseJSON(key, fallback = '[]') {
   try {
-    return JSON.parse(localStorage.getItem(key) || fallback);
+    return JSON.parse(window.safeGetItem(key) || fallback);
   } catch (err) {
     console.warn('Failed to parse stored data:', err);
     try {
@@ -361,9 +361,9 @@ function submitCheckoutForm() {
 
       // DEDUCT & ADD LOYALTY POINTS ON SUCCESSFUL ORDER
       const appliedPoints =
-        parseInt(localStorage.getItem('cara_applied_loyalty_points'), 10) || 0;
+        parseInt(window.safeGetItem('cara_applied_loyalty_points'), 10) || 0;
       const currentBalance =
-        parseInt(localStorage.getItem('cara_loyalty_balance'), 10) || 150;
+        parseInt(window.safeGetItem('cara_loyalty_balance'), 10) || 150;
       const subtotal = cart.reduce(
         (sum, item) =>
           sum + parsePriceString(item.price) * (parseInt(item.quantity, 10) || 1),
@@ -374,7 +374,7 @@ function submitCheckoutForm() {
         0,
         currentBalance - appliedPoints + earnedPoints,
       );
-      localStorage.setItem('cara_loyalty_balance', newBalance);
+      window.safeSetItem('cara_loyalty_balance', newBalance);
       localStorage.removeItem('cara_applied_loyalty_points');
 
       // CLEAR CART AFTER SUCCESSFUL ORDER
@@ -483,7 +483,7 @@ window.updateCheckoutSummary = function () {
   );
 
   // Check coupon discount
-  const couponCode = localStorage.getItem('appliedCoupon') || '';
+  const couponCode = window.safeGetItem('appliedCoupon') || '';
   const COUPONS = window.CARA_COUPONS || {};
   const couponPct = COUPONS[couponCode] || 0;
   const couponDiscountCents = Math.round(subtotalCents * couponPct / 100);
@@ -503,8 +503,8 @@ window.updateCheckoutSummary = function () {
 
   // Check loyalty points discount (10 points = ₹1 = 100 paise)
   const loyaltyPoints =
-    parseInt(localStorage.getItem('cara_applied_loyalty_points'), 10) || 0;
-  const loyaltyDiscountCents = loyaltyPoints * 100;
+    parseInt(window.safeGetItem('cara_applied_loyalty_points'), 10) || 0;
+  const loyaltyDiscount = loyaltyPoints * 0.1;
 
   // Grand Total in cents (integer, safe for Stripe)
   const grandTotalCents = Math.max(

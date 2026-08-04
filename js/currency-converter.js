@@ -73,7 +73,7 @@ export async function fetchExchangeRates(fetchImpl = globalThis.fetch) {
 
 export function getActiveCurrency() {
   if (typeof localStorage !== 'undefined') {
-    return localStorage.getItem('cara_selected_currency') || 'USD';
+    return window.safeGetItem('cara_selected_currency') || 'USD';
   }
   return 'USD';
 }
@@ -81,7 +81,7 @@ export function getActiveCurrency() {
 export function setActiveCurrency(currencyCode) {
   if (!EXCHANGE_RATES[currencyCode]) return false;
   if (typeof localStorage !== 'undefined') {
-    localStorage.setItem('cara_selected_currency', currencyCode);
+    window.safeSetItem('cara_selected_currency', currencyCode);
   }
   if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function') {
     window.dispatchEvent(new CustomEvent('currencyChange', { detail: { currency: currencyCode } }));

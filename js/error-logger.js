@@ -1,26 +1,16 @@
 // Client-Side Error Boundary and Logger
 window.addEventListener('error', (event) => {
   console.error('Runtime exception caught: ', event.error);
-  let errors = [];
-  try {
-    errors = JSON.parse(localStorage.getItem('cara_runtime_errors')) || [];
-  } catch (e) {
-    errors = [];
-  }
+  const errors = JSON.parse(window.safeGetItem('cara_runtime_errors')) || [];
   errors.push({
     message: event.message,
     filename: event.filename,
     lineno: event.lineno,
     timestamp: new Date().toISOString(),
   });
-  try {
-    localStorage.setItem(
-      'cara_runtime_errors',
-      JSON.stringify(errors.slice(-10)),
-    );
-  } catch (e) {
-    // Silently ignore if localStorage is unavailable
-  }
+  window.safeSetItem(
+    'cara_runtime_errors', JSON.stringify(errors.slice(-10)),
+  );
 
   // Display fallback crash notice if main app component fails
   if (event.filename.includes('app.js')) {

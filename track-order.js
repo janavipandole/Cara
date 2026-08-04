@@ -138,7 +138,7 @@ if (form) {
       setLoading(false);
       // Check localStorage for custom mock orders first
       const customOrders = JSON.parse(
-        localStorage.getItem('cara_custom_mock_orders') || '{}',
+        window.safeGetItem('cara_custom_mock_orders') || '{}',
       );
       const order = customOrders[orderIdRaw] || MOCK_ORDERS[orderIdRaw];
 
@@ -167,10 +167,10 @@ function setLoading(isLoading) {
 function renderResult(order) {
   if (!order) return;
   // Save order tracking parameters to localStorage for history retention
-  localStorage.setItem('cara_last_tracked_id', order.id);
+  window.safeSetItem('cara_last_tracked_id', order.id);
   const emailInput = document.getElementById('orderEmail');
   if (emailInput) {
-    localStorage.setItem('cara_last_tracked_email', emailInput.value.trim());
+    window.safeSetItem('cara_last_tracked_email', emailInput.value.trim());
   }
 
   // Populate header
@@ -327,8 +327,8 @@ function calculateEstimatedDelivery(orderDateStr, carrier) {
 
 // Auto-fill tracked order from localStorage if available
 document.addEventListener('DOMContentLoaded', () => {
-  const cachedId = localStorage.getItem('cara_last_tracked_id');
-  const cachedEmail = localStorage.getItem('cara_last_tracked_email');
+  const cachedId = window.safeGetItem('cara_last_tracked_id');
+  const cachedEmail = window.safeGetItem('cara_last_tracked_email');
   if (cachedId && document.getElementById('orderId')) {
     document.getElementById('orderId').value = cachedId;
   }
@@ -448,12 +448,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Retrieve existing custom mock orders
       const customOrders = JSON.parse(
-        localStorage.getItem('cara_custom_mock_orders') || '{}',
+        window.safeGetItem('cara_custom_mock_orders') || '{}',
       );
       customOrders[orderId] = customMockOrder;
-      localStorage.setItem(
-        'cara_custom_mock_orders',
-        JSON.stringify(customOrders),
+      window.safeSetItem(
+        'cara_custom_mock_orders', JSON.stringify(customOrders),
       );
 
       // Auto pre-fill track form

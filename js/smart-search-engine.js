@@ -88,7 +88,7 @@ class SmartSearchEngine {
       history = history.filter((q) => q.toLowerCase() !== query.toLowerCase());
       history.unshift(query);
       if (history.length > this.maxHistory) history = history.slice(0, this.maxHistory);
-      localStorage.setItem(this.historyKey, JSON.stringify(history));
+      window.safeSetItem(this.historyKey, JSON.stringify(history));
     } catch (e) {
       console.warn('Storage error saving search history:', e);
     }
@@ -96,7 +96,7 @@ class SmartSearchEngine {
 
   getHistory() {
     try {
-      const data = localStorage.getItem(this.historyKey);
+      const data = window.safeGetItem(this.historyKey);
       return data ? JSON.parse(data) : [];
     } catch (e) {
       return [];

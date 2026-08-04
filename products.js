@@ -366,7 +366,7 @@ const products = [
 function renderStars(baseRating, productId) {
   // Load user's saved rating if it exists, else use base rating
   const savedRating = parseFloat(
-    localStorage.getItem('userRating_' + productId),
+    window.safeGetItem('userRating_' + productId),
   );
   const displayRating = !isNaN(savedRating) ? savedRating : baseRating;
 
@@ -406,7 +406,7 @@ function renderStars(baseRating, productId) {
   // Reset highlight on mouse leave
   starDiv.addEventListener('mouseleave', () => {
     const currentRating =
-      parseFloat(localStorage.getItem('userRating_' + productId)) || baseRating;
+      parseFloat(window.safeGetItem('userRating_' + productId)) || baseRating;
     updateStarDisplay(starDiv, currentRating);
   });
 
@@ -429,7 +429,7 @@ function renderStars(baseRating, productId) {
  * @param {HTMLElement} starDiv
  */
 function saveUserRating(productId, rating, starDiv) {
-  localStorage.setItem('userRating_' + productId, rating);
+  window.safeSetItem('userRating_' + productId, rating);
   updateStarDisplay(starDiv, rating);
 
   // Update numeric text
@@ -473,7 +473,7 @@ function updateStarDisplay(starDiv, rating) {
 
 function safeParseJSON(key, fallback = '[]') {
   try {
-    return JSON.parse(localStorage.getItem(key) || fallback);
+    return JSON.parse(window.safeGetItem(key) || fallback);
   } catch (e) {
     window.logError(`Corrupted localStorage data for "${key}":`, e);
     if (typeof showToast === 'function') {
@@ -594,7 +594,7 @@ function renderProducts(containerId, list, query = '') {
         brand: p.brand,
         image: p.img,
       };
-      localStorage.setItem('selectedProduct', JSON.stringify(selectedProduct));
+      window.safeSetItem('selectedProduct', JSON.stringify(selectedProduct));
       window.location.href = 'singleProduct.html';
     });
 
@@ -903,7 +903,7 @@ function addToCart(name, price, img, quantity, size) {
   const cart = safeParseJSON('productsInCart');
   cart.push({ name, price, img, quantity, size, id: Date.now() });
   try {
-    localStorage.setItem('productsInCart', JSON.stringify(cart));
+    window.safeSetItem('productsInCart', JSON.stringify(cart));
     if (typeof showToast === 'function') {
       showToast(name + ' added to cart!', 'success');
     }
@@ -919,7 +919,7 @@ function buyNow(name, price, img, quantity, size) {
   const cart = safeParseJSON('productsInCart');
   cart.push({ name, price, img, quantity, size, id: Date.now() });
   try {
-    localStorage.setItem('productsInCart', JSON.stringify(cart));
+    window.safeSetItem('productsInCart', JSON.stringify(cart));
     window.location.href = 'checkout.html';
   } catch (e) {
     window.logError('Failed to save cart:', e);

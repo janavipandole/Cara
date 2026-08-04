@@ -17,7 +17,7 @@ class LoyaltyRewardsEngine {
 
   loadData() {
     try {
-      const stored = localStorage.getItem(this.storageKey);
+      const stored = window.safeGetItem(this.storageKey);
       return stored ? JSON.parse(stored) : { points: 0, history: [] };
     } catch (e) {
       return { points: 0, history: [] };
@@ -26,7 +26,7 @@ class LoyaltyRewardsEngine {
 
   saveData() {
     try {
-      localStorage.setItem(this.storageKey, JSON.stringify(this.data));
+      window.safeSetItem(this.storageKey, JSON.stringify(this.data));
     } catch (e) {
       console.warn('Failed to save loyalty state:', e);
     }

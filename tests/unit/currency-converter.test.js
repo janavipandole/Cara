@@ -23,7 +23,7 @@ describe('Currency Converter Unit Tests', () => {
     const success = setActiveCurrency('EUR');
     expect(success).toBe(true);
     expect(getActiveCurrency()).toBe('EUR');
-    expect(localStorage.getItem('cara_selected_currency')).toBe('EUR');
+    expect(window.safeGetItem('cara_selected_currency')).toBe('EUR');
   });
 
   it('should reject invalid currency codes', () => {

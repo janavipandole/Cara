@@ -2,43 +2,43 @@ const fs = require('fs');
 const jsCode = `
 // --- SAVE FOR LATER LOGIC ---
 window.saveForLater = function(index) {
-    let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
-    let saved = JSON.parse(localStorage.getItem('savedItems')) || [];
+    let cart = JSON.parse(window.safeGetItem('productsInCart')) || [];
+    let saved = JSON.parse(window.safeGetItem('savedItems')) || [];
     if (index >= 0 && index < cart.length) {
         let item = cart.splice(index, 1)[0];
         saved.push(item);
-        localStorage.setItem('productsInCart', JSON.stringify(cart));
-        localStorage.setItem('savedItems', JSON.stringify(saved));
+        window.safeSetItem('productsInCart', JSON.stringify(cart));
+        window.safeSetItem('savedItems', JSON.stringify(saved));
         if(typeof window.loadCart === 'function') window.loadCart();
         if(typeof window.showToast === 'function') window.showToast('Item saved for later', 'success');
     }
 };
 
 window.moveToCart = function(index) {
-    let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
-    let saved = JSON.parse(localStorage.getItem('savedItems')) || [];
+    let cart = JSON.parse(window.safeGetItem('productsInCart')) || [];
+    let saved = JSON.parse(window.safeGetItem('savedItems')) || [];
     if (index >= 0 && index < saved.length) {
         let item = saved.splice(index, 1)[0];
         cart.push(item);
-        localStorage.setItem('productsInCart', JSON.stringify(cart));
-        localStorage.setItem('savedItems', JSON.stringify(saved));
+        window.safeSetItem('productsInCart', JSON.stringify(cart));
+        window.safeSetItem('savedItems', JSON.stringify(saved));
         if(typeof window.loadCart === 'function') window.loadCart();
         if(typeof window.showToast === 'function') window.showToast('Item moved to cart', 'success');
     }
 };
 
 window.removeSavedItem = function(index) {
-    let saved = JSON.parse(localStorage.getItem('savedItems')) || [];
+    let saved = JSON.parse(window.safeGetItem('savedItems')) || [];
     if (index >= 0 && index < saved.length) {
         saved.splice(index, 1);
-        localStorage.setItem('savedItems', JSON.stringify(saved));
+        window.safeSetItem('savedItems', JSON.stringify(saved));
         if(typeof window.loadSavedItems === 'function') window.loadSavedItems();
         if(typeof window.showToast === 'function') window.showToast('Saved item removed', 'success');
     }
 };
 
 window.loadSavedItems = function() {
-    let saved = JSON.parse(localStorage.getItem('savedItems')) || [];
+    let saved = JSON.parse(window.safeGetItem('savedItems')) || [];
     const savedContainer = document.getElementById('saved-items-container');
     const savedSection = document.getElementById('saved-items-section');
     if (!savedContainer || !savedSection) return;
