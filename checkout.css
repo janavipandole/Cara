@@ -646,3 +646,29 @@ textarea {
 .fade-out { animation-name: fadeOut; } @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
 
 .checkout-wizard-steps { display: flex; justify-content: space-between; margin-bottom: 20px; }
+
+/* Pincode Serviceability Indicator Styles */
+.pincode-status-badge {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-top: 4px;
+}
+
+.pincode-status-badge.express {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.pincode-status-badge.standard {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.pincode-status-badge.invalid {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
