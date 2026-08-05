@@ -32,6 +32,13 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
           alert('Successfully subscribed to newsletter!');
         }
+
+        // Notify other page modules that a subscription happened.
+        window.dispatchEvent(
+          new CustomEvent('newsletterSubscribed', {
+            detail: { email: email },
+          }),
+        );
         
         if (input) input.value = '';
         
