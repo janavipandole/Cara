@@ -285,7 +285,7 @@
         if (!authorEl || !bodyEl) return;
 
         const author = authorEl.value.trim();
-        const rating = parseInt((ratingEl || {}, 10).value, 10);
+        const rating = parseInt((ratingEl || {value: '0'}).value, 10);
         const title = (titleEl ? titleEl.value : '').trim();
         const body = bodyEl.value.trim();
 
