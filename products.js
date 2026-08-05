@@ -486,8 +486,8 @@ function safeParseJSON(key, fallback = '[]') {
       return JSON.parse(fallback);
     } catch (err) {
       console.warn('Failed to process data:', err);
-      return [];
     }
+    return [];
   }
 
 
@@ -998,13 +998,3 @@ if (typeof module !== 'undefined' && module.exports) {
   module.exports = { products };
 }
 
-
-
-// Expose the product catalog on `window` so other scripts that read
-// `window.products` (e.g. js/live-sales-toast.js's getProducts(), and
-// validateSharedCartItems() in app.js) see the real catalog instead of
-// silently treating it as empty/undefined.
-if (typeof window !== 'undefined') {
-    window.products = products;
-}
-  

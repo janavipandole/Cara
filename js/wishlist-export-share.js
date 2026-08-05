@@ -42,4 +42,27 @@ export class WishlistExportShare {
     const rows = items.map(item => `"${item.id || ''}","${item.name || ''}","${item.price || ''}"`);
     return [headers.join(','), ...rows].join('\n');
   }
+
+  buildShareLink(items = [], origin = '') {
+    const hash = this.encodeWishlistToHash(items);
+    if (!hash) return '';
+    return origin ? `${origin}?wishlist=${hash}` : `?wishlist=${hash}`;
+  }
+
+  async copyShareLinkToClipboard(items = [], origin = '') {
+    const link = this.buildShareLink(items, origin);
+    if (!link) return { ok: false, link: '' };
+
+    const clipboard = typeof navigator !== 'undefined' ? navigator.clipboard : null;
+    if (clipboard && typeof clipboard.writeText === 'function') {
+      try {
+        await clipboard.writeText(link);
+        return { ok: true, link };
+      } catch (e) {
+        // Fall through and report the link for manual copying.
+      }
+    }
+
+    return { ok: false, link };
+  }
 }

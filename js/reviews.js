@@ -34,8 +34,7 @@
     }
       return [];
     }
-  }
-
+  
   function _saveReviews(productId, reviews) {
     // Cap stored reviews to prevent unbounded localStorage growth
     const trimmed = reviews.slice(0, MAX_REVIEWS_STORED);
@@ -65,8 +64,7 @@
     }
       return iso;
     }
-  }
-
+  
   // ── Calculate aggregate stats ─────────────────────────────────────────────
 
   function _calcStats(reviews) {
@@ -285,7 +283,7 @@
         if (!authorEl || !bodyEl) return;
 
         const author = authorEl.value.trim();
-        const rating = parseInt((ratingEl || {}, 10).value, 10);
+        const rating = parseInt((ratingEl || {value: '0'}).value, 10);
         const title = (titleEl ? titleEl.value : '').trim();
         const body = bodyEl.value.trim();
 
@@ -365,7 +363,6 @@
           productId = 'unknown';
         }
       }
-    }
     productId = productId || 'unknown';
     _render(container, productId);
   }

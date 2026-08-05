@@ -8,7 +8,7 @@ export function validateCreditCardLuhn(cardNumber) {
   let shouldDouble = false;
 
   for (let i = cleanNum.length - 1; i >= 0; i--) {
-    let digit = parseInt(cleanNum.charAt(i, 10), 10);
+    let digit = parseInt(cleanNum.charAt(i), 10);
     if (shouldDouble) {
       digit *= 2;
       if (digit > 9) digit -= 9;
@@ -56,3 +56,4 @@ export function validatePhone(phone) {
   const digits = phone.replace(/\D/g, '');
   return digits.length >= 10 && digits.length <= 15;
 }
+

@@ -1,7 +1,7 @@
 /**
  * Smart Product Recommendation Algorithm
  */
-class RecommendationEngine {
+export class RecommendationEngine {
     constructor() {
         this.historyKey = 'cara_view_history';
     }

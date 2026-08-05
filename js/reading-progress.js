@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const height =
       document.documentElement.scrollHeight -
       document.documentElement.clientHeight;
-    const scrolled = (winScroll / height) * 100;
+    const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
     progressBar.style.width = scrolled + '%';
   });
 
@@ -23,8 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
   posts.forEach((post) => {
     const details = post.querySelector('.blog-details');
     if (details) {
-      const textContent = details.innerText;
-      const wordCount = textContent.split(/\s+/).length;
+      const textContent = details.textContent || '';
+      const wordCount = textContent.trim().split(/\s+/).filter(Boolean).length;
       const readTime = Math.ceil(wordCount / 200); // 200 words per min avg
 
       const timeTag = document.createElement('span');

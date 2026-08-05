@@ -69,7 +69,11 @@ function changeLanguage(lang) {
 function initLanguage() {
   let savedLang = "en";
   try {
-    savedLang = localStorage.getItem("selectedLanguage") || "en";
+    const stored = localStorage.getItem("selectedLanguage") || "en";
+    // Fall back to English for any unknown/unrecognised language code.
+    savedLang = Object.prototype.hasOwnProperty.call(translations, stored)
+      ? stored
+      : "en";
   } catch (e) {
     // Fall back to English if localStorage is unavailable
   }

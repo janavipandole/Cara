@@ -35,7 +35,7 @@ export class OrderTrackingVisualizer {
       const isCompleted = idx <= activeIndex;
       const isCurrent = idx === activeIndex;
       return `
-        <div class="timeline-node ${isCompleted ? 'completed' : ''} ${isCurrent ? 'current' : ''}">
+        <div class="timeline-node ${isCompleted ? 'completed' : ''} ${isCurrent ? 'current' : ''}" role="listitem" ${isCurrent ? 'aria-current="step"' : ''}>
           <div class="node-icon">${isCompleted ? '✓' : idx + 1}</div>
           <span class="node-label">${stage}</span>
         </div>
@@ -47,7 +47,7 @@ export class OrderTrackingVisualizer {
         <div class="timeline-bar-bg">
           <div class="timeline-bar-fill" style="width: ${progress}%"></div>
         </div>
-        <div class="timeline-nodes">
+        <div class="timeline-nodes" role="list">
           ${nodesHtml}
         </div>
       </div>

@@ -98,10 +98,10 @@
       <div class="live-sales-details">
         <p class="live-sales-title">Recent Purchase</p>
         <p class="live-sales-message">
-          <span class="buyer">${buyer}</span> from ${city} bought a 
+          <span class="buyer">${_escape(buyer)}</span> from ${_escape(city)} bought a
           <span class="product">${_escape(product.name)}</span>
         </p>
-        <span class="live-sales-time">${time}</span>
+        <span class="live-sales-time">${_escape(time)}</span>
       </div>
     `;
 

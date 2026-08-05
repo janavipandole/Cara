@@ -1,3 +1,21 @@
+(() => {
+window.CARA_CONFIG = {
+  TAX_RATE: 0.18,
+  SHIPPING: {
+    FEE: 150,
+    FREE_THRESHOLD: 3000
+  },
+  URGENCY_DISCOUNT_PCT: 0.05,
+  GIFT_WRAP_CHARGE: 99,
+  LOYALTY: {
+    POINTS_PER_RUPEE: 10,
+    DEFAULT_BALANCE: 150
+  }
+};
+window.CARA_COUPONS = {
+  'CARA20': 20,
+  'WELCOME10': 10
+};
 // i18n.js - Multi-language support
 
 // Global error logger
@@ -242,11 +260,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       try {
         // Fetch authentic data from backend instead of relying on scraped client DOM data
         const res = await fetch('/api/products');
+        if (!res.ok) throw new Error('HTTP error: ' + res.status);
         let dbProduct = null;
-        if (res.ok) {
-          const products = await res.json();
-          dbProduct = products.find((p) => p.name === productName);
-        }
+        const products = await res.json();
+        dbProduct = products.find((p) => p.name === productName);
 
         const nameEl = document.getElementById('product-name');
         const priceEl = document.getElementById('product-price');
@@ -930,9 +947,8 @@ window.loadCart = async function () {
   let dbProducts = [];
   try {
     const res = await fetch('/api/products');
-    if (res.ok) {
-      dbProducts = await res.json();
-    }
+    if (!res.ok) throw new Error('HTTP error: ' + res.status);
+    dbProducts = await res.json();
   } catch (err) {
     window.logError('Failed to fetch secure prices:', err);
   }
@@ -1009,7 +1025,7 @@ window.loadCart = async function () {
   if (subtotalEl) subtotalEl.innerText = formatCurrency(subtotal);
 
   let shipping = 0;
-  if (subtotal > 0) shipping = subtotal >= 3000 ? 0 : 150;
+  if (subtotal > 0) shipping = subtotal >= window.CARA_CONFIG.SHIPPING.FREE_THRESHOLD ? 0 : window.CARA_CONFIG.SHIPPING.FEE;
 
   if (shippingEl) {
     shippingEl.innerText = shipping === 0 ? 'FREE' : formatCurrency(shipping);
@@ -1019,7 +1035,7 @@ window.loadCart = async function () {
     );
   }
 
-  const tax = Math.round(subtotal * 0.18);
+  const tax = Math.round(subtotal * window.CARA_CONFIG.TAX_RATE);
   if (taxEl) taxEl.innerText = formatCurrency(tax);
 
   let discount = 0;
@@ -1116,7 +1132,7 @@ window.applyCoupon = function () {
     showToast(`${code} applied! ${coupons[code]}% discount added.`, 'success');
     loadCart();
   } else {
-    showToast('Invalid promo code. Try CARA20 for 20% off!', 'error');
+    showToast(`Invalid promo code. Try ${Object.keys(coupons)[0] || 'CARA20'}!`, 'error');
   }
 };
 
