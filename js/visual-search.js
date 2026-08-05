@@ -26,15 +26,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     const objectURL = URL.createObjectURL(blob);
     
     // Display the image
-    imagePreview.src = objectURL;
-    imagePreview.style.display = 'block';
+    if (imagePreview) {
+      imagePreview.src = objectURL;
+      imagePreview.style.display = 'block';
+    }
     
     // Clean up cache after retrieving
     await cache.delete('/shared-image');
     
     // Simulate visual search processing delay
     setTimeout(() => {
-      loadingIndicator.style.display = 'none';
+      if (loadingIndicator) loadingIndicator.style.display = 'none';
       
       // We would normally upload the blob to our backend here for vector search
       // e.g., const formData = new FormData(); formData.append('image', blob);
@@ -50,14 +52,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   function showError() {
-    loadingIndicator.style.display = 'none';
-    imagePreview.style.display = 'none';
-    errorContainer.style.display = 'block';
+    if (loadingIndicator) loadingIndicator.style.display = 'none';
+    if (imagePreview) imagePreview.style.display = 'none';
+    if (errorContainer) errorContainer.style.display = 'block';
   }
 
   function loadSimilarProducts() {
-    resultsContainer.style.display = 'block';
+    if (resultsContainer) resultsContainer.style.display = 'block';
     const productsGrid = document.getElementById('similar-products-grid');
+    if (!productsGrid) return;
     
     // Mock similar products
     const mockProducts = [
