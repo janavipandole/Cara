@@ -3,7 +3,7 @@
  * Renders user point progress, multiplier stats, and rewards redemption drawers.
  */
 
-import { LoyaltyRewardsEngine } from './loyalty-rewards-engine.js';
+import LoyaltyRewardsEngine from './loyalty-rewards-engine.js';
 
 export class LoyaltyDashboardWidget {
   constructor(engineOptions = {}) {

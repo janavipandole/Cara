@@ -96,9 +96,8 @@ class LoyaltyRewardsEngine {
 }
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { LoyaltyRewardsEngine };
+  module.exports = LoyaltyRewardsEngine;
 } else {
   window.LoyaltyRewardsEngine = LoyaltyRewardsEngine;
 }
-export { LoyaltyRewardsEngine };
 
