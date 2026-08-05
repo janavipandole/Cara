@@ -227,7 +227,10 @@
   function populateCategoryDropdown() {
     if (!categorySelect) return;
     fetch(CATEGORIES_API)
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error(`API error: ${res.status}`);
+        return res.json();
+      })
       .then(({ categories }) => {
         const placeholder = '<option value="">All Categories</option>';
         const opts = categories
