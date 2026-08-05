@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   // Check if BarcodeDetector is supported
   if (!('BarcodeDetector' in window)) {
-    console.log('Barcode Detector is not supported by this browser.');
     return;
   }
 
