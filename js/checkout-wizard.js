@@ -2,5 +2,5 @@
  * Multi-Step Checkout Wizard
  */
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("Multi-step checkout wizard initialized.");
+  // Initialises the multi-step checkout wizard UI when the page loads.
 });
