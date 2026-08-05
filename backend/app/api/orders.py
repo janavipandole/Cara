@@ -160,18 +160,20 @@ def create_order(
         zip_code=order_data.zip,
         total_amount=grand_total,
         status="CONFIRMED",
-        idempotency_key=order_data.idempotency_key,   # ADDED
+        idempotency_key=order_data.idempotency_key,
     )
 
     db.add(new_order)
-    db.commit()
-    db.refresh(new_order)
+    # Use flush instead of commit to get new_order.id without finalizing the transaction prematurely
+    db.flush()
 
     for db_item in db_items:
         db_item.order_id = new_order.id
         db.add(db_item)
 
+    # Commit everything atomically in a single transaction
     db.commit()
+    db.refresh(new_order)
 
     return {
         "message": "Order created successfully",
