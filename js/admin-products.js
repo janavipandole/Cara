@@ -18,6 +18,7 @@ function adminRequest(method, path, body) {
       });
     return r.json();
   }).catch(function(err) {
+    console.error('[AdminProducts] Request failed:', err);
     throw err;
   });
 }
@@ -46,6 +47,7 @@ window.AdminProducts = {
       });
     return r.json();
   }).catch(function(err) {
+    console.error('[AdminProducts] Request failed:', err);
     throw err;
   });
 },
