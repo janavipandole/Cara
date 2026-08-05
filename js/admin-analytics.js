@@ -24,9 +24,11 @@
 
   // ── Format helpers ─────────────────────────────────────────────────────────
   function _fmtRev(val) {
+    const num = parseFloat(val);
+    const safe = isFinite(num) ? num : 0;
     return (
       '₹' +
-      parseFloat(val)
+      safe
         .toFixed(2)
         .replace(/\d(?=(\d{3})+\.)/g, '$&,')
     );

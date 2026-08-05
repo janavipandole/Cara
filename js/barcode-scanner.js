@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   // Check if BarcodeDetector is supported
   if (!('BarcodeDetector' in window)) {
-    console.log('Barcode Detector is not supported by this browser.');
     return;
   }
 
@@ -193,7 +192,11 @@ document.addEventListener("DOMContentLoaded", () => {
       );
       
       if (matchedProduct) {
-        localStorage.setItem("selectedProductId", matchedProduct.name);
+        try {
+          localStorage.setItem("selectedProductId", matchedProduct.name);
+        } catch (err) {
+          // Ignore storage failures, navigation still works.
+        }
         window.location.href = "singleProduct.html";
         return;
       }
@@ -201,7 +204,11 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // Fallback: If no exact match or products not loaded, store the value and redirect anyway
     // The PDP page handles resolving the product.
-    localStorage.setItem("selectedProductId", barcodeValue);
+    try {
+      localStorage.setItem("selectedProductId", barcodeValue);
+    } catch (err) {
+      // Ignore storage failures, navigation still works.
+    }
     window.location.href = "singleProduct.html";
   };
 
@@ -216,7 +223,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (barcodes.length > 0) {
         // Found a barcode
         const barcode = barcodes[0];
-        status.textContent = \`Found: \${barcode.rawValue}\`;
+        status.textContent = `Found: ${barcode.rawValue}`;
         
         // Stop scanning and process
         processBarcode(barcode.rawValue);

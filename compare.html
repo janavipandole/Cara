@@ -1,11 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Product Comparison Matrix - Cara</title>
-  <link rel="stylesheet" href="global.css">
-  <link rel="stylesheet" href="compare.css">
+  <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico" />
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: https://www.animatedimages.org https://cara-seven-ashen.vercel.app;"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Compare Products - Cara</title>
+    <meta
+      name="description"
+      content="Compare up to 3 products side by side - price, ratings, materials, and availability on Cara."
+    />
+    <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="ui-fix.css" />
+    <link rel="stylesheet" href="compare.css" />
+    <link rel="manifest" href="/manifest.json" />
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/service-worker.js');
+        });
+      }
+    </script>
+      <script type="module" src="js/config.js"></script>
 </head>
 <body>
   <header id="header">
@@ -17,6 +51,89 @@
     <div id="comparator-matrix-container"></div>
   </main>
 
-  <script type="module" src="js/product-comparator-matrix.js"></script>
-</body>
+      <!-- Empty State -->
+      <div id="compareEmpty" class="compare-empty" style="display: none">
+        <i class="ri-layout-column-line"></i>
+        <p>No products selected for comparison.</p>
+        <a href="shop.html">Browse Products</a>
+      </div>
+
+      <!-- Table renders here -->
+      <div id="compareTableWrapper"></div>
+
+      <!-- Action row -->
+      <div class="compare-actions">
+        <button id="clearCompareBtn" class="clear-all-btn">
+          <i class="ri-delete-bin-line"></i> Clear All
+        </button>
+        <a href="shop.html" class="shop-more-btn">
+          <i class="ri-add-line"></i> Add More Products
+        </a>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="section-p1">
+      <div class="col">
+        <img src="images/Dlogo.png" alt="Cara Logo" class="logo" />
+        <h4>Contact</h4>
+        <p><strong>Address:</strong> Cara E-Commerce</p>
+        <p><strong>Hours:</strong> 10:00 – 18:00, Mon – Sat</p>
+      </div>
+      <div class="col">
+        <h4>About</h4>
+        <a href="about.html">About Us</a>
+        <a href="deliveryInformation.html">Delivery Information</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+      <div class="col">
+        <h4>My Account</h4>
+        <a href="login.html">Sign In</a>
+        <a href="cart.html">View Cart</a>
+        <a href="wishlist.html">My Wishlist</a>
+        <a href="order-history.html">Track My Order</a>
+        <a href="#">Help</a>
+      </div>
+      <div class="col install">
+        <h4>Newsletter</h4>
+        <p>Stay updated with our latest trends!</p>
+        <div class="form">
+          <input
+            type="email"
+            placeholder="Your email address"
+            aria-label="Newsletter email"
+          />
+          <button class="normal" type="button">Sign Up</button>
+        </div>
+        <div class="follow">
+          <h4>Follow us</h4>
+          <div class="icon">
+            <i class="fab fa-facebook-f"></i>
+            <i class="fab fa-twitter"></i>
+            <i class="fab fa-instagram"></i>
+            <i class="fab fa-pinterest-p"></i>
+            <i class="fab fa-youtube"></i>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>
+          &copy; <span class="Current-Year"></span> Cara. All rights reserved.
+        </p>
+      </div>
+    </footer>
+
+    <script type="module" src="products.js"></script>
+    <script type="module" src="app.js"></script>
+    <script type="module" src="js/interactive-product-comparator.js"></script>
+    <script type="module" src="compare.js"></script>
+    <script type="module" src="navbar.js"></script>
+    <script>
+      if (typeof loadNavbar === 'function') loadNavbar('shop');
+      const yearEl = document.querySelector('.Current-Year');
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
+    </script>
+  </body>
 </html>

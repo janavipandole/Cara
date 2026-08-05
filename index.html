@@ -126,8 +126,8 @@
 
 
   </style>
-<script src="js/error-boundary.js"></script>
-<script src="js/error-logger.js"></script>
+<script type="module" src="js/error-boundary.js"></script>
+<script type="module" src="js/error-logger.js"></script>
   <link rel="manifest" href="/manifest.json">
   <script>
     if ('serviceWorker' in navigator) {
@@ -136,6 +136,7 @@
       });
     }
   </script>
+    <script type="module" src="js/config.js"></script>
 </head>
 
 <body>
@@ -762,8 +763,8 @@
 
   <div id="toast-container"></div>
    <button id="topBtn">↑</button>
-<script src="navbar.js"></script>
-<script src="js/newsletter-subscribe.js" defer></script>
+<script type="module" src="navbar.js"></script>
+<script type="module" src="js/newsletter-subscribe.js" defer></script>
 <script>
   loadNavbar('home');
 </script>
@@ -790,8 +791,8 @@
   window.addEventListener('resize', updateHeaderHeight);
 </script>
 
-<script src="products.js"></script>
-<script src="app.js"></script>  
+<script type="module" src="products.js"></script>
+<script type="module" src="app.js"></script>  
 <script>
 
 const searchBar = document.getElementById("searchBar");
@@ -842,30 +843,12 @@ if (btn) {
 }
 </script>
 <button id="backToTop">↑</button>
-
-<!-- Barcode Scanner Modal -->
-<div id="barcode-scanner-modal" class="scanner-modal" style="display: none;">
-  <div class="scanner-modal-content">
-    <div class="scanner-header">
-      <h3>Scan Product Barcode</h3>
-      <button id="close-scanner-btn" aria-label="Close Scanner"><i class="ri-close-line"></i></button>
-    </div>
-    <div class="scanner-video-container">
-      <video id="barcode-video" autoplay playsinline></video>
-      <div class="scanner-overlay"></div>
-    </div>
-    <p class="scanner-status" id="scanner-status">Looking for barcode...</p>
-  </div>
-</div>
-
-<script src="js/barcode-scanner.js" defer></script>
-<script src="js/session-lock.js" defer></script>
-<script src="js/live-sales-toast.js" defer></script>
-<script type="module" src="js/accessibility-focus-manager.js"></script>
+<script type="module" src="js/session-lock.js" defer></script>
+<script type="module" src="js/live-sales-toast.js" defer></script>
 </body>
 
 </html>
 
 <!-- Meta Content Security Policy configuration restricting script origins. -->
-<section id="recommendations-section" class="section-p1"><h2>Recommended For You</h2><div id="rec-container"></div></section>
-<script src="js/recommendations.js"></script>
+
+<!-- Debounce Util --><script type="module" src="js/utils/debounce.js"></script>

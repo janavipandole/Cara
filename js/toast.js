@@ -1,4 +1,4 @@
-class CaraToast {
+export class CaraToast {
   static show(message, type = 'info', duration = 4000) {
     const container =
       document.getElementById('toast-container') ||
@@ -10,17 +10,17 @@ class CaraToast {
       })();
 
     const icons = {
-      info: '\u2139\uFE0F',
-      success: '\u2705',
-      error: '\u274C',
-      warning: '\u26A0\uFE0F',
+      info: 'Info',
+      success: 'Done',
+      error: 'Error',
+      warning: 'Warn',
     };
 
     const toast = document.createElement('div');
     toast.className = `toast toast-${type}`;
     toast.innerHTML = `
       <span class="toast-icon">${icons[type] || icons.info}</span>
-      <span class="toast-msg">${message}</span>
+      <span class="toast-msg">${this._escapeHtml(message)}</span>
       <button class="toast-close" aria-label="Close">&times;</button>
       <span class="toast-progress" style="animation-duration:${duration}ms"></span>
     `;
@@ -47,6 +47,20 @@ class CaraToast {
     });
   }
 
+  static _escapeHtml(value) {
+    return String(value).replace(
+      /[&<>"']/g,
+      (char) =>
+        ({
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#39;',
+        })[char],
+    );
+  }
+
   static _dismiss(toast) {
     if (toast._dismissing) return;
     toast._dismissing = true;
@@ -54,4 +68,8 @@ class CaraToast {
     toast.classList.add('toast-hiding');
     setTimeout(() => toast.remove(), 350);
   }
+}
+
+if (typeof window !== 'undefined') {
+  window.CaraToast = CaraToast;
 }

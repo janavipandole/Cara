@@ -46,6 +46,9 @@ export class CartRecoveryEngine {
       const data = JSON.parse(raw);
       if (!data || data.recovered) return null;
 
+      // Reject sessions whose items are not a valid array (corrupt/legacy shape).
+      if (!Array.isArray(data.items)) return null;
+
       const age = Date.now() - (data.timestamp || 0);
       if (age > this.sessionTimeoutMs) {
         return null;

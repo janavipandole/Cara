@@ -18,7 +18,6 @@ function adminRequest(method, path, body) {
       });
     return r.json();
   }).catch(function(err) {
-    console.warn("[AdminProducts] Failed:", err);
     throw err;
   });
 }
@@ -34,7 +33,7 @@ window.AdminProducts = {
     return adminRequest('DELETE', '/api/admin/products/' + id);
   },
   updateStock: function (id, stock) {
-  return fetch(
+    return fetch(
     API_BASE + '/api/admin/products/' + id + '/stock?stock=' + stock,
     {
       method: 'PATCH',
@@ -47,7 +46,6 @@ window.AdminProducts = {
       });
     return r.json();
   }).catch(function(err) {
-    console.warn("[AdminProducts] Failed:", err);
     throw err;
   });
 },

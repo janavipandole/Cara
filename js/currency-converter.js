@@ -90,14 +90,16 @@ export function setActiveCurrency(currencyCode) {
 }
 
 export function convertPrice(amountInUSD, targetCurrency = getActiveCurrency()) {
+  const amount =
+    typeof amountInUSD === 'number' && isFinite(amountInUSD) ? amountInUSD : 0;
   const rate = EXCHANGE_RATES[targetCurrency] || 1.0;
-  return amountInUSD * rate;
+  return amount * rate;
 }
 
 export function formatCurrency(amountInUSD, targetCurrency = getActiveCurrency()) {
   const converted = convertPrice(amountInUSD, targetCurrency);
   const symbol = CURRENCY_SYMBOLS[targetCurrency] || '$';
-  return `${symbol}${converted.toFixed(2)}`;
+  return `${symbol}${isFinite(converted) ? converted.toFixed(2) : '0.00'}`;
 }
 
 export function initCurrencySelector(selectElementId = 'currencySelect') {
