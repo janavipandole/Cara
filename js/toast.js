@@ -20,7 +20,7 @@ class CaraToast {
     toast.className = `toast toast-${type}`;
     toast.innerHTML = `
       <span class="toast-icon">${icons[type] || icons.info}</span>
-      <span class="toast-msg">${message}</span>
+      <span class="toast-msg">${this._escapeHtml(message)}</span>
       <button class="toast-close" aria-label="Close">&times;</button>
       <span class="toast-progress" style="animation-duration:${duration}ms"></span>
     `;
@@ -45,6 +45,20 @@ class CaraToast {
       const bar = toast.querySelector('.toast-progress');
       if (bar) bar.style.animationPlayState = 'running';
     });
+  }
+
+  static _escapeHtml(value) {
+    return String(value).replace(
+      /[&<>"']/g,
+      (char) =>
+        ({
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#39;',
+        })[char],
+    );
   }
 
   static _dismiss(toast) {
