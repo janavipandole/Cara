@@ -34,7 +34,7 @@ window.AdminProducts = {
     return adminRequest('DELETE', '/api/admin/products/' + id);
   },
   updateStock: function (id, stock) {
-  return fetch(
+    return fetch(
     API_BASE + '/api/admin/products/' + id + '/stock?stock=' + stock,
     {
       method: 'PATCH',
