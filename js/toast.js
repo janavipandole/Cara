@@ -10,10 +10,10 @@ class CaraToast {
       })();
 
     const icons = {
-      info: '\u2139\uFE0F',
-      success: '\u2705',
-      error: '\u274C',
-      warning: '\u26A0\uFE0F',
+      info: 'Info',
+      success: 'Done',
+      error: 'Error',
+      warning: 'Warn',
     };
 
     const toast = document.createElement('div');
