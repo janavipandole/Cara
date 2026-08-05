@@ -31,12 +31,14 @@ export class ProductReviewManager {
   validateReviewData({ authorName, authorEmail, rating, comment }) {
     const errors = [];
 
-    if (!authorName || authorName.trim().length < 2) {
+    const nameStr = typeof authorName === 'string' ? authorName : '';
+    if (!nameStr || nameStr.trim().length < 2) {
       errors.push('Name must be at least 2 characters.');
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!authorEmail || !emailRegex.test(authorEmail.trim())) {
+    const emailStr = typeof authorEmail === 'string' ? authorEmail : '';
+    if (!emailStr || !emailRegex.test(emailStr.trim())) {
       errors.push('Please enter a valid email address.');
     }
 
