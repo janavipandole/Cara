@@ -1,21 +1,32 @@
 // Session-bound checkout draft form saver
 
 export function saveDraftField(id, value) {
-  if (typeof sessionStorage !== 'undefined') {
+  if (typeof sessionStorage === 'undefined') return;
+  try {
     sessionStorage.setItem(`cara_checkout_draft_${id}`, value);
+  } catch (e) {
+    // Ignore storage failures in restricted environments.
   }
 }
 
 export function getDraftField(id) {
-  if (typeof sessionStorage !== 'undefined') {
+  if (typeof sessionStorage === 'undefined') return '';
+  try {
     return sessionStorage.getItem(`cara_checkout_draft_${id}`) || '';
+  } catch (e) {
+    return '';
   }
-  return '';
 }
 
 export function clearCheckoutDraft(fields = []) {
   if (typeof sessionStorage === 'undefined') return;
-  fields.forEach((id) => sessionStorage.removeItem(`cara_checkout_draft_${id}`));
+  fields.forEach((id) => {
+    try {
+      sessionStorage.removeItem(`cara_checkout_draft_${id}`);
+    } catch (e) {
+      // Ignore storage failures in restricted environments.
+    }
+  });
 }
 
 export function initCheckoutAutosave() {
