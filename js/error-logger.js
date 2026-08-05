@@ -8,8 +8,8 @@ window.addEventListener('error', (event) => {
     errors = [];
   }
   errors.push({
-    message: event.message,
-    filename: event.filename,
+    message: String(event.message || '').slice(0, 2000),
+    filename: String(event.filename || '').slice(0, 500),
     lineno: event.lineno,
     timestamp: new Date().toISOString(),
   });
