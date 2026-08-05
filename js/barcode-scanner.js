@@ -215,7 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (barcodes.length > 0) {
         // Found a barcode
         const barcode = barcodes[0];
-        status.textContent = \`Found: \${barcode.rawValue}\`;
+        status.textContent = `Found: ${barcode.rawValue}`;
         
         // Stop scanning and process
         processBarcode(barcode.rawValue);
