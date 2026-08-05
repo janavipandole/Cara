@@ -193,7 +193,11 @@ document.addEventListener("DOMContentLoaded", () => {
       );
       
       if (matchedProduct) {
-        localStorage.setItem("selectedProductId", matchedProduct.name);
+        try {
+          localStorage.setItem("selectedProductId", matchedProduct.name);
+        } catch (err) {
+          // Ignore storage failures, navigation still works.
+        }
         window.location.href = "singleProduct.html";
         return;
       }
@@ -201,7 +205,11 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // Fallback: If no exact match or products not loaded, store the value and redirect anyway
     // The PDP page handles resolving the product.
-    localStorage.setItem("selectedProductId", barcodeValue);
+    try {
+      localStorage.setItem("selectedProductId", barcodeValue);
+    } catch (err) {
+      // Ignore storage failures, navigation still works.
+    }
     window.location.href = "singleProduct.html";
   };
 
