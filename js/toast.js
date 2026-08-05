@@ -1,4 +1,4 @@
-class CaraToast {
+export class CaraToast {
   static show(message, type = 'info', duration = 4000) {
     const container =
       document.getElementById('toast-container') ||
@@ -68,4 +68,8 @@ class CaraToast {
     toast.classList.add('toast-hiding');
     setTimeout(() => toast.remove(), 350);
   }
+}
+
+if (typeof window !== 'undefined') {
+  window.CaraToast = CaraToast;
 }
