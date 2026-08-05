@@ -260,11 +260,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       try {
         // Fetch authentic data from backend instead of relying on scraped client DOM data
         const res = await fetch('/api/products');
+        if (!res.ok) throw new Error('HTTP error: ' + res.status);
         let dbProduct = null;
-        if (res.ok) {
-          const products = await res.json();
-          dbProduct = products.find((p) => p.name === productName);
-        }
+        const products = await res.json();
+        dbProduct = products.find((p) => p.name === productName);
 
         const nameEl = document.getElementById('product-name');
         const priceEl = document.getElementById('product-price');
@@ -934,9 +933,8 @@ window.loadCart = async function () {
   let dbProducts = [];
   try {
     const res = await fetch('/api/products');
-    if (res.ok) {
-      dbProducts = await res.json();
-    }
+    if (!res.ok) throw new Error('HTTP error: ' + res.status);
+    dbProducts = await res.json();
   } catch (err) {
     window.logError('Failed to fetch secure prices:', err);
   }
