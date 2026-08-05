@@ -33,7 +33,8 @@ export function resolveEffectiveTheme(themeChoice = getStoredTheme()) {
   if (themeChoice === THEMES.SYSTEM) {
     return getSystemTheme();
   }
-  return themeChoice;
+  const valid = Object.values(THEMES).includes(themeChoice);
+  return valid ? themeChoice : THEMES.LIGHT;
 }
 
 export function applyTheme(themeChoice) {
