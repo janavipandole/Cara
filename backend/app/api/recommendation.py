@@ -19,8 +19,14 @@ def recommend_outfit(request: Request, req: schemas.RecommendationRequest, db: S
     if not base_product:
         raise HTTPException(status_code=404, detail="Product not found")
         
-    # Get similar items based on vector search
-    candidate_ids = get_similar_product_ids(req.product_id, top_k=15)
+    # Determine the desired limit (between 1 and 20)
+    limit = max(1, min(req.limit, 20))
+
+    # Dynamically scale top_k to fetch a surplus of candidates to account for items dropped by filter_by_rules
+    fetch_top_k = max(limit * 2, 30)
+
+    # Get similar items based on vector search with dynamic top_k
+    candidate_ids = get_similar_product_ids(req.product_id, top_k=fetch_top_k)
     
     # Fetch candidates from DB
     candidates = db.query(models.Product).filter(models.Product.id.in_(candidate_ids)).all()
@@ -40,8 +46,7 @@ def recommend_outfit(request: Request, req: schemas.RecommendationRequest, db: S
     from ..rules.reranker import PersonalizedReranker
     reranked_candidates = PersonalizedReranker.rerank(db, hashed_user_id, filtered_candidates)
     
-    # Limit results
-    limit = max(1, min(req.limit, 20))
+    # Return up to the requested limit
     return reranked_candidates[:limit]
 
 @router.post("/feedback")
