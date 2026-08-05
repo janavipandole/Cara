@@ -71,7 +71,7 @@ describe('reviews.js unit tests', function () {
     expect(result.total).toBe(3);
     expect(result.avg).toBe(4.0);
     expect(typeof result.avg).toBe('number');
-    expect(result.dist).toEqual([0, 1, 1, 1, 0]);
+    expect(result.dist).toEqual([0, 0, 1, 1, 1]);
   });
 
   it('ignores ratings outside 1-5 range', function () {
