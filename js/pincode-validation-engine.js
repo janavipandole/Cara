@@ -19,8 +19,8 @@ export class PincodeValidationEngine {
     }
     const pattern = this.postalPatterns[countryCode.toUpperCase()];
     if (!pattern) {
-      // Fallback basic alphanumeric check
-      const genericValid = /^[a-zA-Z0-9\s-]{3,10}$/.test(code.trim());
+      // Fallback basic alphanumeric check (must contain at least one digit)
+      const genericValid = /^(?=.*[0-9])[a-zA-Z0-9\s-]{3,10}$/.test(code.trim());
       return { valid: genericValid, reason: genericValid ? 'Generic code valid' : 'Invalid generic postal format' };
     }
 
