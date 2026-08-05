@@ -27,7 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
     })
       .catch((err) => console.warn('Failed to end session on server:', err))
       .finally(() => {
-        console.info('Session cleared due to inactivity.');
         window.location.href = 'login.html';
       });
   };
