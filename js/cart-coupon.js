@@ -19,6 +19,23 @@
     if (type) feedbackEl.classList.add('coupon-feedback-' + type);
   }
 
+  // ── Safe storage access ────────────────────────────────────────────────────
+  function saveAppliedCoupon(code) {
+    try {
+      localStorage.setItem('appliedCoupon', code);
+    } catch (err) {
+      // Ignore storage failures in restricted environments.
+    }
+  }
+
+  function removeAppliedCoupon() {
+    try {
+      localStorage.removeItem('appliedCoupon');
+    } catch (err) {
+      // Ignore storage failures in restricted environments.
+    }
+  }
+
   // ── Apply coupon ─────────────────────────────────────────────────────────
   function applyCoupon() {
     if (!couponInput || !feedbackEl) return;
@@ -47,7 +64,7 @@
       const result = calculator.validateCoupon(code, subtotal);
       if (result.valid) {
         window.appliedCoupon = result.code;
-        localStorage.setItem('appliedCoupon', result.code);
+        saveAppliedCoupon(result.code);
         showFeedback('Coupon "' + result.code + '" applied successfully!', 'success');
         couponInput.classList.remove('is-invalid');
         couponInput.classList.add('is-valid');
@@ -62,7 +79,7 @@
       const knownCodes = window.CARA_COUPONS || {};
       if (Object.prototype.hasOwnProperty.call(knownCodes, code)) {
         window.appliedCoupon = code;
-        localStorage.setItem('appliedCoupon', code);
+        saveAppliedCoupon(code);
         const discountPct = knownCodes[code];
         showFeedback('Coupon "' + code + '" applied! You saved ' + discountPct + '%.', 'success');
         couponInput.classList.remove('is-invalid');
@@ -79,7 +96,7 @@
   // ── Remove coupon ────────────────────────────────────────────────────────
   function removeCoupon() {
     window.appliedCoupon = '';
-    localStorage.removeItem('appliedCoupon');
+    removeAppliedCoupon();
     if (couponInput) {
       couponInput.value = '';
       couponInput.classList.remove('is-valid', 'is-invalid');
