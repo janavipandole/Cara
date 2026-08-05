@@ -103,6 +103,32 @@ git push origin feature/your-feature-name
 
 6. **Create a Pull Request** on GitHub
 
+### Running Tests
+
+The frontend uses Vitest with a jsdom environment. Unit tests live in `tests/unit/` and are run by the CI (`ci-pipeline.yml`) on every pull request.
+
+- Run the full test suite:
+
+```
+npm test
+```
+
+- Run a single test file while developing:
+
+```
+npx vitest run tests/unit/cart-coupon.test.js
+```
+
+- Add a new test co-located with the module under test, e.g. `tests/unit/<module>.test.js`, using the existing `describe` / `it` / `expect` style with ES module imports.
+
+Backend tests use pytest and live in `backend/tests/`:
+
+```
+cd backend && python3 -m pytest tests/ -v --no-header
+```
+
+Make sure the frontend vitest suite passes before opening a pull request.
+
 ## Pull Request Process
 
 ### Before Submitting
