@@ -41,7 +41,12 @@ export function initLazyLoadObserver(selector = 'img.lazyload', options = {}) {
 }
 
 if (typeof document !== 'undefined') {
-  document.addEventListener('DOMContentLoaded', () => {
+  // Support the case where the DOM is already parsed when this script loads.
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      initLazyLoadObserver();
+    });
+  } else {
     initLazyLoadObserver();
-  });
+  }
 }
