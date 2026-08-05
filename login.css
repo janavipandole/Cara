@@ -1,4 +1,4 @@
-/* login.css — written by a first year student, keeping it simple! */
+@import url('assets/css/a11y-forms.css');/* login.css — written by a first year student, keeping it simple! */
 
 /* ============================================================
    PAGE LAYOUT
@@ -367,4 +367,3 @@
   }
 }
 
-@import url('assets/css/a11y-forms.css');
