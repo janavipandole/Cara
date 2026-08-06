@@ -485,6 +485,7 @@ window.updateCheckoutSummary = function () {
       sum + Math.round(parsePriceString(item.price) * 100) * (parseInt(item.quantity, 10) || 1),
     0,
   );
+  const subtotal = subtotalCents / 100;
 
   // Check coupon discount
   const couponCode = localStorage.getItem('appliedCoupon') || '';
@@ -509,6 +510,11 @@ window.updateCheckoutSummary = function () {
   const loyaltyPoints =
     parseInt(localStorage.getItem('cara_applied_loyalty_points'), 10) || 0;
   const loyaltyDiscount = loyaltyPoints / (window.CARA_CONFIG ? window.CARA_CONFIG.LOYALTY.POINTS_PER_RUPEE : 10);
+
+  const taxCents = Math.round(subtotalCents * (window.CARA_CONFIG ? window.CARA_CONFIG.TAX_RATE : 0.18));
+  const giftChargeCents = Math.round(giftCharge * 100);
+  const urgencyDiscountCents = Math.round(urgencyDiscount * 100);
+  const loyaltyDiscountCents = Math.round(loyaltyDiscount * 100);
 
   // Grand Total in cents (integer, safe for Stripe)
   const grandTotalCents = Math.max(
@@ -581,7 +587,7 @@ window.updateCheckoutSummary = function () {
       const divider = document.querySelector('.summary-divider');
       if (divider) divider.parentNode.insertBefore(urgencyRow, divider);
     }
-    urgencyRow.innerHTML = `<span>Urgency Promo (${window.CARA_CONFIG ? window.CARA_CONFIG.URGENCY_DISCOUNT_PCT * 100 : 5}%)</span><span id='urgency-discount-val'>-${formatCurrency(urgencyDiscount)}</span>`;
+    urgencyRow.innerHTML = `<span>Urgency Promo (${window.CARA_CONFIG ? window.CARA_CONFIG.URGENCY_DISCOUNT_PCT * 100 : 5}%)</span><span id='urgency-discount-val'>-${formatCurrency(urgencyDiscountCents)}</span>`;
   } else {
     if (urgencyRow) urgencyRow.remove();
   }
