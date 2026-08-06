@@ -33,6 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
       alert('Blocked potential Cross-Site Scripting input vector.');
     }
   });
+
+  // Expose utility function globally for external use
+  window.containsSqlInjectionKeywords = containsSqlInjectionKeywords;
 });
 
 
