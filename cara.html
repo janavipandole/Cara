@@ -659,7 +659,15 @@
 
     // state
     let products = [...sampleProducts];
-    let cart = JSON.parse(localStorage.getItem('cara_cart') || '{}');
+    let cart = JSON.parse(localStorage.getItem('productsInCart') || '{}');
+    if (Array.isArray(cart)) {
+      // Canonical store is an array; convert to id->item map for this demo page.
+      cart = cart.reduce((acc, item) => {
+        const id = item.id || item.name;
+        if (id != null) acc[id] = item;
+        return acc;
+      }, {});
+    }
 
     // DOM refs
     const grid = document.getElementById('grid');
@@ -686,7 +694,15 @@
 
     // helpers
     function formatPrice(v) { return '$' + v.toFixed(2) }
-    function saveCart() { localStorage.setItem('cara_cart', JSON.stringify(cart)); }
+    function saveCart() {
+      const items = Object.keys(cart).map((id) => {
+        const entry = cart[id];
+        return typeof entry === 'object' ? { id, ...entry } : { id, quantity: entry };
+      });
+      localStorage.setItem('productsInCart', JSON.stringify(items));
+      localStorage.removeItem('cara_cart');
+      localStorage.removeItem('cara_shopping_cart');
+    }
 
     function renderGrid(items) {
       grid.innerHTML = '';

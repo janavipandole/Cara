@@ -5,9 +5,39 @@
 
 export class CartSyncManager {
   constructor(options = {}) {
-    this.storageKey = options.storageKey || 'cara_shopping_cart';
+    // Canonical key shared with app.js / checkout (migrates legacy keys).
+    this.storageKey = options.storageKey || 'productsInCart';
     this.ttlMs = options.ttlMs || 24 * 60 * 60 * 1000; // 24 hours
+    this._migrateLegacy();
     this.initSync();
+  }
+
+  _migrateLegacy() {
+    if (typeof window !== 'undefined' && window.CaraCartStore) {
+      window.CaraCartStore.migrateIfNeeded();
+      return;
+    }
+    if (typeof localStorage === 'undefined') return;
+    if (localStorage.getItem(this.storageKey)) return;
+    for (const key of ['cara_shopping_cart', 'cara_cart']) {
+      const raw = localStorage.getItem(key);
+      if (!raw) continue;
+      try {
+        const parsed = JSON.parse(raw);
+        const items = Array.isArray(parsed)
+          ? parsed
+          : Array.isArray(parsed.items)
+            ? parsed.items
+            : [];
+        if (items.length) {
+          this.saveCart(items);
+          localStorage.removeItem(key);
+          break;
+        }
+      } catch (e) {
+        // ignore bad legacy payload
+      }
+    }
   }
 
   initSync() {
@@ -28,7 +58,22 @@ export class CartSyncManager {
     if (typeof localStorage === 'undefined') return null;
     try {
       const data = localStorage.getItem(this.storageKey);
-      return data ? JSON.parse(data) : null;
+      if (!data) return null;
+      const parsed = JSON.parse(data);
+      const metaRaw = localStorage.getItem(`${this.storageKey}_meta`);
+      let metaTs = Date.now();
+      if (metaRaw) {
+        try {
+          metaTs = JSON.parse(metaRaw).updatedAt || metaTs;
+        } catch (e) {
+          // ignore
+        }
+      }
+      // Canonical store is a bare array; wrap for TTL helpers.
+      if (Array.isArray(parsed)) {
+        return { items: parsed, timestamp: metaTs };
+      }
+      return parsed;
     } catch (e) {
       return null;
     }
@@ -49,12 +94,15 @@ export class CartSyncManager {
 
   saveCart(items = []) {
     if (typeof localStorage === 'undefined') return;
-    const payload = {
-      items,
-      timestamp: Date.now(),
-    };
     try {
-      localStorage.setItem(this.storageKey, JSON.stringify(payload));
+      // Persist as the canonical array shape used by app.js / checkout.
+      localStorage.setItem(this.storageKey, JSON.stringify(items));
+      localStorage.setItem(
+        `${this.storageKey}_meta`,
+        JSON.stringify({ version: 1, updatedAt: Date.now() }),
+      );
+      localStorage.removeItem('cara_shopping_cart');
+      localStorage.removeItem('cara_cart');
     } catch (e) {
       console.warn('Failed to save cart payload:', e);
     }

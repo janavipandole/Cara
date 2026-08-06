@@ -16,6 +16,60 @@ window.CARA_COUPONS = {
   'CARA20': 20,
   'WELCOME10': 10
 };
+
+// Unify legacy cart keys onto productsInCart (see js/cart-store.js).
+(function migrateLegacyCartKeys() {
+  try {
+    if (typeof localStorage === 'undefined') return;
+    const canonical = localStorage.getItem('productsInCart');
+    const hasCanonical =
+      canonical &&
+      (() => {
+        try {
+          const parsed = JSON.parse(canonical);
+          return Array.isArray(parsed) && parsed.length > 0;
+        } catch (e) {
+          return false;
+        }
+      })();
+    if (hasCanonical) {
+      localStorage.removeItem('cara_shopping_cart');
+      localStorage.removeItem('cara_cart');
+      return;
+    }
+    for (const key of ['cara_shopping_cart', 'cara_cart']) {
+      const raw = localStorage.getItem(key);
+      if (!raw) continue;
+      let items = [];
+      try {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) items = parsed;
+        else if (parsed && Array.isArray(parsed.items)) items = parsed.items;
+        else if (parsed && typeof parsed === 'object') {
+          items = Object.keys(parsed)
+            .filter((k) => k !== 'subtotal' && k !== 'version' && k !== 'timestamp')
+            .map((id) => {
+              const entry = parsed[id];
+              return typeof entry === 'object'
+                ? { id, ...entry }
+                : { id, quantity: Number(entry) || 1 };
+            });
+        }
+      } catch (e) {
+        continue;
+      }
+      if (items.length) {
+        localStorage.setItem('productsInCart', JSON.stringify(items));
+        localStorage.removeItem('cara_shopping_cart');
+        localStorage.removeItem('cara_cart');
+        break;
+      }
+    }
+  } catch (err) {
+    // ignore storage access errors
+  }
+})();
+
 // i18n.js - Multi-language support
 
 // Global error logger

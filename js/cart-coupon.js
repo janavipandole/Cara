@@ -55,8 +55,18 @@
       // Get cart subtotal from localStorage or default to 0
       let subtotal = 0;
       try {
-        const cart = JSON.parse(localStorage.getItem('cara_cart') || '{}');
-        subtotal = parseFloat(cart.subtotal) || 0;
+        if (window.CaraCartStore) {
+          subtotal = window.CaraCartStore.cartSubtotal();
+        } else {
+          const cart = JSON.parse(localStorage.getItem('productsInCart') || '[]');
+          if (Array.isArray(cart)) {
+            subtotal = cart.reduce((sum, item) => {
+              const price =
+                Number(String(item.price || 0).toString().replace(/[^\d.]/g, '')) || 0;
+              return sum + price * (parseInt(item.quantity, 10) || 1);
+            }, 0);
+          }
+        }
       } catch (err) {
         // ignore parse errors
       }
