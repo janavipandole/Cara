@@ -48,4 +48,18 @@ describe('ProductFacetFilter', () => {
     filterEngine.setFilters({ minPrice: 100, inStockOnly: true });
     expect(filterEngine.resetFilters()).toHaveLength(4);
   });
+
+
+  it('should check price against arbitrary facet range', () => {
+    const filter = new ProductFacetFilter([]);
+    expect(filter.isPriceInFacetRange(50, 40, 60)).toBe(true);
+    expect(filter.isPriceInFacetRange(50, 0, 40)).toBe(false);
+    expect(filter.isPriceInFacetRange(50, 50, 60)).toBe(true); // boundary inclusive
+  });
+
+  it('should return false for NaN price', () => {
+    const filter = new ProductFacetFilter([]);
+    expect(filter.isPriceInFacetRange(NaN, 0, 100)).toBe(false);
+  });
+
 });

@@ -23,3 +23,6 @@ function fetchWithTimeout(url, options = {}, ms = 10000) {
 if (typeof module !== 'undefined') {
   module.exports = { fetchWithTimeout };
 }
+
+
+function createTimeoutSignalHelper(timeoutMs = 5000) { const controller = new AbortController(); const id = setTimeout(() => controller.abort(), timeoutMs); return { signal: controller.signal, cleanup: () => clearTimeout(id) }; }

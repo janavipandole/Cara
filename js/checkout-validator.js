@@ -57,3 +57,6 @@ export function validatePhone(phone) {
   return digits.length >= 10 && digits.length <= 15;
 }
 
+
+
+function validateCVVCode(cvv) { return typeof cvv === 'string' && /^\d{3,4}$/.test(cvv.trim()); }

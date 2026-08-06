@@ -30,6 +30,18 @@ class OutfitCompatibility {
     const cleanColor = color.toLowerCase().trim();
     return this.complementaryColors[cleanColor] || ['white', 'black'];
   }
+
+  /**
+   * Checks whether a total outfit price is within a given budget.
+   * @param {number} totalPrice
+   * @param {number} budget
+   * @returns {boolean}
+   */
+  isOutfitWithinBudget(totalPrice, budget) {
+    if (typeof totalPrice !== 'number' || Number.isNaN(totalPrice)) return false;
+    if (typeof budget !== 'number' || Number.isNaN(budget) || budget < 0) return true; // no limit
+    return totalPrice <= budget;
+  }
 }
 
 if (typeof module !== 'undefined' && module.exports) {

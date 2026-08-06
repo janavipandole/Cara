@@ -61,4 +61,9 @@ describe('Accessibility Focus Trap & Announcer Unit Tests', () => {
     const polite = document.getElementById('a11y-announcer-polite');
     expect(polite).not.toBeNull();
   });
+
+  it('should return null when container or event is null or undefined', () => {
+    expect(trapFocus(null, null)).toBeNull();
+  });
+
 });

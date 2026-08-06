@@ -36,4 +36,22 @@ describe('ProductReviewAggregator Unit Tests', () => {
     expect(result.success).toBe(true);
     expect(result.helpful).toBe(1);
   });
+
+  it('should calculate rating breakdown percentages', () => {
+    aggregator.submitReview('prod-70', { rating: 5 });
+    aggregator.submitReview('prod-70', { rating: 5 });
+    aggregator.submitReview('prod-70', { rating: 4 });
+    aggregator.submitReview('prod-70', { rating: 3 });
+    const breakdown = aggregator.calculateReviewRatingBreakdown('prod-70');
+    expect(breakdown[5]).toBe(50); // 2 out of 4 = 50%
+    expect(breakdown[4]).toBe(25); // 1 out of 4 = 25%
+    expect(breakdown[3]).toBe(25); // 1 out of 4 = 25%
+    expect(breakdown[2]).toBe(0);
+    expect(breakdown[1]).toBe(0);
+  });
+
+  it('should return all zeros for products with no reviews', () => {
+    const breakdown = aggregator.calculateReviewRatingBreakdown('nonexistent');
+    expect(breakdown).toEqual({ 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 });
+  });
 });
