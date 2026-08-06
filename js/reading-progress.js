@@ -35,3 +35,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+// ── roundScrollProgressPercent ──────────────────────────────────────────────
+// Rounds a raw scroll-progress percentage (e.g. 45.678) to the nearest integer
+// for clean DOM display.
+export function roundScrollProgressPercent(rawPercent) {
+  if (typeof rawPercent !== 'number' || Number.isNaN(rawPercent)) return 0;
+  return Math.round(Math.max(0, Math.min(100, rawPercent)));
+}
