@@ -24,7 +24,12 @@ class CheckoutRequest(BaseModel):
     items: list[CheckoutItem]
 
 class ProductCreate(ProductBase):
-    id: int
+    """Payload for creating a product.
+
+    `id` is intentionally not part of the create payload: it is assigned by
+    the database auto-increment when the row is inserted.
+    """
+    pass
 
 class Product(ProductBase):
     id: int
