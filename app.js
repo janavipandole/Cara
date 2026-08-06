@@ -2428,3 +2428,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+})();
