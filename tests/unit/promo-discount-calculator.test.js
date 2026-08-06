@@ -35,4 +35,22 @@ describe('PromoDiscountCalculator Unit Tests', () => {
     expect(summary.shipping).toBe(10);
     expect(summary.grandTotal).toBe(45);
   });
+
+  it('should cap discount to maxCap threshold', () => {
+    const calc = new PromoDiscountCalculator();
+    expect(calc.applyPromoDiscountMaxCap(50, 20)).toBe(20);
+    expect(calc.applyPromoDiscountMaxCap(10, 20)).toBe(10);
+  });
+
+  it('should return 0 for NaN discount inputs', () => {
+    const calc = new PromoDiscountCalculator();
+    expect(calc.applyPromoDiscountMaxCap(NaN, 20)).toBe(0);
+    expect(calc.applyPromoDiscountMaxCap(NaN, Infinity)).toBe(0);
+  });
+
+  it('should treat negative maxCap as Infinity (no cap)', () => {
+    const calc = new PromoDiscountCalculator();
+    expect(calc.applyPromoDiscountMaxCap(999, -5)).toBe(999);
+  });
+
 });
