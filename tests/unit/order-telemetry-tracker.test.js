@@ -27,4 +27,11 @@ describe('OrderTelemetryTracker Unit Tests', () => {
     expect(milestones.length).toBe(4);
     expect(milestones[3].key).toBe('DELIVERED');
   });
+
+  it('should calculate checkout telemetry duration in milliseconds', () => {
+    const start = Date.now() - 5000;
+    const duration = tracker.getCheckoutDurationMs(start);
+    expect(duration).toBeGreaterThanOrEqual(5000);
+  });
+
 });
