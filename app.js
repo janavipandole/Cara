@@ -2414,3 +2414,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+})();
