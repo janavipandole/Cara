@@ -61,6 +61,7 @@ class User(Base):
     hashed_password = Column(String, nullable=False)
     role            = Column(String, default="USER", nullable=False) 
     is_active = Column(Boolean, default=True)
+    loyalty_points = Column(Integer, default=0, nullable=False)
     created_at = Column(DateTime,  default=lambda: datetime.now(timezone.utc))
     full_name = Column(String, nullable=True)
     phone = Column(String, nullable=True)

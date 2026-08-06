@@ -358,7 +358,7 @@ function submitCheckoutForm() {
     checkoutIdempotencyKey = crypto.randomUUID();
   }
 
-  // Prepare order data
+  // Prepare order data — discounts enforced server-side
   const orderData = {
     fullName: document.getElementById('fullName').value.trim(),
     email: document.getElementById('email').value.trim(),
@@ -366,11 +366,13 @@ function submitCheckoutForm() {
     city: document.getElementById('city').value.trim(),
     zip: document.getElementById('zip').value.trim(),
     coupon: window.appliedCoupon,
+    loyalty_points:
+      parseInt(localStorage.getItem('cara_applied_loyalty_points'), 10) || 0,
+    gift_wrap: !!document.getElementById('gift-wrap-opt')?.checked,
     idempotency_key: checkoutIdempotencyKey,
     items: cart.map((item) => ({
       product_name: item.name,
       quantity: parseInt(item.quantity, 10) || 1,
-      price: item.price,
     })),
   };
 
@@ -394,25 +396,20 @@ function submitCheckoutForm() {
     )
     .then((res) => {
       if (!res.ok) {
-        throw new Error(res.body.detail || 'Failed to place order');
+        const detail = res.body && res.body.detail;
+        throw new Error(
+          typeof detail === 'string' ? detail : 'Failed to place order',
+        );
       }
 
-      // DEDUCT & ADD LOYALTY POINTS ON SUCCESSFUL ORDER
-      const appliedPoints =
-        parseInt(localStorage.getItem('cara_applied_loyalty_points'), 10) || 0;
-      const currentBalance =
-        parseInt(localStorage.getItem('cara_loyalty_balance'), 10) || (window.CARA_CONFIG ? window.CARA_CONFIG.LOYALTY.DEFAULT_BALANCE : 150);
-      const subtotal = cart.reduce(
-        (sum, item) =>
-          sum + parsePriceString(item.price) * (parseInt(item.quantity, 10) || 1),
-        0,
-      );
-      const earnedPoints = Math.floor(subtotal * (window.CARA_CONFIG ? window.CARA_CONFIG.LOYALTY.POINTS_PER_RUPEE / 100 : 0.1));
-      const newBalance = Math.max(
-        0,
-        currentBalance - appliedPoints + earnedPoints,
-      );
-      localStorage.setItem('cara_loyalty_balance', newBalance);
+      // Sync loyalty from server response (source of truth)
+      const pricing = res.body.pricing || {};
+      if (typeof pricing.loyalty_points_balance === 'number') {
+        localStorage.setItem(
+          'cara_loyalty_balance',
+          String(pricing.loyalty_points_balance),
+        );
+      }
       localStorage.removeItem('cara_applied_loyalty_points');
 
       // CLEAR CART AFTER SUCCESSFUL ORDER
@@ -535,18 +532,15 @@ window.updateCheckoutSummary = function () {
   const couponPct = COUPONS[couponCode] || 0;
   const couponDiscountCents = Math.round(subtotalCents * couponPct / 100);
 
-  // Check urgency discount if the timer is running
+  // Urgency banner is marketing-only — it must not change the charged total.
+  // Server is the source of truth for discounts (coupon + loyalty + gift wrap).
   const hasUrgency =
     !window.urgencyTimerExpired &&
     document.getElementById('checkout-promo-alert-bar');
-  const urgencyDiscount = hasUrgency ? subtotal * (window.CARA_CONFIG ? window.CARA_CONFIG.URGENCY_DISCOUNT_PCT : 0.05) : 0;
 
   // Check gift wrap
   const hasGiftWrap = document.getElementById('gift-wrap-opt')?.checked;
   const giftCharge = hasGiftWrap ? (window.CARA_CONFIG ? window.CARA_CONFIG.GIFT_WRAP_CHARGE : 99) : 0;
-
-  // Calculate tax
-  const tax = subtotal * (window.CARA_CONFIG ? window.CARA_CONFIG.TAX_RATE : 0.18);
 
   // Check loyalty points discount
   const loyaltyPoints =
@@ -555,17 +549,19 @@ window.updateCheckoutSummary = function () {
 
   const taxCents = Math.round(subtotalCents * (window.CARA_CONFIG ? window.CARA_CONFIG.TAX_RATE : 0.18));
   const giftChargeCents = Math.round(giftCharge * 100);
-  const urgencyDiscountCents = Math.round(urgencyDiscount * 100);
   const loyaltyDiscountCents = Math.round(loyaltyDiscount * 100);
+  const shippingFee = window.CARA_CONFIG ? window.CARA_CONFIG.SHIPPING.FEE : 150;
+  const freeShipAt = window.CARA_CONFIG ? window.CARA_CONFIG.SHIPPING.FREE_THRESHOLD : 3000;
+  const shippingCents = subtotal >= freeShipAt ? 0 : Math.round(shippingFee * 100);
 
-  // Grand Total in cents (integer, safe for Stripe)
+  // Grand Total mirrors server: subtotal + tax + shipping + gift - coupon - loyalty
   const grandTotalCents = Math.max(
     0,
     subtotalCents +
       taxCents +
+      shippingCents +
       giftChargeCents -
       couponDiscountCents -
-      urgencyDiscountCents -
       loyaltyDiscountCents,
   );
 
@@ -617,9 +613,9 @@ window.updateCheckoutSummary = function () {
     if (couponRow) couponRow.remove();
   }
 
-  // Update Urgency Row
+  // Urgency timer is display-only; do not imply it reduces the charged total.
   let urgencyRow = document.getElementById('urgency-discount-row');
-  if (urgencyDiscountCents > 0) {
+  if (hasUrgency) {
     if (!urgencyRow) {
       urgencyRow = document.createElement('div');
       urgencyRow.id = 'urgency-discount-row';
@@ -629,9 +625,10 @@ window.updateCheckoutSummary = function () {
       const divider = document.querySelector('.summary-divider');
       if (divider) divider.parentNode.insertBefore(urgencyRow, divider);
     }
-    urgencyRow.innerHTML = `<span>Urgency Promo (${window.CARA_CONFIG ? window.CARA_CONFIG.URGENCY_DISCOUNT_PCT * 100 : 5}%)</span><span id='urgency-discount-val'>-${formatCurrency(urgencyDiscountCents)}</span>`;
-  } else {
-    if (urgencyRow) urgencyRow.remove();
+    urgencyRow.innerHTML =
+      '<span>Limited-time checkout</span><span style="font-weight:500;font-size:12px;">Coupon &amp; loyalty applied at payment</span>';
+  } else if (urgencyRow) {
+    urgencyRow.remove();
   }
 
   // Update Gift Wrap Row

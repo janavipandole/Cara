@@ -160,28 +160,56 @@ def create_order(
 
     shipping = 0.0 if subtotal >= 3000 else 150.0
     tax = round(subtotal * 0.18, 2)
-    discount = 0.0
+    coupon_discount = 0.0
+    loyalty_discount = 0.0
+    gift_wrap_charge = 0.0
 
-    # --- Coupon Validation ---
-    # Coupons are percentage-off codes defined in a static map that mirrors
-    # the client-side `CARA_COUPONS` config (app.js). There is no Coupon table
-    # in the database, so validating here keeps the backend consistent with
-    # the frontend and avoids a runtime AttributeError on models.Coupon.
+    # Server-owned pricing constants (must match frontend display helpers)
     COUPONS = {"CARA20": 20, "WELCOME10": 10}
+    POINTS_PER_RUPEE = 10
+    GIFT_WRAP_CHARGE = 99.0
 
     if order_data.coupon:
         coupon_code = order_data.coupon.strip().upper()
-
         discount_percentage = COUPONS.get(coupon_code)
         if discount_percentage is None:
             raise HTTPException(
                 status_code=400,
-                detail="Invalid or inactive coupon code"
+                detail="Invalid or inactive coupon code",
             )
+        coupon_discount = round(subtotal * discount_percentage / 100, 2)
 
-        discount = round(subtotal * discount_percentage / 100, 2)
+    # Lock the buyer row so loyalty balance cannot be double-spent.
+    buyer = (
+        db.query(models.User)
+        .filter(models.User.id == current_user.id)
+        .with_for_update()
+        .first()
+    )
+    if not buyer:
+        raise HTTPException(status_code=401, detail="User not found")
 
-    grand_total = max(0, subtotal + tax + shipping - discount)
+    requested_points = int(order_data.loyalty_points or 0)
+    if requested_points > buyer.loyalty_points:
+        raise HTTPException(
+            status_code=400,
+            detail="Insufficient loyalty points",
+        )
+    redeemed_points = requested_points
+    loyalty_discount = round(redeemed_points / POINTS_PER_RUPEE, 2)
+
+    if order_data.gift_wrap:
+        gift_wrap_charge = GIFT_WRAP_CHARGE
+
+    # Urgency / client-only promos are intentionally not applied here.
+    grand_total = max(
+        0,
+        round(subtotal + tax + shipping + gift_wrap_charge - coupon_discount - loyalty_discount, 2),
+    )
+
+    # Redeem then earn on the paid merchandise subtotal (before discounts).
+    earned_points = max(0, int(subtotal * (POINTS_PER_RUPEE / 100)))
+    buyer.loyalty_points = buyer.loyalty_points - redeemed_points + earned_points
 
     new_order = models.Order(
         full_name=order_data.fullName,
@@ -216,10 +244,24 @@ def create_order(
         )
 
     db.refresh(new_order)
+    db.refresh(buyer)
 
     return {
         "message": "Order created successfully",
-        "order_id": new_order.id
+        "order_id": new_order.id,
+        "total_amount": grand_total,
+        "pricing": {
+            "subtotal": subtotal,
+            "tax": tax,
+            "shipping": shipping,
+            "gift_wrap": gift_wrap_charge,
+            "coupon_discount": coupon_discount,
+            "loyalty_discount": loyalty_discount,
+            "loyalty_points_redeemed": redeemed_points,
+            "loyalty_points_earned": earned_points,
+            "loyalty_points_balance": buyer.loyalty_points,
+            "grand_total": grand_total,
+        },
     }
 
 CANCELLABLE_WINDOW_HOURS = 24

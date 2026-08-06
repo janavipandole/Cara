@@ -89,6 +89,7 @@ class UserOut(BaseModel):
     email:     str
     role:      str
     is_active: bool
+    loyalty_points: int = 0
 
     class Config:
         from_attributes = True
@@ -161,6 +162,8 @@ class OrderCreate(BaseModel):
     zip: str
     items: list[OrderItemCreate]
     coupon: Optional[str] = None
+    loyalty_points: int = Field(default=0, ge=0)
+    gift_wrap: bool = False
     idempotency_key: Optional[str] = None
 
 
