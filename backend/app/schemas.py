@@ -16,13 +16,6 @@ class ProductBase(BaseModel):
     style: Optional[str] = None
     stock: int = 10
 
-class CheckoutItem(BaseModel):
-    name: str
-    quantity: int
-
-class CheckoutRequest(BaseModel):
-    items: list[CheckoutItem]
-
 class ProductCreate(ProductBase):
     id: int
 
