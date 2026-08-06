@@ -249,6 +249,7 @@ def cancel_order(
             models.Order.id == order_id,
             models.Order.email == current_user.email,
         )
+        .with_for_update()
         .first()
     )
     if not order:
@@ -263,6 +264,25 @@ def cancel_order(
             status_code=400,
             detail=f"Orders can only be cancelled within {CANCELLABLE_WINDOW_HOURS} hours of placing them.",
         )
+
+    items = (
+        db.query(models.OrderItem)
+        .filter(models.OrderItem.order_id == order.id)
+        .all()
+    )
+    product_names = [item.product_name for item in items]
+    if product_names:
+        products = (
+            db.query(models.Product)
+            .filter(models.Product.name.in_(product_names))
+            .with_for_update()
+            .all()
+        )
+        product_map = {product.name: product for product in products}
+        for item in items:
+            product = product_map.get(item.product_name)
+            if product is not None:
+                product.stock += item.quantity
 
     order.status = "CANCELLED"
     db.commit()
