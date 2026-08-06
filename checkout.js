@@ -459,7 +459,7 @@ function renderCheckoutItems() {
       return `
       <div class="order-item" style="display: flex; gap: 15px; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 12px;">
         <div class="item-thumb" style="width: 50px; height: 50px; border-radius: 6px; overflow: hidden; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; background: #fff;">
-          <img src="${item.img || 'images/products/placeholder.jpg'}" alt="${item.name}" style="max-width: 100%; max-height: 100%; object-fit: cover;" onerror="this.src='images/products/placeholder.jpg'">
+          <img src="${item.image || item.img || 'images/products/placeholder.jpg'}" alt="${item.name}" style="max-width: 100%; max-height: 100%; object-fit: cover;" onerror="this.src='images/products/placeholder.jpg'">
         </div>
         <div class="item-info" style="flex: 1;">
           <div class="item-name" style="font-weight: 600; font-size: 14px; color: var(--color-heading);">${item.name}</div>
