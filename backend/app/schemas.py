@@ -151,7 +151,7 @@ class OrderResponse(BaseModel):
 
 class OrderItemCreate(BaseModel):
     product_name: str
-    quantity: int = Field(gt=0)
+    quantity: int = Field(gt=0, le=99)
 
 class OrderCreate(BaseModel):
     fullName: str
