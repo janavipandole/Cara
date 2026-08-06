@@ -162,36 +162,23 @@ def create_order(
     tax = round(subtotal * 0.18, 2)
     discount = 0.0
 
-    # --- Dynamic Database-Driven Coupon Validation ---
+    # --- Coupon Validation ---
+    # Coupons are percentage-off codes defined in a static map that mirrors
+    # the client-side `CARA_COUPONS` config (app.js). There is no Coupon table
+    # in the database, so validating here keeps the backend consistent with
+    # the frontend and avoids a runtime AttributeError on models.Coupon.
+    COUPONS = {"CARA20": 20, "WELCOME10": 10}
+
     if order_data.coupon:
         coupon_code = order_data.coupon.strip().upper()
-        
-        db_coupon = (
-            db.query(models.Coupon)
-            .filter(models.Coupon.code == coupon_code)
-            .first()
-        )
 
-        now_utc = datetime.now(timezone.utc)
-
-        if not db_coupon or not getattr(db_coupon, "is_active", True):
+        discount_percentage = COUPONS.get(coupon_code)
+        if discount_percentage is None:
             raise HTTPException(
                 status_code=400,
                 detail="Invalid or inactive coupon code"
             )
 
-        # Check expiration if expiry_date attribute exists on the Coupon model
-        if hasattr(db_coupon, "expiry_date") and db_coupon.expiry_date:
-            expiry = db_coupon.expiry_date
-            if expiry.tzinfo is None:
-                expiry = expiry.replace(tzinfo=timezone.utc)
-            if now_utc > expiry:
-                raise HTTPException(
-                    status_code=400,
-                    detail="Coupon code has expired"
-                )
-
-        discount_percentage = getattr(db_coupon, "discount_percentage", getattr(db_coupon, "discount", 0.0))
         discount = round(subtotal * discount_percentage / 100, 2)
 
     grand_total = max(0, subtotal + tax + shipping - discount)
