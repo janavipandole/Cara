@@ -29,4 +29,13 @@ describe('PincodeValidationEngine', () => {
   it('should return null delivery estimation for invalid postal codes', () => {
     expect(engine.estimateDeliveryDays('INVALID', 'IN')).toBeNull();
   });
+
+  it('should return delivery zone information object for valid pincode', () => {
+    const zone = engine.getDeliveryZone('110001', 'IN');
+    expect(zone).toEqual({
+      zone: 'Express Zone',
+      estimatedDaysText: '1-3 business days'
+    });
+  });
+
 });

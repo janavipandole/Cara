@@ -1,11 +1,33 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import IntegrityError
 from .. import models, schemas
 from ..database import get_db
 from .auth import get_current_user
 from datetime import datetime, timezone, timedelta
 
 router = APIRouter()
+
+
+def _existing_order_for_key(db: Session, email: str, idempotency_key: str | None):
+    if not idempotency_key:
+        return None
+    return (
+        db.query(models.Order)
+        .filter(
+            models.Order.email == email,
+            models.Order.idempotency_key == idempotency_key,
+        )
+        .first()
+    )
+
+
+def _idempotent_replay(order_id: int) -> JSONResponse:
+    return JSONResponse(
+        status_code=200,
+        content={"message": "Order already created", "order_id": order_id},
+    )
 
 
 def serialize_order(order: models.Order, db: Session, include_items: bool = True) -> dict:
@@ -60,6 +82,26 @@ def get_user_orders(
     return [serialize_order(order, db, include_items=False) for order in orders]
 
 
+@router.get("/{order_id}")
+def get_order_detail(
+    order_id: int,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user),
+):
+    order = (
+        db.query(models.Order)
+        .filter(
+            models.Order.id == order_id,
+            models.Order.email == current_user.email,
+        )
+        .first()
+    )
+    if not order:
+        raise HTTPException(status_code=404, detail="Order not found")
+
+    return serialize_order(order, db, include_items=True)
+
+
 @router.post("/", status_code=201)
 def create_order(
     order_data: schemas.OrderCreate,
@@ -67,20 +109,9 @@ def create_order(
     current_user: models.User = Depends(get_current_user)
 ):
     # --- Idempotency check: if this key was already used, return the existing order ---
-    if order_data.idempotency_key:
-        existing = (
-            db.query(models.Order)
-            .filter(
-                models.Order.email == current_user.email,
-                models.Order.idempotency_key == order_data.idempotency_key,
-            )
-            .first()
-        )
-        if existing:
-            return {
-                "message": "Order already created",
-                "order_id": existing.id
-            }
+    existing = _existing_order_for_key(db, current_user.email, order_data.idempotency_key)
+    if existing:
+        return _idempotent_replay(existing.id)
 
     subtotal = 0.0
     db_items = []
@@ -131,36 +162,23 @@ def create_order(
     tax = round(subtotal * 0.18, 2)
     discount = 0.0
 
-    # --- Dynamic Database-Driven Coupon Validation ---
+    # --- Coupon Validation ---
+    # Coupons are percentage-off codes defined in a static map that mirrors
+    # the client-side `CARA_COUPONS` config (app.js). There is no Coupon table
+    # in the database, so validating here keeps the backend consistent with
+    # the frontend and avoids a runtime AttributeError on models.Coupon.
+    COUPONS = {"CARA20": 20, "WELCOME10": 10}
+
     if order_data.coupon:
         coupon_code = order_data.coupon.strip().upper()
-        
-        db_coupon = (
-            db.query(models.Coupon)
-            .filter(models.Coupon.code == coupon_code)
-            .first()
-        )
 
-        now_utc = datetime.now(timezone.utc)
-
-        if not db_coupon or not getattr(db_coupon, "is_active", True):
+        discount_percentage = COUPONS.get(coupon_code)
+        if discount_percentage is None:
             raise HTTPException(
                 status_code=400,
                 detail="Invalid or inactive coupon code"
             )
 
-        # Check expiration if expiry_date attribute exists on the Coupon model
-        if hasattr(db_coupon, "expiry_date") and db_coupon.expiry_date:
-            expiry = db_coupon.expiry_date
-            if expiry.tzinfo is None:
-                expiry = expiry.replace(tzinfo=timezone.utc)
-            if now_utc > expiry:
-                raise HTTPException(
-                    status_code=400,
-                    detail="Coupon code has expired"
-                )
-
-        discount_percentage = getattr(db_coupon, "discount_percentage", getattr(db_coupon, "discount", 0.0))
         discount = round(subtotal * discount_percentage / 100, 2)
 
     grand_total = max(0, subtotal + tax + shipping - discount)
@@ -177,15 +195,26 @@ def create_order(
     )
 
     db.add(new_order)
-    # Use flush instead of commit to get new_order.id without finalizing the transaction prematurely
-    db.flush()
+    try:
+        # Use flush instead of commit to get new_order.id without finalizing prematurely
+        db.flush()
 
-    for db_item in db_items:
-        db_item.order_id = new_order.id
-        db.add(db_item)
+        for db_item in db_items:
+            db_item.order_id = new_order.id
+            db.add(db_item)
 
-    # Commit everything atomically in a single transaction
-    db.commit()
+        # Commit everything atomically in a single transaction
+        db.commit()
+    except IntegrityError:
+        db.rollback()
+        raced = _existing_order_for_key(db, current_user.email, order_data.idempotency_key)
+        if raced:
+            return _idempotent_replay(raced.id)
+        raise HTTPException(
+            status_code=500,
+            detail="Could not create order due to a conflict. Please retry.",
+        )
+
     db.refresh(new_order)
 
     return {
@@ -207,6 +236,7 @@ def cancel_order(
             models.Order.id == order_id,
             models.Order.email == current_user.email,
         )
+        .with_for_update()
         .first()
     )
     if not order:
@@ -221,6 +251,25 @@ def cancel_order(
             status_code=400,
             detail=f"Orders can only be cancelled within {CANCELLABLE_WINDOW_HOURS} hours of placing them.",
         )
+
+    items = (
+        db.query(models.OrderItem)
+        .filter(models.OrderItem.order_id == order.id)
+        .all()
+    )
+    product_names = [item.product_name for item in items]
+    if product_names:
+        products = (
+            db.query(models.Product)
+            .filter(models.Product.name.in_(product_names))
+            .with_for_update()
+            .all()
+        )
+        product_map = {product.name: product for product in products}
+        for item in items:
+            product = product_map.get(item.product_name)
+            if product is not None:
+                product.stock += item.quantity
 
     order.status = "CANCELLED"
     db.commit()

@@ -99,6 +99,26 @@ class ProductReviewAggregator {
     }
     return { success: false };
   }
+
+  /**
+   * Calculates the percentage distribution of star ratings (1-5) for a product.
+   * @param {string} productId
+   * @returns {Object} Map of star level (1-5) to percentage (0-100).
+   */
+  calculateReviewRatingBreakdown(productId) {
+    const stats = this.getStats(productId);
+    const total = stats.count;
+    if (total === 0) {
+      return { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+    }
+    return {
+      1: Math.round((stats.distribution[1] / total) * 100),
+      2: Math.round((stats.distribution[2] / total) * 100),
+      3: Math.round((stats.distribution[3] / total) * 100),
+      4: Math.round((stats.distribution[4] / total) * 100),
+      5: Math.round((stats.distribution[5] / total) * 100),
+    };
+  }
 }
 
 if (typeof module !== 'undefined' && module.exports) {

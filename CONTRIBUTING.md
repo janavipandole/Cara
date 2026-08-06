@@ -206,3 +206,114 @@ Feel free to ask questions by:
 ---
 
 Thank you for contributing to Cara! Together.
+
+---
+
+## Common Code Patterns
+
+### localStorage Usage
+
+Store and retrieve structured data with fallback defaults:
+
+```javascript
+// Read with fallback
+function loadData() {
+  try {
+    var stored = localStorage.getItem('my_key');
+    return stored ? JSON.parse(stored) : { default: true };
+  } catch (e) {
+    return { default: true };
+  }
+}
+
+// Write with error handling
+function saveData(data) {
+  try {
+    localStorage.setItem('my_key', JSON.stringify(data));
+  } catch (e) {
+    // Ignore in restricted environments (private browsing, quota exceeded)
+  }
+}
+```
+
+### DOM Testing with Vitest
+
+Mock DOM elements and test component behavior:
+
+```javascript
+import { describe, it, expect, beforeEach } from 'vitest';
+
+describe('my-module', () => {
+  beforeEach(() => {
+    document.body.innerHTML = '';
+    // Set up fresh DOM for each test
+    var container = document.createElement('div');
+    container.id = 'test-target';
+    document.body.appendChild(container);
+  });
+
+  it('does something with the DOM', () => {
+    var el = document.getElementById('test-target');
+    expect(el).not.toBeNull();
+  });
+});
+```
+
+### Module Export Conventions
+
+The codebase uses dual export patterns to support both browser and Node.js:
+
+```javascript
+// Browser: attach to window object
+(function () {
+  'use strict';
+  
+  function myFunction() { /* ... */ }
+  
+  window.MyModule = { myFunction: myFunction };
+})();
+
+// ES Module: named exports
+export function myFunction() { /* ... */ }
+
+// CommonJS / Node.js (for tests and scripts)
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = MyModule;
+}
+```
+
+### Event Listener Testing
+
+Test that event handlers update state or DOM correctly:
+
+```javascript
+it('updates state on button click', () => {
+  var clicked = false;
+  var btn = document.createElement('button');
+  btn.addEventListener('click', () => { clicked = true; });
+  
+  btn.click();
+  expect(clicked).toBe(true);
+});
+```
+
+### Async Function Testing with Fetch Mocks
+
+Mock globalThis.fetch to test API call handlers:
+
+```javascript
+import { describe, it, expect, beforeEach, vi } from 'vitest';
+
+it('calls API and returns parsed response', async () => {
+  globalThis.fetch = vi.fn(() =>
+    Promise.resolve({
+      ok: true,
+      json: () => Promise.resolve({ data: 'value' })
+    })
+  );
+  
+  var result = await someAsyncFunction();
+  expect(result.data).toBe('value');
+  expect(fetch).toHaveBeenCalledTimes(1);
+});
+```

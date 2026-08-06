@@ -32,3 +32,6 @@ window.addEventListener('error', (event) => {
     document.body.appendChild(notice);
   }
 });
+
+
+function getMaxLoggerQueueSize() { return 50; }

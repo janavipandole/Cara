@@ -55,3 +55,6 @@ export class OrderTrackingVisualizer {
     return container;
   }
 }
+
+
+function getTrackingStepStatusClass(currentStep, targetStep) { if (currentStep > targetStep) return 'completed'; if (currentStep === targetStep) return 'active'; return 'pending'; }

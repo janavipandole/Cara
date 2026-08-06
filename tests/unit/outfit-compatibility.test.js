@@ -24,4 +24,23 @@ describe('js/outfit-compatibility.js OutfitCompatibility tests', () => {
     expect(compatibility.getRecommendedFallbacks('red')).toEqual(['white', 'black', 'navy']);
     expect(compatibility.getRecommendedFallbacks('nonexistent')).toEqual(['white', 'black']);
   });
+
+
+  it('should return true when outfit is within budget', () => {
+    const c = new OutfitCompatibility();
+    expect(c.isOutfitWithinBudget(80, 100)).toBe(true);
+    expect(c.isOutfitWithinBudget(100, 100)).toBe(true); // inclusive
+  });
+
+  it('should return false when outfit exceeds budget', () => {
+    const c = new OutfitCompatibility();
+    expect(c.isOutfitWithinBudget(150, 100)).toBe(false);
+  });
+
+  it('should return true when budget is undefined (no limit)', () => {
+    const c = new OutfitCompatibility();
+    expect(c.isOutfitWithinBudget(9999, undefined)).toBe(true);
+    expect(c.isOutfitWithinBudget(9999, NaN)).toBe(true);
+  });
+
 });

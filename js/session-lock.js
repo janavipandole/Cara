@@ -1,7 +1,8 @@
-// Automated Inactivity Logout Monitor
+// Automated Inactivity Logout Monitor (authenticated sessions only)
 document.addEventListener('DOMContentLoaded', () => {
   let timeout;
   const maxInactivity = 15 * 60 * 1000; // 15 Minutes
+  const apiBase = window.CARA_API_BASE_URL || '';
 
   const resetTimer = () => {
     clearTimeout(timeout);
@@ -20,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // The real session lives in httpOnly cookies, which JS can't clear
     // directly, so ask the server to invalidate them.
-    const apiBase = window.CARA_API_BASE_URL || '';
     fetch(`${apiBase}/api/auth/logout`, {
       method: 'POST',
       credentials: 'include',
@@ -31,12 +31,28 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   };
 
-  // User activity listeners
-  ['click', 'mousemove', 'keypress', 'scroll', 'touchstart'].forEach(
-    (event) => {
-      document.addEventListener(event, resetTimer);
-    },
-  );
+  const startMonitor = () => {
+    ['click', 'mousemove', 'keypress', 'scroll', 'touchstart'].forEach(
+      (event) => {
+        document.addEventListener(event, resetTimer);
+      },
+    );
+    resetTimer();
+  };
 
-  resetTimer();
+  const fetchFunc =
+    typeof fetchWithTimeout === 'function' ? fetchWithTimeout : fetch;
+
+  fetchFunc(`${apiBase}/api/auth/me`, {
+    method: 'GET',
+    credentials: 'include',
+  })
+    .then((res) => {
+      if (res.ok) {
+        startMonitor();
+      }
+    })
+    .catch(() => {
+      // Anonymous / offline visitors should keep shopping.
+    });
 });

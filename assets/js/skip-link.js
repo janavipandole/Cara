@@ -13,8 +13,22 @@ document.addEventListener('DOMContentLoaded', () => {
   skipLink.addEventListener('blur', () => {
     skipLink.style.top = '-100px';
   });
+  skipLink.addEventListener('click', (event) => {
+    const target = document.getElementById('main-content');
+    if (!target) return;
+    event.preventDefault();
+    if (!target.hasAttribute('tabindex')) {
+      target.setAttribute('tabindex', '-1');
+    }
+    target.focus({ preventScroll: false });
+    if (typeof target.scrollIntoView === 'function') {
+      try {
+        target.scrollIntoView({ block: 'start' });
+      } catch {
+        /* jsdom and some older browsers may not support scrollIntoView options */
+      }
+    }
+  });
 
   document.body.insertBefore(skipLink, document.body.firstChild);
 });
-
-// Focus listener positioning bypass button visible upon keyboard tab event.

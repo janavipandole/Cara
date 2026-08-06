@@ -65,6 +65,20 @@ class PromoDiscountCalculator {
       appliedCoupon: appliedCoupon ? couponCode.trim().toUpperCase() : null
     };
   }
+
+  /**
+   * Caps a calculated percentage discount to a maximum absolute amount.
+   * @param {number} discount - The raw discount amount (already computed).
+   * @param {number} maxCap   - The maximum allowed discount in currency units.
+   * @returns {number} The capped discount, never exceeding maxCap.
+   */
+  applyPromoDiscountMaxCap(discount, maxCap = Infinity) {
+    if (typeof discount !== 'number' || Number.isNaN(discount)) return 0;
+    if (typeof maxCap !== 'number' || Number.isNaN(maxCap) || maxCap < 0) {
+      maxCap = Infinity;
+    }
+    return Math.min(Math.max(0, discount), maxCap);
+  }
 }
 
 if (typeof module !== 'undefined' && module.exports) {

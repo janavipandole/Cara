@@ -5,6 +5,7 @@ from .api import auth
 from .limiter import limiter
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
+import os
 # Database schema is now managed externally by Alembic migrations
 
 app = FastAPI(title="Cara AI Outfit Recommendation API")
@@ -12,11 +13,24 @@ app = FastAPI(title="Cara AI Outfit Recommendation API")
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
+_DEFAULT_CORS_ORIGINS = [
+    "http://127.0.0.1:5500",
+    "http://localhost:5500",
+    "https://cara-janavipandoles-projects.vercel.app",
+    "https://cara-seven-ashen.vercel.app",
+]
+
+
+def _cors_allow_origins() -> list[str]:
+    raw = os.environ.get("CORS_ORIGINS", "").strip()
+    if not raw:
+        return list(_DEFAULT_CORS_ORIGINS)
+    return [origin.strip() for origin in raw.split(",") if origin.strip()]
+
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://127.0.0.1:5500",
-    "http://localhost:5500",
-    "https://cara-janavipandoles-projects.vercel.app",],  # update as needed
+    allow_origins=_cors_allow_origins(),
     allow_credentials=True,
     allow_methods=["GET", "POST", "OPTIONS", "PUT", "PATCH", "DELETE"],
     allow_headers=["*"],
