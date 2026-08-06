@@ -21,22 +21,13 @@ def get_products(
     return db.query(models.Product).offset(skip).limit(limit).all()
 
 
-@router.get("/{product_id}", response_model=schemas.Product)
-def get_product(product_id: int, db: Session = Depends(get_db)):
-    product = db.query(models.Product).filter(models.Product.id == product_id).first()
-    if not product:
-        raise HTTPException(status_code=404, detail="Product not found")
-    return product
-
-
 # ---------------------------------------------------------------------------
-# New: Search & Filter endpoint
+# Search & Filter endpoints (literal paths must be registered before /{product_id})
 # ---------------------------------------------------------------------------
 
 class ProductSearchResponse:
     """Non-Pydantic helper — response is built as a plain dict for flexibility."""
     pass
-
 
 @router.get("/search/query", response_model=schemas.PaginatedProductsResponse)
 def search_products(
@@ -182,3 +173,16 @@ def get_category_summary(db: Session = Depends(get_db)) -> dict:
             "max": price_range[1] if price_range[1] is not None else 0,
         },
     }
+
+
+# ---------------------------------------------------------------------------
+# Product by ID (must stay after literal /search/* paths)
+# ---------------------------------------------------------------------------
+
+@router.get("/{product_id}", response_model=schemas.Product)
+def get_product(product_id: int, db: Session = Depends(get_db)):
+    product = db.query(models.Product).filter(models.Product.id == product_id).first()
+    if not product:
+        raise HTTPException(status_code=404, detail="Product not found")
+    return product
+
