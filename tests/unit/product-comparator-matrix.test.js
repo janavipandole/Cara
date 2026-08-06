@@ -35,4 +35,27 @@ describe('ProductComparatorMatrix', () => {
     expect(matrix.fields.name).toEqual(['Shirt 1', 'Shirt 2']);
     expect(matrix.fields.price).toEqual([20, 30]);
   });
+
+
+  it('should detect differing fields across products', () => {
+    document.body.innerHTML = '<div id="comparator-matrix-container"></div>';
+    const m = new ProductComparatorMatrix(4);
+    m.addProduct({ id: 'p1', name: 'Shirt', brand: 'A', price: 20, rating: 4.0, category: 'tops', color: 'red' });
+    m.addProduct({ id: 'p2', name: 'Shirt', brand: 'A', price: 30, rating: 4.0, category: 'tops', color: 'blue' });
+    const diffs = m.highlightMatrixDifferences();
+    expect(diffs).toContain('price');
+    expect(diffs).toContain('color');
+    expect(diffs).not.toContain('name');
+    expect(diffs).not.toContain('brand');
+  });
+
+  it('should return empty array when products are identical', () => {
+    document.body.innerHTML = '<div id="comparator-matrix-container"></div>';
+    const m = new ProductComparatorMatrix(4);
+    m.addProduct({ id: 'p1', name: 'Shirt', brand: 'A', price: 20, rating: 4.0, category: 'tops', color: 'red' });
+    m.addProduct({ id: 'p2', name: 'Shirt', brand: 'A', price: 20, rating: 4.0, category: 'tops', color: 'red' });
+    const diffs = m.highlightMatrixDifferences();
+    expect(diffs).toEqual([]);
+  });
+
 });

@@ -72,4 +72,24 @@ export class ProductComparatorMatrix {
     `;
     return container;
   }
+
+  /**
+   * Identifies which product fields differ across the selected products.
+   * Returns an array of field names where values are not all identical.
+   * @returns {string[]} Array of field names that differ.
+   */
+  highlightMatrixDifferences() {
+    if (this.selectedProducts.length < 2) return [];
+    const result = [];
+    const fields = ['name', 'brand', 'price', 'rating', 'category', 'color'];
+    fields.forEach((field) => {
+      const values = this.selectedProducts.map((p) => p[field] ?? 'N/A');
+      const first = values[0];
+      if (!values.every((v) => v === first)) {
+        result.push(field);
+      }
+    });
+    return result;
+  }
+
 }
