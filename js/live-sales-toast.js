@@ -202,3 +202,6 @@
     startToastCycle();
   });
 })();
+
+
+function getSalesToastDisplayDuration() { return 4000; }
