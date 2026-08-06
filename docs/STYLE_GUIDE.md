@@ -9,7 +9,9 @@
   - Filenames: `kebab-case` e.g. `currency-converter.js`, `a11y-focus-trap.js`.
 
 ## CSS Guidelines
-- **Custom Properties**: Use CSS variables declared in `:root` and `[data-theme]` blocks.
+- **Layer order**: `css/tokens.css` → `style.css` → page-specific CSS.
+- **Custom Properties**: Declare theme tokens only in `css/tokens.css` (`:root` / `[data-theme]`).
+- **Canonical sheet**: Add new component rules to `style.css`. Do not grow `global.css` or `bundle.css` (compatibility shims only).
 - **Class Naming**: Follow BEM-like or descriptive hyphenated naming (`.stock-alert-box`, `.inventory-banner-close`).
 - **Transitions**: Keep animation durations smooth (200ms - 400ms) with `ease` timing functions.
 

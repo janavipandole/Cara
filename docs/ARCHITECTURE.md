@@ -3,7 +3,10 @@
 This document maps out the system architecture, frontend data models, local storage schemas, and event propagation flows inside the **Cara** E-Commerce client application.
 
 ## Overview
-Cara is a modern single-page-first progressive frontend architecture powered by HTML5 semantic layout layers, Vanilla CSS grid modules, and state-driven JavaScript components.
+Cara is a modern e-commerce architecture: static HTML/CSS/JS on the client and a FastAPI backend under `backend/` (Postgres via Docker Compose or SQLite locally).
+
+## CSS
+See root `ARCHITECTURE.md` and `css/README.md` for the tokens → style.css layering model. `global.css` / `bundle.css` are compatibility shims.
 
 ## Local Storage Schema Map
 The application implements persistent data states using synchronous key-value mappings in `localStorage`:

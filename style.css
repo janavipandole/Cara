@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=League+Spartan:wght@100..900&display=swap');
+@import url('css/tokens.css');
 
 /* ============================================
 .skeleton-loader {
@@ -245,55 +246,7 @@ body[data-theme="dark"] {
 
 
 
-/* ============================================
-   DARK THEME VARIABLES
-   ============================================ */
-
-:root {
-    --bg-primary: #ffffff;
-    --bg-secondary: #f8f9fa;
-    --text-primary: #222;
-    --text-secondary: #465b52;
-    --header-bg: #ffffff;
-    --card-bg: #ffffff;
-    --border-color: #cce7d0;
-    --shadow: rgba(0, 0, 0, 0.02);
-    --shadow-hover: rgba(0, 0, 0, 0.25);
-    --accent: var(--primary-color, #088178);
-    --feature-bg-1: #fddde4;
-    --feature-bg-2: #cdebbc;
-    --feature-bg-3: #d1e8f2;
-    --feature-bg-4: #cdd4f6;
-    --feature-bg-5: #f6dbf6;
-    --feature-bg-6: #fff2e5;
-    --input-bg: #ffffff;
-    --footer-text: #222;
-    --cart-icon-bg: #e8f6ea;
-    --feature-label-color: var(--primary-color, #088178);
-}
-
-[data-theme="dark"] {
-    --bg-primary: #0f1419;
-    --bg-secondary: #1a1f26;
-    --text-primary: #e6eef8;
-    --text-secondary: #94a3b8;
-    --header-bg:#4a5560;
-    --card-bg: #1a1f26;
-    --border-color: #2d3748;
-    --shadow: rgba(0, 0, 0, 0.4);
-    --shadow-hover: rgba(124, 58, 237, 0.3);
-    --accent: #06b6d4;
-    --feature-bg-1: #7c3aed;
-    --feature-bg-2: #10b991;
-    --feature-bg-3: #3b82f6;
-    --feature-bg-4: #8b5cf6;
-    --feature-bg-5: #ec4899;
-    --feature-bg-6: #f59e0b;
-    --input-bg: #2d3748;
-    --footer-text: #e6eef8;
-    --cart-icon-bg: #2d3748;
-    --feature-label-color: #ffffff;
-}
+/* Theme tokens live in css/tokens.css (imported above). */
 
 /* ============================================
    BASE STYLES
