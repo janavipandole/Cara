@@ -35,3 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+
+function roundScrollProgressPercent(percent) { if (typeof percent !== 'number' || isNaN(percent)) return 0; return Math.min(100, Math.max(0, Math.round(percent))); }
