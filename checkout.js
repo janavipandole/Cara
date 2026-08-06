@@ -1,4 +1,39 @@
 let checkoutIdempotencyKey = null;
+let checkoutWakeLock = null;
+let isCheckoutProcessing = false;
+
+async function requestWakeLock() {
+  if ('wakeLock' in navigator && isCheckoutProcessing) {
+    try {
+      checkoutWakeLock = await navigator.wakeLock.request('screen');
+      checkoutWakeLock.addEventListener('release', () => {
+        console.log('Screen Wake Lock released');
+      });
+      console.log('Screen Wake Lock acquired');
+    } catch (err) {
+      console.error(`Wake Lock error: ${err.name}, ${err.message}`);
+    }
+  }
+}
+
+function releaseWakeLock() {
+  isCheckoutProcessing = false;
+  if (checkoutWakeLock !== null) {
+    checkoutWakeLock.release()
+      .catch(err => console.error(err))
+      .finally(() => {
+        checkoutWakeLock = null;
+      });
+  }
+}
+
+window.addEventListener('beforeunload', releaseWakeLock);
+window.addEventListener('unload', releaseWakeLock);
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible' && isCheckoutProcessing) {
+    requestWakeLock();
+  }
+});
 
 function safeParseJSON(key, fallback = '[]') {
   try {
@@ -316,6 +351,9 @@ function submitCheckoutForm() {
     submitBtn.disabled = true;
   }
 
+  isCheckoutProcessing = true;
+  requestWakeLock();
+
   if (!checkoutIdempotencyKey) {
     checkoutIdempotencyKey = crypto.randomUUID();
   }
@@ -396,6 +434,8 @@ function submitCheckoutForm() {
           submitBtn.getAttribute('data-original-html') || 'Place Order';
       }
 
+      releaseWakeLock();
+
       form.reset();
 
       // HIDE CARD DETAILS AGAIN
@@ -418,6 +458,8 @@ function submitCheckoutForm() {
         submitBtn.classList.remove('btn-loading');
         submitBtn.disabled = false;
       }
+      
+      releaseWakeLock();
     });
 }
 
