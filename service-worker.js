@@ -63,8 +63,10 @@ function networkFirst(request) {
 
 function cacheFirstStatic(request) {
   return caches.match(request).then((cachedResponse) => {
-    if (cachedResponse) return cachedResponse;
-    return fetch(request).then((networkResponse) => {
+    // Stale-while-revalidate: serve the cached copy immediately and refresh
+    // it from the network in the background so updated assets reach users
+    // without requiring a manual CACHE_NAME bump.
+    const networkPromise = fetch(request).then((networkResponse) => {
       if (
         networkResponse &&
         networkResponse.ok &&
@@ -75,6 +77,12 @@ function cacheFirstStatic(request) {
       }
       return networkResponse;
     });
+
+    if (cachedResponse) {
+      networkPromise.catch(() => {});
+      return cachedResponse;
+    }
+    return networkPromise;
   });
 }
 
