@@ -82,6 +82,26 @@ def get_user_orders(
     return [serialize_order(order, db, include_items=False) for order in orders]
 
 
+@router.get("/{order_id}")
+def get_order_detail(
+    order_id: int,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user),
+):
+    order = (
+        db.query(models.Order)
+        .filter(
+            models.Order.id == order_id,
+            models.Order.email == current_user.email,
+        )
+        .first()
+    )
+    if not order:
+        raise HTTPException(status_code=404, detail="Order not found")
+
+    return serialize_order(order, db, include_items=True)
+
+
 @router.post("/", status_code=201)
 def create_order(
     order_data: schemas.OrderCreate,
