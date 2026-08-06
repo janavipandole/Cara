@@ -40,4 +40,12 @@ describe('Stock Simulator Unit Tests', () => {
     clearInterval(interval);
     vi.useRealTimers();
   });
+
+  it('should return unknown status when size parameter is empty or null', () => {
+    const infoNull = getStockInfo(null);
+    expect(infoNull).toEqual({ count: 0, status: 'unknown' });
+    const infoEmpty = getStockInfo('');
+    expect(infoEmpty).toEqual({ count: 0, status: 'unknown' });
+  });
+
 });
