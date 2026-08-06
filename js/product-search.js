@@ -14,6 +14,7 @@
   const CATEGORIES_API = '/api/products/search/categories';
   const DEBOUNCE_MS = 350;
   const DEFAULT_PAGE_SIZE = 20;
+  const YIELD_INTERVAL_MS = 50;
 
   // ── Active filter state ────────────────────────────────────────────────────
   const filters = {
@@ -53,6 +54,37 @@
       clearTimeout(timer);
       timer = setTimeout(() => fn.apply(this, args), wait);
     };
+  }
+
+  // ── Utility: cooperative yield via isInputPending ───────────────────────────
+  // Yields the main thread when a pending user input is detected so the
+  // browser can process it before continuing heavy work.
+  function yieldForInput() {
+    if (
+      typeof navigator !== 'undefined' &&
+      navigator.scheduling &&
+      typeof navigator.scheduling.isInputPending === 'function'
+    ) {
+      if (navigator.scheduling.isInputPending()) {
+        return new Promise((resolve) => setTimeout(resolve, YIELD_INTERVAL_MS));
+      }
+    }
+    return Promise.resolve();
+  }
+
+  // Process an array of items cooperatively, yielding for input between chunks.
+  async function processWithYield(items, chunkSize, processFn) {
+    const results = [];
+    for (let i = 0; i < items.length; i += chunkSize) {
+      const chunk = items.slice(i, i + chunkSize);
+      // eslint-disable-next-line no-await-in-loop
+      await yieldForInput();
+      chunk.forEach((item) => {
+        const result = processFn(item);
+        if (result !== undefined) results.push(result);
+      });
+    }
+    return results;
   }
 
   // ── Build query string from active filters ─────────────────────────────────
@@ -334,4 +366,8 @@
 
   // Expose resetAllFilters globally so an HTML button can call it directly
   window.resetProductFilters = resetAllFilters;
+
+  // Expose yield helpers for testability
+  window.__productSearchYieldForInput = yieldForInput;
+  window.__productSearchProcessWithYield = processWithYield;
 })();

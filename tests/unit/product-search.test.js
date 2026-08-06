@@ -12,6 +12,7 @@ function setupDom() {
 }
 
 beforeEach(() => {
+  vi.useRealTimers(); // Reset any fake timers from other tests
   vi.resetModules();
   setupDom();
   global.fetch = vi.fn();
@@ -24,6 +25,38 @@ async function load() {
 }
 
 describe('product-search', () => {
+  it('exposes __productSearchProcessWithYield and __productSearchYieldForInput', async () => {
+    global.fetch.mockImplementation((url) => {
+      if (String(url).includes('/categories')) {
+        return Promise.resolve({ ok: true, json: async () => ({ categories: [] }) });
+      }
+      return Promise.resolve({
+        ok: true, json: async () => ({ total: 0, page: 1, page_size: 20, products: [] }),
+      });
+    });
+    await load();
+    expect(typeof window.__productSearchProcessWithYield).toBe('function');
+    expect(typeof window.__productSearchYieldForInput).toBe('function');
+  });
+
+  it('processes items with processWithYield helper without hanging', async () => {
+    global.fetch.mockImplementation((url) => {
+      if (String(url).includes('/categories')) {
+        return Promise.resolve({ ok: true, json: async () => ({ categories: [] }) });
+      }
+      return Promise.resolve({
+        ok: true, json: async () => ({ total: 0, page: 1, page_size: 20, products: [] }),
+      });
+    });
+    await load();
+    const processWithYield = window.__productSearchProcessWithYield;
+    const items = [1, 2, 3, 4, 5];
+    // Test that processWithYield calls the process function on each item
+    const called = [];
+    await processWithYield(items, 2, (x) => { called.push(x); return x * 2; });
+    expect(called).toEqual([1, 2, 3, 4, 5]);
+  });
+
   it('populates the category dropdown from the categories endpoint', async () => {
     global.fetch.mockImplementation((url) => {
       if (String(url).includes('/categories')) {
