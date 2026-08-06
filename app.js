@@ -312,7 +312,7 @@ function formatCurrency(amount) {
   return '₹' + Math.round(num).toLocaleString('en-IN');
 }
 
-// Update cart count badge
+// Update cart count badge and accessible ARIA label
 function updateCartCount() {
   let cart = [];
   try {
@@ -324,7 +324,7 @@ function updateCartCount() {
   } catch (e) {
     window.logError('LocalStorage Parse Error', e);
   }
-  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
 
   const desktopCount = document.getElementById('desktopCartCount');
   const mobileCount = document.getElementById('mobileCartCount');
@@ -337,7 +337,14 @@ function updateCartCount() {
     mobileCount.textContent = totalItems;
     mobileCount.classList.toggle('hidden', totalItems === 0);
   }
+
+  const cartLabel = `Shopping cart (${totalItems} ${totalItems === 1 ? 'item' : 'items'})`;
+  const cartLinks = document.querySelectorAll('a[href="cart.html"], #lg-bag');
+  cartLinks.forEach((link) => {
+    link.setAttribute('aria-label', cartLabel);
+  });
 }
+
 
 function updateWishlistCount() {
   let wishlist = [];

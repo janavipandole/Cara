@@ -19,15 +19,20 @@
 
 .skip-link {
   position: absolute;
-  top: -40px;
-  left: 0;
+  top: -100px;
+  left: 10px;
   background: #088178;
-  color: white;
-  padding: 8px 16px;
+  color: #ffffff;
+  padding: 10px 18px;
   z-index: 10000;
-  transition: top 0.2s ease;
+  border-radius: 0 0 6px 6px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: top 0.2s ease-in-out;
 }
 
 .skip-link:focus {
   top: 0;
+  outline: 3px solid #ffbd27 !important;
 }

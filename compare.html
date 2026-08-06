@@ -41,10 +41,11 @@
     </script>
   </head>
   <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- HEADER -->
     <section id="header">
-      <a href="index.html">
-        <img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" />
+      <a href="index.html" aria-label="Cara Home"><img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" />
       </a>
       <div>
         <ul id="navbar">
@@ -89,9 +90,9 @@
               <i class="ri-moon-line" id="themeIcon"></i>
             </button>
           </li>
-          <a href="javascript:void(0)" id="close" aria-label="Close menu"
+          <li class="nav-close"><a href="javascript:void(0)" id="close" aria-label="Close menu"
             ><i class="fa-solid fa-xmark"></i
-          ></a>
+          ></a></li>
         </ul>
       </div>
       <div class="mobile">
@@ -111,9 +112,10 @@
         ></i>
       </div>
     </section>
+<main id="main-content">
 
     <!-- PAGE CONTENT -->
-    <main id="compare-page">
+    <div class="main-section">
       <h1><i class="ri-layout-column-line"></i> Product Comparison</h1>
       <p class="compare-subtitle">
         Compare up to 3 products side by side to find the best fit.
@@ -159,7 +161,7 @@
       <div class="col">
         <h4>My Account</h4>
         <a href="login.html">Sign In</a>
-        <a href="cart.html">View Cart</a>
+        <a href="cart.html" aria-label="Shopping cart">View Cart</a>
         <a href="wishlist.html">My Wishlist</a>
         <a href="order-history.html">Track My Order</a>
         <a href="#">Help</a>
@@ -203,5 +205,6 @@
       const yearEl = document.querySelector('.Current-Year');
       if (yearEl) yearEl.textContent = new Date().getFullYear();
     </script>
-  </body>
+  </main>
+</body>
 </html>
