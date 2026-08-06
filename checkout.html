@@ -142,6 +142,12 @@
             </div>
           </div>
 
+        <p id="stripe-pay-hint" style="display:none;font-size:0.85rem;color:var(--text-muted,#555);margin:8px 0 12px;">
+          Card data is processed by Stripe. Cara never stores raw card numbers.
+        </p>
+        <div id="stripe-payment-element" style="display:none;margin-bottom:12px;min-height:40px;"></div>
+
+        <div id="legacy-card-fields">
         <div class="input-group">
           <label for="cardName">Card Holder Name</label>
           <input type="text" id="cardName" placeholder="Card holder name" autocomplete="cc-name" data-validate="cardName">
@@ -191,6 +197,8 @@
             >
             <span class="error-msg"></span>
           </div>
+        </div>
+        </div>
 
       <!-- COLUMN PREVIEW OR SIDEBAR -->
       <div class="totals-sidebar">

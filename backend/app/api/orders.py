@@ -183,6 +183,23 @@ def create_order(
 
     grand_total = max(0, subtotal + tax + shipping - discount)
 
+    payment_method = (order_data.payment_method or "cod").strip().lower()
+    if payment_method not in ("cod", "online"):
+        raise HTTPException(status_code=400, detail="Invalid payment_method")
+
+    # Online requires a configured Stripe secret; never confirm without a webhook.
+    if payment_method == "online":
+        from .payments import payments_enabled
+
+        if not payments_enabled():
+            raise HTTPException(
+                status_code=503,
+                detail="Online payments are not configured. Use Cash on Delivery or set STRIPE_SECRET_KEY.",
+            )
+        initial_status = "PENDING"
+    else:
+        initial_status = "CONFIRMED"
+
     new_order = models.Order(
         full_name=order_data.fullName,
         email=current_user.email,
@@ -190,7 +207,8 @@ def create_order(
         city=order_data.city,
         zip_code=order_data.zip,
         total_amount=grand_total,
-        status="CONFIRMED",
+        status=initial_status,
+        payment_method=payment_method,
         idempotency_key=order_data.idempotency_key,
     )
 
@@ -219,7 +237,11 @@ def create_order(
 
     return {
         "message": "Order created successfully",
-        "order_id": new_order.id
+        "order_id": new_order.id,
+        "status": new_order.status,
+        "payment_method": payment_method,
+        "needs_payment": payment_method == "online" and new_order.status == "PENDING",
+        "total_amount": grand_total,
     }
 
 CANCELLABLE_WINDOW_HOURS = 24

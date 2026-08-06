@@ -161,6 +161,7 @@ class OrderCreate(BaseModel):
     zip: str
     items: list[OrderItemCreate]
     coupon: Optional[str] = None
+    payment_method: Optional[str] = Field(default="cod")
     idempotency_key: Optional[str] = None
 
 

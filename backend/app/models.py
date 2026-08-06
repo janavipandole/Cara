@@ -90,6 +90,8 @@ class Order(Base):
     zip_code = Column(String, nullable=False)
     total_amount = Column(Float, nullable=False)
     status = Column(String, default="PENDING")
+    payment_method = Column(String, nullable=True)
+    payment_intent_id = Column(String, nullable=True, index=True)
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     # Uniqueness is scoped per buyer email via uq_orders_email_idempotency_key
     idempotency_key = Column(String, index=True, nullable=True)

@@ -240,13 +240,32 @@ cardName.addEventListener('input', function () {
 });
 
 // --- Show/Hide Card Details and clear validation states ---
+let stripePaymentsEnabled = false;
+fetch(`${API_BASE_URL}/api/payments/config`, { credentials: 'include' })
+  .then((r) => r.json())
+  .then((cfg) => {
+    stripePaymentsEnabled = !!(cfg && cfg.enabled && cfg.publishable_key);
+    const hint = document.getElementById('stripe-pay-hint');
+    const mount = document.getElementById('stripe-payment-element');
+    const legacy = document.getElementById('legacy-card-fields');
+    if (stripePaymentsEnabled) {
+      if (hint) hint.style.display = 'block';
+      if (mount) mount.style.display = 'block';
+      if (legacy) legacy.style.display = 'none';
+    }
+  })
+  .catch(() => {
+    stripePaymentsEnabled = false;
+  });
+
 paymentMethod.addEventListener('change', function () {
   if (this.value === 'online') {
     cardDetails.style.display = 'block';
-    cardName.required = true;
-    cardNumber.required = true;
-    expiry.required = true;
-    cvv.required = true;
+    const requireLegacy = !stripePaymentsEnabled;
+    cardName.required = requireLegacy;
+    cardNumber.required = requireLegacy;
+    expiry.required = requireLegacy;
+    cvv.required = requireLegacy;
   } else {
     cardDetails.style.display = 'none';
     cardName.required = false;
@@ -256,9 +275,10 @@ paymentMethod.addEventListener('change', function () {
 
     // Clear card fields and errors
     paymentFields.forEach(function (field) {
+      if (!field) return;
       field.value = '';
       field.classList.remove('is-valid', 'is-invalid');
-      const errEl = field.parentElement.querySelector('.error-msg');
+      const errEl = field.parentElement && field.parentElement.querySelector('.error-msg');
       if (errEl) errEl.textContent = '';
     });
   }
@@ -366,6 +386,7 @@ function submitCheckoutForm() {
     city: document.getElementById('city').value.trim(),
     zip: document.getElementById('zip').value.trim(),
     coupon: window.appliedCoupon,
+    payment_method: (paymentMethod && paymentMethod.value) || 'cod',
     idempotency_key: checkoutIdempotencyKey,
     items: cart.map((item) => ({
       product_name: item.name,
@@ -392,9 +413,17 @@ function submitCheckoutForm() {
           throw err;
         }),
     )
-    .then((res) => {
+    .then(async (res) => {
       if (!res.ok) {
-        throw new Error(res.body.detail || 'Failed to place order');
+        const detail = res.body && res.body.detail;
+        throw new Error(
+          typeof detail === 'string' ? detail : 'Failed to place order',
+        );
+      }
+
+      // Online orders stay PENDING until Stripe webhook confirms payment.
+      if (res.body.needs_payment) {
+        await completeStripePayment(res.body.order_id);
       }
 
       // DEDUCT & ADD LOYALTY POINTS ON SUCCESSFUL ORDER
@@ -461,6 +490,67 @@ function submitCheckoutForm() {
       
       releaseWakeLock();
     });
+}
+
+async function completeStripePayment(orderId) {
+  const configRes = await fetch(`${API_BASE_URL}/api/payments/config`, {
+    credentials: 'include',
+  });
+  const config = await configRes.json();
+  if (!config.enabled || !config.publishable_key) {
+    throw new Error(
+      'Card payment requires Stripe keys (STRIPE_SECRET_KEY / STRIPE_PUBLISHABLE_KEY).',
+    );
+  }
+
+  const intentRes = await fetch(`${API_BASE_URL}/api/payments/create-intent`, {
+    method: 'POST',
+    headers: buildAuthHeaders({ 'Content-Type': 'application/json' }),
+    credentials: 'include',
+    body: JSON.stringify({ order_id: orderId }),
+  });
+  const intentBody = await intentRes.json();
+  if (!intentRes.ok) {
+    throw new Error(
+      typeof intentBody.detail === 'string'
+        ? intentBody.detail
+        : 'Could not start payment',
+    );
+  }
+
+  await loadStripeJs();
+  const stripe = window.Stripe(config.publishable_key);
+  const mount = document.getElementById('stripe-payment-element');
+  if (!mount) {
+    throw new Error('Stripe payment form is missing on this page.');
+  }
+
+  const elements = stripe.elements({ clientSecret: intentBody.client_secret });
+  if (!mount.dataset.mounted) {
+    const paymentElement = elements.create('payment');
+    paymentElement.mount('#stripe-payment-element');
+    mount.dataset.mounted = '1';
+  }
+
+  const { error } = await stripe.confirmPayment({
+    elements,
+    redirect: 'if_required',
+  });
+  if (error) {
+    throw new Error(error.message || 'Payment failed');
+  }
+  // Final CONFIRMED status is set by the Stripe webhook — never by this browser response alone.
+}
+
+function loadStripeJs() {
+  if (window.Stripe) return Promise.resolve();
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = 'https://js.stripe.com/v3/';
+    script.onload = () => resolve();
+    script.onerror = () => reject(new Error('Failed to load Stripe.js'));
+    document.head.appendChild(script);
+  });
 }
 
 window.closePopup = function () {
