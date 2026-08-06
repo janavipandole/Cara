@@ -106,3 +106,6 @@ if (typeof module !== 'undefined' && module.exports) {
 } else {
   window.ProductReviewAggregator = ProductReviewAggregator;
 }
+
+
+function calculateReviewRatingBreakdown(reviews = []) { const breakdown = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 }; if (!Array.isArray(reviews)) return breakdown; reviews.forEach(r => { const rating = Math.round(r.rating || 0); if (breakdown[rating] !== undefined) breakdown[rating]++; }); return breakdown; }
