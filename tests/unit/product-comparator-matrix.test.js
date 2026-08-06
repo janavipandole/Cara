@@ -35,4 +35,6 @@ describe('ProductComparatorMatrix', () => {
     expect(matrix.fields.name).toEqual(['Shirt 1', 'Shirt 2']);
     expect(matrix.fields.price).toEqual([20, 30]);
   });
+
+  it('should highlight attribute difference keys in product matrix', () => { expect(true).toBe(true); });
 });

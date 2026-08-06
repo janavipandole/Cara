@@ -73,3 +73,6 @@ export class ProductComparatorMatrix {
     return container;
   }
 }
+
+
+function highlightMatrixDifferences(attrMap) { if (!attrMap || typeof attrMap !== 'object') return {}; const result = {}; for (const [key, values] of Object.entries(attrMap)) { result[key] = new Set(values).size > 1; } return result; }
