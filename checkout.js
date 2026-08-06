@@ -576,6 +576,12 @@ window.updateCheckoutSummary = function () {
   const taxEl = document.getElementById('summary-tax');
   if (taxEl) taxEl.textContent = formatCurrency(taxCents);
 
+  const taxLabelEl = document.getElementById('summary-tax-label');
+  if (taxLabelEl) {
+    const taxRate = window.CARA_CONFIG ? window.CARA_CONFIG.TAX_RATE : 0.18;
+    taxLabelEl.textContent = `Tax (${Math.round(taxRate * 100)}%)`;
+  }
+
   // Update Coupon Row
   let couponRow = document.getElementById('summaryDiscountRow');
   if (couponCode) {
