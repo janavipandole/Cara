@@ -91,3 +91,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+
+function formatI18nPlaceholder(template, params = {}) { if (!template) return ''; return template.replace(/\{{(\w+)\}}/g, (_, key) => params[key] || ''); }
