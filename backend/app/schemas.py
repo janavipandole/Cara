@@ -24,7 +24,8 @@ class CheckoutRequest(BaseModel):
     items: list[CheckoutItem]
 
 class ProductCreate(ProductBase):
-    id: int
+    """Admin create/update payload. Primary key is assigned by the database."""
+    pass
 
 class Product(ProductBase):
     id: int

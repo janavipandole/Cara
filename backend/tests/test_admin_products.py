@@ -1,8 +1,60 @@
-def test_admin_create_product(client, admin_auth_headers):
+"""Admin product API tests."""
+from passlib.context import CryptContext
+
+from app.models import User
+from tests.conftest import TestingSessionLocal
+
+pwd = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+
+def _admin_headers(client):
+    db = TestingSessionLocal()
+    user = db.query(User).filter(User.email == "admin-products@example.com").first()
+    if user is None:
+        user = User(
+            username="adminproducts",
+            email="admin-products@example.com",
+            hashed_password=pwd.hash("Admin@1234"),
+            role="ADMIN",
+        )
+        db.add(user)
+        db.commit()
+    db.close()
+
+    response = client.post(
+        "/api/auth/login",
+        json={"email": "admin-products@example.com", "password": "Admin@1234"},
+    )
+    assert response.status_code == 200, response.text
+    return {"Authorization": f"Bearer {response.json()['access_token']}"}
+
+
+def _user_headers(client):
+    db = TestingSessionLocal()
+    user = db.query(User).filter(User.email == "user-products@example.com").first()
+    if user is None:
+        user = User(
+            username="userproducts",
+            email="user-products@example.com",
+            hashed_password=pwd.hash("Test@1234"),
+        )
+        db.add(user)
+        db.commit()
+    db.close()
+
+    response = client.post(
+        "/api/auth/login",
+        json={"email": "user-products@example.com", "password": "Test@1234"},
+    )
+    assert response.status_code == 200, response.text
+    return {"Authorization": f"Bearer {response.json()['access_token']}"}
+
+
+def test_admin_create_product(client):
+    headers = _admin_headers(client)
     response = client.post(
         "/api/admin/products/",
         json={
-            "id": 1,
             "brand": "Test Brand",
             "name": "Admin Created Product",
             "price": 49.99,
@@ -11,51 +63,57 @@ def test_admin_create_product(client, admin_auth_headers):
             "category": "street",
             "stock": 25,
         },
-        headers=admin_auth_headers,
+        headers=headers,
     )
     assert response.status_code == 201
     data = response.json()
     assert data["name"] == "Admin Created Product"
     assert data["price"] == 49.99
+    assert isinstance(data["id"], int)
+    assert data["id"] > 0
 
 
-def test_admin_create_duplicate_product(client, admin_auth_headers):
-    client.post(
-        "/api/admin/products/",
-        json={
-            "id": 2,
-            "brand": "Brand",
-            "name": "Dup Product",
-            "price": 20.0,
-            "img": "test.jpg",
-            "rating": 3,
-            "category": "minimal",
-            "stock": 10,
-        },
-        headers=admin_auth_headers,
-    )
+def test_admin_create_ignores_client_supplied_id(client):
+    headers = _admin_headers(client)
     response = client.post(
         "/api/admin/products/",
         json={
-            "id": 3,
-            "brand": "Brand",
-            "name": "Dup Product",
-            "price": 25.0,
+            "id": 999,
+            "brand": "Test Brand",
+            "name": "Client Id Product",
+            "price": 10.0,
             "img": "test.jpg",
             "rating": 3,
-            "category": "minimal",
-            "stock": 10,
+            "category": "street",
+            "stock": 5,
         },
-        headers=admin_auth_headers,
+        headers=headers,
     )
+    assert response.status_code == 201
+    assert response.json()["id"] != 999
+
+
+def test_admin_create_duplicate_product(client):
+    headers = _admin_headers(client)
+    payload = {
+        "brand": "Brand",
+        "name": "Dup Product Unique",
+        "price": 20.0,
+        "img": "test.jpg",
+        "rating": 3,
+        "category": "minimal",
+        "stock": 10,
+    }
+    assert client.post("/api/admin/products/", json=payload, headers=headers).status_code == 201
+    response = client.post("/api/admin/products/", json=payload, headers=headers)
     assert response.status_code == 409
 
 
-def test_non_admin_cannot_create(client, auth_headers):
+def test_non_admin_cannot_create(client):
+    headers = _user_headers(client)
     response = client.post(
         "/api/admin/products/",
         json={
-            "id": 99,
             "brand": "B",
             "name": "Unauthorized Product",
             "price": 1.0,
@@ -64,19 +122,21 @@ def test_non_admin_cannot_create(client, auth_headers):
             "category": "street",
             "stock": 1,
         },
-        headers=auth_headers,
+        headers=headers,
     )
     assert response.status_code == 403
 
 
-def test_admin_delete_nonexistent_product(client, admin_auth_headers):
-    response = client.delete("/api/admin/products/9999", headers=admin_auth_headers)
+def test_admin_delete_nonexistent_product(client):
+    headers = _admin_headers(client)
+    response = client.delete("/api/admin/products/9999", headers=headers)
     assert response.status_code == 404
 
 
-def test_admin_update_stock_invalid(client, admin_auth_headers):
+def test_admin_update_stock_invalid(client):
+    headers = _admin_headers(client)
     response = client.patch(
         "/api/admin/products/9999/stock?stock=50",
-        headers=admin_auth_headers,
+        headers=headers,
     )
     assert response.status_code == 404
