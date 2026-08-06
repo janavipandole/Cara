@@ -12,6 +12,7 @@ function setupDom() {
 }
 
 beforeEach(() => {
+  vi.useRealTimers();
   vi.resetModules();
   setupDom();
   global.fetch = vi.fn();
@@ -38,9 +39,7 @@ describe('product-search', () => {
       });
     });
     await load();
-    expect(document.getElementById('filterCategory').textContent).toContain(
-      'Men',
-    );
+    expect(document.getElementById('filterCategory').textContent).toContain('Men');
   });
 
   it('issues a search request on initial page load', async () => {
@@ -58,5 +57,35 @@ describe('product-search', () => {
       String(url).includes('/search/query'),
     );
     expect(searchCalls.length).toBeGreaterThan(0);
+  });
+
+  it('exposes __meetsSearchQueryThreshold helper', async () => {
+    global.fetch.mockImplementation((url) => {
+      if (String(url).includes('/categories')) {
+        return Promise.resolve({ ok: true, json: async () => ({ categories: [] }) });
+      }
+      return Promise.resolve({
+        ok: true, json: async () => ({ total: 0, page: 1, page_size: 20, products: [] }),
+      });
+    });
+    await load();
+    expect(typeof window.__meetsSearchQueryThreshold).toBe('function');
+  });
+
+  it('rejects queries shorter than 2 characters', async () => {
+    global.fetch.mockImplementation((url) => {
+      if (String(url).includes('/categories')) {
+        return Promise.resolve({ ok: true, json: async () => ({ categories: [] }) });
+      }
+      return Promise.resolve({
+        ok: true, json: async () => ({ total: 0, page: 1, page_size: 20, products: [] }),
+      });
+    });
+    await load();
+    const fn = window.__meetsSearchQueryThreshold;
+    expect(fn('a')).toBe(false);
+    expect(fn('')).toBe(false);
+    expect(fn('ab')).toBe(true);
+    expect(fn('abc')).toBe(true);
   });
 });

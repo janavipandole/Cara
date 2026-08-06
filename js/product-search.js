@@ -55,6 +55,15 @@
     };
   }
 
+
+  // ── Utility: minimum search query length check ──────────────────────────────
+  const MIN_QUERY_LENGTH = 2;
+
+  function meetsSearchQueryThreshold(query) {
+    if (typeof query !== 'string') return false;
+    return query.trim().length >= MIN_QUERY_LENGTH;
+  }
+
   // ── Build query string from active filters ─────────────────────────────────
   function buildQueryString() {
     const params = new URLSearchParams();
@@ -334,4 +343,7 @@
 
   // Expose resetAllFilters globally so an HTML button can call it directly
   window.resetProductFilters = resetAllFilters;
+
+  // Expose helpers for testability
+  window.__meetsSearchQueryThreshold = meetsSearchQueryThreshold;
 })();
