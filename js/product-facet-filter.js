@@ -88,3 +88,6 @@ export class ProductFacetFilter {
     return this.products;
   }
 }
+
+
+function isPriceInFacetRange(price, minPrice = 0, maxPrice = Infinity) { if (typeof price !== 'number') return false; return price >= minPrice && price <= maxPrice; }
