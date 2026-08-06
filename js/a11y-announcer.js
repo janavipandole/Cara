@@ -39,3 +39,9 @@ export function announce(message, politeness = 'polite') {
     }, 50);
   }
 }
+
+export function clearAnnouncements() {
+  if (typeof document === 'undefined') return;
+  if (liveRegionPolite) liveRegionPolite.textContent = '';
+  if (liveRegionAssertive) liveRegionAssertive.textContent = '';
+}
