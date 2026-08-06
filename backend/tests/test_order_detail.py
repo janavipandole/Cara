@@ -29,7 +29,7 @@ def _auth_headers(client, *, username="detailuser", email="detail@example.com"):
     return {"Authorization": f"Bearer {response.json()['access_token']}"}
 
 
-def _seed_order(*, email: str, product_name: str = "Detail Shirt") -> Order:
+def _seed_order(*, email: str, product_name: str = "Detail Shirt", product_id: int | None = None) -> Order:
     db = TestingSessionLocal()
     order = Order(
         full_name="Detail User",
@@ -45,6 +45,7 @@ def _seed_order(*, email: str, product_name: str = "Detail Shirt") -> Order:
     db.add(
         OrderItem(
             order_id=order.id,
+            product_id=product_id,
             product_name=product_name,
             quantity=2,
             price=60.0,
@@ -59,7 +60,7 @@ def _seed_order(*, email: str, product_name: str = "Detail Shirt") -> Order:
 
 def test_get_order_detail_returns_items_for_owner(client):
     headers = _auth_headers(client)
-    order_id = _seed_order(email="detail@example.com")
+    order_id = _seed_order(email="detail@example.com", product_id=42)
 
     response = client.get(f"{ORDERS_URL}{order_id}", headers=headers)
     assert response.status_code == 200, response.text
@@ -68,6 +69,7 @@ def test_get_order_detail_returns_items_for_owner(client):
     assert data["email"] == "detail@example.com"
     assert len(data["items"]) == 1
     assert data["items"][0]["product_name"] == "Detail Shirt"
+    assert data["items"][0]["product_id"] == 42
     assert data["items"][0]["quantity"] == 2
 
 
