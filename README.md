@@ -370,3 +370,9 @@ Use PurgeCSS to remove unused classes. (Fix #2418)
 ## CI/CD Pipeline
 - Automated E2E Link Checker
 - Automated Accessibility Audit
+
+### Frontend Utility Modules
+- `js/currency-converter.js`: Multi-currency converter with floating-point precision and locale symbol mapping.
+- `js/pincode-validation-engine.js`: Regional postal code validator and delivery zone calculator.
+- `js/outfit-compatibility-engine.js`: Color harmony and style tag matching score engine.
+- `js/address-validation-service.js`: Address field format validator and HTML sanitization module.
