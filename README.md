@@ -111,12 +111,20 @@ All you need is a modern web browser and a text editor! Cara is designed for lig
    cd Cara
    ```
 
-2. **Install development dependencies**
+2. **Run with Docker Compose (API + Postgres + frontend)**
+   ```bash
+   cp .env.example .env
+   docker compose up --build -d
+   ```
+   - Store: http://localhost:8080
+   - API health: http://localhost:8000/health
+
+3. **Or install frontend tooling only**
    ```bash
    npm install
    ```
 
-3. **Verify linting and formatting**
+4. **Verify linting and formatting**
    ```bash
    npm run lint
    npm run format:check
