@@ -362,6 +362,7 @@ function submitCheckoutForm() {
   const orderData = {
     fullName: document.getElementById('fullName').value.trim(),
     email: document.getElementById('email').value.trim(),
+    phone: document.getElementById('phone').value.trim(),
     address: document.getElementById('address').value.trim(),
     city: document.getElementById('city').value.trim(),
     zip: document.getElementById('zip').value.trim(),
