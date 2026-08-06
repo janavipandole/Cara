@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInterval(timerInterval);
         window.urgencyTimerExpired = true;
         expirePromo();
+        if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function') { window.dispatchEvent(new CustomEvent('checkout-timer-expired')); }
         return;
       }
       minutes--;
