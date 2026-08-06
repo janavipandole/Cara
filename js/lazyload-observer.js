@@ -50,3 +50,6 @@ if (typeof document !== 'undefined') {
     initLazyLoadObserver();
   }
 }
+
+
+function unobserveLazyElement(observer, element) { if (observer && typeof observer.unobserve === 'function' && element) { observer.unobserve(element); } }
