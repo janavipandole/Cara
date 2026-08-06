@@ -111,3 +111,6 @@ export class ProductReviewManager {
     };
   }
 }
+
+
+function sanitizeReviewAuthorName(name) { if (!name || typeof name !== 'string') return 'Anonymous'; return name.trim().replace(/<[^>]*>/g, '') || 'Anonymous'; }
