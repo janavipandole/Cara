@@ -3,3 +3,4 @@ __pycache__/
 *.pyc
 cara.db
 faiss_index.bin
+faiss_embeddings.npz

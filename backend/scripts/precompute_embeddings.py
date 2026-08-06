@@ -65,7 +65,15 @@ def precompute():
         ids.append(p.id)
         
     embeddings_np = np.array(embeddings).astype('float32')
-    
+
+    # Persist embeddings alongside the index so the API can run a NumPy
+    # brute-force search when faiss is unavailable at runtime.
+    np.savez(
+        os.path.join(os.path.dirname(__file__), '..', 'faiss_embeddings.npz'),
+        ids=np.array(ids).astype('int64'),
+        embeddings=embeddings_np,
+    )
+
     # Map faiss ids to product ids
     index_id_map = faiss.IndexIDMap(index)
     index_id_map.add_with_ids(embeddings_np, np.array(ids).astype('int64'))
