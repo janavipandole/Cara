@@ -1,11 +1,33 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import IntegrityError
 from .. import models, schemas
 from ..database import get_db
 from .auth import get_current_user
 from datetime import datetime, timezone, timedelta
 
 router = APIRouter()
+
+
+def _existing_order_for_key(db: Session, email: str, idempotency_key: str | None):
+    if not idempotency_key:
+        return None
+    return (
+        db.query(models.Order)
+        .filter(
+            models.Order.email == email,
+            models.Order.idempotency_key == idempotency_key,
+        )
+        .first()
+    )
+
+
+def _idempotent_replay(order_id: int) -> JSONResponse:
+    return JSONResponse(
+        status_code=200,
+        content={"message": "Order already created", "order_id": order_id},
+    )
 
 
 def serialize_order(order: models.Order, db: Session, include_items: bool = True) -> dict:
@@ -67,20 +89,9 @@ def create_order(
     current_user: models.User = Depends(get_current_user)
 ):
     # --- Idempotency check: if this key was already used, return the existing order ---
-    if order_data.idempotency_key:
-        existing = (
-            db.query(models.Order)
-            .filter(
-                models.Order.email == current_user.email,
-                models.Order.idempotency_key == order_data.idempotency_key,
-            )
-            .first()
-        )
-        if existing:
-            return {
-                "message": "Order already created",
-                "order_id": existing.id
-            }
+    existing = _existing_order_for_key(db, current_user.email, order_data.idempotency_key)
+    if existing:
+        return _idempotent_replay(existing.id)
 
     subtotal = 0.0
     db_items = []
@@ -177,15 +188,26 @@ def create_order(
     )
 
     db.add(new_order)
-    # Use flush instead of commit to get new_order.id without finalizing the transaction prematurely
-    db.flush()
+    try:
+        # Use flush instead of commit to get new_order.id without finalizing prematurely
+        db.flush()
 
-    for db_item in db_items:
-        db_item.order_id = new_order.id
-        db.add(db_item)
+        for db_item in db_items:
+            db_item.order_id = new_order.id
+            db.add(db_item)
 
-    # Commit everything atomically in a single transaction
-    db.commit()
+        # Commit everything atomically in a single transaction
+        db.commit()
+    except IntegrityError:
+        db.rollback()
+        raced = _existing_order_for_key(db, current_user.email, order_data.idempotency_key)
+        if raced:
+            return _idempotent_replay(raced.id)
+        raise HTTPException(
+            status_code=500,
+            detail="Could not create order due to a conflict. Please retry.",
+        )
+
     db.refresh(new_order)
 
     return {
