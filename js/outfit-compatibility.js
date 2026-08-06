@@ -37,3 +37,6 @@ if (typeof module !== 'undefined' && module.exports) {
 } else if (typeof window !== 'undefined') {
   window.OutfitCompatibility = OutfitCompatibility;
 }
+
+
+function isOutfitWithinBudget(totalPrice, maxBudget) { if (!maxBudget || typeof maxBudget !== 'number') return true; return typeof totalPrice === 'number' && totalPrice <= maxBudget; }
