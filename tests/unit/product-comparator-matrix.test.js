@@ -58,4 +58,17 @@ describe('ProductComparatorMatrix', () => {
     expect(diffs).toEqual([]);
   });
 
+  it('should escape HTML in product names and field values when rendering', () => {
+    document.body.innerHTML = '<div id="comparator-matrix-container"></div>';
+    const m = new ProductComparatorMatrix(4);
+    m.addProduct({ id: 'p1', name: '<img src=x onerror=alert(1)>', brand: 'A', price: 20 });
+    m.addProduct({ id: 'p2', name: 'Safe Shirt', brand: 'A', price: 30 });
+    m.renderMatrixTable('comparator-matrix-container');
+
+    const container = document.getElementById('comparator-matrix-container');
+    expect(container.querySelector('img')).toBeNull();
+    const productTh = container.querySelectorAll('thead th')[1];
+    expect(productTh.textContent).toContain('<img src=x onerror=alert(1)>');
+    expect(productTh.innerHTML).toContain('&lt;img');
+  });
 });

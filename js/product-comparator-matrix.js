@@ -38,6 +38,15 @@ export class ProductComparatorMatrix {
     };
   }
 
+  escapeHtml(value) {
+    return String(value == null ? '' : value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
   renderMatrixTable(containerId = 'comparator-matrix-container') {
     if (typeof document === 'undefined') return null;
     const container = document.getElementById(containerId);
@@ -49,11 +58,11 @@ export class ProductComparatorMatrix {
       return container;
     }
 
-    const headersHtml = data.products.map(p => `<th>${p.name} <button data-id="${p.id}" class="remove-comp-btn">×</button></th>`).join('');
+    const headersHtml = data.products.map(p => `<th>${this.escapeHtml(p.name)} <button data-id="${this.escapeHtml(p.id)}" class="remove-comp-btn">×</button></th>`).join('');
     const rowsHtml = Object.entries(data.fields).map(([field, values]) => `
       <tr>
         <td class="spec-label">${field.toUpperCase()}</td>
-        ${values.map(v => `<td>${v}</td>`).join('')}
+        ${values.map(v => `<td>${this.escapeHtml(v)}</td>`).join('')}
       </tr>
     `).join('');
 
