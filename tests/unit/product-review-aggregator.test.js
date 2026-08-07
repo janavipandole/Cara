@@ -54,4 +54,30 @@ describe('ProductReviewAggregator Unit Tests', () => {
     const breakdown = aggregator.calculateReviewRatingBreakdown('nonexistent');
     expect(breakdown).toEqual({ 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 });
   });
+
+  it('should skip corrupt ratings in stats and breakdown', () => {
+    localStorage.setItem(
+      'cara_reviews_v2',
+      JSON.stringify({
+        'prod-bad': [
+          { id: 'r1', rating: 5, date: new Date().toISOString() },
+          { id: 'r2', rating: 'corrupt', date: new Date().toISOString() },
+          { id: 'r3', rating: 3, date: new Date().toISOString() },
+        ],
+      }),
+    );
+    const aggregator2 = new ProductReviewAggregator();
+    const stats = aggregator2.getStats('prod-bad');
+    expect(stats.count).toBe(3);
+    expect(stats.average).toBe(4.0);
+    expect(Number.isNaN(stats.average)).toBe(false);
+    expect(stats.distribution[5]).toBe(1);
+    expect(stats.distribution[3]).toBe(1);
+    expect(stats.distribution.corrupt).toBeUndefined();
+  });
+
+  it('should reject a review with a non-integer out-of-range rating', () => {
+    const res = aggregator.submitReview('prod-z', { rating: '5.5', body: 'x' });
+    expect(res.success).toBe(false);
+  });
 });

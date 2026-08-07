@@ -62,15 +62,21 @@ class ProductReviewAggregator {
 
     const distribution = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
     let total = 0;
+    let ratedCount = 0;
 
     productReviews.forEach((review) => {
-      total += review.rating;
-      distribution[review.rating] = (distribution[review.rating] || 0) + 1;
+      const raw = Number(review.rating);
+      if (!Number.isFinite(raw)) return; // Skip corrupt legacy entries
+      const r = Math.min(5, Math.max(1, Math.round(raw)));
+      distribution[r] = (distribution[r] || 0) + 1;
+      total += r;
+      ratedCount += 1;
     });
 
     return {
       count: productReviews.length,
-      average: parseFloat((total / productReviews.length).toFixed(1)),
+      average:
+        ratedCount > 0 ? parseFloat((total / ratedCount).toFixed(1)) : 0,
       distribution
     };
   }
