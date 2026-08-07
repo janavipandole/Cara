@@ -52,11 +52,24 @@
     // Use PromoDiscountCalculator if available, otherwise fall back to simple lookup
     if (typeof PromoDiscountCalculator !== 'undefined') {
       const calculator = new PromoDiscountCalculator();
-      // Get cart subtotal from localStorage or default to 0
+      // Get cart subtotal from the actual cart storage key used by the app
+      // ('productsInCart'), falling back to 'cara_cart' for legacy pages.
       let subtotal = 0;
       try {
-        const cart = JSON.parse(localStorage.getItem('cara_cart') || '{}');
-        subtotal = parseFloat(cart.subtotal) || 0;
+        const rawCart = JSON.parse(
+          localStorage.getItem('productsInCart') ||
+            localStorage.getItem('cara_cart') ||
+            '[]',
+        );
+        if (Array.isArray(rawCart)) {
+          subtotal = rawCart.reduce((sum, item) => {
+            const price = parseFloat(item.price) || 0;
+            const qty = parseInt(item.quantity, 10) || 1;
+            return sum + price * qty;
+          }, 0);
+        } else {
+          subtotal = parseFloat(rawCart.subtotal) || 0;
+        }
       } catch (err) {
         // ignore parse errors
       }
