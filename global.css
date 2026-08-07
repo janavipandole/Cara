@@ -3517,3 +3517,19 @@ footer .copyright {
 .autocomplete-spinner {
   animation: spin 0.6s linear infinite;
 }
+
+
+/* Compute Pressure API: gracefully degrade animations */
+html[data-compute-pressure="high"] *,
+html[data-compute-pressure="high"] *::before,
+html[data-compute-pressure="high"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+html[data-compute-pressure="high"] .slide.active {
+  animation: none !important;
+}
+
