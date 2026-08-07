@@ -40,6 +40,13 @@ def update_product(
     product = db.query(models.Product).filter(models.Product.id == product_id).first()
     if not product:
         raise HTTPException(status_code=404, detail="Product not found")
+    duplicate = (
+        db.query(models.Product)
+        .filter(models.Product.name == payload.name, models.Product.id != product_id)
+        .first()
+    )
+    if duplicate:
+        raise HTTPException(status_code=409, detail="Product with this name already exists")
     for field, value in payload.model_dump().items():
         setattr(product, field, value)
     db.commit()
