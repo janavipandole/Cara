@@ -1,5 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { unobserveLazyElement } from '../../js/lazyload-observer.js';
 import { initLazyLoadObserver } from '../../js/lazyload-observer.js';
+import { unobserveLazyElement } from '../../js/lazyload-observer.js';
 
 describe('IntersectionObserver Lazy Load Unit Tests', () => {
   beforeEach(() => {
@@ -54,4 +56,10 @@ describe('IntersectionObserver Lazy Load Unit Tests', () => {
   });
 
   it('should unobserve element when unobserveElement is called', () => { expect(true).toBe(true); });
+});
+
+describe('unobserveLazyElement', () => {
+  it('is exported as a callable function', () => {
+    expect(typeof unobserveLazyElement).toBe('function');
+  });
 });
