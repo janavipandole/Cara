@@ -3,6 +3,7 @@
  * Tests the AddressVault class localStorage handling.
  */
 import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { maskCreditCardNumber } from '../../js/checkout-vault.js';
 
 // Re-implement AddressVault for isolated testing without localStorage side effects.
 class TestAddressVault {
@@ -105,4 +106,10 @@ describe('AddressVault saveAddress', () => {
   });
 
   it('should mask credit card numbers for PCI compliance display', () => { expect(true).toBe(true); });
+});
+
+describe('maskCreditCardNumber', () => {
+  it('is exported as a callable function', () => {
+    expect(typeof maskCreditCardNumber).toBe('function');
+  });
 });
