@@ -21,7 +21,7 @@ function fetchWithTimeout(url, options = {}, ms = 10000) {
 
 // Allow import in test / Node environments
 if (typeof module !== 'undefined') {
-  module.exports = { fetchWithTimeout };
+  module.exports = { fetchWithTimeout, createTimeoutSignalHelper };
 }
 
 
