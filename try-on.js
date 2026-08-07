@@ -1,10 +1,6 @@
 /* global Pose, showToast */
 document.addEventListener('DOMContentLoaded', () => {
-  // ============================================
-  // CARA VIRTUAL TRY-ON — Full Implementation
-  // Uses MediaPipe Pose (BlazePose) for body detection
-  // Canvas-based garment overlay with background removal
-  // ============================================
+  const tryOnCanvasEngine = typeof VirtualTryOnEngine !== 'undefined' ? new VirtualTryOnEngine() : null;
 
   // ---- DOM References ----
   const uploadInput = document.getElementById('photo-upload');
@@ -956,9 +952,9 @@ document.addEventListener('click', function (e) {
   html.setAttribute('data-theme', next);
   localStorage.setItem('theme', next);
 
-  var icon = document.getElementById('themeIcon');
-  var iconM = document.getElementById('themeIconMobile');
-  var cls = next === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
+  const icon = document.getElementById('themeIcon');
+  const iconM = document.getElementById('themeIconMobile');
+  const cls = next === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
   if (icon) icon.className = cls;
   if (iconM) iconM.className = cls;
 });

@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Simulate skeleton state loading
   const showSkeletons = () => {
     const originalContent = productsContainer.innerHTML;
+    // Bail out if there is nothing to restore, avoiding a skeleton flash.
+    if (!originalContent.trim()) return;
     productsContainer.innerHTML = '';
 
     for (let i = 0; i < 4; i++) {

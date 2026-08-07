@@ -1,19 +1,42 @@
+/**
+ * Validates that an email address has a properly-formed domain with a
+ * top-level domain of at least two characters.
+ * @param {string} email
+ * @returns {boolean}
+ */
+export function validateEmailDomain(email) {
+  if (!email || typeof email !== 'string') return false;
+  // Basic structural check: local@domain.tld with at least 2-char TLD
+  const domainRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+  return domainRegex.test(email.trim());
+}
+
 document.addEventListener('DOMContentLoaded', function () {
-  var forms = document.querySelectorAll('.newsletter-form');
+  const forms = document.querySelectorAll('.newsletter-form');
 
   forms.forEach(function (form) {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      var input = form.querySelector('input[type="email"]');
-      var email = input ? input.value.trim() : '';
-      var button = form.querySelector('button[type="submit"]');
+      const input = form.querySelector('input[type="email"]');
+      const email = input ? input.value.trim() : '';
+      const button = form.querySelector('button[type="submit"]');
 
-      // Email validation regex
-      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      // Email validation: structural format and domain TLD check
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const hasValidDomain = validateEmailDomain(email);
 
       if (!email || !emailRegex.test(email)) {
         if (typeof showToast === 'function') {
           showToast('Please enter a valid email address', 'error');
+        } else {
+          alert('Please enter a valid email address');
+        }
+        return;
+      }
+
+      if (!validateEmailDomain(email)) {
+        if (typeof showToast === 'function') {
+          showToast('Please enter a valid email domain (e.g. example.com)', 'error');
         } else {
           alert('Please enter a valid email address');
         }
@@ -32,6 +55,13 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
           alert('Successfully subscribed to newsletter!');
         }
+
+        // Notify other page modules that a subscription happened.
+        window.dispatchEvent(
+          new CustomEvent('newsletterSubscribed', {
+            detail: { email: email },
+          }),
+        );
         
         if (input) input.value = '';
         
@@ -43,3 +73,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
+
+
+function isValidNewsletterEmail(email) { if (!email || typeof email !== 'string') return false; return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()); }

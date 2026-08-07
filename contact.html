@@ -54,7 +54,7 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="ui-fix.css" />
-    <link rel="stylesheet" href="csrf-shield.css" />
+
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
       rel="stylesheet"
@@ -347,7 +347,7 @@ button.normal:hover {
 </style>
 
   <link rel="manifest" href="/manifest.json">
-  <script src="js/error-boundary.js"></script>
+  <script type="module" src="js/error-boundary.js"></script>
 <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
@@ -355,6 +355,7 @@ button.normal:hover {
       });
     }
   </script>
+    <script type="module" src="js/config.js"></script>
 </head>
   <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -737,9 +738,9 @@ button.normal:hover {
     </footer>
 
  <!-- Javascript -->
-    <script src="navbar.js"></script>
+    <script type="module" src="navbar.js"></script>
     <script>loadNavbar('contact');</script>
-    <script src="app.js"></script>
+    <script type="module" src="app.js"></script>
 <script>
 
 
@@ -880,9 +881,9 @@ const yearEl = document.querySelector(".Current-Year");
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 </script>
-<script src="js/backend-profile-security.js"></script>
-<script src="js/contact-autosave.js" defer></script>
-<script src="js/input-shield.js" defer></script>
+<script type="module" src="js/backend-profile-security.js"></script>
+<script type="module" src="js/contact-autosave.js" defer></script>
+<script type="module" src="js/input-shield.js" defer></script>
 </body>
 
 </html>

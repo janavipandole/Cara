@@ -39,7 +39,11 @@ const translations = {
 
 function changeLanguage(lang) {
   if (!translations[lang]) return;
-  localStorage.setItem("selectedLanguage", lang);
+  try {
+    localStorage.setItem("selectedLanguage", lang);
+  } catch (e) {
+    // Silently fail if localStorage is unavailable (private browsing, quota exceeded)
+  }
 
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     const key = el.getAttribute("data-i18n");
@@ -63,7 +67,16 @@ function changeLanguage(lang) {
 }
 
 function initLanguage() {
-  const savedLang = localStorage.getItem("selectedLanguage") || "en";
+  let savedLang = "en";
+  try {
+    const stored = localStorage.getItem("selectedLanguage") || "en";
+    // Fall back to English for any unknown/unrecognised language code.
+    savedLang = Object.prototype.hasOwnProperty.call(translations, stored)
+      ? stored
+      : "en";
+  } catch (e) {
+    // Fall back to English if localStorage is unavailable
+  }
   changeLanguage(savedLang);
 }
 
@@ -78,3 +91,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+
+function formatI18nPlaceholder(template, params = {}) { if (!template) return ''; return template.replace(/\{{(\w+)\}}/g, (_, key) => params[key] || ''); }

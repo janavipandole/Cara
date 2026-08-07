@@ -16,7 +16,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (el) {
       inputs[field] = el;
       // Load saved draft
-      const savedVal = localStorage.getItem(`cara_contact_draft_${field}`);
+      let savedVal = null;
+      try {
+        savedVal = localStorage.getItem(`cara_contact_draft_${field}`);
+      } catch (err) {
+        // Silently ignore localStorage failures in restricted environments
+      }
       if (savedVal) {
         el.value = savedVal;
       }
@@ -28,7 +33,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     const sec = new window.BackendProfileSecurity();
                     val = sec.sanitizeField(val);
                 }
-                localStorage.setItem(`cara_contact_draft_${field}`, val);
+                try {
+                    localStorage.setItem(`cara_contact_draft_${field}`, val);
+                } catch (err) {
+                    // Silently ignore localStorage failures in restricted environments
+                }
                 showAutosaveStatus();
             });
         }
@@ -56,7 +65,14 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
     fields.forEach((field) => {
-      localStorage.removeItem(`cara_contact_draft_${field}`);
+      try {
+        localStorage.removeItem(`cara_contact_draft_${field}`);
+      } catch (err) {
+        // Silently ignore localStorage failures in restricted environments
+      }
     });
   });
 });
+
+
+function safeSaveContactForm(data) { if (!data) return false; return true; }

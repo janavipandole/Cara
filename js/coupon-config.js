@@ -1,10 +1,11 @@
 /**
- * coupon-config.js
- * Single source of truth for all coupon codes and discount percentages.
- * Loaded before app.js and coupon-validator.js so both can reference
- * window.CARA_COUPONS instead of maintaining their own hardcoded copies.
+ * Coupon catalog for cart.html (classic script).
+ * Kept as a thin dedicated file because cart.html loads it with defer
+ * separately from the module-based js/config.js.
  */
-window.CARA_COUPONS = {
-  CARA20: 20,
-  WELCOME10: 10,
-};
+(() => {
+  window.CARA_COUPONS = window.CARA_COUPONS || {
+    CARA20: 20,
+    WELCOME10: 10,
+  };
+})();

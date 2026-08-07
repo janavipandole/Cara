@@ -221,6 +221,21 @@ Cara/
 | style.css | Contains global styles and layouts |
 | images/ | Stores static image assets |
 
+### Frontend Utility Modules
+
+The frontend keeps small, focused helpers in `js/` that are reusable across pages:
+
+- `currency-converter.js` — multi-currency conversion and locale-aware price formatting.
+- `coupon-validator.js` / `cart-coupon.js` — checkout and cart coupon application and feedback.
+- `lazyload-observer.js` — IntersectionObserver-based lazy image loading with a no-observer fallback.
+- `csrf-protection.js` — CSRF token generation and header injection for forms.
+- `checkout-autosave.js` / `contact-autosave.js` — local draft persistence for forms.
+- `recently-viewed.js` — capped, de-duplicated recently-viewed product tracking and carousel.
+- `theme-engine.js` — light/dark/high-contrast theme resolution with localStorage persistence.
+- `input-shield.js` — client-side XSS script-injection filtering on form submit.
+- `i18n.js`, `loyalty-rewards-engine.js`, `error-logger.js` — translation, loyalty points, and error logging helpers.
+
+Many of these expose their logic on `window` (or as ES module exports) so they can be exercised by unit tests in `tests/unit/`.
 
 ## 📸 Screenshots
 Homepage - 
@@ -351,31 +366,13 @@ If you encounter issues when running `npm run lint` or `eslint` locally, ensure 
 ## Production Optimization
 Use PurgeCSS to remove unused classes. (Fix #2418)
 
-- CI/CD workflow integrated.
-- PR and Issue templates added.
 
-## Troubleshooting
+## CI/CD Pipeline
+- Automated E2E Link Checker
+- Automated Accessibility Audit
 
-### Installation fails
-- Ensure you are using the supported Node.js version.
-- Run `npm install` or `npm ci`.
-- Delete `node_modules` and reinstall dependencies if necessary.
-
-### Environment variables not loading
-- Verify that a `.env` file exists.
-- Ensure all required variables are defined.
-- Restart the development server after making changes.
-
-## FAQ
-
-### How do I start the project?
-Run:
-
-```bash
-npm install
-npm run dev
-```
-
-### How do I report a bug?
-Please open a GitHub issue with reproduction steps and relevant logs.
-
+### Frontend Utility Modules
+- `js/currency-converter.js`: Multi-currency converter with floating-point precision and locale symbol mapping.
+- `js/pincode-validation-engine.js`: Regional postal code validator and delivery zone calculator.
+- `js/outfit-compatibility-engine.js`: Color harmony and style tag matching score engine.
+- `js/address-validation-service.js`: Address field format validator and HTML sanitization module.

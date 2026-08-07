@@ -70,7 +70,7 @@
       referrerpolicy="no-referrer"
     />
     <link rel="manifest" href="/manifest.json" />
-    <script src="js/error-boundary.js"></script>
+    <script type="module" src="js/error-boundary.js"></script>
 <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
@@ -78,7 +78,9 @@
         });
       }
     </script>
-  </head>
+      <script type="module" src="js/config.js"></script>
+      <script src="assets/js/skip-link.js" defer></script>
+</head>
 
   <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -160,6 +162,7 @@
     </section>
 <main id="main-content">
 
+    <main id="main-content" tabindex="-1">
     <!-- Resolves #1356: Added descriptive alt tags to product images across all catalog views -->
     <section id="shop-hero">
       <div class="hero-copy">
@@ -377,6 +380,7 @@
         </button>
       </form>
     </section>
+    </main>
 
     <button id="backToTop" title="Back to Top" aria-label="Back to top">
       ⬆
@@ -511,10 +515,11 @@
 </main>
 
     <div id="toast-container"></div>
-    <script src="products.js?v=1779120917219"></script>
-    <script src="app.js?v=1779120917219"></script>
-    <script src="navbar.js"></script>
-    <script src="js/newsletter-subscribe.js" defer></script>
+    <script type="module" src="products.js?v=1779120917219"></script>
+    <script type="module" src="app.js?v=1779120917219"></script>
+    <script type="module" src="navbar.js"></script>
+    <script type="module" src="js/smart-search-engine.js"></script>
+    <script type="module" src="js/newsletter-subscribe.js" defer></script>
     <script>
       loadNavbar('shop');
     </script>
@@ -545,9 +550,9 @@
       }
     </script>
     <button id="backToTop">↑</button>
-    <script src="js/shimmer-loader.js" defer></script>
-    <script src="js/recently-viewed.js"></script>
-    <script src="compare.js" defer></script>
+    <script type="module" src="js/shimmer-loader.js" defer></script>
+    <script type="module" src="js/recently-viewed.js"></script>
+    <script type="module" src="compare.js" defer></script>
 
     <!-- Floating compare badge -->
     <button
@@ -563,4 +568,4 @@
 </body>
 </html>
 
-<!-- Skeleton Script --><script src='js/skeleton-loader.js'></script>
+<!-- Skeleton Script --><script type="module" src='js/skeleton-loader.js'></script>

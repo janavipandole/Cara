@@ -1,3 +1,8 @@
+import os
+
+# TestClient speaks HTTP; Secure cookies would not round-trip otherwise.
+os.environ.setdefault("COOKIE_SECURE", "false")
+
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine

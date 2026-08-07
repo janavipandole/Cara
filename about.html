@@ -387,7 +387,7 @@
       }
   </style>
   <link rel="manifest" href="/manifest.json">
-  <script src="js/error-boundary.js"></script>
+  <script type="module" src="js/error-boundary.js"></script>
 <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
@@ -396,6 +396,7 @@
     }
   </script>
   <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
+    <script type="module" src="js/config.js"></script>
 </head>
 
 <body>
@@ -860,12 +861,12 @@
     </button>
 
     <!-- Scripts -->
-    <script src="navbar.js"></script>
+    <script type="module" src="navbar.js"></script>
     <script>
       loadNavbar('about');
     </script>
 
-    <script src="app.js"></script>
+    <script type="module" src="app.js"></script>
 
     <script>
       document.querySelector('.Current-Year').textContent =
@@ -905,7 +906,7 @@
 </button>
 
 <!-- Scripts -->
-<script src="navbar.js"></script>
+<script type="module" src="navbar.js"></script>
 <script>
   loadNavbar('about');
 </script>
@@ -930,8 +931,9 @@
   })();
 </script>
 
-<script src="app.js"></script>
-<script src="js/testimonials-carousel.js" defer></script>
+<script type="module" src="js/loyalty-rewards-engine.js"></script>
+<script type="module" src="app.js"></script>
+<script type="module" src="js/testimonials-carousel.js" defer></script>
 
 <script>
   const currentYearEl = document.querySelector('.Current-Year');

@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     textInputs.forEach((input) => {
       const rawVal = input.value;
+      // Skip empty inputs so valid blank fields are never cleared.
+      if (!rawVal) return;
       // Check for script tag presence or onload handlers
       if (
         /<script/i.test(rawVal) ||
@@ -32,3 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+
+function containsSqlInjectionKeywords(input) { if (!input || typeof input !== 'string') return false; return /\b(SELECT|INSERT|UPDATE|DELETE|DROP|UNION|ALTER)\b/i.test(input); }

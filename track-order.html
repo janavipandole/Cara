@@ -89,7 +89,8 @@
         });
       }
     </script>
-  </head>
+      <script type="module" src="js/config.js"></script>
+</head>
 
   <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -722,10 +723,9 @@
     </footer>
 
     <div id="toast-container"></div>
-    <script src="app.js"></script>
-    <script src="track-order.js"></script>
-    <script src="js/tracker-timeline-simulator.js"></script>
-    <script src="js/order-timeline.js"></script>
+    <script type="module" src="js/order-telemetry-tracker.js"></script>
+    <script type="module" src="track-order.js"></script>
+    <script type="module" src="js/order-timeline.js"></script>
     <!-- Cancel Order Support -->
     <div
       id="cancel-simulation-box"
@@ -785,5 +785,6 @@
         }
       }
     </script>
+    <script type="module" src="js/order-tracking-visualizer.js"></script>
   </body>
 </html>

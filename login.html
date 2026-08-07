@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="toast.css" />
   <link rel="stylesheet" href="login.css" />
   <link rel="manifest" href="/manifest.json">
-  <script src="js/error-boundary.js"></script>
+  <script type="module" src="js/error-boundary.js"></script>
 <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
@@ -23,6 +23,7 @@
     }
   </script>
   <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
+    <script type="module" src="js/config.js"></script>
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -146,7 +147,7 @@
     </div><!-- end .login-page-wrapper -->
   </section><!-- end #login-section -->
 
-  <script src="navbar.js"></script>
+  <script type="module" src="navbar.js"></script>
   <script>loadNavbar();</script>
   <script src="app.js"></script>
   <script src="js/fetch-timeout.js"></script>
@@ -156,4 +157,4 @@
 </body>
 </html>
 
-<script src='js/a11y-validation.js'></script>
+<script type="module" src="js/a11y-validation.js"></script>

@@ -1,3 +1,21 @@
+(() => {
+window.CARA_CONFIG = {
+  TAX_RATE: 0.18,
+  SHIPPING: {
+    FEE: 150,
+    FREE_THRESHOLD: 3000
+  },
+  URGENCY_DISCOUNT_PCT: 0.05,
+  GIFT_WRAP_CHARGE: 99,
+  LOYALTY: {
+    POINTS_PER_RUPEE: 10,
+    DEFAULT_BALANCE: 150
+  }
+};
+window.CARA_COUPONS = {
+  'CARA20': 20,
+  'WELCOME10': 10
+};
 // i18n.js - Multi-language support
 
 // Global error logger
@@ -6,6 +24,49 @@ window.logError =
   function (...args) {
     console.error(...args);
   };
+
+/**
+ * Sanitizes return URL query parameters to prevent Open Redirect and SSRF vulnerabilities.
+ * Enforces strictly relative URLs and blocks external origins.
+ */
+/* NOTE (#3873): no call sites for sanitizeReturnUrl() found in app.js; confirm it is actually wired up elsewhere, otherwise this offers no real protection. */ function sanitizeReturnUrl(url) {
+  if (!url || typeof url !== 'string') return 'index.html';
+
+  var trimmed = url.trim();
+
+  // Block protocol handlers, protocol-relative URLs, and control characters
+  if (
+    trimmed.startsWith('//') ||
+    trimmed.startsWith('\\\\') ||
+    /^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(trimmed) ||
+    /[\r\n\t]/.test(trimmed)
+  ) {
+    return 'index.html';
+  }
+
+  // Allow relative filenames (e.g., 'cart.html', 'shop.html') or relative paths starting with '/'
+  if (!trimmed.startsWith('/') && !/^[a-zA-Z0-9_.-]+\.html$/i.test(trimmed)) {
+    return 'index.html';
+  }
+
+  return trimmed;
+}
+
+window.sanitizeReturnUrl = sanitizeReturnUrl;
+
+/**
+ * Verifies object-level authorization (BOLA) to ensure the current authenticated user owns the requested order resource.
+ */
+/* NOTE (#3873): no call sites for verifyOrderOwnership() found in app.js; confirm it is actually enforced elsewhere, otherwise this offers no real BOLA protection. */ function verifyOrderOwnership(order, currentUserId, isAdmin) {
+  if (isAdmin) return true;
+  if (!order || typeof order !== 'object') return false;
+  if (!currentUserId) return false;
+
+  var ownerId = order.userId || order.user_id || order.ownerId || order.customerId;
+  return String(ownerId) === String(currentUserId);
+}
+
+window.verifyOrderOwnership = verifyOrderOwnership;
 
 // Sync cart state across browser tabs
 window.addEventListener('storage', (e) => {
@@ -199,11 +260,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       try {
         // Fetch authentic data from backend instead of relying on scraped client DOM data
         const res = await fetch('/api/products');
+        if (!res.ok) throw new Error('HTTP error: ' + res.status);
         let dbProduct = null;
-        if (res.ok) {
-          const products = await res.json();
-          dbProduct = products.find((p) => p.name === productName);
-        }
+        const products = await res.json();
+        dbProduct = products.find((p) => p.name === productName);
 
         const nameEl = document.getElementById('product-name');
         const priceEl = document.getElementById('product-price');
@@ -295,13 +355,13 @@ document.addEventListener('DOMContentLoaded', () => {
    ============================================================ */
 
 // Robust price parser
-function parsePriceString(priceStr) {
+function escapeHtml(str){return String(str===undefined||str===null?'':str).replace(/[&<>"']/g,function(ch){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];});} function parsePriceString(priceStr) {
   if (typeof priceStr === 'number') return isFinite(priceStr) ? priceStr : 0;
   if (!priceStr) return 0;
-  var cleaned = String(priceStr)
+  const cleaned = String(priceStr)
     .replace(/[₹$,\s]/g, '')
     .replace(/&#?\w+;/g, '');
-  var num = parseFloat(cleaned);
+  const num = parseFloat(cleaned);
   return isFinite(num) ? num : 0;
 }
 
@@ -371,8 +431,7 @@ window.updateWishlistCount = updateWishlistCount;
 
 // GLOBAL WISHLIST LOGIC
 function formatRupee(amount) {
-  const num = parsePriceString(amount);
-  return '₹' + Math.round(num).toLocaleString('en-IN');
+  return formatCurrency(amount); // consolidated: delegates to formatCurrency to avoid duplicate rupee-formatting logic (see #3873)
 }
 
 function hasPriceDropped(item) {
@@ -672,58 +731,75 @@ function handleEmptyCartView() {
   }
 }
 
-function addToCart(productName, productPrice, productImage, quantity, size) {
-  let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
-  let parsedQty = parseInt(quantity, 10);
-  if (isNaN(parsedQty) || parsedQty < 1) parsedQty = 1;
+let cartLockPromise = Promise.resolve();
 
-  let item = {
-    name: productName,
-    price: parsePriceString(productPrice),
-    image: productImage,
-    quantity: parsedQty,
-    size: size ? size.replace('Size', '').trim() : null,
-  };
-
-  if (!item.size) {
-    showToast('Please select a size before adding to cart!', 'warning');
-    return;
-  }
-
-  let existingItem = cart.find(
-    (p) => p.name === item.name && p.size === item.size,
-  );
-  if (existingItem) {
-    existingItem.quantity += item.quantity;
-  } else {
-    cart.push(item);
-  }
-
-  localStorage.setItem('productsInCart', JSON.stringify(cart));
-  window.cachedCartState = cart;
-  showToast(`${item.name} (Size: ${item.size}) added to cart!`, 'success');
-  updateCartCount();
+function withCartLock(fn) {
+  cartLockPromise = cartLockPromise
+    .then(async () => {
+      window.cachedCartState = null;
+      return await fn();
+    })
+    .catch((err) => {
+      console.error('Cart lock execution error:', err);
+    });
+  return cartLockPromise;
 }
+
+function addToCart(productName, productPrice, productImage, quantity, size) {
+  return withCartLock(() => {
+    let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+    let parsedQty = parseInt(quantity, 10);
+    if (isNaN(parsedQty) || parsedQty < 1) parsedQty = 1;
+
+    let item = {
+      name: productName,
+      price: parsePriceString(productPrice),
+      image: productImage,
+      quantity: parsedQty,
+      size: size ? size.replace('Size', '').trim() : null,
+    };
+
+    if (!item.size) {
+      showToast('Please select a size before adding to cart!', 'warning');
+      return;
+    }
+
+    let existingItem = cart.find(
+      (p) => p.name === item.name && p.size === item.size,
+    );
+    if (existingItem) {
+      existingItem.quantity += item.quantity;
+    } else {
+      cart.push(item);
+    }
+
+    localStorage.setItem('productsInCart', JSON.stringify(cart));
+    window.cachedCartState = cart;
+    showToast(`${item.name} (Size: ${item.size}) added to cart!`, 'success');
+    updateCartCount();
+  });
+}
+window.addToCart = addToCart;
 
 // Toast notification
 function showToast(message, type) {
   type = type || 'success';
 
-  var container = document.getElementById('toast-container');
+  let container = document.getElementById('toast-container');
   if (!container) {
     container = document.createElement('div');
     container.id = 'toast-container';
     document.body.appendChild(container);
   }
 
-  var icons = {
+  const icons = {
     success: 'fa-circle-check',
     error: 'fa-circle-xmark',
     warning: 'fa-triangle-exclamation',
     info: 'fa-circle-info',
   };
 
-  var toast = document.createElement('div');
+  const toast = document.createElement('div');
   toast.className = 'toast toast-' + type;
   toast.innerHTML =
     '<i class="fa-solid ' +
@@ -864,9 +940,8 @@ window.loadCart = async function () {
   let dbProducts = [];
   try {
     const res = await fetch('/api/products');
-    if (res.ok) {
-      dbProducts = await res.json();
-    }
+    if (!res.ok) throw new Error('HTTP error: ' + res.status);
+    dbProducts = await res.json();
   } catch (err) {
     window.logError('Failed to fetch secure prices:', err);
   }
@@ -892,12 +967,12 @@ window.loadCart = async function () {
     row.innerHTML = `
             <div class="cart-item-left">
                 <div class="cart-item-img-wrap">
-                    <img src="${item.image}" alt="${item.name}" loading="lazy" />
+                    <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}" loading="lazy" />
                 </div>
                 <div class="cart-item-details">
-                    <span class="cart-item-brand">${item.brand || 'Premium Brand'}</span>
-                    <h5 class="cart-item-title">${item.name}</h5>
-                    <span class="cart-item-size">Size: ${item.size}</span>
+                    <span class="cart-item-brand">${escapeHtml(item.brand || 'Premium Brand')}</span>
+                    <h5 class="cart-item-title">${escapeHtml(item.name)}</h5>
+                    <span class="cart-item-size">Size: ${escapeHtml(String(item.size))}</span>
                 </div>
             </div>
             <div class="cart-item-right">
@@ -943,7 +1018,7 @@ window.loadCart = async function () {
   if (subtotalEl) subtotalEl.innerText = formatCurrency(subtotal);
 
   let shipping = 0;
-  if (subtotal > 0) shipping = subtotal >= 3000 ? 0 : 150;
+  if (subtotal > 0) shipping = subtotal >= window.CARA_CONFIG.SHIPPING.FREE_THRESHOLD ? 0 : window.CARA_CONFIG.SHIPPING.FEE;
 
   if (shippingEl) {
     shippingEl.innerText = shipping === 0 ? 'FREE' : formatCurrency(shipping);
@@ -953,7 +1028,7 @@ window.loadCart = async function () {
     );
   }
 
-  const tax = Math.round(subtotal * 0.18);
+  const tax = Math.round(subtotal * window.CARA_CONFIG.TAX_RATE);
   if (taxEl) taxEl.innerText = formatCurrency(tax);
 
   let discount = 0;
@@ -1050,7 +1125,7 @@ window.applyCoupon = function () {
     showToast(`${code} applied! ${coupons[code]}% discount added.`, 'success');
     loadCart();
   } else {
-    showToast('Invalid promo code. Try CARA20 for 20% off!', 'error');
+    showToast(`Invalid promo code. Try ${Object.keys(coupons)[0] || 'CARA20'}!`, 'error');
   }
 };
 
@@ -1162,7 +1237,7 @@ window.buyNow = function (
   const productSection = document.getElementById('product1');
   if (!productSection) return;
 
-  CaraErrorBoundary.wrap('#product1', function () {
+  if (!window.CaraErrorBoundary || typeof window.CaraErrorBoundary.wrap !== 'function') { window.CaraErrorBoundary = window.CaraErrorBoundary || {}; window.CaraErrorBoundary.wrap = function (selector, fn) { try { return fn(); } catch (e) { if (typeof window.logError === 'function') { window.logError('CaraErrorBoundary fallback caught error for ' + selector, e); } else { console.error('CaraErrorBoundary fallback caught error for ' + selector, e); } } }; } CaraErrorBoundary.wrap('#product1', function () {
     const productsPerPage = 16;
 
     const productContainers = Array.from(
@@ -1404,7 +1479,7 @@ document.addEventListener('DOMContentLoaded', () => {
           return nameA.localeCompare(nameB);
         });
       }
-      productsToAppend.forEach((product) => {
+      if (!productsToAppend) { productsToAppend = originalProducts; } productsToAppend.forEach((product) => {
         proContainer.appendChild(product);
       });
     });
@@ -1547,7 +1622,6 @@ function initHeroSlider() {
       ((currentSlide % slides.length) + slides.length) % slides.length;
     slides[currentSlide].classList.add('active');
     if (dots[currentSlide]) dots[currentSlide].classList.add('active');
-    console.debug('hero-slider: show slide', currentSlide);
   }
 
   function nextSlide() {
@@ -1584,10 +1658,6 @@ function initHeroSlider() {
 
   resetAutoPlay();
 
-  console.debug('hero-slider: initialized', {
-    slideCount: slides.length,
-    startIndex: currentSlide,
-  });
   // cleanup on page unload
   window.addEventListener('beforeunload', () =>
     clearInterval(autoPlayInterval),
@@ -1642,24 +1712,24 @@ document.addEventListener('DOMContentLoaded', () => {
 window.pendingSharedCart = null;
 
 // NOTE: intentionally named showWardrobeToast to avoid overwriting the global showToast
-function showWardrobeToast(msg, isError) {
+/* NOTE (#3873): showWardrobeToast() has no call sites in app.js (dead code); consider removing it or wiring it up. */ function showWardrobeToast(msg, isError) {
   showToast(msg, isError ? 'error' : 'success');
 }
 
 window.shareWardrobe = function () {
-  var cart =
+  const cart =
     window.cachedCartState ||
     JSON.parse(localStorage.getItem('productsInCart')) ||
     [];
   window.cachedCartState = cart;
-  var btn = document.getElementById('share-cart-btn');
+  const btn = document.getElementById('share-cart-btn');
 
   if (cart.length === 0) {
     showToast('Your cart is empty! Add some items before sharing.', 'error');
     return;
   }
   try {
-    var minimizedCart = cart.map(function (item) {
+    const minimizedCart = cart.map(function (item) {
       return {
         n: item.name,
         p: item.price,
@@ -1668,23 +1738,26 @@ window.shareWardrobe = function () {
         s: item.size,
       };
     });
-    var sharePayload = {
+    const sharePayload = {
       t: Date.now(),
       items: minimizedCart,
     };
-    var base64Payload = btoa(
+    const base64Payload = btoa(
       unescape(encodeURIComponent(JSON.stringify(sharePayload))),
     );
-    var shareUrl =
+    const shareUrl =
       window.location.origin +
       window.location.pathname +
       '#share=' +
       base64Payload;
 
+    // Actually copy the URL to clipboard before showing success
+    fallbackCopyText(shareUrl);
+
     showToast('Wardrobe share link copied to clipboard!', 'success');
 
     if (btn) {
-      var originalText = btn.innerHTML;
+      const originalText = btn.innerHTML;
       btn.textContent = '✅ Link Copied!';
       btn.style.color = '#10b991';
       setTimeout(function () {
@@ -1700,7 +1773,7 @@ window.shareWardrobe = function () {
 
 function fallbackCopyText(text) {
   try {
-    var textArea = document.createElement('textarea');
+    const textArea = document.createElement('textarea');
     textArea.value = text;
     textArea.style.cssText = 'position:fixed;opacity:0;left:-9999px;';
     document.body.appendChild(textArea);
@@ -1713,7 +1786,7 @@ function fallbackCopyText(text) {
   }
 }
 
-var SHARED_WARDROBE_EXPIRY_MS = 14 * 24 * 60 * 60 * 1000;
+const SHARED_WARDROBE_EXPIRY_MS = 14 * 24 * 60 * 60 * 1000;
 
 window.closeShareModal = function () {
   var modal = document.getElementById('share-modal');
@@ -1727,19 +1800,19 @@ window.closeShareModal = function () {
 };
 
 window.checkSharedWardrobe = function () {
-  var hash = window.location.hash;
+  const hash = window.location.hash;
   if (!hash || hash.indexOf('#share=') !== 0) return;
 
   try {
-    var base64Payload = hash.substring(7);
-    var decodedPayload = JSON.parse(
+    const base64Payload = hash.substring(7);
+    const decodedPayload = JSON.parse(
       decodeURIComponent(escape(atob(base64Payload))),
     );
 
-    var decodedCart = Array.isArray(decodedPayload)
+    const decodedCart = Array.isArray(decodedPayload)
       ? decodedPayload
       : decodedPayload.items;
-    var sharedAt = Array.isArray(decodedPayload) ? null : decodedPayload.t;
+    const sharedAt = Array.isArray(decodedPayload) ? null : decodedPayload.t;
 
     if (!Array.isArray(decodedCart) || decodedCart.length === 0) {
       showToast('Invalid share link or empty shared collection.', 'error');
@@ -1764,41 +1837,41 @@ window.checkSharedWardrobe = function () {
       };
     });
 
-    var listContainer = document.getElementById('shared-items-list');
-    var totalPriceEl = document.getElementById('shared-total-price');
-    var modal = document.getElementById('share-modal');
+    const listContainer = document.getElementById('shared-items-list');
+    const totalPriceEl = document.getElementById('shared-total-price');
+    const modal = document.getElementById('share-modal');
     if (!listContainer || !totalPriceEl || !modal) return;
 
     listContainer.innerHTML = '';
-    var total = 0;
+    let total = 0;
 
     window.pendingSharedCart.forEach(function (item) {
-      var itemSubtotal = item.price * item.quantity;
+      const itemSubtotal = item.price * item.quantity;
       total += itemSubtotal;
 
-      var row = document.createElement('div');
+      const row = document.createElement('div');
       row.className = 'shared-item-row';
 
-      var img = document.createElement('img');
+      const img = document.createElement('img');
       img.src = item.image;
       img.className = 'shared-item-img';
       img.alt = item.name;
 
-      var details = document.createElement('div');
+      const details = document.createElement('div');
       details.className = 'shared-item-details';
 
-      var nameEl = document.createElement('h4');
+      const nameEl = document.createElement('h4');
       nameEl.className = 'shared-item-name';
       nameEl.textContent = item.name;
 
-      var meta = document.createElement('span');
+      const meta = document.createElement('span');
       meta.className = 'shared-item-meta';
       meta.textContent = 'Size: ' + item.size + '  |  Qty: ' + item.quantity;
 
       details.appendChild(nameEl);
       details.appendChild(meta);
 
-      var priceEl = document.createElement('div');
+      const priceEl = document.createElement('div');
       priceEl.className = 'shared-item-price';
       priceEl.textContent = formatCurrency(itemSubtotal);
 
@@ -1820,12 +1893,47 @@ window.checkSharedWardrobe = function () {
 };
 
 window.applySharedCart = function (action) {
+    function validateSharedCartItems(items) {
+          try {
+                  var src = window.products || window.allProducts || window.catalogProducts || [];
+                  if (!Array.isArray(src) || src.length === 0) {
+                            return items;
+                  }
+                  var names = {};
+                  src.forEach(function (p) {
+                            if (p && p.name) {
+                                        names[String(p.name).trim().toLowerCase()] = p;
+                            }
+                  });
+                  var kept = [];
+                  var skipped = 0;
+                  (items || []).forEach(function (it) {
+                            var match = it && it.name ? names[String(it.name).trim().toLowerCase()] : null;
+                            if (match) {
+                                        if (match.price !== undefined) {
+                                                      it.price = match.price;
+                                        }
+                                        kept.push(it);
+                            } else {
+                                        skipped++;
+                            }
+                  });
+                  if (skipped > 0 && typeof window.showToast === 'function') {
+                            window.showToast(skipped + ' shared item(s) could not be verified and were skipped.', 'error');
+                  }
+                  return kept;
+          } catch (e) {
+                  return items;
+          }
+    }
+  
+    window.pendingSharedCart = validateSharedCartItems(window.pendingSharedCart);
   if (!window.pendingSharedCart || window.pendingSharedCart.length === 0) {
     window.closeShareModal();
     return;
   }
 
-  var localCart =
+  let localCart =
     window.cachedCartState ||
     JSON.parse(localStorage.getItem('productsInCart')) ||
     [];
@@ -1836,7 +1944,7 @@ window.applySharedCart = function (action) {
     showToast('Cart replaced with shared wardrobe!', 'success');
   } else if (action === 'merge') {
     window.pendingSharedCart.forEach(function (sharedItem) {
-      var existing = localCart.find(function (item) {
+      const existing = localCart.find(function (item) {
         return item.name === sharedItem.name && item.size === sharedItem.size;
       });
       if (existing) {
@@ -1921,12 +2029,12 @@ window.loadSavedItems = function () {
     row.innerHTML = `
             <div class="cart-item-left" style="opacity:0.8;">
                 <div class="cart-item-img-wrap">
-                    <img src="${item.image}" alt="${item.name}" loading="lazy" />
+                    <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}" loading="lazy" />
                 </div>
                 <div class="cart-item-details">
-                    <span class="cart-item-brand">${item.brand || 'Premium Brand'}</span>
-                    <h5 class="cart-item-title">${item.name}</h5>
-                    <span class="cart-item-size">Size: ${item.size}</span>
+                    <span class="cart-item-brand">${escapeHtml(item.brand || 'Premium Brand')}</span>
+                    <h5 class="cart-item-title">${escapeHtml(item.name)}</h5>
+                    <span class="cart-item-size">Size: ${escapeHtml(String(item.size))}</span>
                 </div>
             </div>
             <div class="cart-item-right" style="flex-direction:row;align-items:center;justify-content:space-between;">
@@ -2152,3 +2260,165 @@ document.addEventListener('DOMContentLoaded', () => {
 /* --- END: PRODUCT QUICK-VIEW MODAL FUNCTIONALITY --- */
 
 // Debounce initialized
+
+/* ============================================================
+   EYEDROPPER API INTEGRATION
+   ============================================================ */
+document.addEventListener("DOMContentLoaded", () => {
+  const eyeDropperBtn = document.getElementById("eyeDropperBtn");
+  if (!eyeDropperBtn) return;
+
+  if ("EyeDropper" in window) {
+    eyeDropperBtn.style.display = "block";
+    
+    const BASE_COLORS = {
+      pink: {r: 255, g: 192, b: 203},
+      white: {r: 255, g: 255, b: 255},
+      red: {r: 255, g: 0, b: 0},
+      yellow: {r: 255, g: 255, b: 0},
+      blue: {r: 0, g: 0, b: 255},
+      brown: {r: 165, g: 42, b: 42},
+      beige: {r: 245, g: 245, b: 220},
+      khaki: {r: 240, g: 230, b: 140},
+      black: {r: 0, g: 0, b: 0},
+      green: {r: 0, g: 128, b: 0},
+      grey: {r: 128, g: 128, b: 128}
+    };
+
+    function hexToRgb(hex) {
+      const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+      } : null;
+    }
+
+    function getColorDistance(rgb1, rgb2) {
+      return Math.sqrt(
+        Math.pow(rgb1.r - rgb2.r, 2) +
+        Math.pow(rgb1.g - rgb2.g, 2) +
+        Math.pow(rgb1.b - rgb2.b, 2)
+      );
+    }
+
+    function getClosestColorName(hex) {
+      const rgb = hexToRgb(hex);
+      if (!rgb) return null;
+      let minDistance = Infinity;
+      let closestColor = null;
+      for (const [name, colorRgb] of Object.entries(BASE_COLORS)) {
+        const distance = getColorDistance(rgb, colorRgb);
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestColor = name;
+        }
+      }
+      return closestColor;
+    }
+
+    eyeDropperBtn.addEventListener("click", async () => {
+      try {
+        const eyeDropper = new EyeDropper();
+        const result = await eyeDropper.open();
+        const closestColor = getClosestColorName(result.sRGBHex);
+        
+        const colorFilter = document.getElementById("color-filter");
+        if (colorFilter && closestColor) {
+          let optionExists = Array.from(colorFilter.options).some(opt => opt.value === closestColor);
+          if (!optionExists) {
+            const newOption = document.createElement("option");
+            newOption.value = closestColor;
+            newOption.textContent = closestColor.charAt(0).toUpperCase() + closestColor.slice(1);
+            colorFilter.appendChild(newOption);
+          }
+          colorFilter.value = closestColor;
+          
+          if (typeof window.filterProducts === "function") {
+             window.filterProducts();
+          } else {
+             colorFilter.dispatchEvent(new Event("change"));
+          }
+          
+          if (typeof showToast === "function") {
+            showToast("Exact match found: filtered by closest shade (" + closestColor + ").", "success");
+          }
+        }
+      } catch (err) {
+        console.warn("EyeDropper canceled or failed", err);
+      }
+    });
+  }
+});
+
+/* ============================================================
+   SPECULATION RULES API (PRE-RENDERING)
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  const injectedUrls = new Set();
+  const HOVER_DELAY_MS = 200;
+  let hoverTimer = null;
+  let currentTargetCard = null;
+
+  document.body.addEventListener('mouseover', (e) => {
+    const proCard = e.target.closest('.pro');
+    if (!proCard) return;
+
+    if (currentTargetCard === proCard) return;
+
+    if (hoverTimer) {
+      clearTimeout(hoverTimer);
+    }
+    
+    currentTargetCard = proCard;
+
+    hoverTimer = setTimeout(() => {
+      let targetUrl = 'singleProduct.html';
+
+      const onclickAttr = proCard.getAttribute('onclick');
+      if (onclickAttr) {
+        const match = onclickAttr.match(/window\.location\.href\s*=\s*['"]([^'"]+)['"]/);
+        if (match && match[1]) {
+          targetUrl = match[1];
+        }
+      }
+
+      if (
+        HTMLScriptElement.supports &&
+        HTMLScriptElement.supports('speculationrules') &&
+        !injectedUrls.has(targetUrl)
+      ) {
+        const script = document.createElement('script');
+        script.type = 'speculationrules';
+        script.textContent = JSON.stringify({
+          prerender: [
+            {
+              source: 'list',
+              urls: [targetUrl],
+            },
+          ],
+        });
+        document.head.appendChild(script);
+        injectedUrls.add(targetUrl);
+        console.log(`[Speculation Rules] Injected prerender rule for: ${targetUrl}`);
+      }
+    }, HOVER_DELAY_MS);
+  });
+
+  document.body.addEventListener('mouseout', (e) => {
+    const proCard = e.target.closest('.pro');
+    if (!proCard) return;
+
+    const relatedTarget = e.relatedTarget;
+    if (relatedTarget && proCard.contains(relatedTarget)) {
+      return;
+    }
+
+    if (hoverTimer && currentTargetCard === proCard) {
+      clearTimeout(hoverTimer);
+      hoverTimer = null;
+      currentTargetCard = null;
+    }
+  });
+});
+})();

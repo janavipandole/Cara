@@ -54,6 +54,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize slides markup
   function initSlides() {
+    // Guard against an empty source array so the carousel never renders empty.
+    if (TESTIMONIALS.length === 0) {
+      if (wrapper) wrapper.style.display = 'none';
+      return;
+    }
     track.innerHTML = TESTIMONIALS.map((t) => {
       const starsHTML = Array(t.rating)
         .fill('<i class="ri-star-fill"></i>')

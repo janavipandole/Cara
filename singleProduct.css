@@ -445,3 +445,57 @@
 }
 /* Fix #2419 */
 .animate-paused { animation-play-state: paused; }
+
+/* Device Posture API for Foldables (Issue #4724) */
+@media (horizontal-viewport-segments: 2) {
+    #pro-details {
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 80px; 
+        padding: 0;
+        gap: 0;
+    }
+    
+    #pro-details .single-pro-image {
+        width: env(viewport-segment-width 0 0, 50vw);
+        height: calc(100vh - 80px);
+        position: static;
+        overflow-y: auto;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    
+    #pro-details .single-pro-details {
+        width: env(viewport-segment-width 1 0, 50vw);
+        height: calc(100vh - 80px);
+        overflow-y: auto;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+}
+
+@media (vertical-viewport-segments: 2) {
+    #pro-details {
+        flex-direction: column;
+        margin-top: 80px;
+        padding: 0;
+        gap: 0;
+    }
+    
+    #pro-details .single-pro-image {
+        width: 100%;
+        height: calc(env(viewport-segment-height 0 0, 50vh) - 80px); 
+        position: static;
+        overflow-y: auto;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    
+    #pro-details .single-pro-details {
+        width: 100%;
+        height: env(viewport-segment-height 0 1, 50vh);
+        overflow-y: auto;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+}

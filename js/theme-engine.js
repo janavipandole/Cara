@@ -20,7 +20,11 @@ export function getSystemTheme() {
 
 export function getStoredTheme() {
   if (typeof localStorage !== 'undefined') {
-    return localStorage.getItem('cara_theme') || THEMES.SYSTEM;
+    try {
+      return localStorage.getItem('cara_theme') || THEMES.SYSTEM;
+    } catch (e) {
+      return THEMES.SYSTEM;
+    }
   }
   return THEMES.SYSTEM;
 }
@@ -29,7 +33,8 @@ export function resolveEffectiveTheme(themeChoice = getStoredTheme()) {
   if (themeChoice === THEMES.SYSTEM) {
     return getSystemTheme();
   }
-  return themeChoice;
+  const valid = Object.values(THEMES).includes(themeChoice);
+  return valid ? themeChoice : THEMES.LIGHT;
 }
 
 export function applyTheme(themeChoice) {
@@ -40,7 +45,11 @@ export function applyTheme(themeChoice) {
   }
 
   if (typeof localStorage !== 'undefined') {
-    localStorage.setItem('cara_theme', themeChoice);
+    try {
+      localStorage.setItem('cara_theme', themeChoice);
+    } catch (e) {
+      // Silently fail if localStorage is unavailable (e.g., Safari private mode, quota exceeded)
+    }
   }
 
   if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function') {

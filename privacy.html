@@ -252,7 +252,7 @@
       }
     </style>
     <link rel="manifest" href="/manifest.json">
-  <script src="js/error-boundary.js"></script>
+  <script type="module" src="js/error-boundary.js"></script>
 <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
@@ -260,6 +260,7 @@
       });
     }
   </script>
+    <script type="module" src="js/config.js"></script>
 </head>
 
   <body>
@@ -542,7 +543,7 @@
     </footer>
 
     <div id="toast-container"></div>
-    <script src="app.js"></script>
+    <script type="module" src="app.js"></script>
     <script>
       (function initCookieConsent() {
         var consent = localStorage.getItem('cara_cookie_consent');
@@ -568,7 +569,7 @@
     <script id="Current-Year">
         document.getElementById("Current-Year").textContent = new Date().getFullYear();
     </script>
-  <script src="js/toc.js" defer></script>
+  <script type="module" src="js/toc.js" defer></script>
 </body>
 </html>
 

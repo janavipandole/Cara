@@ -1,7 +1,7 @@
 // CaraErrorBoundary — isolates runtime errors in dynamic sections
 // so one broken component doesn't blank out the whole page.
 
-const CaraErrorBoundary = (function () {
+window.CaraErrorBoundary = (function () {
   function renderFallback(container, message) {
     container.innerHTML = `
       <div class="cara-error-fallback" role="alert" style="
@@ -62,3 +62,5 @@ const CaraErrorBoundary = (function () {
 
   return { wrap, logError };
 })();
+
+function getErrorFallbackHTML(message = 'An unexpected error occurred.') { return `<div class="error-fallback-box"><p>${message}</p></div>`; }

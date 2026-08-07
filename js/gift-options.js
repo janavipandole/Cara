@@ -5,12 +5,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (!giftCheckbox) return;
 
+  const STORAGE_KEY = 'cara_gift_wrap';
+
+  // Restore the saved gift wrap choice so it survives page reloads.
+  let saved = false;
+  try {
+    saved = localStorage.getItem(STORAGE_KEY) === '1';
+  } catch (e) {
+    // Ignore storage failures in restricted environments.
+  }
+  giftCheckbox.checked = saved;
+  if (giftMsgArea) giftMsgArea.style.display = saved ? 'block' : 'none';
+
   // Toggle message area
   giftCheckbox.addEventListener('change', () => {
-    if (giftCheckbox.checked) {
-      if (giftMsgArea) giftMsgArea.style.display = 'block';
-    } else {
-      if (giftMsgArea) giftMsgArea.style.display = 'none';
+    const checked = giftCheckbox.checked;
+    if (giftMsgArea) giftMsgArea.style.display = checked ? 'block' : 'none';
+
+    try {
+      localStorage.setItem(STORAGE_KEY, checked ? '1' : '0');
+    } catch (e) {
+      // Ignore storage failures in restricted environments.
     }
 
     // Trigger centralized checkout summary update
@@ -19,3 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+
+function validateGiftMessageLength(message, maxChars = 200) { if (!message || typeof message !== 'string') return true; return message.trim().length <= maxChars; }

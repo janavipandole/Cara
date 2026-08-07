@@ -1,7 +1,6 @@
 """Tests for GET /api/products/ and GET /api/products/{id}."""
 from app.models import Product
-from app.database import get_db
-from tests.conftest import override_get_db, TestingSessionLocal
+from tests.conftest import TestingSessionLocal
 
 PRODUCTS_URL = "/api/products/"
 
@@ -50,3 +49,24 @@ def test_get_product_by_id(client):
 def test_get_product_not_found(client):
     r = client.get(f"{PRODUCTS_URL}999999")
     assert r.status_code == 404
+
+
+def test_products_checkout_endpoint_removed(client):
+    """Unauthenticated stock deduction via /api/products/checkout must not exist."""
+    db = TestingSessionLocal()
+    product = _seed_product(db, name="Stock Drain Target", stock=5)
+    starting_stock = product.stock
+    db.close()
+
+    response = client.post(
+        f"{PRODUCTS_URL}checkout",
+        json={"items": [{"name": "Stock Drain Target", "quantity": 5}]},
+    )
+
+    assert response.status_code in (404, 405, 422)
+
+    db = TestingSessionLocal()
+    remaining = db.query(Product).filter(Product.name == "Stock Drain Target").first()
+    assert remaining is not None
+    assert remaining.stock == starting_stock
+    db.close()

@@ -126,8 +126,8 @@
 
 
   </style>
-<script src="js/error-boundary.js"></script>
-<script src="js/error-logger.js"></script>
+<script type="module" src="js/error-boundary.js"></script>
+<script type="module" src="js/error-logger.js"></script>
   <link rel="manifest" href="/manifest.json">
   <script>
     if ('serviceWorker' in navigator) {
@@ -136,6 +136,7 @@
       });
     }
   </script>
+    <script type="module" src="js/config.js"></script>
 </head>
 
 <body>
@@ -156,6 +157,7 @@
         <li><a href="blog.html">Blog</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="try-on.html">Try-On</a></li>
+        <li><a href="authenticity.html">Authenticity</a></li>
         <li><a href="community.html">Community</a></li>
         <li><a href="promotions.html">Promotions</a></li>
 
@@ -209,6 +211,9 @@
       id="searchBar"
       placeholder="Search products..."
     >
+    <button id="scanBarcodeBtn" aria-label="Scan barcode" title="Scan Barcode" style="display: none;">
+      <i class="ri-barcode-box-line"></i>
+    </button>
   </div>
 </section>
 </main>
@@ -757,8 +762,8 @@
 
   <div id="toast-container"></div>
    <button id="topBtn">↑</button>
-<script src="navbar.js"></script>
-<script src="js/newsletter-subscribe.js" defer></script>
+<script type="module" src="navbar.js"></script>
+<script type="module" src="js/newsletter-subscribe.js" defer></script>
 <script>
   loadNavbar('home');
 </script>
@@ -831,12 +836,12 @@ if (btn) {
 }
 </script>
 <button id="backToTop">↑</button>
-<script src="js/session-lock.js" defer></script>
-<script src="js/live-sales-toast.js" defer></script>
+<script type="module" src="js/session-lock.js" defer></script>
+<script type="module" src="js/live-sales-toast.js" defer></script>
 </body>
 
 </html>
 
 <!-- Meta Content Security Policy configuration restricting script origins. -->
 
-<!-- Debounce Util --><script src='js/utils/debounce.js'></script>
+<!-- Debounce Util --><script type="module" src="js/utils/debounce.js"></script>

@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="checkout.css" />
   <link rel="stylesheet" href="currency-converter.css" />
   <link rel="manifest" href="/manifest.json">
-  <script src="js/error-boundary.js"></script>
+  <script type="module" src="js/error-boundary.js"></script>
 <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
@@ -32,6 +32,8 @@
     }
   </script>
   <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
+    <script type="module" src="js/config.js"></script>
+  <script src="assets/js/skip-link.js" defer></script>
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -54,7 +56,7 @@
 
 
   <!-- PAGE -->
-  <div class="page-wrapper">
+  <main id="main-content" class="page-wrapper" tabindex="-1">
 
     <!-- Back button -->
     <button class="back-btn" onclick="window.location.href='cart.html'">
@@ -271,7 +273,7 @@
       </div>
 
     </form>
-  </div><!-- /page-wrapper -->
+  </main><!-- /page-wrapper -->
 
   <!-- SUCCESS POPUP -->
   <div class="success-overlay" id="successPopup">
@@ -283,16 +285,20 @@
     </div>
   </div>
 
-  <script src="checkout.js"></script>
-  <script src="js/coupon-config.js"></script>
-  <script src="js/coupon-validator.js" defer></script>
-  <script src="js/gift-options.js" defer></script>
-  <script src="js/checkout-timer.js" defer></script>
-  <script src="js/loyalty.js" defer></script>
-  <script src="js/checkout-autosave.js" defer></script>
+  <script type="module" src="js/promo-discount-calculator.js"></script>
+  <script type="module" src="checkout.js"></script>
+  <script type="module" src="js/coupon-validator.js" defer></script>
+  <script type="module" src="js/gift-options.js" defer></script>
+  <script type="module" src="js/checkout-timer.js" defer></script>
+  
+  <script type="module" src="js/checkout-autosave.js" defer></script>
   <script type="module" src="js/checkout-validator.js"></script>
   <script src="js/autocomplete-loader.js" defer></script>
   <script src="js/address-autocomplete.js" defer></script>
 </main>
 </body>
 </html>
+
+<script src="js/checkout-vault.js"></script>
+<script src="js/checkout-wizard.js"></script>
+<script type="module" src="js/pincode-validation-engine.js"></script>

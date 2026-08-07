@@ -20,6 +20,7 @@
 
   const STORAGE_PREFIX = 'cara_reviews_';
   const MAX_REVIEWS_STORED = 50;
+  const reviewEngine = typeof ProductReviewAggregator !== 'undefined' ? new ProductReviewAggregator() : null;
 
   // ── Utility helpers ────────────────────────────────────────────────────────
 
@@ -33,12 +34,15 @@
     }
       return [];
     }
-  }
-
+  
   function _saveReviews(productId, reviews) {
     // Cap stored reviews to prevent unbounded localStorage growth
     const trimmed = reviews.slice(0, MAX_REVIEWS_STORED);
-    localStorage.setItem(STORAGE_PREFIX + productId, JSON.stringify(trimmed));
+    try {
+      localStorage.setItem(STORAGE_PREFIX + productId, JSON.stringify(trimmed));
+    } catch (err) {
+      console.warn('Failed to save reviews to localStorage:', err);
+    }
   }
 
   function _escape(str) {
@@ -60,19 +64,21 @@
     }
       return iso;
     }
-  }
-
+  
   // ── Calculate aggregate stats ─────────────────────────────────────────────
 
   function _calcStats(reviews) {
     if (!reviews.length) return { avg: 0, total: 0, dist: [0, 0, 0, 0, 0] };
     const dist = [0, 0, 0, 0, 0];
     const sum = reviews.reduce((acc, r) => {
-      dist[r.rating - 1]++;
-      return acc + r.rating;
+      if (typeof r.rating === 'number' && r.rating >= 1 && r.rating <= 5) {
+        dist[r.rating - 1]++;
+        return acc + r.rating;
+      }
+      return acc;
     }, 0);
     return {
-      avg: (sum / reviews.length).toFixed(1),
+      avg: parseFloat((sum / reviews.length).toFixed(1)),
       total: reviews.length,
       dist,
     };
@@ -270,13 +276,16 @@
       form.addEventListener('submit', (e) => {
         e.preventDefault();
 
-        const author = form.querySelector('#reviewAuthor').value.trim();
-        const rating = parseInt(
-          (form.querySelector('.review-star-input:checked') || {}).value,
-          10,
-        );
-        const title = (form.querySelector('#reviewTitle').value || '').trim();
-        const body = form.querySelector('#reviewBody').value.trim();
+        const authorEl = form.querySelector('#reviewAuthor');
+        const ratingEl = form.querySelector('.review-star-input:checked');
+        const titleEl = form.querySelector('#reviewTitle');
+        const bodyEl = form.querySelector('#reviewBody');
+        if (!authorEl || !bodyEl) return;
+
+        const author = authorEl.value.trim();
+        const rating = parseInt((ratingEl || {value: '0'}).value, 10);
+        const title = (titleEl ? titleEl.value : '').trim();
+        const body = bodyEl.value.trim();
 
         let valid = true;
 
@@ -285,24 +294,24 @@
         const bodyErr = form.querySelector('#bodyError');
 
         if (!author) {
-          authorErr.textContent = 'Please enter your name.';
+          if (authorErr) authorErr.textContent = 'Please enter your name.';
           valid = false;
         } else {
-          authorErr.textContent = '';
+          if (authorErr) authorErr.textContent = '';
         }
 
         if (!rating || rating < 1 || rating > 5) {
-          ratingErr.textContent = 'Please select a star rating.';
+          if (ratingErr) ratingErr.textContent = 'Please select a star rating.';
           valid = false;
         } else {
-          ratingErr.textContent = '';
+          if (ratingErr) ratingErr.textContent = '';
         }
 
         if (!body || body.length < 10) {
-          bodyErr.textContent = 'Review must be at least 10 characters.';
+          if (bodyErr) bodyErr.textContent = 'Review must be at least 10 characters.';
           valid = false;
         } else {
-          bodyErr.textContent = '';
+          if (bodyErr) bodyErr.textContent = '';
         }
 
         if (!valid) return;
@@ -354,7 +363,6 @@
           productId = 'unknown';
         }
       }
-    }
     productId = productId || 'unknown';
     _render(container, productId);
   }
