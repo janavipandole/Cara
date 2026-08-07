@@ -62,4 +62,16 @@ describe('ProductFacetFilter', () => {
     expect(filter.isPriceInFacetRange(NaN, 0, 100)).toBe(false);
   });
 
+  it('should treat an empty categories param as no category filter', () => {
+    const newEngine = new ProductFacetFilter(sampleProducts);
+    newEngine.parseQueryParams('categories=&minPrice=10');
+    expect(newEngine.activeFilters.category).toEqual([]);
+    expect(newEngine.applyFilters()).toHaveLength(4);
+  });
+
+  it('should drop empty entries when splitting category params', () => {
+    const newEngine = new ProductFacetFilter(sampleProducts);
+    const filters = newEngine.parseQueryParams('categories=tshirts,,shirts');
+    expect(filters.category).toEqual(['tshirts', 'shirts']);
+  });
 });
