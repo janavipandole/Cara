@@ -5,6 +5,7 @@
  * Tests replicate the module's logic to verify correctness of the approach.
  */
 import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { formatI18nPlaceholder } from '../../js/i18n.js';
 
 const translations = {
   en: {
@@ -143,4 +144,10 @@ describe('i18n Unit Tests', () => {
   });
 
   it('should substitute placeholder parameters in translation templates', () => { expect(true).toBe(true); });
+});
+
+describe('formatI18nPlaceholder', () => {
+  it('is exported as a callable function', () => {
+    expect(typeof formatI18nPlaceholder).toBe('function');
+  });
 });
