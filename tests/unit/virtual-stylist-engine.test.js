@@ -30,4 +30,33 @@ describe('VirtualStylistEngine', () => {
     expect(ranked[0].item.id).toBe('b2');
     expect(ranked[0].score).toBeGreaterThan(ranked[1].score);
   });
+
+  it('should treat color comparison as case-insensitive and trimmed', () => {
+    expect(engine.isColorCompatible('  BLUE ', 'white')).toBe(true);
+    expect(engine.isColorCompatible('Blue', 'WHITE')).toBe(true);
+  });
+
+  it('should return true for identical colors', () => {
+    expect(engine.isColorCompatible('red', 'red')).toBe(true);
+    expect(engine.isColorCompatible('', '')).toBe(true);
+  });
+
+  it('should return 0 when either outfit item is missing', () => {
+    expect(engine.calculateOutfitScore(null, { category: 'jeans' })).toBe(0);
+    expect(engine.calculateOutfitScore({ category: 'shirts' }, null)).toBe(0);
+  });
+
+  it('should cap outfit scores at 100', () => {
+    const top = { category: 'shirts', color: 'blue' };
+    const bottom = { category: 'pants', color: 'white' };
+    // base 50 + 30 category + 20 color = 100 (capped)
+    expect(engine.calculateOutfitScore(top, bottom)).toBe(100);
+  });
+
+  it('should return an empty list for invalid catalog input', () => {
+    const top = { category: 'shirts', color: 'blue' };
+    expect(engine.recommendBottoms(top, null)).toEqual([]);
+    expect(engine.recommendBottoms(top, 'not-an-array')).toEqual([]);
+    expect(engine.recommendBottoms(null, [])).toEqual([]);
+  });
 });
