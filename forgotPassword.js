@@ -1,162 +1,66 @@
 /* ===== FORGOT PASSWORD JS ===== */
 
 document.addEventListener('DOMContentLoaded', function () {
-  if (!document.getElementById('forgotForm')) return;
+  const form = document.getElementById('forgotForm');
+  if (!form) return;
 
-  const toggleNewPass = document.getElementById('toggleNewPass');
-  if (toggleNewPass) {
-    toggleNewPass.addEventListener('click', function () {
-      const pwd = document.getElementById('forgotNewPass');
-      pwd.type = pwd.type === 'password' ? 'text' : 'password';
-      this.classList.toggle('ri-eye-line');
-      this.classList.toggle('ri-eye-off-line');
-    });
-  }
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
 
-  const toggleConfirmPass = document.getElementById('toggleConfirmPass');
-  if (toggleConfirmPass) {
-    toggleConfirmPass.addEventListener('click', function () {
-      const pwd = document.getElementById('forgotConfirmPass');
-      pwd.type = pwd.type === 'password' ? 'text' : 'password';
-      this.classList.toggle('ri-eye-line');
-      this.classList.toggle('ri-eye-off-line');
-    });
-  }
+    const emailInput = document.getElementById('forgotEmail');
+    const email = (emailInput.value || '').trim();
+    const messageEl = document.getElementById('forgotMessage');
+    const errorEl = document.getElementById('forgotEmailError');
 
-  document
-    .getElementById('forgotForm')
-    .addEventListener('submit', function (e) {
-      e.preventDefault();
+    if (messageEl) messageEl.textContent = '';
+    if (errorEl) errorEl.textContent = '';
 
-      let email = document.getElementById('forgotEmail').value.trim();
-      if (
-        typeof window !== 'undefined' &&
-        typeof window.sanitizeHTML === 'function'
-      ) {
-        email = window.sanitizeHTML(email);
-      }
-      const newPass = document.getElementById('forgotNewPass').value;
-      const confirmPass = document.getElementById('forgotConfirmPass').value;
+    if (!email || !email.includes('@')) {
+      showToast('Please enter a valid email!', 'warning');
+      return;
+    }
 
-      /* validations — each check returns early so only one message shows at a time */
-      if (!email || !email.includes('@')) {
-        showToast('Please enter a valid email!', 'warning');
-        return;
-      }
+    const submitBtn = document.querySelector(
+      '#forgotForm button[type="submit"], #forgotForm .btn-primary',
+    );
+    if (submitBtn) {
+      submitBtn.classList.add('btn-loading');
+      submitBtn.disabled = true;
+    }
 
-      if (!newPass) {
-        showToast('Password is required.', 'warning');
-        return;
-      }
+    const API_BASE = window.CARA_API_BASE_URL || '';
 
-      if (/\s/.test(newPass)) {
-        showToast('Password must not contain spaces.', 'warning');
-        return;
-      }
-
-      if (newPass.length < 8) {
-        showToast('Password must be at least 8 characters long.', 'warning');
-        return;
-      }
-
-      if (!/[A-Z]/.test(newPass)) {
-        showToast(
-          'Password must contain at least one uppercase letter (A-Z).',
-          'warning',
-        );
-        return;
-      }
-
-      if (!/[a-z]/.test(newPass)) {
-        showToast(
-          'Password must contain at least one lowercase letter (a-z).',
-          'warning',
-        );
-        return;
-      }
-
-      if (!/[0-9]/.test(newPass)) {
-        showToast(
-          'Password must contain at least one number (0-9).',
-          'warning',
-        );
-        return;
-      }
-
-      if (!/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(newPass)) {
-        showToast(
-          'Password must contain at least one special character (e.g. @, #, $).',
-          'warning',
-        );
-        return;
-      }
-
-      if (newPass !== confirmPass) {
-        showToast('Passwords do not match!', 'warning');
-        return;
-      }
-
-      const submitBtn = document.querySelector(
-        '#forgotForm button[type="submit"], #forgotForm .btn-primary',
-      );
-      if (submitBtn) {
-        submitBtn.classList.add('btn-loading');
-        submitBtn.disabled = true;
-      }
-
-      const API_BASE = window.CARA_API_BASE_URL || '';
-
-      fetch(API_BASE + '/api/auth/forgot-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email }),
-      })
-        .then(function (res) {
-          if (!res.ok) {
-            return res.json().then(function (data) {
-              throw new Error(data.detail || 'Request failed');
-            });
-          }
-          return res.json();
-        })
-        .then(function (data) {
-          const resetToken = data.reset_token;
-
-          return fetch(API_BASE + '/api/auth/reset-password', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              token: resetToken,
-              new_password: newPass,
-            }),
+    fetch(API_BASE + '/api/auth/forgot-password', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email }),
+    })
+      .then(function (res) {
+        if (!res.ok) {
+          return res.json().then(function (data) {
+            throw new Error(data.detail || 'Request failed');
           });
-        })
-        .then(function (res) {
-          if (!res.ok) {
-            return res.json().then(function (data) {
-              throw new Error(data.detail || 'Reset failed');
-            });
-          }
-          return res.json();
-        })
-        .then(function () {
-          showToast(
-            'Password reset successful! Redirecting to login...',
-            'success',
-          );
-          setTimeout(function () {
-            window.location.href = 'login.html';
-          }, 2000);
-        })
-        .catch(function (err) {
-          console.warn("[ForgotPassword] Failed:", err);
-          showToast(err.message || 'Password reset failed', 'error');
-        })
-        .finally(function () {
-          if (submitBtn) {
-            submitBtn.classList.remove('btn-loading');
-            submitBtn.disabled = false;
-          }
-        });
-    });
+        }
+        return res.json();
+      })
+      .then(function (data) {
+        // The backend never returns the reset token — it is delivered via the
+        // reset link in the email. Show the confirmation message only.
+        const msg =
+          data.message || 'If the email exists, a reset link has been sent.';
+        if (messageEl) messageEl.textContent = msg;
+        showToast(msg, 'success');
+        emailInput.value = '';
+      })
+      .catch(function (err) {
+        console.warn('[ForgotPassword] Failed:', err);
+        showToast(err.message || 'Request failed', 'error');
+      })
+      .finally(function () {
+        if (submitBtn) {
+          submitBtn.classList.remove('btn-loading');
+          submitBtn.disabled = false;
+        }
+      });
+  });
 });

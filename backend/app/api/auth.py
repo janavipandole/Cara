@@ -10,6 +10,7 @@ from ..database import get_db
 from .. import models
 from ..schemas import UserRegister, UserLogin, Token, UserOut, ForgotPasswordRequest, ResetPasswordRequest
 from ..limiter import limiter
+from ..mailer import send_password_reset_email
 from PIL import Image, ImageDraw
 import io
 import base64
@@ -339,7 +340,7 @@ def forgot_password(
         return {"message": "If the email exists, a reset link has been sent"}
 
     token = secrets.token_urlsafe(32)
-    expires_at = datetime.now(timezone.utc) + timedelta(hours=1)
+    expires_at = datetime.now(timezone.utc).replace(tzinfo=None) + timedelta(hours=1)
 
     reset_token = models.PasswordResetToken(
         user_id=user.id,
@@ -348,6 +349,9 @@ def forgot_password(
     )
     db.add(reset_token)
     db.commit()
+
+    # Deliver a one-time reset link via email (dev mode logs the link).
+    send_password_reset_email(user.email, token)
 
     return {"message": "If the email exists, a reset link has been sent"}
 
@@ -364,7 +368,7 @@ def reset_password(
         .filter(
             models.PasswordResetToken.token == payload.token,
             models.PasswordResetToken.used == False,
-            models.PasswordResetToken.expires_at > datetime.now(timezone.utc),
+            models.PasswordResetToken.expires_at > datetime.now(timezone.utc).replace(tzinfo=None),
         )
         .first()
     )
