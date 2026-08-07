@@ -72,7 +72,25 @@ describe('error-boundary.js unit tests', () => {
     expect(errorSpy).not.toHaveBeenCalled();
   });
 
-  it('should render fallback box on error', () => {
-    expect(true).toBe(true);
+  it('wrap renders the fallback message when renderFn throws', () => {
+    const renderFn = vi.fn(() => {
+      throw new Error('Custom failure');
+    });
+    CaraErrorBoundary.wrap('#test-target', renderFn);
+    const fallback = container.querySelector('.cara-error-fallback');
+    expect(fallback).not.toBeNull();
+    expect(fallback.querySelector('p').textContent).toContain(
+      'Something went wrong loading this section.',
+    );
+    expect(fallback.querySelector('.cara-error-retry')).not.toBeNull();
+  });
+
+  it('wrap leaves the container untouched when renderFn succeeds', () => {
+    const renderFn = vi.fn(() => {
+      container.innerHTML = '<p class="ok">loaded</p>';
+    });
+    CaraErrorBoundary.wrap('#test-target', renderFn);
+    expect(container.querySelector('.ok')).not.toBeNull();
+    expect(container.querySelector('.cara-error-fallback')).toBeNull();
   });
 });
