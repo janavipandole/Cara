@@ -90,4 +90,4 @@ export class CartSyncManager {
 }
 
 
-function shouldCompressPayload(payload) { return typeof payload === 'string' && payload.length > 500; }
+export function shouldCompressPayload(payload) { return typeof payload === 'string' && payload.length > 500; }
