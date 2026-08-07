@@ -65,7 +65,11 @@ function renderOrders(orders) {
       <td>${escapeHtml(formatCurrency(order.total_amount))}</td>
       <td><span class="${escapeHtml(statusClass(order.status))}">${escapeHtml(order.status)}</span></td>
       <td><button class="details-btn" type="button" data-order-id="${escapeHtml(order.id)}">View</button></td>
-       <td><button class="cancel-btn" type="button" data-order-id="${escapeHtml(order.id)}">Cancel</button></td>
+       <td>${
+         ["PENDING", "CONFIRMED"].includes(String(order.status || "").toUpperCase())
+           ? `<button class="cancel-btn" type="button" data-order-id="${escapeHtml(order.id)}">Cancel</button>`
+           : ""
+       }</td>
     `;
 
     tbody.appendChild(row);

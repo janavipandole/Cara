@@ -223,6 +223,7 @@ def create_order(
     }
 
 CANCELLABLE_WINDOW_HOURS = 24
+CANCELLABLE_STATUSES = frozenset({"PENDING", "CONFIRMED"})
 
 @router.post("/{order_id}/cancel")
 def cancel_order(
@@ -244,6 +245,12 @@ def cancel_order(
 
     if order.status == "CANCELLED":
         raise HTTPException(status_code=400, detail="Order is already cancelled")
+
+    if order.status not in CANCELLABLE_STATUSES:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Orders with status {order.status} cannot be cancelled",
+        )
 
     order_age = datetime.now(timezone.utc) - order.created_at.replace(tzinfo=timezone.utc)
     if order_age > timedelta(hours=CANCELLABLE_WINDOW_HOURS):

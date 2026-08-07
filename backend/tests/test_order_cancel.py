@@ -120,3 +120,35 @@ def test_cancel_already_cancelled_does_not_double_restock(client):
     product = db.query(Product).filter(Product.name == "Double Cancel Shirt").first()
     assert product.stock == 5
     db.close()
+
+
+def test_cancel_rejects_shipped_order(client):
+    headers = _auth_headers(client, username="shipuser", email="ship@example.com")
+    db = TestingSessionLocal()
+    _seed_product(db, name="Shipped Cancel Shirt", stock=4)
+    db.close()
+
+    create = client.post(
+        ORDERS_URL,
+        headers=headers,
+        json={
+            "fullName": "Test User",
+            "email": "ship@example.com",
+            "address": "1 Test St",
+            "city": "Testville",
+            "zip": "12345",
+            "items": [{"product_name": "Shipped Cancel Shirt", "quantity": 1}],
+        },
+    )
+    assert create.status_code == 201, create.text
+    order_id = create.json()["order_id"]
+
+    db = TestingSessionLocal()
+    order = db.query(Order).filter(Order.id == order_id).first()
+    order.status = "SHIPPED"
+    db.commit()
+    db.close()
+
+    cancel = client.post(f"{ORDERS_URL}{order_id}/cancel", headers=headers)
+    assert cancel.status_code == 400
+    assert "cannot be cancelled" in cancel.json()["detail"]
