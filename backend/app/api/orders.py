@@ -113,6 +113,12 @@ def create_order(
     if existing:
         return _idempotent_replay(existing.id)
 
+    if order_data.email.lower() != current_user.email.lower():
+        raise HTTPException(
+            status_code=400,
+            detail="Checkout email must match the authenticated account email",
+        )
+
     subtotal = 0.0
     db_items = []
 

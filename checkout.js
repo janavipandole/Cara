@@ -705,11 +705,30 @@ function highlightError(el) {
 // Call init on DOM ready
 function initCheckoutPage() {
   initCheckoutValidation();
+  prefillAccountEmail();
 
   CaraErrorBoundary.wrap('#checkoutForm', function () {
     renderCheckoutItems();
     window.updateCheckoutSummary();
   });
+}
+
+function prefillAccountEmail() {
+  const emailInput = document.getElementById('email');
+  if (!emailInput) return;
+
+  fetch(`${API_BASE_URL}/api/auth/me`, { credentials: 'include' })
+    .then((res) => (res.ok ? res.json() : null))
+    .then((data) => {
+      if (!data || !data.email) return;
+      emailInput.value = data.email;
+      emailInput.readOnly = true;
+      emailInput.setAttribute('aria-readonly', 'true');
+      emailInput.title = 'Orders are tied to your account email';
+    })
+    .catch(() => {
+      /* anonymous / offline — leave the field editable until submit auth fails */
+    });
 }
 
 document.addEventListener('DOMContentLoaded', initCheckoutPage);
