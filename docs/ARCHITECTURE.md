@@ -1,15 +1,24 @@
-# Cara Technical Architecture Guide 🛠️
+# Cara Technical Architecture Guide
 
-This document maps out the system architecture, frontend data models, local storage schemas, and event propagation flows inside the **Cara** E-Commerce client application.
+This document maps out the system architecture, frontend data models, local
+storage schemas, and event propagation flows inside the **Cara** E-Commerce
+client application.
 
 ## Overview
-Cara is a modern e-commerce architecture: static HTML/CSS/JS on the client and a FastAPI backend under `backend/` (Postgres via Docker Compose or SQLite locally).
+
+Cara is a modern e-commerce architecture: static HTML/CSS/JS on the client and
+a FastAPI backend under `backend/` (Postgres via Docker Compose or SQLite
+locally).
 
 ## CSS
-See root `ARCHITECTURE.md` and `css/README.md` for the tokens → style.css layering model. `global.css` / `bundle.css` are compatibility shims.
+
+See root `ARCHITECTURE.md` and `css/README.md` for the tokens → `style.css`
+layering model. `global.css` / `bundle.css` are compatibility shims.
 
 ## Local Storage Schema Map
-The application implements persistent data states using synchronous key-value mappings in `localStorage`:
+
+The application implements persistent data states using synchronous key-value
+mappings in `localStorage`:
 
 | Key | Format | Description |
 |---|---|---|
@@ -18,6 +27,7 @@ The application implements persistent data states using synchronous key-value ma
 | `theme` | `String` | Visual dark or light preference setting (`dark` or `light`). |
 
 ## Event & Rendering Flow Diagram
+
 ```mermaid
 graph TD
     User([User Interactive Interaction]) --> DOM[DOM Event Listeners]
@@ -28,5 +38,8 @@ graph TD
 ```
 
 ## Security Best Practices
-- **Strict Client-side Validation**: Interactive inputs utilize built-in sanitization.
-- **Toast Messaging Boundaries**: System notifications run non-blocking, isolated timers.
+
+- **Strict Client-side Validation**: Interactive inputs utilize built-in
+  sanitization.
+- **Toast Messaging Boundaries**: System notifications run non-blocking,
+  isolated timers.
