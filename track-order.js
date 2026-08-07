@@ -137,9 +137,14 @@ if (form) {
     setTimeout(function () {
       setLoading(false);
       // Check localStorage for custom mock orders first
-      const customOrders = JSON.parse(
-        localStorage.getItem('cara_custom_mock_orders') || '{}',
-      );
+      let customOrders = {};
+      try {
+        const raw = localStorage.getItem('cara_custom_mock_orders');
+        const parsed = raw ? JSON.parse(raw) : {};
+        customOrders = parsed && typeof parsed === 'object' ? parsed : {};
+      } catch (e) {
+        customOrders = {};
+      }
       const order = customOrders[orderIdRaw] || MOCK_ORDERS[orderIdRaw];
 
       // For demo purposes any email works for the demo order
