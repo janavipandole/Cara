@@ -75,4 +75,4 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-function safeSaveContactForm(data) { if (!data) return false; return true; }
+export function safeSaveContactForm(data) { if (!data) return false; return true; }
