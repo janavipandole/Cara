@@ -65,9 +65,11 @@
       setTimeout(function () { oldest.remove(); }, 300);
     }
 
-    // Fade in
+    // Fade in and continue processing the queue
     requestAnimationFrame(function () {
       el.style.opacity = '1';
+      isProcessing = false;
+      processQueue();
     });
 
     // Dismiss on click
