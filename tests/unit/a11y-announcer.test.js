@@ -82,4 +82,17 @@ describe('a11y-announcer Unit Tests', () => {
     expect(polite.textContent).toBe('');
   });
 
+  it('should clear the assertive region too when clearing announcements', () => {
+    initAnnouncer();
+    const assertive = document.getElementById('a11y-announcer-assertive');
+    assertive.textContent = 'Stale alert';
+    clearAnnouncements();
+    expect(assertive.textContent).toBe('');
+  });
+
+  it('should announce an empty message without throwing', () => {
+    initAnnouncer();
+    expect(() => announce('')).not.toThrow();
+    expect(() => announce(null)).not.toThrow();
+  });
 });
