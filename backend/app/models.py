@@ -93,6 +93,9 @@ class Order(Base):
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     # Uniqueness is scoped per buyer email via uq_orders_email_idempotency_key
     idempotency_key = Column(String, index=True, nullable=True)
+    # Loyalty redemption recorded explicitly so the charged total is auditable.
+    loyalty_points_redeemed = Column(Integer, default=0, nullable=False)
+    loyalty_discount = Column(Float, default=0.0, nullable=False)
 
 class PasswordResetToken(Base):
     __tablename__ = "password_reset_tokens"
@@ -118,3 +121,15 @@ class OrderItem(Base):
     quantity = Column(Integer, nullable=False)
     price = Column(Float, nullable=False)
     order = relationship("Order")
+
+
+class LoyaltyAccount(Base):
+    """Server-side loyalty balance per user (authoritative balance source)."""
+    __tablename__ = "loyalty_accounts"
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(
+        Integer, ForeignKey("users.id"), unique=True, index=True, nullable=False
+    )
+    balance = Column(Integer, default=0, nullable=False)
+
+    user = relationship("User")

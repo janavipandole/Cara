@@ -144,6 +144,8 @@ class OrderResponse(BaseModel):
     total_amount: float
     status: str
     created_at: datetime
+    loyalty_points_redeemed: int = 0
+    loyalty_discount: float = 0.0
     items: list[OrderItemResponse] = Field(default_factory=list)
 
     class Config:
@@ -161,6 +163,7 @@ class OrderCreate(BaseModel):
     zip: str
     items: list[OrderItemCreate]
     coupon: Optional[str] = None
+    loyalty_points: Optional[int] = Field(default=0, ge=0)
     idempotency_key: Optional[str] = None
 
 

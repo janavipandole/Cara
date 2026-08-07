@@ -366,6 +366,8 @@ function submitCheckoutForm() {
     city: document.getElementById('city').value.trim(),
     zip: document.getElementById('zip').value.trim(),
     coupon: window.appliedCoupon,
+    loyalty_points:
+      parseInt(localStorage.getItem('cara_applied_loyalty_points'), 10) || 0,
     idempotency_key: checkoutIdempotencyKey,
     items: cart.map((item) => ({
       product_name: item.name,
@@ -398,20 +400,31 @@ function submitCheckoutForm() {
       }
 
       // DEDUCT & ADD LOYALTY POINTS ON SUCCESSFUL ORDER
-      const appliedPoints =
-        parseInt(localStorage.getItem('cara_applied_loyalty_points'), 10) || 0;
-      const currentBalance =
-        parseInt(localStorage.getItem('cara_loyalty_balance'), 10) || (window.CARA_CONFIG ? window.CARA_CONFIG.LOYALTY.DEFAULT_BALANCE : 150);
-      const subtotal = cart.reduce(
-        (sum, item) =>
-          sum + parsePriceString(item.price) * (parseInt(item.quantity, 10) || 1),
-        0,
-      );
-      const earnedPoints = Math.floor(subtotal * (window.CARA_CONFIG ? window.CARA_CONFIG.LOYALTY.POINTS_PER_RUPEE / 100 : 0.1));
-      const newBalance = Math.max(
-        0,
-        currentBalance - appliedPoints + earnedPoints,
-      );
+      // Prefer the authoritative balance returned by the server; fall back to
+      // the local cache only when the response does not include it.
+      let newBalance = null;
+      if (
+        res.body &&
+        typeof res.body.loyalty_balance === 'number' &&
+        res.body.loyalty_balance >= 0
+      ) {
+        newBalance = res.body.loyalty_balance;
+      } else {
+        const appliedPoints =
+          parseInt(localStorage.getItem('cara_applied_loyalty_points'), 10) || 0;
+        const currentBalance =
+          parseInt(localStorage.getItem('cara_loyalty_balance'), 10) || (window.CARA_CONFIG ? window.CARA_CONFIG.LOYALTY.DEFAULT_BALANCE : 150);
+        const subtotal = cart.reduce(
+          (sum, item) =>
+            sum + parsePriceString(item.price) * (parseInt(item.quantity, 10) || 1),
+          0,
+        );
+        const earnedPoints = Math.floor(subtotal * (window.CARA_CONFIG ? window.CARA_CONFIG.LOYALTY.POINTS_PER_RUPEE / 100 : 0.1));
+        newBalance = Math.max(
+          0,
+          currentBalance - appliedPoints + earnedPoints,
+        );
+      }
       localStorage.setItem('cara_loyalty_balance', newBalance);
       localStorage.removeItem('cara_applied_loyalty_points');
 
