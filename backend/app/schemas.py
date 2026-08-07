@@ -151,7 +151,7 @@ class OrderResponse(BaseModel):
 
 class OrderItemCreate(BaseModel):
     product_name: str
-    quantity: int = Field(gt=0)
+    quantity: int = Field(gt=0, le=99)
 
 class OrderCreate(BaseModel):
     fullName: str
@@ -159,7 +159,7 @@ class OrderCreate(BaseModel):
     address: str
     city: str
     zip: str
-    items: list[OrderItemCreate]
+    items: list[OrderItemCreate] = Field(min_length=1, max_length=50)
     coupon: Optional[str] = None
     idempotency_key: Optional[str] = None
 

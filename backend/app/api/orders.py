@@ -113,6 +113,9 @@ def create_order(
     if existing:
         return _idempotent_replay(existing.id)
 
+    if not order_data.items:
+        raise HTTPException(status_code=400, detail="Order must contain at least one item")
+
     subtotal = 0.0
     db_items = []
 
