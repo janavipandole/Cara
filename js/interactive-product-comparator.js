@@ -75,9 +75,10 @@ class InteractiveProductComparator {
 
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = InteractiveProductComparator;
+  module.exports.canAddMoreComparatorItems = canAddMoreComparatorItems;
 } else {
   window.InteractiveProductComparator = InteractiveProductComparator;
 }
 
 
-export function canAddMoreComparatorItems(currentCount, maxAllowed = 4) { return typeof currentCount === 'number' && currentCount < maxAllowed; }
+function canAddMoreComparatorItems(currentCount, maxAllowed = 4) { return typeof currentCount === 'number' && currentCount < maxAllowed; }
