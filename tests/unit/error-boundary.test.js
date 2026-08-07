@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
 
 // Mock console.error before importing so the module captures our spy
 const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
 
 import '../../js/error-boundary.js';
 
@@ -10,10 +11,17 @@ describe('error-boundary.js unit tests', () => {
 
   beforeEach(() => {
     errorSpy.mockClear();
+    warnSpy.mockClear();
     document.body.innerHTML = '';
     container = document.createElement('div');
     container.id = 'test-target';
     document.body.appendChild(container);
+    // Clear the internal log array
+    delete window._CaraErrorLog;
+  });
+
+  afterEach(() => {
+    delete window._CaraErrorLog;
   });
 
   it('wrap calls renderFn successfully and does not log an error', () => {
@@ -30,10 +38,12 @@ describe('error-boundary.js unit tests', () => {
     });
     CaraErrorBoundary.wrap('#test-target', renderFn);
     expect(renderFn).toHaveBeenCalledTimes(1);
-    expect(errorSpy).toHaveBeenCalledWith(
-      '[CaraErrorBoundary] Error in "#test-target":',
-      testError,
-    );
+    // logError now uses window._CaraErrorLog instead of console.error
+    expect(window._CaraErrorLog).toBeDefined();
+    expect(window._CaraErrorLog.length).toBeGreaterThan(0);
+    const entry = window._CaraErrorLog[0];
+    expect(entry.context).toBe('#test-target');
+    expect(entry.message).toBe('Render failed');
   });
 
   it('wrap renders a fallback div when renderFn throws', () => {
@@ -67,13 +77,16 @@ describe('error-boundary.js unit tests', () => {
     expect(renderFn).not.toHaveBeenCalled();
   });
 
-  it('logError formats the error with context', () => {
+  it('logError stores error in window._CaraErrorLog instead of console.error', () => {
     const err = new Error('test error');
     CaraErrorBoundary.logError(err, 'my-context');
-    expect(errorSpy).toHaveBeenCalledWith(
-      '[CaraErrorBoundary] Error in "my-context":',
-      err,
-    );
+    expect(errorSpy).not.toHaveBeenCalled();
+    expect(window._CaraErrorLog).toBeDefined();
+    expect(window._CaraErrorLog.length).toBe(1);
+    const entry = window._CaraErrorLog[0];
+    expect(entry.context).toBe('my-context');
+    expect(entry.message).toBe('test error');
+    expect(typeof entry.timestamp).toBe('number');
   });
 
   it('should render fallback box on error', () => { expect(true).toBe(true); });
