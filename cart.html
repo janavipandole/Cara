@@ -313,8 +313,11 @@
             // Calculate true 20% discount
             const discount = subtotal * 0.20;
             
+            // Include the shipping fee in the grand total (matches checkout)
+            const shipping = window.CaraShipping.computeFee(subtotal);
+            
             // Calculate correct Grand Total
-            const total = subtotal + tax - discount;
+            const total = subtotal + tax + shipping - discount;
             
             // Update the UI with beautiful formatting back into the summary card
             discountVal.textContent = "-₹" + discount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -327,7 +330,8 @@
           const taxText = document.getElementById("summary-tax").textContent.replace(/[₹$,]/g, "").trim();
           const subtotal = parseFloat(subtotalText) || 0;
           const tax = parseFloat(taxText) || 0;
-          document.getElementById("summary-total").textContent = "₹" + (subtotal + tax).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          const shipping = window.CaraShipping.computeFee(subtotal);
+          document.getElementById("summary-total").textContent = "₹" + (subtotal + tax + shipping).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         } else {
           feedback.innerHTML = `<span style="color: #ef4444;"><i class="ri-error-warning-fill"></i> Invalid coupon code. Try CARA20.</span>`;
           if (discountRow) discountRow.style.display = "none";
@@ -335,7 +339,8 @@
           const taxText = document.getElementById("summary-tax").textContent.replace(/[₹$,]/g, "").trim();
           const subtotal = parseFloat(subtotalText) || 0;
           const tax = parseFloat(taxText) || 0;
-          document.getElementById("summary-total").textContent = "₹" + (subtotal + tax).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          const shipping = window.CaraShipping.computeFee(subtotal);
+          document.getElementById("summary-total").textContent = "₹" + (subtotal + tax + shipping).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         }
       });
     }

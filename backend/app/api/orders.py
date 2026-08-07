@@ -9,6 +9,27 @@ from datetime import datetime, timezone, timedelta
 
 router = APIRouter()
 
+SHIPPING_FEE = 150.0
+FREE_SHIPPING_THRESHOLD = 3000.0
+EXPRESS_SHIPPING_FEE = 150.0
+INTERNATIONAL_SHIPPING_FEE = 450.0
+
+
+def _compute_shipping(subtotal: float, method: str | None) -> float:
+    """Shipping fee the buyer is shown at checkout.
+
+    Mirrors the cart/checkout estimator: a flat fee below the free-shipping
+    threshold plus a surcharge for express or international delivery. The
+    frontend persists the same choice and the checkout summary renders this
+    exact amount, so the displayed total always matches the charged total.
+    """
+    base = 0.0 if subtotal >= FREE_SHIPPING_THRESHOLD else SHIPPING_FEE
+    if method == "express":
+        return base + EXPRESS_SHIPPING_FEE
+    if method == "international":
+        return base + INTERNATIONAL_SHIPPING_FEE
+    return base
+
 
 def _existing_order_for_key(db: Session, email: str, idempotency_key: str | None):
     if not idempotency_key:
@@ -158,7 +179,7 @@ def create_order(
             )
         )
 
-    shipping = 0.0 if subtotal >= 3000 else 150.0
+    shipping = _compute_shipping(subtotal, order_data.shipping_method)
     tax = round(subtotal * 0.18, 2)
     discount = 0.0
 

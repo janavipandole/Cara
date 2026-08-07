@@ -28,43 +28,78 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
     `;
 
-  document.getElementById('calc-shipping-btn').addEventListener('click', () => {
-    const country = document.getElementById('ship-country').value;
-    const speed = document.getElementById('ship-speed').value;
-    let total = speed === 'exp' ? 150 : 0;
-    let days = speed === 'exp' ? '2-3 days' : '5-7 days';
+  const countrySelect = document.getElementById('ship-country');
+  const speedSelect = document.getElementById('ship-speed');
+  const feedbackEl = document.getElementById('calc-feedback');
+  const calcBtn = document.getElementById('calc-shipping-btn');
 
-    if (country !== 'IN') {
-      total += 450; // International shipping
-      days = speed === 'exp' ? '4-5 days' : '9-12 days';
+  // Restore the persisted shipping choice so the estimator reflects the fee
+  // that checkout will actually charge (the selection is carried over from a
+  // previous cart visit instead of being lost on navigation).
+  (function restoreSelection() {
+    if (!countrySelect || !speedSelect) return;
+    const method = window.CaraShipping.getMethod();
+    if (method === 'international') {
+      countrySelect.value = 'US';
+      speedSelect.value = 'std';
+    } else {
+      countrySelect.value = 'IN';
+      speedSelect.value = method === 'express' ? 'exp' : 'std';
     }
+  })();
 
-    document.getElementById('calc-feedback').innerHTML = `
-            Estimated Cost: ₹${total} <br>
+  function selectedMethod() {
+    const country = countrySelect ? countrySelect.value : 'IN';
+    const speed = speedSelect ? speedSelect.value : 'std';
+    if (country !== 'IN') return 'international';
+    if (speed === 'exp') return 'express';
+    return 'standard';
+  }
+
+  function calculateShipping() {
+    const method = selectedMethod();
+    window.CaraShipping.setMethod(method);
+
+    const subtotalEl = document.getElementById('summary-subtotal');
+    const subtotalText = subtotalEl
+      ? subtotalEl.textContent.replace(/[^\d\.]/g, '')
+      : '';
+    const subtotal = parseFloat(subtotalText) || 0;
+    const fee = window.CaraShipping.computeFee(subtotal);
+    const days =
+      method === 'international'
+        ? '9-12 days'
+        : method === 'express'
+          ? '2-3 days'
+          : '5-7 days';
+
+    if (feedbackEl) {
+      feedbackEl.innerHTML = `
+            Estimated Cost: ₹${fee} <br>
             Estimated Time: ${days}
         `;
+    }
 
     // Dynamically update Cart Totals summary if elements exist
     const shippingEl = document.getElementById('summary-shipping');
     const totalEl = document.getElementById('summary-total');
-    const subtotalEl = document.getElementById('summary-subtotal');
     const taxEl = document.getElementById('summary-tax');
     const discountEl = document.getElementById('summary-discount');
     if (shippingEl && totalEl && subtotalEl && taxEl) {
-      shippingEl.textContent = total === 0 ? 'FREE' : '₹' + total;
+      shippingEl.textContent = fee === 0 ? 'FREE' : '₹' + fee;
 
-      const subtotalText = subtotalEl.textContent.replace(/[^\d\.]/g, '');
-      const subtotal = parseFloat(subtotalText) || 0;
       const taxText = taxEl.textContent.replace(/[^\d\.]/g, '');
       const tax = parseFloat(taxText) || 0;
       const discount = discountEl
         ? parseFloat(discountEl.textContent.replace(/[^\d\.]/g, '')) || 0
         : 0;
 
-      const newTotal = Math.max(0, subtotal + tax + total - discount);
+      const newTotal = Math.max(0, subtotal + tax + fee - discount);
       totalEl.textContent = '₹' + Math.round(newTotal).toLocaleString('en-IN');
     }
-  });
-});
+  }
 
-// Shipping calculator applying regional fee rates inside cart summary containers.
+  if (calcBtn) calcBtn.addEventListener('click', calculateShipping);
+  if (countrySelect) countrySelect.addEventListener('change', calculateShipping);
+  if (speedSelect) speedSelect.addEventListener('change', calculateShipping);
+});
