@@ -31,4 +31,16 @@ describe('WishlistExportShare', () => {
     expect(csv).toContain('ID,Name,Price');
     expect(csv).toContain('"p1","Cotton Shirt","29.99"');
   });
+
+  it('should escape embedded quotes in CSV fields', () => {
+    const items = [
+      { id: 'p3', name: 'T-Shirt "Classic" Edition', price: 19.99 }
+    ];
+    const csv = exporter.exportToCSV(items);
+    expect(csv).toContain('"p3","T-Shirt ""Classic"" Edition","19.99"');
+    // The quoted field must remain a single parseable column.
+    const nameField = csv.split('\n')[1].split(',')[1];
+    expect(nameField.startsWith('"')).toBe(true);
+    expect(nameField.endsWith('"')).toBe(true);
+  });
 });
