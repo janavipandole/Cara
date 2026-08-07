@@ -156,12 +156,45 @@
   }
 
   function startToastCycle() {
-    // Show first toast after 6 seconds of landing
-    setTimeout(() => {
-      showLiveToast();
-      // Setup recurring timer afterwards
-      setInterval(showLiveToast, POPUP_INTERVAL);
-    }, 6000);
+    if (
+      window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
+      return;
+    }
+
+    let cycleTimer = null;
+    let initialTimer = null;
+
+    const clearCycle = () => {
+      if (initialTimer !== null) {
+        clearTimeout(initialTimer);
+        initialTimer = null;
+      }
+      if (cycleTimer !== null) {
+        clearInterval(cycleTimer);
+        cycleTimer = null;
+      }
+    };
+
+    const beginCycle = () => {
+      if (cycleTimer !== null) return;
+      initialTimer = setTimeout(() => {
+        showLiveToast();
+        cycleTimer = setInterval(showLiveToast, POPUP_INTERVAL);
+      }, 6000);
+    };
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        clearCycle();
+      } else {
+        beginCycle();
+      }
+    });
+
+    window.addEventListener('pagehide', clearCycle);
+    beginCycle();
   }
 
   // Auto-init on DOMContentLoaded
@@ -169,3 +202,6 @@
     startToastCycle();
   });
 })();
+
+
+function getSalesToastDisplayDuration() { return 4000; }

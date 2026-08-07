@@ -110,4 +110,19 @@ export class ProductReviewManager {
       distribution,
     };
   }
+
+  /**
+   * Strips HTML tags and dangerous characters from a review author name.
+   * @param {string} name
+   * @returns {string}
+   */
+  sanitizeReviewAuthorName(name) {
+    if (typeof name !== 'string') return '';
+    return name
+      .replace(/<[^>]*>/g, '')   // Remove HTML tags
+      .replace(/[<>"'&]/g, '')     // Remove XSS characters
+      .trim()
+      .slice(0, 80);               // Cap at 80 chars
+  }
+
 }

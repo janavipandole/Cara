@@ -34,4 +34,17 @@ describe('GridClsOptimizer Unit Tests', () => {
     expect(mockImg.style.aspectRatio).toBe('1 / 1');
     expect(mockImg.classList['cls-optimized']).toBe(true);
   });
+
+  it('should cleanup reserved dimensions for completed images', () => {
+    const img = document.createElement('img');
+    img.className = 'cls-optimized';
+    Object.defineProperty(img, 'complete', { value: true });
+    const mockContainer = {
+      querySelectorAll: () => [img]
+    };
+    const res = optimizer.cleanupReservedDimensions(mockContainer);
+    expect(res.cleaned).toBe(1);
+    expect(img.classList.contains('cls-optimized')).toBe(false);
+  });
+
 });

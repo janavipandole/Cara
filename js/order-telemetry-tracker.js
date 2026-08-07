@@ -13,6 +13,12 @@ class OrderTelemetryTracker {
     ];
   }
 
+
+  getCheckoutDurationMs(startTime) {
+    if (!startTime || typeof startTime !== 'number') return 0;
+    return Math.max(0, Date.now() - startTime);
+  }
+
   trackOrder(orderId = '') {
     if (!orderId || typeof orderId !== 'string') {
       return { success: false, message: 'Invalid order identifier.' };

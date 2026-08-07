@@ -511,9 +511,12 @@
     <script type="module" src="products.js"></script>
 
     <!-- Wishlist Sharing Utility -->
-    <div style="max-width: 1200px; margin: 20px auto; padding: 0 20px; text-align: center;">
+    <div style="max-width: 1200px; margin: 20px auto; padding: 0 20px; text-align: center; display: flex; justify-content: center; gap: 10px;">
       <button onclick="shareWishlist()" style="background: #088178; color: #fff; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 16px;">
         <i class="ri-share-line"></i> Copy Shareable Wishlist Link
+      </button>
+      <button onclick="exportWishlist()" style="background: #088178; color: #fff; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 16px;">
+        <i class="ri-download-line"></i> Export Wishlist
       </button>
     </div>
     <script>
@@ -524,6 +527,32 @@
       navigator.clipboard.writeText(shareUrl).then(() => {
         alert("Wishlist sharing link copied to clipboard!");
       });
+    }
+
+    async function exportWishlist() {
+      try {
+        const items = localStorage.getItem("wishlist") || "[]";
+        
+        if (window.showSaveFilePicker) {
+          const handle = await window.showSaveFilePicker({
+            suggestedName: 'cara-wishlist.json',
+            types: [{
+              description: 'JSON Files',
+              accept: { 'application/json': ['.json'] },
+            }],
+          });
+          const writable = await handle.createWritable();
+          await writable.write(items);
+          await writable.close();
+        } else {
+          alert("File System Access API is not supported in this browser.");
+        }
+      } catch (err) {
+        if (err.name !== 'AbortError') {
+          console.error('Failed to export wishlist:', err);
+          alert("Failed to export wishlist.");
+        }
+      }
     }
     </script>
     <!-- Global Toast Component -->

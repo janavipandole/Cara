@@ -78,3 +78,6 @@ if (typeof module !== 'undefined' && module.exports) {
 } else {
   window.InteractiveProductComparator = InteractiveProductComparator;
 }
+
+
+function canAddMoreComparatorItems(currentCount, maxAllowed = 4) { return typeof currentCount === 'number' && currentCount < maxAllowed; }

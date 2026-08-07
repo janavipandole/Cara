@@ -28,4 +28,10 @@ describe('OutfitCompatibilityEngine Unit Tests', () => {
     const res = engine.evaluatePair(top, bottom);
     expect(res.score).toBeLessThan(90);
   });
+
+  it('should calculate tag intersection compatibility score correctly', () => {
+    const score = engine.calculateTagScore(['casual', 'summer', 'denim'], ['casual', 'summer']);
+    expect(score).toBe(67);
+  });
+
 });

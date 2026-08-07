@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cara-cache-v1';
+const CACHE_NAME = 'cara-cache-v2';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
@@ -20,10 +20,69 @@ const ASSETS_TO_CACHE = [
   '/images/Dlogo.png',
 ];
 
+const STATIC_EXTENSIONS = [
+  '.css',
+  '.js',
+  '.png',
+  '.jpg',
+  '.jpeg',
+  '.webp',
+  '.gif',
+  '.svg',
+  '.ico',
+  '.woff',
+  '.woff2',
+];
+
+function isApiRequest(url) {
+  return url.pathname.startsWith('/api/');
+}
+
+function isNavigationRequest(request) {
+  if (request.mode === 'navigate') return true;
+  const accept = request.headers.get('accept') || '';
+  return accept.includes('text/html');
+}
+
+function isStaticAsset(url) {
+  return STATIC_EXTENSIONS.some((ext) => url.pathname.endsWith(ext));
+}
+
+function shouldBypassCache(request, url) {
+  // Never cache API JSON / credentialed backends or HTML navigations.
+  return isApiRequest(url) || isNavigationRequest(request);
+}
+
+function networkFirst(request) {
+  return fetch(request)
+    .then((networkResponse) => networkResponse)
+    .catch(() =>
+      caches.match(request).then((cached) => cached || caches.match('/offline.html')),
+    );
+}
+
+function cacheFirstStatic(request) {
+  return caches.match(request).then((cachedResponse) => {
+    if (cachedResponse) return cachedResponse;
+    return fetch(request).then((networkResponse) => {
+      if (
+        networkResponse &&
+        networkResponse.ok &&
+        networkResponse.type === 'basic'
+      ) {
+        const copy = networkResponse.clone();
+        caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
+      }
+      return networkResponse;
+    });
+  });
+}
+
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS_TO_CACHE)),
   );
+  self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
@@ -34,7 +93,8 @@ self.addEventListener('activate', (event) => {
         Promise.all(
           keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)),
         ),
-      ),
+      )
+      .then(() => self.clients.claim()),
   );
 });
 
@@ -46,22 +106,25 @@ self.addEventListener('fetch', (event) => {
         try {
           const formData = await event.request.formData();
           const image = formData.get('image');
-          
+
           if (image) {
             const cache = await caches.open('shared-image-cache');
-            await cache.put('/shared-image', new Response(image, {
-              headers: {
-                'Content-Type': image.type,
-                'Content-Length': image.size.toString()
-              }
-            }));
+            await cache.put(
+              '/shared-image',
+              new Response(image, {
+                headers: {
+                  'Content-Type': image.type,
+                  'Content-Length': image.size.toString(),
+                },
+              }),
+            );
           }
           return Response.redirect('/visual-search.html', 303);
         } catch (error) {
           console.error('Error processing shared image:', error);
           return Response.redirect('/visual-search.html?error=1', 303);
         }
-      })()
+      })(),
     );
     return;
   }
@@ -71,19 +134,39 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      return (
-        cachedResponse ||
-        fetch(event.request)
-          .then((networkResponse) => {
-            return caches.open(CACHE_NAME).then((cache) => {
-              cache.put(event.request, networkResponse.clone());
-              return networkResponse;
-            });
-          })
-          .catch(() => caches.match('/offline.html'))
-      );
-    }),
-  );
+  let url;
+  try {
+    url = new URL(event.request.url);
+  } catch {
+    return;
+  }
+
+  // Cross-origin: do not intercept (avoid caching opaque/third-party responses).
+  if (url.origin !== self.location.origin) {
+    return;
+  }
+
+  if (shouldBypassCache(event.request, url)) {
+    event.respondWith(networkFirst(event.request));
+    return;
+  }
+
+  if (isStaticAsset(url)) {
+    event.respondWith(cacheFirstStatic(event.request));
+    return;
+  }
+
+  // Default: network-first for anything else on-origin.
+  event.respondWith(networkFirst(event.request));
 });
+
+// Exported for unit tests (ignored in the service worker runtime).
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    isApiRequest,
+    isNavigationRequest,
+    isStaticAsset,
+    shouldBypassCache,
+    CACHE_NAME,
+  };
+}

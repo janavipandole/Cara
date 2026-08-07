@@ -48,3 +48,29 @@ describe('reading-progress', () => {
     expect(bar.style.width).toBe('50%');
   });
 });
+
+import { roundScrollProgressPercent } from '../../js/reading-progress.js';
+
+describe('roundScrollProgressPercent', () => {
+  it('rounds a float percentage to nearest integer', () => {
+    expect(roundScrollProgressPercent(45.678)).toBe(46);
+    expect(roundScrollProgressPercent(45.321)).toBe(45);
+  });
+
+  it('clamps to 0 for negative values', () => {
+    expect(roundScrollProgressPercent(-10)).toBe(0);
+  });
+
+  it('clamps to 100 for values over 100', () => {
+    expect(roundScrollProgressPercent(150)).toBe(100);
+  });
+
+  it('returns 0 for NaN inputs', () => {
+    expect(roundScrollProgressPercent(NaN)).toBe(0);
+  });
+
+  it('handles non-number inputs gracefully', () => {
+    expect(roundScrollProgressPercent('forty-five')).toBe(0);
+    expect(roundScrollProgressPercent(null)).toBe(0);
+  });
+});

@@ -101,3 +101,6 @@ if (typeof module !== 'undefined' && module.exports) {
   window.LoyaltyRewardsEngine = LoyaltyRewardsEngine;
 }
 
+
+
+function getRewardsMultiplierForTier(tier = 'bronze') { const multipliers = { bronze: 1.0, silver: 1.25, gold: 1.5, platinum: 2.0 }; return multipliers[tier.toLowerCase()] || 1.0; }

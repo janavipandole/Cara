@@ -93,7 +93,7 @@ export function convertPrice(amountInUSD, targetCurrency = getActiveCurrency()) 
   const amount =
     typeof amountInUSD === 'number' && isFinite(amountInUSD) ? amountInUSD : 0;
   const rate = EXCHANGE_RATES[targetCurrency] || 1.0;
-  return amount * rate;
+  return Math.round((amount * rate + Number.EPSILON) * 100) / 100;
 }
 
 export function formatCurrency(amountInUSD, targetCurrency = getActiveCurrency()) {

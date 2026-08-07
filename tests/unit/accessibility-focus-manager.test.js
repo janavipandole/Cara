@@ -39,4 +39,10 @@ describe('AccessibilityFocusManager', () => {
     expect(manager.releaseFocus()).toBe(true);
     expect(document.activeElement.id).toBe('trigger-btn');
   });
+
+  it('should safely handle focus restoration when element is invalid', () => {
+    const manager = new AccessibilityFocusManager();
+    expect(() => manager.restoreFocus()).not.toThrow();
+  });
+
 });

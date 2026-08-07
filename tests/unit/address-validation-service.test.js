@@ -35,4 +35,17 @@ describe('AddressValidationService Unit Tests', () => {
     expect(result.isValid).toBe(true);
     expect(result.sanitized.city).toBe('San Francisco');
   });
+
+  it('should sanitize HTML tags from street address field', () => {
+    const result = service.validateAddress({
+      street: '123 Main St <script>alert(1)</script>',
+      city: 'Boston',
+      state: 'MA',
+      postalCode: '02108',
+      country: 'US'
+    });
+    expect(result.isValid).toBe(true);
+    expect(result.sanitized.street).toBe('123 Main St alert(1)');
+  });
+
 });

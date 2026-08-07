@@ -11,7 +11,7 @@ export function getTabbableElements(container) {
 }
 
 export function trapFocus(container, event) {
-  if (event.key !== 'Tab' && event.keyCode !== 9) return;
+  if (!container || !event || (event.key !== 'Tab' && event.keyCode !== 9)) return null;
 
   const tabbables = getTabbableElements(container);
   if (tabbables.length === 0) {

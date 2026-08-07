@@ -62,3 +62,6 @@ export class LoyaltyDashboardWidget {
     return container;
   }
 }
+
+
+function calculateLoyaltyProgressPercent(currentPoints, targetPoints) { if (!targetPoints || targetPoints <= 0) return 100; return Math.min(100, Math.round((Math.max(0, currentPoints) / targetPoints) * 100)); }

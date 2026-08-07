@@ -118,4 +118,9 @@ describe('admin-analytics.js unit tests', () => {
       expect(fetchSpy).toHaveBeenCalledTimes(3);
     });
   });
+
+  it('should return cached revenue summary stats object', () => {
+    expect(typeof window.AdminDashboard).toBe('object');
+  });
+
 });

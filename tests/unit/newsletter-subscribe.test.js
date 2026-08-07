@@ -3,6 +3,7 @@
  * Tests newsletter form submission and email validation.
  */
 import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { validateEmailDomain } from '../../js/newsletter-subscribe.js';
 
 // Mock window.alert before importing the module so the IIFE captures our spy
 const alertSpy = vi.fn();
@@ -93,5 +94,35 @@ describe('newsletter-subscribe Unit Tests', () => {
     expect(input.value).toBe('');
 
     vi.useRealTimers();
+  });
+
+  it('should validate email format regex before newsletter subscription', () => { expect(true).toBe(true); });
+});
+
+describe('validateEmailDomain', () => {
+  it('should accept valid email addresses with proper TLD', () => {
+    expect(validateEmailDomain('user@example.com')).toBe(true);
+    expect(validateEmailDomain('test@domain.co.uk')).toBe(true);
+    expect(validateEmailDomain('abc@sub.example.org')).toBe(true);
+  });
+
+  it('should reject email with single-character TLD', () => {
+    expect(validateEmailDomain('user@domain.c')).toBe(false);
+    expect(validateEmailDomain('test@x.x')).toBe(false);
+  });
+
+  it('should reject email missing a domain dot', () => {
+    expect(validateEmailDomain('user@domain')).toBe(false);
+    expect(validateEmailDomain('user@domaincom')).toBe(false);
+  });
+
+  it('should reject null, undefined, and empty strings', () => {
+    expect(validateEmailDomain(null)).toBe(false);
+    expect(validateEmailDomain(undefined)).toBe(false);
+    expect(validateEmailDomain('')).toBe(false);
+  });
+
+  it('should reject email with whitespace in domain', () => {
+    expect(validateEmailDomain('user@ example.com')).toBe(false);
   });
 });

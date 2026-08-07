@@ -87,4 +87,18 @@ export class ProductFacetFilter {
     };
     return this.products;
   }
+
+  /**
+   * Checks whether a price falls within a given min/max range.
+   * @param {number} price
+   * @param {number} minPrice
+   * @param {number} maxPrice
+   * @returns {boolean}
+   */
+  isPriceInFacetRange(price, minPrice = 0, maxPrice = Infinity) {
+    if (typeof price !== 'number' || Number.isNaN(price)) return false;
+    const p = price;
+    return p >= minPrice && p <= maxPrice;
+  }
+
 }

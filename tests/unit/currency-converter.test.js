@@ -80,4 +80,10 @@ describe('Currency Converter Unit Tests', () => {
 
     nowSpy.mockRestore();
   });
+
+  it('should round floating point results to 2 decimal places precision', () => {
+    const price = convertPrice(19.99, 'USD');
+    expect(price).toBe(19.99);
+  });
+
 });

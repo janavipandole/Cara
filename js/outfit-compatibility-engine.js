@@ -14,6 +14,16 @@ class OutfitCompatibilityEngine {
     };
   }
 
+
+  calculateTagScore(tags1 = [], tags2 = []) {
+    if (!Array.isArray(tags1) || !Array.isArray(tags2) || tags1.length === 0 || tags2.length === 0) {
+      return 0;
+    }
+    const set1 = new Set(tags1.map(t => String(t).toLowerCase()));
+    const shared = tags2.filter(t => set1.has(String(t).toLowerCase()));
+    return Math.round((shared.length / Math.max(tags1.length, tags2.length)) * 100);
+  }
+
   evaluatePair(top, bottom) {
     if (!top || !bottom) return { score: 0, rating: 'Incomplete', feedback: 'Please select both a top and a bottom item.' };
 

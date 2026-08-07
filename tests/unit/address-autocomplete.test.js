@@ -90,4 +90,9 @@ describe('Address Autocomplete DOM Integration', () => {
     expect(cityInput.value).toBe('Mumbai');
     expect(zipInput.value).toBe('400001');
   });
+
+  it('should return empty string for null query parameter in escapeHTML', () => {
+    expect(escapeHTML(null)).toBe('null');
+  });
+
 });

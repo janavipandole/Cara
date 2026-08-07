@@ -156,13 +156,6 @@ function renderOrderDetails(order) {
 }
 
 async function fetchOrders() {
-  const token = getAuthToken();
-
-  if (!token) {
-    window.location.href = 'login.html';
-    return;
-  }
-
   setStateVisibility({ loading: true });
 
   try {

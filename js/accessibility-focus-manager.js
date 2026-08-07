@@ -47,6 +47,13 @@ export class AccessibilityFocusManager {
     }
   }
 
+
+  restoreFocus() {
+    if (this.previousActiveElement && typeof this.previousActiveElement.focus === 'function') {
+      this.previousActiveElement.focus();
+    }
+  }
+
   releaseFocus() {
     if (!this.activeModal) return false;
     this.activeModal.removeAttribute('aria-modal');

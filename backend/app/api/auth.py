@@ -32,6 +32,11 @@ if not SECRET_KEY:
 ALGORITHM  = "HS256"
 ACCESS_TOKEN_MINUTES = 15
 REFRESH_TOKEN_DAYS = 7
+COOKIE_SAMESITE = "lax"
+COOKIE_PATH = "/"
+
+# email -> currently valid refresh token jti (rotation / revoke store)
+active_refresh_jtis: dict[str, str] = {}
 
 pwd    = CryptContext(schemes=["bcrypt"], deprecated="auto")
 router = APIRouter()
@@ -47,6 +52,10 @@ def captcha_answer_digest(answer: str) -> str:
     ).hexdigest()
 
 
+def cookie_secure() -> bool:
+    return os.environ.get("COOKIE_SECURE", "true").lower() in ("1", "true", "yes")
+
+
 # -- Helper: build JWT --
 def create_access_token(email: str) -> str:
     return jwt.encode(
@@ -60,33 +69,60 @@ def create_access_token(email: str) -> str:
     )
 
 def create_refresh_token(email: str) -> str:
-    return jwt.encode(
+    jti = secrets.token_urlsafe(32)
+    token = jwt.encode(
         {
             "sub": email,
             "type": "refresh",
-            "exp": datetime.now(timezone.utc) + timedelta(days=REFRESH_TOKEN_DAYS)
+            "jti": jti,
+            "exp": datetime.now(timezone.utc) + timedelta(days=REFRESH_TOKEN_DAYS),
         },
         SECRET_KEY,
-        algorithm=ALGORITHM
+        algorithm=ALGORITHM,
     )
+    active_refresh_jtis[email] = jti
+    return token
 
 def set_auth_cookies(response: Response, access_token: str, refresh_token: str):
+    secure = cookie_secure()
     response.set_cookie(
         key="access_token",
         value=f"Bearer {access_token}",
         httponly=True,
-        secure=True,
-        samesite="lax",
-        max_age=ACCESS_TOKEN_MINUTES * 60
+        secure=secure,
+        samesite=COOKIE_SAMESITE,
+        path=COOKIE_PATH,
+        max_age=ACCESS_TOKEN_MINUTES * 60,
     )
     response.set_cookie(
         key="refresh_token",
         value=refresh_token,
         httponly=True,
-        secure=True,
-        samesite="lax",
-        max_age=REFRESH_TOKEN_DAYS * 24 * 60 * 60
+        secure=secure,
+        samesite=COOKIE_SAMESITE,
+        path=COOKIE_PATH,
+        max_age=REFRESH_TOKEN_DAYS * 24 * 60 * 60,
     )
+
+def clear_auth_cookies(response: Response):
+    # Flags must match set_cookie or browsers may keep the session cookies.
+    secure = cookie_secure()
+    for key in ("access_token", "refresh_token"):
+        response.delete_cookie(
+            key,
+            path=COOKIE_PATH,
+            secure=secure,
+            samesite=COOKIE_SAMESITE,
+        )
+
+def revoke_refresh_token(email: str | None):
+    if email:
+        active_refresh_jtis.pop(email, None)
+
+def assert_refresh_jti(email: str, jti: str | None):
+    expected = active_refresh_jtis.get(email)
+    if not jti or not expected or not hmac.compare_digest(expected, jti):
+        raise HTTPException(401, "Invalid or revoked refresh token.")
 
 # -- Helper: get current user from token --
 def get_current_user(
@@ -232,7 +268,7 @@ def login(request: Request, response: Response, payload: UserLogin, db: Session 
     )
 
 @router.post("/refresh")
-def refresh_token(request: Request, response: Response, db: Session = Depends(get_db)):
+def refresh_access_token(request: Request, response: Response, db: Session = Depends(get_db)):
     token = request.cookies.get("refresh_token")
     if not token:
         raise HTTPException(status_code=401, detail="Refresh token missing")
@@ -243,24 +279,19 @@ def refresh_token(request: Request, response: Response, db: Session = Depends(ge
         email: str = payload.get("sub")
         if not email:
             raise HTTPException(401, "Invalid token.")
+        assert_refresh_jti(email, payload.get("jti"))
     except JWTError:
         raise HTTPException(401, "Invalid or expired refresh token.")
-        
+
     user = db.query(models.User).filter(models.User.email == email).first()
     if not user or not user.is_active:
         raise HTTPException(401, "User not found or inactive.")
-        
+
     access_token = create_access_token(user.email)
-    # Issue a new access token while keeping the same refresh token
-    response.set_cookie(
-        key="access_token",
-        value=f"Bearer {access_token}",
-        httponly=True,
-        secure=True,
-        samesite="lax",
-        max_age=ACCESS_TOKEN_MINUTES * 60
-    )
+    new_refresh_token = create_refresh_token(user.email)
+    set_auth_cookies(response, access_token, new_refresh_token)
     return {"message": "Token refreshed successfully"}
+
 
 @router.post("/forgot-password")
 @limiter.limit("5/minute")
@@ -318,9 +349,16 @@ def reset_password(
 
 
 @router.post("/logout")
-def logout(response: Response):
-    response.delete_cookie("access_token")
-    response.delete_cookie("refresh_token")
+def logout(request: Request, response: Response):
+    token = request.cookies.get("refresh_token")
+    if token:
+        try:
+            payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+            if payload.get("type") == "refresh":
+                revoke_refresh_token(payload.get("sub"))
+        except JWTError:
+            pass
+    clear_auth_cookies(response)
     return {"message": "Successfully logged out"}
 
 @router.get("/me", response_model=UserOut)

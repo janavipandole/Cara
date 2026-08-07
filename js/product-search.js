@@ -55,6 +55,24 @@
     };
   }
 
+  function escapeHtml(value) {
+    return String(value === undefined || value === null ? '' : value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function safeImageSrc(value) {
+    const src = String(value === undefined || value === null ? '' : value).trim();
+    if (!src) return 'images/products/placeholder.jpg';
+    if (/^https?:\/\//i.test(src) || src.startsWith('/') || src.startsWith('images/')) {
+      return src;
+    }
+    return 'images/products/placeholder.jpg';
+  }
+
   // ── Build query string from active filters ─────────────────────────────────
   function buildQueryString() {
     const params = new URLSearchParams();
@@ -90,32 +108,38 @@
     }
 
     productGrid.innerHTML = products
-      .map(
-        (p) => `
-        <div class="pro" data-product-id="${p.id}" tabindex="0" role="article"
-             aria-label="${p.name} by ${p.brand}, ₹${p.price}">
+      .map((p) => {
+        const id = encodeURIComponent(String(p.id));
+        const name = escapeHtml(p.name);
+        const brand = escapeHtml(p.brand);
+        const img = escapeHtml(safeImageSrc(p.img));
+        const price = Number(p.price) || 0;
+        const rating = Math.min(Math.max(parseInt(p.rating, 10) || 0, 0), 5);
+        return `
+        <div class="pro" data-product-id="${id}" tabindex="0" role="article"
+             aria-label="${name} by ${brand}, ₹${price}">
           <div class="pro-img-wrap">
-            <img src="${p.img || 'images/products/placeholder.jpg'}"
-                 alt="${p.name}"
+            <img src="${img}"
+                 alt="${name}"
                  loading="lazy"
                  onerror="this.src='images/products/placeholder.jpg'">
             ${p.stock === 0 ? '<span class="out-of-stock-badge">Out of Stock</span>' : ''}
           </div>
           <div class="des">
-            <span>${p.brand}</span>
-            <h5>${p.name}</h5>
-            <div class="star" aria-label="${p.rating} out of 5 stars">
-              ${'<i class="ri-star-fill"></i>'.repeat(Math.min(p.rating, 5))}
+            <span>${brand}</span>
+            <h5>${name}</h5>
+            <div class="star" aria-label="${rating} out of 5 stars">
+              ${'<i class="ri-star-fill"></i>'.repeat(rating)}
             </div>
-            <h4>₹${p.price.toFixed(2)}</h4>
+            <h4>₹${price.toFixed(2)}</h4>
           </div>
-          <a href="singleProduct.html?id=${p.id}"
+          <a href="singleProduct.html?id=${id}"
              class="product-link"
-             aria-label="View details for ${p.name}">
+             aria-label="View details for ${name}">
             <i class="ri-eye-line" aria-hidden="true"></i>
           </a>
-        </div>`,
-      )
+        </div>`;
+      })
       .join('');
   }
 
@@ -234,10 +258,13 @@
       .then(({ categories }) => {
         const placeholder = '<option value="">All Categories</option>';
         const opts = categories
-          .map(
-            (c) =>
-              `<option value="${c}">${c.charAt(0).toUpperCase() + c.slice(1)}</option>`,
-          )
+          .map((c) => {
+            const value = escapeHtml(c);
+            const label = escapeHtml(
+              String(c).charAt(0).toUpperCase() + String(c).slice(1),
+            );
+            return `<option value="${value}">${label}</option>`;
+          })
           .join('');
         categorySelect.innerHTML = placeholder + opts;
       })
@@ -335,3 +362,6 @@
   // Expose resetAllFilters globally so an HTML button can call it directly
   window.resetProductFilters = resetAllFilters;
 })();
+
+
+function meetsSearchQueryThreshold(query, minLength = 2) { if (!query || typeof query !== 'string') return false; return query.trim().length >= minLength; }

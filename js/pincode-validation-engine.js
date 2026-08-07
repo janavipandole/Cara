@@ -31,6 +31,16 @@ export class PincodeValidationEngine {
     };
   }
 
+
+  getDeliveryZone(code, countryCode = 'IN') {
+    const delivery = this.estimateDeliveryDays(code, countryCode);
+    if (!delivery) return null;
+    return {
+      zone: delivery.tier,
+      estimatedDaysText: `${delivery.minDays}-${delivery.maxDays} business days`
+    };
+  }
+
   estimateDeliveryDays(code, countryCode = 'IN') {
     const check = this.validatePostalCode(code, countryCode);
     if (!check.valid) return null;

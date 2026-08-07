@@ -29,12 +29,12 @@ export function clearCheckoutDraft(fields = []) {
   });
 }
 
-export function initCheckoutAutosave() {
+export function initCheckoutAutosave(fieldIds) {
   if (typeof document === 'undefined') return;
   const form = document.querySelector('form');
   if (!form) return;
 
-  const fields = [
+  const fields = fieldIds || [
     'checkout-firstname',
     'checkout-lastname',
     'checkout-address',
@@ -63,3 +63,6 @@ if (typeof document !== 'undefined') {
   document.addEventListener('DOMContentLoaded', initCheckoutAutosave);
 }
 
+
+
+function getDebounceDelayMs() { return 500; }

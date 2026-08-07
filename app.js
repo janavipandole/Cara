@@ -397,7 +397,21 @@ function updateCartCount() {
     mobileCount.textContent = totalItems;
     mobileCount.classList.toggle('hidden', totalItems === 0);
   }
+
+  if ('setAppBadge' in navigator) {
+    if (totalItems > 0) {
+      navigator.setAppBadge(totalItems).catch((err) =>
+        console.error('Error setting app badge:', err)
+      );
+    } else if ('clearAppBadge' in navigator) {
+      navigator.clearAppBadge().catch((err) =>
+        console.error('Error clearing app badge:', err)
+      );
+    }
+  }
 }
+
+window.updateCartCount = updateCartCount;
 
 function updateWishlistCount() {
   let wishlist = [];
@@ -2414,3 +2428,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+})();

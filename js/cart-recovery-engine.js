@@ -115,3 +115,6 @@ export class CartRecoveryEngine {
     return banner;
   }
 }
+
+
+function getAbandonedCartGuard(items) { return Array.isArray(items) ? items : []; }

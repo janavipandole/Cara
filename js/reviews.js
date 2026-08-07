@@ -78,7 +78,7 @@
       return acc;
     }, 0);
     return {
-      avg: (sum / reviews.length).toFixed(1),
+      avg: parseFloat((sum / reviews.length).toFixed(1)),
       total: reviews.length,
       dist,
     };
