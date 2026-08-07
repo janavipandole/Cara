@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { CartRecoveryEngine } from '../../js/cart-recovery-engine.js';
+import { CartRecoveryEngine, getAbandonedCartGuard } from '../../js/cart-recovery-engine.js';
 
 describe('CartRecoveryEngine', () => {
   let engine;
@@ -54,4 +54,21 @@ describe('CartRecoveryEngine', () => {
   });
 
   it('should return empty list when storage is unavailable', () => { expect(true).toBe(true); });
+});
+
+describe('getAbandonedCartGuard', () => {
+  it('returns the array unchanged for valid item arrays', () => {
+    const items = [{ id: 'p1' }, { id: 'p2' }];
+    expect(getAbandonedCartGuard(items)).toBe(items);
+  });
+
+  it('returns an empty array for null or undefined input', () => {
+    expect(getAbandonedCartGuard(null)).toEqual([]);
+    expect(getAbandonedCartGuard(undefined)).toEqual([]);
+  });
+
+  it('returns an empty array for non-array input', () => {
+    expect(getAbandonedCartGuard('items')).toEqual([]);
+    expect(getAbandonedCartGuard({ length: 2 })).toEqual([]);
+  });
 });

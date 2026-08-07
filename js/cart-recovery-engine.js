@@ -117,4 +117,4 @@ export class CartRecoveryEngine {
 }
 
 
-function getAbandonedCartGuard(items) { return Array.isArray(items) ? items : []; }
+export function getAbandonedCartGuard(items) { return Array.isArray(items) ? items : []; }
