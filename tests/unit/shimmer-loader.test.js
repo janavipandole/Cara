@@ -23,4 +23,14 @@ describe('shimmer-loader', () => {
     expect(container.querySelector('.pro')).toBeTruthy();
     expect(container.querySelectorAll('.skeleton-card').length).toBe(0);
   });
+
+  it('bails out and leaves the container untouched when it has no content', async () => {
+    document.body.innerHTML = '<div class="pro-container"></div>';
+    await import('../../js/shimmer-loader.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    const container = document.querySelector('.pro-container');
+    expect(container.querySelectorAll('.skeleton-card').length).toBe(0);
+    expect(container.children.length).toBe(0);
+  });
 });
