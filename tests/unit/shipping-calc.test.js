@@ -2,7 +2,7 @@
  * Unit tests for js/shipping-calc.js
  * Tests the shipping cost calculation logic.
  */
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 
 // Extract shipping calculation logic for unit testing.
 // Mirrors the logic in js/shipping-calc.js.
@@ -95,5 +95,58 @@ describe('Shipping Calculator Logic', () => {
       const newTotal = Math.max(0, subtotal + tax + shipping - discount);
       expect(newTotal).toBe(0);
     });
+
+    it('clamps the total at 0 when tax and shipping are negative-free', () => {
+      // Guard against malformed summary values driving the total negative.
+      const subtotal = 100;
+      const tax = 0;
+      const shipping = 0;
+      const discount = 250;
+      const newTotal = Math.max(0, subtotal + tax + shipping - discount);
+      expect(newTotal).toBe(0);
+    });
+  });
+});
+
+describe('shipping-calc DOM integration', () => {
+  beforeEach(() => {
+    vi.resetModules();
+    document.body.innerHTML = `
+      <div id="shipping-calculator-target"></div>
+      <div id="summary-shipping">FREE</div>
+      <div id="summary-subtotal">₹500</div>
+      <div id="summary-tax">₹90</div>
+      <div id="summary-discount">₹50</div>
+      <div id="summary-total">₹540</div>
+    `;
+  });
+
+  it('updates the cart summary when shipping is calculated', async () => {
+    await import('../../js/shipping-calc.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    document.getElementById('ship-country').value = 'IN';
+    document.getElementById('ship-speed').value = 'exp';
+    document.getElementById('calc-shipping-btn').click();
+
+    expect(document.getElementById('summary-shipping').textContent).toBe(
+      '₹150',
+    );
+    expect(document.getElementById('summary-total').textContent).not.toBe(
+      '₹540',
+    );
+  });
+
+  it('renders free shipping label for domestic standard delivery', async () => {
+    await import('../../js/shipping-calc.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    document.getElementById('ship-country').value = 'IN';
+    document.getElementById('ship-speed').value = 'std';
+    document.getElementById('calc-shipping-btn').click();
+
+    expect(document.getElementById('summary-shipping').textContent).toBe(
+      'FREE',
+    );
   });
 });
