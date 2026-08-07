@@ -1,5 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
+import { getTrackingStepStatusClass } from '../../js/order-tracking-visualizer.js';
 import { OrderTrackingVisualizer } from '../../js/order-tracking-visualizer.js';
+import { getTrackingStepStatusClass } from '../../js/order-tracking-visualizer.js';
 
 describe('OrderTrackingVisualizer', () => {
   let visualizer;
@@ -28,4 +30,10 @@ describe('OrderTrackingVisualizer', () => {
   });
 
   it('should return milestone status CSS class based on active step', () => { expect(true).toBe(true); });
+});
+
+describe('getTrackingStepStatusClass', () => {
+  it('is exported as a callable function', () => {
+    expect(typeof getTrackingStepStatusClass).toBe('function');
+  });
 });
