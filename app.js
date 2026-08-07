@@ -16,6 +16,16 @@ window.CARA_COUPONS = {
   'CARA20': 20,
   'WELCOME10': 10
 };
+// Safe JSON reader for localStorage values (corrupt data never throws).
+function safeParseJSON(key, fallback = []) {
+  try {
+    const raw = localStorage.getItem(key);
+    const parsed = raw ? JSON.parse(raw) : fallback;
+    return parsed == null ? fallback : parsed;
+  } catch (err) {
+    return fallback;
+  }
+}
 // i18n.js - Multi-language support
 
 // Global error logger
@@ -1978,8 +1988,8 @@ document.addEventListener('DOMContentLoaded', function () {
    SAVE FOR LATER
    ============================================================ */
 window.saveForLater = function (index) {
-  let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
-  let saved = JSON.parse(localStorage.getItem('savedItems')) || [];
+  let cart = safeParseJSON('productsInCart', []);
+  let saved = safeParseJSON('savedItems', []);
 
   if (index >= 0 && index < cart.length) {
     saved.push(cart.splice(index, 1)[0]);
@@ -1991,8 +2001,8 @@ window.saveForLater = function (index) {
 };
 
 window.moveToCart = function (index) {
-  let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
-  let saved = JSON.parse(localStorage.getItem('savedItems')) || [];
+  let cart = safeParseJSON('productsInCart', []);
+  let saved = safeParseJSON('savedItems', []);
 
   if (index >= 0 && index < saved.length) {
     cart.push(saved.splice(index, 1)[0]);
@@ -2004,7 +2014,7 @@ window.moveToCart = function (index) {
 };
 
 window.removeSavedItem = function (index) {
-  let saved = JSON.parse(localStorage.getItem('savedItems')) || [];
+  let saved = safeParseJSON('savedItems', []);
   if (index >= 0 && index < saved.length) {
     saved.splice(index, 1);
     localStorage.setItem('savedItems', JSON.stringify(saved));
@@ -2014,7 +2024,7 @@ window.removeSavedItem = function (index) {
 };
 
 window.loadSavedItems = function () {
-  let saved = JSON.parse(localStorage.getItem('savedItems')) || [];
+  let saved = safeParseJSON('savedItems', []);
   const savedContainer = document.getElementById('saved-items-container');
   const savedSection = document.getElementById('saved-items-section');
   if (!savedContainer || !savedSection) return;
