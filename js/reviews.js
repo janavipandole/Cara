@@ -70,15 +70,19 @@
   function _calcStats(reviews) {
     if (!reviews.length) return { avg: 0, total: 0, dist: [0, 0, 0, 0, 0] };
     const dist = [0, 0, 0, 0, 0];
+    let counted = 0;
     const sum = reviews.reduce((acc, r) => {
-      if (typeof r.rating === 'number' && r.rating >= 1 && r.rating <= 5) {
-        dist[r.rating - 1]++;
-        return acc + r.rating;
+      // Normalize numeric-string ratings (e.g. "5") before aggregation.
+      const rating = typeof r.rating === 'string' ? parseInt(r.rating, 10) : r.rating;
+      if (typeof rating === 'number' && rating >= 1 && rating <= 5) {
+        dist[rating - 1]++;
+        counted++;
+        return acc + rating;
       }
       return acc;
     }, 0);
     return {
-      avg: parseFloat((sum / reviews.length).toFixed(1)),
+      avg: counted > 0 ? parseFloat((sum / counted).toFixed(1)) : 0,
       total: reviews.length,
       dist,
     };
