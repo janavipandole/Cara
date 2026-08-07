@@ -48,4 +48,16 @@ describe('Stock Simulator Unit Tests', () => {
     expect(infoEmpty).toEqual({ count: 0, status: 'unknown' });
   });
 
+  it('should expire immediately for a zero or negative duration', () => {
+    const onTick = vi.fn();
+    const onExpire = vi.fn();
+    const intervalZero = startStockReservationTimer(0, onTick, onExpire);
+    expect(onExpire).toHaveBeenCalledTimes(1);
+    expect(onTick).not.toHaveBeenCalled();
+    expect(intervalZero).toBeNull();
+
+    const intervalNegative = startStockReservationTimer(-5, onTick, onExpire);
+    expect(onExpire).toHaveBeenCalledTimes(2);
+    expect(intervalNegative).toBeNull();
+  });
 });
