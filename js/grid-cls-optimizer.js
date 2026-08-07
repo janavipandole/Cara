@@ -10,9 +10,10 @@ export class GridClsOptimizer {
   }
 
 
-  cleanupReservedDimensions(container = document) {
+  cleanupReservedDimensions(container = null) {
     if (typeof document === 'undefined') return { cleaned: 0 };
-    const images = container.querySelectorAll ? container.querySelectorAll(this.targetSelector) : [];
+    const root = container || document;
+    const images = root.querySelectorAll ? root.querySelectorAll(this.targetSelector) : [];
     let cleaned = 0;
     images.forEach((img) => {
       if (img.classList.contains('cls-optimized') && img.complete) {
@@ -23,10 +24,11 @@ export class GridClsOptimizer {
     return { cleaned };
   }
 
-  optimizeGridImages(container = document) {
+  optimizeGridImages(container = null) {
     if (typeof document === 'undefined') return { count: 0 };
 
-    const images = container.querySelectorAll ? container.querySelectorAll(this.targetSelector) : [];
+    const root = container || document;
+    const images = root.querySelectorAll ? root.querySelectorAll(this.targetSelector) : [];
     let count = 0;
 
     images.forEach((img) => {
