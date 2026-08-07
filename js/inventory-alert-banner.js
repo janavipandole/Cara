@@ -1,5 +1,14 @@
 // Real-Time Inventory Alert Banner UI Module
 
+function _escape(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 export function renderInventoryBanner(containerId, message, type = 'warning') {
   if (typeof document === 'undefined') return null;
   const container = document.getElementById(containerId);
@@ -11,8 +20,8 @@ export function renderInventoryBanner(containerId, message, type = 'warning') {
   banner.setAttribute('aria-live', 'polite');
   banner.innerHTML = `
     <div class="inventory-banner-content">
-      <span class="inventory-banner-icon">${type === 'warning' ? '⚠️' : 'ℹ️'}</span>
-      <span class="inventory-banner-text">${message}</span>
+      <span class="inventory-banner-icon">${type === 'warning' ? 'Warning:' : 'Info:'}</span>
+      <span class="inventory-banner-text">${_escape(message)}</span>
     </div>
     <button class="inventory-banner-close" aria-label="Dismiss banner">&times;</button>
   `;
@@ -25,3 +34,6 @@ export function renderInventoryBanner(containerId, message, type = 'warning') {
   container.appendChild(banner);
   return banner;
 }
+
+
+function isLowStockQuantity(count, threshold = 5) { return typeof count === 'number' && count > 0 && count <= threshold; }

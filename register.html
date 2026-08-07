@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="ui-fix.css" />
     <link rel="manifest" href="/manifest.json">
-  <script src="js/error-boundary.js"></script>
+  <script type="module" src="js/error-boundary.js"></script>
 <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
@@ -23,6 +23,7 @@
     }
   </script>
   <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
+    <script type="module" src="js/config.js"></script>
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -274,4 +275,4 @@
 </body>
 </html>
 
-<!-- A11y fix --><script src='js/a11y-validation.js'></script>
+<!-- A11y fix --><script type="module" src="js/a11y-validation.js"></script>

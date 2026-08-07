@@ -23,6 +23,31 @@
   const applyBtn = document.getElementById('applyCouponBtn');
   const feedbackEl = document.getElementById('couponFeedback');
 
+  // ── Safe storage access ────────────────────────────────────────────────────
+  function saveAppliedCoupon(code) {
+    try {
+      localStorage.setItem('appliedCoupon', code);
+    } catch (e) {
+      // Ignore storage failures in restricted environments.
+    }
+  }
+
+  function removeAppliedCoupon() {
+    try {
+      localStorage.removeItem('appliedCoupon');
+    } catch (e) {
+      // Ignore storage failures in restricted environments.
+    }
+  }
+
+  function readAppliedCoupon() {
+    try {
+      return localStorage.getItem('appliedCoupon');
+    } catch (e) {
+      return null;
+    }
+  }
+
   // ── Apply coupon logic ─────────────────────────────────────────────────────
   function applyCoupon() {
     if (!couponInput || !feedbackEl) return;
@@ -37,7 +62,7 @@
     if (Object.prototype.hasOwnProperty.call(COUPONS, code)) {
       const discountPct = COUPONS[code];
       window.appliedCoupon = code;
-      localStorage.setItem('appliedCoupon', code);
+      saveAppliedCoupon(code);
 
       showFeedback(
         `Coupon "${code}" applied! You saved ${discountPct}%.`,
@@ -63,7 +88,7 @@
   // ── Remove coupon logic ────────────────────────────────────────────────────
   function removeCoupon() {
     window.appliedCoupon = '';
-    localStorage.removeItem('appliedCoupon');
+    removeAppliedCoupon();
     if (couponInput) {
       couponInput.value = '';
       couponInput.classList.remove('is-valid', 'is-invalid');
@@ -102,7 +127,7 @@
     }
 
     // Auto-apply saved coupon on load
-    const saved = localStorage.getItem('appliedCoupon');
+    const saved = readAppliedCoupon();
     if (saved) {
       if (couponInput) couponInput.value = saved;
       applyCoupon();
@@ -111,3 +136,6 @@
 
   document.addEventListener('DOMContentLoaded', init);
 })();
+
+
+function isCouponDateExpired(expiryDate) { if (!expiryDate) return false; return new Date(expiryDate).getTime() < Date.now(); }

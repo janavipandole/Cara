@@ -1,0 +1,68 @@
+/**
+ * Wishlist Shareable Link Generator & Data Exporter Utility
+ * Encodes user wishlist items into URL hashes and generates JSON/CSV data downloads.
+ */
+
+export class WishlistExportShare {
+  constructor() {}
+
+  encodeWishlistToHash(items = []) {
+    if (!Array.isArray(items) || items.length === 0) return '';
+    try {
+      const payload = items.map(item => ({
+        i: item.id || item.name,
+        n: item.name,
+        p: item.price
+      }));
+      const jsonStr = JSON.stringify(payload);
+      return btoa(encodeURIComponent(jsonStr));
+    } catch {
+      return '';
+    }
+  }
+
+  decodeHashToWishlist(encodedHash = '') {
+    if (!encodedHash) return [];
+    try {
+      const jsonStr = decodeURIComponent(atob(encodedHash));
+      const rawList = JSON.parse(jsonStr);
+      return rawList.map(item => ({
+        id: item.i,
+        name: item.n,
+        price: item.p
+      }));
+    } catch {
+      return [];
+    }
+  }
+
+  exportToCSV(items = []) {
+    if (!Array.isArray(items) || items.length === 0) return '';
+    const headers = ['ID', 'Name', 'Price'];
+    const rows = items.map(item => `"${item.id || ''}","${item.name || ''}","${item.price || ''}"`);
+    return [headers.join(','), ...rows].join('\n');
+  }
+
+  buildShareLink(items = [], origin = '') {
+    const hash = this.encodeWishlistToHash(items);
+    if (!hash) return '';
+    return origin ? `${origin}?wishlist=${hash}` : `?wishlist=${hash}`;
+  }
+
+  async copyShareLinkToClipboard(items = [], origin = '') {
+    const link = this.buildShareLink(items, origin);
+    if (!link) return { ok: false, link: '' };
+
+    const clipboard = typeof navigator !== 'undefined' ? navigator.clipboard : null;
+    if (clipboard && typeof clipboard.writeText === 'function') {
+      try {
+        await clipboard.writeText(link);
+        return { ok: true, link };
+      } catch (e) {
+        // Fall through and report the link for manual copying.
+      }
+    }
+
+    return { ok: false, link };
+  }
+}

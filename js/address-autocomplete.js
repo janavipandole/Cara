@@ -11,6 +11,7 @@
 
   const DEBOUNCE_MS = 300;
   const SUGGEST_API = '/api/address/suggest';
+  const addressService = typeof AddressValidationService !== 'undefined' ? new AddressValidationService() : null;
 
   // ── DOM References ─────────────────────────────────────────────────────────
   const addressInput = document.getElementById('address');
@@ -99,6 +100,7 @@
   }
 
   function escapeHTML(str) {
+  if (!str) return '';
     return String(str)
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
@@ -129,7 +131,6 @@
       showSuggestions(list);
     } catch (err) {
       console.warn('Address autocomplete failed:', err);
-    }
       hideSuggestions();
     } finally {
       if (loader) {

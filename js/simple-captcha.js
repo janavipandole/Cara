@@ -51,10 +51,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   loginForm.addEventListener('submit', (e) => {
-    const userAnswer = parseInt(document.getElementById('captcha-input').value, 10);
+    const captchaInput = document.getElementById('captcha-input');
+    const feedback = document.getElementById('captcha-feedback');
+    if (!captchaInput || !feedback) return;
+
+    const userAnswer = parseInt(captchaInput.value, 10);
     if (userAnswer !== answer) {
       e.preventDefault();
-      document.getElementById('captcha-feedback').textContent =
+      feedback.textContent =
         'Incorrect captcha. Please solve math query correctly.';
     }
   });

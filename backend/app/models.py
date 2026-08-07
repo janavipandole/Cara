@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey, JSON, Boolean, DateTime
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, JSON, Boolean, DateTime, UniqueConstraint
 from sqlalchemy.orm import relationship
 from .database import Base
 from datetime import datetime, timezone
@@ -10,6 +10,19 @@ class NewsletterSubscriber(Base):
     subscribed_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     is_active = Column(Boolean, default=True)
     unsubscribe_token = Column(String, unique=True, index=True, nullable=True)
+
+
+class AmbassadorApplication(Base):
+    __tablename__ = "ambassador_applications"
+
+    id = Column(Integer, primary_key=True, index=True)
+    full_name = Column(String, nullable=False)
+    email = Column(String, index=True, nullable=False)
+    instagram_handle = Column(String, nullable=False)
+    follower_count = Column(Integer, nullable=False)
+    motivation = Column(String, nullable=True)
+    submitted_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
 
 
 class Product(Base):
@@ -62,6 +75,13 @@ class User(Base):
 
 class Order(Base):
     __tablename__ = "orders"
+    __table_args__ = (
+        UniqueConstraint(
+            "email",
+            "idempotency_key",
+            name="uq_orders_email_idempotency_key",
+        ),
+    )
     id = Column(Integer, primary_key=True, index=True)
     full_name = Column(String, nullable=False)
     email = Column(String, nullable=False)
@@ -71,7 +91,8 @@ class Order(Base):
     total_amount = Column(Float, nullable=False)
     status = Column(String, default="PENDING")
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
-    idempotency_key = Column(String, unique=True, index=True, nullable=True)
+    # Uniqueness is scoped per buyer email via uq_orders_email_idempotency_key
+    idempotency_key = Column(String, index=True, nullable=True)
 
 class PasswordResetToken(Base):
     __tablename__ = "password_reset_tokens"

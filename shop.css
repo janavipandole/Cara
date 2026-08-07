@@ -1,4 +1,4 @@
-#search-filter {
+@import url('assets/css/skeleton-loader.css');#search-filter {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -746,7 +746,10 @@
     padding: 0 4px;
     border-radius: 4px;
 }
+::highlight(search-results) {
+    background-color: rgba(8, 129, 120, 0.15);
+    color: var(--accent, #088178);
+}
 /* Fix #2417 */
 .delay-stagger-1 { animation-delay: 100ms; }
 
-@import url('assets/css/skeleton-loader.css');

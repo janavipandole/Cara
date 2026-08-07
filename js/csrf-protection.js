@@ -14,10 +14,20 @@ export function generateCSRFToken() {
 
 export function getOrCreateCSRFToken() {
   if (typeof sessionStorage === 'undefined') return 'fallback-csrf-token';
-  let token = sessionStorage.getItem('cara_csrf_token');
+  let token;
+  try {
+    token = sessionStorage.getItem('cara_csrf_token');
+  } catch (e) {
+    // Storage unavailable; return a fresh token without persisting.
+    return generateCSRFToken();
+  }
   if (!token) {
     token = generateCSRFToken();
-    sessionStorage.setItem('cara_csrf_token', token);
+    try {
+      sessionStorage.setItem('cara_csrf_token', token);
+    } catch (e) {
+      // Ignore storage failures, the token is still valid for this session.
+    }
   }
   return token;
 }
@@ -50,3 +60,6 @@ export function attachCSRFHeader(headers = {}) {
 if (typeof document !== 'undefined') {
   document.addEventListener('DOMContentLoaded', () => injectCSRFInputs());
 }
+
+
+function generateCsrfFallbackToken() { return 'csrf-' + Math.random().toString(36).substring(2, 15); }

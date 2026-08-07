@@ -1,15 +1,13 @@
 var API_BASE = window.CARA_API_BASE_URL || '';
 
-function getAuthToken() {
-  return localStorage.getItem('access_token') || '';
-}
+
 
 function adminRequest(method, path, body) {
   var opts = {
     method: method,
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + getAuthToken(),
     },
   };
   if (body) opts.body = JSON.stringify(body);
@@ -19,7 +17,10 @@ function adminRequest(method, path, body) {
         throw new Error(d.detail || 'Request failed');
       });
     return r.json();
-  }).catch(err => console.warn("[AdminProducts] Failed:", err));
+  }).catch(function(err) {
+    console.error('[AdminProducts] Request failed:', err);
+    throw err;
+  });
 }
 
 window.AdminProducts = {
@@ -34,17 +35,20 @@ window.AdminProducts = {
   },
   updateStock: function (id, stock) {
     return fetch(
-      API_BASE + '/api/admin/products/' + id + '/stock?stock=' + stock,
-      {
-        method: 'PATCH',
-        headers: { Authorization: 'Bearer ' + getAuthToken() },
-      },
-    ).then(function (r) {
-      if (!r.ok)
-        return r.json().then(function (d) {
-          throw new Error(d.detail || 'Request failed');
-        });
-      return r.json();
-    }).catch(err => console.warn("[AdminProducts] Failed:", err));
-  },
-};
+    API_BASE + '/api/admin/products/' + id + '/stock?stock=' + stock,
+    {
+      method: 'PATCH',
+      credentials: 'include',
+    },
+  ).then(function (r) {
+    if (!r.ok)
+      return r.json().then(function (d) {
+        throw new Error(d.detail || 'Request failed');
+      });
+    return r.json();
+  }).catch(function(err) {
+    console.error('[AdminProducts] Request failed:', err);
+    throw err;
+  });
+},
+}

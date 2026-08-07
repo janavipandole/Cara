@@ -119,7 +119,7 @@
         }
     </style>
   <link rel="manifest" href="/manifest.json">
-  <script src="js/error-boundary.js"></script>
+  <script type="module" src="js/error-boundary.js"></script>
 <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
@@ -127,6 +127,7 @@
       });
     }
   </script>
+    <script type="module" src="js/config.js"></script>
 </head>
 
 <body>
@@ -263,7 +264,7 @@
     </footer>
 </main>
 
-    <script src="app.js"></script>
+    <script type="module" src="app.js"></script>
     <script>
        const year = new Date().getFullYear();
 
