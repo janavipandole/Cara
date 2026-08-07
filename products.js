@@ -586,6 +586,7 @@ function renderProducts(containerId, list, query = '') {
     const card = document.createElement('div');
     card.className = 'pro';
     card.dataset.category = p.category;
+    card.dataset.productId = p.id;
     card.addEventListener('click', () => {
       const selectedProduct = {
         id: p.id,
