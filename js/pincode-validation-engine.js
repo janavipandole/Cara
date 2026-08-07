@@ -45,11 +45,18 @@ export class PincodeValidationEngine {
     const check = this.validatePostalCode(code, countryCode);
     if (!check.valid) return null;
 
-    const numericVal = parseInt(code.replace(/\D/g, '').substring(0, 2), 10) || 0;
-    // Simulating metro vs non-metro zones
-    if (numericVal >= 11 && numericVal <= 40) {
-      return { minDays: 1, maxDays: 3, tier: 'Express Zone' };
+    const country = countryCode.toUpperCase();
+    // The metro-zone heuristic below uses Indian PIN ranges (11-40),
+    // so only apply it to Indian pincodes.
+    if (country === 'IN') {
+      const numericVal = parseInt(code.replace(/\D/g, '').substring(0, 2), 10) || 0;
+      if (numericVal >= 11 && numericVal <= 40) {
+        return { minDays: 1, maxDays: 3, tier: 'Express Zone' };
+      }
+      return { minDays: 3, maxDays: 5, tier: 'Standard Zone' };
     }
-    return { minDays: 3, maxDays: 5, tier: 'Standard Zone' };
+
+    // Non-Indian pincodes: use a country-agnostic default estimate.
+    return { minDays: 3, maxDays: 7, tier: 'Standard Zone' };
   }
 }
