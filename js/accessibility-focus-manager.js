@@ -18,7 +18,14 @@ export class AccessibilityFocusManager {
     this.previousActiveElement = document.activeElement;
 
     const selector = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]';
-    this.focusableElements = Array.from(modalElement.querySelectorAll(selector));
+    this.focusableElements = Array.from(modalElement.querySelectorAll(selector)).filter(
+      (el) =>
+        el.style.display !== 'none' &&
+        el.style.visibility !== 'hidden' &&
+        !el.hasAttribute('hidden') &&
+        el.getAttribute('aria-hidden') !== 'true' &&
+        !(el.tagName === 'INPUT' && el.type === 'hidden'),
+    );
 
     if (this.focusableElements.length === 0) return false;
 
