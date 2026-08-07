@@ -30,4 +30,16 @@ describe('BOLA / Object-Level Authorization Security Defense', () => {
     expect(verifyOrderOwnership({}, 'usr_abc', false)).toBe(false);
     expect(verifyOrderOwnership({ id: 'ord_1' }, null, false)).toBe(false);
   });
+
+  test('recognizes alternate owner id key formats', () => {
+    expect(verifyOrderOwnership({ userId: 'usr_1' }, 'usr_1', false)).toBe(true);
+    expect(verifyOrderOwnership({ user_id: 'usr_2' }, 'usr_2', false)).toBe(true);
+    expect(verifyOrderOwnership({ ownerId: 'usr_3' }, 'usr_3', false)).toBe(true);
+    expect(verifyOrderOwnership({ customerId: 'usr_4' }, 'usr_4', false)).toBe(true);
+  });
+
+  test('compares owner ids as strings to handle mixed types', () => {
+    expect(verifyOrderOwnership({ userId: 12345 }, '12345', false)).toBe(true);
+    expect(verifyOrderOwnership({ userId: 'usr_abc' }, 999, false)).toBe(false);
+  });
 });
