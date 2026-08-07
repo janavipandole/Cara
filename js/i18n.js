@@ -45,6 +45,8 @@ function changeLanguage(lang) {
     // Silently fail if localStorage is unavailable (private browsing, quota exceeded)
   }
 
+  if (typeof document === "undefined") return;
+
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     const key = el.getAttribute("data-i18n");
     if (translations[lang][key]) {
