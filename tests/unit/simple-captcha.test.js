@@ -42,4 +42,20 @@ describe('simple-captcha', () => {
     resetBtn.click();
     expect(input.value).toBe('');
   });
+
+  it('renders a valid math expression in the captcha label', async () => {
+    await import('../../js/simple-captcha.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    const label = document.getElementById('captcha-math-label');
+    expect(label.textContent).toContain('Verify You Are Human');
+    const match = label.textContent.match(/(\d+)\s*\+\s*(\d+)\s*=\s*\?/);
+    expect(match).not.toBeNull();
+    const num1 = parseInt(match[1], 10);
+    const num2 = parseInt(match[2], 10);
+    expect(num1).toBeGreaterThanOrEqual(1);
+    expect(num2).toBeGreaterThanOrEqual(1);
+    expect(num1).toBeLessThanOrEqual(10);
+    expect(num2).toBeLessThanOrEqual(10);
+  });
 });
