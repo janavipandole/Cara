@@ -13,19 +13,23 @@ class TestAddressVault {
   getAddresses() {
     try {
       const raw = localStorage.getItem(this.storageKey);
-      return JSON.parse(raw || '[]');
+      const parsed = JSON.parse(raw || '[]');
+      return Array.isArray(parsed) ? parsed : [];
     } catch (err) {
       return [];
     }
   }
 
   saveAddress(addr) {
+    if (!addr || typeof addr !== 'object') return false;
     try {
       const list = this.getAddresses();
       list.push(addr);
       localStorage.setItem(this.storageKey, JSON.stringify(list));
+      return true;
     } catch (err) {
       // Silently fail
+      return false;
     }
   }
 
@@ -104,5 +108,21 @@ describe('AddressVault saveAddress', () => {
     localStorage.setItem = originalSetItem;
   });
 
-  it('should mask credit card numbers for PCI compliance display', () => { expect(true).toBe(true); });
+  it('returns an empty array when stored value is not an array', () => {
+    localStorage.setItem(vault.storageKey, JSON.stringify({ street: 'Legacy object' }));
+    expect(vault.getAddresses()).toEqual([]);
+  });
+
+  it('recovers and overwrites a corrupt non-array store on next save', () => {
+    localStorage.setItem(vault.storageKey, JSON.stringify({ not: 'an array' }));
+    vault.saveAddress({ street: 'Recovered St', city: 'Goa' });
+    const addresses = JSON.parse(localStorage.getItem(vault.storageKey));
+    expect(addresses).toEqual([{ street: 'Recovered St', city: 'Goa' }]);
+  });
+
+  it('rejects invalid address payloads without touching storage', () => {
+    expect(vault.saveAddress(null)).toBe(false);
+    expect(vault.saveAddress('not-an-object')).toBe(false);
+    expect(localStorage.getItem(vault.storageKey)).toBeNull();
+  });
 });
