@@ -14,6 +14,7 @@ const translations = {
     community: "Community",
     orders: "My Orders",
     outfit: "Outfit Checker",
+    authenticity: "Authenticity",
     addToCart: "Add to Cart",
     buyNow: "Buy Now",
     search: "Search products..."
@@ -31,6 +32,7 @@ const translations = {
     community: "Comunidad",
     orders: "Mis Pedidos",
     outfit: "Verificar Atuendo",
+    authenticity: "Autenticidad",
     addToCart: "Añadir al Carrito",
     buyNow: "Comprar Ahora",
     search: "Buscar productos..."
