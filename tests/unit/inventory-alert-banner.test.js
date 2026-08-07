@@ -1,5 +1,7 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { isLowStockQuantity } from '../../js/inventory-alert-banner.js';
 import { renderInventoryBanner } from '../../js/inventory-alert-banner.js';
+import { isLowStockQuantity } from '../../js/inventory-alert-banner.js';
 
 /**
  * Unit tests for js/inventory-alert-banner.js renderInventoryBanner function.
@@ -85,4 +87,10 @@ describe('renderInventoryBanner', () => {
   });
 
   it('should evaluate low stock threshold trigger', () => { expect(true).toBe(true); });
+});
+
+describe('isLowStockQuantity', () => {
+  it('is exported as a callable function', () => {
+    expect(typeof isLowStockQuantity).toBe('function');
+  });
 });
