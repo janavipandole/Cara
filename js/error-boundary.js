@@ -26,8 +26,15 @@ window.CaraErrorBoundary = (function () {
   }
 
   function logError(error, context) {
-    console.error(`[CaraErrorBoundary] Error in "${context}":`, error);
-    // Hook point for future logging service integration
+    // Capture errors in an internal array for future logging service integration.
+    // Do not use console.error here — it leaks error details to the browser
+    // console in production builds.
+    window._CaraErrorLog = window._CaraErrorLog || [];
+    window._CaraErrorLog.push({
+      context: context,
+      message: error && error.message ? error.message : String(error),
+      timestamp: Date.now(),
+    });
   }
 
   function wrap(selector, renderFn) {
