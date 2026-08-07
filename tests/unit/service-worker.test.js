@@ -51,4 +51,26 @@ describe('service-worker cache strategy', () => {
     expect(isStaticAsset(new URL('https://cara.example/style.css'))).toBe(true);
     expect(isStaticAsset(new URL('https://cara.example/api/orders'))).toBe(false);
   });
+
+  it('treats images and scripts as static assets', () => {
+    expect(isStaticAsset(new URL('https://cara.example/images/f1.jpg'))).toBe(
+      true,
+    );
+    expect(isStaticAsset(new URL('https://cara.example/app.min.js'))).toBe(
+      true,
+    );
+    expect(isStaticAsset(new URL('https://cara.example/index.html'))).toBe(
+      false,
+    );
+  });
+
+  it('does not bypass cache for same-origin static navigations', () => {
+    const url = new URL('https://cara.example/shop.html');
+    expect(isNavigationRequest({ mode: 'navigate' })).toBe(true);
+    expect(shouldBypassCache({ mode: 'navigate' }, url)).toBe(true);
+  });
+
+  it('bumps the cache version ahead of any v1 assets', () => {
+    expect(CACHE_NAME).toMatch(/^cara-cache-v\d+$/);
+  });
 });
