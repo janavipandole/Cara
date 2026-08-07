@@ -80,4 +80,4 @@ if (typeof module !== 'undefined' && module.exports) {
 }
 
 
-function canAddMoreComparatorItems(currentCount, maxAllowed = 4) { return typeof currentCount === 'number' && currentCount < maxAllowed; }
+export function canAddMoreComparatorItems(currentCount, maxAllowed = 4) { return typeof currentCount === 'number' && currentCount < maxAllowed; }

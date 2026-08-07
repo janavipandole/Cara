@@ -1,4 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
+import { canAddMoreComparatorItems } from '../../js/interactive-product-comparator.js';
 const InteractiveProductComparator = require('../../js/interactive-product-comparator.js');
 
 describe('InteractiveProductComparator Unit Tests', () => {
@@ -44,4 +45,10 @@ describe('InteractiveProductComparator Unit Tests', () => {
   });
 
   it('should check if additional items can be added to product comparator', () => { expect(true).toBe(true); });
+});
+
+describe('canAddMoreComparatorItems', () => {
+  it('is exported as a callable function', () => {
+    expect(typeof canAddMoreComparatorItems).toBe('function');
+  });
 });
