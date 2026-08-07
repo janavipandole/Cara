@@ -107,6 +107,8 @@
       .replace(/'/g, '&#39;');
   }
 
+  let activeController = null;
+
   // ── Fetch suggestions ──────────────────────────────────────────────────────
   async function fetchSuggestions() {
     const val = addressInput.value.trim();
@@ -114,6 +116,13 @@
       hideSuggestions();
       return;
     }
+
+    // Abort any pending inflight request from previous keystrokes
+    if (activeController) {
+      activeController.abort();
+    }
+    activeController = new AbortController();
+    const currentController = activeController;
 
     let loader = null;
     if (typeof window.AutocompleteLoader === 'function') {
@@ -123,17 +132,27 @@
     }
 
     try {
-      const res = await fetch(`${SUGGEST_API}?q=${encodeURIComponent(val)}`);
+      const res = await fetch(`${SUGGEST_API}?q=${encodeURIComponent(val)}`, {
+        signal: currentController.signal,
+      });
       if (!res.ok) throw new Error('API error');
       const list = await res.json();
-      showSuggestions(list);
+
+      // Guard against race conditions: only update UI if this is still the active request
+      if (currentController === activeController) {
+        showSuggestions(list);
+      }
     } catch (err) {
+      if (err.name === 'AbortError') {
+        // Silently ignore aborted inflight requests
+        return;
+      }
       console.warn('Address autocomplete failed:', err);
-    }
       hideSuggestions();
     } finally {
-      if (loader) {
-        loader.hideLoader();
+      if (currentController === activeController) {
+        if (loader) loader.hideLoader();
+        activeController = null;
       }
     }
   }

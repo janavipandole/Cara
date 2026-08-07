@@ -787,34 +787,28 @@
 
 <script src="products.js"></script>
 <script src="app.js"></script>  
+<script src="js/search-autocomplete.js"></script>
 <script>
-
 const searchBar = document.getElementById("searchBar");
-
-searchBar.addEventListener("keyup", function() {
-
-  const input = searchBar.value.toLowerCase();
-
-  const products = document.querySelectorAll(".pro");
-
-  products.forEach(function(product){
-
-    const productName = product
-      .querySelector("h5")
-      .textContent
-      .toLowerCase();
-
-    if(productName.includes(input)){
-      product.style.display = "block";
+if (searchBar && typeof SearchAutocomplete === 'function') {
+  const engine = new SearchAutocomplete({
+    debounceMs: 300,
+    onResults: (results, query) => {
+      const input = (query || '').toLowerCase();
+      const products = document.querySelectorAll(".pro");
+      products.forEach(function(product) {
+        const productName = (product.querySelector("h5") || product.querySelector("h3"))
+          ? (product.querySelector("h5") || product.querySelector("h3")).textContent.toLowerCase()
+          : "";
+        product.style.display = productName.includes(input) ? "block" : "none";
+      });
     }
-    else{
-      product.style.display = "none";
-    }
-
   });
 
-});
-
+  searchBar.addEventListener("input", function() {
+    engine.handleInput(searchBar.value, async (q) => q);
+  });
+}
 </script>
 <script>
 const btn = document.getElementById("backToTop");
