@@ -60,4 +60,32 @@ describe('Cart Race Condition & Mutex Locking', () => {
     expect(savedCart.length).toBe(1);
     expect(savedCart[0].quantity).toBe(10);
   });
+
+  test('merges items with the same name and size into a single row', async () => {
+    await addToCart('Hoodie', '₹1200', 'img/products/f.jpg', 1, 'M');
+    await addToCart('Hoodie', '₹1200', 'img/products/f.jpg', 2, 'M');
+
+    const savedCart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+    expect(savedCart.length).toBe(1);
+    expect(savedCart[0].quantity).toBe(3);
+    expect(savedCart[0].size).toBe('M');
+  });
+
+  test('keeps items with different sizes as separate rows', async () => {
+    await addToCart('Hoodie', '₹1200', 'img/products/f.jpg', 1, 'M');
+    await addToCart('Hoodie', '₹1200', 'img/products/f.jpg', 1, 'L');
+
+    const savedCart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+    expect(savedCart.length).toBe(2);
+  });
+
+  test('merges shop items without a size by name only', async () => {
+    await addToCart('Belt', '₹800', 'img/products/f.jpg', 1);
+    await addToCart('Belt', '₹800', 'img/products/f.jpg', 1);
+
+    const savedCart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+    expect(savedCart.length).toBe(1);
+    expect(savedCart[0].quantity).toBe(2);
+    expect(savedCart[0].size).toBe(null);
+  });
 });

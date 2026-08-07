@@ -766,10 +766,7 @@ function addToCart(productName, productPrice, productImage, quantity, size) {
       size: size ? size.replace('Size', '').trim() : null,
     };
 
-    if (!item.size) {
-      showToast('Please select a size before adding to cart!', 'warning');
-      return;
-    }
+    if (item.size === 'Select' || item.size === '') item.size = null;
 
     let existingItem = cart.find(
       (p) => p.name === item.name && p.size === item.size,
@@ -782,7 +779,12 @@ function addToCart(productName, productPrice, productImage, quantity, size) {
 
     localStorage.setItem('productsInCart', JSON.stringify(cart));
     window.cachedCartState = cart;
-    showToast(`${item.name} (Size: ${item.size}) added to cart!`, 'success');
+    showToast(
+      item.size
+        ? `${item.name} (Size: ${item.size}) added to cart!`
+        : `${item.name} added to cart!`,
+      'success',
+    );
     updateCartCount();
   });
 }
