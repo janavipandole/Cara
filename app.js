@@ -2173,9 +2173,9 @@
    ============================================================ */
   (function () {
     const modalHTML = `
-        <div class="quickview-modal" id="quickViewModal" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="quickview-modal" id="quickViewModal" popover role="dialog" aria-modal="true">
             <div class="quickview-content">
-                <button class="quickview-close" aria-label="Close modal">&times;</button>
+                <button class="quickview-close" popovertarget="quickViewModal" popovertargetaction="hide" aria-label="Close modal">&times;</button>
                 <div class="quickview-left">
                     <img id="qvModalImg" src="" alt="Product Image">
                 </div>
@@ -2220,24 +2220,9 @@
       document.body.appendChild(div.firstElementChild);
 
       const modal = document.getElementById('quickViewModal');
-      const closeBtn = modal.querySelector('.quickview-close');
       const qtyInput = document.getElementById('qvQtyInput');
       const qtyMinus = document.getElementById('qvQtyMinus');
       const qtyPlus = document.getElementById('qvQtyPlus');
-
-      const closeModal = () => {
-        modal.classList.remove('active');
-        modal.setAttribute('aria-hidden', 'true');
-      };
-
-      closeBtn.addEventListener('click', closeModal);
-      modal.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal();
-      });
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.classList.contains('active'))
-          closeModal();
-      });
 
       qtyMinus.addEventListener('click', () => {
         let val = parseInt(qtyInput.value, 10);
@@ -2321,18 +2306,17 @@
         const size = document.getElementById('qvModalSize').value;
         const qty = parseInt(document.getElementById('qvQtyInput').value, 10);
         addToCart(product.name, product.price, product.img, qty, size);
-        modal.classList.remove('active');
+        modal.hidePopover();
       });
 
       newBuyNow.addEventListener('click', () => {
         const size = document.getElementById('qvModalSize').value;
         const qty = parseInt(document.getElementById('qvQtyInput').value, 10);
-        modal.classList.remove('active');
+        modal.hidePopover();
         window.buyNow(product.name, product.price, product.img, qty, size);
       });
 
-      modal.classList.add('active');
-      modal.setAttribute('aria-hidden', 'false');
+      modal.showPopover();
     };
     window.addEventListener('unhandledrejection', (event) => {
       window.logError('Unhandled Promise Rejection:', event.reason);
