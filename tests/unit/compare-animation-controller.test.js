@@ -17,13 +17,17 @@ describe('js/compare-animation-controller.js CompareAnimationController tests', 
   it('should toggle body classes based on preferences', () => {
     const mockClassList = {
       classes: new Set(),
-      add(className) { this.classes.add(className); },
-      remove(className) { this.classes.delete(className); }
+      add(className) {
+        this.classes.add(className);
+      },
+      remove(className) {
+        this.classes.delete(className);
+      },
     };
     const mockDoc = {
       body: {
-        classList: mockClassList
-      }
+        classList: mockClassList,
+      },
     };
     const controller = new CompareAnimationController(mockDoc);
 

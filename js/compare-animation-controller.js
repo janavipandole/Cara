@@ -4,7 +4,8 @@
  */
 class CompareAnimationController {
   constructor(documentObj) {
-    this.document = documentObj || (typeof document !== 'undefined' ? document : null);
+    this.document =
+      documentObj || (typeof document !== 'undefined' ? document : null);
   }
 
   shouldDisableMotion(prefersReducedVal) {

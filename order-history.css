@@ -1,7 +1,11 @@
 .order-history-page {
   padding: 32px 20px 56px;
   background:
-    radial-gradient(circle at top left, rgba(8, 129, 120, 0.12), transparent 26%),
+    radial-gradient(
+      circle at top left,
+      rgba(8, 129, 120, 0.12),
+      transparent 26%
+    ),
     linear-gradient(180deg, #f7fbfb 0%, #ffffff 100%);
 }
 
@@ -54,7 +58,10 @@
   text-decoration: none;
   padding: 12px 18px;
   font-weight: 700;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
   box-shadow: 0 14px 32px rgba(8, 129, 120, 0.18);
 }
 
@@ -100,10 +107,14 @@
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-.error-state h2 { color: #991b1b; }
+.error-state h2 {
+  color: #991b1b;
+}
 
 .orders-card {
   overflow: hidden;
@@ -147,10 +158,22 @@
   letter-spacing: 0.04em;
 }
 
-.status-confirmed { background: rgba(34, 197, 94, 0.14); color: #166534; }
-.status-pending { background: rgba(245, 158, 11, 0.14); color: #92400e; }
-.status-shipped { background: rgba(14, 165, 233, 0.14); color: #075985; }
-.status-delivered { background: rgba(99, 102, 241, 0.14); color: #3730a3; }
+.status-confirmed {
+  background: rgba(34, 197, 94, 0.14);
+  color: #166534;
+}
+.status-pending {
+  background: rgba(245, 158, 11, 0.14);
+  color: #92400e;
+}
+.status-shipped {
+  background: rgba(14, 165, 233, 0.14);
+  color: #075985;
+}
+.status-delivered {
+  background: rgba(99, 102, 241, 0.14);
+  color: #3730a3;
+}
 
 .details-btn {
   border: 1px solid rgba(8, 129, 120, 0.25);
@@ -237,12 +260,24 @@
   gap: 12px;
 }
 
-.item-card p { margin: 0; }
+.item-card p {
+  margin: 0;
+}
 
-.item-name { font-weight: 700; color: #1f2937; }
+.item-name {
+  font-weight: 700;
+  color: #1f2937;
+}
 
 @media (max-width: 768px) {
-  .order-history-page { padding-inline: 14px; }
-  .order-history-hero { align-items: start; flex-direction: column; }
-  .order-modal { padding: 12px; }
+  .order-history-page {
+    padding-inline: 14px;
+  }
+  .order-history-hero {
+    align-items: start;
+    flex-direction: column;
+  }
+  .order-modal {
+    padding: 12px;
+  }
 }

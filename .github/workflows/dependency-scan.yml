@@ -4,9 +4,9 @@ on:
   schedule:
     - cron: '0 0 * * 1'
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   security-scan:

@@ -407,7 +407,7 @@ function submitCheckoutForm() {
         if (errEl) errEl.textContent = '';
       });
     })
-   .catch((err) => {
+    .catch((err) => {
       if (typeof window.showToast === 'function')
         window.showToast(err.message, 'error');
       else console.log('Toast: ' + err.message);

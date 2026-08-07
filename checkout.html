@@ -34,12 +34,14 @@
 </head>
 <body>
 
+  <!-- Toast lives at body level so it overlays everything -->
+  <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
   <div class="checkout-container">
 
     <div class="checkout-header">
       <div class="back-to-cart">
         <a href="cart.html" class="back-link" aria-label="Back to cart"><i class="ri-arrow-left-line"></i> Back to Cart</a>
-        <a href="javascript:void(0)" id="logout-btn" style="display:none">Logout</a>
       </div>
       <div class="logo" style="display: flex; align-items: center; gap: 15px;">
         <span>Cara</span>
@@ -130,13 +132,13 @@
       <!-- CARD DETAILS -->
       <div class="payment-box" id="cardDetails">
 
-          <div class="payment-tabs">
-            <div class="payment-tab active" id="tabCOD" onclick="selectPayment('cod')">
+          <div class="payment-tabs" role="tablist">
+            <button class="payment-tab active" id="tabCOD" role="tab" aria-selected="true" aria-controls="cod-panel" onclick="selectPayment('cod')">
               <i class="ri-money-rupee-circle-line"></i> Cash on Delivery
-            </div>
-            <div class="payment-tab" id="tabOnline" onclick="selectPayment('online')">
+            </button>
+            <button class="payment-tab" id="tabOnline" role="tab" aria-selected="false" aria-controls="online-panel" onclick="selectPayment('online')">
               <i class="ri-bank-card-2-line"></i> Online Payment
-            </div>
+            </button>
           </div>
 
         <div class="input-group">

@@ -46,6 +46,7 @@ Examples of unacceptable behavior:
 ## Our Responsibilities
 
 Project maintainers are responsible for:
+
 - Clarifying and enforcing a standards of acceptable behavior
 - Taking appropriate and fair corrective action in response to any behavior that they deem inappropriate, threatening, offensive, or harmful.
 
@@ -56,6 +57,7 @@ They have the right and responsibility to **remove**, **edit**, or **reject comm
 ## Scope
 
 This Code of Conduct applies within all project spaces, including:
+
 - GitHub repositories
 - Pull requests and issues
 - Discussions and comments
@@ -67,7 +69,7 @@ This Code of Conduct applies within all project spaces, including:
 
 If you witness or experience any behavior that violates this Code of Conduct, please report it by contacting the maintainers at:
 
-📧 **Contact Email**: [Github]( https://github.com/janavipandole/Cara)
+📧 **Contact Email**: [Github](https://github.com/janavipandole/Cara)
 
 🛠️ You may also use GitHub’s built-in **report** feature if needed.
 
@@ -109,7 +111,8 @@ Community leaders will follow these Community Impact Guidelines in determining t
 
 This Code of Conduct is adapted from the [Contributor Covenant](https://www.contributor-covenant.org), version 2.1, available at [here](https://www.contributor-covenant.org/version/2/1/code_of_conduct.html).
 
-Community Impact Guidelines were inspired by [Mozilla's code of conduct enforcement ladder]( https://github.com/mozilla/diversity).
+Community Impact Guidelines were inspired by [Mozilla's code of conduct enforcement ladder](https://github.com/mozilla/diversity).
 
-For answers to common questions about this code of conduct, see the 
-- FAQ available at [FAQ](https://www.contributor-covenant.org/faq) 
+For answers to common questions about this code of conduct, see the
+
+- FAQ available at [FAQ](https://www.contributor-covenant.org/faq)

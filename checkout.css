@@ -3,22 +3,24 @@
    Matches the main site UI (white navbar, teal accents)
    ============================================================ */
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 :root {
-  --teal:       #1a7a6e;
-  --teal-dark:  #145f55;
+  --teal: #1a7a6e;
+  --teal-dark: #145f55;
   --teal-light: #e6f4f2;
-  --text:       #1a1a1a;
-  --muted:      #6b7280;
-  --border:     #e5e7eb;
-  --bg:         #f5f5f5;
-  --white:      #ffffff;
-  --radius:     12px;
+  --text: #1a1a1a;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --bg: #f5f5f5;
+  --white: #ffffff;
+  --radius: 12px;
 }
 
 body {
@@ -60,7 +62,7 @@ nav {
 
 /* Lavender flower accent beside logo */
 .nav-logo::after {
-  content: "✿";
+  content: '✿';
   font-size: 1rem;
   color: #a99fd4;
   font-family: sans-serif;
@@ -269,7 +271,9 @@ select {
   font-size: 0.875rem;
   color: var(--text);
   background: var(--white);
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
   outline: none;
 }
 
@@ -348,8 +352,14 @@ textarea {
 }
 
 @keyframes fadeSlide {
-  from { opacity: 0; transform: translateY(-8px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ══════════════════════════════════════════
@@ -364,8 +374,12 @@ textarea {
   border-bottom: 1px solid var(--border);
 }
 
-.order-item:first-of-type { padding-top: 0; }
-.order-item:last-of-type  { border-bottom: none; }
+.order-item:first-of-type {
+  padding-top: 0;
+}
+.order-item:last-of-type {
+  border-bottom: none;
+}
 
 .item-thumb {
   width: 62px;
@@ -454,7 +468,9 @@ textarea {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  transition: background 0.2s, transform 0.15s;
+  transition:
+    background 0.2s,
+    transform 0.15s;
   letter-spacing: 0.2px;
 }
 
@@ -511,8 +527,14 @@ textarea {
 }
 
 @keyframes popIn {
-  from { opacity: 0; transform: scale(0.82); }
-  to   { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.82);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .check-circle {
@@ -625,7 +647,17 @@ textarea {
 }
 
 /* Fix #2424 */
-.fade-out { animation-name: fadeOut; } @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+.fade-out {
+  animation-name: fadeOut;
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
 
 /* ── Coupon Code Styles (coupon-validator.js) ── */
 .coupon-feedback {
@@ -675,4 +707,3 @@ textarea {
 .btn-remove-coupon:hover {
   transform: scale(1.2);
 }
-

@@ -4,7 +4,13 @@
  */
 class TrackerTimelineSimulator {
   constructor() {
-    this.stages = ['Placed', 'Confirmed', 'Shipped', 'Out for Delivery', 'Delivered'];
+    this.stages = [
+      'Placed',
+      'Confirmed',
+      'Shipped',
+      'Out for Delivery',
+      'Delivered',
+    ];
   }
 
   getSimulatedStatus(index) {

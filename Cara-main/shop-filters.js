@@ -204,7 +204,8 @@ const applyFilters = () => {
   // Update counts
   if (countEl) countEl.textContent = totalCount;
   const legacy = document.getElementById('searchCount');
-  if (legacy) legacy.textContent = `${totalCount} product${totalCount !== 1 ? 's' : ''}`;
+  if (legacy)
+    legacy.textContent = `${totalCount} product${totalCount !== 1 ? 's' : ''}`;
 
   // Suggestions
   renderSearchSuggestions(query);
@@ -223,7 +224,10 @@ let scrollTimeout;
 window.addEventListener('scroll', () => {
   if (scrollTimeout) clearTimeout(scrollTimeout);
   scrollTimeout = setTimeout(() => {
-    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 150) {
+    if (
+      window.innerHeight + window.scrollY >=
+      document.documentElement.scrollHeight - 150
+    ) {
       loadMoreItems();
     }
   }, 100);

@@ -6,7 +6,9 @@ describe('js/autocomplete-loader.js AutocompleteLoader tests', () => {
     const mockEl = {
       style: { display: 'none' },
       attributes: {},
-      setAttribute(name, value) { this.attributes[name] = value; }
+      setAttribute(name, value) {
+        this.attributes[name] = value;
+      },
     };
     const loader = new AutocompleteLoader(mockEl);
     loader.showLoader();
@@ -18,7 +20,9 @@ describe('js/autocomplete-loader.js AutocompleteLoader tests', () => {
     const mockEl = {
       style: { display: 'block' },
       attributes: {},
-      setAttribute(name, value) { this.attributes[name] = value; }
+      setAttribute(name, value) {
+        this.attributes[name] = value;
+      },
     };
     const loader = new AutocompleteLoader(mockEl);
     loader.hideLoader();

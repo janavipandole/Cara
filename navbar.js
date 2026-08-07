@@ -94,9 +94,9 @@ function loadNavbar(activePage) {
             <i class="ri-moon-line" id="themeIcon"></i>
           </button>
         </li>
-        <a href="#" id="close" aria-label="Close menu">
+        <button id="close" aria-label="Close menu">
           <i class="fa-solid fa-xmark"></i>
-        </a>
+        </button>
       </ul>
     </div>
   `;

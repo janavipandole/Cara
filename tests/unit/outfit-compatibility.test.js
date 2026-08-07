@@ -21,7 +21,14 @@ describe('js/outfit-compatibility.js OutfitCompatibility tests', () => {
   });
 
   it('should recommend fallbacks for a given color', () => {
-    expect(compatibility.getRecommendedFallbacks('red')).toEqual(['white', 'black', 'navy']);
-    expect(compatibility.getRecommendedFallbacks('nonexistent')).toEqual(['white', 'black']);
+    expect(compatibility.getRecommendedFallbacks('red')).toEqual([
+      'white',
+      'black',
+      'navy',
+    ]);
+    expect(compatibility.getRecommendedFallbacks('nonexistent')).toEqual([
+      'white',
+      'black',
+    ]);
   });
 });

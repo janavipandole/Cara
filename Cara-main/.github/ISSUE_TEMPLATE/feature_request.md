@@ -1,7 +1,7 @@
 ---
 name: ✨ Feature Request
 about: Suggest a new feature or enhancement for this project
-title: "[FEATURE] <short description>"
+title: '[FEATURE] <short description>'
 labels: enhancement
 ---
 
@@ -38,5 +38,5 @@ Add any mockups, references, or related ideas here.
 
 ## ✅ Checklist
 
-- [ ] I have checked existing issues for similar feature requests.  
-- [ ] I have clearly explained the benefit of this feature.  
+- [ ] I have checked existing issues for similar feature requests.
+- [ ] I have clearly explained the benefit of this feature.

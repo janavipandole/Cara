@@ -13,7 +13,12 @@ describe('js/tracker-timeline-simulator.js TrackerTimelineSimulator tests', () =
   it('should return correct future timestamps relative to base', () => {
     const base = new Date('2026-07-18T12:00:00');
     const ts = simulator.getSimulatedTimestamp(2, base);
-    const matchesEither = ts.includes('14:00:00') || ts.includes('2:00:00 PM') || ts.includes('2:00:00 pm') || ts.includes('14.00.00') || ts.includes('2.00.00');
+    const matchesEither =
+      ts.includes('14:00:00') ||
+      ts.includes('2:00:00 PM') ||
+      ts.includes('2:00:00 pm') ||
+      ts.includes('14.00.00') ||
+      ts.includes('2.00.00');
     expect(matchesEither).toBe(true);
   });
 });

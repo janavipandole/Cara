@@ -355,8 +355,23 @@
         <div class="timeline-section">
           <h3>Shipment Progress</h3>
           <div id="order-tracking-timeline-target"></div>
-          <div style="text-align: center; margin-bottom: 20px;">
-            <button id="btn-progress-timeline" onclick="window.progressSimulatedTimeline()" style="background: #088178; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: 600;">Advance Simulated Stage</button>
+          <div style="text-align: center; margin-bottom: 20px">
+            <button
+              id="btn-progress-timeline"
+              onclick="window.progressSimulatedTimeline()"
+              style="
+                background: #088178;
+                color: white;
+                border: none;
+                padding: 6px 12px;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 13px;
+                font-weight: 600;
+              "
+            >
+              Advance Simulated Stage
+            </button>
           </div>
           <div
             class="timeline"
@@ -523,8 +538,8 @@
           </div>
           <div class="faq-answer">
             Standard shipping takes 5–7 business days. Express shipping takes
-            2–3 business days. International orders may take 10–15 business
-            days depending on the destination country.
+            2–3 business days. International orders may take 10–15 business days
+            depending on the destination country.
           </div>
         </div>
 
@@ -777,7 +792,7 @@
       function simulateCancellation() {
         if (confirm('Are you sure you want to cancel this order?')) {
           alert(
-            'Cancellation request sent successfully. Your refund will be processed.'
+            'Cancellation request sent successfully. Your refund will be processed.',
           );
           document.getElementById('cancel-simulation-box').innerHTML =
             '<h3>Order Cancelled</h3><p>This order has been cancelled.</p>';

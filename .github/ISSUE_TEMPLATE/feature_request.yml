@@ -1,8 +1,8 @@
 ---
 name: ✨ Feature Request
 description: Propose a new feature or significant enhancement for Cara
-title: "[Feature]: "
-labels: ["enhancement", "needs-triage"]
+title: '[Feature]: '
+labels: ['enhancement', 'needs-triage']
 assignees: []
 body:
   - type: markdown

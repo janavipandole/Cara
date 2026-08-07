@@ -368,6 +368,9 @@ button + button {
 </head>
 
 <body>
+  <!-- Toast lives at body level so it overlays everything -->
+  <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
   <section id="header" role="banner">
     <!-- Logo -->
     <a href="index.html">
@@ -415,7 +418,7 @@ button + button {
         </li>
 
         <!-- Close Button -->
-        <a href="javascript:void(0)" id="close" aria-label="Close menu" aria-hidden="false">
+        <button id="close" aria-label="Close menu">
           <i class="fa-solid fa-xmark"></i>
         </a>
 
@@ -436,7 +439,7 @@ button + button {
       </a>
 
       <!-- Hamburger Menu -->
-      <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
+      <button class="fas fa-bars" id="bar" aria-label="Open menu" aria-expanded="false" aria-controls="navbar-menu"></button>
     </div>
   </section>
 

@@ -37,56 +37,56 @@ document.addEventListener('DOMContentLoaded', () => {
       name: 'Tropical Hibiscus Shirt',
       img: 'images/products/f1.jpg',
       category: 'top',
-      color: 'navy'
+      color: 'navy',
     },
     {
       id: 2,
       name: 'White Palm Leaf Shirt',
       img: 'images/products/f2.jpg',
       category: 'top',
-      color: 'white'
+      color: 'white',
     },
     {
       id: 3,
       name: 'Vintage Rose Garden Shirt',
       img: 'images/products/f3.jpg',
       category: 'top',
-      color: 'white'
+      color: 'white',
     },
     {
       id: 4,
       name: 'Sakura Blossom Shirt',
       img: 'images/products/f4.jpg',
       category: 'top',
-      color: 'blue'
+      color: 'blue',
     },
     {
       id: 5,
       name: 'Pink Peony Shirt',
       img: 'images/products/f5.jpg',
       category: 'top',
-      color: 'pink'
+      color: 'pink',
     },
     {
       id: 6,
       name: 'Dual-Tone Corduroy Shirt',
       img: 'images/products/f6.jpg',
       category: 'top',
-      color: 'khaki'
+      color: 'khaki',
     },
     {
       id: 8,
       name: 'Cat Print Blouse',
       img: 'images/products/f8.jpg',
       category: 'top',
-      color: 'white'
+      color: 'white',
     },
     {
       id: 9,
       name: 'Sky Blue Mandarin Shirt',
       img: 'images/products/n1.jpg',
       category: 'top',
-      color: 'blue'
+      color: 'blue',
     },
   ];
 
@@ -127,7 +127,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // MODE SWITCHING (Camera / Upload)
   // ============================================
   function switchMode(mode) {
-
     document
       .getElementById('btn-camera')
       .classList.toggle('active', mode === 'camera');
@@ -343,7 +342,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function checkOutfitCompatibility() {
     const bottomSelect = document.getElementById('bottom-color-select');
-    const feedbackBox = document.getElementById('outfit-compatibility-feedback');
+    const feedbackBox = document.getElementById(
+      'outfit-compatibility-feedback',
+    );
     if (!bottomSelect || !feedbackBox) return;
 
     const bottomColor = bottomSelect.value;
@@ -355,14 +356,18 @@ document.addEventListener('DOMContentLoaded', () => {
     feedbackBox.style.display = 'block';
     if (typeof window.OutfitCompatibility === 'function') {
       const compatibility = new window.OutfitCompatibility();
-      const isCompatible = compatibility.isColorCompatible(selectedTopColor, bottomColor);
-      
+      const isCompatible = compatibility.isColorCompatible(
+        selectedTopColor,
+        bottomColor,
+      );
+
       if (isCompatible) {
         feedbackBox.className = 'outfit-compatibility-compatible';
         feedbackBox.textContent = `Nice choice! Selected top (${selectedTopColor}) and bottom (${bottomColor}) are color-compatible.`;
       } else {
         feedbackBox.className = 'outfit-compatibility-incompatible';
-        const fallbacks = compatibility.getRecommendedFallbacks(selectedTopColor);
+        const fallbacks =
+          compatibility.getRecommendedFallbacks(selectedTopColor);
         feedbackBox.textContent = `Style Alert: Selected top (${selectedTopColor}) and bottom (${bottomColor}) are not color-compatible. Recommended bottom colors for this top: ${fallbacks.join(', ')}.`;
       }
     }
@@ -378,7 +383,9 @@ document.addEventListener('DOMContentLoaded', () => {
     element.classList.add('selected');
     hasOutfit = true;
 
-    const matchedProduct = tryOnProducts.find(p => element.src.includes(p.img));
+    const matchedProduct = tryOnProducts.find((p) =>
+      element.src.includes(p.img),
+    );
     selectedTopColor = matchedProduct ? matchedProduct.color : null;
     checkOutfitCompatibility();
 
@@ -387,7 +394,6 @@ document.addEventListener('DOMContentLoaded', () => {
     img.crossOrigin = 'anonymous';
     img.src = element.src;
     img.onload = () => {
-
       cleanedGarmentCanvas = removeGarmentBackground(img);
       checkReady();
     };
@@ -476,7 +482,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const rShoulder = landmarks[12];
     const lHip = landmarks[23];
     const rHip = landmarks[24];
-
 
     // Pixel distances
     const shoulderWidth = Math.sqrt(
@@ -663,7 +668,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let garmentScale = 1.0;
   let garmentOffsetY = 0.0;
   let garmentOpacity = 0.9;
-
 
   // Dynamically inject Adjustment Sliders panel into the controls sidebar
   (function injectAdjustmentSliders() {
