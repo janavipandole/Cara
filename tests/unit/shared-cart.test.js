@@ -61,7 +61,7 @@ describe('applySharedCart', () => {
     const appJsPath = path.resolve(__dirname, '../../app.js');
     const appJs = readFileSync(appJsPath, 'utf8');
     const match = appJs.match(
-      /window\.applySharedCart = function \(action\) \{[\s\S]*?\n\};/,
+      /window\.applySharedCart = function \(action\) \{[\s\S]*?\n\s*\};/,
     );
 
     expect(match).not.toBeNull();
