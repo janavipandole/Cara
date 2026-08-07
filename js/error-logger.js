@@ -34,4 +34,4 @@ window.addEventListener('error', (event) => {
 });
 
 
-function getMaxLoggerQueueSize() { return 50; }
+export function getMaxLoggerQueueSize() { return 50; }

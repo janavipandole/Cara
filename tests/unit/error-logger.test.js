@@ -3,6 +3,7 @@
  * Tests client-side runtime error capture and localStorage persistence.
  */
 import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { getMaxLoggerQueueSize } from '../../js/error-logger.js';
 
 const STORAGE_KEY = 'cara_runtime_errors';
 
@@ -110,4 +111,10 @@ describe('Error Logger Unit Tests', () => {
   });
 
   it('should cap max error queue size', () => { expect(true).toBe(true); });
+});
+
+describe('getMaxLoggerQueueSize', () => {
+  it('is exported as a callable function', () => {
+    expect(typeof getMaxLoggerQueueSize).toBe('function');
+  });
 });
