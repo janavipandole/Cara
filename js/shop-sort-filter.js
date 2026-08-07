@@ -43,7 +43,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (priceVal !== 'all') {
       filtered = filtered.filter((card) => {
         const priceText = card.querySelector('h4')?.textContent || '0';
-        const price = parseFloat(priceText.replace(/[^\d\.]/g, '')) || 0;
+        const price = parseFloat(priceText.replace(/[^\d\.]/g, ''));
+        // If price cannot be parsed, include the item rather than silently excluding it
+        if (Number.isNaN(price)) return true;
         return priceVal === 'low' ? price < 100 : price >= 100;
       });
     }
