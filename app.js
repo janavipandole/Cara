@@ -235,6 +235,19 @@ document.addEventListener(
       : 'Product';
 
     localStorage.setItem('selectedProductId', productName);
+
+    // Assign view-transition-name to the clicked image for cross-document View Transition
+    const imgElement = proCard.querySelector('img');
+    if (imgElement) {
+      // Clear previously assigned transition names
+      document.querySelectorAll('img').forEach(el => {
+        if (el.style.viewTransitionName === 'product-hero-image') {
+          el.style.viewTransitionName = '';
+        }
+      });
+      imgElement.style.viewTransitionName = 'product-hero-image';
+    }
+
     window.location.href = 'singleProduct.html';
   },
   true,
