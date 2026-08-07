@@ -43,4 +43,19 @@ describe('js/outfit-compatibility.js OutfitCompatibility tests', () => {
     expect(c.isOutfitWithinBudget(9999, NaN)).toBe(true);
   });
 
+  it('should return false for a NaN total price', () => {
+    const c = new OutfitCompatibility();
+    expect(c.isOutfitWithinBudget(NaN, 100)).toBe(false);
+    expect(c.isOutfitWithinBudget('80', 100)).toBe(false);
+  });
+
+  it('should treat a negative budget as no limit', () => {
+    const c = new OutfitCompatibility();
+    expect(c.isOutfitWithinBudget(500, -1)).toBe(true);
+  });
+
+  it('should return default fallbacks for missing colors', () => {
+    expect(compatibility.getRecommendedFallbacks(null)).toEqual(['white', 'black']);
+    expect(compatibility.getRecommendedFallbacks('')).toEqual(['white', 'black']);
+  });
 });
