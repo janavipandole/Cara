@@ -1,5 +1,19 @@
 // Reusable Toast Notification Queue Manager
 
+function escapeHtml(value) {
+  return String(value).replace(
+    /[&<>"']/g,
+    (char) =>
+      ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;',
+      })[char],
+  );
+}
+
 export class ToastQueueManager {
   constructor(maxToasts = 5) {
     this.maxToasts = maxToasts;
@@ -45,7 +59,7 @@ export class ToastQueueManager {
       el.innerHTML = `
         <div class="toast-content">
           <span class="toast-icon">${type === 'success' ? '✓' : type === 'error' ? '✕' : 'ℹ'}</span>
-          <span class="toast-message">${message}</span>
+          <span class="toast-message">${escapeHtml(message)}</span>
         </div>
         <button class="toast-close" aria-label="Close notification">&times;</button>
       `;
