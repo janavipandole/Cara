@@ -62,7 +62,12 @@ export class CartSyncManager {
 
   addItem(item) {
     const cart = this.getCart();
-    const existingIndex = cart.findIndex((i) => i.id === item.id);
+    // Only dedupe when the item carries an id; items without an id must not
+    // collapse into one entry (undefined === undefined would merge them).
+    const hasId = item.id != null;
+    const existingIndex = hasId
+      ? cart.findIndex((i) => i.id === item.id)
+      : -1;
     if (existingIndex > -1) {
       cart[existingIndex].quantity = (cart[existingIndex].quantity || 1) + (item.quantity || 1);
     } else {
