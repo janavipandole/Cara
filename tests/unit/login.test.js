@@ -110,4 +110,42 @@ describe('login.js', () => {
       );
     });
   });
+
+  it('blocks submit and shows a field error for an empty email', async () => {
+    const fetchMock = vi.fn();
+    vi.stubGlobal('fetch', fetchMock);
+
+    await import('../../login.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    document.getElementById('loginEmail').value = '';
+    document.getElementById('loginPassword').value = '';
+
+    const event = new Event('submit', { bubbles: true, cancelable: true });
+    document.getElementById('loginForm').dispatchEvent(event);
+
+    expect(document.getElementById('emailError').textContent).toBe(
+      'Email is required.',
+    );
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it('shows a password-required error when only the email is filled', async () => {
+    const fetchMock = vi.fn();
+    vi.stubGlobal('fetch', fetchMock);
+
+    await import('../../login.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    document.getElementById('loginEmail').value = 'user@example.com';
+    document.getElementById('loginPassword').value = '';
+
+    const event = new Event('submit', { bubbles: true, cancelable: true });
+    document.getElementById('loginForm').dispatchEvent(event);
+
+    expect(document.getElementById('passwordError').textContent).toBe(
+      'Password is required.',
+    );
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
 });
