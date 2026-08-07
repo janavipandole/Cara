@@ -53,4 +53,24 @@ describe('PromoDiscountCalculator Unit Tests', () => {
     expect(calc.applyPromoDiscountMaxCap(999, -5)).toBe(999);
   });
 
+  it('should waive shipping when a freeship coupon is applied', () => {
+    const summary = calc.calculateTotal(40, 'FREESHIP', 10);
+    expect(summary.shipping).toBe(0);
+    expect(summary.grandTotal).toBe(40);
+  });
+
+  it('should reject a coupon below its minimum spend', () => {
+    // FLAT15 requires min spend 40; subtotal 30 should be rejected.
+    const summary = calc.calculateTotal(30, 'FLAT15', 10);
+    expect(summary.appliedCoupon).toBeNull();
+    expect(summary.discount).toBe(0);
+    expect(summary.grandTotal).toBe(40); // 30 + base shipping 10
+  });
+
+  it('should apply the full flat discount when above the minimum spend', () => {
+    const summary = calc.calculateTotal(45, 'FLAT15', 10);
+    expect(summary.discount).toBe(15);
+    expect(summary.appliedCoupon).toBe('FLAT15');
+    expect(summary.grandTotal).toBe(40); // 45 - 15 + 10 shipping
+  });
 });
