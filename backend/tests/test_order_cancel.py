@@ -1,7 +1,7 @@
 """Tests for order cancel stock restoration."""
 from passlib.context import CryptContext
 
-from app.models import Product, Order, User
+from app.models import Product, Order, OrderItem, User
 from tests.conftest import TestingSessionLocal
 
 ORDERS_URL = "/api/orders/"
@@ -120,3 +120,136 @@ def test_cancel_already_cancelled_does_not_double_restock(client):
     product = db.query(Product).filter(Product.name == "Double Cancel Shirt").first()
     assert product.stock == 5
     db.close()
+
+
+def test_order_item_records_product_id(client):
+    """Order items must snapshot the product_id at creation time."""
+    headers = _auth_headers(client)
+    db = TestingSessionLocal()
+    product = _seed_product(db, name="Snapshot Shirt", stock=10)
+    db.close()
+
+    create = client.post(
+        ORDERS_URL,
+        headers=headers,
+        json={
+            "fullName": "Test User",
+            "email": "cancel@example.com",
+            "address": "1 Test St",
+            "city": "Testville",
+            "zip": "12345",
+            "items": [{"product_name": "Snapshot Shirt", "quantity": 1}],
+        },
+    )
+    assert create.status_code == 201, create.text
+    order_id = create.json()["order_id"]
+
+    db = TestingSessionLocal()
+    item = db.query(OrderItem).filter(OrderItem.order_id == order_id).first()
+    assert item.product_id == product.id
+    db.close()
+
+
+def test_cancel_after_product_rename_restores_stock(client):
+    """Stock restore must follow product_id, so a rename cannot leak inventory."""
+    headers = _auth_headers(client)
+    db = TestingSessionLocal()
+    product = _seed_product(db, name="Rename Shirt", stock=10)
+    db.close()
+
+    create = client.post(
+        ORDERS_URL,
+        headers=headers,
+        json={
+            "fullName": "Test User",
+            "email": "cancel@example.com",
+            "address": "1 Test St",
+            "city": "Testville",
+            "zip": "12345",
+            "items": [{"product_name": "Rename Shirt", "quantity": 3}],
+        },
+    )
+    assert create.status_code == 201, create.text
+    order_id = create.json()["order_id"]
+
+    # Simulate an admin renaming the product after the order was placed.
+    db = TestingSessionLocal()
+    db.query(Product).filter(Product.id == product.id).update({"name": "Renamed Tee"})
+    db.commit()
+    db.close()
+
+    cancel = client.post(f"{ORDERS_URL}{order_id}/cancel", headers=headers)
+    assert cancel.status_code == 200, cancel.text
+    assert cancel.json()["status"] == "CANCELLED"
+
+    db = TestingSessionLocal()
+    after = db.query(Product).filter(Product.id == product.id).first()
+    assert after.stock == 10
+    db.close()
+
+
+def test_cancel_with_deleted_product_reports_warning(client):
+    """Missing products must surface a warning instead of silently leaking stock."""
+    headers = _auth_headers(client)
+    db = TestingSessionLocal()
+    product = _seed_product(db, name="Doomed Shirt", stock=5)
+    db.close()
+
+    create = client.post(
+        ORDERS_URL,
+        headers=headers,
+        json={
+            "fullName": "Test User",
+            "email": "cancel@example.com",
+            "address": "1 Test St",
+            "city": "Testville",
+            "zip": "12345",
+            "items": [{"product_name": "Doomed Shirt", "quantity": 2}],
+        },
+    )
+    assert create.status_code == 201, create.text
+    order_id = create.json()["order_id"]
+
+    db = TestingSessionLocal()
+    db.query(Product).filter(Product.id == product.id).delete()
+    db.commit()
+    db.close()
+
+    cancel = client.post(f"{ORDERS_URL}{order_id}/cancel", headers=headers)
+    assert cancel.status_code == 200, cancel.text
+    body = cancel.json()
+    assert body["status"] == "CANCELLED"
+    assert "warning" in body
+
+
+def test_cancel_with_null_created_at_does_not_crash(client):
+    """A NULL created_at must not 500 the cancellation endpoint."""
+    headers = _auth_headers(client)
+    db = TestingSessionLocal()
+    _seed_product(db, name="Null Created Shirt", stock=7)
+    db.close()
+
+    create = client.post(
+        ORDERS_URL,
+        headers=headers,
+        json={
+            "fullName": "Test User",
+            "email": "cancel@example.com",
+            "address": "1 Test St",
+            "city": "Testville",
+            "zip": "12345",
+            "items": [{"product_name": "Null Created Shirt", "quantity": 2}],
+        },
+    )
+    assert create.status_code == 201, create.text
+    order_id = create.json()["order_id"]
+
+    # Simulate a legacy row with a NULL created_at.
+    db = TestingSessionLocal()
+    db.query(Order).filter(Order.id == order_id).update({"created_at": None})
+    db.commit()
+    db.close()
+
+    cancel = client.post(f"{ORDERS_URL}{order_id}/cancel", headers=headers)
+    assert cancel.status_code == 200, cancel.text
+    assert cancel.json()["status"] == "CANCELLED"

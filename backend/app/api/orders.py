@@ -2,10 +2,13 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
+import logging
 from .. import models, schemas
 from ..database import get_db
 from .auth import get_current_user
 from datetime import datetime, timezone, timedelta
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
@@ -152,6 +155,7 @@ def create_order(
 
         db_items.append(
             models.OrderItem(
+                product_id=db_product.id,
                 product_name=item.product_name,
                 quantity=item.quantity,
                 price=real_price
@@ -245,33 +249,62 @@ def cancel_order(
     if order.status == "CANCELLED":
         raise HTTPException(status_code=400, detail="Order is already cancelled")
 
-    order_age = datetime.now(timezone.utc) - order.created_at.replace(tzinfo=timezone.utc)
-    if order_age > timedelta(hours=CANCELLABLE_WINDOW_HOURS):
-        raise HTTPException(
-            status_code=400,
-            detail=f"Orders can only be cancelled within {CANCELLABLE_WINDOW_HOURS} hours of placing them.",
+    # Guard against NULL created_at (legacy/manual rows): log and skip the
+    # window check instead of crashing with a 500.
+    if order.created_at is None:
+        logger.warning(
+            "Order %s has no created_at; skipping cancellable window check",
+            order.id,
         )
+    else:
+        order_age = datetime.now(timezone.utc) - order.created_at.replace(tzinfo=timezone.utc)
+        if order_age > timedelta(hours=CANCELLABLE_WINDOW_HOURS):
+            raise HTTPException(
+                status_code=400,
+                detail=f"Orders can only be cancelled within {CANCELLABLE_WINDOW_HOURS} hours of placing them.",
+            )
 
     items = (
         db.query(models.OrderItem)
         .filter(models.OrderItem.order_id == order.id)
         .all()
     )
-    product_names = [item.product_name for item in items]
-    if product_names:
+
+    # Restore stock by the stable product_id so renamed/deleted products still
+    # get their inventory back (or are reported explicitly when missing).
+    product_ids = [item.product_id for item in items if item.product_id is not None]
+    product_map = {}
+    if product_ids:
         products = (
             db.query(models.Product)
-            .filter(models.Product.name.in_(product_names))
+            .filter(models.Product.id.in_(product_ids))
             .with_for_update()
             .all()
         )
-        product_map = {product.name: product for product in products}
-        for item in items:
-            product = product_map.get(item.product_name)
-            if product is not None:
-                product.stock += item.quantity
+        product_map = {product.id: product for product in products}
+
+    missing_names = []
+    for item in items:
+        product = product_map.get(item.product_id) if item.product_id is not None else None
+        if product is not None:
+            product.stock += item.quantity
+        else:
+            missing_names.append(item.product_name)
+
+    if missing_names:
+        logger.warning(
+            "Order %s cancelled but could not restore stock for missing products: %s",
+            order.id,
+            ", ".join(sorted(set(missing_names))),
+        )
 
     order.status = "CANCELLED"
     db.commit()
 
-    return {"message": "Order cancelled successfully", "status": order.status}
+    response = {"message": "Order cancelled successfully", "status": order.status}
+    if missing_names:
+        response["warning"] = (
+            "Some items could not be restocked because their products were "
+            "removed or renamed."
+        )
+    return response

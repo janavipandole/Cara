@@ -114,7 +114,14 @@ class OrderItem(Base):
         ForeignKey("orders.id"),
         nullable=False
     )
+    product_id = Column(
+        Integer,
+        ForeignKey("products.id"),
+        index=True,
+        nullable=True,
+    )
     product_name = Column(String, nullable=False)
     quantity = Column(Integer, nullable=False)
     price = Column(Float, nullable=False)
     order = relationship("Order")
+    product = relationship("Product")
