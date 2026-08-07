@@ -1,3 +1,4 @@
+import { createFocusTrap } from './js/a11y-focus-trap.js';
 let checkoutIdempotencyKey = null;
 let checkoutWakeLock = null;
 let isCheckoutProcessing = false;
@@ -440,7 +441,7 @@ function submitCheckoutForm() {
 
       // HIDE CARD DETAILS AGAIN
       cardDetails.style.display = 'none';
-      if (popup) popup.classList.add('show');
+      openSuccessPopup();
 
       // Clear all validation states post-submit
       inputs.forEach((input) => {
@@ -463,9 +464,28 @@ function submitCheckoutForm() {
     });
 }
 
+let successFocusTrap = null;
+
+function openSuccessPopup() {
+  const popup = document.getElementById('successPopup');
+  const dialog = popup ? popup.querySelector('.popup-box') : null;
+  if (!popup || !dialog) return;
+
+  popup.hidden = false;
+  popup.classList.add('show');
+  successFocusTrap = createFocusTrap(dialog);
+  successFocusTrap.activate();
+}
+
 window.closePopup = function () {
   const popup = document.getElementById('successPopup');
-  if (popup) popup.classList.remove('show');
+  if (!popup) return;
+  popup.classList.remove('show');
+  popup.hidden = true;
+  if (successFocusTrap) {
+    successFocusTrap.deactivate();
+    successFocusTrap = null;
+  }
 };
 
 function parsePriceString(priceStr) {
@@ -727,12 +747,23 @@ window.addEventListener('couponRemoved', () => {
   window.updateCheckoutSummary();
 });
 
-// ── Close popup when clicking outside the box ─────────────
+// ── Close popup when clicking outside the box / Escape ─────────────
 const successOverlay = document.getElementById('successPopup');
 if (successOverlay) {
   successOverlay.addEventListener('click', function (e) {
-    if (e.target === this) this.classList.remove('show');
+    if (e.target === this) window.closePopup();
   });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && successOverlay.classList.contains('show')) {
+      window.closePopup();
+    }
+  });
+  const continueBtn = document.getElementById('successContinueBtn');
+  if (continueBtn) {
+    continueBtn.addEventListener('click', function () {
+      window.location.href = 'shop.html';
+    });
+  }
 }
 // Advanced validation routines checking postal formats and shipping address boundaries.
 console.log("Checkout script updated with Vault integration.");
