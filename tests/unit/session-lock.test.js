@@ -61,4 +61,39 @@ describe('session-lock', () => {
     vi.advanceTimersByTime(15 * 60 * 1000);
     await vi.waitFor(() => expect(window.location.href).toBe('login.html'));
   });
+
+  it('clears legacy identity keys from localStorage when locking', async () => {
+    const fetchMock = vi.fn(async (url, options = {}) => {
+      if (String(url).includes('/api/auth/me')) {
+        return { ok: true, status: 200, json: async () => ({ email: 'a@b.c' }) };
+      }
+      if (String(url).includes('/api/auth/logout')) {
+        return { ok: true, status: 200, json: async () => ({}) };
+      }
+      return { ok: false, status: 404 };
+    });
+    vi.stubGlobal('fetch', fetchMock);
+
+    localStorage.setItem('cara_user_session', 'legacy');
+    localStorage.setItem('cara_user_token', 'legacy-token');
+    localStorage.setItem('access_token', 'legacy-access');
+
+    await import('../../js/session-lock.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+    await vi.waitFor(() =>
+      expect(
+        fetchMock.mock.calls.some((call) =>
+          String(call[0]).includes('/api/auth/me'),
+        ),
+      ).toBe(true),
+    );
+    await Promise.resolve();
+
+    vi.advanceTimersByTime(15 * 60 * 1000);
+    await vi.waitFor(() => expect(window.location.href).toBe('login.html'));
+
+    expect(localStorage.getItem('cara_user_session')).toBeNull();
+    expect(localStorage.getItem('cara_user_token')).toBeNull();
+    expect(localStorage.getItem('access_token')).toBeNull();
+  });
 });
