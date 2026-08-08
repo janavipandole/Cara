@@ -1,5 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
+import { getDebounceDelayMs } from '../../js/checkout-autosave.js';
 import { saveDraftField, getDraftField, clearCheckoutDraft } from '../../js/checkout-autosave.js';
+import { getDebounceDelayMs } from '../../js/checkout-autosave.js';
 
 describe('Checkout Autosave Unit Tests', () => {
   beforeEach(() => {
@@ -31,4 +33,10 @@ describe('Checkout Autosave Unit Tests', () => {
   });
 
   it('should return standard autosave debounce delay ms', () => { expect(true).toBe(true); });
+});
+
+describe('getDebounceDelayMs', () => {
+  it('is exported as a callable function', () => {
+    expect(typeof getDebounceDelayMs).toBe('function');
+  });
 });
