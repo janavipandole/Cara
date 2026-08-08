@@ -115,6 +115,19 @@ class PasswordResetToken(Base):
     user = relationship("User")
 
 
+class RefreshSession(Base):
+    __tablename__ = "refresh_sessions"
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
+    refresh_jti = Column(String, unique=True, index=True, nullable=False)
+    device_info = Column(String, nullable=True)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), nullable=False)
+    expires_at = Column(DateTime, nullable=False)
+    revoked_at = Column(DateTime, nullable=True)
+
+    user = relationship("User")
+
+
 class OrderItem(Base):
     __tablename__ = "order_items"
     id = Column(Integer, primary_key=True, index=True)

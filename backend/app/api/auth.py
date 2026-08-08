@@ -38,8 +38,8 @@ REFRESH_TOKEN_DAYS = 7
 COOKIE_SAMESITE = "lax"
 COOKIE_PATH = "/"
 
-# email -> currently valid refresh token jti (rotation / revoke store)
-active_refresh_jtis: dict[str, str] = {}
+# Refresh-token sessions are persisted in the DB (RefreshSession) so that
+# multiple devices can stay logged in and sessions survive process restarts.
 
 logger = logging.getLogger(__name__)
 
@@ -82,20 +82,46 @@ def create_access_token(email: str) -> str:
         algorithm=ALGORITHM
     )
 
-def create_refresh_token(email: str) -> str:
-    jti = secrets.token_urlsafe(32)
-    token = jwt.encode(
+
+def _session_expiry() -> datetime:
+    return datetime.now(timezone.utc) + timedelta(days=REFRESH_TOKEN_DAYS)
+
+
+def _build_refresh_token(user: models.User, jti: str) -> str:
+    return jwt.encode(
         {
-            "sub": email,
+            "sub": user.email,
             "type": "refresh",
             "jti": jti,
-            "exp": datetime.now(timezone.utc) + timedelta(days=REFRESH_TOKEN_DAYS),
+            "exp": _session_expiry(),
         },
         SECRET_KEY,
         algorithm=ALGORITHM,
     )
-    active_refresh_jtis[email] = jti
-    return token
+
+
+def create_refresh_token(
+    db: Session, user: models.User, request: Request | None = None
+) -> str:
+    """Persist a new session row and return its refresh token.
+
+    Every login/register gets its own row, so one device never invalidates
+    another and sessions survive process restarts.
+    """
+    jti = secrets.token_urlsafe(32)
+    device_info = None
+    if request is not None:
+        device_info = (request.headers.get("user-agent") or "")[:255] or None
+    db.add(
+        models.RefreshSession(
+            user_id=user.id,
+            refresh_jti=jti,
+            device_info=device_info,
+            expires_at=_session_expiry(),
+        )
+    )
+    db.commit()
+    return _build_refresh_token(user, jti)
 
 def set_auth_cookies(response: Response, access_token: str, refresh_token: str):
     secure = cookie_secure()
@@ -129,13 +155,39 @@ def clear_auth_cookies(response: Response):
             samesite=COOKIE_SAMESITE,
         )
 
-def revoke_refresh_token(email: str | None):
-    if email:
-        active_refresh_jtis.pop(email, None)
+def _find_refresh_session(db: Session, jti: str) -> models.RefreshSession | None:
+    session = (
+        db.query(models.RefreshSession)
+        .filter(
+            models.RefreshSession.refresh_jti == jti,
+            models.RefreshSession.revoked_at.is_(None),
+        )
+        .first()
+    )
+    if session is None:
+        return None
+    # SQLite returns naive datetimes; compare against naive UTC to avoid
+    # mixing offset-naive and offset-aware values.
+    now = datetime.now(timezone.utc).replace(tzinfo=None)
+    if session.expires_at and session.expires_at <= now:
+        return None
+    return session
 
-def assert_refresh_jti(email: str, jti: str | None):
-    expected = active_refresh_jtis.get(email)
-    if not jti or not expected or not hmac.compare_digest(expected, jti):
+
+def revoke_refresh_token(db: Session, email: str | None, jti: str | None = None):
+    if not jti:
+        return
+    session = _find_refresh_session(db, jti)
+    if session is not None:
+        session.revoked_at = datetime.now(timezone.utc)
+        db.commit()
+
+
+def assert_refresh_jti(db: Session, email: str, jti: str | None):
+    if not jti:
+        raise HTTPException(401, "Invalid or revoked refresh token.")
+    session = _find_refresh_session(db, jti)
+    if session is None or session.user.email != email:
         raise HTTPException(401, "Invalid or revoked refresh token.")
 
 # -- Helper: get current user from token --
@@ -194,7 +246,7 @@ def register(request: Request, response: Response, payload: UserRegister, db: Se
     db.refresh(user)
 
     access_token = create_access_token(user.email)
-    refresh_token = create_refresh_token(user.email)
+    refresh_token = create_refresh_token(db, user, request)
     
     set_auth_cookies(response, access_token, refresh_token)
 
@@ -273,7 +325,7 @@ def login(request: Request, response: Response, payload: UserLogin, db: Session 
     failed_login_attempts.pop(email_hash, None)
 
     access_token = create_access_token(user.email)
-    refresh_token = create_refresh_token(user.email)
+    refresh_token = create_refresh_token(db, user, request)
     
     set_auth_cookies(response, access_token, refresh_token)
 
@@ -295,16 +347,25 @@ def refresh_access_token(request: Request, response: Response, db: Session = Dep
         email: str = payload.get("sub")
         if not email:
             raise HTTPException(401, "Invalid token.")
-        assert_refresh_jti(email, payload.get("jti"))
+        session = _find_refresh_session(db, payload.get("jti"))
+        if session is None or session.user.email != email:
+            raise HTTPException(401, "Invalid or revoked refresh token.")
     except JWTError:
         raise HTTPException(401, "Invalid or expired refresh token.")
 
-    user = db.query(models.User).filter(models.User.email == email).first()
-    if not user or not user.is_active:
+    user = session.user
+    if not user.is_active:
         raise HTTPException(401, "User not found or inactive.")
 
+    # Rotate the jti within the same session row so the old token stops working
+    # while the device keeps its own session (no cross-device logout).
+    new_jti = secrets.token_urlsafe(32)
+    session.refresh_jti = new_jti
+    session.expires_at = _session_expiry()
+    db.commit()
+
     access_token = create_access_token(user.email)
-    new_refresh_token = create_refresh_token(user.email)
+    new_refresh_token = _build_refresh_token(user, new_jti)
     set_auth_cookies(response, access_token, new_refresh_token)
     return {"message": "Token refreshed successfully"}
 
@@ -425,17 +486,34 @@ def reset_password(
 
 
 @router.post("/logout")
-def logout(request: Request, response: Response):
+def logout(request: Request, response: Response, db: Session = Depends(get_db)):
     token = request.cookies.get("refresh_token")
     if token:
         try:
             payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
             if payload.get("type") == "refresh":
-                revoke_refresh_token(payload.get("sub"))
+                revoke_refresh_token(db, payload.get("sub"), payload.get("jti"))
         except JWTError:
             pass
     clear_auth_cookies(response)
     return {"message": "Successfully logged out"}
+
+
+@router.post("/logout-all")
+def logout_all(
+    request: Request,
+    response: Response,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user),
+):
+    """Revoke every active session for the current user."""
+    db.query(models.RefreshSession).filter(
+        models.RefreshSession.user_id == current_user.id,
+        models.RefreshSession.revoked_at.is_(None),
+    ).update({"revoked_at": datetime.now(timezone.utc)})
+    db.commit()
+    clear_auth_cookies(response)
+    return {"message": "All sessions logged out"}
 
 @router.get("/me", response_model=UserOut)
 def get_me(current_user: models.User = Depends(get_current_user)):
