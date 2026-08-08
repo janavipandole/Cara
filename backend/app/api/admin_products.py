@@ -4,6 +4,7 @@ from typing import List
 from .. import models, schemas
 from ..database import get_db
 from .auth import get_current_user
+from ..vector_search.faiss_index import rebuild_index
 
 router = APIRouter()
 
@@ -27,6 +28,7 @@ def create_product(
     db.add(product)
     db.commit()
     db.refresh(product)
+    rebuild_index(db)
     return product
 
 
@@ -44,6 +46,7 @@ def update_product(
         setattr(product, field, value)
     db.commit()
     db.refresh(product)
+    rebuild_index(db)
     return product
 
 
@@ -58,6 +61,7 @@ def delete_product(
         raise HTTPException(status_code=404, detail="Product not found")
     db.delete(product)
     db.commit()
+    rebuild_index(db)
     return {"message": "Product deleted successfully"}
 
 
