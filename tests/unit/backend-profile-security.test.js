@@ -22,8 +22,18 @@ describe('js/backend-profile-security.js BackendProfileSecurity tests', () => {
     expect(security.validatePhone('abc12345')).toBe(false);
   });
 
-  it('should sanitize Bearer token header correctly', () => {
-    expect(true).toBe(true);
+  it('should sanitize nested HTML and quote characters', () => {
+    expect(security.sanitizeField('<img src=x onerror=alert(1)>'))
+      .toBe('&lt;img src=x onerror=alert(1)&gt;');
+    expect(security.sanitizeField("It's a 'test'"))
+      .toBe('It&#x27;s a &#x27;test&#x27;');
+  });
+
+  it('should handle non-string or empty sanitize input safely', () => {
+    expect(security.sanitizeField(null)).toBe('');
+    expect(security.sanitizeField(undefined)).toBe('');
+    expect(security.sanitizeField(123)).toBe('');
+    expect(security.sanitizeField('')).toBe('');
   });
 
 });
