@@ -37,6 +37,16 @@ class PromoDiscountCalculator {
   }
 
   calculateTotal(subtotal, couponCode = '', baseShipping = 10) {
+    if (typeof subtotal !== 'number' || Number.isNaN(subtotal) || subtotal < 0) {
+      return {
+        subtotal: 0,
+        discount: 0,
+        shipping: 0,
+        grandTotal: 0,
+        appliedCoupon: null,
+        error: 'Invalid subtotal: must be a non-negative number'
+      };
+    }
     let discount = 0;
     let shipping = subtotal >= this.freeShippingThreshold ? 0 : baseShipping;
     let appliedCoupon = null;
