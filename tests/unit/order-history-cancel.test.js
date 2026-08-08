@@ -19,7 +19,7 @@ function setupPage() {
     <div id="retryButton"></div>
     <div id="closeModalBtn"></div>
     <div id="orderModal"></div>
-    <tbody id="ordersTableBody"></tbody>
+    <table><tbody id="ordersTableBody"></tbody></table>
   `;
 }
 
