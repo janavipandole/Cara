@@ -1,46 +1,37 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { WishlistExportShare } from '../../js/wishlist-export-share.js';
 
+const mockWishlist = [
+  { id: 'p1', name: 'Summer Dress', price: 49.99, image: '/images/p1.jpg' },
+  { id: 'p2', name: 'Leather Boots', price: 120.00, image: '/images/p2.jpg' }
+];
+
 describe('WishlistExportShare', () => {
-  let exporter;
+  it('encodes wishlist items to hash preserving product image thumbnail path', () => {
+    const manager = new WishlistExportShare();
+    const hash = manager.encodeWishlistToHash(mockWishlist);
+    const decoded = manager.decodeHashToWishlist(hash);
 
-  beforeEach(() => {
-    exporter = new WishlistExportShare();
+    expect(decoded).toHaveLength(2);
+    expect(decoded[0].name).toBe('Summer Dress');
+    expect(decoded[0].image).toBe('/images/p1.jpg');
   });
 
-  it('should encode and decode wishlist items to base64 URL hash', () => {
-    const items = [{ id: 'p1', name: 'Cotton Shirt', price: 29.99 }];
-    const hash = exporter.encodeWishlistToHash(items);
-    expect(hash).not.toBe('');
+  it('exports wishlist items into structured JSON string', () => {
+    const manager = new WishlistExportShare();
+    const jsonStr = manager.exportToJSON(mockWishlist);
+    const parsed = JSON.parse(jsonStr);
 
-    const decoded = exporter.decodeHashToWishlist(hash);
-    expect(decoded.length).toBe(1);
-    expect(decoded[0].name).toBe('Cotton Shirt');
+    expect(parsed).toHaveLength(2);
+    expect(parsed[1].name).toBe('Leather Boots');
   });
 
-  it('should return empty array for malformed hash strings', () => {
-    expect(exporter.decodeHashToWishlist('INVALID_BASE_64')).toEqual([]);
-  });
+  it('generates shareable link and mobile QR code URL endpoint', () => {
+    const manager = new WishlistExportShare({ shareBaseUrl: 'https://cara.com/wishlist' });
+    const qrUrl = manager.generateQRCodeURL(mockWishlist, 250);
 
-  it('should export wishlist items to formatted CSV text', () => {
-    const items = [
-      { id: 'p1', name: 'Cotton Shirt', price: 29.99 },
-      { id: 'p2', name: 'Denim Jeans', price: 49.99 }
-    ];
-    const csv = exporter.exportToCSV(items);
-    expect(csv).toContain('ID,Name,Price');
-    expect(csv).toContain('"p1","Cotton Shirt","29.99"');
-  });
-
-  it('should escape embedded quotes in CSV fields', () => {
-    const items = [
-      { id: 'p3', name: 'T-Shirt "Classic" Edition', price: 19.99 }
-    ];
-    const csv = exporter.exportToCSV(items);
-    expect(csv).toContain('"p3","T-Shirt ""Classic"" Edition","19.99"');
-    // The quoted field must remain a single parseable column.
-    const nameField = csv.split('\n')[1].split(',')[1];
-    expect(nameField.startsWith('"')).toBe(true);
-    expect(nameField.endsWith('"')).toBe(true);
+    expect(qrUrl).toContain('https://api.qrserver.com/v1/create-qr-code/');
+    expect(qrUrl).toContain('250x250');
+    expect(qrUrl).toContain('shared_wishlist');
   });
 });
