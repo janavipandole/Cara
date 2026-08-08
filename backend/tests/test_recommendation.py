@@ -1,7 +1,10 @@
 """Tests for POST /api/outfit/recommend and POST /api/outfit/feedback."""
-import numpy as np
+import uuid
 
-from app.models import Product
+import numpy as np
+import pytest
+
+from app.models import Product, User, Interaction
 from app.api import admin_products
 from app.vector_search import faiss_index
 from tests.conftest import TestingSessionLocal
@@ -24,58 +27,165 @@ def _seed_product(db, **kwargs) -> Product:
     return p
 
 
+@pytest.fixture()
+def feedback_user(client, db_session):
+    """Registers a fresh account per test so repeated logins never collide.
+
+    The shared ``auth_headers`` fixture hardcodes one username/email, which
+    breaks once a second test in the same file requests it.
+    """
+    from passlib.context import CryptContext
+    pwd = CryptContext(schemes=["bcrypt"], deprecated="auto")
+    suffix = uuid.uuid4().hex[:8]
+    email = f"feedback-{suffix}@example.com"
+    user = User(
+        username=f"feedbackuser{suffix}",
+        email=email,
+        hashed_password=pwd.hash("Test@1234"),
+    )
+    db_session.add(user)
+    db_session.commit()
+
+    response = client.post(
+        "/api/auth/login",
+        json={"email": email, "password": "Test@1234"},
+    )
+    token = response.json()["access_token"]
+    headers = {"Authorization": f"Bearer {token}"}
+    return headers, email
+
+
 # ---------------------------------------------------------------------------
 # /feedback
 # ---------------------------------------------------------------------------
 
-def test_feedback_success(client):
+def test_feedback_requires_auth(client):
     db = TestingSessionLocal()
     p = _seed_product(db)
     db.close()
 
     r = client.post(FEEDBACK_URL, json={
-        "user_id": "anon-123",
         "product_id": p.id,
         "interaction_type": "view",
     })
+    assert r.status_code == 401
+
+
+def test_feedback_success(client, feedback_user):
+    headers, _ = feedback_user
+    db = TestingSessionLocal()
+    p = _seed_product(db)
+    db.close()
+
+    r = client.post(FEEDBACK_URL, json={
+        "product_id": p.id,
+        "interaction_type": "view",
+    }, headers=headers)
     assert r.status_code == 200
     assert r.json()["status"] == "success"
 
 
-def test_feedback_all_interaction_types(client):
+def test_feedback_all_client_interaction_types(client, feedback_user):
+    headers, _ = feedback_user
     db = TestingSessionLocal()
     p = _seed_product(db)
     db.close()
 
-    for itype in ("view", "click", "wishlist", "cart", "buy"):
+    for itype in ("view", "click", "wishlist", "cart"):
         r = client.post(FEEDBACK_URL, json={
-            "user_id": "anon-test",
             "product_id": p.id,
             "interaction_type": itype,
-        })
+        }, headers=headers)
         assert r.status_code == 200, f"Failed for interaction_type={itype}"
 
 
-def test_feedback_invalid_product(client):
-    r = client.post(FEEDBACK_URL, json={
-        "user_id": "anon-123",
-        "product_id": 999999,
-        "interaction_type": "view",
-    })
-    assert r.status_code == 404
-
-
-def test_feedback_invalid_interaction_type(client):
+def test_feedback_buy_rejected(client, feedback_user):
+    """Buy is recorded by the order pipeline; clients cannot mint purchase signals."""
+    headers, _ = feedback_user
     db = TestingSessionLocal()
     p = _seed_product(db)
     db.close()
 
     r = client.post(FEEDBACK_URL, json={
-        "user_id": "anon-123",
+        "product_id": p.id,
+        "interaction_type": "buy",
+    }, headers=headers)
+    assert r.status_code == 403
+
+
+def test_feedback_ignores_client_user_id(client, feedback_user):
+    """Identity is derived from the authenticated user, never from the payload."""
+    headers, email = feedback_user
+    db = TestingSessionLocal()
+    p = _seed_product(db)
+    db.close()
+
+    r = client.post(FEEDBACK_URL, json={
+        "user_id": "attacker-chosen-identity",
+        "product_id": p.id,
+        "interaction_type": "view",
+    }, headers=headers)
+    assert r.status_code == 200
+
+    import hashlib
+    from app.api.recommendation import SALT
+
+    db = TestingSessionLocal()
+    user = db.query(User).filter(User.email == email).first()
+    expected_hash = hashlib.sha256(str(user.id).encode('utf-8') + SALT).hexdigest()
+    stored = db.query(Interaction).filter(
+        Interaction.product_id == p.id
+    ).order_by(Interaction.id.desc()).first()
+    db.close()
+
+    assert stored is not None
+    assert stored.user_id == expected_hash
+    assert stored.user_id != hashlib.sha256(b"attacker-chosen-identity" + SALT).hexdigest()
+
+
+def test_feedback_invalid_product(client, feedback_user):
+    headers, _ = feedback_user
+    r = client.post(FEEDBACK_URL, json={
+        "product_id": 999999,
+        "interaction_type": "view",
+    }, headers=headers)
+    assert r.status_code == 404
+
+
+def test_feedback_invalid_interaction_type(client, feedback_user):
+    headers, _ = feedback_user
+    db = TestingSessionLocal()
+    p = _seed_product(db)
+    db.close()
+
+    r = client.post(FEEDBACK_URL, json={
         "product_id": p.id,
         "interaction_type": "invalid_type",
-    })
+    }, headers=headers)
     assert r.status_code == 422
+
+
+def test_feedback_per_user_rate_cap(client, feedback_user, monkeypatch):
+    headers, _ = feedback_user
+    db = TestingSessionLocal()
+    p = _seed_product(db)
+    db.close()
+
+    from app.api import recommendation
+    monkeypatch.setattr(recommendation, "MAX_FEEDBACK_PER_MINUTE", 2)
+
+    for _ in range(2):
+        r = client.post(FEEDBACK_URL, json={
+            "product_id": p.id,
+            "interaction_type": "view",
+        }, headers=headers)
+        assert r.status_code == 200
+
+    r = client.post(FEEDBACK_URL, json={
+        "product_id": p.id,
+        "interaction_type": "view",
+    }, headers=headers)
+    assert r.status_code == 429
 
 
 # ---------------------------------------------------------------------------

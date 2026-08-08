@@ -37,7 +37,8 @@ class InteractionType(str, Enum):
 
 
 class InteractionCreate(BaseModel):
-    user_id: str
+    # Identity is derived from the authenticated user server-side, never trusted
+    # from the client payload (see POST /api/outfit/feedback).
     product_id: int
     interaction_type: InteractionType
 

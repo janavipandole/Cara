@@ -3,14 +3,19 @@ from sqlalchemy.orm import Session
 from typing import List
 import hashlib
 import os
+from datetime import datetime, timedelta, timezone
 from .. import models, schemas
 from ..database import get_db
 from ..vector_search.faiss_index import get_similar_product_ids
 from ..rules.engine import filter_by_rules
 from ..limiter import limiter
+from .auth import get_current_user
 
 router = APIRouter()
 SALT = os.environ.get("SECRET_KEY", "fallback_secret_key_for_dev").encode('utf-8')
+# Per-user write ceiling on /feedback so one compromised account cannot flood
+# the interactions table past what a human session could plausibly produce.
+MAX_FEEDBACK_PER_MINUTE = 30
 
 @router.post("/recommend", response_model=List[schemas.Product])
 @limiter.limit("20/minute")
@@ -51,14 +56,32 @@ def recommend_outfit(request: Request, req: schemas.RecommendationRequest, db: S
 
 @router.post("/feedback")
 @limiter.limit("30/minute")
-def track_feedback(request: Request, interaction: schemas.InteractionCreate, db: Session = Depends(get_db)):
+def track_feedback(
+    request: Request,
+    interaction: schemas.InteractionCreate,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user),
+):
     product = db.query(models.Product).filter(models.Product.id == interaction.product_id).first()
     if not product:
         raise HTTPException(status_code=404, detail="Product not found")
-        
-    # Anonymize PII (like raw IP addresses) via salted hashing before database insertion
-    hashed_user_id = hashlib.sha256(interaction.user_id.encode('utf-8') + SALT).hexdigest()
-    
+
+    # "buy" is recorded by the order pipeline after payment succeeds; accepting it
+    # from a client would let anyone mint purchase signals that feed the reranker.
+    if interaction.interaction_type == "buy":
+        raise HTTPException(status_code=403, detail="Buy feedback must be order-verified.")
+
+    # Identity comes from the authenticated session. The client cannot choose who
+    # the interaction is attributed to, and raw identifiers never reach the DB.
+    hashed_user_id = hashlib.sha256(str(current_user.id).encode('utf-8') + SALT).hexdigest()
+
+    recent_count = db.query(models.Interaction).filter(
+        models.Interaction.user_id == hashed_user_id,
+        models.Interaction.created_at >= datetime.now(timezone.utc) - timedelta(minutes=1),
+    ).count()
+    if recent_count >= MAX_FEEDBACK_PER_MINUTE:
+        raise HTTPException(status_code=429, detail="Feedback rate limit exceeded")
+
     new_interaction = models.Interaction(
         user_id=hashed_user_id,
         product_id=interaction.product_id,
