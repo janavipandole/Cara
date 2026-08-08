@@ -33,5 +33,6 @@ window.addEventListener('error', (event) => {
   }
 });
 
-
-function getMaxLoggerQueueSize() { return 50; }
+function getMaxLoggerQueueSize() {
+  return 50;
+}

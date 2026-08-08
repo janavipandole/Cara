@@ -49,6 +49,8 @@ describe('service-worker cache strategy', () => {
 
   it('allows cache-first for static assets only', () => {
     expect(isStaticAsset(new URL('https://cara.example/style.css'))).toBe(true);
-    expect(isStaticAsset(new URL('https://cara.example/api/orders'))).toBe(false);
+    expect(isStaticAsset(new URL('https://cara.example/api/orders'))).toBe(
+      false,
+    );
   });
 });

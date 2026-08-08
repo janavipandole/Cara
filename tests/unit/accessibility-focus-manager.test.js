@@ -44,5 +44,4 @@ describe('AccessibilityFocusManager', () => {
     const manager = new AccessibilityFocusManager();
     expect(() => manager.restoreFocus()).not.toThrow();
   });
-
 });

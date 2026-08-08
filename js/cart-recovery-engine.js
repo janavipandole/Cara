@@ -7,7 +7,10 @@ export class CartRecoveryEngine {
   constructor(options = {}) {
     this.storageKey = options.storageKey || 'cara_abandoned_cart';
     this.sessionTimeoutMs = options.sessionTimeoutMs || 15 * 60 * 1000; // 15 minutes
-    this.channel = typeof BroadcastChannel !== 'undefined' ? new BroadcastChannel('cara_cart_sync') : null;
+    this.channel =
+      typeof BroadcastChannel !== 'undefined'
+        ? new BroadcastChannel('cara_cart_sync')
+        : null;
     this.initListeners();
   }
 
@@ -30,7 +33,7 @@ export class CartRecoveryEngine {
       items: cartItems,
       coupon: couponCode,
       timestamp: Date.now(),
-      recovered: false
+      recovered: false,
     };
     localStorage.setItem(this.storageKey, JSON.stringify(sessionData));
     if (this.channel) {
@@ -71,7 +74,9 @@ export class CartRecoveryEngine {
 
   handleExternalCartUpdate(cartData) {
     if (typeof window !== 'undefined') {
-      window.dispatchEvent(new CustomEvent('cara:cart-synced', { detail: cartData }));
+      window.dispatchEvent(
+        new CustomEvent('cara:cart-synced', { detail: cartData }),
+      );
     }
   }
 
@@ -88,7 +93,10 @@ export class CartRecoveryEngine {
       document.body.prepend(banner);
     }
 
-    const itemCount = session.items.reduce((acc, item) => acc + (item.quantity || 1), 0);
+    const itemCount = session.items.reduce(
+      (acc, item) => acc + (item.quantity || 1),
+      0,
+    );
     banner.innerHTML = `
       <div class="cart-recovery-content">
         <span class="cart-recovery-text">
@@ -101,20 +109,27 @@ export class CartRecoveryEngine {
       </div>
     `;
 
-    document.getElementById('btn-restore-cart')?.addEventListener('click', () => {
-      this.markAsRecovered();
-      banner.remove();
-      window.dispatchEvent(new CustomEvent('cara:restore-cart', { detail: session }));
-    });
+    document
+      .getElementById('btn-restore-cart')
+      ?.addEventListener('click', () => {
+        this.markAsRecovered();
+        banner.remove();
+        window.dispatchEvent(
+          new CustomEvent('cara:restore-cart', { detail: session }),
+        );
+      });
 
-    document.getElementById('btn-dismiss-cart')?.addEventListener('click', () => {
-      this.markAsRecovered();
-      banner.remove();
-    });
+    document
+      .getElementById('btn-dismiss-cart')
+      ?.addEventListener('click', () => {
+        this.markAsRecovered();
+        banner.remove();
+      });
 
     return banner;
   }
 }
 
-
-function getAbandonedCartGuard(items) { return Array.isArray(items) ? items : []; }
+function getAbandonedCartGuard(items) {
+  return Array.isArray(items) ? items : [];
+}

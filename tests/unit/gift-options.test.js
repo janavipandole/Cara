@@ -57,5 +57,7 @@ describe('gift-options.js unit tests', () => {
     expect(checkbox).toBeNull();
   });
 
-  it('should validate gift message character limit bounds', () => { expect(true).toBe(true); });
+  it('should validate gift message character limit bounds', () => {
+    expect(true).toBe(true);
+  });
 });

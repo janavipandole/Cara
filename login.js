@@ -148,10 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
           ? data.detail.map((item) => item.msg || item).join(' ')
           : data.detail || 'Login failed';
 
-        if (
-          res.status === 403 &&
-          /captcha|security/i.test(String(detail))
-        ) {
+        if (res.status === 403 && /captcha|security/i.test(String(detail))) {
           setFormError(detail);
           await loadCaptcha();
           return;

@@ -56,9 +56,13 @@ describe('ProductReviewManager Unit Tests', () => {
   it('should sanitize review author names by stripping HTML and XSS chars', () => {
     // Tags are stripped, leaving content between them
     expect(manager.sanitizeReviewAuthorName('<b>Alice</b>')).toBe('Alice');
-    expect(manager.sanitizeReviewAuthorName('Bob<script>x</script>')).toBe('Bobx');
+    expect(manager.sanitizeReviewAuthorName('Bob<script>x</script>')).toBe(
+      'Bobx',
+    );
     expect(manager.sanitizeReviewAuthorName('Tom & Jerry')).toBe('Tom  Jerry');
-    expect(manager.sanitizeReviewAuthorName('"><img onerror=1')).toBe('img onerror=1');
+    expect(manager.sanitizeReviewAuthorName('"><img onerror=1')).toBe(
+      'img onerror=1',
+    );
   });
 
   it('should cap author name at 80 characters', () => {

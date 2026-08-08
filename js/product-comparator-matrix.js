@@ -11,7 +11,7 @@ export class ProductComparatorMatrix {
 
   addProduct(product) {
     if (!product || !product.id) return false;
-    if (this.selectedProducts.find(p => p.id === product.id)) return false;
+    if (this.selectedProducts.find((p) => p.id === product.id)) return false;
     if (this.selectedProducts.length >= this.maxProducts) return false;
 
     this.selectedProducts.push(product);
@@ -20,7 +20,9 @@ export class ProductComparatorMatrix {
 
   removeProduct(productId) {
     const initialLen = this.selectedProducts.length;
-    this.selectedProducts = this.selectedProducts.filter(p => p.id !== productId);
+    this.selectedProducts = this.selectedProducts.filter(
+      (p) => p.id !== productId,
+    );
     return this.selectedProducts.length < initialLen;
   }
 
@@ -28,13 +30,13 @@ export class ProductComparatorMatrix {
     const fields = ['name', 'brand', 'price', 'rating', 'category', 'color'];
     const matrix = {};
 
-    fields.forEach(field => {
-      matrix[field] = this.selectedProducts.map(p => p[field] ?? 'N/A');
+    fields.forEach((field) => {
+      matrix[field] = this.selectedProducts.map((p) => p[field] ?? 'N/A');
     });
 
     return {
       products: this.selectedProducts,
-      fields: matrix
+      fields: matrix,
     };
   }
 
@@ -45,17 +47,27 @@ export class ProductComparatorMatrix {
 
     const data = this.getComparisonMatrix();
     if (data.products.length === 0) {
-      container.innerHTML = '<p class="empty-comparator">No products selected for comparison.</p>';
+      container.innerHTML =
+        '<p class="empty-comparator">No products selected for comparison.</p>';
       return container;
     }
 
-    const headersHtml = data.products.map(p => `<th>${p.name} <button data-id="${p.id}" class="remove-comp-btn">×</button></th>`).join('');
-    const rowsHtml = Object.entries(data.fields).map(([field, values]) => `
+    const headersHtml = data.products
+      .map(
+        (p) =>
+          `<th>${p.name} <button data-id="${p.id}" class="remove-comp-btn">×</button></th>`,
+      )
+      .join('');
+    const rowsHtml = Object.entries(data.fields)
+      .map(
+        ([field, values]) => `
       <tr>
         <td class="spec-label">${field.toUpperCase()}</td>
-        ${values.map(v => `<td>${v}</td>`).join('')}
+        ${values.map((v) => `<td>${v}</td>`).join('')}
       </tr>
-    `).join('');
+    `,
+      )
+      .join('');
 
     container.innerHTML = `
       <table class="comparator-spec-table">
@@ -91,5 +103,4 @@ export class ProductComparatorMatrix {
     });
     return result;
   }
-
 }

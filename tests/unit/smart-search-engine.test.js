@@ -4,10 +4,34 @@ const SmartSearchEngine = require('../../js/smart-search-engine.js');
 describe('SmartSearchEngine Unit Tests', () => {
   let engine;
   const sampleProducts = [
-    { id: 1, name: 'Cartoon Astronaut T-Shirt', category: 'tshirts', price: 29.99, description: 'Cool tee shirt' },
-    { id: 2, name: 'Slim Fit Denim Pants', category: 'pants', price: 49.99, description: 'Blue jeans' },
-    { id: 3, name: 'Winter Parka Jacket', category: 'jackets', price: 89.99, description: 'Warm coat' },
-    { id: 4, name: 'Casual Leather Shoes', category: 'shoes', price: 59.99, description: 'Black loafers' }
+    {
+      id: 1,
+      name: 'Cartoon Astronaut T-Shirt',
+      category: 'tshirts',
+      price: 29.99,
+      description: 'Cool tee shirt',
+    },
+    {
+      id: 2,
+      name: 'Slim Fit Denim Pants',
+      category: 'pants',
+      price: 49.99,
+      description: 'Blue jeans',
+    },
+    {
+      id: 3,
+      name: 'Winter Parka Jacket',
+      category: 'jackets',
+      price: 89.99,
+      description: 'Warm coat',
+    },
+    {
+      id: 4,
+      name: 'Casual Leather Shoes',
+      category: 'shoes',
+      price: 59.99,
+      description: 'Black loafers',
+    },
   ];
 
   beforeEach(() => {
@@ -32,7 +56,11 @@ describe('SmartSearchEngine Unit Tests', () => {
   });
 
   it('should filter by category and price range', () => {
-    const results = engine.filter({ category: 'pants', minPrice: 40, maxPrice: 60 });
+    const results = engine.filter({
+      category: 'pants',
+      minPrice: 40,
+      maxPrice: 60,
+    });
     expect(results.length).toBe(1);
     expect(results[0].name).toBe('Slim Fit Denim Pants');
   });

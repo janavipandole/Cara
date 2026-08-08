@@ -43,7 +43,11 @@ export class ProductReviewManager {
     }
 
     const parsedRating = Number(rating);
-    if (!Number.isInteger(parsedRating) || parsedRating < 1 || parsedRating > 5) {
+    if (
+      !Number.isInteger(parsedRating) ||
+      parsedRating < 1 ||
+      parsedRating > 5
+    ) {
       errors.push('Rating must be an integer between 1 and 5.');
     }
 
@@ -119,10 +123,9 @@ export class ProductReviewManager {
   sanitizeReviewAuthorName(name) {
     if (typeof name !== 'string') return '';
     return name
-      .replace(/<[^>]*>/g, '')   // Remove HTML tags
-      .replace(/[<>"'&]/g, '')     // Remove XSS characters
+      .replace(/<[^>]*>/g, '') // Remove HTML tags
+      .replace(/[<>"'&]/g, '') // Remove XSS characters
       .trim()
-      .slice(0, 80);               // Cap at 80 chars
+      .slice(0, 80); // Cap at 80 chars
   }
-
 }

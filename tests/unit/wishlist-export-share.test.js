@@ -25,7 +25,7 @@ describe('WishlistExportShare', () => {
   it('should export wishlist items to formatted CSV text', () => {
     const items = [
       { id: 'p1', name: 'Cotton Shirt', price: 29.99 },
-      { id: 'p2', name: 'Denim Jeans', price: 49.99 }
+      { id: 'p2', name: 'Denim Jeans', price: 49.99 },
     ];
     const csv = exporter.exportToCSV(items);
     expect(csv).toContain('ID,Name,Price');

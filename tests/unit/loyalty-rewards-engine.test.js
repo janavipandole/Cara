@@ -29,9 +29,11 @@ describe('LoyaltyRewardsEngine Unit Tests', () => {
     engine.addEarnedPoints(500);
     const res = engine.redeemPoints(200);
     expect(res.success).toBe(true);
-    expect(res.discount).toBe(2.00);
+    expect(res.discount).toBe(2.0);
     expect(engine.getPoints()).toBe(300);
   });
 
-  it('should return reward points multiplier by loyalty tier', () => { expect(true).toBe(true); });
+  it('should return reward points multiplier by loyalty tier', () => {
+    expect(true).toBe(true);
+  });
 });

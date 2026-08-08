@@ -6,17 +6,38 @@ describe('recommendations.js unit tests', function () {
   beforeEach(function () {
     storage = {};
     vi.stubGlobal('localStorage', {
-      getItem: function (key) { return storage[key] || null; },
-      setItem: function (key, val) { storage[key] = val; },
-      removeItem: function (key) { delete storage[key]; }
+      getItem: function (key) {
+        return storage[key] || null;
+      },
+      setItem: function (key, val) {
+        storage[key] = val;
+      },
+      removeItem: function (key) {
+        delete storage[key];
+      },
     });
   });
 
   it('getDefaultRecommendations returns array of products', function () {
     var defaults = [
-      { id: 1, name: 'Cartoon Astronaut T-Shirt', price: 78, image: 'images/products/f1.jpg' },
-      { id: 2, name: 'Hawaiian Floral Shirt', price: 85, image: 'images/products/f2.jpg' },
-      { id: 3, name: 'Vintage Rose Pattern Shirt', price: 92, image: 'images/products/f3.jpg' }
+      {
+        id: 1,
+        name: 'Cartoon Astronaut T-Shirt',
+        price: 78,
+        image: 'images/products/f1.jpg',
+      },
+      {
+        id: 2,
+        name: 'Hawaiian Floral Shirt',
+        price: 85,
+        image: 'images/products/f2.jpg',
+      },
+      {
+        id: 3,
+        name: 'Vintage Rose Pattern Shirt',
+        price: 92,
+        image: 'images/products/f3.jpg',
+      },
     ];
     expect(defaults.length).toBe(3);
     expect(defaults[0]).toHaveProperty('id');
@@ -27,13 +48,29 @@ describe('recommendations.js unit tests', function () {
   it('getRecommendations returns defaults when history is empty', function () {
     storage['cara_view_history'] = '[]';
     var history = JSON.parse(storage['cara_view_history'] || '[]');
-    var result = history.length === 0
-      ? [
-          { id: 1, name: 'Cartoon Astronaut T-Shirt', price: 78, image: 'images/products/f1.jpg' },
-          { id: 2, name: 'Hawaiian Floral Shirt', price: 85, image: 'images/products/f2.jpg' },
-          { id: 3, name: 'Vintage Rose Pattern Shirt', price: 92, image: 'images/products/f3.jpg' }
-        ]
-      : history.slice(0, 4);
+    var result =
+      history.length === 0
+        ? [
+            {
+              id: 1,
+              name: 'Cartoon Astronaut T-Shirt',
+              price: 78,
+              image: 'images/products/f1.jpg',
+            },
+            {
+              id: 2,
+              name: 'Hawaiian Floral Shirt',
+              price: 85,
+              image: 'images/products/f2.jpg',
+            },
+            {
+              id: 3,
+              name: 'Vintage Rose Pattern Shirt',
+              price: 92,
+              image: 'images/products/f3.jpg',
+            },
+          ]
+        : history.slice(0, 4);
     expect(result.length).toBe(3);
   });
 
@@ -41,14 +78,20 @@ describe('recommendations.js unit tests', function () {
     storage['cara_view_history'] = JSON.stringify([
       { id: 10, name: 'Recent Item A', price: 50 },
       { id: 11, name: 'Recent Item B', price: 60 },
-      { id: 12, name: 'Recent Item C', price: 70 }
+      { id: 12, name: 'Recent Item C', price: 70 },
     ]);
     var history = JSON.parse(storage['cara_view_history'] || '[]');
-    var result = history.length === 0
-      ? [
-          { id: 1, name: 'Cartoon Astronaut T-Shirt', price: 78, image: 'images/products/f1.jpg' }
-        ]
-      : history.slice(0, 4);
+    var result =
+      history.length === 0
+        ? [
+            {
+              id: 1,
+              name: 'Cartoon Astronaut T-Shirt',
+              price: 78,
+              image: 'images/products/f1.jpg',
+            },
+          ]
+        : history.slice(0, 4);
     expect(result.length).toBe(3);
     expect(result[0].id).toBe(10);
     expect(result[2].id).toBe(12);

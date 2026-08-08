@@ -64,7 +64,8 @@ export class CartSyncManager {
     const cart = this.getCart();
     const existingIndex = cart.findIndex((i) => i.id === item.id);
     if (existingIndex > -1) {
-      cart[existingIndex].quantity = (cart[existingIndex].quantity || 1) + (item.quantity || 1);
+      cart[existingIndex].quantity =
+        (cart[existingIndex].quantity || 1) + (item.quantity || 1);
     } else {
       cart.push({ ...item, quantity: item.quantity || 1 });
     }
@@ -89,5 +90,6 @@ export class CartSyncManager {
   }
 }
 
-
-function shouldCompressPayload(payload) { return typeof payload === 'string' && payload.length > 500; }
+function shouldCompressPayload(payload) {
+  return typeof payload === 'string' && payload.length > 500;
+}

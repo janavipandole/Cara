@@ -11,7 +11,7 @@ export class ProductFacetFilter {
       minPrice: 0,
       maxPrice: Infinity,
       minRating: 0,
-      inStockOnly: false
+      inStockOnly: false,
     };
   }
 
@@ -28,7 +28,10 @@ export class ProductFacetFilter {
       }
       // Price range
       const price = parseFloat(p.price) || 0;
-      if (price < this.activeFilters.minPrice || price > this.activeFilters.maxPrice) {
+      if (
+        price < this.activeFilters.minPrice ||
+        price > this.activeFilters.maxPrice
+      ) {
         return false;
       }
       // Rating threshold
@@ -67,11 +70,13 @@ export class ProductFacetFilter {
   parseQueryParams(queryString) {
     const params = new URLSearchParams(queryString);
     const filters = {
-      category: params.get('categories') ? params.get('categories').split(',') : [],
+      category: params.get('categories')
+        ? params.get('categories').split(',')
+        : [],
       minPrice: parseFloat(params.get('minPrice')) || 0,
       maxPrice: parseFloat(params.get('maxPrice')) || Infinity,
       minRating: parseFloat(params.get('minRating')) || 0,
-      inStockOnly: params.get('inStock') === 'true'
+      inStockOnly: params.get('inStock') === 'true',
     };
     this.setFilters(filters);
     return filters;
@@ -83,7 +88,7 @@ export class ProductFacetFilter {
       minPrice: 0,
       maxPrice: Infinity,
       minRating: 0,
-      inStockOnly: false
+      inStockOnly: false,
     };
     return this.products;
   }
@@ -100,5 +105,4 @@ export class ProductFacetFilter {
     const p = price;
     return p >= minPrice && p <= maxPrice;
   }
-
 }

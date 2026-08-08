@@ -38,8 +38,10 @@ describe('Checkout Timer Unit Tests', () => {
   }
 
   function getDisplay(state) {
-    const secStr = state.seconds < 10 ? '0' + state.seconds : String(state.seconds);
-    const minStr = state.minutes < 10 ? '0' + state.minutes : String(state.minutes);
+    const secStr =
+      state.seconds < 10 ? '0' + state.seconds : String(state.seconds);
+    const minStr =
+      state.minutes < 10 ? '0' + state.minutes : String(state.minutes);
     return `${minStr}:${secStr}`;
   }
 
@@ -130,5 +132,4 @@ describe('Checkout Timer Unit Tests', () => {
     const timerExpired = true;
     expect(timerExpired).toBe(true);
   });
-
 });

@@ -20,17 +20,29 @@ export class LoyaltyDashboardWidget {
       points,
       tier,
       multiplier,
-      nextTier
+      nextTier,
     };
   }
 
   getNextTierInfo(points) {
     if (points < 500) {
-      return { name: 'Silver', pointsNeeded: 500 - points, progressPercent: Math.min(100, (points / 500) * 100) };
+      return {
+        name: 'Silver',
+        pointsNeeded: 500 - points,
+        progressPercent: Math.min(100, (points / 500) * 100),
+      };
     } else if (points < 1500) {
-      return { name: 'Gold', pointsNeeded: 1500 - points, progressPercent: Math.min(100, ((points - 500) / 1000) * 100) };
+      return {
+        name: 'Gold',
+        pointsNeeded: 1500 - points,
+        progressPercent: Math.min(100, ((points - 500) / 1000) * 100),
+      };
     } else if (points < 3000) {
-      return { name: 'Platinum', pointsNeeded: 3000 - points, progressPercent: Math.min(100, ((points - 1500) / 1500) * 100) };
+      return {
+        name: 'Platinum',
+        pointsNeeded: 3000 - points,
+        progressPercent: Math.min(100, ((points - 1500) / 1500) * 100),
+      };
     }
     return { name: 'VIP Diamond', pointsNeeded: 0, progressPercent: 100 };
   }
@@ -63,5 +75,10 @@ export class LoyaltyDashboardWidget {
   }
 }
 
-
-function calculateLoyaltyProgressPercent(currentPoints, targetPoints) { if (!targetPoints || targetPoints <= 0) return 100; return Math.min(100, Math.round((Math.max(0, currentPoints) / targetPoints) * 100)); }
+function calculateLoyaltyProgressPercent(currentPoints, targetPoints) {
+  if (!targetPoints || targetPoints <= 0) return 100;
+  return Math.min(
+    100,
+    Math.round((Math.max(0, currentPoints) / targetPoints) * 100),
+  );
+}

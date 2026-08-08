@@ -60,7 +60,9 @@ describe('live-sales-toast.js unit tests', () => {
     });
 
     it('returns window.products array when defined', () => {
-      globalThis.window = { products: [{ id: 1, name: 'T-Shirt', img: 'f1.jpg' }] };
+      globalThis.window = {
+        products: [{ id: 1, name: 'T-Shirt', img: 'f1.jpg' }],
+      };
       const getProducts = () => window.products || [];
       expect(getProducts()).toHaveLength(1);
       expect(getProducts()[0].name).toBe('T-Shirt');
@@ -203,5 +205,7 @@ describe('live-sales-toast.js unit tests', () => {
     });
   });
 
-  it('should return sales toast display duration in milliseconds', () => { expect(true).toBe(true); });
+  it('should return sales toast display duration in milliseconds', () => {
+    expect(true).toBe(true);
+  });
 });

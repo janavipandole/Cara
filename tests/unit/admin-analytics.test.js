@@ -103,7 +103,11 @@ describe('admin-analytics.js unit tests', () => {
     });
 
     it('refresh calls fetch for all three analytics endpoints', async () => {
-      fetchSpy.mockResolvedValue({ ok: true, status: 200, json: () => Promise.resolve({}) });
+      fetchSpy.mockResolvedValue({
+        ok: true,
+        status: 200,
+        json: () => Promise.resolve({}),
+      });
 
       await window.AdminDashboard.refresh();
 
@@ -111,7 +115,11 @@ describe('admin-analytics.js unit tests', () => {
     });
 
     it('calls fetch for all three analytics endpoints', async () => {
-      fetchSpy.mockResolvedValue({ ok: true, status: 200, json: () => Promise.resolve({}) });
+      fetchSpy.mockResolvedValue({
+        ok: true,
+        status: 200,
+        json: () => Promise.resolve({}),
+      });
 
       await window.AdminDashboard.refresh();
 
@@ -122,5 +130,4 @@ describe('admin-analytics.js unit tests', () => {
   it('should return cached revenue summary stats object', () => {
     expect(typeof window.AdminDashboard).toBe('object');
   });
-
 });

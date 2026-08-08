@@ -35,5 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-
-function validateGiftMessageLength(message, maxChars = 200) { if (!message || typeof message !== 'string') return true; return message.trim().length <= maxChars; }
+function validateGiftMessageLength(message, maxChars = 200) {
+  if (!message || typeof message !== 'string') return true;
+  return message.trim().length <= maxChars;
+}

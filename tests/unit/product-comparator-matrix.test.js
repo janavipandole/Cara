@@ -10,10 +10,18 @@ describe('ProductComparatorMatrix', () => {
   });
 
   it('should add products up to maximum limit', () => {
-    expect(comparator.addProduct({ id: 'p1', name: 'Shirt 1', price: 20 })).toBe(true);
-    expect(comparator.addProduct({ id: 'p2', name: 'Shirt 2', price: 30 })).toBe(true);
-    expect(comparator.addProduct({ id: 'p3', name: 'Shirt 3', price: 40 })).toBe(true);
-    expect(comparator.addProduct({ id: 'p4', name: 'Shirt 4', price: 50 })).toBe(false); // Max 3
+    expect(
+      comparator.addProduct({ id: 'p1', name: 'Shirt 1', price: 20 }),
+    ).toBe(true);
+    expect(
+      comparator.addProduct({ id: 'p2', name: 'Shirt 2', price: 30 }),
+    ).toBe(true);
+    expect(
+      comparator.addProduct({ id: 'p3', name: 'Shirt 3', price: 40 }),
+    ).toBe(true);
+    expect(
+      comparator.addProduct({ id: 'p4', name: 'Shirt 4', price: 50 }),
+    ).toBe(false); // Max 3
   });
 
   it('should prevent adding duplicate products', () => {
@@ -28,20 +36,45 @@ describe('ProductComparatorMatrix', () => {
   });
 
   it('should generate structured spec comparison matrix', () => {
-    comparator.addProduct({ id: 'p1', name: 'Shirt 1', price: 20, rating: 4.5 });
-    comparator.addProduct({ id: 'p2', name: 'Shirt 2', price: 30, rating: 4.0 });
+    comparator.addProduct({
+      id: 'p1',
+      name: 'Shirt 1',
+      price: 20,
+      rating: 4.5,
+    });
+    comparator.addProduct({
+      id: 'p2',
+      name: 'Shirt 2',
+      price: 30,
+      rating: 4.0,
+    });
 
     const matrix = comparator.getComparisonMatrix();
     expect(matrix.fields.name).toEqual(['Shirt 1', 'Shirt 2']);
     expect(matrix.fields.price).toEqual([20, 30]);
   });
 
-
   it('should detect differing fields across products', () => {
     document.body.innerHTML = '<div id="comparator-matrix-container"></div>';
     const m = new ProductComparatorMatrix(4);
-    m.addProduct({ id: 'p1', name: 'Shirt', brand: 'A', price: 20, rating: 4.0, category: 'tops', color: 'red' });
-    m.addProduct({ id: 'p2', name: 'Shirt', brand: 'A', price: 30, rating: 4.0, category: 'tops', color: 'blue' });
+    m.addProduct({
+      id: 'p1',
+      name: 'Shirt',
+      brand: 'A',
+      price: 20,
+      rating: 4.0,
+      category: 'tops',
+      color: 'red',
+    });
+    m.addProduct({
+      id: 'p2',
+      name: 'Shirt',
+      brand: 'A',
+      price: 30,
+      rating: 4.0,
+      category: 'tops',
+      color: 'blue',
+    });
     const diffs = m.highlightMatrixDifferences();
     expect(diffs).toContain('price');
     expect(diffs).toContain('color');
@@ -52,10 +85,25 @@ describe('ProductComparatorMatrix', () => {
   it('should return empty array when products are identical', () => {
     document.body.innerHTML = '<div id="comparator-matrix-container"></div>';
     const m = new ProductComparatorMatrix(4);
-    m.addProduct({ id: 'p1', name: 'Shirt', brand: 'A', price: 20, rating: 4.0, category: 'tops', color: 'red' });
-    m.addProduct({ id: 'p2', name: 'Shirt', brand: 'A', price: 20, rating: 4.0, category: 'tops', color: 'red' });
+    m.addProduct({
+      id: 'p1',
+      name: 'Shirt',
+      brand: 'A',
+      price: 20,
+      rating: 4.0,
+      category: 'tops',
+      color: 'red',
+    });
+    m.addProduct({
+      id: 'p2',
+      name: 'Shirt',
+      brand: 'A',
+      price: 20,
+      rating: 4.0,
+      category: 'tops',
+      color: 'red',
+    });
     const diffs = m.highlightMatrixDifferences();
     expect(diffs).toEqual([]);
   });
-
 });

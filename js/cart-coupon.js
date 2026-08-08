@@ -65,10 +65,15 @@
       if (result.valid) {
         window.appliedCoupon = result.code;
         saveAppliedCoupon(result.code);
-        showFeedback('Coupon "' + result.code + '" applied successfully!', 'success');
+        showFeedback(
+          'Coupon "' + result.code + '" applied successfully!',
+          'success',
+        );
         couponInput.classList.remove('is-invalid');
         couponInput.classList.add('is-valid');
-        window.dispatchEvent(new CustomEvent('couponApplied', { detail: result }));
+        window.dispatchEvent(
+          new CustomEvent('couponApplied', { detail: result }),
+        );
       } else {
         showFeedback(result.message || 'Invalid coupon code.', 'error');
         couponInput.classList.remove('is-valid');
@@ -81,10 +86,15 @@
         window.appliedCoupon = code;
         saveAppliedCoupon(code);
         const discountPct = knownCodes[code];
-        showFeedback('Coupon "' + code + '" applied! You saved ' + discountPct + '%.', 'success');
+        showFeedback(
+          'Coupon "' + code + '" applied! You saved ' + discountPct + '%.',
+          'success',
+        );
         couponInput.classList.remove('is-invalid');
         couponInput.classList.add('is-valid');
-        window.dispatchEvent(new CustomEvent('couponApplied', { detail: { code, discountPct } }));
+        window.dispatchEvent(
+          new CustomEvent('couponApplied', { detail: { code, discountPct } }),
+        );
       } else {
         showFeedback('Invalid coupon code. Try CARA20 or WELCOME10.', 'error');
         couponInput.classList.remove('is-valid');

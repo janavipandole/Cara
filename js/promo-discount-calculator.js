@@ -6,10 +6,10 @@
 class PromoDiscountCalculator {
   constructor() {
     this.coupons = {
-      'WELCOME10': { type: 'percent', value: 10, minSpend: 20 },
-      'CARA20': { type: 'percent', value: 20, minSpend: 50 },
-      'FLAT15': { type: 'flat', value: 15, minSpend: 40 },
-      'FREESHIP': { type: 'freeship', value: 0, minSpend: 30 }
+      WELCOME10: { type: 'percent', value: 10, minSpend: 20 },
+      CARA20: { type: 'percent', value: 20, minSpend: 50 },
+      FLAT15: { type: 'flat', value: 15, minSpend: 40 },
+      FREESHIP: { type: 'freeship', value: 0, minSpend: 30 },
     };
     this.freeShippingThreshold = 75;
   }
@@ -29,7 +29,7 @@ class PromoDiscountCalculator {
     if (subtotal < coupon.minSpend) {
       return {
         valid: false,
-        message: `Coupon '${cleanCode}' requires a minimum spend of $${coupon.minSpend.toFixed(2)}.`
+        message: `Coupon '${cleanCode}' requires a minimum spend of $${coupon.minSpend.toFixed(2)}.`,
       };
     }
 
@@ -62,7 +62,7 @@ class PromoDiscountCalculator {
       discount: parseFloat(discount.toFixed(2)),
       shipping: parseFloat(shipping.toFixed(2)),
       grandTotal: parseFloat(finalTotal.toFixed(2)),
-      appliedCoupon: appliedCoupon ? couponCode.trim().toUpperCase() : null
+      appliedCoupon: appliedCoupon ? couponCode.trim().toUpperCase() : null,
     };
   }
 

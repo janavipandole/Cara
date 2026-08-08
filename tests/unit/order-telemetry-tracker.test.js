@@ -33,5 +33,4 @@ describe('OrderTelemetryTracker Unit Tests', () => {
     const duration = tracker.getCheckoutDurationMs(start);
     expect(duration).toBeGreaterThanOrEqual(5000);
   });
-
 });

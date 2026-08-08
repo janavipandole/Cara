@@ -203,5 +203,6 @@
   });
 })();
 
-
-function getSalesToastDisplayDuration() { return 4000; }
+function getSalesToastDisplayDuration() {
+  return 4000;
+}

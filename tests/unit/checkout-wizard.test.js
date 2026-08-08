@@ -9,5 +9,7 @@ describe('checkout-wizard', () => {
     expect(true).toBe(true);
   });
 
-  it('should validate wizard step index bounds', () => { expect(true).toBe(true); });
+  it('should validate wizard step index bounds', () => {
+    expect(true).toBe(true);
+  });
 });

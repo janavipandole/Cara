@@ -9,7 +9,7 @@ export class PincodeValidationEngine {
       US: /^\d{5}(-\d{4})?$/,
       IN: /^[1-9][0-9]{5}$/,
       UK: /^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$/i,
-      CA: /^[A-Z]\d[A-Z] \d[A-Z]\d$/i
+      CA: /^[A-Z]\d[A-Z] \d[A-Z]\d$/i,
     };
   }
 
@@ -20,24 +20,32 @@ export class PincodeValidationEngine {
     const pattern = this.postalPatterns[countryCode.toUpperCase()];
     if (!pattern) {
       // Fallback basic alphanumeric check (must contain at least one digit)
-      const genericValid = /^(?=.*[0-9])[a-zA-Z0-9\s-]{3,10}$/.test(code.trim());
-      return { valid: genericValid, reason: genericValid ? 'Generic code valid' : 'Invalid generic postal format' };
+      const genericValid = /^(?=.*[0-9])[a-zA-Z0-9\s-]{3,10}$/.test(
+        code.trim(),
+      );
+      return {
+        valid: genericValid,
+        reason: genericValid
+          ? 'Generic code valid'
+          : 'Invalid generic postal format',
+      };
     }
 
     const isValid = pattern.test(code.trim());
     return {
       valid: isValid,
-      reason: isValid ? 'Serviceable postal region' : `Invalid ${countryCode} postal code format`
+      reason: isValid
+        ? 'Serviceable postal region'
+        : `Invalid ${countryCode} postal code format`,
     };
   }
-
 
   getDeliveryZone(code, countryCode = 'IN') {
     const delivery = this.estimateDeliveryDays(code, countryCode);
     if (!delivery) return null;
     return {
       zone: delivery.tier,
-      estimatedDaysText: `${delivery.minDays}-${delivery.maxDays} business days`
+      estimatedDaysText: `${delivery.minDays}-${delivery.maxDays} business days`,
     };
   }
 
@@ -45,7 +53,8 @@ export class PincodeValidationEngine {
     const check = this.validatePostalCode(code, countryCode);
     if (!check.valid) return null;
 
-    const numericVal = parseInt(code.replace(/\D/g, '').substring(0, 2), 10) || 0;
+    const numericVal =
+      parseInt(code.replace(/\D/g, '').substring(0, 2), 10) || 0;
     // Simulating metro vs non-metro zones
     if (numericVal >= 11 && numericVal <= 40) {
       return { minDays: 1, maxDays: 3, tier: 'Express Zone' };

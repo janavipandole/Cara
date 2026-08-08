@@ -11,7 +11,7 @@ class OutfitCompatibility {
       red: ['white', 'black', 'navy'],
       green: ['white', 'black', 'khaki', 'brown'],
       khaki: ['white', 'black', 'blue', 'green', 'navy'],
-      navy: ['white', 'black', 'khaki', 'gray', 'pink']
+      navy: ['white', 'black', 'khaki', 'gray', 'pink'],
     };
   }
 
@@ -38,8 +38,10 @@ class OutfitCompatibility {
    * @returns {boolean}
    */
   isOutfitWithinBudget(totalPrice, budget) {
-    if (typeof totalPrice !== 'number' || Number.isNaN(totalPrice)) return false;
-    if (typeof budget !== 'number' || Number.isNaN(budget) || budget < 0) return true; // no limit
+    if (typeof totalPrice !== 'number' || Number.isNaN(totalPrice))
+      return false;
+    if (typeof budget !== 'number' || Number.isNaN(budget) || budget < 0)
+      return true; // no limit
     return totalPrice <= budget;
   }
 }

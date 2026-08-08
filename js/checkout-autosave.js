@@ -63,6 +63,6 @@ if (typeof document !== 'undefined') {
   document.addEventListener('DOMContentLoaded', initCheckoutAutosave);
 }
 
-
-
-function getDebounceDelayMs() { return 500; }
+function getDebounceDelayMs() {
+  return 500;
+}

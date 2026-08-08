@@ -7,10 +7,38 @@ describe('ProductFacetFilter', () => {
 
   beforeEach(() => {
     sampleProducts = [
-      { id: '1', name: 'T-Shirt A', category: 'tshirts', price: 20, rating: 4.5, inStock: true },
-      { id: '2', name: 'Shirt B', category: 'shirts', price: 50, rating: 4.0, inStock: false },
-      { id: '3', name: 'Jacket C', category: 'jackets', price: 120, rating: 4.8, inStock: true },
-      { id: '4', name: 'T-Shirt D', category: 'tshirts', price: 35, rating: 3.5, inStock: true }
+      {
+        id: '1',
+        name: 'T-Shirt A',
+        category: 'tshirts',
+        price: 20,
+        rating: 4.5,
+        inStock: true,
+      },
+      {
+        id: '2',
+        name: 'Shirt B',
+        category: 'shirts',
+        price: 50,
+        rating: 4.0,
+        inStock: false,
+      },
+      {
+        id: '3',
+        name: 'Jacket C',
+        category: 'jackets',
+        price: 120,
+        rating: 4.8,
+        inStock: true,
+      },
+      {
+        id: '4',
+        name: 'T-Shirt D',
+        category: 'tshirts',
+        price: 35,
+        rating: 3.5,
+        inStock: true,
+      },
     ];
     filterEngine = new ProductFacetFilter(sampleProducts);
   });
@@ -22,17 +50,21 @@ describe('ProductFacetFilter', () => {
   it('should filter by category facets', () => {
     const results = filterEngine.setFilters({ category: ['tshirts'] });
     expect(results).toHaveLength(2);
-    expect(results.map(p => p.id)).toEqual(['1', '4']);
+    expect(results.map((p) => p.id)).toEqual(['1', '4']);
   });
 
   it('should filter by price range', () => {
     const results = filterEngine.setFilters({ minPrice: 30, maxPrice: 60 });
     expect(results).toHaveLength(2);
-    expect(results.map(p => p.id)).toEqual(['2', '4']);
+    expect(results.map((p) => p.id)).toEqual(['2', '4']);
   });
 
   it('should serialize and parse URL query parameters bi-directionally', () => {
-    filterEngine.setFilters({ category: ['shirts', 'jackets'], minPrice: 40, inStockOnly: true });
+    filterEngine.setFilters({
+      category: ['shirts', 'jackets'],
+      minPrice: 40,
+      inStockOnly: true,
+    });
     const query = filterEngine.buildQueryParams();
     expect(query).toContain('categories=shirts%2Cjackets');
     expect(query).toContain('minPrice=40');
@@ -49,7 +81,6 @@ describe('ProductFacetFilter', () => {
     expect(filterEngine.resetFilters()).toHaveLength(4);
   });
 
-
   it('should check price against arbitrary facet range', () => {
     const filter = new ProductFacetFilter([]);
     expect(filter.isPriceInFacetRange(50, 40, 60)).toBe(true);
@@ -61,5 +92,4 @@ describe('ProductFacetFilter', () => {
     const filter = new ProductFacetFilter([]);
     expect(filter.isPriceInFacetRange(NaN, 0, 100)).toBe(false);
   });
-
 });

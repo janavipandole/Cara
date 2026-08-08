@@ -65,5 +65,7 @@ describe('coupon-validator', () => {
     expect(localStorage.getItem('appliedCoupon')).toBeNull();
   });
 
-  it('should check if coupon expiry date is in the past', () => { expect(true).toBe(true); });
+  it('should check if coupon expiry date is in the past', () => {
+    expect(true).toBe(true);
+  });
 });

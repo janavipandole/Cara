@@ -24,7 +24,7 @@ describe('VirtualStylistEngine', () => {
     const top = { category: 'shirts', color: 'blue' };
     const bottoms = [
       { id: 'b1', category: 'pants', color: 'yellow' },
-      { id: 'b2', category: 'jeans', color: 'white' }
+      { id: 'b2', category: 'jeans', color: 'white' },
     ];
     const ranked = engine.recommendBottoms(top, bottoms);
     expect(ranked[0].item.id).toBe('b2');

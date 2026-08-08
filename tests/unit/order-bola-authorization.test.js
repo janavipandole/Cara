@@ -5,7 +5,8 @@ function verifyOrderOwnership(order, currentUserId, isAdmin) {
   if (!order || typeof order !== 'object') return false;
   if (!currentUserId) return false;
 
-  var ownerId = order.userId || order.user_id || order.ownerId || order.customerId;
+  var ownerId =
+    order.userId || order.user_id || order.ownerId || order.customerId;
   return String(ownerId) === String(currentUserId);
 }
 

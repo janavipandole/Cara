@@ -48,5 +48,7 @@ describe('input-shield', () => {
     expect(document.getElementById('field').value).toBe('hello world');
   });
 
-  it('should detect SQL injection keywords in user inputs', () => { expect(true).toBe(true); });
+  it('should detect SQL injection keywords in user inputs', () => {
+    expect(true).toBe(true);
+  });
 });

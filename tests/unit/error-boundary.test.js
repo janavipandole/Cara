@@ -76,5 +76,7 @@ describe('error-boundary.js unit tests', () => {
     );
   });
 
-  it('should render fallback box on error', () => { expect(true).toBe(true); });
+  it('should render fallback box on error', () => {
+    expect(true).toBe(true);
+  });
 });

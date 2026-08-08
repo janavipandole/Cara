@@ -41,9 +41,9 @@ describe('login.js', () => {
     document.getElementById('loginEmail').value = 'user@example.com';
     document.getElementById('loginPassword').value = 'Secret@123';
 
-    document.getElementById('loginForm').dispatchEvent(
-      new Event('submit', { bubbles: true, cancelable: true }),
-    );
+    document
+      .getElementById('loginForm')
+      .dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
 
     await vi.waitFor(() => {
       expect(fetchMock).toHaveBeenCalledWith(
@@ -92,9 +92,9 @@ describe('login.js', () => {
     document.getElementById('loginEmail').value = 'user@example.com';
     document.getElementById('loginPassword').value = 'bad';
 
-    document.getElementById('loginForm').dispatchEvent(
-      new Event('submit', { bubbles: true, cancelable: true }),
-    );
+    document
+      .getElementById('loginForm')
+      .dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
 
     await vi.waitFor(() => {
       expect(

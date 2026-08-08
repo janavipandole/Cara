@@ -26,12 +26,7 @@
   function _fmtRev(val) {
     const num = parseFloat(val);
     const safe = isFinite(num) ? num : 0;
-    return (
-      '₹' +
-      safe
-        .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, '$&,')
-    );
+    return '₹' + safe.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
   }
 
   function _escape(str) {

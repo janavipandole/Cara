@@ -29,8 +29,12 @@ describe('LoyaltyDashboardWidget', () => {
     const container = widget.renderWidget('loyalty-dashboard-container', 600);
     expect(container).not.toBeNull();
     expect(document.querySelector('.badge-tier')?.textContent).toBe('Silver');
-    expect(document.querySelector('.multiplier-tag')?.textContent).toContain('1.25x');
+    expect(document.querySelector('.multiplier-tag')?.textContent).toContain(
+      '1.25x',
+    );
   });
 
-  it('should calculate loyalty tier progress percentage correctly', () => { expect(true).toBe(true); });
+  it('should calculate loyalty tier progress percentage correctly', () => {
+    expect(true).toBe(true);
+  });
 });

@@ -75,7 +75,8 @@ describe('register-interests.js unit tests', function () {
   });
 
   it('form element exists for DOM injection', function () {
-    document.body.innerHTML = '<form><button type="submit">Submit</button></form>';
+    document.body.innerHTML =
+      '<form><button type="submit">Submit</button></form>';
     var form = document.querySelector('form');
     var submitBtn = form.querySelector('button[type="submit"]');
     expect(form).not.toBeNull();

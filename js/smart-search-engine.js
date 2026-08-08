@@ -13,7 +13,7 @@ class SmartSearchEngine {
       pants: ['trousers', 'denim', 'jeans', 'slacks', 'bottoms'],
       jacket: ['coat', 'outerwear', 'blazer', 'hoodie', 'cardigan'],
       shoes: ['footwear', 'sneakers', 'boots', 'loafers'],
-      dress: ['gown', 'frock', 'one-piece']
+      dress: ['gown', 'frock', 'one-piece'],
     };
   }
 
@@ -32,7 +32,12 @@ class SmartSearchEngine {
     }
 
     for (const [key, list] of Object.entries(this.synonyms)) {
-      if (key === q || list.includes(q) || key === singular || list.includes(singular)) {
+      if (
+        key === q ||
+        list.includes(q) ||
+        key === singular ||
+        list.includes(singular)
+      ) {
         result.add(key);
         list.forEach((syn) => result.add(syn));
       }
@@ -40,15 +45,25 @@ class SmartSearchEngine {
     return Array.from(result);
   }
 
-  filter({ query = '', category = 'all', minPrice = 0, maxPrice = Infinity, sortBy = 'relevance' } = {}) {
+  filter({
+    query = '',
+    category = 'all',
+    minPrice = 0,
+    maxPrice = Infinity,
+    sortBy = 'relevance',
+  } = {}) {
     const terms = this.getSynonyms(query);
-    
+
     let filtered = this.products.filter((product) => {
       // Category check
-      if (category !== 'all' && product.category && product.category.toLowerCase() !== category.toLowerCase()) {
+      if (
+        category !== 'all' &&
+        product.category &&
+        product.category.toLowerCase() !== category.toLowerCase()
+      ) {
         return false;
       }
-      
+
       // Price range check
       const price = parseFloat(product.price) || 0;
       if (price < minPrice || price > maxPrice) {
@@ -62,16 +77,25 @@ class SmartSearchEngine {
       const desc = (product.description || '').toLowerCase();
       const cat = (product.category || '').toLowerCase();
 
-      return terms.some((term) => title.includes(term) || desc.includes(term) || cat.includes(term));
+      return terms.some(
+        (term) =>
+          title.includes(term) || desc.includes(term) || cat.includes(term),
+      );
     });
 
     // Sorting
     if (sortBy === 'price-asc') {
-      filtered.sort((a, b) => (parseFloat(a.price) || 0) - (parseFloat(b.price) || 0));
+      filtered.sort(
+        (a, b) => (parseFloat(a.price) || 0) - (parseFloat(b.price) || 0),
+      );
     } else if (sortBy === 'price-desc') {
-      filtered.sort((a, b) => (parseFloat(b.price) || 0) - (parseFloat(a.price) || 0));
+      filtered.sort(
+        (a, b) => (parseFloat(b.price) || 0) - (parseFloat(a.price) || 0),
+      );
     } else if (sortBy === 'name') {
-      filtered.sort((a, b) => (a.name || a.title || '').localeCompare(b.name || b.title || ''));
+      filtered.sort((a, b) =>
+        (a.name || a.title || '').localeCompare(b.name || b.title || ''),
+      );
     }
 
     if (query.trim()) {
@@ -87,7 +111,8 @@ class SmartSearchEngine {
       let history = this.getHistory();
       history = history.filter((q) => q.toLowerCase() !== query.toLowerCase());
       history.unshift(query);
-      if (history.length > this.maxHistory) history = history.slice(0, this.maxHistory);
+      if (history.length > this.maxHistory)
+        history = history.slice(0, this.maxHistory);
       localStorage.setItem(this.historyKey, JSON.stringify(history));
     } catch (e) {
       console.warn('Storage error saving search history:', e);

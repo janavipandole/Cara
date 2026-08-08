@@ -10,7 +10,7 @@ class LoyaltyRewardsEngine {
       { name: 'Bronze', minPoints: 0, multiplier: 1 },
       { name: 'Silver', minPoints: 500, multiplier: 1.25 },
       { name: 'Gold', minPoints: 1500, multiplier: 1.5 },
-      { name: 'Platinum', minPoints: 3000, multiplier: 2.0 }
+      { name: 'Platinum', minPoints: 3000, multiplier: 2.0 },
     ];
     this.data = this.loadData();
   }
@@ -51,13 +51,13 @@ class LoyaltyRewardsEngine {
     const currentTier = this.getTier();
     const basePoints = Math.floor(purchaseAmount);
     const earned = Math.floor(basePoints * currentTier.multiplier);
-    
+
     this.data.points += earned;
     this.data.history.push({
       type: 'EARN',
       amount: purchaseAmount,
       points: earned,
-      date: new Date().toISOString()
+      date: new Date().toISOString(),
     });
 
     this.saveData();
@@ -68,18 +68,22 @@ class LoyaltyRewardsEngine {
     if (pointsToRedeem <= 0 || pointsToRedeem > this.data.points) {
       return { success: false, reason: 'Insufficient points balance' };
     }
-    
+
     const discountValue = parseFloat((pointsToRedeem / 100).toFixed(2));
     this.data.points -= pointsToRedeem;
     this.data.history.push({
       type: 'REDEEM',
       points: pointsToRedeem,
       discount: discountValue,
-      date: new Date().toISOString()
+      date: new Date().toISOString(),
     });
 
     this.saveData();
-    return { success: true, discount: discountValue, remainingPoints: this.data.points };
+    return {
+      success: true,
+      discount: discountValue,
+      remainingPoints: this.data.points,
+    };
   }
   calculatePoints(spent = 0) {
     return Math.floor(spent);
@@ -90,7 +94,7 @@ class LoyaltyRewardsEngine {
   }
 
   getMultiplier(tierName = 'Bronze') {
-    const found = this.tiers.find(t => t.name === tierName);
+    const found = this.tiers.find((t) => t.name === tierName);
     return found ? found.multiplier : 1.0;
   }
 }
@@ -101,6 +105,7 @@ if (typeof module !== 'undefined' && module.exports) {
   window.LoyaltyRewardsEngine = LoyaltyRewardsEngine;
 }
 
-
-
-function getRewardsMultiplierForTier(tier = 'bronze') { const multipliers = { bronze: 1.0, silver: 1.25, gold: 1.5, platinum: 2.0 }; return multipliers[tier.toLowerCase()] || 1.0; }
+function getRewardsMultiplierForTier(tier = 'bronze') {
+  const multipliers = { bronze: 1.0, silver: 1.25, gold: 1.5, platinum: 2.0 };
+  return multipliers[tier.toLowerCase()] || 1.0;
+}

@@ -37,7 +37,11 @@ describe('session-lock', () => {
   it('locks an authenticated session after inactivity', async () => {
     const fetchMock = vi.fn(async (url, options = {}) => {
       if (String(url).includes('/api/auth/me')) {
-        return { ok: true, status: 200, json: async () => ({ email: 'a@b.c' }) };
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({ email: 'a@b.c' }),
+        };
       }
       if (String(url).includes('/api/auth/logout')) {
         expect(options.method).toBe('POST');

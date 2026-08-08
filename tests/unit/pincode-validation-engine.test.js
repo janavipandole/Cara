@@ -34,8 +34,7 @@ describe('PincodeValidationEngine', () => {
     const zone = engine.getDeliveryZone('110001', 'IN');
     expect(zone).toEqual({
       zone: 'Express Zone',
-      estimatedDaysText: '1-3 business days'
+      estimatedDaysText: '1-3 business days',
     });
   });
-
 });

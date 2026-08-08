@@ -17,10 +17,14 @@ describe('GridClsOptimizer Unit Tests', () => {
       attributes: {},
       style: {},
       classList: {
-        add: (cls) => { mockImg.classList[cls] = true; },
+        add: (cls) => {
+          mockImg.classList[cls] = true;
+        },
       },
       getAttribute: (attr) => mockImg.attributes[attr],
-      setAttribute: (attr, val) => { mockImg.attributes[attr] = val; },
+      setAttribute: (attr, val) => {
+        mockImg.attributes[attr] = val;
+      },
     };
 
     const mockContainer = {
@@ -40,11 +44,10 @@ describe('GridClsOptimizer Unit Tests', () => {
     img.className = 'cls-optimized';
     Object.defineProperty(img, 'complete', { value: true });
     const mockContainer = {
-      querySelectorAll: () => [img]
+      querySelectorAll: () => [img],
     };
     const res = optimizer.cleanupReservedDimensions(mockContainer);
     expect(res.cleaned).toBe(1);
     expect(img.classList.contains('cls-optimized')).toBe(false);
   });
-
 });

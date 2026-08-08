@@ -3,7 +3,10 @@
  * Resolves: https://github.com/janavipandole/Cara/issues/2112
  */
 
-const outfitEngine = typeof OutfitCompatibilityEngine !== 'undefined' ? new OutfitCompatibilityEngine() : null;
+const outfitEngine =
+  typeof OutfitCompatibilityEngine !== 'undefined'
+    ? new OutfitCompatibilityEngine()
+    : null;
 
 const COLOR_HARMONY = {
   red: ['white', 'black', 'navy', 'beige', 'grey'],
@@ -302,7 +305,11 @@ function initCompatibilityChecker() {
     });
     renderResult(result);
     if (typeof window !== 'undefined') {
-      window.dispatchEvent(new CustomEvent('cara:outfit-checked', { detail: { topColor, bottomColor, result } }));
+      window.dispatchEvent(
+        new CustomEvent('cara:outfit-checked', {
+          detail: { topColor, bottomColor, result },
+        }),
+      );
     }
   });
 

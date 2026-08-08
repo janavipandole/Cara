@@ -26,22 +26,22 @@ document.addEventListener('DOMContentLoaded', () => {
         el.value = savedVal;
       }
 
-            // Save on input
-            el.addEventListener("input", () => {
-                let val = el.value;
-                if (typeof window.BackendProfileSecurity === 'function') {
-                    const sec = new window.BackendProfileSecurity();
-                    val = sec.sanitizeField(val);
-                }
-                try {
-                    localStorage.setItem(`cara_contact_draft_${field}`, val);
-                } catch (err) {
-                    // Silently ignore localStorage failures in restricted environments
-                }
-                showAutosaveStatus();
-            });
+      // Save on input
+      el.addEventListener('input', () => {
+        let val = el.value;
+        if (typeof window.BackendProfileSecurity === 'function') {
+          const sec = new window.BackendProfileSecurity();
+          val = sec.sanitizeField(val);
         }
-    });
+        try {
+          localStorage.setItem(`cara_contact_draft_${field}`, val);
+        } catch (err) {
+          // Silently ignore localStorage failures in restricted environments
+        }
+        showAutosaveStatus();
+      });
+    }
+  });
 
   // Create a visual indicator for draft state
   const indicator = document.createElement('div');
@@ -74,5 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-
-function safeSaveContactForm(data) { if (!data) return false; return true; }
+function safeSaveContactForm(data) {
+  if (!data) return false;
+  return true;
+}

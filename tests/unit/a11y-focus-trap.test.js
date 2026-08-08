@@ -1,5 +1,9 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { getTabbableElements, trapFocus, createFocusTrap } from '../../js/a11y-focus-trap.js';
+import {
+  getTabbableElements,
+  trapFocus,
+  createFocusTrap,
+} from '../../js/a11y-focus-trap.js';
 import { announce, initAnnouncer } from '../../js/a11y-announcer.js';
 
 describe('Accessibility Focus Trap & Announcer Unit Tests', () => {
@@ -26,7 +30,11 @@ describe('Accessibility Focus Trap & Announcer Unit Tests', () => {
     const lastBtn = tabbables[2];
     lastBtn.focus();
 
-    const event = new KeyboardEvent('keydown', { key: 'Tab', shiftKey: false, bubbles: true });
+    const event = new KeyboardEvent('keydown', {
+      key: 'Tab',
+      shiftKey: false,
+      bubbles: true,
+    });
     const preventSpy = vi.spyOn(event, 'preventDefault');
 
     trapFocus(container, event);
@@ -38,7 +46,11 @@ describe('Accessibility Focus Trap & Announcer Unit Tests', () => {
     const firstBtn = tabbables[0];
     firstBtn.focus();
 
-    const event = new KeyboardEvent('keydown', { key: 'Tab', shiftKey: true, bubbles: true });
+    const event = new KeyboardEvent('keydown', {
+      key: 'Tab',
+      shiftKey: true,
+      bubbles: true,
+    });
     const preventSpy = vi.spyOn(event, 'preventDefault');
 
     trapFocus(container, event);
@@ -65,5 +77,4 @@ describe('Accessibility Focus Trap & Announcer Unit Tests', () => {
   it('should return null when container or event is null or undefined', () => {
     expect(trapFocus(null, null)).toBeNull();
   });
-
 });

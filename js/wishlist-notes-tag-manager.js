@@ -32,7 +32,12 @@ class WishlistNotesTagManager {
     }
 
     if (!this.data[productId]) {
-      this.data[productId] = { note: '', tags: [], priority: 0, addedAt: new Date().toISOString() };
+      this.data[productId] = {
+        note: '',
+        tags: [],
+        priority: 0,
+        addedAt: new Date().toISOString(),
+      };
     }
 
     this.data[productId].note = note.trim().slice(0, 300);
@@ -46,14 +51,21 @@ class WishlistNotesTagManager {
     }
 
     if (!this.data[productId]) {
-      this.data[productId] = { note: '', tags: [], priority: 0, addedAt: new Date().toISOString() };
+      this.data[productId] = {
+        note: '',
+        tags: [],
+        priority: 0,
+        addedAt: new Date().toISOString(),
+      };
     }
 
     const cleanTags = tags
       .map((t) => t.trim().toLowerCase().slice(0, 20))
       .filter((t) => t.length > 0);
 
-    const merged = [...new Set([...(this.data[productId].tags || []), ...cleanTags])];
+    const merged = [
+      ...new Set([...(this.data[productId].tags || []), ...cleanTags]),
+    ];
     this.data[productId].tags = merged.slice(0, 10);
     this.saveData();
     return { success: true, tags: this.data[productId].tags };
@@ -62,7 +74,12 @@ class WishlistNotesTagManager {
   setPriority(productId, priority) {
     const validPriority = Math.max(0, Math.min(5, parseInt(priority, 10) || 0));
     if (!this.data[productId]) {
-      this.data[productId] = { note: '', tags: [], priority: validPriority, addedAt: new Date().toISOString() };
+      this.data[productId] = {
+        note: '',
+        tags: [],
+        priority: validPriority,
+        addedAt: new Date().toISOString(),
+      };
     } else {
       this.data[productId].priority = validPriority;
     }

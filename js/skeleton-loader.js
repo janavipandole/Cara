@@ -4,7 +4,8 @@
 (function () {
   'use strict';
 
-  var SHIMMER_KEYFRAME = '@keyframes skeleton-shimmer { ' +
+  var SHIMMER_KEYFRAME =
+    '@keyframes skeleton-shimmer { ' +
     '0% { background-position: -200px 0; } ' +
     '100% { background-position: calc(200px + 100%) 0; } ' +
     '}';
@@ -14,7 +15,8 @@
   function injectShimmerStyle() {
     if (shimmerStyleEl) return;
     shimmerStyleEl = document.createElement('style');
-    shimmerStyleEl.textContent = SHIMMER_KEYFRAME +
+    shimmerStyleEl.textContent =
+      SHIMMER_KEYFRAME +
       '.skeleton-block { ' +
       '  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); ' +
       '  background-size: 200px 100%; ' +
@@ -51,9 +53,15 @@
       var card = document.createElement('div');
       card.className = cardClass;
       card.appendChild(createSkeletonCard({ width: '100%', height: '180px' }));
-      card.appendChild(createSkeletonCard({ width: '70%', height: '16px', margin: '8px 0' }));
-      card.appendChild(createSkeletonCard({ width: '50%', height: '14px', margin: '4px 0' }));
-      card.appendChild(createSkeletonCard({ width: '30%', height: '14px', margin: '4px 0' }));
+      card.appendChild(
+        createSkeletonCard({ width: '70%', height: '16px', margin: '8px 0' }),
+      );
+      card.appendChild(
+        createSkeletonCard({ width: '50%', height: '14px', margin: '4px 0' }),
+      );
+      card.appendChild(
+        createSkeletonCard({ width: '30%', height: '14px', margin: '4px 0' }),
+      );
       fragment.appendChild(card);
     }
 
@@ -68,6 +76,6 @@
 
   window.CaraSkeleton = {
     show: showSkeleton,
-    hide: hideSkeleton
+    hide: hideSkeleton,
   };
 })();

@@ -94,5 +94,4 @@ describe('Address Autocomplete DOM Integration', () => {
   it('should return empty string for null query parameter in escapeHTML', () => {
     expect(escapeHTML(null)).toBe('null');
   });
-
 });

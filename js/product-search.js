@@ -31,7 +31,8 @@
     page_size: DEFAULT_PAGE_SIZE,
   };
   let activeController = null;
-  const smartEngine = typeof SmartSearchEngine !== 'undefined' ? new SmartSearchEngine() : null;
+  const smartEngine =
+    typeof SmartSearchEngine !== 'undefined' ? new SmartSearchEngine() : null;
 
   // ── DOM references ──────────────────────────────────────────────────────────
   const searchInput = document.getElementById('productSearchInput');
@@ -65,9 +66,15 @@
   }
 
   function safeImageSrc(value) {
-    const src = String(value === undefined || value === null ? '' : value).trim();
+    const src = String(
+      value === undefined || value === null ? '' : value,
+    ).trim();
     if (!src) return 'images/products/placeholder.jpg';
-    if (/^https?:\/\//i.test(src) || src.startsWith('/') || src.startsWith('images/')) {
+    if (
+      /^https?:\/\//i.test(src) ||
+      src.startsWith('/') ||
+      src.startsWith('images/')
+    ) {
       return src;
     }
     return 'images/products/placeholder.jpg';
@@ -208,7 +215,7 @@
           // Expected when a newer request supersedes this one — ignore silently
           return;
         }
-        console.warn("[ProductSearch] Failed:", err);
+        console.warn('[ProductSearch] Failed:', err);
         if (productGrid) {
           productGrid.innerHTML =
             '<p class="search-error" role="alert">Failed to load results. Please try again.</p>';
@@ -269,7 +276,7 @@
         categorySelect.innerHTML = placeholder + opts;
       })
       .catch((err) => {
-        console.warn("[ProductSearch] Failed:", err);
+        console.warn('[ProductSearch] Failed:', err);
       });
   }
 
@@ -363,5 +370,7 @@
   window.resetProductFilters = resetAllFilters;
 })();
 
-
-function meetsSearchQueryThreshold(query, minLength = 2) { if (!query || typeof query !== 'string') return false; return query.trim().length >= minLength; }
+function meetsSearchQueryThreshold(query, minLength = 2) {
+  if (!query || typeof query !== 'string') return false;
+  return query.trim().length >= minLength;
+}

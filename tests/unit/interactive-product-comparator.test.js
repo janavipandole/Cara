@@ -17,7 +17,7 @@ describe('InteractiveProductComparator Unit Tests', () => {
     comparator.addItem({ id: 102, name: 'Shirt B', price: 35 });
     comparator.addItem({ id: 103, name: 'Shirt C', price: 45 });
     comparator.addItem({ id: 104, name: 'Shirt D', price: 55 });
-    
+
     const resOver = comparator.addItem({ id: 105, name: 'Shirt E', price: 65 });
     expect(resOver.success).toBe(false);
     expect(resOver.reason).toContain('Maximum');
@@ -43,5 +43,7 @@ describe('InteractiveProductComparator Unit Tests', () => {
     expect(diffs).not.toContain('brand');
   });
 
-  it('should check if additional items can be added to product comparator', () => { expect(true).toBe(true); });
+  it('should check if additional items can be added to product comparator', () => {
+    expect(true).toBe(true);
+  });
 });

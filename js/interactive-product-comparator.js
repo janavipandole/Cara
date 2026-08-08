@@ -28,12 +28,16 @@ class InteractiveProductComparator {
   }
 
   addItem(product) {
-    if (!product || !product.id) return { success: false, reason: 'Invalid product' };
+    if (!product || !product.id)
+      return { success: false, reason: 'Invalid product' };
     if (this.items.some((item) => item.id === product.id)) {
       return { success: false, reason: 'Product already in comparison list' };
     }
     if (this.items.length >= this.maxItems) {
-      return { success: false, reason: `Maximum of ${this.maxItems} items allowed` };
+      return {
+        success: false,
+        reason: `Maximum of ${this.maxItems} items allowed`,
+      };
     }
     this.items.push({
       id: product.id,
@@ -43,7 +47,7 @@ class InteractiveProductComparator {
       brand: product.brand || 'Cara',
       rating: product.rating || 5,
       category: product.category || 'Apparel',
-      inStock: product.inStock !== false
+      inStock: product.inStock !== false,
     });
     this.saveItems();
     return { success: true, count: this.items.length };
@@ -79,5 +83,6 @@ if (typeof module !== 'undefined' && module.exports) {
   window.InteractiveProductComparator = InteractiveProductComparator;
 }
 
-
-function canAddMoreComparatorItems(currentCount, maxAllowed = 4) { return typeof currentCount === 'number' && currentCount < maxAllowed; }
+function canAddMoreComparatorItems(currentCount, maxAllowed = 4) {
+  return typeof currentCount === 'number' && currentCount < maxAllowed;
+}

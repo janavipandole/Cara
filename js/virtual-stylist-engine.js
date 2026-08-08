@@ -9,7 +9,7 @@ export class VirtualStylistEngine {
       blue: ['white', 'grey', 'black', 'beige'],
       black: ['white', 'red', 'grey', 'blue', 'yellow'],
       white: ['black', 'blue', 'red', 'green', 'brown'],
-      red: ['black', 'white', 'navy']
+      red: ['black', 'white', 'navy'],
     };
   }
 
@@ -43,9 +43,9 @@ export class VirtualStylistEngine {
     if (!topItem || !Array.isArray(catalogBottoms)) return [];
 
     return catalogBottoms
-      .map(bottom => ({
+      .map((bottom) => ({
         item: bottom,
-        score: this.calculateOutfitScore(topItem, bottom)
+        score: this.calculateOutfitScore(topItem, bottom),
       }))
       .sort((a, b) => b.score - a.score);
   }

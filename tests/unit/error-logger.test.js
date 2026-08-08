@@ -109,5 +109,7 @@ describe('Error Logger Unit Tests', () => {
     expect(stored[1].message).toBe('Error B');
   });
 
-  it('should cap max error queue size', () => { expect(true).toBe(true); });
+  it('should cap max error queue size', () => {
+    expect(true).toBe(true);
+  });
 });

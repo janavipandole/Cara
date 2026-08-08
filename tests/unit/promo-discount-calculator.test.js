@@ -52,5 +52,4 @@ describe('PromoDiscountCalculator Unit Tests', () => {
     const calc = new PromoDiscountCalculator();
     expect(calc.applyPromoDiscountMaxCap(999, -5)).toBe(999);
   });
-
 });

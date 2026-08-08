@@ -57,7 +57,9 @@ function networkFirst(request) {
   return fetch(request)
     .then((networkResponse) => networkResponse)
     .catch(() =>
-      caches.match(request).then((cached) => cached || caches.match('/offline.html')),
+      caches
+        .match(request)
+        .then((cached) => cached || caches.match('/offline.html')),
     );
 }
 
@@ -100,7 +102,10 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   // Handle POST requests from Web Share Target API
-  if (event.request.method === 'POST' && event.request.url.endsWith('/visual-search.html')) {
+  if (
+    event.request.method === 'POST' &&
+    event.request.url.endsWith('/visual-search.html')
+  ) {
     event.respondWith(
       (async () => {
         try {

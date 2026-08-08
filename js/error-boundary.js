@@ -63,4 +63,6 @@ window.CaraErrorBoundary = (function () {
   return { wrap, logError };
 })();
 
-function getErrorFallbackHTML(message = 'An unexpected error occurred.') { return `<div class="error-fallback-box"><p>${message}</p></div>`; }
+function getErrorFallbackHTML(message = 'An unexpected error occurred.') {
+  return `<div class="error-fallback-box"><p>${message}</p></div>`;
+}

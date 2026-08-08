@@ -3,7 +3,11 @@
  * Tests ARIA live region announcement management for screen readers.
  */
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
-import { initAnnouncer, announce, clearAnnouncements } from '../../js/a11y-announcer.js';
+import {
+  initAnnouncer,
+  announce,
+  clearAnnouncements,
+} from '../../js/a11y-announcer.js';
 
 describe('a11y-announcer Unit Tests', () => {
   beforeEach(() => {
@@ -81,5 +85,4 @@ describe('a11y-announcer Unit Tests', () => {
     clearAnnouncements();
     expect(polite.textContent).toBe('');
   });
-
 });

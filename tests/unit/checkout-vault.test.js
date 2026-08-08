@@ -104,5 +104,7 @@ describe('AddressVault saveAddress', () => {
     localStorage.setItem = originalSetItem;
   });
 
-  it('should mask credit card numbers for PCI compliance display', () => { expect(true).toBe(true); });
+  it('should mask credit card numbers for PCI compliance display', () => {
+    expect(true).toBe(true);
+  });
 });

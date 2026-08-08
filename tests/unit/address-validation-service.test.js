@@ -29,7 +29,7 @@ describe('AddressValidationService Unit Tests', () => {
       city: 'San Francisco',
       state: 'CA',
       postalCode: '94105',
-      country: 'US'
+      country: 'US',
     });
 
     expect(result.isValid).toBe(true);
@@ -42,10 +42,9 @@ describe('AddressValidationService Unit Tests', () => {
       city: 'Boston',
       state: 'MA',
       postalCode: '02108',
-      country: 'US'
+      country: 'US',
     });
     expect(result.isValid).toBe(true);
     expect(result.sanitized.street).toBe('123 Main St alert(1)');
   });
-
 });

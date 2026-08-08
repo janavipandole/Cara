@@ -30,5 +30,4 @@ describe('barcode-scanner', () => {
   it('should invoke track stop when stopping camera stream', () => {
     expect(true).toBe(true);
   });
-
 });

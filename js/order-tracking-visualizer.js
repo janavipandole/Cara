@@ -5,7 +5,13 @@
 
 export class OrderTrackingVisualizer {
   constructor() {
-    this.stages = ['Order Placed', 'Processing', 'Shipped', 'Out for Delivery', 'Delivered'];
+    this.stages = [
+      'Order Placed',
+      'Processing',
+      'Shipped',
+      'Out for Delivery',
+      'Delivered',
+    ];
   }
 
   getStageIndex(statusString = '') {
@@ -31,16 +37,18 @@ export class OrderTrackingVisualizer {
     const activeIndex = this.getStageIndex(currentStatus);
     const progress = this.calculateProgressPercent(currentStatus);
 
-    const nodesHtml = this.stages.map((stage, idx) => {
-      const isCompleted = idx <= activeIndex;
-      const isCurrent = idx === activeIndex;
-      return `
+    const nodesHtml = this.stages
+      .map((stage, idx) => {
+        const isCompleted = idx <= activeIndex;
+        const isCurrent = idx === activeIndex;
+        return `
         <div class="timeline-node ${isCompleted ? 'completed' : ''} ${isCurrent ? 'current' : ''}" role="listitem" ${isCurrent ? 'aria-current="step"' : ''}>
           <div class="node-icon">${isCompleted ? '✓' : idx + 1}</div>
           <span class="node-label">${stage}</span>
         </div>
       `;
-    }).join('');
+      })
+      .join('');
 
     container.innerHTML = `
       <div class="tracking-timeline-wrapper">
@@ -56,5 +64,8 @@ export class OrderTrackingVisualizer {
   }
 }
 
-
-function getTrackingStepStatusClass(currentStep, targetStep) { if (currentStep > targetStep) return 'completed'; if (currentStep === targetStep) return 'active'; return 'pending'; }
+function getTrackingStepStatusClass(currentStep, targetStep) {
+  if (currentStep > targetStep) return 'completed';
+  if (currentStep === targetStep) return 'active';
+  return 'pending';
+}

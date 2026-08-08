@@ -10,12 +10,20 @@ describe('ProductReviewAggregator Unit Tests', () => {
   });
 
   it('should reject reviews with missing or out-of-range ratings', () => {
-    const res = aggregator.submitReview('prod-99', { rating: 6, body: 'Too good' });
+    const res = aggregator.submitReview('prod-99', {
+      rating: 6,
+      body: 'Too good',
+    });
     expect(res.success).toBe(false);
   });
 
   it('should successfully submit a valid review', () => {
-    const res = aggregator.submitReview('prod-42', { rating: 5, title: 'Great shirt!', body: 'Fits perfectly.', author: 'Alice' });
+    const res = aggregator.submitReview('prod-42', {
+      rating: 5,
+      title: 'Great shirt!',
+      body: 'Fits perfectly.',
+      author: 'Alice',
+    });
     expect(res.success).toBe(true);
     expect(res.review.rating).toBe(5);
   });

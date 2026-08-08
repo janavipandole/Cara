@@ -34,7 +34,9 @@ describe('Open Redirect & SSRF Security Defense', () => {
     expect(sanitizeReturnUrl('http://evil.com')).toBe('index.html');
     expect(sanitizeReturnUrl('https://attacker.org/steal')).toBe('index.html');
     expect(sanitizeReturnUrl('javascript:alert(1)')).toBe('index.html');
-    expect(sanitizeReturnUrl('data:text/html,<script>alert(1)</script>')).toBe('index.html');
+    expect(sanitizeReturnUrl('data:text/html,<script>alert(1)</script>')).toBe(
+      'index.html',
+    );
   });
 
   test('blocks protocol-relative and backslash evasion payloads', () => {

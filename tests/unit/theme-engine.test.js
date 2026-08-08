@@ -4,7 +4,7 @@ import {
   getSystemTheme,
   getStoredTheme,
   resolveEffectiveTheme,
-  applyTheme
+  applyTheme,
 } from '../../js/theme-engine.js';
 
 describe('Centralized Theme Engine Unit Tests', () => {
@@ -20,7 +20,9 @@ describe('Centralized Theme Engine Unit Tests', () => {
   it('should resolve effective theme for light and dark choices', () => {
     expect(resolveEffectiveTheme(THEMES.LIGHT)).toBe(THEMES.LIGHT);
     expect(resolveEffectiveTheme(THEMES.DARK)).toBe(THEMES.DARK);
-    expect(resolveEffectiveTheme(THEMES.HIGH_CONTRAST)).toBe(THEMES.HIGH_CONTRAST);
+    expect(resolveEffectiveTheme(THEMES.HIGH_CONTRAST)).toBe(
+      THEMES.HIGH_CONTRAST,
+    );
   });
 
   it('should apply theme to document root attribute and update localStorage', () => {
@@ -38,7 +40,7 @@ describe('Centralized Theme Engine Unit Tests', () => {
     expect(listener).toHaveBeenCalled();
     expect(listener.mock.calls[0][0].detail).toEqual({
       theme: THEMES.LIGHT,
-      effective: THEMES.LIGHT
+      effective: THEMES.LIGHT,
     });
 
     window.removeEventListener('themeChanged', listener);

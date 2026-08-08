@@ -4,7 +4,7 @@ import {
   validateExpiryDate,
   validatePostalCode,
   validateEmail,
-  validatePhone
+  validatePhone,
 } from '../../js/checkout-validator.js';
 
 describe('Checkout Form Validator Unit Tests', () => {
@@ -37,5 +37,7 @@ describe('Checkout Form Validator Unit Tests', () => {
     expect(validatePhone('123')).toBe(false);
   });
 
-  it('should validate CVV numeric security code format', () => { expect(true).toBe(true); });
+  it('should validate CVV numeric security code format', () => {
+    expect(true).toBe(true);
+  });
 });

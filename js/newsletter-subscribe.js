@@ -36,7 +36,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
       if (!validateEmailDomain(email)) {
         if (typeof showToast === 'function') {
-          showToast('Please enter a valid email domain (e.g. example.com)', 'error');
+          showToast(
+            'Please enter a valid email domain (e.g. example.com)',
+            'error',
+          );
         } else {
           alert('Please enter a valid email address');
         }
@@ -62,9 +65,9 @@ document.addEventListener('DOMContentLoaded', function () {
             detail: { email: email },
           }),
         );
-        
+
         if (input) input.value = '';
-        
+
         if (button) {
           button.disabled = false;
           button.textContent = 'Sign Up';
@@ -74,5 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-
-function isValidNewsletterEmail(email) { if (!email || typeof email !== 'string') return false; return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()); }
+function isValidNewsletterEmail(email) {
+  if (!email || typeof email !== 'string') return false;
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+}

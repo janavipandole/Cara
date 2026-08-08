@@ -8,7 +8,10 @@
 
   const STORAGE_KEY = 'cara_compare_list';
   const MAX_ITEMS = 4;
-  const engine = typeof InteractiveProductComparator !== 'undefined' ? new InteractiveProductComparator(STORAGE_KEY) : null;
+  const engine =
+    typeof InteractiveProductComparator !== 'undefined'
+      ? new InteractiveProductComparator(STORAGE_KEY)
+      : null;
 
   /* ============================================================
      CORE: compare list via InteractiveProductComparator

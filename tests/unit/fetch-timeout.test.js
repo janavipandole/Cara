@@ -70,5 +70,7 @@ describe('fetchWithTimeout', () => {
     );
   });
 
-  it('should handle fetchWithTimeout correctly', () => { expect(true).toBe(true); });
+  it('should handle fetchWithTimeout correctly', () => {
+    expect(true).toBe(true);
+  });
 });

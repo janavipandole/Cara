@@ -20,7 +20,10 @@
 
   const STORAGE_PREFIX = 'cara_reviews_';
   const MAX_REVIEWS_STORED = 50;
-  const reviewEngine = typeof ProductReviewAggregator !== 'undefined' ? new ProductReviewAggregator() : null;
+  const reviewEngine =
+    typeof ProductReviewAggregator !== 'undefined'
+      ? new ProductReviewAggregator()
+      : null;
 
   // ── Utility helpers ────────────────────────────────────────────────────────
 
@@ -32,9 +35,9 @@
     } catch (err) {
       console.warn('Reviews data parsing failed:', err);
     }
-      return [];
-    }
-  
+    return [];
+  }
+
   function _saveReviews(productId, reviews) {
     // Cap stored reviews to prevent unbounded localStorage growth
     const trimmed = reviews.slice(0, MAX_REVIEWS_STORED);
@@ -62,9 +65,9 @@
     } catch (err) {
       console.warn('Reviews data parsing failed:', err);
     }
-      return iso;
-    }
-  
+    return iso;
+  }
+
   // ── Calculate aggregate stats ─────────────────────────────────────────────
 
   function _calcStats(reviews) {
@@ -283,7 +286,7 @@
         if (!authorEl || !bodyEl) return;
 
         const author = authorEl.value.trim();
-        const rating = parseInt((ratingEl || {value: '0'}).value, 10);
+        const rating = parseInt((ratingEl || { value: '0' }).value, 10);
         const title = (titleEl ? titleEl.value : '').trim();
         const body = bodyEl.value.trim();
 
@@ -308,7 +311,8 @@
         }
 
         if (!body || body.length < 10) {
-          if (bodyErr) bodyErr.textContent = 'Review must be at least 10 characters.';
+          if (bodyErr)
+            bodyErr.textContent = 'Review must be at least 10 characters.';
           valid = false;
         } else {
           if (bodyErr) bodyErr.textContent = '';
@@ -358,11 +362,11 @@
             localStorage.getItem('selectedProduct') || '{}',
           ).name;
         } catch (err) {
-      console.warn('Reviews data parsing failed:', err);
-    }
-          productId = 'unknown';
+          console.warn('Reviews data parsing failed:', err);
         }
+        productId = 'unknown';
       }
+    }
     productId = productId || 'unknown';
     _render(container, productId);
   }

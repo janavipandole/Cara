@@ -4,7 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!form) return;
 
   form.addEventListener('submit', (e) => {
-    const textInputs = form.querySelectorAll("input[type='text'], input[type='search'], input[type='url'], input[type='tel'], textarea");
+    const textInputs = form.querySelectorAll(
+      "input[type='text'], input[type='search'], input[type='url'], input[type='tel'], textarea",
+    );
     let blocked = false;
 
     textInputs.forEach((input) => {
@@ -35,5 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-
-function containsSqlInjectionKeywords(input) { if (!input || typeof input !== 'string') return false; return /\b(SELECT|INSERT|UPDATE|DELETE|DROP|UNION|ALTER)\b/i.test(input); }
+function containsSqlInjectionKeywords(input) {
+  if (!input || typeof input !== 'string') return false;
+  return /\b(SELECT|INSERT|UPDATE|DELETE|DROP|UNION|ALTER)\b/i.test(input);
+}

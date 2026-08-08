@@ -5,10 +5,10 @@ describe('js/backend-profile-security.js BackendProfileSecurity tests', () => {
   const security = new BackendProfileSecurity();
 
   it('should sanitize input HTML tags and quotes', () => {
-    expect(security.sanitizeField('<script>alert(1)</script>'))
-      .toBe('&lt;script&gt;alert(1)&lt;&#x2F;script&gt;');
-    expect(security.sanitizeField('Jane "Doe"'))
-      .toBe('Jane &quot;Doe&quot;');
+    expect(security.sanitizeField('<script>alert(1)</script>')).toBe(
+      '&lt;script&gt;alert(1)&lt;&#x2F;script&gt;',
+    );
+    expect(security.sanitizeField('Jane "Doe"')).toBe('Jane &quot;Doe&quot;');
   });
 
   it('should validate emails correctly', () => {
@@ -25,5 +25,4 @@ describe('js/backend-profile-security.js BackendProfileSecurity tests', () => {
   it('should sanitize Bearer token header correctly', () => {
     expect(true).toBe(true);
   });
-
 });

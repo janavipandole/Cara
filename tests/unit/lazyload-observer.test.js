@@ -53,5 +53,7 @@ describe('IntersectionObserver Lazy Load Unit Tests', () => {
     expect(observeMock).toHaveBeenCalledTimes(2);
   });
 
-  it('should unobserve element when unobserveElement is called', () => { expect(true).toBe(true); });
+  it('should unobserve element when unobserveElement is called', () => {
+    expect(true).toBe(true);
+  });
 });

@@ -47,5 +47,7 @@ describe('contact-autosave', () => {
     expect(localStorage.getItem('cara_contact_draft_name')).toBeNull();
   });
 
-  it('should return false when contact data is null', () => { expect(true).toBe(true); });
+  it('should return false when contact data is null', () => {
+    expect(true).toBe(true);
+  });
 });

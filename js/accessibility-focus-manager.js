@@ -17,13 +17,17 @@ export class AccessibilityFocusManager {
     this.activeModal = modalElement;
     this.previousActiveElement = document.activeElement;
 
-    const selector = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]';
-    this.focusableElements = Array.from(modalElement.querySelectorAll(selector));
+    const selector =
+      'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]';
+    this.focusableElements = Array.from(
+      modalElement.querySelectorAll(selector),
+    );
 
     if (this.focusableElements.length === 0) return false;
 
     this.firstFocusable = this.focusableElements[0];
-    this.lastFocusable = this.focusableElements[this.focusableElements.length - 1];
+    this.lastFocusable =
+      this.focusableElements[this.focusableElements.length - 1];
 
     this.firstFocusable.focus();
     modalElement.setAttribute('aria-modal', 'true');
@@ -47,9 +51,11 @@ export class AccessibilityFocusManager {
     }
   }
 
-
   restoreFocus() {
-    if (this.previousActiveElement && typeof this.previousActiveElement.focus === 'function') {
+    if (
+      this.previousActiveElement &&
+      typeof this.previousActiveElement.focus === 'function'
+    ) {
       this.previousActiveElement.focus();
     }
   }
@@ -57,7 +63,10 @@ export class AccessibilityFocusManager {
   releaseFocus() {
     if (!this.activeModal) return false;
     this.activeModal.removeAttribute('aria-modal');
-    if (this.previousActiveElement && typeof this.previousActiveElement.focus === 'function') {
+    if (
+      this.previousActiveElement &&
+      typeof this.previousActiveElement.focus === 'function'
+    ) {
       this.previousActiveElement.focus();
     }
     this.activeModal = null;

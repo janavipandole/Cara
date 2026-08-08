@@ -9,10 +9,10 @@ export class WishlistExportShare {
   encodeWishlistToHash(items = []) {
     if (!Array.isArray(items) || items.length === 0) return '';
     try {
-      const payload = items.map(item => ({
+      const payload = items.map((item) => ({
         i: item.id || item.name,
         n: item.name,
-        p: item.price
+        p: item.price,
       }));
       const jsonStr = JSON.stringify(payload);
       return btoa(encodeURIComponent(jsonStr));
@@ -26,10 +26,10 @@ export class WishlistExportShare {
     try {
       const jsonStr = decodeURIComponent(atob(encodedHash));
       const rawList = JSON.parse(jsonStr);
-      return rawList.map(item => ({
+      return rawList.map((item) => ({
         id: item.i,
         name: item.n,
-        price: item.p
+        price: item.p,
       }));
     } catch {
       return [];
@@ -39,7 +39,9 @@ export class WishlistExportShare {
   exportToCSV(items = []) {
     if (!Array.isArray(items) || items.length === 0) return '';
     const headers = ['ID', 'Name', 'Price'];
-    const rows = items.map(item => `"${item.id || ''}","${item.name || ''}","${item.price || ''}"`);
+    const rows = items.map(
+      (item) => `"${item.id || ''}","${item.name || ''}","${item.price || ''}"`,
+    );
     return [headers.join(','), ...rows].join('\n');
   }
 
@@ -53,7 +55,8 @@ export class WishlistExportShare {
     const link = this.buildShareLink(items, origin);
     if (!link) return { ok: false, link: '' };
 
-    const clipboard = typeof navigator !== 'undefined' ? navigator.clipboard : null;
+    const clipboard =
+      typeof navigator !== 'undefined' ? navigator.clipboard : null;
     if (clipboard && typeof clipboard.writeText === 'function') {
       try {
         await clipboard.writeText(link);

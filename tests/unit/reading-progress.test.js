@@ -21,8 +21,9 @@ describe('reading-progress', () => {
   });
 
   it('adds a read-time label to blog post details', async () => {
-    document.querySelector('.blog-details').textContent =
-      Array(201).fill('word').join(' ');
+    document.querySelector('.blog-details').textContent = Array(201)
+      .fill('word')
+      .join(' ');
     await load();
     expect(document.querySelector('.blog-details').textContent).toContain(
       'Min Read',

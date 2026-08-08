@@ -491,7 +491,6 @@ function safeParseJSON(key, fallback = '[]') {
   }
 }
 
-
 // Wishlist logic has been migrated to app.js for global availability.
 
 /**
@@ -1002,4 +1001,3 @@ function showToast(message, type = 'success') {
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = { products };
 }
-

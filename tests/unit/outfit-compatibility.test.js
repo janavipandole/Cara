@@ -21,10 +21,16 @@ describe('js/outfit-compatibility.js OutfitCompatibility tests', () => {
   });
 
   it('should recommend fallbacks for a given color', () => {
-    expect(compatibility.getRecommendedFallbacks('red')).toEqual(['white', 'black', 'navy']);
-    expect(compatibility.getRecommendedFallbacks('nonexistent')).toEqual(['white', 'black']);
+    expect(compatibility.getRecommendedFallbacks('red')).toEqual([
+      'white',
+      'black',
+      'navy',
+    ]);
+    expect(compatibility.getRecommendedFallbacks('nonexistent')).toEqual([
+      'white',
+      'black',
+    ]);
   });
-
 
   it('should return true when outfit is within budget', () => {
     const c = new OutfitCompatibility();
@@ -42,5 +48,4 @@ describe('js/outfit-compatibility.js OutfitCompatibility tests', () => {
     expect(c.isOutfitWithinBudget(9999, undefined)).toBe(true);
     expect(c.isOutfitWithinBudget(9999, NaN)).toBe(true);
   });
-
 });

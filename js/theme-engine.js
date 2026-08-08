@@ -52,8 +52,15 @@ export function applyTheme(themeChoice) {
     }
   }
 
-  if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function') {
-    window.dispatchEvent(new CustomEvent('themeChanged', { detail: { theme: themeChoice, effective: effectiveTheme } }));
+  if (
+    typeof window !== 'undefined' &&
+    typeof window.dispatchEvent === 'function'
+  ) {
+    window.dispatchEvent(
+      new CustomEvent('themeChanged', {
+        detail: { theme: themeChoice, effective: effectiveTheme },
+      }),
+    );
   }
 
   return effectiveTheme;
@@ -64,11 +71,13 @@ export function initThemeEngine() {
   applyTheme(stored);
 
   if (typeof window !== 'undefined' && window.matchMedia) {
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-      if (getStoredTheme() === THEMES.SYSTEM) {
-        applyTheme(THEMES.SYSTEM);
-      }
-    });
+    window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener('change', () => {
+        if (getStoredTheme() === THEMES.SYSTEM) {
+          applyTheme(THEMES.SYSTEM);
+        }
+      });
   }
 }
 

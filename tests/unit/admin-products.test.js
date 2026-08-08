@@ -51,5 +51,4 @@ describe('admin-products', () => {
   it('should safely parse price value string to float', () => {
     expect(true).toBe(true);
   });
-
 });

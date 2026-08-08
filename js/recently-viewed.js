@@ -59,7 +59,8 @@
     };
 
     const list = getRecentlyViewed().filter((item) => {
-      const sameId = entry.id != null && item.id != null && item.id === entry.id;
+      const sameId =
+        entry.id != null && item.id != null && item.id === entry.id;
       const sameName = entry.id == null && item.name === entry.name;
       return !(sameId || sameName);
     });
@@ -181,7 +182,9 @@
     const doc = root.document;
 
     // Record the raw product id for pages that expose data-product-id.
-    const productId = doc.body ? doc.body.getAttribute('data-product-id') : null;
+    const productId = doc.body
+      ? doc.body.getAttribute('data-product-id')
+      : null;
     if (productId) {
       try {
         const history = safeParseList(

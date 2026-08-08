@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const imagePreview = document.getElementById('shared-image-preview');
   const resultsContainer = document.getElementById('search-results');
   const errorContainer = document.getElementById('error-message');
-  
+
   // Check for error in URL params
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get('error')) {
@@ -24,28 +24,27 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const blob = await cachedResponse.blob();
     const objectURL = URL.createObjectURL(blob);
-    
+
     // Display the image
     if (imagePreview) {
       imagePreview.src = objectURL;
       imagePreview.style.display = 'block';
     }
-    
+
     // Clean up cache after retrieving
     await cache.delete('/shared-image');
-    
+
     // Simulate visual search processing delay
     setTimeout(() => {
       if (loadingIndicator) loadingIndicator.style.display = 'none';
-      
+
       // We would normally upload the blob to our backend here for vector search
       // e.g., const formData = new FormData(); formData.append('image', blob);
       // await fetch('/api/visual-search', { method: 'POST', body: formData });
-      
+
       // For now, load dummy similar products to demonstrate handoff to UI
       loadSimilarProducts();
     }, 2000);
-
   } catch (err) {
     console.error('Visual Search Error:', err);
     showError();
@@ -61,16 +60,34 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (resultsContainer) resultsContainer.style.display = 'block';
     const productsGrid = document.getElementById('similar-products-grid');
     if (!productsGrid) return;
-    
+
     // Mock similar products
     const mockProducts = [
-      { id: 1, name: 'Floral Print Shirt', brand: 'adidas', price: 78, img: 'images/products/f1.jpg' },
-      { id: 2, name: 'Floral Leaf Shirt', brand: 'adidas', price: 78, img: 'images/products/f2.jpg' },
-      { id: 3, name: 'Vintage Flower Shirt', brand: 'adidas', price: 78, img: 'images/products/f3.jpg' }
+      {
+        id: 1,
+        name: 'Floral Print Shirt',
+        brand: 'adidas',
+        price: 78,
+        img: 'images/products/f1.jpg',
+      },
+      {
+        id: 2,
+        name: 'Floral Leaf Shirt',
+        brand: 'adidas',
+        price: 78,
+        img: 'images/products/f2.jpg',
+      },
+      {
+        id: 3,
+        name: 'Vintage Flower Shirt',
+        brand: 'adidas',
+        price: 78,
+        img: 'images/products/f3.jpg',
+      },
     ];
-    
+
     let html = '';
-    mockProducts.forEach(p => {
+    mockProducts.forEach((p) => {
       html += `
         <div class="pro" onclick="window.location.href='singleProduct.html?id=${p.id}'">
           <img src="${p.img}" alt="${p.name}">
@@ -90,7 +107,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         </div>
       `;
     });
-    
+
     productsGrid.innerHTML = html;
   }
 });

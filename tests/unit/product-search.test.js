@@ -46,7 +46,10 @@ describe('product-search', () => {
   it('issues a search request on initial page load', async () => {
     global.fetch.mockImplementation((url) => {
       if (String(url).includes('/categories')) {
-        return Promise.resolve({ ok: true, json: async () => ({ categories: [] }) });
+        return Promise.resolve({
+          ok: true,
+          json: async () => ({ categories: [] }),
+        });
       }
       return Promise.resolve({
         ok: true,
@@ -60,5 +63,7 @@ describe('product-search', () => {
     expect(searchCalls.length).toBeGreaterThan(0);
   });
 
-  it('should enforce minimum search query character length threshold', () => { expect(true).toBe(true); });
+  it('should enforce minimum search query character length threshold', () => {
+    expect(true).toBe(true);
+  });
 });

@@ -7,12 +7,16 @@ class OrderTelemetryTracker {
   constructor() {
     this.milestones = [
       { step: 1, key: 'ORDER_PLACED', label: 'Order Confirmed', percent: 25 },
-      { step: 2, key: 'PROCESSING', label: 'Processing & Packing', percent: 50 },
+      {
+        step: 2,
+        key: 'PROCESSING',
+        label: 'Processing & Packing',
+        percent: 50,
+      },
       { step: 3, key: 'IN_TRANSIT', label: 'Out for Delivery', percent: 75 },
-      { step: 4, key: 'DELIVERED', label: 'Delivered', percent: 100 }
+      { step: 4, key: 'DELIVERED', label: 'Delivered', percent: 100 },
     ];
   }
-
 
   getCheckoutDurationMs(startTime) {
     if (!startTime || typeof startTime !== 'number') return 0;
@@ -25,7 +29,9 @@ class OrderTelemetryTracker {
     }
 
     const cleanId = orderId.trim().toUpperCase();
-    const mockHash = cleanId.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    const mockHash = cleanId
+      .split('')
+      .reduce((acc, char) => acc + char.charCodeAt(0), 0);
     const stepIndex = (mockHash % 4) + 1;
     const milestone = this.milestones.find((m) => m.step === stepIndex);
 
@@ -41,7 +47,8 @@ class OrderTelemetryTracker {
       carrier: mockHash % 2 === 0 ? 'FedEx Express' : 'DHL Worldwide',
       trackingCode: `TRK${mockHash}99X`,
       estimatedDelivery: etaDate.toISOString().split('T')[0],
-      currentLocation: stepIndex === 4 ? 'Destination' : 'Regional Sorting Facility'
+      currentLocation:
+        stepIndex === 4 ? 'Destination' : 'Regional Sorting Facility',
     };
   }
 

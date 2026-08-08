@@ -30,7 +30,10 @@ class ProductReviewAggregator {
     const { rating, title, body, author } = review;
 
     if (!productId || !rating || rating < 1 || rating > 5) {
-      return { success: false, message: 'Invalid review data. Rating must be between 1 and 5.' };
+      return {
+        success: false,
+        message: 'Invalid review data. Rating must be between 1 and 5.',
+      };
     }
 
     if (!this.reviews[productId]) {
@@ -45,7 +48,7 @@ class ProductReviewAggregator {
       body: (body || '').trim().slice(0, 500),
       author: (author || 'Anonymous').trim().slice(0, 40),
       date: new Date().toISOString(),
-      helpful: 0
+      helpful: 0,
     };
 
     this.reviews[productId].push(newReview);
@@ -57,7 +60,11 @@ class ProductReviewAggregator {
     const productReviews = this.reviews[productId] || [];
 
     if (productReviews.length === 0) {
-      return { count: 0, average: 0, distribution: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 } };
+      return {
+        count: 0,
+        average: 0,
+        distribution: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
+      };
     }
 
     const distribution = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
@@ -71,7 +78,7 @@ class ProductReviewAggregator {
     return {
       count: productReviews.length,
       average: parseFloat((total / productReviews.length).toFixed(1)),
-      distribution
+      distribution,
     };
   }
 

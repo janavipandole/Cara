@@ -53,5 +53,7 @@ describe('CartRecoveryEngine', () => {
     expect(banner.textContent).toContain('3 item(s)');
   });
 
-  it('should return empty list when storage is unavailable', () => { expect(true).toBe(true); });
+  it('should return empty list when storage is unavailable', () => {
+    expect(true).toBe(true);
+  });
 });

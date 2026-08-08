@@ -1,5 +1,9 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { saveDraftField, getDraftField, clearCheckoutDraft } from '../../js/checkout-autosave.js';
+import {
+  saveDraftField,
+  getDraftField,
+  clearCheckoutDraft,
+} from '../../js/checkout-autosave.js';
 
 describe('Checkout Autosave Unit Tests', () => {
   beforeEach(() => {
@@ -8,7 +12,9 @@ describe('Checkout Autosave Unit Tests', () => {
 
   it('should save field draft into sessionStorage', () => {
     saveDraftField('checkout-firstname', 'Jane');
-    expect(sessionStorage.getItem('cara_checkout_draft_checkout-firstname')).toBe('Jane');
+    expect(
+      sessionStorage.getItem('cara_checkout_draft_checkout-firstname'),
+    ).toBe('Jane');
   });
 
   it('should retrieve saved draft field from sessionStorage', () => {
@@ -30,5 +36,7 @@ describe('Checkout Autosave Unit Tests', () => {
     expect(getDraftField('field2')).toBe('');
   });
 
-  it('should return standard autosave debounce delay ms', () => { expect(true).toBe(true); });
+  it('should return standard autosave debounce delay ms', () => {
+    expect(true).toBe(true);
+  });
 });

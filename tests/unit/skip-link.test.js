@@ -3,7 +3,8 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 describe('skip-link', () => {
   beforeEach(() => {
     vi.resetModules();
-    document.body.innerHTML = '<main id="main-content" tabindex="-1">Shop</main>';
+    document.body.innerHTML =
+      '<main id="main-content" tabindex="-1">Shop</main>';
   });
 
   it('injects a skip link targeting #main-content', async () => {

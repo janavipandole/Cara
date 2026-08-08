@@ -51,5 +51,8 @@ if (typeof document !== 'undefined') {
   }
 }
 
-
-function unobserveLazyElement(observer, element) { if (observer && typeof observer.unobserve === 'function' && element) { observer.unobserve(element); } }
+function unobserveLazyElement(observer, element) {
+  if (observer && typeof observer.unobserve === 'function' && element) {
+    observer.unobserve(element);
+  }
+}

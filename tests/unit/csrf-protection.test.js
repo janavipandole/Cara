@@ -3,7 +3,7 @@ import {
   generateCSRFToken,
   getOrCreateCSRFToken,
   injectCSRFInputs,
-  attachCSRFHeader
+  attachCSRFHeader,
 } from '../../js/csrf-protection.js';
 
 describe('CSRF Protection Unit Tests', () => {
@@ -46,5 +46,7 @@ describe('CSRF Protection Unit Tests', () => {
     expect(headers['X-CSRF-Token']).toBe(getOrCreateCSRFToken());
   });
 
-  it('should generate fallback CSRF token string', () => { expect(true).toBe(true); });
+  it('should generate fallback CSRF token string', () => {
+    expect(true).toBe(true);
+  });
 });

@@ -28,7 +28,7 @@ describe('order-timeline.js unit tests', () => {
 
     it('escapes less-than and greater-than', () => {
       expect(window._orderTimelineEscape('<script>alert("xss")</script>')).toBe(
-        '&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;'
+        '&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;',
       );
     });
 
@@ -51,7 +51,9 @@ describe('order-timeline.js unit tests', () => {
     });
 
     it('calling it changes the stageIndex and re-renders', () => {
-      const trackingBox = document.getElementById('order-tracking-timeline-target');
+      const trackingBox = document.getElementById(
+        'order-tracking-timeline-target',
+      );
       window.progressSimulatedTimeline();
       expect(trackingBox.innerHTML).toBeTruthy();
     });
@@ -67,28 +69,40 @@ describe('order-timeline.js unit tests', () => {
     it('percentage is 0 when stageIndex is 0', () => {
       const stageIndex = 0;
       const totalStages = 4;
-      const percent = Math.min(100, Math.max(0, (stageIndex / (totalStages - 1)) * 100));
+      const percent = Math.min(
+        100,
+        Math.max(0, (stageIndex / (totalStages - 1)) * 100),
+      );
       expect(percent).toBe(0);
     });
 
     it('percentage is 100 when stageIndex is at last stage', () => {
       const stageIndex = 3;
       const totalStages = 4;
-      const percent = Math.min(100, Math.max(0, (stageIndex / (totalStages - 1)) * 100));
+      const percent = Math.min(
+        100,
+        Math.max(0, (stageIndex / (totalStages - 1)) * 100),
+      );
       expect(percent).toBe(100);
     });
 
     it('percentage is clamped to 100 for values beyond last stage', () => {
       const stageIndex = 10;
       const totalStages = 4;
-      const percent = Math.min(100, Math.max(0, (stageIndex / (totalStages - 1)) * 100));
+      const percent = Math.min(
+        100,
+        Math.max(0, (stageIndex / (totalStages - 1)) * 100),
+      );
       expect(percent).toBe(100);
     });
 
     it('percentage is clamped to 0 for negative values', () => {
       const stageIndex = -5;
       const totalStages = 4;
-      const percent = Math.min(100, Math.max(0, (stageIndex / (totalStages - 1)) * 100));
+      const percent = Math.min(
+        100,
+        Math.max(0, (stageIndex / (totalStages - 1)) * 100),
+      );
       expect(percent).toBe(0);
     });
   });

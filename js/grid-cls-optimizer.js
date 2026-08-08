@@ -9,10 +9,11 @@ export class GridClsOptimizer {
     this.defaultAspectRatio = options.defaultAspectRatio || '1 / 1';
   }
 
-
   cleanupReservedDimensions(container = document) {
     if (typeof document === 'undefined') return { cleaned: 0 };
-    const images = container.querySelectorAll ? container.querySelectorAll(this.targetSelector) : [];
+    const images = container.querySelectorAll
+      ? container.querySelectorAll(this.targetSelector)
+      : [];
     let cleaned = 0;
     images.forEach((img) => {
       if (img.classList.contains('cls-optimized') && img.complete) {
@@ -26,7 +27,9 @@ export class GridClsOptimizer {
   optimizeGridImages(container = document) {
     if (typeof document === 'undefined') return { count: 0 };
 
-    const images = container.querySelectorAll ? container.querySelectorAll(this.targetSelector) : [];
+    const images = container.querySelectorAll
+      ? container.querySelectorAll(this.targetSelector)
+      : [];
     let count = 0;
 
     images.forEach((img) => {

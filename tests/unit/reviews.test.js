@@ -3,9 +3,15 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 // Mock localStorage
 var storage = {};
 globalThis.localStorage = {
-  getItem: function (key) { return storage[key] || null; },
-  setItem: function (key, val) { storage[key] = val; },
-  removeItem: function (key) { delete storage[key]; }
+  getItem: function (key) {
+    return storage[key] || null;
+  },
+  setItem: function (key, val) {
+    storage[key] = val;
+  },
+  removeItem: function (key) {
+    delete storage[key];
+  },
 };
 
 // Spy on console.warn
@@ -41,7 +47,7 @@ describe('reviews.js unit tests', function () {
       return {
         avg: parseFloat((sum / reviews.length).toFixed(1)),
         total: reviews.length,
-        dist: dist
+        dist: dist,
       };
     })();
     expect(result.total).toBe(0);
@@ -50,11 +56,7 @@ describe('reviews.js unit tests', function () {
   });
 
   it('calculates correct avg for valid reviews', function () {
-    var reviews = [
-      { rating: 5 },
-      { rating: 4 },
-      { rating: 3 }
-    ];
+    var reviews = [{ rating: 5 }, { rating: 4 }, { rating: 3 }];
     var dist = [0, 0, 0, 0, 0];
     var sum = reviews.reduce(function (acc, r) {
       if (typeof r.rating === 'number' && r.rating >= 1 && r.rating <= 5) {
@@ -66,7 +68,7 @@ describe('reviews.js unit tests', function () {
     var result = {
       avg: parseFloat((sum / reviews.length).toFixed(1)),
       total: reviews.length,
-      dist: dist
+      dist: dist,
     };
     expect(result.total).toBe(3);
     expect(result.avg).toBe(4.0);
@@ -80,7 +82,7 @@ describe('reviews.js unit tests', function () {
       { rating: 0 },
       { rating: 6 },
       { rating: 3 },
-      { rating: 'bad' }
+      { rating: 'bad' },
     ];
     var dist = [0, 0, 0, 0, 0];
     var validReviews = reviews.filter(function (r) {
@@ -104,7 +106,9 @@ describe('reviews.js unit tests', function () {
         .replace(/'/g, '&#39;');
     };
     expect(_escape('<script>')).toBe('&lt;script&gt;');
-    expect(_escape('"test" & \'more\'')).toBe('&quot;test&quot; &amp; &#39;more&#39;');
+    expect(_escape('"test" & \'more\'')).toBe(
+      '&quot;test&quot; &amp; &#39;more&#39;',
+    );
     expect(_escape('Normal text')).toBe('Normal text');
   });
 
@@ -112,7 +116,7 @@ describe('reviews.js unit tests', function () {
     var _formatDate = function (iso) {
       try {
         return new Intl.DateTimeFormat('en-IN', { dateStyle: 'medium' }).format(
-          new Date(iso)
+          new Date(iso),
         );
       } catch (err) {
         return iso;
@@ -127,7 +131,7 @@ describe('reviews.js unit tests', function () {
     var _formatDate = function (iso) {
       try {
         return new Intl.DateTimeFormat('en-IN', { dateStyle: 'medium' }).format(
-          new Date(iso)
+          new Date(iso),
         );
       } catch (err) {
         return iso;
@@ -142,7 +146,7 @@ describe('reviews.js unit tests', function () {
     var result = (function () {
       try {
         return JSON.parse(
-          localStorage.getItem('cara_reviews_nonexistent') || '[]'
+          localStorage.getItem('cara_reviews_nonexistent') || '[]',
         );
       } catch (err) {
         return [];
@@ -153,13 +157,11 @@ describe('reviews.js unit tests', function () {
 
   it('_readReviews parses stored reviews from localStorage', function () {
     storage['cara_reviews_testpid'] = JSON.stringify([
-      { id: 1, rating: 5, author: 'Alice' }
+      { id: 1, rating: 5, author: 'Alice' },
     ]);
     var result = (function () {
       try {
-        return JSON.parse(
-          localStorage.getItem('cara_reviews_testpid') || '[]'
-        );
+        return JSON.parse(localStorage.getItem('cara_reviews_testpid') || '[]');
       } catch (err) {
         return [];
       }

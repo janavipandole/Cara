@@ -2,7 +2,8 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 beforeEach(() => {
   vi.resetModules();
-  document.body.innerHTML = '<section id="terms"><p>Terms of Service</p></section>';
+  document.body.innerHTML =
+    '<section id="terms"><p>Terms of Service</p></section>';
 });
 
 async function load() {
@@ -23,7 +24,9 @@ describe('terms-print', () => {
   it('injects print styles into the document head', async () => {
     await load();
     const styles = Array.from(document.head.querySelectorAll('style'));
-    const printStyle = styles.find((s) => s.textContent.includes('@media print'));
+    const printStyle = styles.find((s) =>
+      s.textContent.includes('@media print'),
+    );
     expect(printStyle).toBeTruthy();
   });
 
