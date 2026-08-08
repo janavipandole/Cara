@@ -37,11 +37,20 @@ export function validateExpiryDate(expiryStr) {
   return true;
 }
 
+const POSTAL_CODE_PATTERNS = {
+  US: /^\d{5}(-\d{4})?$/,
+  IN: /^\d{6}$/,
+  UK: /^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$/i,
+  CA: /^[A-Z]\d[A-Z] ?\d[A-Z]\d$/i,
+  AU: /^\d{4}$/,
+};
+
 export function validatePostalCode(postalCode, country = 'US') {
   if (!postalCode) return false;
   const clean = postalCode.trim();
-  if (country === 'US') {
-    return /^\d{5}(-\d{4})?$/.test(clean);
+  const pattern = POSTAL_CODE_PATTERNS[country.toUpperCase()];
+  if (pattern) {
+    return pattern.test(clean);
   }
   return clean.length >= 3 && clean.length <= 10;
 }
