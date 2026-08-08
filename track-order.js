@@ -10,6 +10,8 @@ if (copyrightYearEl) {
   copyrightYearEl.textContent = new Date().getFullYear();
 }
 
+const API_BASE_URL = window.CARA_API_BASE_URL || '';
+
 const MOCK_ORDERS = {
   'CARA-20261234': {
     id: 'CARA-20261234',
@@ -79,9 +81,137 @@ const errorCard = document.getElementById('trackError');
 // ── Module-level timer reference so it can be cleared from any function ──
 let progressTimer = null;
 
+function formatTrackDate(value) {
+  if (!value) return '—';
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return String(value);
+  return date.toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  });
+}
+
+function parseTrackableOrderId(orderIdRaw) {
+  const trimmed = String(orderIdRaw || '').trim().toUpperCase();
+  if (/^\d+$/.test(trimmed)) {
+    return { displayId: `CARA-${trimmed}`, numericId: Number(trimmed), lookupKey: trimmed };
+  }
+  if (/^CARA-\d+$/.test(trimmed)) {
+    const numericId = Number(trimmed.slice(5));
+    return { displayId: trimmed, numericId, lookupKey: trimmed };
+  }
+  return null;
+}
+
+function mapApiStatusToTimeline(status, dateStr) {
+  const normalized = String(status || 'PENDING').toUpperCase();
+  const steps = {
+    ordered: {
+      done: false,
+      date: 'Pending',
+      note: 'Your order has been confirmed and is being processed.',
+    },
+    packed: {
+      done: false,
+      date: 'Pending',
+      note: 'Your items have been packed and are ready for pickup.',
+    },
+    shipped: {
+      done: false,
+      date: 'Pending',
+      note: 'Your package has been handed off to the carrier.',
+    },
+    transit: {
+      done: false,
+      date: 'Pending',
+      note: 'Your package is on its way.',
+    },
+    delivered: {
+      done: false,
+      date: 'Pending',
+      note: 'Your package will be delivered to your door.',
+    },
+  };
+
+  const statusConfig = {
+    PENDING: { uiStatus: 'Processing', active: 'ordered' },
+    CONFIRMED: { uiStatus: 'Packed', active: 'packed' },
+    SHIPPED: { uiStatus: 'In Transit', active: 'transit' },
+    DELIVERED: { uiStatus: 'Delivered', active: 'delivered' },
+    CANCELLED: { uiStatus: 'Cancelled', active: 'ordered' },
+  };
+  const config = statusConfig[normalized] || statusConfig.PENDING;
+  const orderKeys = ['ordered', 'packed', 'shipped', 'transit', 'delivered'];
+  const activeIndex = orderKeys.indexOf(config.active);
+
+  if (normalized === 'CANCELLED') {
+    steps.ordered = {
+      done: true,
+      date: dateStr,
+      note: 'Your order was cancelled.',
+    };
+    return {
+      status: config.uiStatus,
+      currentStep: 'ordered',
+      timeline: steps,
+    };
+  }
+
+  orderKeys.forEach((key, index) => {
+    if (index < activeIndex) {
+      steps[key] = { ...steps[key], done: true, date: dateStr };
+    } else if (index === activeIndex) {
+      if (normalized === 'DELIVERED') {
+        steps[key] = {
+          done: true,
+          active: true,
+          date: dateStr,
+          note: 'Your package has been delivered.',
+        };
+      } else {
+        steps[key] = { ...steps[key], active: true, date: dateStr };
+      }
+    }
+  });
+
+  return {
+    status: config.uiStatus,
+    currentStep: config.active,
+    timeline: steps,
+  };
+}
+
+function mapApiOrderToTrackResult(apiOrder) {
+  const dateStr = formatTrackDate(apiOrder.created_at);
+  const mapped = mapApiStatusToTimeline(apiOrder.status, dateStr);
+  const items = (apiOrder.items || []).map((item) => ({
+    name: item.product_name,
+    img: 'images/products/f1.jpg',
+    size: item.size || '—',
+    qty: item.quantity,
+    price: `$${Number(item.price).toFixed(2)}`,
+  }));
+
+  return {
+    id: `CARA-${apiOrder.id}`,
+    date: dateStr,
+    carrier: 'Standard Shipping',
+    trackingNo: '—',
+    estDelivery: formatTrackDate(apiOrder.return_deadline) || '—',
+    status: mapped.status,
+    currentStep: mapped.currentStep,
+    location: apiOrder.city || '—',
+    items,
+    total: `$${Number(apiOrder.total_amount).toFixed(2)}`,
+    timeline: mapped.timeline,
+    email: apiOrder.email,
+  };
+}
+
 // ── Form submit handler ───────────────────────────────────
 if (form) {
-  form.addEventListener('submit', function (e) {
+  form.addEventListener('submit', async function (e) {
     e.preventDefault();
 
     const orderIdInput = document.getElementById('orderId');
@@ -106,14 +236,15 @@ if (form) {
 
     let isTrackValid = true;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const parsedId = parseTrackableOrderId(orderIdRaw);
 
     if (!orderIdRaw) {
       showTrackError(orderIdInput, 'Order ID is required');
       isTrackValid = false;
-    } else if (!/^CARA-\d+$/.test(orderIdRaw)) {
+    } else if (!parsedId) {
       showTrackError(
         orderIdInput,
-        'Invalid Format. Pattern should be CARA-XXXXXXXX (e.g. CARA-20261234)',
+        'Invalid Format. Use an order number like 42 or CARA-42 (demo: CARA-20261234)',
       );
       isTrackValid = false;
     }
@@ -128,28 +259,71 @@ if (form) {
 
     if (!isTrackValid) return;
 
-    // Simulate an async API call with a loading state
     setLoading(true);
 
-    setTimeout(function () {
-      setLoading(false);
-      // Check localStorage for custom mock orders first
-      let customOrders = {};
-      try {
-        const stored = localStorage.getItem('cara_custom_mock_orders');
-        customOrders = stored ? JSON.parse(stored) : {};
-      } catch (e) {
-        customOrders = {};
-      }
-      const order = customOrders[orderIdRaw] || MOCK_ORDERS[orderIdRaw];
+    let customOrders = {};
+    try {
+      const stored = localStorage.getItem('cara_custom_mock_orders');
+      customOrders = stored ? JSON.parse(stored) : {};
+    } catch (err) {
+      customOrders = {};
+    }
 
-      // For demo purposes any email works for the demo order
-      if (order) {
-        renderResult(order);
-      } else {
-        showError();
+    const mockOrder =
+      customOrders[parsedId.lookupKey] ||
+      customOrders[parsedId.displayId] ||
+      MOCK_ORDERS[parsedId.displayId];
+
+    // Demo / custom mock path only (CARA-20261234 and creator mocks)
+    if (mockOrder) {
+      setLoading(false);
+      renderResult(mockOrder);
+      return;
+    }
+
+    try {
+      const res = await fetch(
+        `${API_BASE_URL}/api/orders/${parsedId.numericId}`,
+        { credentials: 'include' },
+      );
+
+      if (res.status === 401) {
+        setLoading(false);
+        showError(
+          'Please log in to track this order. Real orders require an authenticated session.',
+        );
+        return;
       }
-    }, 1600);
+
+      if (res.status === 404) {
+        setLoading(false);
+        showError();
+        return;
+      }
+
+      if (!res.ok) {
+        setLoading(false);
+        showError('Unable to look up that order right now. Please try again.');
+        return;
+      }
+
+      const apiOrder = await res.json();
+      if (
+        !apiOrder.email ||
+        String(apiOrder.email).trim().toLowerCase() !== emailRaw
+      ) {
+        setLoading(false);
+        showError();
+        return;
+      }
+
+      setLoading(false);
+      renderResult(mapApiOrderToTrackResult(apiOrder));
+    } catch (err) {
+      console.warn('[Track Order] lookup failed:', err);
+      setLoading(false);
+      showError('Unable to look up that order right now. Please try again.');
+    }
   });
 }
 
@@ -480,8 +654,18 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ── Show error card ───────────────────────────────────────
-function showError() {
+function showError(message) {
   hideAll();
+  const titleEl = errorCard.querySelector('h3');
+  const textEl = errorCard.querySelector('p');
+  if (titleEl) {
+    titleEl.textContent = message ? 'Unable to Track Order' : 'Order Not Found';
+  }
+  if (textEl) {
+    textEl.textContent =
+      message ||
+      "We couldn't find an order matching that ID and email. Please double-check your confirmation email and try again.";
+  }
   errorCard.style.display = 'block';
   errorCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
