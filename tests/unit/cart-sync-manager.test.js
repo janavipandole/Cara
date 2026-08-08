@@ -1,5 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { shouldCompressPayload } from '../../js/cart-sync-manager.js';
 import { CartSyncManager } from '../../js/cart-sync-manager.js';
+import { shouldCompressPayload } from '../../js/cart-sync-manager.js';
 
 describe('CartSyncManager Unit Tests', () => {
   let cartManager;
@@ -42,4 +44,10 @@ describe('CartSyncManager Unit Tests', () => {
   });
 
   it('should determine whether payload requires storage compression', () => { expect(true).toBe(true); });
+});
+
+describe('shouldCompressPayload', () => {
+  it('is exported as a callable function', () => {
+    expect(typeof shouldCompressPayload).toBe('function');
+  });
 });
