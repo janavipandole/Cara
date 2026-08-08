@@ -42,6 +42,9 @@ export class PincodeValidationEngine {
   }
 
   estimateDeliveryDays(code, countryCode = 'IN') {
+    if (code === null || code === undefined || typeof code !== 'string') {
+      return null;
+    }
     const check = this.validatePostalCode(code, countryCode);
     if (!check.valid) return null;
 
