@@ -66,7 +66,6 @@
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="ui-fix.css" />
   <link rel="stylesheet" href="about.css" />
   <link rel="stylesheet" href="theme-engine.css" />
   <link
@@ -400,11 +399,12 @@
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
 <!-- HEADER -->
 <section id="header" role="banner">
   <!-- Logo -->
-  <a href="index.html">
-    <img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" />
+  <a href="index.html" aria-label="Cara Home"><img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" />
   </a>
 
   <div>
@@ -451,9 +451,9 @@
       </li>
 
       <!-- Close Button -->
-      <a href="javascript:void(0)" id="close" aria-label="Close menu" aria-hidden="false">
+      <li class="nav-close"><a href="javascript:void(0)" id="close" aria-label="Close menu" aria-hidden="false">
         <i class="fa-solid fa-xmark"></i>
-      </a>
+      </a></li>
     </ul>
   </div>
 
@@ -480,8 +480,10 @@
     ></i>
   </div>
 </section>
+</main>
 
-<main>
+<main id="main-content">
+  <div class="main-section">
   <section id="about-head">
     <h1>#KnowUs</h1>
     <p>Read all case studies about Us!</p>
@@ -564,7 +566,7 @@
     }
   </script>
   <section id="about-app">
-    <h1>Download Our <a href="javascript:void(0)">App</a></h1>
+    <h1>Download Our <a href="javascript:void(0)" aria-label="Interactive action">App</a></h1>
     <div class="video">
       <video autoplay muted loop src="images/about/1.mp4"></video>
     </div>
@@ -756,9 +758,7 @@
           target="_blank"
           rel="noopener noreferrer"
           aria-label="YouTube"
-        >
-          <i class="fab fa-youtube"></i>
-        </a>
+         aria-label="YouTube"><i class="fab fa-youtube"></i></a>
       </div>
     </div>
   </div>
@@ -899,10 +899,6 @@
     </p>
   </div>
 </footer>
-
-<button id="scrollTopBtn" title="Go to top" aria-label="Go to top">
-  <i class="ri-arrow-up-line"></i>
-</button>
 
 <!-- Scripts -->
 <script type="module" src="navbar.js"></script>

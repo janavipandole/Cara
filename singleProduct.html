@@ -51,8 +51,10 @@
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <section id="header">
-        <a href="index.html"><img src="images/logo.png" alt="Cara logo"></a>
+        <a href="index.html" aria-label="Cara Home"><img src="images/logo.png" alt="Cara logo"></a>
 
         <div>
             <ul id="navbar">
@@ -72,7 +74,7 @@
                     </button>
                 </li>
 
-                <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+                <li class="nav-close"><a href="#" id="close" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></a></li>
             </ul>
         </div>
         <div class="mobile">
@@ -85,6 +87,7 @@
         </div>
         <button onclick="history.back()" class="back-btn">Back</button>
     </section>
+<main id="main-content">
 
     <section id="pro-details" class="section-p1">
         <div class="single-pro-image">
@@ -107,7 +110,7 @@
         <div class="single-pro-details">
             <h6>Home / T-Shirt</h6>
             <h4 id="product-name">Men's Fashion T-Shirt</h4>
-            <h2 id="product-price">$139.00</h2>
+            <h1 id="product-price">$139.00</h1>
             <select id="product-size" name="product-size" aria-label="Select product size">
                 <option>Select Size</option>
                 <option>S</option>
@@ -117,6 +120,12 @@
                 <option>XXL</option>
                 <option>XXXL</option>
             </select>
+            <div class="product-size-guide-container" style="margin: 10px 0;">
+              <button id="btn-size-fit-guide" type="button" class="normal" style="background: #088178; color: #fff; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+                📏 Find My Fit Size
+              </button>
+            </div>
+
             <div class="cart-action-group">
                 <div class="quantity-selector">
                     <button type="button" class="qty-btn minus" onclick="updateQty(-1)" aria-label="Decrease quantity">
@@ -155,7 +164,7 @@
                 <h3 style="margin-top: 0;">Write a Review</h3>
                 <form id="reviewForm" class="review-form" style="display: flex; flex-direction: column; gap: 10px;">
                     <input type="text" id="reviewerName" placeholder="Your Name" required style="padding: 10px; border-radius: 6px; border: 1px solid var(--glass-2); background: transparent; color: white;">
-                    <select id="reviewRating" required style="padding: 10px; border-radius: 6px; border: 1px solid var(--glass-2); background: #0b1220; color: white;">
+                    <select id="reviewRating" required style="padding: 10px; border-radius: 6px; border: 1px solid var(--glass-2); background: #0b1220; color: white;" aria-label="Select reviewRating">
                         <option value="">Select Rating</option>
                         <option value="5">★★★★★ (5/5)</option>
                         <option value="4">★★★★☆ (4/5)</option>
@@ -226,9 +235,7 @@
               href="https://www.youtube.com/@JanaviPandole"
               target="_blank"
               rel="noopener noreferrer"
-            >
-              <i class="fab fa-youtube"></i>
-            </a>
+             aria-label="YouTube"><i class="fab fa-youtube"></i></a>
           </div>
         </div>
       </div>
@@ -335,6 +342,7 @@
         </p>
       </div>
     </footer>
+</main>
 
     <script type="module" src="products.js?v=1779120917220"></script>
     <script type="module" src="js/product-review-aggregator.js"></script>
@@ -347,6 +355,7 @@
 <script>
     document.getElementById("Current-Year").textContent=new Date().getFullYear();
 </script>
+<script src="../js/recently-viewed.js"></script>
 
 </body>
 

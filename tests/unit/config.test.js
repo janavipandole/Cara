@@ -26,6 +26,16 @@ describe('js/config.js', () => {
     await import('../../js/config.js');
     expect(window.CARA_API_BASE_URL).toBe('http://localhost:8000');
   });
+
+  it('does not overwrite pre-set config values or coupon codes', async () => {
+    window.CARA_CONFIG = { TAX_RATE: 0.10, SHIPPING: { FEE: 99, FREE_THRESHOLD: 999 } };
+    window.CARA_COUPONS = { CUSTOM10: 10 };
+    await import('../../js/config.js');
+    expect(window.CARA_CONFIG.TAX_RATE).toBe(0.10);
+    expect(window.CARA_CONFIG.SHIPPING.FREE_THRESHOLD).toBe(999);
+    expect(window.CARA_COUPONS.CUSTOM10).toBe(10);
+    expect(window.CARA_COUPONS.CARA20).toBeUndefined();
+  });
 });
 
 describe('js/coupon-config.js', () => {

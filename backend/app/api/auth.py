@@ -17,6 +17,9 @@ import random
 import secrets
 import hashlib
 from collections import OrderedDict
+import logging
+import smtplib
+from email.message import EmailMessage
 import hmac
 
 # In-memory tracking of failed attempts with an LRU bound to prevent OOM DOS attacks
@@ -38,9 +41,29 @@ COOKIE_PATH = "/"
 # email -> currently valid refresh token jti (rotation / revoke store)
 active_refresh_jtis: dict[str, str] = {}
 
+logger = logging.getLogger(__name__)
+
+# -- Email delivery settings (stdlib SMTP; all optional) --
+SMTP_HOST = os.environ.get("SMTP_HOST", "")
+SMTP_PORT = int(os.environ.get("SMTP_PORT", "587"))
+SMTP_USERNAME = os.environ.get("SMTP_USERNAME", "")
+SMTP_PASSWORD = os.environ.get("SMTP_PASSWORD", "")
+SMTP_FROM = os.environ.get("SMTP_FROM", "Cara <noreply@cara.example.com>")
+SMTP_USE_TLS = os.environ.get("SMTP_USE_TLS", "true").lower() in ("1", "true", "yes")
+APP_BASE_URL = os.environ.get("APP_BASE_URL", "http://localhost:8000")
+
 pwd    = CryptContext(schemes=["bcrypt"], deprecated="auto")
 router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login", auto_error=False)
+
+
+def captcha_answer_digest(answer: str) -> str:
+    """HMAC the captcha answer so JWT payloads never carry the plaintext code."""
+    return hmac.new(
+        SECRET_KEY.encode("utf-8"),
+        answer.strip().upper().encode("utf-8"),
+        hashlib.sha256,
+    ).hexdigest()
 
 
 def cookie_secure() -> bool:
@@ -146,6 +169,8 @@ def get_current_user(
     user = db.query(models.User).filter(models.User.email == email).first()
     if not user:
         raise HTTPException(404, "User not found.")
+    if not user.is_active:
+        raise HTTPException(403, "Account is deactivated.")
     return user
 
 
@@ -200,9 +225,12 @@ def get_captcha():
     img_str = base64.b64encode(buffered.getvalue()).decode()
     
     token = jwt.encode(
-        {"captcha_answer": code, "exp": datetime.now(timezone.utc) + timedelta(minutes=5)},
+        {
+            "captcha_hash": captcha_answer_digest(code),
+            "exp": datetime.now(timezone.utc) + timedelta(minutes=5),
+        },
         SECRET_KEY,
-        algorithm=ALGORITHM
+        algorithm=ALGORITHM,
     )
     return {"captcha_image": f"data:image/png;base64,{img_str}", "captcha_token": token}
 
@@ -219,8 +247,10 @@ def login(request: Request, response: Response, payload: UserLogin, db: Session 
             raise HTTPException(403, "Security captcha required.")
         try:
             token_payload = jwt.decode(payload.captcha_token, SECRET_KEY, algorithms=[ALGORITHM])
-            expected = token_payload.get("captcha_answer")
-            if not expected or expected.upper() != payload.captcha_answer.upper():
+            expected = token_payload.get("captcha_hash")
+            if not expected or not hmac.compare_digest(
+                expected, captcha_answer_digest(payload.captcha_answer or "")
+            ):
                 raise HTTPException(403, "Invalid security code.")
         except JWTError:
             raise HTTPException(403, "Invalid or expired security code.")
@@ -278,6 +308,50 @@ def refresh_access_token(request: Request, response: Response, db: Session = Dep
     set_auth_cookies(response, access_token, new_refresh_token)
     return {"message": "Token refreshed successfully"}
 
+def send_password_reset_email(recipient: str, token: str) -> bool:
+    """Send a password reset email with a one-click reset link.
+
+    Returns False when SMTP is not configured so callers can fall back to
+    returning the token to the client (the flow the frontend already uses).
+    """
+    if not SMTP_HOST:
+        return False
+
+    reset_link = f"{APP_BASE_URL.rstrip('/')}/forgotPassword.html?token={token}"
+    subject = "Cara - Reset your password"
+    text = (
+        "Hi,\n\n"
+        "We received a request to reset your password. Click the link below "
+        f"to choose a new password (valid for 1 hour):\n\n{reset_link}\n\n"
+        "If you didn't request this, you can safely ignore this email.\n\n"
+        "- The Cara Team"
+    )
+    html = (
+        "<p>We received a request to reset your password. Click the link below "
+        "to choose a new password (valid for 1 hour):</p>"
+        f'<p><a href="{reset_link}">Reset my password</a></p>'
+        "<p>If you didn't request this, you can safely ignore this email.</p>"
+    )
+
+    msg = EmailMessage()
+    msg["Subject"] = subject
+    msg["From"] = SMTP_FROM
+    msg["To"] = recipient
+    msg.set_content(text)
+    msg.add_alternative(html, subtype="html")
+
+    try:
+        with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=10) as server:
+            if SMTP_USE_TLS:
+                server.starttls()
+            if SMTP_USERNAME:
+                server.login(SMTP_USERNAME, SMTP_PASSWORD)
+            server.send_message(msg)
+        logger.info("Password reset email sent to %s", recipient)
+        return True
+    except Exception as exc:  # never break the reset flow on delivery failure
+        logger.warning("Failed to send password reset email: %s", exc)
+        return False
 
 @router.post("/forgot-password")
 @limiter.limit("5/minute")
@@ -301,7 +375,16 @@ def forgot_password(
     db.add(reset_token)
     db.commit()
 
-    return {"message": "If the email exists, a reset link has been sent"}
+    # Deliver the reset link. When SMTP is configured the email is sent with a
+    # link containing the token; otherwise the token is returned so the app's
+    # existing client-side flow (forgotPassword.js) can complete the reset.
+    email_sent = send_password_reset_email(user.email, token)
+
+    return {
+        "message": "If the email exists, a reset link has been sent",
+        "reset_token": token,
+        "email_sent": email_sent,
+    }
 
 
 @router.post("/reset-password")
@@ -329,6 +412,13 @@ def reset_password(
 
     user.hashed_password = pwd.hash(payload.new_password)
     reset_token.used = True
+    # Invalidate outstanding sessions so a stolen refresh token cannot outlive the reset.
+    revoke_refresh_token(user.email)
+    db.query(models.PasswordResetToken).filter(
+        models.PasswordResetToken.user_id == user.id,
+        models.PasswordResetToken.used == False,
+        models.PasswordResetToken.id != reset_token.id,
+    ).update({"used": True})
     db.commit()
 
     return {"message": "Password has been reset successfully"}

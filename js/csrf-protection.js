@@ -32,10 +32,11 @@ export function getOrCreateCSRFToken() {
   return token;
 }
 
-export function injectCSRFInputs(formContainer = document) {
-  if (!formContainer || typeof formContainer.querySelectorAll !== 'function') return;
+export function injectCSRFInputs(formContainer = null) {
+  const root = formContainer || (typeof document !== 'undefined' ? document : null);
+  if (!root || typeof root.querySelectorAll !== 'function') return;
   const token = getOrCreateCSRFToken();
-  const forms = formContainer.querySelectorAll('form');
+  const forms = root.querySelectorAll('form');
 
   forms.forEach((form) => {
     let input = form.querySelector('input[name="_csrf"]');

@@ -1,4 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
+import { getRewardsMultiplierForTier } from '../../js/loyalty-rewards-engine.js';
 const LoyaltyRewardsEngine = require('../../js/loyalty-rewards-engine.js');
 
 describe('LoyaltyRewardsEngine Unit Tests', () => {
@@ -33,5 +34,27 @@ describe('LoyaltyRewardsEngine Unit Tests', () => {
     expect(engine.getPoints()).toBe(300);
   });
 
-  it('should return reward points multiplier by loyalty tier', () => { expect(true).toBe(true); });
+  it('should return reward points multiplier by loyalty tier', () => {
+    expect(getRewardsMultiplierForTier('bronze')).toBe(1.0);
+    expect(getRewardsMultiplierForTier('silver')).toBe(1.25);
+    expect(getRewardsMultiplierForTier('gold')).toBe(1.5);
+    expect(getRewardsMultiplierForTier('platinum')).toBe(2.0);
+  });
+});
+
+describe('getRewardsMultiplierForTier', () => {
+  it('is exported as a callable function', () => {
+    expect(typeof getRewardsMultiplierForTier).toBe('function');
+  });
+
+  it('defaults to bronze for an unknown or empty tier', () => {
+    expect(getRewardsMultiplierForTier('diamond')).toBe(1.0);
+    expect(getRewardsMultiplierForTier('')).toBe(1.0);
+    expect(getRewardsMultiplierForTier()).toBe(1.0);
+  });
+
+  it('matches tier names case-insensitively', () => {
+    expect(getRewardsMultiplierForTier('GOLD')).toBe(1.5);
+    expect(getRewardsMultiplierForTier('Silver')).toBe(1.25);
+  });
 });

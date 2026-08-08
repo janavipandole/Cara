@@ -86,4 +86,23 @@ describe('Currency Converter Unit Tests', () => {
     expect(price).toBe(19.99);
   });
 
+  it('should dispatch a currencyChange event when the currency changes', () => {
+    const listener = vi.fn();
+    window.addEventListener('currencyChange', listener);
+    const ok = setActiveCurrency('GBP');
+    expect(ok).toBe(true);
+    expect(listener).toHaveBeenCalledTimes(1);
+    expect(listener.mock.calls[0][0].detail).toEqual({ currency: 'GBP' });
+    window.removeEventListener('currencyChange', listener);
+  });
+
+  it('should fall back to the dollar symbol for unknown currencies', () => {
+    expect(formatCurrency(100, 'XYZ')).toBe('$100.00');
+  });
+
+  it('should treat non-numeric amounts as zero', () => {
+    expect(convertPrice('not-a-number', 'USD')).toBe(0);
+    expect(convertPrice(NaN, 'USD')).toBe(0);
+    expect(convertPrice(undefined, 'USD')).toBe(0);
+  });
 });

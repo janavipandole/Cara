@@ -65,4 +65,4 @@ if (typeof document !== 'undefined') {
 
 
 
-function getDebounceDelayMs() { return 500; }
+export function getDebounceDelayMs() { return 500; }

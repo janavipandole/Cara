@@ -43,7 +43,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (priceVal !== 'all') {
       filtered = filtered.filter((card) => {
         const priceText = card.querySelector('h4')?.textContent || '0';
-        const price = parseFloat(priceText.replace(/[^\d\.]/g, '')) || 0;
+        const rawPrice = parseFloat(priceText.replace(/[^0-9.]/g, ''));
+        // Guard against NaN — treat unparseable prices as 0 (under-100 bucket)
+        const price = Number.isNaN(rawPrice) ? 0 : rawPrice;
         return priceVal === 'low' ? price < 100 : price >= 100;
       });
     }
@@ -51,14 +53,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Sort
     if (sortVal === 'asc' || sortVal === 'desc') {
       filtered.sort((a, b) => {
-        const pA =
-          parseFloat(
-            a.querySelector('h4')?.textContent.replace(/[^\d\.]/g, ''),
-          ) || 0;
-        const pB =
-          parseFloat(
-            b.querySelector('h4')?.textContent.replace(/[^\d\.]/g, ''),
-          ) || 0;
+        const rA = parseFloat(
+          a.querySelector('h4')?.textContent.replace(/[^0-9.]/g, ''),
+        );
+        const rB = parseFloat(
+          b.querySelector('h4')?.textContent.replace(/[^0-9.]/g, ''),
+        );
+        const pA = Number.isNaN(rA) ? 0 : rA;
+        const pB = Number.isNaN(rB) ? 0 : rB;
         return sortVal === 'asc' ? pA - pB : pB - pA;
       });
     }

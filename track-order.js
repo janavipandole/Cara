@@ -10,9 +10,6 @@ if (copyrightYearEl) {
   copyrightYearEl.textContent = new Date().getFullYear();
 }
 
-const telemetryEngine = typeof OrderTelemetryTracker !== 'undefined' ? new OrderTelemetryTracker() : null;
-// In a real app this would be a backend API call.
-// We use a demo entry so reviewers can test the UI immediately.
 const MOCK_ORDERS = {
   'CARA-20261234': {
     id: 'CARA-20261234',
@@ -137,9 +134,13 @@ if (form) {
     setTimeout(function () {
       setLoading(false);
       // Check localStorage for custom mock orders first
-      const customOrders = JSON.parse(
-        localStorage.getItem('cara_custom_mock_orders') || '{}',
-      );
+      let customOrders = {};
+      try {
+        const stored = localStorage.getItem('cara_custom_mock_orders');
+        customOrders = stored ? JSON.parse(stored) : {};
+      } catch (e) {
+        customOrders = {};
+      }
       const order = customOrders[orderIdRaw] || MOCK_ORDERS[orderIdRaw];
 
       // For demo purposes any email works for the demo order
@@ -447,9 +448,13 @@ document.addEventListener('DOMContentLoaded', () => {
       };
 
       // Retrieve existing custom mock orders
-      const customOrders = JSON.parse(
-        localStorage.getItem('cara_custom_mock_orders') || '{}',
-      );
+      let customOrders = {};
+      try {
+        const stored = localStorage.getItem('cara_custom_mock_orders');
+        customOrders = stored ? JSON.parse(stored) : {};
+      } catch (e) {
+        customOrders = {};
+      }
       customOrders[orderId] = customMockOrder;
       localStorage.setItem(
         'cara_custom_mock_orders',

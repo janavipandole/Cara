@@ -2,7 +2,7 @@
  * Unit tests for js/toc.js
  * Tests the Table of Contents sidebar generation for privacy policy pages.
  */
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 
 describe('Table of Contents Generation', () => {
   beforeEach(() => {
@@ -99,5 +99,29 @@ describe('Table of Contents Generation', () => {
     const headers = policyPage.querySelectorAll('.policy-section h2');
 
     expect(headers.length).toBe(0);
+  });
+
+  it('builds the full TOC layout with sidebar and section links', async () => {
+    vi.resetModules();
+    document.body.innerHTML = `
+      <div id="policy-page">
+        <div class="policy-section">
+          <h2>Privacy Policy</h2>
+          <h2>Terms of Service</h2>
+        </div>
+      </div>
+    `;
+    await import('../../js/toc.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    expect(document.getElementById('policy-layout')).not.toBeNull();
+    const toc = document.getElementById('privacy-toc-sidebar');
+    expect(toc).not.toBeNull();
+    const links = Array.from(toc.querySelectorAll('a'));
+    expect(links.length).toBe(2);
+    expect(links[0].getAttribute('href')).toBe('#policy-sec-0');
+    expect(links[0].textContent).toBe('Privacy Policy');
+    expect(links[1].getAttribute('href')).toBe('#policy-sec-1');
+    expect(links[1].textContent).toBe('Terms of Service');
   });
 });

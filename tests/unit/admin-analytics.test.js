@@ -123,4 +123,15 @@ describe('admin-analytics.js unit tests', () => {
     expect(typeof window.AdminDashboard).toBe('object');
   });
 
+  it('exposes refresh that calls all three analytics endpoints with credentials', async () => {
+    fetchSpy.mockResolvedValue({ ok: true, status: 200, json: () => Promise.resolve({}) });
+    await window.AdminDashboard.refresh();
+    const urls = fetchSpy.mock.calls.map((c) => String(c[0]));
+    expect(urls.some((u) => u.includes('/api/admin/analytics/summary'))).toBe(true);
+    expect(urls.some((u) => u.includes('/api/admin/analytics/category-sales'))).toBe(true);
+    expect(urls.some((u) => u.includes('/api/admin/analytics/order-status-distribution'))).toBe(true);
+    fetchSpy.mock.calls.forEach(([, opts]) => {
+      expect(opts.credentials).toBe('include');
+    });
+  });
 });

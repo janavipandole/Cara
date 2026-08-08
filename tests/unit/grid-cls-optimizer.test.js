@@ -47,4 +47,18 @@ describe('GridClsOptimizer Unit Tests', () => {
     expect(img.classList.contains('cls-optimized')).toBe(false);
   });
 
+  it('should not throw when document is undefined (non-DOM environment)', async () => {
+    // Temporarily hide the global document to simulate a non-DOM environment.
+    const originalDocument = globalThis.document;
+    Object.defineProperty(globalThis, 'document', { value: undefined, writable: true, configurable: true });
+    try {
+      const res = optimizer.cleanupReservedDimensions();
+      expect(res.cleaned).toBe(0);
+      const optRes = optimizer.optimizeGridImages();
+      expect(optRes.count).toBe(0);
+    } finally {
+      Object.defineProperty(globalThis, 'document', { value: originalDocument, writable: true, configurable: true });
+    }
+  });
+
 });

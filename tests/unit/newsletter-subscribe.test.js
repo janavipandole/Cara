@@ -3,7 +3,9 @@
  * Tests newsletter form submission and email validation.
  */
 import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { isValidNewsletterEmail } from '../../js/newsletter-subscribe.js';
 import { validateEmailDomain } from '../../js/newsletter-subscribe.js';
+import { isValidNewsletterEmail } from '../../js/newsletter-subscribe.js';
 
 // Mock window.alert before importing the module so the IIFE captures our spy
 const alertSpy = vi.fn();
@@ -124,5 +126,11 @@ describe('validateEmailDomain', () => {
 
   it('should reject email with whitespace in domain', () => {
     expect(validateEmailDomain('user@ example.com')).toBe(false);
+  });
+});
+
+describe('isValidNewsletterEmail', () => {
+  it('is exported as a callable function', () => {
+    expect(typeof isValidNewsletterEmail).toBe('function');
   });
 });

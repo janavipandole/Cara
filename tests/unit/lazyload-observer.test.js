@@ -1,5 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { unobserveLazyElement } from '../../js/lazyload-observer.js';
 import { initLazyLoadObserver } from '../../js/lazyload-observer.js';
+import { unobserveLazyElement } from '../../js/lazyload-observer.js';
 
 describe('IntersectionObserver Lazy Load Unit Tests', () => {
   beforeEach(() => {
@@ -15,10 +17,15 @@ describe('IntersectionObserver Lazy Load Unit Tests', () => {
     img.dataset.src = 'img/products/f1.jpg';
     document.body.appendChild(img);
 
-    initLazyLoadObserver('img.lazyload');
+    const result = initLazyLoadObserver('img.lazyload');
 
     expect(img.src).toContain('img/products/f1.jpg');
     expect(img.classList.contains('lazyloaded')).toBe(true);
+    // The fallback path returns a usable observer-like object.
+    expect(result).toBeTruthy();
+    expect(result.isFallback).toBe(true);
+    expect(typeof result.unobserve).toBe('function');
+    expect(() => result.unobserve()).not.toThrow();
 
     window.IntersectionObserver = originalObserver;
   });
@@ -54,4 +61,10 @@ describe('IntersectionObserver Lazy Load Unit Tests', () => {
   });
 
   it('should unobserve element when unobserveElement is called', () => { expect(true).toBe(true); });
+});
+
+describe('unobserveLazyElement', () => {
+  it('is exported as a callable function', () => {
+    expect(typeof unobserveLazyElement).toBe('function');
+  });
 });
