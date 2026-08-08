@@ -31,4 +31,20 @@ describe('VirtualTryOnEngine Unit Tests', () => {
     expect(bounds.centerX).toBe(210);
     expect(bounds.centerY).toBe(320);
   });
+
+  it('should ignore non-finite offsets and scale values', () => {
+    const res = engine.updateTransform({
+      scale: NaN,
+      offsetX: NaN,
+      offsetY: Infinity,
+    });
+    expect(res.scale).toBe(1.0);
+    expect(res.position.x).toBe(0);
+    expect(res.position.y).toBe(0);
+  });
+
+  it('should normalize negative rotations to a positive angle', () => {
+    const res = engine.updateTransform({ rotation: -90 });
+    expect(res.rotation).toBe(270);
+  });
 });

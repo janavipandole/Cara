@@ -1,5 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { shouldCompressPayload } from '../../js/cart-sync-manager.js';
 import { CartSyncManager } from '../../js/cart-sync-manager.js';
+import { shouldCompressPayload } from '../../js/cart-sync-manager.js';
 
 describe('CartSyncManager Unit Tests', () => {
   let cartManager;
@@ -42,4 +44,22 @@ describe('CartSyncManager Unit Tests', () => {
   });
 
   it('should determine whether payload requires storage compression', () => { expect(true).toBe(true); });
+
+  it('keeps distinct id-less items as separate cart entries', () => {
+    cartManager.addItem({ name: 'No ID Product A', price: 100 });
+    cartManager.addItem({ name: 'No ID Product B', price: 200 });
+
+    const cart = cartManager.getCart();
+    expect(cart).toHaveLength(2);
+    expect(cart[0].name).toBe('No ID Product A');
+    expect(cart[1].name).toBe('No ID Product B');
+    expect(cart[0].quantity).toBe(1);
+    expect(cart[1].quantity).toBe(1);
+  });
+});
+
+describe('shouldCompressPayload', () => {
+  it('is exported as a callable function', () => {
+    expect(typeof shouldCompressPayload).toBe('function');
+  });
 });

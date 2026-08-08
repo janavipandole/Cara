@@ -3,6 +3,15 @@
  * Renders side-by-side spec comparison tables and calculates value differences.
  */
 
+function _escape(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 export class ProductComparatorMatrix {
   constructor(maxProducts = 4) {
     this.maxProducts = maxProducts;
@@ -49,11 +58,11 @@ export class ProductComparatorMatrix {
       return container;
     }
 
-    const headersHtml = data.products.map(p => `<th>${p.name} <button data-id="${p.id}" class="remove-comp-btn">×</button></th>`).join('');
+    const headersHtml = data.products.map(p => `<th>${_escape(p.name)} <button data-id="${_escape(p.id)}" class="remove-comp-btn">×</button></th>`).join('');
     const rowsHtml = Object.entries(data.fields).map(([field, values]) => `
       <tr>
-        <td class="spec-label">${field.toUpperCase()}</td>
-        ${values.map(v => `<td>${v}</td>`).join('')}
+        <td class="spec-label">${_escape(field.toUpperCase())}</td>
+        ${values.map(v => `<td>${_escape(v)}</td>`).join('')}
       </tr>
     `).join('');
 

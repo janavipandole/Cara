@@ -75,6 +75,7 @@ class InteractiveProductComparator {
 
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = InteractiveProductComparator;
+  module.exports.canAddMoreComparatorItems = canAddMoreComparatorItems;
 } else {
   window.InteractiveProductComparator = InteractiveProductComparator;
 }

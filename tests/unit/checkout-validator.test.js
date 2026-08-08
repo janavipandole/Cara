@@ -27,6 +27,35 @@ describe('Checkout Form Validator Unit Tests', () => {
     expect(validatePostalCode('abc', 'US')).toBe(false);
   });
 
+  it('should validate Indian postal codes', () => {
+    expect(validatePostalCode('110001', 'IN')).toBe(true);
+    expect(validatePostalCode('12345', 'IN')).toBe(false);
+    expect(validatePostalCode('1100012', 'IN')).toBe(false);
+  });
+
+  it('should validate UK postal codes', () => {
+    expect(validatePostalCode('SW1A 1AA', 'UK')).toBe(true);
+    expect(validatePostalCode('M1 1AE', 'UK')).toBe(true);
+    expect(validatePostalCode('12345', 'UK')).toBe(false);
+  });
+
+  it('should validate Canadian postal codes', () => {
+    expect(validatePostalCode('K1A 0B1', 'CA')).toBe(true);
+    expect(validatePostalCode('K1A0B1', 'CA')).toBe(true);
+    expect(validatePostalCode('12345', 'CA')).toBe(false);
+  });
+
+  it('should validate Australian postal codes', () => {
+    expect(validatePostalCode('2000', 'AU')).toBe(true);
+    expect(validatePostalCode('20001', 'AU')).toBe(false);
+    expect(validatePostalCode('abc', 'AU')).toBe(false);
+  });
+
+  it('should fall back to length check for unknown countries', () => {
+    expect(validatePostalCode('ABC-123', 'XX')).toBe(true);
+    expect(validatePostalCode('ab', 'XX')).toBe(false);
+  });
+
   it('should validate email addresses', () => {
     expect(validateEmail('customer@example.com')).toBe(true);
     expect(validateEmail('invalid-email')).toBe(false);

@@ -246,3 +246,42 @@
   .order-history-hero { align-items: start; flex-direction: column; }
   .order-modal { padding: 12px; }
 }
+/* Estimated Return Date policy engine — dynamic return-status messaging */
+.return-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 14px 0;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 0.92rem;
+}
+.return-status--eligible { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; }
+.return-status--expired { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+.return-status--not-delivered,
+.return-status--unavailable { background: #f8fafc; color: #475569; border: 1px solid #e2e8f0; }
+.return-status__text { font-weight: 600; }
+.return-request-btn {
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  background: #1f2937;
+  color: #ffffff;
+}
+.return-request-btn:disabled {
+  background: #e2e8f0;
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+.return-deadline-inline {
+  margin-top: 4px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+.return-deadline-inline--eligible { color: #047857; }
+.return-deadline-inline--expired { color: #b91c1c; }

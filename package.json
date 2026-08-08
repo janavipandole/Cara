@@ -44,6 +44,7 @@
   "devDependencies": {
     "@eslint/js": "^9.21.0",
     "@vitest/coverage-v8": "^4.1.8",
+    "axe-core": "^4.13.0",
     "eslint": "^9.39.5",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.6",

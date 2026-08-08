@@ -1,13 +1,46 @@
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 from .. import models, schemas
 from ..database import get_db
 from .auth import get_current_user
+from ..limiter import limiter
 from datetime import datetime, timezone, timedelta
 
 router = APIRouter()
+
+# The rigid policy window applied on top of the delivery timestamp.
+#  return_deadline = delivered_at + RETURN_WINDOW_DAYS
+RETURN_WINDOW_DAYS = 30
+
+# Statuses a carrier/admin may move an order through.
+ORDER_STATUSES = {"PENDING", "CONFIRMED", "SHIPPED", "DELIVERED", "CANCELLED"}
+
+
+def return_deadline(order: models.Order) -> datetime | None:
+    """Algorithmically compute the immutable return deadline.
+
+    Only orders that have a captured delivery timestamp get a deadline;
+    anything still in fulfillment has no return window yet.
+    """
+    if order.delivered_at is None:
+        return None
+    return order.delivered_at.replace(tzinfo=timezone.utc) + timedelta(
+        days=RETURN_WINDOW_DAYS
+    )
+
+
+def set_order_status(order: models.Order, status: str) -> None:
+    """Transition an order to a new status.
+
+    When the order is marked DELIVERED, the delivery timestamp is captured
+    exactly once so the return deadline is immutable.
+    """
+    if status == "DELIVERED":
+        order.mark_delivered()
+    else:
+        order.status = status
 
 
 def _existing_order_for_key(db: Session, email: str, idempotency_key: str | None):
@@ -41,6 +74,8 @@ def serialize_order(order: models.Order, db: Session, include_items: bool = True
         "total_amount": order.total_amount,
         "status": order.status,
         "created_at": order.created_at,
+        "delivered_at": order.delivered_at,
+        "return_deadline": return_deadline(order),
         "items": [],
     }
 
@@ -53,6 +88,7 @@ def serialize_order(order: models.Order, db: Session, include_items: bool = True
         )
         payload["items"] = [
             {
+                "product_id": item.product_id,
                 "product_name": item.product_name,
                 "quantity": item.quantity,
                 "price": item.price,
@@ -103,7 +139,9 @@ def get_order_detail(
 
 
 @router.post("/", status_code=201)
+@limiter.limit("10/minute")
 def create_order(
+    request: Request,
     order_data: schemas.OrderCreate,
     db: Session = Depends(get_db),
     current_user: models.User = Depends(get_current_user)
@@ -113,38 +151,47 @@ def create_order(
     if existing:
         return _idempotent_replay(existing.id)
 
+    if order_data.email.lower() != current_user.email.lower():
+        raise HTTPException(
+            status_code=400,
+            detail="Checkout email must match the authenticated account email",
+        )
+
     if not order_data.items:
-        raise HTTPException(status_code=400, detail="Order must contain at least one item")
+        raise HTTPException(
+            status_code=400,
+            detail="Order must contain at least one item",
+        )
 
     subtotal = 0.0
     db_items = []
 
     # --- Fetch all products in a single query to prevent N+1 issue ---
-    product_names = [item.product_name for item in order_data.items]
-    
+    product_ids = [item.product_id for item in order_data.items]
+
     db_products = (
         db.query(models.Product)
-        .filter(models.Product.name.in_(product_names))
-        .with_for_update() # Apply row locks to all matching products simultaneously
+        .filter(models.Product.id.in_(product_ids))
+        .with_for_update()  # Apply row locks to all matching products simultaneously
         .all()
     )
-    
-    # Create a fast lookup map for the fetched products
-    product_map = {product.name: product for product in db_products}
+
+    # Stable lookup by primary key (names are not unique)
+    product_map = {product.id: product for product in db_products}
 
     for item in order_data.items:
-        db_product = product_map.get(item.product_name)
+        db_product = product_map.get(item.product_id)
 
         if not db_product:
             raise HTTPException(
                 status_code=400,
-                detail=f"Product not found: {item.product_name}"
+                detail=f"Product not found: id={item.product_id}",
             )
 
         if db_product.stock < item.quantity:
             raise HTTPException(
                 status_code=400,
-                detail=f"Insufficient stock for product: {item.product_name}"
+                detail=f"Insufficient stock for product: {db_product.name}",
             )
 
         # Deduct stock in memory (will be committed later)
@@ -155,9 +202,10 @@ def create_order(
 
         db_items.append(
             models.OrderItem(
-                product_name=item.product_name,
+                product_id=db_product.id,
+                product_name=db_product.name,
                 quantity=item.quantity,
-                price=real_price
+                price=real_price,
             )
         )
 
@@ -226,6 +274,10 @@ def create_order(
     }
 
 CANCELLABLE_WINDOW_HOURS = 24
+# Only pre-fulfillment statuses may be cancelled by the buyer. Once an order
+# has shipped or been delivered, stock can no longer be safely returned by a
+# simple status flip, so those states are intentionally excluded.
+CANCELLABLE_STATUSES = {"PENDING", "CONFIRMED"}
 
 @router.post("/{order_id}/cancel")
 def cancel_order(
@@ -248,6 +300,12 @@ def cancel_order(
     if order.status == "CANCELLED":
         raise HTTPException(status_code=400, detail="Order is already cancelled")
 
+    if order.status not in CANCELLABLE_STATUSES:
+        raise HTTPException(
+            status_code=400,
+            detail="Orders can only be cancelled before they are shipped or delivered",
+        )
+
     order_age = datetime.now(timezone.utc) - order.created_at.replace(tzinfo=timezone.utc)
     if order_age > timedelta(hours=CANCELLABLE_WINDOW_HOURS):
         raise HTTPException(
@@ -260,17 +318,17 @@ def cancel_order(
         .filter(models.OrderItem.order_id == order.id)
         .all()
     )
-    product_names = [item.product_name for item in items]
-    if product_names:
+    product_ids = [item.product_id for item in items if item.product_id is not None]
+    if product_ids:
         products = (
             db.query(models.Product)
-            .filter(models.Product.name.in_(product_names))
+            .filter(models.Product.id.in_(product_ids))
             .with_for_update()
             .all()
         )
-        product_map = {product.name: product for product in products}
+        product_map = {product.id: product for product in products}
         for item in items:
-            product = product_map.get(item.product_name)
+            product = product_map.get(item.product_id)
             if product is not None:
                 product.stock += item.quantity
 
