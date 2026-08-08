@@ -1,18 +1,18 @@
 /**
  * Wishlist Notes & Tag Manager
- * Provides user notes, custom tagging, filtering, and priority ranking for wishlist items.
+ * Allows shoppers to attach notes, custom tags, tag removal, priority flags, and price drop alert thresholds.
  */
-
-class WishlistNotesTagManager {
-  constructor(storageKey = 'cara_wishlist_notes_v2') {
-    this.storageKey = storageKey;
+export class WishlistNotesTagManager {
+  constructor(options = {}) {
+    this.storageKey = options.storageKey || 'cara_wishlist_metadata';
     this.data = this.loadData();
   }
 
   loadData() {
     try {
-      const stored = localStorage.getItem(this.storageKey);
-      return stored ? JSON.parse(stored) : {};
+      if (typeof localStorage === 'undefined') return {};
+      const raw = localStorage.getItem(this.storageKey);
+      return raw ? JSON.parse(raw) : {};
     } catch (e) {
       return {};
     }
@@ -20,71 +20,73 @@ class WishlistNotesTagManager {
 
   saveData() {
     try {
-      localStorage.setItem(this.storageKey, JSON.stringify(this.data));
-    } catch (e) {
-      console.warn('Failed to save wishlist notes:', e);
-    }
+      if (typeof localStorage !== 'undefined') {
+        localStorage.setItem(this.storageKey, JSON.stringify(this.data));
+      }
+    } catch (e) {}
   }
 
-  addNote(productId, note) {
-    if (!productId || typeof note !== 'string') {
-      return { success: false, message: 'Invalid product ID or note.' };
-    }
-
-    if (!this.data[productId]) {
-      this.data[productId] = { note: '', tags: [], priority: 0, addedAt: new Date().toISOString() };
-    }
-
-    this.data[productId].note = note.trim().slice(0, 300);
-    this.saveData();
-    return { success: true };
+  getItemMeta(productId) {
+    return this.data[productId] || { notes: '', tags: [], priority: 'NORMAL', targetPriceAlert: null };
   }
 
-  addTags(productId, tags = []) {
-    if (!productId || !Array.isArray(tags)) {
-      return { success: false, message: 'Invalid product ID or tags.' };
-    }
-
-    if (!this.data[productId]) {
-      this.data[productId] = { note: '', tags: [], priority: 0, addedAt: new Date().toISOString() };
-    }
-
-    const cleanTags = tags
-      .map((t) => t.trim().toLowerCase().slice(0, 20))
-      .filter((t) => t.length > 0);
-
-    const merged = [...new Set([...(this.data[productId].tags || []), ...cleanTags])];
-    this.data[productId].tags = merged.slice(0, 10);
+  setNote(productId, noteText) {
+    const item = this.getItemMeta(productId);
+    item.notes = String(noteText || '').trim();
+    this.data[productId] = item;
     this.saveData();
-    return { success: true, tags: this.data[productId].tags };
+    return item;
   }
 
-  setPriority(productId, priority) {
-    const validPriority = Math.max(0, Math.min(5, parseInt(priority, 10) || 0));
-    if (!this.data[productId]) {
-      this.data[productId] = { note: '', tags: [], priority: validPriority, addedAt: new Date().toISOString() };
-    } else {
-      this.data[productId].priority = validPriority;
+  addTag(productId, tag) {
+    const cleanTag = String(tag || '').trim().toLowerCase();
+    if (!cleanTag) return this.getItemMeta(productId);
+
+    const item = this.getItemMeta(productId);
+    if (!item.tags.includes(cleanTag)) {
+      item.tags.push(cleanTag);
+      this.data[productId] = item;
+      this.saveData();
     }
+    return item;
+  }
+
+  removeTag(productId, tagToRemove) {
+    const cleanTag = String(tagToRemove || '').trim().toLowerCase();
+    const item = this.getItemMeta(productId);
+    item.tags = item.tags.filter(t => t !== cleanTag);
+    this.data[productId] = item;
     this.saveData();
-    return { success: true, priority: validPriority };
+    return item;
+  }
+
+  setPriority(productId, priorityLevel = 'NORMAL') {
+    const validPriorities = ['LOW', 'NORMAL', 'HIGH', 'MUST_HAVE'];
+    const priority = String(priorityLevel).toUpperCase();
+    
+    const item = this.getItemMeta(productId);
+    item.priority = validPriorities.includes(priority) ? priority : 'NORMAL';
+    this.data[productId] = item;
+    this.saveData();
+    return item;
+  }
+
+  setTargetPriceAlert(productId, targetPrice) {
+    const item = this.getItemMeta(productId);
+    item.targetPriceAlert = targetPrice ? Number(targetPrice) : null;
+    this.data[productId] = item;
+    this.saveData();
+    return item;
   }
 
   filterByTag(tag) {
-    if (!tag) return [];
-    const cleanTag = tag.trim().toLowerCase();
-    return Object.entries(this.data)
-      .filter(([, item]) => (item.tags || []).includes(cleanTag))
-      .map(([productId, item]) => ({ productId, ...item }));
+    const targetTag = String(tag || '').trim().toLowerCase();
+    const matchingProductIds = [];
+    Object.keys(this.data).forEach(id => {
+      if (this.data[id].tags && this.data[id].tags.includes(targetTag)) {
+        matchingProductIds.push(id);
+      }
+    });
+    return matchingProductIds;
   }
-
-  getProductMeta(productId) {
-    return this.data[productId] || null;
-  }
-}
-
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = WishlistNotesTagManager;
-} else {
-  window.WishlistNotesTagManager = WishlistNotesTagManager;
 }

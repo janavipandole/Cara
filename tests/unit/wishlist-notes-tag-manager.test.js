@@ -1,66 +1,49 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-const WishlistNotesTagManager = require('../../js/wishlist-notes-tag-manager.js');
+import { WishlistNotesTagManager } from '../../js/wishlist-notes-tag-manager.js';
 
-describe('WishlistNotesTagManager Unit Tests', () => {
-  let manager;
-
+describe('WishlistNotesTagManager', () => {
   beforeEach(() => {
-    localStorage.clear();
-    manager = new WishlistNotesTagManager();
+    if (typeof localStorage !== 'undefined') {
+      localStorage.clear();
+    }
   });
 
-  it('should add and retrieve a note for a product', () => {
-    const res = manager.addNote('product-123', 'Perfect for summer');
-    expect(res.success).toBe(true);
-    const meta = manager.getProductMeta('product-123');
-    expect(meta.note).toBe('Perfect for summer');
+  it('sets notes and adds tags to wishlist item', () => {
+    const manager = new WishlistNotesTagManager({ storageKey: 'test_notes' });
+    manager.setNote('prod_101', 'Gift for birthday');
+    manager.addTag('prod_101', 'Gift');
+    manager.addTag('prod_101', 'Summer');
+
+    const meta = manager.getItemMeta('prod_101');
+    expect(meta.notes).toBe('Gift for birthday');
+    expect(meta.tags).toEqual(['gift', 'summer']);
   });
 
-  it('should add tags and prevent duplicates', () => {
-    manager.addTags('product-456', ['summer', 'casual', 'summer']);
-    const meta = manager.getProductMeta('product-456');
-    expect(meta.tags).toContain('summer');
-    expect(meta.tags.filter((t) => t === 'summer').length).toBe(1);
+  it('removes specific tags from wishlist item', () => {
+    const manager = new WishlistNotesTagManager({ storageKey: 'test_notes' });
+    manager.addTag('prod_101', 'Gift');
+    manager.addTag('prod_101', 'Summer');
+    manager.removeTag('prod_101', 'Gift');
+
+    const meta = manager.getItemMeta('prod_101');
+    expect(meta.tags).toEqual(['summer']);
   });
 
-  it('should set priority within valid range 0-5', () => {
-    const res = manager.setPriority('product-789', 3);
-    expect(res.priority).toBe(3);
+  it('configures target price alert thresholds', () => {
+    const manager = new WishlistNotesTagManager({ storageKey: 'test_notes' });
+    manager.setTargetPriceAlert('prod_101', 39.99);
 
-    const over = manager.setPriority('product-789', 99);
-    expect(over.priority).toBe(5);
+    const meta = manager.getItemMeta('prod_101');
+    expect(meta.targetPriceAlert).toBe(39.99);
   });
 
-  it('should filter products by specific tag', () => {
-    manager.addTags('product-100', ['gift']);
-    manager.addTags('product-200', ['birthday', 'gift']);
-    const filtered = manager.filterByTag('gift');
-    expect(filtered.length).toBe(2);
-  });
+  it('filters product IDs matching a specific tag', () => {
+    const manager = new WishlistNotesTagManager({ storageKey: 'test_notes' });
+    manager.addTag('p1', 'work');
+    manager.addTag('p2', 'vacation');
+    manager.addTag('p3', 'work');
 
-  it('should truncate long notes to 300 characters', () => {
-    const longNote = 'x'.repeat(400);
-    const res = manager.addNote('product-301', longNote);
-    expect(res.success).toBe(true);
-    const meta = manager.getProductMeta('product-301');
-    expect(meta.note.length).toBe(300);
-  });
-
-  it('should normalize tag case and trim whitespace', () => {
-    manager.addTags('product-302', ['  Summer  ', 'CASUAL']);
-    const meta = manager.getProductMeta('product-302');
-    expect(meta.tags).toContain('summer');
-    expect(meta.tags).toContain('casual');
-  });
-
-  it('should reject invalid note and tag input', () => {
-    expect(manager.addNote('product-303', 42).success).toBe(false);
-    expect(manager.addTags('product-303', 'not-an-array').success).toBe(false);
-    expect(manager.getProductMeta('product-303')).toBeNull();
-  });
-
-  it('should clamp negative priority values to 0', () => {
-    const res = manager.setPriority('product-304', -5);
-    expect(res.priority).toBe(0);
+    const workItems = manager.filterByTag('work');
+    expect(workItems).toEqual(['p1', 'p3']);
   });
 });
