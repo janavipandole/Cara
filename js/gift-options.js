@@ -47,6 +47,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // Expose utility function globally for external use
+  window.validateGiftMessageLength = validateGiftMessageLength;
 });
 
 
