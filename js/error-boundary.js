@@ -75,3 +75,6 @@ function getErrorFallbackHTML(message) {
   }
   return '<div class="error-fallback-box"><p>' + message + '</p></div>';
 }
+
+// Expose utility function globally for external use
+window.getErrorFallbackHTML = getErrorFallbackHTML;
