@@ -82,7 +82,9 @@ class LoyaltyRewardsEngine {
     return { success: true, discount: discountValue, remainingPoints: this.data.points };
   }
   calculatePoints(spent = 0) {
-    return Math.floor(spent);
+    if (spent <= 0) return 0;
+    const currentTier = this.getTier();
+    return Math.floor(spent * currentTier.multiplier);
   }
 
   getUserTier(points = 0) {
