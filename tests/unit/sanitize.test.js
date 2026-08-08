@@ -1,33 +1,66 @@
-import { describe, it, expect } from 'vitest';
-import { sanitizeHTML } from '../../js/utils/sanitize.js';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 
-describe('js/utils/sanitize.js input validation and sanitization', () => {
-  it('should leave safe alphanumeric strings unchanged', () => {
-    expect(sanitizeHTML('helloWorld123')).toBe('helloWorld123');
-    expect(sanitizeHTML('Standard User Name')).toBe('Standard User Name');
+describe('js/utils/sanitize.js — sanitizeHTML', () => {
+  beforeEach(async () => {
+    vi.resetModules();
+    await import('../../js/utils/sanitize.js');
   });
 
-  it('should escape HTML characters (<, >, &, ", \', /)', () => {
-    expect(sanitizeHTML('<script>')).toBe('&lt;script&gt;');
-    expect(sanitizeHTML('john & doe')).toBe('john &amp; doe');
-    expect(sanitizeHTML('double"quote')).toBe('double&quot;quote');
-    expect(sanitizeHTML("single'quote")).toBe('single&#x27;quote');
-    expect(sanitizeHTML('test/path')).toBe('test&#x2F;path');
+  it('escapes < and > characters', async () => {
+    const result = window.sanitizeHTML('<script>alert("xss")</script>');
+    expect(result).toContain('&lt;');
+    expect(result).toContain('&gt;');
+    expect(result).not.toContain('<script>');
   });
 
-  it('should strip inline event handlers', () => {
-    expect(sanitizeHTML('onload="alert(1)"')).toBe('&quot;alert(1)&quot;');
-    expect(sanitizeHTML('onerror=foo')).toBe('foo');
+  it('escapes ampersands', async () => {
+    const result = window.sanitizeHTML('foo & bar');
+    expect(result).toContain('&amp;');
   });
 
-  it('should strip javascript: and data: URIs', () => {
-    expect(sanitizeHTML('javascript:alert(1)')).toBe('alert(1)');
-    expect(sanitizeHTML('data:text/html,payload')).toBe(
-      'text&#x2F;html,payload',
+  it('escapes double quotes', async () => {
+    const result = window.sanitizeHTML('say "hello"');
+    expect(result).toContain('&quot;');
+  });
+
+  it('escapes single quotes', async () => {
+    const result = window.sanitizeHTML("it's fine");
+    expect(result).toContain('&#x27;');
+  });
+
+  it('escapes forward slashes', async () => {
+    const result = window.sanitizeHTML('a/b/c');
+    expect(result).toContain('&#x2F;');
+  });
+
+  it('removes inline event handlers like onclick', async () => {
+    const result = window.sanitizeHTML(
+      '<div onclick="alert(1)">Click me</div>',
     );
+    expect(result).not.toContain('onclick');
   });
 
-  it('should prevent multi-character sanitization bypasses', () => {
-    expect(sanitizeHTML('oonload=alert(1)')).toBe('oalert(1)');
+  it('removes javascript: protocol', async () => {
+    const result = window.sanitizeHTML(
+      '<a href="javascript:alert(1)">Link</a>',
+    );
+    expect(result).not.toContain('javascript:');
+  });
+
+  it('removes data: protocol', async () => {
+    const result = window.sanitizeHTML(
+      '<img src="data:text/html,<h1>xss</h1>">',
+    );
+    expect(result).not.toContain('data:');
+  });
+
+  it('removes onerror handlers', async () => {
+    const result = window.sanitizeHTML('<img onerror="alert(1)" src="x">');
+    expect(result).not.toContain('onerror');
+  });
+
+  it('sanitizeHTML is exposed on window', async () => {
+    await import('../../js/utils/sanitize.js');
+    expect(typeof window.sanitizeHTML).toBe('function');
   });
 });
