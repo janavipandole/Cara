@@ -124,7 +124,7 @@ def test_cancel_already_cancelled_does_not_double_restock(client):
     db.close()
 
 
-def _create_order_and_set_status(client, headers, *, product_name, quantity, status):
+def _create_order_and_set_status(client, headers, *, email, product_name, quantity, status):
     db = TestingSessionLocal()
     product = _seed_product(db, name=product_name, stock=10)
     product_id = product.id
@@ -135,7 +135,7 @@ def _create_order_and_set_status(client, headers, *, product_name, quantity, sta
         headers=headers,
         json={
             "fullName": "Test User",
-            "email": "cancel@example.com",
+            "email": email,
             "address": "1 Test St",
             "city": "Testville",
             "zip": "12345",
@@ -158,7 +158,12 @@ def _create_order_and_set_status(client, headers, *, product_name, quantity, sta
 def test_cancel_rejected_for_shipped_order_within_window(client):
     headers = _auth_headers(client, username="shipuser", email="ship@example.com")
     order_id, product_id = _create_order_and_set_status(
-        client, headers, product_name="Shipped Tee", quantity=2, status="SHIPPED"
+        client,
+        headers,
+        email="ship@example.com",
+        product_name="Shipped Tee",
+        quantity=2,
+        status="SHIPPED",
     )
 
     response = client.post(f"{ORDERS_URL}{order_id}/cancel", headers=headers)
@@ -173,7 +178,12 @@ def test_cancel_rejected_for_shipped_order_within_window(client):
 def test_cancel_rejected_for_delivered_order_within_window(client):
     headers = _auth_headers(client, username="deliveruser", email="deliver@example.com")
     order_id, product_id = _create_order_and_set_status(
-        client, headers, product_name="Delivered Tee", quantity=4, status="DELIVERED"
+        client,
+        headers,
+        email="deliver@example.com",
+        product_name="Delivered Tee",
+        quantity=4,
+        status="DELIVERED",
     )
 
     response = client.post(f"{ORDERS_URL}{order_id}/cancel", headers=headers)
