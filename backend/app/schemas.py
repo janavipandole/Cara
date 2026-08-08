@@ -167,7 +167,9 @@ class OrderCreate(BaseModel):
     address: str
     city: str
     zip: str
-    items: list[OrderItemCreate]
+    # Reject empty carts at the API boundary: an order must contain at least
+    # one line item, and a sane maximum prevents junk/mega-bulk payloads.
+    items: list[OrderItemCreate] = Field(min_length=1, max_length=50)
     coupon: Optional[str] = None
     idempotency_key: Optional[str] = None
 

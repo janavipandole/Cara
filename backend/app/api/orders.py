@@ -157,6 +157,12 @@ def create_order(
             detail="Checkout email must match the authenticated account email",
         )
 
+    if not order_data.items:
+        raise HTTPException(
+            status_code=400,
+            detail="Order must contain at least one item",
+        )
+
     subtotal = 0.0
     db_items = []
 
