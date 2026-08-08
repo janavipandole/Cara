@@ -57,6 +57,15 @@ router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login", auto_error=False)
 
 
+def captcha_answer_digest(answer: str) -> str:
+    """HMAC the captcha answer so JWT payloads never carry the plaintext code."""
+    return hmac.new(
+        SECRET_KEY.encode("utf-8"),
+        answer.strip().upper().encode("utf-8"),
+        hashlib.sha256,
+    ).hexdigest()
+
+
 def cookie_secure() -> bool:
     return os.environ.get("COOKIE_SECURE", "true").lower() in ("1", "true", "yes")
 
@@ -214,9 +223,12 @@ def get_captcha():
     img_str = base64.b64encode(buffered.getvalue()).decode()
     
     token = jwt.encode(
-        {"captcha_answer": code, "exp": datetime.now(timezone.utc) + timedelta(minutes=5)},
+        {
+            "captcha_hash": captcha_answer_digest(code),
+            "exp": datetime.now(timezone.utc) + timedelta(minutes=5),
+        },
         SECRET_KEY,
-        algorithm=ALGORITHM
+        algorithm=ALGORITHM,
     )
     return {"captcha_image": f"data:image/png;base64,{img_str}", "captcha_token": token}
 
@@ -233,8 +245,10 @@ def login(request: Request, response: Response, payload: UserLogin, db: Session 
             raise HTTPException(403, "Security captcha required.")
         try:
             token_payload = jwt.decode(payload.captcha_token, SECRET_KEY, algorithms=[ALGORITHM])
-            expected = token_payload.get("captcha_answer")
-            if not expected or expected.upper() != payload.captcha_answer.upper():
+            expected = token_payload.get("captcha_hash")
+            if not expected or not hmac.compare_digest(
+                expected, captcha_answer_digest(payload.captcha_answer or "")
+            ):
                 raise HTTPException(403, "Invalid security code.")
         except JWTError:
             raise HTTPException(403, "Invalid or expired security code.")
