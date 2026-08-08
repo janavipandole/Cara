@@ -16,10 +16,64 @@ window.CARA_COUPONS = {
   'CARA20': 20,
   'WELCOME10': 10
 };
+window.safeStorage = (function() {
+  const memoryStorage = {};
+  
+  function isAvailable() {
+    try {
+      const testKey = '__storage_test__';
+      localStorage.setItem(testKey, testKey);
+      localStorage.removeItem(testKey);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+  
+  const available = isAvailable();
+  
+  return {
+    getItem: function(key) {
+      if (available) {
+        try {
+          const val = localStorage.getItem(key);
+          if (val !== null) return val;
+        } catch (e) {}
+      }
+      return memoryStorage.hasOwnProperty(key) ? memoryStorage[key] : null;
+    },
+    setItem: function(key, value) {
+      if (available) {
+        try {
+          localStorage.setItem(key, value);
+          return;
+        } catch (e) {}
+      }
+      memoryStorage[key] = String(value);
+    },
+    removeItem: function(key) {
+      if (available) {
+        try {
+          localStorage.removeItem(key);
+        } catch(e) {}
+      }
+      delete memoryStorage[key];
+    },
+    clear: function() {
+      if (available) {
+        try {
+          localStorage.clear();
+        } catch(e) {}
+      }
+      Object.keys(memoryStorage).forEach(k => delete memoryStorage[k]);
+    }
+  };
+})();
+
 // Safe JSON reader for localStorage values (corrupt data never throws).
 function safeParseJSON(key, fallback = []) {
   try {
-    const raw = localStorage.getItem(key);
+    const raw = safeStorage.getItem(key);
     const parsed = raw ? JSON.parse(raw) : fallback;
     return parsed == null ? fallback : parsed;
   } catch (err) {
@@ -152,7 +206,7 @@ const translations = {
 
 function changeLanguage(lang) {
   if (!translations[lang]) return;
-  localStorage.setItem('selectedLanguage', lang);
+  safeStorage.setItem('selectedLanguage', lang);
 
   document.querySelectorAll('[data-i18n]').forEach((el) => {
     const key = el.getAttribute('data-i18n');
@@ -214,7 +268,7 @@ function initLanguage() {
     }
   }
 
-  const savedLang = localStorage.getItem('selectedLanguage') || 'en';
+  const savedLang = safeStorage.getItem('selectedLanguage') || 'en';
   changeLanguage(savedLang);
 }
 
@@ -272,7 +326,7 @@ document.addEventListener(
       ? nameElement.textContent.trim()
       : 'Product';
 
-    localStorage.setItem('selectedProductId', productName);
+    safeStorage.setItem('selectedProductId', productName);
     window.location.href = 'singleProduct.html';
   },
   true,
@@ -281,13 +335,13 @@ document.addEventListener(
 // Dynamic Render on singleProduct.html
 document.addEventListener('DOMContentLoaded', async () => {
   if (window.location.pathname.includes('singleProduct')) {
-    let productName = localStorage.getItem('selectedProductId');
+    let productName = safeStorage.getItem('selectedProductId');
 
     // Legacy fallback
     if (!productName) {
       try {
         productName = JSON.parse(
-          localStorage.getItem('selectedProduct') || '{}',
+          safeStorage.getItem('selectedProduct') || '{}',
         ).name;
       } catch (e) {
         console.warn('Failed to parse legacy product data:', e);
@@ -416,7 +470,7 @@ function updateCartCount() {
   try {
     cart =
       window.cachedCartState ||
-      JSON.parse(localStorage.getItem('productsInCart')) ||
+      JSON.parse(safeStorage.getItem('productsInCart')) ||
       [];
     window.cachedCartState = cart;
   } catch (e) {
@@ -448,7 +502,7 @@ function updateWishlistCount() {
   let wishlist = [];
 
   try {
-    wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    wishlist = JSON.parse(safeStorage.getItem('wishlist')) || [];
   } catch (err) {
     console.warn('Failed to parse wishlist:', err);
     wishlist = [];
@@ -532,7 +586,7 @@ function refreshWishlistPrices(items) {
   });
 
   if (changed) {
-    localStorage.setItem('wishlist', JSON.stringify(updated));
+    safeStorage.setItem('wishlist', JSON.stringify(updated));
   }
 
   return updated;
@@ -541,7 +595,7 @@ function refreshWishlistPrices(items) {
 function getWishlist() {
   let wishlist = [];
   try {
-    const val = localStorage.getItem('wishlist');
+    const val = safeStorage.getItem('wishlist');
     wishlist = val ? JSON.parse(val) : [];
   } catch (e) {
     wishlist = [];
@@ -553,7 +607,7 @@ function getWishlist() {
 }
 
 function saveWishlist(wishlist) {
-  localStorage.setItem(
+  safeStorage.setItem(
     'wishlist',
     JSON.stringify(wishlist.map(normalizeWishlistItem)),
   );
@@ -754,7 +808,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Toggle empty-cart view
 function handleEmptyCartView() {
-  const cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+  const cart = JSON.parse(safeStorage.getItem('productsInCart')) || [];
   const cartGrid = document.getElementById('cart-container');
   const emptyContainer = document.getElementById('empty-cart-container');
 
@@ -785,7 +839,7 @@ function withCartLock(fn) {
 
 function addToCart(productName, productPrice, productImage, quantity, size, productId) {
   return withCartLock(() => {
-    let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+    let cart = JSON.parse(safeStorage.getItem('productsInCart')) || [];
     let parsedQty = parseInt(quantity, 10);
     if (isNaN(parsedQty) || parsedQty < 1) parsedQty = 1;
 
@@ -816,7 +870,7 @@ function addToCart(productName, productPrice, productImage, quantity, size, prod
       cart.push(item);
     }
 
-    localStorage.setItem('productsInCart', JSON.stringify(cart));
+    safeStorage.setItem('productsInCart', JSON.stringify(cart));
     window.cachedCartState = cart;
     showToast(`${item.name} (Size: ${item.size}) added to cart!`, 'success');
     updateCartCount();
@@ -964,12 +1018,12 @@ window.handleBuyNow = function () {
   window.buyNow(name, price, image, quantity, size);
 };
 
-window.appliedCoupon = localStorage.getItem('appliedCoupon') || null;
+window.appliedCoupon = safeStorage.getItem('appliedCoupon') || null;
 
 window.loadCart = async function () {
   let cart =
     window.cachedCartState ||
-    JSON.parse(localStorage.getItem('productsInCart')) ||
+    JSON.parse(safeStorage.getItem('productsInCart')) ||
     [];
   window.cachedCartState = cart;
 
@@ -1134,7 +1188,7 @@ window.loadCart = async function () {
 window.changeQuantity = function (index, change) {
   let cart =
     window.cachedCartState ||
-    JSON.parse(localStorage.getItem('productsInCart')) ||
+    JSON.parse(safeStorage.getItem('productsInCart')) ||
     [];
   window.cachedCartState = cart;
   if (!cart[index]) return;
@@ -1146,7 +1200,7 @@ window.changeQuantity = function (index, change) {
       showToast('Maximum quantity is 99.', 'warning');
   }
   cart[index].quantity = newQty;
-  localStorage.setItem('productsInCart', JSON.stringify(cart));
+  safeStorage.setItem('productsInCart', JSON.stringify(cart));
   loadCart();
   updateCartCount();
 };
@@ -1164,7 +1218,7 @@ window.applyCoupon = function () {
 
   if (Object.prototype.hasOwnProperty.call(coupons, code)) {
     window.appliedCoupon = code;
-    localStorage.setItem('appliedCoupon', code);
+    safeStorage.setItem('appliedCoupon', code);
     showToast(`${code} applied! ${coupons[code]}% discount added.`, 'success');
     loadCart();
   } else {
@@ -1173,10 +1227,10 @@ window.applyCoupon = function () {
 };
 
 window.removeItem = function (index) {
-  let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+  let cart = JSON.parse(safeStorage.getItem('productsInCart')) || [];
   const removedName = cart[index] ? cart[index].name : 'Item';
   cart.splice(index, 1);
-  localStorage.setItem('productsInCart', JSON.stringify(cart));
+  safeStorage.setItem('productsInCart', JSON.stringify(cart));
   loadCart();
   updateCartCount();
   showToast(`${removedName} removed from cart`, 'error');
@@ -1212,7 +1266,7 @@ window.buyNow = function (
    ============================================================ */
 (function () {
   const html = document.documentElement;
-  const savedTheme = localStorage.getItem('theme') || 'light';
+  const savedTheme = safeStorage.getItem('theme') || 'light';
   html.setAttribute('data-theme', savedTheme);
 
   if (savedTheme === 'dark') {
@@ -1239,12 +1293,12 @@ window.buyNow = function (
     if (isDark) {
       document.body.classList.remove('dark');
       html.setAttribute('data-theme', 'light');
-      localStorage.setItem('theme', 'light');
+      safeStorage.setItem('theme', 'light');
       updateThemeIcon('light');
     } else {
       document.body.classList.add('dark');
       html.setAttribute('data-theme', 'dark');
-      localStorage.setItem('theme', 'dark');
+      safeStorage.setItem('theme', 'dark');
       updateThemeIcon('dark');
     }
   }
@@ -1769,7 +1823,7 @@ window.pendingSharedCart = null;
 window.shareWardrobe = function () {
   const cart =
     window.cachedCartState ||
-    JSON.parse(localStorage.getItem('productsInCart')) ||
+    JSON.parse(safeStorage.getItem('productsInCart')) ||
     [];
   window.cachedCartState = cart;
   const btn = document.getElementById('share-cart-btn');
@@ -1985,7 +2039,7 @@ window.applySharedCart = function (action) {
 
   let localCart =
     window.cachedCartState ||
-    JSON.parse(localStorage.getItem('productsInCart')) ||
+    JSON.parse(safeStorage.getItem('productsInCart')) ||
     [];
   window.cachedCartState = localCart;
 
@@ -2006,7 +2060,7 @@ window.applySharedCart = function (action) {
     showToast('Shared wardrobe merged into your cart!', 'success');
   }
 
-  localStorage.setItem('productsInCart', JSON.stringify(localCart));
+  safeStorage.setItem('productsInCart', JSON.stringify(localCart));
   window.cachedCartState = localCart;
   window.closeShareModal();
   if (typeof loadCart === 'function') loadCart();
@@ -2026,8 +2080,8 @@ window.saveForLater = function (index) {
 
   if (index >= 0 && index < cart.length) {
     saved.push(cart.splice(index, 1)[0]);
-    localStorage.setItem('productsInCart', JSON.stringify(cart));
-    localStorage.setItem('savedItems', JSON.stringify(saved));
+    safeStorage.setItem('productsInCart', JSON.stringify(cart));
+    safeStorage.setItem('savedItems', JSON.stringify(saved));
     if (typeof window.loadCart === 'function') window.loadCart();
     showToast('Item saved for later', 'success');
   }
@@ -2039,8 +2093,8 @@ window.moveToCart = function (index) {
 
   if (index >= 0 && index < saved.length) {
     cart.push(saved.splice(index, 1)[0]);
-    localStorage.setItem('productsInCart', JSON.stringify(cart));
-    localStorage.setItem('savedItems', JSON.stringify(saved));
+    safeStorage.setItem('productsInCart', JSON.stringify(cart));
+    safeStorage.setItem('savedItems', JSON.stringify(saved));
     if (typeof window.loadCart === 'function') window.loadCart();
     showToast('Item moved to cart', 'success');
   }
@@ -2050,7 +2104,7 @@ window.removeSavedItem = function (index) {
   let saved = safeParseJSON('savedItems', []);
   if (index >= 0 && index < saved.length) {
     saved.splice(index, 1);
-    localStorage.setItem('savedItems', JSON.stringify(saved));
+    safeStorage.setItem('savedItems', JSON.stringify(saved));
     if (typeof window.loadSavedItems === 'function') window.loadSavedItems();
     showToast('Saved item removed', 'success');
   }
