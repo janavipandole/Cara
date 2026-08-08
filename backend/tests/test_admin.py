@@ -218,9 +218,14 @@ class TestAdminAnalytics:
 
         _create_order(client, headers, [{"product_id": product_id, "quantity": 3}], email=email)
 
-        # Simulate the product being deleted/renamed from the catalog.
+        # Simulate an orphaned line item: clear the FK, then remove the product.
+        # (SQLite may recycle primary keys; leaving a dangling id would reattach
+        # historical units to a later product with the same id.)
         db = TestingSessionLocal()
-        db.query(models.Product).filter(models.Product.id == product.id).delete()
+        db.query(models.OrderItem).filter(
+            models.OrderItem.product_id == product_id
+        ).update({models.OrderItem.product_id: None})
+        db.query(models.Product).filter(models.Product.id == product_id).delete()
         db.commit()
         db.close()
 
