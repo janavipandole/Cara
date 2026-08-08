@@ -1,40 +1,80 @@
 /**
- * Multi-Coupon Stacking Engine
- * Allows stacking percentage and flat discounts while enforcing category exclusivity rules.
+ * Coupon Stacking Engine
+ * Handles stackable promotions, minimum subtotals, category exclusivity, free shipping, and global percentage caps.
  */
 export class CouponStackingEngine {
   constructor(options = {}) {
-    this.maxStackedCoupons = options.maxStackedCoupons || 2;
+    this.maxGlobalDiscountPct = options.maxGlobalDiscountPct || 50; // Cap max total discount at 50%
   }
 
-  calculateStackedDiscount(cartTotal, coupons = []) {
-    if (!cartTotal || cartTotal <= 0 || !Array.isArray(coupons) || coupons.length === 0) {
-      return { finalTotal: cartTotal, discountTotal: 0, appliedCoupons: [] };
+  evaluateCoupon(coupon, cartItems, subtotal) {
+    if (!coupon || !coupon.code) {
+      return { valid: false, reason: 'Invalid coupon object' };
     }
 
-    const validCoupons = coupons.slice(0, this.maxStackedCoupons);
-    let currentTotal = cartTotal;
+    if (coupon.minSubtotal && subtotal < coupon.minSubtotal) {
+      return { valid: false, reason: `Minimum order amount of $${coupon.minSubtotal} required` };
+    }
+
+    // Check category restrictions if applicable
+    let eligibleSubtotal = subtotal;
+    if (coupon.targetCategory) {
+      const categoryItems = (cartItems || []).filter(item => item.category && item.category.toLowerCase() === coupon.targetCategory.toLowerCase());
+      eligibleSubtotal = categoryItems.reduce((acc, item) => acc + (item.price * (item.quantity || 1)), 0);
+      if (eligibleSubtotal <= 0) {
+        return { valid: false, reason: `Coupon applies only to category: ${coupon.targetCategory}` };
+      }
+    }
+
+    let discountAmount = 0;
+    if (coupon.type === 'percentage') {
+      discountAmount = (eligibleSubtotal * coupon.value) / 100;
+    } else if (coupon.type === 'fixed') {
+      discountAmount = Math.min(coupon.value, eligibleSubtotal);
+    } else if (coupon.type === 'freeship') {
+      discountAmount = coupon.shippingCost || 15;
+    }
+
+    return {
+      valid: true,
+      couponCode: coupon.code,
+      type: coupon.type,
+      discountAmount
+    };
+  }
+
+  applyStackedCoupons(coupons = [], cartItems = [], subtotal = 0) {
+    if (!coupons || coupons.length === 0) {
+      return { finalSubtotal: subtotal, totalDiscount: 0, appliedCoupons: [] };
+    }
+
+    let currentSubtotal = subtotal;
     let totalDiscount = 0;
     const appliedCoupons = [];
 
-    for (const coupon of validCoupons) {
-      let discount = 0;
-      if (coupon.type === 'percentage') {
-        discount = Number((currentTotal * (coupon.value / 100)).toFixed(2));
-      } else if (coupon.type === 'flat') {
-        discount = Math.min(currentTotal, coupon.value);
-      }
+    const maxAllowedDiscount = (subtotal * this.maxGlobalDiscountPct) / 100;
 
-      if (discount > 0) {
-        currentTotal -= discount;
-        totalDiscount += discount;
-        appliedCoupons.push({ code: coupon.code, discount });
+    for (const coupon of coupons) {
+      const evaluation = this.evaluateCoupon(coupon, cartItems, currentSubtotal);
+      if (evaluation.valid) {
+        // Enforce global cap
+        let actualDiscount = evaluation.discountAmount;
+        if (totalDiscount + actualDiscount > maxAllowedDiscount) {
+          actualDiscount = Math.max(0, maxAllowedDiscount - totalDiscount);
+        }
+
+        if (actualDiscount > 0) {
+          totalDiscount += actualDiscount;
+          currentSubtotal = Math.max(0, currentSubtotal - actualDiscount);
+          appliedCoupons.push({ ...evaluation, appliedDiscount: actualDiscount });
+        }
       }
     }
 
     return {
-      finalTotal: Number(currentTotal.toFixed(2)),
-      discountTotal: Number(totalDiscount.toFixed(2)),
+      originalSubtotal: subtotal,
+      finalSubtotal: Number(currentSubtotal.toFixed(2)),
+      totalDiscount: Number(totalDiscount.toFixed(2)),
       appliedCoupons
     };
   }
