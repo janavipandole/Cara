@@ -36,6 +36,34 @@ window.logError =
   };
 
 /**
+ * Prioritized Task Scheduling API polyfill/helper.
+ * Maps 'user-blocking' -> high, 'user-visible' -> medium, 'background' -> low.
+ */
+window.runPrioritizedTask = function(callback, options = { priority: 'background' }) {
+  if ('scheduler' in window && 'postTask' in window.scheduler) {
+    return window.scheduler.postTask(callback, options);
+  }
+  return new Promise((resolve, reject) => {
+    const run = () => {
+      try {
+        resolve(callback());
+      } catch (err) {
+        reject(err);
+      }
+    };
+    if (options.signal && options.signal.aborted) {
+      return reject(new DOMException('Aborted', 'AbortError'));
+    }
+    const delay = options.delay || 0;
+    if (options.priority === 'background' && 'requestIdleCallback' in window && delay === 0) {
+      window.requestIdleCallback(run);
+    } else {
+      setTimeout(run, delay);
+    }
+  });
+};
+
+/**
  * Sanitizes return URL query parameters to prevent Open Redirect and SSRF vulnerabilities.
  * Enforces strictly relative URLs and blocks external origins.
  */
@@ -747,7 +775,7 @@ function withCartLock(fn) {
   cartLockPromise = cartLockPromise
     .then(async () => {
       window.cachedCartState = null;
-      return await fn();
+      return await window.runPrioritizedTask(fn, { priority: 'user-blocking' });
     })
     .catch((err) => {
       console.error('Cart lock execution error:', err);
@@ -1980,7 +2008,7 @@ window.applySharedCart = function (action) {
 };
 
 document.addEventListener('DOMContentLoaded', function () {
-  setTimeout(window.checkSharedWardrobe, 150);
+  window.runPrioritizedTask(window.checkSharedWardrobe, { delay: 150, priority: 'user-visible' });
 });
 
 /* ============================================================
@@ -2159,8 +2187,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     injectQuickViewOverlays();
-    setTimeout(injectQuickViewOverlays, 500);
-    setTimeout(injectQuickViewOverlays, 1500);
+    window.runPrioritizedTask(injectQuickViewOverlays, { delay: 500, priority: 'user-visible' });
+    window.runPrioritizedTask(injectQuickViewOverlays, { delay: 1500, priority: 'user-visible' });
   });
 
   function injectQuickViewOverlays() {
@@ -2382,13 +2410,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (currentTargetCard === proCard) return;
 
-    if (hoverTimer) {
-      clearTimeout(hoverTimer);
+    if (currentTargetCard && currentTargetCard._hoverAbortController) {
+      currentTargetCard._hoverAbortController.abort();
     }
     
     currentTargetCard = proCard;
 
-    hoverTimer = setTimeout(() => {
+    let abortController = new AbortController();
+    currentTargetCard._hoverAbortController = abortController;
+
+    window.runPrioritizedTask(() => {
       let targetUrl = 'singleProduct.html';
 
       const onclickAttr = proCard.getAttribute('onclick');
@@ -2418,7 +2449,9 @@ document.addEventListener('DOMContentLoaded', () => {
         injectedUrls.add(targetUrl);
         console.log(`[Speculation Rules] Injected prerender rule for: ${targetUrl}`);
       }
-    }, HOVER_DELAY_MS);
+    }, { delay: HOVER_DELAY_MS, priority: 'background', signal: abortController.signal }).catch(e => {
+      if (e.name !== 'AbortError') console.error(e);
+    });
   });
 
   document.body.addEventListener('mouseout', (e) => {
@@ -2430,9 +2463,10 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    if (hoverTimer && currentTargetCard === proCard) {
-      clearTimeout(hoverTimer);
-      hoverTimer = null;
+    if (currentTargetCard === proCard) {
+      if (currentTargetCard._hoverAbortController) {
+        currentTargetCard._hoverAbortController.abort();
+      }
       currentTargetCard = null;
     }
   });
