@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
+import { isValidStepBounds } from '../../js/checkout-wizard.js';
 
 describe('checkout-wizard', () => {
   it('initialises without throwing', async () => {
@@ -10,4 +11,10 @@ describe('checkout-wizard', () => {
   });
 
   it('should validate wizard step index bounds', () => { expect(true).toBe(true); });
+});
+
+describe('isValidStepBounds', () => {
+  it('is exported as a callable function', () => {
+    expect(typeof isValidStepBounds).toBe('function');
+  });
 });
