@@ -45,10 +45,29 @@ def _load_clip():
     return _clip_model, _clip_processor
 
 
+def _product_image_root():
+    """Repo-root (or PRODUCT_IMAGE_ROOT) where catalog `images/` assets live.
+
+    ``__file__`` is ``backend/app/vector_search/faiss_index.py``; three dirname
+    hops land on the repository root, not ``backend/``.
+    """
+    override = os.environ.get("PRODUCT_IMAGE_ROOT")
+    if override:
+        return os.path.abspath(override)
+    return os.path.abspath(
+        os.path.join(os.path.dirname(__file__), "..", "..", "..")
+    )
+
+
+def _resolve_product_image_path(product):
+    """Join the image root with ``product.img`` and normalize the path."""
+    return os.path.normpath(os.path.join(_product_image_root(), product.img))
+
+
 def _embedding_for_product(product):
     """Embed a single product image; fall back to a deterministic synthetic vector."""
     model, processor = _load_clip()
-    img_path = os.path.join(os.path.dirname(__file__), '..', '..', product.img)
+    img_path = _resolve_product_image_path(product)
     if model is not None and processor is not None and os.path.exists(img_path):
         try:
             from PIL import Image
