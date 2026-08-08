@@ -17,6 +17,15 @@ RETURN_WINDOW_DAYS = 30
 # Statuses a carrier/admin may move an order through.
 ORDER_STATUSES = {"PENDING", "CONFIRMED", "SHIPPED", "DELIVERED", "CANCELLED"}
 
+# Allowed admin/carrier status transitions (finite-state machine).
+ALLOWED_STATUS_TRANSITIONS = {
+    "PENDING": {"CONFIRMED", "CANCELLED"},
+    "CONFIRMED": {"SHIPPED", "CANCELLED"},
+    "SHIPPED": {"DELIVERED"},
+    "DELIVERED": set(),
+    "CANCELLED": set(),
+}
+
 
 def return_deadline(order: models.Order) -> datetime | None:
     """Algorithmically compute the immutable return deadline.
@@ -31,16 +40,51 @@ def return_deadline(order: models.Order) -> datetime | None:
     )
 
 
-def set_order_status(order: models.Order, status: str) -> None:
+def restock_order_items(db: Session, order: models.Order) -> None:
+    """Return reserved stock for every line item on the order."""
+    items = (
+        db.query(models.OrderItem)
+        .filter(models.OrderItem.order_id == order.id)
+        .all()
+    )
+    product_ids = [item.product_id for item in items if item.product_id is not None]
+    if not product_ids:
+        return
+    products = (
+        db.query(models.Product)
+        .filter(models.Product.id.in_(product_ids))
+        .with_for_update()
+        .all()
+    )
+    product_map = {product.id: product for product in products}
+    for item in items:
+        product = product_map.get(item.product_id)
+        if product is not None:
+            product.stock += item.quantity
+
+
+def set_order_status(
+    order: models.Order, status: str, previous: str | None = None
+) -> None:
     """Transition an order to a new status.
 
     When the order is marked DELIVERED, the delivery timestamp is captured
-    exactly once so the return deadline is immutable.
+    exactly once so the return deadline is immutable. Leaving DELIVERED
+    clears delivered_at only when that transition is allowed by the FSM
+    (DELIVERED currently has no outgoing edges).
     """
+    prior = previous if previous is not None else order.status
     if status == "DELIVERED":
         order.mark_delivered()
-    else:
-        order.status = status
+        return
+
+    order.status = status
+    if prior == "DELIVERED" and status != "DELIVERED":
+        # Clear the sticky delivery clock only when the FSM permits leaving
+        # DELIVERED (currently none); a future exit edge can then capture a
+        # fresh timestamp on the next delivery.
+        if status in ALLOWED_STATUS_TRANSITIONS.get(prior, set()):
+            order.delivered_at = None
 
 
 def _existing_order_for_key(db: Session, email: str, idempotency_key: str | None):
@@ -313,25 +357,7 @@ def cancel_order(
             detail=f"Orders can only be cancelled within {CANCELLABLE_WINDOW_HOURS} hours of placing them.",
         )
 
-    items = (
-        db.query(models.OrderItem)
-        .filter(models.OrderItem.order_id == order.id)
-        .all()
-    )
-    product_ids = [item.product_id for item in items if item.product_id is not None]
-    if product_ids:
-        products = (
-            db.query(models.Product)
-            .filter(models.Product.id.in_(product_ids))
-            .with_for_update()
-            .all()
-        )
-        product_map = {product.id: product for product in products}
-        for item in items:
-            product = product_map.get(item.product_id)
-            if product is not None:
-                product.stock += item.quantity
-
+    restock_order_items(db, order)
     order.status = "CANCELLED"
     db.commit()
 

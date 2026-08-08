@@ -122,18 +122,36 @@ def test_mark_delivered_captures_timestamp_and_deadline(client):
 def test_delivering_twice_keeps_original_timestamp(client):
     headers = _auth_headers(client)
     order_id = _create_order(client, headers)
+    admin = _admin_headers(client)
+
+    assert client.post(
+        f"/api/admin/orders/{order_id}/status",
+        headers=admin,
+        json={"status": "SHIPPED"},
+    ).status_code == 200
 
     first = client.post(
         f"/api/admin/orders/{order_id}/status",
-        headers=_admin_headers(client),
+        headers=admin,
         json={"status": "DELIVERED"},
     )
+    assert first.status_code == 200, first.text
+
+    # DELIVERED is terminal under the status FSM; a repeat transition is rejected
+    # while the original delivery timestamp remains intact.
     second = client.post(
         f"/api/admin/orders/{order_id}/status",
-        headers=_admin_headers(client),
+        headers=admin,
         json={"status": "DELIVERED"},
     )
-    assert first.json()["delivered_at"] == second.json()["delivered_at"]
+    assert second.status_code == 400, second.text
+
+    db = TestingSessionLocal()
+    order = db.query(Order).filter(Order.id == order_id).one()
+    assert order.status == "DELIVERED"
+    assert order.delivered_at is not None
+    assert first.json()["delivered_at"] is not None
+    db.close()
 
 
 def test_non_admin_cannot_update_status(client):
@@ -164,6 +182,11 @@ def test_order_response_exposes_return_deadline(client):
     assert detail.json()["delivered_at"] is None
     assert detail.json()["return_deadline"] is None
 
+    client.post(
+        f"/api/admin/orders/{order_id}/status",
+        headers=_admin_headers(client),
+        json={"status": "SHIPPED"},
+    )
     client.post(
         f"/api/admin/orders/{order_id}/status",
         headers=_admin_headers(client),

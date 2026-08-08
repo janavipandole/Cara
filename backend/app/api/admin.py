@@ -121,13 +121,27 @@ def update_order_status(
 ):
     """Transition an order's fulfillment status.
 
-    Marking an order DELIVERED captures the delivery timestamp exactly once;
-    the Estimated Return Date policy engine then exposes the immutable
-    return deadline (delivered_at + 30 days) to the buyer.
+    Transitions follow ALLOWED_STATUS_TRANSITIONS. Cancelling a pre-fulfillment
+    order restocks inventory the same way as buyer cancel. Marking an order
+    DELIVERED captures the delivery timestamp exactly once; the Estimated
+    Return Date policy engine then exposes the immutable return deadline
+    (delivered_at + 30 days) to the buyer.
     """
-    from .orders import ORDER_STATUSES, return_deadline, set_order_status
+    from .orders import (
+        ALLOWED_STATUS_TRANSITIONS,
+        CANCELLABLE_STATUSES,
+        ORDER_STATUSES,
+        restock_order_items,
+        return_deadline,
+        set_order_status,
+    )
 
-    order = db.query(models.Order).filter(models.Order.id == order_id).first()
+    order = (
+        db.query(models.Order)
+        .filter(models.Order.id == order_id)
+        .with_for_update()
+        .first()
+    )
     if not order:
         raise HTTPException(status_code=404, detail="Order not found")
 
@@ -137,7 +151,25 @@ def update_order_status(
             detail=f"Invalid order status: {payload.status}",
         )
 
-    set_order_status(order, payload.status)
+    previous = order.status
+    allowed = ALLOWED_STATUS_TRANSITIONS.get(previous, set())
+    if payload.status not in allowed:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Cannot transition order from {previous} to {payload.status}",
+        )
+
+    if payload.status == "CANCELLED":
+        # Shipped/delivered cancellations are already blocked by the FSM;
+        # only restock when leaving a pre-fulfillment status.
+        if previous not in CANCELLABLE_STATUSES:
+            raise HTTPException(
+                status_code=400,
+                detail="Orders can only be cancelled before they are shipped or delivered",
+            )
+        restock_order_items(db, order)
+
+    set_order_status(order, payload.status, previous=previous)
     db.commit()
     db.refresh(order)
 
