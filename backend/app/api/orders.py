@@ -234,6 +234,10 @@ def create_order(
     }
 
 CANCELLABLE_WINDOW_HOURS = 24
+# Only pre-fulfillment statuses may be cancelled by the buyer. Once an order
+# has shipped or been delivered, stock can no longer be safely returned by a
+# simple status flip, so those states are intentionally excluded.
+CANCELLABLE_STATUSES = {"PENDING", "CONFIRMED"}
 
 @router.post("/{order_id}/cancel")
 def cancel_order(
@@ -255,6 +259,12 @@ def cancel_order(
 
     if order.status == "CANCELLED":
         raise HTTPException(status_code=400, detail="Order is already cancelled")
+
+    if order.status not in CANCELLABLE_STATUSES:
+        raise HTTPException(
+            status_code=400,
+            detail="Orders can only be cancelled before they are shipped or delivered",
+        )
 
     order_age = datetime.now(timezone.utc) - order.created_at.replace(tzinfo=timezone.utc)
     if order_age > timedelta(hours=CANCELLABLE_WINDOW_HOURS):
