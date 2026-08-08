@@ -1,4 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { sanitizeHTML, sanitizeDOMNode } from '../../js/utils/sanitize.js';
 
 describe('js/utils/sanitize.js — sanitizeHTML', () => {
   beforeEach(async () => {
@@ -62,5 +63,28 @@ describe('js/utils/sanitize.js — sanitizeHTML', () => {
   it('sanitizeHTML is exposed on window', async () => {
     await import('../../js/utils/sanitize.js');
     expect(typeof window.sanitizeHTML).toBe('function');
+  });
+
+  it('should return non-string input unchanged', () => {
+    expect(sanitizeHTML(null)).toBeNull();
+    expect(sanitizeHTML(undefined)).toBeUndefined();
+    expect(sanitizeHTML(42)).toBe(42);
+  });
+
+  it('should remove script, iframe, object and embed tags via sanitizeDOMNode', () => {
+    const container = document.createElement('div');
+    container.innerHTML =
+      '<p>safe</p><script>alert(1)</script><iframe src="x"></iframe><object></object><embed>';
+    sanitizeDOMNode(container);
+    expect(container.querySelector('script')).toBeNull();
+    expect(container.querySelector('iframe')).toBeNull();
+    expect(container.querySelector('object')).toBeNull();
+    expect(container.querySelector('embed')).toBeNull();
+    expect(container.querySelector('p')).not.toBeNull();
+  });
+
+  it('should no-op when sanitizeDOMNode receives a non-element', () => {
+    expect(() => sanitizeDOMNode(null)).not.toThrow();
+    expect(() => sanitizeDOMNode({})).not.toThrow();
   });
 });
