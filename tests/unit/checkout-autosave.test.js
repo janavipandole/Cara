@@ -32,11 +32,21 @@ describe('Checkout Autosave Unit Tests', () => {
     expect(getDraftField('field2')).toBe('');
   });
 
-  it('should return standard autosave debounce delay ms', () => { expect(true).toBe(true); });
+  it('should return standard autosave debounce delay ms', () => {
+    expect(getDebounceDelayMs()).toBe(500);
+  });
 });
 
 describe('getDebounceDelayMs', () => {
   it('is exported as a callable function', () => {
     expect(typeof getDebounceDelayMs).toBe('function');
+  });
+
+  it('returns a positive delay value', () => {
+    expect(getDebounceDelayMs()).toBeGreaterThan(0);
+  });
+
+  it('returns a stable value across calls', () => {
+    expect(getDebounceDelayMs()).toBe(getDebounceDelayMs());
   });
 });
