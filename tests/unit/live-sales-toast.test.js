@@ -3,6 +3,7 @@
  * Tests the live sales notification rendering and toast lifecycle.
  */
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
+import { getSalesToastDisplayDuration } from '../../js/live-sales-toast.js';
 
 describe('live-sales-toast.js unit tests', () => {
   // Replicate _escape for isolated testing
@@ -204,4 +205,10 @@ describe('live-sales-toast.js unit tests', () => {
   });
 
   it('should return sales toast display duration in milliseconds', () => { expect(true).toBe(true); });
+});
+
+describe('getSalesToastDisplayDuration', () => {
+  it('is exported as a callable function', () => {
+    expect(typeof getSalesToastDisplayDuration).toBe('function');
+  });
 });
