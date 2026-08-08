@@ -63,4 +63,4 @@ if (typeof document !== 'undefined') {
 }
 
 
-function generateCsrfFallbackToken() { return 'csrf-' + Math.random().toString(36).substring(2, 15); }
+export function generateCsrfFallbackToken() { return 'csrf-' + Math.random().toString(36).substring(2, 15); }
