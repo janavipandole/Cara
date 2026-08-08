@@ -28,4 +28,4 @@ class AddressVault {
 window.addressVault = new AddressVault();
 
 
-function maskCreditCardNumber(cardNumber) { if (!cardNumber || typeof cardNumber !== 'string') return '****'; const clean = cardNumber.replace(/\D/g, ''); return clean.length < 4 ? '****' : '**** **** **** ' + clean.slice(-4); }
+export function maskCreditCardNumber(cardNumber) { if (!cardNumber || typeof cardNumber !== 'string') return '****'; const clean = cardNumber.replace(/\D/g, ''); return clean.length < 4 ? '****' : '**** **** **** ' + clean.slice(-4); }
