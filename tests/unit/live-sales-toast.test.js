@@ -205,7 +205,7 @@ describe('live-sales-toast.js unit tests', () => {
   });
 
   it('should return sales toast display duration in milliseconds', () => {
-    expect(getSalesToastDisplayDuration()).toBe(4000);
+    expect(getSalesToastDisplayDuration()).toBe(6000);
   });
 });
 

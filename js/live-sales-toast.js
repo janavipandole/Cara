@@ -204,4 +204,4 @@
 })();
 
 
-export function getSalesToastDisplayDuration() { return 4000; }
+export function getSalesToastDisplayDuration() { return 6000; }
