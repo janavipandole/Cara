@@ -1,5 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
+import { getTrackingStepStatusClass } from '../../js/order-tracking-visualizer.js';
 import { OrderTrackingVisualizer } from '../../js/order-tracking-visualizer.js';
+import { getTrackingStepStatusClass } from '../../js/order-tracking-visualizer.js';
 
 describe('OrderTrackingVisualizer', () => {
   let visualizer;
@@ -49,5 +51,11 @@ describe('OrderTrackingVisualizer', () => {
 
   it('should return null when the container is missing', () => {
     expect(visualizer.renderTimeline('does-not-exist', 'Shipped')).toBeNull();
+  });
+});
+
+describe('getTrackingStepStatusClass', () => {
+  it('is exported as a callable function', () => {
+    expect(typeof getTrackingStepStatusClass).toBe('function');
   });
 });
