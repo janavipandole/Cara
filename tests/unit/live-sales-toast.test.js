@@ -204,11 +204,23 @@ describe('live-sales-toast.js unit tests', () => {
     });
   });
 
-  it('should return sales toast display duration in milliseconds', () => { expect(true).toBe(true); });
+  it('should return sales toast display duration in milliseconds', () => {
+    expect(getSalesToastDisplayDuration()).toBe(4000);
+  });
 });
 
 describe('getSalesToastDisplayDuration', () => {
   it('is exported as a callable function', () => {
     expect(typeof getSalesToastDisplayDuration).toBe('function');
+  });
+
+  it('returns a positive number of milliseconds', () => {
+    const duration = getSalesToastDisplayDuration();
+    expect(typeof duration).toBe('number');
+    expect(duration).toBeGreaterThan(0);
+  });
+
+  it('returns the same stable value on every call', () => {
+    expect(getSalesToastDisplayDuration()).toBe(getSalesToastDisplayDuration());
   });
 });
