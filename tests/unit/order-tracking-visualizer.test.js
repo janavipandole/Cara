@@ -32,13 +32,15 @@ describe('OrderTrackingVisualizer', () => {
   it('should map out-for-delivery and unknown statuses to stages', () => {
     expect(visualizer.getStageIndex('Out for Delivery')).toBe(3);
     expect(visualizer.getStageIndex('Processing')).toBe(1);
-    expect(visualizer.getStageIndex('unknown-status')).toBe(0);
-    expect(visualizer.getStageIndex('')).toBe(0);
+    expect(visualizer.getStageIndex('unknown-status')).toBe(-1);
+    expect(visualizer.getStageIndex('')).toBe(-1);
+    expect(visualizer.getStageIndex('Cancelled')).toBe(-1);
   });
 
   it('should compute 75 percent for the out-for-delivery stage', () => {
     expect(visualizer.calculateProgressPercent('Out for Delivery')).toBe(75);
     expect(visualizer.calculateProgressPercent('Processing')).toBe(25);
+    expect(visualizer.calculateProgressPercent('unknown-status')).toBe(0);
   });
 
   it('should mark the current stage node as current', () => {
