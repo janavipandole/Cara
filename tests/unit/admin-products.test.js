@@ -1,55 +1,76 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
 
-beforeEach(() => {
-  vi.resetModules();
-  delete window.AdminProducts;
-  global.fetch = vi.fn();
-});
+describe('admin-products.js — AdminProducts API', () => {
+  beforeEach(() => {
+    vi.resetModules();
+    global.fetch = vi.fn();
+    global.console.error = vi.fn();
+  });
 
-async function load() {
-  await import('../../js/admin-products.js');
-  return window.AdminProducts;
-}
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
 
-describe('admin-products', () => {
-  it('create posts to the admin products endpoint and returns the product', async () => {
-    global.fetch.mockResolvedValue({
-      ok: true,
-      json: async () => ({ id: 11, name: 'Shirt' }),
+  function mockResponse(data, ok = true) {
+    return {
+      ok,
+      json: () => Promise.resolve(data),
+    };
+  }
+
+  it('create() calls POST /api/admin/products/', async () => {
+    await import('../../js/admin-products.js');
+    fetch.mockResolvedValue(mockResponse({ id: 1, name: 'Test Product' }));
+    const result = await window.AdminProducts.create({
+      name: 'Test Product',
+      price: 99,
     });
-    const api = await load();
-    const res = await api.create({ name: 'Shirt' });
-    expect(global.fetch).toHaveBeenCalledWith(
+    expect(fetch).toHaveBeenCalledWith(
       expect.stringContaining('/api/admin/products/'),
       expect.objectContaining({ method: 'POST' }),
     );
-    expect(res.name).toBe('Shirt');
+    expect(result).toEqual({ id: 1, name: 'Test Product' });
   });
 
-  it('delete issues a DELETE request', async () => {
-    global.fetch.mockResolvedValue({
-      ok: true,
-      json: async () => ({ deleted: true }),
+  it('update() calls PUT /api/admin/products/:id', async () => {
+    await import('../../js/admin-products.js');
+    fetch.mockResolvedValue(mockResponse({ id: 5, name: 'Updated Product' }));
+    const result = await window.AdminProducts.update(5, {
+      name: 'Updated Product',
     });
-    const api = await load();
-    await api.delete(7);
-    expect(global.fetch).toHaveBeenCalledWith(
-      expect.stringContaining('/api/admin/products/7'),
+    expect(fetch).toHaveBeenCalledWith(
+      expect.stringContaining('/api/admin/products/5'),
+      expect.objectContaining({ method: 'PUT' }),
+    );
+    expect(result).toEqual({ id: 5, name: 'Updated Product' });
+  });
+
+  it('delete() calls DELETE /api/admin/products/:id', async () => {
+    await import('../../js/admin-products.js');
+    fetch.mockResolvedValue(mockResponse({}));
+    await window.AdminProducts.delete(3);
+    expect(fetch).toHaveBeenCalledWith(
+      expect.stringContaining('/api/admin/products/3'),
       expect.objectContaining({ method: 'DELETE' }),
     );
   });
 
-  it('rejects with the server detail on a non-ok response', async () => {
-    global.fetch.mockResolvedValue({
-      ok: false,
-      json: async () => ({ detail: 'Forbidden' }),
-    });
-    const api = await load();
-    await expect(api.update(1, { name: 'x' })).rejects.toThrow('Forbidden');
+  it('updateStock() calls PATCH /api/admin/products/:id/stock', async () => {
+    await import('../../js/admin-products.js');
+    fetch.mockResolvedValue(mockResponse({ id: 7, stock: 50 }));
+    const result = await window.AdminProducts.updateStock(7, 50);
+    expect(fetch).toHaveBeenCalledWith(
+      expect.stringContaining('/api/admin/products/7/stock?stock=50'),
+      expect.objectContaining({ method: 'PATCH' }),
+    );
+    expect(result).toEqual({ id: 7, stock: 50 });
   });
 
-  it('should safely parse price value string to float', () => {
-    expect(true).toBe(true);
+  it('create() throws when response is not ok', async () => {
+    await import('../../js/admin-products.js');
+    fetch.mockResolvedValue(mockResponse({ detail: 'Unauthorized' }, false));
+    await expect(window.AdminProducts.create({ name: 'X' })).rejects.toThrow(
+      'Unauthorized',
+    );
   });
-
 });
