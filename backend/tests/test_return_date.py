@@ -5,10 +5,51 @@ Covers the delivered_at capture + immutable return deadline
 """
 from datetime import datetime, timezone
 
-from app.models import Order, Product
+from passlib.context import CryptContext
+
+from app.models import Order, Product, User
 from tests.conftest import TestingSessionLocal
 
 ORDERS_URL = "/api/orders/"
+pwd = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+USER_EMAIL = "return@example.com"
+ADMIN_EMAIL = "returnadmin@example.com"
+
+
+def _ensure_user(email, username, *, role="USER"):
+    db = TestingSessionLocal()
+    user = db.query(User).filter(User.email == email).first()
+    if user is None:
+        user = User(
+            username=username,
+            email=email,
+            hashed_password=pwd.hash("Test@1234"),
+            role=role,
+        )
+        db.add(user)
+        db.commit()
+    db.close()
+
+
+def _auth_headers(client, *, email=USER_EMAIL, username="returnuser"):
+    _ensure_user(email, username)
+    response = client.post(
+        "/api/auth/login",
+        json={"email": email, "password": "Test@1234"},
+    )
+    assert response.status_code == 200, response.text
+    return {"Authorization": f"Bearer {response.json()['access_token']}"}
+
+
+def _admin_headers(client):
+    _ensure_user(ADMIN_EMAIL, "returnadmin", role="ADMIN")
+    response = client.post(
+        "/api/auth/login",
+        json={"email": ADMIN_EMAIL, "password": "Test@1234"},
+    )
+    assert response.status_code == 200, response.text
+    return {"Authorization": f"Bearer {response.json()['access_token']}"}
 
 
 def _seed_product(name="Return Tee", stock=20):
@@ -37,7 +78,7 @@ def _create_order(client, headers):
         headers=headers,
         json={
             "fullName": "Return User",
-            "email": "test@example.com",
+            "email": USER_EMAIL,
             "address": "1 Test St",
             "city": "Testville",
             "zip": "12345",
@@ -48,12 +89,13 @@ def _create_order(client, headers):
     return response.json()["order_id"]
 
 
-def test_mark_delivered_captures_timestamp_and_deadline(client, auth_headers, admin_auth_headers):
-    order_id = _create_order(client, auth_headers)
+def test_mark_delivered_captures_timestamp_and_deadline(client):
+    headers = _auth_headers(client)
+    order_id = _create_order(client, headers)
 
     shipped = client.post(
         f"/api/admin/orders/{order_id}/status",
-        headers=admin_auth_headers,
+        headers=_admin_headers(client),
         json={"status": "SHIPPED"},
     )
     assert shipped.status_code == 200, shipped.text
@@ -62,7 +104,7 @@ def test_mark_delivered_captures_timestamp_and_deadline(client, auth_headers, ad
 
     delivered = client.post(
         f"/api/admin/orders/{order_id}/status",
-        headers=admin_auth_headers,
+        headers=_admin_headers(client),
         json={"status": "DELIVERED"},
     )
     assert delivered.status_code == 200, delivered.text
@@ -77,66 +119,73 @@ def test_mark_delivered_captures_timestamp_and_deadline(client, auth_headers, ad
     db.close()
 
 
-def test_delivering_twice_keeps_original_timestamp(client, auth_headers, admin_auth_headers):
-    order_id = _create_order(client, auth_headers)
+def test_delivering_twice_keeps_original_timestamp(client):
+    headers = _auth_headers(client)
+    order_id = _create_order(client, headers)
 
     first = client.post(
         f"/api/admin/orders/{order_id}/status",
-        headers=admin_auth_headers,
+        headers=_admin_headers(client),
         json={"status": "DELIVERED"},
     )
     second = client.post(
         f"/api/admin/orders/{order_id}/status",
-        headers=admin_auth_headers,
+        headers=_admin_headers(client),
         json={"status": "DELIVERED"},
     )
     assert first.json()["delivered_at"] == second.json()["delivered_at"]
 
 
-def test_non_admin_cannot_update_status(client, auth_headers):
-    order_id = _create_order(client, auth_headers)
+def test_non_admin_cannot_update_status(client):
+    headers = _auth_headers(client)
+    order_id = _create_order(client, headers)
     response = client.post(
         f"/api/admin/orders/{order_id}/status",
-        headers=auth_headers,
+        headers=headers,
         json={"status": "DELIVERED"},
     )
     assert response.status_code == 403, response.text
 
 
-def test_order_response_exposes_return_deadline(client, auth_headers, admin_auth_headers):
-    order_id = _create_order(client, auth_headers)
+def _as_utc(value):
+    dt = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    return dt
+
+
+def test_order_response_exposes_return_deadline(client):
+    headers = _auth_headers(client)
+    order_id = _create_order(client, headers)
 
     # Not yet delivered: no deadline surfaced.
-    detail = client.get(f"{ORDERS_URL}{order_id}", headers=auth_headers)
+    detail = client.get(f"{ORDERS_URL}{order_id}", headers=headers)
     assert detail.status_code == 200, detail.text
     assert detail.json()["delivered_at"] is None
     assert detail.json()["return_deadline"] is None
 
     client.post(
         f"/api/admin/orders/{order_id}/status",
-        headers=admin_auth_headers,
+        headers=_admin_headers(client),
         json={"status": "DELIVERED"},
     )
 
-    detail = client.get(f"{ORDERS_URL}{order_id}", headers=auth_headers)
+    detail = client.get(f"{ORDERS_URL}{order_id}", headers=headers)
     assert detail.status_code == 200, detail.text
     assert detail.json()["delivered_at"] is not None
     assert detail.json()["return_deadline"] is not None
 
-    delivered_at = datetime.fromisoformat(
-        detail.json()["delivered_at"].replace("Z", "+00:00")
-    )
-    deadline = datetime.fromisoformat(
-        detail.json()["return_deadline"].replace("Z", "+00:00")
-    )
+    delivered_at = _as_utc(detail.json()["delivered_at"])
+    deadline = _as_utc(detail.json()["return_deadline"])
     assert (deadline - delivered_at).days == 30
 
 
-def test_invalid_status_rejected(client, auth_headers, admin_auth_headers):
-    order_id = _create_order(client, auth_headers)
+def test_invalid_status_rejected(client):
+    headers = _auth_headers(client)
+    order_id = _create_order(client, headers)
     response = client.post(
         f"/api/admin/orders/{order_id}/status",
-        headers=admin_auth_headers,
+        headers=_admin_headers(client),
         json={"status": "IN_TRANSIT"},
     )
     assert response.status_code == 422, response.text
