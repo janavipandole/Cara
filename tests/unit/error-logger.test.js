@@ -110,11 +110,21 @@ describe('Error Logger Unit Tests', () => {
     expect(stored[1].message).toBe('Error B');
   });
 
-  it('should cap max error queue size', () => { expect(true).toBe(true); });
+  it('should cap max error queue size', () => {
+    expect(getMaxLoggerQueueSize()).toBe(50);
+  });
 });
 
 describe('getMaxLoggerQueueSize', () => {
   it('is exported as a callable function', () => {
     expect(typeof getMaxLoggerQueueSize).toBe('function');
+  });
+
+  it('returns a positive queue size', () => {
+    expect(getMaxLoggerQueueSize()).toBeGreaterThan(0);
+  });
+
+  it('returns a stable value across calls', () => {
+    expect(getMaxLoggerQueueSize()).toBe(getMaxLoggerQueueSize());
   });
 });
