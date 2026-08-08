@@ -88,4 +88,23 @@ describe('applySharedCart', () => {
       quantity: 2,
     });
   });
+
+  it('replaces the cart entirely on the overwrite action', () => {
+    sandbox.window.applySharedCart('overwrite');
+
+    const cart = JSON.parse(storage.getItem('productsInCart'));
+    expect(cart).toHaveLength(1);
+    expect(cart[0]).toMatchObject({ name: 'Shared Tee' });
+    expect(sandbox.window.cachedCartState).toHaveLength(1);
+  });
+
+  it('closes the modal without touching the cart when there is nothing shared', () => {
+    sandbox.window.pendingSharedCart = [];
+    sandbox.window.applySharedCart('merge');
+
+    expect(sandbox.closeShareModal).toHaveBeenCalledTimes(1);
+    const cart = JSON.parse(storage.getItem('productsInCart'));
+    expect(cart).toHaveLength(1);
+    expect(cart[0]).toMatchObject({ name: 'Existing Item' });
+  });
 });
