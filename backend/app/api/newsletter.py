@@ -1,9 +1,10 @@
 import secrets
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
 from pydantic import BaseModel, EmailStr
 from .. import models
 from ..database import get_db
+from ..limiter import limiter
 
 router = APIRouter()
 
@@ -17,7 +18,8 @@ class NewsletterUnsubscribeRequest(BaseModel):
 
 
 @router.post("/subscribe", status_code=201)
-def subscribe(payload: NewsletterSubscribeRequest, db: Session = Depends(get_db)):
+@limiter.limit("5/minute")
+def subscribe(request: Request, payload: NewsletterSubscribeRequest, db: Session = Depends(get_db)):
     existing = (
         db.query(models.NewsletterSubscriber)
         .filter(models.NewsletterSubscriber.email == payload.email)
@@ -43,7 +45,8 @@ def subscribe(payload: NewsletterSubscribeRequest, db: Session = Depends(get_db)
 
 
 @router.post("/unsubscribe")
-def unsubscribe(payload: NewsletterUnsubscribeRequest, db: Session = Depends(get_db)):
+@limiter.limit("10/minute")
+def unsubscribe(request: Request, payload: NewsletterUnsubscribeRequest, db: Session = Depends(get_db)):
     subscriber = (
         db.query(models.NewsletterSubscriber)
         .filter(models.NewsletterSubscriber.unsubscribe_token == payload.token)
