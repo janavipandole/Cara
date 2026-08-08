@@ -1979,6 +1979,8 @@ window.applySharedCart = function (action) {
   
     window.pendingSharedCart = validateSharedCartItems(window.pendingSharedCart);
   if (!window.pendingSharedCart || window.pendingSharedCart.length === 0) {
+    let currentCart = window.cachedCartState || JSON.parse(localStorage.getItem('productsInCart')) || [];
+    localStorage.setItem('productsInCart', JSON.stringify(currentCart));
     window.closeShareModal();
     return;
   }
