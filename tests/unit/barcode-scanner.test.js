@@ -27,8 +27,21 @@ describe('barcode-scanner', () => {
     expect(document.getElementById('close-scanner-btn')).toBeTruthy();
   });
 
-  it('should invoke track stop when stopping camera stream', () => {
-    expect(true).toBe(true);
+  it('shows the camera-denied status when getUserMedia is rejected', async () => {
+    // Reject camera access so the module writes the denial status.
+    navigator.mediaDevices = {
+      getUserMedia: vi.fn().mockRejectedValue(new Error('Permission denied')),
+    };
+    window.alert = vi.fn();
+
+    await load();
+    const scanBtn = document.getElementById('scanBarcodeBtn');
+    scanBtn.click();
+
+    // Flush microtasks so the catch handler in startScanner runs.
+    await Promise.resolve();
+    const status = document.getElementById('scanner-status');
+    expect(status.textContent).toBe('Camera access denied or unavailable.');
   });
 
 });
