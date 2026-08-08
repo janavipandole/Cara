@@ -13,14 +13,20 @@ export function initLazyLoadObserver(selector = 'img.lazyload', options = {}) {
   const lazyImages = Array.from(document.querySelectorAll(selector));
 
   if (!('IntersectionObserver' in window)) {
-    // Fallback for browsers without IntersectionObserver
+    // Fallback for browsers without IntersectionObserver: load images immediately.
     lazyImages.forEach((img) => {
       if (img.dataset.src) img.src = img.dataset.src;
       if (img.dataset.srcset) img.srcset = img.dataset.srcset;
       img.classList.remove('lazyload');
       img.classList.add('lazyloaded');
     });
-    return null;
+    // Return a minimal observer-like object so the return contract is consistent.
+    return {
+      observe: () => {},
+      unobserve: () => {},
+      disconnect: () => {},
+      isFallback: true,
+    };
   }
 
   const observer = new IntersectionObserver((entries, obs) => {
@@ -31,7 +37,7 @@ export function initLazyLoadObserver(selector = 'img.lazyload', options = {}) {
         if (img.dataset.srcset) img.srcset = img.dataset.srcset;
         img.classList.remove('lazyload');
         img.classList.add('lazyloaded');
-        obs.unobserve(img);
+        unobserveLazyElement(obs, img);
       }
     });
   }, defaultOptions);

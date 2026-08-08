@@ -17,10 +17,15 @@ describe('IntersectionObserver Lazy Load Unit Tests', () => {
     img.dataset.src = 'img/products/f1.jpg';
     document.body.appendChild(img);
 
-    initLazyLoadObserver('img.lazyload');
+    const result = initLazyLoadObserver('img.lazyload');
 
     expect(img.src).toContain('img/products/f1.jpg');
     expect(img.classList.contains('lazyloaded')).toBe(true);
+    // The fallback path returns a usable observer-like object.
+    expect(result).toBeTruthy();
+    expect(result.isFallback).toBe(true);
+    expect(typeof result.unobserve).toBe('function');
+    expect(() => result.unobserve()).not.toThrow();
 
     window.IntersectionObserver = originalObserver;
   });
