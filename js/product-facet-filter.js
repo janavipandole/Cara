@@ -1,105 +1,114 @@
 /**
- * Intelligent Multi-Faceted Product Filter & URL Query Sync Engine
- * Handles multi-category filtering, price range boundaries, and URL query synchronization.
+ * Product Facet Filter Engine
+ * Multi-criteria filter engine for e-commerce catalog (category, price, in-stock, brand, size, sorting).
  */
-
 export class ProductFacetFilter {
   constructor(products = []) {
     this.products = products;
-    this.activeFilters = {
-      category: [],
-      minPrice: 0,
-      maxPrice: Infinity,
-      minRating: 0,
-      inStockOnly: false
+  }
+
+  filter(criteria = {}) {
+    let result = [...this.products];
+
+    if (criteria.category && criteria.category !== 'all') {
+      result = result.filter(p => p.category && p.category.toLowerCase() === criteria.category.toLowerCase());
+    }
+
+    if (criteria.minPrice !== undefined && criteria.minPrice !== null) {
+      result = result.filter(p => p.price >= criteria.minPrice);
+    }
+
+    if (criteria.maxPrice !== undefined && criteria.maxPrice !== null) {
+      result = result.filter(p => p.price <= criteria.maxPrice);
+    }
+
+    if (criteria.inStockOnly) {
+      result = result.filter(p => p.inStock === true || (p.stock && p.stock > 0));
+    }
+
+    if (criteria.brands && criteria.brands.length > 0) {
+      const lowerBrands = criteria.brands.map(b => b.toLowerCase());
+      result = result.filter(p => p.brand && lowerBrands.includes(p.brand.toLowerCase()));
+    }
+
+    if (criteria.sizes && criteria.sizes.length > 0) {
+      result = result.filter(p => p.sizes && p.sizes.some(s => criteria.sizes.includes(s)));
+    }
+
+    if (criteria.sortBy) {
+      result = this.sortResults(result, criteria.sortBy);
+    }
+
+    return result;
+  }
+
+  sortResults(items, sortBy) {
+    const sorted = [...items];
+    switch (sortBy) {
+      case 'price-asc':
+        return sorted.sort((a, b) => (a.price || 0) - (b.price || 0));
+      case 'price-desc':
+        return sorted.sort((a, b) => (b.price || 0) - (a.price || 0));
+      case 'rating-desc':
+        return sorted.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+      default:
+        return sorted;
+    }
+  }
+
+  getFacetCounts(criteria = {}) {
+    const matchingProducts = this.filter(criteria);
+    const counts = {
+      categories: {},
+      brands: {},
+      sizes: {},
+      inStock: 0
     };
-  }
 
-  setFilters(filters = {}) {
-    this.activeFilters = { ...this.activeFilters, ...filters };
-    return this.applyFilters();
-  }
-
-  applyFilters() {
-    return this.products.filter((p) => {
-      // Category filter
-      if (this.activeFilters.category.length > 0) {
-        if (!this.activeFilters.category.includes(p.category)) return false;
+    matchingProducts.forEach(p => {
+      if (p.category) {
+        counts.categories[p.category] = (counts.categories[p.category] || 0) + 1;
       }
-      // Price range
-      const price = parseFloat(p.price) || 0;
-      if (price < this.activeFilters.minPrice || price > this.activeFilters.maxPrice) {
-        return false;
+      if (p.brand) {
+        counts.brands[p.brand] = (counts.brands[p.brand] || 0) + 1;
       }
-      // Rating threshold
-      const rating = parseFloat(p.rating) || 0;
-      if (rating < this.activeFilters.minRating) {
-        return false;
+      if (p.sizes && Array.isArray(p.sizes)) {
+        p.sizes.forEach(s => {
+          counts.sizes[s] = (counts.sizes[s] || 0) + 1;
+        });
       }
-      // In-stock availability
-      if (this.activeFilters.inStockOnly && !p.inStock) {
-        return false;
+      if (p.inStock === true || (p.stock && p.stock > 0)) {
+        counts.inStock++;
       }
-      return true;
     });
+
+    return counts;
   }
 
-  buildQueryParams() {
+  toQueryString(criteria = {}) {
     const params = new URLSearchParams();
-    if (this.activeFilters.category.length > 0) {
-      params.set('categories', this.activeFilters.category.join(','));
-    }
-    if (this.activeFilters.minPrice > 0) {
-      params.set('minPrice', this.activeFilters.minPrice);
-    }
-    if (this.activeFilters.maxPrice < Infinity) {
-      params.set('maxPrice', this.activeFilters.maxPrice);
-    }
-    if (this.activeFilters.minRating > 0) {
-      params.set('minRating', this.activeFilters.minRating);
-    }
-    if (this.activeFilters.inStockOnly) {
-      params.set('inStock', 'true');
-    }
+    if (criteria.category && criteria.category !== 'all') params.set('category', criteria.category);
+    if (criteria.minPrice) params.set('minPrice', criteria.minPrice);
+    if (criteria.maxPrice) params.set('maxPrice', criteria.maxPrice);
+    if (criteria.inStockOnly) params.set('inStock', 'true');
+    if (criteria.brands && criteria.brands.length) params.set('brands', criteria.brands.join(','));
+    if (criteria.sizes && criteria.sizes.length) params.set('sizes', criteria.sizes.join(','));
+    if (criteria.sortBy) params.set('sortBy', criteria.sortBy);
     return params.toString();
   }
 
-  parseQueryParams(queryString) {
+  parseQueryString(queryString) {
     const params = new URLSearchParams(queryString);
-    const rawCategories = params.get('categories');
-    const filters = {
-      category: rawCategories ? rawCategories.split(',').filter((c) => c.length > 0) : [],
-      minPrice: parseFloat(params.get('minPrice')) || 0,
-      maxPrice: parseFloat(params.get('maxPrice')) || Infinity,
-      minRating: parseFloat(params.get('minRating')) || 0,
-      inStockOnly: params.get('inStock') === 'true'
-    };
-    this.setFilters(filters);
-    return filters;
-  }
+    const criteria = {};
 
-  resetFilters() {
-    this.activeFilters = {
-      category: [],
-      minPrice: 0,
-      maxPrice: Infinity,
-      minRating: 0,
-      inStockOnly: false
-    };
-    return this.products;
-  }
+    if (params.has('category')) criteria.category = params.get('category');
+    if (params.has('minPrice')) criteria.minPrice = Number(params.get('minPrice'));
+    if (params.has('maxPrice')) criteria.maxPrice = Number(params.get('maxPrice'));
+    if (params.has('inStock')) criteria.inStockOnly = params.get('inStock') === 'true';
+    if (params.has('brands')) criteria.brands = params.get('brands').split(',').filter(Boolean);
+    if (params.has('sizes')) criteria.sizes = params.get('sizes').split(',').filter(Boolean);
+    if (params.has('sortBy')) criteria.sortBy = params.get('sortBy');
 
-  /**
-   * Checks whether a price falls within a given min/max range.
-   * @param {number} price
-   * @param {number} minPrice
-   * @param {number} maxPrice
-   * @returns {boolean}
-   */
-  isPriceInFacetRange(price, minPrice = 0, maxPrice = Infinity) {
-    if (typeof price !== 'number' || Number.isNaN(price)) return false;
-    const p = price;
-    return p >= minPrice && p <= maxPrice;
+    return criteria;
   }
-
 }
