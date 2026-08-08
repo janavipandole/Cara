@@ -82,3 +82,21 @@ def test_login_rejects_wrong_captcha_answer(client):
         },
     )
     assert bad.status_code == 403
+
+
+def test_captcha_endpoint_is_rate_limited(client):
+    from app.limiter import limiter
+
+    was_enabled = limiter.enabled
+    limiter.enabled = True
+    try:
+        # Clear any prior buckets for a clean window.
+        if hasattr(limiter, "_storage") and hasattr(limiter._storage, "reset"):
+            limiter._storage.reset()
+        statuses = []
+        for _ in range(21):
+            statuses.append(client.get("/api/auth/captcha").status_code)
+        assert statuses.count(200) >= 1
+        assert 429 in statuses
+    finally:
+        limiter.enabled = was_enabled
