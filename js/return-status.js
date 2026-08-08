@@ -99,9 +99,10 @@ function renderReturnStatus(order, windowDays = RETURN_WINDOW_DAYS) {
   let button = '';
   if (info.state === 'eligible' || info.state === 'expired') {
     const disabled = info.state === 'expired';
-    button = `<button class="return-request-btn" type="button" ${
-      disabled ? 'disabled' : ''
-    }>${disabled ? 'Returns Closed' : 'Request Return'}</button>`;
+    const disabledAttr = disabled ? ' disabled' : '';
+    button = `<button class="return-request-btn" type="button"${disabledAttr}>${
+      disabled ? 'Returns Closed' : 'Request Return'
+    }</button>`;
   }
 
   return `
