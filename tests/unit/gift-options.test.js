@@ -57,5 +57,29 @@ describe('gift-options.js unit tests', () => {
     expect(checkbox).toBeNull();
   });
 
-  it('should validate gift message character limit bounds', () => { expect(true).toBe(true); });
+  it('should validate gift message character limit bounds', async () => {
+    await import('../../js/gift-options.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    expect(window.validateGiftMessageLength('Short message')).toBe(true);
+    expect(window.validateGiftMessageLength('x'.repeat(200))).toBe(true);
+    expect(window.validateGiftMessageLength('x'.repeat(201))).toBe(false);
+  });
+
+  it('should accept non-string or empty gift messages', async () => {
+    await import('../../js/gift-options.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    expect(window.validateGiftMessageLength(null)).toBe(true);
+    expect(window.validateGiftMessageLength('')).toBe(true);
+    expect(window.validateGiftMessageLength(undefined)).toBe(true);
+  });
+
+  it('should respect a custom character limit', async () => {
+    await import('../../js/gift-options.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    expect(window.validateGiftMessageLength('abc', 5)).toBe(true);
+    expect(window.validateGiftMessageLength('abcdef', 5)).toBe(false);
+  });
 });
