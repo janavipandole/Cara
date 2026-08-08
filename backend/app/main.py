@@ -78,11 +78,12 @@ def health():
 
 
 # Include routers here later
-from .api import recommendation, products, auth, orders, address, newsletter, admin, admin_products, profile, ambassador
+from .api import recommendation, products, auth, orders, address, newsletter, admin, admin_products, profile, ambassador, loyalty
 app.include_router(recommendation.router, prefix="/api/outfit", tags=["outfit"])
 app.include_router(products.router, prefix="/api/products", tags=["products"])
 app.include_router(auth.router,prefix="/api/auth",tags=["auth"])
 app.include_router(orders.router, prefix="/api/orders", tags=["orders"])
+app.include_router(loyalty.router, prefix="/api/loyalty", tags=["loyalty"])
 app.include_router(address.router, prefix="/api/address", tags=["address"])
 app.include_router(newsletter.router, prefix="/api/newsletter", tags=["newsletter"])
 app.include_router(admin.router, prefix="/api/admin", tags=["admin"])

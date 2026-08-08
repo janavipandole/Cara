@@ -145,6 +145,8 @@ class OrderResponse(BaseModel):
     total_amount: float
     status: str
     created_at: datetime
+    loyalty_points_redeemed: int = 0
+    loyalty_discount: float = 0.0
     delivered_at: Optional[datetime] = None
     return_deadline: Optional[datetime] = None
     items: list[OrderItemResponse] = Field(default_factory=list)
@@ -171,6 +173,7 @@ class OrderCreate(BaseModel):
     # one line item, and a sane maximum prevents junk/mega-bulk payloads.
     items: list[OrderItemCreate] = Field(min_length=1, max_length=50)
     coupon: Optional[str] = None
+    loyalty_points: Optional[int] = Field(default=0, ge=0)
     idempotency_key: Optional[str] = None
 
 

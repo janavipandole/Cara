@@ -7,8 +7,13 @@ from ..database import get_db
 from .auth import get_current_user
 from ..limiter import limiter
 from datetime import datetime, timezone, timedelta
+import math
 
 router = APIRouter()
+
+# Loyalty redemption mirrors the frontend config (js/config.js):
+# 10 points = 1 rupee of discount; orders earn floor(subtotal * rate / 100) points.
+LOYALTY_POINTS_PER_RUPEE = 10
 
 # The rigid policy window applied on top of the delivery timestamp.
 #  return_deadline = delivered_at + RETURN_WINDOW_DAYS
@@ -74,6 +79,8 @@ def serialize_order(order: models.Order, db: Session, include_items: bool = True
         "total_amount": order.total_amount,
         "status": order.status,
         "created_at": order.created_at,
+        "loyalty_points_redeemed": order.loyalty_points_redeemed,
+        "loyalty_discount": order.loyalty_discount,
         "delivered_at": order.delivered_at,
         "return_deadline": return_deadline(order),
         "items": [],
@@ -232,7 +239,54 @@ def create_order(
 
         discount = round(subtotal * discount_percentage / 100, 2)
 
-    grand_total = max(0, subtotal + tax + shipping - discount)
+    # --- Loyalty Redemption (server-side validation) ---
+    # The balance is authoritative in the database; the client-side number is
+    # only a cached display value, so it cannot be forged to inflate a discount.
+    loyalty_points = order_data.loyalty_points or 0
+    loyalty_discount = 0.0
+    account = None
+
+    if loyalty_points > 0:
+        account = (
+            db.query(models.LoyaltyAccount)
+            .filter(models.LoyaltyAccount.user_id == current_user.id)
+            .with_for_update()
+            .first()
+        )
+        balance = account.balance if account else 0
+        if balance < loyalty_points:
+            raise HTTPException(
+                status_code=400,
+                detail=(
+                    f"Insufficient loyalty points: balance is {balance}, "
+                    f"requested {loyalty_points}"
+                ),
+            )
+        loyalty_discount = round(loyalty_points / LOYALTY_POINTS_PER_RUPEE, 2)
+
+    payable_before_loyalty = subtotal + tax + shipping - discount
+    if loyalty_discount > payable_before_loyalty:
+        loyalty_discount = round(payable_before_loyalty, 2)
+
+    # --- Earn points on the order (mirrors checkout.js) ---
+    earned_points = math.floor(subtotal * LOYALTY_POINTS_PER_RUPEE / 100)
+
+    if loyalty_points > 0 or earned_points > 0:
+        if account is None:
+            account = (
+                db.query(models.LoyaltyAccount)
+                .filter(models.LoyaltyAccount.user_id == current_user.id)
+                .with_for_update()
+                .first()
+            )
+        if account is None:
+            account = models.LoyaltyAccount(user_id=current_user.id, balance=0)
+            db.add(account)
+        account.balance = account.balance - loyalty_points + earned_points
+
+    grand_total = max(
+        0, round(payable_before_loyalty - loyalty_discount, 2)
+    )
 
     new_order = models.Order(
         full_name=order_data.fullName,
@@ -243,6 +297,8 @@ def create_order(
         total_amount=grand_total,
         status="CONFIRMED",
         idempotency_key=order_data.idempotency_key,
+        loyalty_points_redeemed=loyalty_points,
+        loyalty_discount=loyalty_discount,
     )
 
     db.add(new_order)
@@ -270,7 +326,8 @@ def create_order(
 
     return {
         "message": "Order created successfully",
-        "order_id": new_order.id
+        "order_id": new_order.id,
+        "loyalty_balance": account.balance if account is not None else 0,
     }
 
 CANCELLABLE_WINDOW_HOURS = 24
