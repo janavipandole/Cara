@@ -50,6 +50,7 @@ const translations = {
     community: "Communaute",
     orders: "Mes Commandes",
     outfit: "Verificateur de Tenue",
+    authenticity: "Authenticite",
     addToCart: "Ajouter au Panier",
     buyNow: "Acheter Maintenant",
     search: "Rechercher des produits..."
@@ -68,11 +69,12 @@ function changeLanguage(lang) {
 
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     const key = el.getAttribute("data-i18n");
-    if (translations[lang][key]) {
+    const targetText = translations[lang][key] || translations['en'][key] || '';
+    if (targetText) {
       if (el.tagName === "INPUT" && el.hasAttribute("placeholder")) {
-        el.setAttribute("placeholder", translations[lang][key]);
+        el.setAttribute("placeholder", targetText);
       } else {
-        el.textContent = translations[lang][key];
+        el.textContent = targetText;
       }
     }
   });
