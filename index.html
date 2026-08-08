@@ -140,14 +140,15 @@
 </head>
 
 <body>
-    <a href="#product1" class="skip-link" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to Content</a>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    
   <div id="main">
     <div id="top">
       <div id="workingArea">
         <section id="header" role="banner">
     <!-- Logo -->
-    <a href="index.html">
-      <img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" />
+    <a href="index.html" aria-label="Cara Home"><img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" />
     </a>
     <div>
       <ul id="navbar" role="navigation" aria-label="Main navigation">
@@ -189,9 +190,9 @@
         </li>
 
         <!-- Close Button -->
-        <a href="javascript:void(0)" id="close" aria-label="Close menu" aria-hidden="false">
+        <li class="nav-close"><a href="javascript:void(0)" id="close" aria-label="Close menu" aria-hidden="false">
           <i class="fa-solid fa-xmark"></i>
-        </a>
+        </a></li>
       </ul>
     </div>
 
@@ -215,8 +216,10 @@
     </button>
   </div>
 </section>
+</main>
 
-<section id="hero" class="hero-slider">
+<main id="main-content">
+  <section id="hero" class="hero-slider">
           <div class="slide active" style="background-image: url('images/hero4.png');" role="img" aria-label="Promotional banner featuring trending fashion for 2025">
             
             <div class="slide-content">
@@ -225,11 +228,9 @@
                 Trending Fashion 2025
               </div>
 
-              <h4 class="hero-small">Trade-in-offer</h4>
-
-<h2 class="hero-title">Super Value Deals</h2>
-
-<h1 class="hero-main">On All Products</h1>
+              <p class="hero-small">Trade-in-offer</p>
+<h1 class="hero-title">Super Value Deals</h1>
+<h2 class="hero-main">On All Products</h2>
 
 <p class="hero-desc">
   Save more with coupons & up to 70% off on premium fashion collections.
@@ -393,7 +394,7 @@
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
             <span>Nike</span>
           </div>
-          <h5>Cartoon Astronaut T-Shirts</h5>
+          <h3>Cartoon Astronaut T-Shirts</h3>
           <div class="star" aria-label="Rating: 4.5 out of 5"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-half-fill"></i><span class="rating-value">4.5</span></div>
           <h4>&#8377;2,499</h4>
           <div class="pro-action-bar">
@@ -411,7 +412,7 @@
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
             <span>H&amp;M</span>
           </div>
-          <h5>White Palm Leaf Casual Shirt</h5>
+          <h3>White Palm Leaf Casual Shirt</h3>
           <div class="star" aria-label="Rating: 3.5 out of 5"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-half-fill"></i><i class="ri-star-line"></i><span class="rating-value">3.5</span></div>
           <h4>&#8377;1,299</h4>
           <div class="pro-action-bar">
@@ -429,7 +430,7 @@
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
             <span>Zara</span>
           </div>
-          <h5>Vintage Rose Garden Shirt</h5>
+          <h3>Vintage Rose Garden Shirt</h3>
           <div class="star" aria-label="Rating: 4.0 out of 5"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-line"></i><span class="rating-value">4.0</span></div>
           <h4>&#8377;3,490</h4>
           <div class="pro-action-bar">
@@ -447,7 +448,7 @@
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
             <span>Levi's</span>
           </div>
-          <h5>Sakura Blossom Floral Shirt</h5>
+          <h3>Sakura Blossom Floral Shirt</h3>
           <div class="star" aria-label="Rating: 5.0 out of 5"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><span class="rating-value">5.0</span></div>
           <h4>&#8377;2,799</h4>
           <div class="pro-action-bar">
@@ -465,7 +466,7 @@
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
             <span>Puma</span>
           </div>
-          <h5>Pink Peony Patterned Shirt</h5>
+          <h3>Pink Peony Patterned Shirt</h3>
           <div class="star" aria-label="Rating: 3.0 out of 5"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-line"></i><i class="ri-star-line"></i><span class="rating-value">3.0</span></div>
           <h4>&#8377;1,999</h4>
           <div class="pro-action-bar">
@@ -483,7 +484,7 @@
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
             <span>Gap</span>
           </div>
-          <h5>Dual-Tone Corduroy Shirt</h5>
+          <h3>Dual-Tone Corduroy Shirt</h3>
           <div class="star" aria-label="Rating: 4.0 out of 5"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-line"></i><span class="rating-value">4.0</span></div>
           <h4>&#8377;2,299</h4>
           <div class="pro-action-bar">
@@ -501,7 +502,7 @@
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
             <span>Uniqlo</span>
           </div>
-          <h5>Embroidered Linen Trousers</h5>
+          <h3>Embroidered Linen Trousers</h3>
           <div class="star" aria-label="Rating: 4.5 out of 5"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-half-fill"></i><span class="rating-value">4.5</span></div>
           <h4>&#8377;3,990</h4>
           <div class="pro-action-bar">
@@ -519,7 +520,7 @@
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
             <span>Mango</span>
           </div>
-          <h5>Cat Print Long Sleeve Blouse</h5>
+          <h3>Cat Print Long Sleeve Blouse</h3>
           <div class="star" aria-label="Rating: 3.5 out of 5"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-half-fill"></i><i class="ri-star-line"></i><span class="rating-value">3.5</span></div>
           <h4>&#8377;2,699</h4>
           <div class="pro-action-bar">
@@ -551,7 +552,7 @@
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
             <span>Tommy Hilfiger</span>
           </div>
-          <h5>Sky Blue Mandarin Collar Shirt</h5>
+          <h3>Sky Blue Mandarin Collar Shirt</h3>
           <div class="star" aria-label="Rating: 5.0 out of 5"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><span class="rating-value">5.0</span></div>
           <h4>&#8377;4,499</h4>
           <div class="pro-action-bar">
@@ -570,7 +571,7 @@
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
             <span>Ralph Lauren</span>
           </div>
-          <h5>Navy Textured Formal Shirt</h5>
+          <h3>Navy Textured Formal Shirt</h3>
           <div class="star" aria-label="Rating: 4.5 out of 5"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-half-fill"></i><span class="rating-value">4.5</span></div>
           <h4>&#8377;6,999</h4>
           <div class="pro-action-bar">
@@ -589,7 +590,7 @@
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
             <span>Calvin Klein</span>
           </div>
-          <h5>Classic White Cotton Shirt</h5>
+          <h3>Classic White Cotton Shirt</h3>
           <div class="star" aria-label="Rating: 4.0 out of 5"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-line"></i><span class="rating-value">4.0</span></div>
           <h4>&#8377;5,499</h4>
           <div class="pro-action-bar">
@@ -675,9 +676,7 @@
           <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
             <i class="fab fa-linkedin"></i>
           </a>
-          <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-            <i class="fab fa-youtube"></i>
-          </a>
+          <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer" aria-label="YouTube" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
         </div>
       </div>
     </div>

@@ -83,10 +83,12 @@
 </head>
 
   <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- HEADER -->
     <section id="header">
       <!-- logo-->
-      <a href="index.html"><img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" /></a>
+      <a href="index.html" aria-label="Cara Home"><img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" /></a>
 
       <!-- Navigation -->
       <div>
@@ -132,9 +134,9 @@
               <i class="ri-moon-line" id="themeIcon"></i>
             </button>
           </li>
-          <a href="javascript:void(0)" id="close" aria-label="Close menu"
+          <li class="nav-close"><a href="javascript:void(0)" id="close" aria-label="Close menu"
             ><i class="fa-solid fa-xmark"></i
-          ></a>
+          ></a></li>
         </ul>
       </div>
       <div class="mobile">
@@ -158,6 +160,7 @@
         ></i>
       </div>
     </section>
+<main id="main-content">
 
     <main id="main-content" tabindex="-1">
     <!-- Resolves #1356: Added descriptive alt tags to product images across all catalog views -->
@@ -289,7 +292,7 @@
       <div class="filters-row">
         <div class="filter-container">
           <label for="categoryFilter">Category</label>
-          <select id="categoryFilter">
+          <select id="categoryFilter" aria-label="Select categoryFilter">
             <option value="all">All</option>
             <option value="street">Street</option>
             <option value="minimal">Minimal</option>
@@ -299,21 +302,21 @@
 
         <div class="filter-container">
           <label for="style-filter">Style</label>
-          <select id="style-filter">
+          <select id="style-filter" aria-label="Select style-filter">
             <option value="all">All</option>
           </select>
         </div>
 
         <div class="filter-container">
           <label for="brand-filter">Brand</label>
-          <select id="brand-filter">
+          <select id="brand-filter" aria-label="Select brand-filter">
             <option value="all">All</option>
           </select>
         </div>
 
         <div class="filter-container">
           <label for="color-filter">Color</label>
-          <select id="color-filter">
+          <select id="color-filter" aria-label="Select color-filter">
             <option value="all">All</option>
           </select>
         </div>
@@ -331,7 +334,7 @@
           ><i class="ri-sorting-asc"></i> Sort by</label
         >
         <div class="sort-select-wrap">
-          <select id="sort-price" class="sort-dropdown">
+          <select id="sort-price" class="sort-dropdown" aria-label="Select sort-price">
             <option value="default">Default Sorting</option>
             <option value="low-high">Price: Low to High</option>
             <option value="high-low">Price: High to Low</option>
@@ -446,9 +449,7 @@
               target="_blank"
               rel="noopener noreferrer"
               aria-label="YouTube"
-            >
-              <i class="fab fa-youtube"></i>
-            </a>
+             aria-label="YouTube"><i class="fab fa-youtube"></i></a>
           </div>
         </div>
       </div>
@@ -511,6 +512,7 @@
         </p>
       </div>
     </footer>
+</main>
 
     <div id="toast-container"></div>
     <script type="module" src="products.js?v=1779120917219"></script>
@@ -562,7 +564,8 @@
       <i class="ri-layout-column-line"></i> Compare
       <span class="compare-float-count">0</span>
     </button>
-  </body>
+  
+</body>
 </html>
 
 <!-- Skeleton Script --><script type="module" src='js/skeleton-loader.js'></script>

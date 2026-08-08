@@ -131,10 +131,12 @@
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Header Section -->
     <section id="header">
         <!-- Logo -->
-        <a href="index.html"><img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" /></a>
+        <a href="index.html" aria-label="Cara Home"><img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" /></a>
 
         <!-- Navigation Bar -->
         <div>
@@ -146,7 +148,7 @@
                 <li><a href="contact.html">Contact</a></li>
                 <li><a aria-label="Cart" href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
                 <li>
-                <a href="javascript:void(0)" id="close" aria-label="Close menu" aria-hidden="false"><i class="fa-solid fa-xmark"></i></a>
+                <li class="nav-close"><a href="javascript:void(0)" id="close" aria-label="Close menu" aria-hidden="false"><i class="fa-solid fa-xmark"></i></a></li>
             </ul>
         </div>
       <div class="mobile">
@@ -157,6 +159,7 @@
     <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
 </div>
     </section>
+<main id="main-content">
 
     <section id="license-content">
         <h1>MIT License</h1>
@@ -215,7 +218,7 @@
                     <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-linkedin"></i>
                     </a>
-                    <a href="https://www.youtube.com/@JanaviPandole"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.youtube.com/@JanaviPandole" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
         </div>
@@ -224,8 +227,8 @@
             <h4>About</h4>
             <a href="about.html">About us</a>
          <a href="delivery.html">Delivery Information</a>
-            <a href="javascript:void(0)">Privacy Policy</a>
-            <a href="javascript:void(0)">Terms & Conditions</a>
+            <a href="javascript:void(0)" aria-label="Interactive action">Privacy Policy</a>
+            <a href="javascript:void(0)" aria-label="Interactive action">Terms & Conditions</a>
             <a href="contact.html">Contact Us</a>
         </div>
         <!-- My Account Section -->
@@ -233,7 +236,7 @@
             <h4>My Account</h4>
             <a href="login.html">Sign In</a>
             <a aria-label="Cart" href="cart.html">View Cart</a>
-            <a href="javascript:void(0)">My Wishlist</a>
+            <a href="javascript:void(0)" aria-label="Interactive action">My Wishlist</a>
             <a href="track-order.html">Track My Order</a>
             <a href="contact.html">Help</a>
         </div>
@@ -259,6 +262,7 @@
             <p>© Cara 2026. All rights reserved. | <a href="license.html" style="color: #088178;">MIT License</a></p>
         </div>
     </footer>
+</main>
 
     <script type="module" src="app.js"></script>
     <script>
@@ -269,6 +273,7 @@ for (let el of document.querySelectorAll(".Current-Year")) {
 }
   
     </script>
+
 </body>
 
 </html>

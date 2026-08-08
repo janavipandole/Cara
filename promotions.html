@@ -77,11 +77,12 @@
 </head>
 
   <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Header Section -->
     <section id="header">
       <!-- Logo -->
-      <a href="index.html">
-        <img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" />
+      <a href="index.html" aria-label="Cara Home"><img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" />
       </a>
 
       <div id="navbar-container"></div>
@@ -113,9 +114,10 @@
       </button>
       </div>
     </section>
+<main id="main-content">
 
     <section id="promo-header">
-      <h2>#CaraAmbassador</h2>
+      <h1>#CaraAmbassador</h1>
       <p>Join our community. Get freebies. Share your style.</p>
     </section>
 
@@ -293,9 +295,7 @@
               href="https://www.youtube.com/@JanaviPandole"
               target="_blank"
               rel="noopener noreferrer"
-            >
-              <i class="fab fa-youtube"></i>
-            </a>
+             aria-label="YouTube"><i class="fab fa-youtube"></i></a>
           </div>
         </div>
       </div>
@@ -315,7 +315,7 @@
         <h4>My Account</h4>
         <a href="login.html">Sign In</a>
         <a aria-label="Cart" href="cart.html">View Cart</a>
-        <a href="javascript:void(0)">My Wishlist</a>
+        <a href="javascript:void(0)" aria-label="Interactive action">My Wishlist</a>
         <a aria-label="Cart" href="cart.html">Track My Order</a>
         <a href="contact.html">Help</a>
       </div>
@@ -402,6 +402,7 @@
         </p>
       </div>
     </footer>
+</main>
 <button id="topBtn">↑</button>
     <script type="module" src="navbar.js"></script>
     <script>loadNavbar();</script>
@@ -494,6 +495,7 @@
         document.getElementById('discount-popup').style.display = 'block';
       }, 5000);
     </script>
+
 </body>
 </html>
 

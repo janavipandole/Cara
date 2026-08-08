@@ -36,13 +36,15 @@
   <script src="assets/js/skip-link.js" defer></script>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
 
   <div class="checkout-container">
 
     <div class="checkout-header">
       <div class="back-to-cart">
         <a href="cart.html" class="back-link" aria-label="Back to cart"><i class="ri-arrow-left-line"></i> Back to Cart</a>
-        <a href="javascript:void(0)" id="logout-btn" style="display:none">Logout</a>
+        <a href="javascript:void(0)" id="logout-btn" style="display:none" aria-label="Interactive action">Logout</a>
       </div>
       <div class="logo" style="display: flex; align-items: center; gap: 15px;">
         <span>Cara</span>
@@ -122,7 +124,7 @@
       <div class="input-group">
         <label for="paymentMethod">Select Payment Method</label>
 
-        <select id="paymentMethod" data-validate="paymentMethod" required>
+        <select id="paymentMethod" data-validate="paymentMethod" required aria-label="Select paymentMethod">
           <option value="">Choose Payment Method</option>
           <option value="cod">Cash On Delivery</option>
           <option value="online">Online Payment</option>
@@ -291,8 +293,9 @@
   
   <script type="module" src="js/checkout-autosave.js" defer></script>
   <script type="module" src="js/checkout-validator.js"></script>
-  <script type="module" src="js/address-validation-service.js" defer></script>
-  <script type="module" src="js/address-autocomplete.js" defer></script>
+  <script src="js/autocomplete-loader.js" defer></script>
+  <script src="js/address-autocomplete.js" defer></script>
+</main>
 </body>
 </html>
 

@@ -246,10 +246,11 @@
     <script type="module" src="js/config.js"></script>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <section id="header">
   <!-- Logo -->
-  <a href="index.html">
-    <img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" />
+  <a href="index.html" aria-label="Cara Home"><img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" />
   </a>
 
   <div>
@@ -297,14 +298,14 @@
       </li>
 
       <!-- Close Button -->
-      <a
+      <li class="nav-close"><a
         href="javascript:void(0)"
         id="close"
         aria-label="Close menu"
         aria-hidden="false"
       >
         <i class="fa-solid fa-xmark"></i>
-      </a>
+      </a></li>
 
     </ul>
   </div>
@@ -446,9 +447,7 @@
           <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
             <i class="fab fa-linkedin"></i>
           </a>
-          <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-youtube"></i>
-          </a>
+          <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
         </div>
       </div>
     </div>

@@ -372,7 +372,7 @@ function formatCurrency(amount) {
   return '₹' + Math.round(num).toLocaleString('en-IN');
 }
 
-// Update cart count badge
+// Update cart count badge and accessible ARIA label
 function updateCartCount() {
   let cart = [];
   try {
@@ -384,7 +384,7 @@ function updateCartCount() {
   } catch (e) {
     window.logError('LocalStorage Parse Error', e);
   }
-  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
 
   const desktopCount = document.getElementById('desktopCartCount');
   const mobileCount = document.getElementById('mobileCartCount');
@@ -398,20 +398,13 @@ function updateCartCount() {
     mobileCount.classList.toggle('hidden', totalItems === 0);
   }
 
-  if ('setAppBadge' in navigator) {
-    if (totalItems > 0) {
-      navigator.setAppBadge(totalItems).catch((err) =>
-        console.error('Error setting app badge:', err)
-      );
-    } else if ('clearAppBadge' in navigator) {
-      navigator.clearAppBadge().catch((err) =>
-        console.error('Error clearing app badge:', err)
-      );
-    }
-  }
+  const cartLabel = `Shopping cart (${totalItems} ${totalItems === 1 ? 'item' : 'items'})`;
+  const cartLinks = document.querySelectorAll('a[href="cart.html"], #lg-bag');
+  cartLinks.forEach((link) => {
+    link.setAttribute('aria-label', cartLabel);
+  });
 }
 
-window.updateCartCount = updateCartCount;
 
 function updateWishlistCount() {
   let wishlist = [];

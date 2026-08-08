@@ -38,10 +38,11 @@
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
   <!-- HEADER -->
   <section id="header">
-    <a href="index.html">
-      <img
+    <a href="index.html" aria-label="Cara Home"><img
         id="siteLogo"
         src="images/oldlogo.png"
         alt="Cara Logo"
@@ -59,8 +60,7 @@
       </button>
     </div>
   </section>
-
-  <main class="contributors-page">
+<main id="main-content">
 
     <!-- HERO -->
     <section class="contributors-hero">
@@ -140,9 +140,7 @@
           <i class="fab fa-linkedin"></i>
         </a>
 
-        <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer">
-          <i class="fab fa-youtube"></i>
-        </a>
+        <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
 
       </div>
 
@@ -274,5 +272,6 @@
     loadNavbar("contributors");
   </script>
 
+</main>
 </body>
 </html>
