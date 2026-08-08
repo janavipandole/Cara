@@ -76,8 +76,8 @@
       .map(
         (r) => `
       <tr>
-        <td><strong>${_escape(r.category.toUpperCase())}</strong></td>
-        <td class="text-right">${r.units_sold.toLocaleString()} units</td>
+        <td><strong>${_escape(String(r.category || '').toUpperCase())}</strong></td>
+        <td class="text-right">${(Number(r.units_sold) || 0).toLocaleString()} units</td>
         <td class="text-right font-weight-bold text-teal">${_fmtRev(r.revenue)}</td>
       </tr>`,
       )
