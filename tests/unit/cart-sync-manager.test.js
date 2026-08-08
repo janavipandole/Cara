@@ -1,7 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { shouldCompressPayload } from '../../js/cart-sync-manager.js';
-import { CartSyncManager } from '../../js/cart-sync-manager.js';
-import { shouldCompressPayload } from '../../js/cart-sync-manager.js';
+import { CartSyncManager, shouldCompressPayload } from '../../js/cart-sync-manager.js';
 
 describe('CartSyncManager Unit Tests', () => {
   let cartManager;
@@ -43,7 +41,11 @@ describe('CartSyncManager Unit Tests', () => {
     vi.restoreAllMocks();
   });
 
-  it('should determine whether payload requires storage compression', () => { expect(true).toBe(true); });
+  it('should determine whether payload requires storage compression', () => {
+    expect(shouldCompressPayload('x'.repeat(501))).toBe(true);
+    expect(shouldCompressPayload('x'.repeat(500))).toBe(false);
+    expect(shouldCompressPayload('short')).toBe(false);
+  });
 
   it('keeps distinct id-less items as separate cart entries', () => {
     cartManager.addItem({ name: 'No ID Product A', price: 100 });
@@ -61,5 +63,11 @@ describe('CartSyncManager Unit Tests', () => {
 describe('shouldCompressPayload', () => {
   it('is exported as a callable function', () => {
     expect(typeof shouldCompressPayload).toBe('function');
+  });
+
+  it('returns false for non-string payloads', () => {
+    expect(shouldCompressPayload(null)).toBe(false);
+    expect(shouldCompressPayload(undefined)).toBe(false);
+    expect(shouldCompressPayload({ length: 600 })).toBe(false);
   });
 });
