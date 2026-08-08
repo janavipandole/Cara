@@ -824,12 +824,49 @@ const subject = document.getElementById("subject");
 if (isValid) {
     const btn = form.querySelector("button");
     btn.classList.add("btn-loading");
+    btn.disabled = true;
 
-    setTimeout(() => {
-      btn.classList.remove("btn-loading");
-      form.reset();
-      document.getElementById("form-status").innerHTML = `<div style="display: flex; align-items: center; gap: 8px; color: #088178; margin-top: 15px; font-weight: 600;"><i class="ri-checkbox-circle-line" style="font-size: 20px;"></i> Message sent successfully!</div>`;
-    }, 1500);
+    const API_BASE = window.CARA_API_BASE_URL || "";
+    const statusEl = document.getElementById("form-status");
+
+    fetch(`${API_BASE}/api/contact/`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({
+        name: name.value.trim(),
+        email: email.value.trim(),
+        subject: subject.value.trim(),
+        department: department.value,
+        message: message.value.trim(),
+      }),
+    })
+      .then((res) =>
+        res
+          .json()
+          .then((data) => ({ ok: res.ok, status: res.status, body: data }))
+          .catch(() => ({ ok: res.ok, status: res.status, body: null })),
+      )
+      .then((res) => {
+        btn.classList.remove("btn-loading");
+        btn.disabled = false;
+
+        if (!res.ok) {
+          const detail =
+            (res.body && (res.body.detail || res.body.message)) ||
+            "Failed to send message. Please try again.";
+          statusEl.innerHTML = `<div style="display: flex; align-items: center; gap: 8px; color: #ef4444; margin-top: 15px; font-weight: 600;"><i class="ri-error-warning-line" style="font-size: 20px;"></i> ${typeof detail === "string" ? detail : "Failed to send message. Please try again."}</div>`;
+          return;
+        }
+
+        form.reset();
+        statusEl.innerHTML = `<div style="display: flex; align-items: center; gap: 8px; color: #088178; margin-top: 15px; font-weight: 600;"><i class="ri-checkbox-circle-line" style="font-size: 20px;"></i> Message sent successfully!</div>`;
+      })
+      .catch(() => {
+        btn.classList.remove("btn-loading");
+        btn.disabled = false;
+        statusEl.innerHTML = `<div style="display: flex; align-items: center; gap: 8px; color: #ef4444; margin-top: 15px; font-weight: 600;"><i class="ri-error-warning-line" style="font-size: 20px;"></i> Failed to send message. Please try again.</div>`;
+      });
   }
 });
 
