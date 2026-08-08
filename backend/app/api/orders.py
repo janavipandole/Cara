@@ -1,10 +1,11 @@
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 from .. import models, schemas
 from ..database import get_db
 from .auth import get_current_user
+from ..limiter import limiter
 from datetime import datetime, timezone, timedelta
 
 router = APIRouter()
@@ -104,7 +105,9 @@ def get_order_detail(
 
 
 @router.post("/", status_code=201)
+@limiter.limit("10/minute")
 def create_order(
+    request: Request,
     order_data: schemas.OrderCreate,
     db: Session = Depends(get_db),
     current_user: models.User = Depends(get_current_user)
