@@ -2,35 +2,42 @@ import { describe, it, expect } from 'vitest';
 import { DeliveryDateEstimator } from '../../js/delivery-date-estimator.js';
 
 describe('DeliveryDateEstimator', () => {
-  const estimator = new DeliveryDateEstimator();
-
-  it('skips weekends for standard shipping', () => {
-    // Friday
-    const friday = new Date('2026-08-07T10:00:00Z');
-    const estimated = estimator.estimateDeliveryDate(friday, false);
-    // 5 business days from Friday Aug 7 -> Friday Aug 14
-    expect(estimated).toBe('2026-08-14');
+  it('correctly identifies pincode regional tiers', () => {
+    const estimator = new DeliveryDateEstimator();
+    expect(estimator.getPincodeTier('110001')).toBe('METRO');
+    expect(estimator.getPincodeTier('250001')).toBe('TIER_2');
+    expect(estimator.getPincodeTier('500001')).toBe('TIER_3');
+    expect(estimator.getPincodeTier('850001')).toBe('REMOTE');
   });
 
-  it('skips weekends for express shipping', () => {
-    // Friday Aug 7 + 2 business days -> Tuesday Aug 11
-    const friday = new Date('2026-08-07T10:00:00Z');
-    const estimated = estimator.estimateDeliveryDate(friday, true);
-    expect(estimated).toBe('2026-08-11');
+  it('shifts order by 1 day if past cutoff hour', () => {
+    const estimator = new DeliveryDateEstimator({ cutoffHour: 14 });
+    const beforeCutoff = new Date('2026-08-10T10:00:00'); // Monday 10 AM
+    const afterCutoff = new Date('2026-08-10T15:00:00');  // Monday 3 PM
+
+    const deliveryBefore = estimator.calculateEstimatedDelivery(beforeCutoff, '110001');
+    const deliveryAfter = estimator.calculateEstimatedDelivery(afterCutoff, '110001');
+
+    expect(deliveryAfter.getTime()).toBeGreaterThan(deliveryBefore.getTime());
   });
 
-  it('never returns a weekend delivery date', () => {
-    // Start on a Wednesday; 5 business days later must be a weekday.
-    const wednesday = new Date('2026-08-05T10:00:00Z');
-    const estimated = estimator.estimateDeliveryDate(wednesday, false);
-    const day = new Date(estimated + 'T00:00:00Z').getDay();
-    expect(day).not.toBe(0);
-    expect(day).not.toBe(6);
+  it('skips weekend days and blackout dates during transit', () => {
+    const estimator = new DeliveryDateEstimator({
+      cutoffHour: 14,
+      blackoutDates: ['2026-08-12'] // Blackout Wednesday
+    });
+
+    const orderDate = new Date('2026-08-10T10:00:00'); // Monday
+    const delivery = estimator.calculateEstimatedDelivery(orderDate, '110001'); // 2 working days
+    // Tuesday (Day 1), Wednesday (Blackout), Thursday (Day 2) -> Expect Thursday Aug 13
+    expect(delivery.getDate()).toBe(13);
   });
 
-  it('returns an ISO date string in yyyy-mm-dd format', () => {
-    const start = new Date('2026-08-10T10:00:00Z');
-    const estimated = estimator.estimateDeliveryDate(start, false);
-    expect(estimated).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+  it('returns formatted delivery window object', () => {
+    const estimator = new DeliveryDateEstimator();
+    const result = estimator.getDeliveryWindowFormatted(new Date('2026-08-10T10:00:00'), '110001');
+    expect(result.tier).toBe('METRO');
+    expect(typeof result.formatted).toBe('string');
+    expect(result.formatted).toContain('-');
   });
 });
