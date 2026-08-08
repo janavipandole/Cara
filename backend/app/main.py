@@ -1,3 +1,4 @@
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .database import engine
@@ -8,7 +9,21 @@ from slowapi.errors import RateLimitExceeded
 import os
 # Database schema is now managed externally by Alembic migrations
 
-app = FastAPI(title="Cara AI Outfit Recommendation API")
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Pre-warm the CLIP model at startup so the first admin mutation does not
+    # trigger a ~600MB runtime download. Failure is non-fatal: the API still
+    # boots and embedding falls back to synthetic vectors.
+    try:
+        from .vector_search.faiss_index import _load_clip
+        _load_clip()
+    except Exception as e:
+        print(f"Warning: CLIP pre-warm failed: {e}")
+    yield
+
+
+app = FastAPI(title="Cara AI Outfit Recommendation API", lifespan=lifespan)
 
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
