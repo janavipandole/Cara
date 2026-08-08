@@ -32,11 +32,15 @@ def filter_by_rules(base_product, candidates):
             if base_product.category == "formal" or c.category == "formal":
                 continue # Strictly block formal mixed with non-formal
                 
-        # Rule 4: Color Harmony
+        # Rule 4: Color Harmony (symmetric — a clash is rejected regardless of
+        # which product is the base, so the same pairing cannot sneak through
+        # when the base/candidate roles are swapped).
         if base_product.color and c.color:
             base_color = base_product.color.lower()
             cand_color = c.color.lower()
             if base_color in clashing_colors and cand_color in clashing_colors[base_color]:
+                continue
+            if cand_color in clashing_colors and base_color in clashing_colors[cand_color]:
                 continue
                 
         # Rule 5: Pattern Clashing (Don't mix two different patterns)
