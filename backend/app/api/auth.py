@@ -410,6 +410,13 @@ def reset_password(
 
     user.hashed_password = pwd.hash(payload.new_password)
     reset_token.used = True
+    # Invalidate outstanding sessions so a stolen refresh token cannot outlive the reset.
+    revoke_refresh_token(user.email)
+    db.query(models.PasswordResetToken).filter(
+        models.PasswordResetToken.user_id == user.id,
+        models.PasswordResetToken.used == False,
+        models.PasswordResetToken.id != reset_token.id,
+    ).update({"used": True})
     db.commit()
 
     return {"message": "Password has been reset successfully"}
