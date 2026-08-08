@@ -1,107 +1,74 @@
 /**
- * User Loyalty Rewards Tier Engine
- * Calculates customer loyalty points, tier statuses (Bronze, Silver, Gold, Platinum), and point redemption logic.
+ * Loyalty Rewards Engine
+ * Customer rewards tiering, points accrual, Diamond VIP tier, multiplier lookup, and progress analytics.
  */
-
-class LoyaltyRewardsEngine {
-  constructor(storageKey = 'cara_loyalty_data_v2') {
-    this.storageKey = storageKey;
+export class LoyaltyRewardsEngine {
+  constructor(options = {}) {
+    this.pointsPerDollar = options.pointsPerDollar || 1;
     this.tiers = [
-      { name: 'Bronze', minPoints: 0, multiplier: 1 },
+      { name: 'Bronze', minPoints: 0, multiplier: 1.0 },
       { name: 'Silver', minPoints: 500, multiplier: 1.25 },
       { name: 'Gold', minPoints: 1500, multiplier: 1.5 },
-      { name: 'Platinum', minPoints: 3000, multiplier: 2.0 }
+      { name: 'Platinum', minPoints: 3000, multiplier: 2.0 },
+      { name: 'Diamond', minPoints: 5000, multiplier: 2.5 }
     ];
-    this.data = this.loadData();
   }
 
-  loadData() {
-    try {
-      const stored = localStorage.getItem(this.storageKey);
-      return stored ? JSON.parse(stored) : { points: 0, history: [] };
-    } catch (e) {
-      return { points: 0, history: [] };
-    }
+  calculatePointsEarned(purchaseAmount, currentTier = 'Bronze') {
+    const amount = Math.max(0, purchaseAmount || 0);
+    const tierObj = this.getTierDetails(currentTier);
+    const multiplier = tierObj ? tierObj.multiplier : 1.0;
+    return Math.floor(amount * this.pointsPerDollar * multiplier);
   }
 
-  saveData() {
-    try {
-      localStorage.setItem(this.storageKey, JSON.stringify(this.data));
-    } catch (e) {
-      console.warn('Failed to save loyalty state:', e);
-    }
+  getTierDetails(tierName) {
+    if (!tierName) return this.tiers[0];
+    const nameLower = String(tierName).trim().toLowerCase();
+    return this.tiers.find(t => t.name.toLowerCase() === nameLower) || this.tiers[0];
   }
 
-  getPoints() {
-    return this.data.points || 0;
-  }
-
-  getTier(points = this.getPoints()) {
+  determineTierForPoints(points) {
+    const pts = Math.max(0, points || 0);
     let currentTier = this.tiers[0];
     for (const tier of this.tiers) {
-      if (points >= tier.minPoints) {
+      if (pts >= tier.minPoints) {
         currentTier = tier;
+      } else {
+        break;
       }
     }
     return currentTier;
   }
 
-  addEarnedPoints(purchaseAmount) {
-    if (purchaseAmount <= 0) return 0;
-    const currentTier = this.getTier();
-    const basePoints = Math.floor(purchaseAmount);
-    const earned = Math.floor(basePoints * currentTier.multiplier);
-    
-    this.data.points += earned;
-    this.data.history.push({
-      type: 'EARN',
-      amount: purchaseAmount,
-      points: earned,
-      date: new Date().toISOString()
-    });
+  getNextTierProgress(currentPoints) {
+    const pts = Math.max(0, currentPoints || 0);
+    const currentTier = this.determineTierForPoints(pts);
+    const currentIndex = this.tiers.findIndex(t => t.name === currentTier.name);
 
-    this.saveData();
-    return earned;
-  }
-
-  redeemPoints(pointsToRedeem) {
-    if (pointsToRedeem <= 0 || pointsToRedeem > this.data.points) {
-      return { success: false, reason: 'Insufficient points balance' };
+    if (currentIndex >= this.tiers.length - 1) {
+      return {
+        currentTier: currentTier.name,
+        nextTier: null,
+        pointsNeeded: 0,
+        progressPct: 100
+      };
     }
-    
-    const discountValue = parseFloat((pointsToRedeem / 100).toFixed(2));
-    this.data.points -= pointsToRedeem;
-    this.data.history.push({
-      type: 'REDEEM',
-      points: pointsToRedeem,
-      discount: discountValue,
-      date: new Date().toISOString()
-    });
 
-    this.saveData();
-    return { success: true, discount: discountValue, remainingPoints: this.data.points };
-  }
-  calculatePoints(spent = 0) {
-    return Math.floor(spent);
+    const nextTier = this.tiers[currentIndex + 1];
+    const pointsNeeded = nextTier.minPoints - pts;
+    const range = nextTier.minPoints - currentTier.minPoints;
+    const progress = pts - currentTier.minPoints;
+    const progressPct = Math.min(100, Math.round((progress / range) * 100));
+
+    return {
+      currentTier: currentTier.name,
+      nextTier: nextTier.name,
+      pointsNeeded,
+      progressPct
+    };
   }
 
-  getUserTier(points = 0) {
-    return this.getTier(points).name;
-  }
-
-  getMultiplier(tierName = 'Bronze') {
-    const found = this.tiers.find(t => t.name === tierName);
-    return found ? found.multiplier : 1.0;
+  getRewardsMultiplierForTier(tierName) {
+    return this.getTierDetails(tierName).multiplier;
   }
 }
-
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = LoyaltyRewardsEngine;
-  module.exports.getRewardsMultiplierForTier = getRewardsMultiplierForTier;
-} else {
-  window.LoyaltyRewardsEngine = LoyaltyRewardsEngine;
-}
-
-
-
-function getRewardsMultiplierForTier(tier = 'bronze') { const multipliers = { bronze: 1.0, silver: 1.25, gold: 1.5, platinum: 2.0 }; return multipliers[tier.toLowerCase()] || 1.0; }

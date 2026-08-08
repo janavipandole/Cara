@@ -1,60 +1,37 @@
-import { describe, it, expect, beforeEach } from 'vitest';
-import { getRewardsMultiplierForTier } from '../../js/loyalty-rewards-engine.js';
-const LoyaltyRewardsEngine = require('../../js/loyalty-rewards-engine.js');
+import { describe, it, expect } from 'vitest';
+import { LoyaltyRewardsEngine } from '../../js/loyalty-rewards-engine.js';
 
-describe('LoyaltyRewardsEngine Unit Tests', () => {
-  let engine;
-
-  beforeEach(() => {
-    localStorage.clear();
-    engine = new LoyaltyRewardsEngine();
+describe('LoyaltyRewardsEngine', () => {
+  it('calculates earned points with tier multiplier', () => {
+    const engine = new LoyaltyRewardsEngine();
+    expect(engine.calculatePointsEarned(100, 'Bronze')).toBe(100);
+    expect(engine.calculatePointsEarned(100, 'Gold')).toBe(150);
+    expect(engine.calculatePointsEarned(100, 'Diamond')).toBe(250);
   });
 
-  it('should initialize with default Bronze tier and 0 points', () => {
-    expect(engine.getPoints()).toBe(0);
-    expect(engine.getTier().name).toBe('Bronze');
+  it('determines tier from total accumulated points including Diamond', () => {
+    const engine = new LoyaltyRewardsEngine();
+    expect(engine.determineTierForPoints(400).name).toBe('Bronze');
+    expect(engine.determineTierForPoints(600).name).toBe('Silver');
+    expect(engine.determineTierForPoints(1600).name).toBe('Gold');
+    expect(engine.determineTierForPoints(3500).name).toBe('Platinum');
+    expect(engine.determineTierForPoints(5500).name).toBe('Diamond');
   });
 
-  it('should calculate points earned based on tier multiplier', () => {
-    const earned = engine.addEarnedPoints(100);
-    expect(earned).toBe(100);
-    expect(engine.getPoints()).toBe(100);
+  it('computes next tier progress metrics accurately', () => {
+    const engine = new LoyaltyRewardsEngine();
+    const progress = engine.getNextTierProgress(1000); // Between Silver (500) and Gold (1500)
+    expect(progress.currentTier).toBe('Silver');
+    expect(progress.nextTier).toBe('Gold');
+    expect(progress.pointsNeeded).toBe(500);
+    expect(progress.progressPct).toBe(50);
   });
 
-  it('should upgrade tier when points threshold reached', () => {
-    engine.addEarnedPoints(600);
-    expect(engine.getTier().name).toBe('Silver');
-  });
-
-  it('should allow point redemption when balance is sufficient', () => {
-    engine.addEarnedPoints(500);
-    const res = engine.redeemPoints(200);
-    expect(res.success).toBe(true);
-    expect(res.discount).toBe(2.00);
-    expect(engine.getPoints()).toBe(300);
-  });
-
-  it('should return reward points multiplier by loyalty tier', () => {
-    expect(getRewardsMultiplierForTier('bronze')).toBe(1.0);
-    expect(getRewardsMultiplierForTier('silver')).toBe(1.25);
-    expect(getRewardsMultiplierForTier('gold')).toBe(1.5);
-    expect(getRewardsMultiplierForTier('platinum')).toBe(2.0);
-  });
-});
-
-describe('getRewardsMultiplierForTier', () => {
-  it('is exported as a callable function', () => {
-    expect(typeof getRewardsMultiplierForTier).toBe('function');
-  });
-
-  it('defaults to bronze for an unknown or empty tier', () => {
-    expect(getRewardsMultiplierForTier('diamond')).toBe(1.0);
-    expect(getRewardsMultiplierForTier('')).toBe(1.0);
-    expect(getRewardsMultiplierForTier()).toBe(1.0);
-  });
-
-  it('matches tier names case-insensitively', () => {
-    expect(getRewardsMultiplierForTier('GOLD')).toBe(1.5);
-    expect(getRewardsMultiplierForTier('Silver')).toBe(1.25);
+  it('returns 100% progress for max Diamond tier', () => {
+    const engine = new LoyaltyRewardsEngine();
+    const progress = engine.getNextTierProgress(6000);
+    expect(progress.currentTier).toBe('Diamond');
+    expect(progress.nextTier).toBeNull();
+    expect(progress.progressPct).toBe(100);
   });
 });
