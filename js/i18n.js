@@ -14,6 +14,7 @@ const translations = {
     community: "Community",
     orders: "My Orders",
     outfit: "Outfit Checker",
+    authenticity: "Authenticity",
     addToCart: "Add to Cart",
     buyNow: "Buy Now",
     search: "Search products..."
@@ -31,6 +32,7 @@ const translations = {
     community: "Comunidad",
     orders: "Mis Pedidos",
     outfit: "Verificar Atuendo",
+    authenticity: "Autenticidad",
     addToCart: "Añadir al Carrito",
     buyNow: "Comprar Ahora",
     search: "Buscar productos..."
@@ -61,6 +63,8 @@ function changeLanguage(lang) {
   } catch (e) {
     // Silently fail if localStorage is unavailable (private browsing, quota exceeded)
   }
+
+  if (typeof document === "undefined") return;
 
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     const key = el.getAttribute("data-i18n");
@@ -110,4 +114,4 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-function formatI18nPlaceholder(template, params = {}) { if (!template) return ''; return template.replace(/\{{(\w+)\}}/g, (_, key) => params[key] || ''); }
+export function formatI18nPlaceholder(template, params = {}) { if (!template) return ''; return template.replace(/\{{(\w+)\}}/g, (_, key) => params[key] || ''); }
