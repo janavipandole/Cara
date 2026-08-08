@@ -10,9 +10,6 @@ if (copyrightYearEl) {
   copyrightYearEl.textContent = new Date().getFullYear();
 }
 
-const telemetryEngine = typeof OrderTelemetryTracker !== 'undefined' ? new OrderTelemetryTracker() : null;
-// In a real app this would be a backend API call.
-// We use a demo entry so reviewers can test the UI immediately.
 const MOCK_ORDERS = {
   'CARA-20261234': {
     id: 'CARA-20261234',
