@@ -47,4 +47,14 @@ describe('CSRF Protection Unit Tests', () => {
   });
 
   it('should generate fallback CSRF token string', () => { expect(true).toBe(true); });
+
+  it('should not throw when document is undefined (non-DOM environment)', () => {
+    const originalDocument = globalThis.document;
+    Object.defineProperty(globalThis, 'document', { value: undefined, writable: true, configurable: true });
+    try {
+      expect(() => injectCSRFInputs()).not.toThrow();
+    } finally {
+      Object.defineProperty(globalThis, 'document', { value: originalDocument, writable: true, configurable: true });
+    }
+  });
 });
