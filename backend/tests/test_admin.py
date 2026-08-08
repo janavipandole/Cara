@@ -229,3 +229,46 @@ class TestAdminAnalytics:
         assert "cat-sales-orphan" not in by_category
         assert by_category["Unknown"]["units_sold"] == 3
         assert by_category["Unknown"]["revenue"] == 225.0
+
+    def test_renamed_product_sales_stay_on_category_via_product_id(
+        self, client: TestClient, make_admin
+    ):
+        """Renaming a product must not move sales to Unknown when product_id is set."""
+        import uuid
+
+        email = "admin_t_rename@test.com"
+        _register_and_login(client, "USER", "rename")
+        make_admin(email)
+        category = f"cat-sales-rename-{uuid.uuid4().hex[:8]}"
+
+        db = TestingSessionLocal()
+        product = _seed_product(
+            db, name="Rename Me Shirt", price=40.0, category=category, stock=10
+        )
+        product_id = product.id
+        db.close()
+
+        create = client.post(
+            "/api/orders/",
+            json={
+                "fullName": "Test User",
+                "email": email,
+                "address": "1 Test St",
+                "city": "Testville",
+                "zip": "12345",
+                "items": [{"product_id": product_id, "quantity": 2}],
+            },
+        )
+        assert create.status_code == 201, create.text
+
+        db = TestingSessionLocal()
+        row = db.query(models.Product).filter(models.Product.id == product_id).first()
+        row.name = "Renamed Shirt"
+        db.commit()
+        db.close()
+
+        sales = client.get("/api/admin/analytics/category-sales").json()
+        by_category = {row["category"]: row for row in sales}
+        assert by_category[category]["units_sold"] == 2
+        assert by_category[category]["revenue"] == 80.0
+

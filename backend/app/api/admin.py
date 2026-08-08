@@ -64,9 +64,9 @@ def get_sales_by_category(
 ) -> list:
     """Return sales aggregation by category.
 
-    Cancelled orders are excluded. Items are joined to the products table by name
-    through an outer join; orphaned items (renamed/deleted products) are aggregated
-    into an explicit "Unknown" bucket instead of being silently dropped.
+    Cancelled orders are excluded. Items are joined to products by ``product_id``
+    so renames keep historical sales on the live category. Orphaned items
+    (deleted products / null FK) aggregate into an explicit "Unknown" bucket.
     """
     results = (
         db.query(
@@ -75,7 +75,7 @@ def get_sales_by_category(
             func.sum(models.OrderItem.price * models.OrderItem.quantity).label("revenue")
         )
         .join(models.Order, models.Order.id == models.OrderItem.order_id)
-        .outerjoin(models.Product, models.Product.name == models.OrderItem.product_name)
+        .outerjoin(models.Product, models.Product.id == models.OrderItem.product_id)
         .filter(models.Order.status != "CANCELLED")
         .group_by(models.Product.category)
         .all()
