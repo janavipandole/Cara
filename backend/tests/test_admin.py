@@ -15,6 +15,16 @@ from app import models
 
 from tests.conftest import TestingSessionLocal
 
+def _bearer_from_cookies(client):
+    """Build Authorization from the access_token cookie set by login/register."""
+    cookie = client.cookies.get("access_token")
+    assert cookie, "expected access_token cookie after login"
+    cookie = str(cookie).strip().strip('"')
+    if cookie.startswith("Bearer "):
+        return {"Authorization": cookie}
+    return {"Authorization": f"Bearer {cookie}"}
+
+
 
 def _register_and_login(client: TestClient, role: str, suffix: str) -> None:
     # Register
@@ -156,7 +166,8 @@ class TestAdminAnalytics:
         email = "admin_t_cancel@test.com"
         _register_and_login(client, "USER", "cancel")
         make_admin(email)
-        headers = {"Authorization": f"Bearer {client.post('/api/auth/login', json={'email': email, 'password': 'Password1@'}).json()['access_token']}"}
+        client.post('/api/auth/login', json={'email': email, 'password': 'Password1@'})
+        headers = _bearer_from_cookies(client)
 
         db = TestingSessionLocal()
         keep = _seed_product(db, name="Keep Shirt", price=100.0, category="summary-keep", stock=10)
@@ -182,7 +193,8 @@ class TestAdminAnalytics:
         email = "admin_t_catcancel@test.com"
         _register_and_login(client, "USER", "catcancel")
         make_admin(email)
-        headers = {"Authorization": f"Bearer {client.post('/api/auth/login', json={'email': email, 'password': 'Password1@'}).json()['access_token']}"}
+        client.post('/api/auth/login', json={'email': email, 'password': 'Password1@'})
+        headers = _bearer_from_cookies(client)
 
         db = TestingSessionLocal()
         active = _seed_product(db, name="Active Cat Shirt", price=50.0, category="cat-sales-active", stock=10)
@@ -209,7 +221,8 @@ class TestAdminAnalytics:
         email = "admin_t_orphan@test.com"
         _register_and_login(client, "USER", "orphan")
         make_admin(email)
-        headers = {"Authorization": f"Bearer {client.post('/api/auth/login', json={'email': email, 'password': 'Password1@'}).json()['access_token']}"}
+        client.post('/api/auth/login', json={'email': email, 'password': 'Password1@'})
+        headers = _bearer_from_cookies(client)
 
         db = TestingSessionLocal()
         product = _seed_product(db, name="Doomed Shirt", price=75.0, category="cat-sales-orphan", stock=10)

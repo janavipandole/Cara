@@ -87,8 +87,9 @@ def auth_headers(client, db_session):
         "/api/auth/login",
         json={"email": "test@example.com", "password": "Test@1234"},
     )
-    token = response.json()["access_token"]
-    return {"Authorization": f"Bearer {token}"}
+    assert response.status_code == 200, response.text
+    # Auth is cookie-based; TestClient keeps Set-Cookie values for later requests.
+    return {}
 
 
 @pytest.fixture()
@@ -114,5 +115,6 @@ def admin_auth_headers(client, db_session):
         "/api/auth/login",
         json={"email": "admin@example.com", "password": "Admin@1234"},
     )
-    token = response.json()["access_token"]
-    return {"Authorization": f"Bearer {token}"}
+    assert response.status_code == 200, response.text
+    # Auth is cookie-based; TestClient keeps Set-Cookie values for later requests.
+    return {}

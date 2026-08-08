@@ -12,6 +12,16 @@ from tests.conftest import TestingSessionLocal
 ORDERS_URL = "/api/orders/"
 pwd = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
+def _bearer_from_cookies(client):
+    """Build Authorization from the access_token cookie set by login/register."""
+    cookie = client.cookies.get("access_token")
+    assert cookie, "expected access_token cookie after login"
+    cookie = str(cookie).strip().strip('"')
+    if cookie.startswith("Bearer "):
+        return {"Authorization": cookie}
+    return {"Authorization": f"Bearer {cookie}"}
+
+
 USER_EMAIL = "ordervalidation@example.com"
 
 
@@ -33,7 +43,7 @@ def _auth_headers(client):
         json={"email": USER_EMAIL, "password": "Test@1234"},
     )
     assert response.status_code == 200, response.text
-    return {"Authorization": f"Bearer {response.json()['access_token']}"}
+    return _bearer_from_cookies(client)
 
 
 def _seed_product(name="Validation Tee", stock=100):

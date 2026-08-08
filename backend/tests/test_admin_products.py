@@ -6,6 +6,16 @@ from tests.conftest import TestingSessionLocal
 
 pwd = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
+def _bearer_from_cookies(client):
+    """Build Authorization from the access_token cookie set by login/register."""
+    cookie = client.cookies.get("access_token")
+    assert cookie, "expected access_token cookie after login"
+    cookie = str(cookie).strip().strip('"')
+    if cookie.startswith("Bearer "):
+        return {"Authorization": cookie}
+    return {"Authorization": f"Bearer {cookie}"}
+
+
 
 def _admin_headers(client):
     db = TestingSessionLocal()
@@ -26,7 +36,7 @@ def _admin_headers(client):
         json={"email": "admin-products@example.com", "password": "Admin@1234"},
     )
     assert response.status_code == 200, response.text
-    return {"Authorization": f"Bearer {response.json()['access_token']}"}
+    return _bearer_from_cookies(client)
 
 
 def _user_headers(client):
@@ -47,7 +57,7 @@ def _user_headers(client):
         json={"email": "user-products@example.com", "password": "Test@1234"},
     )
     assert response.status_code == 200, response.text
-    return {"Authorization": f"Bearer {response.json()['access_token']}"}
+    return _bearer_from_cookies(client)
 
 
 def test_admin_create_product(client):

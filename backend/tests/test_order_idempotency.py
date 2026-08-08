@@ -6,6 +6,16 @@ from tests.conftest import TestingSessionLocal
 
 pwd = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
+def _bearer_from_cookies(client):
+    """Build Authorization from the access_token cookie set by login/register."""
+    cookie = client.cookies.get("access_token")
+    assert cookie, "expected access_token cookie after login"
+    cookie = str(cookie).strip().strip('"')
+    if cookie.startswith("Bearer "):
+        return {"Authorization": cookie}
+    return {"Authorization": f"Bearer {cookie}"}
+
+
 
 def _login_headers(client, email, password, username):
     db = TestingSessionLocal()
@@ -22,7 +32,7 @@ def _login_headers(client, email, password, username):
 
     response = client.post("/api/auth/login", json={"email": email, "password": password})
     assert response.status_code == 200, response.text
-    return {"Authorization": f"Bearer {response.json()['access_token']}"}
+    return _bearer_from_cookies(client)
 
 
 def _seed_product(name="Idempotency Tee", stock=20):

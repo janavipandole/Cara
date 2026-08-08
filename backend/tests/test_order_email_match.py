@@ -7,6 +7,16 @@ from tests.conftest import TestingSessionLocal
 ORDERS_URL = "/api/orders/"
 pwd = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
+def _bearer_from_cookies(client):
+    """Build Authorization from the access_token cookie set by login/register."""
+    cookie = client.cookies.get("access_token")
+    assert cookie, "expected access_token cookie after login"
+    cookie = str(cookie).strip().strip('"')
+    if cookie.startswith("Bearer "):
+        return {"Authorization": cookie}
+    return {"Authorization": f"Bearer {cookie}"}
+
+
 
 def _auth_headers(client):
     db = TestingSessionLocal()
@@ -25,24 +35,25 @@ def _auth_headers(client):
         json={"email": "emailmatch@example.com", "password": "Test@1234"},
     )
     assert login.status_code == 200
-    return {"Authorization": f"Bearer {login.json()['access_token']}"}
+    return _bearer_from_cookies(client)
 
 
 def test_create_order_rejects_mismatched_email(client):
     headers = _auth_headers(client)
     db = TestingSessionLocal()
-    db.add(
-        Product(
-            brand="B",
-            name="Email Match Shirt",
-            price=50.0,
-            img="x.jpg",
-            rating=4,
-            category="minimal",
-            stock=5,
-        )
+    product = Product(
+        brand="B",
+        name="Email Match Shirt",
+        price=50.0,
+        img="x.jpg",
+        rating=4,
+        category="minimal",
+        stock=5,
     )
+    db.add(product)
     db.commit()
+    db.refresh(product)
+    product_id = product.id
     db.close()
 
     response = client.post(
@@ -54,7 +65,7 @@ def test_create_order_rejects_mismatched_email(client):
             "address": "1 Test St",
             "city": "Testville",
             "zip": "12345",
-            "items": [{"product_name": "Email Match Shirt", "quantity": 1}],
+            "items": [{"product_id": product_id, "quantity": 1}],
         },
     )
     assert response.status_code == 400

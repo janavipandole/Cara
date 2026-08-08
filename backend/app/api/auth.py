@@ -199,7 +199,6 @@ def register(request: Request, response: Response, payload: UserRegister, db: Se
     set_auth_cookies(response, access_token, refresh_token)
 
     return Token(
-        access_token = access_token,
         token_type   = "bearer",
         user         = UserOut.model_validate(user)
     )
@@ -278,7 +277,6 @@ def login(request: Request, response: Response, payload: UserLogin, db: Session 
     set_auth_cookies(response, access_token, refresh_token)
 
     return Token(
-        access_token = access_token,
         token_type   = "bearer",
         user         = UserOut.model_validate(user)
     )
