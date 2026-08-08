@@ -420,6 +420,7 @@ function submitCheckoutForm() {
         items: cart.map((item) => ({
           product_id: Number(item.id),
           quantity: parseInt(item.quantity, 10) || 1,
+          size: String(item.size || 'M').slice(0, 10),
         })),
       };
 

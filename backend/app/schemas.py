@@ -130,6 +130,7 @@ class OrderItemResponse(BaseModel):
     product_name: str
     quantity: int
     price: float
+    size: Optional[str] = None
 
     class Config:
         from_attributes = True
@@ -160,6 +161,7 @@ class OrderStatusUpdate(BaseModel):
 class OrderItemCreate(BaseModel):
     product_id: int = Field(gt=0)
     quantity: int = Field(gt=0, le=99)
+    size: str = Field(min_length=1, max_length=10)
 
 class OrderCreate(BaseModel):
     fullName: str

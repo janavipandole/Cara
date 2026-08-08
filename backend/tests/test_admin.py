@@ -165,8 +165,8 @@ class TestAdminAnalytics:
         db.close()
 
         # 2 x 100 = 200 subtotal; 200 + 36 tax + 150 shipping = 386.
-        _create_order(client, headers, [{"product_id": keep_id, "quantity": 2}], email=email)
-        cancelled = _create_order(client, headers, [{"product_id": cancel_id, "quantity": 1}], email=email)
+        _create_order(client, headers, [{"product_id": keep_id, "quantity": 2, "size": "M"}], email=email)
+        cancelled = _create_order(client, headers, [{"product_id": cancel_id, "quantity": 1, "size": "M"}], email=email)
 
         cancel_resp = client.post(f"/api/orders/{cancelled}/cancel", headers=headers)
         assert cancel_resp.status_code == 200, cancel_resp.text
@@ -190,8 +190,8 @@ class TestAdminAnalytics:
         active_id, cancelled_p_id = active.id, cancelled_p.id
         db.close()
 
-        _create_order(client, headers, [{"product_id": active_id, "quantity": 4}], email=email)
-        cancelled = _create_order(client, headers, [{"product_id": cancelled_p_id, "quantity": 1}], email=email)
+        _create_order(client, headers, [{"product_id": active_id, "quantity": 4, "size": "M"}], email=email)
+        cancelled = _create_order(client, headers, [{"product_id": cancelled_p_id, "quantity": 1, "size": "M"}], email=email)
 
         cancel_resp = client.post(f"/api/orders/{cancelled}/cancel", headers=headers)
         assert cancel_resp.status_code == 200, cancel_resp.text
@@ -216,7 +216,7 @@ class TestAdminAnalytics:
         product_id = product.id
         db.close()
 
-        _create_order(client, headers, [{"product_id": product_id, "quantity": 3}], email=email)
+        _create_order(client, headers, [{"product_id": product_id, "quantity": 3, "size": "M"}], email=email)
 
         # Simulate the product being deleted/renamed from the catalog.
         db = TestingSessionLocal()

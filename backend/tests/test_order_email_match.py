@@ -54,7 +54,7 @@ def test_create_order_rejects_mismatched_email(client):
             "address": "1 Test St",
             "city": "Testville",
             "zip": "12345",
-            "items": [{"product_name": "Email Match Shirt", "quantity": 1}],
+            "items": [{"product_name": "Email Match Shirt", "quantity": 1, "size": "M"}],
         },
     )
     assert response.status_code == 400

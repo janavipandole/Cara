@@ -128,5 +128,6 @@ class OrderItem(Base):
     product_name = Column(String, nullable=False)
     quantity = Column(Integer, nullable=False)
     price = Column(Float, nullable=False)
+    size = Column(String, nullable=True)
     order = relationship("Order")
     product = relationship("Product")

@@ -53,7 +53,7 @@ def _order_payload(key, product_id, email="idem1@example.com"):
         "address": "1 Test St",
         "city": "Testville",
         "zip": "10001",
-        "items": [{"product_id": product_id, "quantity": 1}],
+        "items": [{"product_id": product_id, "quantity": 1, "size": "M"}],
         "idempotency_key": key,
     }
 

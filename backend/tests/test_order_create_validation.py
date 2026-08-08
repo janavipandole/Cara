@@ -80,7 +80,7 @@ def test_zero_quantity_rejected(client):
     product_id = _seed_product()
     response = client.post(
         ORDERS_URL,
-        json=_payload([{"product_id": product_id, "quantity": 0}]),
+        json=_payload([{"product_id": product_id, "quantity": 0, "size": "M"}]),
         headers=headers,
     )
     assert response.status_code == 422, response.text
@@ -91,7 +91,7 @@ def test_negative_quantity_rejected(client):
     product_id = _seed_product()
     response = client.post(
         ORDERS_URL,
-        json=_payload([{"product_id": product_id, "quantity": -3}]),
+        json=_payload([{"product_id": product_id, "quantity": -3, "size": "M"}]),
         headers=headers,
     )
     assert response.status_code == 422, response.text
@@ -102,7 +102,7 @@ def test_quantity_above_cap_rejected(client):
     product_id = _seed_product()
     response = client.post(
         ORDERS_URL,
-        json=_payload([{"product_id": product_id, "quantity": 100}]),
+        json=_payload([{"product_id": product_id, "quantity": 100, "size": "M"}]),
         headers=headers,
     )
     assert response.status_code == 422, response.text
@@ -111,7 +111,7 @@ def test_quantity_above_cap_rejected(client):
 def test_too_many_line_items_rejected(client):
     headers = _auth_headers(client)
     product_id = _seed_product()
-    items = [{"product_id": product_id, "quantity": 1} for _ in range(51)]
+    items = [{"product_id": product_id, "quantity": 1, "size": "M"} for _ in range(51)]
     response = client.post(ORDERS_URL, json=_payload(items), headers=headers)
     assert response.status_code == 422, response.text
 
@@ -121,8 +121,48 @@ def test_valid_order_still_succeeds(client):
     product_id = _seed_product()
     response = client.post(
         ORDERS_URL,
-        json=_payload([{"product_id": product_id, "quantity": 2}]),
+        json=_payload([{"product_id": product_id, "quantity": 2, "size": "M"}]),
         headers=headers,
     )
     assert response.status_code == 201, response.text
     assert "order_id" in response.json()
+
+
+def test_order_persists_size(client):
+    headers = _auth_headers(client)
+    product_id = _seed_product(name="Sized Tee")
+    response = client.post(
+        ORDERS_URL,
+        json=_payload([{"product_id": product_id, "quantity": 1, "size": "XL"}]),
+        headers=headers,
+    )
+    assert response.status_code == 201, response.text
+    order_id = response.json()["order_id"]
+
+    detail = client.get(f"{ORDERS_URL}{order_id}", headers=headers)
+    assert detail.status_code == 200, detail.text
+    items = detail.json()["items"]
+    assert len(items) == 1
+    assert items[0]["size"] == "XL"
+
+
+def test_missing_size_rejected(client):
+    headers = _auth_headers(client)
+    product_id = _seed_product()
+    response = client.post(
+        ORDERS_URL,
+        json=_payload([{"product_id": product_id, "quantity": 1}]),
+        headers=headers,
+    )
+    assert response.status_code == 422, response.text
+
+
+def test_empty_size_rejected(client):
+    headers = _auth_headers(client)
+    product_id = _seed_product()
+    response = client.post(
+        ORDERS_URL,
+        json=_payload([{"product_id": product_id, "quantity": 1, "size": ""}]),
+        headers=headers,
+    )
+    assert response.status_code == 422, response.text

@@ -82,7 +82,7 @@ def _create_order(client, headers):
             "address": "1 Test St",
             "city": "Testville",
             "zip": "12345",
-            "items": [{"product_id": product_id, "quantity": 1}],
+            "items": [{"product_id": product_id, "quantity": 1, "size": "M"}],
         },
     )
     assert response.status_code == 201, response.text

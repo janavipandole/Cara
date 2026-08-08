@@ -67,7 +67,7 @@ def test_cancel_order_restores_stock(client):
             "address": "1 Test St",
             "city": "Testville",
             "zip": "12345",
-            "items": [{"product_id": product_id, "quantity": 3}],
+            "items": [{"product_id": product_id, "quantity": 3, "size": "M"}],
         },
     )
     assert create.status_code == 201, create.text
@@ -106,7 +106,7 @@ def test_cancel_already_cancelled_does_not_double_restock(client):
             "address": "1 Test St",
             "city": "Testville",
             "zip": "12345",
-            "items": [{"product_id": product_id, "quantity": 2}],
+            "items": [{"product_id": product_id, "quantity": 2, "size": "M"}],
         },
     )
     assert create.status_code == 201, create.text
@@ -139,7 +139,7 @@ def _create_order_and_set_status(client, headers, *, email, product_name, quanti
             "address": "1 Test St",
             "city": "Testville",
             "zip": "12345",
-            "items": [{"product_id": product_id, "quantity": quantity}],
+            "items": [{"product_id": product_id, "quantity": quantity, "size": "M"}],
         },
     )
     assert create.status_code == 201, create.text
@@ -213,7 +213,7 @@ def test_order_uses_product_id_when_duplicate_names_exist(client):
             "address": "1 Test St",
             "city": "Testville",
             "zip": "12345",
-            "items": [{"product_id": expensive_id, "quantity": 1}],
+            "items": [{"product_id": expensive_id, "quantity": 1, "size": "M"}],
         },
     )
     assert create.status_code == 201, create.text

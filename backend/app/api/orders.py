@@ -92,6 +92,7 @@ def serialize_order(order: models.Order, db: Session, include_items: bool = True
                 "product_name": item.product_name,
                 "quantity": item.quantity,
                 "price": item.price,
+                "size": item.size,
             }
             for item in items
         ]
@@ -206,6 +207,7 @@ def create_order(
                 product_name=db_product.name,
                 quantity=item.quantity,
                 price=real_price,
+                size=item.size,
             )
         )
 
