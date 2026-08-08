@@ -55,3 +55,23 @@ uvicorn app.main:app --reload --port 8000
 
 ## Production Nginx Configuration
 Ensure gzip compression, cache control headers for assets, and TLS 1.3 encryption are enabled in your Nginx reverse proxy configuration. The bundled `nginx.conf` is a local-compose helper, not a hardened production TLS config.
+
+## Rate limiting behind a reverse proxy
+
+The API rate-limits login, registration, orders, recommendations, and feedback. By default slowapi keys each request on the **direct socket address** (`request.client.host`), so once traffic flows through nginx/cloud load balancers every request appears to come from the proxy and the whole site shares a single rate-limit bucket.
+
+To keep limits per-user behind a proxy, configure the `TRUSTED_PROXIES` environment variable with the IPs/CIDRs of the proxies that sit in front of the API (comma or semicolon separated):
+
+```bash
+TRUSTED_PROXIES=172.16.0.0/12,10.0.0.0/8
+```
+
+The rate limiter only honors `X-Forwarded-For` / `X-Real-IP` when the direct peer is in this allow-list, and otherwise falls back to the socket address — so an untrusted client cannot spoof the header to rotate its own rate-limit bucket.
+
+In the bundled Docker Compose stack the nginx container proxies `/api/*` to the API, so the proxy IP will be inside Docker's default bridge network (`172.16.0.0/12` / `172.17.0.0/16`). Set `TRUSTED_PROXIES` accordingly in `.env`:
+
+```bash
+TRUSTED_PROXIES=172.16.0.0/12,172.17.0.0/16
+```
+
+For uvicorn-managed deployments the equivalent is `--proxy-headers --forwarded-allow-ips <proxy CIDR>`, which rewrites `request.client.host` to the forwarded client IP before slowapi sees it.
