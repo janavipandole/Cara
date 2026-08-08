@@ -53,6 +53,7 @@ def serialize_order(order: models.Order, db: Session, include_items: bool = True
         )
         payload["items"] = [
             {
+                "product_id": item.product_id,
                 "product_name": item.product_name,
                 "quantity": item.quantity,
                 "price": item.price,
@@ -117,31 +118,31 @@ def create_order(
     db_items = []
 
     # --- Fetch all products in a single query to prevent N+1 issue ---
-    product_names = [item.product_name for item in order_data.items]
-    
+    product_ids = [item.product_id for item in order_data.items]
+
     db_products = (
         db.query(models.Product)
-        .filter(models.Product.name.in_(product_names))
-        .with_for_update() # Apply row locks to all matching products simultaneously
+        .filter(models.Product.id.in_(product_ids))
+        .with_for_update()  # Apply row locks to all matching products simultaneously
         .all()
     )
-    
-    # Create a fast lookup map for the fetched products
-    product_map = {product.name: product for product in db_products}
+
+    # Stable lookup by primary key (names are not unique)
+    product_map = {product.id: product for product in db_products}
 
     for item in order_data.items:
-        db_product = product_map.get(item.product_name)
+        db_product = product_map.get(item.product_id)
 
         if not db_product:
             raise HTTPException(
                 status_code=400,
-                detail=f"Product not found: {item.product_name}"
+                detail=f"Product not found: id={item.product_id}",
             )
 
         if db_product.stock < item.quantity:
             raise HTTPException(
                 status_code=400,
-                detail=f"Insufficient stock for product: {item.product_name}"
+                detail=f"Insufficient stock for product: {db_product.name}",
             )
 
         # Deduct stock in memory (will be committed later)
@@ -152,9 +153,10 @@ def create_order(
 
         db_items.append(
             models.OrderItem(
-                product_name=item.product_name,
+                product_id=db_product.id,
+                product_name=db_product.name,
                 quantity=item.quantity,
-                price=real_price
+                price=real_price,
             )
         )
 
@@ -257,17 +259,17 @@ def cancel_order(
         .filter(models.OrderItem.order_id == order.id)
         .all()
     )
-    product_names = [item.product_name for item in items]
-    if product_names:
+    product_ids = [item.product_id for item in items if item.product_id is not None]
+    if product_ids:
         products = (
             db.query(models.Product)
-            .filter(models.Product.name.in_(product_names))
+            .filter(models.Product.id.in_(product_ids))
             .with_for_update()
             .all()
         )
-        product_map = {product.name: product for product in products}
+        product_map = {product.id: product for product in products}
         for item in items:
-            product = product_map.get(item.product_name)
+            product = product_map.get(item.product_id)
             if product is not None:
                 product.stock += item.quantity
 

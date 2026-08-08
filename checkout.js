@@ -60,6 +60,33 @@ function buildAuthHeaders(extraHeaders = {}) {
   return { ...extraHeaders };
 }
 
+async function resolveCartProductIds(cart) {
+  const res = await fetch(`${API_BASE_URL}/api/products/`, {
+    credentials: 'include',
+  });
+  if (!res.ok) {
+    throw new Error('Failed to load products for checkout');
+  }
+  const products = await res.json();
+  const byId = new Map(products.map((p) => [p.id, p]));
+  const byName = new Map();
+  for (const p of products) {
+    if (!byName.has(p.name)) byName.set(p.name, p.id);
+  }
+
+  return cart.map((item) => {
+    const candidate = Number(item.id);
+    if (item.id != null && item.id !== '' && !Number.isNaN(candidate) && byId.has(candidate)) {
+      return { ...item, id: candidate };
+    }
+    const resolved = byName.get(item.name);
+    if (resolved == null) {
+      throw new Error(`Product not found for cart item: ${item.name}`);
+    }
+    return { ...item, id: resolved };
+  });
+}
+
 const paymentMethod = document.getElementById('paymentMethod');
 const cardDetails = document.getElementById('cardDetails');
 
@@ -358,31 +385,34 @@ function submitCheckoutForm() {
     checkoutIdempotencyKey = crypto.randomUUID();
   }
 
-  // Prepare order data
-  const orderData = {
-    fullName: document.getElementById('fullName').value.trim(),
-    email: document.getElementById('email').value.trim(),
-    address: document.getElementById('address').value.trim(),
-    city: document.getElementById('city').value.trim(),
-    zip: document.getElementById('zip').value.trim(),
-    coupon: window.appliedCoupon,
-    idempotency_key: checkoutIdempotencyKey,
-    items: cart.map((item) => ({
-      product_name: item.name,
-      quantity: parseInt(item.quantity, 10) || 1,
-      price: item.price,
-    })),
-  };
+  resolveCartProductIds(cart)
+    .then((resolvedCart) => {
+      cart = resolvedCart;
+      // Prepare order data — server looks up price/name by product_id
+      const orderData = {
+        fullName: document.getElementById('fullName').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        address: document.getElementById('address').value.trim(),
+        city: document.getElementById('city').value.trim(),
+        zip: document.getElementById('zip').value.trim(),
+        coupon: window.appliedCoupon,
+        idempotency_key: checkoutIdempotencyKey,
+        items: cart.map((item) => ({
+          product_id: Number(item.id),
+          quantity: parseInt(item.quantity, 10) || 1,
+        })),
+      };
 
-  fetch(`${API_BASE_URL}/api/orders/`, {
-    method: 'POST',
-    headers: buildAuthHeaders({
-      'Content-Type': 'application/json',
-      'Idempotency-Key': checkoutIdempotencyKey,
-    }),
-    credentials: 'include',
-    body: JSON.stringify(orderData),
-  })
+      return fetch(`${API_BASE_URL}/api/orders/`, {
+        method: 'POST',
+        headers: buildAuthHeaders({
+          'Content-Type': 'application/json',
+          'Idempotency-Key': checkoutIdempotencyKey,
+        }),
+        credentials: 'include',
+        body: JSON.stringify(orderData),
+      });
+    })
     .then((res) =>
       res
         .json()

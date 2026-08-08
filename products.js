@@ -714,7 +714,7 @@ async function renderProducts(containerId, list, query = '') {
     cartBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       e.preventDefault();
-      addToCart(p.name, '₹' + p.price, p.img, 1, 'M');
+      addToCart(p.name, '₹' + p.price, p.img, 1, 'M', p.id);
     });
     const cartIcon = document.createElement('i');
     cartIcon.className = 'ri-shopping-cart-2-line';
@@ -907,9 +907,29 @@ function attachSearchListeners() {
  * Resolves #1691
  * Adds an item to the cart and persists it to localStorage.
  */
-function addToCart(name, price, img, quantity, size) {
+function addToCart(name, price, img, quantity, size, productId) {
   const cart = safeParseJSON('productsInCart');
-  cart.push({ name, price, img, quantity, size, id: Date.now() });
+  const parsedQty = parseInt(quantity, 10) || 1;
+  const item = {
+    id: productId != null && productId !== '' ? Number(productId) : undefined,
+    name,
+    price,
+    image: img,
+    img,
+    quantity: parsedQty,
+    size,
+  };
+  const existing = cart.find(
+    (p) =>
+      (item.id != null && p.id != null ? Number(p.id) === item.id : p.name === name) &&
+      p.size === size,
+  );
+  if (existing) {
+    existing.quantity = (parseInt(existing.quantity, 10) || 0) + parsedQty;
+    if (existing.id == null && item.id != null) existing.id = item.id;
+  } else {
+    cart.push(item);
+  }
   try {
     localStorage.setItem('productsInCart', JSON.stringify(cart));
     if (typeof showToast === 'function') {
@@ -923,16 +943,14 @@ function addToCart(name, price, img, quantity, size) {
   }
 }
 
-function buyNow(name, price, img, quantity, size) {
-  const cart = safeParseJSON('productsInCart');
-  cart.push({ name, price, img, quantity, size, id: Date.now() });
+function buyNow(name, price, img, quantity, size, productId) {
+  addToCart(name, price, img, quantity, size, productId);
   try {
-    localStorage.setItem('productsInCart', JSON.stringify(cart));
     window.location.href = 'checkout.html';
   } catch (e) {
-    window.logError('Failed to save cart:', e);
+    window.logError('Failed to navigate to checkout:', e);
     if (typeof showToast === 'function') {
-      showToast('Storage limit reached! Cannot proceed to checkout.', 'error');
+      showToast('Could not proceed to checkout.', 'error');
     }
   }
 }

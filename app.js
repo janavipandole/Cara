@@ -745,13 +745,14 @@ function withCartLock(fn) {
   return cartLockPromise;
 }
 
-function addToCart(productName, productPrice, productImage, quantity, size) {
+function addToCart(productName, productPrice, productImage, quantity, size, productId) {
   return withCartLock(() => {
     let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
     let parsedQty = parseInt(quantity, 10);
     if (isNaN(parsedQty) || parsedQty < 1) parsedQty = 1;
 
     let item = {
+      id: productId != null && productId !== '' ? Number(productId) : undefined,
       name: productName,
       price: parsePriceString(productPrice),
       image: productImage,
@@ -765,10 +766,14 @@ function addToCart(productName, productPrice, productImage, quantity, size) {
     }
 
     let existingItem = cart.find(
-      (p) => p.name === item.name && p.size === item.size,
+      (p) =>
+        (item.id != null && p.id != null
+          ? p.id === item.id
+          : p.name === item.name) && p.size === item.size,
     );
     if (existingItem) {
       existingItem.quantity += item.quantity;
+      if (existingItem.id == null && item.id != null) existingItem.id = item.id;
     } else {
       cart.push(item);
     }
@@ -1156,8 +1161,9 @@ window.buyNow = function (
   productImage,
   quantity,
   size,
+  productId,
 ) {
-  addToCart(productName, productPrice, productImage, quantity, size);
+  addToCart(productName, productPrice, productImage, quantity, size, productId);
   setTimeout(function () {
     window.location.href = 'checkout.html';
   }, 1500);
@@ -2215,7 +2221,7 @@ document.addEventListener('DOMContentLoaded', () => {
     newAddToCart.addEventListener('click', () => {
       const size = document.getElementById('qvModalSize').value;
       const qty = parseInt(document.getElementById('qvQtyInput').value, 10);
-      addToCart(product.name, product.price, product.img, qty, size);
+      addToCart(product.name, product.price, product.img, qty, size, product.id);
       modal.classList.remove('active');
     });
 
@@ -2223,7 +2229,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const size = document.getElementById('qvModalSize').value;
       const qty = parseInt(document.getElementById('qvQtyInput').value, 10);
       modal.classList.remove('active');
-      window.buyNow(product.name, product.price, product.img, qty, size);
+      window.buyNow(product.name, product.price, product.img, qty, size, product.id);
     });
 
     modal.classList.add('active');

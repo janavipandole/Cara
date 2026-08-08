@@ -126,6 +126,7 @@ class Token(BaseModel):
 
 
 class OrderItemResponse(BaseModel):
+    product_id: Optional[int] = None
     product_name: str
     quantity: int
     price: float
@@ -150,8 +151,8 @@ class OrderResponse(BaseModel):
         from_attributes = True
 
 class OrderItemCreate(BaseModel):
-    product_name: str
-    quantity: int = Field(gt=0)
+    product_id: int = Field(gt=0)
+    quantity: int = Field(gt=0, le=99)
 
 class OrderCreate(BaseModel):
     fullName: str
