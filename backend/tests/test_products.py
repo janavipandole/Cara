@@ -51,6 +51,29 @@ def test_get_product_not_found(client):
     assert r.status_code == 404
 
 
+def test_get_products_by_ids(client):
+    db = TestingSessionLocal()
+    p1 = _seed_product(db, name="ByIds One")
+    p2 = _seed_product(db, name="ByIds Two")
+    p3 = _seed_product(db, name="ByIds Three")
+    id1, id2, id3 = p1.id, p2.id, p3.id
+    db.close()
+
+    r = client.get(f"{PRODUCTS_URL}by-ids", params={"ids": f"{id3},{id1}"})
+    assert r.status_code == 200
+    body = r.json()
+    assert [item["id"] for item in body] == [id1, id3]
+    assert id2 not in [item["id"] for item in body]
+
+
+def test_get_products_by_ids_rejects_invalid(client):
+    assert client.get(f"{PRODUCTS_URL}by-ids", params={"ids": "0"}).status_code == 422
+    assert client.get(f"{PRODUCTS_URL}by-ids", params={"ids": "-1"}).status_code == 422
+    assert client.get(f"{PRODUCTS_URL}by-ids", params={"ids": "abc"}).status_code == 422
+    too_many = ",".join(str(i) for i in range(1, 52))
+    assert client.get(f"{PRODUCTS_URL}by-ids", params={"ids": too_many}).status_code == 422
+
+
 def test_products_checkout_endpoint_removed(client):
     """Unauthenticated stock deduction via /api/products/checkout must not exist."""
     db = TestingSessionLocal()

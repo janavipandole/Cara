@@ -61,22 +61,93 @@ function buildAuthHeaders(extraHeaders = {}) {
 }
 
 async function resolveCartProductIds(cart) {
-  const res = await fetch(`${API_BASE_URL}/api/products/`, {
-    credentials: 'include',
-  });
-  if (!res.ok) {
-    throw new Error('Failed to load products for checkout');
-  }
-  const products = await res.json();
-  const byId = new Map(products.map((p) => [p.id, p]));
+  const byId = new Map();
   const byName = new Map();
-  for (const p of products) {
-    if (!byName.has(p.name)) byName.set(p.name, p.id);
+
+  const numericIds = [];
+  const nameOnlyItems = [];
+
+  for (const item of cart) {
+    const candidate = Number(item.id);
+    if (
+      item.id != null &&
+      item.id !== '' &&
+      Number.isInteger(candidate) &&
+      candidate > 0
+    ) {
+      numericIds.push(candidate);
+    } else if (item.name) {
+      nameOnlyItems.push(item.name);
+    }
+  }
+
+  const uniqueIds = [...new Set(numericIds)];
+  for (let i = 0; i < uniqueIds.length; i += 50) {
+    const chunk = uniqueIds.slice(i, i + 50);
+    const res = await fetch(
+      `${API_BASE_URL}/api/products/by-ids?ids=${chunk.join(',')}`,
+      { credentials: 'include' },
+    );
+    if (!res.ok) {
+      throw new Error('Failed to load products for checkout');
+    }
+    const products = await res.json();
+    for (const p of products) {
+      byId.set(p.id, p);
+      if (!byName.has(p.name)) byName.set(p.name, p.id);
+    }
+  }
+
+  const unresolvedNames = new Set(
+    nameOnlyItems.filter((name) => !byName.has(name)),
+  );
+  // Also resolve by name when a cart id did not match any product.
+  for (const item of cart) {
+    const candidate = Number(item.id);
+    const hasNumericId =
+      item.id != null &&
+      item.id !== '' &&
+      Number.isInteger(candidate) &&
+      candidate > 0;
+    if (hasNumericId && !byId.has(candidate) && item.name && !byName.has(item.name)) {
+      unresolvedNames.add(item.name);
+    }
+  }
+
+  if (unresolvedNames.size > 0) {
+    let skip = 0;
+    const limit = 100;
+    while (unresolvedNames.size > 0) {
+      const res = await fetch(
+        `${API_BASE_URL}/api/products/?skip=${skip}&limit=${limit}`,
+        { credentials: 'include' },
+      );
+      if (!res.ok) {
+        throw new Error('Failed to load products for checkout');
+      }
+      const products = await res.json();
+      if (!products.length) break;
+
+      for (const p of products) {
+        byId.set(p.id, p);
+        if (!byName.has(p.name)) byName.set(p.name, p.id);
+        unresolvedNames.delete(p.name);
+      }
+
+      if (products.length < limit) break;
+      skip += limit;
+    }
   }
 
   return cart.map((item) => {
     const candidate = Number(item.id);
-    if (item.id != null && item.id !== '' && !Number.isNaN(candidate) && byId.has(candidate)) {
+    if (
+      item.id != null &&
+      item.id !== '' &&
+      Number.isInteger(candidate) &&
+      candidate > 0 &&
+      byId.has(candidate)
+    ) {
       return { ...item, id: candidate };
     }
     const resolved = byName.get(item.name);

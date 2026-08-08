@@ -176,7 +176,44 @@ def get_category_summary(db: Session = Depends(get_db)) -> dict:
 
 
 # ---------------------------------------------------------------------------
-# Product by ID (must stay after literal /search/* paths)
+# Bulk lookup by IDs (literal path must stay before /{product_id})
+# ---------------------------------------------------------------------------
+
+@router.get("/by-ids", response_model=List[schemas.Product])
+def get_products_by_ids(
+    ids: str = Query(..., description="Comma-separated product IDs (max 50)"),
+    db: Session = Depends(get_db),
+):
+    """Return products matching the given IDs, ordered by id ascending."""
+    parts = [part.strip() for part in ids.split(",") if part.strip()]
+    if not parts:
+        raise HTTPException(status_code=422, detail="At least one product id is required")
+    if len(parts) > 50:
+        raise HTTPException(status_code=422, detail="A maximum of 50 ids is allowed")
+
+    parsed_ids: List[int] = []
+    for part in parts:
+        try:
+            product_id = int(part)
+        except ValueError:
+            raise HTTPException(status_code=422, detail=f"Invalid product id: {part}")
+        if product_id <= 0:
+            raise HTTPException(
+                status_code=422,
+                detail=f"Product id must be a positive integer: {part}",
+            )
+        parsed_ids.append(product_id)
+
+    return (
+        db.query(models.Product)
+        .filter(models.Product.id.in_(parsed_ids))
+        .order_by(models.Product.id.asc())
+        .all()
+    )
+
+
+# ---------------------------------------------------------------------------
+# Product by ID (must stay after literal /search/* and /by-ids paths)
 # ---------------------------------------------------------------------------
 
 @router.get("/{product_id}", response_model=schemas.Product)
