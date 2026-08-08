@@ -7,14 +7,14 @@ import re
 class ProductBase(BaseModel):
     brand: str
     name: str
-    price: float
+    price: float = Field(ge=0)
     img: str
-    rating: int
+    rating: int = Field(ge=0, le=5)
     category: str
     subcategory: Optional[str] = None
     color: Optional[str] = None
     style: Optional[str] = None
-    stock: int = 10
+    stock: int = Field(default=10, ge=0)
 
 class ProductCreate(ProductBase):
     """Admin create/update payload. Primary key is assigned by the database."""

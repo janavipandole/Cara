@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey, JSON, Boolean, DateTime, UniqueConstraint
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, JSON, Boolean, DateTime, UniqueConstraint, CheckConstraint
 from sqlalchemy.orm import relationship
 from .database import Base
 from datetime import datetime, timezone
@@ -27,6 +27,11 @@ class AmbassadorApplication(Base):
 
 class Product(Base):
     __tablename__ = "products"
+    __table_args__ = (
+        CheckConstraint("price >= 0", name="ck_products_price_nonnegative"),
+        CheckConstraint("stock >= 0", name="ck_products_stock_nonnegative"),
+        CheckConstraint("rating >= 0 AND rating <= 5", name="ck_products_rating_range"),
+    )
 
     id = Column(Integer, primary_key=True, index=True)
     brand = Column(String, index=True)

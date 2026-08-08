@@ -174,3 +174,75 @@ def test_admin_update_rejects_duplicate_name(client):
         headers=headers,
     )
     assert response.status_code == 409
+
+
+def _valid_payload(**overrides):
+    payload = {
+        "brand": "Brand",
+        "name": "Validation Product",
+        "price": 20.0,
+        "img": "test.jpg",
+        "rating": 3,
+        "category": "minimal",
+        "stock": 10,
+    }
+    payload.update(overrides)
+    return payload
+
+
+def test_admin_create_rejects_negative_price(client):
+    headers = _admin_headers(client)
+    response = client.post(
+        "/api/admin/products/",
+        json=_valid_payload(name="Neg Price Product", price=-500),
+        headers=headers,
+    )
+    assert response.status_code == 422
+
+
+def test_admin_create_rejects_negative_stock(client):
+    headers = _admin_headers(client)
+    response = client.post(
+        "/api/admin/products/",
+        json=_valid_payload(name="Neg Stock Product", stock=-1),
+        headers=headers,
+    )
+    assert response.status_code == 422
+
+
+def test_admin_create_rejects_rating_above_5(client):
+    headers = _admin_headers(client)
+    response = client.post(
+        "/api/admin/products/",
+        json=_valid_payload(name="Bad Rating Product", rating=999),
+        headers=headers,
+    )
+    assert response.status_code == 422
+
+
+def test_admin_create_rejects_rating_below_0(client):
+    headers = _admin_headers(client)
+    response = client.post(
+        "/api/admin/products/",
+        json=_valid_payload(name="Neg Rating Product", rating=-1),
+        headers=headers,
+    )
+    assert response.status_code == 422
+
+
+def test_admin_update_rejects_negative_price(client):
+    headers = _admin_headers(client)
+    created = client.post(
+        "/api/admin/products/",
+        json=_valid_payload(name="Update Validation Product"),
+        headers=headers,
+    )
+    assert created.status_code == 201
+    product_id = created.json()["id"]
+
+    response = client.put(
+        f"/api/admin/products/{product_id}",
+        json=_valid_payload(name="Update Validation Product", price=-1),
+        headers=headers,
+    )
+    assert response.status_code == 422
