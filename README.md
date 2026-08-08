@@ -242,6 +242,7 @@ The frontend keeps small, focused helpers in `js/` that are reusable across page
 - `theme-engine.js` — light/dark/high-contrast theme resolution with localStorage persistence.
 - `input-shield.js` — client-side XSS script-injection filtering on form submit.
 - `i18n.js`, `loyalty-rewards-engine.js`, `error-logger.js` — translation, loyalty points, and error logging helpers.
+- `utils/debounce.js` — reusable trailing-edge debounce utility for throttling rapid event handlers.
 
 Many of these expose their logic on `window` (or as ES module exports) so they can be exercised by unit tests in `tests/unit/`.
 
