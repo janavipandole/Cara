@@ -12,7 +12,8 @@
     if (existing) return existing;
     var el = document.createElement('div');
     el.id = 'cara-notif-container';
-    el.style.cssText = 'position:fixed;bottom:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:8px;';
+    el.style.cssText =
+      'position:fixed;bottom:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:8px;';
     document.body.appendChild(el);
     return el;
   }
@@ -23,7 +24,7 @@
       info: '#3b82f6',
       success: '#22c55e',
       warning: '#f59e0b',
-      error: '#ef4444'
+      error: '#ef4444',
     };
     var color = colors[type] || colors.info;
     el.style.cssText = [
@@ -38,7 +39,7 @@
       'min-width:200px',
       'max-width:320px',
       'opacity:0',
-      'transition:opacity 0.3s'
+      'transition:opacity 0.3s',
     ].join(';');
     el.textContent = message;
     el.setAttribute('role', 'alert');
@@ -57,12 +58,18 @@
     var el = createNotifEl(message, type);
     container.appendChild(el);
 
-    // Stack limit: remove oldest if exceeded
+    // Stack limit: remove oldest if exceeded — dismiss oldest without blocking isProcessing
     var children = Array.from(container.children);
     if (children.length > MAX_STACK) {
       var oldest = children[0];
       oldest.style.opacity = '0';
-      setTimeout(function () { oldest.remove(); }, 300);
+      clearTimeout(oldest._dismissTimer);
+      setTimeout(function () {
+        oldest.remove();
+        // Reset isProcessing so processQueue can continue processing remaining items
+        isProcessing = false;
+        processQueue();
+      }, 300);
     }
 
     // Fade in
@@ -71,10 +78,14 @@
     });
 
     // Dismiss on click
-    el.addEventListener('click', function () { dismiss(el); });
+    el.addEventListener('click', function () {
+      dismiss(el);
+    });
 
     // Auto-dismiss
-    var timer = setTimeout(function () { dismiss(el); }, duration || DEFAULT_DURATION);
+    var timer = setTimeout(function () {
+      dismiss(el);
+    }, duration || DEFAULT_DURATION);
     el._dismissTimer = timer;
   }
 
@@ -84,6 +95,7 @@
     el.style.opacity = '0';
     setTimeout(function () {
       if (el.parentNode) el.remove();
+      // Reset isProcessing immediately so subsequent notify() calls are not blocked
       isProcessing = false;
       processQueue();
     }, 300);
@@ -91,15 +103,27 @@
 
   function notify(message, type, duration) {
     if (typeof document === 'undefined') return;
-    queue.push({ message: message, type: type || 'info', duration: duration || DEFAULT_DURATION });
+    queue.push({
+      message: message,
+      type: type || 'info',
+      duration: duration || DEFAULT_DURATION,
+    });
     processQueue();
   }
 
   window.CaraNotifications = {
-    info: function (msg, dur) { notify(msg, 'info', dur); },
-    success: function (msg, dur) { notify(msg, 'success', dur); },
-    warning: function (msg, dur) { notify(msg, 'warning', dur); },
-    error: function (msg, dur) { notify(msg, 'error', dur); },
-    dismiss: dismiss
+    info: function (msg, dur) {
+      notify(msg, 'info', dur);
+    },
+    success: function (msg, dur) {
+      notify(msg, 'success', dur);
+    },
+    warning: function (msg, dur) {
+      notify(msg, 'warning', dur);
+    },
+    error: function (msg, dur) {
+      notify(msg, 'error', dur);
+    },
+    dismiss: dismiss,
   };
 })();
