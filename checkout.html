@@ -276,12 +276,19 @@
   </main><!-- /page-wrapper -->
 
   <!-- SUCCESS POPUP -->
-  <div class="success-overlay" id="successPopup">
-    <div class="popup-box">
+  <div class="success-overlay" id="successPopup" hidden>
+    <div
+      class="popup-box"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="successPopupTitle"
+      aria-describedby="successPopupDesc"
+      tabindex="-1"
+    >
       <div class="check-circle" aria-hidden="true"><i class="ri-check-line"></i></div>
-      <h2>Order Successful!</h2>
-      <p>Your order has been placed successfully. We'll send you a confirmation shortly.</p>
-      <button class="popup-btn" onclick="window.location.href='shop.html'">Continue Shopping</button>
+      <h2 id="successPopupTitle">Order Successful!</h2>
+      <p id="successPopupDesc">Your order has been placed successfully. We'll send you a confirmation shortly.</p>
+      <button type="button" class="popup-btn" id="successContinueBtn">Continue Shopping</button>
     </div>
   </div>
 
