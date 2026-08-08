@@ -1,16 +1,12 @@
+import argparse
 import os
 import sys
-import json
 
 # Add parent dir to sys path to import app modules
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from app.database import SessionLocal, engine
 from app import models
-
-# Recreate DB
-models.Base.metadata.drop_all(bind=engine)
-models.Base.metadata.create_all(bind=engine)
 
 products_data = [
   { "id": 1,  "brand": "adidas", "name": "Tropical Hibiscus Summer Shirt", "price": 78.0, "img": "images/products/f1.jpg", "rating": 5, "category": "street", "subcategory": "top", "style": "summer", "color": "multi" },
@@ -31,14 +27,77 @@ products_data = [
   { "id": 16, "brand": "adidas", "name": "Deep Charcoal Casual Shirt", "price": 78.0, "img": "images/products/n8.jpg", "rating": 5, "category": "minimal", "subcategory": "top", "style": "casual", "color": "charcoal" }
 ]
 
-def seed():
+
+def _database_url() -> str:
+    return os.environ.get("DATABASE_URL", "sqlite:///./cara.db")
+
+
+def _is_local_database(url: str) -> bool:
+    lowered = url.lower()
+    if lowered.startswith("sqlite"):
+        return True
+    return "localhost" in lowered or "127.0.0.1" in lowered
+
+
+def _wipe_database(*, force: bool, i_understand_production: bool) -> None:
+    if not force:
+        raise SystemExit(
+            "Refusing to wipe the database. Pass --force to drop all tables, "
+            "or omit it to upsert demo products only."
+        )
+    url = _database_url()
+    if not _is_local_database(url) and not i_understand_production:
+        raise SystemExit(
+            "DATABASE_URL does not look local. Re-run with "
+            "--force --i-understand-production if you really intend to wipe it."
+        )
+    models.Base.metadata.drop_all(bind=engine)
+    models.Base.metadata.create_all(bind=engine)
+    print("Database wiped and recreated.")
+
+
+def seed(*, force: bool = False, i_understand_production: bool = False) -> None:
+    if force:
+        _wipe_database(
+            force=force,
+            i_understand_production=i_understand_production,
+        )
+    else:
+        # Ensure tables exist without destroying existing data.
+        models.Base.metadata.create_all(bind=engine)
+
     db = SessionLocal()
-    for p_data in products_data:
-        p = models.Product(**p_data)
-        db.add(p)
-    db.commit()
-    db.close()
-    print("Database seeded successfully.")
+    try:
+        for p_data in products_data:
+            existing = db.query(models.Product).filter(models.Product.id == p_data["id"]).first()
+            if existing:
+                for key, value in p_data.items():
+                    if key == "id":
+                        continue
+                    setattr(existing, key, value)
+            else:
+                db.add(models.Product(**p_data))
+        db.commit()
+        print("Database seeded successfully.")
+    finally:
+        db.close()
+
+
+def main(argv: list[str] | None = None) -> None:
+    parser = argparse.ArgumentParser(description="Seed Cara demo products.")
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Drop and recreate all tables before seeding (destructive).",
+    )
+    parser.add_argument(
+        "--i-understand-production",
+        action="store_true",
+        help="Required with --force when DATABASE_URL is not local.",
+    )
+    args = parser.parse_args(argv)
+    seed(force=args.force, i_understand_production=args.i_understand_production)
+
 
 if __name__ == "__main__":
-    seed()
+    main()
