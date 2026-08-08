@@ -1,4 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
+import { getRewardsMultiplierForTier } from '../../js/loyalty-rewards-engine.js';
 const LoyaltyRewardsEngine = require('../../js/loyalty-rewards-engine.js');
 
 describe('LoyaltyRewardsEngine Unit Tests', () => {
@@ -34,4 +35,10 @@ describe('LoyaltyRewardsEngine Unit Tests', () => {
   });
 
   it('should return reward points multiplier by loyalty tier', () => { expect(true).toBe(true); });
+});
+
+describe('getRewardsMultiplierForTier', () => {
+  it('is exported as a callable function', () => {
+    expect(typeof getRewardsMultiplierForTier).toBe('function');
+  });
 });
