@@ -59,4 +59,15 @@ describe('Toast Queue Manager Unit Tests', () => {
     expect(manager.queue.length).toBe(0);
     vi.useRealTimers();
   });
+
+  it('should escape HTML in toast messages to prevent injection', () => {
+    const id = manager.show('<img src=x onerror=alert(1)>', 'warning', 0);
+    const toastCard = document.getElementById(id);
+    // No real <img> element may be created from the message.
+    expect(toastCard.querySelector('img')).toBeNull();
+    // The raw message is preserved as text, with angle brackets escaped.
+    expect(toastCard.textContent).toContain('<img src=x onerror=alert(1)>');
+    expect(toastCard.querySelector('.toast-message').innerHTML).toContain('&lt;img');
+    expect(toastCard.querySelector('.toast-message').innerHTML).not.toContain('<img');
+  });
 });
