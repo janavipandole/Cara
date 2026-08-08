@@ -143,11 +143,32 @@ describe('i18n Unit Tests', () => {
     });
   });
 
-  it('should substitute placeholder parameters in translation templates', () => { expect(true).toBe(true); });
+  it('should substitute placeholder parameters in translation templates', () => {
+    expect(formatI18nPlaceholder('Hello {{name}}', { name: 'Alice' })).toBe(
+      'Hello Alice',
+    );
+    expect(formatI18nPlaceholder('Price: {{price}}', { price: 99 })).toBe(
+      'Price: 99',
+    );
+  });
 });
 
 describe('formatI18nPlaceholder', () => {
   it('is exported as a callable function', () => {
     expect(typeof formatI18nPlaceholder).toBe('function');
+  });
+
+  it('returns an empty string for a missing template', () => {
+    expect(formatI18nPlaceholder('')).toBe('');
+    expect(formatI18nPlaceholder(null)).toBe('');
+  });
+
+  it('replaces missing parameters with an empty string', () => {
+    expect(formatI18nPlaceholder('Hi {{name}}', {})).toBe('Hi ');
+    expect(formatI18nPlaceholder('Hi {{name}}')).toBe('Hi ');
+  });
+
+  it('leaves templates without placeholders unchanged', () => {
+    expect(formatI18nPlaceholder('Plain text')).toBe('Plain text');
   });
 });
