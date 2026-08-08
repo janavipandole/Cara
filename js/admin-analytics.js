@@ -59,7 +59,20 @@
         '<tr><td colspan="3" class="text-muted text-center">No sales recorded yet.</td></tr>';
       return;
     }
-    catTable.innerHTML = list
+    const validList = list.filter(
+      (r) =>
+        r &&
+        typeof r.category === 'string' &&
+        r.category.trim() !== '' &&
+        typeof r.units_sold === 'number' &&
+        isFinite(r.units_sold),
+    );
+    if (validList.length === 0) {
+      catTable.innerHTML =
+        '<tr><td colspan="3" class="text-muted text-center">No valid sales recorded.</td></tr>';
+      return;
+    }
+    catTable.innerHTML = validList
       .map(
         (r) => `
       <tr>
