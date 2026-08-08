@@ -110,3 +110,41 @@ def get_status_distribution(
         }
         for r in results
     ]
+
+
+@router.post("/orders/{order_id}/status")
+def update_order_status(
+    order_id: int,
+    payload: schemas.OrderStatusUpdate,
+    db: Session = Depends(get_db),
+    admin_user: models.User = Depends(_enforce_admin)
+):
+    """Transition an order's fulfillment status.
+
+    Marking an order DELIVERED captures the delivery timestamp exactly once;
+    the Estimated Return Date policy engine then exposes the immutable
+    return deadline (delivered_at + 30 days) to the buyer.
+    """
+    from .orders import ORDER_STATUSES, return_deadline, set_order_status
+
+    order = db.query(models.Order).filter(models.Order.id == order_id).first()
+    if not order:
+        raise HTTPException(status_code=404, detail="Order not found")
+
+    if payload.status not in ORDER_STATUSES:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid order status: {payload.status}",
+        )
+
+    set_order_status(order, payload.status)
+    db.commit()
+    db.refresh(order)
+
+    return {
+        "message": "Order status updated",
+        "order_id": order.id,
+        "status": order.status,
+        "delivered_at": order.delivered_at,
+        "return_deadline": return_deadline(order),
+    }

@@ -145,10 +145,17 @@ class OrderResponse(BaseModel):
     total_amount: float
     status: str
     created_at: datetime
+    delivered_at: Optional[datetime] = None
+    return_deadline: Optional[datetime] = None
     items: list[OrderItemResponse] = Field(default_factory=list)
 
     class Config:
         from_attributes = True
+
+
+class OrderStatusUpdate(BaseModel):
+    """Admin/carrier transition of an order's fulfillment status."""
+    status: str = Field(pattern=r"^(PENDING|CONFIRMED|SHIPPED|DELIVERED|CANCELLED)$")
 
 class OrderItemCreate(BaseModel):
     product_id: int = Field(gt=0)
