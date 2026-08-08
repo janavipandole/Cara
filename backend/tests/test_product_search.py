@@ -158,6 +158,61 @@ class TestProductSearchQuery:
         for product in resp.json()["products"]:
             assert product["rating"] >= 4
 
+    def test_like_wildcards_are_literal(self, client: TestClient):
+        """LIKE wildcards (% / _) in the query must not over-match the catalog.
+
+        Before the fix q=% matched every product and q=____ matched anything
+        with at least 4 chars. After escaping they are matched literally.
+        """
+        from app.models import Product
+        from tests.conftest import TestingSessionLocal
+
+        db = TestingSessionLocal()
+        db.add_all([
+            Product(brand="LiteralBrand", name="Plain Shirt", price=10.0,
+                    img="a.jpg", rating=3, category="minimal", subcategory="top",
+                    color="white", style="casual", stock=5),
+            Product(brand="WildcardBrand", name="100% Cotton Tee", price=10.0,
+                    img="b.jpg", rating=3, category="minimal", subcategory="top",
+                    color="white", style="casual", stock=5),
+            Product(brand="UnderscoreBrand", name="Premium_Tee", price=10.0,
+                    img="c.jpg", rating=3, category="minimal", subcategory="top",
+                    color="white", style="casual", stock=5),
+            Product(brand="BackslashBrand", name="A\\B Tee", price=10.0,
+                    img="d.jpg", rating=3, category="minimal", subcategory="top",
+                    color="white", style="casual", stock=5),
+        ])
+        db.commit()
+        db.close()
+
+        # q=% must NOT return the entire catalog.
+        resp = client.get("/api/products/search/query?q=%25")
+        assert resp.status_code == 200
+        body = resp.json()
+        assert body["total"] == 1
+        assert body["products"][0]["name"] == "100% Cotton Tee"
+
+        # q=_ must match only the literal underscore, not every 1+ char name.
+        resp = client.get("/api/products/search/query?q=_")
+        assert resp.status_code == 200
+        body = resp.json()
+        assert body["total"] == 1
+        assert body["products"][0]["name"] == "Premium_Tee"
+
+        # q=Premium_Tee must match the literal underscore product only.
+        resp = client.get("/api/products/search/query?q=Premium_Tee")
+        assert resp.status_code == 200
+        body = resp.json()
+        assert body["total"] == 1
+        assert body["products"][0]["name"] == "Premium_Tee"
+
+        # q=A\B must match the literal backslash product only.
+        resp = client.get("/api/products/search/query?q=A%5CB")
+        assert resp.status_code == 200
+        body = resp.json()
+        assert body["total"] == 1
+        assert body["products"][0]["name"] == "A\\B Tee"
+
 
 class TestCategorySummary:
     def test_categories_endpoint_returns_correct_schema(self, client: TestClient):

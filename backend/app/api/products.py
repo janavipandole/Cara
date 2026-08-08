@@ -72,12 +72,21 @@ def search_products(
     query = db.query(models.Product)
 
     # --- Keyword search: case-insensitive match on name OR brand ---------
+    # % and _ are SQL LIKE wildcards and \ is the escape character; they must
+    # be escaped in the user input or q=% would match the entire catalog and
+    # q=a_ would match any term starting with "a".
     if q:
-        search_term = f"%{q.strip()}%"
+        escaped = (
+            q.strip()
+            .replace("\\", "\\\\")
+            .replace("%", "\\%")
+            .replace("_", "\\_")
+        )
+        search_term = f"%{escaped}%"
         query = query.filter(
             or_(
-                func.lower(models.Product.name).like(func.lower(search_term)),
-                func.lower(models.Product.brand).like(func.lower(search_term)),
+                func.lower(models.Product.name).like(func.lower(search_term), escape="\\"),
+                func.lower(models.Product.brand).like(func.lower(search_term), escape="\\"),
             )
         )
 
