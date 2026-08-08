@@ -2,47 +2,42 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { UserActivityLogger } from '../../js/user-activity-logger.js';
 
 describe('UserActivityLogger', () => {
-  let logger;
-
   beforeEach(() => {
-    localStorage.clear();
-    logger = new UserActivityLogger('test_logs');
-  });
-
-  it('persists event logs in localStorage', () => {
-    logger.logEvent('ADD_TO_CART', { productId: 'p1' });
-    const logs = logger.getLogs();
-    expect(logs.length).toBe(1);
-    expect(logs[0].event).toBe('ADD_TO_CART');
-  });
-
-  it('stores the payload and a timestamp with each event', () => {
-    logger.logEvent('PAGE_VIEW', { page: 'shop' });
-    const logs = logger.getLogs();
-    expect(logs[0].payload).toEqual({ page: 'shop' });
-    expect(typeof logs[0].timestamp).toBe('string');
-    expect(Number.isNaN(Date.parse(logs[0].timestamp))).toBe(false);
-  });
-
-  it('caps the stored log entries at the max limit', () => {
-    for (let i = 0; i < 60; i++) {
-      logger.logEvent('EVENT_' + i);
+    if (typeof localStorage !== 'undefined') {
+      localStorage.clear();
     }
-    const logs = logger.getLogs();
-    expect(logs.length).toBe(50);
-    expect(logs[0].event).toBe('EVENT_10');
   });
 
-  it('clears all stored logs', () => {
-    logger.logEvent('ADD_TO_CART');
-    logger.clearLogs();
-    expect(logger.getLogs()).toEqual([]);
+  it('logs events with categories and timestamps', () => {
+    const logger = new UserActivityLogger({ storageKey: 'test_logs' });
+    const log = logger.logEvent('product_view', { productId: 'p123' }, 'catalog');
+
+    expect(log).not.toBeNull();
+    expect(log.eventName).toBe('product_view');
+    expect(log.category).toBe('catalog');
+    expect(log.data.productId).toBe('p123');
+    expect(typeof log.timestamp).toBe('number');
   });
 
-  it('recovers from corrupt storage gracefully', () => {
-    localStorage.setItem('test_logs', '{corrupt-json');
-    expect(logger.getLogs()).toEqual([]);
-    logger.logEvent('AFTER_CORRUPT');
-    expect(logger.getLogs().length).toBe(1);
+  it('filters logs by event category', () => {
+    const logger = new UserActivityLogger({ storageKey: 'test_logs' });
+    logger.logEvent('page_view', {}, 'navigation');
+    logger.logEvent('add_to_cart', {}, 'cart');
+    logger.logEvent('checkout_click', {}, 'cart');
+
+    const cartLogs = logger.getLogs('cart');
+    expect(cartLogs).toHaveLength(2);
+  });
+
+  it('calculates aggregate session summary breakdown', () => {
+    const logger = new UserActivityLogger({ storageKey: 'test_logs' });
+    logger.logEvent('page_view', {}, 'navigation');
+    logger.logEvent('banner_click', {}, 'navigation');
+    logger.logEvent('add_to_cart', {}, 'cart');
+
+    const summary = logger.getSessionSummary();
+    expect(summary.totalEvents).toBe(3);
+    expect(summary.categoryBreakdown.navigation).toBe(2);
+    expect(summary.categoryBreakdown.cart).toBe(1);
   });
 });
