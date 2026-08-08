@@ -86,11 +86,27 @@ describe('renderInventoryBanner', () => {
     expect(banner.tagName).toBe('DIV');
   });
 
-  it('should evaluate low stock threshold trigger', () => { expect(true).toBe(true); });
+  it('should evaluate low stock threshold trigger', () => {
+    expect(isLowStockQuantity(2)).toBe(true);
+    expect(isLowStockQuantity(5)).toBe(true);
+    expect(isLowStockQuantity(6)).toBe(false);
+  });
 });
 
 describe('isLowStockQuantity', () => {
   it('is exported as a callable function', () => {
     expect(typeof isLowStockQuantity).toBe('function');
+  });
+
+  it('returns false for zero, negative, or non-number counts', () => {
+    expect(isLowStockQuantity(0)).toBe(false);
+    expect(isLowStockQuantity(-3)).toBe(false);
+    expect(isLowStockQuantity('2')).toBe(false);
+    expect(isLowStockQuantity(null)).toBe(false);
+  });
+
+  it('respects a custom threshold', () => {
+    expect(isLowStockQuantity(8, 10)).toBe(true);
+    expect(isLowStockQuantity(11, 10)).toBe(false);
   });
 });
