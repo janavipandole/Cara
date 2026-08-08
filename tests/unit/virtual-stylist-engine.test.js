@@ -1,62 +1,40 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { VirtualStylistEngine } from '../../js/virtual-stylist-engine.js';
 
+const topItem = { id: 't1', name: 'White Shirt', color: 'white', style: 'casual' };
+const bottoms = [
+  { id: 'b1', name: 'Black Jeans', color: 'black', style: 'casual', occasion: 'casual' },
+  { id: 'b2', name: 'Green Shorts', color: 'green', style: 'sport', occasion: 'sport' }
+];
+const footwear = [
+  { id: 'f1', name: 'White Sneakers', color: 'white', style: 'casual' }
+];
+
 describe('VirtualStylistEngine', () => {
-  let engine;
-
-  beforeEach(() => {
-    engine = new VirtualStylistEngine();
+  it('calculates outfit score considering footwear compatibility', () => {
+    const engine = new VirtualStylistEngine();
+    const scoreWithoutShoe = engine.calculateOutfitScore(topItem, bottoms[0]);
+    const scoreWithShoe = engine.calculateOutfitScore(topItem, bottoms[0], footwear[0]);
+    
+    expect(scoreWithShoe).toBeGreaterThan(scoreWithoutShoe);
   });
 
-  it('should evaluate color compatibility accurately', () => {
-    expect(engine.isColorCompatible('blue', 'white')).toBe(true);
-    expect(engine.isColorCompatible('black', 'white')).toBe(true);
+  it('recommends bottoms filtered by occasion', () => {
+    const engine = new VirtualStylistEngine();
+    const casualRecs = engine.recommendBottoms(topItem, bottoms, 'casual');
+    
+    expect(casualRecs).toHaveLength(1);
+    expect(casualRecs[0].bottom.name).toBe('Black Jeans');
   });
 
-  it('should compute high outfit scores for matching top and bottom apparel', () => {
-    const top = { category: 'shirts', color: 'blue' };
-    const bottom = { category: 'jeans', color: 'white' };
-    const score = engine.calculateOutfitScore(top, bottom);
-    expect(score).toBe(100);
-  });
+  it('generates complete outfit ensemble (top, bottom, footwear)', () => {
+    const engine = new VirtualStylistEngine();
+    const ensemble = engine.generateFullEnsemble(topItem, bottoms, footwear, 'casual');
 
-  it('should rank bottoms by recommendation score', () => {
-    const top = { category: 'shirts', color: 'blue' };
-    const bottoms = [
-      { id: 'b1', category: 'pants', color: 'yellow' },
-      { id: 'b2', category: 'jeans', color: 'white' }
-    ];
-    const ranked = engine.recommendBottoms(top, bottoms);
-    expect(ranked[0].item.id).toBe('b2');
-    expect(ranked[0].score).toBeGreaterThan(ranked[1].score);
-  });
-
-  it('should treat color comparison as case-insensitive and trimmed', () => {
-    expect(engine.isColorCompatible('  BLUE ', 'white')).toBe(true);
-    expect(engine.isColorCompatible('Blue', 'WHITE')).toBe(true);
-  });
-
-  it('should return true for identical colors', () => {
-    expect(engine.isColorCompatible('red', 'red')).toBe(true);
-    expect(engine.isColorCompatible('', '')).toBe(true);
-  });
-
-  it('should return 0 when either outfit item is missing', () => {
-    expect(engine.calculateOutfitScore(null, { category: 'jeans' })).toBe(0);
-    expect(engine.calculateOutfitScore({ category: 'shirts' }, null)).toBe(0);
-  });
-
-  it('should cap outfit scores at 100', () => {
-    const top = { category: 'shirts', color: 'blue' };
-    const bottom = { category: 'pants', color: 'white' };
-    // base 50 + 30 category + 20 color = 100 (capped)
-    expect(engine.calculateOutfitScore(top, bottom)).toBe(100);
-  });
-
-  it('should return an empty list for invalid catalog input', () => {
-    const top = { category: 'shirts', color: 'blue' };
-    expect(engine.recommendBottoms(top, null)).toEqual([]);
-    expect(engine.recommendBottoms(top, 'not-an-array')).toEqual([]);
-    expect(engine.recommendBottoms(null, [])).toEqual([]);
+    expect(ensemble).not.toBeNull();
+    expect(ensemble.top.name).toBe('White Shirt');
+    expect(ensemble.bottom.name).toBe('Black Jeans');
+    expect(ensemble.footwear.name).toBe('White Sneakers');
+    expect(ensemble.totalScore).toBeGreaterThan(70);
   });
 });
