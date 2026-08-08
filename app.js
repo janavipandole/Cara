@@ -1678,7 +1678,13 @@ function initHeroSlider() {
   }
   function resetAutoPlay() {
     clearInterval(autoPlayInterval);
-    autoPlayInterval = setInterval(nextSlide, intervalTime);
+    autoPlayInterval = setInterval(() => {
+      if (document.documentElement.getAttribute('data-compute-pressure') === 'high') {
+        // Defer next slide to save compute
+        return;
+      }
+      nextSlide();
+    }, intervalTime);
   }
 
   if (nextBtn)
@@ -2471,4 +2477,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+// Compute Pressure API Implementation
+if ('PressureObserver' in globalThis) {
+  try {
+    const observer = new PressureObserver((records) => {
+      const lastRecord = records[records.length - 1];
+      if (lastRecord.state === 'serious' || lastRecord.state === 'critical') {
+        document.documentElement.setAttribute('data-compute-pressure', 'high');
+      } else {
+        document.documentElement.removeAttribute('data-compute-pressure');
+      }
+    });
+    observer.observe('cpu');
+  } catch (error) {
+    window.logError('Compute Pressure API is supported but failed to observe CPU:', error);
+  }
+}
 })();
