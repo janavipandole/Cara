@@ -1,26 +1,25 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Request, status
 from sqlalchemy.orm import Session
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, Field
 from typing import Optional
 from .. import models
 from ..database import get_db
+from ..limiter import limiter
 
 router = APIRouter()
 
 
 class AmbassadorApplyRequest(BaseModel):
-    full_name: str
+    full_name: str = Field(min_length=1, max_length=120)
     email: EmailStr
-    instagram_handle: str
-    follower_count: int
-    motivation: Optional[str] = None
+    instagram_handle: str = Field(min_length=1, max_length=50)
+    follower_count: int = Field(ge=0, le=100_000_000)
+    motivation: Optional[str] = Field(default=None, max_length=2000)
 
 
 @router.post("/apply", status_code=201)
-def apply_ambassador(payload: AmbassadorApplyRequest, db: Session = Depends(get_db)):
-    if payload.follower_count < 0:
-        raise HTTPException(status_code=400, detail="Follower count cannot be negative")
-
+@limiter.limit("3/minute")
+def apply_ambassador(request: Request, payload: AmbassadorApplyRequest, db: Session = Depends(get_db)):
     application = models.AmbassadorApplication(
         full_name=payload.full_name,
         email=payload.email,
