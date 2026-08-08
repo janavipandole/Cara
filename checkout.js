@@ -268,8 +268,20 @@ cardName.addEventListener('input', function () {
 });
 
 // --- Show/Hide Card Details and clear validation states ---
-paymentMethod.addEventListener('change', function () {
-  if (this.value === 'online') {
+function applyPaymentMethod(method) {
+  const value = method === 'online' ? 'online' : 'cod';
+  if (paymentMethod) {
+    paymentMethod.value = value;
+  }
+
+  const tabCod = document.getElementById('tabCOD');
+  const tabOnline = document.getElementById('tabOnline');
+  if (tabCod && tabOnline) {
+    tabCod.classList.toggle('active', value === 'cod');
+    tabOnline.classList.toggle('active', value === 'online');
+  }
+
+  if (value === 'online') {
     cardDetails.style.display = 'block';
     cardName.required = true;
     cardNumber.required = true;
@@ -291,9 +303,17 @@ paymentMethod.addEventListener('change', function () {
     });
   }
 
-  if (this.classList.contains('is-invalid')) {
-    validateField(this);
+  if (paymentMethod && paymentMethod.classList.contains('is-invalid')) {
+    validateField(paymentMethod);
   }
+}
+
+window.selectPayment = function (method) {
+  applyPaymentMethod(method);
+};
+
+paymentMethod.addEventListener('change', function () {
+  applyPaymentMethod(this.value);
 });
 
 // --- Form Submission & Final Validation Check ---
