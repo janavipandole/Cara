@@ -532,6 +532,8 @@
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
   <!-- Header Section -->
   <header>
     <div class="brand">
@@ -569,8 +571,7 @@
       </button>
     </div>
   </header>
-
-  <main class="app" role="main">
+<main id="main-content">
     <section class="catalog">
       <div class="toolbar">
         <div>
@@ -581,10 +582,10 @@
           </h2>
         </div>
         <div class="filters">
-          <select id="category" class="filter-btn">
+          <select id="category" class="filter-btn" aria-label="Select category">
             <option value="all">All categories</option>
           </select>
-          <select id="priceRange" class="filter-btn">
+          <select id="priceRange" class="filter-btn" aria-label="Select priceRange">
             <option value="any">Any price</option>
             <option value="0-25">Under $25</option>
             <option value="25-75">$25–75</option>
@@ -955,6 +956,7 @@ function changeQty(id, delta) {
     });
   });
 </script>
+</main>
 </body>
 
 </html>

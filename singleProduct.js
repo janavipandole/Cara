@@ -1,5 +1,19 @@
+import { SizeFitCalculator } from './js/size-fit-calculator.js';
+
 const modal = document.getElementById('size-chart-modal');
 const PRODUCT_DETAILS_REQUEST_KEY = 'product-details';
+
+const fitCalc = new SizeFitCalculator();
+document.addEventListener('DOMContentLoaded', () => {
+  const guideBtn = document.getElementById('btn-size-fit-guide');
+  if (guideBtn) {
+    guideBtn.addEventListener('click', () => {
+      const rec = fitCalc.recommendSize(95, 76, 'regular');
+      alert(`Recommended Size: ${rec}`);
+    });
+  }
+});
+
 
 function abortProductDetailsRequest() {
   if (window.CaraAPI && typeof window.CaraAPI.abortRequest === 'function') {

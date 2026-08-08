@@ -14,9 +14,10 @@
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
 <section id="header" role="banner">
-  <a href="index.html">
-    <img src="images/logo.png" alt="Cara Logo" />
+  <a href="index.html" aria-label="Cara Home"><img src="images/logo.png" alt="Cara Logo" />
   </a>
   <div>
     <ul id="navbar" role="navigation">
@@ -25,17 +26,19 @@
       <li><a href="blog.html">Blog</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="contact.html">Contact</a></li>
-      <li class="nav-icon"><a href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
+      <li class="nav-icon"><a href="cart.html" id="lg-bag" aria-label="Shopping cart"><i class="ri-shopping-bag-4-line"></i></a></li>
       <li class="nav-icon">
-        <button class="theme-toggle" id="themeToggleDesktop"><i class="ri-moon-line" id="themeIcon"></i></button>
+        <button class="theme-toggle" id="themeToggleDesktop" aria-label="Button action"> class="ri-moon-line" id="themeIcon"></i></button>
       </li>
     </ul>
   </div>
 </section>
+</main>
 
-<main>
+<main id="main-content">
+  <div class="main-section">
   <section id="page-header" class="about-header" style="text-align: center; padding: 40px; background-color: var(--card); color: white;">
-    <h2>#AskUs</h2>
+    <h1>#AskUs</h1>
     <p>Read all our frequently asked questions</p>
   </section>
 

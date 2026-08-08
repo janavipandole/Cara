@@ -87,3 +87,26 @@ def test_me_requires_auth(client):
 def test_me_rejects_invalid_token(client):
     r = client.get(ME_URL, cookies={"access_token": "Bearer invalid.token.here"})
     assert r.status_code == 401
+
+
+def test_me_rejects_deactivated_user(client):
+    payload = {
+        "username": "inactiveuser",
+        "email": "inactive@example.com",
+        "password": "Secure123@",
+    }
+    register = client.post(REGISTER_URL, json=payload)
+    assert register.status_code == 201
+    token = register.json()["access_token"]
+
+    from tests.conftest import TestingSessionLocal
+    from app.models import User
+
+    db = TestingSessionLocal()
+    user = db.query(User).filter(User.email == payload["email"]).first()
+    user.is_active = False
+    db.commit()
+    db.close()
+
+    response = client.get(ME_URL, headers={"Authorization": f"Bearer {token}"})
+    assert response.status_code == 403

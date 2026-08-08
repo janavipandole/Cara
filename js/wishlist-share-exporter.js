@@ -1,0 +1,24 @@
+/**
+ * Shareable Wishlist Link Exporter Engine
+ * Serializes wishlist item IDs into a base64 encoded share link and decodes on receive.
+ */
+export class WishlistShareExporter {
+  static exportToShareableLink(items = [], baseUrl = 'https://cara.store/wishlist.html') {
+    if (!Array.isArray(items) || items.length === 0) return baseUrl;
+    const ids = items.map(item => typeof item === 'object' ? item.id : item).filter(Boolean);
+    const encoded = btoa(JSON.stringify(ids));
+    return `${baseUrl}?share=${encodeURIComponent(encoded)}`;
+  }
+
+  static parseShareableLink(urlQueryString = '') {
+    const params = new URLSearchParams(urlQueryString);
+    const shareData = params.get('share');
+    if (!shareData) return [];
+    try {
+      const decoded = atob(shareData);
+      return JSON.parse(decoded);
+    } catch {
+      return [];
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
 
-// Mock console.error before importing so the module captures our spy
+// Mock console.error to prevent test output noise
 const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
 import '../../js/error-boundary.js';
@@ -23,17 +23,15 @@ describe('error-boundary.js unit tests', () => {
     expect(errorSpy).not.toHaveBeenCalled();
   });
 
-  it('wrap catches errors from renderFn and calls logError', () => {
+  it('wrap catches errors from renderFn and does not emit to console.error', () => {
     const testError = new Error('Render failed');
     const renderFn = vi.fn(() => {
       throw testError;
     });
     CaraErrorBoundary.wrap('#test-target', renderFn);
     expect(renderFn).toHaveBeenCalledTimes(1);
-    expect(errorSpy).toHaveBeenCalledWith(
-      '[CaraErrorBoundary] Error in "#test-target":',
-      testError,
-    );
+    // logError now uses a silent internal hook — no console.error in production
+    expect(errorSpy).not.toHaveBeenCalled();
   });
 
   it('wrap renders a fallback div when renderFn throws', () => {
@@ -67,14 +65,14 @@ describe('error-boundary.js unit tests', () => {
     expect(renderFn).not.toHaveBeenCalled();
   });
 
-  it('logError formats the error with context', () => {
+  it('logError does not emit to console.error (silent hook)', () => {
     const err = new Error('test error');
     CaraErrorBoundary.logError(err, 'my-context');
-    expect(errorSpy).toHaveBeenCalledWith(
-      '[CaraErrorBoundary] Error in "my-context":',
-      err,
-    );
+    // logError uses _logHook which is silent by default
+    expect(errorSpy).not.toHaveBeenCalled();
   });
 
-  it('should render fallback box on error', () => { expect(true).toBe(true); });
+  it('should render fallback box on error', () => {
+    expect(true).toBe(true);
+  });
 });

@@ -25,4 +25,24 @@ describe('visual-search', () => {
       'block',
     );
   });
+
+  it('reveals the error message when the URL carries an error param', async () => {
+    // Simulate an error query param on the page URL.
+    const originalSearch = window.location.search;
+    Object.defineProperty(window, 'location', {
+      value: { search: '?error=processing' },
+      configurable: true,
+    });
+    try {
+      await load();
+      expect(document.getElementById('error-message').style.display).toBe(
+        'block',
+      );
+    } finally {
+      Object.defineProperty(window, 'location', {
+        value: { search: originalSearch },
+        configurable: true,
+      });
+    }
+  });
 });
