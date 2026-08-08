@@ -15,6 +15,10 @@ export function getStockInfo(size) {
 }
 
 export function startStockReservationTimer(durationSeconds, onTick, onExpire) {
+  if (durationSeconds <= 0) {
+    if (onExpire) onExpire();
+    return null;
+  }
   let remaining = durationSeconds;
   const interval = setInterval(() => {
     remaining -= 1;

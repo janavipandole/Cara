@@ -80,7 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Hide scanning UI
     nfcStatus.classList.add('hidden');
     startScanBtn.classList.add('hidden');
-    console.log('NFC Payload:', payload);
 
     // Populate data
     // Fallback to random if serial is missing, simulating a tag

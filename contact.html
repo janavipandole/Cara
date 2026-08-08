@@ -53,7 +53,6 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="ui-fix.css" />
 
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
@@ -358,11 +357,12 @@ button.normal:hover {
     <script type="module" src="js/config.js"></script>
 </head>
   <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- HEADER -->
   <section id="header" role="banner">
   <!-- Logo -->
-  <a href="index.html">
-    <img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" />
+  <a href="index.html" aria-label="Cara Home"><img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" />
   </a>
   <div>
     <ul id="navbar">
@@ -398,9 +398,9 @@ button.normal:hover {
         </button>
       </li>
 
-      <a href="javascript:void(0)" id="close" aria-label="Close menu" aria-hidden="false">
+      <li class="nav-close"><a href="javascript:void(0)" id="close" aria-label="Close menu" aria-hidden="false">
         <i class="fa-solid fa-xmark"></i>
-      </a>
+      </a></li>
     </ul>
   </div>
 
@@ -410,9 +410,11 @@ button.normal:hover {
     <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
   </div>
 </section>
+</main>
     <!-- Contact Header -->
-    <section id="about-head">
-        <h2>#Let's_Talk</h2>
+    <main id="main-content">
+  <section id="about-head">
+        <h1>#Let's_Talk</h1>
         <p>We'd love to hear from you! Whether you have a question, feedback, or partnership idea — our team is here to
             help.</p>
     </section>
@@ -481,7 +483,7 @@ button.normal:hover {
 
         <!-- DEPARTMENT -->
         <label for="department">Department</label>
-        <select id="department" name="department" required>
+        <select id="department" name="department" required aria-label="Select department">
           <option value="">Choose a department</option>
           <option value="orders">Orders & Shipping</option>
           <option value="returns">Returns & Refunds</option>
@@ -626,9 +628,7 @@ button.normal:hover {
               href="https://www.youtube.com/@JanaviPandole"
               target="_blank"
               rel="noopener noreferrer"
-            >
-              <i class="fab fa-youtube"></i>
-            </a>
+             aria-label="YouTube"><i class="fab fa-youtube"></i></a>
           </div>
         </div>
       </div>

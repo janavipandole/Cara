@@ -34,4 +34,10 @@ describe('terms-print', () => {
     btn.click();
     expect(spy).toHaveBeenCalledTimes(1);
   });
+
+  it('handles a document without a section element', async () => {
+    // The module falls back to document.body; verify it does not throw.
+    document.body.innerHTML = '<div id="terms">Terms of Service</div>';
+    await expect(load()).resolves.not.toThrow();
+  });
 });

@@ -43,4 +43,25 @@ describe('Centralized Theme Engine Unit Tests', () => {
 
     window.removeEventListener('themeChanged', listener);
   });
+
+  it('should resolve the system theme when choice is system', () => {
+    const originalMatchMedia = window.matchMedia;
+    window.matchMedia = vi.fn().mockReturnValue({ matches: true });
+    try {
+      expect(resolveEffectiveTheme(THEMES.SYSTEM)).toBe(THEMES.DARK);
+    } finally {
+      window.matchMedia = originalMatchMedia;
+    }
+  });
+
+  it('should fall back to light for an unknown theme choice', () => {
+    expect(resolveEffectiveTheme('neon')).toBe(THEMES.LIGHT);
+  });
+
+  it('should store the raw choice and apply the effective theme', () => {
+    applyTheme(THEMES.SYSTEM);
+    expect(localStorage.getItem('cara_theme')).toBe(THEMES.SYSTEM);
+    const stored = document.documentElement.getAttribute('data-theme');
+    expect([THEMES.LIGHT, THEMES.DARK]).toContain(stored);
+  });
 });

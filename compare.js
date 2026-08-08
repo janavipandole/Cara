@@ -169,6 +169,24 @@
     );
   }
 
+  function viewProduct(p) {
+    if (!p) return;
+    // singleProduct.js reads a JSON object under 'selectedProduct';
+    // 'selectedProductId' is kept for consumers like reviews.js.
+    window.localStorage.setItem(
+      'selectedProduct',
+      JSON.stringify({
+        id: p.id,
+        name: p.name,
+        price: p.price,
+        brand: p.brand,
+        image: p.img,
+      }),
+    );
+    window.localStorage.setItem('selectedProductId', p.name || '');
+    window.location.href = 'singleProduct.html';
+  }
+
   function renderCompareTable(list) {
     const wrapper = document.getElementById('compareTableWrapper');
     const emptyState = document.getElementById('compareEmpty');
@@ -206,7 +224,7 @@
       html += '<tr>';
       html += '<td class="row-label">' + label + '</td>';
 
-      list.forEach((p) => {
+      list.forEach((p, idx) => {
         if (key === 'header') {
           html += '<th class="product-header">';
           html +=
@@ -214,9 +232,9 @@
             (p.img || 'images/products/f1.jpg') +
             '" alt="' +
             p.name +
-            "\" onclick=\"window.localStorage.setItem('selectedProductId','" +
-            p.name.replace(/'/g, '') +
-            "');window.location.href='singleProduct.html'\" />";
+            '" data-compare-view="' +
+            idx +
+            '" />';
           html += '<div class="prod-name">' + p.name + '</div>';
           html += '<div class="prod-brand">' + (p.brand || '—') + '</div>';
           html +=
@@ -230,9 +248,9 @@
           html += '<td>' + (p.rating ? renderStars(p.rating) : '—') + '</td>';
         } else if (key === 'action') {
           html +=
-            '<td><button class="add-cart-btn" onclick="window.localStorage.setItem(\'selectedProductId\',\'' +
-            p.name.replace(/'/g, '') +
-            "');window.location.href='singleProduct.html'\">View Product</button></td>";
+            '<td><button class="add-cart-btn" data-compare-view="' +
+            idx +
+            '">View Product</button></td>';
         } else if (['category', 'color', 'style'].includes(key)) {
           html +=
             '<td class="badge-cell"><span>' + (p[key] || '—') + '</span></td>';
@@ -246,6 +264,10 @@
 
     html += '</tbody></table></div>';
     wrapper.innerHTML = html;
+    wrapper.querySelectorAll('[data-compare-view]').forEach((el) => {
+      const p = list[parseInt(el.dataset.compareView, 10)];
+      if (p) el.addEventListener('click', () => viewProduct(p));
+    });
   }
 
   function initComparePage() {

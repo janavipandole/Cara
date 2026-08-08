@@ -126,6 +126,7 @@ class Token(BaseModel):
 
 
 class OrderItemResponse(BaseModel):
+    product_id: Optional[int] = None
     product_name: str
     quantity: int
     price: float
@@ -146,14 +147,21 @@ class OrderResponse(BaseModel):
     created_at: datetime
     loyalty_points_redeemed: int = 0
     loyalty_discount: float = 0.0
+    delivered_at: Optional[datetime] = None
+    return_deadline: Optional[datetime] = None
     items: list[OrderItemResponse] = Field(default_factory=list)
 
     class Config:
         from_attributes = True
 
+
+class OrderStatusUpdate(BaseModel):
+    """Admin/carrier transition of an order's fulfillment status."""
+    status: str = Field(pattern=r"^(PENDING|CONFIRMED|SHIPPED|DELIVERED|CANCELLED)$")
+
 class OrderItemCreate(BaseModel):
-    product_name: str
-    quantity: int = Field(gt=0)
+    product_id: int = Field(gt=0)
+    quantity: int = Field(gt=0, le=99)
 
 class OrderCreate(BaseModel):
     fullName: str
@@ -161,7 +169,9 @@ class OrderCreate(BaseModel):
     address: str
     city: str
     zip: str
-    items: list[OrderItemCreate]
+    # Reject empty carts at the API boundary: an order must contain at least
+    # one line item, and a sane maximum prevents junk/mega-bulk payloads.
+    items: list[OrderItemCreate] = Field(min_length=1, max_length=50)
     coupon: Optional[str] = None
     loyalty_points: Optional[int] = Field(default=0, ge=0)
     idempotency_key: Optional[str] = None

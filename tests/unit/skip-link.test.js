@@ -26,4 +26,29 @@ describe('skip-link', () => {
     link.click();
     expect(focus).toHaveBeenCalled();
   });
+
+  it('reveals the link on focus and hides it on blur', async () => {
+    await import('../../assets/js/skip-link.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    const link = document.querySelector('a.skip-to-content-btn');
+    expect(link.style.top).toBe('-100px');
+
+    link.dispatchEvent(new Event('focus'));
+    expect(link.style.top).toBe('20px');
+
+    link.dispatchEvent(new Event('blur'));
+    expect(link.style.top).toBe('-100px');
+  });
+
+  it('adds a tabindex to main content if it lacks one on click', async () => {
+    document.body.innerHTML = '<main id="main-content">Shop</main>';
+    await import('../../assets/js/skip-link.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    const link = document.querySelector('a.skip-to-content-btn');
+    const main = document.getElementById('main-content');
+    link.click();
+    expect(main.hasAttribute('tabindex')).toBe(true);
+  });
 });

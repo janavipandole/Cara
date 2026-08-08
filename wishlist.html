@@ -4,6 +4,8 @@
 <head>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
 
         <script>
             document.body.setAttribute(
@@ -20,7 +22,6 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="ui-fix.css" />
     <link rel="stylesheet" href="toast-queue.css" />
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
@@ -503,8 +504,7 @@
             </div>
         </div>
     </header>
-
-    <main>
+<main id="main-content">
         <div class="wishlist-container" id="wishlistContainer" aria-live="polite"></div>
     </main>
 
@@ -770,7 +770,8 @@
         renderWishlist();
     </script>
 
-<script type="module" src="js/wishlist-notes-tag-manager.js" defer></script>
+<script src="js/wishlist-notes.js" defer></script>
+</main>
 </body>
 </html>
 

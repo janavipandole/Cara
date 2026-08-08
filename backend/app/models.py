@@ -91,11 +91,20 @@ class Order(Base):
     total_amount = Column(Float, nullable=False)
     status = Column(String, default="PENDING")
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    # Captured exactly once when the carrier marks the order DELIVERED; the
+    # estimated return deadline is computed as delivered_at + return window.
+    delivered_at = Column(DateTime, nullable=True)
     # Uniqueness is scoped per buyer email via uq_orders_email_idempotency_key
     idempotency_key = Column(String, index=True, nullable=True)
     # Loyalty redemption recorded explicitly so the charged total is auditable.
     loyalty_points_redeemed = Column(Integer, default=0, nullable=False)
     loyalty_discount = Column(Float, default=0.0, nullable=False)
+
+    def mark_delivered(self) -> None:
+        """Transition to DELIVERED, capturing the delivery timestamp once."""
+        if self.delivered_at is None:
+            self.delivered_at = datetime.now(timezone.utc)
+        self.status = "DELIVERED"
 
 class PasswordResetToken(Base):
     __tablename__ = "password_reset_tokens"
@@ -117,10 +126,13 @@ class OrderItem(Base):
         ForeignKey("orders.id"),
         nullable=False
     )
+    product_id = Column(Integer, ForeignKey("products.id"), nullable=True, index=True)
+    # Denormalized snapshot kept for order history after renames/deletes.
     product_name = Column(String, nullable=False)
     quantity = Column(Integer, nullable=False)
     price = Column(Float, nullable=False)
     order = relationship("Order")
+    product = relationship("Product")
 
 
 class LoyaltyAccount(Base):
