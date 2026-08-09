@@ -125,9 +125,20 @@ def update_order_status(
     the Estimated Return Date policy engine then exposes the immutable
     return deadline (delivered_at + 30 days) to the buyer.
     """
-    from .orders import ORDER_STATUSES, return_deadline, set_order_status
+    from .orders import (
+        ORDER_STATUSES,
+        STATUS_TRANSITIONS,
+        restore_order_stock,
+        return_deadline,
+        set_order_status,
+    )
 
-    order = db.query(models.Order).filter(models.Order.id == order_id).first()
+    order = (
+        db.query(models.Order)
+        .filter(models.Order.id == order_id)
+        .with_for_update()
+        .first()
+    )
     if not order:
         raise HTTPException(status_code=404, detail="Order not found")
 
@@ -137,9 +148,26 @@ def update_order_status(
             detail=f"Invalid order status: {payload.status}",
         )
 
-    set_order_status(order, payload.status)
-    db.commit()
-    db.refresh(order)
+    if payload.status == order.status:
+        # Same-status is a no-op; safe (never double-restores stock).
+        db.commit()
+        db.refresh(order)
+    else:
+        allowed = STATUS_TRANSITIONS.get(order.status, set())
+        if payload.status not in allowed:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Invalid status transition: {order.status} -> {payload.status}",
+            )
+
+        # Cancellation returns purchased units to inventory, matching the
+        # buyer-cancel path, so cancelled orders never leak stock.
+        if payload.status == "CANCELLED":
+            restore_order_stock(db, order.id)
+
+        set_order_status(order, payload.status)
+        db.commit()
+        db.refresh(order)
 
     return {
         "message": "Order status updated",

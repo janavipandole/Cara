@@ -17,6 +17,17 @@ RETURN_WINDOW_DAYS = 30
 # Statuses a carrier/admin may move an order through.
 ORDER_STATUSES = {"PENDING", "CONFIRMED", "SHIPPED", "DELIVERED", "CANCELLED"}
 
+# Forward-only fulfillment flow. Orders are created as CONFIRMED but may be
+# seeded as PENDING. Cancellation is only allowed from pre-shipping states so
+# stock can always be restored exactly once.
+STATUS_TRANSITIONS: dict[str, set[str]] = {
+    "PENDING": {"CONFIRMED", "SHIPPED", "DELIVERED", "CANCELLED"},
+    "CONFIRMED": {"SHIPPED", "DELIVERED", "CANCELLED"},
+    "SHIPPED": {"DELIVERED"},
+    "DELIVERED": set(),
+    "CANCELLED": set(),
+}
+
 
 def return_deadline(order: models.Order) -> datetime | None:
     """Algorithmically compute the immutable return deadline.
@@ -279,6 +290,33 @@ CANCELLABLE_WINDOW_HOURS = 24
 # simple status flip, so those states are intentionally excluded.
 CANCELLABLE_STATUSES = {"PENDING", "CONFIRMED"}
 
+
+def restore_order_stock(db: Session, order_id: int) -> None:
+    """Return purchased quantities to product stock (used on cancellation).
+
+    Only restores items that still reference a product; orphaned items
+    (deleted products) have no stock to give back.
+    """
+    items = (
+        db.query(models.OrderItem)
+        .filter(models.OrderItem.order_id == order_id)
+        .all()
+    )
+    product_ids = [item.product_id for item in items if item.product_id is not None]
+    if not product_ids:
+        return
+    products = (
+        db.query(models.Product)
+        .filter(models.Product.id.in_(product_ids))
+        .with_for_update()
+        .all()
+    )
+    product_map = {product.id: product for product in products}
+    for item in items:
+        product = product_map.get(item.product_id)
+        if product is not None:
+            product.stock += item.quantity
+
 @router.post("/{order_id}/cancel")
 def cancel_order(
     order_id: int,
@@ -313,26 +351,8 @@ def cancel_order(
             detail=f"Orders can only be cancelled within {CANCELLABLE_WINDOW_HOURS} hours of placing them.",
         )
 
-    items = (
-        db.query(models.OrderItem)
-        .filter(models.OrderItem.order_id == order.id)
-        .all()
-    )
-    product_ids = [item.product_id for item in items if item.product_id is not None]
-    if product_ids:
-        products = (
-            db.query(models.Product)
-            .filter(models.Product.id.in_(product_ids))
-            .with_for_update()
-            .all()
-        )
-        product_map = {product.id: product for product in products}
-        for item in items:
-            product = product_map.get(item.product_id)
-            if product is not None:
-                product.stock += item.quantity
+    restore_order_stock(db, order.id)
 
     order.status = "CANCELLED"
     db.commit()
-
     return {"message": "Order cancelled successfully", "status": order.status}
