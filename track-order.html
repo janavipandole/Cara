@@ -69,7 +69,6 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="ui-fix.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
       rel="stylesheet"
@@ -93,11 +92,12 @@
 </head>
 
   <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Header -->
     <section id="header">
       <!-- Logo -->
-      <a href="index.html">
-        <img
+      <a href="index.html" aria-label="Cara Home"><img
           id="siteLogo"
           src="images/logo.png"
           alt="Cara Logo"
@@ -149,14 +149,14 @@
           </li>
 
           <!-- Close Button -->
-          <a
+          <li class="nav-close"><a
             href="javascript:void(0)"
             id="close"
             aria-label="Close menu"
             aria-hidden="false"
           >
             <i class="fa-solid fa-xmark"></i>
-          </a>
+          </a></li>
         </ul>
       </div>
 
@@ -183,10 +183,12 @@
         ></i>
       </div>
     </section>
+</main>
 
     <!-- Page Hero -->
-    <section id="about-head">
-      <h2>#Track_My_Order</h2>
+    <main id="main-content">
+  <section id="about-head">
+      <h1>#Track_My_Order</h1>
       <p>
         Enter your order details below to get real-time shipping and delivery
         updates.
@@ -281,7 +283,7 @@
             </div>
             <div class="form-group">
               <label for="mockCarrier">Shipping Carrier / Speed</label>
-              <select id="mockCarrier">
+              <select id="mockCarrier" aria-label="Select mockCarrier">
                 <option value="Standard Shipping">
                   Standard Shipping (+5 days)
                 </option>
@@ -291,7 +293,7 @@
             </div>
             <div class="form-group">
               <label for="mockStatus">Current Status</label>
-              <select id="mockStatus">
+              <select id="mockStatus" aria-label="Select mockStatus">
                 <option value="Processing">Placed / Processing</option>
                 <option value="Packed">Packed</option>
                 <option value="Shipped">Shipped</option>
@@ -367,7 +369,7 @@
             aria-valuemax="100"
             aria-valuenow="80"
             aria-valuetext="In Transit"
-          >
+           aria-label="Order progress">
             <div
               class="timeline-step completed"
               id="step-ordered"
@@ -603,9 +605,7 @@
               href="https://www.youtube.com/@JanaviPandole"
               target="_blank"
               rel="noopener noreferrer"
-            >
-              <i class="fab fa-youtube"></i>
-            </a>
+             aria-label="YouTube"><i class="fab fa-youtube"></i></a>
           </div>
         </div>
       </div>

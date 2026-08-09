@@ -27,7 +27,6 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="ui-fix.css" />
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link
       rel="stylesheet"
@@ -264,9 +263,11 @@
 </head>
 
   <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Header -->
     <section id="header">
-      <a id="siteLogo" href="index.html"><img src="images/Dlogo.png" alt="Cara Logo" width="130" height="40" /></a>
+      <a id="siteLogo" href="index.html" aria-label="Cara Home"><img src="images/Dlogo.png" alt="Cara Logo" width="130" height="40" /></a>
 
       <!-- Navigation Bar -->
       <div>
@@ -292,7 +293,7 @@
               <i class="ri-moon-line" id="themeIcon"></i>
             </button>
           </li>
-          <a href="javascript:void(0)" id="close" aria-label="Close menu" aria-hidden="false"><i class="fa-solid fa-xmark"></i></a>
+          <li class="nav-close"><a href="javascript:void(0)" id="close" aria-label="Close menu" aria-hidden="false"><i class="fa-solid fa-xmark"></i></a></li>
         </ul>
       </div>
       <div class="mobile">
@@ -303,14 +304,16 @@
         <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
       </div>
     </section>
+</main>
 
     <!-- Page Banner -->
-    <section id="about-head">
+    <main id="main-content">
+  <section id="about-head">
       <h2>Privacy Policy</h2>
     </section>
     <div class="policy-layout">
         <!-- Policy Content -->
-    <main id="policy-page">
+    <div class="main-section">
       <button onclick="history.back()" class="back-btn" aria-label="Go back to previous page" style="border: none; font-family: inherit; font-size: inherit;">
         <i class="ri-arrow-left-line"></i> Back
       </button>
@@ -471,9 +474,7 @@
             <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
               <i class="fab fa-linkedin"></i>
             </a>
-            <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer">
-              <i class="fab fa-youtube"></i>
-            </a>
+            <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
           </div>
         </div>
       </div>
@@ -481,7 +482,7 @@
       <div class="col">
         <h4>About</h4>
         <a href="about.html">About Us</a>
-        <a href="javascript:void(0)">Delivery Information</a>
+        <a href="javascript:void(0)" aria-label="Interactive action">Delivery Information</a>
         <a href="privacy.html">Privacy Policy</a>
         <a href="terms.html">Terms and Conditions</a>
         <a href="contact.html">Contact Us</a>

@@ -48,8 +48,18 @@ describe('admin-products', () => {
     await expect(api.update(1, { name: 'x' })).rejects.toThrow('Forbidden');
   });
 
-  it('should safely parse price value string to float', () => {
-    expect(true).toBe(true);
+  it('updateStock issues a PATCH request with the stock query', async () => {
+    global.fetch.mockResolvedValue({
+      ok: true,
+      json: async () => ({ id: 7, stock: 25 }),
+    });
+    const api = await load();
+    const res = await api.updateStock(7, 25);
+    expect(global.fetch).toHaveBeenCalledWith(
+      expect.stringContaining('/api/admin/products/7/stock?stock=25'),
+      expect.objectContaining({ method: 'PATCH' }),
+    );
+    expect(res.stock).toBe(25);
   });
 
 });

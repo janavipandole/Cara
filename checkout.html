@@ -36,13 +36,15 @@
   <script src="assets/js/skip-link.js" defer></script>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
 
   <div class="checkout-container">
 
     <div class="checkout-header">
       <div class="back-to-cart">
         <a href="cart.html" class="back-link" aria-label="Back to cart"><i class="ri-arrow-left-line"></i> Back to Cart</a>
-        <a href="javascript:void(0)" id="logout-btn" style="display:none">Logout</a>
+        <a href="javascript:void(0)" id="logout-btn" style="display:none" aria-label="Interactive action">Logout</a>
       </div>
       <div class="logo" style="display: flex; align-items: center; gap: 15px;">
         <span>Cara</span>
@@ -69,6 +71,9 @@
     </div>
 
     <form id="checkoutForm" novalidate>
+<div class="checkout-grid">
+<div class="checkout-main">
+
 
       <div class="input-group">
         <label for="fullName">Full Name</label>
@@ -122,7 +127,7 @@
       <div class="input-group">
         <label for="paymentMethod">Select Payment Method</label>
 
-        <select id="paymentMethod" data-validate="paymentMethod" required>
+        <select id="paymentMethod" data-validate="paymentMethod" required aria-label="Select paymentMethod">
           <option value="">Choose Payment Method</option>
           <option value="cod">Cash On Delivery</option>
           <option value="online">Online Payment</option>
@@ -193,7 +198,9 @@
           </div>
 
       <!-- COLUMN PREVIEW OR SIDEBAR -->
-      <div class="totals-sidebar">
+      
+</div>
+<div class="totals-sidebar">
         <!-- Preview and Totals -->
         <fieldset class="card">
           <legend class="card-title">
@@ -252,7 +259,7 @@
               <span id="summary-shipping">₹0.00</span>
             </div>
             <div class="total-row summary-row">
-              <span>Tax (5%)</span>
+              <span>Tax (18%)</span>
               <span id="summary-tax">₹0.00</span>
             </div>
             <hr class="summary-divider" style="border: 0; border-top: 1px solid var(--border); margin: 10px 0;">
@@ -270,16 +277,25 @@
         </fieldset>
       </div>
 
-    </form>
+    
+</div>
+</form>
   </main><!-- /page-wrapper -->
 
   <!-- SUCCESS POPUP -->
-  <div class="success-overlay" id="successPopup">
-    <div class="popup-box">
+  <div class="success-overlay" id="successPopup" hidden>
+    <div
+      class="popup-box"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="successPopupTitle"
+      aria-describedby="successPopupDesc"
+      tabindex="-1"
+    >
       <div class="check-circle" aria-hidden="true"><i class="ri-check-line"></i></div>
-      <h2>Order Successful!</h2>
-      <p>Your order has been placed successfully. We'll send you a confirmation shortly.</p>
-      <button class="popup-btn" onclick="window.location.href='shop.html'">Continue Shopping</button>
+      <h2 id="successPopupTitle">Order Successful!</h2>
+      <p id="successPopupDesc">Your order has been placed successfully. We'll send you a confirmation shortly.</p>
+      <button type="button" class="popup-btn" id="successContinueBtn">Continue Shopping</button>
     </div>
   </div>
 
@@ -291,8 +307,9 @@
   
   <script type="module" src="js/checkout-autosave.js" defer></script>
   <script type="module" src="js/checkout-validator.js"></script>
-  <script type="module" src="js/address-validation-service.js" defer></script>
-  <script type="module" src="js/address-autocomplete.js" defer></script>
+  <script src="js/autocomplete-loader.js" defer></script>
+  <script src="js/address-autocomplete.js" defer></script>
+</main>
 </body>
 </html>
 

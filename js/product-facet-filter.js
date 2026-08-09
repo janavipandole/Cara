@@ -66,8 +66,9 @@ export class ProductFacetFilter {
 
   parseQueryParams(queryString) {
     const params = new URLSearchParams(queryString);
+    const rawCategories = params.get('categories');
     const filters = {
-      category: params.get('categories') ? params.get('categories').split(',') : [],
+      category: rawCategories ? rawCategories.split(',').filter((c) => c.length > 0) : [],
       minPrice: parseFloat(params.get('minPrice')) || 0,
       maxPrice: parseFloat(params.get('maxPrice')) || Infinity,
       minRating: parseFloat(params.get('minRating')) || 0,

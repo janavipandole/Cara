@@ -1,3 +1,4 @@
+import { createFocusTrap } from './js/a11y-focus-trap.js';
 let checkoutIdempotencyKey = null;
 let checkoutWakeLock = null;
 let isCheckoutProcessing = false;
@@ -50,7 +51,6 @@ function safeParseJSON(key, fallback = '[]') {
 }
 
 const API_BASE_URL = window.CARA_API_BASE_URL || '';
-const promoCalcEngine = typeof PromoDiscountCalculator !== 'undefined' ? new PromoDiscountCalculator() : null;
 
 
 function buildAuthHeaders(extraHeaders = {}) {
@@ -58,6 +58,33 @@ function buildAuthHeaders(extraHeaders = {}) {
   // browser attaches automatically because these fetch calls use
   // credentials: 'include'. There is nothing to read from localStorage.
   return { ...extraHeaders };
+}
+
+async function resolveCartProductIds(cart) {
+  const res = await fetch(`${API_BASE_URL}/api/products/`, {
+    credentials: 'include',
+  });
+  if (!res.ok) {
+    throw new Error('Failed to load products for checkout');
+  }
+  const products = await res.json();
+  const byId = new Map(products.map((p) => [p.id, p]));
+  const byName = new Map();
+  for (const p of products) {
+    if (!byName.has(p.name)) byName.set(p.name, p.id);
+  }
+
+  return cart.map((item) => {
+    const candidate = Number(item.id);
+    if (item.id != null && item.id !== '' && !Number.isNaN(candidate) && byId.has(candidate)) {
+      return { ...item, id: candidate };
+    }
+    const resolved = byName.get(item.name);
+    if (resolved == null) {
+      throw new Error(`Product not found for cart item: ${item.name}`);
+    }
+    return { ...item, id: resolved };
+  });
 }
 
 const paymentMethod = document.getElementById('paymentMethod');
@@ -240,8 +267,20 @@ cardName.addEventListener('input', function () {
 });
 
 // --- Show/Hide Card Details and clear validation states ---
-paymentMethod.addEventListener('change', function () {
-  if (this.value === 'online') {
+function applyPaymentMethod(method) {
+  const value = method === 'online' ? 'online' : 'cod';
+  if (paymentMethod) {
+    paymentMethod.value = value;
+  }
+
+  const tabCod = document.getElementById('tabCOD');
+  const tabOnline = document.getElementById('tabOnline');
+  if (tabCod && tabOnline) {
+    tabCod.classList.toggle('active', value === 'cod');
+    tabOnline.classList.toggle('active', value === 'online');
+  }
+
+  if (value === 'online') {
     cardDetails.style.display = 'block';
     cardName.required = true;
     cardNumber.required = true;
@@ -263,9 +302,17 @@ paymentMethod.addEventListener('change', function () {
     });
   }
 
-  if (this.classList.contains('is-invalid')) {
-    validateField(this);
+  if (paymentMethod && paymentMethod.classList.contains('is-invalid')) {
+    validateField(paymentMethod);
   }
+}
+
+window.selectPayment = function (method) {
+  applyPaymentMethod(method);
+};
+
+paymentMethod.addEventListener('change', function () {
+  applyPaymentMethod(this.value);
 });
 
 // --- Form Submission & Final Validation Check ---
@@ -441,7 +488,7 @@ function submitCheckoutForm() {
 
       // HIDE CARD DETAILS AGAIN
       cardDetails.style.display = 'none';
-      if (popup) popup.classList.add('show');
+      openSuccessPopup();
 
       // Clear all validation states post-submit
       inputs.forEach((input) => {
@@ -464,9 +511,28 @@ function submitCheckoutForm() {
     });
 }
 
+let successFocusTrap = null;
+
+function openSuccessPopup() {
+  const popup = document.getElementById('successPopup');
+  const dialog = popup ? popup.querySelector('.popup-box') : null;
+  if (!popup || !dialog) return;
+
+  popup.hidden = false;
+  popup.classList.add('show');
+  successFocusTrap = createFocusTrap(dialog);
+  successFocusTrap.activate();
+}
+
 window.closePopup = function () {
   const popup = document.getElementById('successPopup');
-  if (popup) popup.classList.remove('show');
+  if (!popup) return;
+  popup.classList.remove('show');
+  popup.hidden = true;
+  if (successFocusTrap) {
+    successFocusTrap.deactivate();
+    successFocusTrap = null;
+  }
 };
 
 function parsePriceString(priceStr) {
@@ -718,11 +784,30 @@ function highlightError(el) {
 // Call init on DOM ready
 function initCheckoutPage() {
   initCheckoutValidation();
+  prefillAccountEmail();
 
   CaraErrorBoundary.wrap('#checkoutForm', function () {
     renderCheckoutItems();
     window.updateCheckoutSummary();
   });
+}
+
+function prefillAccountEmail() {
+  const emailInput = document.getElementById('email');
+  if (!emailInput) return;
+
+  fetch(`${API_BASE_URL}/api/auth/me`, { credentials: 'include' })
+    .then((res) => (res.ok ? res.json() : null))
+    .then((data) => {
+      if (!data || !data.email) return;
+      emailInput.value = data.email;
+      emailInput.readOnly = true;
+      emailInput.setAttribute('aria-readonly', 'true');
+      emailInput.title = 'Orders are tied to your account email';
+    })
+    .catch(() => {
+      /* anonymous / offline — leave the field editable until submit auth fails */
+    });
 }
 
 document.addEventListener('DOMContentLoaded', initCheckoutPage);
@@ -740,12 +825,22 @@ window.addEventListener('couponRemoved', () => {
   window.updateCheckoutSummary();
 });
 
-// ── Close popup when clicking outside the box ─────────────
+// ── Close popup when clicking outside the box / Escape ─────────────
 const successOverlay = document.getElementById('successPopup');
 if (successOverlay) {
   successOverlay.addEventListener('click', function (e) {
-    if (e.target === this) this.classList.remove('show');
+    if (e.target === this) window.closePopup();
   });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && successOverlay.classList.contains('show')) {
+      window.closePopup();
+    }
+  });
+  const continueBtn = document.getElementById('successContinueBtn');
+  if (continueBtn) {
+    continueBtn.addEventListener('click', function () {
+      window.location.href = 'shop.html';
+    });
+  }
 }
 // Advanced validation routines checking postal formats and shipping address boundaries.
-console.log("Checkout script updated with Vault integration.");

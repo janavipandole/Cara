@@ -25,7 +25,6 @@
   <!-- Stylesheets -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="ui-fix.css" />
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
 
   <style>
@@ -487,6 +486,8 @@
     <script type="module" src="js/config.js"></script>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Print Details Utility -->
     <div style="max-width: 1200px; margin: 10px auto; padding: 0 20px; text-align: right;" class="no-print">
       <button onclick="window.print()" style="background: #088178; color: #fff; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-weight: 500;">
@@ -503,8 +504,7 @@
   <!-- HEADER -->
   <!-- HEADER -->
   <section id="header">
-    <a href="index.html">
-      <img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" width="130" height="40" />
+    <a href="index.html" aria-label="Cara Home"><img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" width="130" height="40" />
     </a>
 
     <div id="navbar-container"></div>
@@ -524,6 +524,7 @@
       </button>
     </div>
   </section>
+<main id="main-content">
 
   <!-- BACK BUTTON -->
   <div class="back-btn-wrap">
@@ -535,12 +536,12 @@
   <!-- HERO -->
   <section class="page-hero">
     <p class="tag">#ShipWithCara</p>
-    <h2>Delivery Information</h2>
+    <h1>Delivery Information</h1>
     <p class="subtitle">Everything you need to know about shipping, order processing, and returns.</p>
   </section>
 
   <!-- MAIN CONTENT -->
-  <main class="delivery-section">
+  <div class="main-section">
 
     <!-- Quick Cards -->
     <div class="delivery-cards">
@@ -612,7 +613,7 @@
         </div>
         <div class="field">
           <label for="est-country">Destination</label>
-          <select id="est-country">
+          <select id="est-country" aria-label="Select est-country">
             <option value="us">United States</option>
             <option value="ca">Canada</option>
             <option value="uk">United Kingdom</option>
@@ -746,7 +747,7 @@
           <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
           <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i></a>
           <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i></a>
-          <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-youtube"></i></a>
+          <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
         </div>
       </div>
 
@@ -874,7 +875,8 @@
   <script>
     loadNavbar();
   </script>
-  <script type="module" src="app.js"></script>
+  <script src="app.js"></script>
+</main>
 </body>
 </html>
 
