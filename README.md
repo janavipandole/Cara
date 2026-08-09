@@ -111,12 +111,20 @@ All you need is a modern web browser and a text editor! Cara is designed for lig
    cd Cara
    ```
 
-2. **Install development dependencies**
+2. **Run with Docker Compose (API + Postgres + frontend)**
+   ```bash
+   cp .env.example .env
+   docker compose up --build -d
+   ```
+   - Store: http://localhost:8080
+   - API health: http://localhost:8000/health
+
+3. **Or install frontend tooling only**
    ```bash
    npm install
    ```
 
-3. **Verify linting and formatting**
+4. **Verify linting and formatting**
    ```bash
    npm run lint
    npm run format:check
@@ -234,6 +242,7 @@ The frontend keeps small, focused helpers in `js/` that are reusable across page
 - `theme-engine.js` — light/dark/high-contrast theme resolution with localStorage persistence.
 - `input-shield.js` — client-side XSS script-injection filtering on form submit.
 - `i18n.js`, `loyalty-rewards-engine.js`, `error-logger.js` — translation, loyalty points, and error logging helpers.
+- `utils/debounce.js` — reusable trailing-edge debounce utility for throttling rapid event handlers.
 
 Many of these expose their logic on `window` (or as ES module exports) so they can be exercised by unit tests in `tests/unit/`.
 

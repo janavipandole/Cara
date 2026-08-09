@@ -10,7 +10,6 @@
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="ui-fix.css" />
   <link rel="stylesheet" href="toast.css" />
   <link rel="stylesheet" href="login.css" />
   <link rel="manifest" href="/manifest.json">
@@ -26,6 +25,8 @@
     <script type="module" src="js/config.js"></script>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
 
   <section id="header" role="banner">
     <!-- Logo -->
@@ -43,6 +44,7 @@
       </button>
     </div>
   </section>
+<main id="main-content">
 
   <!-- Toast lives at body level so it overlays everything -->
   <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
@@ -60,7 +62,7 @@
 
       <!-- The card -->
       <div class="login-box">
-        <h2>Welcome Back!</h2>
+        <h1>Welcome Back!</h1>
         <p class="subtitle">Sign in to your account</p>
 
         <form id="loginForm" novalidate>
@@ -146,9 +148,11 @@
 
   <script type="module" src="navbar.js"></script>
   <script>loadNavbar();</script>
-  <script type="module" src="app.js"></script>
-  <script type="module" src="js/fetch-timeout.js"></script>
-  <script type="module" src="login.js"></script>
+  <script src="app.js"></script>
+  <script src="js/fetch-timeout.js"></script>
+  <script src="login.js"></script>
+  <script src="js/simple-captcha.js" defer></script>
+</main>
 </body>
 </html>
 

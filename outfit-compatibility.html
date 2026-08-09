@@ -271,18 +271,18 @@
     <script type="module" src="js/config.js"></script>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
   <!-- Header Section -->
   <header>
     <div id="header">
-      <a href="index.html" style="flex-shrink:0;">
-        <img id="siteLogo" loading="lazy" src="images/Dlogo.png" alt="Cara Logo" style="height:50px;min-width:120px;object-fit:contain;" />
+      <a href="index.html" style="flex-shrink:0;" aria-label="Cara Home"><img id="siteLogo" loading="lazy" src="images/Dlogo.png" alt="Cara Logo" style="height:50px;min-width:120px;object-fit:contain;" />
       </a>
       <div id="navbar-container"></div>
       <a aria-label="Cart" href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
     </div>
   </header>
-
-  <main class="compat-page">
+<main id="main-content">
     <div class="compat-hero">
       <h1><i class="ri-t-shirt-line" style="color:#6366f1;"></i> Outfit Compatibility Checker</h1>
       <p>Check if your top and bottom pieces work together — colour harmony, style matching, and occasion suitability all in one click.</p>
@@ -298,7 +298,7 @@
             <input type="text" id="top-item" placeholder="e.g. white dress shirt, blue hoodie" required />
             <label class="field-label" for="top-color">Colour</label>
             <div class="color-row">
-              <select id="top-color" class="compat-select">
+              <select id="top-color" class="compat-select" aria-label="Select top-color">
                 <option value="white">White</option>
                 <option value="black">Black</option>
                 <option value="grey">Grey</option>
@@ -322,7 +322,7 @@
             <input type="text" id="bottom-item" placeholder="e.g. black jeans, khaki chinos" required />
             <label class="field-label" for="bottom-color">Colour</label>
             <div class="color-row">
-              <select id="bottom-color" class="compat-select">
+              <select id="bottom-color" class="compat-select" aria-label="Select bottom-color">
                 <option value="white">White</option>
                 <option value="black" selected>Black</option>
                 <option value="grey">Grey</option>
@@ -345,7 +345,7 @@
         <div class="occasion-row">
           <p class="section-label">Occasion</p>
           <label for="occasion">Where are you wearing this?</label>
-          <select id="occasion" class="compat-select">
+          <select id="occasion" class="compat-select" aria-label="Select occasion">
             <option value="Any">Any / Not sure</option>
             <option value="Casual Day Out">Casual Day Out</option>
             <option value="Office / Work">Office / Work</option>
@@ -382,7 +382,8 @@
 
   <script type="module" src="navbar.js"></script>
   <script>loadNavbar('outfit');</script>
-  <script type="module" src="js/outfit-compatibility-engine.js"></script>
-  <script type="module" src="outfit-compatibility.js"></script>
+  <script src="app.js"></script>
+  <script src="outfit-compatibility.js"></script>
+</main>
 </body>
 </html>

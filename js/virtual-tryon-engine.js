@@ -22,10 +22,13 @@ class VirtualTryOnEngine {
   }
 
   updateTransform({ scale, rotation, offsetX, offsetY }) {
-    if (typeof scale === 'number') this.state.scale = Math.max(0.2, Math.min(3.0, scale));
-    if (typeof rotation === 'number') this.state.rotation = rotation % 360;
-    if (typeof offsetX === 'number') this.state.position.x = offsetX;
-    if (typeof offsetY === 'number') this.state.position.y = offsetY;
+    if (typeof scale === 'number' && isFinite(scale)) this.state.scale = Math.max(0.2, Math.min(3.0, scale));
+    if (typeof rotation === 'number' && isFinite(rotation)) {
+      // Normalize to a positive angle in [0, 360).
+      this.state.rotation = ((rotation % 360) + 360) % 360;
+    }
+    if (typeof offsetX === 'number' && isFinite(offsetX)) this.state.position.x = offsetX;
+    if (typeof offsetY === 'number' && isFinite(offsetY)) this.state.position.y = offsetY;
 
     return { ...this.state };
   }

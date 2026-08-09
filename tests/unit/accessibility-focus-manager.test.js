@@ -45,4 +45,36 @@ describe('AccessibilityFocusManager', () => {
     expect(() => manager.restoreFocus()).not.toThrow();
   });
 
+  it('should skip hidden elements when trapping focus', () => {
+    document.body.innerHTML = `
+      <button id="trigger-btn">Open Modal</button>
+      <div id="test-modal">
+        <input id="input-1" type="text" />
+        <input id="hidden-input" type="hidden" />
+        <button id="hidden-btn" hidden>Hidden</button>
+        <button id="btn-close">Close</button>
+      </div>
+    `;
+    const manager = new AccessibilityFocusManager();
+    const modal = document.getElementById('test-modal');
+    const trapped = manager.trapFocus(modal);
+    expect(trapped).toBe(true);
+    expect(document.activeElement.id).toBe('input-1');
+    expect(manager.focusableElements.length).toBe(2);
+  });
+
+  it('should return false when a modal has no focusable elements', () => {
+    document.body.innerHTML = `
+      <button id="trigger-btn">Open Modal</button>
+      <div id="test-modal"><p>No controls here</p></div>
+    `;
+    const manager = new AccessibilityFocusManager();
+    expect(manager.trapFocus(document.getElementById('test-modal'))).toBe(false);
+  });
+
+  it('should not trap focus when no modal is active', () => {
+    const manager = new AccessibilityFocusManager();
+    const event = new KeyboardEvent('keydown', { key: 'Tab' });
+    expect(() => manager.handleKeyDown(event)).not.toThrow();
+  });
 });

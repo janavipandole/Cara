@@ -36,4 +36,4 @@ export function renderInventoryBanner(containerId, message, type = 'warning') {
 }
 
 
-function isLowStockQuantity(count, threshold = 5) { return typeof count === 'number' && count > 0 && count <= threshold; }
+export function isLowStockQuantity(count, threshold = 5) { return typeof count === 'number' && count > 0 && count <= threshold; }

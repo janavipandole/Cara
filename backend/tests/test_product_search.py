@@ -16,6 +16,51 @@ from fastapi.testclient import TestClient
 
 
 class TestProductSearchQuery:
+    def test_search_query_not_shadowed_by_product_id_route(self, client: TestClient):
+        """Literal /search/query must not be captured by /{product_id} as product_id='search'."""
+        resp = client.get("/api/products/search/query?q=shirt")
+        assert resp.status_code == 200
+        body = resp.json()
+        assert "total" in body
+        assert "products" in body
+        assert "detail" not in body or not isinstance(body.get("detail"), list)
+
+    def test_search_categories_not_shadowed_by_product_id_route(self, client: TestClient):
+        """Literal /search/categories must resolve (not 422 int validation on 'search')."""
+        resp = client.get("/api/products/search/categories")
+        assert resp.status_code == 200
+        assert "categories" in resp.json()
+
+    def test_numeric_product_id_still_works(self, client: TestClient):
+        """Valid integer product IDs continue to hit get_product after route reorder."""
+        from app.models import Product
+        from tests.conftest import TestingSessionLocal
+
+        db = TestingSessionLocal()
+        p = Product(
+            brand="RouteTest",
+            name="Route Order Shirt",
+            price=19.99,
+            img="img.jpg",
+            rating=4,
+            category="minimal",
+            subcategory="top",
+            color="blue",
+            style="casual",
+        )
+        db.add(p)
+        db.commit()
+        db.refresh(p)
+        pid = p.id
+        db.close()
+
+        resp = client.get(f"/api/products/{pid}")
+        assert resp.status_code == 200
+        assert resp.json()["name"] == "Route Order Shirt"
+
+        resp_missing = client.get("/api/products/999999")
+        assert resp_missing.status_code == 404
+
     def test_search_no_params_returns_all(self, client: TestClient):
         """With no filters, endpoint returns a paginated response."""
         resp = client.get("/api/products/search/query")

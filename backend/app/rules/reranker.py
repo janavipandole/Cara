@@ -1,4 +1,4 @@
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 from sqlalchemy import func
 from .. import models
 import logging
@@ -26,6 +26,7 @@ class PersonalizedReranker:
         # Fetch recent interactions
         interactions = (
             db.query(models.Interaction)
+            .options(joinedload(models.Interaction.product))
             .filter(models.Interaction.user_id == hashed_user_id)
             .order_by(models.Interaction.created_at.desc())
             .limit(100)

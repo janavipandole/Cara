@@ -47,4 +47,30 @@ describe('Open Redirect & SSRF Security Defense', () => {
     expect(sanitizeReturnUrl('')).toBe('index.html');
     expect(sanitizeReturnUrl(undefined)).toBe('index.html');
   });
+
+  test('blocks control characters and whitespace smuggling', () => {
+    // Embedded control characters are blocked before any trimming happens.
+    expect(sanitizeReturnUrl('java\nscript:alert(1)')).toBe('index.html');
+    expect(sanitizeReturnUrl('cart\n.html')).toBe('index.html');
+    // Trailing whitespace is trimmed to a safe relative URL.
+    expect(sanitizeReturnUrl('cart.html\r\n')).toBe('cart.html');
+    expect(sanitizeReturnUrl('\tcart.html')).toBe('cart.html');
+  });
+
+  test('blocks encoded and mixed-case protocol evasions', () => {
+    expect(sanitizeReturnUrl('JaVaScRiPt:alert(1)')).toBe('index.html');
+    expect(sanitizeReturnUrl('HTTP://evil.com')).toBe('index.html');
+    expect(sanitizeReturnUrl('//evil.com')).toBe('index.html');
+  });
+
+  test('blocks non-html relative paths', () => {
+    expect(sanitizeReturnUrl('cart.php')).toBe('index.html');
+    expect(sanitizeReturnUrl('admin')).toBe('index.html');
+    expect(sanitizeReturnUrl('checkout?x=1')).toBe('index.html');
+  });
+
+  test('allows root-relative paths', () => {
+    expect(sanitizeReturnUrl('/account/orders.html')).toBe('/account/orders.html');
+    expect(sanitizeReturnUrl('/cart')).toBe('/cart');
+  });
 });

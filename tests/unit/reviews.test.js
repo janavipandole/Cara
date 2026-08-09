@@ -167,4 +167,42 @@ describe('reviews.js unit tests', function () {
     expect(result.length).toBe(1);
     expect(result[0].rating).toBe(5);
   });
+
+  it('renders a correct aggregate average when ratings arrive as strings', function () {
+    // Seed reviews with a numeric rating and a numeric-string rating.
+    storage['cara_reviews_strpid'] = JSON.stringify([
+      { id: 1, rating: 5, author: 'Alice' },
+      { id: 2, rating: '5', author: 'Bob' },
+      { id: 3, rating: 1, author: 'Carol' }
+    ]);
+
+    document.body.innerHTML =
+      '<div id="productReviews" data-product-id="strpid"></div>';
+
+    // Re-evaluate the real source in the current DOM so _render runs _calcStats.
+    var fs = require('node:fs');
+    var vm = require('node:vm');
+    var src = fs.readFileSync(require.resolve('../../js/reviews.js'), 'utf8');
+    var sandbox = {
+      window: window,
+      document: document,
+      localStorage: localStorage,
+      console: console,
+      ProductReviewAggregator: undefined,
+      CustomEvent: window.CustomEvent,
+      Intl: Intl,
+      Date: Date,
+      setTimeout: setTimeout
+    };
+    vm.createContext(sandbox);
+    vm.runInContext(src, sandbox, { filename: 'reviews.js' });
+
+    // _render runs on DOMContentLoaded/readyState; force a manual invoke by
+    // dispatching the event the module listens for.
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    var aggregateNumber = document.querySelector('.aggregate-number');
+    expect(aggregateNumber).toBeTruthy();
+    expect(aggregateNumber.textContent.trim()).toBe('3.7');
+  });
 });
