@@ -164,6 +164,7 @@ class OrderItemCreate(BaseModel):
 class OrderCreate(BaseModel):
     fullName: str
     email: EmailStr
+    phone: str
     address: str
     city: str
     zip: str

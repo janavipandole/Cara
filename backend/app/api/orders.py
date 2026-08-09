@@ -237,6 +237,7 @@ def create_order(
     new_order = models.Order(
         full_name=order_data.fullName,
         email=current_user.email,
+        phone=order_data.phone,
         address=order_data.address,
         city=order_data.city,
         zip_code=order_data.zip,

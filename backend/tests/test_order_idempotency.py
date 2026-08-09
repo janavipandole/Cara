@@ -50,6 +50,7 @@ def _order_payload(key, product_id, email="idem1@example.com"):
     return {
         "fullName": "Buyer One",
         "email": email,
+        "phone": "+1-555-0100",
         "address": "1 Test St",
         "city": "Testville",
         "zip": "10001",

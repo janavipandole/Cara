@@ -64,6 +64,7 @@ def test_cancel_order_restores_stock(client):
         json={
             "fullName": "Test User",
             "email": "cancel@example.com",
+            "phone": "+1-555-0100",
             "address": "1 Test St",
             "city": "Testville",
             "zip": "12345",
@@ -103,6 +104,7 @@ def test_cancel_already_cancelled_does_not_double_restock(client):
         json={
             "fullName": "Test User",
             "email": "cancel@example.com",
+            "phone": "+1-555-0100",
             "address": "1 Test St",
             "city": "Testville",
             "zip": "12345",

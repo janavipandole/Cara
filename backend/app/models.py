@@ -85,6 +85,7 @@ class Order(Base):
     id = Column(Integer, primary_key=True, index=True)
     full_name = Column(String, nullable=False)
     email = Column(String, nullable=False)
+    phone = Column(String, nullable=False)
     address = Column(String, nullable=False)
     city = Column(String, nullable=False)
     zip_code = Column(String, nullable=False)

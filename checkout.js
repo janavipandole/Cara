@@ -405,34 +405,32 @@ function submitCheckoutForm() {
     checkoutIdempotencyKey = crypto.randomUUID();
   }
 
-  resolveCartProductIds(cart)
-    .then((resolvedCart) => {
-      cart = resolvedCart;
-      // Prepare order data — server looks up price/name by product_id
-      const orderData = {
-        fullName: document.getElementById('fullName').value.trim(),
-        email: document.getElementById('email').value.trim(),
-        address: document.getElementById('address').value.trim(),
-        city: document.getElementById('city').value.trim(),
-        zip: document.getElementById('zip').value.trim(),
-        coupon: window.appliedCoupon,
-        idempotency_key: checkoutIdempotencyKey,
-        items: cart.map((item) => ({
-          product_id: Number(item.id),
-          quantity: parseInt(item.quantity, 10) || 1,
-        })),
-      };
+  // Prepare order data
+  const orderData = {
+    fullName: document.getElementById('fullName').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    phone: document.getElementById('phone').value.trim(),
+    address: document.getElementById('address').value.trim(),
+    city: document.getElementById('city').value.trim(),
+    zip: document.getElementById('zip').value.trim(),
+    coupon: window.appliedCoupon,
+    idempotency_key: checkoutIdempotencyKey,
+    items: cart.map((item) => ({
+      product_name: item.name,
+      quantity: parseInt(item.quantity, 10) || 1,
+      price: item.price,
+    })),
+  };
 
-      return fetch(`${API_BASE_URL}/api/orders/`, {
-        method: 'POST',
-        headers: buildAuthHeaders({
-          'Content-Type': 'application/json',
-          'Idempotency-Key': checkoutIdempotencyKey,
-        }),
-        credentials: 'include',
-        body: JSON.stringify(orderData),
-      });
-    })
+  fetch(`${API_BASE_URL}/api/orders/`, {
+    method: 'POST',
+    headers: buildAuthHeaders({
+      'Content-Type': 'application/json',
+      'Idempotency-Key': checkoutIdempotencyKey,
+    }),
+    credentials: 'include',
+    body: JSON.stringify(orderData),
+  })
     .then((res) =>
       res
         .json()
