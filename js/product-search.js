@@ -308,6 +308,13 @@
         return;
       }
       filters.min_price = priceMinInput.value;
+      // A minimum above the current maximum would return empty results.
+      const maxVal = priceMaxInput ? parseFloat(priceMaxInput.value) : NaN;
+      if (priceMinInput.value !== '' && !isNaN(maxVal) && val > maxVal) {
+        priceMinInput.value = '';
+        filters.min_price = '';
+        return;
+      }
       filters.page = 1;
       fetchAndRender();
     });
@@ -321,6 +328,13 @@
         return;
       }
       filters.max_price = priceMaxInput.value;
+      // A maximum below the current minimum would return empty results.
+      const minVal = priceMinInput ? parseFloat(priceMinInput.value) : NaN;
+      if (priceMaxInput.value !== '' && !isNaN(minVal) && val < minVal) {
+        priceMaxInput.value = '';
+        filters.max_price = '';
+        return;
+      }
       filters.page = 1;
       fetchAndRender();
     });
