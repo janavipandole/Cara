@@ -704,7 +704,7 @@ async function renderProducts(containerId, list, query = '') {
     buyBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       e.preventDefault();
-      buyNow(p.name, '₹' + p.price, p.img, 1, 'M');
+      window.buyNow(p.name, p.price, p.img, 1);
     });
     actionBar.appendChild(buyBtn);
 
@@ -715,7 +715,7 @@ async function renderProducts(containerId, list, query = '') {
     cartBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       e.preventDefault();
-      addToCart(p.name, '₹' + p.price, p.img, 1, 'M', p.id);
+      window.addToCart(p.name, p.price, p.img, 1);
     });
     const cartIcon = document.createElement('i');
     cartIcon.className = 'ri-shopping-cart-2-line';
@@ -901,58 +901,6 @@ function attachSearchListeners() {
       filterProducts();
       input && input.focus();
     });
-  }
-}
-
-/**
- * Resolves #1691
- * Adds an item to the cart and persists it to localStorage.
- */
-function addToCart(name, price, img, quantity, size, productId) {
-  const cart = safeParseJSON('productsInCart');
-  const parsedQty = parseInt(quantity, 10) || 1;
-  const item = {
-    id: productId != null && productId !== '' ? Number(productId) : undefined,
-    name,
-    price,
-    image: img,
-    img,
-    quantity: parsedQty,
-    size,
-  };
-  const existing = cart.find(
-    (p) =>
-      (item.id != null && p.id != null ? Number(p.id) === item.id : p.name === name) &&
-      p.size === size,
-  );
-  if (existing) {
-    existing.quantity = (parseInt(existing.quantity, 10) || 0) + parsedQty;
-    if (existing.id == null && item.id != null) existing.id = item.id;
-  } else {
-    cart.push(item);
-  }
-  try {
-    localStorage.setItem('productsInCart', JSON.stringify(cart));
-    if (typeof showToast === 'function') {
-      showToast(name + ' added to cart!', 'success');
-    }
-  } catch (e) {
-    window.logError('Failed to save cart:', e);
-    if (typeof showToast === 'function') {
-      showToast('Storage limit reached! Cannot add to cart.', 'error');
-    }
-  }
-}
-
-function buyNow(name, price, img, quantity, size, productId) {
-  addToCart(name, price, img, quantity, size, productId);
-  try {
-    window.location.href = 'checkout.html';
-  } catch (e) {
-    window.logError('Failed to navigate to checkout:', e);
-    if (typeof showToast === 'function') {
-      showToast('Could not proceed to checkout.', 'error');
-    }
   }
 }
 
