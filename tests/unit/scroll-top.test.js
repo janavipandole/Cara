@@ -31,4 +31,30 @@ describe('scroll-top.js — scrollToTop and visibility toggle', () => {
     const btn = document.getElementById('scroll-top');
     expect(btn.style.display).toBe('none');
   });
+
+  it('shows the button when scrolled past the threshold', async () => {
+    await import('../../js/scroll-top.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+    vi.runAllTimers();
+
+    const btn = document.getElementById('scroll-top');
+    window.scrollY = 500;
+    window.dispatchEvent(new Event('scroll'));
+    expect(btn.style.display).toBe('flex');
+  });
+
+  it('hides the button again when scrolled back to the top', async () => {
+    await import('../../js/scroll-top.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+    vi.runAllTimers();
+
+    const btn = document.getElementById('scroll-top');
+    window.scrollY = 500;
+    window.dispatchEvent(new Event('scroll'));
+    expect(btn.style.display).toBe('flex');
+
+    window.scrollY = 0;
+    window.dispatchEvent(new Event('scroll'));
+    expect(btn.style.display).toBe('none');
+  });
 });
