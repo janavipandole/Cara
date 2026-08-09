@@ -367,6 +367,12 @@ def forgot_password(
     token = secrets.token_urlsafe(32)
     expires_at = datetime.now(timezone.utc) + timedelta(hours=1)
 
+    # Keep the table bounded: drop rows that can no longer be used before
+    # inserting the new token (cheap maintenance on an already-limited route).
+    db.query(models.PasswordResetToken).filter(
+        models.PasswordResetToken.expires_at < datetime.now(timezone.utc)
+    ).delete(synchronize_session=False)
+
     reset_token = models.PasswordResetToken(
         user_id=user.id,
         token=token,
@@ -411,14 +417,16 @@ def reset_password(
         raise HTTPException(status_code=404, detail="User not found")
 
     user.hashed_password = pwd.hash(payload.new_password)
-    reset_token.used = True
     # Invalidate outstanding sessions so a stolen refresh token cannot outlive the reset.
     revoke_refresh_token(user.email)
+    # Purge every row that can no longer be used: this user's tokens (used or
+    # outstanding) and any globally expired tokens. Prevents unbounded growth.
     db.query(models.PasswordResetToken).filter(
         models.PasswordResetToken.user_id == user.id,
-        models.PasswordResetToken.used == False,
-        models.PasswordResetToken.id != reset_token.id,
-    ).update({"used": True})
+    ).delete(synchronize_session=False)
+    db.query(models.PasswordResetToken).filter(
+        models.PasswordResetToken.expires_at < datetime.now(timezone.utc)
+    ).delete(synchronize_session=False)
     db.commit()
 
     return {"message": "Password has been reset successfully"}
