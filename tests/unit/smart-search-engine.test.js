@@ -45,4 +45,26 @@ describe('SmartSearchEngine Unit Tests', () => {
     engine.clearHistory();
     expect(engine.getHistory().length).toBe(0);
   });
+
+  it('should return all products for an empty query', () => {
+    const results = engine.filter({ query: '' });
+    expect(results.length).toBe(4);
+  });
+
+  it('should return an empty array when nothing matches', () => {
+    const results = engine.filter({ query: 'zebra' });
+    expect(results.length).toBe(0);
+  });
+
+  it('should match queries case-insensitively', () => {
+    const results = engine.filter({ query: 'PARKA' });
+    expect(results.length).toBe(1);
+    expect(results[0].name).toBe('Winter Parka Jacket');
+  });
+
+  it('should combine category filter with an empty query', () => {
+    const results = engine.filter({ category: 'shoes' });
+    expect(results.length).toBe(1);
+    expect(results[0].name).toBe('Casual Leather Shoes');
+  });
 });

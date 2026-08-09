@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { safeSaveContactForm } from '../../js/contact-autosave.js';
 
 function setupDom() {
   document.body.innerHTML = `
@@ -47,5 +48,25 @@ describe('contact-autosave', () => {
     expect(localStorage.getItem('cara_contact_draft_name')).toBeNull();
   });
 
-  it('should return false when contact data is null', () => { expect(true).toBe(true); });
+  it('should return false when contact data is null', () => {
+    expect(safeSaveContactForm(null)).toBe(false);
+  });
+});
+
+describe('safeSaveContactForm', () => {
+  it('is exported as a callable function', () => {
+    expect(typeof safeSaveContactForm).toBe('function');
+  });
+
+  it('returns false for falsy data', () => {
+    expect(safeSaveContactForm(null)).toBe(false);
+    expect(safeSaveContactForm(undefined)).toBe(false);
+    expect(safeSaveContactForm('')).toBe(false);
+    expect(safeSaveContactForm(0)).toBe(false);
+  });
+
+  it('returns true for valid contact data', () => {
+    expect(safeSaveContactForm({ name: 'Alice' })).toBe(true);
+    expect(safeSaveContactForm('data')).toBe(true);
+  });
 });

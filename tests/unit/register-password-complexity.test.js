@@ -36,4 +36,18 @@ describe('register.js password complexity regex', () => {
   it('rejects an empty string', () => {
     expect(complexityRegex.test('')).toBe(false);
   });
+
+  it('rejects passwords containing whitespace', () => {
+    expect(complexityRegex.test('My Pass1@')).toBe(false);
+    expect(complexityRegex.test('MyPass 1@')).toBe(false);
+  });
+
+  it('rejects passwords containing characters outside the allowed set', () => {
+    expect(complexityRegex.test('MyPass1#')).toBe(false);
+    expect(complexityRegex.test('MyPass1()')).toBe(false);
+  });
+
+  it('accepts passwords at exactly 8 characters with all classes', () => {
+    expect(complexityRegex.test('Ab1@cdef')).toBe(true);
+  });
 });

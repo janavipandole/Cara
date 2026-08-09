@@ -51,4 +51,53 @@ describe('service-worker cache strategy', () => {
     expect(isStaticAsset(new URL('https://cara.example/style.css'))).toBe(true);
     expect(isStaticAsset(new URL('https://cara.example/api/orders'))).toBe(false);
   });
+
+  describe('isStaticAsset classification', () => {
+    it('classifies all supported static extensions as assets', () => {
+      const extensions = [
+        '.css',
+        '.js',
+        '.png',
+        '.jpg',
+        '.jpeg',
+        '.webp',
+        '.gif',
+        '.svg',
+        '.ico',
+        '.woff',
+        '.woff2',
+      ];
+      extensions.forEach((ext) => {
+        expect(
+          isStaticAsset(new URL('https://cara.example/bundle' + ext)),
+        ).toBe(true);
+      });
+    });
+
+    it('classifies dynamic paths as non-assets', () => {
+      expect(isStaticAsset(new URL('https://cara.example/api/orders'))).toBe(
+        false,
+      );
+      expect(
+        isStaticAsset(new URL('https://cara.example/admin/dashboard')),
+      ).toBe(false);
+      expect(isStaticAsset(new URL('https://cara.example/shop'))).toBe(false);
+      expect(
+        isStaticAsset(new URL('https://cara.example/index.html')),
+      ).toBe(false);
+    });
+
+    it('handles URLs with query strings on static assets', () => {
+      expect(
+        isStaticAsset(
+          new URL('https://cara.example/bundle.js?v=1.2.3'),
+        ),
+      ).toBe(true);
+      expect(
+        isStaticAsset(
+          new URL('https://cara.example/image.png?width=300&height=200'),
+        ),
+      ).toBe(true);
+    });
+  });
 });

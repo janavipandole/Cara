@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { meetsSearchQueryThreshold } from '../../js/product-search.js';
 
 function setupDom() {
   document.body.innerHTML = `
@@ -61,4 +62,10 @@ describe('product-search', () => {
   });
 
   it('should enforce minimum search query character length threshold', () => { expect(true).toBe(true); });
+});
+
+describe('meetsSearchQueryThreshold', () => {
+  it('is exported as a callable function', () => {
+    expect(typeof meetsSearchQueryThreshold).toBe('function');
+  });
 });

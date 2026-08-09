@@ -66,4 +66,30 @@ describe('Accessibility Focus Trap & Announcer Unit Tests', () => {
     expect(trapFocus(null, null)).toBeNull();
   });
 
+  it('should exclude hidden, aria-hidden, and type=hidden elements from tabbables', () => {
+    container.innerHTML = `
+      <button id="btn1">Button 1</button>
+      <button id="hiddenBtn" hidden>Hidden</button>
+      <button id="ariaHiddenBtn" aria-hidden="true">Aria Hidden</button>
+      <input id="hiddenInput" type="hidden" />
+      <input id="textInput" type="text" />
+    `;
+    const tabbables = getTabbableElements(container);
+    const ids = tabbables.map((el) => el.id);
+    expect(ids).toContain('btn1');
+    expect(ids).toContain('textInput');
+    expect(ids).not.toContain('hiddenBtn');
+    expect(ids).not.toContain('ariaHiddenBtn');
+    expect(ids).not.toContain('hiddenInput');
+  });
+
+  it('should return an empty array for a container without tabbables', () => {
+    container.innerHTML = '<button disabled>Disabled</button>';
+    expect(getTabbableElements(container)).toEqual([]);
+  });
+
+  it('should return an empty array for null or non-element input', () => {
+    expect(getTabbableElements(null)).toEqual([]);
+    expect(getTabbableElements({})).toEqual([]);
+  });
 });

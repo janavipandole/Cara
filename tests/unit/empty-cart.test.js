@@ -27,4 +27,16 @@ describe('empty-cart safeParseJSON', () => {
     localStorage.setItem('productsInCart', '{not-json');
     expect(safeParseJSON('productsInCart', '{also-bad')).toEqual([]);
   });
+
+  it('returns the fallback when the key is missing', () => {
+    localStorage.removeItem('missing-key');
+    expect(safeParseJSON('missing-key', '[{"id":1}]')).toEqual([{ id: 1 }]);
+  });
+
+  it('returns a non-array fallback object when the key is missing', () => {
+    localStorage.removeItem('missing-key');
+    expect(safeParseJSON('missing-key', '{"subtotal":100}')).toEqual({
+      subtotal: 100,
+    });
+  });
 });

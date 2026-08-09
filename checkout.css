@@ -518,6 +518,10 @@ textarea {
   display: flex;
 }
 
+.success-overlay.show[hidden] {
+  display: flex !important;
+}
+
 .popup-box {
   background: var(--white);
   border-radius: 20px;
