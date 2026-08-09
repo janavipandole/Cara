@@ -3,6 +3,19 @@ import os
 # TestClient speaks HTTP; Secure cookies would not round-trip otherwise.
 os.environ.setdefault("COOKIE_SECURE", "false")
 
+# Never download CLIP weights or hit the network during tests; rebuilds use
+# synthetic embeddings instead.
+os.environ.setdefault("CARA_DISABLE_CLIP", "true")
+
+# Keep FAISS artifact writes out of the working tree during tests.
+import tempfile
+
+_FAISS_TMP_DIR = tempfile.mkdtemp(prefix="cara_faiss_test_")
+os.environ.setdefault("FAISS_INDEX_PATH", os.path.join(_FAISS_TMP_DIR, "faiss_index.bin"))
+os.environ.setdefault(
+    "FAISS_EMBEDDINGS_PATH", os.path.join(_FAISS_TMP_DIR, "faiss_embeddings.npz")
+)
+
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine

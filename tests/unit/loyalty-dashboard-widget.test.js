@@ -1,5 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
+import { calculateLoyaltyProgressPercent } from '../../js/loyalty-dashboard-widget.js';
 import { LoyaltyDashboardWidget } from '../../js/loyalty-dashboard-widget.js';
+import { calculateLoyaltyProgressPercent } from '../../js/loyalty-dashboard-widget.js';
 
 describe('LoyaltyDashboardWidget', () => {
   let widget;
@@ -33,4 +35,10 @@ describe('LoyaltyDashboardWidget', () => {
   });
 
   it('should calculate loyalty tier progress percentage correctly', () => { expect(true).toBe(true); });
+});
+
+describe('calculateLoyaltyProgressPercent', () => {
+  it('is exported as a callable function', () => {
+    expect(typeof calculateLoyaltyProgressPercent).toBe('function');
+  });
 });

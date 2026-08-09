@@ -140,3 +140,37 @@ def test_admin_update_stock_invalid(client):
         headers=headers,
     )
     assert response.status_code == 404
+
+
+def test_admin_update_rejects_duplicate_name(client):
+    headers = _admin_headers(client)
+    first = {
+        "brand": "Brand",
+        "name": "Unique Name Alpha",
+        "price": 20.0,
+        "img": "a.jpg",
+        "rating": 3,
+        "category": "minimal",
+        "stock": 10,
+    }
+    second = {
+        "brand": "Brand",
+        "name": "Unique Name Beta",
+        "price": 22.0,
+        "img": "b.jpg",
+        "rating": 3,
+        "category": "minimal",
+        "stock": 10,
+    }
+    a = client.post("/api/admin/products/", json=first, headers=headers)
+    b = client.post("/api/admin/products/", json=second, headers=headers)
+    assert a.status_code == 201
+    assert b.status_code == 201
+    alpha_id = a.json()["id"]
+
+    response = client.put(
+        f"/api/admin/products/{alpha_id}",
+        json={**first, "name": "Unique Name Beta"},
+        headers=headers,
+    )
+    assert response.status_code == 409

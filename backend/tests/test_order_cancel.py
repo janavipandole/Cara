@@ -54,7 +54,8 @@ def _seed_product(db, **kwargs) -> Product:
 def test_cancel_order_restores_stock(client):
     headers = _auth_headers(client)
     db = TestingSessionLocal()
-    _seed_product(db, name="Cancel Restock Shirt", stock=10)
+    product = _seed_product(db, name="Cancel Restock Shirt", stock=10)
+    product_id = product.id
     db.close()
 
     create = client.post(
@@ -67,14 +68,14 @@ def test_cancel_order_restores_stock(client):
             "address": "1 Test St",
             "city": "Testville",
             "zip": "12345",
-            "items": [{"product_name": "Cancel Restock Shirt", "quantity": 3}],
+            "items": [{"product_id": product_id, "quantity": 3}],
         },
     )
     assert create.status_code == 201, create.text
     order_id = create.json()["order_id"]
 
     db = TestingSessionLocal()
-    after_create = db.query(Product).filter(Product.name == "Cancel Restock Shirt").first()
+    after_create = db.query(Product).filter(Product.id == product_id).first()
     assert after_create.stock == 7
     db.close()
 
@@ -83,7 +84,7 @@ def test_cancel_order_restores_stock(client):
     assert cancel.json()["status"] == "CANCELLED"
 
     db = TestingSessionLocal()
-    after_cancel = db.query(Product).filter(Product.name == "Cancel Restock Shirt").first()
+    after_cancel = db.query(Product).filter(Product.id == product_id).first()
     assert after_cancel.stock == 10
     order = db.query(Order).filter(Order.id == order_id).first()
     assert order.status == "CANCELLED"
@@ -93,7 +94,8 @@ def test_cancel_order_restores_stock(client):
 def test_cancel_already_cancelled_does_not_double_restock(client):
     headers = _auth_headers(client)
     db = TestingSessionLocal()
-    _seed_product(db, name="Double Cancel Shirt", stock=5)
+    product = _seed_product(db, name="Double Cancel Shirt", stock=5)
+    product_id = product.id
     db.close()
 
     create = client.post(
@@ -106,7 +108,7 @@ def test_cancel_already_cancelled_does_not_double_restock(client):
             "address": "1 Test St",
             "city": "Testville",
             "zip": "12345",
-            "items": [{"product_name": "Double Cancel Shirt", "quantity": 2}],
+            "items": [{"product_id": product_id, "quantity": 2}],
         },
     )
     assert create.status_code == 201, create.text
@@ -119,6 +121,115 @@ def test_cancel_already_cancelled_does_not_double_restock(client):
     assert second.status_code == 400
 
     db = TestingSessionLocal()
-    product = db.query(Product).filter(Product.name == "Double Cancel Shirt").first()
+    product = db.query(Product).filter(Product.id == product_id).first()
     assert product.stock == 5
+    db.close()
+
+
+def _create_order_and_set_status(client, headers, *, email, product_name, quantity, status):
+    db = TestingSessionLocal()
+    product = _seed_product(db, name=product_name, stock=10)
+    product_id = product.id
+    db.close()
+
+    create = client.post(
+        ORDERS_URL,
+        headers=headers,
+        json={
+            "fullName": "Test User",
+            "email": email,
+            "address": "1 Test St",
+            "city": "Testville",
+            "zip": "12345",
+            "items": [{"product_id": product_id, "quantity": quantity}],
+        },
+    )
+    assert create.status_code == 201, create.text
+    order_id = create.json()["order_id"]
+
+    # Simulate a carrier/fulfillment marking the order as progressed while
+    # still inside the 24h cancel window (issue #5625).
+    db = TestingSessionLocal()
+    order = db.query(Order).filter(Order.id == order_id).one()
+    order.status = status
+    db.commit()
+    db.close()
+    return order_id, product_id
+
+
+def test_cancel_rejected_for_shipped_order_within_window(client):
+    headers = _auth_headers(client, username="shipuser", email="ship@example.com")
+    order_id, product_id = _create_order_and_set_status(
+        client,
+        headers,
+        email="ship@example.com",
+        product_name="Shipped Tee",
+        quantity=2,
+        status="SHIPPED",
+    )
+
+    response = client.post(f"{ORDERS_URL}{order_id}/cancel", headers=headers)
+    assert response.status_code == 400, response.text
+
+    db = TestingSessionLocal()
+    assert db.query(Product).filter(Product.id == product_id).one().stock == 8
+    assert db.query(Order).filter(Order.id == order_id).one().status == "SHIPPED"
+    db.close()
+
+
+def test_cancel_rejected_for_delivered_order_within_window(client):
+    headers = _auth_headers(client, username="deliveruser", email="deliver@example.com")
+    order_id, product_id = _create_order_and_set_status(
+        client,
+        headers,
+        email="deliver@example.com",
+        product_name="Delivered Tee",
+        quantity=4,
+        status="DELIVERED",
+    )
+
+    response = client.post(f"{ORDERS_URL}{order_id}/cancel", headers=headers)
+    assert response.status_code == 400, response.text
+
+    db = TestingSessionLocal()
+    assert db.query(Product).filter(Product.id == product_id).one().stock == 6
+    assert db.query(Order).filter(Order.id == order_id).one().status == "DELIVERED"
+    db.close()
+
+
+def test_order_uses_product_id_when_duplicate_names_exist(client):
+    """Duplicate product names must resolve by id, not the first matching name."""
+    headers = _auth_headers(client, username="dupuser", email="dup@example.com")
+    db = TestingSessionLocal()
+    cheap = _seed_product(db, name="Same Name Tee", price=10.0, stock=5)
+    expensive = _seed_product(db, name="Same Name Tee", price=999.0, stock=5)
+    cheap_id, expensive_id = cheap.id, expensive.id
+    db.close()
+
+    create = client.post(
+        ORDERS_URL,
+        headers=headers,
+        json={
+            "fullName": "Dup User",
+            "email": "dup@example.com",
+            "address": "1 Test St",
+            "city": "Testville",
+            "zip": "12345",
+            "items": [{"product_id": expensive_id, "quantity": 1}],
+        },
+    )
+    assert create.status_code == 201, create.text
+    order_id = create.json()["order_id"]
+
+    db = TestingSessionLocal()
+    cheap_after = db.query(Product).filter(Product.id == cheap_id).first()
+    expensive_after = db.query(Product).filter(Product.id == expensive_id).first()
+    assert cheap_after.stock == 5
+    assert expensive_after.stock == 4
+
+    from app.models import OrderItem
+
+    item = db.query(OrderItem).filter(OrderItem.order_id == order_id).one()
+    assert item.product_id == expensive_id
+    assert item.price == 999.0
     db.close()

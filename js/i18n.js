@@ -14,6 +14,7 @@ const translations = {
     community: "Community",
     orders: "My Orders",
     outfit: "Outfit Checker",
+    authenticity: "Authenticity",
     addToCart: "Add to Cart",
     buyNow: "Buy Now",
     search: "Search products..."
@@ -31,9 +32,27 @@ const translations = {
     community: "Comunidad",
     orders: "Mis Pedidos",
     outfit: "Verificar Atuendo",
+    authenticity: "Autenticidad",
     addToCart: "Añadir al Carrito",
     buyNow: "Comprar Ahora",
     search: "Buscar productos..."
+  },
+  fr: {
+    home: "Accueil",
+    shop: "Boutique",
+    blog: "Blog",
+    about: "A propos",
+    contact: "Contact",
+    cart: "Panier",
+    wishlist: "Liste de souhaits",
+    login: "Connexion",
+    promotions: "Promotions",
+    community: "Communaute",
+    orders: "Mes Commandes",
+    outfit: "Verificateur de Tenue",
+    addToCart: "Ajouter au Panier",
+    buyNow: "Acheter Maintenant",
+    search: "Rechercher des produits..."
   }
 };
 
@@ -44,6 +63,8 @@ function changeLanguage(lang) {
   } catch (e) {
     // Silently fail if localStorage is unavailable (private browsing, quota exceeded)
   }
+
+  if (typeof document === "undefined") return;
 
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     const key = el.getAttribute("data-i18n");
@@ -93,4 +114,4 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-function formatI18nPlaceholder(template, params = {}) { if (!template) return ''; return template.replace(/\{{(\w+)\}}/g, (_, key) => params[key] || ''); }
+export function formatI18nPlaceholder(template, params = {}) { if (!template) return ''; return template.replace(/\{{(\w+)\}}/g, (_, key) => params[key] || ''); }

@@ -46,7 +46,7 @@ def _seed_product(name="Idempotency Tee", stock=20):
     return product_id
 
 
-def _order_payload(key, product_name="Idempotency Tee", email="idem1@example.com"):
+def _order_payload(key, product_id, email="idem1@example.com"):
     return {
         "fullName": "Buyer One",
         "email": email,
@@ -54,15 +54,15 @@ def _order_payload(key, product_name="Idempotency Tee", email="idem1@example.com
         "address": "1 Test St",
         "city": "Testville",
         "zip": "10001",
-        "items": [{"product_name": product_name, "quantity": 1}],
+        "items": [{"product_id": product_id, "quantity": 1}],
         "idempotency_key": key,
     }
 
 
 def test_duplicate_idempotency_key_returns_existing(client):
-    _seed_product()
+    product_id = _seed_product()
     headers = _login_headers(client, "idem1@example.com", "Secure123@", "idem1")
-    payload = _order_payload("key-same-user-1")
+    payload = _order_payload("key-same-user-1", product_id)
 
     first = client.post("/api/orders/", json=payload, headers=headers)
     assert first.status_code == 201
@@ -75,7 +75,7 @@ def test_duplicate_idempotency_key_returns_existing(client):
 
 
 def test_same_key_allowed_for_different_buyers(client):
-    _seed_product(name="Shared Key Tee")
+    product_id = _seed_product(name="Shared Key Tee")
     headers_a = _login_headers(client, "idem-a@example.com", "Secure123@", "idema")
     headers_b = _login_headers(client, "idem-b@example.com", "Secure123@", "idemb")
 
@@ -83,7 +83,7 @@ def test_same_key_allowed_for_different_buyers(client):
         "/api/orders/",
         json=_order_payload(
             "shared-key-across-users",
-            product_name="Shared Key Tee",
+            product_id,
             email="idem-a@example.com",
         ),
         headers=headers_a,
@@ -93,7 +93,7 @@ def test_same_key_allowed_for_different_buyers(client):
         json={
             **_order_payload(
                 "shared-key-across-users",
-                product_name="Shared Key Tee",
+                product_id,
                 email="idem-b@example.com",
             ),
             "fullName": "Buyer Two",
@@ -107,7 +107,7 @@ def test_same_key_allowed_for_different_buyers(client):
 
 
 def test_integrity_error_race_returns_existing_order(client, monkeypatch):
-    _seed_product(name="Race Tee")
+    product_id = _seed_product(name="Race Tee")
     headers = _login_headers(client, "idem-race@example.com", "Secure123@", "idemrace")
     key = "race-key-1"
 
@@ -150,7 +150,7 @@ def test_integrity_error_race_returns_existing_order(client, monkeypatch):
 
     response = client.post(
         "/api/orders/",
-        json=_order_payload(key, product_name="Race Tee", email="idem-race@example.com"),
+        json=_order_payload(key, product_id, email="idem-race@example.com"),
         headers=headers,
     )
     assert response.status_code == 200

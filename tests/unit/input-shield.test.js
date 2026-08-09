@@ -48,5 +48,30 @@ describe('input-shield', () => {
     expect(document.getElementById('field').value).toBe('hello world');
   });
 
-  it('should detect SQL injection keywords in user inputs', () => { expect(true).toBe(true); });
+  it('should detect SQL injection keywords in user inputs', async () => {
+    await import('../../js/input-shield.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    expect(window.containsSqlInjectionKeywords('SELECT * FROM users')).toBe(true);
+    expect(window.containsSqlInjectionKeywords('DROP TABLE orders')).toBe(true);
+    expect(window.containsSqlInjectionKeywords('insert into cart values')).toBe(true);
+  });
+
+  it('should ignore SQL keywords in non-string or safe input', async () => {
+    await import('../../js/input-shield.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    expect(window.containsSqlInjectionKeywords('hello world')).toBe(false);
+    expect(window.containsSqlInjectionKeywords(null)).toBe(false);
+    expect(window.containsSqlInjectionKeywords(undefined)).toBe(false);
+    expect(window.containsSqlInjectionKeywords(42)).toBe(false);
+  });
+
+  it('should match SQL keywords case-insensitively', async () => {
+    await import('../../js/input-shield.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    expect(window.containsSqlInjectionKeywords('select name from users')).toBe(true);
+    expect(window.containsSqlInjectionKeywords('Delete FROM sessions')).toBe(true);
+  });
 });

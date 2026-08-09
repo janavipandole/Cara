@@ -6,7 +6,12 @@ export const TABBABLE_SELECTOR =
 export function getTabbableElements(container) {
   if (!container || typeof container.querySelectorAll !== 'function') return [];
   return Array.from(container.querySelectorAll(TABBABLE_SELECTOR)).filter(
-    (el) => el.style.display !== 'none' && el.style.visibility !== 'hidden'
+    (el) =>
+      el.style.display !== 'none' &&
+      el.style.visibility !== 'hidden' &&
+      !el.hasAttribute('hidden') &&
+      el.getAttribute('aria-hidden') !== 'true' &&
+      !(el.tagName === 'INPUT' && el.type === 'hidden'),
   );
 }
 

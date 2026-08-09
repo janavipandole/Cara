@@ -105,6 +105,8 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       const API_BASE = window.CARA_API_BASE_URL || '';
+      // If the user arrived via the emailed reset link, the token is in the URL.
+      const urlToken = new URLSearchParams(window.location.search).get('token');
 
       fetch(API_BASE + '/api/auth/forgot-password', {
         method: 'POST',
@@ -120,7 +122,11 @@ document.addEventListener('DOMContentLoaded', function () {
           return res.json();
         })
         .then(function (data) {
-          const resetToken = data.reset_token;
+          const resetToken = data.reset_token || urlToken;
+
+          if (!resetToken) {
+            throw new Error('No reset token provided');
+          }
 
           return fetch(API_BASE + '/api/auth/reset-password', {
             method: 'POST',

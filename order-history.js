@@ -1,3 +1,5 @@
+import { renderReturnStatus, renderReturnDeadlineInline } from './js/return-status.js';
+
 const ORDER_API_BASE_URL = window.CARA_API_BASE_URL || '';
 
 
@@ -33,6 +35,12 @@ function setStateVisibility({
 function statusClass(status) {
   return `status-pill status-${String(status || 'pending').toLowerCase()}`;
 }
+// Mirrors the backend CANCELLABLE_STATUSES allowlist so the Cancel action
+// is never surfaced for orders that the API would refuse to cancel.
+const CANCELLABLE_STATUSES = new Set(['PENDING', 'CONFIRMED']);
+function isOrderCancellable(status) {
+  return CANCELLABLE_STATUSES.has(String(status || '').toUpperCase());
+}
 // Escapes HTML-significant characters so user-supplied order data
 // (full_name, address, city, product_name, etc.) can never be
 // interpreted as markup when interpolated into innerHTML.
@@ -59,13 +67,17 @@ function renderOrders(orders) {
       ? new Date(order.created_at).toLocaleDateString()
       : 'N/A';
 
+    const cancelCell = isOrderCancellable(order.status)
+      ? `<button class="cancel-btn" type="button" data-order-id="${escapeHtml(order.id)}">Cancel</button>`
+      : '';
+
     row.innerHTML = `
       <td>#${escapeHtml(order.id)}</td>
       <td>${escapeHtml(createdAt)}</td>
       <td>${escapeHtml(formatCurrency(order.total_amount))}</td>
-      <td><span class="${escapeHtml(statusClass(order.status))}">${escapeHtml(order.status)}</span></td>
+      <td><span class="${escapeHtml(statusClass(order.status))}">${escapeHtml(order.status)}</span>${renderReturnDeadlineInline(order)}</td>
       <td><button class="details-btn" type="button" data-order-id="${escapeHtml(order.id)}">View</button></td>
-       <td><button class="cancel-btn" type="button" data-order-id="${escapeHtml(order.id)}">Cancel</button></td>
+       <td>${cancelCell}</td>
     `;
 
     tbody.appendChild(row);
@@ -122,6 +134,8 @@ function renderOrderDetails(order) {
       <h2 style="margin: 0 0 8px;">${escapeHtml(order.status)}</h2>
       <p style="margin: 0; color: #55606f;">Placed on ${escapeHtml(order.created_at ? new Date(order.created_at).toLocaleString() : 'N/A')}</p>
     </div>
+
+    ${renderReturnStatus(order)}
 
     <div class="order-meta-grid">
       <div class="meta-card"><span class="meta-label">Customer</span><strong>${escapeHtml(order.full_name)}</strong></div>
