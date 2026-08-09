@@ -94,3 +94,28 @@ describe('error-boundary.js unit tests', () => {
     expect(container.querySelector('.cara-error-fallback')).toBeNull();
   });
 });
+
+describe('getErrorFallbackHTML', () => {
+  beforeEach(() => {
+    errorSpy.mockClear();
+  });
+
+  it('returns fallback HTML with the provided message', () => {
+    const html = window.getErrorFallbackHTML('Something broke');
+    expect(html).toContain('error-fallback-box');
+    expect(html).toContain('Something broke');
+  });
+
+  it('returns fallback HTML with default message when argument is undefined', () => {
+    const html = window.getErrorFallbackHTML(undefined);
+    expect(html).toContain('error-fallback-box');
+    expect(html).toContain('An unexpected error occurred.');
+  });
+
+  it('returns a valid HTML string for any input', () => {
+    const html = window.getErrorFallbackHTML(12345);
+    expect(typeof html).toBe('string');
+    expect(html.length).toBeGreaterThan(0);
+    expect(html).toContain('error-fallback-box');
+  });
+});
