@@ -26,6 +26,14 @@ import hmac
 failed_login_attempts = OrderedDict()
 MAX_TRACKED_EMAILS = 1000
 
+# Pending server-side CAPTCHA challenges (challenge id -> expiry). Storing the
+# challenge on the server lets us compare the submitted answer against an HMAC
+# digest instead of embedding the plaintext answer in the JWT, and lets us
+# consume each challenge after a single verification attempt.
+captcha_challenges = OrderedDict()
+MAX_TRACKED_CAPTCHAS = 1000
+CAPTCHA_MINUTES = 5
+
 SECRET_KEY = os.environ.get("SECRET_KEY")
 if not SECRET_KEY:
     raise RuntimeError(
@@ -68,6 +76,22 @@ def captcha_answer_digest(answer: str) -> str:
 
 def cookie_secure() -> bool:
     return os.environ.get("COOKIE_SECURE", "true").lower() in ("1", "true", "yes")
+
+
+def _captcha_hmac(code: str) -> str:
+    """Keyed digest of a CAPTCHA answer; the plaintext is never put in the JWT."""
+    return hmac.new(
+        SECRET_KEY.encode("utf-8"),
+        code.upper().encode("utf-8"),
+        hashlib.sha256,
+    ).hexdigest()
+
+
+def _store_captcha_challenge(challenge_id: str) -> None:
+    captcha_challenges[challenge_id] = datetime.now(timezone.utc) + timedelta(minutes=CAPTCHA_MINUTES)
+    captcha_challenges.move_to_end(challenge_id)
+    if len(captcha_challenges) > MAX_TRACKED_CAPTCHAS:
+        captcha_challenges.popitem(last=False)
 
 
 # -- Helper: build JWT --
@@ -223,11 +247,18 @@ def get_captcha():
     buffered = io.BytesIO()
     img.save(buffered, format="PNG")
     img_str = base64.b64encode(buffered.getvalue()).decode()
-    
+
+    # The token carries only an opaque challenge id and an HMAC digest of the
+    # answer, never the answer itself. The challenge must be solved server-side
+    # and is consumed after a single verification attempt (see login).
+    challenge_id = secrets.token_urlsafe(16)
+    _store_captcha_challenge(challenge_id)
+
     token = jwt.encode(
         {
-            "captcha_hash": captcha_answer_digest(code),
-            "exp": datetime.now(timezone.utc) + timedelta(minutes=5),
+            "captcha_challenge": challenge_id,
+            "captcha_hash": _captcha_hmac(code),
+            "exp": datetime.now(timezone.utc) + timedelta(minutes=CAPTCHA_MINUTES),
         },
         SECRET_KEY,
         algorithm=ALGORITHM,
@@ -247,10 +278,22 @@ def login(request: Request, response: Response, payload: UserLogin, db: Session 
             raise HTTPException(403, "Security captcha required.")
         try:
             token_payload = jwt.decode(payload.captcha_token, SECRET_KEY, algorithms=[ALGORITHM])
-            expected = token_payload.get("captcha_hash")
-            if not expected or not hmac.compare_digest(
-                expected, captcha_answer_digest(payload.captcha_answer or "")
-            ):
+            challenge_id = token_payload.get("captcha_challenge")
+            expected_hash = token_payload.get("captcha_hash")
+            expires = captcha_challenges.get(challenge_id)
+
+            if not challenge_id or not expected_hash or expires is None:
+                raise HTTPException(403, "Invalid or expired security code.")
+            if expires < datetime.now(timezone.utc):
+                captcha_challenges.pop(challenge_id, None)
+                raise HTTPException(403, "Invalid or expired security code.")
+
+            # One-time challenge: consume it before evaluating the answer so a
+            # solved captcha cannot be replayed for later attempts.
+            captcha_challenges.pop(challenge_id, None)
+
+            submitted_hash = _captcha_hmac(payload.captcha_answer)
+            if not hmac.compare_digest(submitted_hash, expected_hash):
                 raise HTTPException(403, "Invalid security code.")
         except JWTError:
             raise HTTPException(403, "Invalid or expired security code.")
