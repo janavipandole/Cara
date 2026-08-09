@@ -150,4 +150,37 @@ describe('formatI18nPlaceholder', () => {
   it('is exported as a callable function', () => {
     expect(typeof formatI18nPlaceholder).toBe('function');
   });
+
+  it('replaces a single placeholder with the corresponding param value', () => {
+    const result = formatI18nPlaceholder('Hello {{name}}', { name: 'Alice' });
+    expect(result).toBe('Hello Alice');
+  });
+
+  it('replaces multiple placeholders with their param values', () => {
+    const result = formatI18nPlaceholder(
+      '{{greeting}} {{name}}, you have {{count}} items.',
+      { greeting: 'Hi', name: 'Bob', count: 3 }
+    );
+    expect(result).toBe('Hi Bob, you have 3 items.');
+  });
+
+  it('replaces a placeholder with an empty string when the key is missing', () => {
+    const result = formatI18nPlaceholder('Hello {{name}}', {});
+    expect(result).toBe('Hello ');
+  });
+
+  it('returns an empty string when template is null or undefined', () => {
+    expect(formatI18nPlaceholder(null)).toBe('');
+    expect(formatI18nPlaceholder(undefined)).toBe('');
+  });
+
+  it('returns the original template when no placeholders are present', () => {
+    const result = formatI18nPlaceholder('Hello World', { name: 'Alice' });
+    expect(result).toBe('Hello World');
+  });
+
+  it('handles a template with no params object passed', () => {
+    const result = formatI18nPlaceholder('Hello {{name}}');
+    expect(result).toBe('Hello ');
+  });
 });
