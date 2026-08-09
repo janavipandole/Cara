@@ -284,6 +284,7 @@ def login(request: Request, response: Response, payload: UserLogin, db: Session 
     )
 
 @router.post("/refresh")
+@limiter.limit("10/minute")
 def refresh_access_token(request: Request, response: Response, db: Session = Depends(get_db)):
     token = request.cookies.get("refresh_token")
     if not token:
