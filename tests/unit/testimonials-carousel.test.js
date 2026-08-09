@@ -59,4 +59,25 @@ describe('testimonials-carousel.js unit tests', () => {
     prevBtn.click();
     // Should not throw
   });
+
+  it('advances the active dot when the next button is clicked', () => {
+    const dots = Array.from(document.getElementById('testimonials-dots').children);
+    const activeBefore = dots.findIndex((d) => d.classList.contains('active'));
+    document.getElementById('testimonial-next').click();
+    const activeAfter = dots.findIndex((d) => d.classList.contains('active'));
+    expect(activeAfter).toBe((activeBefore + 1) % dots.length);
+  });
+
+  it('wraps to the last dot when prev is clicked from the first slide', () => {
+    const dots = Array.from(document.getElementById('testimonials-dots').children);
+    // Move to the first slide by clicking prev until the active index stops changing.
+    for (let i = 0; i < dots.length * 2; i++) {
+      document.getElementById('testimonial-prev').click();
+    }
+    const firstSlide = dots.findIndex((d) => d.classList.contains('active'));
+    // One more prev click from the first slide wraps to the last dot.
+    document.getElementById('testimonial-prev').click();
+    const afterWrap = dots.findIndex((d) => d.classList.contains('active'));
+    expect(afterWrap).toBe((firstSlide - 1 + dots.length) % dots.length);
+  });
 });

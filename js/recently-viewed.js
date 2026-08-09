@@ -144,8 +144,12 @@
       : null;
 
     const list = getRecentlyViewed().filter((item) => {
-      if (options.excludeId != null) return item.id !== options.excludeId;
-      if (options.excludeName) return item.name !== options.excludeName;
+      if (options.excludeId != null && item.id === options.excludeId) {
+        return false;
+      }
+      if (options.excludeName && item.name === options.excludeName) {
+        return false;
+      }
       return true;
     });
 

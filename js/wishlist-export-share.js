@@ -39,7 +39,17 @@ export class WishlistExportShare {
   exportToCSV(items = []) {
     if (!Array.isArray(items) || items.length === 0) return '';
     const headers = ['ID', 'Name', 'Price'];
-    const rows = items.map(item => `"${item.id || ''}","${item.name || ''}","${item.price || ''}"`);
+    const escapeCsv = (value) => {
+      const str = value == null ? '' : String(value);
+      // Standard CSV escaping: double up embedded quotes, then wrap in quotes.
+      return `"${str.replace(/"/g, '""')}"`;
+    };
+    const rows = items.map(
+      (item) =>
+        [escapeCsv(item.id), escapeCsv(item.name), escapeCsv(item.price)].join(
+          ',',
+        ),
+    );
     return [headers.join(','), ...rows].join('\n');
   }
 

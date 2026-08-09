@@ -60,7 +60,6 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="ui-fix.css" />
     <link rel="stylesheet" href="lazyload.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
@@ -126,10 +125,11 @@
 </head>
 
   <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
 <section id="header">
   <!-- Logo -->
-  <a href="index.html">
-    <img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" />
+  <a href="index.html" aria-label="Cara Home"><img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" />
   </a>
 
   <div>
@@ -177,14 +177,14 @@
       </li>
 
       <!-- Close Button -->
-      <a
+      <li class="nav-close"><a
         href="javascript:void(0)"
         id="close"
         aria-label="Close menu"
         aria-hidden="false"
       >
         <i class="fa-solid fa-xmark"></i>
-      </a>
+      </a></li>
 
     </ul>
   </div>
@@ -213,6 +213,7 @@
     ></i>
   </div>
 </section>
+<main id="main-content">
 
     <!-- Dynamic Reading Progress Bar -->
     <div id="reading-progress-container" style="position: fixed; top: 79px; left: 0; width: 100%; height: 4px; background: rgba(8, 129, 120, 0.1); z-index: 9999;">
@@ -246,8 +247,8 @@
           <div class="blog-share" style="margin-top: 15px; display: flex; gap: 10px; align-items: center;">
             <span style="font-size: 13px; font-weight: 700; color: #777;">Share:</span>
             <a href="https://twitter.com/intent/tweet?text=Check out this blog post: The Cotton-Jersey Zip-Up Hoodie&url=https://cara-seven-ashen.vercel.app/blog-cotton-jersey-hoodie.html" target="_blank" rel="noopener noreferrer" aria-label="Share on X" style="color: #088178; font-size: 14px;"><i class="fa-brands fa-x-twitter"></i></a>
-            <a href="https://www.facebook.com/sharer/sharer.php?u=https://cara-seven-ashen.vercel.app/blog-cotton-jersey-hoodie.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook" style="color: #088178; font-size: 14px;"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://pinterest.com/pin/create/button/?url=https://cara-seven-ashen.vercel.app/blog-cotton-jersey-hoodie.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Pinterest" style="color: #088178; font-size: 14px;"><i class="fab fa-pinterest"></i></a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://cara-seven-ashen.vercel.app/blog-cotton-jersey-hoodie.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook" style="color: #088178; font-size: 14px;" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://pinterest.com/pin/create/button/?url=https://cara-seven-ashen.vercel.app/blog-cotton-jersey-hoodie.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Pinterest" style="color: #088178; font-size: 14px;" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
           </div>
         </div>
         <h1>13/01</h1>
@@ -269,8 +270,8 @@
           <div class="blog-share" style="margin-top: 15px; display: flex; gap: 10px; align-items: center;">
             <span style="font-size: 13px; font-weight: 700; color: #777;">Share:</span>
             <a href="https://twitter.com/intent/tweet?text=Check out this blog post: How to style a Quiff&url=https://cara-seven-ashen.vercel.app/blog-quiff-styling.html" target="_blank" rel="noopener noreferrer" aria-label="Share on X" style="color: #088178; font-size: 14px;"><i class="fa-brands fa-x-twitter"></i></a>
-            <a href="https://www.facebook.com/sharer/sharer.php?u=https://cara-seven-ashen.vercel.app/blog-quiff-styling.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook" style="color: #088178; font-size: 14px;"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://pinterest.com/pin/create/button/?url=https://cara-seven-ashen.vercel.app/blog-quiff-styling.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Pinterest" style="color: #088178; font-size: 14px;"><i class="fab fa-pinterest"></i></a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://cara-seven-ashen.vercel.app/blog-quiff-styling.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook" style="color: #088178; font-size: 14px;" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://pinterest.com/pin/create/button/?url=https://cara-seven-ashen.vercel.app/blog-quiff-styling.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Pinterest" style="color: #088178; font-size: 14px;" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
           </div>
         </div>
         <h1>13/04</h1>
@@ -293,8 +294,8 @@
           <div class="blog-share" style="margin-top: 15px; display: flex; gap: 10px; align-items: center;">
             <span style="font-size: 13px; font-weight: 700; color: #777;">Share:</span>
             <a href="https://twitter.com/intent/tweet?text=Check out this blog post: Must-Have Skater Girls Items&url=https://cara-seven-ashen.vercel.app/blog-skater-girls.html" target="_blank" rel="noopener noreferrer" aria-label="Share on X" style="color: #088178; font-size: 14px;"><i class="fa-brands fa-x-twitter"></i></a>
-            <a href="https://www.facebook.com/sharer/sharer.php?u=https://cara-seven-ashen.vercel.app/blog-skater-girls.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook" style="color: #088178; font-size: 14px;"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://pinterest.com/pin/create/button/?url=https://cara-seven-ashen.vercel.app/blog-skater-girls.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Pinterest" style="color: #088178; font-size: 14px;"><i class="fab fa-pinterest"></i></a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://cara-seven-ashen.vercel.app/blog-skater-girls.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook" style="color: #088178; font-size: 14px;" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://pinterest.com/pin/create/button/?url=https://cara-seven-ashen.vercel.app/blog-skater-girls.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Pinterest" style="color: #088178; font-size: 14px;" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
           </div>
         </div>
         <h1>12/01</h1>
@@ -316,8 +317,8 @@
           <div class="blog-share" style="margin-top: 15px; display: flex; gap: 10px; align-items: center;">
             <span style="font-size: 13px; font-weight: 700; color: #777;">Share:</span>
             <a href="https://twitter.com/intent/tweet?text=Check out this blog post: Runway-Inspired Trends&url=https://cara-seven-ashen.vercel.app/blog-runway-trends.html" target="_blank" rel="noopener noreferrer" aria-label="Share on X" style="color: #088178; font-size: 14px;"><i class="fa-brands fa-x-twitter"></i></a>
-            <a href="https://www.facebook.com/sharer/sharer.php?u=https://cara-seven-ashen.vercel.app/blog-runway-trends.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook" style="color: #088178; font-size: 14px;"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://pinterest.com/pin/create/button/?url=https://cara-seven-ashen.vercel.app/blog-runway-trends.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Pinterest" style="color: #088178; font-size: 14px;"><i class="fab fa-pinterest"></i></a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://cara-seven-ashen.vercel.app/blog-runway-trends.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook" style="color: #088178; font-size: 14px;" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://pinterest.com/pin/create/button/?url=https://cara-seven-ashen.vercel.app/blog-runway-trends.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Pinterest" style="color: #088178; font-size: 14px;" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
           </div>
         </div>
         <h1>16/01</h1>
@@ -339,8 +340,8 @@
           <div class="blog-share" style="margin-top: 15px; display: flex; gap: 10px; align-items: center;">
             <span style="font-size: 13px; font-weight: 700; color: #777;">Share:</span>
             <a href="https://twitter.com/intent/tweet?text=Check out this blog post: AW20 Menswear Trends&url=https://cara-seven-ashen.vercel.app/blog-aw20-menswear.html" target="_blank" rel="noopener noreferrer" aria-label="Share on X" style="color: #088178; font-size: 14px;"><i class="fa-brands fa-x-twitter"></i></a>
-            <a href="https://www.facebook.com/sharer/sharer.php?u=https://cara-seven-ashen.vercel.app/blog-aw20-menswear.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook" style="color: #088178; font-size: 14px;"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://pinterest.com/pin/create/button/?url=https://cara-seven-ashen.vercel.app/blog-aw20-menswear.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Pinterest" style="color: #088178; font-size: 14px;"><i class="fab fa-pinterest"></i></a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://cara-seven-ashen.vercel.app/blog-aw20-menswear.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook" style="color: #088178; font-size: 14px;" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://pinterest.com/pin/create/button/?url=https://cara-seven-ashen.vercel.app/blog-aw20-menswear.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Pinterest" style="color: #088178; font-size: 14px;" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
           </div>
         </div>
         <h1>10/01</h1>
@@ -396,9 +397,7 @@
               href="https://www.youtube.com/@JanaviPandole"
               target="_blank"
               rel="noopener noreferrer"
-            >
-              <i class="fab fa-youtube"></i>
-            </a>
+             aria-label="YouTube"><i class="fab fa-youtube"></i></a>
           </div>
         </div>
       </div>
@@ -505,7 +504,8 @@
         </p>
       </div>
     </footer>
-    <!-- <button id="scrollTopBtn" title="Go to top" aria-label="Go to top">
+</main>
+    <button id="scrollTopBtn" title="Go to top" aria-label="Go to top">
       <i class="ri-arrow-up-line"></i>
     </button> -->
 
@@ -550,7 +550,8 @@
   });
 </script>
 
-<script type="module" src="js/reading-progress.js" defer></script>
+<script src="js/reading-progress.js" defer></script>
+
 </body>
 </html>
 

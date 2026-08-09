@@ -109,4 +109,62 @@ describe('register-interests.js unit tests', function () {
     expect(hiddenInput.value).toBe('acc');
     expect(chip.style.background).toBe('rgb(8, 129, 120)');
   });
+
+  it('deselecting a chip removes it from the hidden input value', function () {
+    var selectedList = ['mens', 'acc'];
+    var hiddenInput = document.createElement('input');
+    hiddenInput.type = 'hidden';
+    hiddenInput.id = 'selected-interests';
+    document.body.appendChild(hiddenInput);
+    hiddenInput.value = selectedList.join(',');
+
+    function toggle(list, chip) {
+      var val = chip.dataset.val;
+      if (list.indexOf(val) !== -1) {
+        list.splice(list.indexOf(val), 1);
+        chip.style.background = 'none';
+      } else {
+        list.push(val);
+        chip.style.background = '#088178';
+      }
+      hiddenInput.value = list.join(',');
+    }
+
+    var chip = document.createElement('span');
+    chip.dataset.val = 'mens';
+    toggle(selectedList, chip);
+
+    expect(selectedList).toEqual(['acc']);
+    expect(hiddenInput.value).toBe('acc');
+    expect(chip.style.background).toBe('none');
+  });
+
+  it('multiple toggles keep the hidden input in sync', function () {
+    var selectedList = [];
+    var hiddenInput = document.createElement('input');
+    hiddenInput.type = 'hidden';
+    hiddenInput.id = 'selected-interests';
+    document.body.appendChild(hiddenInput);
+
+    function toggle(list, chip) {
+      var val = chip.dataset.val;
+      if (list.indexOf(val) !== -1) {
+        list.splice(list.indexOf(val), 1);
+      } else {
+        list.push(val);
+      }
+      hiddenInput.value = list.join(',');
+    }
+
+    var chip1 = document.createElement('span');
+    chip1.dataset.val = 'mens';
+    var chip2 = document.createElement('span');
+    chip2.dataset.val = 'acc';
+
+    toggle(selectedList, chip1);
+    toggle(selectedList, chip2);
+    toggle(selectedList, chip1);
+    expect(selectedList).toEqual(['acc']);
+    expect(hiddenInput.value).toBe('acc');
+  });
 });

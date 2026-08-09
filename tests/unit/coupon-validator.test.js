@@ -65,5 +65,20 @@ describe('coupon-validator', () => {
     expect(localStorage.getItem('appliedCoupon')).toBeNull();
   });
 
-  it('should check if coupon expiry date is in the past', () => { expect(true).toBe(true); });
+  it('should check if coupon expiry date is in the past', async () => {
+    await load();
+    expect(window.isCouponDateExpired('2020-01-01')).toBe(true);
+    expect(window.isCouponDateExpired('2099-01-01')).toBe(false);
+  });
+
+  it('should treat missing expiry dates as not expired', async () => {
+    await load();
+    expect(window.isCouponDateExpired(null)).toBe(false);
+    expect(window.isCouponDateExpired('')).toBe(false);
+  });
+
+  it('should treat invalid expiry date strings as not expired', async () => {
+    await load();
+    expect(window.isCouponDateExpired('not-a-date')).toBe(false);
+  });
 });

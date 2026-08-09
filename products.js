@@ -533,7 +533,11 @@ function appendHighlightedText(target, text, query, highlightRanges) {
   }
 }
 
-function renderProducts(containerId, list, query = '') {
+function yieldToMain() {
+  return new Promise((resolve) => setTimeout(resolve, 0));
+}
+
+async function renderProducts(containerId, list, query = '') {
   const container = document.getElementById(containerId);
   if (!container) return;
 
@@ -582,10 +586,15 @@ function renderProducts(containerId, list, query = '') {
     return;
   }
 
-  list.forEach((p) => {
+  for (const p of list) {
+    if (navigator.scheduling && navigator.scheduling.isInputPending && navigator.scheduling.isInputPending()) {
+      await yieldToMain();
+    }
+
     const card = document.createElement('div');
     card.className = 'pro';
     card.dataset.category = p.category;
+    card.dataset.productId = p.id;
     card.addEventListener('click', () => {
       const selectedProduct = {
         id: p.id,
@@ -740,11 +749,6 @@ function renderProducts(containerId, list, query = '') {
     des.appendChild(actionBar);
     card.appendChild(des);
     container.appendChild(card);
-  });
-
-  if (window.CSS && CSS.highlights && highlightRanges.length > 0) {
-    const searchHighlight = new Highlight(...highlightRanges);
-    CSS.highlights.set('search-results', searchHighlight);
   }
 }
 

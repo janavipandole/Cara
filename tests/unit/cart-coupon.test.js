@@ -61,4 +61,30 @@ describe('cart-coupon', () => {
     expect(window.appliedCoupon).toBe('');
     expect(localStorage.getItem('appliedCoupon')).toBeNull();
   });
+
+  it('reads the cart subtotal from productsInCart for coupon validation', async () => {
+    const validateCoupon = vi.fn(() => ({
+      valid: true,
+      code: 'CARA20',
+      discountPct: 20,
+    }));
+    window.PromoDiscountCalculator = class {
+      validateCoupon(...args) {
+        return validateCoupon(...args);
+      }
+    };
+    localStorage.setItem(
+      'productsInCart',
+      JSON.stringify([
+        { name: 'T-Shirt', price: '500', quantity: 2 },
+        { name: 'Jeans', price: '1000', quantity: 1 },
+      ]),
+    );
+    document.getElementById('coupon-code-input').value = 'CARA20';
+
+    await import('../../js/cart-coupon.js');
+    apply();
+
+    expect(validateCoupon).toHaveBeenCalledWith('CARA20', 2000);
+  });
 });
