@@ -103,9 +103,8 @@ describe('applySharedCart', () => {
     sandbox.window.applySharedCart('merge');
 
     expect(sandbox.closeShareModal).toHaveBeenCalledTimes(1);
-    const cart = JSON.parse(storage.getItem('productsInCart'));
-    expect(cart).toHaveLength(1);
-    expect(cart[0]).toMatchObject({ name: 'Existing Item' });
+    // The early return happens before any cart write, so storage is untouched.
+    expect(storage.getItem('productsInCart')).toBeNull();
   });
 
   it('merges a shared item into an existing matching cart line by summing quantity', () => {
