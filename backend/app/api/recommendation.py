@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from typing import List
 import hashlib
 import os
+from datetime import datetime, timedelta, timezone
 from .. import models, schemas
 from ..database import get_db
 from ..vector_search.faiss_index import get_similar_product_ids
@@ -11,6 +12,44 @@ from ..limiter import limiter
 
 router = APIRouter()
 SALT = os.environ.get("SECRET_KEY", "fallback_secret_key_for_dev").encode('utf-8')
+
+# Retention policy for the interactions table. The personalized reranker only
+# ever reads the newest 100 interactions per user, so older rows are dead
+# weight; prune them so the table cannot grow without bound.
+INTERACTION_RETENTION_DAYS = 90
+MAX_INTERACTIONS_PER_USER = 200
+
+
+def prune_interactions(db: Session) -> None:
+    """Enforce the interaction retention policy.
+
+    Deletes rows older than INTERACTION_RETENTION_DAYS and trims each user's
+    history to the newest MAX_INTERACTIONS_PER_USER rows. Runs on every
+    feedback insert and is also exposed via the admin purge endpoint.
+    """
+    cutoff = datetime.now(timezone.utc) - timedelta(days=INTERACTION_RETENTION_DAYS)
+    db.query(models.Interaction).filter(
+        models.Interaction.created_at < cutoff
+    ).delete(synchronize_session=False)
+
+    users = db.query(models.Interaction.user_id).distinct().all()
+    for (user_id,) in users:
+        keep_ids = [
+            row[0]
+            for row in (
+                db.query(models.Interaction.id)
+                .filter(models.Interaction.user_id == user_id)
+                .order_by(models.Interaction.created_at.desc())
+                .limit(MAX_INTERACTIONS_PER_USER)
+                .all()
+            )
+        ]
+        if keep_ids:
+            db.query(models.Interaction).filter(
+                models.Interaction.user_id == user_id,
+                ~models.Interaction.id.in_(keep_ids),
+            ).delete(synchronize_session=False)
+    db.commit()
 
 @router.post("/recommend", response_model=List[schemas.Product])
 @limiter.limit("20/minute")
@@ -66,4 +105,13 @@ def track_feedback(request: Request, interaction: schemas.InteractionCreate, db:
     )
     db.add(new_interaction)
     db.commit()
+
+    # Enforce the retention policy now that the new row is durable.
+    try:
+        prune_interactions(db)
+    except Exception:
+        # Pruning is best-effort maintenance; a failure must not break the
+        # feedback recording itself.
+        db.rollback()
+
     return {"status": "success"}

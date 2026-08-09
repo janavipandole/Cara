@@ -11,6 +11,7 @@ from typing import List
 from .. import models, schemas
 from ..database import get_db
 from .auth import get_current_user
+from .recommendation import prune_interactions
 
 router = APIRouter()
 
@@ -148,3 +149,17 @@ def update_order_status(
         "delivered_at": order.delivered_at,
         "return_deadline": return_deadline(order),
     }
+
+
+@router.post("/interactions/purge")
+def purge_old_interactions(
+    db: Session = Depends(get_db),
+    admin_user: models.User = Depends(_enforce_admin),
+) -> dict:
+    """Delete interactions past the retention window / per-user cap.
+
+    Runs the same retention policy that feedback writes trigger, on demand.
+    """
+    prune_interactions(db)
+    remaining = db.query(models.Interaction).count()
+    return {"message": "Interactions purged", "remaining": remaining}
