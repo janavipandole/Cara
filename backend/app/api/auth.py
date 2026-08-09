@@ -16,15 +16,17 @@ import base64
 import random
 import secrets
 import hashlib
-from collections import OrderedDict
 import logging
 import smtplib
 from email.message import EmailMessage
 import hmac
 
-# In-memory tracking of failed attempts with an LRU bound to prevent OOM DOS attacks
-failed_login_attempts = OrderedDict()
-MAX_TRACKED_EMAILS = 1000
+# Failed-login tracking is persisted in the `login_failures` table keyed by
+# account + IP, so it survives restarts and cannot be evaded by rotating emails.
+MAX_LOGIN_ATTEMPTS = 5
+LOCKOUT_BASE_MINUTES = 5
+LOCKOUT_MAX_MINUTES = 60
+CAPTCHA_REQUIRED_AFTER_ATTEMPTS = 1
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
 if not SECRET_KEY:
@@ -236,13 +238,77 @@ def get_captcha():
 
 
 # -- Login --
+def client_ip(request: Request) -> str:
+    """Best-effort client IP, honoring a reverse-proxy X-Forwarded-For header."""
+    forwarded = request.headers.get("x-forwarded-for")
+    if forwarded:
+        return forwarded.split(",")[0].strip()
+    if request.client:
+        return request.client.host
+    return "unknown"
+
+
+def record_login_failure(db: Session, email: str, ip_address: str) -> None:
+    """Persist a failed attempt keyed by account + IP and apply exponential lockout."""
+    record = (
+        db.query(models.LoginFailure)
+        .filter(
+            models.LoginFailure.email == email,
+            models.LoginFailure.ip_address == ip_address,
+        )
+        .first()
+    )
+    if not record:
+        record = models.LoginFailure(email=email, ip_address=ip_address, attempts=0)
+        db.add(record)
+    record.attempts += 1
+    record.last_attempt_at = datetime.now(timezone.utc)
+    if record.attempts >= MAX_LOGIN_ATTEMPTS:
+        backoff_minutes = min(
+            LOCKOUT_BASE_MINUTES * (2 ** (record.attempts - MAX_LOGIN_ATTEMPTS)),
+            LOCKOUT_MAX_MINUTES,
+        )
+        record.locked_until = datetime.now(timezone.utc) + timedelta(minutes=backoff_minutes)
+    db.commit()
+
+
+def clear_login_failures(db: Session, email: str, ip_address: str) -> None:
+    db.query(models.LoginFailure).filter(
+        models.LoginFailure.email == email,
+        models.LoginFailure.ip_address == ip_address,
+    ).delete()
+    db.commit()
+
+
 @router.post("/login", response_model=Token)
 @limiter.limit("5/minute")
 def login(request: Request, response: Response, payload: UserLogin, db: Session = Depends(get_db)):
-    email_hash = hashlib.sha256(payload.email.encode('utf-8')).hexdigest()
-    attempts = failed_login_attempts.get(email_hash, 0)
-    
-    if attempts >= 1:
+    now = datetime.now(timezone.utc)
+    ip_address = client_ip(request)
+
+    failure = (
+        db.query(models.LoginFailure)
+        .filter(
+            models.LoginFailure.email == payload.email,
+            models.LoginFailure.ip_address == ip_address,
+        )
+        .first()
+    )
+
+    # Hard lockout independent of any CAPTCHA: reject outright while locked.
+    if (
+        failure
+        and failure.locked_until
+        and failure.locked_until.replace(tzinfo=timezone.utc) > now
+    ):
+        raise HTTPException(
+            status_code=429,
+            detail="Too many failed login attempts. Please try again later.",
+        )
+
+    # After any previous failure for this account+IP, require the server-side
+    # CAPTCHA and validate it here — never rely on a client-side check.
+    if failure and failure.attempts >= CAPTCHA_REQUIRED_AFTER_ATTEMPTS:
         if not payload.captcha_token or not payload.captcha_answer:
             raise HTTPException(403, "Security captcha required.")
         try:
@@ -258,19 +324,13 @@ def login(request: Request, response: Response, payload: UserLogin, db: Session 
     user = db.query(models.User).filter(models.User.email == payload.email).first()
 
     if not user or not pwd.verify(payload.password, user.hashed_password):
-        failed_login_attempts[email_hash] = attempts + 1
-        failed_login_attempts.move_to_end(email_hash)
-        
-        # Enforce LRU bounds to prevent memory leaks from massive bot networks
-        if len(failed_login_attempts) > MAX_TRACKED_EMAILS:
-            failed_login_attempts.popitem(last=False)
-            
+        record_login_failure(db, payload.email, ip_address)
         raise HTTPException(401, "Invalid email or password.")
 
     if not user.is_active:
         raise HTTPException(403, "Account is deactivated.")
 
-    failed_login_attempts.pop(email_hash, None)
+    clear_login_failures(db, payload.email, ip_address)
 
     access_token = create_access_token(user.email)
     refresh_token = create_refresh_token(user.email)

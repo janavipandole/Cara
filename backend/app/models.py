@@ -130,3 +130,21 @@ class OrderItem(Base):
     price = Column(Float, nullable=False)
     order = relationship("Order")
     product = relationship("Product")
+
+
+class LoginFailure(Base):
+    __tablename__ = "login_failures"
+    __table_args__ = (
+        UniqueConstraint(
+            "email",
+            "ip_address",
+            name="uq_login_failures_email_ip",
+        ),
+    )
+
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String, index=True, nullable=False)
+    ip_address = Column(String, index=True, nullable=False)
+    attempts = Column(Integer, default=0, nullable=False)
+    locked_until = Column(DateTime, nullable=True)
+    last_attempt_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), nullable=False)
