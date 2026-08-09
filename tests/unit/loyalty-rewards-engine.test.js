@@ -40,6 +40,24 @@ describe('LoyaltyRewardsEngine Unit Tests', () => {
     expect(getRewardsMultiplierForTier('gold')).toBe(1.5);
     expect(getRewardsMultiplierForTier('platinum')).toBe(2.0);
   });
+
+  it('should reject non-finite redemption amounts without corrupting the balance', () => {
+    engine.addEarnedPoints(500);
+    const res = engine.redeemPoints(NaN);
+    expect(res.success).toBe(false);
+    expect(engine.getPoints()).toBe(500);
+
+    const resUndef = engine.redeemPoints(undefined);
+    expect(resUndef.success).toBe(false);
+    expect(engine.getPoints()).toBe(500);
+  });
+
+  it('should reject redeeming more points than the balance', () => {
+    engine.addEarnedPoints(100);
+    const res = engine.redeemPoints(101);
+    expect(res.success).toBe(false);
+    expect(engine.getPoints()).toBe(100);
+  });
 });
 
 describe('getRewardsMultiplierForTier', () => {

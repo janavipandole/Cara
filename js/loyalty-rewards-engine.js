@@ -65,15 +65,16 @@ class LoyaltyRewardsEngine {
   }
 
   redeemPoints(pointsToRedeem) {
-    if (pointsToRedeem <= 0 || pointsToRedeem > this.data.points) {
+    const amount = Number(pointsToRedeem);
+    if (!Number.isFinite(amount) || amount <= 0 || amount > this.data.points) {
       return { success: false, reason: 'Insufficient points balance' };
     }
     
-    const discountValue = parseFloat((pointsToRedeem / 100).toFixed(2));
-    this.data.points -= pointsToRedeem;
+    const discountValue = parseFloat((amount / 100).toFixed(2));
+    this.data.points -= amount;
     this.data.history.push({
       type: 'REDEEM',
-      points: pointsToRedeem,
+      points: amount,
       discount: discountValue,
       date: new Date().toISOString()
     });
