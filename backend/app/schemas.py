@@ -59,6 +59,11 @@ class UserRegister(BaseModel):
     email:    EmailStr
     password: str = Field(min_length=8, max_length=128)
 
+    @field_validator("email")
+    @classmethod
+    def email_normalize(cls, v: str) -> str:
+        return v.strip().lower()
+
     @field_validator("password")
     @classmethod
     def password_complexity(cls, v: str) -> str:
@@ -80,6 +85,11 @@ class UserLogin(BaseModel):
     password: str
     captcha_answer: Optional[str] = None
     captcha_token:  Optional[str] = None
+
+    @field_validator("email")
+    @classmethod
+    def email_normalize(cls, v: str) -> str:
+        return v.strip().lower()
 
 
 # -- Response Schemas --
@@ -194,6 +204,11 @@ class PriceRange(BaseModel):
 
 class ForgotPasswordRequest(BaseModel):
     email: EmailStr
+
+    @field_validator("email")
+    @classmethod
+    def email_normalize(cls, v: str) -> str:
+        return v.strip().lower()
 
 
 class ResetPasswordRequest(BaseModel):

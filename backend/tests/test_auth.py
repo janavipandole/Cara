@@ -110,3 +110,67 @@ def test_me_rejects_deactivated_user(client):
 
     response = client.get(ME_URL, headers={"Authorization": f"Bearer {token}"})
     assert response.status_code == 403
+
+
+# ---------------------------------------------------------------------------
+# Case-insensitive email / username handling (#6053)
+# ---------------------------------------------------------------------------
+
+def test_register_normalizes_email_to_lowercase(client):
+    r = client.post(
+        REGISTER_URL,
+        json={**VALID_USER, "username": "caseuser", "email": "MixedCase@Example.com"},
+    )
+    assert r.status_code == 201
+    assert r.json()["user"]["email"] == "mixedcase@example.com"
+
+
+def test_register_duplicate_email_is_case_insensitive(client):
+    client.post(
+        REGISTER_URL,
+        json={**VALID_USER, "username": "caseone", "email": "CaseDup@Example.com"},
+    )
+    r = client.post(
+        REGISTER_URL,
+        json={**VALID_USER, "username": "casetwo", "email": "casedup@example.com"},
+    )
+    assert r.status_code == 409
+
+
+def test_register_duplicate_username_is_case_insensitive(client):
+    client.post(
+        REGISTER_URL,
+        json={**VALID_USER, "username": "CaseName", "email": "cn1@example.com"},
+    )
+    r = client.post(
+        REGISTER_URL,
+        json={**VALID_USER, "username": "casename", "email": "cn2@example.com"},
+    )
+    assert r.status_code == 409
+
+
+def test_login_works_with_different_email_case(client):
+    client.post(
+        REGISTER_URL,
+        json={**VALID_USER, "username": "loginmixed", "email": "LoginMixed@Example.com"},
+    )
+    r = client.post(
+        LOGIN_URL,
+        json={"email": "loginmixed@example.com", "password": "Secure123@"},
+    )
+    assert r.status_code == 200
+    assert "access_token" in r.json()
+
+
+def test_forgot_password_works_with_different_email_case(client):
+    client.post(
+        REGISTER_URL,
+        json={**VALID_USER, "username": "resetmixed", "email": "ResetMixed@Example.com"},
+    )
+    r = client.post(
+        "/api/auth/forgot-password",
+        json={"email": "resetmixed@example.com"},
+    )
+    assert r.status_code == 200
+    # SMTP is not configured, so the reset token is returned in the body.
+    assert "reset_token" in r.json()

@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta, timezone
 from fastapi import APIRouter, Depends, HTTPException, Request, Response
 from fastapi.security import OAuth2PasswordBearer
+from sqlalchemy import func
 from sqlalchemy.orm import Session
 from passlib.context import CryptContext
 from jose import jwt, JWTError
@@ -166,7 +167,7 @@ def get_current_user(
     except JWTError:
         raise HTTPException(401, "Invalid or expired token.")
 
-    user = db.query(models.User).filter(models.User.email == email).first()
+    user = db.query(models.User).filter(func.lower(models.User.email) == email.lower()).first()
     if not user:
         raise HTTPException(404, "User not found.")
     if not user.is_active:
@@ -178,9 +179,9 @@ def get_current_user(
 @router.post("/register", response_model=Token, status_code=201)
 @limiter.limit("5/minute")
 def register(request: Request, response: Response, payload: UserRegister, db: Session = Depends(get_db)):
-    if db.query(models.User).filter(models.User.email == payload.email).first():
+    if db.query(models.User).filter(func.lower(models.User.email) == payload.email.lower()).first():
         raise HTTPException(409, "Email already registered.")
-    if db.query(models.User).filter(models.User.username == payload.username).first():
+    if db.query(models.User).filter(func.lower(models.User.username) == payload.username.lower()).first():
         raise HTTPException(409, "Username already taken.")
 
     user = models.User(
@@ -255,7 +256,7 @@ def login(request: Request, response: Response, payload: UserLogin, db: Session 
         except JWTError:
             raise HTTPException(403, "Invalid or expired security code.")
 
-    user = db.query(models.User).filter(models.User.email == payload.email).first()
+    user = db.query(models.User).filter(func.lower(models.User.email) == payload.email.lower()).first()
 
     if not user or not pwd.verify(payload.password, user.hashed_password):
         failed_login_attempts[email_hash] = attempts + 1
@@ -360,7 +361,7 @@ def forgot_password(
     payload: ForgotPasswordRequest,
     db: Session = Depends(get_db),
 ):
-    user = db.query(models.User).filter(models.User.email == payload.email).first()
+    user = db.query(models.User).filter(func.lower(models.User.email) == payload.email.lower()).first()
     if not user:
         return {"message": "If the email exists, a reset link has been sent"}
 
