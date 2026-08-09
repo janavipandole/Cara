@@ -95,15 +95,27 @@ class UserOut(BaseModel):
 
 
 class UserProfileUpdate(BaseModel):
-    full_name: Optional[str] = None
-    phone: Optional[str] = None
-    avatar_url: Optional[str] = None
-    address_line1: Optional[str] = None
-    address_line2: Optional[str] = None
-    city: Optional[str] = None
-    state: Optional[str] = None
-    zip_code: Optional[str] = None
-    country: Optional[str] = None
+    full_name: Optional[str] = Field(default=None, max_length=100)
+    phone: Optional[str] = Field(default=None, max_length=20, pattern=r"^[0-9+()\-\s]*$")
+    avatar_url: Optional[str] = Field(default=None, max_length=2048)
+    address_line1: Optional[str] = Field(default=None, max_length=255)
+    address_line2: Optional[str] = Field(default=None, max_length=255)
+    city: Optional[str] = Field(default=None, max_length=100)
+    state: Optional[str] = Field(default=None, max_length=100)
+    zip_code: Optional[str] = Field(default=None, max_length=10, pattern=r"^[0-9A-Za-z\-\s]*$")
+    country: Optional[str] = Field(default=None, max_length=100)
+
+    @field_validator("avatar_url")
+    @classmethod
+    def _validate_avatar_url(cls, value):
+        if value is None or value == "":
+            return value
+        lowered = value.lower()
+        if lowered.startswith("http://") or lowered.startswith("https://"):
+            return value
+        if value.startswith("/") or value.startswith("./") or value.startswith("../"):
+            return value
+        raise ValueError("avatar_url must be an http(s) URL or a relative path")
 
 
 class UserProfileResponse(UserOut):
