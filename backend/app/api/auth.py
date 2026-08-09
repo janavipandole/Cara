@@ -422,38 +422,60 @@ def send_password_reset_email(recipient: str, token: str) -> bool:
         logger.warning("Failed to send password reset email: %s", exc)
         return False
 
+def generate_dummy_token() -> str:
+    # Generates a dummy token containing a random value and an HMAC signature
+    rand = secrets.token_hex(32)
+    sig = hmac.new(SECRET_KEY.encode("utf-8"), rand.encode("utf-8"), hashlib.sha256).hexdigest()
+    return f"dummy_{rand}_{sig}"
+
+def is_valid_dummy_token(token: str) -> bool:
+    if not token or not token.startswith("dummy_"):
+        return False
+    parts = token.split("_", 2)
+    if len(parts) != 3:
+        return False
+    _, rand, sig = parts
+    expected_sig = hmac.new(SECRET_KEY.encode("utf-8"), rand.encode("utf-8"), hashlib.sha256).hexdigest()
+    return hmac.compare_digest(sig, expected_sig)
+
 @router.post("/forgot-password")
 @limiter.limit("5/minute")
 def forgot_password(
     request: Request,
     payload: ForgotPasswordRequest,
+    background_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
 ):
     user = db.query(models.User).filter(models.User.email == payload.email).first()
-    if not user:
-        return {"message": "If the email exists, a reset link has been sent"}
+    if user:
+        token = secrets.token_urlsafe(32)
+        expires_at = datetime.now(timezone.utc) + timedelta(hours=1)
 
-    token = secrets.token_urlsafe(32)
-    expires_at = datetime.now(timezone.utc) + timedelta(hours=1)
+        reset_token = models.PasswordResetToken(
+            user_id=user.id,
+            token=token,
+            expires_at=expires_at,
+        )
+        db.add(reset_token)
+        db.commit()
 
-    reset_token = models.PasswordResetToken(
-        user_id=user.id,
-        token=token,
-        expires_at=expires_at,
-    )
-    db.add(reset_token)
-    db.commit()
+        if SMTP_HOST:
+            background_tasks.add_task(send_password_reset_email, user.email, token)
+    else:
+        # Generate dummy token to return if SMTP is not configured
+        token = generate_dummy_token()
+        if SMTP_HOST:
+            background_tasks.add_task(lambda: None)
 
-    # Deliver the reset link. When SMTP is configured the email is sent with a
-    # link containing the token; otherwise the token is returned so the app's
-    # existing client-side flow (forgotPassword.js) can complete the reset.
-    email_sent = send_password_reset_email(user.email, token)
-
-    return {
-        "message": "If the email exists, a reset link has been sent",
-        "reset_token": token,
-        "email_sent": email_sent,
+    response_data = {
+        "message": "If an account exists for that email, a reset link has been sent."
     }
+
+    # If SMTP is not configured, we return the reset token directly to support the fallback flow
+    if not SMTP_HOST:
+        response_data["reset_token"] = token
+
+    return response_data
 
 
 @router.post("/reset-password")
@@ -473,6 +495,9 @@ def reset_password(
         .first()
     )
     if not reset_token:
+        if is_valid_dummy_token(payload.token):
+            pwd.hash(payload.new_password)
+            return {"message": "Password has been reset successfully"}
         raise HTTPException(status_code=400, detail="Invalid or expired reset token")
 
     user = db.query(models.User).filter(models.User.id == reset_token.user_id).first()
