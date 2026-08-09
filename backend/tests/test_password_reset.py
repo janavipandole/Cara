@@ -73,8 +73,7 @@ def test_reset_password_expired_token(client):
 
 
 def test_reset_password_revokes_refresh_session(client):
-    from app.models import User, PasswordResetToken
-    from app.api import auth as auth_api
+    from app.models import User, PasswordResetToken, RefreshToken
     from passlib.context import CryptContext
     from datetime import datetime, timedelta, timezone
     from tests.conftest import TestingSessionLocal
@@ -91,7 +90,13 @@ def test_reset_password_revokes_refresh_session(client):
     db.commit()
     db.refresh(user)
 
-    auth_api.active_refresh_jtis[user.email] = "stolen-jti"
+    db.add(
+        RefreshToken(
+            user_id=user.id,
+            jti="stolen-jti",
+            expires_at=datetime.now(timezone.utc) + timedelta(days=1),
+        )
+    )
     token = secrets.token_urlsafe(32)
     db.add(
         PasswordResetToken(
@@ -108,4 +113,11 @@ def test_reset_password_revokes_refresh_session(client):
         json={"token": token, "new_password": "NewPass@456"},
     )
     assert response.status_code == 200
-    assert "resetrevoke@example.com" not in auth_api.active_refresh_jtis
+
+    db = TestingSessionLocal()
+    try:
+        row = db.query(RefreshToken).filter(RefreshToken.jti == "stolen-jti").first()
+        assert row is not None
+        assert row.revoked_at is not None
+    finally:
+        db.close()
