@@ -52,6 +52,11 @@ SMTP_FROM = os.environ.get("SMTP_FROM", "Cara <noreply@cara.example.com>")
 SMTP_USE_TLS = os.environ.get("SMTP_USE_TLS", "true").lower() in ("1", "true", "yes")
 APP_BASE_URL = os.environ.get("APP_BASE_URL", "http://localhost:8000")
 
+# Server-side idle timeout (minutes). The client-side session lock is a UX
+# nicety; enforcement happens here, in get_current_user and refresh.
+SESSION_IDLE_TIMEOUT_MINUTES = int(os.environ.get("SESSION_IDLE_TIMEOUT_MINUTES", "15"))
+SESSION_LAST_ACTIVE_WRITE_INTERVAL_SECONDS = 60
+
 pwd    = CryptContext(schemes=["bcrypt"], deprecated="auto")
 router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login", auto_error=False)
@@ -138,6 +143,32 @@ def assert_refresh_jti(email: str, jti: str | None):
     if not jti or not expected or not hmac.compare_digest(expected, jti):
         raise HTTPException(401, "Invalid or revoked refresh token.")
 
+
+def _as_utc(dt):
+    # SQLite stores DateTime columns as naive UTC; normalize for comparisons.
+    if dt is None:
+        return None
+    return dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
+
+
+def enforce_idle_timeout(user: models.User, db: Session) -> None:
+    """Reject the session when the user has been inactive too long; otherwise
+    slide the last-active marker forward (throttled writes)."""
+    now = datetime.now(timezone.utc)
+    last_active = _as_utc(user.last_active_at)
+    if last_active is None:
+        user.last_active_at = now
+        db.commit()
+        return
+    if now - last_active > timedelta(minutes=SESSION_IDLE_TIMEOUT_MINUTES):
+        revoke_refresh_token(user.email)
+        raise HTTPException(401, "Session expired due to inactivity.")
+    if (
+        now - last_active
+    ).total_seconds() >= SESSION_LAST_ACTIVE_WRITE_INTERVAL_SECONDS:
+        user.last_active_at = now
+        db.commit()
+
 # -- Helper: get current user from token --
 def get_current_user(
     request: Request,
@@ -171,6 +202,7 @@ def get_current_user(
         raise HTTPException(404, "User not found.")
     if not user.is_active:
         raise HTTPException(403, "Account is deactivated.")
+    enforce_idle_timeout(user, db)
     return user
 
 
@@ -192,6 +224,9 @@ def register(request: Request, response: Response, payload: UserRegister, db: Se
     db.add(user)
     db.commit()
     db.refresh(user)
+
+    user.last_active_at = datetime.now(timezone.utc)
+    db.commit()
 
     access_token = create_access_token(user.email)
     refresh_token = create_refresh_token(user.email)
@@ -272,6 +307,9 @@ def login(request: Request, response: Response, payload: UserLogin, db: Session 
 
     failed_login_attempts.pop(email_hash, None)
 
+    user.last_active_at = datetime.now(timezone.utc)
+    db.commit()
+
     access_token = create_access_token(user.email)
     refresh_token = create_refresh_token(user.email)
     
@@ -302,6 +340,10 @@ def refresh_access_token(request: Request, response: Response, db: Session = Dep
     user = db.query(models.User).filter(models.User.email == email).first()
     if not user or not user.is_active:
         raise HTTPException(401, "User not found or inactive.")
+
+    # Enforce the idle timeout here too — a session that has been inactive for
+    # longer than the window cannot mint fresh tokens, regardless of cookies.
+    enforce_idle_timeout(user, db)
 
     access_token = create_access_token(user.email)
     new_refresh_token = create_refresh_token(user.email)

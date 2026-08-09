@@ -72,6 +72,9 @@ class User(Base):
     zip_code = Column(String, nullable=True)
     country = Column(String, nullable=True)
     updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
+    # Sliding last-activity marker so the server can enforce an idle timeout
+    # even when client-side lock scripts are disabled or bypassed.
+    last_active_at = Column(DateTime, nullable=True)
 
 class Order(Base):
     __tablename__ = "orders"
