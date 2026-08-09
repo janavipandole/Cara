@@ -10,7 +10,7 @@
    ```bash
    cp .env.example .env
    ```
-   Set a strong `SECRET_KEY` before any public deployment.
+   Set a strong `SECRET_KEY` (≥32 chars, e.g. `python -c "import secrets; print(secrets.token_hex(32))"`) and a strong `POSTGRES_PASSWORD` before any deployment — `docker compose` refuses to start without both, and the API refuses to boot with a placeholder/weak `SECRET_KEY`. The database port is no longer published to the host.
 
 2. Start Postgres, FastAPI, and the static frontend:
    ```bash
@@ -30,7 +30,7 @@
 Services:
 | Service | Image / build | Port |
 |---------|---------------|------|
-| `db` | `postgres:16-alpine` | `5432` |
+| `db` | `postgres:16-alpine` | none published (internal only) |
 | `api` | `backend/Dockerfile` (uvicorn) | `8000` |
 | `web` | root `Dockerfile` (nginx) | `8080` |
 

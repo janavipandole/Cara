@@ -27,10 +27,22 @@ failed_login_attempts = OrderedDict()
 MAX_TRACKED_EMAILS = 1000
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
-if not SECRET_KEY:
+# Known placeholder values that would be trivially guessable if shipped as-is.
+_PLACEHOLDER_SECRET_KEYS = {
+    "change-me-in-production-use-secrets-token-hex",
+    "your-secret-key-here",
+    "changeme",
+    "secret",
+}
+if (
+    not SECRET_KEY
+    or SECRET_KEY.strip() in _PLACEHOLDER_SECRET_KEYS
+    or len(SECRET_KEY) < 32
+):
     raise RuntimeError(
-        "SECRET_KEY environment variable is not set. "
-        "Add SECRET_KEY=<your-secret> to your .env file before starting the server."
+        "SECRET_KEY is not set to a strong value. Generate one with: "
+        "python -c \"import secrets; print(secrets.token_hex(32))\" "
+        "and set SECRET_KEY=<value> in your .env file before starting the server."
     )
 ALGORITHM  = "HS256"
 ACCESS_TOKEN_MINUTES = 15

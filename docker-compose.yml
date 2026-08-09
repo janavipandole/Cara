@@ -3,7 +3,7 @@
     image: postgres:16-alpine
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-cara}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-cara}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be set in .env — generate one with `openssl rand -hex 32`}
       POSTGRES_DB: ${POSTGRES_DB:-cara_db}
     volumes:
       - cara_pgdata:/var/lib/postgresql/data
@@ -12,16 +12,16 @@
       interval: 5s
       timeout: 5s
       retries: 10
-    ports:
-      - "5432:5432"
+    # No host port is published: the database is only reachable inside the
+    # compose network. Publish it manually only if you need local tooling.
 
   api:
     build:
       context: ./backend
       dockerfile: Dockerfile
     environment:
-      DATABASE_URL: postgresql://${POSTGRES_USER:-cara}:${POSTGRES_PASSWORD:-cara}@db:5432/${POSTGRES_DB:-cara_db}
-      SECRET_KEY: ${SECRET_KEY:-change-me-in-production-use-secrets-token-hex}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-cara}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-cara_db}
+      SECRET_KEY: ${SECRET_KEY:?SECRET_KEY must be set in .env — generate one with `python -c "import secrets; print(secrets.token_hex(32))"`}
       COOKIE_SECURE: ${COOKIE_SECURE:-false}
       CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:8080,http://127.0.0.1:8080,http://localhost:5500,http://127.0.0.1:5500}
     depends_on:
