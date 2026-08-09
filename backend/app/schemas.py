@@ -192,6 +192,30 @@ class PriceRange(BaseModel):
     max: float
 
 
+class PredictiveSearchResult(BaseModel):
+    """A single suggestion returned by GET /api/products/search/predictive.
+
+    Intentionally lightweight: the navbar dropdown only needs enough to render
+    a rich card (thumbnail, price, rating) and wire a one-click add-to-cart.
+    """
+    id: int
+    name: str
+    brand: str
+    price: float
+    img: str
+    rating: int
+    category: str
+
+    class Config:
+        from_attributes = True
+
+
+class PredictiveSearchResponse(BaseModel):
+    """Top-N best-matching products for a partial query, ranked algorithmically."""
+    query: str
+    suggestions: list[PredictiveSearchResult]
+
+
 class ForgotPasswordRequest(BaseModel):
     email: EmailStr
 

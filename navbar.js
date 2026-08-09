@@ -1,3 +1,5 @@
+import('./js/predictive-search.js').catch(() => {});
+
 function loadNavbar(activePage) {
   const navbarHTML = `
     <div class="search-container" role="search">

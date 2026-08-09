@@ -175,6 +175,85 @@ def get_category_summary(db: Session = Depends(get_db)) -> dict:
     }
 
 
+def _predictive_score(name: str, brand: str, rating: int, q: str) -> int:
+    """Score a product against a partial query for predictive ranking.
+
+    Heuristic used by the algorithmic predictive search engine (#6295):
+      * exact name match          +200
+      * name starts with query    +150
+      * name contains query       +100
+      * brand starts with query   +60
+      * brand contains query      +30
+      * rating boosts to prefer highly-rated matches.
+    """
+    q = q.strip().lower()
+    name_l = (name or "").lower()
+    brand_l = (brand or "").lower()
+
+    score = 0
+    if name_l == q:
+        score += 200
+    elif name_l.startswith(q):
+        score += 150
+    elif q in name_l:
+        score += 100
+
+    if brand_l == q:
+        score += 80
+    elif brand_l.startswith(q):
+        score += 60
+    elif q in brand_l:
+        score += 30
+
+    score += int(rating or 0) * 10
+    return score
+
+
+@router.get("/search/predictive", response_model=schemas.PredictiveSearchResponse)
+def predictive_search(
+    q: Optional[str] = Query(
+        default=None,
+        min_length=1,
+        max_length=60,
+        description="Partial query to predictively match against product name and brand.",
+    ),
+    limit: int = Query(default=3, ge=1, le=10),
+    db: Session = Depends(get_db),
+) -> dict:
+    """
+    Algorithmic predictive search: return the top-N best matches for a
+    partial query as the user types.
+
+    Candidates are any product whose name or brand contains the query; they
+    are ranked by `_predictive_score` (exact/prefix/substring match on the
+    name being worth more than a brand match, with a rating tiebreak) and the
+    top ``limit`` are returned for a rich search-as-you-type dropdown.
+    """
+    query = (q or "").strip()
+    if not query:
+        return {"query": query, "suggestions": []}
+
+    search_term = f"%{query}%"
+    candidates = (
+        db.query(models.Product)
+        .filter(
+            or_(
+                func.lower(models.Product.name).like(func.lower(search_term)),
+                func.lower(models.Product.brand).like(func.lower(search_term)),
+            )
+        )
+        .all()
+    )
+
+    ranked = sorted(
+        candidates,
+        key=lambda p: _predictive_score(p.name, p.brand, p.rating, query),
+        reverse=True,
+    )[:limit]
+
+    return {"query": query, "suggestions": ranked}
+
+
 # ---------------------------------------------------------------------------
 # Product by ID (must stay after literal /search/* paths)
 # ---------------------------------------------------------------------------
