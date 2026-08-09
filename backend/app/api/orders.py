@@ -10,37 +10,26 @@ from datetime import datetime, timezone, timedelta
 
 router = APIRouter()
 
-# The rigid policy window applied on top of the delivery timestamp.
-#  return_deadline = delivered_at + RETURN_WINDOW_DAYS
-RETURN_WINDOW_DAYS = 30
-
-# Statuses a carrier/admin may move an order through.
-ORDER_STATUSES = {"PENDING", "CONFIRMED", "SHIPPED", "DELIVERED", "CANCELLED"}
+SHIPPING_FEE = 150.0
+FREE_SHIPPING_THRESHOLD = 3000.0
+EXPRESS_SHIPPING_FEE = 150.0
+INTERNATIONAL_SHIPPING_FEE = 450.0
 
 
-def return_deadline(order: models.Order) -> datetime | None:
-    """Algorithmically compute the immutable return deadline.
+def _compute_shipping(subtotal: float, method: str | None) -> float:
+    """Shipping fee the buyer is shown at checkout.
 
-    Only orders that have a captured delivery timestamp get a deadline;
-    anything still in fulfillment has no return window yet.
+    Mirrors the cart/checkout estimator: a flat fee below the free-shipping
+    threshold plus a surcharge for express or international delivery. The
+    frontend persists the same choice and the checkout summary renders this
+    exact amount, so the displayed total always matches the charged total.
     """
-    if order.delivered_at is None:
-        return None
-    return order.delivered_at.replace(tzinfo=timezone.utc) + timedelta(
-        days=RETURN_WINDOW_DAYS
-    )
-
-
-def set_order_status(order: models.Order, status: str) -> None:
-    """Transition an order to a new status.
-
-    When the order is marked DELIVERED, the delivery timestamp is captured
-    exactly once so the return deadline is immutable.
-    """
-    if status == "DELIVERED":
-        order.mark_delivered()
-    else:
-        order.status = status
+    base = 0.0 if subtotal >= FREE_SHIPPING_THRESHOLD else SHIPPING_FEE
+    if method == "express":
+        return base + EXPRESS_SHIPPING_FEE
+    if method == "international":
+        return base + INTERNATIONAL_SHIPPING_FEE
+    return base
 
 
 def _existing_order_for_key(db: Session, email: str, idempotency_key: str | None):
@@ -209,7 +198,7 @@ def create_order(
             )
         )
 
-    shipping = 0.0 if subtotal >= 3000 else 150.0
+    shipping = _compute_shipping(subtotal, order_data.shipping_method)
     tax = round(subtotal * 0.18, 2)
     discount = 0.0
 

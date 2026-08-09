@@ -405,34 +405,32 @@ function submitCheckoutForm() {
     checkoutIdempotencyKey = crypto.randomUUID();
   }
 
-  resolveCartProductIds(cart)
-    .then((resolvedCart) => {
-      cart = resolvedCart;
-      // Prepare order data — server looks up price/name by product_id
-      const orderData = {
-        fullName: document.getElementById('fullName').value.trim(),
-        email: document.getElementById('email').value.trim(),
-        address: document.getElementById('address').value.trim(),
-        city: document.getElementById('city').value.trim(),
-        zip: document.getElementById('zip').value.trim(),
-        coupon: window.appliedCoupon,
-        idempotency_key: checkoutIdempotencyKey,
-        items: cart.map((item) => ({
-          product_id: Number(item.id),
-          quantity: parseInt(item.quantity, 10) || 1,
-        })),
-      };
+  // Prepare order data
+  const orderData = {
+    fullName: document.getElementById('fullName').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    address: document.getElementById('address').value.trim(),
+    city: document.getElementById('city').value.trim(),
+    zip: document.getElementById('zip').value.trim(),
+    coupon: window.appliedCoupon,
+    idempotency_key: checkoutIdempotencyKey,
+    shipping_method: window.CaraShipping.getMethod(),
+    items: cart.map((item) => ({
+      product_name: item.name,
+      quantity: parseInt(item.quantity, 10) || 1,
+      price: item.price,
+    })),
+  };
 
-      return fetch(`${API_BASE_URL}/api/orders/`, {
-        method: 'POST',
-        headers: buildAuthHeaders({
-          'Content-Type': 'application/json',
-          'Idempotency-Key': checkoutIdempotencyKey,
-        }),
-        credentials: 'include',
-        body: JSON.stringify(orderData),
-      });
-    })
+  fetch(`${API_BASE_URL}/api/orders/`, {
+    method: 'POST',
+    headers: buildAuthHeaders({
+      'Content-Type': 'application/json',
+      'Idempotency-Key': checkoutIdempotencyKey,
+    }),
+    credentials: 'include',
+    body: JSON.stringify(orderData),
+  })
     .then((res) =>
       res
         .json()
@@ -598,6 +596,11 @@ window.updateCheckoutSummary = function () {
   );
   const subtotal = subtotalCents / 100;
 
+  // Shipping fee mirrors the backend rule (flat fee below the free-shipping
+  // threshold plus an express/international surcharge) using the delivery
+  // method persisted by the cart estimator.
+  const shippingCents = Math.round(window.CaraShipping.computeFee(subtotal) * 100);
+
   // Check coupon discount
   const couponCode = localStorage.getItem('appliedCoupon') || '';
   const COUPONS = window.CARA_COUPONS || {};
@@ -632,6 +635,7 @@ window.updateCheckoutSummary = function () {
     0,
     subtotalCents +
       taxCents +
+      shippingCents +
       giftChargeCents -
       couponDiscountCents -
       urgencyDiscountCents -
@@ -644,6 +648,12 @@ window.updateCheckoutSummary = function () {
 
   const taxEl = document.getElementById('summary-tax');
   if (taxEl) taxEl.textContent = formatCurrency(taxCents);
+
+  const shippingEl = document.getElementById('summary-shipping');
+  if (shippingEl) {
+    shippingEl.textContent =
+      shippingCents === 0 ? 'Free' : formatCurrency(shippingCents);
+  }
 
   // Update Coupon Row
   let couponRow = document.getElementById('summaryDiscountRow');

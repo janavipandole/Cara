@@ -172,6 +172,19 @@ class OrderCreate(BaseModel):
     items: list[OrderItemCreate] = Field(min_length=1, max_length=50)
     coupon: Optional[str] = None
     idempotency_key: Optional[str] = None
+    shipping_method: Optional[str] = "standard"
+
+    @field_validator("shipping_method")
+    @classmethod
+    def normalize_shipping_method(cls, v: Optional[str]) -> str:
+        if v is None:
+            return "standard"
+        method = v.strip().lower()
+        if method not in ("standard", "express", "international"):
+            raise ValueError(
+                "shipping_method must be one of: standard, express, international"
+            )
+        return method
 
 
 # -- Product Search / Filter Response Schemas --

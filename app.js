@@ -1061,7 +1061,7 @@ window.loadCart = async function () {
   if (subtotalEl) subtotalEl.innerText = formatCurrency(subtotal);
 
   let shipping = 0;
-  if (subtotal > 0) shipping = subtotal >= window.CARA_CONFIG.SHIPPING.FREE_THRESHOLD ? 0 : window.CARA_CONFIG.SHIPPING.FEE;
+  if (subtotal > 0) shipping = window.CaraShipping.computeFee(subtotal);
 
   if (shippingEl) {
     shippingEl.innerText = shipping === 0 ? 'FREE' : formatCurrency(shipping);
