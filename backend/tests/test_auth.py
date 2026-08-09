@@ -20,8 +20,7 @@ def test_register_success(client):
     r = client.post(REGISTER_URL, json=VALID_USER)
     assert r.status_code == 201
     body = r.json()
-    assert "access_token" in body
-    assert body["token_type"] == "bearer"
+    assert "access_token" not in body
     assert body["user"]["email"] == VALID_USER["email"]
 
 
@@ -52,7 +51,8 @@ def test_login_success(client):
     client.post(REGISTER_URL, json={**VALID_USER, "username": "loginuser", "email": "login@example.com"})
     r = client.post(LOGIN_URL, json={"email": "login@example.com", "password": "Secure123@"})
     assert r.status_code == 200
-    assert "access_token" in r.json()
+    assert "access_token" not in r.json()
+    assert r.json()["user"]["email"] == "login@example.com"
 
 
 def test_login_wrong_password(client):
@@ -72,9 +72,8 @@ def test_login_nonexistent_user(client):
 
 def test_me_returns_user(client):
     client.post(REGISTER_URL, json={**VALID_USER, "username": "meuser", "email": "me@example.com"})
-    login = client.post(LOGIN_URL, json={"email": "me@example.com", "password": "Secure123@"})
-    token = login.json()["access_token"]
-    r = client.get(ME_URL, cookies={"access_token": f"Bearer {token}"})
+    client.post(LOGIN_URL, json={"email": "me@example.com", "password": "Secure123@"})
+    r = client.get(ME_URL)
     assert r.status_code == 200
     assert r.json()["email"] == "me@example.com"
 
@@ -97,7 +96,6 @@ def test_me_rejects_deactivated_user(client):
     }
     register = client.post(REGISTER_URL, json=payload)
     assert register.status_code == 201
-    token = register.json()["access_token"]
 
     from tests.conftest import TestingSessionLocal
     from app.models import User
@@ -108,5 +106,5 @@ def test_me_rejects_deactivated_user(client):
     db.commit()
     db.close()
 
-    response = client.get(ME_URL, headers={"Authorization": f"Bearer {token}"})
+    response = client.get(ME_URL)
     assert response.status_code == 403

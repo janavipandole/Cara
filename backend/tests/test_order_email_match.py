@@ -2,7 +2,7 @@
 from passlib.context import CryptContext
 
 from app.models import Product, User
-from tests.conftest import TestingSessionLocal
+from tests.conftest import TestingSessionLocal, bearer_token
 
 ORDERS_URL = "/api/orders/"
 pwd = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -25,7 +25,7 @@ def _auth_headers(client):
         json={"email": "emailmatch@example.com", "password": "Test@1234"},
     )
     assert login.status_code == 200
-    return {"Authorization": f"Bearer {login.json()['access_token']}"}
+    return {"Authorization": bearer_token(client)}
 
 
 def test_create_order_rejects_mismatched_email(client):

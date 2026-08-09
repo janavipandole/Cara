@@ -59,7 +59,8 @@ def test_login_accepts_valid_captcha_after_failure(client):
         },
     )
     assert ok.status_code == 200
-    assert "access_token" in ok.json()
+    assert "access_token" not in ok.json()
+    assert ok.json()["user"]["email"] == email
 
 
 def test_login_rejects_wrong_captcha_answer(client):

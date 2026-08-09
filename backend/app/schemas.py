@@ -119,10 +119,8 @@ class UserProfileResponse(UserOut):
     updated_at: Optional[datetime] = None
 
 
-class Token(BaseModel):
-    access_token: str
-    token_type:   str
-    user:         UserOut
+class AuthResponse(BaseModel):
+    user: UserOut
 
 
 class OrderItemResponse(BaseModel):

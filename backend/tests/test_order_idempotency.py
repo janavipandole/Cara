@@ -2,7 +2,7 @@
 from passlib.context import CryptContext
 
 from app.models import Product, User, Order
-from tests.conftest import TestingSessionLocal
+from tests.conftest import TestingSessionLocal, bearer_token
 
 pwd = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -22,7 +22,7 @@ def _login_headers(client, email, password, username):
 
     response = client.post("/api/auth/login", json={"email": email, "password": password})
     assert response.status_code == 200, response.text
-    return {"Authorization": f"Bearer {response.json()['access_token']}"}
+    return {"Authorization": bearer_token(client)}
 
 
 def _seed_product(name="Idempotency Tee", stock=20):

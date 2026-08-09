@@ -8,7 +8,7 @@ import os
 from fastapi import Response
 from ..database import get_db
 from .. import models
-from ..schemas import UserRegister, UserLogin, Token, UserOut, ForgotPasswordRequest, ResetPasswordRequest
+from ..schemas import UserRegister, UserLogin, AuthResponse, UserOut, ForgotPasswordRequest, ResetPasswordRequest
 from ..limiter import limiter
 from PIL import Image, ImageDraw
 import io
@@ -175,7 +175,7 @@ def get_current_user(
 
 
 # -- Register --
-@router.post("/register", response_model=Token, status_code=201)
+@router.post("/register", response_model=AuthResponse, status_code=201)
 @limiter.limit("5/minute")
 def register(request: Request, response: Response, payload: UserRegister, db: Session = Depends(get_db)):
     if db.query(models.User).filter(models.User.email == payload.email).first():
@@ -198,11 +198,7 @@ def register(request: Request, response: Response, payload: UserRegister, db: Se
     
     set_auth_cookies(response, access_token, refresh_token)
 
-    return Token(
-        access_token = access_token,
-        token_type   = "bearer",
-        user         = UserOut.model_validate(user)
-    )
+    return AuthResponse(user=UserOut.model_validate(user))
 
 
 # -- Captcha --
@@ -236,7 +232,7 @@ def get_captcha():
 
 
 # -- Login --
-@router.post("/login", response_model=Token)
+@router.post("/login", response_model=AuthResponse)
 @limiter.limit("5/minute")
 def login(request: Request, response: Response, payload: UserLogin, db: Session = Depends(get_db)):
     email_hash = hashlib.sha256(payload.email.encode('utf-8')).hexdigest()
@@ -277,11 +273,7 @@ def login(request: Request, response: Response, payload: UserLogin, db: Session 
     
     set_auth_cookies(response, access_token, refresh_token)
 
-    return Token(
-        access_token = access_token,
-        token_type   = "bearer",
-        user         = UserOut.model_validate(user)
-    )
+    return AuthResponse(user=UserOut.model_validate(user))
 
 @router.post("/refresh")
 def refresh_access_token(request: Request, response: Response, db: Session = Depends(get_db)):

@@ -8,7 +8,7 @@ from datetime import datetime, timezone
 from passlib.context import CryptContext
 
 from app.models import Order, Product, User
-from tests.conftest import TestingSessionLocal
+from tests.conftest import TestingSessionLocal, bearer_token
 
 ORDERS_URL = "/api/orders/"
 pwd = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -39,7 +39,7 @@ def _auth_headers(client, *, email=USER_EMAIL, username="returnuser"):
         json={"email": email, "password": "Test@1234"},
     )
     assert response.status_code == 200, response.text
-    return {"Authorization": f"Bearer {response.json()['access_token']}"}
+    return {"Authorization": bearer_token(client)}
 
 
 def _admin_headers(client):
@@ -49,7 +49,7 @@ def _admin_headers(client):
         json={"email": ADMIN_EMAIL, "password": "Test@1234"},
     )
     assert response.status_code == 200, response.text
-    return {"Authorization": f"Bearer {response.json()['access_token']}"}
+    return {"Authorization": bearer_token(client)}
 
 
 def _seed_product(name="Return Tee", stock=20):

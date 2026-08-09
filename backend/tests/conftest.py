@@ -39,6 +39,16 @@ def override_get_db():
         db.close()
 
 
+def bearer_token(client):
+    """Return the access-token httpOnly cookie as a usable Bearer header value.
+
+    Starlette quotes cookie values that contain spaces, and httpx keeps the
+    quotes in its jar, so the value must be unquoted before it is usable as an
+    Authorization header.
+    """
+    return client.cookies.get("access_token").strip('"')
+
+
 @pytest.fixture(scope="session", autouse=True)
 def setup_database():
     Base.metadata.create_all(bind=engine)
@@ -82,8 +92,9 @@ def auth_headers(client, db_session):
         "/api/auth/login",
         json={"email": "test@example.com", "password": "Test@1234"},
     )
-    token = response.json()["access_token"]
-    return {"Authorization": f"Bearer {token}"}
+    assert response.status_code == 200, response.text
+    # The server only sets the token as an httpOnly cookie now; read it from there.
+    return {"Authorization": bearer_token(client)}
 
 
 @pytest.fixture()
@@ -104,5 +115,6 @@ def admin_auth_headers(client, db_session):
         "/api/auth/login",
         json={"email": "admin@example.com", "password": "Admin@1234"},
     )
-    token = response.json()["access_token"]
-    return {"Authorization": f"Bearer {token}"}
+    assert response.status_code == 200, response.text
+    # The server only sets the token as an httpOnly cookie now; read it from there.
+    return {"Authorization": bearer_token(client)}

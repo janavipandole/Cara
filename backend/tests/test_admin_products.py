@@ -2,7 +2,7 @@
 from passlib.context import CryptContext
 
 from app.models import User
-from tests.conftest import TestingSessionLocal
+from tests.conftest import TestingSessionLocal, bearer_token
 
 pwd = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -26,7 +26,7 @@ def _admin_headers(client):
         json={"email": "admin-products@example.com", "password": "Admin@1234"},
     )
     assert response.status_code == 200, response.text
-    return {"Authorization": f"Bearer {response.json()['access_token']}"}
+    return {"Authorization": bearer_token(client)}
 
 
 def _user_headers(client):
@@ -47,7 +47,7 @@ def _user_headers(client):
         json={"email": "user-products@example.com", "password": "Test@1234"},
     )
     assert response.status_code == 200, response.text
-    return {"Authorization": f"Bearer {response.json()['access_token']}"}
+    return {"Authorization": bearer_token(client)}
 
 
 def test_admin_create_product(client):

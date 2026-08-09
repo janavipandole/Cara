@@ -13,7 +13,7 @@ import pytest
 from fastapi.testclient import TestClient
 from app import models
 
-from tests.conftest import TestingSessionLocal
+from tests.conftest import TestingSessionLocal, bearer_token
 
 
 def _register_and_login(client: TestClient, role: str, suffix: str) -> None:
@@ -146,7 +146,8 @@ class TestAdminAnalytics:
         email = "admin_t_cancel@test.com"
         _register_and_login(client, "USER", "cancel")
         make_admin(email)
-        headers = {"Authorization": f"Bearer {client.post('/api/auth/login', json={'email': email, 'password': 'Password1@'}).json()['access_token']}"}
+        client.post('/api/auth/login', json={'email': email, 'password': 'Password1@'})
+        headers = {"Authorization": bearer_token(client)}
 
         db = TestingSessionLocal()
         _seed_product(db, name="Keep Shirt", price=100.0, category="summary-keep", stock=10)
@@ -171,7 +172,8 @@ class TestAdminAnalytics:
         email = "admin_t_catcancel@test.com"
         _register_and_login(client, "USER", "catcancel")
         make_admin(email)
-        headers = {"Authorization": f"Bearer {client.post('/api/auth/login', json={'email': email, 'password': 'Password1@'}).json()['access_token']}"}
+        client.post('/api/auth/login', json={'email': email, 'password': 'Password1@'})
+        headers = {"Authorization": bearer_token(client)}
 
         db = TestingSessionLocal()
         _seed_product(db, name="Active Cat Shirt", price=50.0, category="cat-sales-active", stock=10)
@@ -197,7 +199,8 @@ class TestAdminAnalytics:
         email = "admin_t_orphan@test.com"
         _register_and_login(client, "USER", "orphan")
         make_admin(email)
-        headers = {"Authorization": f"Bearer {client.post('/api/auth/login', json={'email': email, 'password': 'Password1@'}).json()['access_token']}"}
+        client.post('/api/auth/login', json={'email': email, 'password': 'Password1@'})
+        headers = {"Authorization": bearer_token(client)}
 
         db = TestingSessionLocal()
         product = _seed_product(db, name="Doomed Shirt", price=75.0, category="cat-sales-orphan", stock=10)
