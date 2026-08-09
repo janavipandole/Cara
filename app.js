@@ -11,6 +11,12 @@
       POINTS_PER_RUPEE: 10,
       DEFAULT_BALANCE: 150,
     },
+    // Site-wide sales auto-applied to matching product categories at checkout.
+    // Promo codes are exclusive and can NEVER stack on top of these
+    // ("Best Offer Only", #6296).
+    SITE_WIDE_SALES: {
+      formal: 20,
+    },
   };
   window.CARA_COUPONS = {
     CARA20: 20,

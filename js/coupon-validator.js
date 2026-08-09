@@ -59,30 +59,81 @@
       return;
     }
 
-    if (Object.prototype.hasOwnProperty.call(COUPONS, code)) {
-      const discountPct = COUPONS[code];
-      window.appliedCoupon = code;
-      saveAppliedCoupon(code);
-
-      showFeedback(
-        `Coupon "${code}" applied! You saved ${discountPct}%.`,
-        'success',
-      );
-      couponInput.classList.remove('is-invalid');
-      couponInput.classList.add('is-valid');
-
-      // Dispatch event to trigger summary re-render
-      window.dispatchEvent(
-        new CustomEvent('couponApplied', { detail: { code, discountPct } }),
-      );
-      if (typeof window.updateCheckoutSummary === 'function') {
-        window.updateCheckoutSummary();
-      }
-    } else {
+    if (!Object.prototype.hasOwnProperty.call(COUPONS, code)) {
       showFeedback('Invalid coupon code. Try CARA20 or WELCOME10.', 'error');
       couponInput.classList.remove('is-valid');
       couponInput.classList.add('is-invalid');
+      return;
     }
+
+    const discountPct = COUPONS[code];
+
+    // Exclusivity validation (#6296): reject the promo code when a site-wide
+    // sale already delivers a better (or equal) discount on the cart. Promo
+    // codes can never be stacked on top of auto-applied site-wide sales.
+    if (typeof window.PromoExclusivityEngine === 'function') {
+      resolveSiteWideSaleConflict(discountPct)
+        .then((conflictMessage) => {
+          if (conflictMessage) {
+            showFeedback(conflictMessage, 'error');
+            couponInput.classList.remove('is-valid');
+            couponInput.classList.add('is-invalid');
+            return;
+          }
+          finalizeCouponApplication(code, discountPct);
+        })
+        .catch(() => finalizeCouponApplication(code, discountPct));
+    } else {
+      // No engine (legacy/test environments) — apply synchronously.
+      finalizeCouponApplication(code, discountPct);
+    }
+  }
+
+  function finalizeCouponApplication(code, discountPct) {
+    window.appliedCoupon = code;
+    saveAppliedCoupon(code);
+
+    showFeedback(
+      `Coupon "${code}" applied! You saved ${discountPct}%.`,
+      'success',
+    );
+    couponInput.classList.remove('is-invalid');
+    couponInput.classList.add('is-valid');
+
+    // Dispatch event to trigger summary re-render
+    window.dispatchEvent(
+      new CustomEvent('couponApplied', { detail: { code, discountPct } }),
+    );
+    if (typeof window.updateCheckoutSummary === 'function') {
+      window.updateCheckoutSummary();
+    }
+  }
+
+  function readCart() {
+    try {
+      const cart = JSON.parse(localStorage.getItem('productsInCart') || '[]');
+      return Array.isArray(cart) ? cart : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  // Returns the exclusivity message when the promo code must be rejected,
+  // or null when it may be applied (no conflict / promo is the better offer).
+  function resolveSiteWideSaleConflict(discountPct) {
+    if (typeof window.PromoExclusivityEngine !== 'function') {
+      return Promise.resolve(null);
+    }
+    return PromoExclusivityEngine.loadProductCatalog()
+      .then((catalog) => {
+        const engine = new PromoExclusivityEngine({ catalog });
+        const result = engine.evaluate(readCart(), discountPct);
+        if (result.conflict && result.rejectedSource === 'promo') {
+          return result.message;
+        }
+        return null;
+      })
+      .catch(() => null);
   }
 
   // ── Remove coupon logic ────────────────────────────────────────────────────

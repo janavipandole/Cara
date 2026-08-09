@@ -2,6 +2,9 @@ import { createFocusTrap } from './js/a11y-focus-trap.js';
 let checkoutIdempotencyKey = null;
 let checkoutWakeLock = null;
 let isCheckoutProcessing = false;
+// Lazily-loaded product catalog (id/name -> category) used to resolve which
+// cart items are affected by an active site-wide sale (#6296).
+let productCatalog = null;
 
 async function requestWakeLock() {
   if ('wakeLock' in navigator && isCheckoutProcessing) {
@@ -602,7 +605,16 @@ window.updateCheckoutSummary = function () {
   const couponCode = localStorage.getItem('appliedCoupon') || '';
   const COUPONS = window.CARA_COUPONS || {};
   const couponPct = COUPONS[couponCode] || 0;
-  const couponDiscountCents = Math.round(subtotalCents * couponPct / 100);
+
+  // Strict exclusivity validation (#6296): a promo code can never stack on top
+  // of an automatically-applied site-wide sale. The engine resolves each cart
+  // item's category from the product catalog and keeps only the better offer.
+  const catalog = productCatalog || { byId: new Map(), byName: new Map() };
+  const exclusivity = new PromoExclusivityEngine({ catalog }).evaluate(cart, couponPct);
+  const siteWideDiscountCents = Math.round(exclusivity.siteWideDiscount * 100);
+  const promoRejected = exclusivity.rejectedSource === 'promo';
+  const couponDiscountCents = promoRejected ? 0 : Math.round(exclusivity.promoDiscount * 100);
+  const appliedDiscountCents = Math.round(exclusivity.appliedDiscount * 100);
 
   // Check urgency discount if the timer is running
   const hasUrgency =
@@ -633,7 +645,7 @@ window.updateCheckoutSummary = function () {
     subtotalCents +
       taxCents +
       giftChargeCents -
-      couponDiscountCents -
+      appliedDiscountCents -
       urgencyDiscountCents -
       loyaltyDiscountCents,
   );
@@ -645,9 +657,10 @@ window.updateCheckoutSummary = function () {
   const taxEl = document.getElementById('summary-tax');
   if (taxEl) taxEl.textContent = formatCurrency(taxCents);
 
-  // Update Coupon Row
+  // Update Coupon Row — hidden when the promo code was rejected by the
+  // exclusivity engine so the customer sees the site-wide sale applied instead.
   let couponRow = document.getElementById('summaryDiscountRow');
-  if (couponCode) {
+  if (couponCode && !promoRejected) {
     if (!couponRow) {
       couponRow = document.createElement('div');
       couponRow.className = 'total-row summary-row discount';
@@ -684,6 +697,50 @@ window.updateCheckoutSummary = function () {
     }
   } else {
     if (couponRow) couponRow.remove();
+  }
+
+  // Update Site-Wide Sale Row (auto-applied, never stacked with a promo code)
+  let siteWideSaleRow = document.getElementById('site-wide-sale-row');
+  const salePct =
+    exclusivity.categories.length > 0
+      ? exclusivity.categories
+          .map((category) => (window.CARA_CONFIG && window.CARA_CONFIG.SITE_WIDE_SALES[category]) || 0)
+          .reduce((max, pct) => Math.max(max, pct), 0)
+      : 0;
+  if (siteWideDiscountCents > 0 && exclusivity.appliedSource === 'sale') {
+    if (!siteWideSaleRow) {
+      siteWideSaleRow = document.createElement('div');
+      siteWideSaleRow.id = 'site-wide-sale-row';
+      siteWideSaleRow.className = 'total-row summary-row discount';
+      siteWideSaleRow.style.cssText =
+        'display:flex; justify-content:space-between; margin-bottom: 8px; color: #ef4444; font-weight: 600;';
+      const grandRow = document.querySelector('.total-row.grand');
+      if (grandRow) grandRow.parentNode.insertBefore(siteWideSaleRow, grandRow);
+    }
+    const saleLabel =
+      salePct > 0
+        ? `Site-wide sale (${salePct}% off ${exclusivity.categories.join(', ')})`
+        : 'Site-wide sale';
+    siteWideSaleRow.innerHTML = `<span>${saleLabel}</span><span>-${formatCurrency(siteWideDiscountCents)}</span>`;
+  } else {
+    if (siteWideSaleRow) siteWideSaleRow.remove();
+  }
+
+  // Exclusivity notice — shown when a promo code was rejected because a
+  // site-wide sale already applies to the cart (#6296).
+  let exclusivityNotice = document.getElementById('summary-exclusivity-notice');
+  if (promoRejected && exclusivity.message) {
+    if (!exclusivityNotice) {
+      exclusivityNotice = document.createElement('div');
+      exclusivityNotice.id = 'summary-exclusivity-notice';
+      exclusivityNotice.style.cssText =
+        'display:flex; margin-bottom: 8px; color: #b45309; font-size: 12px; font-weight: 600; line-height: 1.4;';
+      const divider = document.querySelector('.summary-divider');
+      if (divider) divider.parentNode.insertBefore(exclusivityNotice, divider);
+    }
+    exclusivityNotice.innerHTML = `<span>${exclusivity.message}</span>`;
+  } else if (exclusivityNotice) {
+    exclusivityNotice.remove();
   }
 
   // Update Urgency Row
@@ -771,6 +828,22 @@ function highlightError(el) {
   }
 }
 
+// Load the product catalog once so cart items can be resolved to their
+// category for site-wide sale matching (#6296). Re-renders the summary when
+// the catalog arrives so the auto-applied sale discount appears live.
+function loadProductCatalogForCheckout() {
+  if (productCatalog || !window.PromoExclusivityEngine) return;
+  PromoExclusivityEngine.loadProductCatalog()
+    .then((catalog) => {
+      productCatalog = catalog;
+      window.updateCheckoutSummary();
+    })
+    .catch(() => {
+      // Best-effort only — offline/API failures fall back to no sale discount.
+      productCatalog = {};
+    });
+}
+
 // Call init on DOM ready
 function initCheckoutPage() {
   initCheckoutValidation();
@@ -780,6 +853,7 @@ function initCheckoutPage() {
     renderCheckoutItems();
     window.updateCheckoutSummary();
   });
+  loadProductCatalogForCheckout();
 }
 
 function prefillAccountEmail() {

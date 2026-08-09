@@ -17,6 +17,12 @@ RETURN_WINDOW_DAYS = 30
 # Statuses a carrier/admin may move an order through.
 ORDER_STATUSES = {"PENDING", "CONFIRMED", "SHIPPED", "DELIVERED", "CANCELLED"}
 
+# Site-wide sales auto-applied to matching product categories. These are
+# exclusive: a promo code can NEVER stack on top of them ("Best Offer Only").
+# This blocks the discount-stacking exploit that let a promo code eat into
+# the margin of an item already discounted by a site-wide sale (#6296).
+SITE_WIDE_SALES = {"formal": 20}
+
 
 def return_deadline(order: models.Order) -> datetime | None:
     """Algorithmically compute the immutable return deadline.
@@ -164,6 +170,7 @@ def create_order(
         )
 
     subtotal = 0.0
+    sale_discount = 0.0
     db_items = []
 
     # --- Fetch all products in a single query to prevent N+1 issue ---
@@ -200,6 +207,11 @@ def create_order(
         real_price = db_product.price
         subtotal += real_price * item.quantity
 
+        # Accumulate the auto-applied site-wide sale discount per category.
+        sale_pct = SITE_WIDE_SALES.get((db_product.category or "").lower())
+        if sale_pct:
+            sale_discount += real_price * item.quantity * sale_pct / 100
+
         db_items.append(
             models.OrderItem(
                 product_id=db_product.id,
@@ -212,6 +224,7 @@ def create_order(
     shipping = 0.0 if subtotal >= 3000 else 150.0
     tax = round(subtotal * 0.18, 2)
     discount = 0.0
+    discount_source = None
 
     # --- Coupon Validation ---
     # Coupons are percentage-off codes defined in a static map that mirrors
@@ -230,7 +243,23 @@ def create_order(
                 detail="Invalid or inactive coupon code"
             )
 
-        discount = round(subtotal * discount_percentage / 100, 2)
+        promo_discount = round(subtotal * discount_percentage / 100, 2)
+
+        # Strict exclusivity (#6296): never stack a promo code on top of an
+        # active site-wide sale. Apply only the better offer.
+        if sale_discount > 0:
+            if promo_discount > sale_discount:
+                discount = promo_discount
+                discount_source = "promo"
+            else:
+                discount = round(sale_discount, 2)
+                discount_source = "site-wide-sale"
+        else:
+            discount = promo_discount
+            discount_source = "promo"
+    elif sale_discount > 0:
+        discount = round(sale_discount, 2)
+        discount_source = "site-wide-sale"
 
     grand_total = max(0, subtotal + tax + shipping - discount)
 
@@ -270,7 +299,13 @@ def create_order(
 
     return {
         "message": "Order created successfully",
-        "order_id": new_order.id
+        "order_id": new_order.id,
+        "subtotal": subtotal,
+        "shipping": shipping,
+        "tax": tax,
+        "discount": discount,
+        "discount_source": discount_source,
+        "grand_total": grand_total,
     }
 
 CANCELLABLE_WINDOW_HOURS = 24
