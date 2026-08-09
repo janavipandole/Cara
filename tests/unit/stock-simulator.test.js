@@ -1,27 +1,37 @@
-import { describe, it, expect, vi } from 'vitest';
-import { getStockInfo, startStockReservationTimer, mockStockData } from '../../js/stock-simulator.js';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import {
+  getStockInfo,
+  startStockReservationTimer,
+} from '../../js/stock-simulator.js';
 
 describe('Stock Simulator Unit Tests', () => {
-  it('should return stock details for a valid size', () => {
-    const info = getStockInfo('Small');
+  it('should return normal stock info for a plentiful count', () => {
+    const info = getStockInfo(15);
     expect(info).toEqual({ count: 15, status: 'normal' });
   });
 
-  it('should return low stock info for XXL size', () => {
-    const info = getStockInfo('XXL');
+  it('should return low stock info for a low count', () => {
+    const info = getStockInfo(2);
     expect(info.status).toBe('low');
     expect(info.count).toBe(2);
   });
 
-  it('should return out of stock status for XL size', () => {
-    const info = getStockInfo('XL');
+  it('should return out of stock status for a zero count', () => {
+    const info = getStockInfo(0);
     expect(info.status).toBe('out');
     expect(info.count).toBe(0);
   });
 
-  it('should return default stock info for unknown size', () => {
-    const info = getStockInfo('UnknownSize');
-    expect(info).toEqual({ count: 5, status: 'normal' });
+  it('should return out of stock for negative counts', () => {
+    const info = getStockInfo(-3);
+    expect(info.status).toBe('out');
+  });
+
+  it('should return unknown status for non-numeric stock', () => {
+    const info = getStockInfo(null);
+    expect(info).toEqual({ count: 0, status: 'unknown' });
+    const infoEmpty = getStockInfo(undefined);
+    expect(infoEmpty).toEqual({ count: 0, status: 'unknown' });
   });
 
   it('should execute stock reservation timer callback correctly', () => {
@@ -30,7 +40,7 @@ describe('Stock Simulator Unit Tests', () => {
     const onExpire = vi.fn();
 
     const interval = startStockReservationTimer(3, onTick, onExpire);
-    
+
     vi.advanceTimersByTime(1000);
     expect(onTick).toHaveBeenCalledWith(2);
 
@@ -39,13 +49,6 @@ describe('Stock Simulator Unit Tests', () => {
 
     clearInterval(interval);
     vi.useRealTimers();
-  });
-
-  it('should return unknown status when size parameter is empty or null', () => {
-    const infoNull = getStockInfo(null);
-    expect(infoNull).toEqual({ count: 0, status: 'unknown' });
-    const infoEmpty = getStockInfo('');
-    expect(infoEmpty).toEqual({ count: 0, status: 'unknown' });
   });
 
   it('should expire immediately for a zero or negative duration', () => {

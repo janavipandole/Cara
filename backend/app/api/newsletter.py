@@ -16,6 +16,11 @@ class NewsletterUnsubscribeRequest(BaseModel):
     token: str
 
 
+class RestockAlertRequest(BaseModel):
+    email: EmailStr
+    product_id: int
+
+
 @router.post("/subscribe", status_code=201)
 def subscribe(payload: NewsletterSubscribeRequest, db: Session = Depends(get_db)):
     existing = (
@@ -55,3 +60,34 @@ def unsubscribe(payload: NewsletterUnsubscribeRequest, db: Session = Depends(get
     subscriber.is_active = False
     db.commit()
     return {"message": "Successfully unsubscribed"}
+
+
+@router.post("/restock", status_code=201)
+def restock_alert(payload: RestockAlertRequest, db: Session = Depends(get_db)):
+    product = (
+        db.query(models.Product)
+        .filter(models.Product.id == payload.product_id)
+        .first()
+    )
+    if not product:
+        raise HTTPException(status_code=404, detail="Product not found")
+
+    existing = (
+        db.query(models.RestockAlert)
+        .filter(
+            models.RestockAlert.email == payload.email,
+            models.RestockAlert.product_id == payload.product_id,
+        )
+        .first()
+    )
+    if existing is None:
+        db.add(
+            models.RestockAlert(
+                email=payload.email,
+                product_id=payload.product_id,
+            )
+        )
+        db.commit()
+    # Generic response regardless of prior state — avoids leaking whether
+    # this email was already registered for this product.
+    return {"message": "Restock alert registered"}

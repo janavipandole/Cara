@@ -12,6 +12,19 @@ class NewsletterSubscriber(Base):
     unsubscribe_token = Column(String, unique=True, index=True, nullable=True)
 
 
+class RestockAlert(Base):
+    __tablename__ = "restock_alerts"
+    __table_args__ = (
+        UniqueConstraint("email", "product_id", name="uq_restock_alerts_email_product"),
+    )
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String, index=True, nullable=False)
+    product_id = Column(Integer, ForeignKey("products.id"), nullable=False)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+    product = relationship("Product")
+
+
 class AmbassadorApplication(Base):
     __tablename__ = "ambassador_applications"
 

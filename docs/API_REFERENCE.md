@@ -34,11 +34,25 @@ Formats a price in USD into a locale-formatted currency string with symbol.
 ### Stock Simulator
 Module path: `js/stock-simulator.js`
 
-#### `getStockInfo(size)`
-Retrieves real-time stock status and item quantity for a specific product size.
+Drives the product page stock/availability UI from the **real** `stock` value
+returned by `GET /api/products/{id}` — no hardcoded mock inventory. The
+"Notify Me" restock form persists the email server-side via
+`POST /api/newsletter/restock` (`{ email, product_id }`).
+
+#### `getStockInfo(stock)`
+Derives stock status from a numeric stock count.
 - **Parameters**:
-  - `size` (string): Size key (e.g., `'Small'`, `'Medium'`, `'Large'`, `'XL'`, `'XXL'`).
-- **Returns**: `Object` - `{ count: number, status: 'normal' | 'low' | 'out' }`.
+  - `stock` (number): The product's current stock count.
+- **Returns**: `Object` - `{ count: number, status: 'normal' | 'low' | 'out' | 'unknown' }`.
+
+#### `startStockReservationTimer(durationSeconds, onTick, onExpire)`
+Runs a countdown that invokes `onTick(remaining)` each second and
+`onExpire()` when it reaches zero.
+
+#### `initStockSimulator()`
+Binds the size selector to the stock-alert container and loads the real
+stock for the product in `localStorage['selectedProduct']`. When stock is 0
+it renders the restock form, whose submit calls `POST /api/newsletter/restock`.
 
 ---
 
