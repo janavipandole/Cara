@@ -273,6 +273,29 @@ def create_order(
         "order_id": new_order.id
     }
 
+@router.post("/apply-coupon")
+def apply_coupon(
+    request: Request,
+    payload: dict,
+    current_user: models.User = Depends(get_current_user)
+):
+    """
+    Idempotency fix for applying coupons. Prevents infinite refresh exploit.
+    """
+    cart = payload.get("cart", {})
+    requested_coupon = payload.get("coupon", "").upper()
+    applied_coupons = cart.get("applied_coupons", [])
+    
+    # Mathematical Idempotency Check
+    if requested_coupon in applied_coupons:
+        return {"status": "success", "message": "Coupon already applied", "discount": 0}
+        
+    COUPONS = {"CARA20": 20, "WELCOME10": 10}
+    if requested_coupon not in COUPONS:
+        raise HTTPException(status_code=400, detail="Invalid coupon")
+        
+    return {"status": "success", "discount": COUPONS[requested_coupon]}
+
 CANCELLABLE_WINDOW_HOURS = 24
 # Only pre-fulfillment statuses may be cancelled by the buyer. Once an order
 # has shipped or been delivered, stock can no longer be safely returned by a

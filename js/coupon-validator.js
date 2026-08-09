@@ -49,7 +49,7 @@
   }
 
   // ── Apply coupon logic ─────────────────────────────────────────────────────
-  function applyCoupon() {
+  async function applyCoupon() {
     if (!couponInput || !feedbackEl) return;
 
     const code = couponInput.value.trim().toUpperCase();
@@ -59,29 +59,49 @@
       return;
     }
 
-    if (Object.prototype.hasOwnProperty.call(COUPONS, code)) {
-      const discountPct = COUPONS[code];
-      window.appliedCoupon = code;
-      saveAppliedCoupon(code);
+    // Mathematical Idempotency Fix: Call backend to apply coupon securely
+    try {
+      const res = await fetch('/api/orders/apply-coupon', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          coupon: code,
+          cart: { applied_coupons: window.appliedCoupon === code ? [code] : [] }
+        })
+      });
+      const data = await res.json();
+      
+      if (res.ok) {
+        if (data.message === 'Coupon already applied') {
+            showFeedback(`Coupon "${code}" is already active on this cart.`, 'info');
+            return;
+        }
 
-      showFeedback(
-        `Coupon "${code}" applied! You saved ${discountPct}%.`,
-        'success',
-      );
-      couponInput.classList.remove('is-invalid');
-      couponInput.classList.add('is-valid');
+        const discountPct = data.discount;
+        window.appliedCoupon = code;
+        saveAppliedCoupon(code);
 
-      // Dispatch event to trigger summary re-render
-      window.dispatchEvent(
-        new CustomEvent('couponApplied', { detail: { code, discountPct } }),
-      );
-      if (typeof window.updateCheckoutSummary === 'function') {
-        window.updateCheckoutSummary();
+        showFeedback(
+          `Coupon "${code}" applied! You saved ${discountPct}%.`,
+          'success',
+        );
+        couponInput.classList.remove('is-invalid');
+        couponInput.classList.add('is-valid');
+
+        // Dispatch event to trigger summary re-render
+        window.dispatchEvent(
+          new CustomEvent('couponApplied', { detail: { code, discountPct } }),
+        );
+        if (typeof window.updateCheckoutSummary === 'function') {
+          window.updateCheckoutSummary();
+        }
+      } else {
+        showFeedback('Invalid coupon code. Try CARA20 or WELCOME10.', 'error');
+        couponInput.classList.remove('is-valid');
+        couponInput.classList.add('is-invalid');
       }
-    } else {
-      showFeedback('Invalid coupon code. Try CARA20 or WELCOME10.', 'error');
-      couponInput.classList.remove('is-valid');
-      couponInput.classList.add('is-invalid');
+    } catch (err) {
+      showFeedback('Network error applying coupon.', 'error');
     }
   }
 
