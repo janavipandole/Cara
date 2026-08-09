@@ -115,6 +115,23 @@ class PasswordResetToken(Base):
     user = relationship("User")
 
 
+class RefreshToken(Base):
+    """Every refresh-token jti issued for an email.
+
+    Only the row with ``used=False`` is currently valid (single-slot
+    sessions); every previously issued jti stays recorded with ``used=True``
+    so a replayed/rotated-away token can be detected and the whole family
+    revoked (reuse detection survives restarts and multiple workers).
+    """
+    __tablename__ = "refresh_tokens"
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String, index=True, nullable=False)
+    jti = Column(String, unique=True, index=True, nullable=False)
+    used = Column(Boolean, default=False, nullable=False)
+    revoked_at = Column(DateTime, nullable=True)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), nullable=False)
+
+
 class OrderItem(Base):
     __tablename__ = "order_items"
     id = Column(Integer, primary_key=True, index=True)

@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta, timezone
 from fastapi import APIRouter, Depends, HTTPException, Request, Response
+from fastapi.responses import JSONResponse
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 from passlib.context import CryptContext
@@ -39,7 +40,13 @@ COOKIE_SAMESITE = "lax"
 COOKIE_PATH = "/"
 
 # email -> currently valid refresh token jti (rotation / revoke store)
+# The authoritative history lives in the DB (refresh_tokens table); this
+# dict mirrors the active jti so callers and tests can inspect it cheaply.
 active_refresh_jtis: dict[str, str] = {}
+
+# Upper bound on how many refresh-token rows are kept per email so the
+# replay-detection history cannot grow without limit.
+MAX_REFRESH_TOKENS_PER_EMAIL = 100
 
 logger = logging.getLogger(__name__)
 
@@ -82,8 +89,31 @@ def create_access_token(email: str) -> str:
         algorithm=ALGORITHM
     )
 
-def create_refresh_token(email: str) -> str:
+def create_refresh_token(email: str, db: Session) -> str:
     jti = secrets.token_urlsafe(32)
+
+    # Single active session per email: consume every currently-active token
+    # so only the freshly issued jti stays valid.
+    db.query(models.RefreshToken).filter(
+        models.RefreshToken.email == email,
+        models.RefreshToken.used.is_(False),
+    ).update({"used": True})
+
+    db.add(models.RefreshToken(email=email, jti=jti, used=False))
+
+    # Bound the per-email replay history to prevent unbounded growth.
+    stale_rows = (
+        db.query(models.RefreshToken)
+        .filter(models.RefreshToken.email == email)
+        .order_by(models.RefreshToken.id.desc())
+        .offset(MAX_REFRESH_TOKENS_PER_EMAIL)
+        .all()
+    )
+    for stale in stale_rows:
+        db.delete(stale)
+
+    db.commit()
+
     token = jwt.encode(
         {
             "sub": email,
@@ -129,14 +159,20 @@ def clear_auth_cookies(response: Response):
             samesite=COOKIE_SAMESITE,
         )
 
-def revoke_refresh_token(email: str | None):
-    if email:
-        active_refresh_jtis.pop(email, None)
-
-def assert_refresh_jti(email: str, jti: str | None):
-    expected = active_refresh_jtis.get(email)
-    if not jti or not expected or not hmac.compare_digest(expected, jti):
-        raise HTTPException(401, "Invalid or revoked refresh token.")
+def revoke_refresh_token(email: str | None, db: Session | None = None):
+    if not email:
+        return
+    active_refresh_jtis.pop(email, None)
+    if db is not None:
+        db.query(models.RefreshToken).filter(
+            models.RefreshToken.email == email
+        ).update(
+            {
+                models.RefreshToken.used: True,
+                models.RefreshToken.revoked_at: datetime.now(timezone.utc),
+            }
+        )
+        db.commit()
 
 # -- Helper: get current user from token --
 def get_current_user(
@@ -194,7 +230,7 @@ def register(request: Request, response: Response, payload: UserRegister, db: Se
     db.refresh(user)
 
     access_token = create_access_token(user.email)
-    refresh_token = create_refresh_token(user.email)
+    refresh_token = create_refresh_token(user.email, db)
     
     set_auth_cookies(response, access_token, refresh_token)
 
@@ -273,7 +309,7 @@ def login(request: Request, response: Response, payload: UserLogin, db: Session 
     failed_login_attempts.pop(email_hash, None)
 
     access_token = create_access_token(user.email)
-    refresh_token = create_refresh_token(user.email)
+    refresh_token = create_refresh_token(user.email, db)
     
     set_auth_cookies(response, access_token, refresh_token)
 
@@ -293,9 +329,9 @@ def refresh_access_token(request: Request, response: Response, db: Session = Dep
         if payload.get("type") != "refresh":
             raise HTTPException(401, "Invalid token type.")
         email: str = payload.get("sub")
-        if not email:
+        jti: str | None = payload.get("jti")
+        if not email or not jti:
             raise HTTPException(401, "Invalid token.")
-        assert_refresh_jti(email, payload.get("jti"))
     except JWTError:
         raise HTTPException(401, "Invalid or expired refresh token.")
 
@@ -303,8 +339,41 @@ def refresh_access_token(request: Request, response: Response, db: Session = Dep
     if not user or not user.is_active:
         raise HTTPException(401, "User not found or inactive.")
 
+    row = (
+        db.query(models.RefreshToken)
+        .filter(models.RefreshToken.jti == jti)
+        .first()
+    )
+    if row is None:
+        raise HTTPException(401, "Invalid or revoked refresh token.")
+
+    if row.used:
+        # Reuse detection: a token that was already rotated away (or revoked)
+        # was presented again -> the session family is compromised. Revoke
+        # every token for the email and clear the cookies so neither the
+        # attacker nor a stale client can keep the family alive.
+        db.query(models.RefreshToken).filter(
+            models.RefreshToken.email == email
+        ).update(
+            {
+                models.RefreshToken.used: True,
+                models.RefreshToken.revoked_at: datetime.now(timezone.utc),
+            }
+        )
+        active_refresh_jtis.pop(email, None)
+        db.commit()
+
+        response = JSONResponse(
+            status_code=401,
+            content={"detail": "Refresh token reuse detected. Please log in again."},
+        )
+        clear_auth_cookies(response)
+        return response
+
+    # Normal rotation: consume the presented token and mint a fresh one.
+    row.used = True
     access_token = create_access_token(user.email)
-    new_refresh_token = create_refresh_token(user.email)
+    new_refresh_token = create_refresh_token(email, db)
     set_auth_cookies(response, access_token, new_refresh_token)
     return {"message": "Token refreshed successfully"}
 
@@ -413,7 +482,7 @@ def reset_password(
     user.hashed_password = pwd.hash(payload.new_password)
     reset_token.used = True
     # Invalidate outstanding sessions so a stolen refresh token cannot outlive the reset.
-    revoke_refresh_token(user.email)
+    revoke_refresh_token(user.email, db)
     db.query(models.PasswordResetToken).filter(
         models.PasswordResetToken.user_id == user.id,
         models.PasswordResetToken.used == False,
@@ -425,13 +494,13 @@ def reset_password(
 
 
 @router.post("/logout")
-def logout(request: Request, response: Response):
+def logout(request: Request, response: Response, db: Session = Depends(get_db)):
     token = request.cookies.get("refresh_token")
     if token:
         try:
             payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
             if payload.get("type") == "refresh":
-                revoke_refresh_token(payload.get("sub"))
+                revoke_refresh_token(payload.get("sub"), db)
         except JWTError:
             pass
     clear_auth_cookies(response)
