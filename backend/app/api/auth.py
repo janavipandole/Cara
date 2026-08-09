@@ -311,8 +311,9 @@ def refresh_access_token(request: Request, response: Response, db: Session = Dep
 def send_password_reset_email(recipient: str, token: str) -> bool:
     """Send a password reset email with a one-click reset link.
 
-    Returns False when SMTP is not configured so callers can fall back to
-    returning the token to the client (the flow the frontend already uses).
+    Returns False when SMTP is not configured or delivery fails. Reset tokens
+    are only ever delivered inside the emailed link — they are never returned
+    to the caller of /forgot-password.
     """
     if not SMTP_HOST:
         return False
@@ -360,6 +361,18 @@ def forgot_password(
     payload: ForgotPasswordRequest,
     db: Session = Depends(get_db),
 ):
+    # The reset token can only be delivered out-of-band via email. Without SMTP
+    # configured there is no safe channel, so refuse every request (uniformly,
+    # before the user lookup, to avoid leaking which addresses are registered).
+    if not SMTP_HOST:
+        raise HTTPException(
+            status_code=503,
+            detail=(
+                "Password reset is unavailable: email delivery is not "
+                "configured. Please contact support."
+            ),
+        )
+
     user = db.query(models.User).filter(models.User.email == payload.email).first()
     if not user:
         return {"message": "If the email exists, a reset link has been sent"}
@@ -375,16 +388,14 @@ def forgot_password(
     db.add(reset_token)
     db.commit()
 
-    # Deliver the reset link. When SMTP is configured the email is sent with a
-    # link containing the token; otherwise the token is returned so the app's
-    # existing client-side flow (forgotPassword.js) can complete the reset.
+    # The token is sent only inside the emailed reset link. It is never
+    # returned in the response, so a caller cannot redeem a reset they did not
+    # receive the email for.
     email_sent = send_password_reset_email(user.email, token)
+    if not email_sent:
+        logger.warning("Password reset email could not be delivered to %s", user.email)
 
-    return {
-        "message": "If the email exists, a reset link has been sent",
-        "reset_token": token,
-        "email_sent": email_sent,
-    }
+    return {"message": "If the email exists, a reset link has been sent"}
 
 
 @router.post("/reset-password")

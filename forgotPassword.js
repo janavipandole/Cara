@@ -106,7 +106,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
       const API_BASE = window.CARA_API_BASE_URL || '';
       // If the user arrived via the emailed reset link, the token is in the URL.
+      // Reset tokens are never returned by the API, so without a URL token this
+      // page can only *request* a reset link, not complete one.
       const urlToken = new URLSearchParams(window.location.search).get('token');
+
+      const doReset = function (token) {
+        return fetch(API_BASE + '/api/auth/reset-password', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            token: token,
+            new_password: newPass,
+          }),
+        });
+      };
 
       fetch(API_BASE + '/api/auth/forgot-password', {
         method: 'POST',
@@ -122,37 +135,37 @@ document.addEventListener('DOMContentLoaded', function () {
           return res.json();
         })
         .then(function (data) {
-          const resetToken = data.reset_token || urlToken;
-
-          if (!resetToken) {
-            throw new Error('No reset token provided');
+          if (urlToken) {
+            // Arrived via the emailed link: complete the reset directly.
+            return doReset(urlToken);
           }
-
-          return fetch(API_BASE + '/api/auth/reset-password', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              token: resetToken,
-              new_password: newPass,
-            }),
-          });
+          // Request-only page: the API never returns a token, so the user must
+          // follow the link that was emailed to them.
+          showToast(
+            'If the email exists, a reset link has been sent. Check your inbox.',
+            'success',
+          );
+          return null;
         })
-        .then(function (res) {
-          if (!res.ok) {
-            return res.json().then(function (data) {
+        .then(function (resetResponse) {
+          if (!resetResponse) return;
+          if (!resetResponse.ok) {
+            return resetResponse.json().then(function (data) {
               throw new Error(data.detail || 'Reset failed');
             });
           }
-          return res.json();
+          return resetResponse.json();
         })
         .then(function () {
-          showToast(
-            'Password reset successful! Redirecting to login...',
-            'success',
-          );
-          setTimeout(function () {
-            window.location.href = 'login.html';
-          }, 2000);
+          if (urlToken) {
+            showToast(
+              'Password reset successful! Redirecting to login...',
+              'success',
+            );
+            setTimeout(function () {
+              window.location.href = 'login.html';
+            }, 2000);
+          }
         })
         .catch(function (err) {
           console.warn("[ForgotPassword] Failed:", err);
