@@ -57,6 +57,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (errorContainer) errorContainer.style.display = 'block';
   }
 
+  function escapeHtml(value) {
+    return String(value == null ? '' : value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
   function loadSimilarProducts() {
     if (resultsContainer) resultsContainer.style.display = 'block';
     const productsGrid = document.getElementById('similar-products-grid');
@@ -72,11 +81,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     let html = '';
     mockProducts.forEach(p => {
       html += `
-        <div class="pro" onclick="window.location.href='singleProduct.html?id=${p.id}'">
-          <img src="${p.img}" alt="${p.name}">
+        <div class="pro" data-product-id="${escapeHtml(p.id)}">
+          <img src="${escapeHtml(p.img)}" alt="${escapeHtml(p.name)}">
           <div class="des">
-            <span>${p.brand}</span>
-            <h5>${p.name}</h5>
+            <span>${escapeHtml(p.brand)}</span>
+            <h5>${escapeHtml(p.name)}</h5>
             <div class="star">
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
@@ -84,7 +93,7 @@ document.addEventListener('DOMContentLoaded', async () => {
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
             </div>
-            <h4>$${p.price}</h4>
+            <h4>₹${escapeHtml(p.price)}</h4>
           </div>
           <a href="#"><i class="fa-solid fa-cart-shopping cart"></i></a>
         </div>
