@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from pydantic import BaseModel, EmailStr
 from .. import models
 from ..database import get_db
+from .auth import token_digest
 
 router = APIRouter()
 
@@ -27,7 +28,7 @@ def subscribe(payload: NewsletterSubscribeRequest, db: Session = Depends(get_db)
         if not existing.is_active:
             existing.is_active = True
             if not existing.unsubscribe_token:
-                existing.unsubscribe_token = secrets.token_urlsafe(32)
+                existing.unsubscribe_token = token_digest(secrets.token_urlsafe(32))
             db.commit()
         # Generic response regardless of prior state — avoids leaking
         # whether this email was already subscribed.
@@ -35,7 +36,7 @@ def subscribe(payload: NewsletterSubscribeRequest, db: Session = Depends(get_db)
 
     subscriber = models.NewsletterSubscriber(
         email=payload.email,
-        unsubscribe_token=secrets.token_urlsafe(32),
+        unsubscribe_token=token_digest(secrets.token_urlsafe(32)),
     )
     db.add(subscriber)
     db.commit()
@@ -46,7 +47,7 @@ def subscribe(payload: NewsletterSubscribeRequest, db: Session = Depends(get_db)
 def unsubscribe(payload: NewsletterUnsubscribeRequest, db: Session = Depends(get_db)):
     subscriber = (
         db.query(models.NewsletterSubscriber)
-        .filter(models.NewsletterSubscriber.unsubscribe_token == payload.token)
+        .filter(models.NewsletterSubscriber.unsubscribe_token == token_digest(payload.token))
         .first()
     )
     if not subscriber:

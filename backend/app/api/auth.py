@@ -66,6 +66,15 @@ def captcha_answer_digest(answer: str) -> str:
     ).hexdigest()
 
 
+def token_digest(token: str) -> str:
+    """Return a one-way SHA-256 digest of a plaintext token.
+
+    Only the digest is stored at rest so a database leak does not directly
+    enable account takeover or unsubscribe actions.
+    """
+    return hashlib.sha256(token.encode("utf-8")).hexdigest()
+
+
 def cookie_secure() -> bool:
     return os.environ.get("COOKIE_SECURE", "true").lower() in ("1", "true", "yes")
 
@@ -369,7 +378,7 @@ def forgot_password(
 
     reset_token = models.PasswordResetToken(
         user_id=user.id,
-        token=token,
+        token=token_digest(token),
         expires_at=expires_at,
     )
     db.add(reset_token)
@@ -397,7 +406,7 @@ def reset_password(
     reset_token = (
         db.query(models.PasswordResetToken)
         .filter(
-            models.PasswordResetToken.token == payload.token,
+            models.PasswordResetToken.token == token_digest(payload.token),
             models.PasswordResetToken.used == False,
             models.PasswordResetToken.expires_at > datetime.now(timezone.utc),
         )

@@ -32,14 +32,15 @@ def test_forgot_password_existing_email(client, db_session):
 
 def test_reset_password_valid_token(client, db_session):
     from backend.app.models import User, PasswordResetToken
+    from backend.app.api.auth import token_digest
     from passlib.context import CryptContext
     from datetime import datetime, timedelta, timezone
     import secrets
     pwd = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
     user = User(
-        username="testuser",
-        email="test@example.com",
+        username="resetuser",
+        email="resetuser@example.com",
         hashed_password=pwd.hash("OldPass@123"),
     )
     db_session.add(user)
@@ -49,7 +50,7 @@ def test_reset_password_valid_token(client, db_session):
     token = secrets.token_urlsafe(32)
     reset = PasswordResetToken(
         user_id=user.id,
-        token=token,
+        token=token_digest(token),
         expires_at=datetime.now(timezone.utc) + timedelta(hours=1),
     )
     db_session.add(reset)
@@ -75,6 +76,7 @@ def test_reset_password_expired_token(client):
 def test_reset_password_revokes_refresh_session(client):
     from app.models import User, PasswordResetToken
     from app.api import auth as auth_api
+    from app.api.auth import token_digest
     from passlib.context import CryptContext
     from datetime import datetime, timedelta, timezone
     from tests.conftest import TestingSessionLocal
@@ -96,7 +98,7 @@ def test_reset_password_revokes_refresh_session(client):
     db.add(
         PasswordResetToken(
             user_id=user.id,
-            token=token,
+            token=token_digest(token),
             expires_at=datetime.now(timezone.utc) + timedelta(hours=1),
         )
     )
