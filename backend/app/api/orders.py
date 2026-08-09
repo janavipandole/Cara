@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
+from sqlalchemy import update
 from sqlalchemy.exc import IntegrityError
 from .. import models, schemas
 from ..database import get_db
@@ -28,6 +29,34 @@ def return_deadline(order: models.Order) -> datetime | None:
         return None
     return order.delivered_at.replace(tzinfo=timezone.utc) + timedelta(
         days=RETURN_WINDOW_DAYS
+    )
+
+
+def _try_decrement_stock(db: Session, product_id: int, quantity: int) -> int:
+    """Atomically decrement stock if enough is available.
+
+    This single conditional UPDATE is the authoritative stock guard. Unlike
+    `SELECT ... FOR UPDATE` (which SQLite silently ignores), the check runs
+    inside the same statement, so concurrent requests cannot oversell. Returns
+    the number of matched rows (0 = insufficient stock).
+    """
+    result = db.execute(
+        update(models.Product)
+        .where(
+            models.Product.id == product_id,
+            models.Product.stock >= quantity,
+        )
+        .values(stock=models.Product.stock - quantity)
+    )
+    return result.rowcount
+
+
+def _restore_stock(db: Session, product_id: int, quantity: int) -> None:
+    """Atomically return stock when an order is cancelled."""
+    db.execute(
+        update(models.Product)
+        .where(models.Product.id == product_id)
+        .values(stock=models.Product.stock + quantity)
     )
 
 
@@ -172,7 +201,6 @@ def create_order(
     db_products = (
         db.query(models.Product)
         .filter(models.Product.id.in_(product_ids))
-        .with_for_update()  # Apply row locks to all matching products simultaneously
         .all()
     )
 
@@ -188,14 +216,14 @@ def create_order(
                 detail=f"Product not found: id={item.product_id}",
             )
 
-        if db_product.stock < item.quantity:
+        # Atomic conditional decrement — enforced even on SQLite, where
+        # SELECT ... FOR UPDATE is silently ignored. A 0 rowcount means the
+        # stock was not sufficient at the moment of the write.
+        if _try_decrement_stock(db, item.product_id, item.quantity) == 0:
             raise HTTPException(
                 status_code=400,
                 detail=f"Insufficient stock for product: {db_product.name}",
             )
-
-        # Deduct stock in memory (will be committed later)
-        db_product.stock -= item.quantity
 
         real_price = db_product.price
         subtotal += real_price * item.quantity
@@ -291,7 +319,6 @@ def cancel_order(
             models.Order.id == order_id,
             models.Order.email == current_user.email,
         )
-        .with_for_update()
         .first()
     )
     if not order:
@@ -318,19 +345,10 @@ def cancel_order(
         .filter(models.OrderItem.order_id == order.id)
         .all()
     )
-    product_ids = [item.product_id for item in items if item.product_id is not None]
-    if product_ids:
-        products = (
-            db.query(models.Product)
-            .filter(models.Product.id.in_(product_ids))
-            .with_for_update()
-            .all()
-        )
-        product_map = {product.id: product for product in products}
-        for item in items:
-            product = product_map.get(item.product_id)
-            if product is not None:
-                product.stock += item.quantity
+    for item in items:
+        if item.product_id is not None:
+            # Atomic restore — never depends on a stale in-memory read.
+            _restore_stock(db, item.product_id, item.quantity)
 
     order.status = "CANCELLED"
     db.commit()
