@@ -82,3 +82,101 @@ def test_login_rejects_wrong_captcha_answer(client):
         },
     )
     assert bad.status_code == 403
+
+
+def test_captcha_token_is_single_use(client):
+    """A solved captcha token must not enable unlimited password guesses."""
+    email = "singleuse@example.com"
+    password = "Secure123@"
+    client.post(
+        "/api/auth/register",
+        json={"username": "singleuse", "email": email, "password": password},
+    )
+    # First failure forces the captcha on the next attempt.
+    assert (
+        client.post("/api/auth/login", json={"email": email, "password": "WrongPass1"}).status_code
+        == 401
+    )
+
+    captcha = client.get("/api/auth/captcha").json()
+    claims = jwt.decode(captcha["captcha_token"], SECRET_KEY, algorithms=[ALGORITHM])
+    known = "AB12C"
+    forged = jwt.encode(
+        {"captcha_hash": captcha_answer_digest(known), "exp": claims["exp"]},
+        SECRET_KEY,
+        algorithm=ALGORITHM,
+    )
+
+    # Using the token with a wrong password consumes it even though login fails.
+    failed = client.post(
+        "/api/auth/login",
+        json={
+            "email": email,
+            "password": "WrongPass2",
+            "captcha_token": forged,
+            "captcha_answer": known,
+        },
+    )
+    assert failed.status_code == 401
+
+    # Reusing the same solved token is rejected.
+    reuse = client.post(
+        "/api/auth/login",
+        json={
+            "email": email,
+            "password": password,
+            "captcha_token": forged,
+            "captcha_answer": known,
+        },
+    )
+    assert reuse.status_code == 403
+
+
+def test_login_lockout_after_max_failed_attempts(client):
+    """Repeated failures trigger a temporary lockout independent of the captcha."""
+    from datetime import datetime, timedelta, timezone
+
+    from app.api.auth import MAX_LOGIN_ATTEMPTS
+
+    email = "lockout@example.com"
+    password = "Secure123@"
+    client.post(
+        "/api/auth/register",
+        json={"username": "lockoutuser", "email": email, "password": password},
+    )
+
+    # First failure forces the captcha on the next attempt.
+    assert (
+        client.post("/api/auth/login", json={"email": email, "password": "WrongPass1"}).status_code
+        == 401
+    )
+
+    # Each subsequent failure needs a fresh single-use captcha; forge one per attempt.
+    known = "AB12C"
+    exp = datetime.now(timezone.utc) + timedelta(minutes=5)
+    for nonce in range(MAX_LOGIN_ATTEMPTS - 1):
+        forged = jwt.encode(
+            {
+                "captcha_hash": captcha_answer_digest(known),
+                "exp": exp,
+                "nonce": nonce,
+            },
+            SECRET_KEY,
+            algorithm=ALGORITHM,
+        )
+        assert (
+            client.post(
+                "/api/auth/login",
+                json={
+                    "email": email,
+                    "password": "WrongPass1",
+                    "captcha_token": forged,
+                    "captcha_answer": known,
+                },
+            ).status_code
+            == 401
+        )
+
+    # The next attempt — even with the correct password — is blocked during the lockout.
+    blocked = client.post("/api/auth/login", json={"email": email, "password": password})
+    assert blocked.status_code == 429

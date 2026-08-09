@@ -22,9 +22,18 @@ import smtplib
 from email.message import EmailMessage
 import hmac
 
-# In-memory tracking of failed attempts with an LRU bound to prevent OOM DOS attacks
+# In-memory tracking of failed attempts with an LRU bound to prevent OOM DOS attacks.
+# Each entry records the consecutive-failure count and, once the threshold is hit,
+# the lockout window end time so a bounded number of attempts cannot be brute-forced.
 failed_login_attempts = OrderedDict()
 MAX_TRACKED_EMAILS = 1000
+MAX_LOGIN_ATTEMPTS = 5
+LOGIN_LOCKOUT_SECONDS = 15 * 60
+
+# Captcha JWTs are single-use: once a solved token is accepted it is recorded
+# here (LRU bounded) so the same token cannot unlock unlimited password guesses.
+used_captcha_tokens = OrderedDict()
+MAX_USED_CAPTCHA_TOKENS = 10000
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
 if not SECRET_KEY:
@@ -68,6 +77,18 @@ def captcha_answer_digest(answer: str) -> str:
 
 def cookie_secure() -> bool:
     return os.environ.get("COOKIE_SECURE", "true").lower() in ("1", "true", "yes")
+
+
+def _consume_captcha_token(token: str) -> bool:
+    """Mark a captcha token as used; returns False if it was already consumed."""
+    digest = hashlib.sha256(token.encode("utf-8")).hexdigest()
+    if digest in used_captcha_tokens:
+        return False
+    used_captcha_tokens[digest] = True
+    used_captcha_tokens.move_to_end(digest)
+    if len(used_captcha_tokens) > MAX_USED_CAPTCHA_TOKENS:
+        used_captcha_tokens.popitem(last=False)
+    return True
 
 
 # -- Helper: build JWT --
@@ -207,7 +228,8 @@ def register(request: Request, response: Response, payload: UserRegister, db: Se
 
 # -- Captcha --
 @router.get("/captcha")
-def get_captcha():
+@limiter.limit("30/minute")
+def get_captcha(request: Request):
     chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
     code = ''.join(random.choices(chars, k=5))
     
@@ -240,8 +262,13 @@ def get_captcha():
 @limiter.limit("5/minute")
 def login(request: Request, response: Response, payload: UserLogin, db: Session = Depends(get_db)):
     email_hash = hashlib.sha256(payload.email.encode('utf-8')).hexdigest()
-    attempts = failed_login_attempts.get(email_hash, 0)
-    
+    entry = failed_login_attempts.get(email_hash, {"count": 0, "locked_until": None})
+    attempts = entry["count"]
+    locked_until = entry["locked_until"]
+
+    if locked_until and locked_until > datetime.now(timezone.utc):
+        raise HTTPException(429, "Too many failed attempts. Please try again later.")
+
     if attempts >= 1:
         if not payload.captcha_token or not payload.captcha_answer:
             raise HTTPException(403, "Security captcha required.")
@@ -255,10 +282,19 @@ def login(request: Request, response: Response, payload: UserLogin, db: Session 
         except JWTError:
             raise HTTPException(403, "Invalid or expired security code.")
 
+        # Single-use captcha: a solved token must not enable unlimited guessing.
+        if not _consume_captcha_token(payload.captcha_token):
+            raise HTTPException(403, "Invalid or expired security code.")
+
     user = db.query(models.User).filter(models.User.email == payload.email).first()
 
     if not user or not pwd.verify(payload.password, user.hashed_password):
-        failed_login_attempts[email_hash] = attempts + 1
+        next_attempts = attempts + 1
+        next_locked_until = None
+        if next_attempts >= MAX_LOGIN_ATTEMPTS:
+            next_locked_until = datetime.now(timezone.utc) + timedelta(seconds=LOGIN_LOCKOUT_SECONDS)
+            next_attempts = 0
+        failed_login_attempts[email_hash] = {"count": next_attempts, "locked_until": next_locked_until}
         failed_login_attempts.move_to_end(email_hash)
         
         # Enforce LRU bounds to prevent memory leaks from massive bot networks
