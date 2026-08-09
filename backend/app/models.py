@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey, JSON, Boolean, DateTime, UniqueConstraint
+from sqlalchemy import Column, Integer, String, ForeignKey, JSON, Boolean, DateTime, UniqueConstraint, Numeric
 from sqlalchemy.orm import relationship
 from .database import Base
 from datetime import datetime, timezone
@@ -31,7 +31,7 @@ class Product(Base):
     id = Column(Integer, primary_key=True, index=True)
     brand = Column(String, index=True)
     name = Column(String, index=True)
-    price = Column(Float)
+    price = Column(Numeric(10, 2))
     img = Column(String)
     rating = Column(Integer)
     category = Column(String, index=True) # street, minimal, formal
@@ -88,7 +88,7 @@ class Order(Base):
     address = Column(String, nullable=False)
     city = Column(String, nullable=False)
     zip_code = Column(String, nullable=False)
-    total_amount = Column(Float, nullable=False)
+    total_amount = Column(Numeric(10, 2), nullable=False)
     status = Column(String, default="PENDING")
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     # Captured exactly once when the carrier marks the order DELIVERED; the
@@ -127,6 +127,6 @@ class OrderItem(Base):
     # Denormalized snapshot kept for order history after renames/deletes.
     product_name = Column(String, nullable=False)
     quantity = Column(Integer, nullable=False)
-    price = Column(Float, nullable=False)
+    price = Column(Numeric(10, 2), nullable=False)
     order = relationship("Order")
     product = relationship("Product")

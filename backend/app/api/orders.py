@@ -7,6 +7,7 @@ from ..database import get_db
 from .auth import get_current_user
 from ..limiter import limiter
 from datetime import datetime, timezone, timedelta
+from decimal import Decimal
 
 router = APIRouter()
 
@@ -163,7 +164,7 @@ def create_order(
             detail="Order must contain at least one item",
         )
 
-    subtotal = 0.0
+    subtotal = Decimal("0.00")
     db_items = []
 
     # --- Fetch all products in a single query to prevent N+1 issue ---
@@ -197,7 +198,7 @@ def create_order(
         # Deduct stock in memory (will be committed later)
         db_product.stock -= item.quantity
 
-        real_price = db_product.price
+        real_price = Decimal(str(db_product.price))
         subtotal += real_price * item.quantity
 
         db_items.append(
@@ -209,9 +210,9 @@ def create_order(
             )
         )
 
-    shipping = 0.0 if subtotal >= 3000 else 150.0
-    tax = round(subtotal * 0.18, 2)
-    discount = 0.0
+    shipping = Decimal("0.00") if subtotal >= Decimal("3000.00") else Decimal("150.00")
+    tax = (subtotal * Decimal("0.18")).quantize(Decimal("0.01"))
+    discount = Decimal("0.00")
 
     # --- Coupon Validation ---
     # Coupons are percentage-off codes defined in a static map that mirrors
@@ -230,9 +231,9 @@ def create_order(
                 detail="Invalid or inactive coupon code"
             )
 
-        discount = round(subtotal * discount_percentage / 100, 2)
+        discount = (subtotal * Decimal(discount_percentage) / Decimal("100")).quantize(Decimal("0.01"))
 
-    grand_total = max(0, subtotal + tax + shipping - discount)
+    grand_total = (subtotal + tax + shipping - discount).max(Decimal("0.00"))
 
     new_order = models.Order(
         full_name=order_data.fullName,
