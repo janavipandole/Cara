@@ -7,9 +7,7 @@ class PromoDiscountCalculator {
   constructor() {
     this.coupons = {
       'WELCOME10': { type: 'percent', value: 10, minSpend: 20 },
-      'CARA20': { type: 'percent', value: 20, minSpend: 50 },
-      'FLAT15': { type: 'flat', value: 15, minSpend: 40 },
-      'FREESHIP': { type: 'freeship', value: 0, minSpend: 30 }
+      'CARA20': { type: 'percent', value: 20, minSpend: 50 }
     };
     this.freeShippingThreshold = 75;
   }
