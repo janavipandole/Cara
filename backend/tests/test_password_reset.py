@@ -109,3 +109,56 @@ def test_reset_password_revokes_refresh_session(client):
     )
     assert response.status_code == 200
     assert "resetrevoke@example.com" not in auth_api.active_refresh_jtis
+
+
+def test_reset_password_invalidates_outstanding_access_tokens(client, db_session):
+    from backend.app.models import User, PasswordResetToken
+    from passlib.context import CryptContext
+    from datetime import datetime, timedelta, timezone
+    import secrets
+
+    pwd = CryptContext(schemes=["bcrypt"], deprecated="auto")
+    user = User(
+        username="resetver",
+        email="resetver@example.com",
+        hashed_password=pwd.hash("OldPass@123"),
+    )
+    db_session.add(user)
+    db_session.commit()
+
+    login = client.post(
+        "/api/auth/login",
+        json={"email": "resetver@example.com", "password": "OldPass@123"},
+    )
+    old_access_token = login.json()["access_token"]
+    headers = {"Authorization": f"Bearer {old_access_token}"}
+    assert client.get("/api/auth/me", headers=headers).status_code == 200
+
+    token = secrets.token_urlsafe(32)
+    db_session.add(
+        PasswordResetToken(
+            user_id=user.id,
+            token=token,
+            expires_at=datetime.now(timezone.utc) + timedelta(hours=1),
+        )
+    )
+    db_session.commit()
+
+    response = client.post(
+        "/api/auth/reset-password",
+        json={"token": token, "new_password": "NewPass@456"},
+    )
+    assert response.status_code == 200
+
+    # The pre-reset access token must no longer be accepted.
+    assert client.get("/api/auth/me", headers=headers).status_code == 401
+
+    # A freshly logged-in session works with the new password.
+    new_login = client.post(
+        "/api/auth/login",
+        json={"email": "resetver@example.com", "password": "NewPass@456"},
+    )
+    new_headers = {
+        "Authorization": f"Bearer {new_login.json()['access_token']}"
+    }
+    assert client.get("/api/auth/me", headers=new_headers).status_code == 200

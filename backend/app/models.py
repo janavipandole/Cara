@@ -72,6 +72,9 @@ class User(Base):
     zip_code = Column(String, nullable=True)
     country = Column(String, nullable=True)
     updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
+    # Bumped on every password reset so already-issued access tokens (which
+    # embed the version) are invalidated immediately.
+    token_version = Column(Integer, nullable=False, server_default="0", default=0)
 
 class Order(Base):
     __tablename__ = "orders"

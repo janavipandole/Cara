@@ -71,11 +71,12 @@ def cookie_secure() -> bool:
 
 
 # -- Helper: build JWT --
-def create_access_token(email: str) -> str:
+def create_access_token(email: str, token_version: int = 0) -> str:
     return jwt.encode(
         {
             "sub": email,
             "type": "access",
+            "token_version": token_version,
             "exp": datetime.now(timezone.utc) + timedelta(minutes=ACCESS_TOKEN_MINUTES)
         },
         SECRET_KEY,
@@ -171,6 +172,9 @@ def get_current_user(
         raise HTTPException(404, "User not found.")
     if not user.is_active:
         raise HTTPException(403, "Account is deactivated.")
+    if payload.get("token_version") != user.token_version:
+        # The token was issued before a password reset for this account.
+        raise HTTPException(401, "Token has been revoked.")
     return user
 
 
@@ -193,7 +197,7 @@ def register(request: Request, response: Response, payload: UserRegister, db: Se
     db.commit()
     db.refresh(user)
 
-    access_token = create_access_token(user.email)
+    access_token = create_access_token(user.email, user.token_version)
     refresh_token = create_refresh_token(user.email)
     
     set_auth_cookies(response, access_token, refresh_token)
@@ -272,7 +276,7 @@ def login(request: Request, response: Response, payload: UserLogin, db: Session 
 
     failed_login_attempts.pop(email_hash, None)
 
-    access_token = create_access_token(user.email)
+    access_token = create_access_token(user.email, user.token_version)
     refresh_token = create_refresh_token(user.email)
     
     set_auth_cookies(response, access_token, refresh_token)
@@ -303,7 +307,7 @@ def refresh_access_token(request: Request, response: Response, db: Session = Dep
     if not user or not user.is_active:
         raise HTTPException(401, "User not found or inactive.")
 
-    access_token = create_access_token(user.email)
+    access_token = create_access_token(user.email, user.token_version)
     new_refresh_token = create_refresh_token(user.email)
     set_auth_cookies(response, access_token, new_refresh_token)
     return {"message": "Token refreshed successfully"}
@@ -411,6 +415,7 @@ def reset_password(
         raise HTTPException(status_code=404, detail="User not found")
 
     user.hashed_password = pwd.hash(payload.new_password)
+    user.token_version += 1
     reset_token.used = True
     # Invalidate outstanding sessions so a stolen refresh token cannot outlive the reset.
     revoke_refresh_token(user.email)
