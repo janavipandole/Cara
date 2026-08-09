@@ -1,84 +1,145 @@
-"""Captcha token must not embed a readable answer."""
+"""CAPTCHA answers are not embedded in the JWT and challenges are single-use."""
 import base64
 import json
 
-from jose import jwt
+from passlib.context import CryptContext
 
-from app.api.auth import SECRET_KEY, ALGORITHM, captcha_answer_digest
+from app.models import User
+from tests.conftest import TestingSessionLocal
 
+pwd = CryptContext(schemes=["bcrypt"], deprecated="auto")
+LOGIN_URL = "/api/auth/login"
+CAPTCHA_URL = "/api/auth/captcha"
 
-def _jwt_payload(token: str) -> dict:
-    # Decode without verifying so we can inspect claims the same way a client would.
-    payload_b64 = token.split(".")[1]
-    padding = "=" * (-len(payload_b64) % 4)
-    return json.loads(base64.urlsafe_b64decode(payload_b64 + padding))
-
-
-def test_captcha_token_has_no_plaintext_answer(client):
-    response = client.get("/api/auth/captcha")
-    assert response.status_code == 200
-    body = response.json()
-    token = body["captcha_token"]
-    claims = _jwt_payload(token)
-
-    assert "captcha_answer" not in claims
-    assert "captcha_hash" in claims
-    assert len(claims["captcha_hash"]) == 64
+FAKE_CAPTCHA_CODE = ["A", "B", "3", "K", "F"]
 
 
-def test_login_accepts_valid_captcha_after_failure(client):
-    email = "captcha-user@example.com"
-    password = "Secure123@"
-    client.post(
-        "/api/auth/register",
-        json={"username": "captchauser", "email": email, "password": password},
+def _decode_jwt_payload(token):
+    _, payload, _ = token.split(".")
+    payload += "=" * (-len(payload) % 4)
+    return json.loads(base64.urlsafe_b64decode(payload).decode("utf-8"))
+
+
+def _seed_user(email, password="Test@1234"):
+    db = TestingSessionLocal()
+    user = db.query(User).filter(User.email == email).first()
+    if user is None:
+        user = User(
+            username=email.split("@")[0] + "user",
+            email=email,
+            hashed_password=pwd.hash(password),
+        )
+        db.add(user)
+        db.commit()
+    db.close()
+
+
+def _fail_login(client, email):
+    resp = client.post(
+        LOGIN_URL,
+        json={"email": email, "password": "WrongPass1@"},
     )
-    # First failure triggers captcha requirement on the next attempt.
-    assert (
-        client.post("/api/auth/login", json={"email": email, "password": "WrongPass1"}).status_code
-        == 401
-    )
+    assert resp.status_code == 401, resp.text
+    return resp
 
-    captcha = client.get("/api/auth/captcha").json()
-    claims = jwt.decode(captcha["captcha_token"], SECRET_KEY, algorithms=[ALGORITHM])
-    # Recover a matching answer by brute-forcing the tiny captcha space is unnecessary —
-    # mint a token/hash pair with a known answer for the verify path.
-    known = "AB12C"
-    forged = jwt.encode(
-        {"captcha_hash": captcha_answer_digest(known), "exp": claims["exp"]},
-        SECRET_KEY,
-        algorithm=ALGORITHM,
+
+def _get_captcha(client, monkeypatch):
+    monkeypatch.setattr("random.choices", lambda population, k: FAKE_CAPTCHA_CODE)
+    resp = client.get(CAPTCHA_URL)
+    assert resp.status_code == 200, resp.text
+    data = resp.json()
+    assert data["captcha_image"].startswith("data:image/png;base64,")
+    assert data["captcha_token"]
+    return data["captcha_token"]
+
+
+def test_captcha_token_does_not_contain_answer(client, monkeypatch):
+    token = _get_captcha(client, monkeypatch)
+    payload = _decode_jwt_payload(token)
+    assert "captcha_answer" not in payload
+    assert payload.get("captcha_hash")
+    assert payload.get("captcha_challenge")
+    assert "AB3KF" not in payload.values()
+
+
+def test_login_requires_captcha_after_failed_attempt(client):
+    email = "captcha-required@example.com"
+    _seed_user(email)
+    _fail_login(client, email)
+
+    resp = client.post(
+        LOGIN_URL,
+        json={"email": email, "password": "Test@1234"},
     )
-    ok = client.post(
-        "/api/auth/login",
+    assert resp.status_code == 403, resp.text
+    assert resp.json()["detail"] == "Security captcha required."
+
+
+def test_valid_captcha_allows_login(client, monkeypatch):
+    email = "captcha-valid@example.com"
+    _seed_user(email)
+    _fail_login(client, email)
+
+    token = _get_captcha(client, monkeypatch)
+    resp = client.post(
+        LOGIN_URL,
         json={
             "email": email,
-            "password": password,
-            "captcha_token": forged,
-            "captcha_answer": known,
+            "password": "Test@1234",
+            "captcha_token": token,
+            "captcha_answer": "AB3KF",
         },
     )
-    assert ok.status_code == 200
-    assert "access_token" in ok.json()
+    assert resp.status_code == 200, resp.text
+    assert resp.json()["access_token"]
 
 
-def test_login_rejects_wrong_captcha_answer(client):
-    email = "captcha-bad@example.com"
-    password = "Secure123@"
-    client.post(
-        "/api/auth/register",
-        json={"username": "captchabad", "email": email, "password": password},
-    )
-    client.post("/api/auth/login", json={"email": email, "password": "WrongPass1"})
+def test_wrong_captcha_rejected(client, monkeypatch):
+    email = "captcha-wrong@example.com"
+    _seed_user(email)
+    _fail_login(client, email)
 
-    captcha = client.get("/api/auth/captcha").json()
-    bad = client.post(
-        "/api/auth/login",
+    token = _get_captcha(client, monkeypatch)
+    resp = client.post(
+        LOGIN_URL,
         json={
             "email": email,
-            "password": password,
-            "captcha_token": captcha["captcha_token"],
+            "password": "Test@1234",
+            "captcha_token": token,
             "captcha_answer": "ZZZZZ",
         },
     )
-    assert bad.status_code == 403
+    assert resp.status_code == 403, resp.text
+    assert resp.json()["detail"] == "Invalid security code."
+
+
+def test_captcha_is_single_use(client, monkeypatch):
+    email = "captcha-replay@example.com"
+    _seed_user(email)
+    _fail_login(client, email)
+
+    token = _get_captcha(client, monkeypatch)
+
+    # A verification attempt consumes the challenge even when the password is
+    # wrong, so the solved captcha cannot be replayed on the next attempt.
+    first = client.post(
+        LOGIN_URL,
+        json={
+            "email": email,
+            "password": "WrongPass1@",
+            "captcha_token": token,
+            "captcha_answer": "AB3KF",
+        },
+    )
+    assert first.status_code == 401, first.text
+
+    replay = client.post(
+        LOGIN_URL,
+        json={
+            "email": email,
+            "password": "Test@1234",
+            "captcha_token": token,
+            "captcha_answer": "AB3KF",
+        },
+    )
+    assert replay.status_code == 403, replay.text

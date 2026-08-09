@@ -1,71 +1,133 @@
-def test_forgot_password_nonexistent_email(client):
-    response = client.post(
-        "/api/auth/forgot-password",
-        json={"email": "nonexistent@example.com"},
-    )
-    assert response.status_code == 200
-    data = response.json()
+"""Password reset: forgot-password delivers a one-time reset link, reset-password consumes it."""
+from datetime import datetime, timedelta, timezone
+
+from passlib.context import CryptContext
+
+from app.models import User, PasswordResetToken
+from tests.conftest import TestingSessionLocal
+
+pwd = CryptContext(schemes=["bcrypt"], deprecated="auto")
+FORGOT_URL = "/api/auth/forgot-password"
+RESET_URL = "/api/auth/reset-password"
+
+
+def _seed_user(email="resetflow@example.com", username="resetflow", password="OldPass@123"):
+    db = TestingSessionLocal()
+    user = db.query(User).filter(User.email == email).first()
+    if user is None:
+        user = User(
+            username=username,
+            email=email,
+            hashed_password=pwd.hash(password),
+        )
+        db.add(user)
+        db.commit()
+    db.close()
+
+
+def _token_from_reset_link(link):
+    return link.split("token=", 1)[1]
+
+
+def _capture_reset_link(client, email, monkeypatch):
+    """Requests a reset and returns the token from the (mocked) email link."""
+    captured = {}
+
+    def fake_send(to_email, reset_token):
+        captured["email"] = to_email
+        captured["token"] = reset_token
+
+    from app.api import auth as auth_api
+
+    monkeypatch.setattr(auth_api, "send_password_reset_email", fake_send)
+
+    resp = client.post(FORGOT_URL, json={"email": email})
+    assert resp.status_code == 200, resp.text
+    data = resp.json()
     assert "message" in data
+    # The API deliberately never returns the token itself.
+    assert "reset_token" not in data
+    return captured
 
 
-def test_forgot_password_existing_email(client, db_session):
-    from backend.app.models import User
-    from passlib.context import CryptContext
-    pwd = CryptContext(schemes=["bcrypt"], deprecated="auto")
+def test_forgot_password_nonexistent_email(client, monkeypatch):
+    from app.api import auth as auth_api
 
-    user = User(
-        username="testuser",
-        email="test@example.com",
-        hashed_password=pwd.hash("Test@1234"),
-    )
-    db_session.add(user)
-    db_session.commit()
+    called = []
+    monkeypatch.setattr(auth_api, "send_password_reset_email", lambda *a, **k: called.append(a))
 
-    response = client.post(
-        "/api/auth/forgot-password",
-        json={"email": "test@example.com"},
-    )
+    response = client.post(FORGOT_URL, json={"email": "nonexistent@example.com"})
     assert response.status_code == 200
-    data = response.json()
-    assert "message" in data
+    assert "message" in response.json()
+    assert called == []
 
 
-def test_reset_password_valid_token(client, db_session):
-    from backend.app.models import User, PasswordResetToken
-    from passlib.context import CryptContext
-    from datetime import datetime, timedelta, timezone
-    import secrets
-    pwd = CryptContext(schemes=["bcrypt"], deprecated="auto")
+def test_forgot_password_sends_reset_link(client, monkeypatch):
+    _seed_user()
+    captured = _capture_reset_link(client, "resetflow@example.com", monkeypatch)
+    assert captured["email"] == "resetflow@example.com"
+    assert captured["token"]
 
-    user = User(
-        username="testuser",
-        email="test@example.com",
-        hashed_password=pwd.hash("OldPass@123"),
-    )
-    db_session.add(user)
-    db_session.commit()
-    db_session.refresh(user)
 
-    token = secrets.token_urlsafe(32)
-    reset = PasswordResetToken(
-        user_id=user.id,
-        token=token,
-        expires_at=datetime.now(timezone.utc) + timedelta(hours=1),
-    )
-    db_session.add(reset)
-    db_session.commit()
+def test_reset_password_full_flow(client, monkeypatch):
+    _seed_user()
+    captured = _capture_reset_link(client, "resetflow@example.com", monkeypatch)
+    token = captured["token"]
 
     response = client.post(
-        "/api/auth/reset-password",
+        RESET_URL,
         json={"token": token, "new_password": "NewPass@456"},
     )
     assert response.status_code == 200
     assert response.json()["message"] == "Password has been reset successfully"
 
+    # Old password no longer works; the new one does.
+    db = TestingSessionLocal()
+    user = db.query(User).filter(User.email == "resetflow@example.com").first()
+    assert pwd.verify("OldPass@123", user.hashed_password) is False
+    assert pwd.verify("NewPass@456", user.hashed_password) is True
+    db.close()
+
+    # The token is single-use.
+    replay = client.post(
+        RESET_URL,
+        json={"token": token, "new_password": "Another@789"},
+    )
+    assert replay.status_code == 400
+    assert "Invalid or expired" in replay.json()["detail"]
+
 
 def test_reset_password_expired_token(client):
+    db = TestingSessionLocal()
+    user = User(
+        username="resettestexp",
+        email="resettest-expired@example.com",
+        hashed_password=pwd.hash("OldPass@123"),
+    )
+    db.add(user)
+    db.commit()
+    db.refresh(user)
+
+    expired = PasswordResetToken(
+        user_id=user.id,
+        token="expired-token-abc",
+        expires_at=datetime.now(timezone.utc).replace(tzinfo=None) - timedelta(hours=1),
+    )
+    db.add(expired)
+    db.commit()
+    db.close()
+
     response = client.post(
-        "/api/auth/reset-password",
+        RESET_URL,
+        json={"token": "expired-token-abc", "new_password": "NewPass@456"},
+    )
+    assert response.status_code == 400
+    assert "Invalid or expired" in response.json()["detail"]
+
+
+def test_reset_password_invalid_token(client):
+    response = client.post(
+        RESET_URL,
         json={"token": "invalidtoken123", "new_password": "NewPass@456"},
     )
     assert response.status_code == 400
