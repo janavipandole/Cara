@@ -61,7 +61,7 @@ function loadProductDetails() {
 
     renderProductDetails({
       name: product.name || 'Product',
-      price: product.price || '$0.00',
+      price: product.price || '₹0.00',
       image: product.image || 'images/products/f1.jpg',
       brand: product.brand || 'Brand',
     });
