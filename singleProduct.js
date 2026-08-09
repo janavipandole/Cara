@@ -93,6 +93,24 @@ function loadProductDetails() {
             console.warn("[SingleProduct] Failed:", error);
           }
         });
+
+      // Fetch Dynamic Social Proof
+      window.CaraAPI.fetchData(`/api/products/${product.id}/activity`, {
+        headers: { Accept: 'application/json' }
+      })
+        .then((activity) => {
+          if (activity && activity.message) {
+            const proofDiv = document.getElementById('dynamic-social-proof');
+            const proofMsg = document.getElementById('social-proof-message');
+            if (proofDiv && proofMsg) {
+              proofMsg.textContent = activity.message;
+              proofDiv.style.display = 'flex';
+            }
+          }
+        })
+        .catch((err) => {
+          console.warn('Failed to fetch social proof:', err);
+        });
     }
   } catch (error) {
     console.error('Error parsing stored product:', error);
