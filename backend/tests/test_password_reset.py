@@ -91,7 +91,7 @@ def test_reset_password_revokes_refresh_session(client):
     db.commit()
     db.refresh(user)
 
-    auth_api.active_refresh_jtis[user.email] = "stolen-jti"
+    auth_api.active_refresh_jtis[user.email] = {"stolen-jti"}
     token = secrets.token_urlsafe(32)
     db.add(
         PasswordResetToken(

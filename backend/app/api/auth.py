@@ -37,9 +37,10 @@ ACCESS_TOKEN_MINUTES = 15
 REFRESH_TOKEN_DAYS = 7
 COOKIE_SAMESITE = "lax"
 COOKIE_PATH = "/"
+MAX_REFRESH_TOKENS_PER_EMAIL = 20
 
-# email -> currently valid refresh token jti (rotation / revoke store)
-active_refresh_jtis: dict[str, str] = {}
+# email -> set of currently valid refresh token jtis (one per active session)
+active_refresh_jtis: dict[str, set[str]] = {}
 
 logger = logging.getLogger(__name__)
 
@@ -94,7 +95,11 @@ def create_refresh_token(email: str) -> str:
         SECRET_KEY,
         algorithm=ALGORITHM,
     )
-    active_refresh_jtis[email] = jti
+    sessions = active_refresh_jtis.setdefault(email, set())
+    sessions.add(jti)
+    # Cap concurrent sessions per account; evict an arbitrary one beyond the limit.
+    if len(sessions) > MAX_REFRESH_TOKENS_PER_EMAIL:
+        sessions.pop()
     return token
 
 def set_auth_cookies(response: Response, access_token: str, refresh_token: str):
@@ -129,13 +134,22 @@ def clear_auth_cookies(response: Response):
             samesite=COOKIE_SAMESITE,
         )
 
-def revoke_refresh_token(email: str | None):
-    if email:
+def revoke_refresh_token(email: str | None, jti: str | None = None):
+    if not email:
+        return
+    if jti is None:
+        # No specific session given: revoke every session for the account.
         active_refresh_jtis.pop(email, None)
+        return
+    sessions = active_refresh_jtis.get(email)
+    if sessions:
+        sessions.discard(jti)
+        if not sessions:
+            active_refresh_jtis.pop(email, None)
 
 def assert_refresh_jti(email: str, jti: str | None):
-    expected = active_refresh_jtis.get(email)
-    if not jti or not expected or not hmac.compare_digest(expected, jti):
+    sessions = active_refresh_jtis.get(email)
+    if not jti or not sessions or jti not in sessions:
         raise HTTPException(401, "Invalid or revoked refresh token.")
 
 # -- Helper: get current user from token --
@@ -305,6 +319,8 @@ def refresh_access_token(request: Request, response: Response, db: Session = Dep
 
     access_token = create_access_token(user.email)
     new_refresh_token = create_refresh_token(user.email)
+    # Rotate the refreshed session only; other devices' sessions stay valid.
+    revoke_refresh_token(email, payload.get("jti"))
     set_auth_cookies(response, access_token, new_refresh_token)
     return {"message": "Token refreshed successfully"}
 
@@ -431,7 +447,8 @@ def logout(request: Request, response: Response):
         try:
             payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
             if payload.get("type") == "refresh":
-                revoke_refresh_token(payload.get("sub"))
+                # Revoke only the session that is logging out.
+                revoke_refresh_token(payload.get("sub"), payload.get("jti"))
         except JWTError:
             pass
     clear_auth_cookies(response)
