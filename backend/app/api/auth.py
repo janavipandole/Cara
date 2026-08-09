@@ -2,6 +2,7 @@ from datetime import datetime, timedelta, timezone
 from fastapi import APIRouter, Depends, HTTPException, Request, Response
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import IntegrityError
 from passlib.context import CryptContext
 from jose import jwt, JWTError
 import os
@@ -190,7 +191,13 @@ def register(request: Request, response: Response, payload: UserRegister, db: Se
         role            = "USER",
     )
     db.add(user)
-    db.commit()
+    try:
+        db.commit()
+    except IntegrityError:
+        # Unique-constraint race (duplicate email/username): return 409 instead
+        # of leaking an unhandled 500 to the client.
+        db.rollback()
+        raise HTTPException(409, "Email or username already registered.")
     db.refresh(user)
 
     access_token = create_access_token(user.email)

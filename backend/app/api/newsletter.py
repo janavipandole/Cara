@@ -1,6 +1,7 @@
 import secrets
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import IntegrityError
 from pydantic import BaseModel, EmailStr
 from .. import models
 from ..database import get_db
@@ -38,7 +39,14 @@ def subscribe(payload: NewsletterSubscribeRequest, db: Session = Depends(get_db)
         unsubscribe_token=secrets.token_urlsafe(32),
     )
     db.add(subscriber)
-    db.commit()
+    try:
+        db.commit()
+    except IntegrityError:
+        # Unique-constraint race on the email: another request subscribed
+        # first. Roll back and respond with the same generic message rather
+        # than an unhandled 500.
+        db.rollback()
+        return {"message": "Subscription request processed"}
     return {"message": "Subscription request processed"}
 
 
