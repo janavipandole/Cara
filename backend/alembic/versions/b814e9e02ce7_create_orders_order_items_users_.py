@@ -91,7 +91,12 @@ def upgrade() -> None:
     op.create_index(op.f('ix_password_reset_tokens_id'), 'password_reset_tokens', ['id'], unique=False)
     op.create_index(op.f('ix_password_reset_tokens_token'), 'password_reset_tokens', ['token'], unique=True)
     op.drop_index(op.f('ix_interactions_user_id_type'), table_name='interactions')
-    op.add_column('products', sa.Column('stock', sa.Integer(), nullable=False))
+    # server_default keeps this NOT NULL add safe on non-empty products tables
+    # (SQLite/PostgreSQL/MySQL all reject adding NOT NULL without a default).
+    op.add_column(
+        'products',
+        sa.Column('stock', sa.Integer(), nullable=False, server_default='0'),
+    )
     # ### end Alembic commands ###
 
 
