@@ -311,24 +311,32 @@ def refresh_access_token(request: Request, response: Response, db: Session = Dep
 def send_password_reset_email(recipient: str, token: str) -> bool:
     """Send a password reset email with a one-click reset link.
 
+    The reset secret is deliberately NOT embedded in the emailed URL query
+    string: the link opens the reset page where the user submits their email
+    and a new password, and the server mints the token in the POST response.
+    This keeps the token out of URLs, history, and Referer headers.
+
     Returns False when SMTP is not configured so callers can fall back to
     returning the token to the client (the flow the frontend already uses).
     """
     if not SMTP_HOST:
         return False
 
-    reset_link = f"{APP_BASE_URL.rstrip('/')}/forgotPassword.html?token={token}"
+    reset_link = f"{APP_BASE_URL.rstrip('/')}/forgotPassword.html"
     subject = "Cara - Reset your password"
     text = (
         "Hi,\n\n"
-        "We received a request to reset your password. Click the link below "
-        f"to choose a new password (valid for 1 hour):\n\n{reset_link}\n\n"
+        "We received a request to reset your password. Open the link below, "
+        "then enter your email address and choose a new password "
+        "(your reset request is valid for 1 hour):\n\n"
+        f"{reset_link}\n\n"
         "If you didn't request this, you can safely ignore this email.\n\n"
         "- The Cara Team"
     )
     html = (
-        "<p>We received a request to reset your password. Click the link below "
-        "to choose a new password (valid for 1 hour):</p>"
+        "<p>We received a request to reset your password. Open the link below, "
+        "then enter your email address and choose a new password "
+        "(your reset request is valid for 1 hour):</p>"
         f'<p><a href="{reset_link}">Reset my password</a></p>'
         "<p>If you didn't request this, you can safely ignore this email.</p>"
     )
