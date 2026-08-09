@@ -5,7 +5,11 @@ def test_forgot_password_nonexistent_email(client):
     )
     assert response.status_code == 200
     data = response.json()
-    assert "message" in data
+    # Uniform response shape for registered and unregistered emails so the
+    # endpoint does not leak account existence.
+    assert set(data.keys()) == {"message", "reset_token", "email_sent"}
+    assert data["reset_token"]
+    assert data["email_sent"] is False
 
 
 def test_forgot_password_existing_email(client, db_session):

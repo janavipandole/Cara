@@ -362,7 +362,15 @@ def forgot_password(
 ):
     user = db.query(models.User).filter(models.User.email == payload.email).first()
     if not user:
-        return {"message": "If the email exists, a reset link has been sent"}
+        # Same keys (and a token-shaped value) as the success branch so the
+        # response is indistinguishable from a real request — the endpoint
+        # must not act as an account-existence oracle. The throwaway token is
+        # never stored, so a reset attempt with it fails harmlessly.
+        return {
+            "message": "If the email exists, a reset link has been sent",
+            "reset_token": secrets.token_urlsafe(32),
+            "email_sent": False,
+        }
 
     token = secrets.token_urlsafe(32)
     expires_at = datetime.now(timezone.utc) + timedelta(hours=1)
