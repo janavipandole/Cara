@@ -116,6 +116,86 @@ def test_too_many_line_items_rejected(client):
     assert response.status_code == 422, response.text
 
 
+def _field_limits(base, overrides):
+    payload = dict(base)
+    payload.update(overrides)
+    return payload
+
+
+def test_overlong_full_name_rejected(client):
+    headers = _auth_headers(client)
+    response = client.post(
+        ORDERS_URL,
+        json=_field_limits(_payload([]), {"fullName": "x" * 101}),
+        headers=headers,
+    )
+    assert response.status_code == 422, response.text
+
+
+def test_overlong_address_rejected(client):
+    headers = _auth_headers(client)
+    response = client.post(
+        ORDERS_URL,
+        json=_field_limits(_payload([]), {"address": "x" * 256}),
+        headers=headers,
+    )
+    assert response.status_code == 422, response.text
+
+
+def test_overlong_city_rejected(client):
+    headers = _auth_headers(client)
+    response = client.post(
+        ORDERS_URL,
+        json=_field_limits(_payload([]), {"city": "x" * 101}),
+        headers=headers,
+    )
+    assert response.status_code == 422, response.text
+
+
+def test_overlong_zip_rejected(client):
+    headers = _auth_headers(client)
+    response = client.post(
+        ORDERS_URL,
+        json=_field_limits(_payload([]), {"zip": "1" * 11}),
+        headers=headers,
+    )
+    assert response.status_code == 422, response.text
+
+
+def test_zip_with_garbage_characters_rejected(client):
+    headers = _auth_headers(client)
+    response = client.post(
+        ORDERS_URL,
+        json=_field_limits(_payload([]), {"zip": "12345; DROP TABLE"}),
+        headers=headers,
+    )
+    assert response.status_code == 422, response.text
+
+
+def test_zip_with_letters_still_accepted(client):
+    headers = _auth_headers(client)
+    product_id = _seed_product()
+    response = client.post(
+        ORDERS_URL,
+        json=_field_limits(
+            _payload([{"product_id": product_id, "quantity": 1}]),
+            {"zip": "SW1A 1AA"},
+        ),
+        headers=headers,
+    )
+    assert response.status_code == 201, response.text
+
+
+def test_empty_full_name_rejected(client):
+    headers = _auth_headers(client)
+    response = client.post(
+        ORDERS_URL,
+        json=_field_limits(_payload([]), {"fullName": ""}),
+        headers=headers,
+    )
+    assert response.status_code == 422, response.text
+
+
 def test_valid_order_still_succeeds(client):
     headers = _auth_headers(client)
     product_id = _seed_product()

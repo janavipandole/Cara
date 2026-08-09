@@ -162,16 +162,16 @@ class OrderItemCreate(BaseModel):
     quantity: int = Field(gt=0, le=99)
 
 class OrderCreate(BaseModel):
-    fullName: str
+    fullName: str = Field(min_length=1, max_length=100)
     email: EmailStr
-    address: str
-    city: str
-    zip: str
+    address: str = Field(min_length=1, max_length=255)
+    city: str = Field(min_length=1, max_length=100)
+    zip: str = Field(min_length=1, max_length=10, pattern=r"^[0-9A-Za-z -]+$")
     # Reject empty carts at the API boundary: an order must contain at least
     # one line item, and a sane maximum prevents junk/mega-bulk payloads.
     items: list[OrderItemCreate] = Field(min_length=1, max_length=50)
-    coupon: Optional[str] = None
-    idempotency_key: Optional[str] = None
+    coupon: Optional[str] = Field(default=None, max_length=50)
+    idempotency_key: Optional[str] = Field(default=None, max_length=100)
 
 
 # -- Product Search / Filter Response Schemas --
