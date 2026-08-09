@@ -29,7 +29,7 @@ class PromoDiscountCalculator {
     if (subtotal < coupon.minSpend) {
       return {
         valid: false,
-        message: `Coupon '${cleanCode}' requires a minimum spend of $${coupon.minSpend.toFixed(2)}.`
+        message: `Coupon '${cleanCode}' requires a minimum spend of ₹${coupon.minSpend.toFixed(2)}.`
       };
     }
 

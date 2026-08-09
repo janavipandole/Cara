@@ -20,6 +20,12 @@ describe('PromoDiscountCalculator Unit Tests', () => {
     expect(res.message).toContain('minimum spend');
   });
 
+  it('should report the minimum spend in the store currency (rupees)', () => {
+    const res = calc.validateCoupon('CARA20', 25);
+    expect(res.message).toContain('₹50.00');
+    expect(res.message).not.toContain('$');
+  });
+
   it('should calculate percentage discount correctly', () => {
     const summary = calc.calculateTotal(100, 'WELCOME10', 10);
     expect(summary.subtotal).toBe(100);
