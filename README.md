@@ -236,7 +236,6 @@ The frontend keeps small, focused helpers in `js/` that are reusable across page
 - `currency-converter.js` — multi-currency conversion and locale-aware price formatting.
 - `coupon-validator.js` / `cart-coupon.js` — checkout and cart coupon application and feedback.
 - `lazyload-observer.js` — IntersectionObserver-based lazy image loading with a no-observer fallback.
-- `csrf-protection.js` — CSRF token generation and header injection for forms.
 - `checkout-autosave.js` / `contact-autosave.js` — local draft persistence for forms.
 - `recently-viewed.js` — capped, de-duplicated recently-viewed product tracking and carousel.
 - `theme-engine.js` — light/dark/high-contrast theme resolution with localStorage persistence.

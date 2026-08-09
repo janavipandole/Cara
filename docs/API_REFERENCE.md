@@ -5,8 +5,8 @@
 - [Client Modules API](#client-modules-api)
   - [Currency Converter](#currency-converter)
   - [Stock Simulator](#stock-simulator)
-  - [CSRF Protection](#csrf-protection)
   - [Accessibility Announcer](#accessibility-announcer)
+- [CSRF & Session Cookies](#csrf--session-cookies)
 
 ---
 
@@ -42,13 +42,8 @@ Retrieves real-time stock status and item quantity for a specific product size.
 
 ---
 
-### CSRF Protection
-Module path: `js/csrf-protection.js`
+### CSRF & Session Cookies
 
-#### `getOrCreateCSRFToken()`
-Retrieves active Anti-CSRF token or generates a cryptographically random 32-char hex token.
-- **Returns**: `string` - Active CSRF token string.
+Cross-site request forgery protection is handled **server-side** by cookie attributes, not by a client-side token. The backend sets both auth cookies with `SameSite=Lax` and `HttpOnly` (`backend/app/api/auth.py`, `COOKIE_SAMESITE = "lax"`), so browsers only send them on same-site requests, which blocks cross-site state-changing requests.
 
-#### `attachCSRFHeader(headers)`
-Appends `X-CSRF-Token` header to an existing request headers object.
-- **Returns**: `Object` - Updated headers object.
+There is intentionally **no client-side CSRF token**; there is no `_csrf` form field and no `X-CSRF-Token` header. Do not add one unless a server-side validator is implemented and enforced on state-changing routes. If the cookie policy is ever relaxed (e.g. `SameSite=None` for cross-site iframe embedding), a real server-side CSRF mechanism must be introduced first.
