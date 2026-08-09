@@ -33,4 +33,13 @@ describe('shimmer-loader', () => {
     expect(container.querySelectorAll('.skeleton-card').length).toBe(0);
     expect(container.children.length).toBe(0);
   });
+
+  it('keeps the skeleton cards visible until the restore timeout', async () => {
+    await import('../../js/shimmer-loader.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    const container = document.querySelector('.pro-container');
+    // The skeleton cards are present immediately after load.
+    expect(container.querySelectorAll('.skeleton-card').length).toBe(4);
+  });
 });
