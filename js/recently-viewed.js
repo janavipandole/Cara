@@ -80,9 +80,17 @@
     return price ? String(price) : '';
   }
 
-  function goToProduct(name) {
+  function goToProduct(item) {
+    // Store the numeric id (the contract for 'selectedProductId') when the
+    // entry has one; legacy entries without an id fall back to the name.
+    const value =
+      item && item.id != null
+        ? String(item.id)
+        : item && item.name != null
+          ? item.name
+          : '';
     try {
-      root.localStorage.setItem('selectedProductId', name);
+      root.localStorage.setItem('selectedProductId', value);
     } catch (e) {
       // Ignore storage errors, navigation still works.
     }
@@ -96,11 +104,11 @@
     card.setAttribute('tabindex', '0');
     card.setAttribute('aria-label', 'View ' + item.name);
 
-    card.addEventListener('click', () => goToProduct(item.name));
+    card.addEventListener('click', () => goToProduct(item));
     card.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        goToProduct(item.name);
+        goToProduct(item);
       }
     });
 

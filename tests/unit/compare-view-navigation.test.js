@@ -1,7 +1,7 @@
 /**
  * compare.js — navigation from the comparison table must write the
- * storage contract that singleProduct.js reads ('selectedProduct'), while
- * keeping 'selectedProductId' for consumers like reviews.js.
+ * storage contract that singleProduct.js reads ('selectedProduct') and
+ * store the numeric product id under 'selectedProductId'.
  *
  * @vitest-environment jsdom
  */
@@ -79,9 +79,7 @@ describe('compare.js view-product navigation', () => {
       brand: 'Cara',
       image: 'img/products/f1.jpg',
     });
-    expect(localStorage.getItem('selectedProductId')).toBe(
-      'Cartoon Astronaut T-Shirts',
-    );
+    expect(localStorage.getItem('selectedProductId')).toBe('42');
     expect(window.location.href).toBe('singleProduct.html');
   });
 

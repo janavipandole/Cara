@@ -604,6 +604,7 @@ async function renderProducts(containerId, list, query = '') {
         image: p.img,
       };
       localStorage.setItem('selectedProduct', JSON.stringify(selectedProduct));
+      localStorage.setItem('selectedProductId', p.id);
       window.location.href = 'singleProduct.html';
     });
 

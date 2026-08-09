@@ -358,13 +358,14 @@
       productId = localStorage.getItem('selectedProductId');
       if (!productId) {
         try {
-          productId = JSON.parse(
+          const stored = JSON.parse(
             localStorage.getItem('selectedProduct') || '{}',
-          ).name;
+          );
+          productId = stored.id != null ? stored.id : stored.name;
         } catch (err) {
       console.warn('Reviews data parsing failed:', err);
     }
-          productId = 'unknown';
+          productId = productId || 'unknown';
         }
       }
     productId = productId || 'unknown';

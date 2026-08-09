@@ -172,7 +172,7 @@
   function viewProduct(p) {
     if (!p) return;
     // singleProduct.js reads a JSON object under 'selectedProduct';
-    // 'selectedProductId' is kept for consumers like reviews.js.
+    // 'selectedProductId' holds the numeric product id for consumers like reviews.js.
     window.localStorage.setItem(
       'selectedProduct',
       JSON.stringify({
@@ -183,7 +183,7 @@
         image: p.img,
       }),
     );
-    window.localStorage.setItem('selectedProductId', p.name || '');
+    window.localStorage.setItem('selectedProductId', p.id);
     window.location.href = 'singleProduct.html';
   }
 

@@ -166,50 +166,66 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  const stopScanner = () => {
+  const stopCameraStream = () => {
     scanning = false;
     if (animationFrameId) {
       cancelAnimationFrame(animationFrameId);
+      animationFrameId = null;
     }
     if (stream) {
       stream.getTracks().forEach(track => track.stop());
       stream = null;
     }
     video.srcObject = null;
+  };
+
+  const stopScanner = () => {
+    stopCameraStream();
     modal.style.display = 'none';
   };
 
+  const findProductInList = (list, barcodeValue) =>
+    list.find((p) =>
+      String(p.name || '').toLowerCase() === barcodeValue.toLowerCase() ||
+      String(p.id) === barcodeValue
+    );
+
   const processBarcode = async (barcodeValue) => {
-    stopScanner();
-    // Assuming barcodeValue matches product name or id exactly as per current app logic
-    
-    // Check if the barcode matches any known product in our JS mock db
-    // This logic relies on `products` array being available in global scope (products.js)
+    stopCameraStream();
+    status.textContent = 'Looking up product...';
+    status.style.color = '#666';
+
+    // Prefer the already-loaded product list, otherwise fetch the catalog.
+    let list = null;
     if (typeof products !== 'undefined' && Array.isArray(products)) {
-      const matchedProduct = products.find(p => 
-        p.name.toLowerCase() === barcodeValue.toLowerCase() || 
-        String(p.id) === barcodeValue
-      );
-      
-      if (matchedProduct) {
-        try {
-          localStorage.setItem("selectedProductId", matchedProduct.name);
-        } catch (err) {
-          // Ignore storage failures, navigation still works.
-        }
-        window.location.href = "singleProduct.html";
-        return;
+      list = products;
+    } else {
+      try {
+        const res = await fetch('/api/products');
+        if (res.ok) list = await res.json();
+      } catch (err) {
+        console.error('Failed to load products for barcode lookup:', err);
       }
     }
-    
-    // Fallback: If no exact match or products not loaded, store the value and redirect anyway
-    // The PDP page handles resolving the product.
-    try {
-      localStorage.setItem("selectedProductId", barcodeValue);
-    } catch (err) {
-      // Ignore storage failures, navigation still works.
+
+    const matchedProduct = list
+      ? findProductInList(list, barcodeValue)
+      : null;
+
+    if (matchedProduct) {
+      try {
+        localStorage.setItem("selectedProductId", String(matchedProduct.id));
+      } catch (err) {
+        // Ignore storage failures, navigation still works.
+      }
+      window.location.href = "singleProduct.html";
+      return;
     }
-    window.location.href = "singleProduct.html";
+
+    // Explicit not-found state instead of navigating to a placeholder page.
+    status.textContent =
+      'No product found for barcode "' + barcodeValue + '". Close the scanner and try again.';
+    status.style.color = '#ef4444';
   };
 
   const scanFrame = async () => {

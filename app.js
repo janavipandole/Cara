@@ -266,14 +266,39 @@ document.addEventListener(
       return;
     }
 
-    // Identify product by name (acting as unique ID for now) instead of fragile DOM scraping
+    // Store the numeric product id so every consumer of 'selectedProductId'
+    // reads an id, not a name. Prefer the rendered card's data-product-id,
+    // otherwise resolve the name against /api/products before navigating.
+    const datasetId = proCard.dataset ? proCard.dataset.productId : null;
+    if (datasetId != null && datasetId !== '' && Number.isFinite(Number(datasetId))) {
+      localStorage.setItem('selectedProductId', String(Number(datasetId)));
+      window.location.href = 'singleProduct.html';
+      return;
+    }
+
     const nameElement = proCard.querySelector('h5');
     const productName = nameElement
       ? nameElement.textContent.trim()
       : 'Product';
 
-    localStorage.setItem('selectedProductId', productName);
-    window.location.href = 'singleProduct.html';
+    fetch('/api/products')
+      .then((res) => {
+        if (!res.ok) throw new Error('HTTP error: ' + res.status);
+        return res.json();
+      })
+      .then((products) => {
+        const dbProduct = products.find((p) => p.name === productName);
+        localStorage.setItem(
+          'selectedProductId',
+          dbProduct ? String(dbProduct.id) : productName,
+        );
+      })
+      .catch(() => {
+        localStorage.setItem('selectedProductId', productName);
+      })
+      .finally(() => {
+        window.location.href = 'singleProduct.html';
+      });
   },
   true,
 );
@@ -281,27 +306,41 @@ document.addEventListener(
 // Dynamic Render on singleProduct.html
 document.addEventListener('DOMContentLoaded', async () => {
   if (window.location.pathname.includes('singleProduct')) {
-    let productName = localStorage.getItem('selectedProductId');
+    let selectedValue = localStorage.getItem('selectedProductId');
+    let legacyValue = null;
 
-    // Legacy fallback
-    if (!productName) {
+    // Legacy fallback to the full selected-product object
+    if (!selectedValue) {
       try {
-        productName = JSON.parse(
+        const stored = JSON.parse(
           localStorage.getItem('selectedProduct') || '{}',
-        ).name;
+        );
+        legacyValue =
+          stored.id != null ? String(stored.id) : stored.name || null;
       } catch (e) {
         console.warn('Failed to parse legacy product data:', e);
       }
     }
 
-    if (productName) {
+    const resolveProduct = (products, value) => {
+      if (!value) return null;
+      const numericId = Number(value);
+      if (Number.isFinite(numericId) && String(numericId) === String(value).trim()) {
+        const byId = products.find((p) => Number(p.id) === numericId);
+        if (byId) return byId;
+      }
+      return products.find((p) => p.name === value) || null;
+    };
+
+    if (selectedValue || legacyValue) {
       try {
         // Fetch authentic data from backend instead of relying on scraped client DOM data
         const res = await fetch('/api/products');
         if (!res.ok) throw new Error('HTTP error: ' + res.status);
-        let dbProduct = null;
         const products = await res.json();
-        dbProduct = products.find((p) => p.name === productName);
+        const dbProduct =
+          resolveProduct(products, selectedValue) ||
+          (legacyValue ? resolveProduct(products, legacyValue) : null);
 
         const nameEl = document.getElementById('product-name');
         const priceEl = document.getElementById('product-price');
@@ -309,12 +348,19 @@ document.addEventListener('DOMContentLoaded', async () => {
         const breadcrumbEl = document.querySelector('.single-pro-details h6');
         const smallImgs = document.querySelectorAll('.small-img');
 
-        const finalName = dbProduct ? dbProduct.name : productName;
-        const finalPrice = dbProduct
-          ? formatCurrency(dbProduct.price)
-          : 'Contact for Price';
-        const finalImage = dbProduct ? dbProduct.img : '';
-        const finalBrand = dbProduct ? dbProduct.brand : 'Brand';
+        if (!dbProduct) {
+          // Explicit not-found state instead of a placeholder product
+          if (nameEl) nameEl.textContent = 'Product not found';
+          if (priceEl) priceEl.textContent = '';
+          if (mainImgEl) mainImgEl.src = '';
+          if (breadcrumbEl) breadcrumbEl.textContent = '';
+          return;
+        }
+
+        const finalName = dbProduct.name;
+        const finalPrice = formatCurrency(dbProduct.price);
+        const finalImage = dbProduct.img || '';
+        const finalBrand = dbProduct.brand || 'Brand';
 
         if (nameEl) nameEl.textContent = finalName;
         if (priceEl) priceEl.textContent = finalPrice;
