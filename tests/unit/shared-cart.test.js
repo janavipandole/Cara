@@ -107,4 +107,23 @@ describe('applySharedCart', () => {
     expect(cart).toHaveLength(1);
     expect(cart[0]).toMatchObject({ name: 'Existing Item' });
   });
+
+  it('merges a shared item into an existing matching cart line by summing quantity', () => {
+    // Seed a matching existing line for the shared item.
+    sandbox.window.cachedCartState = [
+      {
+        name: 'Shared Tee',
+        price: 999,
+        quantity: 1,
+        size: 'M',
+        image: 'shared.jpg',
+      },
+    ];
+    sandbox.window.applySharedCart('merge');
+
+    const cart = JSON.parse(storage.getItem('productsInCart'));
+    expect(cart).toHaveLength(1);
+    expect(cart[0].name).toBe('Shared Tee');
+    expect(cart[0].quantity).toBe(3); // 1 existing + 2 shared
+  });
 });
