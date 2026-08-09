@@ -207,7 +207,8 @@ def register(request: Request, response: Response, payload: UserRegister, db: Se
 
 # -- Captcha --
 @router.get("/captcha")
-def get_captcha():
+@limiter.limit("30/minute")
+def get_captcha(request: Request):
     chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
     code = ''.join(random.choices(chars, k=5))
     
