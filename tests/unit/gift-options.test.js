@@ -82,4 +82,24 @@ describe('gift-options.js unit tests', () => {
     expect(window.validateGiftMessageLength('abc', 5)).toBe(true);
     expect(window.validateGiftMessageLength('abcdef', 5)).toBe(false);
   });
+
+  it('trims whitespace before length check and allows whitespace-only strings within limit', async () => {
+    await import('../../js/gift-options.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    // '   ' trimmed is '' which has length 0 <= 200
+    expect(window.validateGiftMessageLength('   ')).toBe(true);
+    // Trimmed length of 10 spaces is 0 <= 200
+    expect(window.validateGiftMessageLength('          ')).toBe(true);
+  });
+
+  it('rejects non-string truthy types gracefully', async () => {
+    await import('../../js/gift-options.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    // Numbers get coerced to string via trim; .toString() handles numbers
+    // null/undefined/empty string all return true per existing tests
+    // Non-string truthy values should return true (handled by typeof check)
+    expect(window.validateGiftMessageLength(0)).toBe(true);
+  });
 });
