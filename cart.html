@@ -297,61 +297,6 @@
     </div>
 
     <script type="module" src="js/loyalty-rewards-engine.js" defer></script>
-    <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const couponInput = document.getElementById("coupon-code-input");
-    const applyBtn = document.getElementById("apply-coupon-btn");
-    const feedback = document.getElementById("coupon-feedback");
-    const discountRow = document.getElementById("summary-discount-row");
-    const discountVal = document.getElementById("summary-discount");
-    
-    if (applyBtn && couponInput && feedback) {
-      applyBtn.addEventListener("click", () => {
-        const val = couponInput.value.trim().toUpperCase();
-        
-        if (val === "CARA20") {
-          feedback.innerHTML = `<span style="color: #088178;"><i class="ri-checkbox-circle-fill"></i> Coupon CARA20 Applied! 20% Discount active.</span>`;
-          
-          if (discountRow && discountVal) {
-            discountRow.style.display = "flex";
-            
-            // Clean out currency symbols AND commas so strings like "7,289" parse as 7289
-            const subtotalText = document.getElementById("summary-subtotal").textContent.replace(/[₹$,]/g, "").trim();
-            const taxText = document.getElementById("summary-tax").textContent.replace(/[₹$,]/g, "").trim();
-            
-            const subtotal = parseFloat(subtotalText) || 0;
-            const tax = parseFloat(taxText) || 0;
-            
-            // Calculate true 20% discount
-            const discount = subtotal * 0.20;
-            
-            // Calculate correct Grand Total
-            const total = subtotal + tax - discount;
-            
-            // Update the UI with beautiful formatting back into the summary card
-            discountVal.textContent = "-₹" + discount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            document.getElementById("summary-total").textContent = "₹" + total.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-          }
-        } else if (val === "") {
-          feedback.innerHTML = `<span style="color: #ef4444;"><i class="ri-error-warning-fill"></i> Please enter a coupon code.</span>`;
-          if (discountRow) discountRow.style.display = "none";
-          const subtotalText = document.getElementById("summary-subtotal").textContent.replace(/[₹$,]/g, "").trim();
-          const taxText = document.getElementById("summary-tax").textContent.replace(/[₹$,]/g, "").trim();
-          const subtotal = parseFloat(subtotalText) || 0;
-          const tax = parseFloat(taxText) || 0;
-          document.getElementById("summary-total").textContent = "₹" + (subtotal + tax).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        } else {
-          feedback.innerHTML = `<span style="color: #ef4444;"><i class="ri-error-warning-fill"></i> Invalid coupon code. Try CARA20.</span>`;
-          if (discountRow) discountRow.style.display = "none";
-          const subtotalText = document.getElementById("summary-subtotal").textContent.replace(/[₹$,]/g, "").trim();
-          const taxText = document.getElementById("summary-tax").textContent.replace(/[₹$,]/g, "").trim();
-          const subtotal = parseFloat(subtotalText) || 0;
-          const tax = parseFloat(taxText) || 0;
-          document.getElementById("summary-total").textContent = "₹" + (subtotal + tax).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        }
-      });
-    }
-  });</script>
    <footer class="section-p1" style="background-color: #3d485a !important; color: #ffffff !important; padding: 25px 40px 40px !important; margin: 40px auto 0 auto !important; border-top: 1px solid rgba(255, 255, 255, 0.1); display: grid !important; grid-template-columns: repeat(4, 1fr) !important; gap: 30px !important; max-width: 1400px !important; width: 100% !important; box-sizing: border-box !important; clear: both !important;">
         
   <!-- COLUMN 1: CONTACT & SOCIALS -->

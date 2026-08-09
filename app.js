@@ -1151,27 +1151,6 @@ window.changeQuantity = function (index, change) {
   updateCartCount();
 };
 
-window.applyCoupon = function () {
-  const promoInput = document.getElementById('coupon-code');
-  if (!promoInput) return;
-  const code = promoInput.value.trim().toUpperCase();
-  const coupons = window.CARA_COUPONS || {};
-
-  if (code === '') {
-    showToast('Please enter a coupon code.', 'warning');
-    return;
-  }
-
-  if (Object.prototype.hasOwnProperty.call(coupons, code)) {
-    window.appliedCoupon = code;
-    localStorage.setItem('appliedCoupon', code);
-    showToast(`${code} applied! ${coupons[code]}% discount added.`, 'success');
-    loadCart();
-  } else {
-    showToast(`Invalid promo code. Try ${Object.keys(coupons)[0] || 'CARA20'}!`, 'error');
-  }
-};
-
 window.removeItem = function (index) {
   let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
   const removedName = cart[index] ? cart[index].name : 'Item';
@@ -1183,9 +1162,6 @@ window.removeItem = function (index) {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  document.body.addEventListener('click', (e) => {
-    if (e.target && e.target.id === 'apply-coupon-btn') applyCoupon();
-  });
   const cartElement = document.getElementById('cart-items-container');
   if (cartElement) loadCart();
 });
