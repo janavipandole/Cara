@@ -87,6 +87,7 @@
 
   // ── Remove coupon logic ────────────────────────────────────────────────────
   function removeCoupon() {
+    const removedCode = window.appliedCoupon || '';
     window.appliedCoupon = '';
     removeAppliedCoupon();
     if (couponInput) {
@@ -95,7 +96,9 @@
     }
     showFeedback('Coupon removed.', 'info');
 
-    window.dispatchEvent(new CustomEvent('couponRemoved'));
+    window.dispatchEvent(
+      new CustomEvent('couponRemoved', { detail: { code: removedCode } }),
+    );
     if (typeof window.updateCheckoutSummary === 'function') {
       window.updateCheckoutSummary();
     }
