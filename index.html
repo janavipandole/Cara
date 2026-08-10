@@ -755,7 +755,8 @@
     <!-- Copyright -->
     <div class="copyright">
       <p>
-        © Cara 2026. All rights reserved. |
+        © Cara <span id="footer-copyright-year">2026</span>. All rights reserved. |
+    <script>document.addEventListener('DOMContentLoaded', function() { var el = document.getElementById('footer-copyright-year'); if (el) el.textContent = new Date().getFullYear(); });</script>|
         <a href="license.html" style="color: #088178"> MIT License </a>
       </p>
     </div>
