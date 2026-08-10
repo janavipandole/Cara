@@ -44,6 +44,30 @@ def test_register_invalid_email(client):
     assert r.status_code == 422
 
 
+def test_register_username_too_short(client):
+    r = client.post(REGISTER_URL, json={**VALID_USER, "username": "ab"})
+    assert r.status_code == 422
+
+
+def test_register_weak_password(client):
+    r = client.post(REGISTER_URL, json={**VALID_USER, "password": "weak"})
+    assert r.status_code == 422
+
+
+# ---------------------------------------------------------------------------
+# Captcha
+# ---------------------------------------------------------------------------
+
+def test_captcha_returns_image_and_token(client):
+    r = client.get("/api/auth/captcha")
+    assert r.status_code == 200
+    body = r.json()
+    assert "captcha_image" in body
+    assert body["captcha_image"].startswith("data:image/png;base64,")
+    assert "captcha_token" in body
+    assert body["captcha_token"]
+
+
 # ---------------------------------------------------------------------------
 # Login
 # ---------------------------------------------------------------------------
