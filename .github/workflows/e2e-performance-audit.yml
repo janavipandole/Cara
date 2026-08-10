@@ -1,0 +1,21 @@
+name: E2E Performance & Accessibility Audit
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Validate Internal Links
+        run: node .github/workflows/scripts/check-links.js
+      - name: Run Accessibility Audit
+        run: node .github/workflows/scripts/audit-accessibility.js

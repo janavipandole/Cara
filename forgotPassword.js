@@ -28,7 +28,13 @@ document.addEventListener('DOMContentLoaded', function () {
     .addEventListener('submit', function (e) {
       e.preventDefault();
 
-      const email = document.getElementById('forgotEmail').value.trim();
+      let email = document.getElementById('forgotEmail').value.trim();
+      if (
+        typeof window !== 'undefined' &&
+        typeof window.sanitizeHTML === 'function'
+      ) {
+        email = window.sanitizeHTML(email);
+      }
       const newPass = document.getElementById('forgotNewPass').value;
       const confirmPass = document.getElementById('forgotConfirmPass').value;
 
@@ -56,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!/[A-Z]/.test(newPass)) {
         showToast(
           'Password must contain at least one uppercase letter (A-Z).',
-          'warning'
+          'warning',
         );
         return;
       }
@@ -64,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!/[a-z]/.test(newPass)) {
         showToast(
           'Password must contain at least one lowercase letter (a-z).',
-          'warning'
+          'warning',
         );
         return;
       }
@@ -72,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!/[0-9]/.test(newPass)) {
         showToast(
           'Password must contain at least one number (0-9).',
-          'warning'
+          'warning',
         );
         return;
       }
@@ -80,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(newPass)) {
         showToast(
           'Password must contain at least one special character (e.g. @, #, $).',
-          'warning'
+          'warning',
         );
         return;
       }
@@ -91,14 +97,16 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       const submitBtn = document.querySelector(
-        '#forgotForm button[type="submit"], #forgotForm .btn-primary'
+        '#forgotForm button[type="submit"], #forgotForm .btn-primary',
       );
       if (submitBtn) {
         submitBtn.classList.add('btn-loading');
         submitBtn.disabled = true;
       }
 
-      const API_BASE = window.CARA_API_BASE_URL || 'http://127.0.0.1:8000';
+      const API_BASE = window.CARA_API_BASE_URL || '';
+      // If the user arrived via the emailed reset link, the token is in the URL.
+      const urlToken = new URLSearchParams(window.location.search).get('token');
 
       fetch(API_BASE + '/api/auth/forgot-password', {
         method: 'POST',
@@ -114,7 +122,16 @@ document.addEventListener('DOMContentLoaded', function () {
           return res.json();
         })
         .then(function (data) {
-          var resetToken = data.reset_token;
+          const resetToken = data.reset_token || urlToken;
+
+          if (!resetToken) {
+            showToast(
+              data.message ||
+                'If an account exists for that email, a reset link has been sent.',
+              'success',
+            );
+            return null;
+          }
 
           return fetch(API_BASE + '/api/auth/reset-password', {
             method: 'POST',
@@ -123,26 +140,27 @@ document.addEventListener('DOMContentLoaded', function () {
               token: resetToken,
               new_password: newPass,
             }),
-          });
-        })
-        .then(function (res) {
-          if (!res.ok) {
-            return res.json().then(function (data) {
-              throw new Error(data.detail || 'Reset failed');
+          })
+            .then(function (res) {
+              if (!res.ok) {
+                return res.json().then(function (errData) {
+                  throw new Error(errData.detail || 'Reset failed');
+                });
+              }
+              return res.json();
+            })
+            .then(function () {
+              showToast(
+                'Password reset successful! Redirecting to login...',
+                'success',
+              );
+              setTimeout(function () {
+                window.location.href = 'login.html';
+              }, 2000);
             });
-          }
-          return res.json();
-        })
-        .then(function () {
-          showToast(
-            'Password reset successful! Redirecting to login...',
-            'success'
-          );
-          setTimeout(function () {
-            window.location.href = 'login.html';
-          }, 2000);
         })
         .catch(function (err) {
+          console.warn('[ForgotPassword] Failed:', err);
           showToast(err.message || 'Password reset failed', 'error');
         })
         .finally(function () {
@@ -153,4 +171,3 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
-

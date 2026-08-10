@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -24,13 +24,12 @@
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="ui-fix.css" />
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <style>
-    /* â”€â”€ 404 Page Styles â”€â”€ */
+    /* ── 404 Page Styles ── */
     #not-found {
       min-height: 70vh;
       display: flex;
@@ -181,13 +180,15 @@
     }
   </script>
   <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
+    <script type="module" src="js/config.js"></script>
 </head>
 
 <body>
-  <!-- â”€â”€ HEADER â”€â”€ -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- ── HEADER ── -->
   <section id="header">
-    <a href="index.html">
-      <img loading="lazy" id="siteLogo" src="images/logo.png" alt="Cara Logo" width="130" height="40" />
+    <a href="index.html" aria-label="Cara Home"><img loading="lazy" id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" width="130" height="40" />
     </a>
     <div id="navbar-container"></div>
     <div id="mobile">
@@ -201,7 +202,7 @@
     </div>
   </section>
 
-  <!-- â”€â”€ 404 SECTION â”€â”€ -->
+  <!-- ── 404 SECTION ── -->
   <main id="main-content">
   <section id="not-found">
 
@@ -236,28 +237,28 @@
   </section>
   </main>
 
-  <!-- â”€â”€ FOOTER â”€â”€ -->
+  <!-- ── FOOTER ── -->
   <footer class="main-footer">
     <div class="footer-top">
       <div class="footer-logo-box">
-        <img class="footer-logo" src="images/logo.png" alt="Cara Logo" width="110" height="34" loading="lazy" />
+        <img class="footer-logo" src="images/Dlogo.png" alt="Cara Logo" width="110" height="34" loading="lazy" />
       </div>
       <div class="footer-socials">
         <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
         <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
         <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
-        <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+        <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
       </div>
     </div>
     <hr class="footer-divider">
     <div class="footer-bottom">
-      <p>Â© 2024 Cara. All Rights Reserved.</p>
+      <p>© 2024 Cara. All Rights Reserved.</p>
     </div>
   </footer>
 
-  <!-- â”€â”€ SCRIPTS â”€â”€ -->
-  <script src="navbar.js"></script>
-  <script src="app.js"></script>
+  <!-- ── SCRIPTS ── -->
+  <script type="module" src="navbar.js"></script>
+  <script type="module" src="app.js"></script>
 
 </body>
 </html>

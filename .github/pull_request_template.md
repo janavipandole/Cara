@@ -1,51 +1,57 @@
-# Pull Request
+# 📋 Summary
+Briefly describe what this PR does and why.
 
-## Related Issue
-<!--
-Every PR MUST link to an existing issue.
-Use "Closes #ISSUE_NUMBER" so GitHub auto-closes the issue on merge.
--->
+---
+
+## 🔗 Related Issue
 Closes #
 
 ---
 
-## Type of Change
-<!-- Mark the boxes that apply. Remove lines that are not relevant. -->
-- [ ] 🐛 Bug fix — non-breaking change that resolves a reported issue
-- [ ] ✨ New feature — non-breaking change that adds functionality
-- [ ] 💥 Breaking change — fix or feature that changes existing behavior
-- [ ] 🎨 UI / UX improvement — visual or interaction polish
-- [ ] ♻️ Refactor — code improvement with no functional change
-- [ ] 📚 Documentation update
-- [ ] ⚙️ CI / tooling / workflow change
-- [ ] 🔒 Security fix
+please put ✓ symbol on correct block depending n your changes.
+
+## 🔄 Type of Change
+
+- [ ] Bug fix
+- [ ] New feature
+- [ ] Documentation update
+- [ ] Style / UI improvement
+- [ ] Refactor
+- [ ] Test
+- [ ] Chore / dependency update
 
 ---
 
-## Summary
-<!--
-2–5 sentence description of WHAT changed and WHY.
-Focus on the decision, not just the diff.
--->
+## 🛠️ What Was Changed
+Briefly decribe what changes you made.
 
----
-
-## Changes Made
-<!--
-Bullet list of the concrete changes in this PR.
-Keep each item focused and scannable.
--->
 - 
 - 
 - 
 
 ---
+## why this needed
+Describe why this project needed this changes.
+-
+-
+-
+---
+## 🧪 How Has This Been Tested?
 
-## Screenshots / Recordings
-<!--
-Required for UI changes. Add before/after screenshots or a short screen recording.
-Drag and drop images directly into this text area.
--->
+Describe how you tested your changes locally.
+
+- [ ] Tested backend API endpoints manually
+- [ ] Ran frontend locally with `npm run dev`
+- [ ] Ran `npm run lint` — no errors
+- [ ] Ran `npm run build` — no errors
+- [ ] Uploaded a test document and verified output
+- [ ] Tested on mobile view
+
+---
+
+## 📸 Screenshots (if applicable)
+
+If your PR includes UI changes, attach before and after screenshots here.
 
 | Before | After |
 |--------|-------|
@@ -53,39 +59,20 @@ Drag and drop images directly into this text area.
 
 ---
 
-## Testing
-<!--
-Describe how you tested these changes so reviewers can verify them quickly.
--->
+## ✅ Self-Review Checklist
 
-### How to Test Locally
-1. 
-2. 
-3. 
-
-### Test Coverage
-- [ ] I added / updated unit tests for the new logic
-- [ ] I verified manually in Chrome (desktop)
-- [ ] I verified manually on a mobile viewport (< 480 px)
-- [ ] I ran `npm run lint` and it passes with no errors
-- [ ] I ran `npm run format:check` and it passes with no errors
-- [ ] Backend: I ran `pytest` and all tests pass (if backend changed)
-- [ ] Backend: Alembic migration applies cleanly with `alembic upgrade head` (if DB schema changed)
+- [ ] My branch name follows the convention (`feat/`, `fix/`, `docs/`)
+- [ ] My commit messages follow the convention (`feat:`, `fix:`, `docs:`)
+- [ ] I have linked the related issue (`Closes #IssueNumber`)
+- [ ] I have tested my changes locally
+- [ ] I have added screenshots for UI changes
+- [ ] My changes do not break existing functionality
+- [ ] I have not pushed any `.env` file or API keys
+- [ ] My PR contains only changes related to the linked issue
 
 ---
 
-## Impact
-<!--
-Explain the user-facing or developer-facing benefit of this change.
--->
+## 📋 Additional Notes
 
----
-
-## Checklist
-- [ ] My code follows the existing style and conventions of this project
-- [ ] I have self-reviewed my diff and removed debug/console logs
-- [ ] I have not introduced any unrelated changes in this PR
-- [ ] The PR title follows [Conventional Commits](https://www.conventionalcommits.org/) format (`fix:`, `feat:`, `docs:`, etc.)
-- [ ] I have updated relevant documentation (README, CONTRIBUTING, inline comments) if needed
-- [ ] All new and existing tests pass
-- [ ] This PR is independently reviewable and mergeable (no stacked dependencies)
+Any additional information for the reviewer.
+

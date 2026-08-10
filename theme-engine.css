@@ -1,0 +1,44 @@
+/* Centralized Theme Engine Custom Properties & Transition Tokens */
+
+:root {
+  --bg-primary: #ffffff;
+  --text-primary: #1a1a1a;
+  --card-bg: #f8f9fa;
+  --border-color: #e2e8f0;
+  --accent-color: #088178;
+}
+
+[data-theme="dark"] {
+  --bg-primary: #121212;
+  --text-primary: #f0f0f0;
+  --card-bg: #1e1e1e;
+  --border-color: #333333;
+  --accent-color: #0ba398;
+}
+
+[data-theme="high-contrast"] {
+  --bg-primary: #000000;
+  --text-primary: #ffffff;
+  --card-bg: #000000;
+  --border-color: #ffffff;
+  --accent-color: #ffff00;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.theme-toggle-btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}

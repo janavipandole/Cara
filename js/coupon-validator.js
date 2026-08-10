@@ -16,15 +16,37 @@
 (function () {
   'use strict';
 
-  const COUPONS = {
-    CARA20: 20,
-    WELCOME10: 10,
-  };
+  const COUPONS = window.CARA_COUPONS || {};
 
   // ── DOM references ──────────────────────────────────────────────────────────
   const couponInput = document.getElementById('couponCodeInput');
   const applyBtn = document.getElementById('applyCouponBtn');
   const feedbackEl = document.getElementById('couponFeedback');
+
+  // ── Safe storage access ────────────────────────────────────────────────────
+  function saveAppliedCoupon(code) {
+    try {
+      localStorage.setItem('appliedCoupon', code);
+    } catch (e) {
+      // Ignore storage failures in restricted environments.
+    }
+  }
+
+  function removeAppliedCoupon() {
+    try {
+      localStorage.removeItem('appliedCoupon');
+    } catch (e) {
+      // Ignore storage failures in restricted environments.
+    }
+  }
+
+  function readAppliedCoupon() {
+    try {
+      return localStorage.getItem('appliedCoupon');
+    } catch (e) {
+      return null;
+    }
+  }
 
   // ── Apply coupon logic ─────────────────────────────────────────────────────
   function applyCoupon() {
@@ -38,20 +60,20 @@
     }
 
     if (Object.prototype.hasOwnProperty.call(COUPONS, code)) {
-      const discountPct = COUPONS[code];
+      const discountPct = Math.min(Number(COUPONS[code]) || 0, 100);
       window.appliedCoupon = code;
-      localStorage.setItem('appliedCoupon', code);
+      saveAppliedCoupon(code);
 
       showFeedback(
         `Coupon "${code}" applied! You saved ${discountPct}%.`,
-        'success'
+        'success',
       );
       couponInput.classList.remove('is-invalid');
       couponInput.classList.add('is-valid');
 
       // Dispatch event to trigger summary re-render
       window.dispatchEvent(
-        new CustomEvent('couponApplied', { detail: { code, discountPct } })
+        new CustomEvent('couponApplied', { detail: { code, discountPct } }),
       );
       if (typeof window.updateCheckoutSummary === 'function') {
         window.updateCheckoutSummary();
@@ -65,15 +87,18 @@
 
   // ── Remove coupon logic ────────────────────────────────────────────────────
   function removeCoupon() {
+    const removedCode = window.appliedCoupon || '';
     window.appliedCoupon = '';
-    localStorage.removeItem('appliedCoupon');
+    removeAppliedCoupon();
     if (couponInput) {
       couponInput.value = '';
       couponInput.classList.remove('is-valid', 'is-invalid');
     }
     showFeedback('Coupon removed.', 'info');
 
-    window.dispatchEvent(new CustomEvent('couponRemoved'));
+    window.dispatchEvent(
+      new CustomEvent('couponRemoved', { detail: { code: removedCode } }),
+    );
     if (typeof window.updateCheckoutSummary === 'function') {
       window.updateCheckoutSummary();
     }
@@ -105,7 +130,7 @@
     }
 
     // Auto-apply saved coupon on load
-    const saved = localStorage.getItem('appliedCoupon');
+    const saved = readAppliedCoupon();
     if (saved) {
       if (couponInput) couponInput.value = saved;
       applyCoupon();
@@ -113,4 +138,9 @@
   }
 
   document.addEventListener('DOMContentLoaded', init);
+
+  // Expose utility functions globally for external use
+  window.isCouponDateExpired = isCouponDateExpired;
 })();
+
+function isCouponDateExpired(expiryDate) { if (!expiryDate) return false; return new Date(expiryDate).getTime() < Date.now(); }

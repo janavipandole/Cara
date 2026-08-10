@@ -15,16 +15,23 @@
   const STATUS_API = '/api/admin/analytics/order-status-distribution';
 
   // ── DOM References ─────────────────────────────────────────────────────────
-  const revEl       = document.getElementById('analyticsRevenue');
-  const volumeEl    = document.getElementById('analyticsOrders');
+  const revEl = document.getElementById('analyticsRevenue');
+  const volumeEl = document.getElementById('analyticsOrders');
   const customersEl = document.getElementById('analyticsCustomers');
-  const catTable    = document.getElementById('analyticsCategoryTable');
-  const statusWrap  = document.getElementById('analyticsStatusWrap');
-  const errorAlert  = document.getElementById('analyticsError');
+  const catTable = document.getElementById('analyticsCategoryTable');
+  const statusWrap = document.getElementById('analyticsStatusWrap');
+  const errorAlert = document.getElementById('analyticsError');
 
   // ── Format helpers ─────────────────────────────────────────────────────────
   function _fmtRev(val) {
-    return '₹' + parseFloat(val).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+    const num = parseFloat(val);
+    const safe = isFinite(num) ? num : 0;
+    return (
+      '₹' +
+      safe
+        .toFixed(2)
+        .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+    );
   }
 
   function _escape(str) {
@@ -39,22 +46,38 @@
   // ── Render functions ───────────────────────────────────────────────────────
   function renderSummary(data) {
     if (revEl) revEl.textContent = _fmtRev(data.total_revenue || 0);
-    if (volumeEl) volumeEl.textContent = (data.total_orders || 0).toLocaleString();
-    if (customersEl) customersEl.textContent = (data.total_customers || 0).toLocaleString();
+    if (volumeEl)
+      volumeEl.textContent = (data.total_orders || 0).toLocaleString();
+    if (customersEl)
+      customersEl.textContent = (data.total_customers || 0).toLocaleString();
   }
 
   function renderCategorySales(list) {
     if (!catTable) return;
     if (list.length === 0) {
-      catTable.innerHTML = '<tr><td colspan="3" class="text-muted text-center">No sales recorded yet.</td></tr>';
+      catTable.innerHTML =
+        '<tr><td colspan="3" class="text-muted text-center">No sales recorded yet.</td></tr>';
       return;
     }
-    catTable.innerHTML = list
+    const validList = list.filter(
+      (r) =>
+        r &&
+        typeof r.category === 'string' &&
+        r.category.trim() !== '' &&
+        typeof r.units_sold === 'number' &&
+        isFinite(r.units_sold),
+    );
+    if (validList.length === 0) {
+      catTable.innerHTML =
+        '<tr><td colspan="3" class="text-muted text-center">No valid sales recorded.</td></tr>';
+      return;
+    }
+    catTable.innerHTML = validList
       .map(
         (r) => `
       <tr>
-        <td><strong>${_escape(r.category.toUpperCase())}</strong></td>
-        <td class="text-right">${r.units_sold.toLocaleString()} units</td>
+        <td><strong>${_escape(String(r.category || '').toUpperCase())}</strong></td>
+        <td class="text-right">${(Number(r.units_sold) || 0).toLocaleString()} units</td>
         <td class="text-right font-weight-bold text-teal">${_fmtRev(r.revenue)}</td>
       </tr>`,
       )
@@ -64,7 +87,8 @@
   function renderStatusDistribution(list) {
     if (!statusWrap) return;
     if (list.length === 0) {
-      statusWrap.innerHTML = '<p class="text-muted text-center">No orders to categorize.</p>';
+      statusWrap.innerHTML =
+        '<p class="text-muted text-center">No orders to categorize.</p>';
       return;
     }
     const maxVal = Math.max(...list.map((r) => r.count), 1);
@@ -95,7 +119,11 @@
         fetch(STATUS_API, { credentials: 'include' }),
       ]);
 
-      if (sumRes.status === 403 || catRes.status === 403) {
+      if (
+        sumRes.status === 403 ||
+        catRes.status === 403 ||
+        statRes.status === 403
+      ) {
         throw new Error('Admin privilege required.');
       }
       if (!sumRes.ok || !catRes.ok || !statRes.ok) {
@@ -112,7 +140,7 @@
 
       if (errorAlert) errorAlert.style.display = 'none';
     } catch (err) {
-      console.error('[AdminAnalytics] Load failed:', err);
+      // Silently handle -- error surfaced via errorAlert DOM element
       if (errorAlert) {
         errorAlert.textContent = err.message || 'Error loading dashboard.';
         errorAlert.style.display = 'block';
@@ -122,12 +150,17 @@
   }
 
   // ── Initialise ─────────────────────────────────────────────────────────────
-  document.addEventListener('DOMContentLoaded', () => {
+  function initDashboard() {
     // Only load if dashboard components exist on page
     if (revEl || catTable || statusWrap) {
       loadDashboard();
     }
-  });
+  }
+
+  // Load immediately when the script runs after DOMContentLoaded, and also on
+  // the event for scripts that execute during initial parsing.
+  document.addEventListener('DOMContentLoaded', initDashboard);
+  initDashboard();
 
   window.AdminDashboard = { refresh: loadDashboard };
 })();

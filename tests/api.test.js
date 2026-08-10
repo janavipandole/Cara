@@ -17,7 +17,11 @@ test('fetchData aborts the previous request for the same request key', async () 
 
       return new Promise((resolve, reject) => {
         const abortHandler = () => {
-          reject(Object.assign(new Error('The operation was aborted.'), { name: 'AbortError' }));
+          reject(
+            Object.assign(new Error('The operation was aborted.'), {
+              name: 'AbortError',
+            }),
+          );
         };
 
         if (signal) {
@@ -42,8 +46,12 @@ test('fetchData aborts the previous request for the same request key', async () 
   vm.runInContext(script, context);
 
   const api = context.window.CaraAPI;
-  const firstRequest = api.fetchData('/api/products/1', { requestKey: 'product-details' });
-  const secondRequest = api.fetchData('/api/products/2', { requestKey: 'product-details' });
+  const firstRequest = api.fetchData('/api/products/1', {
+    requestKey: 'product-details',
+  });
+  const secondRequest = api.fetchData('/api/products/2', {
+    requestKey: 'product-details',
+  });
 
   await assert.rejects(firstRequest, (error) => error.name === 'AbortError');
   await assert.doesNotReject(secondRequest);

@@ -1,42 +1,25 @@
 ---
-name: ✨ Feature Request
-about: Suggest a new feature or enhancement for this project
-title: "[FEATURE] <short description>"
+name: Feature Request
+about: Suggest an idea or enhancement for Cara (ELUSoC_2026 format)
+title: '[ELUSoC_2026] feat: '
 labels: enhancement
+assignees: ''
 ---
 
-## 💡 Summary
+# Problem
+Describe the feature requirement or user problem.
 
-Describe the feature you’d like to see added.
+# Current Behavior
+Explain current functionality.
 
----
+# Why This Improvement Is Needed
+Explain value to users or maintainers.
 
-## 🔍 Problem Statement
+# Proposed Solution
+Outline the architectural design or code implementation strategy.
 
-What problem does this feature solve?  
-Why is it important?
+# Expected Outcome
+Detail expected UI/UX or performance gains.
 
----
-
-## 🧩 Proposed Solution
-
-Explain your idea or approach clearly.
-
----
-
-## 🧠 Alternatives Considered
-
-Mention any other solutions or workarounds you’ve thought of.
-
----
-
-## 🎨 Additional Context (Optional)
-
-Add any mockups, references, or related ideas here.
-
----
-
-## ✅ Checklist
-
-- [ ] I have checked existing issues for similar feature requests.  
-- [ ] I have clearly explained the benefit of this feature.  
+# Additional Notes
+Technical considerations or browser compatibility requirements.

@@ -14,11 +14,11 @@
 
   // ── DOM References ─────────────────────────────────────────────────────────
   const addressInput = document.getElementById('address');
-  const cityInput    = document.getElementById('city');
-  const zipInput     = document.getElementById('zip');
+  const cityInput = document.getElementById('city');
+  const zipInput = document.getElementById('zip');
 
-  let listContainer  = null;
-  let debounceTimer  = null;
+  let listContainer = null;
+  let debounceTimer = null;
 
   // ── Utility: debounce ──────────────────────────────────────────────────────
   function debounce(fn, wait) {
@@ -92,12 +92,14 @@
     listContainer.setAttribute('aria-label', 'Address suggestions');
 
     // Position suggestions list relative to address input wrapper
-    const wrapper = addressInput.closest('.input-group') || addressInput.parentElement;
+    const wrapper =
+      addressInput.closest('.input-group') || addressInput.parentElement;
     wrapper.style.position = 'relative';
     wrapper.appendChild(listContainer);
   }
 
   function escapeHTML(str) {
+  if (!str) return '';
     return String(str)
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
@@ -114,13 +116,25 @@
       return;
     }
 
+    let loader = null;
+    if (typeof window.AutocompleteLoader === 'function') {
+      const loaderEl = document.getElementById('address-loader');
+      loader = new window.AutocompleteLoader(loaderEl);
+      loader.showLoader();
+    }
+
     try {
       const res = await fetch(`${SUGGEST_API}?q=${encodeURIComponent(val)}`);
       if (!res.ok) throw new Error('API error');
       const list = await res.json();
       showSuggestions(list);
-    } catch {
+    } catch (err) {
+      console.warn('Address autocomplete failed:', err);
       hideSuggestions();
+    } finally {
+      if (loader) {
+        loader.hideLoader();
+      }
     }
   }
 
@@ -128,11 +142,18 @@
   function init() {
     if (!addressInput) return;
 
-    addressInput.addEventListener('input', debounce(fetchSuggestions, DEBOUNCE_MS));
+    addressInput.addEventListener(
+      'input',
+      debounce(fetchSuggestions, DEBOUNCE_MS),
+    );
 
     // Hide suggestions on click outside
     document.addEventListener('click', (e) => {
-      if (listContainer && !listContainer.contains(e.target) && e.target !== addressInput) {
+      if (
+        listContainer &&
+        !listContainer.contains(e.target) &&
+        e.target !== addressInput
+      ) {
         hideSuggestions();
       }
     });

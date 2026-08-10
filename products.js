@@ -366,7 +366,7 @@ const products = [
 function renderStars(baseRating, productId) {
   // Load user's saved rating if it exists, else use base rating
   const savedRating = parseFloat(
-    localStorage.getItem('userRating_' + productId)
+    localStorage.getItem('userRating_' + productId),
   );
   const displayRating = !isNaN(savedRating) ? savedRating : baseRating;
 
@@ -391,7 +391,7 @@ function renderStars(baseRating, productId) {
     // ── User rating on click ──
     starIcon.addEventListener('click', (e) => {
       e.stopPropagation();
-      const clickedValue = parseInt(starIcon.dataset.value);
+      const clickedValue = parseInt(starIcon.dataset.value, 10);
       saveUserRating(productId, clickedValue, starDiv);
     });
 
@@ -447,7 +447,7 @@ function saveUserRating(productId, rating, starDiv) {
 function highlightStars(starDiv, upTo) {
   const stars = starDiv.querySelectorAll('i[data-value]');
   stars.forEach((star) => {
-    const val = parseInt(star.dataset.value);
+    const val = parseInt(star.dataset.value, 10);
     star.className = val <= upTo ? 'ri-star-fill' : 'ri-star-line';
   });
 }
@@ -460,7 +460,7 @@ function highlightStars(starDiv, upTo) {
 function updateStarDisplay(starDiv, rating) {
   const stars = starDiv.querySelectorAll('i[data-value]');
   stars.forEach((star) => {
-    const i = parseInt(star.dataset.value);
+    const i = parseInt(star.dataset.value, 10);
     if (i <= Math.floor(rating)) {
       star.className = 'ri-star-fill';
     } else if (i === Math.ceil(rating) && rating % 1 !== 0) {
@@ -474,14 +474,23 @@ function updateStarDisplay(starDiv, rating) {
 function safeParseJSON(key, fallback = '[]') {
   try {
     return JSON.parse(localStorage.getItem(key) || fallback);
-  } catch {
+  } catch (e) {
+    window.logError(`Corrupted localStorage data for "${key}":`, e);
+    if (typeof showToast === 'function') {
+      showToast(
+        'Some saved data was corrupted and has been reset. Please re-add your items.',
+        'warning',
+      );
+    }
     try {
       return JSON.parse(fallback);
-    } catch {
-      return [];
+    } catch (err) {
+      console.warn('Failed to process data:', err);
     }
+    return [];
   }
 }
+
 
 // Wishlist logic has been migrated to app.js for global availability.
 
@@ -491,13 +500,12 @@ function safeParseJSON(key, fallback = '[]') {
  * @param {string} text - The original text to display
  * @param {string} query - The search query term
  */
-function appendHighlightedText(target, text, query) {
+function appendHighlightedText(target, text, query, highlightRanges) {
   const safeText = String(text || '');
   const safeQuery = String(query || '').trim();
 
-  target.textContent = '';
+  target.textContent = safeText;
   if (!safeText || !safeQuery) {
-    target.textContent = safeText;
     return;
   }
 
@@ -505,31 +513,31 @@ function appendHighlightedText(target, text, query) {
   const lowerQuery = safeQuery.toLowerCase();
   let cursor = 0;
 
+  const textNode = target.firstChild;
+  if (!textNode) return;
+
   while (cursor < safeText.length) {
     const matchIndex = lowerText.indexOf(lowerQuery, cursor);
     if (matchIndex === -1) {
-      target.appendChild(document.createTextNode(safeText.slice(cursor)));
       break;
     }
 
-    if (matchIndex > cursor) {
-      target.appendChild(
-        document.createTextNode(safeText.slice(cursor, matchIndex))
-      );
+    if (highlightRanges) {
+      const range = new Range();
+      range.setStart(textNode, matchIndex);
+      range.setEnd(textNode, matchIndex + safeQuery.length);
+      highlightRanges.push(range);
     }
 
-    const highlight = document.createElement('span');
-    highlight.className = 'highlight';
-    highlight.textContent = safeText.slice(
-      matchIndex,
-      matchIndex + safeQuery.length
-    );
-    target.appendChild(highlight);
     cursor = matchIndex + safeQuery.length;
   }
 }
 
-function renderProducts(containerId, list, query = '') {
+function yieldToMain() {
+  return new Promise((resolve) => setTimeout(resolve, 0));
+}
+
+async function renderProducts(containerId, list, query = '') {
   const container = document.getElementById(containerId);
   if (!container) return;
 
@@ -537,6 +545,11 @@ function renderProducts(containerId, list, query = '') {
     const searchInput = document.getElementById('searchInput');
     query = searchInput ? searchInput.value.trim() : '';
   }
+
+  if (window.CSS && CSS.highlights) {
+    CSS.highlights.delete('search-results');
+  }
+  const highlightRanges = [];
 
   // Remove any existing static product nodes to avoid duplicates
   document.querySelectorAll('.pro').forEach((n) => n.remove());
@@ -573,15 +586,20 @@ function renderProducts(containerId, list, query = '') {
     return;
   }
 
-  list.forEach((p) => {
+  for (const p of list) {
+    if (navigator.scheduling && navigator.scheduling.isInputPending && navigator.scheduling.isInputPending()) {
+      await yieldToMain();
+    }
+
     const card = document.createElement('div');
     card.className = 'pro';
     card.dataset.category = p.category;
+    card.dataset.productId = p.id;
     card.addEventListener('click', () => {
       const selectedProduct = {
         id: p.id,
         name: p.name,
-        price: '$' + p.price,
+        price: '₹' + Math.round(Number(p.price)).toLocaleString('en-IN'),
         brand: p.brand,
         image: p.img,
       };
@@ -659,15 +677,15 @@ function renderProducts(containerId, list, query = '') {
     brandRow.className = 'pro-brand-row';
     brandRow.insertAdjacentHTML(
       'beforeend',
-      '<svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>'
+      '<svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>',
     );
     const brandText = document.createElement('span');
-    appendHighlightedText(brandText, p.brand, query);
+    appendHighlightedText(brandText, p.brand, query, highlightRanges);
     brandRow.appendChild(brandText);
     des.appendChild(brandRow);
 
     const nameH5 = document.createElement('h5');
-    appendHighlightedText(nameH5, p.name, query);
+    appendHighlightedText(nameH5, p.name, query, highlightRanges);
     des.appendChild(nameH5);
 
     // Dynamic interactive star rating
@@ -697,7 +715,7 @@ function renderProducts(containerId, list, query = '') {
     cartBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       e.preventDefault();
-      addToCart(p.name, '₹' + p.price, p.img, 1, 'M');
+      addToCart(p.name, '₹' + p.price, p.img, 1, 'M', p.id);
     });
     const cartIcon = document.createElement('i');
     cartIcon.className = 'ri-shopping-cart-2-line';
@@ -723,7 +741,7 @@ function renderProducts(containerId, list, query = '') {
           currentPrice: p.price,
           previousPrice: p.price,
         },
-        wishlistBtn
+        wishlistBtn,
       );
     });
     actionBar.appendChild(wishlistBtn);
@@ -731,7 +749,7 @@ function renderProducts(containerId, list, query = '') {
     des.appendChild(actionBar);
     card.appendChild(des);
     container.appendChild(card);
-  });
+  }
 }
 
 function updateSearchSummary(filteredCount) {
@@ -753,7 +771,7 @@ function renderSearchSuggestions(query) {
     .filter(
       (p) =>
         p.name.toLowerCase().includes(normalizedQuery) ||
-        p.brand.toLowerCase().includes(normalizedQuery)
+        p.brand.toLowerCase().includes(normalizedQuery),
     )
     .slice(0, 5);
 
@@ -764,7 +782,8 @@ function renderSearchSuggestions(query) {
     return;
   }
 
-  suggestions.forEach((item) => {
+  const fragment = document.createDocumentFragment();
+  suggestions.map((item) => {
     const button = document.createElement('button');
     button.type = 'button';
     button.textContent = `${item.name} — ${item.brand}`;
@@ -776,8 +795,9 @@ function renderSearchSuggestions(query) {
         input.focus();
       }
     });
-    suggestionsElement.appendChild(button);
+    fragment.appendChild(button);
   });
+  suggestionsElement.appendChild(fragment);
 }
 
 /**
@@ -888,9 +908,29 @@ function attachSearchListeners() {
  * Resolves #1691
  * Adds an item to the cart and persists it to localStorage.
  */
-function addToCart(name, price, img, quantity, size) {
+function addToCart(name, price, img, quantity, size, productId) {
   const cart = safeParseJSON('productsInCart');
-  cart.push({ name, price, img, quantity, size, id: Date.now() });
+  const parsedQty = parseInt(quantity, 10) || 1;
+  const item = {
+    id: productId != null && productId !== '' ? Number(productId) : undefined,
+    name,
+    price,
+    image: img,
+    img,
+    quantity: parsedQty,
+    size,
+  };
+  const existing = cart.find(
+    (p) =>
+      (item.id != null && p.id != null ? Number(p.id) === item.id : p.name === name) &&
+      p.size === size,
+  );
+  if (existing) {
+    existing.quantity = (parseInt(existing.quantity, 10) || 0) + parsedQty;
+    if (existing.id == null && item.id != null) existing.id = item.id;
+  } else {
+    cart.push(item);
+  }
   try {
     localStorage.setItem('productsInCart', JSON.stringify(cart));
     if (typeof showToast === 'function') {
@@ -904,16 +944,14 @@ function addToCart(name, price, img, quantity, size) {
   }
 }
 
-function buyNow(name, price, img, quantity, size) {
-  const cart = safeParseJSON('productsInCart');
-  cart.push({ name, price, img, quantity, size, id: Date.now() });
+function buyNow(name, price, img, quantity, size, productId) {
+  addToCart(name, price, img, quantity, size, productId);
   try {
-    localStorage.setItem('productsInCart', JSON.stringify(cart));
     window.location.href = 'checkout.html';
   } catch (e) {
-    window.logError('Failed to save cart:', e);
+    window.logError('Failed to navigate to checkout:', e);
     if (typeof showToast === 'function') {
-      showToast('Storage limit reached! Cannot proceed to checkout.', 'error');
+      showToast('Could not proceed to checkout.', 'error');
     }
   }
 }
@@ -951,19 +989,21 @@ function showToast(message, type = 'success') {
   const iconDiv = document.createElement('div');
   iconDiv.className = 'toast-icon';
   iconDiv.textContent = icon;
-  
+
   const msgDiv = document.createElement('div');
   msgDiv.className = 'toast-msg';
   msgDiv.textContent = message;
-  
+
   const closeBtn = document.createElement('button');
   closeBtn.className = 'toast-close';
   closeBtn.innerHTML = '&times;';
-  closeBtn.onclick = function() { this.parentElement.remove(); };
-  
+  closeBtn.onclick = function () {
+    this.parentElement.remove();
+  };
+
   const progressDiv = document.createElement('div');
   progressDiv.className = 'toast-progress';
-  
+
   toast.appendChild(iconDiv);
   toast.appendChild(msgDiv);
   toast.appendChild(closeBtn);
@@ -979,3 +1019,9 @@ function showToast(message, type = 'success') {
     }, 350); // Exact exit duration specified in .toast-hiding cubic-bezier curve
   }, 3650); // Active visibility shelf life before auto dismissal
 }
+
+// Skeleton UI integration added
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { products };
+}
+

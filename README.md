@@ -1,10 +1,11 @@
 # 🛍️ Cara - E-commerce Platform
 
 ## Architecture Overview
-- **Frontend**: Clean semantic HTML5, modern vanilla CSS, responsive layouts, and app.js state handling.
-- **Database**: SQLite `cara.db` file mapping backend models.
-- **Workflows**: GitHub actions verify builds, run dependency checks, and auto-label code triage.
-- **Asset Assets**: Located under `assets/` and `images/` directories.
+- **Architecture Specification**: Detailed system design and flow diagrams in [ARCHITECTURE.md](ARCHITECTURE.md).
+- **API Reference**: Comprehensive module API endpoints in [API Reference](docs/API_REFERENCE.md).
+- **Development Standards**: Coding guidelines and CSS tokens in [Style Guide](docs/STYLE_GUIDE.md).
+- **Deployment Guide**: Containerized Docker setup in [Deployment Guide](docs/DEPLOYMENT.md).
+- **Frontend**: Clean semantic HTML5, modern vanilla CSS, responsive layouts, and ES JavaScript modules.
 
 > Officially participating in
 ## GSSOC 2026
@@ -110,12 +111,20 @@ All you need is a modern web browser and a text editor! Cara is designed for lig
    cd Cara
    ```
 
-2. **Install development dependencies**
+2. **Run with Docker Compose (API + Postgres + frontend)**
+   ```bash
+   cp .env.example .env
+   docker compose up --build -d
+   ```
+   - Store: http://localhost:8080
+   - API health: http://localhost:8000/health
+
+3. **Or install frontend tooling only**
    ```bash
    npm install
    ```
 
-3. **Verify linting and formatting**
+4. **Verify linting and formatting**
    ```bash
    npm run lint
    npm run format:check
@@ -220,6 +229,24 @@ Cara/
 | style.css | Contains global styles and layouts |
 | images/ | Stores static image assets |
 
+### Frontend Utility Modules
+
+The frontend keeps small, focused helpers in `js/` that are reusable across pages:
+
+- `currency-converter.js` — multi-currency conversion and locale-aware price formatting.
+- `coupon-validator.js` / `cart-coupon.js` — checkout and cart coupon application and feedback.
+- `lazyload-observer.js` — IntersectionObserver-based lazy image loading with a no-observer fallback.
+- `csrf-protection.js` — CSRF token generation and header injection for forms.
+- `checkout-autosave.js` / `contact-autosave.js` — local draft persistence for forms.
+- `recently-viewed.js` — capped, de-duplicated recently-viewed product tracking and carousel.
+- `theme-engine.js` — light/dark/high-contrast theme resolution with localStorage persistence.
+- `input-shield.js` — client-side XSS script-injection filtering on form submit.
+- `i18n.js`, `loyalty-rewards-engine.js`, `error-logger.js` — translation, loyalty points, and error logging helpers.
+- `utils/debounce.js` — reusable trailing-edge debounce utility for throttling rapid event handlers.
+- `a11y-focus-trap.js` — keyboard focus trap for modal and dialog flows so tab navigation stays contained.
+- `a11y-announcer.js` — ARIA live-region announcement manager for screen reader feedback.
+
+Many of these expose their logic on `window` (or as ES module exports) so they can be exercised by unit tests in `tests/unit/`.
 
 ## 📸 Screenshots
 Homepage - 
@@ -250,13 +277,13 @@ Cart -
 - [x] Blog section
 
 ### Upcoming Features
-- [ ] **Product Search** - Search functionality with filters
-- [ ] **User Authentication** - Login and registration
-- [ ] **Product Filters** - Filter by category, price, rating
-- [ ] **Wishlist** - Save favorite products
+- [x] **Product Search** - Search functionality with filters
+- [x] **User Authentication** - Login and registration
+- [x] **Product Filters** - Filter by category, price, rating
+- [x] **Wishlist** - Save favorite products
 - [ ] **Product Reviews** - Customer ratings and reviews
-- [ ] **Order Tracking** - Track order status
-- [ ] **Dark Mode** - Theme toggle functionality
+- [x] **Order Tracking** - Track order status
+- [x] **Dark Mode** - Theme toggle functionality
 - [ ] **Multi-language Support** - Internationalization
 - [ ] **Backend Integration** - Connect to API/database
 - [ ] **Payment Gateway** - Integrate payment processing
@@ -349,3 +376,14 @@ If you encounter issues when running `npm run lint` or `eslint` locally, ensure 
 
 ## Production Optimization
 Use PurgeCSS to remove unused classes. (Fix #2418)
+
+
+## CI/CD Pipeline
+- Automated E2E Link Checker
+- Automated Accessibility Audit
+
+### Frontend Utility Modules
+- `js/currency-converter.js`: Multi-currency converter with floating-point precision and locale symbol mapping.
+- `js/pincode-validation-engine.js`: Regional postal code validator and delivery zone calculator.
+- `js/outfit-compatibility-engine.js`: Color harmony and style tag matching score engine.
+- `js/address-validation-service.js`: Address field format validator and HTML sanitization module.

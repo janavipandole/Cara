@@ -1,175 +1,200 @@
 /* global fetchWithTimeout */
-const API_BASE_URL = window.CARA_API_BASE_URL || 'http://127.0.0.1:8000';
+const API_BASE_URL = window.CARA_API_BASE_URL || '';
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('loginForm');
-  const passwordInput = document.getElementById('loginPassword');
-  const toggleBtn = document.getElementById('togglePassword');
-  const toggleIcon = document.getElementById('toggleIcon');
+  if (!form) return;
+
   const emailInput = document.getElementById('loginEmail');
+  const passwordInput = document.getElementById('loginPassword');
+  const emailError = document.getElementById('emailError');
+  const passwordError = document.getElementById('passwordError');
+  const formError = document.getElementById('formError');
   const submitBtn = document.getElementById('loginSubmitBtn');
-
-  // captcha stuff
   const captchaSection = document.getElementById('captcha-section');
-  const captchaCanvas = document.getElementById('captcha-canvas');
   const captchaInput = document.getElementById('captcha-input');
+  const captchaError = document.getElementById('captchaError');
+  const captchaCanvas = document.getElementById('captcha-canvas');
   const captchaRefresh = document.getElementById('captcha-refresh');
+  const togglePassword = document.getElementById('togglePassword');
+  const toggleIcon = document.getElementById('toggleIcon');
 
-  let loginAttempts = 0;
-  let currentCaptchaToken = '';
+  let captchaToken = null;
+  let captchaRequired = false;
 
-  function showToast(message, type) {
-    const container = document.getElementById('toast-container');
-    if (!container) return;
-    const toast = document.createElement('div');
-    toast.className = 'toast toast-' + type;
-    toast.textContent = message;
-    container.appendChild(toast);
-    setTimeout(() => toast.classList.add('show'), 10);
-    setTimeout(() => {
-      toast.classList.remove('show');
-      setTimeout(() => toast.remove(), 400);
-    }, 3000);
+  function setFieldError(input, errorEl, message) {
+    if (input) input.setAttribute('aria-invalid', message ? 'true' : 'false');
+    if (errorEl) errorEl.textContent = message || '';
   }
 
-  if (toggleBtn && passwordInput && toggleIcon) {
-    toggleBtn.addEventListener('click', function () {
-      if (passwordInput.type === 'password') {
-        passwordInput.type = 'text';
-        toggleIcon.className = 'ri-eye-off-line';
-      } else {
-        passwordInput.type = 'password';
-        toggleIcon.className = 'ri-eye-line';
+  function setFormError(message) {
+    if (formError) formError.textContent = message || '';
+  }
+
+  function setBusy(isBusy) {
+    if (!submitBtn) return;
+    submitBtn.disabled = isBusy;
+    submitBtn.setAttribute('aria-busy', String(isBusy));
+  }
+
+  async function loadCaptcha() {
+    if (!captchaSection) return;
+    captchaRequired = true;
+    captchaSection.style.display = 'block';
+    setFieldError(captchaInput, captchaError, '');
+
+    try {
+      const fetchFunc =
+        typeof fetchWithTimeout === 'function' ? fetchWithTimeout : fetch;
+      const res = await fetchFunc(`${API_BASE_URL}/api/auth/captcha`, {
+        method: 'GET',
+        credentials: 'include',
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.detail || 'Failed to load captcha');
       }
+
+      captchaToken = data.captcha_token || null;
+      if (captchaCanvas && data.captcha_image) {
+        const ctx = captchaCanvas.getContext('2d');
+        const image = new Image();
+        image.onload = () => {
+          ctx.clearRect(0, 0, captchaCanvas.width, captchaCanvas.height);
+          ctx.drawImage(image, 0, 0, captchaCanvas.width, captchaCanvas.height);
+        };
+        image.src = data.captcha_image;
+      }
+      if (captchaInput) captchaInput.value = '';
+    } catch (err) {
+      setFieldError(
+        captchaInput,
+        captchaError,
+        err.message || 'Failed to load captcha',
+      );
+    }
+  }
+
+  if (togglePassword && passwordInput) {
+    togglePassword.addEventListener('click', () => {
+      const showing = passwordInput.type === 'text';
+      passwordInput.type = showing ? 'password' : 'text';
+      if (toggleIcon) {
+        toggleIcon.className = showing ? 'ri-eye-line' : 'ri-eye-off-line';
+      }
+      togglePassword.setAttribute(
+        'aria-label',
+        showing ? 'Show password' : 'Hide password',
+      );
     });
   }
 
-  async function fetchCaptcha() {
-    try {
-      const res = await fetch(`${API_BASE_URL}/api/auth/captcha`, {
-        credentials: 'include'
-      });
-      if (res.ok) {
-        const data = await res.json();
-        currentCaptchaToken = data.captcha_token;
-        if (captchaCanvas) {
-          const ctx = captchaCanvas.getContext('2d');
-          const img = new Image();
-          img.onload = function () {
-            ctx.clearRect(0, 0, captchaCanvas.width, captchaCanvas.height);
-            ctx.drawImage(img, 0, 0, captchaCanvas.width, captchaCanvas.height);
-          };
-          img.src = data.captcha_image;
-        }
-      }
-    } catch (e) {
-      window.logError('Failed to fetch secure captcha');
-    }
-    if (captchaInput) {
-      captchaInput.value = '';
-    }
-  }
-
   if (captchaRefresh) {
-    captchaRefresh.addEventListener('click', fetchCaptcha);
+    captchaRefresh.addEventListener('click', () => {
+      loadCaptcha();
+    });
   }
 
-  function setValidity(input, isValid, message) {
-    if (!input) return;
-    input.setAttribute('aria-invalid', String(!isValid));
-    var errorEl = document.getElementById(input.id + 'Error') ||
-      input.parentElement.querySelector('.error-message');
-    if (errorEl) {
-      errorEl.textContent = isValid ? '' : message;
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    setFieldError(emailInput, emailError, '');
+    setFieldError(passwordInput, passwordError, '');
+    setFieldError(captchaInput, captchaError, '');
+    setFormError('');
+
+    const email = emailInput?.value.trim() || '';
+    const password = passwordInput?.value || '';
+
+    if (!email) {
+      setFieldError(emailInput, emailError, 'Email is required.');
+      return;
     }
-  }
-
-  if (!form) return;
-
-  form.addEventListener('submit', async function (e) {
-    e.preventDefault();
-
-    var email = emailInput ? emailInput.value.trim() : '';
-    var password = passwordInput ? passwordInput.value : '';
-
-    setValidity(emailInput, true, '');
-    setValidity(passwordInput, true, '');
-
-    if (!email || !password) {
-      if (!email) setValidity(emailInput, false, 'Email is required.');
-      if (!password) setValidity(passwordInput, false, 'Password is required.');
-      showToast('Please fill all fields.', 'warning');
+    if (!password) {
+      setFieldError(passwordInput, passwordError, 'Password is required.');
+      return;
+    }
+    if (captchaRequired && !(captchaInput?.value || '').trim()) {
+      setFieldError(captchaInput, captchaError, 'Enter the security code.');
       return;
     }
 
-    let payload = { email, password };
-
-    // Support both simple math captcha and backend generated captcha validations
-    const mathCaptchaInput = document.getElementById("captcha-input");
-    if (mathCaptchaInput && mathCaptchaInput.closest(".login-captcha-container")) {
-        const mathAnswer = mathCaptchaInput.value.trim();
-        if (!mathAnswer) {
-            showToast("Please enter the human verification answer.", "warning");
-            return;
-        }
+    const body = { email, password };
+    if (captchaRequired) {
+      body.captcha_token = captchaToken;
+      body.captcha_answer = (captchaInput?.value || '').trim();
     }
 
-    if (loginAttempts >= 1) {
-        const userCode = captchaInput ? captchaInput.value.trim() : '';
-        if (!userCode) {
-            showToast('Please enter the security code.', 'warning');
-            return;
-        }
-        payload.captcha_answer = userCode;
-        payload.captcha_token = currentCaptchaToken;
-    }
-
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.classList.add('btn-loading');
-    }
-
+    setBusy(true);
     try {
-      const fetchFunc = typeof fetchWithTimeout === 'function' ? fetchWithTimeout : fetch;
-      const response = await fetchFunc(`${API_BASE_URL}/api/auth/login`, {
+      const fetchFunc =
+        typeof fetchWithTimeout === 'function' ? fetchWithTimeout : fetch;
+      const res = await fetchFunc(`${API_BASE_URL}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify(payload)
+        body: JSON.stringify(body),
       });
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.detail || 'Invalid email or password.');
+      let data = {};
+      try {
+        data = await res.json();
+      } catch {
+        data = {};
       }
 
-      localStorage.setItem('access_token', data.access_token);
-      localStorage.setItem('cara_user_token', data.access_token);
-      localStorage.setItem('cara_user_email', data.user.email);
-      localStorage.setItem('cara_user_name', data.user.username);
-      localStorage.setItem('cara_user_role', data.user.role);
+      if (!res.ok) {
+        const detail = Array.isArray(data.detail)
+          ? data.detail.map((item) => item.msg || item).join(' ')
+          : data.detail || 'Login failed';
 
-      showToast('Welcome back, ' + data.user.username + '!', 'success');
+        if (
+          res.status === 403 &&
+          /captcha|security/i.test(String(detail))
+        ) {
+          setFormError(detail);
+          await loadCaptcha();
+          return;
+        }
 
-      setTimeout(() => {
-        window.location.href = data.user.role === 'ADMIN' ? 'admin.html' : 'index.html';
-      }, 1000);
+        if (res.status === 401) {
+          setFormError(detail);
+          await loadCaptcha();
+          return;
+        }
 
+        setFormError(detail);
+        return;
+      }
+
+      window.location.href = 'index.html';
     } catch (err) {
-      setValidity(emailInput, false, '');
-      setValidity(passwordInput, false, '');
-      showToast(err.message, 'error');
-      loginAttempts++;
-      if (captchaSection && loginAttempts >= 1) {
-        captchaSection.style.display = 'block';
-        fetchCaptcha();
-      }
+      setFormError(err.message || 'Network error. Please try again.');
     } finally {
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.classList.remove('btn-loading');
-      }
+      setBusy(false);
     }
   });
+
+  const passkeyBtn = document.getElementById('passkeyLoginBtn');
+  if (passkeyBtn) {
+    passkeyBtn.addEventListener('click', async () => {
+      setFormError('');
+      const email = emailInput?.value.trim() || '';
+      if (typeof window.PasskeyAuth === 'undefined' || !window.PasskeyAuth.isWebAuthnSupported()) {
+        setFormError('Passkey biometric authentication is not supported in this browser.');
+        return;
+      }
+
+      setBusy(true);
+      try {
+        await window.PasskeyAuth.loginWithPasskey(email);
+        window.location.href = 'index.html';
+      } catch (err) {
+        setFormError(err.message || 'Biometric authentication failed.');
+      } finally {
+        setBusy(false);
+      }
+    });
+  }
 });
+

@@ -1,36 +1,90 @@
+import { createFocusTrap } from './js/a11y-focus-trap.js';
 let checkoutIdempotencyKey = null;
+let checkoutWakeLock = null;
+let isCheckoutProcessing = false;
+
+async function requestWakeLock() {
+  if ('wakeLock' in navigator && isCheckoutProcessing) {
+    try {
+      checkoutWakeLock = await navigator.wakeLock.request('screen');
+      checkoutWakeLock.addEventListener('release', () => {
+        console.log('Screen Wake Lock released');
+      });
+      console.log('Screen Wake Lock acquired');
+    } catch (err) {
+      console.error(`Wake Lock error: ${err.name}, ${err.message}`);
+    }
+  }
+}
+
+function releaseWakeLock() {
+  isCheckoutProcessing = false;
+  if (checkoutWakeLock !== null) {
+    checkoutWakeLock.release()
+      .catch(err => console.error(err))
+      .finally(() => {
+        checkoutWakeLock = null;
+      });
+  }
+}
+
+window.addEventListener('beforeunload', releaseWakeLock);
+window.addEventListener('unload', releaseWakeLock);
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible' && isCheckoutProcessing) {
+    requestWakeLock();
+  }
+});
 
 function safeParseJSON(key, fallback = '[]') {
   try {
     return JSON.parse(localStorage.getItem(key) || fallback);
-  } catch {
+  } catch (err) {
+    console.warn('Failed to parse stored data:', err);
     try {
       return JSON.parse(fallback);
-    } catch {
+    } catch (err2) {
+      console.warn('Failed to parse fallback data:', err2);
       return [];
     }
   }
 }
 
-const API_BASE_URL = window.CARA_API_BASE_URL || 'http://127.0.0.1:8000';
+const API_BASE_URL = window.CARA_API_BASE_URL || '';
 
-function getStoredAuthToken() {
-  return (
-    localStorage.getItem('access_token') ||
-    localStorage.getItem('cara_user_token') ||
-    ''
-  );
-}
 
 function buildAuthHeaders(extraHeaders = {}) {
-  const headers = { ...extraHeaders };
-  const token = getStoredAuthToken();
+  // Auth is handled entirely by the httpOnly access_token cookie, which the
+  // browser attaches automatically because these fetch calls use
+  // credentials: 'include'. There is nothing to read from localStorage.
+  return { ...extraHeaders };
+}
 
-  if (token) {
-    headers.Authorization = `Bearer ${token}`;
+async function resolveCartProductIds(cart) {
+  const res = await fetch(`${API_BASE_URL}/api/products/`, {
+    credentials: 'include',
+  });
+  if (!res.ok) {
+    throw new Error('Failed to load products for checkout');
+  }
+  const products = await res.json();
+  const byId = new Map(products.map((p) => [p.id, p]));
+  const byName = new Map();
+  for (const p of products) {
+    if (!byName.has(p.name)) byName.set(p.name, p.id);
   }
 
-  return headers;
+  return cart.map((item) => {
+    const candidate = Number(item.id);
+    if (item.id != null && item.id !== '' && !Number.isNaN(candidate) && byId.has(candidate)) {
+      return { ...item, id: candidate };
+    }
+    const resolved = byName.get(item.name);
+    if (resolved == null) {
+      throw new Error(`Product not found for cart item: ${item.name}`);
+    }
+    return { ...item, id: resolved };
+  });
 }
 
 const paymentMethod = document.getElementById('paymentMethod');
@@ -55,7 +109,7 @@ const validators = {
     let sum = 0;
     let shouldDouble = false;
     for (let i = raw.length - 1; i >= 0; i--) {
-      let digit = parseInt(raw.charAt(i));
+      let digit = parseInt(raw.charAt(i), 10);
       if (shouldDouble) {
         digit *= 2;
         if (digit > 9) digit -= 9;
@@ -100,6 +154,7 @@ const errorMessages = {
 
 // --- Validate a single field ---
 function validateField(input) {
+  if (!input) return false;
   const field = input.dataset.validate;
   if (!field) return true;
 
@@ -145,7 +200,7 @@ function initCheckoutValidation() {
   if (!form) return;
 
   const inputs = form.querySelectorAll(
-    'input[data-validate], textarea[data-validate], select[data-validate]'
+    'input[data-validate], textarea[data-validate], select[data-validate]',
   );
 
   inputs.forEach((input) => {
@@ -212,8 +267,20 @@ cardName.addEventListener('input', function () {
 });
 
 // --- Show/Hide Card Details and clear validation states ---
-paymentMethod.addEventListener('change', function () {
-  if (this.value === 'online') {
+function applyPaymentMethod(method) {
+  const value = method === 'online' ? 'online' : 'cod';
+  if (paymentMethod) {
+    paymentMethod.value = value;
+  }
+
+  const tabCod = document.getElementById('tabCOD');
+  const tabOnline = document.getElementById('tabOnline');
+  if (tabCod && tabOnline) {
+    tabCod.classList.toggle('active', value === 'cod');
+    tabOnline.classList.toggle('active', value === 'online');
+  }
+
+  if (value === 'online') {
     cardDetails.style.display = 'block';
     cardName.required = true;
     cardNumber.required = true;
@@ -235,9 +302,17 @@ paymentMethod.addEventListener('change', function () {
     });
   }
 
-  if (this.classList.contains('is-invalid')) {
-    validateField(this);
+  if (paymentMethod && paymentMethod.classList.contains('is-invalid')) {
+    validateField(paymentMethod);
   }
+}
+
+window.selectPayment = function (method) {
+  applyPaymentMethod(method);
+};
+
+paymentMethod.addEventListener('change', function () {
+  applyPaymentMethod(this.value);
 });
 
 // --- Form Submission & Final Validation Check ---
@@ -247,8 +322,20 @@ const popup = document.getElementById('successPopup');
 form.addEventListener('submit', function (e) {
   e.preventDefault();
 
+  try {
+    submitCheckoutForm();
+  } catch (error) {
+    CaraErrorBoundary.logError(error, '#checkoutForm submit');
+    if (typeof window.showToast === 'function') {
+      window.showToast('Something went wrong. Please try again.', 'error');
+    }
+  }
+});
+
+function submitCheckoutForm() {
+  if (!form) return;
   const inputs = form.querySelectorAll(
-    'input[data-validate], textarea[data-validate], select[data-validate]'
+    'input[data-validate], textarea[data-validate], select[data-validate]',
   );
   let allValid = true;
 
@@ -275,7 +362,7 @@ form.addEventListener('submit', function (e) {
   if (cart.length === 0) {
     if (typeof window.showToast === 'function')
       window.showToast('Your cart is empty!', 'error');
-    else console.log('Toast: ' + 'Your cart is empty!');
+    else console.info('Toast: Your cart is empty!');
     return;
   }
 
@@ -311,39 +398,49 @@ form.addEventListener('submit', function (e) {
     submitBtn.disabled = true;
   }
 
+  isCheckoutProcessing = true;
+  requestWakeLock();
+
   if (!checkoutIdempotencyKey) {
     checkoutIdempotencyKey = crypto.randomUUID();
   }
 
-  // Prepare order data
-  const orderData = {
-    fullName: document.getElementById('fullName').value.trim(),
-    email: document.getElementById('email').value.trim(),
-    address: document.getElementById('address').value.trim(),
-    city: document.getElementById('city').value.trim(),
-    zip: document.getElementById('zip').value.trim(),
-    coupon: window.appliedCoupon,
-    idempotency_key: checkoutIdempotencyKey,
-    items: cart.map((item) => ({
-      product_name: item.name,
-      quantity: parseInt(item.quantity) || 1,
-      price: item.price,
-    })),
-  };
+  resolveCartProductIds(cart)
+    .then((resolvedCart) => {
+      cart = resolvedCart;
+      // Prepare order data — server looks up price/name by product_id
+      const orderData = {
+        fullName: document.getElementById('fullName').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        address: document.getElementById('address').value.trim(),
+        city: document.getElementById('city').value.trim(),
+        zip: document.getElementById('zip').value.trim(),
+        coupon: window.appliedCoupon,
+        idempotency_key: checkoutIdempotencyKey,
+        items: cart.map((item) => ({
+          product_id: Number(item.id),
+          quantity: parseInt(item.quantity, 10) || 1,
+        })),
+      };
 
-  fetch(`${API_BASE_URL}/api/orders/`, {
-    method: 'POST',
-    headers: buildAuthHeaders({
-      'Content-Type': 'application/json',
-      'Idempotency-Key': checkoutIdempotencyKey,
-    }),
-    credentials: 'include',
-    body: JSON.stringify(orderData),
-  })
+      return fetch(`${API_BASE_URL}/api/orders/`, {
+        method: 'POST',
+        headers: buildAuthHeaders({
+          'Content-Type': 'application/json',
+          'Idempotency-Key': checkoutIdempotencyKey,
+        }),
+        credentials: 'include',
+        body: JSON.stringify(orderData),
+      });
+    })
     .then((res) =>
       res
         .json()
         .then((data) => ({ status: res.status, ok: res.ok, body: data }))
+        .catch(err => {
+          console.warn("[Checkout] Operation failed:", err);
+          throw err;
+        }),
     )
     .then((res) => {
       if (!res.ok) {
@@ -352,18 +449,18 @@ form.addEventListener('submit', function (e) {
 
       // DEDUCT & ADD LOYALTY POINTS ON SUCCESSFUL ORDER
       const appliedPoints =
-        parseInt(localStorage.getItem('cara_applied_loyalty_points')) || 0;
+        parseInt(localStorage.getItem('cara_applied_loyalty_points'), 10) || 0;
       const currentBalance =
-        parseInt(localStorage.getItem('cara_loyalty_balance')) || 150;
+        parseInt(localStorage.getItem('cara_loyalty_balance'), 10) || (window.CARA_CONFIG ? window.CARA_CONFIG.LOYALTY.DEFAULT_BALANCE : 150);
       const subtotal = cart.reduce(
         (sum, item) =>
-          sum + parsePriceString(item.price) * (parseInt(item.quantity) || 1),
-        0
+          sum + parsePriceString(item.price) * (parseInt(item.quantity, 10) || 1),
+        0,
       );
-      const earnedPoints = Math.floor(subtotal * 0.1);
+      const earnedPoints = Math.floor(subtotal * (window.CARA_CONFIG ? window.CARA_CONFIG.LOYALTY.POINTS_PER_RUPEE : 10));
       const newBalance = Math.max(
         0,
-        currentBalance - appliedPoints + earnedPoints
+        currentBalance - appliedPoints + earnedPoints,
       );
       localStorage.setItem('cara_loyalty_balance', newBalance);
       localStorage.removeItem('cara_applied_loyalty_points');
@@ -374,6 +471,10 @@ form.addEventListener('submit', function (e) {
       window.appliedCoupon = null;
       checkoutIdempotencyKey = null;
 
+      if (typeof window.updateCartCount === 'function') {
+        window.updateCartCount();
+      }
+
       if (submitBtn) {
         submitBtn.classList.remove('btn-loading');
         submitBtn.disabled = false;
@@ -383,11 +484,13 @@ form.addEventListener('submit', function (e) {
           submitBtn.getAttribute('data-original-html') || 'Place Order';
       }
 
+      releaseWakeLock();
+
       form.reset();
 
       // HIDE CARD DETAILS AGAIN
       cardDetails.style.display = 'none';
-      if (popup) popup.classList.add('show');
+      openSuccessPopup();
 
       // Clear all validation states post-submit
       inputs.forEach((input) => {
@@ -396,21 +499,42 @@ form.addEventListener('submit', function (e) {
         if (errEl) errEl.textContent = '';
       });
     })
-    .catch((err) => {
+   .catch((err) => {
       if (typeof window.showToast === 'function')
         window.showToast(err.message, 'error');
-      else console.log('Toast: ' + err.message);
+      else console.info('Toast: ' + err.message);
 
       if (submitBtn) {
         submitBtn.classList.remove('btn-loading');
         submitBtn.disabled = false;
       }
+      
+      releaseWakeLock();
     });
-});
+}
+
+let successFocusTrap = null;
+
+function openSuccessPopup() {
+  const popup = document.getElementById('successPopup');
+  const dialog = popup ? popup.querySelector('.popup-box') : null;
+  if (!popup || !dialog) return;
+
+  popup.hidden = false;
+  popup.classList.add('show');
+  successFocusTrap = createFocusTrap(dialog);
+  successFocusTrap.activate();
+}
 
 window.closePopup = function () {
   const popup = document.getElementById('successPopup');
-  if (popup) popup.classList.remove('show');
+  if (!popup) return;
+  popup.classList.remove('show');
+  popup.hidden = true;
+  if (successFocusTrap) {
+    successFocusTrap.deactivate();
+    successFocusTrap = null;
+  }
 };
 
 function parsePriceString(priceStr) {
@@ -426,7 +550,9 @@ function parsePriceString(priceStr) {
 function formatCurrency(amount) {
   const num = typeof amount === 'number' ? amount : parsePriceString(amount);
   if (!isFinite(num)) return '₹0';
-  return '₹' + Math.round(num).toLocaleString('en-IN');
+  // All amounts are stored as integer cents; divide by 100 for display
+  const rupees = num / 100;
+  return '₹' + Math.round(rupees).toLocaleString('en-IN');
 }
 
 function renderCheckoutItems() {
@@ -443,18 +569,18 @@ function renderCheckoutItems() {
   container.innerHTML = cart
     .map((item) => {
       const itemPrice = parsePriceString(item.price);
-      const itemQty = parseInt(item.quantity) || 1;
+      const itemQty = parseInt(item.quantity, 10) || 1;
       const sizeStr = item.size ? `Size ${item.size}` : 'Standard';
       return `
       <div class="order-item" style="display: flex; gap: 15px; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 12px;">
         <div class="item-thumb" style="width: 50px; height: 50px; border-radius: 6px; overflow: hidden; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; background: #fff;">
-          <img src="${item.img || 'images/products/placeholder.jpg'}" alt="${item.name}" style="max-width: 100%; max-height: 100%; object-fit: cover;" onerror="this.src='images/products/placeholder.jpg'">
+          <img src="${item.image || item.img || 'images/products/placeholder.jpg'}" alt="${item.name}" style="max-width: 100%; max-height: 100%; object-fit: cover;" onerror="this.src='images/products/placeholder.jpg'">
         </div>
         <div class="item-info" style="flex: 1;">
           <div class="item-name" style="font-weight: 600; font-size: 14px; color: var(--color-heading);">${item.name}</div>
           <div class="item-meta" style="font-size: 12px; color: #777;">${sizeStr} · Qty ${itemQty}</div>
         </div>
-        <span class="item-price-col" style="font-weight: 600; font-size: 14px; color: #088178;">${formatCurrency(itemPrice * itemQty)}</span>
+        <span class="item-price-col" style="font-weight: 600; font-size: 14px; color: #088178;">${formatCurrency(itemPrice * itemQty * 100)}</span>
       </div>
     `;
     })
@@ -463,53 +589,61 @@ function renderCheckoutItems() {
 
 window.updateCheckoutSummary = function () {
   const cart = safeParseJSON('productsInCart');
-  const subtotal = cart.reduce(
+  // All financial calculations use integer cents (paise) to avoid floating-point rounding errors.
+  // parsePriceString returns rupees (float); multiply by 100 and round to get integer paise.
+  const subtotalCents = cart.reduce(
     (sum, item) =>
-      sum + parsePriceString(item.price) * (parseInt(item.quantity) || 1),
-    0
+      sum + Math.round(parsePriceString(item.price) * 100) * (parseInt(item.quantity, 10) || 1),
+    0,
   );
+  const subtotal = subtotalCents / 100;
 
   // Check coupon discount
   const couponCode = localStorage.getItem('appliedCoupon') || '';
-  const COUPONS = { CARA20: 20, WELCOME10: 10 };
+  const COUPONS = window.CARA_COUPONS || {};
   const couponPct = COUPONS[couponCode] || 0;
-  const couponDiscount = subtotal * (couponPct / 100);
+  const couponDiscountCents = Math.round(subtotalCents * couponPct / 100);
 
-  // Check urgency discount (5%) if the timer is running
+  // Check urgency discount if the timer is running
   const hasUrgency =
     !window.urgencyTimerExpired &&
     document.getElementById('checkout-promo-alert-bar');
-  const urgencyDiscount = hasUrgency ? subtotal * 0.05 : 0;
+  const urgencyDiscount = hasUrgency ? subtotal * (window.CARA_CONFIG ? window.CARA_CONFIG.URGENCY_DISCOUNT_PCT : 0.05) : 0;
 
   // Check gift wrap
   const hasGiftWrap = document.getElementById('gift-wrap-opt')?.checked;
-  const giftCharge = hasGiftWrap ? 99 : 0;
+  const giftCharge = hasGiftWrap ? (window.CARA_CONFIG ? window.CARA_CONFIG.GIFT_WRAP_CHARGE : 99) : 0;
 
-  // Calculate tax (5%)
-  const tax = subtotal * 0.05;
+  // Calculate tax
+  const tax = subtotal * (window.CARA_CONFIG ? window.CARA_CONFIG.TAX_RATE : 0.18);
 
-  // Check loyalty points discount (10 points = ₹1)
+  // Check loyalty points discount
   const loyaltyPoints =
-    parseInt(localStorage.getItem('cara_applied_loyalty_points')) || 0;
-  const loyaltyDiscount = loyaltyPoints * 0.1;
+    parseInt(localStorage.getItem('cara_applied_loyalty_points'), 10) || 0;
+  const loyaltyDiscount = loyaltyPoints / (window.CARA_CONFIG ? window.CARA_CONFIG.LOYALTY.POINTS_PER_RUPEE : 10);
 
-  // Grand Total
-  const grandTotal = Math.max(
+  const taxCents = Math.round(subtotalCents * (window.CARA_CONFIG ? window.CARA_CONFIG.TAX_RATE : 0.18));
+  const giftChargeCents = Math.round(giftCharge * 100);
+  const urgencyDiscountCents = Math.round(urgencyDiscount * 100);
+  const loyaltyDiscountCents = Math.round(loyaltyDiscount * 100);
+
+  // Grand Total in cents (integer, safe for Stripe)
+  const grandTotalCents = Math.max(
     0,
-    subtotal +
-      tax +
-      giftCharge -
-      couponDiscount -
-      urgencyDiscount -
-      loyaltyDiscount
+    subtotalCents +
+      taxCents +
+      giftChargeCents -
+      couponDiscountCents -
+      urgencyDiscountCents -
+      loyaltyDiscountCents,
   );
 
   // Update DOM elements
   const subtotalEl = document.getElementById('summary-subtotal');
-  if (subtotalEl) subtotalEl.textContent = formatCurrency(subtotal);
+  if (subtotalEl) subtotalEl.textContent = formatCurrency(subtotalCents);
 
   const taxEl = document.getElementById('summary-tax');
-  if (taxEl) taxEl.textContent = formatCurrency(tax);
+  if (taxEl) taxEl.textContent = formatCurrency(taxCents);
 
   // Update Coupon Row
   let couponRow = document.getElementById('summaryDiscountRow');
@@ -525,7 +659,7 @@ window.updateCheckoutSummary = function () {
     }
     couponRow.innerHTML = `
       <span>Discount (${couponCode}) <button type="button" class="btn-remove-coupon" id="btnRemoveCoupon" aria-label="Remove coupon" style="background:none; border:none; color:#ef4444; cursor:pointer; font-weight:bold; font-size:16px; margin-left:5px; padding:0;">×</button></span>
-      <span>-${formatCurrency(couponDiscount)}</span>
+      <span>-${formatCurrency(couponDiscountCents)}</span>
     `;
     const removeBtn = document.getElementById('btnRemoveCoupon');
     if (removeBtn) {
@@ -554,7 +688,7 @@ window.updateCheckoutSummary = function () {
 
   // Update Urgency Row
   let urgencyRow = document.getElementById('urgency-discount-row');
-  if (urgencyDiscount > 0) {
+  if (urgencyDiscountCents > 0) {
     if (!urgencyRow) {
       urgencyRow = document.createElement('div');
       urgencyRow.id = 'urgency-discount-row';
@@ -564,14 +698,14 @@ window.updateCheckoutSummary = function () {
       const divider = document.querySelector('.summary-divider');
       if (divider) divider.parentNode.insertBefore(urgencyRow, divider);
     }
-    urgencyRow.innerHTML = `<span>Urgency Promo (5%)</span><span id='urgency-discount-val'>-${formatCurrency(urgencyDiscount)}</span>`;
+    urgencyRow.innerHTML = `<span>Urgency Promo (${window.CARA_CONFIG ? window.CARA_CONFIG.URGENCY_DISCOUNT_PCT * 100 : 5}%)</span><span id='urgency-discount-val'>-${formatCurrency(urgencyDiscountCents)}</span>`;
   } else {
     if (urgencyRow) urgencyRow.remove();
   }
 
   // Update Gift Wrap Row
   let giftRow = document.getElementById('gift-wrap-charge-row');
-  if (giftCharge > 0) {
+  if (giftChargeCents > 0) {
     if (!giftRow) {
       giftRow = document.createElement('div');
       giftRow.id = 'gift-wrap-charge-row';
@@ -604,7 +738,7 @@ window.updateCheckoutSummary = function () {
     }
     loyaltyRow.innerHTML = `
       <span>Redeemed Points (${loyaltyPoints} pts) <button type="button" class="btn-remove-loyalty" id="btnRemoveLoyalty" aria-label="Remove loyalty points" style="background:none; border:none; color:#ef4444; cursor:pointer; font-weight:bold; font-size:16px; margin-left:5px; padding:0;">×</button></span>
-      <span>-${formatCurrency(loyaltyDiscount)}</span>
+      <span>-${formatCurrency(loyaltyDiscountCents)}</span>
     `;
     const removeLoyaltyBtn = document.getElementById('btnRemoveLoyalty');
     if (removeLoyaltyBtn) {
@@ -625,7 +759,7 @@ window.updateCheckoutSummary = function () {
   }
 
   const totalEl = document.getElementById('summary-total');
-  if (totalEl) totalEl.textContent = formatCurrency(grandTotal);
+  if (totalEl) totalEl.textContent = formatCurrency(grandTotalCents);
 };
 
 function highlightError(el) {
@@ -640,8 +774,30 @@ function highlightError(el) {
 // Call init on DOM ready
 function initCheckoutPage() {
   initCheckoutValidation();
-  renderCheckoutItems();
-  window.updateCheckoutSummary();
+  prefillAccountEmail();
+
+  CaraErrorBoundary.wrap('#checkoutForm', function () {
+    renderCheckoutItems();
+    window.updateCheckoutSummary();
+  });
+}
+
+function prefillAccountEmail() {
+  const emailInput = document.getElementById('email');
+  if (!emailInput) return;
+
+  fetch(`${API_BASE_URL}/api/auth/me`, { credentials: 'include' })
+    .then((res) => (res.ok ? res.json() : null))
+    .then((data) => {
+      if (!data || !data.email) return;
+      emailInput.value = data.email;
+      emailInput.readOnly = true;
+      emailInput.setAttribute('aria-readonly', 'true');
+      emailInput.title = 'Orders are tied to your account email';
+    })
+    .catch(() => {
+      /* anonymous / offline — leave the field editable until submit auth fails */
+    });
 }
 
 document.addEventListener('DOMContentLoaded', initCheckoutPage);
@@ -659,11 +815,22 @@ window.addEventListener('couponRemoved', () => {
   window.updateCheckoutSummary();
 });
 
-// ── Close popup when clicking outside the box ─────────────
+// ── Close popup when clicking outside the box / Escape ─────────────
 const successOverlay = document.getElementById('successPopup');
 if (successOverlay) {
   successOverlay.addEventListener('click', function (e) {
-    if (e.target === this) this.classList.remove('show');
+    if (e.target === this) window.closePopup();
   });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && successOverlay.classList.contains('show')) {
+      window.closePopup();
+    }
+  });
+  const continueBtn = document.getElementById('successContinueBtn');
+  if (continueBtn) {
+    continueBtn.addEventListener('click', function () {
+      window.location.href = 'shop.html';
+    });
+  }
 }
 // Advanced validation routines checking postal formats and shipping address boundaries.

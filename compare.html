@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico" />
@@ -29,7 +29,6 @@
       referrerpolicy="no-referrer"
     />
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="ui-fix.css" />
     <link rel="stylesheet" href="compare.css" />
     <link rel="manifest" href="/manifest.json" />
     <script>
@@ -41,10 +40,11 @@
     </script>
   </head>
   <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- HEADER -->
     <section id="header">
-      <a href="index.html">
-        <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
+      <a href="index.html" aria-label="Cara Home"><img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" />
       </a>
       <div>
         <ul id="navbar">
@@ -89,9 +89,9 @@
               <i class="ri-moon-line" id="themeIcon"></i>
             </button>
           </li>
-          <a href="javascript:void(0)" id="close" aria-label="Close menu"
+          <li class="nav-close"><a href="javascript:void(0)" id="close" aria-label="Close menu"
             ><i class="fa-solid fa-xmark"></i
-          ></a>
+          ></a></li>
         </ul>
       </div>
       <div class="mobile">
@@ -111,9 +111,10 @@
         ></i>
       </div>
     </section>
+<main id="main-content">
 
     <!-- PAGE CONTENT -->
-    <main id="compare-page">
+    <div class="main-section">
       <h1><i class="ri-layout-column-line"></i> Product Comparison</h1>
       <p class="compare-subtitle">
         Compare up to 3 products side by side to find the best fit.
@@ -143,7 +144,7 @@
     <!-- FOOTER -->
     <footer class="section-p1">
       <div class="col">
-        <img src="images/logo.png" alt="Cara Logo" class="logo" />
+        <img src="images/Dlogo.png" alt="Cara Logo" class="logo" />
         <h4>Contact</h4>
         <p><strong>Address:</strong> Cara E-Commerce</p>
         <p><strong>Hours:</strong> 10:00 – 18:00, Mon – Sat</p>
@@ -159,7 +160,7 @@
       <div class="col">
         <h4>My Account</h4>
         <a href="login.html">Sign In</a>
-        <a href="cart.html">View Cart</a>
+        <a href="cart.html" aria-label="Shopping cart">View Cart</a>
         <a href="wishlist.html">My Wishlist</a>
         <a href="order-history.html">Track My Order</a>
         <a href="#">Help</a>
@@ -193,14 +194,16 @@
       </div>
     </footer>
 
-    <script src="products.js"></script>
-    <script src="app.js"></script>
-    <script src="compare.js"></script>
-    <script src="navbar.js"></script>
+    <script type="module" src="products.js"></script>
+    <script type="module" src="app.js"></script>
+    <script type="module" src="js/interactive-product-comparator.js"></script>
+    <script type="module" src="compare.js"></script>
+    <script type="module" src="navbar.js"></script>
     <script>
       if (typeof loadNavbar === 'function') loadNavbar('shop');
       const yearEl = document.querySelector('.Current-Year');
       if (yearEl) yearEl.textContent = new Date().getFullYear();
     </script>
-  </body>
+  </main>
+</body>
 </html>

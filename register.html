@@ -12,9 +12,9 @@
     <link rel="stylesheet" href="toast.css" />
     <link rel="stylesheet" href="register.css" />
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="ui-fix.css" />
     <link rel="manifest" href="/manifest.json">
-  <script>
+  <script type="module" src="js/error-boundary.js"></script>
+<script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/service-worker.js');
@@ -22,12 +22,14 @@
     }
   </script>
   <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
+    <script type="module" src="js/config.js"></script>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
 
 <section id="header" role="banner">
-    <a href="index.html">
-        <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
+    <a href="index.html" aria-label="Cara Home"><img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" />
     </a>
     <div>
         <ul id="navbar" role="navigation" aria-label="Main navigation">
@@ -52,7 +54,7 @@
               <i class="ri-moon-line" id="themeIcon"></i>
             </button>
           </li>
-          <a href="javascript:void(0)" id="close" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></a>
+          <li class="nav-close"><a href="javascript:void(0)" id="close" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></a></li>
         </ul>
       </div>
       <div class="mobile">
@@ -65,6 +67,7 @@
         </button>
       </div>
     </section>
+<main id="main-content">
 
     <!-- Toast container — overlays everything -->
     <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
@@ -76,7 +79,7 @@
         <a href="index.html" class="back-button">&#8592; Back to Shop</a>
 
         <div class="auth-card">
-          <h2>Register</h2>
+          <h1>Register</h1>
           <p class="subtitle">Create your account <i class="fas fa-smile"></i></p>
           <p class="required-note">Fields marked with * are required.</p>
 
@@ -193,13 +196,13 @@
 <footer class="main-footer">
     <div class="footer-top">
         <div class="footer-logo-box">
-          <img class="footer-logo" src="images/logo.png" alt="Cara Logo" />
+          <img class="footer-logo" src="images/Dlogo.png" alt="Cara Logo" />
         </div>
         <div class="footer-socials">
           <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
           <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
           <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
-          <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+          <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
         </div>
       </div>
       <hr class="footer-divider" />
@@ -214,7 +217,7 @@
         <div class="footer-col">
           <h4>QUICK LINKS</h4>
           <a href="about.html">About Us</a>
-          <a href="javascript:void(0)">Delivery Information</a>
+          <a href="javascript:void(0)" aria-label="Interactive action">Delivery Information</a>
           <a href="privacy.html">Privacy Policy</a>
           <a href="terms.html">Terms and Conditions</a>
           <a href="contact.html">Contact Us</a>
@@ -261,10 +264,14 @@
         </div>
       </div>
 </footer>
+</main>
 
 <script src="app.js"></script>
 <script src="js/fetch-timeout.js"></script>
 <script src="register.js"></script>
 <script src="js/describedby-tooltips.js" defer></script>
+
 </body>
 </html>
+
+<!-- A11y fix --><script type="module" src="js/a11y-validation.js"></script>

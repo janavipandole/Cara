@@ -1,54 +1,25 @@
 ---
-name: 🐛 Bug Report
-about: Report a bug or unexpected behavior in the project
-title: "[BUG] <short description>"
+name: Bug Report
+about: Create a report to help us improve Cara (ELUSoC_2026 format)
+title: '[ELUSoC_2026] fix: '
 labels: bug
+assignees: ''
 ---
 
-## 🐞 Description
+# Problem
+Describe the issue clearly.
 
-A clear and concise description of the bug.
+# Current Behavior
+Explain existing behavior.
 
----
+# Why This Improvement Is Needed
+Explain impact on users/developers.
 
-## 🔁 Steps to Reproduce
+# Proposed Solution
+Explain the implementation approach.
 
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '...'
-3. Scroll down to '...'
-4. See error
+# Expected Outcome
+Explain expected improvements.
 
----
-
-## 💻 Expected Behavior
-
-What should have happened instead?
-
----
-
-## 🧠 Actual Behavior
-
-What actually happened?
-
----
-
-## 🖼️ Screenshots / Logs (if applicable)
-
-Add screenshots, console logs, or error messages here.
-
----
-
-## 🧩 Environment
-
-- OS:  
-- Browser:  
-- Node.js version:  
-- Framework/Library version:  
-
----
-
-## ✅ Checklist
-
-- [ ] I have searched for existing issues before creating this one.  
-- [ ] I have included all relevant details and reproduction steps.  
+# Additional Notes
+Optional technical or contextual notes.
