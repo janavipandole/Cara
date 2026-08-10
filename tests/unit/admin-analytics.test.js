@@ -134,4 +134,36 @@ describe('admin-analytics.js unit tests', () => {
       expect(opts.credentials).toBe('include');
     });
   });
+
+  it('renders a graceful message when status counts are malformed', async () => {
+    vi.resetModules();
+    // Re-import after the DOM is populated so the module captures live refs.
+    await import('../../js/admin-analytics.js');
+    statusWrap = document.getElementById('analyticsStatusWrap');
+
+    fetchSpy
+      .mockResolvedValueOnce({ ok: true, status: 200, json: () => Promise.resolve({ total_revenue: 100, total_orders: 2, total_customers: 1 }) })
+      .mockResolvedValueOnce({ ok: true, status: 200, json: () => Promise.resolve([]) })
+      .mockResolvedValueOnce({ ok: true, status: 200, json: () => Promise.resolve([{ status: 'PENDING', count: 'oops' }]) });
+
+    await window.AdminDashboard.refresh();
+
+    expect(statusWrap.innerHTML).toContain('No valid order status data.');
+    expect(statusWrap.querySelector('.status-dist-bar-wrap')).toBeNull();
+  });
+
+  it('renders a graceful message when category sales are malformed', async () => {
+    vi.resetModules();
+    await import('../../js/admin-analytics.js');
+    catTable = document.getElementById('analyticsCategoryTable');
+
+    fetchSpy
+      .mockResolvedValueOnce({ ok: true, status: 200, json: () => Promise.resolve({ total_revenue: 100, total_orders: 2, total_customers: 1 }) })
+      .mockResolvedValueOnce({ ok: true, status: 200, json: () => Promise.resolve([{ category: 'Tops', units_sold: 'many', revenue: 50 }]) })
+      .mockResolvedValueOnce({ ok: true, status: 200, json: () => Promise.resolve([]) });
+
+    await window.AdminDashboard.refresh();
+
+    expect(catTable.innerHTML).toContain('No valid sales recorded.');
+  });
 });

@@ -91,9 +91,17 @@
         '<p class="text-muted text-center">No orders to categorize.</p>';
       return;
     }
-    const maxVal = Math.max(...list.map((r) => r.count), 1);
+    const validList = list.filter(
+      (r) => r && typeof r.count === 'number' && isFinite(r.count),
+    );
+    if (validList.length === 0) {
+      statusWrap.innerHTML =
+        '<p class="text-muted text-center">No valid order status data.</p>';
+      return;
+    }
+    const maxVal = Math.max(...validList.map((r) => r.count), 1);
 
-    statusWrap.innerHTML = list
+    statusWrap.innerHTML = validList
       .map((r) => {
         const pct = Math.round((r.count / maxVal) * 100);
         return `
