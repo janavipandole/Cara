@@ -27,6 +27,7 @@ window.addEventListener('error', (event) => {
     // Silently ignore if localStorage is unavailable
   }
 
+  // Display fallback crash notice if main app component fails.
   const sourceFile = String(event.filename || '');
 
   if (sourceFile.includes('app.js') && !crashNoticeShown && document.body) {
@@ -35,6 +36,7 @@ window.addEventListener('error', (event) => {
     const notice = document.createElement('div');
     notice.id = 'cara-crash-notice';
     notice.setAttribute('role', 'alert');
+
     notice.style.cssText =
       'position:fixed; top:0; left:0; width:100%; background:#e23e57; color:white; text-align:center; padding:10px; z-index:100000;';
 
@@ -45,8 +47,10 @@ window.addEventListener('error', (event) => {
     dismiss.type = 'button';
     dismiss.textContent = '\u2715';
     dismiss.setAttribute('aria-label', 'Dismiss error notice');
+
     dismiss.style.cssText =
       'position:absolute; right:12px; top:50%; transform:translateY(-50%); background:transparent; border:none; color:white; font-size:16px; cursor:pointer;';
+
     dismiss.addEventListener('click', () => notice.remove());
 
     notice.appendChild(dismiss);
