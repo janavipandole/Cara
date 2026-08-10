@@ -1,0 +1,1 @@
+# Feature: Add a "Skeleton Loading" State for Products\n\nThis is a placeholder for the implementation of Feature: Add a "Skeleton Loading" State for Products.
