@@ -93,4 +93,34 @@ describe('error-boundary.js unit tests', () => {
     expect(container.querySelector('.ok')).not.toBeNull();
     expect(container.querySelector('.cara-error-fallback')).toBeNull();
   });
+
+  it('retry replaces the fallback with the rendered content on success', () => {
+    let callCount = 0;
+    const renderFn = vi.fn(() => {
+      callCount++;
+      if (callCount === 1) throw new Error('first fail');
+      container.innerHTML = '<p class="recovered">loaded</p>';
+    });
+    CaraErrorBoundary.wrap('#test-target', renderFn);
+    expect(container.querySelector('.cara-error-fallback')).not.toBeNull();
+
+    container.querySelector('.cara-error-retry').click();
+    expect(callCount).toBe(2);
+    expect(container.querySelector('.recovered')).not.toBeNull();
+    expect(container.querySelector('.cara-error-fallback')).toBeNull();
+  });
+
+  it('retry keeps showing the fallback when renderFn keeps failing', () => {
+    const renderFn = vi.fn(() => {
+      throw new Error('always fails');
+    });
+    CaraErrorBoundary.wrap('#test-target', renderFn);
+
+    const retryBtn = container.querySelector('.cara-error-retry');
+    retryBtn.click();
+    retryBtn.click();
+
+    expect(container.querySelector('.cara-error-fallback')).not.toBeNull();
+    expect(renderFn).toHaveBeenCalledTimes(3);
+  });
 });
