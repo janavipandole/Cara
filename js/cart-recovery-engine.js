@@ -55,7 +55,7 @@ export class CartRecoveryEngine {
       }
       return data;
     } catch (err) {
-      console.warn('[CartRecoveryEngine] Failed to parse abandoned cart session:', err);
+      // Silently ignore parse failures — recovery will use empty session state
       return null;
     }
   }
