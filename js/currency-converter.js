@@ -114,8 +114,12 @@ export function initCurrencySelector(selectElementId = 'currencySelect') {
 }
 
 if (typeof document !== 'undefined') {
-  document.addEventListener('DOMContentLoaded', () => {
+  function initCurrencyConverter() {
     fetchExchangeRates();
     initCurrencySelector();
-  });
+  }
+  // Initialize when the DOM is ready. The immediate idempotent call covers
+  // deferred scripts that load after DOMContentLoaded has already fired.
+  document.addEventListener('DOMContentLoaded', initCurrencyConverter);
+  initCurrencyConverter();
 }
