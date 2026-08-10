@@ -39,3 +39,17 @@ def test_ambassador_apply_invalid_email(client):
         },
     )
     assert response.status_code == 422
+
+
+def test_ambassador_apply_oversized_followers(client):
+    response = client.post(
+        "/api/ambassador/apply",
+        json={
+            "full_name": "Jane Doe",
+            "email": "jane@example.com",
+            "instagram_handle": "@janedoe",
+            "follower_count": 10**12,
+            "motivation": "Test"
+        },
+    )
+    assert response.status_code == 400
