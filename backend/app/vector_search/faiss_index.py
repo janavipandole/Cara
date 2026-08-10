@@ -1,39 +1,102 @@
-import faiss
 import os
+
+import faiss
 import numpy as np
+import torch
+from transformers import CLIPModel, CLIPProcessor
 
-index_path = os.path.join(os.path.dirname(__file__), '..', '..', 'faiss_index.bin')
+
+INDEX_PATH = os.path.join(
+    os.path.dirname(__file__),
+    "..",
+    "..",
+    "faiss_index.bin",
+)
+
+MODEL_NAME = "openai/clip-vit-base-patch32"
+
 index = None
+model = None
+processor = None
 
-if os.path.exists(index_path):
-    index = faiss.read_index(index_path)
-else:
-    print("Warning: FAISS index not found. Please run precompute_embeddings.py")
 
-def get_similar_product_ids(product_id: int, top_k: int = 10):
+def _load_model():
+    global model, processor
+
+    if model is None or processor is None:
+        model = CLIPModel.from_pretrained(MODEL_NAME)
+        processor = CLIPProcessor.from_pretrained(MODEL_NAME)
+
+
+def load_index():
+    global index
+
+    if os.path.exists(INDEX_PATH):
+        index = faiss.read_index(INDEX_PATH)
+    else:
+        print(
+            "Warning: FAISS index not found. "
+            "Please run precompute_embeddings.py"
+        )
+
+
+load_index()
+
+
+def get_query_embedding(query: str) -> np.ndarray:
+    """Generate a normalized CLIP text embedding for a search query."""
+    _load_model()
+
+    inputs = processor(
+        text=[query],
+        return_tensors="pt",
+        padding=True,
+        truncation=True,
+    )
+
+    with torch.no_grad():
+        text_features = model.get_text_features(**inputs)
+
+    embedding = text_features.cpu().numpy().astype("float32")
+    embedding /= np.linalg.norm(embedding, axis=1, keepdims=True)
+
+    return embedding
+
+
+def search_products(query: str, top_k: int = 10):
+    """Return product IDs matching a natural-language query."""
     if index is None:
         return []
-    
-    # Retrieve embedding for the given product_id
+
+    query = query.strip()
+
+    if not query:
+        return []
+
     try:
-        # We need to map product_id to the embedding vector.
-        # Faiss IndexIDMap allows us to search by vector, but not retrieve vector by ID directly easily in basic FlatL2.
-        # Let's reconstruct the vector if possible, or we could just use a cached embedding dict.
-        # For simplicity, we will reconstruct it if the index supports it. IndexFlatL2 doesn't support reconstruct directly with IDMap.
-        # A simpler way is to just generate the synthetic vector again using the same seed to query.
-        
-        # Fallback synthetic embedding generator based on product ID to match seed_data / precompute
-        d = 512
-        np.random.seed(product_id)
-        emb = np.random.rand(d).astype('float32')
-        emb = emb / np.linalg.norm(emb)
-        
-        # Search
-        distances, indices = index.search(np.array([emb]), top_k)
-        
-        # Filter out self and return
-        return [int(idx) for idx in indices[0] if idx != -1 and idx != product_id]
-        
-    except Exception as e:
-        print(f"Error in vector search: {e}")
+        query_embedding = get_query_embedding(query)
+
+        distances, product_ids = index.search(
+            query_embedding,
+            top_k,
+        )
+
+        results = []
+
+        for product_id, distance in zip(
+            product_ids[0],
+            distances[0],
+        ):
+            if product_id != -1:
+                results.append(
+                    {
+                        "product_id": int(product_id),
+                        "distance": float(distance),
+                    }
+                )
+
+        return results
+
+    except Exception as exc:
+        print(f"Error in semantic search: {exc}")
         return []

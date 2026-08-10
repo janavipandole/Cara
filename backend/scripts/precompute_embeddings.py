@@ -1,78 +1,133 @@
 import os
 import sys
-import numpy as np
-from PIL import Image
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+import faiss
+import numpy as np
+import torch
+from transformers import CLIPModel, CLIPProcessor
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from app.database import SessionLocal
 from app import models
-import faiss
 
-# Try importing transformers, fallback if not available
-try:
-    from transformers import CLIPProcessor, CLIPModel
-    import torch
-    HAS_TRANSFORMERS = True
-except ImportError:
-    HAS_TRANSFORMERS = False
+
+MODEL_NAME = "openai/clip-vit-base-patch32"
+EMBEDDING_DIMENSION = 512
+
+
+def build_product_text(product):
+    """Build searchable text from the product's metadata."""
+    fields = [
+        product.name,
+        product.brand,
+        product.category,
+        product.subcategory,
+        product.color,
+        product.style,
+    ]
+
+    return " ".join(
+        str(field).strip()
+        for field in fields
+        if field
+    )
+
 
 def precompute():
-    global HAS_TRANSFORMERS
     db = SessionLocal()
-    products = db.query(models.Product).all()
-    
-    # We will use a dimension of 512 for CLIP
-    d = 512 
-    index = faiss.IndexFlatL2(d)
-    
-    ids = []
-    embeddings = []
-    
-    if HAS_TRANSFORMERS:
-        print("Loading CLIP model (this may take a moment)...")
-        model_name = "openai/clip-vit-base-patch32"
-        try:
-            model = CLIPModel.from_pretrained(model_name)
-            processor = CLIPProcessor.from_pretrained(model_name)
-        except Exception as e:
-            print(f"Failed to load CLIP: {e}. Using fallback synthetic embeddings.")
-            HAS_TRANSFORMERS = False
 
-    for p in products:
-        img_path = os.path.join(os.path.dirname(__file__), '..', '..', p.img)
-        emb = None
-        
-        if HAS_TRANSFORMERS and os.path.exists(img_path):
+    try:
+        products = db.query(models.Product).all()
+
+        if not products:
+            print("No products found.")
+            return
+
+        print(f"Loading {MODEL_NAME}...")
+        model = CLIPModel.from_pretrained(MODEL_NAME)
+        processor = CLIPProcessor.from_pretrained(MODEL_NAME)
+
+        embeddings = []
+        ids = []
+
+        print(f"Generating embeddings for {len(products)} products...")
+
+        for product in products:
+            product_text = build_product_text(product)
+
+            if not product_text:
+                print(
+                    f"Skipping product {product.id}: "
+                    "no searchable metadata."
+                )
+                continue
+
             try:
-                image = Image.open(img_path).convert("RGB")
-                inputs = processor(images=image, return_tensors="pt")
+                inputs = processor(
+                    text=[product_text],
+                    return_tensors="pt",
+                    padding=True,
+                    truncation=True,
+                )
+
                 with torch.no_grad():
-                    image_features = model.get_image_features(**inputs)
-                emb = image_features.numpy()[0]
-                # Normalize
-                emb = emb / np.linalg.norm(emb)
-            except Exception as e:
-                print(f"Error processing {img_path}: {e}")
-                
-        if emb is None:
-            # Fallback synthetic embedding based on id
-            np.random.seed(p.id)
-            emb = np.random.rand(d).astype('float32')
-            emb = emb / np.linalg.norm(emb)
-            
-        embeddings.append(emb)
-        ids.append(p.id)
-        
-    embeddings_np = np.array(embeddings).astype('float32')
-    
-    # Map faiss ids to product ids
-    index_id_map = faiss.IndexIDMap(index)
-    index_id_map.add_with_ids(embeddings_np, np.array(ids).astype('int64'))
-    
-    faiss.write_index(index_id_map, os.path.join(os.path.dirname(__file__), '..', 'faiss_index.bin'))
-    print(f"Saved FAISS index with {len(ids)} products.")
-    db.close()
+                    text_features = model.get_text_features(**inputs)
+
+                embedding = text_features.cpu().numpy()[0].astype("float32")
+
+                norm = np.linalg.norm(embedding)
+
+                if norm == 0:
+                    print(
+                        f"Skipping product {product.id}: "
+                        "zero-length embedding."
+                    )
+                    continue
+
+                embedding /= norm
+
+                embeddings.append(embedding)
+                ids.append(product.id)
+
+            except Exception as exc:
+                print(
+                    f"Error embedding product {product.id}: {exc}"
+                )
+
+        if not embeddings:
+            print("No embeddings were generated.")
+            return
+
+        embeddings_np = np.array(
+            embeddings,
+            dtype="float32",
+        )
+
+        index = faiss.IndexFlatL2(EMBEDDING_DIMENSION)
+        index_id_map = faiss.IndexIDMap(index)
+
+        index_id_map.add_with_ids(
+            embeddings_np,
+            np.array(ids, dtype="int64"),
+        )
+
+        index_path = os.path.join(
+            os.path.dirname(__file__),
+            "..",
+            "faiss_index.bin",
+        )
+
+        faiss.write_index(index_id_map, index_path)
+
+        print(
+            f"Saved text-based FAISS index with "
+            f"{len(ids)} products."
+        )
+
+    finally:
+        db.close()
+
 
 if __name__ == "__main__":
     precompute()
