@@ -20,8 +20,10 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.removeItem('cara_user_role');
 
     // The real session lives in httpOnly cookies, which JS can't clear
-    // directly, so ask the server to invalidate them.
-    fetch(`${apiBase}/api/auth/logout`, {
+    // directly, so ask the server to invalidate them. Use the same
+    // fetchWithTimeout wrapper as the /me check so a hung request cannot
+    // delay the redirect to login indefinitely.
+    fetchFunc(`${apiBase}/api/auth/logout`, {
       method: 'POST',
       credentials: 'include',
     })
