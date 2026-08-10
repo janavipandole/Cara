@@ -21,7 +21,8 @@
   let debounceTimer = null;
 
   // ── Utility: debounce ──────────────────────────────────────────────────────
-  function debounce(fn, wait) {
+  // Expose debounce for reuse by other modules
+  window.debounce = function(fn, wait) {
     return function (...args) {
       clearTimeout(debounceTimer);
       debounceTimer = setTimeout(() => fn.apply(this, args), wait);
