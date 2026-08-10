@@ -1,7 +1,11 @@
 // Checkout Promo Count Down Timer
-document.addEventListener('DOMContentLoaded', () => {
+function initCheckoutTimer() {
+  if (typeof document === 'undefined') return;
   const totalEl = document.getElementById('summary-total');
   if (!totalEl) return;
+
+  // Skip re-initialization if the timer bar is already present.
+  if (document.getElementById('checkout-promo-alert-bar')) return;
 
   // Inject Urgency Bar at the top of checkout content
   const checkoutHeader =
@@ -59,4 +63,9 @@ document.addEventListener('DOMContentLoaded', () => {
       window.updateCheckoutSummary();
     }
   }
-});
+}
+
+// Initialize when the DOM is ready. The immediate idempotent call covers
+// deferred scripts that load after DOMContentLoaded has already fired.
+document.addEventListener('DOMContentLoaded', initCheckoutTimer);
+initCheckoutTimer();

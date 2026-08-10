@@ -131,4 +131,44 @@ describe('Checkout Timer Unit Tests', () => {
     expect(timerExpired).toBe(true);
   });
 
+  it('does nothing when the summary total element is missing', async () => {
+    vi.resetModules();
+    document.body.innerHTML = '<div class="checkout-container"></div>';
+    await import('../../js/checkout-timer.js');
+    expect(document.getElementById('checkout-promo-alert-bar')).toBeNull();
+  });
+
+  it('initializes the timer bar immediately when the DOM is ready', async () => {
+    vi.resetModules();
+    Object.defineProperty(document, 'readyState', {
+      configurable: true,
+      value: 'complete',
+    });
+    document.body.innerHTML = `
+      <div id="summary-total"></div>
+      <div class="checkout-container"></div>
+    `;
+    await import('../../js/checkout-timer.js');
+
+    const bar = document.getElementById('checkout-promo-alert-bar');
+    expect(bar).not.toBeNull();
+    expect(document.getElementById('checkout-timer').textContent).toBe('15:00');
+  });
+
+  it('updates the displayed time as the timer ticks down', async () => {
+    vi.resetModules();
+    Object.defineProperty(document, 'readyState', {
+      configurable: true,
+      value: 'complete',
+    });
+    document.body.innerHTML = `
+      <div id="summary-total"></div>
+      <div class="checkout-container"></div>
+    `;
+    await import('../../js/checkout-timer.js');
+
+    vi.advanceTimersByTime(1000);
+    expect(document.getElementById('checkout-timer').textContent).toBe('14:59');
+  });
+
 });
