@@ -193,14 +193,16 @@
       }
     });
 
-    window.addEventListener('pagehide', clearCycle);
+    if (typeof window.addEventListener === 'function') {
+      window.addEventListener('pagehide', clearCycle);
+    }
     beginCycle();
   }
 
-  // Auto-init on DOMContentLoaded
-  document.addEventListener('DOMContentLoaded', () => {
-    startToastCycle();
-  });
+  // Auto-init on DOMContentLoaded. The immediate idempotent call covers
+  // deferred scripts that load after DOMContentLoaded has already fired.
+  document.addEventListener('DOMContentLoaded', startToastCycle);
+  startToastCycle();
 })();
 
 
