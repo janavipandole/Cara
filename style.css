@@ -4635,3 +4635,16 @@ footer {
                 color: #088178;
                 font-weight: bold;
             }
+
+            /* Lazy Load Animation */
+            .lazy-preload {
+                opacity: 0;
+                transform: scale(0.95);
+                transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            }
+
+            .fade-in-lazy {
+                opacity: 1;
+                transform: scale(1);
+            }
+
