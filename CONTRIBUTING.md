@@ -129,6 +129,19 @@ cd backend && python3 -m pytest tests/ -v --no-header
 
 Make sure the frontend vitest suite passes before opening a pull request.
 
+### Frontend Test Conventions
+
+Follow these conventions when adding tests to `tests/unit/`:
+
+- **Framework**: Use Vitest with `describe` / `it` / `expect` (BDD style). No Jest globals.
+- **Imports**: Use ES module imports, e.g. `import { fn } from '../../js/<module>.js'`. For modules that expose themselves on `window` or via `module.exports`, load them with `await import('../../js/<module>.js')` after `vi.resetModules()`.
+- **Style**: Single quotes, 2-space indent, semicolons — matching the existing test files.
+- **Coverage**: Only add a test file for a module that does not already have one in `tests/unit/`; extend the existing file otherwise. Never delete or weaken an existing test.
+- **Timers**: Use `vi.useFakeTimers()` for `setTimeout` / `setInterval` logic and restore with `vi.useRealTimers()` in `afterEach`.
+- **DOM**: Set up fresh markup in `beforeEach` with `document.body.innerHTML = ...`; clear it in `afterEach` where state leaks between tests.
+- **Async**: Mock `globalThis.fetch` (or the module's fetch dependency) with `vi.fn()` and always resolve a shape matching the real API contract.
+- **Verification**: Run `npx vitest run tests/unit/<module>.test.js` while developing and the full `npm test` before pushing.
+
 ## Pull Request Process
 
 ### Before Submitting
