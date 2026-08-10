@@ -78,7 +78,7 @@ def health():
 
 
 # Include routers here later
-from .api import recommendation, products, auth, orders, address, newsletter, admin, admin_products, profile, ambassador
+from .api import recommendation, products, auth, orders, address, newsletter, admin, admin_products, profile, ambassador, pricing, websocket_cart, receipts, telemetry, inventory_lock
 app.include_router(recommendation.router, prefix="/api/outfit", tags=["outfit"])
 app.include_router(products.router, prefix="/api/products", tags=["products"])
 app.include_router(auth.router,prefix="/api/auth",tags=["auth"])
@@ -89,4 +89,14 @@ app.include_router(admin.router, prefix="/api/admin", tags=["admin"])
 app.include_router(admin_products.router, prefix="/api/admin/products", tags=["admin-products"])
 app.include_router(profile.router, prefix="/api/profile", tags=["profile"])
 app.include_router(ambassador.router, prefix="/api/ambassador", tags=["ambassador"])
+app.include_router(pricing.router, prefix="/api/pricing", tags=["pricing"])
+app.include_router(websocket_cart.router, tags=["shared-cart-ws"])
+app.include_router(receipts.router, prefix="/api/receipts", tags=["receipts"])
+app.include_router(telemetry.router, prefix="/api/telemetry", tags=["telemetry"])
+app.include_router(inventory_lock.router, prefix="/api/inventory", tags=["inventory"])
+
+
+
+
+
 

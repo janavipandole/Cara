@@ -1,0 +1,1 @@
+# Enhancement: Add "Empty Cart" State Illustration\n\nThis is a placeholder for the implementation of Enhancement: Add "Empty Cart" State Illustration.

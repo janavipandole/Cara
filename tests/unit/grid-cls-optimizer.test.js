@@ -61,4 +61,19 @@ describe('GridClsOptimizer Unit Tests', () => {
     }
   });
 
+  it('should optimize zero images in an empty container', () => {
+    const emptyContainer = {
+      querySelectorAll: () => [],
+    };
+    const res = optimizer.optimizeGridImages(emptyContainer);
+    expect(res.count).toBe(0);
+  });
+
+  it('should cleanup zero images in an empty container', () => {
+    const emptyContainer = {
+      querySelectorAll: () => [],
+    };
+    const res = optimizer.cleanupReservedDimensions(emptyContainer);
+    expect(res.cleaned).toBe(0);
+  });
 });

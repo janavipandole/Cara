@@ -164,7 +164,9 @@
 
     <!-- Rest of your cart page content continues below here -->
         <section id="cart-container" class="section-p1">
+          <div id="shared-cart-presence-target"></div>
           <div class="cart-grid-layout">
+
             <div class="cart-items-column">
               <div class="cart-column-header">
                 <span>Product</span>
@@ -411,14 +413,25 @@
   <!-- This is your closing footer tag -->
 
       <!-- FORCE A BLANK LAYOUT GAP AT THE BOTTOM OF THE ENTIRE PAGE -->
-      <div style="height: 18px !important; width: 100% !important; clear: both !important; display: block !important;"></div>
-      
+    <script src="js/shared-cart-ws.js"></script>
     <script type="module" src="app.js?v=1779120917210"></script>
     <script>
-      // ... (your coupon script stays exactly the same)
+      document.addEventListener('DOMContentLoaded', () => {
+        if (typeof window.SharedCartWS !== 'undefined') {
+          const cartWS = new window.SharedCartWS.SharedCartWS({
+            onPresence: (users) => {
+              cartWS.renderPresenceBar('#shared-cart-presence-target');
+            }
+          });
+          if (document.getElementById('shared-cart-presence-target')) {
+            cartWS.renderPresenceBar('#shared-cart-presence-target');
+          }
+        }
+      });
     </script>
   </body>
 </html>
+
 
 
 

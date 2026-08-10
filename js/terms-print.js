@@ -1,5 +1,6 @@
 // Print-Friendly Terms Optimization
-document.addEventListener('DOMContentLoaded', () => {
+function initTermsPrint() {
+  if (typeof document === 'undefined') return;
   const parentContainer = document.querySelector('section') || document.body;
 
   // Inject Print Button
@@ -31,4 +32,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     `;
   document.head.appendChild(style);
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initTermsPrint);
+} else {
+  initTermsPrint();
+}
