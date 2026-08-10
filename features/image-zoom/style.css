@@ -1,0 +1,83 @@
+/* Custom CSS Variables tailored for Image Zoom on Hover */
+:root {
+  --primary-color: #f43f5e;
+  --secondary-color: #e11d48;
+  --bg-dark: #0f172a;
+  --bg-light: #f8fafc;
+  --text-dark: #1e293b;
+  --text-light: #f1f5f9;
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --transition-speed: 0.3s;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(circle at 50% 50%, var(--primary-color) 0%, var(--bg-dark) 100%);
+  color: var(--text-light);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.demo-wrapper {
+  max-width: 900px;
+  width: 90%;
+  margin: 40px auto;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.demo-header {
+  text-align: center;
+  margin-bottom: 30px;
+  border-bottom: 1px solid var(--glass-border);
+  padding-bottom: 20px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--secondary-color);
+  margin-bottom: 10px;
+}
+
+.demo-title {
+  font-size: 32px;
+  font-weight: 600;
+  margin: 10px 0;
+  background: linear-gradient(135deg, #ffffff 0%, var(--secondary-color) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.demo-subtitle {
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+.demo-footer {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 12px;
+  color: #64748b;
+  border-top: 1px solid var(--glass-border);
+  padding-top: 20px;
+}
+
+.zoom-container { width: 300px; height: 300px; overflow: hidden; border-radius: 12px; cursor: zoom-in; margin: auto; }
+      .zoom-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.1s; }
