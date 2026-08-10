@@ -1,7 +1,19 @@
 // Reusable Toast Notification Queue Manager
 
 function escapeHtml(value) {
-  return String(value).replace(
+  let text;
+  if (typeof value === 'string') {
+    text = value;
+  } else if (value === null || value === undefined) {
+    text = '';
+  } else {
+    try {
+      text = JSON.stringify(value);
+    } catch (e) {
+      text = String(value);
+    }
+  }
+  return text.replace(
     /[&<>"']/g,
     (char) =>
       ({

@@ -70,4 +70,21 @@ describe('Toast Queue Manager Unit Tests', () => {
     expect(toastCard.querySelector('.toast-message').innerHTML).toContain('&lt;img');
     expect(toastCard.querySelector('.toast-message').innerHTML).not.toContain('<img');
   });
+
+  it('should render a useful text for object messages', () => {
+    const id = manager.show({ code: 'E500', detail: 'Something failed' }, 'error', 0);
+    const toastCard = document.getElementById(id);
+    expect(toastCard.querySelector('.toast-message').textContent).toContain(
+      '"code":"E500"',
+    );
+    expect(toastCard.querySelector('.toast-message').textContent).toContain(
+      '"detail":"Something failed"',
+    );
+  });
+
+  it('should render an empty message for null or undefined input', () => {
+    const id = manager.show(null, 'info', 0);
+    const toastCard = document.getElementById(id);
+    expect(toastCard.querySelector('.toast-message').textContent).toBe('');
+  });
 });
