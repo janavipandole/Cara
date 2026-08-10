@@ -47,6 +47,26 @@ describe('reading-progress', () => {
     window.dispatchEvent(new Event('scroll'));
     expect(bar.style.width).toBe('50%');
   });
+
+  it('stays at 0% when the page has no scrollable content', async () => {
+    await load();
+    const bar = document.getElementById('reading-progress-bar');
+    // No scroll; scrollHeight equals clientHeight.
+    Object.defineProperty(document.body, 'scrollTop', {
+      value: 0,
+      configurable: true,
+    });
+    Object.defineProperty(document.documentElement, 'scrollHeight', {
+      value: 600,
+      configurable: true,
+    });
+    Object.defineProperty(document.documentElement, 'clientHeight', {
+      value: 600,
+      configurable: true,
+    });
+    window.dispatchEvent(new Event('scroll'));
+    expect(bar.style.width).toBe('0%');
+  });
 });
 
 import { roundScrollProgressPercent } from '../../js/reading-progress.js';
