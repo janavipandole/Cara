@@ -19,7 +19,8 @@ export class WishlistShareExporter {
     try {
       const decoded = decodeURIComponent(atob(shareData));
       return JSON.parse(decoded);
-    } catch {
+    } catch (err) {
+      console.warn('[WishlistShareExporter] Failed to parse shareable link data:', err);
       return [];
     }
   }
