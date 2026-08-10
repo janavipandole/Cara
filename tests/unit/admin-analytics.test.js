@@ -134,4 +134,26 @@ describe('admin-analytics.js unit tests', () => {
       expect(opts.credentials).toBe('include');
     });
   });
+
+  it('no-ops safely when dashboard DOM nodes are absent', async () => {
+    vi.resetModules();
+    // Clear the DOM so the module captures null element references.
+    document.body.innerHTML = '';
+    await import('../../js/admin-analytics.js');
+
+    fetchSpy.mockResolvedValue({ ok: true, status: 200, json: () => Promise.resolve({}) });
+    await expect(window.AdminDashboard.refresh()).resolves.not.toThrow();
+  });
+
+  it('renders an error alert when refresh fails', async () => {
+    vi.resetModules();
+    await import('../../js/admin-analytics.js');
+    const errorAlert = document.getElementById('analyticsError');
+
+    fetchSpy.mockResolvedValue({ ok: false, status: 500 });
+    await window.AdminDashboard.refresh();
+
+    expect(errorAlert.textContent).toContain('Failed to retrieve dashboard analytics.');
+    expect(errorAlert.style.display).toBe('block');
+  });
 });
