@@ -123,6 +123,29 @@ describe('admin-analytics.js unit tests', () => {
     expect(typeof window.AdminDashboard).toBe('object');
   });
 
+  it('loads dashboard data immediately when the DOM is already ready', async () => {
+    vi.resetModules();
+    // The DOM is populated before import so the module's immediate init fires.
+    document.body.innerHTML = `
+      <div id="analyticsRevenue"></div>
+      <div id="analyticsOrders"></div>
+      <div id="analyticsCustomers"></div>
+      <table id="analyticsCategoryTable"></table>
+      <div id="analyticsStatusWrap"></div>
+      <div id="analyticsError"></div>
+    `;
+    Object.defineProperty(document, 'readyState', {
+      configurable: true,
+      value: 'complete',
+    });
+    fetchSpy.mockResolvedValue({ ok: true, status: 200, json: () => Promise.resolve({}) });
+
+    await import('../../js/admin-analytics.js');
+
+    // initDashboard fired at import time without needing DOMContentLoaded.
+    expect(fetchSpy).toHaveBeenCalledTimes(3);
+  });
+
   it('exposes refresh that calls all three analytics endpoints with credentials', async () => {
     fetchSpy.mockResolvedValue({ ok: true, status: 200, json: () => Promise.resolve({}) });
     await window.AdminDashboard.refresh();
