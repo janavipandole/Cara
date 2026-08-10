@@ -42,7 +42,7 @@ export async function fetchExchangeRates(fetchImpl = globalThis.fetch) {
         }
       }
     } catch (err) {
-      console.warn('[CurrencyConverter] Failed to parse cached exchange rates:', err);
+      // Silently fall back to default rates on cache parse failure
     }
   }
 
@@ -64,7 +64,7 @@ export async function fetchExchangeRates(fetchImpl = globalThis.fetch) {
         }
       }
     } catch (err) {
-      console.warn('[CurrencyConverter] Exchange rate API request failed:', err);
+      // Silently fall back to cached/default rates on API failure
     }
   }
 
