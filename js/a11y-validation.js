@@ -73,23 +73,8 @@
       }
     });
 
-    // Output audit results
-    if (errors.length > 0 || warnings.length > 0) {
-      console.groupCollapsed('♿ WCAG 2.1 Compliance Audit Results');
-      if (errors.length > 0) {
-        console.error('Errors (' + errors.length + '):');
-        errors.forEach(function (err) {
-          console.error(err.message, err.element);
-        });
-      }
-      if (warnings.length > 0) {
-        console.warn('Warnings (' + warnings.length + '):');
-        warnings.forEach(function (warn) {
-          console.warn(warn.message, warn.element);
-        });
-      }
-      console.groupEnd();
-    }
+    // Return structured audit results for programmatic access
+    return { errors: errors, warnings: warnings };
   }
 
   if (typeof document !== 'undefined') {
