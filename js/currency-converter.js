@@ -53,7 +53,7 @@ export async function fetchExchangeRates(fetchImpl = globalThis.fetch) {
         const data = await response.json();
         if (data && data.rates) {
           for (const code of Object.keys(DEFAULT_EXCHANGE_RATES)) {
-            if (data.rates[code] != null) EXCHANGE_RATES[code] = data.rates[code];
+            if (data.rates[code] != null && isFinite(data.rates[code])) EXCHANGE_RATES[code] = data.rates[code];
           }
           if (typeof localStorage !== 'undefined') {
             localStorage.setItem(
