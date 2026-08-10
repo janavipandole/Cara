@@ -73,4 +73,24 @@ describe('PromoDiscountCalculator Unit Tests', () => {
     expect(summary.appliedCoupon).toBe('FLAT15');
     expect(summary.grandTotal).toBe(40); // 45 - 15 + 10 shipping
   });
+
+  it('should never produce a negative grand total', () => {
+    // A percent coupon on a small subtotal; the total is clamped at zero
+    // before shipping is added.
+    const summary = calc.calculateTotal(20, 'WELCOME10', 10);
+    // 20 - 2 (10%) + 10 shipping = 28, never negative.
+    expect(summary.grandTotal).toBe(28);
+  });
+
+  it('should treat a zero subtotal as failing the coupon minimum', () => {
+    const res = calc.validateCoupon('WELCOME10', 0);
+    expect(res.valid).toBe(false);
+    expect(res.message).toContain('minimum spend');
+  });
+
+  it('should apply no discount for a zero subtotal with no coupon', () => {
+    const summary = calc.calculateTotal(0, '');
+    expect(summary.discount).toBe(0);
+    expect(summary.appliedCoupon).toBeNull();
+  });
 });
