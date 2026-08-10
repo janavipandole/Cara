@@ -1,0 +1,1 @@
+# Feature: Add a "Printable Receipt" View for Checkout\n\nThis is a placeholder for the implementation of Feature: Add a "Printable Receipt" View for Checkout.
