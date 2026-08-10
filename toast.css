@@ -89,3 +89,42 @@
 }
 /* Fix #2423 */
 :root { --em-base-duration: 300ms; }
+
+/* Advanced Toast System */
+#advanced-toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.advanced-toast {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transform: translateX(120%);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  gap: 10px;
+  min-width: 250px;
+}
+.advanced-toast.toast-show {
+  transform: translateX(0);
+}
+.toast-success .toast-icon { color: #28a745; font-size: 1.5rem; }
+.toast-error .toast-icon { color: #dc3545; font-size: 1.5rem; }
+.toast-info .toast-icon { color: #17a2b8; font-size: 1.5rem; }
+.toast-warning .toast-icon { color: #ffc107; font-size: 1.5rem; }
+.toast-close {
+  margin-left: auto;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #666;
+}
+
