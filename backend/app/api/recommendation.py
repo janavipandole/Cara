@@ -6,8 +6,6 @@ import os
 from .. import models, schemas
 from ..database import get_db
 from ..vector_search.faiss_index import get_similar_product_ids
-import hashlib
-import os
 from ..rules.engine import filter_by_rules
 from ..limiter import limiter
 
@@ -21,8 +19,14 @@ def recommend_outfit(request: Request, req: schemas.RecommendationRequest, db: S
     if not base_product:
         raise HTTPException(status_code=404, detail="Product not found")
         
-    # Get similar items based on vector search
-    candidate_ids = get_similar_product_ids(req.product_id, top_k=15)
+    # Determine the desired limit (between 1 and 20)
+    limit = max(1, min(req.limit, 20))
+
+    # Dynamically scale top_k to fetch a surplus of candidates to account for items dropped by filter_by_rules
+    fetch_top_k = max(limit * 2, 30)
+
+    # Get similar items based on vector search with dynamic top_k
+    candidate_ids = get_similar_product_ids(req.product_id, top_k=fetch_top_k)
     
     # Fetch candidates from DB
     candidates = db.query(models.Product).filter(models.Product.id.in_(candidate_ids)).all()
@@ -34,12 +38,16 @@ def recommend_outfit(request: Request, req: schemas.RecommendationRequest, db: S
     # Apply strict business rules
     filtered_candidates = filter_by_rules(base_product, ordered_candidates)
     
-    # In a real app, apply personalization re-ranking here
-    # personalization_tracker.rerank(req.user_id, filtered_candidates)
+    # Apply personalization re-ranking based on user historical interactions
+    hashed_user_id = None
+    if req.user_id:
+        hashed_user_id = hashlib.sha256(req.user_id.encode('utf-8') + SALT).hexdigest()
+        
+    from ..rules.reranker import PersonalizedReranker
+    reranked_candidates = PersonalizedReranker.rerank(db, hashed_user_id, filtered_candidates)
     
-    # Limit results
-    limit = max(1, min(req.limit, 20))
-    return filtered_candidates[:limit]
+    # Return up to the requested limit
+    return reranked_candidates[:limit]
 
 @router.post("/feedback")
 @limiter.limit("30/minute")

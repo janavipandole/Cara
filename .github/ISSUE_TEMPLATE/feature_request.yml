@@ -1,0 +1,100 @@
+---
+name: ✨ Feature Request
+description: Propose a new feature or significant enhancement for Cara
+title: "[Feature]: "
+labels: ["enhancement", "needs-triage"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Before You Request
+        - Check the [Roadmap](https://github.com/janavipandole/Cara#%EF%B8%8F-roadmap) — your idea may already be planned.
+        - Search [existing issues](https://github.com/janavipandole/Cara/issues) to avoid duplicates.
+
+  - type: input
+    id: feature-area
+    attributes:
+      label: Feature Area
+      description: Which part of the project does this relate to?
+      placeholder: e.g. checkout flow, product search, wishlist, backend API
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Statement
+      description: |
+        What problem does this feature solve? Who is affected?
+        A clear problem statement helps maintainers evaluate the feature quickly.
+      placeholder: As a shopper, I cannot find products by colour, so I have to scroll through hundreds of items manually.
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: Describe the feature you'd like and how it would work from the user's perspective.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Have you considered any alternative solutions or workarounds?
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Impact / Priority
+      description: How impactful do you believe this feature is?
+      options:
+        - Critical — blocks key user journeys
+        - High — significantly improves UX
+        - Medium — nice to have
+        - Low — minor quality-of-life improvement
+    validations:
+      required: true
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Estimated Scope
+      options:
+        - Frontend only
+        - Backend only
+        - Full-stack (frontend + backend)
+        - Developer tooling / CI
+        - Documentation
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: How will we know this feature is done? List specific, testable criteria.
+      placeholder: |
+        - [ ] Users can filter products by colour using a dropdown
+        - [ ] Filter state is preserved in the URL query string
+        - [ ] Filters work on mobile viewports
+        - [ ] No existing tests are broken
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Mockups, references to similar features in other sites, links, or any other helpful context.
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-submission Checklist
+      options:
+        - label: I searched existing issues and this is not a duplicate
+          required: true
+        - label: I am willing to work on this feature myself (optional)
+          required: false

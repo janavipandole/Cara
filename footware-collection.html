@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cara — Footwear Collection</title>
@@ -198,12 +199,24 @@
         }
     </style>
 
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
+  <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
+    <script type="module" src="js/config.js"></script>
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
 
     <section id="header">
-        <a href="index.html"><img src="images/logo.png" alt=""></a>
+        <a href="index.html" aria-label="Cara Home"><img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" /></a>
 
         <div>
             <ul id="navbar">
@@ -215,30 +228,22 @@
                 <li><a href="login.html">Login</a></li>
 
                 <li>
-                    <a href="cart.html" id="lg-bag">
-                        <i class="ri-shopping-bag-4-line"></i>
-                    </a>
-                </li>
-
                 <li>
-                    <button class="theme-toggle" id="themeToggle">
+                    <button aria-label="Button"  class="theme-toggle" id="themeToggleDesktop">>
                         <i class="ri-moon-line"></i>
                     </button>
                 </li>
 
-                <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+                <li class="nav-close"><a href="javascript:void(0)" id="close" aria-label="Close menu" aria-hidden="false"><i class="fa-solid fa-xmark"></i></a></li>
             </ul>
         </div>
 
         <div class="mobile">
-            <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
-            <i class="fas fa-outdent" id="bar"></i>
-      <!-- Theme Toggle -->
-      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
-        <i class="ri-moon-line" id="themeIconMobile"></i>
-      </button>
+            <a aria-label="Cart" href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
+            <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
         </div>
     </section>
+<main id="main-content">
 
 
     <section class="footwear-hero">
@@ -318,11 +323,11 @@
             <div class="pro">
                 <span class="shoe-tag">NEW</span>
 
-                <img src="images/products/urban_white.avif" alt="">
+               <img src="images/products/urban_white.avif" alt="Urban White Sneakers"> 
 
                 <div class="des">
                     <span>Cara</span>
-                    <h5>Urban White Sneakers</h5>
+                    <h3>Urban White Sneakers</h3>
 
                     <div class="star">
                         <i class="ri-star-fill"></i>
@@ -335,7 +340,7 @@
                     <h4>$89</h4>
                 </div>
 
-                <a href="#"><i class="ri-shopping-cart-2-line cart"></i></a>
+                <a href="javascript:void(0)" aria-label="Interactive action"><i class="ri-shopping-cart-2-line cart"></i></a>
             </div>
 
 
@@ -343,11 +348,11 @@
             <div class="pro">
                 <span class="shoe-tag">HOT</span>
 
-                <img src="images/products/runner.avif" alt="">
+                <img src="images/products/runner.avif" alt="Street Runner Shoes">
 
                 <div class="des">
                     <span>Cara</span>
-                    <h5>Street Runner Shoes</h5>
+                    <h3>Street Runner Shoes</h3>
 
                     <div class="star">
                         <i class="ri-star-fill"></i>
@@ -360,7 +365,7 @@
                     <h4>$95</h4>
                 </div>
 
-                <a href="#"><i class="ri-shopping-cart-2-line cart"></i></a>
+                <a href="javascript:void(0)" aria-label="Interactive action"><i class="ri-shopping-cart-2-line cart"></i></a>
             </div>
 
 
@@ -368,11 +373,11 @@
             <div class="pro">
                 <span class="shoe-tag">TRENDING</span>
 
-                <img src="images/products/classic_biege.avif" alt="">
+                <img src="images/products/classic_biege.avif" alt="Classic Beige Sneakers">
 
                 <div class="des">
                     <span>Cara</span>
-                    <h5>Classic Beige Sneakers</h5>
+                    <h3>Classic Beige Sneakers</h3>
 
                     <div class="star">
                         <i class="ri-star-fill"></i>
@@ -385,7 +390,7 @@
                     <h4>$99</h4>
                 </div>
 
-                <a href="#"><i class="ri-shopping-cart-2-line cart"></i></a>
+                <a href="javascript:void(0)" aria-label="Interactive action"><i class="ri-shopping-cart-2-line cart"></i></a>
             </div>
 
 
@@ -393,11 +398,11 @@
             <div class="pro">
                 <span class="shoe-tag">LIMITED</span>
 
-                <img src="images/products/black.jpg" alt="">
+                <img src="images/products/black.jpg" alt="Black Sports Sneakers">
 
                 <div class="des">
                     <span>Cara</span>
-                    <h5>Black Sports Sneakers</h5>
+                    <h3>Black Sports Sneakers</h3>
 
                     <div class="star">
                         <i class="ri-star-fill"></i>
@@ -410,7 +415,7 @@
                     <h4>$110</h4>
                 </div>
 
-                <a href="#"><i class="ri-shopping-cart-2-line cart"></i></a>
+                <a href="javascript:void(0)" aria-label="Interactive action"><i class="ri-shopping-cart-2-line cart"></i></a>
             </div>
 
 
@@ -418,11 +423,11 @@
             <div class="pro">
                 <span class="shoe-tag">NEW</span>
 
-                <img src="images/products/chuncky.webp" alt="">
+                <img src="images/products/chuncky.webp" alt="Chunky Fashion Sneakers">
 
                 <div class="des">
                     <span>Cara</span>
-                    <h5>Chunky Fashion Sneakers</h5>
+                    <h3>Chunky Fashion Sneakers</h3>
 
                     <div class="star">
                         <i class="ri-star-fill"></i>
@@ -435,7 +440,7 @@
                     <h4>$120</h4>
                 </div>
 
-                <a href="#"><i class="ri-shopping-cart-2-line cart"></i></a>
+                <a href="javascript:void(0)" aria-label="Interactive action"><i class="ri-shopping-cart-2-line cart"></i></a>
             </div>
 
 
@@ -443,11 +448,11 @@
             <div class="pro">
                 <span class="shoe-tag">SPORT</span>
 
-                <img src="images/products/air_flex.avif" alt="">
+                <img src="images/products/air_flex.avif" alt="Air Flex Running Shoes">
 
                 <div class="des">
                     <span>Cara</span>
-                    <h5>Air Flex Running Shoes</h5>
+                    <h3>Air Flex Running Shoes</h3>
 
                     <div class="star">
                         <i class="ri-star-fill"></i>
@@ -460,7 +465,7 @@
                     <h4>$130</h4>
                 </div>
 
-                <a href="#"><i class="ri-shopping-cart-2-line cart"></i></a>
+                <a href="javascript:void(0)" aria-label="Interactive action"><i class="ri-shopping-cart-2-line cart"></i></a>
             </div>
 
 
@@ -468,11 +473,11 @@
             <div class="pro">
                 <span class="shoe-tag">HOT</span>
 
-                <img src="images/products/foot2.jpg" alt="">
+                <img src="images/products/foot2.jpg" alt="Luxury Leather Shoes">
 
                 <div class="des">
                     <span>Cara</span>
-                    <h5>Luxury Leather Shoes</h5>
+                    <h3>Luxury Leather Shoes</h3>
 
                     <div class="star">
                         <i class="ri-star-fill"></i>
@@ -485,7 +490,7 @@
                     <h4>$149</h4>
                 </div>
 
-                <a href="#"><i class="ri-shopping-cart-2-line cart"></i></a>
+                <a href="javascript:void(0)" aria-label="Interactive action"><i class="ri-shopping-cart-2-line cart"></i></a>
             </div>
 
 
@@ -493,11 +498,11 @@
             <div class="pro">
                 <span class="shoe-tag">NEW</span>
 
-                <img src="images/products/Foot1.jpg" alt="">
+                <img src="images/products/Foot1.jpg" alt="Minimal Casual Sneakers">
 
                 <div class="des">
                     <span>Cara</span>
-                    <h5>Minimal Casual Sneakers</h5>
+                    <h3>Minimal Casual Sneakers</h3>
 
                     <div class="star">
                         <i class="ri-star-fill"></i>
@@ -510,7 +515,7 @@
                     <h4>$105</h4>
                 </div>
 
-                <a href="#"><i class="ri-shopping-cart-2-line cart"></i></a>
+                <a href="javascript:void(0)" aria-label="Interactive action"><i class="ri-shopping-cart-2-line cart"></i></a>
             </div>
 
 
@@ -542,8 +547,7 @@
     <footer class="section-p1">
 
         <div class="col">
-            <img class="logo" src="images/logo.png" alt="">
-
+           <img class="logo" src="images/Dlogo.png" alt="Cara Logo">
             <h4>Contact</h4>
 
             <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
@@ -559,9 +563,9 @@
             <h4>About</h4>
 
             <a href="about.html">About us</a>
-            <a href="#">Delivery Information</a>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms & Conditions</a>
+            <a href="javascript:void(0)" aria-label="Interactive action">Delivery Information</a>
+            <a href="javascript:void(0)" aria-label="Interactive action">Privacy Policy</a>
+            <a href="javascript:void(0)" aria-label="Interactive action">Terms & Conditions</a>
             <a href="contact.html">Contact Us</a>
         </div>
 
@@ -571,9 +575,9 @@
             <h4>My Account</h4>
 
             <a href="login.html">Sign In</a>
-            <a href="cart.html">View Cart</a>
-            <a href="wishlist.html">My Wishlist</a>
-            <a href="cart.html">Track My Order</a>
+            <a aria-label="Cart" href="cart.html">View Cart</a>
+            <a aria-label="Wishlist" href="wishlist.html">My Wishlist</a>
+            <a aria-label="Cart" href="cart.html">Track My Order</a>
             <a href="contact.html">Help</a>
         </div>
 
@@ -584,9 +588,11 @@
         </div>
 
     </footer>
+</main>
 
 
-    <script src="app.js"></script>
+    <script type="module" src="app.js"></script>
+
 
 </body>
 

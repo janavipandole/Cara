@@ -464,28 +464,20 @@ button.white .ripple-effect {
 
 .theme-toggle {
     background: transparent;
-    border: 2px solid var(--border-color);
-    border-radius: 50%;
-    width: 48px;
-    height: 48px;
-    min-width: 48px;
-    min-height: 48px;
+    border: none;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     color: var(--text-primary);
-    font-size: 18px;
+    font-size: 16px;
+    padding: 0;
     transition: all 0.3s ease;
-    flex-shrink: 0;
-    aspect-ratio: 1 / 1;
 }
 
 .theme-toggle:hover {
-    background-color: var(--accent);
-    border-color: var(--accent);
-    color: white;
-    transform: rotate(180deg);
+    color: var(--accent);
+    transform: scale(1.1);
 }
 
 .mobile .theme-toggle {
@@ -543,6 +535,7 @@ button.white .ripple-effect {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 20px;
 
     padding: 6px 35px;
 
@@ -700,10 +693,6 @@ button.white .ripple-effect {
     z-index: 1;
 }
 
-/* Hide injected product forms after footer */
-footer ~ * {
-    display: none !important;
-}
 
 /* ───────────────── OVERLAY ───────────────── */
 
@@ -1394,6 +1383,60 @@ footer ~ * {
 }
 
 /* ── Product title ── */
+
+/* ============================================================
+     FOOTER STANDARDIZATION
+     Ensures a consistent footer layout across pages and
+     prevents page-specific inline styles from breaking layout.
+     ============================================================ */
+
+footer.section-p1, footer.main-footer, footer#footer, .site-footer {
+    --footer-bg: #f8f9fb;
+    --footer-color: #333;
+    background-color: var(--footer-bg) !important;
+    color: var(--footer-color) !important;
+    padding: 36px 20px !important;
+    box-sizing: border-box !important;
+}
+
+.footer-container,
+.main-footer .footer-middle,
+footer.section-p1 .footer-container,
+.footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    align-items: start;
+}
+
+.footer-col { min-width: 0; }
+.footer-logo-box img { max-width: 160px; height: auto; }
+.footer-note { grid-column: 1 / -1; text-align: center; color: #777; font-size: 13px; padding-top: 18px; border-top: 1px solid rgba(0,0,0,0.06); }
+
+/* Make footer responsive */
+@media (max-width: 900px) {
+    .footer-container,
+    .main-footer .footer-middle,
+    .footer-bottom {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .footer-container,
+    .main-footer .footer-middle,
+    .footer-bottom {
+        grid-template-columns: 1fr;
+    }
+    .footer-col { padding: 12px 0; }
+}
+
+/* Ensure lists inside footer don't overflow */
+.footer-col ul { list-style: none; padding: 0; margin: 0; }
+.footer-col li { margin: 8px 0; color: inherit; }
+
 #product1 .pro .des h5 {
     color: var(--text-primary);
     font-weight: 600;
@@ -1901,7 +1944,7 @@ footer .col {
 
 footer .logo {
     margin-bottom: 30px;
-    max-width: 100%;
+    max-width: 150px;
     height: auto;
 }
 
@@ -2188,6 +2231,12 @@ footer .copyright a:hover {
     footer .col {
         align-items: center;
         text-align: center;
+        margin-bottom: 20px;
+    }
+
+    footer .col p, footer .col a {
+        margin-bottom: 10px;
+        line-height: 1.6;
     }
 
     footer .follow .icon {
@@ -2249,12 +2298,14 @@ footer {
     border-radius: 50px;
     padding: 6px 20px;
     width: 100%;
-    max-width: 450px;
+    flex: 1;
+    max-width: 400px;
     height: 48px; /* Lock the height */
     box-shadow: 0 4px 10px var(--shadow);
     transition: all 0.3s ease;
     box-sizing: border-box;
     overflow: hidden;
+    margin-left: auto;
 }
 
 .search-container:focus-within {
@@ -4571,4 +4622,14 @@ footer {
 
                 h4 {
                     font-size: 24px;
+                }
+            }
 
+            /* Profile Input Security Styling */
+            .profile-security-badge {
+                font-size: 11px;
+                color: #088178;
+                font-weight: bold;
+            }
+
+}

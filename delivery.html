@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
   <!-- Character Encoding -->
   <meta charset="UTF-8" />
 
@@ -24,7 +25,6 @@
   <!-- Stylesheets -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="ui-fix.css" />
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
 
   <style>
@@ -475,8 +475,19 @@
       .estimator-form .field { flex: 1 1 100%; }
     }
   </style>
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
+    <script type="module" src="js/config.js"></script>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Print Details Utility -->
     <div style="max-width: 1200px; margin: 10px auto; padding: 0 20px; text-align: right;" class="no-print">
       <button onclick="window.print()" style="background: #088178; color: #fff; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-weight: 500;">
@@ -493,8 +504,7 @@
   <!-- HEADER -->
   <!-- HEADER -->
   <section id="header">
-    <a href="index.html">
-      <img id="siteLogo" src="images/logo.png" alt="Cara Logo" width="130" height="40" />
+    <a href="index.html" aria-label="Cara Home"><img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" width="130" height="40" />
     </a>
 
     <div id="navbar-container"></div>
@@ -514,6 +524,7 @@
       </button>
     </div>
   </section>
+<main id="main-content">
 
   <!-- BACK BUTTON -->
   <div class="back-btn-wrap">
@@ -525,12 +536,12 @@
   <!-- HERO -->
   <section class="page-hero">
     <p class="tag">#ShipWithCara</p>
-    <h2>Delivery Information</h2>
+    <h1>Delivery Information</h1>
     <p class="subtitle">Everything you need to know about shipping, order processing, and returns.</p>
   </section>
 
   <!-- MAIN CONTENT -->
-  <main class="delivery-section">
+  <div class="main-section">
 
     <!-- Quick Cards -->
     <div class="delivery-cards">
@@ -602,7 +613,7 @@
         </div>
         <div class="field">
           <label for="est-country">Destination</label>
-          <select id="est-country">
+          <select id="est-country" aria-label="Select est-country">
             <option value="us">United States</option>
             <option value="ca">Canada</option>
             <option value="uk">United Kingdom</option>
@@ -654,7 +665,7 @@
       <p>Once your order is shipped, you can track it anytime:</p>
       <ul>
         <li>A tracking number will be emailed to you upon dispatch.</li>
-        <li>Use the tracking number on our <a href="cart.html" style="color:#088178; font-weight:600;">Track My Order</a> page.</li>
+        <li>Use the tracking number on our <a aria-label="Cart" href="cart.html" style="color:#088178; font-weight:600;">Track My Order</a> page.</li>
         <li>Tracking updates may take up to 24 hours to reflect after dispatch.</li>
         <li>For any tracking issues, please contact our support team.</li>
       </ul>
@@ -728,15 +739,15 @@
     <div class="footer-top">
 
       <div class="footer-brand">
-        <img src="images/logo.png" alt="Cara Logo" width="110" height="34" loading="lazy" />
+        <img src="images/Dlogo.png" alt="Cara Logo" width="110" height="34" loading="lazy" />
         <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
         <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
         <p><strong>Hours:</strong> 10:00 – 18:00, Mon – Sat</p>
         <div class="social-links">
           <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
-          <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i></a>
+          <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i></a>
           <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i></a>
-          <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-youtube"></i></a>
+          <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
         </div>
       </div>
 
@@ -755,9 +766,9 @@
         <h4>My Account</h4>
         <ul>
           <li><a href="login.html">Sign In</a></li>
-          <li><a href="cart.html">View Cart</a></li>
-          <li><a href="wishlist.html">My Wishlist</a></li>
-          <li><a href="cart.html">Track My Order</a></li>
+          <li><a aria-label="Cart" href="cart.html">View Cart</a></li>
+          <li><a aria-label="Wishlist" href="wishlist.html">My Wishlist</a></li>
+          <li><a aria-label="Cart" href="cart.html">Track My Order</a></li>
           <li><a href="contact.html">Help</a></li>
         </ul>
       </div>
@@ -782,7 +793,7 @@
   </footer>
 
   <!-- SCROLL TO TOP -->
-  <button id="scroll-top" title="Back to top">
+  <button aria-label="Button"  id="scroll-top" title="Back to top">>
     <i class="fa-solid fa-arrow-up"></i>
   </button>
 
@@ -860,12 +871,14 @@
     });
   </script>
 
-  <script src="navbar.js"></script>
+  <script type="module" src="navbar.js"></script>
   <script>
     loadNavbar();
   </script>
   <script src="app.js"></script>
+</main>
 </body>
 </html>
 
 <!-- Accessibility and structural improvements -->
+

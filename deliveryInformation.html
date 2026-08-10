@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <!-- Character Encoding -->
     <meta charset="UTF-8" />
 
@@ -179,10 +180,22 @@
         }
       }
     </style>
-  </head>
+    <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
+  <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
+    <script type="module" src="js/config.js"></script>
+</head>
   <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Floating Theme Toggle for Non-Standard Pages -->
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999; background: #088178; color: white; border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center;">
+    <button class="theme-toggle" id="themeToggleDesktop" aria-label="Toggle dark mode" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999; background: #088178; color: white; border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center;">
       <i class="ri-moon-line" id="themeIcon" style="font-size: 24px;"></i>
     </button>
 
@@ -195,6 +208,7 @@
         </p>
       </div>
     </section>
+<main id="main-content">
 
     <div class="delivery-container">
       <div class="section-title">
@@ -340,7 +354,7 @@
 
         <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
 
-        <p><strong>Email:</strong> contact@example.com</p>
+        <p><strong>Email:</strong> contact@cara-ecommerce.netlify.app</p>
 
         <p><strong>Support Hours:</strong> 10:00 AM - 6:00 PM, Mon - Sat</p>
       </div>
@@ -356,5 +370,7 @@
       });
     </script>
     <script src="assets/js/timeline.js" defer></script>
-  </body>
+  </main>
+</body>
 </html>
+

@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net;" />
   <!-- Character Encoding -->
   <meta charset="UTF-8" />
@@ -23,7 +24,6 @@
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="ui-fix.css" />
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -171,13 +171,24 @@
       color: var(--text-secondary, #94a3b8);
     }
   </style>
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
+  <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
+    <script type="module" src="js/config.js"></script>
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
   <!-- ── HEADER ── -->
   <section id="header">
-    <a href="index.html">
-      <img loading="lazy" id="siteLogo" src="images/logo.png" alt="Cara Logo" width="130" height="40" />
+    <a href="index.html" aria-label="Cara Home"><img loading="lazy" id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" width="130" height="40" />
     </a>
     <div id="navbar-container"></div>
     <div id="mobile">
@@ -185,7 +196,7 @@
       <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode" style="margin-left: 10px; border: none; background: transparent; cursor: pointer;">
         <i class="ri-moon-line" id="themeIconMobile" style="font-size: 20px;"></i>
       </button>
-      <a href="#" id="bar" aria-label="Open menu" aria-expanded="false" style="margin-left: 10px;">
+      <a href="javascript:void(0)" id="bar" aria-label="Open menu" aria-expanded="false" style="margin-left: 10px;">
         <i class="fa-solid fa-bars"></i>
       </a>
     </div>
@@ -220,7 +231,7 @@
       <a href="about.html">About</a>
       <a href="blog.html">Blog</a>
       <a href="contact.html">Contact</a>
-      <a href="cart.html">Cart</a>
+      <a aria-label="Cart" href="cart.html">Cart</a>
     </div>
 
   </section>
@@ -230,13 +241,13 @@
   <footer class="main-footer">
     <div class="footer-top">
       <div class="footer-logo-box">
-        <img class="footer-logo" src="images/logo.png" alt="Cara Logo" width="110" height="34" loading="lazy" />
+        <img class="footer-logo" src="images/Dlogo.png" alt="Cara Logo" width="110" height="34" loading="lazy" />
       </div>
       <div class="footer-socials">
         <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
-        <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+        <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
         <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
-        <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+        <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
       </div>
     </div>
     <hr class="footer-divider">
@@ -246,8 +257,9 @@
   </footer>
 
   <!-- ── SCRIPTS ── -->
-  <script src="navbar.js"></script>
-  <script src="app.js"></script>
+  <script type="module" src="navbar.js"></script>
+  <script type="module" src="app.js"></script>
 
 </body>
 </html>
+

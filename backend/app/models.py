@@ -1,7 +1,29 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey, JSON, Boolean, DateTime
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, JSON, Boolean, DateTime, UniqueConstraint
 from sqlalchemy.orm import relationship
 from .database import Base
 from datetime import datetime, timezone
+
+class NewsletterSubscriber(Base):
+    __tablename__ = "newsletter_subscribers"
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String, unique=True, index=True, nullable=False)
+    subscribed_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    is_active = Column(Boolean, default=True)
+    unsubscribe_token = Column(String, unique=True, index=True, nullable=True)
+
+
+class AmbassadorApplication(Base):
+    __tablename__ = "ambassador_applications"
+
+    id = Column(Integer, primary_key=True, index=True)
+    full_name = Column(String, nullable=False)
+    email = Column(String, index=True, nullable=False)
+    instagram_handle = Column(String, nullable=False)
+    follower_count = Column(Integer, nullable=False)
+    motivation = Column(String, nullable=True)
+    submitted_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+
 
 class Product(Base):
     __tablename__ = "products"
@@ -40,9 +62,26 @@ class User(Base):
     role            = Column(String, default="USER", nullable=False) 
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime,  default=lambda: datetime.now(timezone.utc))
+    full_name = Column(String, nullable=True)
+    phone = Column(String, nullable=True)
+    avatar_url = Column(String, nullable=True)
+    address_line1 = Column(String, nullable=True)
+    address_line2 = Column(String, nullable=True)
+    city = Column(String, nullable=True)
+    state = Column(String, nullable=True)
+    zip_code = Column(String, nullable=True)
+    country = Column(String, nullable=True)
+    updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 
 class Order(Base):
     __tablename__ = "orders"
+    __table_args__ = (
+        UniqueConstraint(
+            "email",
+            "idempotency_key",
+            name="uq_orders_email_idempotency_key",
+        ),
+    )
     id = Column(Integer, primary_key=True, index=True)
     full_name = Column(String, nullable=False)
     email = Column(String, nullable=False)
@@ -52,6 +91,29 @@ class Order(Base):
     total_amount = Column(Float, nullable=False)
     status = Column(String, default="PENDING")
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    # Captured exactly once when the carrier marks the order DELIVERED; the
+    # estimated return deadline is computed as delivered_at + return window.
+    delivered_at = Column(DateTime, nullable=True)
+    # Uniqueness is scoped per buyer email via uq_orders_email_idempotency_key
+    idempotency_key = Column(String, index=True, nullable=True)
+
+    def mark_delivered(self) -> None:
+        """Transition to DELIVERED, capturing the delivery timestamp once."""
+        if self.delivered_at is None:
+            self.delivered_at = datetime.now(timezone.utc)
+        self.status = "DELIVERED"
+
+class PasswordResetToken(Base):
+    __tablename__ = "password_reset_tokens"
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    token = Column(String, unique=True, index=True, nullable=False)
+    expires_at = Column(DateTime, nullable=False)
+    used = Column(Boolean, default=False)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+    user = relationship("User")
+
 
 class OrderItem(Base):
     __tablename__ = "order_items"
@@ -61,7 +123,10 @@ class OrderItem(Base):
         ForeignKey("orders.id"),
         nullable=False
     )
+    product_id = Column(Integer, ForeignKey("products.id"), nullable=True, index=True)
+    # Denormalized snapshot kept for order history after renames/deletes.
     product_name = Column(String, nullable=False)
     quantity = Column(Integer, nullable=False)
     price = Column(Float, nullable=False)
     order = relationship("Order")
+    product = relationship("Product")

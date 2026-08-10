@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <!-- Character encoding -->
     <meta charset="UTF-8" />
 
@@ -26,7 +27,6 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="ui-fix.css" />
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link
       rel="stylesheet"
@@ -250,12 +250,24 @@
         }
       }
     </style>
-  </head>
+    <link rel="manifest" href="/manifest.json">
+  <script type="module" src="js/error-boundary.js"></script>
+<script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
+    <script type="module" src="js/config.js"></script>
+</head>
 
   <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Header -->
     <section id="header">
-      <a id="siteLogo" href="index.html"><img src="images/logo.png" alt="Cara Logo" width="130" height="40" /></a>
+      <a id="siteLogo" href="index.html" aria-label="Cara Home"><img src="images/Dlogo.png" alt="Cara Logo" width="130" height="40" /></a>
 
       <!-- Navigation Bar -->
       <div>
@@ -267,7 +279,7 @@
           <li><a href="contact.html">Contact</a></li>
           <li><a href="login.html" id="login-btn">Login</a></li>
           <li>
-            <a href="cart.html" id="lg-bag" class="cart-icon-wrapper"
+            <a aria-label="Cart" href="cart.html" id="lg-bag" class="cart-icon-wrapper"
               ><i class="ri-shopping-bag-4-line"></i
               ><span class="cart-count" id="desktopCartCount">0</span></a
             >
@@ -275,39 +287,34 @@
           <li>
             <button
               class="theme-toggle"
-              id="themeToggle"
+              id="themeToggleDesktop"
               aria-label="Toggle dark mode"
             >
               <i class="ri-moon-line" id="themeIcon"></i>
             </button>
           </li>
-          <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+          <li class="nav-close"><a href="javascript:void(0)" id="close" aria-label="Close menu" aria-hidden="false"><i class="fa-solid fa-xmark"></i></a></li>
         </ul>
       </div>
       <div class="mobile">
-        <button
-          class="theme-toggle"
-          id="themeToggleMobile"
-          aria-label="Toggle dark mode"
-        >
-          <i class="ri-moon-line" id="themeIconMobile"></i>
-        </button>
-        <a href="cart.html" id="mobile-cart-icon">
+        <a aria-label="Cart" href="cart.html" id="mobile-cart-icon">
           <i class="ri-shopping-bag-4-line"></i>
           <span class="cart-count" id="mobileCartCount">0</span>
         </a>
-        <i class="fas fa-outdent" id="bar"></i>
+        <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
       </div>
     </section>
+</main>
 
     <!-- Page Banner -->
-    <section id="about-head">
+    <main id="main-content">
+  <section id="about-head">
       <h2>Privacy Policy</h2>
     </section>
-
-    <!-- Policy Content -->
-    <main id="policy-page">
-      <button onclick="javascript:history.back()" class="back-btn" aria-label="Go back to previous page" style="border: none; font-family: inherit; font-size: inherit;">
+    <div class="policy-layout">
+        <!-- Policy Content -->
+    <div class="main-section">
+      <button onclick="history.back()" class="back-btn" aria-label="Go back to previous page" style="border: none; font-family: inherit; font-size: inherit;">
         <i class="ri-arrow-left-line"></i> Back
       </button>
 
@@ -406,7 +413,7 @@
             <div class="contact-box">
               <p><strong>Head Office</strong></p>
               <p>56 Glassford Street, Glasgow G1 1UL, New York</p>
-              <p>contact@example.com</p>
+              <p>contact@cara-ecommerce.netlify.app</p>
               <p>+1 (000) 123-7788</p>
               <p>Monday to Saturday — 9:00 AM to 6:00 PM</p>
             </div>
@@ -426,6 +433,7 @@
 
       <div class="footer-note">Last Updated: May 2026</div>
     </main>
+    </div>
 
     <!-- Cookie Consent Drawer -->
     <div id="cookie-consent" role="dialog" aria-label="Cookie consent" aria-describedby="cookie-desc">
@@ -449,7 +457,7 @@
     <!-- Footer -->
     <footer class="section-p1">
       <div class="col">
-        <img class="logo" src="images/logo.png" alt="Cara Logo" width="130" height="40" loading="lazy" />
+        <img class="logo" src="images/Dlogo.png" alt="Cara Logo" width="130" height="40" loading="lazy" />
         <h4>Contact</h4>
         <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
         <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
@@ -460,15 +468,13 @@
             <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer">
               <i class="fa-brands fa-x-twitter"></i>
             </a>
-            <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
+            <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
               <i class="fab fa-github"></i>
             </a>
             <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
               <i class="fab fa-linkedin"></i>
             </a>
-            <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer">
-              <i class="fab fa-youtube"></i>
-            </a>
+            <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
           </div>
         </div>
       </div>
@@ -476,7 +482,7 @@
       <div class="col">
         <h4>About</h4>
         <a href="about.html">About Us</a>
-        <a href="#">Delivery Information</a>
+        <a href="javascript:void(0)" aria-label="Interactive action">Delivery Information</a>
         <a href="privacy.html">Privacy Policy</a>
         <a href="terms.html">Terms and Conditions</a>
         <a href="contact.html">Contact Us</a>
@@ -485,9 +491,9 @@
       <div class="col">
         <h4>My Account</h4>
         <a href="login.html">Sign In</a>
-        <a href="cart.html">View Cart</a>
-        <a href="wishlist.html">My Wishlist</a>
-        <a href="cart.html">Track My Order</a>
+        <a aria-label="Cart" href="cart.html">View Cart</a>
+        <a aria-label="Wishlist" href="wishlist.html">My Wishlist</a>
+        <a aria-label="Cart" href="cart.html">Track My Order</a>
         <a href="contact.html">Help</a>
       </div>
 
@@ -536,7 +542,7 @@
     </footer>
 
     <div id="toast-container"></div>
-    <script src="app.js"></script>
+    <script type="module" src="app.js"></script>
     <script>
       (function initCookieConsent() {
         var consent = localStorage.getItem('cara_cookie_consent');
@@ -562,8 +568,9 @@
     <script id="Current-Year">
         document.getElementById("Current-Year").textContent = new Date().getFullYear();
     </script>
-  <script src="js/toc.js" defer></script>
+  <script type="module" src="js/toc.js" defer></script>
 </body>
 </html>
 
 <!-- Accessibility and structural improvements -->
+

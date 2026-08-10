@@ -1,7 +1,7 @@
 // Interactive milestone timeline enhancements
 document.addEventListener('DOMContentLoaded', () => {
   const milestones = document.querySelectorAll(
-    '.milestone-card, .timeline-item'
+    '.milestone-card, .timeline-item',
   );
   const observer = new IntersectionObserver(
     (entries) => {
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     },
-    { threshold: 0.1 }
+    { threshold: 0.1 },
   );
 
   milestones.forEach((m) => {

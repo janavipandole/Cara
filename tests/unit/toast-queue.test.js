@@ -1,0 +1,105 @@
+import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { ToastQueueManager } from '../../js/toast-queue.js';
+
+describe('Toast Queue Manager Unit Tests', () => {
+  let manager;
+
+  beforeEach(() => {
+    document.body.innerHTML = '';
+    manager = new ToastQueueManager(3);
+  });
+
+  it('should initialize empty toast queue and create container element', () => {
+    expect(manager.queue.length).toBe(0);
+    const container = manager.getOrCreateContainer();
+    expect(container).not.toBeNull();
+    expect(container.id).toBe('toast-queue-container');
+  });
+
+  it('should add toast items to queue and render card elements', () => {
+    const id = manager.show('Item added to cart', 'success', 0);
+    expect(manager.queue.length).toBe(1);
+    expect(manager.queue[0].id).toBe(id);
+
+    const toastCard = document.getElementById(id);
+    expect(toastCard).not.toBeNull();
+    expect(toastCard.className).toContain('toast-success');
+    expect(toastCard.textContent).toContain('Item added to cart');
+  });
+
+  it('should enforce maxToasts capacity limit by dropping oldest toast', () => {
+    manager.show('Msg 1', 'info', 0);
+    manager.show('Msg 2', 'info', 0);
+    manager.show('Msg 3', 'info', 0);
+    manager.show('Msg 4', 'info', 0);
+
+    expect(manager.queue.length).toBe(3);
+    expect(manager.queue[0].message).toBe('Msg 2');
+  });
+
+  it('should dismiss toast item on close button click or manual call', () => {
+    vi.useFakeTimers();
+    const id = manager.show('Dismiss me', 'warning', 0);
+    expect(manager.queue.length).toBe(1);
+
+    manager.dismiss(id);
+    expect(manager.queue.length).toBe(0);
+
+    vi.advanceTimersByTime(300);
+    expect(document.getElementById(id)).toBeNull();
+    vi.useRealTimers();
+  });
+
+  it('should automatically dismiss toast after duration timer expires', () => {
+    vi.useFakeTimers();
+    manager.show('Auto close', 'info', 1000);
+    expect(manager.queue.length).toBe(1);
+
+    vi.advanceTimersByTime(1100);
+    expect(manager.queue.length).toBe(0);
+    vi.useRealTimers();
+  });
+
+  it('should escape HTML in toast messages to prevent injection', () => {
+    const id = manager.show('<img src=x onerror=alert(1)>', 'warning', 0);
+    const toastCard = document.getElementById(id);
+    // No real <img> element may be created from the message.
+    expect(toastCard.querySelector('img')).toBeNull();
+    // The raw message is preserved as text, with angle brackets escaped.
+    expect(toastCard.textContent).toContain('<img src=x onerror=alert(1)>');
+    expect(toastCard.querySelector('.toast-message').innerHTML).toContain('&lt;img');
+    expect(toastCard.querySelector('.toast-message').innerHTML).not.toContain('<img');
+  });
+
+  it('should be a safe no-op when dismissing an unknown toast id', () => {
+    vi.useFakeTimers();
+    const id = manager.show('Keep me', 'info', 0);
+    expect(manager.queue.length).toBe(1);
+
+    manager.dismiss('does-not-exist');
+    expect(manager.queue.length).toBe(1);
+    expect(document.getElementById(id)).not.toBeNull();
+
+    manager.dismiss(id);
+    expect(manager.queue.length).toBe(0);
+
+    // Dismissing again after removal must not throw or change state.
+    expect(() => manager.dismiss(id)).not.toThrow();
+    expect(manager.queue.length).toBe(0);
+    vi.useRealTimers();
+  });
+
+  it('should clear all queued toasts', () => {
+    vi.useFakeTimers();
+    manager.show('Msg 1', 'info', 0);
+    manager.show('Msg 2', 'info', 0);
+    manager.show('Msg 3', 'info', 0);
+    expect(manager.queue.length).toBe(3);
+
+    manager.clearAll();
+    expect(manager.queue.length).toBe(0);
+    vi.advanceTimersByTime(300);
+    expect(document.querySelectorAll('.toast-card').length).toBe(0);
+    vi.useRealTimers();
+  });
+});

@@ -5,6 +5,8 @@ on:
 jobs:
   label:
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
     steps:
       - uses: actions/github-script@v7
         with:

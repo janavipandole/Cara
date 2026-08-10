@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <!-- Character Encoding -->
     <meta charset="UTF-8" />
 
@@ -185,12 +186,24 @@
             }
         }
     </style>
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
+  <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
+    <script type="module" src="js/config.js"></script>
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- HEADER --> 
     <section id="header">
-        <a href="index.html"><img src="images/logo.png" alt="Cara Logo"></a>
+        <a href="index.html" aria-label="Cara Home"><img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" /></a>
         <div>
             <ul id="navbar">
                 <li><a href="index.html">Home</a></li>
@@ -199,24 +212,25 @@
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
                 <li><a href="login.html">Login</a></li>
-                <li><a href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
+                <li><a aria-label="Cart" href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
                 <li>
-                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <button class="theme-toggle" id="themeToggleDesktop" aria-label="Toggle dark mode">
                         <i class="ri-moon-line" id="themeIcon"></i>
                     </button>
                 </li>
-                <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+                <li class="nav-close"><a href="javascript:void(0)" id="close" aria-label="Close menu" aria-hidden="false"><i class="fa-solid fa-xmark"></i></a></li>
             </ul>
         </div>
         <div class="mobile">
-            <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
-            <i class="fas fa-outdent" id="bar"></i>
+            <a aria-label="Cart" href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
+            <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
       <!-- Theme Toggle -->
       <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
         <i class="ri-moon-line" id="themeIconMobile"></i>
       </button>
         </div>
     </section>
+<main id="main-content">
 
     <section class="tshirt-hero">
         <div class="tshirt-content">
@@ -268,106 +282,106 @@
 
             <div class="pro" onclick="window.location.href='singleProduct.html';">
                 <span class="new-tag">NEW</span>
-                <img src="images/products/f1.jpg" alt="">
+                <img src="images/products/f1.jpg" alt="Beyond Limits Graphic Tee">
                 <div class="des">
                     <span>Cara</span>
-                    <h5>Beyond Limits Graphic Tee</h5>
+                    <h3>Beyond Limits Graphic Tee</h3>
                     <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i
                             class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
                     <h4>$29.99</h4>
                 </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+                <a href="javascript:void(0)" class="cart" aria-label="Interactive action"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
 
             <div class="pro" onclick="window.location.href='singleProduct.html';">
                 <span class="new-tag">NEW</span>
-                <img src="images/products/f2.jpg" alt="">
+                <img src="images/products/f2.jpg" alt="Inner Peace Printed Tee">
                 <div class="des">
                     <span>Cara</span>
-                    <h5>Inner Peace Printed Tee</h5>
+                    <h3>Inner Peace Printed Tee</h3>
                     <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i
                             class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
                     <h4>$27.99</h4>
                 </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+                <a href="javascript:void(0)" class="cart" aria-label="Interactive action"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
 
             <div class="pro" onclick="window.location.href='singleProduct.html';">
                 <span class="new-tag">NEW</span>
-                <img src="images/products/f3.jpg" alt="">
+                <img src="images/products/f3.jpg" alt="Lost In Nature T-Shirt">
                 <div class="des">
                     <span>Cara</span>
-                    <h5>Lost In Nature T-Shirt</h5>
+                    <h3>Lost In Nature T-Shirt</h3>
                     <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i
                             class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
                     <h4>$29.99</h4>
                 </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+                <a href="javascript:void(0)" class="cart" aria-label="Interactive action"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
 
             <div class="pro" onclick="window.location.href='singleProduct.html';">
                 <span class="new-tag">NEW</span>
-                <img src="images/products/f4.jpg" alt="">
+                <img src="images/products/f4.jpg" alt="Stay Kind Casual Tee">
                 <div class="des">
                     <span>Cara</span>
-                    <h5>Stay Kind Casual Tee</h5>
+                    <h3>Stay Kind Casual Tee</h3>
                     <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i
                             class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
                     <h4>$26.99</h4>
                 </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+                <a href="javascript:void(0)" class="cart" aria-label="Interactive action"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
 
             <div class="pro" onclick="window.location.href='singleProduct.html';">
                 <span class="new-tag">NEW</span>
-                <img src="images/products/f5.jpg" alt="">
+                <img src="images/products/f5.jpg" alt="Bright Future Purple Tee">
                 <div class="des">
                     <span>Cara</span>
-                    <h5>Bright Future Purple Tee</h5>
+                    <h3>Bright Future Purple Tee</h3>
                     <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i
                             class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
                     <h4>$28.99</h4>
                 </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+                <a href="javascript:void(0)" class="cart" aria-label="Interactive action"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
 
             <div class="pro" onclick="window.location.href='singleProduct.html';">
                 <span class="new-tag">NEW</span>
-                <img src="images/products/f6.jpg" alt="">
+                <img src="images/products/f6.jpg" alt="Create Reality T-Shirt">
                 <div class="des">
                     <span>Cara</span>
-                    <h5>Create Reality T-Shirt</h5>
+                    <h3>Create Reality T-Shirt</h3>
                     <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i
                             class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
                     <h4>$30.99</h4>
                 </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+                <a href="javascript:void(0)" class="cart" aria-label="Interactive action"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
 
             <div class="pro" onclick="window.location.href='singleProduct.html';">
                 <span class="new-tag">NEW</span>
-                <img src="images/products/f7.jpg" alt="">
+                <img src="images/products/f7.jpg" alt="Smiley Drip White Tee">
                 <div class="des">
                     <span>Cara</span>
-                    <h5>Smiley Drip White Tee</h5>
+                    <h3>Smiley Drip White Tee</h3>
                     <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i
                             class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
                     <h4>$27.99</h4>
                 </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+                <a href="javascript:void(0)" class="cart" aria-label="Interactive action"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
 
             <div class="pro" onclick="window.location.href='singleProduct.html';">
                 <span class="new-tag">NEW</span>
-                <img src="images/products/f8.jpg" alt="">
+                <img src="images/products/f8.jpg" alt="Evolve Everyday Tee">
                 <div class="des">
                     <span>Cara</span>
-                    <h5>Evolve Everyday Tee</h5>
+                    <h3>Evolve Everyday Tee</h3>
                     <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i
                             class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
                     <h4>$29.99</h4>
                 </div>
-                <a href="#" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+                <a href="javascript:void(0)" class="cart" aria-label="Interactive action"><i class="ri-shopping-cart-2-line"></i></a>
             </div>
 
         </div>
@@ -391,7 +405,7 @@
     <!-- FOOTER -->
     <footer class="section-p1">
         <div class="col">
-            <img class="logo" src="images/logo.png" alt="">
+            <img class="logo" src="images/Dlogo.png" alt="Cara Logo">
             <h4>Contact</h4>
             <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
             <p><strong>Phone:</strong> +01 2222 365 /(+91) 01 2345 6789</p>
@@ -401,18 +415,18 @@
         <div class="col">
             <h4>About</h4>
             <a href="about.html">About us</a>
-            <a href="#">Delivery Information</a>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms & Conditions</a>
+            <a href="javascript:void(0)" aria-label="Interactive action">Delivery Information</a>
+            <a href="javascript:void(0)" aria-label="Interactive action">Privacy Policy</a>
+            <a href="javascript:void(0)" aria-label="Interactive action">Terms & Conditions</a>
             <a href="contact.html">Contact Us</a>
         </div>
 
         <div class="col">
             <h4>My Account</h4>
             <a href="login.html">Sign In</a>
-            <a href="cart.html">View Cart</a>
-            <a href="wishlist.html">My Wishlist</a>
-            <a href="cart.html">Track My Order</a>
+            <a aria-label="Cart" href="cart.html">View Cart</a>
+            <a aria-label="Wishlist" href="wishlist.html">My Wishlist</a>
+            <a aria-label="Cart" href="cart.html">Track My Order</a>
             <a href="contact.html">Help</a>
         </div>
 
@@ -420,8 +434,10 @@
             <p>&copy; Cara 2025. All rights reserved.</p>
         </div>
     </footer>
+</main>
 
     <script src="app.js"></script>
+
 </body>
 
 </html>

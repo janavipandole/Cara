@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <!-- Character encoding -->
     <meta charset="UTF-8">
 
@@ -20,7 +21,6 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="ui-fix.css" />
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
@@ -117,13 +117,25 @@
             background: #066962;
         }
     </style>
+  <link rel="manifest" href="/manifest.json">
+  <script type="module" src="js/error-boundary.js"></script>
+<script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
+    <script type="module" src="js/config.js"></script>
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Header Section -->
     <section id="header">
         <!-- Logo -->
-        <a href="index.html"><img src="images/logo.png" alt="Cara Logo"></a>
+        <a href="index.html" aria-label="Cara Home"><img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" /></a>
 
         <!-- Navigation Bar -->
         <div>
@@ -133,24 +145,20 @@
                 <li><a href="blog.html">Blog</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
-                <li><a href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
+                <li><a aria-label="Cart" href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
                 <li>
-                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-                        <i class="ri-moon-line" id="themeIcon"></i>
-                    </button>
-                </li>
-                <li><a href="login.html" id="login-btn">Login</a></li>
-                <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+                <li class="nav-close"><a href="javascript:void(0)" id="close" aria-label="Close menu" aria-hidden="false"><i class="fa-solid fa-xmark"></i></a></li>
             </ul>
         </div>
       <div class="mobile">
-    <a href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
+    <a aria-label="Cart" href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
     <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
         <i class="ri-moon-line" id="themeIconMobile"></i>
     </button>
-    <i class="fas fa-outdent" id="bar"></i>
+    <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
 </div>
     </section>
+<main id="main-content">
 
     <section id="license-content">
         <h1>MIT License</h1>
@@ -195,7 +203,7 @@
     <!-- Footer Section -->
     <footer class="section-p1">
         <div class="col">
-            <img class="logo" src="images/logo.png" alt="">
+            <img class="logo" src="images/Dlogo.png" alt="Cara Logo">
             <h4>Contact</h4>
             <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
             <p><strong>Phone:</strong> +01 2222 365 /(+91) 01 2345 6789</p>
@@ -205,11 +213,11 @@
                 <h4>Follow us</h4>
                 <div class="icon">
                     <a href="https://x.com/JanaviPandole"><i class="fa-brands fa-x-twitter"></i></a>
-                    <a href="https://github.com/janavipandole"><i class="fab fa-github"></i></a>
+                    <a title="GitHub" href="https://github.com/janavipandole"><i class="fab fa-github"></i></a>
                     <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-linkedin"></i>
                     </a>
-                    <a href="https://www.youtube.com/@JanaviPandole"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.youtube.com/@JanaviPandole" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
         </div>
@@ -218,16 +226,16 @@
             <h4>About</h4>
             <a href="about.html">About us</a>
          <a href="delivery.html">Delivery Information</a>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms & Conditions</a>
+            <a href="javascript:void(0)" aria-label="Interactive action">Privacy Policy</a>
+            <a href="javascript:void(0)" aria-label="Interactive action">Terms & Conditions</a>
             <a href="contact.html">Contact Us</a>
         </div>
         <!-- My Account Section -->
         <div class="col">
             <h4>My Account</h4>
             <a href="login.html">Sign In</a>
-            <a href="cart.html">View Cart</a>
-            <a href="#">My Wishlist</a>
+            <a aria-label="Cart" href="cart.html">View Cart</a>
+            <a href="javascript:void(0)" aria-label="Interactive action">My Wishlist</a>
             <a href="track-order.html">Track My Order</a>
             <a href="contact.html">Help</a>
         </div>
@@ -236,8 +244,8 @@
             <h4>Install App</h4>
             <p>From App Store or Google Play</p>
             <div class="row">
-                <img src="images/pay/app.jpg" alt="">
-                <img src="images/pay/play.jpg" alt="">
+                <img src="images/pay/app.jpg" alt="Download from App Store">
+                <img src="images/pay/play.jpg" alt="Get it on Google Play">
             </div>
             <p>Secured Payment Gateways</p>
             <div class="payment-icons">
@@ -253,8 +261,9 @@
             <p>© Cara 2026. All rights reserved. | <a href="license.html" style="color: #088178;">MIT License</a></p>
         </div>
     </footer>
+</main>
 
-    <script src="app.js"></script>
+    <script type="module" src="app.js"></script>
     <script>
        const year = new Date().getFullYear();
 
@@ -263,6 +272,8 @@ for (let el of document.querySelectorAll(".Current-Year")) {
 }
   
     </script>
+
 </body>
 
 </html>
+

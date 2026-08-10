@@ -28,7 +28,13 @@ document.addEventListener('DOMContentLoaded', function () {
     .addEventListener('submit', function (e) {
       e.preventDefault();
 
-      const email = document.getElementById('forgotEmail').value.trim();
+      let email = document.getElementById('forgotEmail').value.trim();
+      if (
+        typeof window !== 'undefined' &&
+        typeof window.sanitizeHTML === 'function'
+      ) {
+        email = window.sanitizeHTML(email);
+      }
       const newPass = document.getElementById('forgotNewPass').value;
       const confirmPass = document.getElementById('forgotConfirmPass').value;
 
@@ -56,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!/[A-Z]/.test(newPass)) {
         showToast(
           'Password must contain at least one uppercase letter (A-Z).',
-          'warning'
+          'warning',
         );
         return;
       }
@@ -64,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!/[a-z]/.test(newPass)) {
         showToast(
           'Password must contain at least one lowercase letter (a-z).',
-          'warning'
+          'warning',
         );
         return;
       }
@@ -72,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!/[0-9]/.test(newPass)) {
         showToast(
           'Password must contain at least one number (0-9).',
-          'warning'
+          'warning',
         );
         return;
       }
@@ -80,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(newPass)) {
         showToast(
           'Password must contain at least one special character (e.g. @, #, $).',
-          'warning'
+          'warning',
         );
         return;
       }
@@ -90,41 +96,78 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
       }
 
-      /* ── Loading state: disable button & show spinner ── */
       const submitBtn = document.querySelector(
-        '#forgotForm button[type="submit"], #forgotForm .btn-primary'
+        '#forgotForm button[type="submit"], #forgotForm .btn-primary',
       );
       if (submitBtn) {
         submitBtn.classList.add('btn-loading');
         submitBtn.disabled = true;
       }
 
-      /* Simulate async request */
-      setTimeout(function () {
-        const users = JSON.parse(localStorage.getItem('cara_users') || '[]');
-        const userIndex = users.findIndex((u) => u.email === email);
+      const API_BASE = window.CARA_API_BASE_URL || '';
+      // If the user arrived via the emailed reset link, the token is in the URL.
+      const urlToken = new URLSearchParams(window.location.search).get('token');
 
-        if (userIndex === -1) {
-          showToast('No account found with this email!', 'error');
+      fetch(API_BASE + '/api/auth/forgot-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email }),
+      })
+        .then(function (res) {
+          if (!res.ok) {
+            return res.json().then(function (data) {
+              throw new Error(data.detail || 'Request failed');
+            });
+          }
+          return res.json();
+        })
+        .then(function (data) {
+          const resetToken = data.reset_token || urlToken;
+
+          if (!resetToken) {
+            showToast(
+              data.message ||
+                'If an account exists for that email, a reset link has been sent.',
+              'success',
+            );
+            return null;
+          }
+
+          return fetch(API_BASE + '/api/auth/reset-password', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              token: resetToken,
+              new_password: newPass,
+            }),
+          })
+            .then(function (res) {
+              if (!res.ok) {
+                return res.json().then(function (errData) {
+                  throw new Error(errData.detail || 'Reset failed');
+                });
+              }
+              return res.json();
+            })
+            .then(function () {
+              showToast(
+                'Password reset successful! Redirecting to login...',
+                'success',
+              );
+              setTimeout(function () {
+                window.location.href = 'login.html';
+              }, 2000);
+            });
+        })
+        .catch(function (err) {
+          console.warn('[ForgotPassword] Failed:', err);
+          showToast(err.message || 'Password reset failed', 'error');
+        })
+        .finally(function () {
           if (submitBtn) {
             submitBtn.classList.remove('btn-loading');
             submitBtn.disabled = false;
           }
-          return;
-        }
-
-        users[userIndex].password = newPass;
-        localStorage.setItem('cara_users', JSON.stringify(users));
-
-        showToast(
-          'Password reset successful! Redirecting to login...',
-          'success'
-        );
-
-        setTimeout(() => {
-          window.location.href = 'login.html';
-        }, 2000);
-      }, 1500);
+        });
     });
 });
-

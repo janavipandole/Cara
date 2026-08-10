@@ -1,0 +1,66 @@
+---
+name: 📚 Documentation Update
+description: Report missing, incorrect, or outdated documentation
+title: "[Docs]: "
+labels: ["documentation", "needs-triage"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Documentation Issues
+        Use this template to report gaps, inaccuracies, or improvement opportunities in any project documentation.
+
+  - type: input
+    id: doc-location
+    attributes:
+      label: Documentation Location
+      description: Which file or section needs updating?
+      placeholder: e.g. README.md — Getting Started section, CONTRIBUTING.md — Branch naming
+    validations:
+      required: true
+
+  - type: dropdown
+    id: issue-type
+    attributes:
+      label: Type of Documentation Issue
+      options:
+        - Missing documentation
+        - Incorrect / outdated information
+        - Unclear or confusing wording
+        - Broken links
+        - Missing code examples
+        - Typo / grammar
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-content
+    attributes:
+      label: Current Content (if applicable)
+      description: Quote the existing text that needs to be changed.
+      render: markdown
+
+  - type: textarea
+    id: suggested-change
+    attributes:
+      label: Suggested Change
+      description: What should the documentation say instead?
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Why Is This Change Needed?
+      description: Explain the impact of the current documentation issue on contributors or users.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-submission Checklist
+      options:
+        - label: I searched existing issues and this is not a duplicate
+          required: true

@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <!-- Character Encoding -->
     <meta charset="UTF-8" />
 
@@ -26,7 +27,6 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="ui-fix.css" />
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link
       rel="stylesheet"
@@ -138,20 +138,28 @@
         }
       }
     </style>
-  </head>
+    <link rel="manifest" href="/manifest.json">
+  <script type="module" src="js/error-boundary.js"></script>
+<script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
+    <script type="module" src="js/config.js"></script>
+</head>
 
   <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Header -->
     <section id="header">
   <!-- Logo -->
-  <a href="index.html">
-    <img id="siteLogo" src="images/logo.png" alt="Cara Logo" width="130" height="40" />
+  <a href="index.html" aria-label="Cara Home"><img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" width="130" height="40" />
   </a>
-
   <div>
     <ul id="navbar">
-
-      <!-- Main Navigation Links -->
       <li><a href="index.html">Home</a></li>
       <li><a href="shop.html">Shop</a></li>
       <li><a href="blog.html">Blog</a></li>
@@ -160,90 +168,60 @@
       <li><a href="community.html">Community</a></li>
       <li><a href="promotions.html">Promotions</a></li>
 
-      <!-- Contact Icon -->
       <li class="nav-icon">
         <a href="contact.html" aria-label="Contact">
           <i class="ri-customer-service-2-line"></i>
         </a>
       </li>
 
-      <!-- Login Icon -->
       <li class="nav-icon">
         <a href="login.html" aria-label="Login">
           <i class="ri-user-3-line"></i>
         </a>
       </li>
 
-      <!-- Cart Icon -->
       <li class="nav-icon">
         <a href="cart.html" id="lg-bag" aria-label="Cart">
           <i class="ri-shopping-bag-4-line"></i>
         </a>
       </li>
 
-      <!-- Theme Toggle -->
       <li class="nav-icon">
-        <button
-          class="theme-toggle"
-          id="themeToggle"
-          aria-label="Toggle dark mode"
-        >
+        <button class="theme-toggle" id="themeToggleDesktop" aria-label="Toggle dark mode">
           <i class="ri-moon-line" id="themeIcon"></i>
         </button>
       </li>
 
-      <!-- Close Button -->
-      <a
-        href="#"
-        id="close"
-        aria-label="Close menu"
-        aria-hidden="false"
-      >
+      <li class="nav-close"><a href="javascript:void(0)" id="close" aria-label="Close menu" aria-hidden="false">
         <i class="fa-solid fa-xmark"></i>
-      </a>
-
+      </a></li>
     </ul>
   </div>
 
-  <!-- Mobile Navbar -->
   <div class="mobile">
-
-    <!-- Login Icon -->
-    <a href="login.html" aria-label="Login">
-      <i class="ri-user-3-line"></i>
-    </a>
-
-    <!-- Cart Icon -->
-    <a href="cart.html" aria-label="Cart">
-      <i class="ri-shopping-bag-4-line"></i>
-    </a>
-
-    <!-- Hamburger Menu -->
-    <i
-      class="fas fa-outdent"
-      id="bar"
+    <a href="login.html" aria-label="Login"><i class="ri-user-3-line"></i></a>
+    <a href="cart.html" aria-label="Cart"><i class="ri-shopping-bag-4-line"></i></a>
+    <i class="fas fa-outdent" id="bar"
       role="button"
       aria-label="Open menu"
       aria-expanded="false"
       tabindex="0"
     ></i>
-      <!-- Theme Toggle -->
-      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
-        <i class="ri-moon-line" id="themeIconMobile"></i>
-      </button>
 
   </div>
 </section>
+</main>
 
     <!-- Page Banner -->
-    <section id="about-head">
+    <main id="main-content">
+  <section id="about-head">
       <h2>Terms &amp; Conditions</h2>
     </section>
     <!-- Scroll Progress Bar -->
     <div id="scrollProgress" style="position: fixed; top: 0; left: 0; height: 5px; background: #088178; width: 0%; z-index: 9999; transition: width 0.1s ease;"></div>
 
     <!-- Terms Content Grid Layout -->
-    <main id="terms-page" style="max-width: 1100px; margin: 0 auto; padding: 40px 20px 60px; display: grid; grid-template-columns: 260px 1fr; gap: 40px;">
+    <div class="main-section">
       
       <!-- Sticky Sidebar Table of Contents -->
       <aside class="terms-sidebar" aria-label="Table of Contents" style="position: sticky; top: 100px; height: fit-content; background: var(--bg-secondary, #f9f9f9); padding: 20px; border-radius: 8px; border: 1px solid var(--border-color, #eee);">
@@ -264,7 +242,7 @@
 
       <!-- Main Terms Texts -->
       <div class="terms-content-wrap">
-        <button onclick="javascript:history.back()" class="back-btn" aria-label="Go back to previous page" style="border: none; font-family: inherit; font-size: inherit; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 25px; background: #088178; color: #fff; padding: 8px 18px; border-radius: 4px; font-weight: 600; cursor: pointer;">
+        <button onclick="history.back()" class="back-btn" aria-label="Go back to previous page" style="border: none; font-family: inherit; font-size: inherit; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 25px; background: #088178; color: #fff; padding: 8px 18px; border-radius: 4px; font-weight: 600; cursor: pointer;">
           <i class="ri-arrow-left-line"></i> Back
         </button>
 
@@ -409,7 +387,7 @@
     <!-- Footer -->
     <footer class="section-p1">
       <div class="col">
-        <img class="logo" src="images/logo.png" alt="Cara Logo" width="130" height="40" loading="lazy" />
+        <img class="logo" src="images/Dlogo.png" alt="Cara Logo" width="130" height="40" loading="lazy" />
         <h4>Contact</h4>
         <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
         <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
@@ -420,15 +398,13 @@
             <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer">
               <i class="fa-brands fa-x-twitter"></i>
             </a>
-            <a href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
+            <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer">
               <i class="fab fa-github"></i>
             </a>
             <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
               <i class="fab fa-linkedin"></i>
             </a>
-            <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer">
-              <i class="fab fa-youtube"></i>
-            </a>
+            <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
           </div>
         </div>
       </div>
@@ -437,7 +413,7 @@
       <div class="col">
         <h4>About</h4>
         <a href="about.html">About Us</a>
-        <a href="#">Delivery Information</a>
+        <a href="javascript:void(0)" aria-label="Interactive action">Delivery Information</a>
         <a href="privacy.html">Privacy Policy</a>
         <a href="terms.html">Terms and Conditions</a>
         <a href="contact.html">Contact Us</a>
@@ -447,9 +423,9 @@
       <div class="col">
         <h4>My Account</h4>
         <a href="login.html">Sign In</a>
-        <a href="cart.html">View Cart</a>
-        <a href="wishlist.html">My Wishlist</a>
-        <a href="cart.html">Track My Order</a>
+        <a aria-label="Cart" href="cart.html">View Cart</a>
+        <a aria-label="Wishlist" href="wishlist.html">My Wishlist</a>
+        <a aria-label="Cart" href="cart.html">Track My Order</a>
         <a href="contact.html">Help</a>
       </div>
 
@@ -502,12 +478,13 @@
 
 
     <div id="toast-container"></div>
-    <script src="app.js"></script>
+    <script type="module" src="app.js"></script>
     <script id="Current-Year">
         document.getElementById("Current-Year").textContent = new Date().getFullYear();
     </script>
-  <script src="js/terms-print.js" defer></script>
+  <script type="module" src="js/terms-print.js" defer></script>
 </body>
 </html>
 
 <!-- Accessibility and structural improvements -->
+

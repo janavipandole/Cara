@@ -1,55 +1,56 @@
 // Gift Wrapping Option Engine
-document.addEventListener("DOMContentLoaded", () => {
-    const giftCheckbox = document.getElementById("gift-wrap-opt");
-    const giftMsgArea = document.getElementById("gift-msg-wrap");
-    const subtotalRow = document.querySelector(".summary-row");
+document.addEventListener('DOMContentLoaded', () => {
+  const giftCheckbox = document.getElementById('gift-wrap-opt');
+  const giftMsgArea = document.getElementById('gift-msg-wrap');
 
-    if (!giftCheckbox) return;
+  if (!giftCheckbox) return;
 
-    // Toggle message area
-    giftCheckbox.addEventListener("change", () => {
-        if (giftCheckbox.checked) {
-            giftMsgArea.style.display = "block";
-            addGiftCharges();
-        } else {
-            giftMsgArea.style.display = "none";
-            removeGiftCharges();
-        }
+  const STORAGE_KEY = 'cara_gift_wrap';
+
+  // Restore the saved gift wrap choice so it survives page reloads.
+  let saved = false;
+  try {
+    saved = localStorage.getItem(STORAGE_KEY) === '1';
+  } catch (e) {
+    // Ignore storage failures in restricted environments.
+  }
+  giftCheckbox.checked = saved;
+  if (giftMsgArea) giftMsgArea.style.display = saved ? 'block' : 'none';
+
+  // Toggle message area
+  giftCheckbox.addEventListener('change', () => {
+    const checked = giftCheckbox.checked;
+    if (giftMsgArea) giftMsgArea.style.display = checked ? 'block' : 'none';
+
+    try {
+      localStorage.setItem(STORAGE_KEY, checked ? '1' : '0');
+    } catch (e) {
+      // Ignore storage failures in restricted environments.
+    }
+
+    // Trigger centralized checkout summary update
+    if (typeof window.updateCheckoutSummary === 'function') {
+      window.updateCheckoutSummary();
+    }
+  });
+
+  // Wire up gift message validation to the textarea
+  const giftMsgInput = giftMsgArea ? giftMsgArea.querySelector('textarea') : null;
+  if (giftMsgInput) {
+    giftMsgInput.addEventListener('input', () => {
+      const valid = validateGiftMessageLength(giftMsgInput.value, 200);
+      if (!valid) {
+        giftMsgInput.setCustomValidity('Gift message exceeds the 200-character limit.');
+        giftMsgInput.reportValidity();
+      } else {
+        giftMsgInput.setCustomValidity('');
+      }
     });
+  }
 
-    function addGiftCharges() {
-        let chargeRow = document.getElementById("gift-wrap-charge-row");
-        if (!chargeRow) {
-            chargeRow = document.createElement("div");
-            chargeRow.id = "gift-wrap-charge-row";
-            chargeRow.className = "summary-row";
-            chargeRow.style.cssText = "display:flex; justify-content:space-between; margin-bottom: 8px;";
-            chargeRow.innerHTML = "<span>Gift Wrapping Service</span><span style='color: #088178;'>₹99.00</span>";
-            subtotalRow.parentNode.insertBefore(chargeRow, subtotalRow.nextSibling);
-        }
-        recalculateTotals(99);
-    }
-
-    function removeGiftCharges() {
-        const chargeRow = document.getElementById("gift-wrap-charge-row");
-        if (chargeRow) {
-            chargeRow.remove();
-        }
-        recalculateTotals(0);
-    }
-
-    function recalculateTotals(giftCharge) {
-        const subtotalText = document.getElementById("summary-subtotal")?.textContent || "0";
-        const subtotal = parseFloat(subtotalText.replace(/[^\d\.]/g, "")) || 0;
-        const discountText = document.getElementById("summary-discount")?.textContent || "0";
-        const discount = parseFloat(discountText.replace(/[^\d\.]/g, "")) || 0;
-        const taxText = document.getElementById("summary-tax")?.textContent || "0";
-        const tax = parseFloat(taxText) || 0;
-
-        const totalEl = document.getElementById("summary-total");
-        if (totalEl) {
-            const finalTotal = subtotal + tax + giftCharge - discount;
-            totalEl.textContent = "₹" + finalTotal.toFixed(2);
-        }
-    }
+  // Expose utility function globally for external use
+  window.validateGiftMessageLength = validateGiftMessageLength;
 });
+
+
+function validateGiftMessageLength(message, maxChars = 200) { if (!message || typeof message !== 'string') return true; return message.trim().length <= maxChars; }

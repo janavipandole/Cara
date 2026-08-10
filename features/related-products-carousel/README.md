@@ -1,0 +1,1 @@
+# Feature: Add a "Related Products" Carousel\n\nThis is a placeholder for the implementation of Feature: Add a "Related Products" Carousel.

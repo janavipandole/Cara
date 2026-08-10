@@ -135,6 +135,17 @@
 #discount-popup h4 { margin: 0 0 8px 0; font-size: 20px; }
 #discount-popup .close-btn { position: absolute; top: 8px; right: 10px; cursor: pointer; font-size: 18px; }
 
+#discount-popup h4,
+#discount-popup p,
+#discount-popup i {
+    color: #fff;
+}
+
+#discount-popup .copy-code {
+    background: #fff;
+    color: var(--accent);
+}
+
 .copy-code {
   background: #fff;
   color: var(--accent);

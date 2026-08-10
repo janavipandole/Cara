@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cara — Visual Search</title>
+  <link rel="icon" type="image/jpeg" sizes="32x32" href="images/favicon.jpg" />
+  
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="assets/css/visual-search.css" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+</head>
+
+<body>
+<section id="header" role="banner">
+  <a href="index.html">
+    <img src="images/logo.png" alt="Cara Logo" />
+  </a>
+  <div>
+    <ul id="navbar" role="navigation">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="nav-icon"><a href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
+      <li class="nav-icon">
+        <button class="theme-toggle" id="themeToggleDesktop"><i class="ri-moon-line" id="themeIcon"></i></button>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<main>
+  <section id="page-header" class="about-header" style="text-align: center; padding: 40px; background-color: var(--card); color: white;">
+    <h2>Visual Search</h2>
+    <p>Find similar products using your inspiration</p>
+  </section>
+
+  <section id="visual-search-section" class="section-p1">
+    <div class="visual-search-container">
+      <div id="image-preview-container" class="preview-container">
+        <div id="loading-indicator" class="loading-spinner">
+          <i class="ri-loader-4-line spin-icon"></i>
+          <p>Analyzing your image...</p>
+        </div>
+        <img id="shared-image-preview" src="" alt="Shared inspiration" style="display: none;" />
+      </div>
+
+      <div id="search-results" class="results-container" style="display: none;">
+        <h3>Similar Products</h3>
+        <div class="pro-container" id="similar-products-grid">
+          <!-- Products will be injected here via JS -->
+        </div>
+      </div>
+      
+      <div id="error-message" class="error-container" style="display: none;">
+        <i class="ri-error-warning-line"></i>
+        <p>Sorry, we couldn't process the shared image. Please try again.</p>
+        <button class="normal" onclick="window.location.href='shop.html'">Browse Shop</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="js/visual-search.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

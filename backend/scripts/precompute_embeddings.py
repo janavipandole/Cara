@@ -6,11 +6,11 @@ import numpy as np
 import torch
 from transformers import CLIPModel, CLIPProcessor
 
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from app.database import SessionLocal
 from app import models
-
 
 MODEL_NAME = "openai/clip-vit-base-patch32"
 EMBEDDING_DIMENSION = 512
@@ -74,7 +74,11 @@ def precompute():
                 with torch.no_grad():
                     text_features = model.get_text_features(**inputs)
 
-                embedding = text_features.cpu().numpy()[0].astype("float32")
+                embedding = (
+                    text_features.cpu()
+                    .numpy()[0]
+                    .astype("float32")
+                )
 
                 norm = np.linalg.norm(embedding)
 
@@ -126,6 +130,11 @@ def precompute():
         )
 
     finally:
+        db.close()
+
+
+if __name__ == "__main__":
+    precompute()    finally:
         db.close()
 
 

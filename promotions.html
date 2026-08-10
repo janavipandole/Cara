@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <script>
       // Immediately apply saved theme to prevent flash
       (function () {
@@ -23,7 +24,6 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="ui-fix.css" />
     <link rel="stylesheet" href="promotions.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
@@ -63,14 +63,25 @@
       background-color: #555;
     }
     </style>
-  </head>
+    <link rel="manifest" href="/manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
+  <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
+    <script type="module" src="js/config.js"></script>
+</head>
 
   <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Header Section -->
     <section id="header">
       <!-- Logo -->
-      <a href="index.html">
-        <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
+      <a href="index.html" aria-label="Cara Home"><img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" />
       </a>
 
       <div id="navbar-container"></div>
@@ -102,9 +113,10 @@
       </button>
       </div>
     </section>
+<main id="main-content">
 
     <section id="promo-header">
-      <h2>#CaraAmbassador</h2>
+      <h1>#CaraAmbassador</h1>
       <p>Join our community. Get freebies. Share your style.</p>
     </section>
 
@@ -153,24 +165,25 @@
         <h3>Apply for Freebies & Trials</h3>
         <form id="ambassador-form">
           <div class="form-group">
-            <label>Full Name</label>
-            <input type="text" placeholder="Enter Name" required />
+            <label for="ambassador-full-name">Full Name</label>
+            <input type="text" id="ambassador-full-name" placeholder="Enter Name" required />
           </div>
           <div class="form-group">
-            <label>Email Address</label>
-            <input type="email" placeholder="Enter Email" required />
+            <label for="ambassador-email">Email Address</label>
+            <input type="email" id="ambassador-email" placeholder="Enter Email" required />
           </div>
           <div class="form-group">
-            <label>Instagram Handle</label>
-            <input type="text" placeholder="Enter Instagram Handle" required />
+            <label for="ambassador-handle">Instagram Handle</label>
+            <input type="text" id="ambassador-handle" placeholder="Enter Instagram Handle" required />
           </div>
           <div class="form-group">
-            <label>Follower Count</label>
-            <input type="number" placeholder="e.g. 15000" required />
+            <label for="ambassador-followers">Follower Count</label>
+            <input type="number" id="ambassador-followers" placeholder="e.g. 15000" min="0" required />
           </div>
           <div class="form-group">
-            <label>Why do you love Cara?</label>
+            <label for="ambassador-motivation">Why do you love Cara?</label>
             <textarea
+              id="ambassador-motivation"
               rows="4"
               placeholder="Tell us about your style..."
             ></textarea>
@@ -194,6 +207,17 @@
           >
             Application Submitted! We will review it shortly.
           </p>
+          <p
+            id="form-error"
+            style="
+              display: none;
+              color: #d9534f;
+              margin-top: 15px;
+              font-weight: bold;
+              text-align: center;
+            "
+            role="alert"
+          ></p>
         </form>
       </div>
     </section>
@@ -233,7 +257,7 @@
     <footer class="section-p1">
       <!-- Contact Column -->
       <div class="col">
-        <img class="logo" src="images/logo.png" alt="Cara Logo" />
+        <img class="logo" src="images/oldlogo.png" alt="Cara Logo" />
         <h4>Contact</h4>
         <p>
           <strong>Address:</strong> 562 Wellington Road, Street 32, San
@@ -270,9 +294,7 @@
               href="https://www.youtube.com/@JanaviPandole"
               target="_blank"
               rel="noopener noreferrer"
-            >
-              <i class="fab fa-youtube"></i>
-            </a>
+             aria-label="YouTube"><i class="fab fa-youtube"></i></a>
           </div>
         </div>
       </div>
@@ -291,9 +313,9 @@
       <div class="col">
         <h4>My Account</h4>
         <a href="login.html">Sign In</a>
-        <a href="cart.html">View Cart</a>
-        <a href="#">My Wishlist</a>
-        <a href="cart.html">Track My Order</a>
+        <a aria-label="Cart" href="cart.html">View Cart</a>
+        <a href="javascript:void(0)" aria-label="Interactive action">My Wishlist</a>
+        <a aria-label="Cart" href="cart.html">Track My Order</a>
         <a href="contact.html">Help</a>
       </div>
 
@@ -379,10 +401,11 @@
         </p>
       </div>
     </footer>
+</main>
 <button id="topBtn">↑</button>
-    <script src="navbar.js"></script>
+    <script type="module" src="navbar.js"></script>
     <script>loadNavbar();</script>
-    <script src="app.js"></script>
+    <script type="module" src="app.js"></script>
     <script>
       const topBtn = document.getElementById("topBtn");
 
@@ -405,21 +428,75 @@
         });
       }
 
-      // Form submission simulation
-      document
-        .getElementById('ambassador-form')
-        .addEventListener('submit', function (e) {
+      // Ambassador Form Submission Handler
+      const ambassadorForm = document.getElementById('ambassador-form');
+      if (ambassadorForm) {
+        ambassadorForm.addEventListener('submit', async function (e) {
           e.preventDefault();
-          document.getElementById('form-success').style.display = 'block';
-          this.reset();
+          const form = this;
+          const successEl = document.getElementById('form-success');
+          const errorEl = document.getElementById('form-error');
+          const submitBtn = form.querySelector('button[type="submit"]');
+
+          successEl.style.display = 'none';
+          errorEl.style.display = 'none';
+          errorEl.textContent = '';
+
+          const fullName = document.getElementById('ambassador-full-name').value.trim();
+          const email = document.getElementById('ambassador-email').value.trim();
+          const handle = document.getElementById('ambassador-handle').value.trim();
+          const followersVal = document.getElementById('ambassador-followers').value;
+          const followers = parseInt(followersVal, 10);
+          const motivation = document.getElementById('ambassador-motivation').value.trim();
+
+          if (!fullName || !email || !handle || isNaN(followers) || followers < 0) {
+            errorEl.textContent = 'Please fill out all required fields with valid information.';
+            errorEl.style.display = 'block';
+            return;
+          }
+
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Submitting...';
+
+          try {
+            const response = await fetch('/api/ambassador/apply', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                full_name: fullName,
+                email: email,
+                instagram_handle: handle,
+                follower_count: followers,
+                motivation: motivation
+              })
+            });
+
+            if (response.ok) {
+              successEl.style.display = 'block';
+              form.reset();
+            } else {
+              const data = await response.json().catch(() => ({}));
+              errorEl.textContent = data.detail || 'Submission failed. Please try again.';
+              errorEl.style.display = 'block';
+            }
+          } catch (err) {
+            errorEl.textContent = 'Network error. Please check your connection and try again.';
+            errorEl.style.display = 'block';
+          } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Submit Application';
+          }
         });
+      }
 
       // Trigger discount popup after 5 seconds of engagement
       setTimeout(() => {
         document.getElementById('discount-popup').style.display = 'block';
       }, 5000);
     </script>
+
 </body>
 </html>
 
 <!-- Accessibility and structural improvements -->
+
