@@ -23,7 +23,8 @@ export class ScrollTopFab {
 
   onScroll() {
     if (!this.button) return;
-    if (window.scrollY > this.threshold) {
+    const scrollY = typeof window !== 'undefined' ? window.scrollY || 0 : 0;
+    if (scrollY > this.threshold) {
       this.button.style.display = 'block';
     } else {
       this.button.style.display = 'none';
