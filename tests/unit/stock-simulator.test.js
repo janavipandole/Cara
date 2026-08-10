@@ -60,4 +60,18 @@ describe('Stock Simulator Unit Tests', () => {
     expect(onExpire).toHaveBeenCalledTimes(2);
     expect(intervalNegative).toBeNull();
   });
+
+  it('should expire immediately for NaN and Infinity durations', () => {
+    const onTick = vi.fn();
+    const onExpire = vi.fn();
+
+    const intervalNaN = startStockReservationTimer(NaN, onTick, onExpire);
+    expect(onExpire).toHaveBeenCalledTimes(1);
+    expect(onTick).not.toHaveBeenCalled();
+    expect(intervalNaN).toBeNull();
+
+    const intervalInfinity = startStockReservationTimer(Infinity, onTick, onExpire);
+    expect(onExpire).toHaveBeenCalledTimes(2);
+    expect(intervalInfinity).toBeNull();
+  });
 });
