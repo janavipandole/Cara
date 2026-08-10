@@ -11,8 +11,10 @@ export function validateEmailDomain(email) {
   return domainRegex.test(email.trim());
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+function bindNewsletterForms() {
+  if (typeof document === 'undefined') return;
   const forms = document.querySelectorAll('.newsletter-form');
+  if (forms.length === 0) return;
 
   forms.forEach(function (form) {
     form.addEventListener('submit', function (e) {
@@ -72,7 +74,13 @@ document.addEventListener('DOMContentLoaded', function () {
       }, 800);
     });
   });
-});
+}
+
+// Bind when the DOM is ready. The listener also covers deferred scripts that
+// finish after DOMContentLoaded has already fired; bindNewsletterForms is
+// idempotent, so the early call is safe.
+document.addEventListener('DOMContentLoaded', bindNewsletterForms);
+bindNewsletterForms();
 
 
 export function isValidNewsletterEmail(email) { if (!email || typeof email !== 'string') return false; return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()); }
