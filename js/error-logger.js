@@ -1,6 +1,6 @@
 // Client-Side Error Boundary and Logger
 window.addEventListener('error', (event) => {
-  console.error('Runtime exception caught: ', event.error);
+  _logHook('[error-logger] Runtime exception caught:', event.error);
   let errors = [];
   try {
     errors = JSON.parse(localStorage.getItem('cara_runtime_errors')) || [];
