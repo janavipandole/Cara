@@ -150,12 +150,17 @@
   }
 
   // ── Initialise ─────────────────────────────────────────────────────────────
-  document.addEventListener('DOMContentLoaded', () => {
+  function initDashboard() {
     // Only load if dashboard components exist on page
     if (revEl || catTable || statusWrap) {
       loadDashboard();
     }
-  });
+  }
+
+  // Load immediately when the script runs after DOMContentLoaded, and also on
+  // the event for scripts that execute during initial parsing.
+  document.addEventListener('DOMContentLoaded', initDashboard);
+  initDashboard();
 
   window.AdminDashboard = { refresh: loadDashboard };
 })();
