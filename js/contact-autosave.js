@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 try {
                     localStorage.setItem(`cara_contact_draft_${field}`, val);
+                    localStorage.setItem(`cara_contact_draft_${field}_ts`, Date.now());
                 } catch (err) {
                     // Silently ignore localStorage failures in restricted environments
                 }
