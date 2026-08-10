@@ -124,6 +124,20 @@
       pointer-events: all !important;
     }
 
+    /* :focus-visible states for keyboard navigation accessibility */
+    *:focus-visible {
+      outline: 2px solid #088178;
+      outline-offset: 2px;
+    }
+    button:focus-visible,
+    a:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
+      outline: 2px solid #088178;
+      outline-offset: 2px;
+      border-radius: 3px;
+    }
 
   </style>
 <script type="module" src="js/error-boundary.js"></script>
@@ -754,7 +768,8 @@
     <!-- Copyright -->
     <div class="copyright">
       <p>
-        © Cara 2026. All rights reserved. |
+        © Cara <span id="footer-copyright-year">2026</span>. All rights reserved. |
+    <script>document.addEventListener('DOMContentLoaded', function() { var el = document.getElementById('footer-copyright-year'); if (el) el.textContent = new Date().getFullYear(); });</script>
         <a href="license.html" style="color: #088178"> MIT License </a>
       </p>
     </div>
