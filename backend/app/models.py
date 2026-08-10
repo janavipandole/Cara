@@ -144,3 +144,18 @@ class WebAuthnCredential(Base):
 
     user = relationship("User")
 
+
+class InventoryReservation(Base):
+    __tablename__ = "inventory_reservations"
+
+    id = Column(Integer, primary_key=True, index=True)
+    product_id = Column(Integer, ForeignKey("products.id"), nullable=False, index=True)
+    session_id = Column(String, index=True, nullable=False)
+    quantity = Column(Integer, nullable=False)
+    status = Column(String, default="HOLD", index=True)
+    expires_at = Column(DateTime, nullable=False, index=True)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+    product = relationship("Product")
+
+
