@@ -2,6 +2,55 @@ import { describe, it, expect, vi } from 'vitest';
 import { getStockInfo, startStockReservationTimer, mockStockData } from '../../js/stock-simulator.js';
 
 describe('Stock Simulator Unit Tests', () => {
+  it('shows an error message for an empty restock email', async () => {
+    vi.resetModules();
+    Object.defineProperty(document, 'readyState', {
+      configurable: true,
+      value: 'complete',
+    });
+    document.body.innerHTML = `
+      <select id="sizeSelect">
+        <option value="XL">XL</option>
+      </select>
+      <div id="stock-alert-container"></div>
+    `;
+    await import('../../js/stock-simulator.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    const select = document.getElementById('sizeSelect');
+    select.value = 'XL';
+    select.dispatchEvent(new Event('change'));
+
+    document.getElementById('notify-restock-btn').click();
+    const feedback = document.getElementById('restock-feedback');
+    expect(feedback.textContent).toBe('Please provide a valid email address.');
+  });
+
+  it('shows a success message for a filled restock email', async () => {
+    vi.resetModules();
+    Object.defineProperty(document, 'readyState', {
+      configurable: true,
+      value: 'complete',
+    });
+    document.body.innerHTML = `
+      <select id="sizeSelect">
+        <option value="XL">XL</option>
+      </select>
+      <div id="stock-alert-container"></div>
+    `;
+    await import('../../js/stock-simulator.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    const select = document.getElementById('sizeSelect');
+    select.value = 'XL';
+    select.dispatchEvent(new Event('change'));
+
+    document.getElementById('restock-email').value = 'user@example.com';
+    document.getElementById('notify-restock-btn').click();
+    const feedback = document.getElementById('restock-feedback');
+    expect(feedback.textContent).toBe('Successfully subscribed to Restock alert!');
+  });
+
   it('should return stock details for a valid size', () => {
     const info = getStockInfo('Small');
     expect(info).toEqual({ count: 15, status: 'normal' });
