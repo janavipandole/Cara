@@ -990,3 +990,11 @@ function showToast(message, type = 'success') {
 }
 
 // Skeleton UI integration added
+document.addEventListener('DOMContentLoaded', () => {
+  if (document.getElementById('featured-products-container')) {
+    renderProducts('featured-products-container', products.slice(0, 8));
+  }
+  if (document.getElementById('new-arrivals-container')) {
+    renderProducts('new-arrivals-container', products.slice(8, 16));
+  }
+});
