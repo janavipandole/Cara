@@ -60,7 +60,7 @@
     }
 
     if (Object.prototype.hasOwnProperty.call(COUPONS, code)) {
-      const discountPct = COUPONS[code];
+      const discountPct = Math.min(Number(COUPONS[code]) || 0, 100);
       window.appliedCoupon = code;
       saveAppliedCoupon(code);
 
