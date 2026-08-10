@@ -130,3 +130,17 @@ class OrderItem(Base):
     price = Column(Float, nullable=False)
     order = relationship("Order")
     product = relationship("Product")
+
+
+class WebAuthnCredential(Base):
+    __tablename__ = "webauthn_credentials"
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    credential_id = Column(String, unique=True, index=True, nullable=False)
+    public_key = Column(String, nullable=False)
+    sign_count = Column(Integer, default=0, nullable=False)
+    transports = Column(String, nullable=True)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+    user = relationship("User")
+
