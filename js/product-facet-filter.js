@@ -67,11 +67,14 @@ export class ProductFacetFilter {
   parseQueryParams(queryString) {
     const params = new URLSearchParams(queryString);
     const rawCategories = params.get('categories');
+    const rawMinPrice = params.get('minPrice');
+    const rawMaxPrice = params.get('maxPrice');
+    const rawMinRating = params.get('minRating');
     const filters = {
       category: rawCategories ? rawCategories.split(',').filter((c) => c.length > 0) : [],
-      minPrice: parseFloat(params.get('minPrice')) || 0,
-      maxPrice: parseFloat(params.get('maxPrice')) || Infinity,
-      minRating: parseFloat(params.get('minRating')) || 0,
+      minPrice: rawMinPrice !== null && Number.isFinite(Number(rawMinPrice)) ? Number(rawMinPrice) : 0,
+      maxPrice: rawMaxPrice !== null && Number.isFinite(Number(rawMaxPrice)) ? Number(rawMaxPrice) : Infinity,
+      minRating: rawMinRating !== null && Number.isFinite(Number(rawMinRating)) ? Number(rawMinRating) : 0,
       inStockOnly: params.get('inStock') === 'true'
     };
     this.setFilters(filters);
