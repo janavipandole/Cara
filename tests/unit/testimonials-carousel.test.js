@@ -80,4 +80,17 @@ describe('testimonials-carousel.js unit tests', () => {
     const afterWrap = dots.findIndex((d) => d.classList.contains('active'));
     expect(afterWrap).toBe((firstSlide - 1 + dots.length) % dots.length);
   });
+
+  it('wraps to the first dot when next is clicked from the last slide', () => {
+    const dots = Array.from(document.getElementById('testimonials-dots').children);
+    // Advance to the last slide.
+    for (let i = 0; i < dots.length * 2; i++) {
+      document.getElementById('testimonial-next').click();
+    }
+    const lastSlide = dots.findIndex((d) => d.classList.contains('active'));
+    // One more next click wraps back to the first dot.
+    document.getElementById('testimonial-next').click();
+    const afterWrap = dots.findIndex((d) => d.classList.contains('active'));
+    expect(afterWrap).toBe((lastSlide + 1) % dots.length);
+  });
 });
