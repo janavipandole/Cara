@@ -676,3 +676,40 @@ textarea {
   transform: scale(1.2);
 }
 
+/* Mock Payment Gateway Styles */
+.mock-payment-container {
+  margin-top: 30px;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+.mock-payment-container h4 {
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  color: #333;
+}
+.mock-payment-container label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.mock-payment-container input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.card-details {
+  display: flex;
+  gap: 15px;
+}
+.card-expiry, .card-cvv {
+  flex: 1;
+}
+.mock-payment-container button {
+  width: 100%;
+  margin-top: 10px;
+}
+
