@@ -109,4 +109,24 @@ describe('Stock Simulator Unit Tests', () => {
     expect(onExpire).toHaveBeenCalledTimes(2);
     expect(intervalNegative).toBeNull();
   });
+
+  it('should tick to zero and expire for a one-second duration', () => {
+    vi.useFakeTimers();
+    const onTick = vi.fn();
+    const onExpire = vi.fn();
+
+    const interval = startStockReservationTimer(1, onTick, onExpire);
+    expect(interval).not.toBeNull();
+
+    vi.advanceTimersByTime(1000);
+    expect(onTick).toHaveBeenCalledWith(0);
+    expect(onExpire).toHaveBeenCalledTimes(1);
+    vi.useRealTimers();
+  });
+
+  it('should return the default stock info for unknown and undefined sizes', () => {
+    expect(getStockInfo('UnknownSize')).toEqual({ count: 5, status: 'normal' });
+    expect(getStockInfo('Select Size')).toEqual(mockStockData['Select Size']);
+    expect(getStockInfo(undefined)).toEqual({ count: 0, status: 'unknown' });
+  });
 });
