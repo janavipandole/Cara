@@ -26,3 +26,7 @@ if (typeof module !== 'undefined') {
 
 
 function createTimeoutSignalHelper(timeoutMs = 5000) { const controller = new AbortController(); const id = setTimeout(() => controller.abort(), timeoutMs); return { signal: controller.signal, cleanup: () => clearTimeout(id) }; }
+
+export function getFetchTimeoutStatusHelper32() {
+  return { status: "ok", fn: "getFetchTimeoutStatusHelper32" };
+}
