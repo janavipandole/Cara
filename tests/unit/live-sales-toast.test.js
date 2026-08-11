@@ -223,4 +223,27 @@ describe('getSalesToastDisplayDuration', () => {
   it('returns the same stable value on every call', () => {
     expect(getSalesToastDisplayDuration()).toBe(getSalesToastDisplayDuration());
   });
+
+  it('starts the toast cycle immediately when the DOM is ready', async () => {
+    vi.resetModules();
+    vi.useFakeTimers();
+    Object.defineProperty(document, 'readyState', {
+      configurable: true,
+      value: 'complete',
+    });
+    window.products = [{ name: 'Tee', img: 'tee.jpg' }];
+    // Match the reduced-motion guard so the cycle actually runs.
+    window.matchMedia = vi.fn().mockReturnValue({ matches: false });
+    document.body.innerHTML = '<div id="live-sales-container"></div>';
+
+    await import('../../js/live-sales-toast.js');
+
+    // The initial toast is scheduled 6s after import without needing
+    // DOMContentLoaded.
+    vi.advanceTimersByTime(6100);
+    expect(
+      document.querySelector('#live-sales-container .live-sales-toast'),
+    ).not.toBeNull();
+    vi.useRealTimers();
+  });
 });

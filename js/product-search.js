@@ -276,6 +276,22 @@
   // ── Attach event listeners ─────────────────────────────────────────────────
   const debouncedSearch = debounce(() => {
     filters.q = searchInput ? searchInput.value.trim() : '';
+    // Skip the API call for whitespace-only input with no other active filters.
+    if (!filters.q) {
+      const hasFilters =
+        filters.category ||
+        filters.subcategory ||
+        filters.color ||
+        filters.style ||
+        filters.min_price !== '' ||
+        filters.max_price !== '' ||
+        filters.min_rating !== '' ||
+        filters.in_stock;
+      if (!hasFilters) {
+        if (productGrid) productGrid.innerHTML = '';
+        return;
+      }
+    }
     filters.page = 1;
     fetchAndRender();
   }, DEBOUNCE_MS);

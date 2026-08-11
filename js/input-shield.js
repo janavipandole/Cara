@@ -1,5 +1,6 @@
 // Script tag injection shield
-document.addEventListener('DOMContentLoaded', () => {
+function installInputShield() {
+  if (typeof document === 'undefined') return;
   const form = document.querySelector('form');
   if (!form) return;
 
@@ -36,7 +37,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Expose utility function globally for external use
   window.containsSqlInjectionKeywords = containsSqlInjectionKeywords;
-});
+}
 
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', installInputShield);
+} else {
+  installInputShield();
+}
 
 function containsSqlInjectionKeywords(input) { if (!input || typeof input !== 'string') return false; return /\b(SELECT|INSERT|UPDATE|DELETE|DROP|UNION|ALTER)\b/i.test(input); }
