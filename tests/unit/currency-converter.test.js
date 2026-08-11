@@ -7,6 +7,7 @@ import {
   convertPrice,
   formatCurrency,
   fetchExchangeRates,
+  initCurrencySelector,
 } from '../../js/currency-converter.js';
 
 describe('Currency Converter Unit Tests', () => {
@@ -104,5 +105,17 @@ describe('Currency Converter Unit Tests', () => {
     expect(convertPrice('not-a-number', 'USD')).toBe(0);
     expect(convertPrice(NaN, 'USD')).toBe(0);
     expect(convertPrice(undefined, 'USD')).toBe(0);
+  });
+
+  it('should no-op when the currency select element is missing', () => {
+    expect(() => initCurrencySelector('missing-select')).not.toThrow();
+  });
+
+  it('should bind the currency select when the element exists', () => {
+    document.body.innerHTML =
+      '<select id="currencySelect"><option value="USD">USD</option></select>';
+    expect(() => initCurrencySelector('currencySelect')).not.toThrow();
+    const select = document.getElementById('currencySelect');
+    expect(select.value).toBe(getActiveCurrency());
   });
 });

@@ -70,3 +70,36 @@ def test_products_checkout_endpoint_removed(client):
     assert remaining is not None
     assert remaining.stock == starting_stock
     db.close()
+
+
+def test_get_products_negative_skip_clamps(client):
+    db = TestingSessionLocal()
+    for i in range(3):
+        _seed_product(db, name=f"Clamp Product {i}")
+    db.close()
+
+    r = client.get(PRODUCTS_URL, params={"skip": -5, "limit": 2})
+    assert r.status_code == 200
+    assert len(r.json()) <= 2
+
+
+def test_get_products_limit_above_max_rejected(client):
+    r = client.get(PRODUCTS_URL, params={"limit": 500})
+    assert r.status_code == 422
+
+
+def test_get_products_skip_paginates(client):
+    db = TestingSessionLocal()
+    for i in range(5):
+        _seed_product(db, name=f"Page Product {i}")
+    db.close()
+
+    page1 = client.get(PRODUCTS_URL, params={"skip": 0, "limit": 2}).json()
+    page2 = client.get(PRODUCTS_URL, params={"skip": 2, "limit": 2}).json()
+
+    assert len(page1) == 2
+    assert len(page2) == 2
+    # The two pages must not overlap on product ids.
+    ids1 = {p["id"] for p in page1}
+    ids2 = {p["id"] for p in page2}
+    assert ids1.isdisjoint(ids2)

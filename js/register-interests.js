@@ -1,7 +1,11 @@
 // Interactive Newsletter Interest Selector
-document.addEventListener('DOMContentLoaded', () => {
+function initInterests() {
+  if (typeof document === 'undefined') return;
   const form = document.querySelector('form');
   if (!form) return;
+
+  // Skip re-initialization if the widget is already present.
+  if (document.querySelector('.newsletter-interests-wrapper')) return;
 
   const interestContainer = document.createElement('div');
   interestContainer.className = 'newsletter-interests-wrapper';
@@ -40,4 +44,9 @@ document.addEventListener('DOMContentLoaded', () => {
         selectedList.join(',');
     });
   });
-});
+}
+
+// Initialize when the DOM is ready. The immediate idempotent call covers
+// deferred scripts that load after DOMContentLoaded has already fired.
+document.addEventListener('DOMContentLoaded', initInterests);
+initInterests();

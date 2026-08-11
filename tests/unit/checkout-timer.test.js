@@ -131,4 +131,27 @@ describe('Checkout Timer Unit Tests', () => {
     expect(timerExpired).toBe(true);
   });
 
+  it('marks the timer as expired and dispatches the event at zero', async () => {
+    vi.resetModules();
+    vi.useFakeTimers();
+    document.body.innerHTML = `
+      <div id="summary-total"></div>
+      <div class="checkout-container"></div>
+    `;
+    await import('../../js/checkout-timer.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    const listener = vi.fn();
+    window.addEventListener('checkout-timer-expired', listener);
+
+    // 15 minutes of ticks plus one extra tick for the expiry transition.
+    vi.advanceTimersByTime(15 * 60 * 1000 + 1000);
+
+    expect(window.urgencyTimerExpired).toBe(true);
+    expect(listener).toHaveBeenCalledTimes(1);
+
+    window.removeEventListener('checkout-timer-expired', listener);
+    vi.useRealTimers();
+  });
+
 });

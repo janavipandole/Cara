@@ -45,4 +45,10 @@ describe('visual-search', () => {
       });
     }
   });
+
+  it('does not crash when the error container is missing', async () => {
+    document.body.innerHTML = '';
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    await expect(load()).resolves.not.toThrow();
+  });
 });

@@ -137,4 +137,15 @@ describe('recommendations.js module', function () {
     expect(result.length).toBe(4);
     expect(result[0].id).toBe(0);
   });
+
+  it('returns a single history item without duplicating it', function () {
+    localStorage.setItem(
+      'cara_view_history',
+      JSON.stringify([{ id: 42, name: 'Only Item', price: 99 }]),
+    );
+    var engine = new RecommendationEngine();
+    var result = engine.getRecommendations();
+    expect(result.length).toBe(1);
+    expect(result[0].id).toBe(42);
+  });
 });
