@@ -67,4 +67,33 @@ describe('SmartSearchEngine Unit Tests', () => {
     expect(results.length).toBe(1);
     expect(results[0].name).toBe('Casual Leather Shoes');
   });
+
+  it('should preserve input order for equally-relevant matches', () => {
+    const engine2 = new SmartSearchEngine([
+      { id: 1, name: 'Blue Tee', category: 'tshirts', price: 20 },
+      { id: 2, name: 'Blue Tee Deluxe', category: 'tshirts', price: 20 },
+      { id: 3, name: 'Blue Tee Pro', category: 'tshirts', price: 20 },
+    ]);
+    const results = engine2.filter({ query: 'blue' });
+    expect(results.map((p) => p.id)).toEqual([1, 2, 3]);
+  });
+
+  it('should sort ties stably by price when price-asc is requested', () => {
+    const engine2 = new SmartSearchEngine([
+      { id: 1, name: 'Tee A', category: 'tshirts', price: 20 },
+      { id: 2, name: 'Tee B', category: 'tshirts', price: 10 },
+      { id: 3, name: 'Tee C', category: 'tshirts', price: 20 },
+    ]);
+    const results = engine2.filter({ query: 'tee', sortBy: 'price-asc' });
+    expect(results.map((p) => p.id)).toEqual([2, 1, 3]);
+  });
+
+  it('should cap the search history at 10 entries', () => {
+    for (let i = 1; i <= 12; i++) {
+      engine.filter({ query: `query-${i}` });
+    }
+    const history = engine.getHistory();
+    expect(history.length).toBe(10);
+    expect(history[0]).toBe('query-12');
+  });
 });

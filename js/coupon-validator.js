@@ -67,7 +67,8 @@
     if (Object.prototype.hasOwnProperty.call(COUPONS, code)) {
       const couponDef = COUPONS[code];
       // Support both legacy numeric format and new { discount, expiry } format
-      const discountPct = typeof couponDef === 'number' ? couponDef : couponDef.discount;
+      const rawDiscount = typeof couponDef === 'number' ? couponDef : couponDef.discount;
+      const discountPct = Math.min(Number(rawDiscount) || 0, 100);
       const expiryDate = typeof couponDef === 'object' && couponDef.expiry ? couponDef.expiry : null;
 
       if (expiryDate && isCouponDateExpired(expiryDate)) {
@@ -102,6 +103,7 @@
 
   // ── Remove coupon logic ────────────────────────────────────────────────────
   function removeCoupon() {
+    const removedCode = window.appliedCoupon || '';
     window.appliedCoupon = '';
     removeAppliedCoupon();
     if (couponInput) {
@@ -110,7 +112,9 @@
     }
     showFeedback('Coupon removed.', 'info');
 
-    window.dispatchEvent(new CustomEvent('couponRemoved'));
+    window.dispatchEvent(
+      new CustomEvent('couponRemoved', { detail: { code: removedCode } }),
+    );
     if (typeof window.updateCheckoutSummary === 'function') {
       window.updateCheckoutSummary();
     }

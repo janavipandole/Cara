@@ -77,4 +77,38 @@ describe('AccessibilityFocusManager', () => {
     const event = new KeyboardEvent('keydown', { key: 'Tab' });
     expect(() => manager.handleKeyDown(event)).not.toThrow();
   });
+
+  it('should ignore non-Tab keys while a modal is active', () => {
+    document.body.innerHTML = `
+      <button id="trigger-btn">Open Modal</button>
+      <div id="test-modal">
+        <input id="input-1" type="text" />
+        <button id="btn-close">Close</button>
+      </div>
+    `;
+    const manager = new AccessibilityFocusManager();
+    const modal = document.getElementById('test-modal');
+    manager.trapFocus(modal);
+
+    const event = new KeyboardEvent('keydown', { key: 'Enter' });
+    expect(() => manager.handleKeyDown(event)).not.toThrow();
+    expect(document.activeElement.id).toBe('input-1');
+  });
+
+  it('should wrap forward from the last focusable element to the first', () => {
+    document.body.innerHTML = `
+      <div id="test-modal">
+        <input id="input-1" type="text" />
+        <button id="btn-close">Close</button>
+      </div>
+    `;
+    const manager = new AccessibilityFocusManager();
+    const modal = document.getElementById('test-modal');
+    manager.trapFocus(modal);
+
+    document.getElementById('btn-close').focus();
+    const event = new KeyboardEvent('keydown', { key: 'Tab', shiftKey: false });
+    manager.handleKeyDown(event);
+    expect(document.activeElement.id).toBe('input-1');
+  });
 });

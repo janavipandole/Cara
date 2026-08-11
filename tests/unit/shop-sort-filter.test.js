@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 
 describe('js/shop-sort-filter.js — price parsing logic', () => {
   it('extracts price from text containing Rs. symbol', () => {
@@ -60,5 +60,40 @@ describe('js/shop-sort-filter.js — price parsing logic', () => {
     });
     expect(sorted[0].textContent).toBe('Rs. 250');
     expect(sorted[2].textContent).toBe('Rs. 50');
+  });
+
+  it('injects the sort controls immediately when the DOM is ready', async () => {
+    vi.resetModules();
+    Object.defineProperty(document, 'readyState', {
+      configurable: true,
+      value: 'complete',
+    });
+    document.body.innerHTML = `
+      <div id="shop-products-container">
+        <div class="pro"><h4>Rs. 100</h4></div>
+      </div>
+    `;
+    await import('../../js/shop-sort-filter.js');
+
+    expect(document.getElementById('price-filter')).not.toBeNull();
+    expect(document.getElementById('catalog-sorter')).not.toBeNull();
+  });
+
+  it('does not duplicate the sort controls on re-initialization', async () => {
+    vi.resetModules();
+    Object.defineProperty(document, 'readyState', {
+      configurable: true,
+      value: 'complete',
+    });
+    document.body.innerHTML = `
+      <div id="shop-products-container">
+        <div class="pro"><h4>Rs. 100</h4></div>
+      </div>
+    `;
+    await import('../../js/shop-sort-filter.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    expect(document.querySelectorAll('#catalog-sorter').length).toBe(1);
+    expect(document.querySelectorAll('#price-filter').length).toBe(1);
   });
 });

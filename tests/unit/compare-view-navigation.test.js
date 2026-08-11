@@ -103,3 +103,49 @@ describe('compare.js view-product navigation', () => {
     expect(stored.name).toBe('Jeans');
   });
 });
+
+describe('compare.js CaraCompare list API', () => {
+  beforeEach(() => {
+    vi.resetModules();
+    vi.unstubAllGlobals();
+    sessionStorage.clear();
+    document.body.innerHTML = `
+      <div id="compareTableWrapper"></div>
+      <div id="compareEmpty"></div>
+      <div class="compare-actions"></div>
+    `;
+  });
+
+  it('adds a product and removes it leaving an empty list', async () => {
+    await import('../../compare.js');
+    const added = window.CaraCompare.add({ id: 'p1', name: 'Tee' });
+    expect(added).toBe(true);
+    expect(window.CaraCompare.getList().length).toBe(1);
+
+    window.CaraCompare.remove('p1');
+    expect(window.CaraCompare.getList().length).toBe(0);
+  });
+
+  it('removing an unknown id is a safe no-op', async () => {
+    await import('../../compare.js');
+    window.CaraCompare.add({ id: 'p1', name: 'Tee' });
+
+    expect(() => window.CaraCompare.remove('missing')).not.toThrow();
+    expect(window.CaraCompare.getList().length).toBe(1);
+  });
+
+  it('removing from an empty list does not throw', async () => {
+    await import('../../compare.js');
+    expect(() => window.CaraCompare.remove('p1')).not.toThrow();
+    expect(window.CaraCompare.getList()).toEqual([]);
+  });
+
+  it('clear empties the stored list', async () => {
+    await import('../../compare.js');
+    window.CaraCompare.add({ id: 'p1', name: 'Tee' });
+    window.CaraCompare.add({ id: 'p2', name: 'Shirt' });
+
+    window.CaraCompare.clear();
+    expect(window.CaraCompare.getList()).toEqual([]);
+  });
+});
