@@ -54,4 +54,27 @@ describe('ProductReviewAggregator Unit Tests', () => {
     const breakdown = aggregator.calculateReviewRatingBreakdown('nonexistent');
     expect(breakdown).toEqual({ 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 });
   });
+
+  it('should accept numeric-string ratings on submit', () => {
+    const res = aggregator.submitReview('prod-88', { rating: '5' });
+    expect(res.success).toBe(true);
+    expect(res.review.rating).toBe(5);
+    const stats = aggregator.getStats('prod-88');
+    expect(stats.count).toBe(1);
+    expect(stats.average).toBe(5.0);
+  });
+
+  it('should exclude corrupt string ratings from stored stats', () => {
+    // Simulate legacy/corrupt storage with a string rating.
+    localStorage.setItem(
+      'cara_reviews_v2',
+      JSON.stringify({
+        'prod-89': [{ id: 'r1', rating: '4' }, { id: 'r2', rating: 3 }],
+      }),
+    );
+    const aggregator2 = new ProductReviewAggregator();
+    const stats = aggregator2.getStats('prod-89');
+    expect(stats.count).toBe(1);
+    expect(stats.average).toBe(3.0);
+  });
 });

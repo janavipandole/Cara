@@ -87,4 +87,36 @@ describe('Toast Queue Manager Unit Tests', () => {
     const toastCard = document.getElementById(id);
     expect(toastCard.querySelector('.toast-message').textContent).toBe('');
   });
+
+  it('should be a safe no-op when dismissing an unknown toast id', () => {
+    vi.useFakeTimers();
+    const id = manager.show('Keep me', 'info', 0);
+    expect(manager.queue.length).toBe(1);
+
+    manager.dismiss('does-not-exist');
+    expect(manager.queue.length).toBe(1);
+    expect(document.getElementById(id)).not.toBeNull();
+
+    manager.dismiss(id);
+    expect(manager.queue.length).toBe(0);
+
+    // Dismissing again after removal must not throw or change state.
+    expect(() => manager.dismiss(id)).not.toThrow();
+    expect(manager.queue.length).toBe(0);
+    vi.useRealTimers();
+  });
+
+  it('should clear all queued toasts', () => {
+    vi.useFakeTimers();
+    manager.show('Msg 1', 'info', 0);
+    manager.show('Msg 2', 'info', 0);
+    manager.show('Msg 3', 'info', 0);
+    expect(manager.queue.length).toBe(3);
+
+    manager.clearAll();
+    expect(manager.queue.length).toBe(0);
+    vi.advanceTimersByTime(300);
+    expect(document.querySelectorAll('.toast-card').length).toBe(0);
+    vi.useRealTimers();
+  });
 });
