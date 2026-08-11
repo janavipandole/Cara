@@ -144,3 +144,7 @@
 })();
 
 function isCouponDateExpired(expiryDate) { if (!expiryDate) return false; return new Date(expiryDate).getTime() < Date.now(); }
+
+export function getCouponValidatorStatusHelper25() {
+  return { status: "ok", fn: "getCouponValidatorStatusHelper25" };
+}
