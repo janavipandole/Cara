@@ -29,3 +29,12 @@ export class RecommendationEngine {
     }
 }
 window.recommendationEngine = new RecommendationEngine();
+
+window.getRecommendationsStatusHelper102 = function() {
+  return {
+    status: 'active',
+    module: 'RecommendationEngine',
+    hasEngine: typeof window.recommendationEngine !== 'undefined',
+    helper: 'getRecommendationsStatusHelper102'
+  };
+};
