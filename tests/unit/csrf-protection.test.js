@@ -3,7 +3,8 @@ import {
   generateCSRFToken,
   getOrCreateCSRFToken,
   injectCSRFInputs,
-  attachCSRFHeader
+  attachCSRFHeader,
+  generateCsrfFallbackToken
 } from '../../js/csrf-protection.js';
 
 describe('CSRF Protection Unit Tests', () => {
@@ -56,5 +57,17 @@ describe('CSRF Protection Unit Tests', () => {
     } finally {
       Object.defineProperty(globalThis, 'document', { value: originalDocument, writable: true, configurable: true });
     }
+  });
+
+  it('should generate a fallback csrf token with a csrf- prefix', () => {
+    const token = generateCsrfFallbackToken();
+    expect(token.startsWith('csrf-')).toBe(true);
+    expect(token.length).toBeGreaterThan('csrf-'.length);
+  });
+
+  it('should generate distinct fallback tokens on consecutive calls', () => {
+    const t1 = generateCsrfFallbackToken();
+    const t2 = generateCsrfFallbackToken();
+    expect(t1).not.toBe(t2);
   });
 });
