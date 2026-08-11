@@ -35,4 +35,18 @@ describe('isValidStepBounds', () => {
     expect(isValidStepBounds(3, 3)).toBe(true);
     expect(isValidStepBounds(4, 3)).toBe(false);
   });
+
+  it('rejects fractional step indices', () => {
+    expect(isValidStepBounds(1.5)).toBe(false);
+    expect(isValidStepBounds(2.9)).toBe(false);
+  });
+
+  it('rejects NaN step indices', () => {
+    expect(isValidStepBounds(NaN)).toBe(false);
+  });
+
+  it('accepts a step at a custom maximum of one', () => {
+    expect(isValidStepBounds(1, 1)).toBe(true);
+    expect(isValidStepBounds(2, 1)).toBe(false);
+  });
 });

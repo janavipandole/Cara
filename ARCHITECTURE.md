@@ -40,3 +40,5 @@ Cara is a modern e-commerce web application featuring high-performance vanilla J
 - **Currency Converter (`js/currency-converter.js`)**: Real-time price currency conversion and dynamic symbol formatting.
 - **Accessibility Suite (`js/a11y-focus-trap.js`, `js/a11y-announcer.js`)**: Screen-reader live region alerts and modal focus trap locks.
 - **Security Middleware (`js/csrf-protection.js`, `js/utils/sanitize.js`)**: Anti-CSRF token generation and HTML entity sanitization.
+- **Outfit Rules Engine (`backend/app/rules/engine.py`)**: Applies deterministic outfit-compatibility business rules (self-exclusion, subcategory pairing, category compatibility, symmetric color harmony, and pattern clash avoidance) on top of the vector-similarity candidates returned by the FAISS index. The reranker (`backend/app/rules/reranker.py`) then personalizes the surviving candidates using anonymized interaction history.
+- **Vector Search (`backend/app/vector_search/faiss_index.py`)**: Maintains the FAISS product-embedding index and resolves similar-product candidates by product id.
