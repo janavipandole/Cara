@@ -8,7 +8,13 @@ class Store {
     this.storageKey = storageKey;
     this.listeners = [];
     
-    const savedState = JSON.parse(localStorage.getItem(this.storageKey)) || {};
+    let savedState = {};
+    try {
+      savedState = JSON.parse(localStorage.getItem(this.storageKey)) || {};
+    } catch (err) {
+      // Corrupt storage falls back to initial state.
+      savedState = {};
+    }
     const state = { ...initialState, ...savedState };
     
     const self = this;
