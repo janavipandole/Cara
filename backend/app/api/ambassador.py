@@ -7,6 +7,10 @@ from ..database import get_db
 
 router = APIRouter()
 
+# Sanity bound for social follower counts; anything above this is almost
+# certainly malformed or fraudulent input and would overflow the column.
+MAX_FOLLOWER_COUNT = 100_000_000
+
 
 class AmbassadorApplyRequest(BaseModel):
     full_name: str
@@ -20,6 +24,8 @@ class AmbassadorApplyRequest(BaseModel):
 def apply_ambassador(payload: AmbassadorApplyRequest, db: Session = Depends(get_db)):
     if payload.follower_count < 0:
         raise HTTPException(status_code=400, detail="Follower count cannot be negative")
+    if payload.follower_count > MAX_FOLLOWER_COUNT:
+        raise HTTPException(status_code=400, detail="Follower count is unreasonably large")
 
     application = models.AmbassadorApplication(
         full_name=payload.full_name,

@@ -1,0 +1,1 @@
+# Feature: Add a "Product Search" Bar with Live Filtering\n\nThis is a placeholder for the implementation of Feature: Add a "Product Search" Bar with Live Filtering.

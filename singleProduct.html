@@ -92,7 +92,9 @@
     <section id="pro-details" class="section-p1">
         <div class="single-pro-image">
             <img src="images/products/f1.jpg" width="100%" id="MainImg" alt="Main product image" title="Main product image" loading="lazy">
+            <div id="ar-viewer-container" style="margin-top: 15px;"></div>
             <div class="small-img-group">
+
                 <div class="small-img-col">
                     <img src="images/products/f1.jpg" width="100%" class="small-img" alt="Product thumbnail 1" title="Product thumbnail 1" loading="lazy">
                 </div>
@@ -125,6 +127,9 @@
                 📏 Find My Fit Size
               </button>
             </div>
+
+            <div id="volume-pricing-container"></div>
+
 
             <div class="cart-action-group">
                 <div class="quantity-selector">
@@ -346,7 +351,26 @@
 
     <script type="module" src="products.js?v=1779120917220"></script>
     <script type="module" src="js/product-review-aggregator.js"></script>
+    <script src="js/ar-product-viewer.js"></script>
+    <script src="js/dynamic-pricing.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        if (typeof window.ARProductViewer !== 'undefined' && document.getElementById('ar-viewer-container')) {
+          new window.ARProductViewer.ARProductViewer('#ar-viewer-container', {
+            modelSrc: 'assets/models/default_product.glb',
+            usdzSrc: 'assets/models/default_product.usdz',
+            altText: '3D Fashion Product Model',
+          });
+        }
+
+        if (typeof window.DynamicPricing !== 'undefined' && document.getElementById('volume-pricing-container')) {
+          window.DynamicPricing.renderVolumePricingTable('#volume-pricing-container', 139.00);
+        }
+      });
+    </script>
     <script type="module" src="app.js?v=1779120917220"></script>
+
+
 <!-- csritik-max -->
 <div class="toast" id="toast">
     <div class="toast-icon" id="toast-icon">✅</div>
