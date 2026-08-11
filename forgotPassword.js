@@ -125,7 +125,12 @@ document.addEventListener('DOMContentLoaded', function () {
           const resetToken = data.reset_token || urlToken;
 
           if (!resetToken) {
-            throw new Error('No reset token provided');
+            showToast(
+              data.message ||
+                'If an account exists for that email, a reset link has been sent.',
+              'success',
+            );
+            return null;
           }
 
           return fetch(API_BASE + '/api/auth/reset-password', {
@@ -135,27 +140,27 @@ document.addEventListener('DOMContentLoaded', function () {
               token: resetToken,
               new_password: newPass,
             }),
-          });
-        })
-        .then(function (res) {
-          if (!res.ok) {
-            return res.json().then(function (data) {
-              throw new Error(data.detail || 'Reset failed');
+          })
+            .then(function (res) {
+              if (!res.ok) {
+                return res.json().then(function (errData) {
+                  throw new Error(errData.detail || 'Reset failed');
+                });
+              }
+              return res.json();
+            })
+            .then(function () {
+              showToast(
+                'Password reset successful! Redirecting to login...',
+                'success',
+              );
+              setTimeout(function () {
+                window.location.href = 'login.html';
+              }, 2000);
             });
-          }
-          return res.json();
-        })
-        .then(function () {
-          showToast(
-            'Password reset successful! Redirecting to login...',
-            'success',
-          );
-          setTimeout(function () {
-            window.location.href = 'login.html';
-          }, 2000);
         })
         .catch(function (err) {
-          console.warn("[ForgotPassword] Failed:", err);
+          console.warn('[ForgotPassword] Failed:', err);
           showToast(err.message || 'Password reset failed', 'error');
         })
         .finally(function () {

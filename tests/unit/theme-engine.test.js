@@ -64,4 +64,24 @@ describe('Centralized Theme Engine Unit Tests', () => {
     const stored = document.documentElement.getAttribute('data-theme');
     expect([THEMES.LIGHT, THEMES.DARK]).toContain(stored);
   });
+
+  it('should resolve light when matchMedia reports light preference', () => {
+    const originalMatchMedia = window.matchMedia;
+    window.matchMedia = vi.fn().mockReturnValue({ matches: false });
+    try {
+      expect(getSystemTheme()).toBe(THEMES.LIGHT);
+    } finally {
+      window.matchMedia = originalMatchMedia;
+    }
+  });
+
+  it('should resolve dark when matchMedia reports dark preference', () => {
+    const originalMatchMedia = window.matchMedia;
+    window.matchMedia = vi.fn().mockReturnValue({ matches: true });
+    try {
+      expect(getSystemTheme()).toBe(THEMES.DARK);
+    } finally {
+      window.matchMedia = originalMatchMedia;
+    }
+  });
 });

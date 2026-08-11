@@ -58,4 +58,16 @@ describe('OutfitCompatibilityEngine Unit Tests', () => {
     // 70 baseline + 20 harmony (white<->green) + 10 style = 100
     expect(res.score).toBe(100);
   });
+
+  it('should evaluate an empty wardrobe as incomplete', () => {
+    const res = engine.evaluatePair(null, null);
+    expect(res.score).toBe(0);
+    expect(res.rating).toBe('Incomplete');
+  });
+
+  it('should evaluate a top without a bottom as incomplete', () => {
+    const res = engine.evaluatePair({ color: 'white', style: 'casual' }, null);
+    expect(res.score).toBe(0);
+    expect(res.rating).toBe('Incomplete');
+  });
 });
