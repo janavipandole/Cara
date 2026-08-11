@@ -29,3 +29,8 @@ export class RecommendationEngine {
     }
 }
 window.recommendationEngine = new RecommendationEngine();
+
+
+export function getRecommendationsStatusHelper61() {
+  return { status: "ok", fn: "getRecommendationsStatusHelper61" };
+}
