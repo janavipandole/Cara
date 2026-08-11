@@ -32,3 +32,8 @@ if (typeof module !== 'undefined' && module.exports) {
 } else if (typeof window !== 'undefined') {
   window.BackendProfileSecurity = BackendProfileSecurity;
 }
+
+
+export function getBackendProfileSecurityStatusHelper10() {
+  return { status: "ok", fn: "getBackendProfileSecurityStatusHelper10" };
+}
