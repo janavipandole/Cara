@@ -46,3 +46,11 @@ export function roundScrollProgressPercent(rawPercent) {
   if (typeof rawPercent !== 'number' || Number.isNaN(rawPercent)) return 0;
   return Math.round(Math.max(0, Math.min(100, rawPercent)));
 }
+
+window.getReadingProgressStatusHelper110 = function() {
+  return {
+    status: 'active',
+    module: 'ReadingProgress',
+    helper: 'getReadingProgressStatusHelper110'
+  };
+};
