@@ -95,4 +95,40 @@ describe('a11y-announcer Unit Tests', () => {
     expect(() => announce('')).not.toThrow();
     expect(() => announce(null)).not.toThrow();
   });
+
+  it('should lazily create live regions when announce is called first', () => {
+    // No explicit initAnnouncer() call; announce should create the regions.
+    announce('Lazy init works');
+    vi.advanceTimersByTime(100);
+
+    const polite = document.getElementById('a11y-announcer-polite');
+    expect(polite).not.toBeNull();
+    expect(polite.textContent).toBe('Lazy init works');
+  });
+
+  it('should reuse existing live regions instead of duplicating them', () => {
+    const existing = document.createElement('div');
+    existing.id = 'a11y-announcer-polite';
+    existing.className = 'sr-only';
+    existing.setAttribute('aria-live', 'polite');
+    document.body.appendChild(existing);
+
+    initAnnouncer();
+    expect(document.querySelectorAll('#a11y-announcer-polite').length).toBe(1);
+
+    announce('Reused region');
+    vi.advanceTimersByTime(100);
+    expect(existing.textContent).toBe('Reused region');
+  });
+
+  it('should replace prior text before announcing new content', () => {
+    initAnnouncer();
+    announce('First message');
+    vi.advanceTimersByTime(100);
+    announce('Second message');
+    vi.advanceTimersByTime(100);
+
+    const polite = document.getElementById('a11y-announcer-polite');
+    expect(polite.textContent).toBe('Second message');
+  });
 });

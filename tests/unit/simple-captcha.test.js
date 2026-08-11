@@ -78,4 +78,16 @@ describe('simple-captcha', () => {
     expect(sum).toBeLessThanOrEqual(20);
     expect(after).not.toBe(before);
   });
+
+  it('installs the captcha immediately when the DOM is already ready', async () => {
+    Object.defineProperty(document, 'readyState', {
+      configurable: true,
+      value: 'complete',
+    });
+    await import('../../js/simple-captcha.js');
+
+    expect(document.getElementById('captcha-input')).toBeTruthy();
+    expect(document.getElementById('captcha-math-label')).toBeTruthy();
+    expect(document.getElementById('captcha-reset-btn')).toBeTruthy();
+  });
 });

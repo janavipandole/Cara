@@ -82,4 +82,22 @@ describe('gift-options.js unit tests', () => {
     expect(window.validateGiftMessageLength('abc', 5)).toBe(true);
     expect(window.validateGiftMessageLength('abcdef', 5)).toBe(false);
   });
+
+  it('should trim the message before counting characters', async () => {
+    await import('../../js/gift-options.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    // 202 chars of raw content but only 200 after trimming.
+    const padded = '  ' + 'x'.repeat(200);
+    expect(window.validateGiftMessageLength(padded, 200)).toBe(true);
+    // 201 significant characters still fails.
+    expect(window.validateGiftMessageLength('x'.repeat(201), 200)).toBe(false);
+  });
+
+  it('should accept a whitespace-only message', async () => {
+    await import('../../js/gift-options.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    expect(window.validateGiftMessageLength('     ', 200)).toBe(true);
+  });
 });
