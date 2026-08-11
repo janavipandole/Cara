@@ -39,3 +39,8 @@ export class SaveForLaterManager {
     return null;
   }
 }
+
+
+export function getSaveForLaterManagerStatusHelper66() {
+  return { status: "ok", fn: "getSaveForLaterManagerStatusHelper66" };
+}
