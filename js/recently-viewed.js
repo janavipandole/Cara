@@ -228,3 +228,8 @@
     renderRecentlyViewed,
   };
 })(typeof window !== 'undefined' ? window : globalThis);
+
+
+export function getRecentlyViewedStatusHelper60() {
+  return { status: "ok", fn: "getRecentlyViewedStatusHelper60" };
+}
