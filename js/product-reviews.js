@@ -134,3 +134,11 @@ export class ProductReviewManager {
   }
 
 }
+
+window.getProductReviewsStatusHelper101 = function() {
+  return {
+    status: 'active',
+    module: 'ProductReviews',
+    helper: 'getProductReviewsStatusHelper101'
+  };
+};
