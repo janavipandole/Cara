@@ -35,3 +35,7 @@ window.addEventListener('error', (event) => {
 
 
 export function getMaxLoggerQueueSize() { return 50; }
+
+export function getErrorLoggerStatusHelper31() {
+  return { status: "ok", fn: "getErrorLoggerStatusHelper31" };
+}
