@@ -57,10 +57,10 @@ def _seed_product(db, **kwargs) -> models.Product:
     return product
 
 
-def _create_order(client, headers, items, **extra):
+def _create_order(client, headers, items, email="admin_t_orders@test.com", **extra):
     payload = {
         "fullName": "Test User",
-        "email": "admin_t_orders@test.com",
+        "email": email,
         "address": "1 Test St",
         "city": "Testville",
         "zip": "12345",
@@ -94,6 +94,16 @@ class TestAdminSecurity:
         """Unauthenticated requests must get 401."""
         client.cookies.clear()
         resp = client.get("/api/admin/analytics/summary")
+        assert resp.status_code == 401
+
+    def test_unauthenticated_category_sales_unauthorized(self, client: TestClient):
+        client.cookies.clear()
+        resp = client.get("/api/admin/analytics/category-sales")
+        assert resp.status_code == 401
+
+    def test_unauthenticated_status_distribution_unauthorized(self, client: TestClient):
+        client.cookies.clear()
+        resp = client.get("/api/admin/analytics/order-status-distribution")
         assert resp.status_code == 401
 
 
@@ -149,13 +159,14 @@ class TestAdminAnalytics:
         headers = {"Authorization": f"Bearer {client.post('/api/auth/login', json={'email': email, 'password': 'Password1@'}).json()['access_token']}"}
 
         db = TestingSessionLocal()
-        _seed_product(db, name="Keep Shirt", price=100.0, category="summary-keep", stock=10)
-        _seed_product(db, name="Cancel Shirt", price=200.0, category="summary-cancel", stock=10)
+        keep = _seed_product(db, name="Keep Shirt", price=100.0, category="summary-keep", stock=10)
+        cancel_p = _seed_product(db, name="Cancel Shirt", price=200.0, category="summary-cancel", stock=10)
+        keep_id, cancel_id = keep.id, cancel_p.id
         db.close()
 
         # 2 x 100 = 200 subtotal; 200 + 36 tax + 150 shipping = 386.
-        _create_order(client, headers, [{"product_name": "Keep Shirt", "quantity": 2}])
-        cancelled = _create_order(client, headers, [{"product_name": "Cancel Shirt", "quantity": 1}])
+        _create_order(client, headers, [{"product_id": keep_id, "quantity": 2}], email=email)
+        cancelled = _create_order(client, headers, [{"product_id": cancel_id, "quantity": 1}], email=email)
 
         cancel_resp = client.post(f"/api/orders/{cancelled}/cancel", headers=headers)
         assert cancel_resp.status_code == 200, cancel_resp.text
@@ -174,12 +185,13 @@ class TestAdminAnalytics:
         headers = {"Authorization": f"Bearer {client.post('/api/auth/login', json={'email': email, 'password': 'Password1@'}).json()['access_token']}"}
 
         db = TestingSessionLocal()
-        _seed_product(db, name="Active Cat Shirt", price=50.0, category="cat-sales-active", stock=10)
-        _seed_product(db, name="Cancelled Cat Shirt", price=300.0, category="cat-sales-cancelled", stock=10)
+        active = _seed_product(db, name="Active Cat Shirt", price=50.0, category="cat-sales-active", stock=10)
+        cancelled_p = _seed_product(db, name="Cancelled Cat Shirt", price=300.0, category="cat-sales-cancelled", stock=10)
+        active_id, cancelled_p_id = active.id, cancelled_p.id
         db.close()
 
-        _create_order(client, headers, [{"product_name": "Active Cat Shirt", "quantity": 4}])
-        cancelled = _create_order(client, headers, [{"product_name": "Cancelled Cat Shirt", "quantity": 1}])
+        _create_order(client, headers, [{"product_id": active_id, "quantity": 4}], email=email)
+        cancelled = _create_order(client, headers, [{"product_id": cancelled_p_id, "quantity": 1}], email=email)
 
         cancel_resp = client.post(f"/api/orders/{cancelled}/cancel", headers=headers)
         assert cancel_resp.status_code == 200, cancel_resp.text
@@ -201,9 +213,10 @@ class TestAdminAnalytics:
 
         db = TestingSessionLocal()
         product = _seed_product(db, name="Doomed Shirt", price=75.0, category="cat-sales-orphan", stock=10)
+        product_id = product.id
         db.close()
 
-        _create_order(client, headers, [{"product_name": "Doomed Shirt", "quantity": 3}])
+        _create_order(client, headers, [{"product_id": product_id, "quantity": 3}], email=email)
 
         # Simulate the product being deleted/renamed from the catalog.
         db = TestingSessionLocal()

@@ -93,4 +93,59 @@ describe('error-boundary.js unit tests', () => {
     expect(container.querySelector('.ok')).not.toBeNull();
     expect(container.querySelector('.cara-error-fallback')).toBeNull();
   });
+
+  it('retry replaces the fallback with the rendered content on success', () => {
+    let callCount = 0;
+    const renderFn = vi.fn(() => {
+      callCount++;
+      if (callCount === 1) throw new Error('first fail');
+      container.innerHTML = '<p class="recovered">loaded</p>';
+    });
+    CaraErrorBoundary.wrap('#test-target', renderFn);
+    expect(container.querySelector('.cara-error-fallback')).not.toBeNull();
+
+    container.querySelector('.cara-error-retry').click();
+    expect(callCount).toBe(2);
+    expect(container.querySelector('.recovered')).not.toBeNull();
+    expect(container.querySelector('.cara-error-fallback')).toBeNull();
+  });
+
+  it('retry keeps showing the fallback when renderFn keeps failing', () => {
+    const renderFn = vi.fn(() => {
+      throw new Error('always fails');
+    });
+    CaraErrorBoundary.wrap('#test-target', renderFn);
+
+    const retryBtn = container.querySelector('.cara-error-retry');
+    retryBtn.click();
+    retryBtn.click();
+
+    expect(container.querySelector('.cara-error-fallback')).not.toBeNull();
+    expect(renderFn).toHaveBeenCalledTimes(3);
+  });
+});
+
+describe('getErrorFallbackHTML', () => {
+  beforeEach(() => {
+    errorSpy.mockClear();
+  });
+
+  it('returns fallback HTML with the provided message', () => {
+    const html = window.getErrorFallbackHTML('Something broke');
+    expect(html).toContain('error-fallback-box');
+    expect(html).toContain('Something broke');
+  });
+
+  it('returns fallback HTML with default message when argument is undefined', () => {
+    const html = window.getErrorFallbackHTML(undefined);
+    expect(html).toContain('error-fallback-box');
+    expect(html).toContain('An unexpected error occurred.');
+  });
+
+  it('returns a valid HTML string for any input', () => {
+    const html = window.getErrorFallbackHTML(12345);
+    expect(typeof html).toBe('string');
+    expect(html.length).toBeGreaterThan(0);
+    expect(html).toContain('error-fallback-box');
+  });
 });
