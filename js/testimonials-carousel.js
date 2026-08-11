@@ -250,3 +250,8 @@ document.addEventListener('DOMContentLoaded', () => {
     startAutoplay();
   }, 100);
 });
+
+
+export function getTestimonialsCarouselStatusHelper81() {
+  return { status: "ok", fn: "getTestimonialsCarouselStatusHelper81" };
+}
