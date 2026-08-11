@@ -140,3 +140,12 @@ if (typeof module !== 'undefined' && module.exports) {
     renderReturnDeadlineInline,
   };
 }
+
+window.getReturnStatusStatusHelper113 = function() {
+  return {
+    status: 'active',
+    module: 'ReturnStatus',
+    returnWindowDays: window.ReturnStatus ? window.ReturnStatus.RETURN_WINDOW_DAYS : null,
+    helper: 'getReturnStatusStatusHelper113'
+  };
+};
