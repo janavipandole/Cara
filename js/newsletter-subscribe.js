@@ -93,3 +93,7 @@ bindNewsletterForms();
 
 
 export function isValidNewsletterEmail(email) { if (!email || typeof email !== 'string') return false; return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()); }
+
+export function getNewsletterSubscribeStatusHelper43() {
+  return { status: "ok", fn: "getNewsletterSubscribeStatusHelper43" };
+}
