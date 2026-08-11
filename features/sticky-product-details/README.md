@@ -1,0 +1,1 @@
+# UI Fix: Implement "Sticky" Product Details on Scroll\n\nThis is a placeholder for the implementation of UI Fix: Implement "Sticky" Product Details on Scroll.

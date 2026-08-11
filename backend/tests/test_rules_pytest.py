@@ -52,6 +52,18 @@ def test_blocks_clashing_colors():
     assert [r.id for r in results] == [3]
 
 
+def test_blocks_clashing_colors_reverse_direction():
+    # Red lists green as clashing; a green base must reject a red candidate
+    # just like a red base rejects a green candidate.
+    base = MockProduct(1, "formal", "top", "green", "classic")
+    candidates = [
+        MockProduct(2, "formal", "bottom", "red", "classic"),
+        MockProduct(3, "formal", "bottom", "beige", "classic"),
+    ]
+    results = filter_by_rules(base, candidates)
+    assert [r.id for r in results] == [3]
+
+
 def test_blocks_mixed_heavy_patterns():
     base = MockProduct(10, "street", "top", "red", "floral")
     candidates = [

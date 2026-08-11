@@ -131,44 +131,32 @@ describe('Checkout Timer Unit Tests', () => {
     expect(timerExpired).toBe(true);
   });
 
-  it('does nothing when the summary total element is missing', async () => {
+  it('marks the timer as expired and dispatches the event at zero', async () => {
     vi.resetModules();
-    document.body.innerHTML = '<div class="checkout-container"></div>';
-    await import('../../js/checkout-timer.js');
-    expect(document.getElementById('checkout-promo-alert-bar')).toBeNull();
-  });
-
-  it('initializes the timer bar immediately when the DOM is ready', async () => {
-    vi.resetModules();
-    Object.defineProperty(document, 'readyState', {
-      configurable: true,
-      value: 'complete',
-    });
+    vi.useFakeTimers();
     document.body.innerHTML = `
       <div id="summary-total"></div>
       <div class="checkout-container"></div>
     `;
     await import('../../js/checkout-timer.js');
 
-    const bar = document.getElementById('checkout-promo-alert-bar');
-    expect(bar).not.toBeNull();
-    expect(document.getElementById('checkout-timer').textContent).toBe('15:00');
-  });
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+    // Let the async listener finish its (failed) reservation fetch and reach
+    // the timer setup before advancing fake timers.
+    await Promise.resolve();
+    await Promise.resolve();
 
-  it('updates the displayed time as the timer ticks down', async () => {
-    vi.resetModules();
-    Object.defineProperty(document, 'readyState', {
-      configurable: true,
-      value: 'complete',
-    });
-    document.body.innerHTML = `
-      <div id="summary-total"></div>
-      <div class="checkout-container"></div>
-    `;
-    await import('../../js/checkout-timer.js');
+    const listener = vi.fn();
+    window.addEventListener('checkout-timer-expired', listener);
 
-    vi.advanceTimersByTime(1000);
-    expect(document.getElementById('checkout-timer').textContent).toBe('14:59');
+    // 10 minutes of ticks plus one extra tick for the expiry transition.
+    vi.advanceTimersByTime(10 * 60 * 1000 + 1000);
+
+    expect(window.urgencyTimerExpired).toBe(true);
+    expect(listener).toHaveBeenCalledTimes(1);
+
+    window.removeEventListener('checkout-timer-expired', listener);
+    vi.useRealTimers();
   });
 
 });

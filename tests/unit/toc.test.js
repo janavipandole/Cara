@@ -124,4 +124,30 @@ describe('Table of Contents Generation', () => {
     expect(links[1].getAttribute('href')).toBe('#policy-sec-1');
     expect(links[1].textContent).toBe('Terms of Service');
   });
+
+  it('builds the TOC immediately when the DOM is already ready', async () => {
+    vi.resetModules();
+    // Simulate a script loaded after DOMContentLoaded already fired.
+    Object.defineProperty(document, 'readyState', {
+      configurable: true,
+      value: 'complete',
+    });
+    document.body.innerHTML = `
+      <div id="policy-page">
+        <div class="policy-section">
+          <h2>Privacy Policy</h2>
+          <h2>Terms of Service</h2>
+        </div>
+      </div>
+    `;
+    await import('../../js/toc.js');
+
+    expect(document.getElementById('policy-layout')).not.toBeNull();
+    const toc = document.getElementById('privacy-toc-sidebar');
+    expect(toc).not.toBeNull();
+    const links = Array.from(toc.querySelectorAll('a'));
+    expect(links.length).toBe(2);
+    expect(links[0].getAttribute('href')).toBe('#policy-sec-0');
+    expect(links[0].textContent).toBe('Privacy Policy');
+  });
 });
