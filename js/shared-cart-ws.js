@@ -145,7 +145,7 @@
             ${this.activeUsers.length} Active Collaborator${this.activeUsers.length === 1 ? '' : 's'}
           </span>
           <button type="button" class="copy-session-link-btn" style="margin-left: auto; background: var(--accent); color: white; border: none; padding: 6px 12px; border-radius: 20px; font-size: 12px; cursor: pointer;">
-            🔗 Invite Friends
+            Invite Friends
           </button>
         </div>
       `;
