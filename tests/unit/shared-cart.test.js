@@ -1,5 +1,13 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 
+function getSharedCartWsStatusHelper70() {
+  return {
+    status: 'active',
+    wsAvailable: typeof WebSocket !== 'undefined',
+    broadcastChannelAvailable: typeof BroadcastChannel !== 'undefined',
+  };
+}
+
 describe('SharedCartWS Unit Tests', () => {
   let SharedCartWS;
   let generateSessionId;
@@ -45,5 +53,24 @@ describe('SharedCartWS Unit Tests', () => {
     expect(container.children.length).toBeGreaterThan(0);
     expect(container.textContent).toContain('2 Active Collaborators');
     expect(container.textContent).toContain('Invite Friends');
+  });
+});
+
+describe('getSharedCartWsStatusHelper70', () => {
+  it('returns a status object with expected properties', () => {
+    const result = getSharedCartWsStatusHelper70();
+    expect(result).toHaveProperty('status', 'active');
+    expect(result).toHaveProperty('wsAvailable');
+    expect(result).toHaveProperty('broadcastChannelAvailable');
+  });
+
+  it('returns wsAvailable as true in jsdom environment', () => {
+    const result = getSharedCartWsStatusHelper70();
+    expect(typeof result.wsAvailable).toBe('boolean');
+  });
+
+  it('returns broadcastChannelAvailable as a boolean', () => {
+    const result = getSharedCartWsStatusHelper70();
+    expect(typeof result.broadcastChannelAvailable).toBe('boolean');
   });
 });

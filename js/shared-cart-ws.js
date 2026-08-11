@@ -165,5 +165,14 @@
   return {
     SharedCartWS,
     generateSessionId,
+    getSharedCartWsStatusHelper70,
   };
 });
+
+function getSharedCartWsStatusHelper70() {
+  return {
+    status: 'active',
+    wsAvailable: typeof WebSocket !== 'undefined',
+    broadcastChannelAvailable: typeof BroadcastChannel !== 'undefined',
+  };
+}
