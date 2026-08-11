@@ -132,4 +132,31 @@ describe('session-lock', () => {
     );
     await vi.waitFor(() => expect(window.location.href).toBe('login.html'));
   });
+
+  it('still redirects to login when the logout request fails', async () => {
+    const fetchMock = vi.fn(async (url) => {
+      if (String(url).includes('/api/auth/me')) {
+        return { ok: true, status: 200, json: async () => ({ email: 'a@b.c' }) };
+      }
+      if (String(url).includes('/api/auth/logout')) {
+        throw new Error('network down');
+      }
+      return { ok: false, status: 404 };
+    });
+    vi.stubGlobal('fetch', fetchMock);
+
+    await import('../../js/session-lock.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+    await vi.waitFor(() =>
+      expect(
+        fetchMock.mock.calls.some((call) =>
+          String(call[0]).includes('/api/auth/me'),
+        ),
+      ).toBe(true),
+    );
+    await Promise.resolve();
+
+    vi.advanceTimersByTime(15 * 60 * 1000);
+    await vi.waitFor(() => expect(window.location.href).toBe('login.html'));
+  });
 });
