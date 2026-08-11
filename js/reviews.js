@@ -374,3 +374,8 @@
   document.addEventListener('DOMContentLoaded', init);
   if (document.readyState !== 'loading') init();
 })();
+
+
+export function getReviewsStatusHelper64() {
+  return { status: "ok", fn: "getReviewsStatusHelper64" };
+}
