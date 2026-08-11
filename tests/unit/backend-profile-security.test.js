@@ -36,4 +36,18 @@ describe('js/backend-profile-security.js BackendProfileSecurity tests', () => {
     expect(security.sanitizeField('')).toBe('');
   });
 
+  it('should escape forward slashes in sanitized fields', () => {
+    expect(security.sanitizeField('a/b')).toBe('a&#x2F;b');
+  });
+
+  it('should validate phone numbers at the 8-char minimum boundary', () => {
+    // 7 digits is below the minimum; 8 digits is valid.
+    expect(security.validatePhone('1234567')).toBe(false);
+    expect(security.validatePhone('12345678')).toBe(true);
+  });
+
+  it('should reject an empty email as invalid', () => {
+    expect(security.validateEmail('')).toBe(false);
+    expect(security.validateEmail(null)).toBe(false);
+  });
 });

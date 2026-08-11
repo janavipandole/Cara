@@ -43,4 +43,64 @@ describe('WishlistExportShare', () => {
     expect(nameField.startsWith('"')).toBe(true);
     expect(nameField.endsWith('"')).toBe(true);
   });
+
+  it('returns the link for manual copying when clipboard is unavailable', async () => {
+    // Ensure navigator.clipboard is undefined.
+    const originalClipboard = global.navigator.clipboard;
+    Object.defineProperty(global.navigator, 'clipboard', {
+      value: undefined,
+      configurable: true,
+    });
+    try {
+      const res = await exporter.copyShareLinkToClipboard(
+        [{ id: 'p1', name: 'Tee' }],
+        'http://localhost/wishlist.html',
+      );
+      expect(res.ok).toBe(false);
+      expect(res.link).toContain('?wishlist=');
+    } finally {
+      Object.defineProperty(global.navigator, 'clipboard', {
+        value: originalClipboard,
+        configurable: true,
+      });
+    }
+  });
+
+  it('returns the link for manual copying when clipboard.writeText fails', async () => {
+    Object.defineProperty(global.navigator, 'clipboard', {
+      value: {
+        writeText: () => Promise.reject(new Error('denied')),
+      },
+      configurable: true,
+    });
+    try {
+      const res = await exporter.copyShareLinkToClipboard(
+        [{ id: 'p1', name: 'Tee' }],
+        'http://localhost/wishlist.html',
+      );
+      expect(res.ok).toBe(false);
+      expect(res.link).toContain('?wishlist=');
+    } finally {
+      delete global.navigator.clipboard;
+    }
+  });
+
+  it('returns ok when the clipboard write succeeds', async () => {
+    Object.defineProperty(global.navigator, 'clipboard', {
+      value: {
+        writeText: () => Promise.resolve(),
+      },
+      configurable: true,
+    });
+    try {
+      const res = await exporter.copyShareLinkToClipboard(
+        [{ id: 'p1', name: 'Tee' }],
+        'http://localhost/wishlist.html',
+      );
+      expect(res.ok).toBe(true);
+      expect(res.link).toContain('?wishlist=');
+    } finally {
+      delete global.navigator.clipboard;
+    }
+  });
 });

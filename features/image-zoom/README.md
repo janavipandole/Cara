@@ -1,0 +1,1 @@
+# Feature: Add Product Image Zoom on Hover (Single Product Page)\n\nThis is a placeholder for the implementation of Feature: Add Product Image Zoom on Hover (Single Product Page).

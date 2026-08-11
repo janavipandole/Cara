@@ -63,4 +63,24 @@ describe('WishlistNotesTagManager Unit Tests', () => {
     const res = manager.setPriority('product-304', -5);
     expect(res.priority).toBe(0);
   });
+
+  it('should cap the tag list at 10 entries', () => {
+    const manyTags = Array.from({ length: 15 }, (_, i) => `tag-${i}`);
+    manager.addTags('product-305', manyTags);
+    const meta = manager.getProductMeta('product-305');
+    expect(meta.tags.length).toBe(10);
+  });
+
+  it('should truncate individual tags to 20 characters', () => {
+    manager.addTags('product-306', ['x'.repeat(50)]);
+    const meta = manager.getProductMeta('product-306');
+    expect(meta.tags[0].length).toBe(20);
+  });
+
+  it('should merge new tags with existing ones without duplicates', () => {
+    manager.addTags('product-307', ['summer', 'gift']);
+    manager.addTags('product-307', ['gift', 'winter']);
+    const meta = manager.getProductMeta('product-307');
+    expect(meta.tags).toEqual(['summer', 'gift', 'winter']);
+  });
 });

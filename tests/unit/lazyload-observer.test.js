@@ -77,4 +77,20 @@ describe('unobserveLazyElement', () => {
     expect(() => unobserveLazyElement(null, null)).not.toThrow();
     expect(() => unobserveLazyElement({}, document.createElement('img'))).not.toThrow();
   });
+
+  it('unobserves a tracked element without throwing', () => {
+    const img = document.createElement('img');
+    img.className = 'lazyload';
+    img.dataset.src = 'img/products/f1.jpg';
+    document.body.appendChild(img);
+
+    const result = initLazyLoadObserver('img.lazyload');
+    expect(() => unobserveLazyElement(img)).not.toThrow();
+    expect(typeof result.unobserve).toBe('function');
+  });
+
+  it('unobserving an unknown element is a safe no-op', () => {
+    const img = document.createElement('img');
+    expect(() => unobserveLazyElement(img)).not.toThrow();
+  });
 });

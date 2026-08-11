@@ -1,0 +1,1 @@
+# Feature: Add a Product "Wishlist" Functionality (Local Storage)\n\nThis is a placeholder for the implementation of Feature: Add a Product "Wishlist" Functionality (Local Storage).
