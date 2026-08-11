@@ -32,6 +32,7 @@ export class ScrollTopFab {
   }
 
   scrollToTop() {
+    if (!this.button) return;
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }

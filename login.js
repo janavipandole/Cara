@@ -175,4 +175,27 @@ if (!email) {
       setBusy(false);
     }
   });
+
+  const passkeyBtn = document.getElementById('passkeyLoginBtn');
+  if (passkeyBtn) {
+    passkeyBtn.addEventListener('click', async () => {
+      setFormError('');
+      const email = emailInput?.value.trim() || '';
+      if (typeof window.PasskeyAuth === 'undefined' || !window.PasskeyAuth.isWebAuthnSupported()) {
+        setFormError('Passkey biometric authentication is not supported in this browser.');
+        return;
+      }
+
+      setBusy(true);
+      try {
+        await window.PasskeyAuth.loginWithPasskey(email);
+        window.location.href = 'index.html';
+      } catch (err) {
+        setFormError(err.message || 'Biometric authentication failed.');
+      } finally {
+        setBusy(false);
+      }
+    });
+  }
 });
+

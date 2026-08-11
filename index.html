@@ -9,6 +9,7 @@
   <!-- Preconnect and prefetch resources optimized -->
   <!-- Character Encoding -->
   <meta charset="UTF-8" />
+  <script src="js/store.js"></script>
 
   <!-- Content Security Policy (CSP) for Frontend Security -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: https://www.animatedimages.org https://cara-seven-ashen.vercel.app;" />
@@ -784,6 +785,202 @@
     <!-- Copyright -->
     <div class="copyright">
       <p>
+        © Cara <span id="footer-copyright-year">2026</span>. All rights reserved. |
+    <script>document.addEventListener('DOMContentLoaded', function() { var el = document.getElementById('footer-copyright-year'); if (el) el.textContent = new Date().getFullYear(); });</script>|
+        <a href="license.html" style="color: #088178"> MIT License </a>
+      </p>
+    </div>
+  </footer>
+
+  <div id="toast-container"></div>
+   <button id="topBtn">↑</button>
+<script type="module" src="navbar.js"></script>
+<script type="module" src="js/newsletter-subscribe.js" defer></script>
+<script>
+  loadNavbar('home');
+</script>
+
+<!-- Runtime header height shim: measures header and sets --header-height CSS var -->
+<script>
+  function updateHeaderHeight() {
+    var header = document.getElementById('header');
+    if (!header) return;
+    // measure computed height (includes padding, border)
+    var h = Math.ceil(header.getBoundingClientRect().height);
+    document.documentElement.style.setProperty('--header-height', h + 'px');
+    // also ensure body padding is in sync (in case header-fix.css missing)
+    document.body.style.paddingTop = h + 'px';
+  }
+
+  // Run early and on resize/load
+  document.addEventListener('DOMContentLoaded', function () {
+    updateHeaderHeight();
+    // small delay in case fonts/layout change
+    setTimeout(updateHeaderHeight, 120);
+  });
+  window.addEventListener('load', updateHeaderHeight);
+  window.addEventListener('resize', updateHeaderHeight);
+</script>
+
+<script type="module" src="products.js"></script>
+<script type="module" src="app.js"></script>  
+<script>
+
+const searchBar = document.getElementById("searchBar");
+
+searchBar.addEventListener("keyup", function() {
+
+  const input = searchBar.value.toLowerCase();
+
+  const products = document.querySelectorAll(".pro");
+
+  products.forEach(function(product){
+
+    const productName = product
+      .querySelector("h5")
+      .textContent
+      .toLowerCase();
+
+    if(productName.includes(input)){
+      product.style.display = "block";
+    }
+    else{
+      product.style.display = "none";
+    }
+
+  });
+
+});
+
+</script>
+<script>
+const btn = document.getElementById("backToTop");
+
+if (btn) {
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 200) {
+      btn.style.display = "block";
+    } else {
+      btn.style.display = "none";
+    }
+  });
+
+  btn.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+      <h2 >What's Your Style ?</h2>
+      <div class="quiz-options">
+        <button onclick="selectStyle('minimal')">Minimal</button>
+        <button onclick="selectStyle('street')">Street</button>
+        <button onclick="selectStyle('formal')">Formal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="section-p1" role="contentinfo">
+    <!-- Contact Column -->
+    <div class="col">
+      <img class="logo" src="images/Dlogo.png" alt="Cara Logo">
+      <h4>Contact</h4>
+      <p>
+        <strong>Address:</strong> 562 Wellington Road, Street 32, San
+        Francisco
+      </p>
+      <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
+      <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
+
+      <div class="follow">
+        <h4>Follow us</h4>
+        <div class="icon">
+          <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer" aria-label="X (formerly Twitter)">
+            <i class="fa-brands fa-x-twitter"></i>
+          </a>
+          <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer" aria-label="YouTube" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- About Column -->
+    <div class="col">
+      <h4>About</h4>
+      <a href="about.html">About Us</a>
+      <a href="delivery.html">Delivery Information</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms and Conditions</a>
+      <a href="contact.html">Contact Us</a>
+    </div>
+
+
+    <!-- My Account Column -->
+    <div class="col">
+      <h4>My Account</h4>
+      <a href="login.html">Sign In</a>
+      <a aria-label="Cart" href="cart.html">View Cart</a>
+      <a aria-label="Wishlist" href="wishlist.html">My Wishlist</a>
+      <a href="track-order.html">Track My Order</a>
+      <a href="contact.html">Help</a>
+    </div>
+
+    <!-- Newsletter Column -->
+    <div class="col newsletter-footer">
+      <h4>Newsletter</h4>
+      <p>
+        Get email updates about our latest shop and
+        <span>special offers.</span>
+      </p>
+
+      <form class="newsletter-form" role="form" aria-label="Newsletter subscription">
+        <input type="email" placeholder="Your email address" aria-label="Email address for newsletter" required="">
+        <button type="submit" class="normal" aria-label="Sign up for newsletter">Sign Up</button>
+      </form>
+    </div>
+
+    <!-- Install App Column -->
+    <div class="col install">
+      <h4>Install App</h4>
+      <p>From App Store or Google Play</p>
+
+      <div class="row">
+        <img src="images/pay/app.jpg" alt="Download from App Store">
+        <img src="images/pay/play.jpg" alt="Get it on Google Play">
+      </div>
+
+      <p>Secured Payment Gateways</p>
+
+      <div class="payment-icons">
+        <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer" aria-label="Visa">
+          <i class="fab fa-cc-visa"></i>
+        </a>
+
+        <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer" aria-label="Mastercard">
+          <i class="fab fa-cc-mastercard"></i>
+        </a>
+
+        <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" aria-label="PayPal">
+          <i class="fab fa-cc-paypal"></i>
+        </a>
+
+        <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer" aria-label="American Express">
+          <i class="fab fa-cc-amex"></i>
+        </a>
+
+        <a href="https://stripe.com" target="_blank" rel="noopener noreferrer" aria-label="Stripe">
+          <i class="fab fa-cc-stripe"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="copyright">
+      <p>
         © Cara 2026. All rights reserved. |
         <a href="license.html" style="color: #088178"> MIT License </a>
       </p>
@@ -874,6 +1071,8 @@ if (btn) {
 <button id="backToTop">↑</button>
 <script type="module" src="js/session-lock.js" defer></script>
 <script type="module" src="js/live-sales-toast.js" defer></script>
+<script src="js/cart-sync-manager.js" defer></script>
+<script src="js/rum-telemetry.js" defer></script>
 </body>
 
 </html>

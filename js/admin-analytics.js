@@ -140,7 +140,7 @@
 
       if (errorAlert) errorAlert.style.display = 'none';
     } catch (err) {
-      console.error('[AdminAnalytics] Load failed:', err);
+      // Silently handle -- error surfaced via errorAlert DOM element
       if (errorAlert) {
         errorAlert.textContent = err.message || 'Error loading dashboard.';
         errorAlert.style.display = 'block';
