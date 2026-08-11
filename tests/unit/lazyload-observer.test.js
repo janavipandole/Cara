@@ -60,12 +60,22 @@ describe('IntersectionObserver Lazy Load Unit Tests', () => {
     expect(observeMock).toHaveBeenCalledTimes(2);
   });
 
-  it('should unobserve element when unobserveElement is called', () => { expect(true).toBe(true); });
+  it('should unobserve element when unobserveElement is called', () => {
+    const img = document.createElement('img');
+    const unobserveMock = vi.fn();
+    unobserveLazyElement({ unobserve: unobserveMock }, img);
+    expect(unobserveMock).toHaveBeenCalledWith(img);
+  });
 });
 
 describe('unobserveLazyElement', () => {
   it('is exported as a callable function', () => {
     expect(typeof unobserveLazyElement).toBe('function');
+  });
+
+  it('does nothing when the observer or element is missing', () => {
+    expect(() => unobserveLazyElement(null, null)).not.toThrow();
+    expect(() => unobserveLazyElement({}, document.createElement('img'))).not.toThrow();
   });
 
   it('unobserves a tracked element without throwing', () => {
