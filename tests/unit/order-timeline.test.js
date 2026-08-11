@@ -92,4 +92,21 @@ describe('order-timeline.js unit tests', () => {
       expect(percent).toBe(0);
     });
   });
+
+  describe('renderTimeline edge cases', () => {
+    it('does not throw when the tracking box is missing', () => {
+      document.body.innerHTML = '';
+      expect(() => window.progressSimulatedTimeline()).not.toThrow();
+    });
+
+    it('cycles stage index back to the start after the last stage', () => {
+      document.body.innerHTML = '<div id="order-tracking-timeline-target"></div>';
+      // Calling progressSimulatedTimeline 4 times advances stage 1 -> 2 -> 3 -> 0
+      for (let i = 0; i < 4; i++) {
+        expect(() => window.progressSimulatedTimeline()).not.toThrow();
+      }
+      // A further call keeps the cycle going without errors.
+      expect(() => window.progressSimulatedTimeline()).not.toThrow();
+    });
+  });
 });

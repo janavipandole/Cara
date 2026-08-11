@@ -14,7 +14,8 @@ export class ProductReviewManager {
     try {
       const data = localStorage.getItem(this.storageKey);
       return data ? JSON.parse(data) : {};
-    } catch {
+    } catch (err) {
+      console.warn('[ProductReviewManager] Failed to parse reviews from localStorage:', err);
       return {};
     }
   }

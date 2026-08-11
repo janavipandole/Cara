@@ -1,9 +1,13 @@
 // Dynamic Catalog Sorter and Filter
-document.addEventListener('DOMContentLoaded', () => {
+function initShopSortFilter() {
+  if (typeof document === 'undefined') return;
   const productsContainer =
     document.getElementById('shop-products-container') ||
     document.querySelector('.pro-container');
   if (!productsContainer) return;
+
+  // Skip re-initialization if the control panel is already present.
+  if (document.getElementById('catalog-sorter')) return;
 
   // Inject Sort Control Panel
   const controlPanel = document.createElement('div');
@@ -76,4 +80,9 @@ document.addEventListener('DOMContentLoaded', () => {
   document
     .getElementById('catalog-sorter')
     .addEventListener('change', filterAndSort);
-});
+}
+
+// Initialize when the DOM is ready. The immediate idempotent call covers
+// deferred scripts that load after DOMContentLoaded has already fired.
+document.addEventListener('DOMContentLoaded', initShopSortFilter);
+initShopSortFilter();
