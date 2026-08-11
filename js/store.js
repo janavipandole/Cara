@@ -39,6 +39,19 @@ class Store {
   }
 }
 
+function getStoreStatusHelper79() {
+  return {
+    status: 'active',
+    hasGlobalStore: typeof window !== 'undefined' && !!window.appStore,
+    globalStoreReady: typeof window !== 'undefined' && !!window.appStore && !!window.appStore.state,
+  };
+}
+
+// Expose globally for status monitoring
+if (typeof window !== 'undefined') {
+  window.getStoreStatusHelper79 = getStoreStatusHelper79;
+}
+
 // Initialize Global Store
 window.appStore = new Store({
   cartItems: [],
