@@ -58,4 +58,24 @@ describe('ProductComparatorMatrix', () => {
     expect(diffs).toEqual([]);
   });
 
+  it('should tolerate products with missing attribute fields', () => {
+    document.body.innerHTML = '<div id="comparator-matrix-container"></div>';
+    const m = new ProductComparatorMatrix(4);
+    m.addProduct({ id: 'p1', name: 'Shirt', price: 20 });
+    m.addProduct({ id: 'p2', name: 'Shirt', price: 30, brand: 'B' });
+
+    const matrix = m.getComparisonMatrix();
+    expect(matrix.fields.name).toEqual(['Shirt', 'Shirt']);
+    expect(matrix.fields.price).toEqual([20, 30]);
+    // Missing brand should not crash the matrix build.
+    expect(matrix.fields.brand).toBeDefined();
+  });
+
+  it('should return false when removing a product that is not in the list', () => {
+    document.body.innerHTML = '<div id="comparator-matrix-container"></div>';
+    const m = new ProductComparatorMatrix(3);
+    m.addProduct({ id: 'p1', name: 'Shirt 1' });
+    expect(m.removeProduct('missing-id')).toBe(false);
+    expect(m.selectedProducts.length).toBe(1);
+  });
 });

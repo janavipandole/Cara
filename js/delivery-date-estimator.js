@@ -13,6 +13,11 @@ export class DeliveryDateEstimator {
     let daysAdded = 0;
     const current = new Date(orderDate);
 
+    // Guard against invalid date inputs so toISOString never throws.
+    if (Number.isNaN(current.getTime())) {
+      return null;
+    }
+
     while (daysAdded < targetDays) {
       current.setDate(current.getDate() + 1);
       const dayOfWeek = current.getDay();

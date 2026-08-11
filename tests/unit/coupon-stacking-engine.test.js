@@ -53,4 +53,41 @@ describe('CouponStackingEngine', () => {
       { code: 'FLAT', discount: 5 }
     ]);
   });
+
+  it('ignores coupons beyond the default max stack of two', () => {
+    const coupons = [
+      { code: 'A', type: 'percentage', value: 10 },
+      { code: 'B', type: 'flat', value: 50 },
+      { code: 'C', type: 'flat', value: 100 },
+    ];
+    const res = engine.calculateStackedDiscount(1000, coupons);
+    expect(res.appliedCoupons.length).toBe(2);
+    // A (100) + B (50); C is ignored.
+    expect(res.discountTotal).toBe(150);
+  });
+
+  it('honors a custom max stack count', () => {
+    const engine3 = new CouponStackingEngine({ maxStackedCoupons: 3 });
+    const coupons = [
+      { code: 'A', type: 'percentage', value: 10 },
+      { code: 'B', type: 'flat', value: 50 },
+      { code: 'C', type: 'flat', value: 100 },
+    ];
+    const res = engine3.calculateStackedDiscount(1000, coupons);
+    expect(res.appliedCoupons.length).toBe(3);
+  });
+
+  it('returns zero discount for an empty coupon list', () => {
+    const res = engine.calculateStackedDiscount(1000, []);
+    expect(res.discountTotal).toBe(0);
+    expect(res.finalTotal).toBe(1000);
+  });
+
+  it('clamps flat discount to the remaining cart total', () => {
+    const res = engine.calculateStackedDiscount(30, [
+      { code: 'FLAT99', type: 'flat', value: 99 },
+    ]);
+    expect(res.discountTotal).toBe(30);
+    expect(res.finalTotal).toBe(0);
+  });
 });

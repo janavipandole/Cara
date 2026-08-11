@@ -83,6 +83,20 @@ describe('renderReturnStatus', () => {
     expect(html).toContain('return-status--not-delivered');
     expect(html).not.toContain('return-request-btn');
   });
+
+  it('handles a null order without throwing', () => {
+    expect(() => renderReturnStatus(null)).not.toThrow();
+    expect(renderReturnStatus(null)).toContain('not-delivered');
+  });
+
+  it('escapes the status message text in the rendered markup', () => {
+    const html = renderReturnStatus({ status: 'DELIVERED', delivered_at: daysAgo(5) });
+    // The message span must contain the plain message text with no raw
+    // angle brackets of its own beyond the wrapping span tag.
+    const text = html.match(/class="return-status__text">([^<]*)</)[1];
+    expect(text).toContain('Eligible for return until');
+    expect(text).not.toContain('<');
+  });
 });
 
 describe('renderReturnDeadlineInline', () => {
@@ -94,5 +108,9 @@ describe('renderReturnDeadlineInline', () => {
     const html = renderReturnDeadlineInline({ status: 'DELIVERED', delivered_at: daysAgo(3) });
     expect(html).toContain('return-deadline-inline');
     expect(html).toContain('Eligible for return until');
+  });
+
+  it('returns empty markup for a null order', () => {
+    expect(renderReturnDeadlineInline(null)).toBe('');
   });
 });

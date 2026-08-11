@@ -6,6 +6,47 @@ describe('register-interests.js unit tests', function () {
     vi.restoreAllMocks();
   });
 
+  it('initializes the interest widget immediately when the DOM is ready', async function () {
+    vi.resetModules();
+    Object.defineProperty(document, 'readyState', {
+      configurable: true,
+      value: 'complete',
+    });
+    document.body.innerHTML = `
+      <form id="reg-form">
+        <button type="submit">Register</button>
+      </form>
+    `;
+    await import('../../js/register-interests.js');
+
+    const container = document.querySelector('.newsletter-interests-wrapper');
+    expect(container).not.toBeNull();
+    expect(document.querySelectorAll('.interest-chip').length).toBe(3);
+  });
+
+  it('toggles the hidden interests input when chips are clicked', async function () {
+    vi.resetModules();
+    Object.defineProperty(document, 'readyState', {
+      configurable: true,
+      value: 'complete',
+    });
+    document.body.innerHTML = `
+      <form id="reg-form">
+        <button type="submit">Register</button>
+      </form>
+    `;
+    await import('../../js/register-interests.js');
+
+    const hidden = document.getElementById('selected-interests');
+    const chips = document.querySelectorAll('.interest-chip');
+    chips[0].click();
+    expect(hidden.value).toBe('mens');
+    chips[1].click();
+    expect(hidden.value).toBe('mens,womens');
+    chips[0].click();
+    expect(hidden.value).toBe('womens');
+  });
+
   it('chip click toggles selected state', function () {
     var selectedList = [];
     var chip = document.createElement('span');
