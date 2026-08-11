@@ -1,6 +1,13 @@
 // Client-Side Error Boundary and Logger
+
+// Internal silent logging hook — replace with window.CaraErrorLogger in future
+var _logHook = function (msg, error) {
+  // Silent by default — no console output in production builds.
+  // Wire in a centralized logging service to capture these.
+};
+
 window.addEventListener('error', (event) => {
-  console.error('Runtime exception caught: ', event.error);
+  _logHook('[error-logger] Runtime exception caught: ', event.error);
   let errors = [];
   try {
     errors = JSON.parse(localStorage.getItem('cara_runtime_errors')) || [];
@@ -23,7 +30,7 @@ window.addEventListener('error', (event) => {
   }
 
   // Display fallback crash notice if main app component fails
-  if (event.filename.includes('app.js')) {
+  if (event.filename && event.filename.includes('app.js')) {
     const notice = document.createElement('div');
     notice.style.cssText =
       'position:fixed; top:0; left:0; width:100%; background:#e23e57; color:white; text-align:center; padding:10px; z-index:100000;';
