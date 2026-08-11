@@ -57,6 +57,12 @@ describe('CartSyncManager Unit Tests', () => {
     expect(expiredCart).toHaveLength(0);
   });
 
+  it('should determine whether payload requires storage compression', () => {
+    expect(shouldCompressPayload('x'.repeat(501))).toBe(true);
+    expect(shouldCompressPayload('x'.repeat(500))).toBe(false);
+    expect(shouldCompressPayload('short')).toBe(false);
+  });
+
   it('keeps distinct id-less items as separate cart entries', () => {
     cartManager.addItem({ name: 'No ID Product A', price: 100 });
     cartManager.addItem({ name: 'No ID Product B', price: 200 });
@@ -142,5 +148,11 @@ describe('shouldCompressPayload', () => {
     expect(typeof shouldCompressPayload).toBe('function');
     expect(shouldCompressPayload('a'.repeat(600))).toBe(true);
     expect(shouldCompressPayload('short')).toBe(false);
+  });
+
+  it('returns false for non-string payloads', () => {
+    expect(shouldCompressPayload(null)).toBe(false);
+    expect(shouldCompressPayload(undefined)).toBe(false);
+    expect(shouldCompressPayload({ length: 600 })).toBe(false);
   });
 });
