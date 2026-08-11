@@ -167,3 +167,8 @@
     generateSessionId,
   };
 });
+
+
+export function getSharedCartWsStatusHelper70() {
+  return { status: "ok", fn: "getSharedCartWsStatusHelper70" };
+}
