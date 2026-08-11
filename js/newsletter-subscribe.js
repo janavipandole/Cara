@@ -27,6 +27,15 @@ function bindNewsletterForms() {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       const hasValidDomain = validateEmailDomain(email);
 
+      // Check for duplicate subscription
+      let subscribed = [];
+      try { subscribed = JSON.parse(localStorage.getItem('cara_subscribed_emails') || '[]'); } catch (e) { subscribed = []; }
+      if (subscribed.includes(email)) {
+        if (typeof showToast === 'function') showToast('This email is already subscribed!', 'info');
+        else alert('This email is already subscribed!');
+        return;
+      }
+
       if (!email || !emailRegex.test(email)) {
         if (typeof showToast === 'function') {
           showToast('Please enter a valid email address', 'error');

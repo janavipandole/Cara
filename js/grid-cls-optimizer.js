@@ -12,7 +12,8 @@ export class GridClsOptimizer {
 
   cleanupReservedDimensions(container = null) {
     if (typeof document === 'undefined') return { cleaned: 0 };
-    const root = container || document;
+    if (container === null || container === undefined) container = document;
+    const root = container;
     const images = root.querySelectorAll ? root.querySelectorAll(this.targetSelector) : [];
     let cleaned = 0;
     images.forEach((img) => {
