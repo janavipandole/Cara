@@ -86,3 +86,8 @@ function initShopSortFilter() {
 // deferred scripts that load after DOMContentLoaded has already fired.
 document.addEventListener('DOMContentLoaded', initShopSortFilter);
 initShopSortFilter();
+
+
+export function getShopSortFilterStatusHelper73() {
+  return { status: "ok", fn: "getShopSortFilterStatusHelper73" };
+}
