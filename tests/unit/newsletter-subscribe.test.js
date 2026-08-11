@@ -99,6 +99,25 @@ describe('newsletter-subscribe Unit Tests', () => {
   });
 
   it('should validate email format regex before newsletter subscription', () => { expect(true).toBe(true); });
+
+  it('binds form handlers immediately when the DOM is already ready', async () => {
+    vi.resetModules();
+    Object.defineProperty(document, 'readyState', {
+      configurable: true,
+      value: 'complete',
+    });
+    await import('../../js/newsletter-subscribe.js');
+
+    const input = document.querySelector('input[type="email"]');
+    input.value = 'user@example.com';
+    const form = document.querySelector('.newsletter-form');
+    form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+
+    // The handler ran (button disabled) even though no DOMContentLoaded event
+    // was dispatched after import.
+    const button = document.querySelector('button[type="submit"]');
+    expect(button.disabled).toBe(true);
+  });
 });
 
 describe('validateEmailDomain', () => {

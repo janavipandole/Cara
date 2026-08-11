@@ -33,4 +33,13 @@ describe('DeliveryDateEstimator', () => {
     const estimated = estimator.estimateDeliveryDate(start, false);
     expect(estimated).toMatch(/^\d{4}-\d{2}-\d{2}$/);
   });
+
+  it('returns null for an invalid date input', () => {
+    expect(estimator.estimateDeliveryDate('not-a-date')).toBeNull();
+    expect(estimator.estimateDeliveryDate(NaN)).toBeNull();
+  });
+
+  it('returns null for a date object that cannot parse', () => {
+    expect(estimator.estimateDeliveryDate(new Date('bogus'))).toBeNull();
+  });
 });
