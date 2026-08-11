@@ -1,0 +1,1 @@
+# Feature: Add an Interactive "Image Gallery" with Thumbnails\n\nThis is a placeholder for the implementation of Feature: Add an Interactive "Image Gallery" with Thumbnails.

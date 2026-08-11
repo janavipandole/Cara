@@ -112,6 +112,16 @@ describe('addRecentlyViewed', () => {
     expect(() => RecentlyViewed.addRecentlyViewed({})).not.toThrow();
     expect(RecentlyViewed.getRecentlyViewed()).toHaveLength(0);
   });
+
+  it('getRecentlyViewed reads back the persisted list', () => {
+    RecentlyViewed.addRecentlyViewed(product({ id: 7, name: 'Persisted Tee' }));
+    RecentlyViewed.addRecentlyViewed(product({ id: 8, name: 'Another Tee' }));
+
+    const list = RecentlyViewed.getRecentlyViewed();
+    expect(list).toHaveLength(2);
+    expect(list[0].name).toBe('Another Tee');
+    expect(list[1].name).toBe('Persisted Tee');
+  });
 });
 
 describe('renderRecentlyViewed', () => {
