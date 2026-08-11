@@ -46,3 +46,8 @@ window.appStore = new Store({
   user: null,
   theme: 'light'
 }, 'cara_global_state');
+
+
+export function getStoreStatusHelper79() {
+  return { status: "ok", fn: "getStoreStatusHelper79" };
+}
