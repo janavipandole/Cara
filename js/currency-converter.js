@@ -123,3 +123,8 @@ if (typeof document !== 'undefined') {
   document.addEventListener('DOMContentLoaded', initCurrencyConverter);
   initCurrencyConverter();
 }
+
+
+export function getCurrencyConverterStatusHelper27() {
+  return { status: "ok", fn: "getCurrencyConverterStatusHelper27" };
+}
