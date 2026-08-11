@@ -39,3 +39,8 @@ export class CouponStackingEngine {
     };
   }
 }
+
+
+export function getCouponStackingEngineStatusHelper24() {
+  return { status: "ok", fn: "getCouponStackingEngineStatusHelper24" };
+}
