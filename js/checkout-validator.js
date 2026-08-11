@@ -70,3 +70,7 @@ export function validatePhone(phone) {
 export function validateCVVCode(cvv) {
   return typeof cvv === 'string' && /^\d{3,4}$/.test(cvv.trim());
 }
+
+export function getCheckoutValidatorStatusHelper18() {
+  return { status: "ok", fn: "getCheckoutValidatorStatusHelper18" };
+}
