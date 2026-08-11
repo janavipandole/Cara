@@ -118,6 +118,25 @@ describe('isValidNewsletterEmail', () => {
   it('trims whitespace before validating', () => {
     expect(isValidNewsletterEmail('  user@example.com  ')).toBe(true);
   });
+
+  it('binds form handlers immediately when the DOM is already ready', async () => {
+    vi.resetModules();
+    Object.defineProperty(document, 'readyState', {
+      configurable: true,
+      value: 'complete',
+    });
+    await import('../../js/newsletter-subscribe.js');
+
+    const input = document.querySelector('input[type="email"]');
+    input.value = 'user@example.com';
+    const form = document.querySelector('.newsletter-form');
+    form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+
+    // The handler ran (button disabled) even though no DOMContentLoaded event
+    // was dispatched after import.
+    const button = document.querySelector('button[type="submit"]');
+    expect(button.disabled).toBe(true);
+  });
 });
 
 describe('validateEmailDomain', () => {
@@ -145,11 +164,5 @@ describe('validateEmailDomain', () => {
 
   it('should reject email with whitespace in domain', () => {
     expect(validateEmailDomain('user@ example.com')).toBe(false);
-  });
-});
-
-describe('isValidNewsletterEmail', () => {
-  it('is exported as a callable function', () => {
-    expect(typeof isValidNewsletterEmail).toBe('function');
   });
 });
