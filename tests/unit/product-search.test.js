@@ -61,7 +61,11 @@ describe('product-search', () => {
     expect(searchCalls.length).toBeGreaterThan(0);
   });
 
-  it('should enforce minimum search query character length threshold', () => { expect(true).toBe(true); });
+  it('should enforce minimum search query character length threshold', () => {
+    expect(meetsSearchQueryThreshold('shirt')).toBe(true);
+    expect(meetsSearchQueryThreshold('sh')).toBe(true);
+    expect(meetsSearchQueryThreshold('s')).toBe(false);
+  });
 
   it('skips the API call for whitespace-only input', async () => {
     global.fetch.mockImplementation((url) => {
@@ -94,5 +98,18 @@ describe('product-search', () => {
 describe('meetsSearchQueryThreshold', () => {
   it('is exported as a callable function', () => {
     expect(typeof meetsSearchQueryThreshold).toBe('function');
+  });
+
+  it('returns false for empty, null, or non-string queries', () => {
+    expect(meetsSearchQueryThreshold('')).toBe(false);
+    expect(meetsSearchQueryThreshold('   ')).toBe(false);
+    expect(meetsSearchQueryThreshold(null)).toBe(false);
+    expect(meetsSearchQueryThreshold(undefined)).toBe(false);
+    expect(meetsSearchQueryThreshold(42)).toBe(false);
+  });
+
+  it('respects a custom minimum length', () => {
+    expect(meetsSearchQueryThreshold('ab', 3)).toBe(false);
+    expect(meetsSearchQueryThreshold('abc', 3)).toBe(true);
   });
 });
