@@ -147,3 +147,11 @@
     verifyReceiptSignature,
   };
 });
+
+window.getReceiptExporterStatusHelper111 = function() {
+  return {
+    status: 'active',
+    module: 'ReceiptExporter',
+    helper: 'getReceiptExporterStatusHelper111'
+  };
+};
