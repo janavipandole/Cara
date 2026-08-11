@@ -33,4 +33,18 @@ describe('shimmer-loader', () => {
     expect(container.querySelectorAll('.skeleton-card').length).toBe(0);
     expect(container.children.length).toBe(0);
   });
+
+  it('renders skeleton cards with the pro class for layout continuity', async () => {
+    vi.resetModules();
+    document.body.innerHTML =
+      '<div class="pro-container"><div class="pro" data-id="a"></div></div>';
+    await import('../../js/shimmer-loader.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    const container = document.querySelector('.pro-container');
+    const skeletons = container.querySelectorAll('.skeleton-card');
+    expect(skeletons.length).toBe(4);
+    // Each skeleton carries the pro class so grid layout stays intact.
+    skeletons.forEach((s) => expect(s.classList.contains('pro')).toBe(true));
+  });
 });

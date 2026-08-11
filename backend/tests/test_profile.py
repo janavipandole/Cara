@@ -54,3 +54,42 @@ def test_get_profile_after_update(client, auth_headers):
     assert response.status_code == 200
     assert response.json()["full_name"] == "Jane Doe"
     assert response.json()["phone"] == "+1-555-0200"
+
+
+def test_get_profile_requires_auth(client):
+    response = client.get("/api/profile/")
+    assert response.status_code == 401
+
+
+def test_update_profile_requires_auth(client):
+    response = client.put("/api/profile/", json={"full_name": "No Auth"})
+    assert response.status_code == 401
+
+
+def test_update_profile_rejects_empty_body(client, auth_headers):
+    response = client.put("/api/profile/", json={}, headers=auth_headers)
+    assert response.status_code == 200
+    # Empty body must leave the profile unchanged.
+    data = response.json()
+    assert data["email"] == "test@example.com"
+
+
+def test_update_profile_persists_multiple_fields(client, auth_headers):
+    response = client.put(
+        "/api/profile/",
+        json={
+            "full_name": "Alex Doe",
+            "phone": "+1-555-0300",
+            "address_line1": "456 Oak Ave",
+            "city": "Chicago",
+            "state": "IL",
+            "zip_code": "60601",
+        },
+        headers=auth_headers,
+    )
+    assert response.status_code == 200
+    data = response.json()
+    assert data["full_name"] == "Alex Doe"
+    assert data["phone"] == "+1-555-0300"
+    assert data["address_line1"] == "456 Oak Ave"
+    assert data["zip_code"] == "60601"
