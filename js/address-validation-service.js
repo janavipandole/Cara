@@ -72,3 +72,8 @@ if (typeof module !== 'undefined' && module.exports) {
 } else {
   window.AddressValidationService = AddressValidationService;
 }
+
+
+export function getAddressValidationServiceStatusHelper6() {
+  return { status: "ok", fn: "getAddressValidationServiceStatusHelper6" };
+}
