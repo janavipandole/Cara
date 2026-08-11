@@ -148,7 +148,7 @@
 
       if (errorAlert) errorAlert.style.display = 'none';
     } catch (err) {
-      console.error('[AdminAnalytics] Load failed:', err);
+      // Silently handle -- error surfaced via errorAlert DOM element
       if (errorAlert) {
         errorAlert.textContent = err.message || 'Error loading dashboard.';
         errorAlert.style.display = 'block';
@@ -158,12 +158,17 @@
   }
 
   // ── Initialise ─────────────────────────────────────────────────────────────
-  document.addEventListener('DOMContentLoaded', () => {
+  function initDashboard() {
     // Only load if dashboard components exist on page
     if (revEl || catTable || statusWrap) {
       loadDashboard();
     }
-  });
+  }
+
+  // Load immediately when the script runs after DOMContentLoaded, and also on
+  // the event for scripts that execute during initial parsing.
+  document.addEventListener('DOMContentLoaded', initDashboard);
+  initDashboard();
 
   window.AdminDashboard = { refresh: loadDashboard };
 })();

@@ -1,5 +1,6 @@
 // Simple Login Mathematics Verification Captcha
-document.addEventListener('DOMContentLoaded', () => {
+function installCaptcha() {
+  if (typeof document === 'undefined') return;
   const loginForm = document.querySelector('form');
   if (!loginForm) return;
 
@@ -62,4 +63,10 @@ document.addEventListener('DOMContentLoaded', () => {
         'Incorrect captcha. Please solve math query correctly.';
     }
   });
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', installCaptcha);
+} else {
+  installCaptcha();
+}

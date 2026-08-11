@@ -96,4 +96,23 @@ describe('toast-notifications.js — CaraNotifications', () => {
     advanceDismiss();
     expect(document.querySelector('[role="alert"]')).toBeNull();
   });
+
+  it('shows queued notifications in order', () => {
+    // Run animation frames synchronously so the queue keeps flushing.
+    window.requestAnimationFrame = (cb) => {
+      cb();
+      return 1;
+    };
+
+    window.CaraNotifications.info('First', 500);
+    window.CaraNotifications.info('Second', 500);
+    window.CaraNotifications.info('Third', 500);
+    vi.advanceTimersByTime(0);
+
+    const messages = Array.from(
+      document.querySelectorAll('[role="alert"]'),
+    ).map((el) => el.textContent);
+    // All three are queued and shown in the order they were added.
+    expect(messages).toEqual(['First', 'Second', 'Third']);
+  });
 });

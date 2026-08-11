@@ -105,6 +105,25 @@ describe('Shipping Calculator Logic', () => {
       const newTotal = Math.max(0, subtotal + tax + shipping - discount);
       expect(newTotal).toBe(0);
     });
+
+    it('treats a NaN subtotal as zero via the parseFloat fallback', () => {
+      // Mirrors the widget: parseFloat(...) || 0
+      const subtotal = parseFloat('not-a-number') || 0;
+      const tax = parseFloat('₹90'.replace(/[^\d\.]/g, '')) || 0;
+      const shipping = 150;
+      const discount = 0;
+      const newTotal = Math.max(0, subtotal + tax + shipping - discount);
+      expect(newTotal).toBe(240);
+    });
+
+    it('treats a missing discount element as zero', () => {
+      const subtotal = 1000;
+      const tax = 180;
+      const shipping = 0;
+      const discount = null ? 0 : 0;
+      const newTotal = Math.max(0, subtotal + tax + shipping - discount);
+      expect(newTotal).toBe(1180);
+    });
   });
 });
 

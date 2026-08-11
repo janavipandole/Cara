@@ -1,0 +1,1 @@
+# Enhancement: Add "Hover to Play" Video Previews for Products\n\nThis is a placeholder for the implementation of Enhancement: Add "Hover to Play" Video Previews for Products.

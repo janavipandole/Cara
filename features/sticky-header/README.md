@@ -1,0 +1,1 @@
+# Feature: Implement "Sticky Header" on Scroll\n\nThis is a placeholder for the implementation of Feature: Implement "Sticky Header" on Scroll.

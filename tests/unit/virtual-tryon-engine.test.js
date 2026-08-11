@@ -47,4 +47,32 @@ describe('VirtualTryOnEngine Unit Tests', () => {
     const res = engine.updateTransform({ rotation: -90 });
     expect(res.rotation).toBe(270);
   });
+
+  it('should return false from render when no canvas is attached', () => {
+    const res = engine.render();
+    expect(res).toBe(false);
+  });
+
+  it('should return null from exportDataURL when no canvas is attached', () => {
+    expect(engine.exportDataURL()).toBeNull();
+  });
+
+  it('should return the current state from updateTransform without args', () => {
+    const res = engine.updateTransform({});
+    expect(res).toEqual({
+      modelImage: null,
+      garmentImage: null,
+      scale: 1.0,
+      rotation: 0,
+      position: { x: 0, y: 0 },
+    });
+  });
+
+  it('should keep bounds centered when no offsets are applied', () => {
+    const bounds = engine.calculateGarmentBounds(400, 600, 100, 150);
+    expect(bounds.centerX).toBe(200);
+    expect(bounds.centerY).toBe(300);
+    expect(bounds.width).toBe(100);
+    expect(bounds.height).toBe(150);
+  });
 });

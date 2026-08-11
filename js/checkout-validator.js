@@ -20,21 +20,22 @@ export function validateCreditCardLuhn(cardNumber) {
 }
 
 export function validateExpiryDate(expiryStr) {
-  if (!expiryStr || !/^\d{2}\/\d{2}$/.test(expiryStr.trim())) return false;
+  if (!expiryStr || !/^\d{2}\/\d{2}$/.test(expiryStr.trim())) return { valid: false, error: 'invalid_format' };
   const [monthStr, yearStr] = expiryStr.trim().split('/');
   const month = parseInt(monthStr, 10);
   const year = parseInt(`20${yearStr}`, 10);
 
-  if (month < 1 || month > 12) return false;
+  if (month < 1 || month > 12) return { valid: false, error: 'invalid_month' };
+  if (isNaN(month) || isNaN(year)) return { valid: false, error: 'invalid_format' };
 
   const now = new Date();
   const currentMonth = now.getMonth() + 1;
   const currentYear = now.getFullYear();
 
-  if (year < currentYear) return false;
-  if (year === currentYear && month < currentMonth) return false;
+  if (year < currentYear) return { valid: false, error: 'expired' };
+  if (year === currentYear && month < currentMonth) return { valid: false, error: 'expired' };
 
-  return true;
+  return { valid: true, error: null };
 }
 
 const POSTAL_CODE_PATTERNS = {

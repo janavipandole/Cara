@@ -1,0 +1,1 @@
+# UI Fix: Prevent "Double Submit" on Checkout/Contact Forms\n\nThis is a placeholder for the implementation of UI Fix: Prevent "Double Submit" on Checkout/Contact Forms.

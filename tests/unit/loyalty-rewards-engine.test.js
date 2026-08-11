@@ -40,6 +40,36 @@ describe('LoyaltyRewardsEngine Unit Tests', () => {
     expect(getRewardsMultiplierForTier('gold')).toBe(1.5);
     expect(getRewardsMultiplierForTier('platinum')).toBe(2.0);
   });
+
+  it('should assign tiers exactly at the point boundaries', () => {
+    engine.data.points = 499;
+    expect(engine.getTier().name).toBe('Bronze');
+    engine.data.points = 500;
+    expect(engine.getTier().name).toBe('Silver');
+    engine.data.points = 1500;
+    expect(engine.getTier().name).toBe('Gold');
+    engine.data.points = 3000;
+    expect(engine.getTier().name).toBe('Platinum');
+  });
+
+  it('should return the multiplier for a tier name via getMultiplier', () => {
+    expect(engine.getMultiplier('Bronze')).toBe(1.0);
+    expect(engine.getMultiplier('Silver')).toBe(1.25);
+    expect(engine.getMultiplier('Gold')).toBe(1.5);
+    expect(engine.getMultiplier('Platinum')).toBe(2.0);
+  });
+
+  it('should return 1.0 for an unknown tier name in getMultiplier', () => {
+    expect(engine.getMultiplier('Diamond')).toBe(1.0);
+    expect(engine.getMultiplier('')).toBe(1.0);
+  });
+
+  it('should reject redemption of more points than the balance', () => {
+    engine.addEarnedPoints(100);
+    const res = engine.redeemPoints(150);
+    expect(res.success).toBe(false);
+    expect(engine.getPoints()).toBe(100);
+  });
 });
 
 describe('getRewardsMultiplierForTier', () => {
