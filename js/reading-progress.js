@@ -43,3 +43,8 @@ export function roundScrollProgressPercent(rawPercent) {
   if (typeof rawPercent !== 'number' || Number.isNaN(rawPercent)) return 0;
   return Math.round(Math.max(0, Math.min(100, rawPercent)));
 }
+
+
+export function getReadingProgressStatusHelper58() {
+  return { status: "ok", fn: "getReadingProgressStatusHelper58" };
+}
