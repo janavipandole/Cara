@@ -1,0 +1,1 @@
+# Feature: Add a "Copy to Clipboard" Promo Code Button\n\nThis is a placeholder for the implementation of Feature: Add a "Copy to Clipboard" Promo Code Button.

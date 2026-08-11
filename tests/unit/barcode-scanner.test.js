@@ -54,4 +54,45 @@ describe('barcode-scanner', () => {
     const formats = await window.BarcodeDetector.getSupportedFormats();
     expect(formats).toContain('ean_13');
   });
+
+  it('writes a scan-failure status when detect rejects', async () => {
+    navigator.mediaDevices = {
+      getUserMedia: vi.fn().mockResolvedValue({
+        getTracks: () => [{ stop: vi.fn() }],
+      }),
+    };
+    // Make the mock detector's detect reject.
+    window.BarcodeDetector = class MockBarcodeDetector {
+      static getSupportedFormats() {
+        return Promise.resolve(['ean_13']);
+      }
+      detect() {
+        return Promise.reject(new Error('detect failed'));
+      }
+    };
+    // Run animation frames synchronously so scanFrame executes.
+    window.requestAnimationFrame = (cb) => {
+      cb();
+      return 1;
+    };
+
+    await load();
+    const video = document.getElementById('barcode-video');
+    // scanFrame only processes frames once the video stream is ready.
+    Object.defineProperty(video, 'videoWidth', { value: 640 });
+    Object.defineProperty(video, 'videoHeight', { value: 480 });
+
+    document.getElementById('scanBarcodeBtn').click();
+    // Let startScanner await getUserMedia and assign the stream.
+    await Promise.resolve();
+    await Promise.resolve();
+    // Fire onloadedmetadata to start the scan loop.
+    video.dispatchEvent(new Event('loadedmetadata'));
+    await Promise.resolve();
+    await Promise.resolve();
+
+    const status = document.getElementById('scanner-status');
+    expect(status.textContent).toContain('Unable to read barcode');
+  });
+
 });

@@ -1,0 +1,1 @@
+# UI/UX: Add a "Password Strength" Meter to Registration\n\nThis is a placeholder for the implementation of UI/UX: Add a "Password Strength" Meter to Registration.

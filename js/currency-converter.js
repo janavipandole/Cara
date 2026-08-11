@@ -41,8 +41,8 @@ export async function fetchExchangeRates(fetchImpl = globalThis.fetch) {
           }
         }
       }
-    } catch {
-      // Ignore cache parse errors
+    } catch (err) {
+      console.warn('[CurrencyConverter] Failed to parse cached exchange rates:', err);
     }
   }
 
@@ -63,8 +63,8 @@ export async function fetchExchangeRates(fetchImpl = globalThis.fetch) {
           }
         }
       }
-    } catch {
-      // Fallback to default/cached rates on API failure or offline mode
+    } catch (err) {
+      console.warn('[CurrencyConverter] Exchange rate API request failed:', err);
     }
   }
 
@@ -114,8 +114,12 @@ export function initCurrencySelector(selectElementId = 'currencySelect') {
 }
 
 if (typeof document !== 'undefined') {
-  document.addEventListener('DOMContentLoaded', () => {
+  function initCurrencyConverter() {
     fetchExchangeRates();
     initCurrencySelector();
-  });
+  }
+  // Initialize when the DOM is ready. The immediate idempotent call covers
+  // deferred scripts that load after DOMContentLoaded has already fired.
+  document.addEventListener('DOMContentLoaded', initCurrencyConverter);
+  initCurrencyConverter();
 }

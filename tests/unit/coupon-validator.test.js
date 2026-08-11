@@ -57,6 +57,29 @@ describe('coupon-validator', () => {
     expect(listener).toHaveBeenCalledTimes(1);
   });
 
+  it('couponApplied event carries the code and discount payload', async () => {
+    document.getElementById('couponCodeInput').value = 'CARA20';
+    const listener = vi.fn();
+    window.addEventListener('couponApplied', listener);
+    await load();
+    apply();
+
+    const detail = listener.mock.calls[0][0].detail;
+    expect(detail.code).toBe('CARA20');
+    expect(detail.discountPct).toBe(20);
+  });
+
+  it('dispatches couponRemoved event when the coupon is removed', async () => {
+    window.appliedCoupon = 'CARA20';
+    const listener = vi.fn();
+    window.addEventListener('couponRemoved', listener);
+    await load();
+    window.removeCoupon();
+
+    expect(listener).toHaveBeenCalledTimes(1);
+    expect(listener.mock.calls[0][0].detail).toEqual({ code: 'CARA20' });
+  });
+
   it('removes the coupon via the exposed helper', async () => {
     window.appliedCoupon = 'CARA20';
     await load();
