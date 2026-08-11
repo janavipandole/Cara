@@ -56,3 +56,10 @@ document.addEventListener('DOMContentLoaded', () => {
       // Anonymous / offline visitors should keep shopping.
     });
 });
+
+function getSessionLockStatusHelper69() {
+  return {
+    status: 'active',
+    hasSessionLock: typeof window !== 'undefined',
+  };
+}
