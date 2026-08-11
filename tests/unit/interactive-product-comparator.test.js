@@ -36,6 +36,20 @@ describe('InteractiveProductComparator Unit Tests', () => {
     expect(comparator.items.length).toBe(0);
   });
 
+  it('should handle removing from an empty list as a safe no-op', () => {
+    const res = comparator.removeItem(999);
+    expect(res.success).toBe(true);
+    expect(comparator.items.length).toBe(0);
+  });
+
+  it('should leave the list unchanged when removing an unknown id', () => {
+    comparator.addItem({ id: 301, name: 'Shoes' });
+    const res = comparator.removeItem(12345);
+    expect(res.success).toBe(true);
+    expect(comparator.items.length).toBe(1);
+    expect(comparator.items[0].id).toBe(301);
+  });
+
   it('should identify attribute differences between items', () => {
     comparator.addItem({ id: 401, name: 'Item 1', price: 20, brand: 'Nike' });
     comparator.addItem({ id: 402, name: 'Item 2', price: 30, brand: 'Nike' });

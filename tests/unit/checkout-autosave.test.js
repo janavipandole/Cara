@@ -33,6 +33,39 @@ describe('Checkout Autosave Unit Tests', () => {
   });
 
   it('should return standard autosave debounce delay ms', () => { expect(true).toBe(true); });
+
+  it('returns an empty string when sessionStorage read throws', () => {
+    const originalGetItem = sessionStorage.getItem.bind(sessionStorage);
+    sessionStorage.getItem = () => {
+      throw new Error('storage unavailable');
+    };
+
+    expect(getDraftField('checkout-firstname')).toBe('');
+
+    sessionStorage.getItem = originalGetItem;
+  });
+
+  it('does not throw when sessionStorage write fails', () => {
+    const originalSetItem = sessionStorage.setItem.bind(sessionStorage);
+    sessionStorage.setItem = () => {
+      throw new Error('quota exceeded');
+    };
+
+    expect(() => saveDraftField('checkout-firstname', 'Jane')).not.toThrow();
+
+    sessionStorage.setItem = originalSetItem;
+  });
+
+  it('does not throw when sessionStorage removeItem fails', () => {
+    const originalRemoveItem = sessionStorage.removeItem.bind(sessionStorage);
+    sessionStorage.removeItem = () => {
+      throw new Error('storage unavailable');
+    };
+
+    expect(() => clearCheckoutDraft(['field1'])).not.toThrow();
+
+    sessionStorage.removeItem = originalRemoveItem;
+  });
 });
 
 describe('getDebounceDelayMs', () => {

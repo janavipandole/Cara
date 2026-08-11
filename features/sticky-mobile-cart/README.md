@@ -1,0 +1,1 @@
+# UI/UX: Implement a "Sticky" Add to Cart Bar on Mobile\n\nThis is a placeholder for the implementation of UI/UX: Implement a "Sticky" Add to Cart Bar on Mobile.
