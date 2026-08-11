@@ -130,3 +130,8 @@
     RUMTelemetryCollector,
   };
 });
+
+
+export function getRumTelemetryStatusHelper65() {
+  return { status: "ok", fn: "getRumTelemetryStatusHelper65" };
+}
