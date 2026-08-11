@@ -13,7 +13,9 @@ export class ProductReviewManager {
     if (typeof localStorage === 'undefined') return {};
     try {
       const data = localStorage.getItem(this.storageKey);
-      return data ? JSON.parse(data) : {};
+      const parsed = data ? JSON.parse(data) : {};
+      // Guard: ensure parsed data is a valid non-null object before returning
+      return parsed !== null && typeof parsed === 'object' ? parsed : {};
     } catch (err) {
       console.warn('[ProductReviewManager] Failed to parse reviews from localStorage:', err);
       return {};
