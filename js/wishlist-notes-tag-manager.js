@@ -88,3 +88,8 @@ if (typeof module !== 'undefined' && module.exports) {
 } else {
   window.WishlistNotesTagManager = WishlistNotesTagManager;
 }
+
+
+export function getWishlistNotesTagManagerStatusHelper93() {
+  return { status: "ok", fn: "getWishlistNotesTagManagerStatusHelper93" };
+}
