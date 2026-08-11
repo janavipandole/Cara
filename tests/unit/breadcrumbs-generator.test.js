@@ -36,4 +36,25 @@ describe('BreadcrumbsGenerator', () => {
     expect(gen.formatLabel('new-arrivals.html')).toBe('New arrivals');
     expect(gen.formatLabel('best_sellers')).toBe('Best sellers');
   });
+
+  it('handles a trailing slash on the path', () => {
+    const crumbs = gen.generateBreadcrumbs('/shop/tshirts/');
+    expect(crumbs.length).toBe(3);
+    expect(crumbs[2].label).toBe('Tshirts');
+  });
+
+  it('returns only the home crumb for a root slash', () => {
+    const crumbs = gen.generateBreadcrumbs('/');
+    expect(crumbs.length).toBe(1);
+    expect(crumbs[0].label).toBe('Home');
+  });
+
+  it('handles a deeply nested path with four segments', () => {
+    const crumbs = gen.generateBreadcrumbs('/men/formal/classic/shirts.html');
+    expect(crumbs.length).toBe(5);
+    expect(crumbs[1].url).toBe('/men');
+    expect(crumbs[2].url).toBe('/men/formal');
+    expect(crumbs[3].url).toBe('/men/formal/classic');
+    expect(crumbs[4].url).toBeNull();
+  });
 });

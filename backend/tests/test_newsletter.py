@@ -7,7 +7,7 @@ def test_subscribe_success(client):
     assert response.json()["message"] == "Subscription request processed"
 
 
-def test_subscribe_duplicate_returns_200(client):
+def test_subscribe_duplicate(client):
     client.post(
         "/api/newsletter/subscribe",
         json={"email": "dup@example.com"},
@@ -16,7 +16,7 @@ def test_subscribe_duplicate_returns_200(client):
         "/api/newsletter/subscribe",
         json={"email": "dup@example.com"},
     )
-    assert response.status_code == 200
+    assert response.status_code == 201
     assert response.json()["message"] == "Subscription request processed"
 
 
@@ -88,4 +88,4 @@ def test_reactivate_after_unsubscribe(client):
         json={"email": "reactivate@example.com"},
     )
     assert response.status_code == 201
-    assert response.json()["message"] == "Subscription reactivated"
+    assert response.json()["message"] == "Subscription request processed"

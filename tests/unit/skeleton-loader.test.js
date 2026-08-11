@@ -83,4 +83,26 @@ describe('skeleton-loader.js — CaraSkeleton', () => {
     const secondStyleCount = document.head.querySelectorAll('style').length;
     expect(secondStyleCount).toBe(firstStyleCount);
   });
+
+  it('show() honors a custom card class name', () => {
+    const container = document.getElementById('test-container');
+    window.CaraSkeleton.show(container, { count: 2, cardClass: 'custom-skeleton' });
+    expect(container.querySelectorAll('.custom-skeleton').length).toBe(2);
+    expect(container.querySelectorAll('.skeleton-card').length).toBe(0);
+  });
+
+  it('show() honors a custom count of one', () => {
+    const container = document.getElementById('test-container');
+    window.CaraSkeleton.show(container, { count: 1 });
+    expect(container.querySelectorAll('.skeleton-card').length).toBe(1);
+  });
+
+  it('show() renders custom card blocks with per-card sizing', () => {
+    const container = document.getElementById('test-container');
+    window.CaraSkeleton.show(container, { count: 1 });
+    const blocks = container.querySelectorAll('.skeleton-block');
+    // image (180px) + title + subtitle + meta = 4 blocks
+    expect(blocks.length).toBe(4);
+    expect(blocks[0].style.height).toBe('180px');
+  });
 });

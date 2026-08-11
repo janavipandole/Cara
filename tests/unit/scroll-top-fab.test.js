@@ -45,4 +45,12 @@ describe('ScrollTopFab', () => {
     fab.onScroll();
     expect(btn.style.display).toBe('block');
   });
+
+  it('keeps the button hidden when scrollY is unavailable', () => {
+    const fab = new ScrollTopFab({ threshold: 300 });
+    const btn = document.getElementById('scroll-top-fab');
+    delete window.scrollY;
+    fab.onScroll();
+    expect(btn.style.display).toBe('none');
+  });
 });
