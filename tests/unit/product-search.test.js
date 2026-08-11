@@ -66,6 +66,33 @@ describe('product-search', () => {
     expect(meetsSearchQueryThreshold('sh')).toBe(true);
     expect(meetsSearchQueryThreshold('s')).toBe(false);
   });
+
+  it('skips the API call for whitespace-only input', async () => {
+    global.fetch.mockImplementation((url) => {
+      if (String(url).includes('/categories')) {
+        return Promise.resolve({ ok: true, json: async () => ({ categories: [] }) });
+      }
+      return Promise.resolve({
+        ok: true,
+        json: async () => ({ total: 0, page: 1, page_size: 20, products: [] }),
+      });
+    });
+    await load();
+    const callsBefore = global.fetch.mock.calls.filter(([url]) =>
+      String(url).includes('/search/query'),
+    ).length;
+
+    const input = document.getElementById('productSearchInput');
+    input.value = '   ';
+    input.dispatchEvent(new Event('input'));
+    // Advance the debounce.
+    await new Promise((r) => setTimeout(r, 350));
+
+    const callsAfter = global.fetch.mock.calls.filter(([url]) =>
+      String(url).includes('/search/query'),
+    ).length;
+    expect(callsAfter).toBe(callsBefore);
+  });
 });
 
 describe('meetsSearchQueryThreshold', () => {

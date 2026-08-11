@@ -1,0 +1,1 @@
+# Feature: Create a "Share Product" Feature with Web Share API\n\nThis is a placeholder for the implementation of Feature: Create a "Share Product" Feature with Web Share API.

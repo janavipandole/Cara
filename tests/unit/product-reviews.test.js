@@ -91,4 +91,23 @@ describe('ProductReviewManager Unit Tests', () => {
     expect(summary.distribution[3]).toBe(1);
     expect(Number.isNaN(summary.averageRating)).toBe(false);
   });
+
+  it('stores the newest review first', () => {
+    manager.addReview('prod-order', {
+      authorName: 'Alice',
+      authorEmail: 'alice@example.com',
+      rating: 5,
+      comment: 'First review, absolutely wonderful!',
+    });
+    manager.addReview('prod-order', {
+      authorName: 'Bob',
+      authorEmail: 'bob@example.com',
+      rating: 4,
+      comment: 'Second review, still pretty great!',
+    });
+
+    // Reviews are unshifted so the newest appears first.
+    expect(manager.reviews['prod-order'][0].authorName).toBe('Bob');
+    expect(manager.reviews['prod-order'][1].authorName).toBe('Alice');
+  });
 });

@@ -38,8 +38,8 @@ def test_reset_password_valid_token(client, db_session):
     pwd = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
     user = User(
-        username="testuser",
-        email="test@example.com",
+        username="testuser_reset",
+        email="test_reset@example.com",
         hashed_password=pwd.hash("OldPass@123"),
     )
     db_session.add(user)

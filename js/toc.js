@@ -1,4 +1,5 @@
-document.addEventListener('DOMContentLoaded', () => {
+function buildPolicyToc() {
+  if (typeof document === 'undefined') return;
   const policyPage = document.querySelector('#policy-page');
   if (!policyPage) return;
 
@@ -51,4 +52,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     toc.appendChild(link);
   });
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', buildPolicyToc);
+} else {
+  buildPolicyToc();
+}

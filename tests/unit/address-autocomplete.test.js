@@ -95,4 +95,38 @@ describe('Address Autocomplete DOM Integration', () => {
     expect(escapeHTML(null)).toBe('null');
   });
 
+  it('debounces the autocomplete request while typing', async () => {
+    vi.resetModules();
+    vi.useFakeTimers();
+    global.fetch = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => [],
+    });
+
+    document.body.innerHTML = `
+      <input type="text" id="address" />
+      <input type="text" id="city" />
+      <input type="text" id="zip" />
+    `;
+    await import('../../js/address-autocomplete.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    const input = document.getElementById('address');
+    // Rapid keystrokes should not fire a request per keystroke.
+    input.value = 'M';
+    input.dispatchEvent(new Event('input'));
+    input.value = 'MG';
+    input.dispatchEvent(new Event('input'));
+    input.value = 'MG R';
+    input.dispatchEvent(new Event('input'));
+
+    expect(global.fetch).not.toHaveBeenCalled();
+
+    vi.advanceTimersByTime(300);
+    expect(global.fetch).toHaveBeenCalledTimes(1);
+    expect(String(global.fetch.mock.calls[0][0])).toContain('q=MG%20R');
+
+    vi.useRealTimers();
+  });
+
 });

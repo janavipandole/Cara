@@ -56,4 +56,20 @@ describe('AbandonedCartNotifier', () => {
     expect(payload.body).toBeTruthy();
     expect(typeof payload.timestamp).toBe('number');
   });
+
+  it('does not notify for a negative item count', () => {
+    const spy = vi.fn();
+    const notifier = new AbandonedCartNotifier({ idleThresholdMs: 1000, onNotify: spy });
+    notifier.startTracking(-3);
+    vi.advanceTimersByTime(2000);
+    expect(spy).not.toHaveBeenCalled();
+  });
+
+  it('does not notify when the cart count is missing', () => {
+    const spy = vi.fn();
+    const notifier = new AbandonedCartNotifier({ idleThresholdMs: 1000, onNotify: spy });
+    notifier.startTracking(undefined);
+    vi.advanceTimersByTime(2000);
+    expect(spy).not.toHaveBeenCalled();
+  });
 });
