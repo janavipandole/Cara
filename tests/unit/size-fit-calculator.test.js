@@ -41,4 +41,17 @@ describe('SizeFitCalculator', () => {
     expect(calc.getAdjacentSize('XXL', 1)).toBe('XXL');
     expect(calc.getAdjacentSize('UNKNOWN', 1)).toBe('UNKNOWN');
   });
+
+  it('assigns sizes exactly at the chest boundary values', () => {
+    // XS maxBust is 84, S maxBust is 90.
+    expect(calc.recommendSize(84, 60)).toBe('XS');
+    expect(calc.recommendSize(85, 60)).toBe('S');
+    // S maxBust is 90, M maxBust is 96.
+    expect(calc.recommendSize(90, 70)).toBe('S');
+    expect(calc.recommendSize(91, 70)).toBe('M');
+  });
+
+  it('treats a zero waist as not constraining the match', () => {
+    expect(calc.recommendSize(88, 0)).toBe('S');
+  });
 });

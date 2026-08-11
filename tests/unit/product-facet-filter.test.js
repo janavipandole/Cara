@@ -98,4 +98,37 @@ describe('ProductFacetFilter', () => {
     expect(engine.activeFilters.maxPrice).toBe(60);
     expect(engine.applyFilters().map((p) => p.id)).toEqual(['2', '4']);
   });
+
+  it('should round-trip filters through the URL query string', () => {
+    const engine = new ProductFacetFilter(sampleProducts);
+    engine.parseQueryParams('categories=tshirts&minPrice=20&maxPrice=40&minRating=4&inStock=true');
+
+    const query = engine.buildQueryParams();
+    expect(query).toContain('categories=tshirts');
+    expect(query).toContain('minPrice=20');
+    expect(query).toContain('maxPrice=40');
+    expect(query).toContain('minRating=4');
+    expect(query).toContain('inStock=true');
+  });
+
+  it('should produce an empty query string for default filters', () => {
+    const engine = new ProductFacetFilter(sampleProducts);
+    engine.resetFilters();
+    expect(engine.buildQueryParams()).toBe('');
+  });
+
+  it('should reset to defaults after parsing filters', () => {
+    const engine = new ProductFacetFilter(sampleProducts);
+    engine.parseQueryParams('categories=tshirts&minPrice=20&inStock=true');
+    engine.resetFilters();
+
+    expect(engine.activeFilters).toEqual({
+      category: [],
+      minPrice: 0,
+      maxPrice: Infinity,
+      minRating: 0,
+      inStockOnly: false,
+    });
+    expect(engine.applyFilters()).toHaveLength(4);
+  });
 });

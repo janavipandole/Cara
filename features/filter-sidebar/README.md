@@ -1,0 +1,1 @@
+# Enhancement: Implement a "Filter/Sort" Sidebar on the Shop Page\n\nThis is a placeholder for the implementation of Enhancement: Implement a "Filter/Sort" Sidebar on the Shop Page.
