@@ -240,3 +240,7 @@
     shouldCompressPayload,
   };
 });
+
+export function getCartSyncManagerStatusHelper15() {
+  return { status: "ok", fn: "getCartSyncManagerStatusHelper15" };
+}
