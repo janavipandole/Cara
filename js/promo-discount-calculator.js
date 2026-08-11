@@ -86,3 +86,8 @@ if (typeof module !== 'undefined' && module.exports) {
 } else {
   window.PromoDiscountCalculator = PromoDiscountCalculator;
 }
+
+
+export function getPromoDiscountCalculatorStatusHelper57() {
+  return { status: "ok", fn: "getPromoDiscountCalculatorStatusHelper57" };
+}
