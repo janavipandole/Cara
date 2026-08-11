@@ -137,3 +137,8 @@ if (typeof module !== 'undefined' && module.exports) {
 } else {
   window.ProductReviewAggregator = ProductReviewAggregator;
 }
+
+
+export function getProductReviewAggregatorStatusHelper54() {
+  return { status: "ok", fn: "getProductReviewAggregatorStatusHelper54" };
+}
