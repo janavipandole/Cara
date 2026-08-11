@@ -622,7 +622,16 @@
             }
 
             const items = parseStoredList("wishlist");
-            return Array.isArray(items) ? items.map(normalizeWishlistItem) : [];
+            const normalized = Array.isArray(items) ? items.map(normalizeWishlistItem) : [];
+            const uniqueItems = [];
+            const seenNames = new Set();
+            for (const item of normalized) {
+                if (!seenNames.has(item.name)) {
+                    seenNames.add(item.name);
+                    uniqueItems.push(item);
+                }
+            }
+            return uniqueItems;
         }
 
         function saveWishlistItems(items) {
@@ -630,7 +639,17 @@
                 return window.saveWishlist(items);
             }
 
-            localStorage.setItem("wishlist", JSON.stringify(items.map(normalizeWishlistItem)));
+            const uniqueItems = [];
+            const seenNames = new Set();
+            for (const item of items) {
+                const normalized = normalizeWishlistItem(item);
+                if (!seenNames.has(normalized.name)) {
+                    seenNames.add(normalized.name);
+                    uniqueItems.push(normalized);
+                }
+            }
+
+            localStorage.setItem("wishlist", JSON.stringify(uniqueItems));
             if (typeof window.updateWishlistCount === 'function') window.updateWishlistCount();
         }
 

@@ -57,5 +57,47 @@ describe('gift-options.js unit tests', () => {
     expect(checkbox).toBeNull();
   });
 
-  it('should validate gift message character limit bounds', () => { expect(true).toBe(true); });
+  it('should validate gift message character limit bounds', async () => {
+    await import('../../js/gift-options.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    expect(window.validateGiftMessageLength('Short message')).toBe(true);
+    expect(window.validateGiftMessageLength('x'.repeat(200))).toBe(true);
+    expect(window.validateGiftMessageLength('x'.repeat(201))).toBe(false);
+  });
+
+  it('should accept non-string or empty gift messages', async () => {
+    await import('../../js/gift-options.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    expect(window.validateGiftMessageLength(null)).toBe(true);
+    expect(window.validateGiftMessageLength('')).toBe(true);
+    expect(window.validateGiftMessageLength(undefined)).toBe(true);
+  });
+
+  it('should respect a custom character limit', async () => {
+    await import('../../js/gift-options.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    expect(window.validateGiftMessageLength('abc', 5)).toBe(true);
+    expect(window.validateGiftMessageLength('abcdef', 5)).toBe(false);
+  });
+
+  it('should trim the message before counting characters', async () => {
+    await import('../../js/gift-options.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    // 202 chars of raw content but only 200 after trimming.
+    const padded = '  ' + 'x'.repeat(200);
+    expect(window.validateGiftMessageLength(padded, 200)).toBe(true);
+    // 201 significant characters still fails.
+    expect(window.validateGiftMessageLength('x'.repeat(201), 200)).toBe(false);
+  });
+
+  it('should accept a whitespace-only message', async () => {
+    await import('../../js/gift-options.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    expect(window.validateGiftMessageLength('     ', 200)).toBe(true);
+  });
 });

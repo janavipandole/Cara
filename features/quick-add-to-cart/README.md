@@ -1,0 +1,1 @@
+# Feature: Add a "Quick Add to Cart" Button on Hover\n\nThis is a placeholder for the implementation of Feature: Add a "Quick Add to Cart" Button on Hover.

@@ -91,6 +91,18 @@ describe('renderInventoryBanner', () => {
     expect(isLowStockQuantity(5)).toBe(true);
     expect(isLowStockQuantity(6)).toBe(false);
   });
+
+  it('escapes HTML in the message text', () => {
+    const banner = renderInventoryBanner(
+      'test-container',
+      '<img src=x onerror=alert(1)>',
+      'warning',
+    );
+    const textEl = banner.querySelector('.inventory-banner-text');
+    // No real img element may be injected by the message.
+    expect(textEl.querySelector('img')).toBeNull();
+    expect(textEl.innerHTML).toContain('&lt;img');
+  });
 });
 
 describe('isLowStockQuantity', () => {
@@ -108,5 +120,21 @@ describe('isLowStockQuantity', () => {
   it('respects a custom threshold', () => {
     expect(isLowStockQuantity(8, 10)).toBe(true);
     expect(isLowStockQuantity(11, 10)).toBe(false);
+  });
+
+  it('returns true for counts at or below the threshold', () => {
+    expect(isLowStockQuantity(1)).toBe(true);
+    expect(isLowStockQuantity(5)).toBe(true);
+  });
+
+  it('returns false above the threshold and for zero', () => {
+    expect(isLowStockQuantity(6)).toBe(false);
+    expect(isLowStockQuantity(0)).toBe(false);
+  });
+
+  it('returns false for non-number input', () => {
+    expect(isLowStockQuantity('5')).toBe(false);
+    expect(isLowStockQuantity(null)).toBe(false);
+    expect(isLowStockQuantity(NaN)).toBe(false);
   });
 });

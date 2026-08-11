@@ -101,6 +101,28 @@ def test_recommend_limit_bounds(client):
     assert r.status_code == 422
 
 
+def test_recommend_missing_product_id(client):
+    r = client.post(RECOMMEND_URL, json={})
+    assert r.status_code == 422
+
+
+def test_feedback_missing_user_id(client):
+    db = TestingSessionLocal()
+    p = _seed_product(db)
+    db.close()
+
+    r = client.post(FEEDBACK_URL, json={
+        "product_id": p.id,
+        "interaction_type": "view",
+    })
+    assert r.status_code == 422
+
+
+def test_feedback_empty_body(client):
+    r = client.post(FEEDBACK_URL, json={})
+    assert r.status_code == 422
+
+
 # ---------------------------------------------------------------------------
 # FAISS index sync
 # ---------------------------------------------------------------------------
