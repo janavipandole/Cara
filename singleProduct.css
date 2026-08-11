@@ -499,3 +499,61 @@
         box-sizing: border-box;
     }
 }
+
+/* ============================================
+   AR WebXR 3D PRODUCT VIEWER STYLES (#7017)
+   ============================================ */
+
+.ar-product-viewer-box {
+    margin-top: 15px;
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 8px 24px var(--shadow);
+}
+
+.ar-view-btn {
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-weight: 600;
+    cursor: pointer;
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(8, 129, 120, 0.4);
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.ar-view-btn:hover {
+    transform: translateX(-50%) scale(1.05);
+    background: #06655e;
+}
+
+.ar-controls-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 18px;
+    background: rgba(0, 0, 0, 0.05);
+    border-top: 1px solid var(--border-color);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.ar-color-picker {
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    background: none;
+}
+

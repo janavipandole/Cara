@@ -59,4 +59,16 @@ describe('VirtualStylistEngine', () => {
     expect(engine.recommendBottoms(top, 'not-an-array')).toEqual([]);
     expect(engine.recommendBottoms(null, [])).toEqual([]);
   });
+
+  it('should return an empty list for an empty catalog', () => {
+    const top = { category: 'shirts', color: 'blue' };
+    expect(engine.recommendBottoms(top, [])).toEqual([]);
+  });
+
+  it('should fall back to the default palette for unknown colors', () => {
+    // 'purple' is not a palette key; black, white, and grey are allowed.
+    expect(engine.isColorCompatible('purple', 'white')).toBe(true);
+    expect(engine.isColorCompatible('purple', 'black')).toBe(true);
+    expect(engine.isColorCompatible('purple', 'orange')).toBe(false);
+  });
 });

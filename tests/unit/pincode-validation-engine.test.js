@@ -57,4 +57,29 @@ describe('PincodeValidationEngine', () => {
     expect(engine.validatePostalCode('K1A 0B1', 'CA').valid).toBe(true);
     expect(engine.validatePostalCode('BAD', 'UK').valid).toBe(false);
   });
+
+  it('should validate US zip+4 extended format', () => {
+    expect(engine.validatePostalCode('90210-1234', 'US').valid).toBe(true);
+    expect(engine.validatePostalCode('90210-12', 'US').valid).toBe(false);
+  });
+
+  it('should apply the generic fallback for unknown country codes', () => {
+    expect(engine.validatePostalCode('ABC123', 'XX').valid).toBe(true);
+    expect(engine.validatePostalCode('NODIGITS', 'XX').valid).toBe(false);
+    expect(engine.validatePostalCode('AB', 'XX').valid).toBe(false);
+  });
+
+  it('should reject non-string postal codes', () => {
+    expect(engine.validatePostalCode(null, 'IN').valid).toBe(false);
+    expect(engine.validatePostalCode(undefined, 'IN').valid).toBe(false);
+    expect(engine.validatePostalCode(123456, 'IN').valid).toBe(false);
+  });
+
+  it('should treat the Indian metro boundary at 11 and 40', () => {
+    expect(engine.estimateDeliveryDays('110001', 'IN').tier).toBe('Express Zone');
+    expect(engine.estimateDeliveryDays('400001', 'IN').tier).toBe('Express Zone');
+    // 10 and 41 fall outside the metro range.
+    expect(engine.estimateDeliveryDays('100001', 'IN').tier).toBe('Standard Zone');
+    expect(engine.estimateDeliveryDays('410001', 'IN').tier).toBe('Standard Zone');
+  });
 });

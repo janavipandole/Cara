@@ -74,4 +74,17 @@ describe('input-shield', () => {
     expect(window.containsSqlInjectionKeywords('select name from users')).toBe(true);
     expect(window.containsSqlInjectionKeywords('Delete FROM sessions')).toBe(true);
   });
+
+  it('installs the shield immediately when the DOM is already ready', async () => {
+    Object.defineProperty(document, 'readyState', {
+      configurable: true,
+      value: 'complete',
+    });
+    setupForm('<script>alert(1)</script>');
+    await import('../../js/input-shield.js');
+
+    const event = await submitBuild();
+    expect(event.defaultPrevented).toBe(true);
+    expect(document.getElementById('field').value).toBe('');
+  });
 });
