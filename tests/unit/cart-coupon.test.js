@@ -87,4 +87,44 @@ describe('cart-coupon', () => {
 
     expect(validateCoupon).toHaveBeenCalledWith('CARA20', 2000);
   });
+
+  it('validates against a zero subtotal when the cart is empty', async () => {
+    const validateCoupon = vi.fn(() => ({
+      valid: true,
+      code: 'CARA20',
+      discountPct: 20,
+    }));
+    window.PromoDiscountCalculator = class {
+      validateCoupon(...args) {
+        return validateCoupon(...args);
+      }
+    };
+    // No productsInCart entry at all.
+    document.getElementById('coupon-code-input').value = 'CARA20';
+
+    await import('../../js/cart-coupon.js');
+    apply();
+
+    expect(validateCoupon).toHaveBeenCalledWith('CARA20', 0);
+  });
+
+  it('applies a coupon code with mixed case', async () => {
+    const validateCoupon = vi.fn(() => ({
+      valid: true,
+      code: 'CARA20',
+      discountPct: 20,
+    }));
+    window.PromoDiscountCalculator = class {
+      validateCoupon(...args) {
+        return validateCoupon(...args);
+      }
+    };
+    document.getElementById('coupon-code-input').value = 'CaRa20';
+
+    await import('../../js/cart-coupon.js');
+    apply();
+
+    expect(validateCoupon).toHaveBeenCalledWith('CARA20', 0);
+    expect(window.appliedCoupon).toBe('CARA20');
+  });
 });

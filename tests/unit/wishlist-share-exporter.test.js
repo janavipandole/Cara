@@ -35,4 +35,39 @@ describe('WishlistShareExporter', () => {
     expect(WishlistShareExporter.parseShareableLink('?other=1')).toEqual([]);
     expect(WishlistShareExporter.parseShareableLink('?share=%%%bad')).toEqual([]);
   });
+
+  it('returns the base url when every item lacks an id', () => {
+    const items = [{ name: 'Tee' }, { name: 'Shirt' }];
+    expect(
+      WishlistShareExporter.exportToShareableLink(
+        items,
+        'http://localhost/wishlist.html',
+      ),
+    ).toBe('http://localhost/wishlist.html');
+  });
+
+  it('filters out id-less items from a mixed list', () => {
+    const items = [{ id: 'p1' }, { name: 'No Id' }, { id: 'p2' }];
+    const url = WishlistShareExporter.exportToShareableLink(
+      items,
+      'http://localhost/wishlist.html',
+    );
+    const query = url.substring(url.indexOf('?'));
+    expect(WishlistShareExporter.parseShareableLink(query)).toEqual([
+      'p1',
+      'p2',
+    ]);
+  });
+
+  it('handles string items by treating them as ids', () => {
+    const url = WishlistShareExporter.exportToShareableLink(
+      ['p1', 'p2'],
+      'http://localhost/wishlist.html',
+    );
+    const query = url.substring(url.indexOf('?'));
+    expect(WishlistShareExporter.parseShareableLink(query)).toEqual([
+      'p1',
+      'p2',
+    ]);
+  });
 });

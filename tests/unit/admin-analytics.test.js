@@ -123,6 +123,29 @@ describe('admin-analytics.js unit tests', () => {
     expect(typeof window.AdminDashboard).toBe('object');
   });
 
+  it('loads dashboard data immediately when the DOM is already ready', async () => {
+    vi.resetModules();
+    // The DOM is populated before import so the module's immediate init fires.
+    document.body.innerHTML = `
+      <div id="analyticsRevenue"></div>
+      <div id="analyticsOrders"></div>
+      <div id="analyticsCustomers"></div>
+      <table id="analyticsCategoryTable"></table>
+      <div id="analyticsStatusWrap"></div>
+      <div id="analyticsError"></div>
+    `;
+    Object.defineProperty(document, 'readyState', {
+      configurable: true,
+      value: 'complete',
+    });
+    fetchSpy.mockResolvedValue({ ok: true, status: 200, json: () => Promise.resolve({}) });
+
+    await import('../../js/admin-analytics.js');
+
+    // initDashboard fired at import time without needing DOMContentLoaded.
+    expect(fetchSpy).toHaveBeenCalledTimes(3);
+  });
+
   it('exposes refresh that calls all three analytics endpoints with credentials', async () => {
     fetchSpy.mockResolvedValue({ ok: true, status: 200, json: () => Promise.resolve({}) });
     await window.AdminDashboard.refresh();
@@ -133,5 +156,27 @@ describe('admin-analytics.js unit tests', () => {
     fetchSpy.mock.calls.forEach(([, opts]) => {
       expect(opts.credentials).toBe('include');
     });
+  });
+
+  it('no-ops safely when dashboard DOM nodes are absent', async () => {
+    vi.resetModules();
+    // Clear the DOM so the module captures null element references.
+    document.body.innerHTML = '';
+    await import('../../js/admin-analytics.js');
+
+    fetchSpy.mockResolvedValue({ ok: true, status: 200, json: () => Promise.resolve({}) });
+    await expect(window.AdminDashboard.refresh()).resolves.not.toThrow();
+  });
+
+  it('renders an error alert when refresh fails', async () => {
+    vi.resetModules();
+    await import('../../js/admin-analytics.js');
+    const errorAlert = document.getElementById('analyticsError');
+
+    fetchSpy.mockResolvedValue({ ok: false, status: 500 });
+    await window.AdminDashboard.refresh();
+
+    expect(errorAlert.textContent).toContain('Failed to retrieve dashboard analytics.');
+    expect(errorAlert.style.display).toBe('block');
   });
 });
