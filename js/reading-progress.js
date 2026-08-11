@@ -27,6 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const wordCount = textContent.trim().split(/\s+/).filter(Boolean).length;
       const readTime = Math.ceil(wordCount / 200); // 200 words per min avg
 
+      // Guard: do not render "0 min read" for empty or whitespace-only content
+      if (!readTime || Number.isNaN(readTime)) return;
+
       const timeTag = document.createElement('span');
       timeTag.style.cssText =
         'font-size:11px; font-weight:700; color:#088178; display:block; margin-top:6px; text-transform:uppercase;';
