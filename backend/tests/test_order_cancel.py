@@ -231,3 +231,48 @@ def test_order_uses_product_id_when_duplicate_names_exist(client):
     assert item.product_id == expensive_id
     assert item.price == 999.0
     db.close()
+
+
+def test_cancel_rejected_outside_24h_window(client):
+    from datetime import datetime, timedelta, timezone
+    from app.models import OrderItem
+
+    headers = _auth_headers(client, username="olduser", email="old@example.com")
+    db = TestingSessionLocal()
+    product = _seed_product(db, name="Old Window Shirt", stock=10)
+    product_id = product.id
+    db.close()
+
+    create = client.post(
+        ORDERS_URL,
+        headers=headers,
+        json={
+            "fullName": "Old User",
+            "email": "old@example.com",
+            "address": "1 Test St",
+            "city": "Testville",
+            "zip": "12345",
+            "items": [{"product_id": product_id, "quantity": 1}],
+        },
+    )
+    assert create.status_code == 201, create.text
+    order_id = create.json()["order_id"]
+
+    # Age the order beyond the 24h cancellable window while keeping the
+    # status cancellable (CONFIRMED).
+    db = TestingSessionLocal()
+    order = db.query(Order).filter(Order.id == order_id).one()
+    order.created_at = datetime.now(timezone.utc) - timedelta(hours=25)
+    db.commit()
+    db.close()
+
+    response = client.post(f"{ORDERS_URL}{order_id}/cancel", headers=headers)
+    assert response.status_code == 400, response.text
+    assert "within 24 hours" in response.json()["detail"]
+
+    # Stock must NOT be restored since the cancellation was rejected.
+    db = TestingSessionLocal()
+    assert db.query(Product).filter(Product.id == product_id).one().stock == 9
+    assert db.query(Order).filter(Order.id == order_id).one().status == "CONFIRMED"
+    assert db.query(OrderItem).filter(OrderItem.order_id == order_id).count() == 1
+    db.close()

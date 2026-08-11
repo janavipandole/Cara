@@ -150,4 +150,19 @@ describe('formatI18nPlaceholder', () => {
   it('is exported as a callable function', () => {
     expect(typeof formatI18nPlaceholder).toBe('function');
   });
+
+  it('substitutes known parameters into the template', () => {
+    expect(formatI18nPlaceholder('Hello {{name}}', { name: 'Cara' })).toBe(
+      'Hello Cara',
+    );
+  });
+
+  it('renders missing parameters as empty strings', () => {
+    expect(formatI18nPlaceholder('Hello {{name}}', {})).toBe('Hello ');
+  });
+
+  it('returns an empty string for a falsy template', () => {
+    expect(formatI18nPlaceholder('')).toBe('');
+    expect(formatI18nPlaceholder(null)).toBe('');
+  });
 });

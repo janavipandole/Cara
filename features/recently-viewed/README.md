@@ -1,0 +1,1 @@
+# Feature: Create a "Recently Viewed Products" Section\n\nThis is a placeholder for the implementation of Feature: Create a "Recently Viewed Products" Section.

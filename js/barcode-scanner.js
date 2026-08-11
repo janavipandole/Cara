@@ -230,7 +230,10 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
     } catch (err) {
-      // Ignore detection errors during frame processing
+      // Surface repeated detection failures instead of silently retrying.
+      status.textContent = 'Unable to read barcode. Try again.';
+      scanning = false;
+      return;
     }
 
     if (scanning) {

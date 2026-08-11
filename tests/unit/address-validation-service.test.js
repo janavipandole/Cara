@@ -82,4 +82,36 @@ describe('AddressValidationService Unit Tests', () => {
     expect(result.sanitized.state).toBe('ENGLAND');
     expect(result.sanitized.country).toBe('UK');
   });
+
+  it('should accept addresses with leading and trailing whitespace', () => {
+    const result = service.validateAddress({
+      street: '  123 Main Street  ',
+      city: '  Denver  ',
+      state: ' CO ',
+      postalCode: ' 80202 ',
+      country: 'US'
+    });
+    expect(result.isValid).toBe(true);
+    expect(result.sanitized.street).toBe('123 Main Street');
+    expect(result.sanitized.city).toBe('Denver');
+    expect(result.sanitized.state).toBe('CO');
+    expect(result.sanitized.postalCode).toBe('80202');
+  });
+
+  it('should trim the postal code before validating', () => {
+    expect(service.validatePostalCode('  90210  ', 'US').valid).toBe(true);
+    expect(service.validatePostalCode(' 400001 ', 'IN').valid).toBe(true);
+  });
+
+  it('should still reject a short street after trimming whitespace', () => {
+    const result = service.validateAddress({
+      street: '  123  ',
+      city: 'Austin',
+      state: 'TX',
+      postalCode: '73301',
+      country: 'US'
+    });
+    expect(result.isValid).toBe(false);
+    expect(result.errors.street).toBeDefined();
+  });
 });
