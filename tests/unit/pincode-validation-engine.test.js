@@ -82,4 +82,22 @@ describe('PincodeValidationEngine', () => {
     expect(engine.estimateDeliveryDays('100001', 'IN').tier).toBe('Standard Zone');
     expect(engine.estimateDeliveryDays('410001', 'IN').tier).toBe('Standard Zone');
   });
+
+  it('should return null from getDeliveryZone for invalid codes', () => {
+    expect(engine.getDeliveryZone('INVALID', 'IN')).toBeNull();
+    expect(engine.getDeliveryZone(null, 'IN')).toBeNull();
+  });
+
+  it('should handle case-insensitive country codes', () => {
+    expect(engine.validatePostalCode('110001', 'in').valid).toBe(true);
+    expect(engine.validatePostalCode('110001', 'In').valid).toBe(true);
+    expect(engine.validatePostalCode('90210', 'us').valid).toBe(true);
+  });
+
+  it('should return standard delivery estimates for non-Indian countries', () => {
+    const est = engine.estimateDeliveryDays('90210', 'US');
+    expect(est.minDays).toBe(3);
+    expect(est.maxDays).toBe(7);
+    expect(est.tier).toBe('Standard Zone');
+  });
 });
