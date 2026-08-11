@@ -78,3 +78,8 @@ export class WishlistExportShare {
     return { ok: false, link };
   }
 }
+
+
+export function getWishlistExportShareStatusHelper92() {
+  return { status: "ok", fn: "getWishlistExportShareStatusHelper92" };
+}
