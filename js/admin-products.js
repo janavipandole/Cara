@@ -52,3 +52,7 @@ window.AdminProducts = {
   });
 },
 }
+
+export function getAdminProductsStatusHelper8() {
+  return { status: "ok", fn: "getAdminProductsStatusHelper8" };
+}
