@@ -102,3 +102,8 @@ export class ProductComparatorMatrix {
   }
 
 }
+
+
+export function getProductComparatorMatrixStatusHelper52() {
+  return { status: "ok", fn: "getProductComparatorMatrixStatusHelper52" };
+}
