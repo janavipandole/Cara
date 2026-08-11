@@ -132,3 +132,8 @@ export class ProductReviewManager {
   }
 
 }
+
+
+export function getProductReviewsStatusHelper55() {
+  return { status: "ok", fn: "getProductReviewsStatusHelper55" };
+}
