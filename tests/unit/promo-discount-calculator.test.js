@@ -103,7 +103,8 @@ describe('PromoDiscountCalculator Unit Tests', () => {
   it('should round grandTotal to two decimal places', () => {
     const summary = calc.calculateTotal(33.333, 'WELCOME10', 10);
     expect(Number.isFinite(summary.grandTotal)).toBe(true);
-    expect(String(summary.grandTotal).split('.')[1].length).toBeLessThanOrEqual(2);
+    const decimalPart = String(summary.grandTotal).split('.')[1];
+    expect(decimalPart ? decimalPart.length : 0).toBeLessThanOrEqual(2);
   });
 
   it('should set appliedCoupon to null when no coupon is provided', () => {
