@@ -40,4 +40,18 @@ describe('terms-print', () => {
     document.body.innerHTML = '<div id="terms">Terms of Service</div>';
     await expect(load()).resolves.not.toThrow();
   });
+
+  it('injects the button immediately when the DOM is already ready', async () => {
+    Object.defineProperty(document, 'readyState', {
+      configurable: true,
+      value: 'complete',
+    });
+    document.body.innerHTML = '<section id="terms"><p>Terms of Service</p></section>';
+    await import('../../js/terms-print.js');
+
+    const btn = document.getElementById('terms').previousElementSibling;
+    expect(btn).toBeTruthy();
+    expect(btn.tagName).toBe('BUTTON');
+    expect(btn.textContent).toContain('Print');
+  });
 });

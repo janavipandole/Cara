@@ -111,6 +111,23 @@ describe('Error Logger Unit Tests', () => {
   });
 
   it('should cap max error queue size', () => { expect(true).toBe(true); });
+
+  it('should handle a non-Error throw value without crashing', async () => {
+    vi.resetModules();
+    localStorage.clear();
+    await import('../../js/error-logger.js');
+
+    const event = new ErrorEvent('error', {
+      message: 'string thrown value',
+      filename: 'app.js',
+      lineno: 1,
+    });
+    expect(() => window.dispatchEvent(event)).not.toThrow();
+
+    const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    expect(stored.length).toBeGreaterThanOrEqual(1);
+    expect(stored[0].message).toBe('string thrown value');
+  });
 });
 
 describe('getMaxLoggerQueueSize', () => {

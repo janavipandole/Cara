@@ -4,6 +4,9 @@
  */
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 
+// Load the real module so window.runA11yAudit is exposed.
+import '../../js/a11y-validation.js';
+
 // Extract the audit logic for unit testing.
 // Mirrors the checks in js/a11y-validation.js.
 function runA11yAudit(document) {
@@ -181,6 +184,31 @@ describe('A11y Validation Audit', () => {
     doc.innerHTML = '<img src="test.jpg">';
     const results = runA11yAudit(doc);
     expect(results.errors.length).toBe(1);
+  });
+
+  describe('Real module audit function', () => {
+    it('exposes runA11yAudit on the window', () => {
+      expect(typeof window.runA11yAudit).toBe('function');
+    });
+
+    it('runs the real audit on a compliant page without throwing', () => {
+      document.body.innerHTML = `
+        <img src="ok.jpg" alt="Ok image" />
+        <button>Submit</button>
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" />
+      `;
+      expect(() => window.runA11yAudit()).not.toThrow();
+    });
+
+    it('runs the real audit on a violating page without throwing', () => {
+      document.body.innerHTML = `
+        <img src="bad.jpg" />
+        <button></button>
+        <input type="text" name="unnamed" />
+      `;
+      expect(() => window.runA11yAudit()).not.toThrow();
+    });
   });
 
 });

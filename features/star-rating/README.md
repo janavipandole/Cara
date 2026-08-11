@@ -1,0 +1,1 @@
+# UI/UX: Create an "Interactive Star Rating" Input for Reviews\n\nThis is a placeholder for the implementation of UI/UX: Create an "Interactive Star Rating" Input for Reviews.

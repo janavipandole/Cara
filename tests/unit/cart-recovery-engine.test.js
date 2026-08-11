@@ -37,6 +37,37 @@ describe('CartRecoveryEngine', () => {
     expect(engine.getAbandonedCartSession()).toBeNull();
   });
 
+  it('should treat a session without a timestamp as expired', () => {
+    const items = [{ id: 'p1', name: 'Shirt', price: 29.99, quantity: 1 }];
+    engine.saveCartSession(items);
+
+    const raw = localStorage.getItem('cara_abandoned_cart');
+    const data = JSON.parse(raw);
+    delete data.timestamp;
+    localStorage.setItem('cara_abandoned_cart', JSON.stringify(data));
+
+    expect(engine.getAbandonedCartSession()).toBeNull();
+  });
+
+  it('should reject sessions with corrupt or non-array items', () => {
+    localStorage.setItem(
+      'cara_abandoned_cart',
+      JSON.stringify({ items: 'not-an-array', timestamp: Date.now() }),
+    );
+    expect(engine.getAbandonedCartSession()).toBeNull();
+
+    localStorage.setItem(
+      'cara_abandoned_cart',
+      JSON.stringify({ items: [{ id: 'p1' }], recovered: true, timestamp: Date.now() }),
+    );
+    expect(engine.getAbandonedCartSession()).toBeNull();
+  });
+
+  it('should return null when the stored JSON is corrupt', () => {
+    localStorage.setItem('cara_abandoned_cart', '{not valid json');
+    expect(engine.getAbandonedCartSession()).toBeNull();
+  });
+
   it('should mark abandoned session as recovered', () => {
     const items = [{ id: 'p1', name: 'Shirt', price: 29.99, quantity: 1 }];
     engine.saveCartSession(items);
