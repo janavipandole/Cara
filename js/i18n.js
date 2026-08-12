@@ -68,11 +68,13 @@ function changeLanguage(lang) {
 
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     const key = el.getAttribute("data-i18n");
-    if (translations[lang][key]) {
+    // Fall back to English if the key is missing from the selected language
+    const text = translations[lang][key] ?? translations["en"][key] ?? "";
+    if (text) {
       if (el.tagName === "INPUT" && el.hasAttribute("placeholder")) {
-        el.setAttribute("placeholder", translations[lang][key]);
+        el.setAttribute("placeholder", text);
       } else {
-        el.textContent = translations[lang][key];
+        el.textContent = text;
       }
     }
   });
