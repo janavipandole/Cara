@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   try {
     const apiBaseUrl = window.CARA_API_BASE_URL || '';
     const fetchFunc = typeof window.fetchWithTimeout === 'function' ? window.fetchWithTimeout : fetch;
-    const sessionId = 'session_' + Math.random().toString(36).substring(2, 9);
+    const sessionId = 'session_' + (typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 9));
 
     await fetchFunc(`${apiBaseUrl}/api/inventory/reserve`, {
       method: 'POST',
