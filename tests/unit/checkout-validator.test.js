@@ -15,10 +15,16 @@ describe('Checkout Form Validator Unit Tests', () => {
   });
 
   it('should validate future expiry MM/YY dates correctly', () => {
-    expect(validateExpiryDate('12/29')).toBe(true);
-    expect(validateExpiryDate('01/20')).toBe(false);
-    expect(validateExpiryDate('13/28')).toBe(false);
-    expect(validateExpiryDate('invalid')).toBe(false);
+    expect(validateExpiryDate('12/25')).toEqual({ valid: true, error: null });
+    expect(validateExpiryDate('12/15')).toEqual({ valid: false, error: 'expired' });
+    expect(validateExpiryDate('13/25')).toEqual({ valid: false, error: 'invalid_month' });
+    expect(validateExpiryDate('06/27')).toEqual({ valid: true, error: null });
+    expect(validateExpiryDate('07/27')).toEqual({ valid: true, error: null });
+    expect(validateExpiryDate('12/27')).toEqual({ valid: true, error: null });
+    expect(validateExpiryDate('01/28')).toEqual({ valid: true, error: null });
+    expect(validateExpiryDate('00/25')).toEqual({ valid: false, error: 'invalid_month' });
+    expect(validateExpiryDate('13/28')).toEqual({ valid: false, error: 'invalid_month' });
+    expect(validateExpiryDate('invalid')).toEqual({ valid: false, error: 'invalid_format' });
   });
 
   it('should validate US postal zip codes', () => {
