@@ -16,6 +16,15 @@
 })(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
 
+  function _wsEscape(str) {
+    if (str == null) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
   function generateSessionId() {
     return 'room_' + Math.random().toString(36).substring(2, 9);
   }
@@ -132,8 +141,8 @@
       const avatars = this.activeUsers
         .map(
           (u) => `
-          <div class="user-avatar-badge" style="background: ${u.color || '#088178'}; color: white; width: 32px; height: 32px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; border: 2px solid white; margin-left: -8px;" title="${u.name}">
-            ${(u.name || 'S').charAt(0).toUpperCase()}
+          <div class="user-avatar-badge" style="background: ${u.color || '#088178'}; color: white; width: 32px; height: 32px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; border: 2px solid white; margin-left: -8px;" title="${_wsEscape(u.name)}">
+            ${(_wsEscape(u.name) || 'S').charAt(0).toUpperCase()}
           </div>
         `
         )
