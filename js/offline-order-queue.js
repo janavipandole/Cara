@@ -214,8 +214,6 @@
 
       this.updatePendingCount();
     }
-  }
-
 
     async discardPendingOrders() {
       const orders = await this.getPendingOrders();
@@ -235,6 +233,7 @@
       this.pendingCount = 0;
       this.notifyStatusChange();
     }
+  }
 
   return OfflineOrderQueue;
 });
