@@ -8,11 +8,10 @@ var _logHook = function (msg, error) {
 
 window.addEventListener('error', (event) => {
   _logHook('[error-logger] Runtime exception caught: ', event.error);
-  let errors = [];
   try {
-    errors = JSON.parse(localStorage.getItem('cara_runtime_errors')) || [];
+    var errors = JSON.parse(localStorage.getItem('cara_runtime_errors')) || [];
   } catch (e) {
-    errors = [];
+    var errors = [];
   }
   errors.push({
     message: String(event.message || '').slice(0, 2000),
