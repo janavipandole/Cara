@@ -50,6 +50,7 @@ const translations = {
     community: "Communaute",
     orders: "Mes Commandes",
     outfit: "Verificateur de Tenue",
+    authenticity: "Authenticite",
     addToCart: "Ajouter au Panier",
     buyNow: "Acheter Maintenant",
     search: "Rechercher des produits..."
