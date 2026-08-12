@@ -17,7 +17,7 @@ export class WishlistExportShare {
       const jsonStr = JSON.stringify(payload);
       return btoa(encodeURIComponent(jsonStr));
     } catch (err) {
-      console.warn('[WishlistExportShare] Failed to encode wishlist to hash:', err);
+      // Silent fail
       return '';
     }
   }
@@ -33,7 +33,7 @@ export class WishlistExportShare {
         price: item.p
       }));
     } catch (err) {
-      console.warn('[WishlistExportShare] Failed to decode wishlist hash:', err);
+      // Silent fail
       return [];
     }
   }
