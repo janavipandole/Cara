@@ -1,0 +1,1 @@
+# Enhancement: Implement CSS "Scroll Snapping" for Image Galleries\n\nThis is a placeholder for the implementation of Enhancement: Implement CSS "Scroll Snapping" for Image Galleries.
