@@ -49,3 +49,11 @@ if (typeof module !== 'undefined' && module.exports) {
 } else if (typeof window !== 'undefined') {
   window.OutfitCompatibility = OutfitCompatibility;
 }
+
+window.getOutfitCompatibilityStatusHelper108 = function() {
+  return {
+    status: 'active',
+    module: 'OutfitCompatibility',
+    helper: 'getOutfitCompatibilityStatusHelper108'
+  };
+};
