@@ -15,7 +15,7 @@ describe('Checkout Form Validator Unit Tests', () => {
   });
 
   it('should validate future expiry MM/YY dates correctly', () => {
-    expect(validateExpiryDate('12/25')).toEqual({ valid: true, error: null });
+    expect(validateExpiryDate('12/28')).toEqual({ valid: true, error: null });
     expect(validateExpiryDate('12/15')).toEqual({ valid: false, error: 'expired' });
     expect(validateExpiryDate('13/25')).toEqual({ valid: false, error: 'invalid_month' });
     expect(validateExpiryDate('06/27')).toEqual({ valid: true, error: null });
