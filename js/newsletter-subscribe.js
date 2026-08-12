@@ -7,7 +7,7 @@
 export function validateEmailDomain(email) {
   if (!email || typeof email !== 'string') return false;
   // Basic structural check: local@domain.tld with at least 2-char TLD
-  const domainRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+  const domainRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,20}$/;
   return domainRegex.test(email.trim());
 }
 

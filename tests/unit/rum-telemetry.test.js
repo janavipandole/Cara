@@ -1,29 +1,41 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { describe, it, expect, beforeAll, afterAll, vi } from 'vitest';
+
+// Import the module once at file level
+import * as rumModule from '../../js/rum-telemetry.js';
+
+const { RUMTelemetryCollector } = rumModule.default || rumModule;
 
 describe('RUMTelemetryCollector Unit Tests', () => {
-  let RUMTelemetryCollector;
+  let collector;
 
-  beforeEach(async () => {
-    vi.resetModules();
-    const module = await import('../../js/rum-telemetry.js');
-    const exports = module.default || window.RUMTelemetry;
-    RUMTelemetryCollector = exports.RUMTelemetryCollector;
+  beforeAll(() => {
+    vi.useFakeTimers();
+    collector = new RUMTelemetryCollector();
   });
 
-  afterEach(() => {
+  afterAll(() => {
+    vi.useRealTimers();
     vi.restoreAllMocks();
   });
 
+  beforeEach(() => {
+    vi.clearAllMocks();
+    // Reset navigator.sendBeacon
+    if ('sendBeacon' in navigator) {
+      try { delete navigator.sendBeacon; } catch {}
+    }
+    if ('fetch' in globalThis) {
+      try { delete globalThis.fetch; } catch {}
+    }
+  });
+
   it('initializes metrics collection with URL and UserAgent', () => {
-    const collector = new RUMTelemetryCollector();
     expect(collector.metrics.url).toBe(window.location.pathname);
     expect(collector.metrics.user_agent).toBe(navigator.userAgent);
   });
 
   it('transmits metrics non-blocking via navigator.sendBeacon on visibilitychange', () => {
     navigator.sendBeacon = vi.fn().mockReturnValue(true);
-
-    const collector = new RUMTelemetryCollector();
     collector.metrics.lcp = 1200;
     collector.metrics.cls = 0.02;
 
@@ -37,13 +49,11 @@ describe('RUMTelemetryCollector Unit Tests', () => {
   it('falls back to fetch if sendBeacon is unavailable', () => {
     delete navigator.sendBeacon;
     globalThis.fetch = vi.fn().mockResolvedValue({ ok: true });
-
-    const collector = new RUMTelemetryCollector();
     collector.metrics.lcp = 800;
 
     window.dispatchEvent(new Event('pagehide'));
 
-    expect(fetch).toHaveBeenCalledTimes(1);
-    expect(fetch.mock.calls[0][0]).toContain('/api/telemetry/rum');
+    expect(globalThis.fetch).toHaveBeenCalledTimes(1);
+    expect(globalThis.fetch.mock.calls[0][0]).toContain('/api/telemetry/rum');
   });
 });

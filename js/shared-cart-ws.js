@@ -16,6 +16,15 @@
 })(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
 
+  function _wsEscape(str) {
+    if (str == null) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
   function generateSessionId() {
     return 'room_' + Math.random().toString(36).substring(2, 9);
   }
@@ -106,6 +115,7 @@
     }
 
     handleIncomingMessage(msg) {
+      if (!msg || typeof msg.type !== 'string') return;
       if (msg.type === 'USER_JOINED' || msg.type === 'USER_LEFT') {
         this.activeUsers = msg.active_users || [];
         if (typeof this.onPresenceCallback === 'function') {
@@ -131,8 +141,8 @@
       const avatars = this.activeUsers
         .map(
           (u) => `
-          <div class="user-avatar-badge" style="background: ${u.color || '#088178'}; color: white; width: 32px; height: 32px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; border: 2px solid white; margin-left: -8px;" title="${u.name}">
-            ${(u.name || 'S').charAt(0).toUpperCase()}
+          <div class="user-avatar-badge" style="background: ${u.color || '#088178'}; color: white; width: 32px; height: 32px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; border: 2px solid white; margin-left: -8px;" title="${_wsEscape(u.name)}">
+            ${(_wsEscape(u.name) || 'S').charAt(0).toUpperCase()}
           </div>
         `
         )
@@ -145,7 +155,7 @@
             ${this.activeUsers.length} Active Collaborator${this.activeUsers.length === 1 ? '' : 's'}
           </span>
           <button type="button" class="copy-session-link-btn" style="margin-left: auto; background: var(--accent); color: white; border: none; padding: 6px 12px; border-radius: 20px; font-size: 12px; cursor: pointer;">
-            🔗 Invite Friends
+            Invite Friends
           </button>
         </div>
       `;
@@ -165,5 +175,14 @@
   return {
     SharedCartWS,
     generateSessionId,
+    getSharedCartWsStatusHelper70,
   };
 });
+
+function getSharedCartWsStatusHelper70() {
+  return {
+    status: 'active',
+    wsAvailable: typeof WebSocket !== 'undefined',
+    broadcastChannelAvailable: typeof BroadcastChannel !== 'undefined',
+  };
+}

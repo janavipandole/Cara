@@ -11,12 +11,13 @@ describe('CartSyncManager Unit Tests', () => {
     postedMessages = [];
 
     mockBroadcastChannel = {
+      addEventListener: vi.fn(),
       postMessage: vi.fn((msg) => postedMessages.push(msg)),
       close: vi.fn(),
       onmessage: null,
     };
 
-    window.BroadcastChannel = vi.fn().mockImplementation(() => mockBroadcastChannel);
+    window.BroadcastChannel = vi.fn(function() { return mockBroadcastChannel; });
 
     cartManager = new CartSyncManager({ storageKey: 'test_cart', ttlMs: 1000 });
   });
@@ -26,6 +27,7 @@ describe('CartSyncManager Unit Tests', () => {
       cartManager.destroy();
     }
     vi.restoreAllMocks();
+    delete window.BroadcastChannel;
   });
 
   it('should add items and persist cart to LocalStorage', () => {

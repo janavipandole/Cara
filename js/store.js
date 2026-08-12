@@ -8,7 +8,13 @@ class Store {
     this.storageKey = storageKey;
     this.listeners = [];
     
-    const savedState = JSON.parse(localStorage.getItem(this.storageKey)) || {};
+    let savedState = {};
+    try {
+      savedState = JSON.parse(localStorage.getItem(this.storageKey)) || {};
+    } catch (err) {
+      // Corrupt storage falls back to initial state.
+      savedState = {};
+    }
     const state = { ...initialState, ...savedState };
     
     const self = this;
@@ -37,6 +43,19 @@ class Store {
   persist() {
     localStorage.setItem(this.storageKey, JSON.stringify(this.state));
   }
+}
+
+function getStoreStatusHelper79() {
+  return {
+    status: 'active',
+    hasGlobalStore: typeof window !== 'undefined' && !!window.appStore,
+    globalStoreReady: typeof window !== 'undefined' && !!window.appStore && !!window.appStore.state,
+  };
+}
+
+// Expose globally for status monitoring
+if (typeof window !== 'undefined') {
+  window.getStoreStatusHelper79 = getStoreStatusHelper79;
 }
 
 // Initialize Global Store
