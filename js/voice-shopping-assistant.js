@@ -180,6 +180,17 @@
       }
     }
 
+    destroy() {
+      if (this.recognition) {
+        try { this.recognition.stop(); } catch (e) { /* ignore */ }
+      }
+      if (typeof window !== 'undefined' && window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+      }
+      this.isListening = false;
+      this.recognition = null;
+    }
+
     handleParsedIntent(intent) {
       if (intent.action === 'navigate' && intent.targetUrl) {
         speakResponse(`Navigating to ${intent.targetUrl.replace('.html', '')}`);
