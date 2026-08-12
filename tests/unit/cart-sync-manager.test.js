@@ -122,6 +122,18 @@ describe('CartSyncManager Unit Tests', () => {
     expect(cart[0].quantity).toBe(99);
   });
 
+  it('serializes rapid concurrent addItem mutations via mutex guard without race conditions', async () => {
+    await Promise.all([
+      cartManager.addItem({ id: 'item-concurrent', quantity: 1 }),
+      cartManager.addItem({ id: 'item-concurrent', quantity: 1 }),
+      cartManager.addItem({ id: 'item-concurrent', quantity: 1 }),
+    ]);
+
+    const cart = cartManager.getCart();
+    expect(cart).toHaveLength(1);
+    expect(cart[0].quantity).toBe(3);
+  });
+
   it('handles remote BroadcastChannel messages and notifies listener', () => {
     const syncCallback = vi.fn();
     cartManager.onSync(syncCallback);
