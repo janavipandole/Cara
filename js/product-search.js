@@ -196,6 +196,11 @@
         return res.json();
       })
       .then(({ total, page, page_size, products }) => {
+        if (!Array.isArray(products)) {
+          console.warn('[ProductSearch] Invalid API response: products is not an array');
+          if (productGrid) { productGrid.innerHTML = '<p class="search-error" role="alert">Failed to load results. Please try again.</p>'; }
+          return;
+        }
         renderProducts(products);
         renderPagination(total, page, page_size);
         if (resultCount) {
