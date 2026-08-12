@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
       method: 'POST',
       credentials: 'include',
     })
-      .catch((err) => console.warn('Failed to end session on server:', err))
+      .catch((err) => console.warn('[session-lock] Failed to end session on server:', err))
       .finally(() => {
         window.location.href = 'login.html';
       });
