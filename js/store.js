@@ -41,7 +41,11 @@ class Store {
   }
 
   persist() {
-    localStorage.setItem(this.storageKey, JSON.stringify(this.state));
+    try {
+      localStorage.setItem(this.storageKey, JSON.stringify(this.state));
+    } catch (e) {
+      // Silently ignore localStorage failures (quota exceeded, private browsing, etc.)
+    }
   }
 }
 
