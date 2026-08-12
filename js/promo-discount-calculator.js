@@ -42,6 +42,10 @@ class PromoDiscountCalculator {
     return { valid: true, coupon, code: cleanCode };
   }
 
+  getAvailableCoupons() {
+    return { ...this.coupons };
+  }
+
   calculateTotal(subtotal, couponCode = '', baseShipping = 10) {
     if (typeof subtotal !== 'number' || subtotal < 0) {
       return { error: 'Invalid subtotal: must be a non-negative number.' };
