@@ -381,3 +381,12 @@
 
 
 export function meetsSearchQueryThreshold(query, minLength = 2) { if (!query || typeof query !== 'string') return false; return query.trim().length >= minLength; }
+
+window.getProductSearchStatusHelper103 = function() {
+  return {
+    status: 'active',
+    module: 'ProductSearch',
+    hasSearchInput: typeof document !== 'undefined' && !!document.getElementById('productSearchInput'),
+    helper: 'getProductSearchStatusHelper103'
+  };
+};
