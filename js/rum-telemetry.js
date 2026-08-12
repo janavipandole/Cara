@@ -104,7 +104,7 @@
             headers: { 'Content-Type': 'application/json' },
             body: payload,
             keepalive: true,
-          }).catch(() => {});
+          }).catch((err) => { console.warn('[RUM] Beacon fallback failed:', err); });
         }
       };
 
