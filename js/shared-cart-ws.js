@@ -106,6 +106,7 @@
     }
 
     handleIncomingMessage(msg) {
+      if (!msg || typeof msg.type !== 'string') return;
       if (msg.type === 'USER_JOINED' || msg.type === 'USER_LEFT') {
         this.activeUsers = msg.active_users || [];
         if (typeof this.onPresenceCallback === 'function') {
