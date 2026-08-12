@@ -20,7 +20,12 @@ class PromoDiscountCalculator {
       return { valid: false, message: 'Please enter a coupon code.' };
     }
 
-    const cleanCode = code.trim().toUpperCase();
+    const trimmed = code.trim();
+    if (trimmed.length < 3 || trimmed.length > 30) {
+      return { valid: false, message: 'Coupon code must be between 3 and 30 characters.' };
+    }
+
+    const cleanCode = trimmed.toUpperCase();
     const coupon = this.coupons[cleanCode];
 
     if (!coupon) {
