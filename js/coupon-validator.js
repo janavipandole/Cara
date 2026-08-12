@@ -141,6 +141,9 @@
 
   // Expose utility functions globally for external use
   window.isCouponDateExpired = isCouponDateExpired;
-})();
 
-function isCouponDateExpired(expiryDate) { if (!expiryDate) return false; return new Date(expiryDate).getTime() < Date.now(); }
+  function isCouponDateExpired(expiryDate) {
+    if (!expiryDate) return false;
+    return new Date(expiryDate).getTime() < Date.now();
+  }
+})();
