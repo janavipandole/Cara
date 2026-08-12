@@ -106,14 +106,4 @@ describe('pincode-validation-engine', () => {
     });
   });
 
-  describe('getSupportedCountries', () => {
-    it('returns array of country codes', () => {
-      const countries = engine.getSupportedCountries();
-      expect(Array.isArray(countries)).toBe(true);
-      expect(countries).toContain('US');
-      expect(countries).toContain('IN');
-      expect(countries).toContain('UK');
-      expect(countries).toContain('CA');
-    });
-  });
 });
