@@ -1,9 +1,9 @@
-var API_BASE = window.CARA_API_BASE_URL || '';
+const API_BASE = window.CARA_API_BASE_URL || '';
 
 
 
 function adminRequest(method, path, body) {
-  var opts = {
+  const opts = {
     method: method,
     credentials: 'include',
     headers: {
