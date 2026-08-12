@@ -39,10 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
       days = speed === 'exp' ? '4-5 days' : '9-12 days';
     }
 
-    document.getElementById('calc-feedback').innerHTML = `
-            Estimated Cost: ₹${total} <br>
-            Estimated Time: ${days}
-        `;
+    const feedbackEl = document.getElementById('calc-feedback');
+    feedbackEl.textContent = 'Estimated Cost: Rs.' + total + ' | Estimated Time: ' + days;
 
     // Dynamically update Cart Totals summary if elements exist
     const shippingEl = document.getElementById('summary-shipping');
