@@ -152,7 +152,10 @@
   // ── Initialise ─────────────────────────────────────────────────────────────
   function initDashboard() {
     // Only load if dashboard components exist on page
-    if (revEl || catTable || statusWrap) {
+    const revEl2 = document.getElementById('analyticsRevenue');
+    const catTable2 = document.getElementById('analyticsCategoryTable');
+    const statusWrap2 = document.getElementById('analyticsStatusWrap');
+    if (revEl2 || catTable2 || statusWrap2) {
       loadDashboard();
     }
   }
