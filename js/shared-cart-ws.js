@@ -134,6 +134,15 @@
       }
     }
 
+    getStatus() {
+      return {
+        sessionId: this.sessionId,
+        wsReadyState: this.ws ? this.ws.readyState : null,
+        activeUserCount: this.activeUsers.length,
+        reconnectAttempts: this.reconnectAttempts,
+      };
+    }
+
     renderPresenceBar(containerSelector) {
       const el = typeof containerSelector === 'string' ? document.querySelector(containerSelector) : containerSelector;
       if (!el) return;
