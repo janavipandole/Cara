@@ -106,6 +106,10 @@
     return intent;
   }
 
+  function parseVoiceIntentAsync(transcript) {
+    return Promise.resolve(parseVoiceIntent(transcript));
+  }
+
   class VoiceShoppingAssistant {
     constructor(options = {}) {
       this.isListening = false;
@@ -202,6 +206,7 @@
   return {
     VoiceShoppingAssistant,
     parseVoiceIntent,
+    parseVoiceIntentAsync,
     speakResponse,
     isVoiceSupported,
   };
