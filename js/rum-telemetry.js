@@ -130,3 +130,12 @@
     RUMTelemetryCollector,
   };
 });
+
+window.getRumTelemetryStatusHelper114 = function() {
+  return {
+    status: 'active',
+    module: 'RUMTelemetry',
+    hasInstance: typeof window.__rum_telemetry_instance !== 'undefined',
+    helper: 'getRumTelemetryStatusHelper114'
+  };
+};
