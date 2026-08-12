@@ -45,8 +45,7 @@ export class ToastQueueManager {
       id: toastId,
       message,
       type,
-      duration,
-    };
+      duration};
 
     this.queue.push(toastItem);
     if (this.queue.length > this.maxToasts) {

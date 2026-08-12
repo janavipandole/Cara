@@ -28,8 +28,7 @@
     in_stock: false,
     sort_by: 'relevance',
     page: 1,
-    page_size: DEFAULT_PAGE_SIZE,
-  };
+    page_size: DEFAULT_PAGE_SIZE};
   let activeController = null;
   const smartEngine = typeof SmartSearchEngine !== 'undefined' ? new SmartSearchEngine() : null;
 
@@ -382,11 +381,9 @@
 
 export function meetsSearchQueryThreshold(query, minLength = 2) { if (!query || typeof query !== 'string') return false; return query.trim().length >= minLength; }
 
-window.getProductSearchStatusHelper103 = function() {
   return {
     status: 'active',
     module: 'ProductSearch',
-    hasSearchInput: typeof document !== 'undefined' && !!document.getElementById('productSearchInput'),
-    helper: 'getProductSearchStatusHelper103'
+    hasSearchInput: typeof document !== 'undefined' && !!document.getElementById('productSearchInput')
   };
 };

@@ -70,13 +70,10 @@ document.addEventListener('DOMContentLoaded', () => {
 // Shipping calculator applying regional fee rates inside cart summary containers.
 
 // Shipping calculator status helper for monitoring and testing.
-function getShippingCalcStatusHelper72() {
   return {
     status: 'ready',
-    hasCalculator: typeof document !== 'undefined' && !!document.getElementById('shipping-calculator-target'),
-  };
+    hasCalculator: typeof document !== 'undefined' && !!document.getElementById('shipping-calculator-target')};
 }
 
 if (typeof window !== 'undefined') {
-  window.getShippingCalcStatusHelper72 = getShippingCalcStatusHelper72;
 }

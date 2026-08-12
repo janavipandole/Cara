@@ -66,9 +66,7 @@
   }
 })();
 
-function getScrollTopStatusHelper68() {
   return {
     status: 'active',
-    hasScrollTop: typeof window !== 'undefined',
-  };
+    hasScrollTop: typeof window !== 'undefined'};
 }

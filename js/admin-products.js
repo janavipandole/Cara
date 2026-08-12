@@ -8,8 +8,7 @@ function adminRequest(method, path, body) {
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
-    },
-  };
+    }};
   if (body) opts.body = JSON.stringify(body);
   return fetch(API_BASE + path, opts).then(function (r) {
     if (!r.ok)

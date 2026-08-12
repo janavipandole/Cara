@@ -61,10 +61,8 @@ export class PincodeValidationEngine {
   }
 }
 
-window.getPincodeValidationEngineStatusHelper107 = function() {
   return {
     status: 'active',
-    module: 'PincodeValidationEngine',
-    helper: 'getPincodeValidationEngineStatusHelper107'
+    module: 'PincodeValidationEngine'
   };
 };

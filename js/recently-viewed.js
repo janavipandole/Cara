@@ -55,8 +55,7 @@
       id: product.id != null ? product.id : null,
       name: product.name,
       price: product.price != null ? product.price : null,
-      image: product.image || '',
-    };
+      image: product.image || ''};
 
     const list = getRecentlyViewed().filter((item) => {
       const sameId = entry.id != null && item.id != null && item.id === entry.id;
@@ -177,8 +176,7 @@
         : null,
       image: doc.getElementById('MainImg')
         ? doc.getElementById('MainImg').getAttribute('src')
-        : '',
-    };
+        : ''};
   }
 
   function initPage() {
@@ -225,13 +223,10 @@
     MAX_ITEMS,
     getRecentlyViewed,
     addRecentlyViewed,
-    renderRecentlyViewed,
-  };
+    renderRecentlyViewed};
 })(typeof window !== 'undefined' ? window : globalThis);
 
-function getRecentlyViewedStatusHelper60() {
   return {
     status: 'active',
-    maxItems: typeof MAX_ITEMS !== 'undefined' ? MAX_ITEMS : 10,
-  };
+    maxItems: typeof MAX_ITEMS !== 'undefined' ? MAX_ITEMS : 10};
 }

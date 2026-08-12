@@ -65,6 +65,5 @@ export function createFocusTrap(containerElement) {
       if (previousActiveElement && typeof previousActiveElement.focus === 'function') {
         previousActiveElement.focus();
       }
-    },
-  };
+    }};
 }

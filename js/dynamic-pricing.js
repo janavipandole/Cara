@@ -32,8 +32,7 @@
       discountPct: discountPct * 100,
       unitPrice,
       totalPrice,
-      savings,
-    };
+      savings};
   }
 
   function round(val) {
@@ -101,6 +100,5 @@
   return {
     calculateVolumeDiscount,
     fetchServerPricing,
-    renderVolumePricingTable,
-  };
+    renderVolumePricingTable};
 });

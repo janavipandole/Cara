@@ -57,9 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-function getSessionLockStatusHelper69() {
   return {
     status: 'active',
-    hasSessionLock: typeof window !== 'undefined',
-  };
+    hasSessionLock: typeof window !== 'undefined'};
 }

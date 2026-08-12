@@ -48,8 +48,7 @@
       category: null,
       color: null,
       maxPrice: null,
-      targetUrl: null,
-    };
+      targetUrl: null};
 
     // Check Navigation Intent
     if (/\b(go to|navigate to|open)\s+(cart|shopping cart)\b/.test(raw)) {
@@ -203,6 +202,5 @@
     VoiceShoppingAssistant,
     parseVoiceIntent,
     speakResponse,
-    isVoiceSupported,
-  };
+    isVoiceSupported};
 });

@@ -19,11 +19,9 @@
     LOYALTY: {
       POINTS_PER_RUPEE: 10,
       DEFAULT_BALANCE: 150,
-    },
-  };
+    }};
 
   window.CARA_COUPONS = window.CARA_COUPONS || {
     CARA20: 20,
-    WELCOME10: 10,
-  };
+    WELCOME10: 10};
 })();

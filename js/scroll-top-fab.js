@@ -37,9 +37,7 @@ export class ScrollTopFab {
   }
 }
 
-export function getScrollTopFabStatusHelper67() {
   return {
     status: 'active',
-    hasScrollTopFab: typeof window !== 'undefined' && !!window.ScrollTopFab,
-  };
+    hasScrollTopFab: typeof window !== 'undefined' && !!window.ScrollTopFab};
 }

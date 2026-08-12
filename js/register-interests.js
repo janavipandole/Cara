@@ -51,11 +51,9 @@ function initInterests() {
 document.addEventListener('DOMContentLoaded', initInterests);
 initInterests();
 
-window.getRegisterInterestsStatusHelper112 = function() {
   return {
     status: 'active',
     module: 'RegisterInterests',
-    hasWrapper: typeof document !== 'undefined' && !!document.querySelector('.newsletter-interests-wrapper'),
-    helper: 'getRegisterInterestsStatusHelper112'
+    hasWrapper: typeof document !== 'undefined' && !!document.querySelector('.newsletter-interests-wrapper')
   };
 };

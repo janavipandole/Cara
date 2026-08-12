@@ -13,8 +13,7 @@ export class CaraToast {
       info: 'Info',
       success: 'Done',
       error: 'Error',
-      warning: 'Warn',
-    };
+      warning: 'Warn'};
 
     const toast = document.createElement('div');
     toast.className = `toast toast-${type}`;

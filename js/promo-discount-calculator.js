@@ -89,10 +89,8 @@ if (typeof module !== 'undefined' && module.exports) {
   window.PromoDiscountCalculator = PromoDiscountCalculator;
 }
 
-window.getPromoDiscountCalculatorStatusHelper109 = function() {
   return {
     status: 'active',
-    module: 'PromoDiscountCalculator',
-    helper: 'getPromoDiscountCalculatorStatusHelper109'
+    module: 'PromoDiscountCalculator'
   };
 };

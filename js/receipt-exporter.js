@@ -46,8 +46,7 @@
       created_at: timestamp,
       signature: signature,
       verification_url: `/api/receipts/verify-receipt/${signature}`,
-      items: orderData.items || [],
-    };
+      items: orderData.items || []};
   }
 
   function generatePrintableHTML(receipt) {
@@ -144,14 +143,11 @@
     fetchDigitalReceipt,
     generatePrintableHTML,
     downloadReceiptPDF,
-    verifyReceiptSignature,
-  };
+    verifyReceiptSignature};
 });
 
-window.getReceiptExporterStatusHelper111 = function() {
   return {
     status: 'active',
-    module: 'ReceiptExporter',
-    helper: 'getReceiptExporterStatusHelper111'
+    module: 'ReceiptExporter'
   };
 };

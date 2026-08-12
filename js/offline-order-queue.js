@@ -92,8 +92,7 @@
         offlineId,
         payload: orderPayload,
         timestamp: Date.now(),
-        status: 'pending_offline',
-      };
+        status: 'pending_offline'};
 
       if (this.worker) {
         this.worker.postMessage({ action: 'SAVE_ORDER', payload: offlineRecord });
@@ -119,8 +118,7 @@
         success: true,
         offlineId,
         isOffline: true,
-        message: 'Order saved offline. It will automatically submit once internet connection is restored.',
-      };
+        message: 'Order saved offline. It will automatically submit once internet connection is restored.'};
     }
 
     saveFallbackOrder(record) {

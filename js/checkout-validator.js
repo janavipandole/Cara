@@ -43,8 +43,7 @@ const POSTAL_CODE_PATTERNS = {
   IN: /^\d{6}$/,
   UK: /^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$/i,
   CA: /^[A-Z]\d[A-Z] ?\d[A-Z]\d$/i,
-  AU: /^\d{4}$/,
-};
+  AU: /^\d{4}$/};
 
 export function validatePostalCode(postalCode, country = 'US') {
   if (!postalCode) return false;

@@ -24,8 +24,7 @@
       info: '#3b82f6',
       success: '#22c55e',
       warning: '#f59e0b',
-      error: '#ef4444',
-    };
+      error: '#ef4444'};
     var color = colors[type] || colors.info;
     el.style.cssText = [
       'padding:12px 16px',
@@ -126,6 +125,5 @@
     error: function (msg, dur) {
       notify(msg, 'error', dur);
     },
-    dismiss: dismiss,
-  };
+    dismiss: dismiss};
 })();

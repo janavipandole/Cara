@@ -6,8 +6,7 @@ export const DEFAULT_EXCHANGE_RATES = {
   GBP: 0.79,
   INR: 83.25,
   JPY: 155.40,
-  CAD: 1.36,
-};
+  CAD: 1.36};
 
 export let EXCHANGE_RATES = { ...DEFAULT_EXCHANGE_RATES };
 
@@ -17,8 +16,7 @@ export const CURRENCY_SYMBOLS = {
   GBP: '£',
   INR: '₹',
   JPY: '¥',
-  CAD: 'CA$',
-};
+  CAD: 'CA$'};
 
 const CACHE_KEY = 'cara_exchange_rates_cache';
 const CACHE_TTL_MS = 12 * 60 * 60 * 1000; // 12 hours

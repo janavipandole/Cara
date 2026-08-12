@@ -54,8 +54,7 @@ export function attachCSRFHeader(headers = {}) {
   const token = getOrCreateCSRFToken();
   return {
     ...headers,
-    'X-CSRF-Token': token,
-  };
+    'X-CSRF-Token': token};
 }
 
 if (typeof document !== 'undefined') {

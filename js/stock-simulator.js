@@ -6,8 +6,7 @@ export const mockStockData = {
   XXL: { count: 2, status: 'low' },
   Small: { count: 15, status: 'normal' },
   Medium: { count: 1, status: 'low' },
-  Large: { count: 0, status: 'out' },
-};
+  Large: { count: 0, status: 'out' }};
 
 export function getStockInfo(size) {
   if (!size) return { count: 0, status: 'unknown' };
@@ -88,17 +87,4 @@ export function initStockSimulator() {
 
 if (typeof document !== 'undefined') {
   document.addEventListener('DOMContentLoaded', initStockSimulator);
-}
-
-function getStockSimulatorStatusHelper78() {
-  return {
-    status: 'ready',
-    hasStockData: typeof mockStockData !== 'undefined',
-    availableSizes: Object.keys(mockStockData || {}),
-  };
-}
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports.getStockSimulatorStatusHelper78 = getStockSimulatorStatusHelper78;
-} else if (typeof window !== 'undefined') {
-  window.getStockSimulatorStatusHelper78 = getStockSimulatorStatusHelper78;
 }

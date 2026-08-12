@@ -127,8 +127,7 @@ class ProductReviewAggregator {
       2: Math.round((stats.distribution[2] / total) * 100),
       3: Math.round((stats.distribution[3] / total) * 100),
       4: Math.round((stats.distribution[4] / total) * 100),
-      5: Math.round((stats.distribution[5] / total) * 100),
-    };
+      5: Math.round((stats.distribution[5] / total) * 100)};
   }
 }
 
@@ -138,10 +137,8 @@ if (typeof module !== 'undefined' && module.exports) {
   window.ProductReviewAggregator = ProductReviewAggregator;
 }
 
-window.getProductReviewAggregatorStatusHelper104 = function() {
   return {
     status: 'active',
-    module: 'ProductReviewAggregator',
-    helper: 'getProductReviewAggregatorStatusHelper104'
+    module: 'ProductReviewAggregator'
   };
 };

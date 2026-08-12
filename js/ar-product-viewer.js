@@ -230,6 +230,5 @@
 
   return {
     ARProductViewer,
-    isARSupported,
-  };
+    isARSupported};
 });

@@ -56,8 +56,7 @@ export class ProductReviewManager {
 
     return {
       isValid: errors.length === 0,
-      errors,
-    };
+      errors};
   }
 
   addReview(productId, reviewData) {
@@ -77,8 +76,7 @@ export class ProductReviewManager {
       authorEmail: reviewData.authorEmail.trim(),
       rating: Number(reviewData.rating),
       comment: reviewData.comment.trim(),
-      createdAt: new Date().toISOString(),
-    };
+      createdAt: new Date().toISOString()};
 
     this.reviews[productId].unshift(newReview);
     this.saveToStorage();
@@ -92,8 +90,7 @@ export class ProductReviewManager {
       return {
         totalReviews: 0,
         averageRating: 0,
-        distribution: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
-      };
+        distribution: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }};
     }
 
     const distribution = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
@@ -115,8 +112,7 @@ export class ProductReviewManager {
     return {
       totalReviews: productReviews.length,
       averageRating,
-      distribution,
-    };
+      distribution};
   }
 
   /**
@@ -135,10 +131,8 @@ export class ProductReviewManager {
 
 }
 
-window.getProductReviewsStatusHelper101 = function() {
   return {
     status: 'active',
-    module: 'ProductReviews',
-    helper: 'getProductReviewsStatusHelper101'
+    module: 'ProductReviews'
   };
 };

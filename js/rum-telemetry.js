@@ -25,8 +25,7 @@
         cls: 0,
         fid: null,
         ttfb: null,
-        user_agent: typeof navigator !== 'undefined' ? navigator.userAgent : null,
-      };
+        user_agent: typeof navigator !== 'undefined' ? navigator.userAgent : null};
 
       this.initObservers();
       this.bindBeaconFlush();
@@ -127,15 +126,12 @@
   }
 
   return {
-    RUMTelemetryCollector,
-  };
+    RUMTelemetryCollector};
 });
 
-window.getRumTelemetryStatusHelper114 = function() {
   return {
     status: 'active',
     module: 'RUMTelemetry',
-    hasInstance: typeof window.__rum_telemetry_instance !== 'undefined',
-    helper: 'getRumTelemetryStatusHelper114'
+    hasInstance: typeof window.__rum_telemetry_instance !== 'undefined'
   };
 };

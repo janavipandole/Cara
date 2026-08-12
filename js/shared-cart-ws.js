@@ -164,15 +164,12 @@
 
   return {
     SharedCartWS,
-    generateSessionId,
-    getSharedCartWsStatusHelper70,
+    generateSessionId
   };
 });
 
-function getSharedCartWsStatusHelper70() {
   return {
     status: 'active',
     wsAvailable: typeof WebSocket !== 'undefined',
-    broadcastChannelAvailable: typeof BroadcastChannel !== 'undefined',
-  };
+    broadcastChannelAvailable: typeof BroadcastChannel !== 'undefined'};
 }

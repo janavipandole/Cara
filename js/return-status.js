@@ -46,8 +46,7 @@ function getReturnStatus(order, windowDays = RETURN_WINDOW_DAYS) {
       deadline: null,
       deadlineLabel: '',
       message: 'This order was cancelled.',
-      canRequestReturn: false,
-    };
+      canRequestReturn: false};
   }
 
   const deliveredAt = order && (order.delivered_at || order.deliveredAt);
@@ -59,8 +58,7 @@ function getReturnStatus(order, windowDays = RETURN_WINDOW_DAYS) {
       deadline: null,
       deadlineLabel: '',
       message: 'Returns available once the order is delivered.',
-      canRequestReturn: false,
-    };
+      canRequestReturn: false};
   }
 
   const now = new Date();
@@ -74,8 +72,7 @@ function getReturnStatus(order, windowDays = RETURN_WINDOW_DAYS) {
     message: eligible
       ? `Eligible for return until ${deadlineLabel}.`
       : `Return window closed on ${deadlineLabel}.`,
-    canRequestReturn: eligible,
-  };
+    canRequestReturn: eligible};
 }
 
 function escapeHtml(value) {
@@ -129,23 +126,19 @@ if (typeof module !== 'undefined' && module.exports) {
     computeReturnDeadline,
     getReturnStatus,
     renderReturnStatus,
-    renderReturnDeadlineInline,
-  };
+    renderReturnDeadlineInline};
 } else {
   window.ReturnStatus = {
     RETURN_WINDOW_DAYS,
     computeReturnDeadline,
     getReturnStatus,
     renderReturnStatus,
-    renderReturnDeadlineInline,
-  };
+    renderReturnDeadlineInline};
 }
 
-window.getReturnStatusStatusHelper113 = function() {
   return {
     status: 'active',
     module: 'ReturnStatus',
-    returnWindowDays: window.ReturnStatus ? window.ReturnStatus.RETURN_WINDOW_DAYS : null,
-    helper: 'getReturnStatusStatusHelper113'
+    returnWindowDays: window.ReturnStatus ? window.ReturnStatus.RETURN_WINDOW_DAYS : null
   };
 };

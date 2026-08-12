@@ -51,10 +51,8 @@ if (typeof module !== 'undefined' && module.exports) {
   window.OutfitCompatibility = OutfitCompatibility;
 }
 
-window.getOutfitCompatibilityStatusHelper108 = function() {
   return {
     status: 'active',
-    module: 'OutfitCompatibility',
-    helper: 'getOutfitCompatibilityStatusHelper108'
+    module: 'OutfitCompatibility'
   };
 };

@@ -4,8 +4,7 @@ export const THEMES = {
   LIGHT: 'light',
   DARK: 'dark',
   HIGH_CONTRAST: 'high-contrast',
-  SYSTEM: 'system',
-};
+  SYSTEM: 'system'};
 
 export function getSystemTheme() {
   if (

@@ -47,10 +47,8 @@ export function roundScrollProgressPercent(rawPercent) {
   return Math.round(Math.max(0, Math.min(100, rawPercent)));
 }
 
-window.getReadingProgressStatusHelper110 = function() {
   return {
     status: 'active',
-    module: 'ReadingProgress',
-    helper: 'getReadingProgressStatusHelper110'
+    module: 'ReadingProgress'
   };
 };

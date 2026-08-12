@@ -40,10 +40,8 @@ export class SaveForLaterManager {
   }
 }
 
-export function getSaveForLaterManagerStatusHelper66() {
   return {
     status: 'active',
     managerClass: 'SaveForLaterManager',
-    hasManager: typeof SaveForLaterManager !== 'undefined',
-  };
+    hasManager: typeof SaveForLaterManager !== 'undefined'};
 }

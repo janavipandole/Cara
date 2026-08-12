@@ -109,8 +109,7 @@ function isValidEmail(email) {
           attestationObject: bufferToBase64URL(credential.response.attestationObject),
           clientDataJSON: bufferToBase64URL(credential.response.clientDataJSON),
         },
-      },
-    };
+      }};
 
     const verifyRes = await fetchFunc(`${apiBaseUrl}/api/auth/passkey/register-verify`, {
       method: 'POST',
@@ -184,8 +183,7 @@ function isValidEmail(email) {
             ? bufferToBase64URL(assertion.response.userHandle)
             : null,
         },
-      },
-    };
+      }};
 
     const verifyRes = await fetchFunc(`${apiBaseUrl}/api/auth/passkey/login-verify`, {
       method: 'POST',
@@ -207,6 +205,5 @@ function isValidEmail(email) {
     registerPasskey,
     loginWithPasskey,
     bufferToBase64URL,
-    base64URLToBuffer,
-  };
+    base64URLToBuffer};
 });

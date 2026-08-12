@@ -94,8 +94,7 @@
         senderTabId: this.tabId,
         vectorClock: this.vectorClock,
         timestamp: Date.now(),
-        payload,
-      };
+        payload};
 
       if (this.channel) {
         try {
@@ -158,8 +157,7 @@
         coupon: coupon !== undefined ? coupon : this.getAppliedCoupon(),
         timestamp: Date.now(),
         vectorClock: this.vectorClock,
-        stateHash: calculateStateHash(resolvedItems, coupon),
-      };
+        stateHash: calculateStateHash(resolvedItems, coupon)};
 
       try {
         localStorage.setItem(this.storageKey, JSON.stringify(payload));
@@ -237,6 +235,5 @@
 
   return {
     CartSyncManager,
-    shouldCompressPayload,
-  };
+    shouldCompressPayload};
 });

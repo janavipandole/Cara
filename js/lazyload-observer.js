@@ -7,8 +7,7 @@ export function initLazyLoadObserver(selector = 'img.lazyload', options = {}) {
     root: null,
     rootMargin: '50px 0px',
     threshold: 0.01,
-    ...options,
-  };
+    ...options};
 
   const lazyImages = Array.from(document.querySelectorAll(selector));
 
@@ -25,8 +24,7 @@ export function initLazyLoadObserver(selector = 'img.lazyload', options = {}) {
       observe: () => {},
       unobserve: () => {},
       disconnect: () => {},
-      isFallback: true,
-    };
+      isFallback: true};
   }
 
   const observer = new IntersectionObserver((entries, obs) => {

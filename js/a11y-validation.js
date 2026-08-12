@@ -78,8 +78,7 @@
       errors: errors,
       warnings: warnings,
       errorCount: errors.length,
-      warningCount: warnings.length,
-    };
+      warningCount: warnings.length};
   }
 
   if (typeof document !== 'undefined') {

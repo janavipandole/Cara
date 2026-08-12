@@ -86,8 +86,7 @@
     return {
       avg: counted > 0 ? parseFloat((sum / counted).toFixed(1)) : 0,
       total: reviews.length,
-      dist,
-    };
+      dist};
   }
 
   // ── Render star icons ─────────────────────────────────────────────────────
@@ -329,8 +328,7 @@
           title,
           body,
           date: new Date().toISOString(),
-          verified: false,
-        };
+          verified: false};
 
         const reviews = _readReviews(productId);
         reviews.unshift(review);
