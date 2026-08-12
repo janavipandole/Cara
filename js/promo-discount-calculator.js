@@ -43,7 +43,10 @@ class PromoDiscountCalculator {
   }
 
   calculateTotal(subtotal, couponCode = '', baseShipping = 10) {
-    if (typeof subtotal !== 'number' || subtotal < 0) {
+    if (typeof subtotal !== 'number' || !isFinite(subtotal)) {
+      return { error: 'Invalid subtotal: must be a finite number.' };
+    }
+    if (subtotal < 0) {
       return { error: 'Invalid subtotal: must be a non-negative number.' };
     }
     let discount = 0;
