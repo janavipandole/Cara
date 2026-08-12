@@ -4,7 +4,7 @@
  */
 
 class PromoDiscountCalculator {
-  constructor() {
+  constructor(options = {}) {
     this.coupons = {
       'WELCOME10': { type: 'percent', value: 10, minSpend: 20 },
       'CARA20': { type: 'percent', value: 20, minSpend: 50 },
@@ -12,6 +12,7 @@ class PromoDiscountCalculator {
       'FREESHIP': { type: 'freeship', value: 0, minSpend: 30 }
     };
     this.freeShippingThreshold = 75;
+    this.maxDiscountCap = options.maxDiscountCap !== undefined ? options.maxDiscountCap : Infinity;
   }
 
   validateCoupon(code, subtotal = 0) {
@@ -47,6 +48,7 @@ class PromoDiscountCalculator {
         appliedCoupon = validation.coupon;
         if (appliedCoupon.type === 'percent') {
           discount = (subtotal * appliedCoupon.value) / 100;
+          discount = this.applyPromoDiscountMaxCap(discount, this.maxDiscountCap);
         } else if (appliedCoupon.type === 'flat') {
           discount = Math.min(subtotal, appliedCoupon.value);
         } else if (appliedCoupon.type === 'freeship') {
