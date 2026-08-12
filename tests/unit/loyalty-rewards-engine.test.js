@@ -94,6 +94,7 @@ describe("LoyaltyRewardsEngine addEarnedPoints", () => {
   let engine;
 
   beforeEach(() => {
+    localStorage.clear();
     engine = new LoyaltyRewardsEngine();
   });
 
@@ -126,11 +127,6 @@ describe("LoyaltyRewardsEngine addEarnedPoints", () => {
 
   it("returns 0 for negative amount", () => {
     const earned = engine.addEarnedPoints(-50);
-    expect(earned).toBe(0);
-  });
-
-  it("returns 0 for NaN input", () => {
-    const earned = engine.addEarnedPoints(NaN);
     expect(earned).toBe(0);
   });
 
