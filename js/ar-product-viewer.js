@@ -27,9 +27,14 @@
 
     const isiOSAR =
       typeof document !== 'undefined' &&
-      document.createElement('a').relList &&
-      document.createElement('a').relList.supports &&
-      document.createElement('a').relList.supports('ar');
+      (() => {
+        try {
+          const a = document.createElement('a');
+          return a.relList && a.relList.supports && a.relList.supports('ar');
+        } catch {
+          return false;
+        }
+      })();
 
     return Boolean(isWebXR || isiOSAR || window.customElements?.get('model-viewer'));
   }
