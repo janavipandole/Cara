@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   if (giftMsgInput) {
     giftMsgInput.addEventListener('input', () => {
-      const valid = validateGiftMessageLength(giftMsgInput.value, 200);
+      const valid = validateGiftMessageLength(giftMsgInput.value, MAX_GIFT_MSG_LENGTH);
       if (!valid) {
         giftMsgInput.setCustomValidity('Gift message exceeds the 200-character limit.');
         giftMsgInput.reportValidity();
@@ -64,4 +64,4 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-function validateGiftMessageLength(message, maxChars = 200) { if (!message || typeof message !== 'string') return true; return message.trim().length <= maxChars; }
+function validateGiftMessageLength(message, maxChars = MAX_GIFT_MSG_LENGTH) { if (!message || typeof message !== 'string') return true; return message.trim().length <= maxChars; }
