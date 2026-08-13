@@ -23,15 +23,17 @@
   const errorAlert = document.getElementById('analyticsError');
 
   // ── Format helpers ─────────────────────────────────────────────────────────
+  function _numberFormat(num, decimals, groupSize) {
+    const n = isFinite(num) ? num : 0;
+    const fixed = n.toFixed(decimals);
+    const parts = fixed.split('.');
+    parts[0] = parts[0].replace(/\B(?=(\d{groupSize})+(?!\d))/g, ',');
+    return parts.join('.');
+  }
+
   function _fmtRev(val) {
     const num = parseFloat(val);
-    const safe = isFinite(num) ? num : 0;
-    return (
-      '₹' +
-      safe
-        .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, '$&,')
-    );
+    return '₹' + _numberFormat(num, 2, 3);
   }
 
   function _escape(str) {
