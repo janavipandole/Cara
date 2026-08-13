@@ -41,6 +41,10 @@ export class PincodeValidationEngine {
     };
   }
 
+  getSupportedCountries() {
+    return Object.keys(this.postalPatterns);
+  }
+
   estimateDeliveryDays(code, countryCode = 'IN') {
     const check = this.validatePostalCode(code, countryCode);
     if (!check.valid) return null;
