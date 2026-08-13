@@ -31,9 +31,7 @@
         try {
           const a = document.createElement('a');
           return a.relList && a.relList.supports && a.relList.supports('ar');
-        } catch {
-          return false;
-        }
+        } catch (err) { console.warn('[ARProductViewer] AR capability check failed:', err); }
       })();
 
     return Boolean(isWebXR || isiOSAR || window.customElements?.get('model-viewer'));
