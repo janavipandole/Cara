@@ -66,6 +66,7 @@ describe('applySharedCart', () => {
 
     expect(match).not.toBeNull();
     vm.runInNewContext(match[0], sandbox, { filename: 'app.js' });
+    storage.setItem('productsInCart', JSON.stringify(sandbox.window.cachedCartState));
   });
 
   it('merges shared wardrobe items into the current cart state', () => {

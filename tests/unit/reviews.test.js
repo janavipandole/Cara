@@ -3,9 +3,15 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 // Mock localStorage
 var storage = {};
 globalThis.localStorage = {
-  getItem: function (key) { return storage[key] || null; },
-  setItem: function (key, val) { storage[key] = val; },
-  removeItem: function (key) { delete storage[key]; }
+  getItem: function (key) {
+    return storage[key] || null;
+  },
+  setItem: function (key, val) {
+    storage[key] = val;
+  },
+  removeItem: function (key) {
+    delete storage[key];
+  },
 };
 
 // Spy on console.warn
@@ -41,7 +47,7 @@ describe('reviews.js unit tests', function () {
       return {
         avg: parseFloat((sum / reviews.length).toFixed(1)),
         total: reviews.length,
-        dist: dist
+        dist: dist,
       };
     })();
     expect(result.total).toBe(0);
@@ -50,11 +56,7 @@ describe('reviews.js unit tests', function () {
   });
 
   it('calculates correct avg for valid reviews', function () {
-    var reviews = [
-      { rating: 5 },
-      { rating: 4 },
-      { rating: 3 }
-    ];
+    var reviews = [{ rating: 5 }, { rating: 4 }, { rating: 3 }];
     var dist = [0, 0, 0, 0, 0];
     var sum = reviews.reduce(function (acc, r) {
       if (typeof r.rating === 'number' && r.rating >= 1 && r.rating <= 5) {
@@ -66,7 +68,7 @@ describe('reviews.js unit tests', function () {
     var result = {
       avg: parseFloat((sum / reviews.length).toFixed(1)),
       total: reviews.length,
-      dist: dist
+      dist: dist,
     };
     expect(result.total).toBe(3);
     expect(result.avg).toBe(4.0);
@@ -80,7 +82,7 @@ describe('reviews.js unit tests', function () {
       { rating: 0 },
       { rating: 6 },
       { rating: 3 },
-      { rating: 'bad' }
+      { rating: 'bad' },
     ];
     var dist = [0, 0, 0, 0, 0];
     var validReviews = reviews.filter(function (r) {
@@ -104,7 +106,9 @@ describe('reviews.js unit tests', function () {
         .replace(/'/g, '&#39;');
     };
     expect(_escape('<script>')).toBe('&lt;script&gt;');
-    expect(_escape('"test" & \'more\'')).toBe('&quot;test&quot; &amp; &#39;more&#39;');
+    expect(_escape('"test" & \'more\'')).toBe(
+      '&quot;test&quot; &amp; &#39;more&#39;',
+    );
     expect(_escape('Normal text')).toBe('Normal text');
   });
 
@@ -112,7 +116,7 @@ describe('reviews.js unit tests', function () {
     var _formatDate = function (iso) {
       try {
         return new Intl.DateTimeFormat('en-IN', { dateStyle: 'medium' }).format(
-          new Date(iso)
+          new Date(iso),
         );
       } catch (err) {
         return iso;
@@ -127,7 +131,7 @@ describe('reviews.js unit tests', function () {
     var _formatDate = function (iso) {
       try {
         return new Intl.DateTimeFormat('en-IN', { dateStyle: 'medium' }).format(
-          new Date(iso)
+          new Date(iso),
         );
       } catch (err) {
         return iso;
@@ -142,7 +146,7 @@ describe('reviews.js unit tests', function () {
     var result = (function () {
       try {
         return JSON.parse(
-          localStorage.getItem('cara_reviews_nonexistent') || '[]'
+          localStorage.getItem('cara_reviews_nonexistent') || '[]',
         );
       } catch (err) {
         return [];
@@ -153,13 +157,11 @@ describe('reviews.js unit tests', function () {
 
   it('_readReviews parses stored reviews from localStorage', function () {
     storage['cara_reviews_testpid'] = JSON.stringify([
-      { id: 1, rating: 5, author: 'Alice' }
+      { id: 1, rating: 5, author: 'Alice' },
     ]);
     var result = (function () {
       try {
-        return JSON.parse(
-          localStorage.getItem('cara_reviews_testpid') || '[]'
-        );
+        return JSON.parse(localStorage.getItem('cara_reviews_testpid') || '[]');
       } catch (err) {
         return [];
       }
@@ -173,7 +175,7 @@ describe('reviews.js unit tests', function () {
     storage['cara_reviews_strpid'] = JSON.stringify([
       { id: 1, rating: 5, author: 'Alice' },
       { id: 2, rating: '5', author: 'Bob' },
-      { id: 3, rating: 1, author: 'Carol' }
+      { id: 3, rating: 1, author: 'Carol' },
     ]);
 
     document.body.innerHTML =
@@ -192,7 +194,7 @@ describe('reviews.js unit tests', function () {
       CustomEvent: window.CustomEvent,
       Intl: Intl,
       Date: Date,
-      setTimeout: setTimeout
+      setTimeout: setTimeout,
     };
     vm.createContext(sandbox);
     vm.runInContext(src, sandbox, { filename: 'reviews.js' });
@@ -204,5 +206,109 @@ describe('reviews.js unit tests', function () {
     var aggregateNumber = document.querySelector('.aggregate-number');
     expect(aggregateNumber).toBeTruthy();
     expect(aggregateNumber.textContent.trim()).toBe('3.7');
+  });
+
+  it('handles valid array JSON in localStorage as before', function () {
+    storage['cara_reviews_valid'] = JSON.stringify([
+      {
+        id: 1,
+        rating: 4,
+        author: 'Dave',
+        title: 'Good',
+        body: 'This is a long review text.',
+      },
+    ]);
+
+    document.body.innerHTML =
+      '<div id="productReviews" data-product-id="valid"></div>';
+
+    var fs = require('node:fs');
+    var vm = require('node:vm');
+    var src = fs.readFileSync(require.resolve('../../js/reviews.js'), 'utf8');
+    var sandbox = {
+      window: window,
+      document: document,
+      localStorage: localStorage,
+      console: console,
+      ProductReviewAggregator: undefined,
+      CustomEvent: window.CustomEvent,
+      Intl: Intl,
+      Date: Date,
+      setTimeout: setTimeout,
+    };
+    vm.createContext(sandbox);
+    vm.runInContext(src, sandbox, { filename: 'reviews.js' });
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    var aggregateNumber = document.querySelector('.aggregate-number');
+    expect(aggregateNumber).toBeTruthy();
+    expect(aggregateNumber.textContent.trim()).toBe('4');
+  });
+
+  it('handles invalid JSON (e.g. empty string) gracefully without throwing, falling back to empty array', function () {
+    storage['cara_reviews_invalid'] = '';
+
+    document.body.innerHTML =
+      '<div id="productReviews" data-product-id="invalid"></div>';
+
+    var fs = require('node:fs');
+    var vm = require('node:vm');
+    var src = fs.readFileSync(require.resolve('../../js/reviews.js'), 'utf8');
+    var sandbox = {
+      window: window,
+      document: document,
+      localStorage: localStorage,
+      console: console,
+      ProductReviewAggregator: undefined,
+      CustomEvent: window.CustomEvent,
+      Intl: Intl,
+      Date: Date,
+      setTimeout: setTimeout,
+    };
+    vm.createContext(sandbox);
+
+    expect(function () {
+      vm.runInContext(src, sandbox, { filename: 'reviews.js' });
+      document.dispatchEvent(new Event('DOMContentLoaded'));
+    }).not.toThrow();
+
+    var aggregateNumber = document.querySelector('.aggregate-number');
+    expect(aggregateNumber).toBeTruthy();
+    expect(aggregateNumber.textContent.trim()).toBe('—');
+  });
+
+  it('handles valid JSON but non-array (e.g. an object or number) gracefully without throwing, falling back to empty array', function () {
+    storage['cara_reviews_nonarray'] = JSON.stringify({
+      rating: 5,
+      author: 'Non-Array',
+    });
+
+    document.body.innerHTML =
+      '<div id="productReviews" data-product-id="nonarray"></div>';
+
+    var fs = require('node:fs');
+    var vm = require('node:vm');
+    var src = fs.readFileSync(require.resolve('../../js/reviews.js'), 'utf8');
+    var sandbox = {
+      window: window,
+      document: document,
+      localStorage: localStorage,
+      console: console,
+      ProductReviewAggregator: undefined,
+      CustomEvent: window.CustomEvent,
+      Intl: Intl,
+      Date: Date,
+      setTimeout: setTimeout,
+    };
+    vm.createContext(sandbox);
+
+    expect(function () {
+      vm.runInContext(src, sandbox, { filename: 'reviews.js' });
+      document.dispatchEvent(new Event('DOMContentLoaded'));
+    }).not.toThrow();
+
+    var aggregateNumber = document.querySelector('.aggregate-number');
+    expect(aggregateNumber).toBeTruthy();
+    expect(aggregateNumber.textContent.trim()).toBe('—');
   });
 });

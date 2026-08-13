@@ -33,6 +33,7 @@ const sharedAppGlobals = {
   CaraToast: 'readonly',
   CaraErrorBoundary: 'readonly',
   Pose: 'readonly',
+  ProductReviewAggregator: 'readonly',
 };
 
 export default [

@@ -20,21 +20,27 @@
 
   const STORAGE_PREFIX = 'cara_reviews_';
   const MAX_REVIEWS_STORED = 50;
-  const reviewEngine = typeof ProductReviewAggregator !== 'undefined' ? new ProductReviewAggregator() : null;
+  const reviewEngine =
+    typeof ProductReviewAggregator !== 'undefined'
+      ? new ProductReviewAggregator()
+      : null;
 
   // ── Utility helpers ────────────────────────────────────────────────────────
 
   function _readReviews(productId) {
     try {
-      return JSON.parse(
+      const parsed = JSON.parse(
         localStorage.getItem(STORAGE_PREFIX + productId) || '[]',
       );
+      if (Array.isArray(parsed)) {
+        return parsed;
+      }
     } catch (err) {
       console.warn('Reviews data parsing failed:', err);
     }
-      return [];
-    }
-  
+    return [];
+  }
+
   function _saveReviews(productId, reviews) {
     // Cap stored reviews to prevent unbounded localStorage growth
     const trimmed = reviews.slice(0, MAX_REVIEWS_STORED);
@@ -62,9 +68,9 @@
     } catch (err) {
       console.warn('Reviews data parsing failed:', err);
     }
-      return iso;
-    }
-  
+    return iso;
+  }
+
   // ── Calculate aggregate stats ─────────────────────────────────────────────
 
   function _calcStats(reviews) {
@@ -73,7 +79,8 @@
     let counted = 0;
     const sum = reviews.reduce((acc, r) => {
       // Normalize numeric-string ratings (e.g. "5") before aggregation.
-      const rating = typeof r.rating === 'string' ? parseInt(r.rating, 10) : r.rating;
+      const rating =
+        typeof r.rating === 'string' ? parseInt(r.rating, 10) : r.rating;
       if (typeof rating === 'number' && rating >= 1 && rating <= 5) {
         dist[rating - 1]++;
         counted++;
@@ -287,7 +294,7 @@
         if (!authorEl || !bodyEl) return;
 
         const author = authorEl.value.trim();
-        const rating = parseInt((ratingEl || {value: '0'}).value, 10);
+        const rating = parseInt((ratingEl || { value: '0' }).value, 10);
         const title = (titleEl ? titleEl.value : '').trim();
         const body = bodyEl.value.trim();
 
@@ -312,7 +319,8 @@
         }
 
         if (!body || body.length < 10) {
-          if (bodyErr) bodyErr.textContent = 'Review must be at least 10 characters.';
+          if (bodyErr)
+            bodyErr.textContent = 'Review must be at least 10 characters.';
           valid = false;
         } else {
           if (bodyErr) bodyErr.textContent = '';
@@ -362,11 +370,11 @@
             localStorage.getItem('selectedProduct') || '{}',
           ).name;
         } catch (err) {
-      console.warn('Reviews data parsing failed:', err);
-    }
-          productId = 'unknown';
+          console.warn('Reviews data parsing failed:', err);
         }
+        productId = 'unknown';
       }
+    }
     productId = productId || 'unknown';
     _render(container, productId);
   }
