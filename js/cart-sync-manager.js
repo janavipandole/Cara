@@ -41,9 +41,19 @@
       this.tabId = 'tab_' + Math.random().toString(36).substring(2, 9);
       this.vectorClock = 0;
       this.onCartSyncCallback = null;
+      this.mutexPromise = Promise.resolve();
 
       this.initBroadcastChannel();
       this.initLocalStorageFallback();
+    }
+
+    runWithMutex(action) {
+      const next = this.mutexPromise.then(() => action()).catch((err) => {
+        console.warn('Cart mutex operation error:', err);
+        throw err;
+      });
+      this.mutexPromise = next.catch(() => {});
+      return next;
     }
 
     initBroadcastChannel() {
@@ -171,42 +181,48 @@
     }
 
     addItem(item) {
-      const cart = this.getCart();
-      const hasId = item.id != null;
-      const existingIndex = hasId ? cart.findIndex((i) => i.id === item.id) : -1;
+      return this.runWithMutex(() => {
+        const cart = this.getCart();
+        const hasId = item.id != null;
+        const existingIndex = hasId ? cart.findIndex((i) => i.id === item.id) : -1;
 
-      if (existingIndex > -1) {
-        cart[existingIndex].quantity = (cart[existingIndex].quantity || 1) + (item.quantity || 1);
-      } else {
-        cart.push({ ...item, quantity: item.quantity || 1 });
-      }
+        if (existingIndex > -1) {
+          cart[existingIndex].quantity = (cart[existingIndex].quantity || 1) + (item.quantity || 1);
+        } else {
+          cart.push({ ...item, quantity: item.quantity || 1 });
+        }
 
-      this.saveCart(cart);
-      this.broadcastMutation('ITEM_ADDED', { item });
-      return cart;
+        this.saveCart(cart);
+        this.broadcastMutation('ITEM_ADDED', { item });
+        return cart;
+      });
     }
 
     removeItem(itemId) {
-      let cart = this.getCart();
-      cart = cart.filter((i) => i.id !== itemId);
-      this.saveCart(cart);
-      this.broadcastMutation('ITEM_REMOVED', { itemId });
-      return cart;
+      return this.runWithMutex(() => {
+        let cart = this.getCart();
+        cart = cart.filter((i) => i.id !== itemId);
+        this.saveCart(cart);
+        this.broadcastMutation('ITEM_REMOVED', { itemId });
+        return cart;
+      });
     }
 
     updateQuantity(itemId, quantity) {
-      let cart = this.getCart();
-      const existingIndex = cart.findIndex((i) => i.id === itemId);
-      if (existingIndex > -1) {
-        if (quantity <= 0) {
-          cart.splice(existingIndex, 1);
-        } else {
-          cart[existingIndex].quantity = Math.min(quantity, this.maxItemQuantity);
+      return this.runWithMutex(() => {
+        let cart = this.getCart();
+        const existingIndex = cart.findIndex((i) => i.id === itemId);
+        if (existingIndex > -1) {
+          if (quantity <= 0) {
+            cart.splice(existingIndex, 1);
+          } else {
+            cart[existingIndex].quantity = Math.min(quantity, this.maxItemQuantity);
+          }
+          this.saveCart(cart);
+          this.broadcastMutation('QUANTITY_CHANGED', { itemId, quantity });
         }
-        this.saveCart(cart);
-        this.broadcastMutation('QUANTITY_CHANGED', { itemId, quantity });
-      }
-      return cart;
+        return cart;
+      });
     }
 
     applyCoupon(couponCode) {
