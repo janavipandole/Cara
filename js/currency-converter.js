@@ -116,6 +116,11 @@ export function initCurrencySelector(selectElementId = 'currencySelect') {
   });
 }
 
+export function roundToTwoDecimals(amount) {
+  if (typeof amount !== 'number' || !isFinite(amount)) return 0;
+  return Math.round((amount * 100 + 0.5)) / 100;
+}
+
 if (typeof document !== 'undefined') {
   function initCurrencyConverter() {
     fetchExchangeRates();
