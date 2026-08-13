@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 
 // Mock console.error to prevent test output noise
 const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
@@ -57,6 +57,43 @@ describe('error-boundary.js unit tests', () => {
     expect(retryBtn).not.toBeNull();
     retryBtn.click();
     expect(callCount).toBe(2);
+  });
+
+  it('clicking retry replaces the fallback with successful render output', () => {
+    let callCount = 0;
+    const renderFn = vi.fn(() => {
+      callCount++;
+      if (callCount === 1) throw new Error('first fail');
+      return '<p class="ok">loaded</p>';
+    });
+
+    CaraErrorBoundary.wrap('#test-target', renderFn);
+    const retryBtn = container.querySelector('.cara-error-retry');
+    retryBtn.click();
+
+    expect(renderFn).toHaveBeenCalledTimes(2);
+    expect(container.querySelector('.ok').textContent).toBe('loaded');
+    expect(container.querySelector('.cara-error-fallback')).toBeNull();
+  });
+
+  it('clicking retry re-shows a retryable fallback when renderFn fails again', () => {
+    const renderFn = vi.fn(() => {
+      throw new Error('still failing');
+    });
+
+    CaraErrorBoundary.wrap('#test-target', renderFn);
+    const firstRetryBtn = container.querySelector('.cara-error-retry');
+
+    expect(() => firstRetryBtn.click()).not.toThrow();
+
+    const secondRetryBtn = container.querySelector('.cara-error-retry');
+    expect(renderFn).toHaveBeenCalledTimes(2);
+    expect(container.querySelector('.cara-error-fallback')).not.toBeNull();
+    expect(secondRetryBtn).not.toBeNull();
+    expect(secondRetryBtn).not.toBe(firstRetryBtn);
+
+    secondRetryBtn.click();
+    expect(renderFn).toHaveBeenCalledTimes(3);
   });
 
   it('wrap returns early when container is not found', () => {
