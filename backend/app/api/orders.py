@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from fastapi.responses import JSONResponse
+from sqlalchemy import func
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 from .. import models, schemas
@@ -188,7 +189,19 @@ def create_order(
                 detail=f"Product not found: id={item.product_id}",
             )
 
-        if db_product.stock < item.quantity:
+        now = datetime.now(timezone.utc)
+        active_holds = (
+            db.query(func.coalesce(func.sum(models.InventoryReservation.quantity), 0))
+            .filter(
+                models.InventoryReservation.product_id == db_product.id,
+                models.InventoryReservation.status == "HOLD",
+                models.InventoryReservation.expires_at > now,
+            )
+            .scalar()
+        )
+        available_stock = db_product.stock - active_holds
+
+        if available_stock < item.quantity:
             raise HTTPException(
                 status_code=400,
                 detail=f"Insufficient stock for product: {db_product.name}",
