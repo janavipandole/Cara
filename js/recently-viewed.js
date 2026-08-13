@@ -220,11 +220,21 @@
     root.document.addEventListener('DOMContentLoaded', initPage);
   }
 
+  function clearRecentlyViewed() {
+    try {
+      root.localStorage.removeItem(STORAGE_KEY);
+      root.localStorage.removeItem('cara_view_history');
+    } catch (e) {
+      // Ignore storage failures.
+    }
+  }
+
   root.RecentlyViewed = {
     STORAGE_KEY,
     MAX_ITEMS,
     getRecentlyViewed,
     addRecentlyViewed,
+    clearRecentlyViewed,
     renderRecentlyViewed,
   };
 })(typeof window !== 'undefined' ? window : globalThis);
