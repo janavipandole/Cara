@@ -4,14 +4,14 @@
 (function () {
   'use strict';
 
-  var SCROLL_THRESHOLD = 300;
-  var SCROLL_TARGET = 0;
-  var SCROLL_DURATION = 400;
+  const SCROLL_THRESHOLD = 300;
+  const SCROLL_TARGET = 0;
+  const SCROLL_DURATION = 400;
 
   function scrollToTop(duration) {
     if (typeof window === 'undefined') return;
-    var start = window.scrollY || 0;
-    var startTime = null;
+    const start = window.scrollY || 0;
+    let startTime = null;
 
     function easeOutQuart(t) {
       return 1 - Math.pow(1 - t, 4);
@@ -19,9 +19,9 @@
 
     function animationStep(currentTime) {
       if (!startTime) startTime = currentTime;
-      var elapsed = currentTime - startTime;
-      var progress = Math.min(elapsed / duration, 1);
-      var easedProgress = easeOutQuart(progress);
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const easedProgress = easeOutQuart(progress);
       window.scrollTo(0, start * (1 - easedProgress));
       if (progress < 1) {
         window.requestAnimationFrame(animationStep);
@@ -32,7 +32,7 @@
   }
 
   function initScrollTop() {
-    var scrollBtn = document.getElementById('scroll-top');
+    const scrollBtn = document.getElementById('scroll-top');
     if (!scrollBtn) return;
 
     // Show/hide based on scroll position
