@@ -471,6 +471,10 @@ function submitCheckoutForm() {
       window.appliedCoupon = null;
       checkoutIdempotencyKey = null;
 
+      if (typeof window.broadcastCartState === 'function') {
+        window.broadcastCartState([]);
+      }
+
       if (typeof window.updateCartCount === 'function') {
         window.updateCartCount();
       }
@@ -813,6 +817,15 @@ window.addEventListener('couponApplied', () => {
 });
 window.addEventListener('couponRemoved', () => {
   window.updateCheckoutSummary();
+});
+
+// Live multi-tab sync (#7558): refresh the checkout summary when another
+// tab adds/removes items so checkout never runs on stale cart totals.
+window.addEventListener('storage', (e) => {
+  if (e.key === 'productsInCart') {
+    renderCheckoutItems();
+    window.updateCheckoutSummary();
+  }
 });
 
 // ── Close popup when clicking outside the box / Escape ─────────────

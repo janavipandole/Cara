@@ -32,6 +32,7 @@ describe('applySharedCart', () => {
       loadCart: vi.fn(),
       updateCartCount: vi.fn(),
       closeShareModal: vi.fn(),
+      broadcastCartState: vi.fn(),
       JSON,
       Math,
       Array,

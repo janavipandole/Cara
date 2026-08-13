@@ -106,10 +106,90 @@ window.sanitizeReturnUrl = sanitizeReturnUrl;
 
 window.verifyOrderOwnership = verifyOrderOwnership;
 
-// Sync cart state across browser tabs
+// ============================================================
+// MULTI-TAB CART STATE SYNCHRONIZATION (BroadcastChannel API)
+// Prevents multi-tab data corruption (#7558): every cart mutation
+// broadcasts the serialized cart state to sibling tabs so they
+// silently re-render counters/totals and re-sync local memory.
+// ============================================================
+const CART_BROADCAST_CHANNEL_NAME = 'cara_cart_state_sync';
+const CART_BROADCAST_EVENT_TYPE = 'CART_UPDATED';
+const cartSourceTabId =
+  Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
+
+let cartBroadcastChannel = null;
+let lastHandledCartJson = null;
+
+function broadcastCartState(cart) {
+  const payload = Array.isArray(cart)
+    ? cart
+    : safeParseJSON('productsInCart', []);
+  if (!cartBroadcastChannel) return;
+  try {
+    cartBroadcastChannel.postMessage({
+      type: CART_BROADCAST_EVENT_TYPE,
+      payload,
+      sourceTabId: cartSourceTabId,
+      timestamp: Date.now(),
+    });
+  } catch (err) {
+    window.logError('Failed to broadcast cart state:', err);
+  }
+}
+
+function handleRemoteCartState(payload) {
+  if (!Array.isArray(payload)) return;
+  window.cachedCartState = payload;
+  lastHandledCartJson = JSON.stringify(payload);
+  if (typeof updateCartCount === 'function') updateCartCount();
+  if (typeof handleEmptyCartView === 'function') handleEmptyCartView();
+  if (
+    typeof window.loadCart === 'function' &&
+    document.getElementById('cart-items-container')
+  ) {
+    window.loadCart();
+  }
+}
+
+function initCartBroadcastChannel() {
+  if (typeof window === 'undefined' || typeof BroadcastChannel === 'undefined') {
+    return;
+  }
+  try {
+    cartBroadcastChannel = new BroadcastChannel(CART_BROADCAST_CHANNEL_NAME);
+    cartBroadcastChannel.onmessage = (event) => {
+      const data = event.data;
+      if (!data || data.type !== CART_BROADCAST_EVENT_TYPE) return;
+      if (data.sourceTabId === cartSourceTabId) return;
+      handleRemoteCartState(data.payload);
+    };
+  } catch (err) {
+    cartBroadcastChannel = null;
+    window.logError(
+      'BroadcastChannel unavailable; falling back to storage events:',
+      err,
+    );
+  }
+}
+
+window.broadcastCartState = broadcastCartState;
+window.handleRemoteCartState = handleRemoteCartState;
+window.initCartBroadcastChannel = initCartBroadcastChannel;
+initCartBroadcastChannel();
+
+// Sync cart state across browser tabs (fallback for browsers without
+// BroadcastChannel and for writers that do not load app.js, e.g. checkout).
 window.addEventListener('storage', (e) => {
-  if (e.key === 'productsInCart') {
-    window.cachedCartState = null;
+  if (e.key !== 'productsInCart') return;
+  window.cachedCartState = null;
+  if (e.newValue === lastHandledCartJson) return;
+  if (typeof updateCartCount === 'function') updateCartCount();
+  if (typeof handleEmptyCartView === 'function') handleEmptyCartView();
+  if (
+    typeof window.loadCart === 'function' &&
+    document.getElementById('cart-items-container')
+  ) {
+    window.loadCart();
   }
 });
 
@@ -818,6 +898,7 @@ function addToCart(productName, productPrice, productImage, quantity, size, prod
 
     localStorage.setItem('productsInCart', JSON.stringify(cart));
     window.cachedCartState = cart;
+    broadcastCartState(cart);
     showToast(`${item.name} (Size: ${item.size}) added to cart!`, 'success');
     updateCartCount();
   });
@@ -1147,6 +1228,7 @@ window.changeQuantity = function (index, change) {
   }
   cart[index].quantity = newQty;
   localStorage.setItem('productsInCart', JSON.stringify(cart));
+  broadcastCartState(cart);
   loadCart();
   updateCartCount();
 };
@@ -1177,6 +1259,7 @@ window.removeItem = function (index) {
   const removedName = cart[index] ? cart[index].name : 'Item';
   cart.splice(index, 1);
   localStorage.setItem('productsInCart', JSON.stringify(cart));
+  broadcastCartState(cart);
   loadCart();
   updateCartCount();
   showToast(`${removedName} removed from cart`, 'error');
@@ -2008,6 +2091,7 @@ window.applySharedCart = function (action) {
 
   localStorage.setItem('productsInCart', JSON.stringify(localCart));
   window.cachedCartState = localCart;
+  broadcastCartState(localCart);
   window.closeShareModal();
   if (typeof loadCart === 'function') loadCart();
   if (typeof updateCartCount === 'function') updateCartCount();
@@ -2027,6 +2111,7 @@ window.saveForLater = function (index) {
   if (index >= 0 && index < cart.length) {
     saved.push(cart.splice(index, 1)[0]);
     localStorage.setItem('productsInCart', JSON.stringify(cart));
+    broadcastCartState(cart);
     localStorage.setItem('savedItems', JSON.stringify(saved));
     if (typeof window.loadCart === 'function') window.loadCart();
     showToast('Item saved for later', 'success');
@@ -2040,6 +2125,7 @@ window.moveToCart = function (index) {
   if (index >= 0 && index < saved.length) {
     cart.push(saved.splice(index, 1)[0]);
     localStorage.setItem('productsInCart', JSON.stringify(cart));
+    broadcastCartState(cart);
     localStorage.setItem('savedItems', JSON.stringify(saved));
     if (typeof window.loadCart === 'function') window.loadCart();
     showToast('Item moved to cart', 'success');
