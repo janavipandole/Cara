@@ -16,6 +16,9 @@ export class RecommendationEngine {
             // Corrupt or legacy storage falls back to defaults.
             history = [];
         }
+        history = history.filter(function(item) {
+          return item && typeof item.id !== 'undefined' && item.name;
+        });
         if (history.length === 0) return this.getDefaultRecommendations();
         return history.slice(0, 4);
     }
