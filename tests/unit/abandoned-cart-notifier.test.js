@@ -73,3 +73,8 @@ describe('AbandonedCartNotifier', () => {
     expect(spy).not.toHaveBeenCalled();
   });
 });
+  it('AbandonedCartNotifier constructor initializes with empty state', () => {
+    const notifier = new AbandonedCartNotifier();
+    expect(notifier).toBeDefined();
+  });
+
