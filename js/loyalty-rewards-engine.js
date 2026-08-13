@@ -47,6 +47,7 @@ class LoyaltyRewardsEngine {
   }
 
   addEarnedPoints(purchaseAmount) {
+    if (typeof purchaseAmount !== 'number' || !isFinite(purchaseAmount)) return 0;
     if (purchaseAmount <= 0) return 0;
     const currentTier = this.getTier();
     const basePoints = Math.floor(purchaseAmount);
