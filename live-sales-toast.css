@@ -1,0 +1,121 @@
+#live-sales-container {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 9998;
+  pointer-events: none;
+}
+
+
+.live-sales-toast {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 340px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #333333;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+  pointer-events: auto;
+  opacity: 0;
+  transform: translateX(-110%);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.live-sales-toast.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.live-sales-toast.hide {
+  opacity: 0;
+  transform: translateX(-110%);
+}
+
+
+.live-sales-close {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #999999;
+  line-height: 1;
+}
+
+.live-sales-close:hover {
+  color: #333333;
+}
+
+
+.live-sales-img-wrapper {
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.live-sales-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+.live-sales-title {
+  margin: 0 0 2px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #088178;
+}
+
+.live-sales-message {
+  margin: 0;
+  font-size: 13px;
+  color: #333333;
+}
+
+.live-sales-message .buyer {
+  font-weight: 600;
+}
+
+.live-sales-message .product {
+  font-weight: 600;
+  color: #088178;
+}
+
+.live-sales-time {
+  font-size: 11px;
+  color: #999999;
+}
+
+
+@media (max-width: 540px) {
+  #live-sales-container {
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 16px;
+  }
+
+  .live-sales-toast {
+    max-width: 90vw;
+    transform: translateY(110%);
+  }
+
+  .live-sales-toast.show {
+    transform: translateY(0);
+  }
+
+  .live-sales-toast.hide {
+    transform: translateY(110%);
+  }
+}
