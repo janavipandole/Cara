@@ -161,7 +161,11 @@
     }
 
     if (section) section.hidden = false;
-    list.forEach((item) => container.appendChild(buildCard(item, doc)));
+    // Build cards in a DocumentFragment so the container is mutated
+    // once instead of reflowing for every appended card.
+    const fragment = doc.createDocumentFragment();
+    list.forEach((item) => fragment.appendChild(buildCard(item, doc)));
+    container.appendChild(fragment);
     return list;
   }
 
