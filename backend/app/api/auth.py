@@ -299,7 +299,9 @@ def refresh_access_token(request: Request, response: Response, db: Session = Dep
         if not email:
             raise HTTPException(401, "Invalid token.")
         assert_refresh_jti(email, payload.get("jti"))
-    except JWTError:
+    except (JWTError, HTTPException) as err:
+        if isinstance(err, HTTPException):
+            raise err
         raise HTTPException(401, "Invalid or expired refresh token.")
 
     user = db.query(models.User).filter(models.User.email == email).first()
