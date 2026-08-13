@@ -110,4 +110,26 @@ describe('ProductReviewManager Unit Tests', () => {
     expect(manager.reviews['prod-order'][0].authorName).toBe('Bob');
     expect(manager.reviews['prod-order'][1].authorName).toBe('Alice');
   });
+
+  it('filters product reviews by star rating', () => {
+    manager.addReview('prod-filter', {
+      authorName: 'Alice',
+      authorEmail: 'alice@example.com',
+      rating: 5,
+      comment: 'Five star rating review comment text.',
+    });
+    manager.addReview('prod-filter', {
+      authorName: 'Bob',
+      authorEmail: 'bob@example.com',
+      rating: 3,
+      comment: 'Three star rating review comment text.',
+    });
+
+    const fiveStars = manager.getFilteredReviews('prod-filter', 5);
+    expect(fiveStars).toHaveLength(1);
+    expect(fiveStars[0].authorName).toBe('Alice');
+
+    const all = manager.getFilteredReviews('prod-filter', null);
+    expect(all).toHaveLength(2);
+  });
 });

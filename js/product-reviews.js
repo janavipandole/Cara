@@ -133,6 +133,18 @@ export class ProductReviewManager {
       .slice(0, 80);               // Cap at 80 chars
   }
 
+  /**
+   * Filters reviews for a given product by target star rating (1-5).
+   * @param {string} productId
+   * @param {number|null} targetRating
+   * @returns {Array}
+   */
+  getFilteredReviews(productId, targetRating = null) {
+    const allReviews = this.reviews[productId] || [];
+    if (!targetRating) return allReviews;
+    const ratingNum = Number(targetRating);
+    return allReviews.filter((rev) => Number(rev.rating) === ratingNum);
+  }
 }
 
 window.getProductReviewsStatusHelper101 = function() {
