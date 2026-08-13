@@ -23,7 +23,7 @@ class ConnectionManager:
         self.session_users[session_id].append(user_info)
 
         # Notify room of user join and state update
-        await this_broadcast = self.broadcast(session_id, {
+        await self.broadcast(session_id, {
             "type": "USER_JOINED",
             "user": user_info,
             "active_users": self.session_users[session_id]
