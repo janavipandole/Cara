@@ -110,6 +110,17 @@ class SmartSearchEngine {
       // ignore
     }
   }
+
+  getAutocompleteSuggestions(inputQuery, limit = 5) {
+    if (!inputQuery || !inputQuery.trim()) return [];
+    const matches = this.filter({ query: inputQuery });
+    return matches.slice(0, limit).map((p) => ({
+      id: p.id,
+      name: p.name || p.title,
+      category: p.category,
+      price: p.price,
+    }));
+  }
 }
 
 if (typeof module !== 'undefined' && module.exports) {
