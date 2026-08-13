@@ -1,0 +1,1 @@
+# Feature: Add a "Quick View" Modal for Product Cards\n\nThis is a placeholder for the implementation of Feature: Add a "Quick View" Modal for Product Cards.
