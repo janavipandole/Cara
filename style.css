@@ -598,6 +598,11 @@ button.white .ripple-effect {
     padding: 0 8px !important;
 }
 
+.pro-container .pro img {
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
 #navbar li a {
     font-size: 15px !important;
 }
