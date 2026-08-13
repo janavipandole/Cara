@@ -153,10 +153,12 @@
         quantity: Math.min(Math.max(1, item.quantity || 1), this.maxItemQuantity),
       }));
 
+      const now = Date.now();
       const payload = {
         items: resolvedItems,
         coupon: coupon !== undefined ? coupon : this.getAppliedCoupon(),
-        timestamp: Date.now(),
+        timestamp: now,
+        expiresAt: now + this.ttlMs,
         vectorClock: this.vectorClock,
         stateHash: calculateStateHash(resolvedItems, coupon),
       };
