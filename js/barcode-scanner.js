@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // This logic relies on `products` array being available in global scope (products.js)
     if (typeof products !== 'undefined' && Array.isArray(products)) {
       const matchedProduct = products.find(p => 
-        p.name.toLowerCase() === barcodeValue.toLowerCase() || 
+        p && p.name && p.name.toLowerCase() === barcodeValue.toLowerCase() || 
         String(p.id) === barcodeValue
       );
       
@@ -230,7 +230,10 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
     } catch (err) {
-      // Ignore detection errors during frame processing
+      // Surface repeated detection failures instead of silently retrying.
+      status.textContent = 'Unable to read barcode. Try again.';
+      scanning = false;
+      return;
     }
 
     if (scanning) {

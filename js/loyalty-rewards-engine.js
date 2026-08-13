@@ -47,6 +47,7 @@ class LoyaltyRewardsEngine {
   }
 
   addEarnedPoints(purchaseAmount) {
+    if (typeof purchaseAmount !== 'number' || !isFinite(purchaseAmount)) return 0;
     if (purchaseAmount <= 0) return 0;
     const currentTier = this.getTier();
     const basePoints = Math.floor(purchaseAmount);
@@ -95,13 +96,15 @@ class LoyaltyRewardsEngine {
   }
 }
 
+function getRewardsMultiplierForTier(tier = 'Bronze') {
+  const multipliers = { Bronze: 1.0, Silver: 1.25, Gold: 1.5, Platinum: 2.0 };
+  const key = tier.charAt(0).toUpperCase() + tier.slice(1).toLowerCase();
+  return multipliers[key] || 1.0;
+}
+
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = LoyaltyRewardsEngine;
   module.exports.getRewardsMultiplierForTier = getRewardsMultiplierForTier;
 } else {
   window.LoyaltyRewardsEngine = LoyaltyRewardsEngine;
 }
-
-
-
-function getRewardsMultiplierForTier(tier = 'bronze') { const multipliers = { bronze: 1.0, silver: 1.25, gold: 1.5, platinum: 2.0 }; return multipliers[tier.toLowerCase()] || 1.0; }

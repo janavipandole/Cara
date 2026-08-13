@@ -136,6 +136,13 @@
             <span>Sign In</span>
           </button>
 
+          <div style="margin-top: 15px; text-align: center;">
+            <button type="button" class="login-btn" id="passkeyLoginBtn" style="background-color: #2b3a4a; display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
+              <i class="ri-fingerprint-line" style="font-size: 1.2rem;"></i>
+              <span>Sign In with Passkey / Biometrics</span>
+            </button>
+          </div>
+
         </form>
 
         <div class="signup-link">
@@ -150,8 +157,10 @@
   <script>loadNavbar();</script>
   <script src="app.js"></script>
   <script src="js/fetch-timeout.js"></script>
+  <script src="js/passkey-auth.js"></script>
   <script src="login.js"></script>
   <script src="js/simple-captcha.js" defer></script>
+
 </main>
 </body>
 </html>
