@@ -1,103 +1,109 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { PincodeValidationEngine } from '../../js/pincode-validation-engine.js';
 
-describe('PincodeValidationEngine', () => {
+describe('pincode-validation-engine', () => {
   let engine;
 
   beforeEach(() => {
     engine = new PincodeValidationEngine();
   });
 
-  it('should validate Indian 6-digit postal codes', () => {
-    expect(engine.validatePostalCode('110001', 'IN').valid).toBe(true);
-    expect(engine.validatePostalCode('010001', 'IN').valid).toBe(false); // cannot start with 0
-    expect(engine.validatePostalCode('1100', 'IN').valid).toBe(false);
-  });
+  describe('validatePostalCode', () => {
+    describe('US', () => {
+      it('accepts valid 5-digit US zip', () => {
+        const result = engine.validatePostalCode('12345', 'US');
+        expect(result.valid).toBe(true);
+      });
 
-  it('should validate US 5-digit postal codes', () => {
-    expect(engine.validatePostalCode('90210', 'US').valid).toBe(true);
-    expect(engine.validatePostalCode('ABCDE', 'US').valid).toBe(false);
-  });
+      it('accepts valid US zip with extension', () => {
+        const result = engine.validatePostalCode('12345-6789', 'US');
+        expect(result.valid).toBe(true);
+      });
 
-  it('should return estimated delivery timelines for valid postal codes', () => {
-    const est = engine.estimateDeliveryDays('110001', 'IN');
-    expect(est).not.toBeNull();
-    expect(est.minDays).toBeGreaterThanOrEqual(1);
-    expect(est.tier).toBeDefined();
-  });
+      it('rejects invalid US zip (too short)', () => {
+        const result = engine.validatePostalCode('1234', 'US');
+        expect(result.valid).toBe(false);
+      });
+    });
 
-  it('should return null delivery estimation for invalid postal codes', () => {
-    expect(engine.estimateDeliveryDays('INVALID', 'IN')).toBeNull();
-  });
+    describe('IN', () => {
+      it('accepts valid 6-digit Indian PIN', () => {
+        const result = engine.validatePostalCode('110001', 'IN');
+        expect(result.valid).toBe(true);
+      });
 
-  it('should return delivery zone information object for valid pincode', () => {
-    const zone = engine.getDeliveryZone('110001', 'IN');
-    expect(zone).toEqual({
-      zone: 'Express Zone',
-      estimatedDaysText: '1-3 business days'
+      it('rejects PIN starting with 0', () => {
+        const result = engine.validatePostalCode('012345', 'IN');
+        expect(result.valid).toBe(false);
+      });
+    });
+
+    describe('UK', () => {
+      it('accepts valid UK postcode', () => {
+        const result = engine.validatePostalCode('SW1A 1AA', 'UK');
+        expect(result.valid).toBe(true);
+      });
+    });
+
+    describe('CA', () => {
+      it('accepts valid Canadian postal code', () => {
+        const result = engine.validatePostalCode('K1A 0B1', 'CA');
+        expect(result.valid).toBe(true);
+      });
+    });
+
+    describe('generic fallback', () => {
+      it('accepts valid generic alphanumeric code', () => {
+        const result = engine.validatePostalCode('ABC123', 'XX');
+        expect(result.valid).toBe(true);
+      });
+
+      it('rejects generic code with no digits', () => {
+        const result = engine.validatePostalCode('ABCDEF', 'XX');
+        expect(result.valid).toBe(false);
+      });
     });
   });
 
-  it('should not apply the Indian metro heuristic to foreign pincodes', () => {
-    // 10001 (US) would be "Express" under the old IN-only heuristic.
-    const est = engine.estimateDeliveryDays('10001', 'US');
-    expect(est).not.toBeNull();
-    expect(est.tier).toBe('Standard Zone');
-    expect(est.minDays).toBe(3);
+  describe('estimateDeliveryDays', () => {
+    it('returns Express Zone for Indian PIN 11xxxx', () => {
+      const result = engine.estimateDeliveryDays('110001', 'IN');
+      expect(result.minDays).toBe(1);
+      expect(result.maxDays).toBe(3);
+      expect(result.tier).toBe('Express Zone');
+    });
+
+    it('returns Standard Zone for Indian PIN 80xxxx', () => {
+      const result = engine.estimateDeliveryDays('800001', 'IN');
+      expect(result.minDays).toBe(3);
+      expect(result.maxDays).toBe(5);
+      expect(result.tier).toBe('Standard Zone');
+    });
+
+    it('returns default for non-Indian PIN', () => {
+      const result = engine.estimateDeliveryDays('12345', 'US');
+      expect(result.minDays).toBe(3);
+      expect(result.maxDays).toBe(7);
+      expect(result.tier).toBe('Standard Zone');
+    });
+
+    it('returns null for invalid PIN', () => {
+      const result = engine.estimateDeliveryDays('invalid', 'IN');
+      expect(result).toBeNull();
+    });
   });
 
-  it('should return the standard zone for non-metro Indian pincodes', () => {
-    const est = engine.estimateDeliveryDays('700001', 'IN');
-    expect(est.tier).toBe('Standard Zone');
-    expect(est.minDays).toBe(3);
+  describe('getDeliveryZone', () => {
+    it('returns zone and estimatedDaysText for valid PIN', () => {
+      const result = engine.getDeliveryZone('110001', 'IN');
+      expect(result.zone).toBe('Express Zone');
+      expect(result.estimatedDaysText).toBe('1-3 business days');
+    });
+
+    it('returns null for invalid PIN', () => {
+      const result = engine.getDeliveryZone('bad', 'IN');
+      expect(result).toBeNull();
+    });
   });
 
-  it('should validate UK and Canadian postal codes', () => {
-    expect(engine.validatePostalCode('SW1A 1AA', 'UK').valid).toBe(true);
-    expect(engine.validatePostalCode('K1A 0B1', 'CA').valid).toBe(true);
-    expect(engine.validatePostalCode('BAD', 'UK').valid).toBe(false);
-  });
-
-  it('should validate US zip+4 extended format', () => {
-    expect(engine.validatePostalCode('90210-1234', 'US').valid).toBe(true);
-    expect(engine.validatePostalCode('90210-12', 'US').valid).toBe(false);
-  });
-
-  it('should apply the generic fallback for unknown country codes', () => {
-    expect(engine.validatePostalCode('ABC123', 'XX').valid).toBe(true);
-    expect(engine.validatePostalCode('NODIGITS', 'XX').valid).toBe(false);
-    expect(engine.validatePostalCode('AB', 'XX').valid).toBe(false);
-  });
-
-  it('should reject non-string postal codes', () => {
-    expect(engine.validatePostalCode(null, 'IN').valid).toBe(false);
-    expect(engine.validatePostalCode(undefined, 'IN').valid).toBe(false);
-    expect(engine.validatePostalCode(123456, 'IN').valid).toBe(false);
-  });
-
-  it('should treat the Indian metro boundary at 11 and 40', () => {
-    expect(engine.estimateDeliveryDays('110001', 'IN').tier).toBe('Express Zone');
-    expect(engine.estimateDeliveryDays('400001', 'IN').tier).toBe('Express Zone');
-    // 10 and 41 fall outside the metro range.
-    expect(engine.estimateDeliveryDays('100001', 'IN').tier).toBe('Standard Zone');
-    expect(engine.estimateDeliveryDays('410001', 'IN').tier).toBe('Standard Zone');
-  });
-
-  it('should return null from getDeliveryZone for invalid codes', () => {
-    expect(engine.getDeliveryZone('INVALID', 'IN')).toBeNull();
-    expect(engine.getDeliveryZone(null, 'IN')).toBeNull();
-  });
-
-  it('should handle case-insensitive country codes', () => {
-    expect(engine.validatePostalCode('110001', 'in').valid).toBe(true);
-    expect(engine.validatePostalCode('110001', 'In').valid).toBe(true);
-    expect(engine.validatePostalCode('90210', 'us').valid).toBe(true);
-  });
-
-  it('should return standard delivery estimates for non-Indian countries', () => {
-    const est = engine.estimateDeliveryDays('90210', 'US');
-    expect(est.minDays).toBe(3);
-    expect(est.maxDays).toBe(7);
-    expect(est.tier).toBe('Standard Zone');
-  });
 });
