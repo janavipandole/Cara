@@ -16,6 +16,9 @@ export class RecommendationEngine {
             // Corrupt or legacy storage falls back to defaults.
             history = [];
         }
+        history = history.filter(function(item) {
+          return item && typeof item.id !== 'undefined' && item.name;
+        });
         if (history.length === 0) return this.getDefaultRecommendations();
         return history.slice(0, 4);
     }
@@ -29,3 +32,12 @@ export class RecommendationEngine {
     }
 }
 window.recommendationEngine = new RecommendationEngine();
+
+window.getRecommendationsStatusHelper102 = function() {
+  return {
+    status: 'active',
+    module: 'RecommendationEngine',
+    hasEngine: typeof window.recommendationEngine !== 'undefined',
+    helper: 'getRecommendationsStatusHelper102'
+  };
+};

@@ -10,7 +10,8 @@ export class SaveForLaterManager {
   getSavedItems() {
     try {
       return JSON.parse(localStorage.getItem(this.storageKey)) || [];
-    } catch {
+    } catch (err) {
+      console.warn('[SaveForLaterManager] Failed to parse saved items from localStorage:', err);
       return [];
     }
   }
@@ -37,4 +38,12 @@ export class SaveForLaterManager {
     }
     return null;
   }
+}
+
+export function getSaveForLaterManagerStatusHelper66() {
+  return {
+    status: 'active',
+    managerClass: 'SaveForLaterManager',
+    hasManager: typeof SaveForLaterManager !== 'undefined',
+  };
 }

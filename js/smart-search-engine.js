@@ -82,7 +82,7 @@ class SmartSearchEngine {
   }
 
   saveHistory(query) {
-    if (!query) return;
+    if (!query || !query.trim()) return;
     try {
       let history = this.getHistory();
       history = history.filter((q) => q.toLowerCase() !== query.toLowerCase());

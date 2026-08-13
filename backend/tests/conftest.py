@@ -70,13 +70,18 @@ def auth_headers(client, db_session):
     from app.models import User
     from passlib.context import CryptContext
     pwd = CryptContext(schemes=["bcrypt"], deprecated="auto")
-    user = User(
-        username="testuser",
-        email="test@example.com",
-        hashed_password=pwd.hash("Test@1234"),
-    )
-    db_session.add(user)
-    db_session.commit()
+
+    # Reuse an existing testuser so the fixture is idempotent across tests
+    # that share the session-scoped database.
+    user = db_session.query(User).filter(User.email == "test@example.com").first()
+    if user is None:
+        user = User(
+            username="testuser",
+            email="test@example.com",
+            hashed_password=pwd.hash("Test@1234"),
+        )
+        db_session.add(user)
+        db_session.commit()
 
     response = client.post(
         "/api/auth/login",
@@ -91,14 +96,19 @@ def admin_auth_headers(client, db_session):
     from app.models import User
     from passlib.context import CryptContext
     pwd = CryptContext(schemes=["bcrypt"], deprecated="auto")
-    user = User(
-        username="adminuser",
-        email="admin@example.com",
-        hashed_password=pwd.hash("Admin@1234"),
-        role="ADMIN",
-    )
-    db_session.add(user)
-    db_session.commit()
+
+    # Reuse an existing adminuser so the fixture is idempotent across tests
+    # that share the session-scoped database.
+    user = db_session.query(User).filter(User.email == "admin@example.com").first()
+    if user is None:
+        user = User(
+            username="adminuser",
+            email="admin@example.com",
+            hashed_password=pwd.hash("Admin@1234"),
+            role="ADMIN",
+        )
+        db_session.add(user)
+        db_session.commit()
 
     response = client.post(
         "/api/auth/login",

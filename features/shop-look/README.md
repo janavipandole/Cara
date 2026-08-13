@@ -1,0 +1,1 @@
+# Feature: Create a "Shop the Look" Interactive Image\n\nThis is a placeholder for the implementation of Feature: Create a "Shop the Look" Interactive Image.

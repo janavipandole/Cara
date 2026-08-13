@@ -31,7 +31,8 @@ export class UserActivityLogger {
   getLogs() {
     try {
       return JSON.parse(localStorage.getItem(this.storageKey)) || [];
-    } catch {
+    } catch (err) {
+      console.warn('[UserActivityLogger] Failed to parse activity logs from localStorage:', err);
       return [];
     }
   }

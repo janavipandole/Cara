@@ -1,0 +1,1 @@
+# Feature: Implement an "Animated Notification Badge" on Cart Icon\n\nThis is a placeholder for the implementation of Feature: Implement an "Animated Notification Badge" on Cart Icon.

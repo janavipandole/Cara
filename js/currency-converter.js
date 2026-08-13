@@ -31,7 +31,8 @@ export async function fetchExchangeRates(fetchImpl = globalThis.fetch) {
         const parsed = JSON.parse(cachedData);
         if (parsed && parsed.rates) {
           for (const code of Object.keys(DEFAULT_EXCHANGE_RATES)) {
-            if (parsed.rates[code] != null) EXCHANGE_RATES[code] = parsed.rates[code];
+            const rate = parsed.rates[code];
+            if (Number.isFinite(rate)) EXCHANGE_RATES[code] = rate;
           }
           if (
             typeof parsed.timestamp === 'number' &&
@@ -41,8 +42,8 @@ export async function fetchExchangeRates(fetchImpl = globalThis.fetch) {
           }
         }
       }
-    } catch {
-      // Ignore cache parse errors
+    } catch (err) {
+      // Silently ignore cache parsing errors.
     }
   }
 
@@ -53,7 +54,8 @@ export async function fetchExchangeRates(fetchImpl = globalThis.fetch) {
         const data = await response.json();
         if (data && data.rates) {
           for (const code of Object.keys(DEFAULT_EXCHANGE_RATES)) {
-            if (data.rates[code] != null) EXCHANGE_RATES[code] = data.rates[code];
+            const rate = data.rates[code];
+            if (Number.isFinite(rate)) EXCHANGE_RATES[code] = rate;
           }
           if (typeof localStorage !== 'undefined') {
             localStorage.setItem(
@@ -63,8 +65,8 @@ export async function fetchExchangeRates(fetchImpl = globalThis.fetch) {
           }
         }
       }
-    } catch {
-      // Fallback to default/cached rates on API failure or offline mode
+    } catch (err) {
+      // Silently ignore API request errors.
     }
   }
 
@@ -79,7 +81,8 @@ export function getActiveCurrency() {
 }
 
 export function setActiveCurrency(currencyCode) {
-  if (!EXCHANGE_RATES[currencyCode]) return false;
+  // Validate ISO 4217 currency code against known supported currencies
+  if (!DEFAULT_EXCHANGE_RATES.hasOwnProperty(currencyCode)) return false;
   if (typeof localStorage !== 'undefined') {
     localStorage.setItem('cara_selected_currency', currencyCode);
   }
@@ -113,9 +116,18 @@ export function initCurrencySelector(selectElementId = 'currencySelect') {
   });
 }
 
+export function roundToTwoDecimals(amount) {
+  if (typeof amount !== 'number' || !isFinite(amount)) return 0;
+  return Math.round((amount * 100 + 0.5)) / 100;
+}
+
 if (typeof document !== 'undefined') {
-  document.addEventListener('DOMContentLoaded', () => {
+  function initCurrencyConverter() {
     fetchExchangeRates();
     initCurrencySelector();
-  });
+  }
+  // Initialize when the DOM is ready. The immediate idempotent call covers
+  // deferred scripts that load after DOMContentLoaded has already fired.
+  document.addEventListener('DOMContentLoaded', initCurrencyConverter);
+  initCurrencyConverter();
 }

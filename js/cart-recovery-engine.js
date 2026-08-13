@@ -54,7 +54,8 @@ export class CartRecoveryEngine {
         return null;
       }
       return data;
-    } catch {
+    } catch (err) {
+      // Silently ignore parse errors for corrupted session data.
       return null;
     }
   }
@@ -92,7 +93,7 @@ export class CartRecoveryEngine {
     banner.innerHTML = `
       <div class="cart-recovery-content">
         <span class="cart-recovery-text">
-          🛒 You left <strong>${itemCount} item(s)</strong> in your shopping cart.
+          Cart: You left <strong>${itemCount} item(s)</strong> in your shopping cart.
         </span>
         <div class="cart-recovery-actions">
           <button id="btn-restore-cart" class="btn-restore">Restore Cart</button>

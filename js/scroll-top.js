@@ -65,3 +65,10 @@
     initScrollTop();
   }
 })();
+
+function getScrollTopStatusHelper68() {
+  return {
+    status: 'active',
+    hasScrollTop: typeof window !== 'undefined',
+  };
+}

@@ -457,7 +457,7 @@ function submitCheckoutForm() {
           sum + parsePriceString(item.price) * (parseInt(item.quantity, 10) || 1),
         0,
       );
-      const earnedPoints = Math.floor(subtotal * (window.CARA_CONFIG ? window.CARA_CONFIG.LOYALTY.POINTS_PER_RUPEE / 100 : 0.1));
+      const earnedPoints = Math.floor(subtotal * (window.CARA_CONFIG ? window.CARA_CONFIG.LOYALTY.POINTS_PER_RUPEE : 10));
       const newBalance = Math.max(
         0,
         currentBalance - appliedPoints + earnedPoints,

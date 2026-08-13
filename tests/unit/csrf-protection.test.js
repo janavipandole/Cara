@@ -46,7 +46,17 @@ describe('CSRF Protection Unit Tests', () => {
     expect(headers['X-CSRF-Token']).toBe(getOrCreateCSRFToken());
   });
 
-  it('should generate fallback CSRF token string', () => { expect(true).toBe(true); });
+  it('should generate fallback CSRF token string when crypto is unavailable', () => {
+    const originalCrypto = globalThis.crypto;
+    Object.defineProperty(globalThis, 'crypto', { value: undefined, writable: true, configurable: true });
+    try {
+      const fallbackToken = generateCSRFToken();
+      expect(typeof fallbackToken).toBe('string');
+      expect(fallbackToken.length).toBe(32);
+    } finally {
+      Object.defineProperty(globalThis, 'crypto', { value: originalCrypto, writable: true, configurable: true });
+    }
+  });
 
   it('should not throw when document is undefined (non-DOM environment)', () => {
     const originalDocument = globalThis.document;

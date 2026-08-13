@@ -1,0 +1,1 @@
+# Feature: Add a "Smart Search" with Typo Tolerance\n\nThis is a placeholder for the implementation of Feature: Add a "Smart Search" with Typo Tolerance.
