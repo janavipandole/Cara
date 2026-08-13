@@ -114,4 +114,17 @@ describe('AddressValidationService Unit Tests', () => {
     expect(result.isValid).toBe(false);
     expect(result.errors.street).toBeDefined();
   });
+
+  it('validatePostalCode trims whitespace before validation', () => {
+    const result = service.validatePostalCode(' 110001  ', 'IN');
+    expect(result.valid).toBe(true);
+    expect(result.postalCode).toBe('110001');
+  });
+
+  it('validatePostalCode handles non-string input safely', () => {
+    const result = service.validatePostalCode(null, 'IN');
+    expect(result.valid).toBe(false);
+  });
 });
+
+
