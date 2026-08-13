@@ -18,7 +18,20 @@ document.addEventListener('DOMContentLoaded', async () => {
   try {
     const apiBaseUrl = window.CARA_API_BASE_URL || '';
     const fetchFunc = typeof window.fetchWithTimeout === 'function' ? window.fetchWithTimeout : fetch;
-    const sessionId = (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : 'session_' + Math.random().toString(36).substring(2, 9);
+
+    // Generate cryptographically secure session ID
+    let sessionId;
+    if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+      sessionId = crypto.randomUUID();
+    } else if (typeof crypto !== 'undefined' && typeof crypto.getRandomValues === 'function') {
+      // Fallback using getRandomValues for environments without randomUUID
+      const bytes = new Uint8Array(16);
+      crypto.getRandomValues(bytes);
+      sessionId = 'session_' + Array.from(bytes, b => b.toString(16).padStart(2, '0')).join('');
+    } else {
+      // Last resort fallback (less secure)
+      sessionId = 'session_' + Math.random().toString(36).substring(2, 11);
+    }
 
     await fetchFunc(`${apiBaseUrl}/api/inventory/reserve`, {
       method: 'POST',
