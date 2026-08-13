@@ -1,0 +1,1 @@
+# Feature: Add a "Share This Product" Component\n\nThis is a placeholder for the implementation of Feature: Add a "Share This Product" Component.
