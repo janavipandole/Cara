@@ -109,6 +109,7 @@ describe('Store', () => {
     expect(JSON.parse(saved).value).toBe('updated');
   });
 
+
   it('allows multiple independent stores with different keys', () => {
     const storeA = new TestStore({ id: 'A' }, 'store_a_key');
     const storeB = new TestStore({ id: 'B' }, 'store_b_key');
@@ -142,3 +143,4 @@ describe('getStoreStatusHelper79', () => {
     expect(result.globalStoreReady).toBe(false);
   });
 });
+
