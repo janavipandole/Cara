@@ -95,6 +95,7 @@
 
     statusWrap.innerHTML = list
       .map((r) => {
+        if (!r || !r.status) return '';
         const pct = Math.round((r.count / maxVal) * 100);
         return `
         <div class="status-dist-bar-wrap" role="group" aria-label="${r.status}: ${r.count} orders">
