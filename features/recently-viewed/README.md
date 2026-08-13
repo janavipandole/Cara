@@ -1,0 +1,1 @@
+# Feature: Implement a "Recently Viewed Products" Carousel\n\nThis is a placeholder for the implementation of Feature: Implement a "Recently Viewed Products" Carousel.
