@@ -1,0 +1,1 @@
+# UI Fix: Implement "Sticky" Add to Cart for Desktop\n\nThis is a placeholder for the implementation of UI Fix: Implement "Sticky" Add to Cart for Desktop.
