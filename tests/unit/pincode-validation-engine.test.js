@@ -34,7 +34,7 @@ describe('PincodeValidationEngine', () => {
     const zone = engine.getDeliveryZone('110001', 'IN');
     expect(zone).toEqual({
       zone: 'Express Zone',
-      estimatedDaysText: '1-3 business days'
+      estimatedDaysText: '1-3 business days',
     });
   });
 
@@ -56,5 +56,26 @@ describe('PincodeValidationEngine', () => {
     expect(engine.validatePostalCode('SW1A 1AA', 'UK').valid).toBe(true);
     expect(engine.validatePostalCode('K1A 0B1', 'CA').valid).toBe(true);
     expect(engine.validatePostalCode('BAD', 'UK').valid).toBe(false);
+  });
+
+  it('should validate UK postal codes with an optional correctly placed space separator', () => {
+    const validPostcodes = [
+      'SW1A 1AA',
+      'SW1A1AA',
+      'M1 1AE',
+      'M11AE',
+      'CR2 6XH',
+      'DN55 1PT',
+    ];
+
+    validPostcodes.forEach((postcode) => {
+      expect(engine.validatePostalCode(postcode, 'UK').valid).toBe(true);
+    });
+
+    const invalidPostcodes = ['SW1 A1AA', 'SW1A  1AA', 'DN551 PT', '12345'];
+
+    invalidPostcodes.forEach((postcode) => {
+      expect(engine.validatePostalCode(postcode, 'UK').valid).toBe(false);
+    });
   });
 });
