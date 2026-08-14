@@ -42,7 +42,10 @@ window.CaraErrorBoundary = (function () {
 
     var attempt = function () {
       try {
-        renderFn();
+        var output = renderFn();
+        if (output !== undefined) {
+          container.innerHTML = output;
+        }
       } catch (error) {
         logError(error, selector);
         renderFallback(container, error.message);
