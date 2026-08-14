@@ -1,0 +1,1 @@
+# UI/UX: Add a "Sticky" Header with Scroll-Direction Detection\n\nThis is a placeholder for the implementation of UI/UX: Add a "Sticky" Header with Scroll-Direction Detection.
