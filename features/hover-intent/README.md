@@ -1,0 +1,1 @@
+# Enhancement: Add "Hover Intent" to Dropdown Menus\n\nThis is a placeholder for the implementation of Enhancement: Add "Hover Intent" to Dropdown Menus.
