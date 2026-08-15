@@ -20,6 +20,7 @@ class Store {
     
     const self = this;
     
+    this._persistTimer = null;
     this.state = new Proxy(state, {
       set(target, property, value) {
         target[property] = value;
@@ -48,7 +49,10 @@ class Store {
   }
 
   persist() {
-    localStorage.setItem(this.storageKey, JSON.stringify(this.state));
+    clearTimeout(this._persistTimer);
+    this._persistTimer = setTimeout(() => {
+      localStorage.setItem(this.storageKey, JSON.stringify(this.state));
+    }, 300);
   }
 
   // Debounce localStorage writes so rapid successive state changes coalesce into
