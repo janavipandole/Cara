@@ -33,7 +33,7 @@ def get_digital_receipt(request: Request, order_id: int, db: Session = Depends(g
         "status": order.status,
         "created_at": order.created_at.isoformat() if order.created_at else None,
         "signature": signature,
-        "verification_url": f"/api/orders/verify-receipt/{signature}",
+        "verification_url": f"/api/receipts/verify-receipt/{signature}",
         "items": [
             {
                 "product_name": item.product_name,
