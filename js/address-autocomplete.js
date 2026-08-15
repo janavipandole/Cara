@@ -28,6 +28,11 @@
     };
   }
 
+  // Expose debounce globally for reuse by other modules
+  if (typeof window !== 'undefined') {
+    window.addressAutocompleteDebounce = debounce;
+  }
+
   // ── Create suggestions dropdown markup ─────────────────────────────────────
   function showSuggestions(list) {
     if (!addressInput) return;
@@ -65,6 +70,7 @@
   }
 
   function selectItem(item) {
+    if (!item) return;
     if (addressInput) addressInput.value = item.street;
     if (cityInput) {
       cityInput.value = item.city;

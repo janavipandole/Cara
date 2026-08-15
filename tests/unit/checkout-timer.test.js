@@ -134,12 +134,28 @@ describe('Checkout Timer Unit Tests', () => {
   it('marks the timer as expired and dispatches the event at zero', async () => {
     vi.resetModules();
     vi.useFakeTimers();
+    globalThis.fetch = vi.fn().mockResolvedValue({ ok: true });
     document.body.innerHTML = `
       <div id="summary-total"></div>
       <div class="checkout-container"></div>
     `;
-    await import('../../js/checkout-timer.js');
-    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    // Capture the DOMContentLoaded handler so we can invoke it directly
+    const origAddEventListener = document.addEventListener.bind(document);
+    let domReadyHandler = null;
+    document.addEventListener = vi.fn((event, handler) => {
+      if (event === 'DOMContentLoaded') domReadyHandler = handler;
+      return origAddEventListener(event, handler);
+    });
+
+    const modulePromise = import('../../js/checkout-timer.js');
+    await modulePromise;
+    document.addEventListener = origAddEventListener;
+
+    // Invoke the captured handler directly to bypass microtask queue issues with fake timers
+    if (domReadyHandler) {
+      await domReadyHandler();
+    }
 
     const listener = vi.fn();
     window.addEventListener('checkout-timer-expired', listener);

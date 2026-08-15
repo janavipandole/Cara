@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from fastapi.responses import JSONResponse
+from sqlalchemy import func
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 from .. import models, schemas
@@ -162,22 +163,32 @@ def get_user_orders(
     return [serialize_order(order, db, include_items=False) for order in orders]
 
 
+def verify_order_ownership(order: models.Order, current_user: models.User) -> None:
+    """Enforces Broken Object Level Authorization (BOLA) verification.
+
+    Admin users have global permission; standard users are strictly checked
+    against the order email.
+    """
+    if current_user.role == "ADMIN":
+        return
+    if order.email.lower() != current_user.email.lower():
+        raise HTTPException(
+            status_code=403,
+            detail="Access forbidden: You do not have permission to access or modify this order.",
+        )
+
+
 @router.get("/{order_id}")
 def get_order_detail(
     order_id: int,
     db: Session = Depends(get_db),
     current_user: models.User = Depends(get_current_user),
 ):
-    order = (
-        db.query(models.Order)
-        .filter(
-            models.Order.id == order_id,
-            models.Order.email == current_user.email,
-        )
-        .first()
-    )
+    order = db.query(models.Order).filter(models.Order.id == order_id).first()
     if not order:
         raise HTTPException(status_code=404, detail="Order not found")
+
+    verify_order_ownership(order, current_user)
 
     return serialize_order(order, db, include_items=True)
 
@@ -232,7 +243,19 @@ def create_order(
                 detail=f"Product not found: id={item.product_id}",
             )
 
-        if db_product.stock < item.quantity:
+        now = datetime.now(timezone.utc)
+        active_holds = (
+            db.query(func.coalesce(func.sum(models.InventoryReservation.quantity), 0))
+            .filter(
+                models.InventoryReservation.product_id == db_product.id,
+                models.InventoryReservation.status == "HOLD",
+                models.InventoryReservation.expires_at > now,
+            )
+            .scalar()
+        )
+        available_stock = db_product.stock - active_holds
+
+        if available_stock < item.quantity:
             raise HTTPException(
                 status_code=400,
                 detail=f"Insufficient stock for product: {db_product.name}",
@@ -331,15 +354,14 @@ def cancel_order(
 ):
     order = (
         db.query(models.Order)
-        .filter(
-            models.Order.id == order_id,
-            models.Order.email == current_user.email,
-        )
+        .filter(models.Order.id == order_id)
         .with_for_update()
         .first()
     )
     if not order:
         raise HTTPException(status_code=404, detail="Order not found")
+
+    verify_order_ownership(order, current_user)
 
     if order.status == "CANCELLED":
         raise HTTPException(status_code=400, detail="Order is already cancelled")

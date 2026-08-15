@@ -1,0 +1,1 @@
+# Enhancement: Implement "CSS Content-Visibility" for Performance\n\nThis is a placeholder for the implementation of Enhancement: Implement "CSS Content-Visibility" for Performance.

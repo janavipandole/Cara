@@ -3,6 +3,8 @@
  * Serializes wishlist item IDs into a base64 encoded share link and decodes on receive.
  */
 export class WishlistShareExporter {
+  static VERSION = '1.0.0';
+
   static exportToShareableLink(items = [], baseUrl = 'https://cara.store/wishlist.html') {
     if (!Array.isArray(items) || items.length === 0) return baseUrl;
     const ids = items.map(item => typeof item === 'object' ? item.id : item).filter(Boolean);
