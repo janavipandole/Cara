@@ -1,4 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
+import '../../navbar.js';
 
 describe('Navbar Mobile Navigation Resize Handler', () => {
   beforeEach(() => {
