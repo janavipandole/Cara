@@ -61,7 +61,7 @@ describe('applySharedCart', () => {
     const appJsPath = path.resolve(__dirname, '../../app.js');
     const appJs = readFileSync(appJsPath, 'utf8');
     const match = appJs.match(
-      /window\.applySharedCart = function \(action\) \{[\s\S]*?\n\};/,
+      /window\.applySharedCart = function \(action\) \{[\s\S]*?\n\s*\};/,
     );
 
     expect(match).not.toBeNull();
@@ -103,8 +103,10 @@ describe('applySharedCart', () => {
     sandbox.window.applySharedCart('merge');
 
     expect(sandbox.closeShareModal).toHaveBeenCalledTimes(1);
-    const cart = JSON.parse(storage.getItem('productsInCart'));
-    expect(cart).toHaveLength(1);
-    expect(cart[0]).toMatchObject({ name: 'Existing Item' });
+    expect(storage.getItem('productsInCart')).toBeNull();
+    expect(sandbox.window.cachedCartState).toHaveLength(1);
+    expect(sandbox.window.cachedCartState[0]).toMatchObject({
+      name: 'Existing Item',
+    });
   });
 });
