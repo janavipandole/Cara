@@ -5,7 +5,7 @@ import hashlib
 import os
 from .. import models, schemas
 from ..database import get_db
-from ..vector_search.faiss_index import get_similar_product_ids
+from ..vector_search.faiss_index import get_similar_product_ids, is_initialized
 from ..rules.engine import filter_by_rules
 from ..limiter import limiter
 
@@ -37,7 +37,21 @@ def recommend_outfit(request: Request, req: schemas.RecommendationRequest, db: S
     
     # Apply strict business rules
     filtered_candidates = filter_by_rules(base_product, ordered_candidates)
-    
+
+    if not filtered_candidates:
+        # The FAISS index may be uninitialized (fresh deployment) or the query
+        # product may have no embedding. Fall back to a deterministic,
+        # catalog-based list (top-rated, in-stock) so the endpoint never
+        # returns a bare empty list with no signal.
+        filtered_candidates = (
+            db.query(models.Product)
+            .filter(models.Product.id != base_product.id)
+            .filter(models.Product.stock > 0)
+            .order_by(models.Product.rating.desc(), models.Product.id)
+            .limit(fetch_top_k)
+            .all()
+        )
+
     # Apply personalization re-ranking based on user historical interactions
     hashed_user_id = None
     if req.user_id:
@@ -48,6 +62,19 @@ def recommend_outfit(request: Request, req: schemas.RecommendationRequest, db: S
     
     # Return up to the requested limit
     return reranked_candidates[:limit]
+
+
+@router.get("/recommend/status")
+def recommend_status():
+    """Report whether the vector index is initialized for recommendations.
+
+    Lets operators know when a fresh deployment has no FAISS artifacts yet and
+    the endpoint is serving catalog-based fallback recommendations.
+    """
+    return {
+        "index_initialized": is_initialized(),
+        "fallback_enabled": True,
+    }
 
 @router.post("/feedback")
 @limiter.limit("30/minute")

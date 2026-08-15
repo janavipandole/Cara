@@ -97,6 +97,20 @@ index = _load_index(faiss)
 embedding_ids, embeddings = _load_embeddings()
 
 
+def is_initialized() -> bool:
+    """Whether a usable FAISS index + persisted embeddings are available.
+
+    Returns False on fresh deployments where precompute_embeddings.py has not
+    run yet (the .bin/.npz artifacts are gitignored and generated offline).
+    """
+    return (
+        faiss is not None
+        and index is not None
+        and embedding_ids is not None
+        and len(embedding_ids) > 0
+    )
+
+
 def rebuild_index(db):
     """Rebuild the persisted FAISS index + embeddings from the current catalog.
 
