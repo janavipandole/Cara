@@ -31,7 +31,8 @@
         try {
           const a = document.createElement('a');
           return a.relList && a.relList.supports && a.relList.supports('ar');
-        } catch {
+        } catch (err) {
+          console.warn('[AR Viewer] relList AR support check failed:', err);
           return false;
         }
       })();
