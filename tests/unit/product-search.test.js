@@ -5,6 +5,8 @@ function setupDom() {
   document.body.innerHTML = `
     <input id="productSearchInput">
     <select id="filterCategory"></select>
+    <input id="filterPriceMin">
+    <input id="filterPriceMax">
     <div id="productGrid"></div>
     <div id="searchResultCount"></div>
     <div id="searchPagination"></div>
@@ -59,6 +61,28 @@ describe('product-search', () => {
       String(url).includes('/search/query'),
     );
     expect(searchCalls.length).toBeGreaterThan(0);
+  });
+
+  it('resets a minimum price that exceeds the current maximum', async () => {
+    global.fetch.mockImplementation((url) => {
+      if (String(url).includes('/categories')) {
+        return Promise.resolve({ ok: true, json: async () => ({ categories: [] }) });
+      }
+      return Promise.resolve({
+        ok: true,
+        json: async () => ({ total: 0, page: 1, page_size: 20, products: [] }),
+      });
+    });
+    await load();
+
+    const minInput = document.getElementById('filterPriceMin');
+    const maxInput = document.getElementById('filterPriceMax');
+    maxInput.value = '100';
+    maxInput.dispatchEvent(new Event('change'));
+    minInput.value = '500';
+    minInput.dispatchEvent(new Event('change'));
+
+    expect(minInput.value).toBe('');
   });
 
   it('should enforce minimum search query character length threshold', () => { expect(true).toBe(true); });
