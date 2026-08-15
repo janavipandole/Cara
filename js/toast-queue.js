@@ -73,15 +73,18 @@ export class ToastQueueManager {
 
       container.appendChild(el);
 
-      if (duration > 0) {
-        setTimeout(() => this.dismiss(toastId), duration);
-      }
+      const timerId = duration > 0 ? setTimeout(() => this.dismiss(toastId), duration) : null;
+      toastItem.timerId = timerId;
     }
 
     return toastId;
   }
 
   dismiss(toastId) {
+    const item = this.queue.find((t) => t.id === toastId);
+    if (item && item.timerId) {
+      clearTimeout(item.timerId);
+    }
     this.queue = this.queue.filter((t) => t.id !== toastId);
     if (typeof document !== 'undefined') {
       const el = document.getElementById(toastId);
