@@ -30,8 +30,8 @@ describe('CartSyncManager Unit Tests', () => {
     delete window.BroadcastChannel;
   });
 
-  it('should add items and persist cart to LocalStorage', () => {
-    cartManager.addItem({ id: 'item-1', name: 'T-Shirt', price: 29.99 });
+  it('should add items and persist cart to LocalStorage', async () => {
+    await cartManager.addItem({ id: 'item-1', name: 'T-Shirt', price: 29.99 });
     const cart = cartManager.getCart();
 
     expect(cart).toHaveLength(1);
@@ -39,9 +39,9 @@ describe('CartSyncManager Unit Tests', () => {
     expect(cart[0].quantity).toBe(1);
   });
 
-  it('should increment item quantity when adding duplicate item', () => {
-    cartManager.addItem({ id: 'item-1', quantity: 1 });
-    cartManager.addItem({ id: 'item-1', quantity: 2 });
+  it('should increment item quantity when adding duplicate item', async () => {
+    await cartManager.addItem({ id: 'item-1', quantity: 1 });
+    await cartManager.addItem({ id: 'item-1', quantity: 2 });
 
     const cart = cartManager.getCart();
     expect(cart).toHaveLength(1);
@@ -49,7 +49,7 @@ describe('CartSyncManager Unit Tests', () => {
   });
 
   it('should purge cart items after TTL expiration', async () => {
-    cartManager.addItem({ id: 'item-1', name: 'Expired Item' });
+    await cartManager.addItem({ id: 'item-1', name: 'Expired Item' });
     expect(cartManager.getCart()).toHaveLength(1);
 
     const now = Date.now();
@@ -59,9 +59,9 @@ describe('CartSyncManager Unit Tests', () => {
     expect(expiredCart).toHaveLength(0);
   });
 
-  it('keeps distinct id-less items as separate cart entries', () => {
-    cartManager.addItem({ name: 'No ID Product A', price: 100 });
-    cartManager.addItem({ name: 'No ID Product B', price: 200 });
+  it('keeps distinct id-less items as separate cart entries', async () => {
+    await cartManager.addItem({ name: 'No ID Product A', price: 100 });
+    await cartManager.addItem({ name: 'No ID Product B', price: 200 });
 
     const cart = cartManager.getCart();
     expect(cart).toHaveLength(2);
@@ -69,8 +69,8 @@ describe('CartSyncManager Unit Tests', () => {
     expect(cart[1].name).toBe('No ID Product B');
   });
 
-  it('syncs the cart when a storage event fires for the same key', () => {
-    cartManager.addItem({ id: 'item-1', name: 'Local Item' });
+  it('syncs the cart when a storage event fires for the same key', async () => {
+    await cartManager.addItem({ id: 'item-1', name: 'Local Item' });
 
     const externalCart = JSON.stringify({
       items: [{ id: 'item-2', name: 'Remote Item', quantity: 1 }],
@@ -93,8 +93,8 @@ describe('CartSyncManager Unit Tests', () => {
     expect(syncedCart[0].name).toBe('Remote Item');
   });
 
-  it('ignores storage events for unrelated keys', () => {
-    cartManager.addItem({ id: 'item-1', name: 'Local Item' });
+  it('ignores storage events for unrelated keys', async () => {
+    await cartManager.addItem({ id: 'item-1', name: 'Local Item' });
     const syncCallback = vi.fn();
     cartManager.onSync(syncCallback);
 
@@ -108,16 +108,16 @@ describe('CartSyncManager Unit Tests', () => {
     expect(syncCallback).not.toHaveBeenCalled();
   });
 
-  it('broadcasts state mutations via BroadcastChannel', () => {
-    cartManager.addItem({ id: 'item-100', quantity: 2 });
+  it('broadcasts state mutations via BroadcastChannel', async () => {
+    await cartManager.addItem({ id: 'item-100', quantity: 2 });
     expect(mockBroadcastChannel.postMessage).toHaveBeenCalled();
     expect(postedMessages).toHaveLength(1);
     expect(postedMessages[0].type).toBe('ITEM_ADDED');
     expect(postedMessages[0].senderTabId).toBe(cartManager.tabId);
   });
 
-  it('resolves conflicts by capping item quantity to maximum limit', () => {
-    cartManager.addItem({ id: 'item-large', quantity: 150 });
+  it('resolves conflicts by capping item quantity to maximum limit', async () => {
+    await cartManager.addItem({ id: 'item-large', quantity: 150 });
     const cart = cartManager.getCart();
     expect(cart[0].quantity).toBe(99);
   });
