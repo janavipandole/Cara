@@ -22,7 +22,7 @@ class WishlistNotesTagManager {
     try {
       localStorage.setItem(this.storageKey, JSON.stringify(this.data));
     } catch (e) {
-      console.warn('Failed to save wishlist notes:', e);
+      // Silently ignore localStorage failures
     }
   }
 
