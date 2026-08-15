@@ -1,0 +1,1 @@
+# Enhancement: Add "Skip to Content" Link for Accessibility\n\nThis is a placeholder for the implementation of Enhancement: Add "Skip to Content" Link for Accessibility.

@@ -122,6 +122,14 @@ describe('addRecentlyViewed', () => {
     expect(list[0].name).toBe('Another Tee');
     expect(list[1].name).toBe('Persisted Tee');
   });
+
+  it('clearRecentlyViewed removes history from localStorage', () => {
+    RecentlyViewed.addRecentlyViewed(product({ id: 9, name: 'To Clear' }));
+    expect(RecentlyViewed.getRecentlyViewed()).toHaveLength(1);
+
+    RecentlyViewed.clearRecentlyViewed();
+    expect(RecentlyViewed.getRecentlyViewed()).toHaveLength(0);
+  });
 });
 
 describe('renderRecentlyViewed', () => {

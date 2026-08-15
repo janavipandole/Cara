@@ -60,7 +60,7 @@ function renderTimeline() {
 // Expose for testing — set immediately so tests can access it
 // regardless of whether DOMContentLoaded has fired yet.
 window.progressSimulatedTimeline = function() {
-    stageIndex = (stageIndex + 1) % 4;
+    stageIndex = (stageIndex + 1) % stages.length;
     renderTimeline();
 };
 

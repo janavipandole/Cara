@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from sqlalchemy.orm import Session
 from sqlalchemy import func
 from pydantic import BaseModel, Field
@@ -22,6 +22,7 @@ class ReleaseInventoryRequest(BaseModel):
 @router.post("/reserve")
 @limiter.limit("30/minute")
 def reserve_inventory(
+    request: Request,
     payload: ReserveInventoryRequest,
     db: Session = Depends(get_db)
 ):

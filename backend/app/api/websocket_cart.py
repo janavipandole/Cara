@@ -22,11 +22,15 @@ class ConnectionManager:
         self.active_sessions[session_id].append(websocket)
         self.session_users[session_id].append(user_info)
 
-        # Notify room of user join and state update
-        await this_broadcast = self.broadcast(session_id, {
+        # Notify room of user join and state update.
+        # The coroutine's return value is unused, so await it directly rather
+        # than assigning it to a local variable (the previous
+        # `await this_broadcast = self.broadcast(...)` was invalid syntax that
+        # prevented the whole FastAPI app from importing — see issue #7780).
+        await self.broadcast(session_id, {
             "type": "USER_JOINED",
             "user": user_info,
-            "active_users": self.session_users[session_id]
+            "active_users": self.session_users[session_id],
         })
 
     def disconnect(self, session_id: str, websocket: WebSocket, user_info: dict):
