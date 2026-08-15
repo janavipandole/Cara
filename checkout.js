@@ -8,9 +8,8 @@ async function requestWakeLock() {
     try {
       checkoutWakeLock = await navigator.wakeLock.request('screen');
       checkoutWakeLock.addEventListener('release', () => {
-        console.log('Screen Wake Lock released');
+        // Wake lock released; processing may have completed or been cancelled.
       });
-      console.log('Screen Wake Lock acquired');
     } catch (err) {
       console.error(`Wake Lock error: ${err.name}, ${err.message}`);
     }
