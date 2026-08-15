@@ -1103,6 +1103,10 @@
     itemsContainer.innerHTML = '';
     let subtotal = 0;
 
+    // Batch rows into a DocumentFragment to avoid a synchronous
+    // reflow/repaint for every appended cart row.
+    const fragment = document.createDocumentFragment();
+
     cart.forEach((item, index) => {
       // Enforce true price from database instead of trusting local storage
       let authenticPrice = item.price;
@@ -1158,8 +1162,11 @@
                 </div>
             </div>
         `;
-      itemsContainer.appendChild(row);
+      fragment.appendChild(row);
     });
+
+    // Single batched insertion into the live DOM
+    itemsContainer.appendChild(fragment);
 
     // Summary elements
     const subtotalEl = document.getElementById('summary-subtotal');
@@ -1466,10 +1473,15 @@
 
         firstContainer.innerHTML = '';
         firstContainer.style.display = 'flex';
+
+        // Batch the reparenting through a DocumentFragment so the
+        // container is mutated only once per page switch.
+        const fragment = document.createDocumentFragment();
         productsToShow.forEach((product) => {
           product.style.display = 'block';
-          firstContainer.appendChild(product);
+          fragment.appendChild(product);
         });
+        firstContainer.appendChild(fragment);
 
         productSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         updatePaginationUI(pageNumber);
@@ -1677,9 +1689,13 @@
         if (!productsToAppend) {
           productsToAppend = originalProducts;
         }
+        // Reorder through a DocumentFragment so the container is
+        // mutated once instead of once per re-appended product.
+        const fragment = document.createDocumentFragment();
         productsToAppend.forEach((product) => {
-          proContainer.appendChild(product);
+          fragment.appendChild(product);
         });
+        proContainer.appendChild(fragment);
       });
     }
   });
@@ -2061,6 +2077,10 @@
       listContainer.innerHTML = '';
       let total = 0;
 
+      // Batch rows into a DocumentFragment to avoid a synchronous
+      // reflow/repaint for every appended shared-cart row.
+      const fragment = document.createDocumentFragment();
+
       window.pendingSharedCart.forEach(function (item) {
         const itemSubtotal = item.price * item.quantity;
         total += itemSubtotal;
@@ -2094,8 +2114,11 @@
         row.appendChild(img);
         row.appendChild(details);
         row.appendChild(priceEl);
-        listContainer.appendChild(row);
+        fragment.appendChild(row);
       });
+
+      // Single batched insertion into the live DOM
+      listContainer.appendChild(fragment);
 
       totalPriceEl.textContent = formatCurrency(total);
       modal.style.display = 'flex';
@@ -2246,6 +2269,10 @@
     savedSection.style.display = 'block';
     savedContainer.innerHTML = '';
 
+    // Batch rows into a DocumentFragment to avoid a synchronous
+    // reflow/repaint for every appended saved item.
+    const fragment = document.createDocumentFragment();
+
     saved.forEach((item, index) => {
       const itemPrice = parsePriceString(item.price);
       const formattedPrice = formatCurrency(itemPrice);
@@ -2279,8 +2306,11 @@
                 </div>
             </div>
         `;
-      savedContainer.appendChild(row);
+      fragment.appendChild(row);
     });
+
+    // Single batched insertion into the live DOM
+    savedContainer.appendChild(fragment);
   };
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -2430,11 +2460,13 @@
 
       const starsContainer = document.getElementById('qvModalStars');
       starsContainer.innerHTML = '';
+      const starsFragment = document.createDocumentFragment();
       for (let i = 0; i < (product.rating || 5); i++) {
         const star = document.createElement('i');
         star.className = 'ri-star-fill';
-        starsContainer.appendChild(star);
+        starsFragment.appendChild(star);
       }
+      starsContainer.appendChild(starsFragment);
 
       const addToCartBtn = document.getElementById('qvAddToCartBtn');
       const buyNowBtn = document.getElementById('qvBuyNowBtn');

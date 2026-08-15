@@ -586,6 +586,11 @@ async function renderProducts(containerId, list, query = '') {
     return;
   }
 
+  // Build cards inside a DocumentFragment to batch the DOM mutation:
+  // nodes are appended to the live container exactly once, avoiding
+  // synchronous layout thrashing (reflow/repaint) per appended card.
+  const fragment = document.createDocumentFragment();
+
   for (const p of list) {
     if (navigator.scheduling && navigator.scheduling.isInputPending && navigator.scheduling.isInputPending()) {
       await yieldToMain();
@@ -748,8 +753,11 @@ async function renderProducts(containerId, list, query = '') {
 
     des.appendChild(actionBar);
     card.appendChild(des);
-    container.appendChild(card);
+    fragment.appendChild(card);
   }
+
+  // Single batched insertion into the live DOM
+  container.appendChild(fragment);
 }
 
 function updateSearchSummary(filteredCount) {
