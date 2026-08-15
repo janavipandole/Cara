@@ -34,3 +34,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   showSkeletons();
 });
+
+window.getShimmerLoaderStatusHelper116 = function() {
+  return {
+    status: 'active',
+    module: 'ShimmerLoader',
+    hasProductsContainer: typeof document !== 'undefined' && !!document.querySelector('.pro-container'),
+    helper: 'getShimmerLoaderStatusHelper116'
+  };
+};

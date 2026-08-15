@@ -228,3 +228,10 @@
     renderRecentlyViewed,
   };
 })(typeof window !== 'undefined' ? window : globalThis);
+
+function getRecentlyViewedStatusHelper60() {
+  return {
+    status: 'active',
+    maxItems: typeof MAX_ITEMS !== 'undefined' ? MAX_ITEMS : 10,
+  };
+}

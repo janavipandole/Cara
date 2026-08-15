@@ -133,7 +133,13 @@ document.addEventListener('DOMContentLoaded', () => {
       messageBox.innerText = 'Account created successfully! Redirecting...';
 
       setTimeout(() => {
-        window.location.href = 'index.html';
+        const urlParams = new URLSearchParams(window.location.search);
+        const rawReturnUrl = urlParams.get('returnUrl') || 'index.html';
+        const safeReturnUrl =
+          typeof window.sanitizeReturnUrl === 'function'
+            ? window.sanitizeReturnUrl(rawReturnUrl)
+            : 'index.html';
+        window.location.href = safeReturnUrl;
       }, 1200);
     } catch (err) {
       setValidity('registerUsername', false, '');

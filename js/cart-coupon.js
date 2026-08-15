@@ -2,10 +2,53 @@
  * Cart Page Coupon Application Module
  * Handles coupon code input, trimming, and validation for the cart page.
  * cart.html references this script for the coupon input functionality.
+ * Also provides cart quantity persistence via localStorage.
  */
 
 (function () {
   'use strict';
+
+  // ── Cart Quantity Persistence ──────────────────────────────────────────────
+  const CART_KEY = 'productsInCart';
+
+  function saveCartQuantities() {
+    try {
+      const cartData = localStorage.getItem(CART_KEY);
+      if (cartData) {
+        localStorage.setItem(CART_KEY + '_backup', cartData);
+      }
+    } catch (err) {
+      // Silently ignore storage errors.
+    }
+  }
+
+  function restoreCartQuantities() {
+    try {
+      const backup = localStorage.getItem(CART_KEY + '_backup');
+      const current = localStorage.getItem(CART_KEY);
+      if (backup && backup !== current) {
+        // Restore from backup only if current cart is empty or missing
+        const currentCart = current ? JSON.parse(current) : null;
+        if (!currentCart || !Array.isArray(currentCart) || currentCart.length === 0) {
+          localStorage.setItem(CART_KEY, backup);
+        }
+      }
+    } catch (err) {
+      // Silently ignore storage errors.
+    }
+  }
+
+  // Persist cart quantities whenever the storage event fires (cross-tab sync)
+  if (typeof window !== 'undefined') {
+    window.addEventListener('storage', (e) => {
+      if (e.key === CART_KEY) saveCartQuantities();
+    });
+
+    // Restore on load if cart is empty
+    window.addEventListener('DOMContentLoaded', () => {
+      restoreCartQuantities();
+    });
+  }
 
   const couponInput = document.getElementById('coupon-code-input');
   const applyBtn = document.getElementById('apply-coupon-btn');

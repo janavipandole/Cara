@@ -537,7 +537,11 @@ function submitCheckoutForm() {
       localStorage.removeItem('cara_applied_loyalty_points');
 
       // CLEAR CART AFTER SUCCESSFUL ORDER
-      localStorage.removeItem('productsInCart');
+      if (typeof window.clearCart === 'function') {
+        window.clearCart();
+      } else {
+        localStorage.removeItem('productsInCart');
+      }
       localStorage.removeItem('appliedCoupon');
       window.appliedCoupon = null;
       checkoutIdempotencyKey = null;

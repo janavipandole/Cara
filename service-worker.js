@@ -168,6 +168,19 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(networkFirst(event.request));
 });
 
+// BackgroundSync handler for auto-flushing offline order queue upon network recovery
+self.addEventListener('sync', (event) => {
+  if (event.tag === 'sync-offline-orders') {
+    event.waitUntil(
+      self.clients.matchAll().then((clients) => {
+        clients.forEach((client) => {
+          client.postMessage({ type: 'FLUSH_OFFLINE_ORDERS' });
+        });
+      })
+    );
+  }
+});
+
 // Exported for unit tests (ignored in the service worker runtime).
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
@@ -178,3 +191,4 @@ if (typeof module !== 'undefined' && module.exports) {
     CACHE_NAME,
   };
 }
+

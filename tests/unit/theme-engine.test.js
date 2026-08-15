@@ -4,7 +4,8 @@ import {
   getSystemTheme,
   getStoredTheme,
   resolveEffectiveTheme,
-  applyTheme
+  applyTheme,
+  toggleTheme
 } from '../../js/theme-engine.js';
 
 describe('Centralized Theme Engine Unit Tests', () => {
@@ -83,5 +84,11 @@ describe('Centralized Theme Engine Unit Tests', () => {
     } finally {
       window.matchMedia = originalMatchMedia;
     }
+  });
+
+  it('should toggle theme between light and dark modes using toggleTheme', () => {
+    applyTheme(THEMES.LIGHT);
+    expect(toggleTheme()).toBe(THEMES.DARK);
+    expect(toggleTheme()).toBe(THEMES.LIGHT);
   });
 });

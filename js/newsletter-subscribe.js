@@ -7,7 +7,7 @@
 export function validateEmailDomain(email) {
   if (!email || typeof email !== 'string') return false;
   // Basic structural check: local@domain.tld with at least 2-char TLD
-  const domainRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+  const domainRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,20}$/;
   return domainRegex.test(email.trim());
 }
 
@@ -26,6 +26,15 @@ function bindNewsletterForms() {
       // Email validation: structural format and domain TLD check
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       const hasValidDomain = validateEmailDomain(email);
+
+      // Check for duplicate subscription
+      let subscribed = [];
+      try { subscribed = JSON.parse(localStorage.getItem('cara_subscribed_emails') || '[]'); } catch (e) { subscribed = []; }
+      if (subscribed.includes(email)) {
+        if (typeof showToast === 'function') showToast('This email is already subscribed!', 'info');
+        else alert('This email is already subscribed!');
+        return;
+      }
 
       if (!email || !emailRegex.test(email)) {
         if (typeof showToast === 'function') {
