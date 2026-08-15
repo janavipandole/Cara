@@ -35,7 +35,7 @@
 
   function generateLocalReceiptData(orderId, orderData = {}) {
     const timestamp = new Date().toISOString();
-    const signature = 'sig_' + Math.random().toString(36).substring(2) + '_' + Date.now().toString(36);
+    const signature = 'sig_' + (typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2) + '_' + Date.now().toString(36));
 
     return {
       order_id: orderId,
