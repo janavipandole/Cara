@@ -79,7 +79,7 @@
       <body>
         <div class="header">
           <div>
-            <h2>🛍️ Cara E-Commerce Store</h2>
+            <h2>Cara E-Commerce Store</h2>
             <p>Official Digital Receipt</p>
           </div>
           <div style="text-align: right;">
