@@ -4,7 +4,11 @@
     const btn = e.target.closest('[data-share-product]');
     if (!btn) return;
     const data = {
-      title: btn.getAttribute('data-share-title') || document.title,
+      title:
+        btn.getAttribute('data-share-title') ||
+        (document.getElementById('product-name') &&
+          document.getElementById('product-name').textContent.trim()) ||
+        document.title,
       text: btn.getAttribute('data-share-text') || '',
       url: btn.getAttribute('data-share-url') || location.href,
     };

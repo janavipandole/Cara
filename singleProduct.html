@@ -142,6 +142,9 @@
                 </div>
                 <button class="normal" onclick="handleAddToCart()">Add to Cart</button>
                 <button class="normal" style="background: var(--accent); color: white; margin-left: 10px;" onclick="window.location.href='try-on.html'">Try it On Virtually!</button>
+                <button type="button" class="normal share-product-btn" data-share-product data-share-text="Check out this product on Cara" aria-label="Share this product" title="Share this product">
+                    <i class="fa-solid fa-share-nodes" aria-hidden="true"></i> Share
+                </button>
             </div>
             <h4>Product Details</h4>
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officia tenetur, exercitationem velit maxime
@@ -352,6 +355,7 @@
     <script type="module" src="js/product-review-aggregator.js"></script>
     <script src="js/ar-product-viewer.js"></script>
     <script src="js/image-zoom.js"></script>
+    <script src="js/share-product.js"></script>
     <script src="js/dynamic-pricing.js"></script>
     <script>
       document.addEventListener('DOMContentLoaded', () => {
