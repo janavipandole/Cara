@@ -1,8 +1,10 @@
 // Reusable Toast Notification Queue Manager
 
+const HTML_ESCAPE_REGEX = /[&<>"']/g;
+
 function escapeHtml(value) {
   return String(value).replace(
-    /[&<>"']/g,
+    HTML_ESCAPE_REGEX,
     (char) =>
       ({
         '&': '&amp;',

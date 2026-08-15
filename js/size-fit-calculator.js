@@ -42,3 +42,11 @@ export class SizeFitCalculator {
     return order[newIdx];
   }
 }
+
+window.getSizeFitCalculatorStatusHelper115 = function() {
+  return {
+    status: 'active',
+    module: 'SizeFitCalculator',
+    helper: 'getSizeFitCalculatorStatusHelper115'
+  };
+};

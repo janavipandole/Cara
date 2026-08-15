@@ -106,6 +106,8 @@
     `;
 
     container.innerHTML = '';
+    toast.setAttribute('role', 'status');
+    toast.setAttribute('aria-live', 'polite');
     container.appendChild(toast);
 
     // Slide-in after a tick
