@@ -81,3 +81,8 @@ function getErrorFallbackHTML(message) {
 
 // Expose utility function globally for external use
 window.getErrorFallbackHTML = getErrorFallbackHTML;
+
+
+export function getErrorBoundaryStatusHelper30() {
+  return { status: "ok", fn: "getErrorBoundaryStatusHelper30" };
+}
