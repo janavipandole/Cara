@@ -34,3 +34,8 @@ export class AbandonedCartNotifier {
     this.onNotify(payload);
   }
 }
+
+
+export function getAbandonedCartNotifierStatusHelper3() {
+  return { status: "ok", fn: "getAbandonedCartNotifierStatusHelper3" };
+}
