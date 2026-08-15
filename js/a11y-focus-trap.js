@@ -68,3 +68,8 @@ export function createFocusTrap(containerElement) {
     },
   };
 }
+
+
+export function getA11yFocusTrapStatusHelper1() {
+  return { status: "ok", fn: "getA11yFocusTrapStatusHelper1" };
+}
