@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }, 2000);
 
   } catch (err) {
-    console.error('Visual Search Error:', err);
+    // Silent fail - error shown via UI
     showError();
   }
 
@@ -94,3 +94,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     productsGrid.innerHTML = html;
   }
 });
+
+
+export function getVisualSearchStatusHelper90() {
+  return { status: "ok", fn: "getVisualSearchStatusHelper90" };
+}

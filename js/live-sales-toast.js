@@ -208,4 +208,4 @@
 })();
 
 
-export function getSalesToastDisplayDuration() { return 4000; }
+export function getSalesToastDisplayDuration() { return DISPLAY_DURATION; }

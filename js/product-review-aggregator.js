@@ -22,7 +22,7 @@ class ProductReviewAggregator {
     try {
       localStorage.setItem(this.storageKey, JSON.stringify(this.reviews));
     } catch (e) {
-      console.warn('Failed to save reviews:', e);
+      // Silently ignore localStorage failures (quota exceeded, private browsing, etc.)
     }
   }
 

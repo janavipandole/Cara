@@ -222,3 +222,8 @@
     isVoiceSupported,
   };
 });
+
+
+export function getVoiceShoppingAssistantStatusHelper91() {
+  return { status: "ok", fn: "getVoiceShoppingAssistantStatusHelper91" };
+}

@@ -161,7 +161,11 @@
     }
 
     if (section) section.hidden = false;
-    list.forEach((item) => container.appendChild(buildCard(item, doc)));
+    // Build cards in a DocumentFragment so the container is mutated
+    // once instead of reflowing for every appended card.
+    const fragment = doc.createDocumentFragment();
+    list.forEach((item) => fragment.appendChild(buildCard(item, doc)));
+    container.appendChild(fragment);
     return list;
   }
 
@@ -220,11 +224,21 @@
     root.document.addEventListener('DOMContentLoaded', initPage);
   }
 
+  function clearRecentlyViewed() {
+    try {
+      root.localStorage.removeItem(STORAGE_KEY);
+      root.localStorage.removeItem('cara_view_history');
+    } catch (e) {
+      // Ignore storage failures.
+    }
+  }
+
   root.RecentlyViewed = {
     STORAGE_KEY,
     MAX_ITEMS,
     getRecentlyViewed,
     addRecentlyViewed,
+    clearRecentlyViewed,
     renderRecentlyViewed,
   };
 })(typeof window !== 'undefined' ? window : globalThis);

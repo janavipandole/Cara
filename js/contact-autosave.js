@@ -75,4 +75,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-export function safeSaveContactForm(data) { if (!data) return false; return true; }
+export function safeSaveContactForm(data) {
+  if (!data || typeof data !== 'object') return false;
+  if (!data.name && !data.email && !data.message) return false;
+  return true;
+}

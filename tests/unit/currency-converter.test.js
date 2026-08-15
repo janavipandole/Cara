@@ -8,6 +8,7 @@ import {
   formatCurrency,
   fetchExchangeRates,
   initCurrencySelector,
+  roundToTwoDecimals,
 } from '../../js/currency-converter.js';
 
 describe('Currency Converter Unit Tests', () => {
@@ -117,5 +118,10 @@ describe('Currency Converter Unit Tests', () => {
     expect(() => initCurrencySelector('currencySelect')).not.toThrow();
     const select = document.getElementById('currencySelect');
     expect(select.value).toBe(getActiveCurrency());
+  });
+
+  it('should round values using roundToTwoDecimals', () => {
+    expect(roundToTwoDecimals(12.3456)).toBe(12.35);
+    expect(roundToTwoDecimals('invalid')).toBe(0);
   });
 });

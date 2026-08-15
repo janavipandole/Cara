@@ -61,6 +61,10 @@ function renderOrders(orders) {
   const tbody = document.getElementById('ordersTableBody');
   tbody.innerHTML = '';
 
+  // Batch rows into a DocumentFragment to avoid a synchronous
+  // reflow/repaint for every appended order row.
+  const fragment = document.createDocumentFragment();
+
   orders.forEach((order) => {
     const row = document.createElement('tr');
     const createdAt = order.created_at
@@ -80,8 +84,11 @@ function renderOrders(orders) {
        <td>${cancelCell}</td>
     `;
 
-    tbody.appendChild(row);
+    fragment.appendChild(row);
   });
+
+  // Single batched insertion into the live DOM
+  tbody.appendChild(fragment);
 
   setStateVisibility({ orders: true });
 }

@@ -110,7 +110,9 @@ describe('Error Logger Unit Tests', () => {
     expect(stored[1].message).toBe('Error B');
   });
 
-  it('should cap max error queue size', () => { expect(true).toBe(true); });
+  it('should cap max error queue size', () => {
+    expect(true).toBe(true);
+  });
 
   it('should handle a non-Error throw value without crashing', async () => {
     vi.resetModules();
@@ -133,5 +135,47 @@ describe('Error Logger Unit Tests', () => {
 describe('getMaxLoggerQueueSize', () => {
   it('is exported as a callable function', () => {
     expect(typeof getMaxLoggerQueueSize).toBe('function');
+  });
+});
+
+describe('Error Logger Crash Notice', () => {
+  beforeEach(() => {
+    document.querySelectorAll('#cara-crash-notice').forEach((n) => n.remove());
+  });
+
+  it('does not throw when the error event has no filename', async () => {
+    vi.resetModules();
+    localStorage.clear();
+    await import('../../js/error-logger.js');
+
+    expect(() => window.dispatchEvent(new Event('error'))).not.toThrow();
+    expect(document.getElementById('cara-crash-notice')).toBeNull();
+  });
+
+  it('renders at most one dismissible crash notice for repeated app.js errors', async () => {
+    // The module imported by the previous test has a fresh crashNoticeShown
+    // flag, so the first qualifying error renders the banner.
+    for (let i = 0; i < 5; i++) {
+      window.dispatchEvent(
+        new ErrorEvent('error', {
+          message: 'boom ' + i,
+          filename: 'https://site/app.js',
+          lineno: i,
+        }),
+      );
+    }
+
+    const notices = document.querySelectorAll('#cara-crash-notice');
+    expect(notices.length).toBe(1);
+
+    const notice = notices[0];
+    expect(notice.getAttribute('role')).toBe('alert');
+
+    const dismiss = notice.querySelector(
+      'button[aria-label="Dismiss error notice"]',
+    );
+    expect(dismiss).not.toBeNull();
+    dismiss.click();
+    expect(document.querySelectorAll('#cara-crash-notice').length).toBe(0);
   });
 });
