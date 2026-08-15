@@ -99,6 +99,21 @@
     return trimmed;
   }
 
+  /**
+   * Resolves relative asset URLs dynamically against document.baseURI to fix subdirectory deployment breakage (#3710).
+   * @param {string} path
+   * @returns {string}
+   */
+  window.getAssetUrl = function (path) {
+    if (!path || typeof path !== 'string') return '';
+    if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('data:')) {
+      return path;
+    }
+    const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+    const base = document.baseURI || window.location.href;
+    return new URL(cleanPath, base).href;
+  };
+
   window.sanitizeReturnUrl = sanitizeReturnUrl;
 
   /**
