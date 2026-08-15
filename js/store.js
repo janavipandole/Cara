@@ -7,7 +7,8 @@ class Store {
   constructor(initialState = {}, storageKey = 'app_state') {
     this.storageKey = storageKey;
     this.listeners = [];
-    
+    this._persistTimer = null;
+
     let savedState = {};
     try {
       savedState = JSON.parse(localStorage.getItem(this.storageKey)) || {};
@@ -23,10 +24,16 @@ class Store {
       set(target, property, value) {
         target[property] = value;
         self.notifyListeners(property, value);
-        self.persist();
+        self.schedulePersist();
         return true;
       }
     });
+
+    // Flush any pending debounced write before the page unloads so the latest
+    // state is not lost.
+    if (typeof window !== 'undefined') {
+      window.addEventListener('pagehide', () => this.flushPersist());
+    }
   }
 
   subscribe(listener) {
@@ -42,6 +49,25 @@ class Store {
 
   persist() {
     localStorage.setItem(this.storageKey, JSON.stringify(this.state));
+  }
+
+  // Debounce localStorage writes so rapid successive state changes coalesce into
+  // a single setItem call instead of one per Proxy set trap (#7569).
+  schedulePersist(delay = 300) {
+    if (this._persistTimer !== null) clearTimeout(this._persistTimer);
+    this._persistTimer = setTimeout(() => {
+      this._persistTimer = null;
+      this.persist();
+    }, delay);
+  }
+
+  // Flush a pending debounced write immediately (used on pagehide).
+  flushPersist() {
+    if (this._persistTimer !== null) {
+      clearTimeout(this._persistTimer);
+      this._persistTimer = null;
+      this.persist();
+    }
   }
 }
 
