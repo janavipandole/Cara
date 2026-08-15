@@ -15,7 +15,9 @@ export function getStockInfo(size) {
 }
 
 export function startStockReservationTimer(durationSeconds, onTick, onExpire) {
-  if (durationSeconds <= 0) {
+  // Normalize non-finite input (NaN, Infinity) and non-positive durations:
+  // there is nothing to count down, so expire immediately.
+  if (!Number.isFinite(durationSeconds) || durationSeconds <= 0) {
     if (onExpire) onExpire();
     return null;
   }
