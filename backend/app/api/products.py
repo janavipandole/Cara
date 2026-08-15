@@ -186,3 +186,17 @@ def get_product(product_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Product not found")
     return product
 
+import random
+@router.get("/{product_id}/activity")
+def get_product_activity(product_id: int):
+    """
+    Simulated Redis analytics stream for Dynamic Social Proof (Issue 6209).
+    """
+    viewers = random.randint(5, 35)
+    buyers = random.randint(1, 10)
+    return {
+        "viewers": viewers,
+        "buyers_last_hour": buyers,
+        "message": f"🔥 {viewers} people are viewing this right now"
+    }
+
