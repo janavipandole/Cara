@@ -1,0 +1,1 @@
+# Feature: Add a "Sticky" Add to Cart Bar for Mobile\n\nThis is a placeholder for the implementation of Feature: Add a "Sticky" Add to Cart Bar for Mobile.
