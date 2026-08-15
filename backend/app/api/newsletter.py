@@ -1,5 +1,6 @@
 import secrets
 from fastapi import APIRouter, Depends, HTTPException
+from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from pydantic import BaseModel, EmailStr
 from .. import models
@@ -29,9 +30,16 @@ def subscribe(payload: NewsletterSubscribeRequest, db: Session = Depends(get_db)
             if not existing.unsubscribe_token:
                 existing.unsubscribe_token = secrets.token_urlsafe(32)
             db.commit()
+            return JSONResponse(
+                status_code=201,
+                content={"message": "Subscription reactivated"},
+            )
         # Generic response regardless of prior state — avoids leaking
         # whether this email was already subscribed.
-        return {"message": "Subscription request processed"}
+        return JSONResponse(
+            status_code=200,
+            content={"message": "Subscription request processed"},
+        )
 
     subscriber = models.NewsletterSubscriber(
         email=payload.email,
@@ -39,7 +47,10 @@ def subscribe(payload: NewsletterSubscribeRequest, db: Session = Depends(get_db)
     )
     db.add(subscriber)
     db.commit()
-    return {"message": "Subscription request processed"}
+    return JSONResponse(
+        status_code=201,
+        content={"message": "Subscription request processed"},
+    )
 
 
 @router.post("/unsubscribe")

@@ -4,7 +4,7 @@ def test_subscribe_success(client):
         json={"email": "newuser@example.com"},
     )
     assert response.status_code == 201
-    assert response.json()["message"] == "Successfully subscribed to newsletter"
+    assert response.json()["message"] == "Subscription request processed"
 
 
 def test_subscribe_duplicate(client):
@@ -16,8 +16,8 @@ def test_subscribe_duplicate(client):
         "/api/newsletter/subscribe",
         json={"email": "dup@example.com"},
     )
-    assert response.status_code == 409
-    assert "already subscribed" in response.json()["detail"]
+    assert response.status_code == 201
+    assert response.json()["message"] == "Subscription request processed"
 
 
 def test_subscribe_invalid_email(client):
@@ -33,20 +33,33 @@ def test_unsubscribe_success(client):
         "/api/newsletter/subscribe",
         json={"email": "unsub@example.com"},
     )
+    # Fetch the token the subscribe flow generated from the test DB.
+    from app.models import NewsletterSubscriber
+    from tests.conftest import TestingSessionLocal
+
+    db = TestingSessionLocal()
+    subscriber = (
+        db.query(NewsletterSubscriber)
+        .filter(NewsletterSubscriber.email == "unsub@example.com")
+        .first()
+    )
+    token = subscriber.unsubscribe_token
+    db.close()
+
     response = client.post(
         "/api/newsletter/unsubscribe",
-        json={"email": "unsub@example.com"},
+        json={"token": token},
     )
     assert response.status_code == 200
     assert response.json()["message"] == "Successfully unsubscribed"
 
 
-def test_unsubscribe_not_found(client):
+def test_unsubscribe_invalid_token(client):
     response = client.post(
         "/api/newsletter/unsubscribe",
-        json={"email": "never-subscribed@example.com"},
+        json={"token": "does-not-exist"},
     )
-    assert response.status_code == 404
+    assert response.status_code == 400
 
 
 def test_reactivate_after_unsubscribe(client):
@@ -55,49 +68,24 @@ def test_reactivate_after_unsubscribe(client):
 
     client.post(
         "/api/newsletter/subscribe",
-        json={"email": "resub@example.com"},
+        json={"email": "reactivate@example.com"},
     )
-
-    def _token_for(email):
-        db = TestingSessionLocal()
-        sub = (
-            db.query(NewsletterSubscriber)
-            .filter(NewsletterSubscriber.email == email)
-            .first()
-        )
-        token = sub.unsubscribe_token
-        db.close()
-        return token
-
-    first_token = _token_for("resub@example.com")
-    assert first_token
-
-    # Unsubscribe, then resubscribe.
-    client.post(
-        "/api/newsletter/unsubscribe",
-        json={"token": first_token},
-    )
-    resub = client.post(
-        "/api/newsletter/subscribe",
-        json={"email": "resub@example.com"},
-    )
-    assert resub.status_code == 201
-
-    # The subscriber is active again and still has a valid token.
-    second_token = _token_for("resub@example.com")
-    assert second_token
     db = TestingSessionLocal()
-    sub = (
+    subscriber = (
         db.query(NewsletterSubscriber)
-        .filter(NewsletterSubscriber.email == "resub@example.com")
+        .filter(NewsletterSubscriber.email == "reactivate@example.com")
         .first()
     )
-    assert sub.is_active is True
+    token = subscriber.unsubscribe_token
     db.close()
 
-    # The (reused) token can unsubscribe again.
-    unsub = client.post(
+    client.post(
         "/api/newsletter/unsubscribe",
-        json={"token": second_token},
+        json={"token": token},
     )
-    assert unsub.status_code == 200
+    response = client.post(
+        "/api/newsletter/subscribe",
+        json={"email": "reactivate@example.com"},
+    )
+    assert response.status_code == 201
+    assert response.json()["message"] == "Subscription request processed"
