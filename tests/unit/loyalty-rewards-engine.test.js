@@ -88,3 +88,53 @@ describe('getRewardsMultiplierForTier', () => {
     expect(getRewardsMultiplierForTier('Silver')).toBe(1.25);
   });
 });
+
+
+describe("LoyaltyRewardsEngine addEarnedPoints", () => {
+  let engine;
+
+  beforeEach(() => {
+    localStorage.clear();
+    engine = new LoyaltyRewardsEngine();
+  });
+
+  it("awards 1x points for Bronze tier (0 points)", () => {
+    const earned = engine.addEarnedPoints(100);
+    expect(earned).toBe(100);
+    expect(engine.getPoints()).toBe(100);
+  });
+
+  it("awards 1.25x points for Silver tier (500+ points)", () => {
+    engine.data.points = 500;
+    const earned = engine.addEarnedPoints(100);
+    expect(earned).toBe(125);
+    expect(engine.getPoints()).toBe(625);
+  });
+
+  it("awards 1.5x points for Gold tier (1500+ points)", () => {
+    engine.data.points = 1500;
+    const earned = engine.addEarnedPoints(100);
+    expect(earned).toBe(150);
+    expect(engine.getPoints()).toBe(1650);
+  });
+
+  it("awards 2x points for Platinum tier (3000+ points)", () => {
+    engine.data.points = 3000;
+    const earned = engine.addEarnedPoints(100);
+    expect(earned).toBe(200);
+    expect(engine.getPoints()).toBe(3200);
+  });
+
+  it("returns 0 for negative amount", () => {
+    const earned = engine.addEarnedPoints(-50);
+    expect(earned).toBe(0);
+  });
+
+  it("accumulates history correctly", () => {
+    engine.addEarnedPoints(100);
+    engine.addEarnedPoints(200);
+    expect(engine.data.history.length).toBe(2);
+    expect(engine.data.history[0].type).toBe('EARN');
+    expect(engine.data.history[1].type).toBe('EARN');
+  });
+});

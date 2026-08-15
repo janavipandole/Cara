@@ -440,18 +440,54 @@
     return '₹' + Math.round(num).toLocaleString('en-IN');
   }
 
+  // ============================================================
+  // CART PERSISTENCE (localStorage)
+  // ============================================================
+  // The cart lives under a single localStorage key so it survives page
+  // reloads and accidental tab closes. Every read/write goes through these
+  // helpers so corrupt data never throws and the in-memory cache stays in
+  // sync. Fixes #7069 (cart quantity does not persist on page reload).
+
+  const CART_STORAGE_KEY = 'productsInCart';
+
+  // Save the current cart to localStorage and refresh the in-memory cache.
+  function saveCart(cart) {
+    try {
+      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart || []));
+      window.cachedCartState = cart || [];
+    } catch (err) {
+      window.logError('Failed to persist cart:', err);
+    }
+  }
+
+  // Load the persisted cart. Returns [] when nothing is stored yet or when
+  // the stored value is corrupt, so callers never have to handle throws.
+  function loadCartFromStorage() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(CART_STORAGE_KEY));
+      return Array.isArray(saved) ? saved : [];
+    } catch (err) {
+      window.logError('Failed to load cart from storage:', err);
+      return [];
+    }
+  }
+
+  // Remove the persisted cart (used after checkout or manual clear).
+  function clearCart() {
+    try {
+      localStorage.removeItem(CART_STORAGE_KEY);
+    } catch (err) {
+      window.logError('Failed to clear cart from storage:', err);
+    }
+    window.cachedCartState = [];
+  }
+
+  window.clearCart = clearCart;
+
   // Update cart count badge and accessible ARIA label
   function updateCartCount() {
-    let cart = [];
-    try {
-      cart =
-        window.cachedCartState ||
-        JSON.parse(localStorage.getItem('productsInCart')) ||
-        [];
-      window.cachedCartState = cart;
-    } catch (e) {
-      window.logError('LocalStorage Parse Error', e);
-    }
+    const cart = window.cachedCartState || loadCartFromStorage();
+    window.cachedCartState = cart;
     const totalItems = cart.reduce(
       (sum, item) => sum + (item.quantity || 1),
       0,
@@ -807,7 +843,7 @@
 
   // Toggle empty-cart view
   function handleEmptyCartView() {
-    const cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+    const cart = loadCartFromStorage();
     const cartGrid = document.getElementById('cart-container');
     const emptyContainer = document.getElementById('empty-cart-container');
 
@@ -847,7 +883,7 @@
     productId,
   ) {
     return withCartLock(() => {
-      let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+      let cart = loadCartFromStorage();
       let parsedQty = parseInt(quantity, 10);
       if (isNaN(parsedQty) || parsedQty < 1) parsedQty = 1;
 
@@ -880,8 +916,7 @@
         cart.push(item);
       }
 
-      localStorage.setItem('productsInCart', JSON.stringify(cart));
-      window.cachedCartState = cart;
+      saveCart(cart);
       showToast(`${item.name} (Size: ${item.size}) added to cart!`, 'success');
       updateCartCount();
     });
@@ -1031,10 +1066,7 @@
   window.appliedCoupon = localStorage.getItem('appliedCoupon') || null;
 
   window.loadCart = async function () {
-    let cart =
-      window.cachedCartState ||
-      JSON.parse(localStorage.getItem('productsInCart')) ||
-      [];
+    let cart = window.cachedCartState || loadCartFromStorage();
     window.cachedCartState = cart;
 
     handleEmptyCartView();
@@ -1200,10 +1232,7 @@
   };
 
   window.changeQuantity = function (index, change) {
-    let cart =
-      window.cachedCartState ||
-      JSON.parse(localStorage.getItem('productsInCart')) ||
-      [];
+    let cart = window.cachedCartState || loadCartFromStorage();
     window.cachedCartState = cart;
     if (!cart[index]) return;
     let newQty = cart[index].quantity + change;
@@ -1214,7 +1243,7 @@
         showToast('Maximum quantity is 99.', 'warning');
     }
     cart[index].quantity = newQty;
-    localStorage.setItem('productsInCart', JSON.stringify(cart));
+    saveCart(cart);
     loadCart();
     updateCartCount();
   };
@@ -1247,10 +1276,10 @@
   };
 
   window.removeItem = function (index) {
-    let cart = JSON.parse(localStorage.getItem('productsInCart')) || [];
+    let cart = loadCartFromStorage();
     const removedName = cart[index] ? cart[index].name : 'Item';
     cart.splice(index, 1);
-    localStorage.setItem('productsInCart', JSON.stringify(cart));
+    saveCart(cart);
     loadCart();
     updateCartCount();
     showToast(`${removedName} removed from cart`, 'error');

@@ -4575,4 +4575,14 @@ footer {
 
                 h4 {
                     font-size: 24px;
+                }
+            }
+
+            /* Profile Input Security Styling */
+            .profile-security-badge {
+                font-size: 11px;
+                color: #088178;
+                font-weight: bold;
+            }
+}
 

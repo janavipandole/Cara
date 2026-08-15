@@ -39,7 +39,8 @@ class OutfitCompatibility {
    */
   isOutfitWithinBudget(totalPrice, budget) {
     if (typeof totalPrice !== 'number' || Number.isNaN(totalPrice)) return false;
-    if (typeof budget !== 'number' || Number.isNaN(budget) || budget < 0) return true; // no limit
+    // Treat negative or NaN budget as unlimited (within budget)
+    if (typeof budget !== 'number' || Number.isNaN(budget) || budget < 0) return true;
     return totalPrice <= budget;
   }
 }
@@ -49,3 +50,11 @@ if (typeof module !== 'undefined' && module.exports) {
 } else if (typeof window !== 'undefined') {
   window.OutfitCompatibility = OutfitCompatibility;
 }
+
+window.getOutfitCompatibilityStatusHelper108 = function() {
+  return {
+    status: 'active',
+    module: 'OutfitCompatibility',
+    helper: 'getOutfitCompatibilityStatusHelper108'
+  };
+};
