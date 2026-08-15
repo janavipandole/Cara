@@ -398,6 +398,8 @@ def forgot_password(
         if SMTP_HOST:
             background_tasks.add_task(send_password_reset_email, user.email, token)
     else:
+        # Perform dummy password hash work to ensure constant-time response latency
+        pwd.hash("DummyPasswordToMatchWorkFactor123!")
         # Generate dummy token to return if SMTP is not configured
         token = generate_dummy_token()
         if SMTP_HOST:
