@@ -5,6 +5,8 @@ import hashlib
 import os
 from ..database import get_db
 from .. import models
+from .auth import get_current_user
+from .orders import verify_order_ownership
 from ..limiter import limiter
 
 router = APIRouter()
@@ -17,10 +19,20 @@ def generate_receipt_signature(order: models.Order) -> str:
 
 @router.get("/{order_id}/receipt")
 @limiter.limit("20/minute")
-def get_digital_receipt(request: Request, order_id: int, db: Session = Depends(get_db)):
+def get_digital_receipt(
+    request: Request,
+    order_id: int,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user),
+):
     order = db.query(models.Order).filter(models.Order.id == order_id).first()
     if not order:
         raise HTTPException(status_code=404, detail="Order not found")
+
+    # Enforce the same BOLA/ownership check as the order-detail endpoint so a
+    # customer's PII (full_name, email, total) cannot be harvested by other
+    # users or unauthenticated callers enumerating sequential order ids.
+    verify_order_ownership(order, current_user)
 
     items = db.query(models.OrderItem).filter(models.OrderItem.order_id == order.id).all()
     signature = generate_receipt_signature(order)
