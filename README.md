@@ -243,6 +243,7 @@ The frontend keeps small, focused helpers in `js/` that are reusable across page
 - `input-shield.js` — client-side XSS script-injection filtering on form submit.
 - `i18n.js`, `loyalty-rewards-engine.js`, `error-logger.js` — translation, loyalty points, and error logging helpers.
 - `utils/debounce.js` — reusable trailing-edge debounce utility for throttling rapid event handlers.
+- `utils/sanitize.js` — reusable HTML/input sanitization helper for neutralizing untrusted markup before it reaches the DOM.
 - `a11y-focus-trap.js` — keyboard focus trap for modal and dialog flows so tab navigation stays contained.
 - `a11y-announcer.js` — ARIA live-region announcement manager for screen reader feedback.
 
