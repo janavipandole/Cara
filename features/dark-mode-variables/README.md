@@ -1,0 +1,1 @@
+# Enhancement: Add CSS Variables for "Dark Mode" Support\n\nThis is a placeholder for the implementation of Enhancement: Add CSS Variables for "Dark Mode" Support.
