@@ -111,4 +111,16 @@ describe('AccessibilityFocusManager', () => {
     manager.handleKeyDown(event);
     expect(document.activeElement.id).toBe('input-1');
   });
+
+  it('should dismiss active modal and release focus when Escape key is pressed', () => {
+    const trigger = document.getElementById('trigger-btn');
+    trigger.focus();
+    manager.trapFocus(modal);
+    expect(manager.activeModal).not.toBeNull();
+
+    const escapeEvent = new KeyboardEvent('keydown', { key: 'Escape' });
+    manager.handleKeyDown(escapeEvent);
+    expect(manager.activeModal).toBeNull();
+    expect(document.activeElement.id).toBe('trigger-btn');
+  });
 });
