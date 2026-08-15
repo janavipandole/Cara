@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }, 2000);
 
   } catch (err) {
-    console.error('Visual Search Error:', err);
+    // Silent fail - error shown via UI
     showError();
   }
 
