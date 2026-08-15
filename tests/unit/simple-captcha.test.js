@@ -59,6 +59,26 @@ describe('simple-captcha', () => {
     expect(num2).toBeLessThanOrEqual(10);
   });
 
+  it('regenerates the math expression when the refresh button is clicked', async () => {
+    await import('../../js/simple-captcha.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    const label = document.getElementById('captcha-math-label');
+    const before = label.textContent;
+
+    document.getElementById('captcha-reset-btn').click();
+    const after = label.textContent;
+
+    expect(after).toContain('Verify You Are Human');
+    const match = after.match(/(\d+)\s*\+\s*(\d+)\s*=\s*\?/);
+    expect(match).not.toBeNull();
+    // The expression should be a valid two-operand sum in the 1-10 range.
+    const sum = parseInt(match[1], 10) + parseInt(match[2], 10);
+    expect(sum).toBeGreaterThanOrEqual(2);
+    expect(sum).toBeLessThanOrEqual(20);
+    expect(after).not.toBe(before);
+  });
+
   it('installs the captcha immediately when the DOM is already ready', async () => {
     Object.defineProperty(document, 'readyState', {
       configurable: true,
