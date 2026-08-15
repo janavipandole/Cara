@@ -154,8 +154,15 @@
 
   // ── Initialise ─────────────────────────────────────────────────────────────
   function initDashboard() {
-    // Only load if dashboard components exist on page
-    if (revEl || catTable || statusWrap) {
+    // Re-query the dashboard containers here rather than relying on the
+    // module-level refs, which are captured at script load time and may still
+    // be null when the script runs during initial parsing (before the DOM is
+    // ready). Only load if a dashboard container actually exists on the page.
+    if (
+      document.getElementById('analyticsRevenue') ||
+      document.getElementById('analyticsCategoryTable') ||
+      document.getElementById('analyticsStatusWrap')
+    ) {
       loadDashboard();
     }
   }
