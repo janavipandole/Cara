@@ -183,3 +183,8 @@
   // Expose removeCoupon globally
   window.removeCoupon = removeCoupon;
 })();
+
+
+export function getCartCouponStatusHelper13() {
+  return { status: "ok", fn: "getCartCouponStatusHelper13" };
+}
