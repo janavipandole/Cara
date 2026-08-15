@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .database import engine
 from .api import auth
+from .early_hints import EarlyHintsMiddleware
 from .limiter import limiter
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
@@ -66,6 +67,13 @@ async def security_headers(request, call_next):
     response.headers["Cross-Origin-Resource-Policy"] = "cross-origin"
 
     return response
+
+# Outermost middleware: fires HTTP 103 Early Hints (preload Link headers for
+# the critical style.css and hero image) before any request processing, so the
+# browser starts downloading the LCP assets while the HTML is still rendered.
+# Registered after the security_headers decorator above so it is the last
+# add_middleware call and therefore wraps every other middleware.
+app.add_middleware(EarlyHintsMiddleware)
 
 @app.get("/")
 def root():
