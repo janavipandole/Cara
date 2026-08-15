@@ -132,3 +132,13 @@ describe('a11y-announcer Unit Tests', () => {
     expect(polite.textContent).toBe('Second message');
   });
 });
+  it('announcer does not throw when called with empty message', () => {
+    expect(() => announce('')).not.toThrow();
+  });
+
+  it('announcer uses polite aria-live by default', () => {
+    announce('Test message');
+    const region = document.querySelector('[aria-live="polite"]');
+    expect(region).not.toBeNull();
+  });
+
