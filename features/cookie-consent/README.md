@@ -1,0 +1,1 @@
+# Feature: Implement a "Cookie Consent" Banner\n\nThis is a placeholder for the implementation of Feature: Implement a "Cookie Consent" Banner.
