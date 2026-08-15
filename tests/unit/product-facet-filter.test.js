@@ -75,6 +75,30 @@ describe('ProductFacetFilter', () => {
     expect(filters.category).toEqual(['tshirts', 'shirts']);
   });
 
+  it('should treat maxPrice=0 as a real boundary, not unbounded', () => {
+    const freeProducts = [
+      { id: '1', name: 'Free Tee', category: 'tshirts', price: 0, rating: 4, inStock: true },
+      { id: '2', name: 'Paid Tee', category: 'tshirts', price: 20, rating: 4, inStock: true },
+    ];
+    const engine = new ProductFacetFilter(freeProducts);
+    const filters = engine.parseQueryParams('maxPrice=0');
+    expect(filters.maxPrice).toBe(0);
+
+    const results = engine.applyFilters();
+    expect(results.map((p) => p.id)).toEqual(['1']);
+
+    // Round trip: buildQueryParams should still emit maxPrice=0.
+    expect(engine.buildQueryParams()).toContain('maxPrice=0');
+  });
+
+  it('should round-trip minPrice and maxPrice through the URL', () => {
+    const engine = new ProductFacetFilter(sampleProducts);
+    engine.parseQueryParams('minPrice=30&maxPrice=60');
+    expect(engine.activeFilters.minPrice).toBe(30);
+    expect(engine.activeFilters.maxPrice).toBe(60);
+    expect(engine.applyFilters().map((p) => p.id)).toEqual(['2', '4']);
+  });
+
   it('should round-trip filters through the URL query string', () => {
     const engine = new ProductFacetFilter(sampleProducts);
     engine.parseQueryParams('categories=tshirts&minPrice=20&maxPrice=40&minRating=4&inStock=true');
