@@ -27,3 +27,8 @@ export class WishlistShareExporter {
     }
   }
 }
+
+
+export function getWishlistShareExporterStatusHelper94() {
+  return { status: "ok", fn: "getWishlistShareExporterStatusHelper94" };
+}
