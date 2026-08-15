@@ -21,6 +21,7 @@ export class ToastQueueManager {
     this.maxToasts = maxToasts;
     this.queue = [];
     this.container = null;
+    this._paused = false;
   }
 
   getOrCreateContainer() {
@@ -38,6 +39,12 @@ export class ToastQueueManager {
   }
 
   show(message, type = 'info', duration = 3000) {
+    // When paused, queue the item but do not render it yet.
+    if (this._paused) {
+      const toastItem = { id: `toast-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`, message, type, duration, _pending: true };
+      this.queue.push(toastItem);
+      return toastItem.id;
+    }
     const container = this.getOrCreateContainer();
     const toastId = `toast-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`;
 
@@ -49,7 +56,7 @@ export class ToastQueueManager {
     };
 
     this.queue.push(toastItem);
-    if (this.queue.length > this.maxToasts) {
+    if (!this._paused && this.queue.length > this.maxToasts) {
       this.dismiss(this.queue[0].id);
     }
 
@@ -98,6 +105,32 @@ export class ToastQueueManager {
   clearAll() {
     this.queue.forEach((t) => this.dismiss(t.id));
     this.queue = [];
+  }
+
+  pause() {
+    this._paused = true;
+  }
+
+  resume() {
+    if (!this._paused) return;
+    const pending = this.queue.splice(0, this.queue.length, ...this.queue.filter((t) => !t._pending));
+    this._paused = false;
+    // Render pending items by calling show for each (show() will handle them normally now).
+    pending.forEach((t) => {
+      this._paused = false;
+      const container = this.getOrCreateContainer();
+      const el = document.createElement('div');
+      el.id = t.id;
+      el.className = 'toast-card toast-' + t.type;
+      el.setAttribute('role', 'alert');
+      el.innerHTML =
+        '<div class="toast-content">' +
+        '<span class="toast-icon">' + (t.type === 'success' ? '&#10003;' : t.type === 'error' ? '&#10005;' : '&#8505;') + '</span>' +
+        '<span class="toast-message">' + escapeHtml(t.message) + '</span></div>' +
+        '<button class="toast-close" aria-label="Close notification">&times;</button>';
+      if (container) container.appendChild(el);
+      if (t.duration > 0) setTimeout(() => this.dismiss(t.id), t.duration);
+    });
   }
 }
 
