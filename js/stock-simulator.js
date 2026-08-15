@@ -87,7 +87,10 @@ export function initStockSimulator() {
 }
 
 if (typeof document !== 'undefined') {
+  // Initialize immediately when the script loads after DOMContentLoaded, and
+  // also on the event for scripts that run during initial parsing.
   document.addEventListener('DOMContentLoaded', initStockSimulator);
+  initStockSimulator();
 }
 
 function getStockSimulatorStatusHelper78() {

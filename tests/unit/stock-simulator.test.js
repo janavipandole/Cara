@@ -2,6 +2,30 @@ import { describe, it, expect, vi } from 'vitest';
 import { getStockInfo, startStockReservationTimer, mockStockData } from '../../js/stock-simulator.js';
 
 describe('Stock Simulator Unit Tests', () => {
+  it('initializes immediately when the DOM is already ready', async () => {
+    vi.resetModules();
+    Object.defineProperty(document, 'readyState', {
+      configurable: true,
+      value: 'complete',
+    });
+    document.body.innerHTML = `
+      <select id="sizeSelect">
+        <option value="XL">XL</option>
+      </select>
+      <div id="stock-alert-container"></div>
+    `;
+    await import('../../js/stock-simulator.js');
+
+    // Simulate a size change; the listener should already be attached because
+    // initStockSimulator ran immediately at import time.
+    const select = document.getElementById('sizeSelect');
+    select.value = 'XL';
+    select.dispatchEvent(new Event('change'));
+
+    const container = document.getElementById('stock-alert-container');
+    expect(container.innerHTML).toContain('Out of Stock');
+  });
+
   it('shows an error message for an empty restock email', async () => {
     vi.resetModules();
     Object.defineProperty(document, 'readyState', {
