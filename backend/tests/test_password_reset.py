@@ -9,7 +9,7 @@ def test_forgot_password_nonexistent_email(client):
 
 
 def test_forgot_password_existing_email(client, db_session):
-    from backend.app.models import User
+    from app.models import User
     from passlib.context import CryptContext
     pwd = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -31,7 +31,7 @@ def test_forgot_password_existing_email(client, db_session):
 
 
 def test_reset_password_valid_token(client, db_session):
-    from backend.app.models import User, PasswordResetToken
+    from app.models import User, PasswordResetToken
     from passlib.context import CryptContext
     from datetime import datetime, timedelta, timezone
     import secrets
