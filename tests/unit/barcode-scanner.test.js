@@ -44,6 +44,17 @@ describe('barcode-scanner', () => {
     expect(status.textContent).toBe('Camera access denied or unavailable.');
   });
 
+  it('does not throw when the scan button is missing', async () => {
+    document.body.innerHTML = '<div id="page-without-scanner"></div>';
+    await expect(load()).resolves.not.toThrow();
+  });
+
+  it('returns the supported barcode formats from the detector', async () => {
+    await load();
+    const formats = await window.BarcodeDetector.getSupportedFormats();
+    expect(formats).toContain('ean_13');
+  });
+
   it('writes a scan-failure status when detect rejects', async () => {
     navigator.mediaDevices = {
       getUserMedia: vi.fn().mockResolvedValue({
