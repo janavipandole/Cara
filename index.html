@@ -84,6 +84,7 @@
   <link rel="stylesheet" href="global.css">
   <link rel="stylesheet" href="live-sales-toast.css">
   <link rel="stylesheet" href="stock-alert.css">
+  <link rel="stylesheet" href="exit-intent-popup.css">
 
   <!-- Inline Critical CSS -->
   <style>
@@ -1054,6 +1055,23 @@ if (btn) {
 <script type="module" src="js/live-sales-toast.js" defer></script>
 <script src="js/cart-sync-manager.js" defer></script>
 <script src="js/rum-telemetry.js" defer></script>
+
+<!-- Exit-Intent Discount Pop-up -->
+<div id="exit-intent-overlay" class="exit-intent-overlay" role="dialog" aria-modal="true" aria-labelledby="exit-intent-title" aria-hidden="true">
+  <div class="exit-intent-popup">
+    <button type="button" class="exit-intent-popup__close" data-exit-intent-close aria-label="Close pop-up">&times;</button>
+    <i class="fa-solid fa-tag exit-intent-popup__icon" aria-hidden="true"></i>
+    <h2 id="exit-intent-title" class="exit-intent-popup__title">Wait! Here's 10% Off</h2>
+    <p class="exit-intent-popup__text">You're about to leave &mdash; don't miss out. Enter your email and get an instant 10% discount on your first order.</p>
+    <p class="exit-intent-popup__success" data-exit-intent-success>Thank you! Your discount code <strong>CARA10</strong> is ready at checkout.</p>
+    <form class="exit-intent-popup__form" data-exit-intent-form novalidate>
+      <input type="email" class="exit-intent-popup__input" placeholder="Enter your email address" aria-label="Email address" required>
+      <button type="submit" class="exit-intent-popup__cta" data-exit-intent-cta>Claim My 10% Off</button>
+    </form>
+    <p class="exit-intent-popup__disclaimer">No spam, unsubscribe at any time. One use per customer.</p>
+  </div>
+</div>
+<script src="js/exit-intent-popup.js" defer></script>
 </body>
 
 </html>
