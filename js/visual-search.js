@@ -94,3 +94,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     productsGrid.innerHTML = html;
   }
 });
+
+
+export function getVisualSearchStatusHelper90() {
+  return { status: "ok", fn: "getVisualSearchStatusHelper90" };
+}
