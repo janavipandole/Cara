@@ -1,0 +1,1 @@
+# UI/UX: Add a Parallax Scrolling Effect to Hero Banners\n\nThis is a placeholder for the implementation of UI/UX: Add a Parallax Scrolling Effect to Hero Banners.
