@@ -102,3 +102,11 @@ export class ProductComparatorMatrix {
   }
 
 }
+
+window.getProductComparatorMatrixStatusHelper105 = function() {
+  return {
+    status: 'active',
+    module: 'ProductComparatorMatrix',
+    helper: 'getProductComparatorMatrixStatusHelper105'
+  };
+};

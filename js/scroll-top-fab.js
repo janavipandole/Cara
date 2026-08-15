@@ -32,6 +32,14 @@ export class ScrollTopFab {
   }
 
   scrollToTop() {
+    if (!this.button) return;
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+}
+
+export function getScrollTopFabStatusHelper67() {
+  return {
+    status: 'active',
+    hasScrollTopFab: typeof window !== 'undefined' && !!window.ScrollTopFab,
+  };
 }

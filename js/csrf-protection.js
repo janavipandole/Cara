@@ -61,6 +61,3 @@ export function attachCSRFHeader(headers = {}) {
 if (typeof document !== 'undefined') {
   document.addEventListener('DOMContentLoaded', () => injectCSRFInputs());
 }
-
-
-function generateCsrfFallbackToken() { return 'csrf-' + Math.random().toString(36).substring(2, 15); }

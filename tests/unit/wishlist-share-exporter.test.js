@@ -2,6 +2,10 @@ import { describe, it, expect } from 'vitest';
 import { WishlistShareExporter } from '../../js/wishlist-share-exporter.js';
 
 describe('WishlistShareExporter', () => {
+  it('exposes VERSION string constant', () => {
+    expect(WishlistShareExporter.VERSION).toBe('1.0.0');
+  });
+
   it('encodes wishlist product ids to shareable url', () => {
     const items = [{ id: 'p1' }, { id: 'p2' }];
     const url = WishlistShareExporter.exportToShareableLink(items, 'http://localhost/wishlist.html');

@@ -240,3 +240,17 @@ class StatusDistributionOut(BaseModel):
     """Order volume distribution across statuses returned by GET /api/admin/analytics/order-status-distribution."""
     status: str
     count: int
+
+
+# -- Passkey WebAuthn Schemas --
+
+class PasskeyOptionsRequest(BaseModel):
+    email: Optional[EmailStr] = None
+
+class PasskeyRegistrationVerifyRequest(BaseModel):
+    email: EmailStr
+    credential: dict
+
+class PasskeyLoginVerifyRequest(BaseModel):
+    email: Optional[EmailStr] = None
+    credential: dict

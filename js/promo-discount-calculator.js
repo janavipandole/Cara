@@ -4,7 +4,7 @@
  */
 
 class PromoDiscountCalculator {
-  constructor() {
+  constructor(options = {}) {
     this.coupons = {
       'WELCOME10': { type: 'percent', value: 10, minSpend: 20 },
       'CARA20': { type: 'percent', value: 20, minSpend: 50 },
@@ -12,6 +12,7 @@ class PromoDiscountCalculator {
       'FREESHIP': { type: 'freeship', value: 0, minSpend: 30 }
     };
     this.freeShippingThreshold = 75;
+    this.maxDiscountCap = options.maxDiscountCap !== undefined ? options.maxDiscountCap : Infinity;
   }
 
   validateCoupon(code, subtotal = 0) {
@@ -19,7 +20,12 @@ class PromoDiscountCalculator {
       return { valid: false, message: 'Please enter a coupon code.' };
     }
 
-    const cleanCode = code.trim().toUpperCase();
+    const trimmed = code.trim();
+    if (trimmed.length < 3 || trimmed.length > 30) {
+      return { valid: false, message: 'Coupon code must be between 3 and 30 characters.' };
+    }
+
+    const cleanCode = trimmed.toUpperCase();
     const coupon = this.coupons[cleanCode];
 
     if (!coupon) {
@@ -36,7 +42,17 @@ class PromoDiscountCalculator {
     return { valid: true, coupon, code: cleanCode };
   }
 
+  getAvailableCoupons() {
+    return { ...this.coupons };
+  }
+
   calculateTotal(subtotal, couponCode = '', baseShipping = 10) {
+    if (typeof subtotal !== 'number' || !isFinite(subtotal)) {
+      return { error: 'Invalid subtotal: must be a finite number.' };
+    }
+    if (subtotal < 0) {
+      return { error: 'Invalid subtotal: must be a non-negative number.' };
+    }
     let discount = 0;
     let shipping = subtotal >= this.freeShippingThreshold ? 0 : baseShipping;
     let appliedCoupon = null;
@@ -47,6 +63,7 @@ class PromoDiscountCalculator {
         appliedCoupon = validation.coupon;
         if (appliedCoupon.type === 'percent') {
           discount = (subtotal * appliedCoupon.value) / 100;
+          discount = this.applyPromoDiscountMaxCap(discount, this.maxDiscountCap);
         } else if (appliedCoupon.type === 'flat') {
           discount = Math.min(subtotal, appliedCoupon.value);
         } else if (appliedCoupon.type === 'freeship') {
@@ -86,3 +103,11 @@ if (typeof module !== 'undefined' && module.exports) {
 } else {
   window.PromoDiscountCalculator = PromoDiscountCalculator;
 }
+
+window.getPromoDiscountCalculatorStatusHelper109 = function() {
+  return {
+    status: 'active',
+    module: 'PromoDiscountCalculator',
+    helper: 'getPromoDiscountCalculatorStatusHelper109'
+  };
+};
