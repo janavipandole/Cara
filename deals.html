@@ -201,6 +201,7 @@
     }
   </script>
   <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
+    <link rel="stylesheet" href="sale-countdown.css">
     <script type="module" src="js/config.js"></script>
 </head>
 
@@ -234,11 +235,40 @@
 <main id="main-content">
 
 <!-- HERO SECTION -->
-<section class="deals-hero">
+    <section class="deals-hero">
     <div class="deals-content">
         <span class="deals-badge">LIMITED TIME OFFER</span>
         <h1>Buy 1 Get <span>1 Free</span></h1>
         <p>Grab your favorite fashion picks and get another one absolutely free. Limited period combo deals are waiting for you.</p>
+        <div
+            class="sale-countdown"
+            data-sale-countdown
+            data-sale-countdown-end="2026-12-31T23:59:59Z"
+            role="timer"
+            aria-live="polite"
+            aria-label="Sale ends in"
+        >
+            <span class="sale-countdown__label">Offer ends in</span>
+            <div class="sale-countdown__unit" data-unit="days">
+                <span class="sale-countdown__value">00</span>
+                <span class="sale-countdown__unit-label">Days</span>
+            </div>
+            <span class="sale-countdown__sep" aria-hidden="true">:</span>
+            <div class="sale-countdown__unit" data-unit="hours">
+                <span class="sale-countdown__value">00</span>
+                <span class="sale-countdown__unit-label">Hrs</span>
+            </div>
+            <span class="sale-countdown__sep" aria-hidden="true">:</span>
+            <div class="sale-countdown__unit" data-unit="minutes">
+                <span class="sale-countdown__value">00</span>
+                <span class="sale-countdown__unit-label">Min</span>
+            </div>
+            <span class="sale-countdown__sep" aria-hidden="true">:</span>
+            <div class="sale-countdown__unit" data-unit="seconds">
+                <span class="sale-countdown__value">00</span>
+                <span class="sale-countdown__unit-label">Sec</span>
+            </div>
+        </div>
         <a href="#deals-products" class="deals-btn">Shop Deals →</a>
     </div>
 
@@ -383,6 +413,7 @@
 </main>
 
 <script src="app.js"></script>
+<script src="js/sale-countdown.js"></script>
 
 </body>
 </html>
