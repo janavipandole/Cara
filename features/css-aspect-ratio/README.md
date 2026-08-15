@@ -1,0 +1,1 @@
+# Enhancement: Implement "CSS Aspect Ratio" for Images\n\nThis is a placeholder for the implementation of Enhancement: Implement "CSS Aspect Ratio" for Images.
