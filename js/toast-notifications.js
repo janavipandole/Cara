@@ -2,15 +2,15 @@
 (function () {
   'use strict';
 
-  var DEFAULT_DURATION = 4000;
-  var MAX_STACK = 5;
-  var queue = [];
-  var isProcessing = false;
+  const DEFAULT_DURATION = 4000;
+  const MAX_STACK = 5;
+  const queue = [];
+  let isProcessing = false;
 
   function getContainer() {
-    var existing = document.getElementById('cara-notif-container');
+    const existing = document.getElementById('cara-notif-container');
     if (existing) return existing;
-    var el = document.createElement('div');
+    const el = document.createElement('div');
     el.id = 'cara-notif-container';
     el.style.cssText =
       'position:fixed;bottom:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:8px;';
@@ -19,14 +19,14 @@
   }
 
   function createNotifEl(message, type) {
-    var el = document.createElement('div');
-    var colors = {
+    const el = document.createElement('div');
+    const colors = {
       info: '#3b82f6',
       success: '#22c55e',
       warning: '#f59e0b',
       error: '#ef4444',
     };
-    var color = colors[type] || colors.info;
+    const color = colors[type] || colors.info;
     el.style.cssText = [
       'padding:12px 16px',
       'border-radius:6px',
@@ -49,19 +49,19 @@
   function processQueue() {
     if (isProcessing || queue.length === 0) return;
     isProcessing = true;
-    var item = queue.shift();
+    const item = queue.shift();
     showImmediate(item.message, item.type, item.duration);
   }
 
   function showImmediate(message, type, duration) {
-    var container = getContainer();
-    var el = createNotifEl(message, type);
+    const container = getContainer();
+    const el = createNotifEl(message, type);
     container.appendChild(el);
 
     // Stack limit: remove oldest if exceeded — dismiss oldest without blocking isProcessing
-    var children = Array.from(container.children);
+    const children = Array.from(container.children);
     if (children.length > MAX_STACK) {
-      var oldest = children[0];
+      const oldest = children[0];
       oldest.style.opacity = '0';
       clearTimeout(oldest._dismissTimer);
       setTimeout(function () {
@@ -85,7 +85,7 @@
     });
 
     // Auto-dismiss
-    var timer = setTimeout(function () {
+    const timer = setTimeout(function () {
       dismiss(el);
     }, duration || DEFAULT_DURATION);
     el._dismissTimer = timer;

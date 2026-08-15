@@ -4,12 +4,12 @@
 (function () {
   'use strict';
 
-  var SHIMMER_KEYFRAME = '@keyframes skeleton-shimmer { ' +
+  const SHIMMER_KEYFRAME = '@keyframes skeleton-shimmer { ' +
     '0% { background-position: -200px 0; } ' +
     '100% { background-position: calc(200px + 100%) 0; } ' +
     '}';
 
-  var shimmerStyleEl = null;
+  let shimmerStyleEl = null;
 
   function injectShimmerStyle() {
     if (shimmerStyleEl) return;
@@ -27,9 +27,9 @@
   }
 
   function createSkeletonCard(opt) {
-    var width = opt.width || '100%';
-    var height = opt.height || '20px';
-    var el = document.createElement('div');
+    const width = opt.width || '100%';
+    const height = opt.height || '20px';
+    const el = document.createElement('div');
     el.className = 'skeleton-block';
     el.style.width = width;
     el.style.height = height;
@@ -42,13 +42,13 @@
     injectShimmerStyle();
     options = options || {};
 
-    var count = options.count || 3;
-    var cardClass = options.cardClass || 'skeleton-card';
+    const count = options.count || 3;
+    const cardClass = options.cardClass || 'skeleton-card';
 
-    var fragment = document.createDocumentFragment();
+    const fragment = document.createDocumentFragment();
 
-    for (var i = 0; i < count; i++) {
-      var card = document.createElement('div');
+    for (let i = 0; i < count; i++) {
+      const card = document.createElement('div');
       card.className = cardClass;
       card.appendChild(createSkeletonCard({ width: '100%', height: '180px' }));
       card.appendChild(createSkeletonCard({ width: '70%', height: '16px', margin: '8px 0' }));
