@@ -3,13 +3,14 @@ Admin analytics API endpoints.
 
 Secure route for store managers/admins to fetch aggregates.
 """
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
 from sqlalchemy import func
 from typing import List
 
 from .. import models, schemas
 from ..database import get_db
+from ..limiter import limiter
 from .auth import get_current_user
 
 router = APIRouter()
@@ -26,7 +27,9 @@ def _enforce_admin(user: models.User = Depends(get_current_user)):
 
 
 @router.get("/analytics/summary", response_model=schemas.AdminSummaryResponse)
+@limiter.limit("10/minute")
 def get_analytics_summary(
+    request: Request,
     db: Session = Depends(get_db),
     admin_user: models.User = Depends(_enforce_admin)
 ) -> dict:
@@ -58,7 +61,9 @@ def get_analytics_summary(
 
 
 @router.get("/analytics/category-sales", response_model=List[schemas.CategorySalesOut])
+@limiter.limit("10/minute")
 def get_sales_by_category(
+    request: Request,
     db: Session = Depends(get_db),
     admin_user: models.User = Depends(_enforce_admin)
 ) -> list:
@@ -92,7 +97,9 @@ def get_sales_by_category(
 
 
 @router.get("/analytics/order-status-distribution", response_model=List[schemas.StatusDistributionOut])
+@limiter.limit("10/minute")
 def get_status_distribution(
+    request: Request,
     db: Session = Depends(get_db),
     admin_user: models.User = Depends(_enforce_admin)
 ) -> list:
