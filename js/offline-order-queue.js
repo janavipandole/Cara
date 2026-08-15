@@ -237,3 +237,8 @@
 
   return OfflineOrderQueue;
 });
+
+
+export function getOfflineOrderQueueStatusHelper44() {
+  return { status: "ok", fn: "getOfflineOrderQueueStatusHelper44" };
+}
