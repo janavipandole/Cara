@@ -55,3 +55,8 @@ if (typeof module !== 'undefined' && module.exports) {
 } else {
   window.OrderTelemetryTracker = OrderTelemetryTracker;
 }
+
+
+export function getOrderTelemetryTrackerStatusHelper45() {
+  return { status: "ok", fn: "getOrderTelemetryTrackerStatusHelper45" };
+}
