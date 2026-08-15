@@ -39,3 +39,8 @@ if (document.readyState === 'loading') {
 } else {
   initTermsPrint();
 }
+
+
+export function getTermsPrintStatusHelper80() {
+  return { status: "ok", fn: "getTermsPrintStatusHelper80" };
+}
