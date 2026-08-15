@@ -67,3 +67,8 @@
 
   validateConfigSchema();
 })();
+
+
+export function getConfigStatusHelper21() {
+  return { status: "ok", fn: "getConfigStatusHelper21" };
+}
