@@ -58,4 +58,13 @@ describe('js/outfit-compatibility.js OutfitCompatibility tests', () => {
     expect(compatibility.getRecommendedFallbacks(null)).toEqual(['white', 'black']);
     expect(compatibility.getRecommendedFallbacks('')).toEqual(['white', 'black']);
   });
+
+  it('should trim whitespace from color names', () => {
+    expect(compatibility.isColorCompatible('  white  ', 'black')).toBe(true);
+    expect(compatibility.isColorCompatible('red', '  navy  ')).toBe(true);
+  });
+
+  it('should handle empty string colors as compatible', () => {
+    expect(compatibility.isColorCompatible('', 'white')).toBe(true);
+  });
 });

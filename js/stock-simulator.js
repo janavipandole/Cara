@@ -89,3 +89,16 @@ export function initStockSimulator() {
 if (typeof document !== 'undefined') {
   document.addEventListener('DOMContentLoaded', initStockSimulator);
 }
+
+function getStockSimulatorStatusHelper78() {
+  return {
+    status: 'ready',
+    hasStockData: typeof mockStockData !== 'undefined',
+    availableSizes: Object.keys(mockStockData || {}),
+  };
+}
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports.getStockSimulatorStatusHelper78 = getStockSimulatorStatusHelper78;
+} else if (typeof window !== 'undefined') {
+  window.getStockSimulatorStatusHelper78 = getStockSimulatorStatusHelper78;
+}

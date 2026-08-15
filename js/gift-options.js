@@ -36,11 +36,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Wire up gift message validation to the textarea
   const giftMsgInput = giftMsgArea ? giftMsgArea.querySelector('textarea') : null;
+  const MAX_GIFT_MSG_LENGTH = 500;
+  if (giftMsgInput) {
+    giftMsgInput.setAttribute('maxlength', String(MAX_GIFT_MSG_LENGTH));
+    const counter = document.createElement('span');
+    counter.style.cssText = 'font-size:11px; color:#888; display:block; text-align:right;';
+    counter.textContent = `0/${MAX_GIFT_MSG_LENGTH}`;
+    giftMsgInput.parentNode.appendChild(counter);
+    giftMsgInput.addEventListener('input', function() {
+      counter.textContent = `${giftMsgInput.value.length}/${MAX_GIFT_MSG_LENGTH}`;
+    });
+  }
   if (giftMsgInput) {
     giftMsgInput.addEventListener('input', () => {
-      const valid = validateGiftMessageLength(giftMsgInput.value, 200);
+      const valid = validateGiftMessageLength(giftMsgInput.value, MAX_GIFT_MSG_LENGTH);
       if (!valid) {
-        giftMsgInput.setCustomValidity('Gift message exceeds the 200-character limit.');
+        giftMsgInput.setCustomValidity(`Gift message exceeds the ${MAX_GIFT_MSG_LENGTH}-character limit.`);
         giftMsgInput.reportValidity();
       } else {
         giftMsgInput.setCustomValidity('');

@@ -933,6 +933,7 @@ function addToCart(name, price, img, quantity, size, productId) {
   }
   try {
     localStorage.setItem('productsInCart', JSON.stringify(cart));
+    window.cachedCartState = cart;
     if (typeof showToast === 'function') {
       showToast(name + ' added to cart!', 'success');
     }

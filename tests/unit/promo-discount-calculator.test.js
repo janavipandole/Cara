@@ -93,4 +93,113 @@ describe('PromoDiscountCalculator Unit Tests', () => {
     expect(summary.discount).toBe(0);
     expect(summary.appliedCoupon).toBeNull();
   });
+
+  it('should reject unknown coupon codes with a clear message', () => {
+    const res = calc.validateCoupon('UNKNOWN', 100);
+    expect(res.valid).toBe(false);
+    expect(res.message).toContain('Invalid coupon code');
+  });
+
+  it('should round grandTotal to two decimal places', () => {
+    const summary = calc.calculateTotal(33.333, 'WELCOME10', 10);
+    expect(Number.isFinite(summary.grandTotal)).toBe(true);
+    const decimalPart = String(summary.grandTotal).split('.')[1];
+    expect(decimalPart ? decimalPart.length : 0).toBeLessThanOrEqual(2);
+  });
+
+  it('should set appliedCoupon to null when no coupon is provided', () => {
+    const summary = calc.calculateTotal(100);
+    expect(summary.appliedCoupon).toBeNull();
+    expect(summary.discount).toBe(0);
+  });
+});
+describe('PromoDiscountCalculator additional coverage', () => {
+  let calc;
+
+  beforeEach(() => {
+    calc = new PromoDiscountCalculator();
+  });
+
+  it('validates all 4 coupon codes with sufficient spend', () => {
+    const codes = ['WELCOME10', 'CARA20', 'FLAT15', 'FREESHIP'];
+    codes.forEach(code => {
+      const res = calc.validateCoupon(code, 100);
+      expect(res.valid).toBe(true);
+    });
+  });
+
+  it('rejects invalid coupon code', () => {
+    const res = calc.validateCoupon('INVALIDCODE', 100);
+    expect(res.valid).toBe(false);
+    expect(res.message).toContain('Invalid');
+  });
+
+  it('calculates flat discount correctly', () => {
+    const result = calc.calculateTotal(100, 'FLAT15', 10);
+    expect(result.discount).toBe(15);
+    expect(result.grandTotal).toBe(85); // 100-15+0 (free shipping at threshold 75)
+  });
+
+  it('calculates freeship discount correctly', () => {
+    const result = calc.calculateTotal(50, 'FREESHIP', 10);
+    expect(result.discount).toBe(0);
+    expect(result.shipping).toBe(0);
+    expect(result.grandTotal).toBe(50);
+  });
+
+  it('applyPromoDiscountMaxCap returns 0 for NaN discount', () => {
+    const result = calc.applyPromoDiscountMaxCap(NaN, 50);
+    expect(result).toBe(0);
+  });
+
+  it('applyPromoDiscountMaxCap caps discount correctly', () => {
+    const result = calc.applyPromoDiscountMaxCap(200, 100);
+    expect(result).toBe(100);
+  });
+});
+
+
+describe("PromoDiscountCalculator additional coverage", () => {
+  let calc;
+
+  beforeEach(() => {
+    calc = new PromoDiscountCalculator();
+  });
+
+  it("validates all 4 coupon codes with sufficient spend", () => {
+    const codes = ["WELCOME10", "CARA20", "FLAT15", "FREESHIP"];
+    codes.forEach(code => {
+      const res = calc.validateCoupon(code, 100);
+      expect(res.valid).toBe(true);
+    });
+  });
+
+  it("rejects invalid coupon code", () => {
+    const res = calc.validateCoupon("INVALIDCODE", 100);
+    expect(res.valid).toBe(false);
+    expect(res.message).toContain("Invalid");
+  });
+
+  it("calculates flat discount correctly", () => {
+    const result = calc.calculateTotal(100, "FLAT15", 10);
+    expect(result.discount).toBe(15);
+    expect(result.grandTotal).toBe(85);
+  });
+
+  it("calculates freeship discount correctly", () => {
+    const result = calc.calculateTotal(50, "FREESHIP", 10);
+    expect(result.discount).toBe(0);
+    expect(result.shipping).toBe(0);
+    expect(result.grandTotal).toBe(50);
+  });
+
+  it("applyPromoDiscountMaxCap returns 0 for NaN discount", () => {
+    const result = calc.applyPromoDiscountMaxCap(NaN, 50);
+    expect(result).toBe(0);
+  });
+
+  it("applyPromoDiscountMaxCap caps discount correctly", () => {
+    const result = calc.applyPromoDiscountMaxCap(200, 100);
+    expect(result).toBe(100);
+  });
 });
