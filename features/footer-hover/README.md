@@ -1,0 +1,1 @@
+# Enhancement: Add CSS ":hover" Transitions to Footer Links\n\nThis is a placeholder for the implementation of Enhancement: Add CSS ":hover" Transitions to Footer Links.
