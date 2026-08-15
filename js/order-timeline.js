@@ -3,6 +3,10 @@
 // expose immediately and also call renderTimeline on DOMContentLoaded.
 let stageIndex = 1;
 
+// Module-scope stages so progressSimulatedTimeline can read stages.length.
+// renderTimeline() reassigns this when a TrackerTimelineSimulator is present.
+let stages = ['Placed', 'Processing', 'Shipped', 'Delivered'];
+
 function _escape(str) {
     return String(str)
         .replace(/&/g, '&amp;')
@@ -17,7 +21,6 @@ function renderTimeline() {
     if (!trackingBox) return;
 
     let simulator = null;
-    let stages = ['Placed', 'Processing', 'Shipped', 'Delivered'];
     let baseTime = new Date();
 
     if (typeof window.TrackerTimelineSimulator === 'function') {
