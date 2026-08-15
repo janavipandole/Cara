@@ -73,3 +73,8 @@ export class CaraToast {
 if (typeof window !== 'undefined') {
   window.CaraToast = CaraToast;
 }
+
+
+export function getToastStatusHelper83() {
+  return { status: "ok", fn: "getToastStatusHelper83" };
+}
