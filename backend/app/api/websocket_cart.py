@@ -26,7 +26,7 @@ class ConnectionManager:
         await self.broadcast(session_id, {
             "type": "USER_JOINED",
             "user": user_info,
-            "active_users": self.session_users[session_id]
+            "active_users": self.session_users[session_id],
         })
 
     def disconnect(self, session_id: str, websocket: WebSocket, user_info: dict):

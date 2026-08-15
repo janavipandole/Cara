@@ -43,12 +43,10 @@ document.addEventListener('DOMContentLoaded', () => {
     counter.style.cssText = 'font-size:11px; color:#888; display:block; text-align:right;';
     counter.textContent = `0/${MAX_GIFT_MSG_LENGTH}`;
     giftMsgInput.parentNode.appendChild(counter);
-    giftMsgInput.addEventListener('input', function() {
+    // Single 'input' handler updates the counter and runs validation together,
+    // replacing the two separate listeners that previously fired on each keystroke.
+    giftMsgInput.addEventListener('input', function () {
       counter.textContent = `${giftMsgInput.value.length}/${MAX_GIFT_MSG_LENGTH}`;
-    });
-  }
-  if (giftMsgInput) {
-    giftMsgInput.addEventListener('input', () => {
       const valid = validateGiftMessageLength(giftMsgInput.value, MAX_GIFT_MSG_LENGTH);
       if (!valid) {
         giftMsgInput.setCustomValidity(`Gift message exceeds the ${MAX_GIFT_MSG_LENGTH}-character limit.`);

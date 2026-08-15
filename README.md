@@ -387,3 +387,8 @@ Use PurgeCSS to remove unused classes. (Fix #2418)
 - `js/pincode-validation-engine.js`: Regional postal code validator and delivery zone calculator.
 - `js/outfit-compatibility-engine.js`: Color harmony and style tag matching score engine.
 - `js/address-validation-service.js`: Address field format validator and HTML sanitization module.
+
+
+## Developer Guidelines - doc_section_99
+- Follow standard repository conventions when contributing updates.
+- Ensure unit test coverage is verified before submitting PRs.

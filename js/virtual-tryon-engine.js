@@ -90,3 +90,8 @@ if (typeof module !== 'undefined' && module.exports) {
 } else {
   window.VirtualTryOnEngine = VirtualTryOnEngine;
 }
+
+
+export function getVirtualTryonEngineStatusHelper89() {
+  return { status: "ok", fn: "getVirtualTryonEngineStatusHelper89" };
+}

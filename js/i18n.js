@@ -38,18 +38,19 @@ const translations = {
     search: "Buscar productos..."
   },
   fr: {
+    wishlist: "Liste de souhaits",
+    orders: "Mes Commandes",
     home: "Accueil",
     shop: "Boutique",
     blog: "Blog",
     about: "A propos",
     contact: "Contact",
     cart: "Panier",
-    wishlist: "Liste de souhaits",
     login: "Connexion",
     promotions: "Promotions",
     community: "Communaute",
-    orders: "Mes Commandes",
     outfit: "Verificateur de Tenue",
+    authenticity: "Authenticite",
     addToCart: "Ajouter au Panier",
     buyNow: "Acheter Maintenant",
     search: "Rechercher des produits..."

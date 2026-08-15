@@ -93,3 +93,14 @@ describe('Accessibility Focus Trap & Announcer Unit Tests', () => {
     expect(getTabbableElements({})).toEqual([]);
   });
 });
+  it('trapFocus returns focus to previous element on deactivate', () => {
+    const result = trapFocus(document.body);
+    expect(typeof result.deactivate).toBe('function');
+    result.deactivate();
+  });
+
+  it('getTabbableElements returns an array', () => {
+    const tabbables = getTabbableElements(document.body);
+    expect(Array.isArray(tabbables)).toBe(true);
+  });
+

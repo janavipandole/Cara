@@ -59,6 +59,13 @@ export function applyTheme(themeChoice) {
   return effectiveTheme;
 }
 
+export function toggleTheme() {
+  const current = getStoredTheme();
+  const effective = resolveEffectiveTheme(current);
+  const next = effective === THEMES.DARK ? THEMES.LIGHT : THEMES.DARK;
+  return applyTheme(next);
+}
+
 export function initThemeEngine() {
   const stored = getStoredTheme();
   applyTheme(stored);
@@ -74,4 +81,9 @@ export function initThemeEngine() {
 
 if (typeof document !== 'undefined') {
   document.addEventListener('DOMContentLoaded', initThemeEngine);
+}
+
+
+export function getThemeEngineStatusHelper82() {
+  return { status: "ok", fn: "getThemeEngineStatusHelper82" };
 }

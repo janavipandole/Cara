@@ -133,6 +133,25 @@ export class ProductReviewManager {
       .slice(0, 80);               // Cap at 80 chars
   }
 
+  /**
+   * Escapes HTML entity characters in review comment text to prevent Stored XSS.
+   * @param {string} str
+   * @returns {string}
+   */
+  escapeHTML(str) {
+    if (typeof str !== 'string') return '';
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  sanitizeComment(comment) {
+    return this.escapeHTML(comment);
+  }
+
 }
 
 window.getProductReviewsStatusHelper101 = function() {

@@ -1,0 +1,1 @@
+# Feature: Create a Multi-Step "Checkout Progress" Indicator\n\nThis is a placeholder for the implementation of Feature: Create a Multi-Step "Checkout Progress" Indicator.

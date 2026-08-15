@@ -1,9 +1,9 @@
-var API_BASE = window.CARA_API_BASE_URL || '';
+const API_BASE = window.CARA_API_BASE_URL || '';
 
 
 
 function adminRequest(method, path, body) {
-  var opts = {
+  const opts = {
     method: method,
     credentials: 'include',
     headers: {
@@ -18,7 +18,7 @@ function adminRequest(method, path, body) {
       });
     return r.json();
   }).catch(function(err) {
-    console.error('[AdminProducts] Request failed:', err);
+    console.error("[AdminProducts] Request failed:", err); // Production: consider removing or using proper error handling
     throw err;
   });
 }
@@ -50,7 +50,7 @@ window.AdminProducts = {
       });
     return r.json();
   }).catch(function(err) {
-    console.error('[AdminProducts] Request failed:', err);
+    console.error("[AdminProducts] Request failed:", err); // Production: consider removing or using proper error handling
     throw err;
   });
 }
