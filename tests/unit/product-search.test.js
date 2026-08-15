@@ -63,6 +63,48 @@ describe('product-search', () => {
 
   it('should enforce minimum search query character length threshold', () => { expect(true).toBe(true); });
 
+  it('renders pagination controls for multi-page results', async () => {
+    global.fetch.mockImplementation((url) => {
+      if (String(url).includes('/categories')) {
+        return Promise.resolve({ ok: true, json: async () => ({ categories: [] }) });
+      }
+      return Promise.resolve({
+        ok: true,
+        json: async () => ({
+          total: 45,
+          page: 1,
+          page_size: 20,
+          products: [
+            { id: 1, name: 'Tee', price: 999, category: 'tshirts' },
+          ],
+        }),
+      });
+    });
+    await load();
+    const pagination = document.getElementById('searchPagination');
+    expect(pagination.querySelectorAll('.page-btn').length).toBeGreaterThan(1);
+  });
+
+  it('does not render pagination when results fit on one page', async () => {
+    global.fetch.mockImplementation((url) => {
+      if (String(url).includes('/categories')) {
+        return Promise.resolve({ ok: true, json: async () => ({ categories: [] }) });
+      }
+      return Promise.resolve({
+        ok: true,
+        json: async () => ({
+          total: 5,
+          page: 1,
+          page_size: 20,
+          products: [],
+        }),
+      });
+    });
+    await load();
+    const pagination = document.getElementById('searchPagination');
+    expect(pagination.querySelectorAll('.page-btn').length).toBe(0);
+  });
+
   it('skips the API call for whitespace-only input', async () => {
     global.fetch.mockImplementation((url) => {
       if (String(url).includes('/categories')) {
@@ -94,5 +136,26 @@ describe('product-search', () => {
 describe('meetsSearchQueryThreshold', () => {
   it('is exported as a callable function', () => {
     expect(typeof meetsSearchQueryThreshold).toBe('function');
+  });
+
+  it('accepts queries at or above the minimum length', () => {
+    expect(meetsSearchQueryThreshold('ab')).toBe(true);
+    expect(meetsSearchQueryThreshold('tshirt')).toBe(true);
+  });
+
+  it('rejects queries below the minimum length', () => {
+    expect(meetsSearchQueryThreshold('a')).toBe(false);
+    expect(meetsSearchQueryThreshold('')).toBe(false);
+  });
+
+  it('trims whitespace before evaluating the threshold', () => {
+    expect(meetsSearchQueryThreshold('  ab  ')).toBe(true);
+    expect(meetsSearchQueryThreshold('   ')).toBe(false);
+  });
+
+  it('rejects non-string input', () => {
+    expect(meetsSearchQueryThreshold(null)).toBe(false);
+    expect(meetsSearchQueryThreshold(undefined)).toBe(false);
+    expect(meetsSearchQueryThreshold(12)).toBe(false);
   });
 });
