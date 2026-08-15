@@ -97,6 +97,42 @@ describe('session-lock', () => {
     expect(localStorage.getItem('access_token')).toBeNull();
   });
 
+  it('routes the logout request through fetchWithTimeout when available', async () => {
+    const fetchWithTimeoutMock = vi.fn(async (url, options = {}) => {
+      if (String(url).includes('/api/auth/me')) {
+        return { ok: true, status: 200, json: async () => ({ email: 'a@b.c' }) };
+      }
+      if (String(url).includes('/api/auth/logout')) {
+        return { ok: true, status: 200, json: async () => ({}) };
+      }
+      return { ok: false, status: 404 };
+    });
+    vi.stubGlobal('fetchWithTimeout', fetchWithTimeoutMock);
+    const fetchMock = vi.fn(async () => ({ ok: false, status: 404 }));
+    vi.stubGlobal('fetch', fetchMock);
+
+    await import('../../js/session-lock.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+    await vi.waitFor(() =>
+      expect(
+        fetchWithTimeoutMock.mock.calls.some((call) =>
+          String(call[0]).includes('/api/auth/me'),
+        ),
+      ).toBe(true),
+    );
+    await Promise.resolve();
+
+    vi.advanceTimersByTime(15 * 60 * 1000);
+    await vi.waitFor(() =>
+      expect(
+        fetchWithTimeoutMock.mock.calls.some((call) =>
+          String(call[0]).includes('/api/auth/logout'),
+        ),
+      ).toBe(true),
+    );
+    await vi.waitFor(() => expect(window.location.href).toBe('login.html'));
+  });
+
   it('still redirects to login when the logout request fails', async () => {
     const fetchMock = vi.fn(async (url) => {
       if (String(url).includes('/api/auth/me')) {
