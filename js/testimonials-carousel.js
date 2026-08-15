@@ -153,8 +153,16 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Autoplay functionality
+  function prefersReducedMotion() {
+    return (
+      typeof window.matchMedia === 'function' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    );
+  }
+
   function startAutoplay() {
     stopAutoplay();
+    if (prefersReducedMotion()) return;
     autoplayTimer = setInterval(() => {
       goToSlide(currentIdx + 1);
     }, 5000);

@@ -81,6 +81,21 @@ describe('testimonials-carousel.js unit tests', () => {
     expect(afterWrap).toBe((firstSlide - 1 + dots.length) % dots.length);
   });
 
+  it('does not auto-advance when the user prefers reduced motion', () => {
+    const originalMatchMedia = window.matchMedia;
+    window.matchMedia = vi.fn().mockReturnValue({ matches: true });
+    try {
+      const dots = Array.from(document.getElementById('testimonials-dots').children);
+      const activeBefore = dots.findIndex((d) => d.classList.contains('active'));
+      // 10 seconds of autoplay time should not move the slide.
+      vi.advanceTimersByTime(10000);
+      const activeAfter = dots.findIndex((d) => d.classList.contains('active'));
+      expect(activeAfter).toBe(activeBefore);
+    } finally {
+      window.matchMedia = originalMatchMedia;
+    }
+  });
+
   it('wraps to the first dot when next is clicked from the last slide', () => {
     const dots = Array.from(document.getElementById('testimonials-dots').children);
     // Advance to the last slide.
