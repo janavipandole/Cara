@@ -123,6 +123,20 @@
       pointer-events: all !important;
     }
 
+    /* :focus-visible states for keyboard navigation accessibility */
+    *:focus-visible {
+      outline: 2px solid #088178;
+      outline-offset: 2px;
+    }
+    button:focus-visible,
+    a:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
+      outline: 2px solid #088178;
+      outline-offset: 2px;
+      border-radius: 3px;
+    }
 
   </style>
 <script type="module" src="js/error-boundary.js"></script>
