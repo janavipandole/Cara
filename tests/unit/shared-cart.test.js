@@ -12,14 +12,21 @@ describe('SharedCartWS Unit Tests', () => {
   let SharedCartWS;
   let generateSessionId;
 
-  beforeEach(async () => {
-    vi.resetModules();
-    document.body.innerHTML = '<div id="test-presence"></div>';
-    const module = await import('../../js/shared-cart-ws.js');
-    const exports = module.default || window.SharedCartWS;
-    SharedCartWS = exports.SharedCartWS;
-    generateSessionId = exports.generateSessionId;
-  });
+    sandbox = {
+      window: {},
+      localStorage: storage,
+      console,
+      showToast: vi.fn(),
+      loadCart: vi.fn(),
+      updateCartCount: vi.fn(),
+      closeShareModal: vi.fn(),
+      broadcastCartState: vi.fn(),
+      JSON,
+      Math,
+      Array,
+      Object,
+    };
+    sandbox.window = sandbox;
 
   afterEach(() => {
     vi.restoreAllMocks();

@@ -941,7 +941,9 @@ function addToCart(name, price, img, quantity, size, productId) {
   }
   try {
     localStorage.setItem('productsInCart', JSON.stringify(cart));
-    window.cachedCartState = cart;
+    if (typeof window.broadcastCartState === 'function') {
+      window.broadcastCartState(cart);
+    }
     if (typeof showToast === 'function') {
       showToast(name + ' added to cart!', 'success');
     }
