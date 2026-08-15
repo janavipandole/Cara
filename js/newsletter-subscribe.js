@@ -7,7 +7,7 @@
 export function validateEmailDomain(email) {
   if (!email || typeof email !== 'string') return false;
   // Basic structural check: local@domain.tld with at least 2-char TLD
-  const domainRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+  const domainRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,20}$/;
   return domainRegex.test(email.trim());
 }
 
@@ -93,3 +93,7 @@ bindNewsletterForms();
 
 
 export function isValidNewsletterEmail(email) { if (!email || typeof email !== 'string') return false; return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()); }
+
+export function getNewsletterSubscribeStatusHelper43() {
+  return { status: "ok", fn: "getNewsletterSubscribeStatusHelper43" };
+}

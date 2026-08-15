@@ -119,3 +119,14 @@ function loadNavbar(activePage) {
     window.updateWishlistCount();
   }
 }
+
+if (typeof window !== 'undefined') {
+  window.addEventListener('resize', function () {
+    if (window.innerWidth > 799) {
+      const nav = document.getElementById('navbar');
+      if (nav) {
+        nav.classList.remove('active');
+      }
+    }
+  });
+}

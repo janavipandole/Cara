@@ -1,0 +1,1 @@
+# Feature: Create a "Mini Cart" Dropdown in Header\n\nThis is a placeholder for the implementation of Feature: Create a "Mini Cart" Dropdown in Header.

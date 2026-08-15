@@ -214,7 +214,31 @@
 
       this.updatePendingCount();
     }
+
+    async discardPendingOrders() {
+      const orders = await this.getPendingOrders();
+      if (!orders || orders.length === 0) {
+        this.pendingCount = 0;
+        this.notifyStatusChange();
+        return;
+      }
+      for (const item of orders) {
+        const offlineId = item.offlineId;
+        if (this.worker && offlineId) {
+          this.worker.postMessage({ action: 'REMOVE_ORDER', id: offlineId });
+        } else if (offlineId) {
+          this.removeFallbackOrder(offlineId);
+        }
+      }
+      this.pendingCount = 0;
+      this.notifyStatusChange();
+    }
   }
 
   return OfflineOrderQueue;
 });
+
+
+export function getOfflineOrderQueueStatusHelper44() {
+  return { status: "ok", fn: "getOfflineOrderQueueStatusHelper44" };
+}

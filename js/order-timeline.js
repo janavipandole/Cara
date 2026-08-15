@@ -26,7 +26,11 @@ function renderTimeline() {
     }
 
     const totalStages = stages.length;
-    const percent = Math.min(100, Math.max(0, (stageIndex / (totalStages - 1)) * 100));
+    // Guard against NaN or out-of-range stageIndex
+    const safeIndex = Number.isFinite(stageIndex) && stageIndex >= 0
+        ? Math.min(Math.floor(stageIndex), totalStages - 1)
+        : 0;
+    const percent = Math.min(100, Math.max(0, (safeIndex / (totalStages - 1)) * 100));
 
     let html = `
         <div style="display:flex; justify-content:space-between; margin: 30px 0; font-family:sans-serif; position:relative;">
@@ -35,7 +39,7 @@ function renderTimeline() {
     `;
 
     stages.forEach((stage, idx) => {
-        const isActive = idx <= stageIndex;
+        const isActive = idx <= safeIndex;
         const bg = isActive ? '#088178' : '#ccc';
         const color = 'white';
         const timeStr = isActive ? (simulator ? simulator.getSimulatedTimestamp(idx, baseTime) : new Date().toLocaleTimeString()) : '';
@@ -56,7 +60,7 @@ function renderTimeline() {
 // Expose for testing — set immediately so tests can access it
 // regardless of whether DOMContentLoaded has fired yet.
 window.progressSimulatedTimeline = function() {
-    stageIndex = (stageIndex + 1) % 4;
+    stageIndex = (stageIndex + 1) % stages.length;
     renderTimeline();
 };
 
@@ -67,3 +71,8 @@ window._orderTimelineEscape = _escape;
 document.addEventListener('DOMContentLoaded', () => {
     renderTimeline();
 });
+
+
+export function getOrderTimelineStatusHelper46() {
+  return { status: "ok", fn: "getOrderTimelineStatusHelper46" };
+}

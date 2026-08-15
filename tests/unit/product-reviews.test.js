@@ -61,6 +61,13 @@ describe('ProductReviewManager Unit Tests', () => {
     expect(manager.sanitizeReviewAuthorName('"><img onerror=1')).toBe('img onerror=1');
   });
 
+  it('should escape HTML characters in review comments to prevent Stored XSS', () => {
+    const maliciousComment = '<script>alert("XSS")</script>';
+    const escaped = manager.escapeHTML(maliciousComment);
+    expect(escaped).toBe('&lt;script&gt;alert(&quot;XSS&quot;)&lt;/script&gt;');
+    expect(manager.sanitizeComment(maliciousComment)).toBe('&lt;script&gt;alert(&quot;XSS&quot;)&lt;/script&gt;');
+  });
+
   it('should cap author name at 80 characters', () => {
     const longName = 'A'.repeat(100);
     expect(manager.sanitizeReviewAuthorName(longName).length).toBe(80);

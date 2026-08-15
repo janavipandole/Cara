@@ -1,9 +1,9 @@
-var API_BASE = window.CARA_API_BASE_URL || '';
+const API_BASE = window.CARA_API_BASE_URL || '';
 
 
 
 function adminRequest(method, path, body) {
-  var opts = {
+  const opts = {
     method: method,
     credentials: 'include',
     headers: {
@@ -18,7 +18,7 @@ function adminRequest(method, path, body) {
       });
     return r.json();
   }).catch(function(err) {
-    console.error('[AdminProducts] Request failed:', err);
+    console.error("[AdminProducts] Request failed:", err); // Production: consider removing or using proper error handling
     throw err;
   });
 }
@@ -34,12 +34,15 @@ window.AdminProducts = {
     return adminRequest('DELETE', '/api/admin/products/' + id);
   },
   updateStock: function (id, stock) {
+    if (typeof stock !== 'number' || !isFinite(stock) || stock < 0) {
+      return Promise.reject(new Error('Stock value must be a non-negative number.'));
+    }
     return fetch(
     API_BASE + '/api/admin/products/' + id + '/stock?stock=' + stock,
     {
       method: 'PATCH',
       credentials: 'include',
-    },
+    }
   ).then(function (r) {
     if (!r.ok)
       return r.json().then(function (d) {
@@ -47,8 +50,8 @@ window.AdminProducts = {
       });
     return r.json();
   }).catch(function(err) {
-    console.error('[AdminProducts] Request failed:', err);
+    console.error("[AdminProducts] Request failed:", err); // Production: consider removing or using proper error handling
     throw err;
   });
-},
+}
 }

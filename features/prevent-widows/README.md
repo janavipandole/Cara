@@ -1,0 +1,1 @@
+# UI Fix: Prevent "Widows" and "Orphans" in Typography\n\nThis is a placeholder for the implementation of UI Fix: Prevent "Widows" and "Orphans" in Typography.

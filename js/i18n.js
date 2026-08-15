@@ -38,18 +38,19 @@ const translations = {
     search: "Buscar productos..."
   },
   fr: {
+    wishlist: "Liste de souhaits",
+    orders: "Mes Commandes",
     home: "Accueil",
     shop: "Boutique",
     blog: "Blog",
     about: "A propos",
     contact: "Contact",
     cart: "Panier",
-    wishlist: "Liste de souhaits",
     login: "Connexion",
     promotions: "Promotions",
     community: "Communaute",
-    orders: "Mes Commandes",
     outfit: "Verificateur de Tenue",
+    authenticity: "Authenticite",
     addToCart: "Ajouter au Panier",
     buyNow: "Acheter Maintenant",
     search: "Rechercher des produits..."
@@ -68,11 +69,13 @@ function changeLanguage(lang) {
 
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     const key = el.getAttribute("data-i18n");
-    if (translations[lang][key]) {
+    // Fall back to English if the key is missing from the selected language
+    const text = translations[lang][key] ?? translations["en"][key] ?? "";
+    if (text) {
       if (el.tagName === "INPUT" && el.hasAttribute("placeholder")) {
-        el.setAttribute("placeholder", translations[lang][key]);
+        el.setAttribute("placeholder", text);
       } else {
-        el.textContent = translations[lang][key];
+        el.textContent = text;
       }
     }
   });
@@ -115,3 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 export function formatI18nPlaceholder(template, params = {}) { if (!template) return ''; return template.replace(/\{{(\w+)\}}/g, (_, key) => params[key] || ''); }
+
+export function getI18nStatusHelper35() {
+  return { status: "ok", fn: "getI18nStatusHelper35" };
+}

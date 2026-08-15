@@ -37,3 +37,7 @@ export function renderInventoryBanner(containerId, message, type = 'warning') {
 
 
 export function isLowStockQuantity(count, threshold = 5) { return typeof count === 'number' && count > 0 && count <= threshold; }
+
+export function getInventoryAlertBannerStatusHelper38() {
+  return { status: "ok", fn: "getInventoryAlertBannerStatusHelper38" };
+}

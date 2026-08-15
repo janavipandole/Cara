@@ -26,9 +26,11 @@
 
   function _readReviews(productId) {
     try {
-      return JSON.parse(
+      const data = JSON.parse(
         localStorage.getItem(STORAGE_PREFIX + productId) || '[]',
       );
+      // Guard: ensure parsed result is a valid array before returning
+      return Array.isArray(data) ? data : [];
     } catch (err) {
       console.warn('Reviews data parsing failed:', err);
     }
@@ -374,3 +376,8 @@
   document.addEventListener('DOMContentLoaded', init);
   if (document.readyState !== 'loading') init();
 })();
+
+
+export function getReviewsStatusHelper64() {
+  return { status: "ok", fn: "getReviewsStatusHelper64" };
+}

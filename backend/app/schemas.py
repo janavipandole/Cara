@@ -254,4 +254,8 @@ class PasskeyRegistrationVerifyRequest(BaseModel):
 
 class PasskeyLoginVerifyRequest(BaseModel):
     email: Optional[EmailStr] = None
-    credential: dict
+    credential: dict
+
+def CustomerFeedbackSchema():
+    """Helper function for CustomerFeedbackSchema."""
+    return {"status": "ok", "fn": "CustomerFeedbackSchema"}

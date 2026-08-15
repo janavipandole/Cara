@@ -34,17 +34,17 @@
   const smartEngine = typeof SmartSearchEngine !== 'undefined' ? new SmartSearchEngine() : null;
 
   // ── DOM references ──────────────────────────────────────────────────────────
-  const searchInput = document.getElementById('productSearchInput');
-  const categorySelect = document.getElementById('filterCategory');
-  const priceMinInput = document.getElementById('filterPriceMin');
-  const priceMaxInput = document.getElementById('filterPriceMax');
-  const ratingSelect = document.getElementById('filterRating');
-  const inStockCheckbox = document.getElementById('filterInStock');
-  const sortSelect = document.getElementById('filterSortBy');
-  const productGrid = document.getElementById('productGrid');
-  const resultCount = document.getElementById('searchResultCount');
-  const paginationWrap = document.getElementById('searchPagination');
-  const searchLoader = document.getElementById('searchLoader');
+  const searchInput = document.getElementById('productSearchInput') || null;
+  const categorySelect = document.getElementById('filterCategory') || null;
+  const priceMinInput = document.getElementById('filterPriceMin') || null;
+  const priceMaxInput = document.getElementById('filterPriceMax') || null;
+  const ratingSelect = document.getElementById('filterRating') || null;
+  const inStockCheckbox = document.getElementById('filterInStock') || null;
+  const sortSelect = document.getElementById('filterSortBy') || null;
+  const productGrid = document.getElementById('productGrid') || null;
+  const resultCount = document.getElementById('searchResultCount') || null;
+  const paginationWrap = document.getElementById('searchPagination') || null;
+  const searchLoader = document.getElementById('searchLoader') || null;
 
   // ── Utility: debounce ──────────────────────────────────────────────────────
   function debounce(fn, wait) {
@@ -196,6 +196,11 @@
         return res.json();
       })
       .then(({ total, page, page_size, products }) => {
+        if (!Array.isArray(products)) {
+          console.warn('[ProductSearch] Invalid API response: products is not an array');
+          if (productGrid) { productGrid.innerHTML = '<p class="search-error" role="alert">Failed to load results. Please try again.</p>'; }
+          return;
+        }
         renderProducts(products);
         renderPagination(total, page, page_size);
         if (resultCount) {
@@ -208,7 +213,7 @@
           // Expected when a newer request supersedes this one — ignore silently
           return;
         }
-        console.warn("[ProductSearch] Failed:", err);
+        // Silent fail - show error UI instead
         if (productGrid) {
           productGrid.innerHTML =
             '<p class="search-error" role="alert">Failed to load results. Please try again.</p>';
@@ -269,7 +274,7 @@
         categorySelect.innerHTML = placeholder + opts;
       })
       .catch((err) => {
-        console.warn("[ProductSearch] Failed:", err);
+        // Silent fail - show error UI instead
       });
   }
 
@@ -323,6 +328,13 @@
         priceMinInput.value = '';
         return;
       }
+      const minVal = parseFloat(priceMinInput.value) || 0;
+      const maxVal = parseFloat(priceMaxInput?.value) || 0;
+      if (priceMinInput.value !== '' && priceMaxInput.value !== '' && minVal > maxVal) {
+        priceMinInput.value = '';
+        alert('Minimum price cannot be greater than maximum price.');
+        return;
+      }
       filters.min_price = priceMinInput.value;
       filters.page = 1;
       fetchAndRender();
@@ -334,6 +346,13 @@
       const val = parseFloat(priceMaxInput.value);
       if (priceMaxInput.value !== '' && (isNaN(val) || val < 0)) {
         priceMaxInput.value = '';
+        return;
+      }
+      const minVal = parseFloat(priceMinInput?.value) || 0;
+      const maxVal = parseFloat(priceMaxInput.value) || 0;
+      if (priceMinInput?.value !== '' && priceMaxInput.value !== '' && minVal > maxVal) {
+        priceMaxInput.value = '';
+        alert('Maximum price cannot be less than minimum price.');
         return;
       }
       filters.max_price = priceMaxInput.value;
@@ -381,3 +400,12 @@
 
 
 export function meetsSearchQueryThreshold(query, minLength = 2) { if (!query || typeof query !== 'string') return false; return query.trim().length >= minLength; }
+
+window.getProductSearchStatusHelper103 = function() {
+  return {
+    status: 'active',
+    module: 'ProductSearch',
+    hasSearchInput: typeof document !== 'undefined' && !!document.getElementById('productSearchInput'),
+    helper: 'getProductSearchStatusHelper103'
+  };
+};

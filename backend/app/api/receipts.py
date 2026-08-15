@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from sqlalchemy.orm import Session
 import hmac
 import hashlib
@@ -17,7 +17,7 @@ def generate_receipt_signature(order: models.Order) -> str:
 
 @router.get("/{order_id}/receipt")
 @limiter.limit("20/minute")
-def get_digital_receipt(order_id: int, db: Session = Depends(get_db)):
+def get_digital_receipt(request: Request, order_id: int, db: Session = Depends(get_db)):
     order = db.query(models.Order).filter(models.Order.id == order_id).first()
     if not order:
         raise HTTPException(status_code=404, detail="Order not found")

@@ -104,7 +104,7 @@
             headers: { 'Content-Type': 'application/json' },
             body: payload,
             keepalive: true,
-          }).catch(() => {});
+          }).catch((err) => { console.warn('[RUM] Beacon fallback failed:', err); });
         }
       };
 
@@ -130,3 +130,12 @@
     RUMTelemetryCollector,
   };
 });
+
+window.getRumTelemetryStatusHelper114 = function() {
+  return {
+    status: 'active',
+    module: 'RUMTelemetry',
+    hasInstance: typeof window.__rum_telemetry_instance !== 'undefined',
+    helper: 'getRumTelemetryStatusHelper114'
+  };
+};

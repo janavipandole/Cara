@@ -39,7 +39,15 @@ export class AccessibilityFocusManager {
   }
 
   handleKeyDown(event) {
-    if (!this.activeModal || event.key !== 'Tab') return;
+    if (!this.activeModal) return;
+
+    if (event.key === 'Escape') {
+      this.releaseFocus();
+      if (event.preventDefault) event.preventDefault();
+      return;
+    }
+
+    if (event.key !== 'Tab') return;
 
     if (event.shiftKey) {
       if (document.activeElement === this.firstFocusable) {

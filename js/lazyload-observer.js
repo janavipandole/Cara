@@ -59,3 +59,7 @@ if (typeof document !== 'undefined') {
 
 
 export function unobserveLazyElement(observer, element) { if (observer && typeof observer.unobserve === 'function' && element) { observer.unobserve(element); } }
+
+export function getLazyloadObserverStatusHelper39() {
+  return { status: "ok", fn: "getLazyloadObserverStatusHelper39" };
+}

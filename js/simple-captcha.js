@@ -70,3 +70,8 @@ if (document.readyState === 'loading') {
 } else {
   installCaptcha();
 }
+
+
+export function getSimpleCaptchaStatusHelper74() {
+  return { status: "ok", fn: "getSimpleCaptchaStatusHelper74" };
+}

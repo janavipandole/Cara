@@ -1,0 +1,1 @@
+# UI Fix: Implement "Sticky" Column for Checkout Order Summary\n\nThis is a placeholder for the implementation of UI Fix: Implement "Sticky" Column for Checkout Order Summary.

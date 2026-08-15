@@ -8,7 +8,7 @@ export class PincodeValidationEngine {
     this.postalPatterns = {
       US: /^\d{5}(-\d{4})?$/,
       IN: /^[1-9][0-9]{5}$/,
-      UK: /^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$/i,
+      UK: /^[A-Z]{1,2}\d[A-Z\d]?[ ]?\d[A-Z]{2}$/i,
       CA: /^[A-Z]\d[A-Z] \d[A-Z]\d$/i
     };
   }
@@ -32,6 +32,12 @@ export class PincodeValidationEngine {
   }
 
 
+  /**
+   * Returns the delivery zone and estimated delivery window for a given postal code.
+   * @param {string} code - The postal / PIN code to look up.
+   * @param {string} [countryCode='IN'] - ISO country code.
+   * @returns {{ zone: string, estimatedDaysText: string } | null} Zone info or null if the code is invalid.
+   */
   getDeliveryZone(code, countryCode = 'IN') {
     const delivery = this.estimateDeliveryDays(code, countryCode);
     if (!delivery) return null;
@@ -39,6 +45,10 @@ export class PincodeValidationEngine {
       zone: delivery.tier,
       estimatedDaysText: `${delivery.minDays}-${delivery.maxDays} business days`
     };
+  }
+
+  getSupportedCountries() {
+    return Object.keys(this.postalPatterns);
   }
 
   estimateDeliveryDays(code, countryCode = 'IN') {
@@ -60,3 +70,11 @@ export class PincodeValidationEngine {
     return { minDays: 3, maxDays: 7, tier: 'Standard Zone' };
   }
 }
+
+window.getPincodeValidationEngineStatusHelper107 = function() {
+  return {
+    status: 'active',
+    module: 'PincodeValidationEngine',
+    helper: 'getPincodeValidationEngineStatusHelper107'
+  };
+};

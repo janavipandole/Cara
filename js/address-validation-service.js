@@ -19,7 +19,7 @@ class AddressValidationService {
       return { valid: false, message: 'Postal code is required.' };
     }
 
-    const clean = postalCode.trim().toUpperCase();
+    const clean = String(postalCode).trim().toUpperCase();
     const regex = this.postalRegex[country.toUpperCase()] || /^[A-Z0-9 -]{3,10}$/i;
 
     if (!regex.test(clean)) {

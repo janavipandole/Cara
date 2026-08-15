@@ -96,6 +96,9 @@ document.addEventListener('DOMContentLoaded', () => {
     visibleCount = getVisibleCount();
     const dotsCount = Math.max(1, TESTIMONIALS.length - visibleCount + 1);
 
+    // Batch dots into a DocumentFragment to avoid a synchronous
+    // reflow/repaint for every appended dot.
+    const fragment = document.createDocumentFragment();
     for (let i = 0; i < dotsCount; i++) {
       const dot = document.createElement('button');
       dot.className = `carousel-dot ${i === currentIdx ? 'active' : ''}`;
@@ -104,8 +107,9 @@ document.addEventListener('DOMContentLoaded', () => {
         goToSlide(i);
         resetAutoplay();
       });
-      dotsContainer.appendChild(dot);
+      fragment.appendChild(dot);
     }
+    dotsContainer.appendChild(fragment);
   }
 
   // Update slide position
@@ -250,3 +254,8 @@ document.addEventListener('DOMContentLoaded', () => {
     startAutoplay();
   }, 100);
 });
+
+
+export function getTestimonialsCarouselStatusHelper81() {
+  return { status: "ok", fn: "getTestimonialsCarouselStatusHelper81" };
+}

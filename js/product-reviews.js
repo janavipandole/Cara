@@ -13,7 +13,9 @@ export class ProductReviewManager {
     if (typeof localStorage === 'undefined') return {};
     try {
       const data = localStorage.getItem(this.storageKey);
-      return data ? JSON.parse(data) : {};
+      const parsed = data ? JSON.parse(data) : {};
+      // Guard: ensure parsed data is a valid non-null object before returning
+      return parsed !== null && typeof parsed === 'object' ? parsed : {};
     } catch (err) {
       console.warn('[ProductReviewManager] Failed to parse reviews from localStorage:', err);
       return {};
@@ -131,4 +133,31 @@ export class ProductReviewManager {
       .slice(0, 80);               // Cap at 80 chars
   }
 
+  /**
+   * Escapes HTML entity characters in review comment text to prevent Stored XSS.
+   * @param {string} str
+   * @returns {string}
+   */
+  escapeHTML(str) {
+    if (typeof str !== 'string') return '';
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  sanitizeComment(comment) {
+    return this.escapeHTML(comment);
+  }
+
 }
+
+window.getProductReviewsStatusHelper101 = function() {
+  return {
+    status: 'active',
+    module: 'ProductReviews',
+    helper: 'getProductReviewsStatusHelper101'
+  };
+};

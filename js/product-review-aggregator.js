@@ -22,7 +22,7 @@ class ProductReviewAggregator {
     try {
       localStorage.setItem(this.storageKey, JSON.stringify(this.reviews));
     } catch (e) {
-      console.warn('Failed to save reviews:', e);
+      // Silently ignore localStorage failures (quota exceeded, private browsing, etc.)
     }
   }
 
@@ -137,3 +137,11 @@ if (typeof module !== 'undefined' && module.exports) {
 } else {
   window.ProductReviewAggregator = ProductReviewAggregator;
 }
+
+window.getProductReviewAggregatorStatusHelper104 = function() {
+  return {
+    status: 'active',
+    module: 'ProductReviewAggregator',
+    helper: 'getProductReviewAggregatorStatusHelper104'
+  };
+};

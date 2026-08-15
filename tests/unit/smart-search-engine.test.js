@@ -96,4 +96,15 @@ describe('SmartSearchEngine Unit Tests', () => {
     expect(history.length).toBe(10);
     expect(history[0]).toBe('query-12');
   });
+
+  it('returns formatted autocomplete suggestions capped at limit', () => {
+    const suggestions = engine.getAutocompleteSuggestions('tee', 2);
+    expect(suggestions.length).toBe(1);
+    expect(suggestions[0]).toEqual({
+      id: 1,
+      name: 'Cartoon Astronaut T-Shirt',
+      category: 'tshirts',
+      price: 29.99,
+    });
+  });
 });

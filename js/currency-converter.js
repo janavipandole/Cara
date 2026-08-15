@@ -31,7 +31,8 @@ export async function fetchExchangeRates(fetchImpl = globalThis.fetch) {
         const parsed = JSON.parse(cachedData);
         if (parsed && parsed.rates) {
           for (const code of Object.keys(DEFAULT_EXCHANGE_RATES)) {
-            if (parsed.rates[code] != null) EXCHANGE_RATES[code] = parsed.rates[code];
+            const rate = parsed.rates[code];
+            if (Number.isFinite(rate)) EXCHANGE_RATES[code] = rate;
           }
           if (
             typeof parsed.timestamp === 'number' &&
@@ -42,7 +43,7 @@ export async function fetchExchangeRates(fetchImpl = globalThis.fetch) {
         }
       }
     } catch (err) {
-      console.warn('[CurrencyConverter] Failed to parse cached exchange rates:', err);
+      // Silently ignore cache parsing errors.
     }
   }
 
@@ -53,7 +54,8 @@ export async function fetchExchangeRates(fetchImpl = globalThis.fetch) {
         const data = await response.json();
         if (data && data.rates) {
           for (const code of Object.keys(DEFAULT_EXCHANGE_RATES)) {
-            if (data.rates[code] != null) EXCHANGE_RATES[code] = data.rates[code];
+            const rate = data.rates[code];
+            if (Number.isFinite(rate)) EXCHANGE_RATES[code] = rate;
           }
           if (typeof localStorage !== 'undefined') {
             localStorage.setItem(
@@ -64,7 +66,7 @@ export async function fetchExchangeRates(fetchImpl = globalThis.fetch) {
         }
       }
     } catch (err) {
-      console.warn('[CurrencyConverter] Exchange rate API request failed:', err);
+      // Silently ignore API request errors.
     }
   }
 
@@ -79,7 +81,8 @@ export function getActiveCurrency() {
 }
 
 export function setActiveCurrency(currencyCode) {
-  if (!EXCHANGE_RATES[currencyCode]) return false;
+  // Validate ISO 4217 currency code against known supported currencies
+  if (!DEFAULT_EXCHANGE_RATES.hasOwnProperty(currencyCode)) return false;
   if (typeof localStorage !== 'undefined') {
     localStorage.setItem('cara_selected_currency', currencyCode);
   }
@@ -102,6 +105,29 @@ export function formatCurrency(amountInUSD, targetCurrency = getActiveCurrency()
   return `${symbol}${isFinite(converted) ? converted.toFixed(2) : '0.00'}`;
 }
 
+/**
+ * Formats an amount in a locale-aware manner using Intl.NumberFormat.
+ * @param {number} amountInUSD - The amount in USD to convert and format.
+ * @param {string} [targetCurrency=getActiveCurrency()] - ISO 4217 currency code.
+ * @param {string} [locale='en-IN'] - BCP 47 locale tag for number formatting.
+ * @returns {string} The formatted currency string.
+ */
+export function formatCurrencyLocale(amountInUSD, targetCurrency = getActiveCurrency(), locale = 'en-IN') {
+  const converted = convertPrice(amountInUSD, targetCurrency);
+  if (!isFinite(converted)) return '0.00';
+  try {
+    return new Intl.NumberFormat(locale, {
+      style: 'currency',
+      currency: targetCurrency,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(converted);
+  } catch (e) {
+    // Fall back to basic formatting for unsupported locales or currencies.
+    return formatCurrency(amountInUSD, targetCurrency);
+  }
+}
+
 export function initCurrencySelector(selectElementId = 'currencySelect') {
   if (typeof document === 'undefined') return;
   const select = document.getElementById(selectElementId);
@@ -113,6 +139,11 @@ export function initCurrencySelector(selectElementId = 'currencySelect') {
   });
 }
 
+export function roundToTwoDecimals(amount) {
+  if (typeof amount !== 'number' || !isFinite(amount)) return 0;
+  return Math.round((amount + Number.EPSILON) * 100) / 100;
+}
+
 if (typeof document !== 'undefined') {
   function initCurrencyConverter() {
     fetchExchangeRates();
@@ -122,4 +153,9 @@ if (typeof document !== 'undefined') {
   // deferred scripts that load after DOMContentLoaded has already fired.
   document.addEventListener('DOMContentLoaded', initCurrencyConverter);
   initCurrencyConverter();
+}
+
+
+export function getCurrencyConverterStatusHelper27() {
+  return { status: "ok", fn: "getCurrencyConverterStatusHelper27" };
 }

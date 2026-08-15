@@ -23,15 +23,22 @@
   const errorAlert = document.getElementById('analyticsError');
 
   // ── Format helpers ─────────────────────────────────────────────────────────
+  function _numberFormat(num, decimals, groupSize) {
+    const n = isFinite(num) ? num : 0;
+    const fixed = n.toFixed(decimals);
+    const parts = fixed.split('.');
+    parts[0] = parts[0].replace(/\B(?=(\d{groupSize})+(?!\d))/g, ',');
+    return parts.join('.');
+  }
+
   function _fmtRev(val) {
     const num = parseFloat(val);
-    const safe = isFinite(num) ? num : 0;
-    return (
-      '₹' +
-      safe
-        .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, '$&,')
-    );
+    const symbol =
+      (typeof window !== 'undefined' &&
+        window.CARA_CONFIG &&
+        window.CARA_CONFIG.CURRENCY_SYMBOL) ||
+      '₹';
+    return symbol + _numberFormat(num, 2, 3);
   }
 
   function _escape(str) {
@@ -95,6 +102,7 @@
 
     statusWrap.innerHTML = list
       .map((r) => {
+        if (!r || !r.status) return '';
         const pct = Math.round((r.count / maxVal) * 100);
         return `
         <div class="status-dist-bar-wrap" role="group" aria-label="${r.status}: ${r.count} orders">
@@ -151,8 +159,15 @@
 
   // ── Initialise ─────────────────────────────────────────────────────────────
   function initDashboard() {
-    // Only load if dashboard components exist on page
-    if (revEl || catTable || statusWrap) {
+    // Re-query the dashboard containers here rather than relying on the
+    // module-level refs, which are captured at script load time and may still
+    // be null when the script runs during initial parsing (before the DOM is
+    // ready). Only load if a dashboard container actually exists on the page.
+    if (
+      document.getElementById('analyticsRevenue') ||
+      document.getElementById('analyticsCategoryTable') ||
+      document.getElementById('analyticsStatusWrap')
+    ) {
       loadDashboard();
     }
   }

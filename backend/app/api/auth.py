@@ -299,7 +299,9 @@ def refresh_access_token(request: Request, response: Response, db: Session = Dep
         if not email:
             raise HTTPException(401, "Invalid token.")
         assert_refresh_jti(email, payload.get("jti"))
-    except JWTError:
+    except (JWTError, HTTPException) as err:
+        if isinstance(err, HTTPException):
+            raise err
         raise HTTPException(401, "Invalid or expired refresh token.")
 
     user = db.query(models.User).filter(models.User.email == email).first()
@@ -396,6 +398,8 @@ def forgot_password(
         if SMTP_HOST:
             background_tasks.add_task(send_password_reset_email, user.email, token)
     else:
+        # Perform dummy password hash work to ensure constant-time response latency
+        pwd.hash("DummyPasswordToMatchWorkFactor123!")
         # Generate dummy token to return if SMTP is not configured
         token = generate_dummy_token()
         if SMTP_HOST:

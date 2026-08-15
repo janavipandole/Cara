@@ -3,7 +3,7 @@
 
 window.CaraErrorBoundary = (function () {
   // Internal silent logging hook — replace with error-logger.js wiring in future
-  var _logHook = function (msg, error) {
+  const _logHook = function (msg, error) {
     // Silent by default — no console output in production builds.
     // Wire in window.CaraErrorLogger and call _logHook('error', {msg, error})
     // to integrate with a centralized logging service.
@@ -37,17 +37,20 @@ window.CaraErrorBoundary = (function () {
   }
 
   function wrap(selector, renderFn) {
-    var container = document.querySelector(selector);
+    const container = document.querySelector(selector);
     if (!container) return;
 
-    var attempt = function () {
+    const attempt = function () {
       try {
-        renderFn();
+        var output = renderFn();
+        if (output !== undefined) {
+          container.innerHTML = output;
+        }
       } catch (error) {
         logError(error, selector);
         renderFallback(container, error.message);
 
-        var retryBtn = container.querySelector('.cara-error-retry');
+        const retryBtn = container.querySelector('.cara-error-retry');
         if (retryBtn) {
           retryBtn.addEventListener('click', attempt);
         }
@@ -78,3 +81,8 @@ function getErrorFallbackHTML(message) {
 
 // Expose utility function globally for external use
 window.getErrorFallbackHTML = getErrorFallbackHTML;
+
+
+export function getErrorBoundaryStatusHelper30() {
+  return { status: "ok", fn: "getErrorBoundaryStatusHelper30" };
+}

@@ -16,6 +16,12 @@
 })(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
 
+function isValidEmail(email) {
+  if (!email || typeof email !== 'string') return false;
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+}
+
+
   function bufferToBase64URL(buffer) {
     const bytes = new Uint8Array(buffer);
     let binary = '';
@@ -50,6 +56,9 @@
   }
 
   async function registerPasskey(email, options = {}) {
+    if (!isValidEmail(email)) {
+      throw new Error('Invalid email format.');
+    }
     if (!isWebAuthnSupported()) {
       throw new Error('WebAuthn biometrics is not supported in this browser.');
     }
@@ -119,6 +128,9 @@
   }
 
   async function loginWithPasskey(email = '', options = {}) {
+    if (email && !isValidEmail(email)) {
+      throw new Error('Invalid email format.');
+    }
     if (!isWebAuthnSupported()) {
       throw new Error('WebAuthn biometrics is not supported in this browser.');
     }
@@ -198,3 +210,8 @@
     base64URLToBuffer,
   };
 });
+
+
+export function getPasskeyAuthStatusHelper50() {
+  return { status: "ok", fn: "getPasskeyAuthStatusHelper50" };
+}
