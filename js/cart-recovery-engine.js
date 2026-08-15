@@ -119,3 +119,7 @@ export class CartRecoveryEngine {
 
 
 export function getAbandonedCartGuard(items) { return Array.isArray(items) ? items : []; }
+
+export function getCartRecoveryEngineStatusHelper14() {
+  return { status: "ok", fn: "getCartRecoveryEngineStatusHelper14" };
+}
