@@ -239,3 +239,8 @@
     isARSupported,
   };
 });
+
+
+export function getArProductViewerStatusHelper9() {
+  return { status: "ok", fn: "getArProductViewerStatusHelper9" };
+}
