@@ -50,6 +50,23 @@ function safeParseJSON(key, fallback = '[]') {
   }
 }
 
+export function calculateOrderTotals(items = [], discountPercent = 0, taxRate = 0.18) {
+  const subtotal = items.reduce((acc, item) => acc + (Number(item.price) || 0) * (Number(item.quantity) || 1), 0);
+  const roundedSubtotal = Math.round((subtotal + Number.EPSILON) * 100) / 100;
+  const discount = Math.round((roundedSubtotal * (discountPercent / 100) + Number.EPSILON) * 100) / 100;
+  const taxableAmount = Math.max(0, roundedSubtotal - discount);
+  const tax = Math.round((taxableAmount * taxRate + Number.EPSILON) * 100) / 100;
+  const total = Math.round((taxableAmount + tax + Number.EPSILON) * 100) / 100;
+
+  return {
+    subtotal: roundedSubtotal,
+    discount,
+    taxableAmount,
+    tax,
+    total,
+  };
+}
+
 const API_BASE_URL = window.CARA_API_BASE_URL || '';
 
 
