@@ -45,3 +45,13 @@ export function clearAnnouncements() {
   if (liveRegionPolite) liveRegionPolite.textContent = '';
   if (liveRegionAssertive) liveRegionAssertive.textContent = '';
 }
+
+window.getA11yAnnouncerStatusHelper117 = function() {
+  return {
+    status: 'active',
+    module: 'A11yAnnouncer',
+    hasPoliteRegion: typeof document !== 'undefined' && !!document.getElementById('a11y-announcer-polite'),
+    hasAssertiveRegion: typeof document !== 'undefined' && !!document.getElementById('a11y-announcer-assertive'),
+    helper: 'getA11yAnnouncerStatusHelper117'
+  };
+};
