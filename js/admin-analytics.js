@@ -33,7 +33,12 @@
 
   function _fmtRev(val) {
     const num = parseFloat(val);
-    return '₹' + _numberFormat(num, 2, 3);
+    const symbol =
+      (typeof window !== 'undefined' &&
+        window.CARA_CONFIG &&
+        window.CARA_CONFIG.CURRENCY_SYMBOL) ||
+      '₹';
+    return symbol + _numberFormat(num, 2, 3);
   }
 
   function _escape(str) {
