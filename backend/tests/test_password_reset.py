@@ -8,13 +8,41 @@ def test_forgot_password_nonexistent_email(client):
     assert "message" in data
 
 
+def test_forgot_password_dummy_token_without_smtp(client, monkeypatch):
+    # With SMTP unset, the endpoint returns a dummy reset token directly so the
+    # frontend fallback flow can continue.
+    from app.api import auth as auth_api
+    monkeypatch.setattr(auth_api, "SMTP_HOST", "")
+    response = client.post(
+        "/api/auth/forgot-password",
+        json={"email": "ghost@example.com"},
+    )
+    assert response.status_code == 200
+    data = response.json()
+    assert "reset_token" in data
+    assert data["reset_token"].startswith("dummy_")
+
+
+def test_reset_password_accepts_dummy_token(client, monkeypatch):
+    from app.api import auth as auth_api
+    monkeypatch.setattr(auth_api, "SMTP_HOST", "")
+    # Generate a valid dummy token the same way the endpoint does.
+    token = auth_api.generate_dummy_token()
+    response = client.post(
+        "/api/auth/reset-password",
+        json={"token": token, "new_password": "NewPass@456"},
+    )
+    assert response.status_code == 200
+    assert response.json()["message"] == "Password has been reset successfully"
+
+
 def test_forgot_password_existing_email(client, db_session):
     from app.models import User
     from passlib.context import CryptContext
     pwd = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
     user = User(
-        username="testuser",
+        username="forgotuser",
         email="test@example.com",
         hashed_password=pwd.hash("Test@1234"),
     )
