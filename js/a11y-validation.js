@@ -92,3 +92,8 @@
 
   root.runA11yAudit = runA11yAudit;
 })(typeof window !== 'undefined' ? window : globalThis);
+
+
+export function getA11yValidationStatusHelper2() {
+  return { status: "ok", fn: "getA11yValidationStatusHelper2" };
+}
