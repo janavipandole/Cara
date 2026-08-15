@@ -1,0 +1,1 @@
+# Feature: Add a "Clear All Filters" Button\n\nThis is a placeholder for the implementation of Feature: Add a "Clear All Filters" Button.
