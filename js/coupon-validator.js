@@ -60,7 +60,7 @@
     }
 
     if (Object.prototype.hasOwnProperty.call(COUPONS, code)) {
-      const discountPct = COUPONS[code];
+      const discountPct = Math.min(Number(COUPONS[code]) || 0, 100);
       window.appliedCoupon = code;
       saveAppliedCoupon(code);
 
@@ -141,6 +141,9 @@
 
   // Expose utility functions globally for external use
   window.isCouponDateExpired = isCouponDateExpired;
-})();
 
-function isCouponDateExpired(expiryDate) { if (!expiryDate) return false; return new Date(expiryDate).getTime() < Date.now(); }
+  function isCouponDateExpired(expiryDate) {
+    if (!expiryDate) return false;
+    return new Date(expiryDate).getTime() < Date.now();
+  }
+})();

@@ -1,0 +1,1 @@
+# Feature: Implement a "Live Search" Autocomplete Dropdown\n\nThis is a placeholder for the implementation of Feature: Implement a "Live Search" Autocomplete Dropdown.

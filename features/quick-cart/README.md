@@ -1,0 +1,1 @@
+# Feature: Add a "Quick Cart" Sidebar (Off-Canvas)\n\nThis is a placeholder for the implementation of Feature: Add a "Quick Cart" Sidebar (Off-Canvas).

@@ -1,0 +1,1 @@
+# Enhancement: Optimize "Cumulative Layout Shift" (CLS) for Web Fonts\n\nThis is a placeholder for the implementation of Enhancement: Optimize "Cumulative Layout Shift" (CLS) for Web Fonts.
