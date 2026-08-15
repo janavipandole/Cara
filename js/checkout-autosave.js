@@ -66,3 +66,7 @@ if (typeof document !== 'undefined') {
 
 
 export function getDebounceDelayMs() { return 500; }
+
+export function getCheckoutAutosaveStatusHelper16() {
+  return { status: "ok", fn: "getCheckoutAutosaveStatusHelper16" };
+}
