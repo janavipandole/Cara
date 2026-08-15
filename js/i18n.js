@@ -118,3 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 export function formatI18nPlaceholder(template, params = {}) { if (!template) return ''; return template.replace(/\{{(\w+)\}}/g, (_, key) => params[key] || ''); }
+
+export function getI18nStatusHelper35() {
+  return { status: "ok", fn: "getI18nStatusHelper35" };
+}
