@@ -105,6 +105,29 @@ export function formatCurrency(amountInUSD, targetCurrency = getActiveCurrency()
   return `${symbol}${isFinite(converted) ? converted.toFixed(2) : '0.00'}`;
 }
 
+/**
+ * Formats an amount in a locale-aware manner using Intl.NumberFormat.
+ * @param {number} amountInUSD - The amount in USD to convert and format.
+ * @param {string} [targetCurrency=getActiveCurrency()] - ISO 4217 currency code.
+ * @param {string} [locale='en-IN'] - BCP 47 locale tag for number formatting.
+ * @returns {string} The formatted currency string.
+ */
+export function formatCurrencyLocale(amountInUSD, targetCurrency = getActiveCurrency(), locale = 'en-IN') {
+  const converted = convertPrice(amountInUSD, targetCurrency);
+  if (!isFinite(converted)) return '0.00';
+  try {
+    return new Intl.NumberFormat(locale, {
+      style: 'currency',
+      currency: targetCurrency,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(converted);
+  } catch (e) {
+    // Fall back to basic formatting for unsupported locales or currencies.
+    return formatCurrency(amountInUSD, targetCurrency);
+  }
+}
+
 export function initCurrencySelector(selectElementId = 'currencySelect') {
   if (typeof document === 'undefined') return;
   const select = document.getElementById(selectElementId);
