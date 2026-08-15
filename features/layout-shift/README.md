@@ -1,0 +1,1 @@
+# UI Fix: Prevent "Layout Shift" for Asynchronous Images\n\nThis is a placeholder for the implementation of UI Fix: Prevent "Layout Shift" for Asynchronous Images.

@@ -1,0 +1,1 @@
+# Feature: Implement "Image Zoom on Hover" for Product Gallery\n\nThis is a placeholder for the implementation of Feature: Implement "Image Zoom on Hover" for Product Gallery.

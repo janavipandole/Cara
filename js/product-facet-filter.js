@@ -103,3 +103,11 @@ export class ProductFacetFilter {
   }
 
 }
+
+window.getProductFacetFilterStatusHelper106 = function() {
+  return {
+    status: 'active',
+    module: 'ProductFacetFilter',
+    helper: 'getProductFacetFilterStatusHelper106'
+  };
+};
