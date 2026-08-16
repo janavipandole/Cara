@@ -3,9 +3,7 @@
  * Tests newsletter form submission and email validation.
  */
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { isValidNewsletterEmail } from '../../js/newsletter-subscribe.js';
-import { validateEmailDomain } from '../../js/newsletter-subscribe.js';
-import { isValidNewsletterEmail } from '../../js/newsletter-subscribe.js';
+import { isValidNewsletterEmail, validateEmailDomain } from '../../js/newsletter-subscribe.js';
 
 // Mock window.alert before importing the module so the IIFE captures our spy
 const alertSpy = vi.fn();
@@ -98,7 +96,28 @@ describe('newsletter-subscribe Unit Tests', () => {
     vi.useRealTimers();
   });
 
-  it('should validate email format regex before newsletter subscription', () => { expect(true).toBe(true); });
+  it('should validate email format regex before newsletter subscription', () => {
+    expect(isValidNewsletterEmail('user@example.com')).toBe(true);
+    expect(isValidNewsletterEmail('user@example')).toBe(false);
+    expect(isValidNewsletterEmail('not-an-email')).toBe(false);
+    expect(isValidNewsletterEmail('')).toBe(false);
+  });
+});
+
+describe('isValidNewsletterEmail', () => {
+  it('is exported as a callable function', () => {
+    expect(typeof isValidNewsletterEmail).toBe('function');
+  });
+
+  it('returns false for non-string inputs', () => {
+    expect(isValidNewsletterEmail(null)).toBe(false);
+    expect(isValidNewsletterEmail(undefined)).toBe(false);
+    expect(isValidNewsletterEmail(42)).toBe(false);
+  });
+
+  it('trims whitespace before validating', () => {
+    expect(isValidNewsletterEmail('  user@example.com  ')).toBe(true);
+  });
 
   it('binds form handlers immediately when the DOM is already ready', async () => {
     vi.resetModules();
@@ -145,11 +164,5 @@ describe('validateEmailDomain', () => {
 
   it('should reject email with whitespace in domain', () => {
     expect(validateEmailDomain('user@ example.com')).toBe(false);
-  });
-});
-
-describe('isValidNewsletterEmail', () => {
-  it('is exported as a callable function', () => {
-    expect(typeof isValidNewsletterEmail).toBe('function');
   });
 });
