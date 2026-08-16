@@ -59,8 +59,24 @@
       return;
     }
 
+    if (window.appliedCoupon && window.appliedCoupon.toUpperCase() === code) {
+      showFeedback('This coupon is already applied.', 'info');
+      return;
+    }
+
     if (Object.prototype.hasOwnProperty.call(COUPONS, code)) {
-      const discountPct = Math.min(Number(COUPONS[code]) || 0, 100);
+      const couponDef = COUPONS[code];
+      // Support both legacy numeric format and new { discount, expiry } format
+      const rawDiscount = typeof couponDef === 'number' ? couponDef : couponDef.discount;
+      const discountPct = Math.min(Number(rawDiscount) || 0, 100);
+      const expiryDate = typeof couponDef === 'object' && couponDef.expiry ? couponDef.expiry : null;
+
+      if (expiryDate && isCouponDateExpired(expiryDate)) {
+        showFeedback('This coupon has expired and can no longer be used.', 'error');
+        couponInput.classList.remove('is-valid');
+        couponInput.classList.add('is-invalid');
+        return;
+      }
       window.appliedCoupon = code;
       saveAppliedCoupon(code);
 
