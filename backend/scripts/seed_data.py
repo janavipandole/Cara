@@ -1,16 +1,12 @@
+import argparse
 import os
 import sys
-import json
 
 # Add parent dir to sys path to import app modules
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from app.database import SessionLocal, engine
 from app import models
-
-# Recreate DB
-models.Base.metadata.drop_all(bind=engine)
-models.Base.metadata.create_all(bind=engine)
 
 products_data = [
   { "id": 1,  "brand": "adidas", "name": "Tropical Hibiscus Summer Shirt", "price": 78.0, "img": "images/products/f1.jpg", "rating": 5, "category": "street", "subcategory": "top", "style": "summer", "color": "multi" },
@@ -31,14 +27,43 @@ products_data = [
   { "id": 16, "brand": "adidas", "name": "Deep Charcoal Casual Shirt", "price": 78.0, "img": "images/products/n8.jpg", "rating": 5, "category": "minimal", "subcategory": "top", "style": "casual", "color": "charcoal" }
 ]
 
-def seed():
+def _has_products(db) -> bool:
+    return db.query(models.Product).first() is not None
+
+
+def seed(force: bool = False) -> None:
+    # Create any missing tables. create_all is non-destructive: it never drops
+    # or modifies existing tables, so running the seed against an existing
+    # database cannot wipe users, orders, or any other data.
+    models.Base.metadata.create_all(bind=engine)
+
     db = SessionLocal()
-    for p_data in products_data:
-        p = models.Product(**p_data)
-        db.add(p)
-    db.commit()
-    db.close()
-    print("Database seeded successfully.")
+    try:
+        if _has_products(db) and not force:
+            print(
+                "Refusing to seed: the products table already contains data. "
+                "Use --force to upsert the catalog instead."
+            )
+            return
+
+        # Upsert by explicit id: existing products are updated, new ones are
+        # inserted. Never deletes or duplicates data.
+        seeded = 0
+        for p_data in products_data:
+            db.merge(models.Product(**p_data))
+            seeded += 1
+        db.commit()
+        print(f"Database seeded successfully ({seeded} products upserted).")
+    finally:
+        db.close()
+
 
 if __name__ == "__main__":
-    seed()
+    parser = argparse.ArgumentParser(description="Seed the product catalog.")
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Upsert the catalog even if products already exist (never deletes data).",
+    )
+    args = parser.parse_args()
+    seed(force=args.force)
