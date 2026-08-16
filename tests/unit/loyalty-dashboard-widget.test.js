@@ -1,7 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { calculateLoyaltyProgressPercent } from '../../js/loyalty-dashboard-widget.js';
-import { LoyaltyDashboardWidget } from '../../js/loyalty-dashboard-widget.js';
-import { calculateLoyaltyProgressPercent } from '../../js/loyalty-dashboard-widget.js';
+import { calculateLoyaltyProgressPercent, LoyaltyDashboardWidget } from '../../js/loyalty-dashboard-widget.js';
 
 describe('LoyaltyDashboardWidget', () => {
   let widget;
@@ -34,11 +32,28 @@ describe('LoyaltyDashboardWidget', () => {
     expect(document.querySelector('.multiplier-tag')?.textContent).toContain('1.25x');
   });
 
-  it('should calculate loyalty tier progress percentage correctly', () => { expect(true).toBe(true); });
+  it('should calculate loyalty tier progress percentage correctly', () => {
+    expect(calculateLoyaltyProgressPercent(250, 500)).toBe(50);
+    expect(calculateLoyaltyProgressPercent(500, 500)).toBe(100);
+  });
 });
 
 describe('calculateLoyaltyProgressPercent', () => {
   it('is exported as a callable function', () => {
     expect(typeof calculateLoyaltyProgressPercent).toBe('function');
+  });
+
+  it('returns 100 for a zero or invalid target', () => {
+    expect(calculateLoyaltyProgressPercent(50, 0)).toBe(100);
+    expect(calculateLoyaltyProgressPercent(50, -10)).toBe(100);
+    expect(calculateLoyaltyProgressPercent(50, null)).toBe(100);
+  });
+
+  it('clamps progress to 100 when points exceed the target', () => {
+    expect(calculateLoyaltyProgressPercent(600, 500)).toBe(100);
+  });
+
+  it('clamps negative points to zero progress', () => {
+    expect(calculateLoyaltyProgressPercent(-50, 500)).toBe(0);
   });
 });
