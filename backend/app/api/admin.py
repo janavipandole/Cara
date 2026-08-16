@@ -55,7 +55,7 @@ def get_analytics_summary(
     total_users = db.query(func.count(models.User.id)).scalar() or 0
 
     return {
-        "total_revenue": float(total_revenue),
+        "total_revenue": round(float(total_revenue), 2),
         "total_orders": int(total_orders),
         "total_customers": int(total_users),
     }
@@ -91,7 +91,7 @@ def get_sales_by_category(
         {
             "category": r[0] or "Unknown",
             "units_sold": int(r[1] or 0),
-            "revenue": float(r[2] or 0.0)
+            "revenue": round(float(r[2] or 0.0), 2)
         }
         for r in results
     ]
