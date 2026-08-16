@@ -117,9 +117,12 @@ def rebuild_index(db):
     Called after admin product create/update/delete so recommendations always
     reflect the live catalog instead of a stale offline snapshot. Refreshes the
     module-level objects used by the search paths.
-    """
-    global index, embedding_ids, embeddings
 
+    The new index is fully built and persisted against local variables first;
+    the module globals are swapped in only afterwards. If the FAISS build
+    fails, the previously-serving in-memory index is left untouched so
+    concurrent /recommend requests keep working instead of seeing index=None.
+    """
     from .. import models
 
     products = db.query(models.Product).all()
@@ -135,21 +138,23 @@ def rebuild_index(db):
         embeddings_np = embeddings_np.reshape(-1, EMBEDDING_DIM)
     ids_np = np.array(ids).astype('int64')
 
-    # Persist embeddings for brute-force fallback.
-    np.savez(embeddings_path, ids=ids_np, embeddings=embeddings_np)
-
-    # Rebuild the FAISS index with product-id labels.
+    new_index = None
     if faiss is not None:
         try:
             index_id_map = faiss.IndexIDMap(faiss.IndexFlatL2(EMBEDDING_DIM))
             if len(ids):
                 index_id_map.add_with_ids(embeddings_np, ids_np)
             faiss.write_index(index_id_map, index_path)
-            index = index_id_map
+            new_index = index_id_map
         except Exception as e:
-            print(f"Warning: Failed to rebuild FAISS index: {e}")
-            index = None
+            print(f"Warning: Failed to rebuild FAISS index, keeping previous index: {e}")
 
+    # Persist embeddings for brute-force fallback.
+    np.savez(embeddings_path, ids=ids_np, embeddings=embeddings_np)
+
+    global index, embedding_ids, embeddings
+    if new_index is not None:
+        index = new_index
     embedding_ids = ids_np
     embeddings = embeddings_np
     print(f"Rebuilt FAISS index with {len(ids)} products.")

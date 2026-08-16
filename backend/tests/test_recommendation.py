@@ -201,6 +201,57 @@ def test_rebuild_index_tracks_catalog(monkeypatch, tmp_path):
     assert a.id not in _ids()
 
 
+def test_rebuild_keeps_last_good_index_on_failure(monkeypatch, tmp_path):
+    """A failed rebuild must not swap in a None/empty index mid-request."""
+    _rebuild_with_fakes(monkeypatch, tmp_path)
+
+    from app.vector_search import faiss_index
+
+    class _FakeIndex:
+        def __init__(self, dim):
+            self._rows = []
+
+        def add_with_ids(self, embs, ids):
+            self._rows.append((embs, ids))
+
+    class _FakeFaiss:
+        fail_writes = False
+
+        def IndexFlatL2(self, dim):
+            return _FakeIndex(dim)
+
+        def IndexIDMap(self, base):
+            return base
+
+        def write_index(self, idx, path):
+            if self.fail_writes:
+                raise RuntimeError("disk full")
+
+    fake = _FakeFaiss()
+    monkeypatch.setattr(faiss_index, "faiss", fake)
+    monkeypatch.setattr(faiss_index, "index", None)
+
+    db = TestingSessionLocal()
+    _seed_product(db, name="KeepIndexA", stock=1)
+    db.close()
+    db = TestingSessionLocal()
+    faiss_index.rebuild_index(db)
+    db.close()
+    first_index = faiss_index.index
+    assert first_index is not None
+
+    fake.fail_writes = True
+    db = TestingSessionLocal()
+    _seed_product(db, name="KeepIndexB", stock=1)
+    db.close()
+    db = TestingSessionLocal()
+    faiss_index.rebuild_index(db)
+    db.close()
+
+    # Still serving the last good index instead of a None/empty one.
+    assert faiss_index.index is first_index
+
+
 def test_admin_product_crud_triggers_rebuild(client, monkeypatch, tmp_path, admin_auth_headers):
     _rebuild_with_fakes(monkeypatch, tmp_path)
     calls = []

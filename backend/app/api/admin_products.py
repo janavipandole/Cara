@@ -1,12 +1,25 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
 from .. import models, schemas
-from ..database import get_db
+from ..database import SessionLocal, get_db
 from .auth import get_current_user
 from ..vector_search.faiss_index import rebuild_index
 
 router = APIRouter()
+
+
+def _rebuild_index_in_background():
+    """Run the full-catalog index rebuild on its own DB session.
+
+    The request-scoped session from ``get_db()`` is closed once the request
+    finishes, so the background job opens a fresh one instead of reusing it.
+    """
+    db = SessionLocal()
+    try:
+        rebuild_index(db)
+    finally:
+        db.close()
 
 
 def _enforce_admin(user: models.User = Depends(get_current_user)):
@@ -18,6 +31,7 @@ def _enforce_admin(user: models.User = Depends(get_current_user)):
 @router.post("/", response_model=schemas.Product, status_code=201)
 def create_product(
     payload: schemas.ProductCreate,
+    background_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
     admin_user: models.User = Depends(_enforce_admin),
 ):
@@ -28,7 +42,7 @@ def create_product(
     db.add(product)
     db.commit()
     db.refresh(product)
-    rebuild_index(db)
+    background_tasks.add_task(_rebuild_index_in_background)
     return product
 
 
@@ -36,6 +50,7 @@ def create_product(
 def update_product(
     product_id: int,
     payload: schemas.ProductCreate,
+    background_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
     admin_user: models.User = Depends(_enforce_admin),
 ):
@@ -53,13 +68,14 @@ def update_product(
         setattr(product, field, value)
     db.commit()
     db.refresh(product)
-    rebuild_index(db)
+    background_tasks.add_task(_rebuild_index_in_background)
     return product
 
 
 @router.delete("/{product_id}", status_code=200)
 def delete_product(
     product_id: int,
+    background_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
     admin_user: models.User = Depends(_enforce_admin),
 ):
@@ -68,7 +84,7 @@ def delete_product(
         raise HTTPException(status_code=404, detail="Product not found")
     db.delete(product)
     db.commit()
-    rebuild_index(db)
+    background_tasks.add_task(_rebuild_index_in_background)
     return {"message": "Product deleted successfully"}
 
 
