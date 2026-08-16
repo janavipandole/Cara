@@ -15,11 +15,12 @@ export class OrderTrackingVisualizer {
     if (norm.includes('ship')) return 2;
     if (norm.includes('out') || norm.includes('delivery')) return 3;
     if (norm.includes('deliver')) return 4;
-    return 0;
+    return -1;
   }
 
   calculateProgressPercent(statusString = '') {
     const index = this.getStageIndex(statusString);
+    if (index < 0) return 0;
     return Math.round((index / (this.stages.length - 1)) * 100);
   }
 
