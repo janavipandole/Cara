@@ -404,10 +404,16 @@ button.white:active {
 }
 
 /* Keyboard Accessibility Focus Indicators */
-button.normal:focus-visible,
-button.white:focus-visible {
-    outline: 3px solid var(--accent);
-    outline-offset: 3px;
+/* Disable focus outlines for mouse users */
+:focus:not(:focus-visible) {
+    outline: none !important;
+}
+
+/* Strict utility rule for keyboard focus */
+*:focus-visible {
+    outline: 3px solid #088178 !important;
+    outline-offset: 2px !important;
+    border-radius: 4px;
 }
 
 .back-btn {

@@ -2919,13 +2919,15 @@ footer .copyright {
                 }
             }
 
-            a:focus-visible,
-            button:focus-visible,
-            input:focus-visible,
-            textarea:focus-visible,
-            select:focus-visible {
-                outline: 3px solid var(--accent);
-                outline-offset: 3px;
+            /* Disable focus outlines for mouse users */
+            :focus:not(:focus-visible) {
+                outline: none !important;
+            }
+
+            /* Strict utility rule for keyboard focus */
+            *:focus-visible {
+                outline: 3px solid #088178 !important;
+                outline-offset: 2px !important;
                 border-radius: 4px;
             }
 
