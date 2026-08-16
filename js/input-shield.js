@@ -12,10 +12,10 @@ function installInputShield() {
       const rawVal = input.value;
       // Skip empty inputs so valid blank fields are never cleared.
       if (!rawVal) return;
-      // Check for script tag presence or onload handlers
+      // Check for script tag presence or any event handler attribute
       if (
         /<script/i.test(rawVal) ||
-        /onload=/i.test(rawVal) ||
+        /\bon\w+=/i.test(rawVal) ||
         /javascript:/i.test(rawVal)
       ) {
         blocked = true;
