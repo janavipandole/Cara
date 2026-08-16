@@ -1,0 +1,1 @@
+# UI/UX: Add a "Product Image Gallery" Thumbnail Slider\n\nThis is a placeholder for the implementation of UI/UX: Add a "Product Image Gallery" Thumbnail Slider.
