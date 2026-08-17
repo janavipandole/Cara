@@ -1,0 +1,1 @@
+# Enhancement: Add CSS :target for "Skip to Content" Accessibility\n\nThis is a placeholder for the implementation of Enhancement: Add CSS :target for "Skip to Content" Accessibility.
