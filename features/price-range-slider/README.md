@@ -1,0 +1,1 @@
+# Feature: Create a "Price Range Slider" for Filters\n\nThis is a placeholder for the implementation of Feature: Create a "Price Range Slider" for Filters.
