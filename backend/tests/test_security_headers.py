@@ -15,6 +15,7 @@ EXPECTED_HEADERS = {
     "Permissions-Policy",
     "Strict-Transport-Security",
     "Cross-Origin-Opener-Policy",
+    "Cross-Origin-Embedder-Policy",
 }
 
 
@@ -35,6 +36,14 @@ def test_api_csp_has_no_unsafe_inline_for_scripts(client):
     assert "'self'" in script_src
 
 
+def test_cross_origin_isolation_headers(client):
+    """COOP and COEP must enforce process isolation to mitigate Spectre."""
+    response = client.get("/health")
+    assert response.headers["Cross-Origin-Opener-Policy"] == "same-origin"
+    assert response.headers["Cross-Origin-Embedder-Policy"] == "require-corp"
+    assert response.headers["Cross-Origin-Resource-Policy"] == "cross-origin"
+
+
 def test_nginx_conf_sets_security_headers_for_static_host():
     nginx_conf = (REPO_ROOT / "nginx.conf").read_text(encoding="utf-8")
     for directive in (
@@ -44,6 +53,8 @@ def test_nginx_conf_sets_security_headers_for_static_host():
         "add_header X-Frame-Options \"DENY\"",
         "add_header Referrer-Policy",
         "add_header Permissions-Policy",
+        "add_header Cross-Origin-Opener-Policy",
+        "add_header Cross-Origin-Embedder-Policy",
     ):
         assert directive in nginx_conf, f"missing nginx directive: {directive}"
 
