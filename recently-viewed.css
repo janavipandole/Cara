@@ -37,6 +37,31 @@
   scrollbar-color: var(--accent, #088178) transparent;
 }
 
+.recently-viewed-track .recently-viewed-clear {
+  flex: 0 0 auto;
+  align-self: center;
+  min-height: 42px;
+  padding: 0 14px;
+  border: 1px solid var(--border-color, #d7d7d7);
+  border-radius: 999px;
+  background: var(--card-bg, #fff);
+  color: var(--text-primary, #1a1a1a);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.recently-viewed-track .recently-viewed-clear:hover {
+  transform: translateY(-2px);
+  background: var(--accent, #088178);
+  border-color: var(--accent, #088178);
+  color: #fff;
+}
+
 .recently-viewed-track::-webkit-scrollbar {
   height: 8px;
 }

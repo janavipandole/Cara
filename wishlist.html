@@ -23,6 +23,7 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="toast-queue.css" />
+    <link rel="stylesheet" href="recently-viewed.css" />
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
 
@@ -508,7 +509,14 @@
         <div class="wishlist-container" id="wishlistContainer" aria-live="polite"></div>
     </main>
 
+    <section id="recently-viewed-section" class="section-p1" hidden>
+        <h2>Recently Viewed</h2>
+        <p class="recently-viewed-subtext">Pick up where you left off</p>
+        <div class="recently-viewed-track" id="recently-viewed-container"></div>
+    </section>
+
     <script type="module" src="products.js"></script>
+    <script type="module" src="js/recently-viewed.js"></script>
 
     <!-- Wishlist Sharing Utility -->
     <div style="max-width: 1200px; margin: 20px auto; padding: 0 20px; text-align: center; display: flex; justify-content: center; gap: 10px;">

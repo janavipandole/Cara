@@ -57,6 +57,10 @@ describe('applySharedCart', () => {
         image: 'existing.jpg',
       },
     ];
+    storage.setItem(
+      'productsInCart',
+      JSON.stringify(sandbox.window.cachedCartState),
+    );
 
     const appJsPath = path.resolve(__dirname, '../../app.js');
     const appJs = readFileSync(appJsPath, 'utf8');

@@ -1,0 +1,136 @@
+#also-like-section {
+  text-align: left;
+}
+
+#also-like-section[hidden] {
+  display: none;
+}
+
+#also-like-section .recommendations-heading {
+  padding: 0 80px 6px;
+}
+
+#also-like-section .recommendations-heading h2 {
+  margin: 0 0 6px;
+  font-size: 30px;
+  line-height: 1.2;
+}
+
+#also-like-section .recommendations-heading p {
+  margin: 0;
+  color: var(--text-secondary, #666);
+  font-size: 15px;
+}
+
+#also-like-section .pro-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  align-items: start;
+  padding: 20px 80px 0;
+}
+
+#also-like-section .pro {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  border-radius: 20px;
+  box-shadow: 0 5px 15px var(--shadow);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  position: relative;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+#also-like-section .pro:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 35px var(--shadow-hover);
+}
+
+#also-like-section .pro img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+#also-like-section .pro .des {
+  padding: 0 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+#also-like-section .pro .des h5 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+#also-like-section .pro .des h4 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--accent);
+}
+
+#also-like-section .pro-brand-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+#also-like-section .recommendation-view-btn {
+  min-height: 42px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+#also-like-section .recommendation-view-btn:hover {
+  transform: translateY(-2px);
+  background: #066b63;
+}
+
+@media (max-width: 1024px) {
+  #also-like-section .recommendations-heading,
+  #also-like-section .pro-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+@media (max-width: 900px) {
+  #also-like-section .recommendations-heading,
+  #also-like-section .pro-container {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  #also-like-section .pro-container {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 14px;
+  }
+
+  #also-like-section .pro {
+    border-radius: 14px;
+  }
+}

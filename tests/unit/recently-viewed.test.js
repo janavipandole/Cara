@@ -148,10 +148,11 @@ describe('renderRecentlyViewed', () => {
     });
 
     const section = document.getElementById('recently-viewed-section');
-    const cards = document.getElementById('recently-viewed-container').children;
+    const cards = document.querySelectorAll('.recently-viewed-card');
     expect(section.hidden).toBe(false);
     expect(cards).toHaveLength(2);
     expect(cards[0].getAttribute('aria-label')).toBe('View B');
+    expect(document.querySelector('.recently-viewed-clear')).toBeTruthy();
   });
 
   it('excludes the currently viewed product by id', () => {
@@ -167,9 +168,7 @@ describe('renderRecentlyViewed', () => {
 
     expect(list).toHaveLength(1);
     expect(list[0].name).toBe('A');
-    expect(
-      document.getElementById('recently-viewed-container').children,
-    ).toHaveLength(1);
+    expect(document.querySelectorAll('.recently-viewed-card')).toHaveLength(1);
   });
 
   it('re-hides the section if excluding the only item empties the list', () => {
@@ -202,9 +201,7 @@ describe('renderRecentlyViewed', () => {
 
     expect(list).toHaveLength(1);
     expect(list[0].name).toBe('C');
-    expect(
-      document.getElementById('recently-viewed-container').children,
-    ).toHaveLength(1);
+    expect(document.querySelectorAll('.recently-viewed-card')).toHaveLength(1);
   });
 
   it('does nothing when the container is missing from the DOM', () => {
@@ -215,5 +212,22 @@ describe('renderRecentlyViewed', () => {
         sectionId: 'also-missing',
       }),
     ).not.toThrow();
+  });
+
+  it('clears the stored list and hides the section when the clear button is used', () => {
+    setUpDom();
+    RecentlyViewed.addRecentlyViewed(product({ id: 1, name: 'A' }));
+
+    RecentlyViewed.renderRecentlyViewed({
+      containerId: 'recently-viewed-container',
+      sectionId: 'recently-viewed-section',
+    });
+
+    document.querySelector('.recently-viewed-clear').click();
+
+    expect(RecentlyViewed.getRecentlyViewed()).toHaveLength(0);
+    expect(document.getElementById('recently-viewed-section').hidden).toBe(
+      true,
+    );
   });
 });

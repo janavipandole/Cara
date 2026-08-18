@@ -41,6 +41,7 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="recently-viewed.css">
+    <link rel="stylesheet" href="product-recommendations.css">
     <link rel="stylesheet" href="reviews.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
@@ -188,7 +189,15 @@
         <!--   -->
     </section>
 
-    <section id="recently-viewed-section" class="section-p1" style="display: none;">
+    <section id="also-like-section" class="section-p1" hidden>
+      <div class="recommendations-heading">
+        <h2>You Might Also Like</h2>
+        <p>Selected from the same style family</p>
+      </div>
+      <div class="pro-container" id="also-like-container"></div>
+    </section>
+
+    <section id="recently-viewed-section" class="section-p1" hidden>
       <h2>Recently Viewed</h2>
       <p>Pick up where you left off</p>
       <div class="pro-container" id="recently-viewed-container"></div>
@@ -347,6 +356,7 @@
     <script type="module" src="products.js?v=1779120917220"></script>
     <script type="module" src="js/product-review-aggregator.js"></script>
     <script type="module" src="app.js?v=1779120917220"></script>
+    <script type="module" src="js/product-recommendations.js"></script>
 <!-- csritik-max -->
 <div class="toast" id="toast">
     <div class="toast-icon" id="toast-icon">✅</div>
@@ -355,7 +365,7 @@
 <script>
     document.getElementById("Current-Year").textContent=new Date().getFullYear();
 </script>
-<script src="../js/recently-viewed.js"></script>
+<script type="module" src="js/recently-viewed.js"></script>
 
 </body>
 

@@ -1025,3 +1025,7 @@ if (typeof module !== 'undefined' && module.exports) {
   module.exports = { products };
 }
 
+if (typeof window !== 'undefined') {
+  window.CaraProducts = products;
+}
+

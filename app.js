@@ -336,6 +336,38 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (smallImgs.length > 0 && finalImage) {
           smallImgs[0].src = finalImage;
         }
+
+        const currentProduct = {
+          id: dbProduct ? dbProduct.id ?? null : null,
+          name: finalName,
+          price: dbProduct ? dbProduct.price ?? null : finalPrice,
+          image: finalImage || 'images/products/f1.jpg',
+          brand: finalBrand,
+          slug: String(finalName || '')
+            .toLowerCase()
+            .trim()
+            .replace(/['"]/g, '')
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, ''),
+        };
+
+        window.CaraCurrentProduct = currentProduct;
+
+        try {
+          localStorage.setItem('selectedProduct', JSON.stringify(currentProduct));
+        } catch (storageError) {
+          window.logError('Failed to persist selected product:', storageError);
+        }
+
+        if (window.RecentlyViewed && typeof window.RecentlyViewed.addRecentlyViewed === 'function') {
+          window.RecentlyViewed.addRecentlyViewed(currentProduct);
+        }
+
+        window.dispatchEvent(
+          new CustomEvent('cara:single-product-ready', {
+            detail: currentProduct,
+          }),
+        );
       } catch (error) {
         window.logError('Error fetching product details:', error);
         if (document.getElementById('product-name'))
