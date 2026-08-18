@@ -811,6 +811,8 @@ function renderSearchSuggestions(query) {
 /**
  * Resolves #1692
  * Filters the products array based on search input and updates the UI.
+ * Offloads CPU-heavy filtering and sorting to a dedicated Web Worker
+ * thread so the main UI thread stays responsive (60 FPS).
  */
 function filterProducts() {
   const input = document.getElementById('searchInput');
@@ -821,7 +823,6 @@ function filterProducts() {
   const styleSelect = document.getElementById('style-filter');
 
   const rawQuery = input ? input.value.trim() : '';
-  const query = rawQuery.toLowerCase();
   const category = categorySelect ? categorySelect.value : 'all';
   const sortValue = sortSelect ? sortSelect.value : 'default';
   const brandValue = brandSelect
@@ -834,46 +835,79 @@ function filterProducts() {
     ? styleSelect.value.toLowerCase().trim()
     : 'all';
 
-  let filteredProducts = products.filter((product) => {
+  const workerPayload = {
+    products,
+    query: rawQuery,
+    category,
+    sort: sortValue,
+    brand: brandValue,
+    color: colorValue,
+    style: styleValue,
+  };
+
+  const bgWorker = window.BackgroundWorker && window.BackgroundWorker.getInstance();
+  if (bgWorker) {
+    bgWorker
+      .post('FILTER_PRODUCTS', workerPayload, 3000)
+      .then((filteredProducts) => {
+        renderProducts('shop-container', filteredProducts, rawQuery);
+        updateSearchSummary(filteredProducts.length);
+        renderSearchSuggestions(rawQuery.toLowerCase());
+      })
+      .catch(() => {
+        const fallback = _filterProductsSync(workerPayload);
+        renderProducts('shop-container', fallback, rawQuery);
+        updateSearchSummary(fallback.length);
+        renderSearchSuggestions(rawQuery.toLowerCase());
+      });
+  } else {
+    const filteredProducts = _filterProductsSync(workerPayload);
+    renderProducts('shop-container', filteredProducts, rawQuery);
+    updateSearchSummary(filteredProducts.length);
+    renderSearchSuggestions(rawQuery.toLowerCase());
+  }
+}
+
+function _filterProductsSync({ products: list, query, category, sort, brand, color, style }) {
+  const q = query.toLowerCase();
+
+  let filteredProducts = list.filter((product) => {
     const matchesCategory = category === 'all' || product.category === category;
     const matchesSearch =
-      query === '' ||
-      product.name.toLowerCase().includes(query) ||
-      product.brand.toLowerCase().includes(query) ||
-      product.category.toLowerCase().includes(query) ||
-      (product.style && product.style.toLowerCase().includes(query)) ||
-      (product.color && product.color.toLowerCase().includes(query));
+      q === '' ||
+      product.name.toLowerCase().includes(q) ||
+      product.brand.toLowerCase().includes(q) ||
+      product.category.toLowerCase().includes(q) ||
+      (product.style && product.style.toLowerCase().includes(q)) ||
+      (product.color && product.color.toLowerCase().includes(q));
     return matchesCategory && matchesSearch;
   });
 
-  // Apply brand/color/style filters
   filteredProducts = filteredProducts.filter((product) => {
     const matchesBrand =
-      brandValue === 'all' || product.brand.toLowerCase() === brandValue;
+      brand === 'all' || product.brand.toLowerCase() === brand;
     const matchesColor =
-      colorValue === 'all' ||
-      (product.color && product.color.toLowerCase() === colorValue);
+      color === 'all' ||
+      (product.color && product.color.toLowerCase() === color);
     const matchesStyle =
-      styleValue === 'all' ||
-      (product.style && product.style.toLowerCase() === styleValue);
+      style === 'all' ||
+      (product.style && product.style.toLowerCase() === style);
     return matchesBrand && matchesColor && matchesStyle;
   });
 
-  if (sortValue === 'low-high') {
+  if (sort === 'low-high') {
     filteredProducts.sort((a, b) => a.price - b.price);
-  } else if (sortValue === 'high-low') {
+  } else if (sort === 'high-low') {
     filteredProducts.sort((a, b) => b.price - a.price);
-  } else if (sortValue === 'rating-high') {
+  } else if (sort === 'rating-high') {
     filteredProducts.sort((a, b) => b.rating - a.rating);
-  } else if (sortValue === 'rating-low') {
+  } else if (sort === 'rating-low') {
     filteredProducts.sort((a, b) => a.rating - b.rating);
-  } else if (sortValue === 'newest') {
+  } else if (sort === 'newest') {
     filteredProducts.sort((a, b) => b.id - a.id);
   }
 
-  renderProducts('shop-container', filteredProducts, rawQuery);
-  updateSearchSummary(filteredProducts.length);
-  renderSearchSuggestions(query);
+  return filteredProducts;
 }
 
 function attachSearchListeners() {
