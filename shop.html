@@ -391,18 +391,27 @@
         <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
         <p><strong>Time:</strong> 10AM - 6PM, Mon - Sat</p>
 
-        <!-- Google Map -->
+        <!-- Google Map – rendered as an image to stay compatible with
+             Cross-Origin-Embedder-Policy: require-corp (Spectre mitigation).
+             The live iframe was removed because Google Maps does not set the
+             Cross-Origin-Resource-Policy header required by COEP. -->
         <div class="map-container" style="margin-top: 15px">
-          <iframe
-            src="https://www.google.com/maps?q=San+Francisco+California+USA&output=embed"
-            width="500%"
-            height="350"
-            style="border: 0; border-radius: 10px"
-            title="Location Map"
-            allowfullscreen=""
-            loading="lazy"
+          <a
+            href="https://www.google.com/maps?q=San+Francisco+California+USA"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Open San Francisco location in Google Maps"
           >
-          </iframe>
+            <img
+              src="https://maps.googleapis.com/maps/api/staticmap?center=San+Francisco,CA&zoom=14&size=500x350&maptype=roadmap&markers=color:red|San+Francisco,CA"
+              alt="Map showing San Francisco location"
+              width="500"
+              height="350"
+              style="border-radius: 10px; width: 100%; height: auto"
+              crossorigin="anonymous"
+              loading="lazy"
+            />
+          </a>
         </div>
 
         <div class="follow">
