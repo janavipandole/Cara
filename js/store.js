@@ -3,6 +3,8 @@
  * Centralized State Management using Proxy for reactivity.
  */
 
+import { isSafeKey, safeMerge } from './prototype-pollution-guard.js';
+
 class Store {
   constructor(initialState = {}, storageKey = 'app_state') {
     this.storageKey = storageKey;
@@ -11,18 +13,23 @@ class Store {
 
     let savedState = {};
     try {
-      savedState = JSON.parse(localStorage.getItem(this.storageKey)) || {};
+      const raw = JSON.parse(localStorage.getItem(this.storageKey));
+      if (raw && typeof raw === 'object' && !Array.isArray(raw)) {
+        savedState = raw;
+      }
     } catch (err) {
       // Corrupt storage falls back to initial state.
       savedState = {};
     }
-    const state = { ...initialState, ...savedState };
-    
+    const state = {};
+    safeMerge(state, initialState);
+    safeMerge(state, savedState);
+
     const self = this;
-    
-    this._persistTimer = null;
+
     this.state = new Proxy(state, {
       set(target, property, value) {
+        if (!isSafeKey(property)) return false;
         target[property] = value;
         self.notifyListeners(property, value);
         self.schedulePersist();

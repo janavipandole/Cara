@@ -3,6 +3,8 @@
  * Handles multi-category filtering, price range boundaries, and URL query synchronization.
  */
 
+import { isSafeKey } from './prototype-pollution-guard.js';
+
 export class ProductFacetFilter {
   constructor(products = []) {
     this.products = products;
@@ -16,7 +18,11 @@ export class ProductFacetFilter {
   }
 
   setFilters(filters = {}) {
-    this.activeFilters = { ...this.activeFilters, ...filters };
+    for (const key of Object.keys(filters)) {
+      if (isSafeKey(key)) {
+        this.activeFilters[key] = filters[key];
+      }
+    }
     return this.applyFilters();
   }
 
