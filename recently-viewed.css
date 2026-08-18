@@ -111,3 +111,9 @@
     max-width: 160px;
   }
 }
+
+/* ── Content-visibility performance optimization ──────── */
+#recently-viewed-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 350px;
+}

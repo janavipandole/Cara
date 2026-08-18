@@ -136,7 +136,9 @@
   font-size: 0.88rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s, transform 0.15s;
+  transition:
+    background 0.2s,
+    transform 0.15s;
 }
 
 .btn-write-review:hover {
@@ -155,8 +157,14 @@
 }
 
 @keyframes slideDown {
-  from { opacity: 0; transform: translateY(-10px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .review-form h3 {
@@ -181,7 +189,7 @@
   margin-bottom: 6px;
 }
 
-.review-form input[type="text"],
+.review-form input[type='text'],
 .review-form textarea {
   width: 100%;
   padding: 11px 14px;
@@ -191,7 +199,9 @@
   font-size: 0.875rem;
   color: #1a1a1a;
   background: #ffffff;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
   outline: none;
 }
 
@@ -248,7 +258,9 @@
   font-size: 1.8rem;
   color: #d1d5db;
   cursor: pointer;
-  transition: color 0.15s, transform 0.1s;
+  transition:
+    color 0.15s,
+    transform 0.1s;
   line-height: 1;
 }
 
@@ -287,7 +299,9 @@
   transition: background 0.2s;
 }
 
-.btn-submit-review:hover { background: #065f59; }
+.btn-submit-review:hover {
+  background: #065f59;
+}
 
 .btn-cancel-review {
   padding: 11px 20px;
@@ -425,6 +439,12 @@
   .review-card {
     padding: 16px;
   }
+}
+
+/* ── Content-visibility performance optimization ──────── */
+.reviews-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 400px;
 }
 
 /* ── Screen-reader-only utility ───────────────────────────── */
