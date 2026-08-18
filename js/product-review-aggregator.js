@@ -3,6 +3,9 @@
  * Handles review submission, star rating accumulation, sentiment scoring, and aggregated statistics.
  */
 
+var _DANGEROUS_KEYS = { __proto__: 1, constructor: 1, prototype: 1 };
+function _isSafeKey(k) { return typeof k === 'symbol' || !(k in _DANGEROUS_KEYS); }
+
 class ProductReviewAggregator {
   constructor(storageKey = 'cara_reviews_v2') {
     this.storageKey = storageKey;
@@ -12,7 +15,12 @@ class ProductReviewAggregator {
   loadReviews() {
     try {
       const data = localStorage.getItem(this.storageKey);
-      return data ? JSON.parse(data) : {};
+      const parsed = data ? JSON.parse(data) : {};
+      if (parsed === null || typeof parsed !== 'object' || Array.isArray(parsed)) return {};
+      for (const key of Object.keys(parsed)) {
+        if (!_isSafeKey(key)) delete parsed[key];
+      }
+      return parsed;
     } catch (e) {
       return {};
     }
@@ -27,6 +35,10 @@ class ProductReviewAggregator {
   }
 
   submitReview(productId, review) {
+    if (!_isSafeKey(productId)) {
+      return { success: false, message: 'Invalid product ID.' };
+    }
+
     const { rating, title, body, author } = review;
 
     if (!productId || !rating || rating < 1 || rating > 5) {

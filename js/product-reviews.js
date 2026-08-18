@@ -3,6 +3,8 @@
  * Handles rating validation, form submission, average calculation, and local storage persistence (#3709).
  */
 
+import { isSafeKey } from './prototype-pollution-guard.js';
+
 export class ProductReviewManager {
   constructor(storageKey = 'cara_product_reviews') {
     this.storageKey = storageKey;
@@ -14,8 +16,12 @@ export class ProductReviewManager {
     try {
       const data = localStorage.getItem(this.storageKey);
       const parsed = data ? JSON.parse(data) : {};
-      // Guard: ensure parsed data is a valid non-null object before returning
-      return parsed !== null && typeof parsed === 'object' ? parsed : {};
+      if (parsed === null || typeof parsed !== 'object' || Array.isArray(parsed)) return {};
+      // Strip any prototype-polluting keys that may have been injected into storage
+      for (const key of Object.keys(parsed)) {
+        if (!isSafeKey(key)) delete parsed[key];
+      }
+      return parsed;
     } catch (err) {
       console.warn('[ProductReviewManager] Failed to parse reviews from localStorage:', err);
       return {};
@@ -61,6 +67,10 @@ export class ProductReviewManager {
   }
 
   addReview(productId, reviewData) {
+    if (!isSafeKey(productId)) {
+      return { success: false, errors: ['Invalid product ID.'] };
+    }
+
     const validation = this.validateReviewData(reviewData);
     if (!validation.isValid) {
       return { success: false, errors: validation.errors };

@@ -82,7 +82,7 @@ export function getActiveCurrency() {
 
 export function setActiveCurrency(currencyCode) {
   // Validate ISO 4217 currency code against known supported currencies
-  if (!DEFAULT_EXCHANGE_RATES.hasOwnProperty(currencyCode)) return false;
+  if (!Object.prototype.hasOwnProperty.call(DEFAULT_EXCHANGE_RATES, currencyCode)) return false;
   if (typeof localStorage !== 'undefined') {
     localStorage.setItem('cara_selected_currency', currencyCode);
   }

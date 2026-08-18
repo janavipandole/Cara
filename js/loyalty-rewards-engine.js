@@ -18,7 +18,14 @@ class LoyaltyRewardsEngine {
   loadData() {
     try {
       const stored = localStorage.getItem(this.storageKey);
-      return stored ? JSON.parse(stored) : { points: 0, history: [] };
+      const parsed = stored ? JSON.parse(stored) : null;
+      if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+        if ('__proto__' in parsed || 'constructor' in parsed || 'prototype' in parsed) {
+          return { points: 0, history: [] };
+        }
+        return parsed;
+      }
+      return { points: 0, history: [] };
     } catch (e) {
       return { points: 0, history: [] };
     }
