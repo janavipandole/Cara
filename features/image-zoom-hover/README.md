@@ -1,0 +1,1 @@
+# Feature: Implement "Image Zoom on Hover" for Desktop\n\nThis is a placeholder for the implementation of Feature: Implement "Image Zoom on Hover" for Desktop.
