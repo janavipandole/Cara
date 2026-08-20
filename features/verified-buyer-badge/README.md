@@ -1,0 +1,1 @@
+# UI/UX: Design a "Verified Buyer" Badge for Reviews\n\nThis is a placeholder for the implementation of UI/UX: Design a "Verified Buyer" Badge for Reviews.
