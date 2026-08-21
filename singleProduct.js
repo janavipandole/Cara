@@ -30,7 +30,7 @@ function renderProductDetails(product) {
 
   if (nameEl) nameEl.textContent = product.name;
   if (priceEl) priceEl.textContent = product.price;
-  if (mainImgEl) mainImgEl.src = product.image;
+  if (mainImgEl) mainImgEl.src = sanitizeImageUrl(product.image);
 
   if (breadcrumbEl && product.brand) {
     let productType = 'T-Shirt';
@@ -42,6 +42,12 @@ function renderProductDetails(product) {
       productType = 'Blouse';
     } else if (product.name.toLowerCase().includes('shirt')) {
       productType = 'Shirt';
+    }
+
+    function sanitizeImageUrl(url) {
+      const str = String(url || '').trim();
+      if (/^(https?:\/\/|\/|\.\/|\.\.\/|images\/)/i.test(str)) return str;
+      return 'images/products/f1.jpg';
     }
     breadcrumbEl.textContent = `Home / ${product.brand} / ${productType}`;
   }
@@ -238,13 +244,23 @@ document.addEventListener('DOMContentLoaded', () => {
       const newReview = document.createElement('div');
       newReview.className = 'review-card fade-up';
       newReview.style.cssText = 'border: 1px solid var(--glass-2); padding: 15px; border-radius: 12px; margin-bottom: 15px; background: rgba(255,255,255,0.02);';
-      newReview.innerHTML = `
-        <div class="review-header" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-            <span class="reviewer-name" style="font-weight: 700;">${name}</span>
-            <span class="review-stars" style="color: #f1c40f;">${stars}</span>
-        </div>
-        <p class="review-text" style="color: var(--muted); margin: 0;">${text}</p>
-      `;
+      const header = document.createElement('div');
+      header.className = 'review-header';
+      header.style.cssText = 'display: flex; justify-content: space-between; margin-bottom: 10px;';
+      const nameSpan = document.createElement('span');
+      nameSpan.className = 'reviewer-name';
+      nameSpan.style.fontWeight = '700';
+      nameSpan.textContent = name;
+      const starsSpan = document.createElement('span');
+      starsSpan.className = 'review-stars';
+      starsSpan.style.color = '#f1c40f';
+      starsSpan.textContent = stars;
+      header.append(nameSpan, starsSpan);
+      const textP = document.createElement('p');
+      textP.className = 'review-text';
+      textP.style.cssText = 'color: var(--muted); margin: 0;';
+      textP.textContent = text;
+      newReview.append(header, textP);
 
       document.getElementById('reviewsList').appendChild(newReview);
       reviewForm.reset();

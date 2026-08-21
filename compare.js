@@ -169,6 +169,21 @@
     );
   }
 
+  function escapeHtml(value) {
+    return String(value == null ? '' : value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function sanitizeImageUrl(url) {
+    const str = String(url || '').trim();
+    if (/^(https?:\/\/|\/|\.\/|\.\.\/|images\/)/i.test(str)) return str;
+    return 'images/products/f1.jpg';
+  }
+
   function viewProduct(p) {
     if (!p) return;
     // singleProduct.js reads a JSON object under 'selectedProduct';
@@ -226,24 +241,26 @@
 
       list.forEach((p, idx) => {
         if (key === 'header') {
+          const safeName = escapeHtml(p.name || 'Product');
+          const safeBrand = escapeHtml(p.brand || '—');
           html += '<th class="product-header">';
           html +=
             '<img src="' +
-            (p.img || 'images/products/f1.jpg') +
+            sanitizeImageUrl(p.img) +
             '" alt="' +
-            p.name +
+            safeName +
             '" data-compare-view="' +
             idx +
             '" />';
-          html += '<div class="prod-name">' + p.name + '</div>';
-          html += '<div class="prod-brand">' + (p.brand || '—') + '</div>';
+          html += '<div class="prod-name">' + safeName + '</div>';
+          html += '<div class="prod-brand">' + safeBrand + '</div>';
           html +=
-            '<button class="remove-compare-btn" onclick="window.CaraCompare.remove(\'' +
-            p.id +
-            '\')">✕ Remove</button>';
+            '<button class="remove-compare-btn" data-compare-remove-index="' +
+            idx +
+            '">✕ Remove</button>';
           html += '</th>';
         } else if (key === 'price') {
-          html += '<td class="price-val">' + (p.price || '—') + '</td>';
+          html += '<td class="price-val">' + escapeHtml(p.price || '—') + '</td>';
         } else if (key === 'rating') {
           html += '<td>' + (p.rating ? renderStars(p.rating) : '—') + '</td>';
         } else if (key === 'action') {
@@ -253,9 +270,9 @@
             '">View Product</button></td>';
         } else if (['category', 'color', 'style'].includes(key)) {
           html +=
-            '<td class="badge-cell"><span>' + (p[key] || '—') + '</span></td>';
+            '<td class="badge-cell"><span>' + escapeHtml(p[key] || '—') + '</span></td>';
         } else {
-          html += '<td>' + (p[key] || '—') + '</td>';
+          html += '<td>' + escapeHtml(p[key] || '—') + '</td>';
         }
       });
 
@@ -267,6 +284,13 @@
     wrapper.querySelectorAll('[data-compare-view]').forEach((el) => {
       const p = list[parseInt(el.dataset.compareView, 10)];
       if (p) el.addEventListener('click', () => viewProduct(p));
+    });
+    wrapper.querySelectorAll('[data-compare-remove-index]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const idx = parseInt(btn.getAttribute('data-compare-remove-index'), 10);
+        const p = list[idx];
+        if (p) window.CaraCompare.remove(p.id);
+      });
     });
   }
 

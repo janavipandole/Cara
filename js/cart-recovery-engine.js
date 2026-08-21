@@ -90,17 +90,30 @@ export class CartRecoveryEngine {
     }
 
     const itemCount = session.items.reduce((acc, item) => acc + (item.quantity || 1), 0);
-    banner.innerHTML = `
-      <div class="cart-recovery-content">
-        <span class="cart-recovery-text">
-          Cart: You left <strong>${itemCount} item(s)</strong> in your shopping cart.
-        </span>
-        <div class="cart-recovery-actions">
-          <button id="btn-restore-cart" class="btn-restore">Restore Cart</button>
-          <button id="btn-dismiss-cart" class="btn-dismiss">&times;</button>
-        </div>
-      </div>
-    `;
+    const content = document.createElement('div');
+    content.className = 'cart-recovery-content';
+    const text = document.createElement('span');
+    text.className = 'cart-recovery-text';
+    text.appendChild(document.createTextNode('Cart: You left '));
+    const strong = document.createElement('strong');
+    strong.textContent = `${itemCount} item(s)`;
+    text.appendChild(strong);
+    text.appendChild(document.createTextNode(' in your shopping cart.'));
+    content.appendChild(text);
+
+    const actions = document.createElement('div');
+    actions.className = 'cart-recovery-actions';
+    const restoreBtn = document.createElement('button');
+    restoreBtn.id = 'btn-restore-cart';
+    restoreBtn.className = 'btn-restore';
+    restoreBtn.textContent = 'Restore Cart';
+    const dismissBtn = document.createElement('button');
+    dismissBtn.id = 'btn-dismiss-cart';
+    dismissBtn.className = 'btn-dismiss';
+    dismissBtn.textContent = '×';
+    actions.append(restoreBtn, dismissBtn);
+    content.appendChild(actions);
+    banner.replaceChildren(content);
 
     document.getElementById('btn-restore-cart')?.addEventListener('click', () => {
       this.markAsRecovered();

@@ -16,16 +16,6 @@ export function sanitizeHTML(input) {
     .replace(/'/g, '&#x27;')
     .replace(/\//g, '&#x2F;');
 
-  // Prevent inline event handlers and scripting attributes
-  let prev;
-  do {
-    prev = clean;
-    clean = clean
-      .replace(/on\w+\s*=/gi, '')
-      .replace(/javascript\s*:/gi, '')
-      .replace(/data\s*:/gi, '');
-  } while (clean !== prev);
-
   return clean;
 }
 

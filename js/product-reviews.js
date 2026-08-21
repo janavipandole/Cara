@@ -127,8 +127,7 @@ export class ProductReviewManager {
   sanitizeReviewAuthorName(name) {
     if (typeof name !== 'string') return '';
     return name
-      .replace(/<[^>]*>/g, '')   // Remove HTML tags
-      .replace(/[<>"'&]/g, '')     // Remove XSS characters
+      .replace(/[<>"'&]/g, '')    // Remove dangerous characters
       .trim()
       .slice(0, 80);               // Cap at 80 chars
   }

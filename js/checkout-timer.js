@@ -18,11 +18,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   try {
     const apiBaseUrl = window.CARA_API_BASE_URL || '';
     const fetchFunc = typeof window.fetchWithTimeout === 'function' ? window.fetchWithTimeout : fetch;
+    function fallbackSessionNonce() {
+      return `${Date.now().toString(36)}${performance.now().toString(36).replace('.', '')}`.slice(0, 16);
+    }
     const sessionId =
       'session_' +
       (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
         ? crypto.randomUUID()
-        : Math.random().toString(36).substring(2, 9));
+        : fallbackSessionNonce());
 
     await fetchFunc(`${apiBaseUrl}/api/inventory/reserve`, {
       method: 'POST',
