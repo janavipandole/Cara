@@ -3,6 +3,12 @@ import { SizeFitCalculator } from './js/size-fit-calculator.js';
 const modal = document.getElementById('size-chart-modal');
 const PRODUCT_DETAILS_REQUEST_KEY = 'product-details';
 
+function sanitizeImageUrl(url) {
+  const str = String(url || '').trim();
+  if (/^(https?:\/\/|\/|\.\/|\.\.\/|images\/)/i.test(str)) return str;
+  return 'images/products/f1.jpg';
+}
+
 const fitCalc = new SizeFitCalculator();
 document.addEventListener('DOMContentLoaded', () => {
   const guideBtn = document.getElementById('btn-size-fit-guide');
@@ -44,16 +50,11 @@ function renderProductDetails(product) {
       productType = 'Shirt';
     }
 
-    function sanitizeImageUrl(url) {
-      const str = String(url || '').trim();
-      if (/^(https?:\/\/|\/|\.\/|\.\.\/|images\/)/i.test(str)) return str;
-      return 'images/products/f1.jpg';
-    }
     breadcrumbEl.textContent = `Home / ${product.brand} / ${productType}`;
   }
 
   if (smallImgs.length > 0 && product.image) {
-    smallImgs[0].src = product.image;
+    smallImgs[0].src = sanitizeImageUrl(product.image);
   }
 }
 
