@@ -595,6 +595,12 @@
             return hasPriceDropped(item) ? item.previousPrice - item.currentPrice : 0;
         }
 
+        function sanitizeImageUrl(url) {
+            const str = String(url || '').trim();
+            if (/^(https?:\/\/|\/|\.\/|\.\.\/|images\/)/i.test(str)) return str;
+            return "images/products/f1.jpg";
+        }
+
         function normalizeWishlistItem(item) {
             const rawPrice = item.price || '₹0';
             const currentPrice = typeof item.currentPrice === 'number'
@@ -609,7 +615,7 @@
                 name: item.name || "Product",
                 brand: item.brand || "Cara",
                 price: formatRupee(currentPrice),
-                image: item.image || item.img || "images/products/f1.jpg",
+                image: sanitizeImageUrl(item.image || item.img || "images/products/f1.jpg"),
                 currentPrice,
                 previousPrice,
             };
@@ -792,4 +798,3 @@
 </main>
 </body>
 </html>
-

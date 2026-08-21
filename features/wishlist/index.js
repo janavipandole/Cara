@@ -13,7 +13,17 @@
       let items = JSON.parse(localStorage.getItem('demo_wishlist') || '[]');
       
       function render() {
-        list.innerHTML = items.map((x, i) => `<li>${x} <i class="fa-solid fa-trash" onclick="removeWishItem(${i})" style="cursor:pointer;color:#ef4444;"></i></li>`).join('');
+        list.innerHTML = '';
+        items.forEach((x, i) => {
+          const li = document.createElement('li');
+          li.appendChild(document.createTextNode(`${x} `));
+          const icon = document.createElement('i');
+          icon.className = 'fa-solid fa-trash';
+          icon.style.cssText = 'cursor:pointer;color:#ef4444;';
+          icon.addEventListener('click', () => window.removeWishItem(i));
+          li.appendChild(icon);
+          list.appendChild(li);
+        });
       }
       window.removeWishItem = function(index) {
         items.splice(index, 1);

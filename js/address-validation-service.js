@@ -56,7 +56,7 @@ class AddressValidationService {
       errors,
       sanitized: isValid
         ? {
-            street: street.trim().replace(/<[^>]*>/g, ''),
+          street: street.trim().replace(/[<>]/g, ''),
             city: city.trim(),
             state: state.trim().toUpperCase(),
             postalCode: postalCode.trim().toUpperCase(),

@@ -687,6 +687,19 @@
     // helpers
     function formatPrice(v) { return '$' + v.toFixed(2) }
     function saveCart() { localStorage.setItem('cara_cart', JSON.stringify(cart)); }
+    function escHtml(v) {
+      return String(v == null ? '' : v)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+    function safeImgSrc(url) {
+      const s = String(url || '').trim();
+      if (/^(data:image\/|https?:\/\/|\/|\.\/|\.\.\/|images\/)/i.test(s)) return s;
+      return 'images/products/f1.jpg';
+    }
 
     function renderGrid(items) {
       grid.innerHTML = '';
@@ -782,26 +795,29 @@ function changeQty(id, delta) {
 
     const line = p.price * q;
     total += line;
+    const safeTitle = escHtml(p.title);
+    const safeImg = safeImgSrc(p.img);
+    const safeId = escHtml(id);
 
     const el = document.createElement('div');
     el.className = 'cart-item';
 
     el.innerHTML = `
       <div class='cart-thumb'>
-        <img src='${p.img}' alt='${p.title}' style='width:100%;height:100%;object-fit:cover;border-radius:6px'/>
+        <img src='${safeImg}' alt='${safeTitle}' style='width:100%;height:100%;object-fit:cover;border-radius:6px'/>
       </div>
       <div style='flex:1'>
         <div style='display:flex;justify-content:space-between;align-items:center'>
-          <div style='font-weight:700'>${p.title}</div>
+          <div style='font-weight:700'>${safeTitle}</div>
           <div style='font-weight:700'>${formatPrice(line)}</div>
         </div>
         <div style='display:flex;justify-content:space-between;align-items:center;margin-top:6px'>
           <div class='muted' style='font-size:13px'>${formatPrice(p.price)} each</div>
           <div class='qty'>
-            <button data-dec='${id}'>-</button>
+            <button data-dec='${safeId}'>-</button>
             <div style='min-width:22px;text-align:center'>${q}</div>
-            <button data-inc='${id}'>+</button>
-            <button title='Remove' data-rm='${id}' style='margin-left:6px' class='icon-btn'>✕</button>
+            <button data-inc='${safeId}'>+</button>
+            <button title='Remove' data-rm='${safeId}' style='margin-left:6px' class='icon-btn'>✕</button>
           </div>
         </div>
       </div>

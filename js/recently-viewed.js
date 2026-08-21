@@ -89,6 +89,12 @@
     root.location.href = 'singleProduct.html';
   }
 
+  function sanitizeImageUrl(url) {
+    const str = String(url || '').trim();
+    if (/^(https?:\/\/|\/|\.\/|\.\.\/|images\/)/i.test(str)) return str;
+    return 'images/products/f1.jpg';
+  }
+
   function buildCard(item, doc) {
     const card = doc.createElement('div');
     card.className = 'recently-viewed-card';
@@ -107,7 +113,7 @@
     const imgWrap = doc.createElement('div');
     imgWrap.className = 'pro-img-wrap';
     const img = doc.createElement('img');
-    img.src = item.image || 'images/products/f1.jpg';
+    img.src = sanitizeImageUrl(item.image || 'images/products/f1.jpg');
     img.alt = item.name;
     img.loading = 'lazy';
     imgWrap.appendChild(img);
