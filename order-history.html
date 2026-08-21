@@ -8,19 +8,21 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" integrity="sha384-L/vw44MdBs/7hovWr2rBVSRKqdti4Vw077yuSGQ2PO3tQARRLiLuMh8xhVmVrR0I" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="ui-fix.css" />
   <link rel="stylesheet" href="header-fix.css" />
   <link rel="stylesheet" href="order-history.css?v=2" />
-  <script src="js/error-logger.js"></script>
+  <script type="module" src="js/error-logger.js"></script>
   <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
+    <script type="module" src="js/config.js"></script>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
   <section id="header">
     <a href="index.html" aria-label="Home">
-      <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
+      <img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" />
     </a>
     <div id="navbar-container"></div>
     <div class="mobile">
@@ -32,8 +34,7 @@
       </button>
     </div>
   </section>
-
-  <main class="order-history-page">
+<main id="main-content">
     <section class="order-history-hero">
       <div>
         <p class="eyebrow">My account</p>
@@ -89,5 +90,6 @@
 
   <script src="navbar.js"></script>
   <script src="order-history.js"></script>
+</main>
 </body>
 </html>

@@ -1,0 +1,1 @@
+# Feature: Create an "Interactive Size Chart" Table\n\nThis is a placeholder for the implementation of Feature: Create an "Interactive Size Chart" Table.

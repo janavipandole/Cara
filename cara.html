@@ -1,8 +1,7 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
   <!-- Character encoding -->
   <meta charset="utf-8" />
 
@@ -10,13 +9,13 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
   <!-- Page title -->
-  <title>Cara â€” Modern Eâ€‘Commerce</title>
+  <title>Cara — Modern E‑Commerce</title>
 
   <!-- Favicon -->
   <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
 
   <!-- SEO Meta Tags -->
-  <meta name="description" content="Cara E-Commerce â€” modern, responsive, and user-friendly shopping experience" />
+  <meta name="description" content="Cara E-Commerce — modern, responsive, and user-friendly shopping experience" />
   <style>
     /*--------------------
        Cara E-Commerce Styles
@@ -528,9 +527,12 @@
       });
     }
   </script>
+    <script type="module" src="js/config.js"></script>
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
   <!-- Header Section -->
   <header>
     <div class="brand">
@@ -538,7 +540,7 @@
       <div class="logo">C</div>
       <div>
         <h1>Cara</h1>
-        <div class="tag">Curated modern goods â€¢ Fast & friendly</div>
+        <div class="tag">Curated modern goods • Fast & friendly</div>
       </div>
     </div>
 
@@ -568,8 +570,7 @@
       </button>
     </div>
   </header>
-
-  <main class="app" role="main">
+<main id="main-content">
     <section class="catalog">
       <div class="toolbar">
         <div>
@@ -580,14 +581,14 @@
           </h2>
         </div>
         <div class="filters">
-          <select id="category" class="filter-btn">
+          <select id="category" class="filter-btn" aria-label="Select category">
             <option value="all">All categories</option>
           </select>
-          <select id="priceRange" class="filter-btn">
+          <select id="priceRange" class="filter-btn" aria-label="Select priceRange">
             <option value="any">Any price</option>
-            <option value="0-25">Under $25</option>
-            <option value="25-75">$25â€“75</option>
-            <option value="75-9999">$75+</option>
+            <option value="0-25">Under ₹25</option>
+            <option value="25-75">₹25–75</option>
+            <option value="75-9999">₹75+</option>
           </select>
           <button id="clearFilters" class="filter-btn" title="Clear all filters">Clear All Filters</button>
 
@@ -616,21 +617,21 @@
       <div style="margin-top:12px">
         <div style="display:flex;justify-content:space-between;align-items:center">
           <div class="muted">Subtotal</div>
-          <div id="subtotal" style="font-weight:800">$0.00</div>
+          <div id="subtotal" style="font-weight:800">₹0.00</div>
         </div>
         <button id="checkout" class="checkout">Proceed to Checkout</button>
       </div>
     </aside>
   </main>
   <button id="scrollTopBtn" title="Go to top">
-  â†‘
+  ↑
 </button>
 
   <!-- Quick view modal (hidden by default) -->
   <div id="modalRoot" style="display:none"></div>
 
   <script>
-    /* Cara â€” lightweight product catalogue + cart
+    /* Cara — lightweight product catalogue + cart
        - Mobile-first
        - Single-file for quick prototyping
        - Uses localStorage for cart persistence
@@ -641,10 +642,10 @@
       { id: 'c2', title: 'Nimbus Hoodie', price: 49.00, cat: 'apparel', img: '', desc: 'Cozy oversized hoodie with soft fleece inside.' },
       { id: 'c3', title: 'Orbit Stainless Bottle', price: 24.50, cat: 'home', img: '', desc: 'Vacuum insulated bottle keeps drinks cold for 24h.' },
       { id: 'c4', title: 'Willow Leather Wallet', price: 39.99, cat: 'accessories', img: '', desc: 'Slim leather wallet with RFID protection.' },
-      { id: 'c5', title: 'Pixel Case â€” Phone', price: 19.99, cat: 'accessories', img: '', desc: 'Slim, shock-absorbent case with matte finish.' },
+      { id: 'c5', title: 'Pixel Case — Phone', price: 19.99, cat: 'accessories', img: '', desc: 'Slim, shock-absorbent case with matte finish.' },
       { id: 'c6', title: 'Lumen Desk Lamp', price: 89.00, cat: 'home', img: '', desc: 'Minimal lamp with adjustable brightness and color temp.' },
       { id: 'c7', title: 'Trailpack 30L', price: 129.00, cat: 'bags', img: '', desc: 'Durable daypack with weather-resistant fabric.' },
-      { id: 'c8', title: 'Canvas Sneaker â€” White', price: 29.99, cat: 'footwear', img: '', desc: 'Casual canvas sneakers made for daily wear.' }
+      { id: 'c8', title: 'Canvas Sneaker — White', price: 29.99, cat: 'footwear', img: '', desc: 'Casual canvas sneakers made for daily wear.' }
     ];
 
     // generate simple gradient placeholder images as data URLs
@@ -739,7 +740,7 @@ function changeQty(id, delta) {
 
   quantity += delta;
 
-  // âœ… FINAL LIMIT LOGIC
+  // ✅ FINAL LIMIT LOGIC
   quantity = Math.max(1, Math.min(MAX_QTY, quantity));
 
   cart[id] = quantity;
@@ -756,7 +757,7 @@ function changeQty(id, delta) {
 
   if (!ids.length) {
     cartList.innerHTML = '<div class="muted">Cart is empty</div>';
-    subtotalEl.textContent = '$0.00';
+    subtotalEl.textContent = '₹0.00';
     return;
   }
 
@@ -765,10 +766,10 @@ function changeQty(id, delta) {
   ids.forEach(id => {
     const p = products.find(x => x.id === id);
 
-    // âœ… GET QUANTITY
+    // ✅ GET QUANTITY
     let q = cart[id];
 
-    // ðŸ”¥ FORCE FIX (VERY IMPORTANT)
+    // 🔥 FORCE FIX (VERY IMPORTANT)
     if (q > 99) {
       q = 99;
       cart[id] = 99;
@@ -800,7 +801,7 @@ function changeQty(id, delta) {
             <button data-dec='${id}'>-</button>
             <div style='min-width:22px;text-align:center'>${q}</div>
             <button data-inc='${id}'>+</button>
-            <button title='Remove' data-rm='${id}' style='margin-left:6px' class='icon-btn'>âœ•</button>
+            <button title='Remove' data-rm='${id}' style='margin-left:6px' class='icon-btn'>✕</button>
           </div>
         </div>
       </div>
@@ -809,13 +810,13 @@ function changeQty(id, delta) {
     cartList.appendChild(el);
   });
 
-  // âœ… SAVE FIXED VALUES BACK
+  // ✅ SAVE FIXED VALUES BACK
   saveCart();
 
-  // âœ… UPDATE TOTAL
+  // ✅ UPDATE TOTAL
   subtotalEl.textContent = formatPrice(total);
 
-  // âœ… EVENTS
+  // ✅ EVENTS
   cartList.querySelectorAll('[data-inc]')
     .forEach(b => b.addEventListener('click', e => changeQty(e.target.dataset.inc, 1)));
 
@@ -845,7 +846,7 @@ function changeQty(id, delta) {
               <div style='font-size:20px;font-weight:800;margin-top:8px'>${formatPrice(p.price)}</div>
               <p class='muted' style='margin-top:12px'>${p.desc}</p>
               <hr style='border-color:rgba(255,255,255,0.03);margin:14px 0'/>
-              <div class='muted' style='font-size:13px'>Fast shipping â€¢ 30â€‘day returns â€¢ Secure checkout</div>
+              <div class='muted' style='font-size:13px'>Fast shipping • 30‑day returns • Secure checkout</div>
             </div>
           </div>
         </div>
@@ -912,7 +913,7 @@ function changeQty(id, delta) {
     // checkout (demo)
     document.getElementById('checkout').addEventListener('click', () => {
       if (!Object.keys(cart).length) {
-        showToast('Your cart is empty â€” add items to checkout.', 'error');
+        showToast('Your cart is empty — add items to checkout.', 'error');
         return;
       }
       const items = Object.entries(cart).map(([id, q]) => ({ id, q }));
@@ -926,7 +927,7 @@ function changeQty(id, delta) {
     // accessibility: keyboard shortcut "/" to focus search
     window.addEventListener('keydown', e => { if (e.key === '/') { e.preventDefault(); searchInput.focus(); } });
 
-    // lightweight analytics (no external calls) â€” track product views in session
+    // lightweight analytics (no external calls) — track product views in session
     const views = {};
     grid.addEventListener('click', e => {
       const card = e.target.closest('.card');
@@ -954,6 +955,7 @@ function changeQty(id, delta) {
     });
   });
 </script>
+</main>
 </body>
 
 </html>

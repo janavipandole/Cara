@@ -1,0 +1,1 @@
+# Enhancement: Add "Color Swatch" Selectors to Product Cards\n\nThis is a placeholder for the implementation of Enhancement: Add "Color Swatch" Selectors to Product Cards.

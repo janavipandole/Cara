@@ -1,0 +1,1 @@
+# Feature: Implement "Share to Social Media" Buttons\n\nThis is a placeholder for the implementation of Feature: Implement "Share to Social Media" Buttons.

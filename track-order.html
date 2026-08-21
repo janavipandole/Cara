@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <link rel="icon" type="image/x-icon" href="img/favicon.ico" />
     <!-- Character Encoding -->
     <meta charset="UTF-8" />
 
@@ -9,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Page Title -->
-    <title>Track My Order | Cara â€” Modern E-Commerce</title>
+    <title>Track My Order | Cara — Modern E-Commerce</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
@@ -32,7 +31,7 @@
     <!-- Open Graph Tags -->
     <meta
       property="og:title"
-      content="Track My Order | Cara â€” Modern E-Commerce"
+      content="Track My Order | Cara — Modern E-Commerce"
     />
     <meta
       property="og:description"
@@ -52,7 +51,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
-      content="Track My Order | Cara â€” Modern E-Commerce"
+      content="Track My Order | Cara — Modern E-Commerce"
     />
     <meta
       name="twitter:description"
@@ -69,17 +68,8 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="ui-fix.css" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" integrity="sha384-L/vw44MdBs/7hovWr2rBVSRKqdti4Vw077yuSGQ2PO3tQARRLiLuMh8xhVmVrR0I" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="track-order.css" />
     <link rel="manifest" href="/manifest.json" />
     <script>
@@ -89,14 +79,16 @@
         });
       }
     </script>
-  </head>
+      <script type="module" src="js/config.js"></script>
+</head>
 
   <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Header -->
     <section id="header">
       <!-- Logo -->
-      <a href="index.html">
-        <img
+      <a href="index.html" aria-label="Cara Home"><img
           id="siteLogo"
           src="images/logo.png"
           alt="Cara Logo"
@@ -148,14 +140,14 @@
           </li>
 
           <!-- Close Button -->
-          <a
+          <li class="nav-close"><a
             href="javascript:void(0)"
             id="close"
             aria-label="Close menu"
             aria-hidden="false"
           >
             <i class="fa-solid fa-xmark"></i>
-          </a>
+          </a></li>
         </ul>
       </div>
 
@@ -182,10 +174,12 @@
         ></i>
       </div>
     </section>
+</main>
 
     <!-- Page Hero -->
-    <section id="about-head">
-      <h2>#Track_My_Order</h2>
+    <main id="main-content">
+  <section id="about-head">
+      <h1>#Track_My_Order</h1>
       <p>
         Enter your order details below to get real-time shipping and delivery
         updates.
@@ -280,7 +274,7 @@
             </div>
             <div class="form-group">
               <label for="mockCarrier">Shipping Carrier / Speed</label>
-              <select id="mockCarrier">
+              <select id="mockCarrier" aria-label="Select mockCarrier">
                 <option value="Standard Shipping">
                   Standard Shipping (+5 days)
                 </option>
@@ -290,7 +284,7 @@
             </div>
             <div class="form-group">
               <label for="mockStatus">Current Status</label>
-              <select id="mockStatus">
+              <select id="mockStatus" aria-label="Select mockStatus">
                 <option value="Processing">Placed / Processing</option>
                 <option value="Packed">Packed</option>
                 <option value="Shipped">Shipped</option>
@@ -354,6 +348,10 @@
         <!-- Progress Timeline -->
         <div class="timeline-section">
           <h3>Shipment Progress</h3>
+          <div id="order-tracking-timeline-target"></div>
+          <div style="text-align: center; margin-bottom: 20px;">
+            <button id="btn-progress-timeline" onclick="window.progressSimulatedTimeline()" style="background: #088178; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: 600;">Advance Simulated Stage</button>
+          </div>
           <div
             class="timeline"
             id="timeline"
@@ -362,7 +360,7 @@
             aria-valuemax="100"
             aria-valuenow="80"
             aria-valuetext="In Transit"
-          >
+           aria-label="Order progress">
             <div
               class="timeline-step completed"
               id="step-ordered"
@@ -374,7 +372,7 @@
               <div class="step-content">
                 <h4>Order Placed</h4>
                 <p>Your order has been confirmed and is being processed.</p>
-                <time>May 14, 2026 â€” 10:32 AM</time>
+                <time>May 14, 2026 — 10:32 AM</time>
               </div>
             </div>
 
@@ -389,7 +387,7 @@
               <div class="step-content">
                 <h4>Order Packed</h4>
                 <p>Your items have been packed and are ready for pickup.</p>
-                <time>May 15, 2026 â€” 2:14 PM</time>
+                <time>May 15, 2026 — 2:14 PM</time>
               </div>
             </div>
 
@@ -404,7 +402,7 @@
               <div class="step-content">
                 <h4>Shipped</h4>
                 <p>Your package has been handed off to FedEx Express.</p>
-                <time>May 16, 2026 â€” 9:05 AM</time>
+                <time>May 16, 2026 — 9:05 AM</time>
               </div>
             </div>
 
@@ -419,8 +417,8 @@
               </div>
               <div class="step-content">
                 <h4>In Transit</h4>
-                <p>Your package is on its way â€” currently in Chicago, IL.</p>
-                <time>May 18, 2026 â€” 6:45 AM</time>
+                <p>Your package is on its way — currently in Chicago, IL.</p>
+                <time>May 18, 2026 — 6:45 AM</time>
               </div>
             </div>
 
@@ -518,8 +516,8 @@
             <i class="ri-add-line"></i>
           </div>
           <div class="faq-answer">
-            Standard shipping takes 5â€“7 business days. Express shipping takes
-            2â€“3 business days. International orders may take 10â€“15 business
+            Standard shipping takes 5–7 business days. Express shipping takes
+            2–3 business days. International orders may take 10–15 business
             days depending on the destination country.
           </div>
         </div>
@@ -530,7 +528,7 @@
             <i class="ri-add-line"></i>
           </div>
           <div class="faq-answer">
-            Tracking updates can sometimes take 24â€“48 hours to reflect after a
+            Tracking updates can sometimes take 24–48 hours to reflect after a
             scan. If your tracking hasn't updated in over 3 business days,
             please <a href="contact.html">contact our support team</a>.
           </div>
@@ -598,9 +596,7 @@
               href="https://www.youtube.com/@JanaviPandole"
               target="_blank"
               rel="noopener noreferrer"
-            >
-              <i class="fab fa-youtube"></i>
-            </a>
+             aria-label="YouTube"><i class="fab fa-youtube"></i></a>
           </div>
         </div>
       </div>
@@ -710,15 +706,16 @@
       <!-- Copyright -->
       <div class="copyright">
         <p>
-          Â© Cara 2026. All rights reserved. |
+          © Cara 2026. All rights reserved. |
           <a href="license.html" style="color: #088178"> MIT License </a>
         </p>
       </div>
     </footer>
 
     <div id="toast-container"></div>
-    <script src="app.js"></script>
-    <script src="track-order.js"></script>
+    <script type="module" src="js/order-telemetry-tracker.js"></script>
+    <script type="module" src="track-order.js"></script>
+    <script type="module" src="js/order-timeline.js"></script>
     <!-- Cancel Order Support -->
     <div
       id="cancel-simulation-box"
@@ -778,5 +775,6 @@
         }
       }
     </script>
+    <script type="module" src="js/order-tracking-visualizer.js"></script>
   </body>
 </html>

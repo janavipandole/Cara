@@ -1,7 +1,6 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <!-- Character Encoding -->
     <meta charset="UTF-8">
 
@@ -9,15 +8,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Page Title -->
-    <title>Cara â€” Buy 1 Get 1 Free</title>
+    <title>Cara — Buy 1 Get 1 Free</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/jpg" href="images/favicon.jpg">
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" integrity="sha384-L/vw44MdBs/7hovWr2rBVSRKqdti4Vw077yuSGQ2PO3tQARRLiLuMh8xhVmVrR0I" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous" />
 
     <style>
         .deals-hero {
@@ -202,12 +201,16 @@
     }
   </script>
   <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
+    <link rel="stylesheet" href="sale-countdown.css">
+    <script type="module" src="js/config.js"></script>
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
 <!-- HEADER -->
 <section id="header">
-    <a href="index.html"><img src="images/logo.png" alt="Cara Logo"></a>
+    <a href="index.html" aria-label="Cara Home"><img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" /></a>
     <div>
         <ul id="navbar">
             <li><a href="index.html">Home</a></li>
@@ -229,14 +232,44 @@
       </button>
     </div>
 </section>
+<main id="main-content">
 
 <!-- HERO SECTION -->
-<section class="deals-hero">
+    <section class="deals-hero">
     <div class="deals-content">
         <span class="deals-badge">LIMITED TIME OFFER</span>
         <h1>Buy 1 Get <span>1 Free</span></h1>
         <p>Grab your favorite fashion picks and get another one absolutely free. Limited period combo deals are waiting for you.</p>
-        <a href="#deals-products" class="deals-btn">Shop Deals â†’</a>
+        <div
+            class="sale-countdown"
+            data-sale-countdown
+            data-sale-countdown-end="2026-12-31T23:59:59Z"
+            role="timer"
+            aria-live="polite"
+            aria-label="Sale ends in"
+        >
+            <span class="sale-countdown__label">Offer ends in</span>
+            <div class="sale-countdown__unit" data-unit="days">
+                <span class="sale-countdown__value">00</span>
+                <span class="sale-countdown__unit-label">Days</span>
+            </div>
+            <span class="sale-countdown__sep" aria-hidden="true">:</span>
+            <div class="sale-countdown__unit" data-unit="hours">
+                <span class="sale-countdown__value">00</span>
+                <span class="sale-countdown__unit-label">Hrs</span>
+            </div>
+            <span class="sale-countdown__sep" aria-hidden="true">:</span>
+            <div class="sale-countdown__unit" data-unit="minutes">
+                <span class="sale-countdown__value">00</span>
+                <span class="sale-countdown__unit-label">Min</span>
+            </div>
+            <span class="sale-countdown__sep" aria-hidden="true">:</span>
+            <div class="sale-countdown__unit" data-unit="seconds">
+                <span class="sale-countdown__value">00</span>
+                <span class="sale-countdown__unit-label">Sec</span>
+            </div>
+        </div>
+        <a href="#deals-products" class="deals-btn">Shop Deals →</a>
     </div>
 
     <div class="deals-visual">
@@ -285,11 +318,11 @@
             <img src="images/products/f1.jpg" alt="Floral Summer Shirt Combo">
             <div class="des">
                 <span>Cara</span>
-                <h5>Floral Summer Shirt Combo</h5>
+                <h3>Floral Summer Shirt Combo</h3>
                 <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
-                <h4>$78 <span class="old-price">$120</span></h4>
+                <h4>₹78 <span class="old-price">₹120</span></h4>
             </div>
-            <a href="javascript:void(0)" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+            <a href="javascript:void(0)" class="cart" aria-label="Interactive action"><i class="ri-shopping-cart-2-line"></i></a>
         </div>
 
         <div class="pro" onclick="window.location.href='singleProduct.html';">
@@ -297,11 +330,11 @@
            <img src="images/products/f2.jpg" alt="Printed Casual Shirt Deal">
             <div class="des">
                 <span>Cara</span>
-                <h5>Printed Casual Shirt Deal</h5>
+                <h3>Printed Casual Shirt Deal</h3>
                 <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
-                <h4>$82 <span class="old-price">$130</span></h4>
+                <h4>₹82 <span class="old-price">₹130</span></h4>
             </div>
-            <a href="javascript:void(0)" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+            <a href="javascript:void(0)" class="cart" aria-label="Interactive action"><i class="ri-shopping-cart-2-line"></i></a>
         </div>
 
         <div class="pro" onclick="window.location.href='singleProduct.html';">
@@ -309,11 +342,11 @@
             <img src="images/products/f3.jpg" alt="Classic Floral Combo">
             <div class="des">
                 <span>Cara</span>
-                <h5>Classic Floral Combo</h5>
+                <h3>Classic Floral Combo</h3>
                 <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
-                <h4>$75 <span class="old-price">$115</span></h4>
+                <h4>₹75 <span class="old-price">₹115</span></h4>
             </div>
-            <a href="javascript:void(0)" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+            <a href="javascript:void(0)" class="cart" aria-label="Interactive action"><i class="ri-shopping-cart-2-line"></i></a>
         </div>
 
         <div class="pro" onclick="window.location.href='singleProduct.html';">
@@ -321,11 +354,11 @@
             <img src="images/products/f4.jpg" alt="Premium White Shirt Offer">
             <div class="des">
                 <span>Cara</span>
-                <h5>Premium White Shirt Offer</h5>
+                <h3>Premium White Shirt Offer</h3>
                 <div class="star"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
-                <h4>$79 <span class="old-price">$125</span></h4>
+                <h4>₹79 <span class="old-price">₹125</span></h4>
             </div>
-            <a href="javascript:void(0)" class="cart"><i class="ri-shopping-cart-2-line"></i></a>
+            <a href="javascript:void(0)" class="cart" aria-label="Interactive action"><i class="ri-shopping-cart-2-line"></i></a>
         </div>
 
     </div>
@@ -348,7 +381,7 @@
 
 <footer class="section-p1">
     <div class="col">
-        <img class="logo" src="images/logo.png" alt="Cara Logo">
+        <img class="logo" src="images/Dlogo.png" alt="Cara Logo">
         <h4>Contact</h4>
         <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
         <p><strong>Phone:</strong> +01 2222 365 /(+91) 01 2345 6789</p>
@@ -358,9 +391,9 @@
     <div class="col">
         <h4>About</h4>
         <a href="about.html">About us</a>
-        <a href="javascript:void(0)">Delivery Information</a>
-        <a href="javascript:void(0)">Privacy Policy</a>
-        <a href="javascript:void(0)">Terms & Conditions</a>
+        <a href="javascript:void(0)" aria-label="Interactive action">Delivery Information</a>
+        <a href="javascript:void(0)" aria-label="Interactive action">Privacy Policy</a>
+        <a href="javascript:void(0)" aria-label="Interactive action">Terms & Conditions</a>
         <a href="contact.html">Contact Us</a>
     </div>
 
@@ -377,7 +410,10 @@
         <p>&copy; Cara 2025. All rights reserved.</p>
     </div>
 </footer>
+</main>
 
 <script src="app.js"></script>
+<script src="js/sale-countdown.js"></script>
+
 </body>
 </html>

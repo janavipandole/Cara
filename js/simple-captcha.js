@@ -1,5 +1,6 @@
 // Simple Login Mathematics Verification Captcha
-document.addEventListener('DOMContentLoaded', () => {
+function installCaptcha() {
+  if (typeof document === 'undefined') return;
   const loginForm = document.querySelector('form');
   if (!loginForm) return;
 
@@ -51,11 +52,26 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   loginForm.addEventListener('submit', (e) => {
-    const userAnswer = parseInt(document.getElementById('captcha-input').value);
+    const captchaInput = document.getElementById('captcha-input');
+    const feedback = document.getElementById('captcha-feedback');
+    if (!captchaInput || !feedback) return;
+
+    const userAnswer = parseInt(captchaInput.value, 10);
     if (userAnswer !== answer) {
       e.preventDefault();
-      document.getElementById('captcha-feedback').textContent =
+      feedback.textContent =
         'Incorrect captcha. Please solve math query correctly.';
     }
   });
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', installCaptcha);
+} else {
+  installCaptcha();
+}
+
+
+export function getSimpleCaptchaStatusHelper74() {
+  return { status: "ok", fn: "getSimpleCaptchaStatusHelper74" };
+}

@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey, JSON, Boolean, DateTime
+from sqlalchemy import Column, Integer, String, ForeignKey, JSON, Boolean, DateTime, UniqueConstraint, Numeric
 from sqlalchemy.orm import relationship
 from .database import Base
 from datetime import datetime, timezone
@@ -9,6 +9,20 @@ class NewsletterSubscriber(Base):
     email = Column(String, unique=True, index=True, nullable=False)
     subscribed_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     is_active = Column(Boolean, default=True)
+    unsubscribe_token = Column(String, unique=True, index=True, nullable=True)
+
+
+class AmbassadorApplication(Base):
+    __tablename__ = "ambassador_applications"
+
+    id = Column(Integer, primary_key=True, index=True)
+    full_name = Column(String, nullable=False)
+    email = Column(String, index=True, nullable=False)
+    instagram_handle = Column(String, nullable=False)
+    follower_count = Column(Integer, nullable=False)
+    motivation = Column(String, nullable=True)
+    submitted_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
 
 
 class Product(Base):
@@ -17,7 +31,7 @@ class Product(Base):
     id = Column(Integer, primary_key=True, index=True)
     brand = Column(String, index=True)
     name = Column(String, index=True)
-    price = Column(Float)
+    price = Column(Numeric(10, 2))
     img = Column(String)
     rating = Column(Integer)
     category = Column(String, index=True) # street, minimal, formal
@@ -61,16 +75,33 @@ class User(Base):
 
 class Order(Base):
     __tablename__ = "orders"
+    __table_args__ = (
+        UniqueConstraint(
+            "email",
+            "idempotency_key",
+            name="uq_orders_email_idempotency_key",
+        ),
+    )
     id = Column(Integer, primary_key=True, index=True)
     full_name = Column(String, nullable=False)
     email = Column(String, nullable=False)
     address = Column(String, nullable=False)
     city = Column(String, nullable=False)
     zip_code = Column(String, nullable=False)
-    total_amount = Column(Float, nullable=False)
+    total_amount = Column(Numeric(10, 2), nullable=False)
     status = Column(String, default="PENDING")
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
-    idempotency_key = Column(String, unique=True, index=True, nullable=True)
+    # Captured exactly once when the carrier marks the order DELIVERED; the
+    # estimated return deadline is computed as delivered_at + return window.
+    delivered_at = Column(DateTime, nullable=True)
+    # Uniqueness is scoped per buyer email via uq_orders_email_idempotency_key
+    idempotency_key = Column(String, index=True, nullable=True)
+
+    def mark_delivered(self) -> None:
+        """Transition to DELIVERED, capturing the delivery timestamp once."""
+        if self.delivered_at is None:
+            self.delivered_at = datetime.now(timezone.utc)
+        self.status = "DELIVERED"
 
 class PasswordResetToken(Base):
     __tablename__ = "password_reset_tokens"
@@ -92,7 +123,39 @@ class OrderItem(Base):
         ForeignKey("orders.id"),
         nullable=False
     )
+    product_id = Column(Integer, ForeignKey("products.id"), nullable=True, index=True)
+    # Denormalized snapshot kept for order history after renames/deletes.
     product_name = Column(String, nullable=False)
     quantity = Column(Integer, nullable=False)
-    price = Column(Float, nullable=False)
+    price = Column(Numeric(10, 2), nullable=False)
     order = relationship("Order")
+    product = relationship("Product")
+
+
+class WebAuthnCredential(Base):
+    __tablename__ = "webauthn_credentials"
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    credential_id = Column(String, unique=True, index=True, nullable=False)
+    public_key = Column(String, nullable=False)
+    sign_count = Column(Integer, default=0, nullable=False)
+    transports = Column(String, nullable=True)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+    user = relationship("User")
+
+
+class InventoryReservation(Base):
+    __tablename__ = "inventory_reservations"
+
+    id = Column(Integer, primary_key=True, index=True)
+    product_id = Column(Integer, ForeignKey("products.id"), nullable=False, index=True)
+    session_id = Column(String, index=True, nullable=False)
+    quantity = Column(Integer, nullable=False)
+    status = Column(String, default="HOLD", index=True)
+    expires_at = Column(DateTime, nullable=False, index=True)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+    product = relationship("Product")
+
+

@@ -1,8 +1,8 @@
-name: CI
+﻿name: CI
 on: [push, pull_request]
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - run: echo 'CI Passed'
+      - uses: actions/checkout@v4
+      - run: echo CI

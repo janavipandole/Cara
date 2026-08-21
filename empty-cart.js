@@ -1,10 +1,12 @@
 function safeParseJSON(key, fallback = '[]') {
   try {
     return JSON.parse(localStorage.getItem(key) || fallback);
-  } catch {
+  } catch (err) {
+    console.warn('Failed to parse stored data:', err);
     try {
       return JSON.parse(fallback);
-    } catch {
+    } catch (fallbackErr) {
+      console.warn('Failed to parse fallback data:', fallbackErr);
       return [];
     }
   }
@@ -37,3 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     handleEmptyCartView();
   }
 });
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { safeParseJSON };
+}

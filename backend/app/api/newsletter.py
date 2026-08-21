@@ -1,4 +1,6 @@
+import secrets
 from fastapi import APIRouter, Depends, HTTPException
+from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from pydantic import BaseModel, EmailStr
 from .. import models
@@ -12,7 +14,7 @@ class NewsletterSubscribeRequest(BaseModel):
 
 
 class NewsletterUnsubscribeRequest(BaseModel):
-    email: EmailStr
+    token: str
 
 
 @router.post("/subscribe", status_code=201)
@@ -23,27 +25,43 @@ def subscribe(payload: NewsletterSubscribeRequest, db: Session = Depends(get_db)
         .first()
     )
     if existing:
-        if existing.is_active:
-            raise HTTPException(status_code=409, detail="Email already subscribed")
-        existing.is_active = True
-        db.commit()
-        return {"message": "Subscription reactivated"}
+        if not existing.is_active:
+            existing.is_active = True
+            if not existing.unsubscribe_token:
+                existing.unsubscribe_token = secrets.token_urlsafe(32)
+            db.commit()
+            return JSONResponse(
+                status_code=201,
+                content={"message": "Subscription reactivated"},
+            )
+        # Generic response regardless of prior state — avoids leaking
+        # whether this email was already subscribed.
+        return JSONResponse(
+            status_code=200,
+            content={"message": "Subscription request processed"},
+        )
 
-    subscriber = models.NewsletterSubscriber(email=payload.email)
+    subscriber = models.NewsletterSubscriber(
+        email=payload.email,
+        unsubscribe_token=secrets.token_urlsafe(32),
+    )
     db.add(subscriber)
     db.commit()
-    return {"message": "Successfully subscribed to newsletter"}
+    return JSONResponse(
+        status_code=201,
+        content={"message": "Subscription request processed"},
+    )
 
 
 @router.post("/unsubscribe")
 def unsubscribe(payload: NewsletterUnsubscribeRequest, db: Session = Depends(get_db)):
     subscriber = (
         db.query(models.NewsletterSubscriber)
-        .filter(models.NewsletterSubscriber.email == payload.email)
+        .filter(models.NewsletterSubscriber.unsubscribe_token == payload.token)
         .first()
     )
     if not subscriber:
-        raise HTTPException(status_code=404, detail="Email not found in subscriptions")
+        raise HTTPException(status_code=400, detail="Invalid or expired unsubscribe link")
 
     subscriber.is_active = False
     db.commit()

@@ -31,19 +31,20 @@
     page_size: DEFAULT_PAGE_SIZE,
   };
   let activeController = null;
+  const smartEngine = typeof SmartSearchEngine !== 'undefined' ? new SmartSearchEngine() : null;
 
   // ── DOM references ──────────────────────────────────────────────────────────
-  const searchInput = document.getElementById('productSearchInput');
-  const categorySelect = document.getElementById('filterCategory');
-  const priceMinInput = document.getElementById('filterPriceMin');
-  const priceMaxInput = document.getElementById('filterPriceMax');
-  const ratingSelect = document.getElementById('filterRating');
-  const inStockCheckbox = document.getElementById('filterInStock');
-  const sortSelect = document.getElementById('filterSortBy');
-  const productGrid = document.getElementById('productGrid');
-  const resultCount = document.getElementById('searchResultCount');
-  const paginationWrap = document.getElementById('searchPagination');
-  const searchLoader = document.getElementById('searchLoader');
+  const searchInput = document.getElementById('productSearchInput') || null;
+  const categorySelect = document.getElementById('filterCategory') || null;
+  const priceMinInput = document.getElementById('filterPriceMin') || null;
+  const priceMaxInput = document.getElementById('filterPriceMax') || null;
+  const ratingSelect = document.getElementById('filterRating') || null;
+  const inStockCheckbox = document.getElementById('filterInStock') || null;
+  const sortSelect = document.getElementById('filterSortBy') || null;
+  const productGrid = document.getElementById('productGrid') || null;
+  const resultCount = document.getElementById('searchResultCount') || null;
+  const paginationWrap = document.getElementById('searchPagination') || null;
+  const searchLoader = document.getElementById('searchLoader') || null;
 
   // ── Utility: debounce ──────────────────────────────────────────────────────
   function debounce(fn, wait) {
@@ -52,6 +53,24 @@
       clearTimeout(timer);
       timer = setTimeout(() => fn.apply(this, args), wait);
     };
+  }
+
+  function escapeHtml(value) {
+    return String(value === undefined || value === null ? '' : value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function safeImageSrc(value) {
+    const src = String(value === undefined || value === null ? '' : value).trim();
+    if (!src) return 'images/products/placeholder.jpg';
+    if (/^https?:\/\//i.test(src) || src.startsWith('/') || src.startsWith('images/')) {
+      return src;
+    }
+    return 'images/products/placeholder.jpg';
   }
 
   // ── Build query string from active filters ─────────────────────────────────
@@ -89,32 +108,38 @@
     }
 
     productGrid.innerHTML = products
-      .map(
-        (p) => `
-        <div class="pro" data-product-id="${p.id}" tabindex="0" role="article"
-             aria-label="${p.name} by ${p.brand}, ₹${p.price}">
+      .map((p) => {
+        const id = encodeURIComponent(String(p.id));
+        const name = escapeHtml(p.name);
+        const brand = escapeHtml(p.brand);
+        const img = escapeHtml(safeImageSrc(p.img));
+        const price = Number(p.price) || 0;
+        const rating = Math.min(Math.max(parseInt(p.rating, 10) || 0, 0), 5);
+        return `
+        <div class="pro" data-product-id="${id}" tabindex="0" role="article"
+             aria-label="${name} by ${brand}, ₹${price}">
           <div class="pro-img-wrap">
-            <img src="${p.img || 'images/products/placeholder.jpg'}"
-                 alt="${p.name}"
+            <img src="${img}"
+                 alt="${name}"
                  loading="lazy"
                  onerror="this.src='images/products/placeholder.jpg'">
             ${p.stock === 0 ? '<span class="out-of-stock-badge">Out of Stock</span>' : ''}
           </div>
           <div class="des">
-            <span>${p.brand}</span>
-            <h5>${p.name}</h5>
-            <div class="star" aria-label="${p.rating} out of 5 stars">
-              ${'<i class="ri-star-fill"></i>'.repeat(Math.min(p.rating, 5))}
+            <span>${brand}</span>
+            <h5>${name}</h5>
+            <div class="star" aria-label="${rating} out of 5 stars">
+              ${'<i class="ri-star-fill"></i>'.repeat(rating)}
             </div>
-            <h4>₹${p.price.toFixed(2)}</h4>
+            <h4>₹${price.toFixed(2)}</h4>
           </div>
-          <a href="singleProduct.html?id=${p.id}"
+          <a href="singleProduct.html?id=${id}"
              class="product-link"
-             aria-label="View details for ${p.name}">
+             aria-label="View details for ${name}">
             <i class="ri-eye-line" aria-hidden="true"></i>
           </a>
-        </div>`,
-      )
+        </div>`;
+      })
       .join('');
   }
 
@@ -171,6 +196,11 @@
         return res.json();
       })
       .then(({ total, page, page_size, products }) => {
+        if (!Array.isArray(products)) {
+          console.warn('[ProductSearch] Invalid API response: products is not an array');
+          if (productGrid) { productGrid.innerHTML = '<p class="search-error" role="alert">Failed to load results. Please try again.</p>'; }
+          return;
+        }
         renderProducts(products);
         renderPagination(total, page, page_size);
         if (resultCount) {
@@ -183,7 +213,7 @@
           // Expected when a newer request supersedes this one — ignore silently
           return;
         }
-        console.error('[product-search] Fetch failed:', err);
+        // Silent fail - show error UI instead
         if (productGrid) {
           productGrid.innerHTML =
             '<p class="search-error" role="alert">Failed to load results. Please try again.</p>';
@@ -226,25 +256,47 @@
   function populateCategoryDropdown() {
     if (!categorySelect) return;
     fetch(CATEGORIES_API)
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error(`API error: ${res.status}`);
+        return res.json();
+      })
       .then(({ categories }) => {
         const placeholder = '<option value="">All Categories</option>';
         const opts = categories
-          .map(
-            (c) =>
-              `<option value="${c}">${c.charAt(0).toUpperCase() + c.slice(1)}</option>`,
-          )
+          .map((c) => {
+            const value = escapeHtml(c);
+            const label = escapeHtml(
+              String(c).charAt(0).toUpperCase() + String(c).slice(1),
+            );
+            return `<option value="${value}">${label}</option>`;
+          })
           .join('');
         categorySelect.innerHTML = placeholder + opts;
       })
-      .catch(() => {
-        // Silently fail — static options in HTML serve as fallback
+      .catch((err) => {
+        // Silent fail - show error UI instead
       });
   }
 
   // ── Attach event listeners ─────────────────────────────────────────────────
   const debouncedSearch = debounce(() => {
     filters.q = searchInput ? searchInput.value.trim() : '';
+    // Skip the API call for whitespace-only input with no other active filters.
+    if (!filters.q) {
+      const hasFilters =
+        filters.category ||
+        filters.subcategory ||
+        filters.color ||
+        filters.style ||
+        filters.min_price !== '' ||
+        filters.max_price !== '' ||
+        filters.min_rating !== '' ||
+        filters.in_stock;
+      if (!hasFilters) {
+        if (productGrid) productGrid.innerHTML = '';
+        return;
+      }
+    }
     filters.page = 1;
     fetchAndRender();
   }, DEBOUNCE_MS);
@@ -271,7 +323,26 @@
 
   if (priceMinInput) {
     priceMinInput.addEventListener('change', () => {
+      const val = parseFloat(priceMinInput.value);
+      if (priceMinInput.value !== '' && (isNaN(val) || val < 0)) {
+        priceMinInput.value = '';
+        return;
+      }
+      const minVal = parseFloat(priceMinInput.value) || 0;
+      const maxVal = parseFloat(priceMaxInput?.value) || 0;
+      if (priceMinInput.value !== '' && priceMaxInput.value !== '' && minVal > maxVal) {
+        priceMinInput.value = '';
+        alert('Minimum price cannot be greater than maximum price.');
+        return;
+      }
       filters.min_price = priceMinInput.value;
+      // A minimum above the current maximum would return empty results.
+      const maxVal = priceMaxInput ? parseFloat(priceMaxInput.value) : NaN;
+      if (priceMinInput.value !== '' && !isNaN(maxVal) && val > maxVal) {
+        priceMinInput.value = '';
+        filters.min_price = '';
+        return;
+      }
       filters.page = 1;
       fetchAndRender();
     });
@@ -279,7 +350,26 @@
 
   if (priceMaxInput) {
     priceMaxInput.addEventListener('change', () => {
+      const val = parseFloat(priceMaxInput.value);
+      if (priceMaxInput.value !== '' && (isNaN(val) || val < 0)) {
+        priceMaxInput.value = '';
+        return;
+      }
+      const minVal = parseFloat(priceMinInput?.value) || 0;
+      const maxVal = parseFloat(priceMaxInput.value) || 0;
+      if (priceMinInput?.value !== '' && priceMaxInput.value !== '' && minVal > maxVal) {
+        priceMaxInput.value = '';
+        alert('Maximum price cannot be less than minimum price.');
+        return;
+      }
       filters.max_price = priceMaxInput.value;
+      // A maximum below the current minimum would return empty results.
+      const minVal = priceMinInput ? parseFloat(priceMinInput.value) : NaN;
+      if (priceMaxInput.value !== '' && !isNaN(minVal) && val < minVal) {
+        priceMaxInput.value = '';
+        filters.max_price = '';
+        return;
+      }
       filters.page = 1;
       fetchAndRender();
     });
@@ -321,3 +411,15 @@
   // Expose resetAllFilters globally so an HTML button can call it directly
   window.resetProductFilters = resetAllFilters;
 })();
+
+
+export function meetsSearchQueryThreshold(query, minLength = 2) { if (!query || typeof query !== 'string') return false; return query.trim().length >= minLength; }
+
+window.getProductSearchStatusHelper103 = function() {
+  return {
+    status: 'active',
+    module: 'ProductSearch',
+    hasSearchInput: typeof document !== 'undefined' && !!document.getElementById('productSearchInput'),
+    helper: 'getProductSearchStatusHelper103'
+  };
+};

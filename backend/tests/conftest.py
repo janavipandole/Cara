@@ -1,3 +1,21 @@
+import os
+
+# TestClient speaks HTTP; Secure cookies would not round-trip otherwise.
+os.environ.setdefault("COOKIE_SECURE", "false")
+
+# Never download CLIP weights or hit the network during tests; rebuilds use
+# synthetic embeddings instead.
+os.environ.setdefault("CARA_DISABLE_CLIP", "true")
+
+# Keep FAISS artifact writes out of the working tree during tests.
+import tempfile
+
+_FAISS_TMP_DIR = tempfile.mkdtemp(prefix="cara_faiss_test_")
+os.environ.setdefault("FAISS_INDEX_PATH", os.path.join(_FAISS_TMP_DIR, "faiss_index.bin"))
+os.environ.setdefault(
+    "FAISS_EMBEDDINGS_PATH", os.path.join(_FAISS_TMP_DIR, "faiss_embeddings.npz")
+)
+
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
@@ -52,13 +70,18 @@ def auth_headers(client, db_session):
     from app.models import User
     from passlib.context import CryptContext
     pwd = CryptContext(schemes=["bcrypt"], deprecated="auto")
-    user = User(
-        username="testuser",
-        email="test@example.com",
-        hashed_password=pwd.hash("Test@1234"),
-    )
-    db_session.add(user)
-    db_session.commit()
+
+    # Reuse an existing testuser so the fixture is idempotent across tests
+    # that share the session-scoped database.
+    user = db_session.query(User).filter(User.email == "test@example.com").first()
+    if user is None:
+        user = User(
+            username="testuser",
+            email="test@example.com",
+            hashed_password=pwd.hash("Test@1234"),
+        )
+        db_session.add(user)
+        db_session.commit()
 
     response = client.post(
         "/api/auth/login",
@@ -73,14 +96,19 @@ def admin_auth_headers(client, db_session):
     from app.models import User
     from passlib.context import CryptContext
     pwd = CryptContext(schemes=["bcrypt"], deprecated="auto")
-    user = User(
-        username="adminuser",
-        email="admin@example.com",
-        hashed_password=pwd.hash("Admin@1234"),
-        role="ADMIN",
-    )
-    db_session.add(user)
-    db_session.commit()
+
+    # Reuse an existing adminuser so the fixture is idempotent across tests
+    # that share the session-scoped database.
+    user = db_session.query(User).filter(User.email == "admin@example.com").first()
+    if user is None:
+        user = User(
+            username="adminuser",
+            email="admin@example.com",
+            hashed_password=pwd.hash("Admin@1234"),
+            role="ADMIN",
+        )
+        db_session.add(user)
+        db_session.commit()
 
     response = client.post(
         "/api/auth/login",

@@ -1,7 +1,6 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
   <!-- Character Encoding -->
     <meta charset="UTF-8">
 
@@ -9,23 +8,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Page Title -->
-    <title>Cara â€” AI Virtual Try-On</title>
+    <title>Cara — AI Virtual Try-On</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg">
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="ui-fix.css" />
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" integrity="sha384-L/vw44MdBs/7hovWr2rBVSRKqdti4Vw077yuSGQ2PO3tQARRLiLuMh8xhVmVrR0I" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
     <!-- MediaPipe Pose CDNs -->
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" integrity="sha384-q1KhAZhJcJXr3zfC3Tz07pBqQSabwFIZhXlmlUAB8s0zk4ETWERkIKGBCFQ5Jc3e" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" integrity="sha384-W/7NVG2tfN12ld8faSFVOZ/W4UHFHze98GqEUPTl8EjY9QDwCKQIzoCHp8/IlIIr" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js" integrity="sha384-qcJQ+n/ZcF15Xu2EoRupB4Av+GEAGeW0Td1mp2A90u0NdNLzLYQVMUq1Ax1YAHqk" crossorigin="anonymous"></script>
 
 
         <style>
@@ -513,7 +509,6 @@
         
   </style>
     <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="ui-fix.css" />
   <link rel="manifest" href="/manifest.json">
   <script>
     if ('serviceWorker' in navigator) {
@@ -523,15 +518,17 @@
     }
   </script>
   <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
+    <script type="module" src="js/config.js"></script>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
 
         <!-- HEADER -->
         <!-- <section id="header"> -->
    <section id="header">
   <!-- Logo -->
-  <a href="index.html">
-    <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
+  <a href="index.html" aria-label="Cara Home"><img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" />
   </a>
 
   <div>
@@ -579,14 +576,14 @@
       </li>
 
       <!-- Close Button -->
-      <a
+      <li class="nav-close"><a
         href="javascript:void(0)"
         id="close"
         aria-label="Close menu"
         aria-hidden="false"
       >
         <i class="fa-solid fa-xmark"></i>
-      </a>
+      </a></li>
 
     </ul>
   </div>
@@ -616,6 +613,7 @@
 
   </div>
 </section>
+<main id="main-content">
 
             <!-- <div class="mobile">
             <button class="theme-toggle" id="themeToggleMobile"
@@ -629,7 +627,7 @@
             <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
             </div> -->
         <!-- </section> -->
-    <main>
+    <div class="main-section">
     <section id="try-on-section">
 
         <!-- Step Progress -->
@@ -653,7 +651,7 @@
         <div class="tryon-layout">
             <!-- Left: Controls -->
             <div class="controls">
-                <h2><i class="ri-magic-line"></i> AI Virtual Try-On</h2>
+                <h1><i class="ri-magic-line"></i> AI Virtual Try-On</h1>
                 <p>Use your camera or upload a photo. Our AI detects your body shape and fits the clothing on you.</p>
                 
                 <!-- Step 1: Input Mode -->
@@ -689,10 +687,23 @@
                     </label>
                 </div>
 
-                <!-- Step 2: Outfit -->
-                <h3>2. Select Outfit</h3>
+                <!-- Step 2: Outfit & Bottom Selection -->
+                <h3>2. Select Top & Bottom</h3>
                 <div class="clothing-list" id="clothing-list">
                     <!-- Populated by JS from products array -->
+                </div>
+                <div class="bottoms-select-section" style="margin-top: 15px;">
+                  <label for="bottom-color-select" style="font-weight: 600; font-size: 14px;">Select Bottom Garment Color:</label>
+                  <select id="bottom-color-select" style="width: 100%; padding: 8px; margin-top: 6px; border: 1px solid var(--border-color); border-radius: 6px;" aria-label="Select bottom-color-select">
+                    <option value="khaki">Khaki Trousers</option>
+                    <option value="black">Black Jeans</option>
+                    <option value="white">White Linen Pants</option>
+                    <option value="navy">Navy Chinos</option>
+                    <option value="red">Red Shorts</option>
+                  </select>
+                </div>
+                <div id="outfit-compatibility-feedback" style="margin-top: 15px; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 500; display: none;">
+                  <!-- Dynamic feedback will render here -->
                 </div>
 
                 <div style="flex-grow: 1;"></div>
@@ -720,7 +731,7 @@
 </div>
 
                 <!-- Hidden uploaded image -->
-                <img id="uploaded-preview" src="" alt="">
+                <img id="uploaded-preview" src="" alt="Uploaded clothing preview">
 
 
 
@@ -748,7 +759,7 @@
     <footer class="section-p1">
     <!-- Contact Column -->
     <div class="col">
-      <img class="logo" src="images/logo.png" alt="Cara Logo">
+      <img class="logo" src="images/Dlogo.png" alt="Cara Logo">
       <h4>Contact</h4>
       <p>
         <strong>Address:</strong> 562 Wellington Road, 
@@ -770,9 +781,7 @@
           <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
             <i class="fab fa-linkedin"></i>
           </a>
-          <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-youtube"></i>
-          </a>
+          <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
         </div>
       </div>
     </div>
@@ -792,7 +801,7 @@
       <h4>My Account</h4>
       <a href="login.html">Sign In</a>
       <a aria-label="Cart" href="cart.html">View Cart</a>
-      <a href="javascript:void(0)">My Wishlist</a>
+      <a href="javascript:void(0)" aria-label="Interactive action">My Wishlist</a>
       <a aria-label="Cart" href="cart.html">Track My Order</a>
       <a href="contact.html">Help</a>
     </div>
@@ -852,23 +861,25 @@
     <!-- Copyright -->
     <div class="copyright">
       <p>
-        Â© Cara 2026. All rights reserved. |
+        © Cara 2026. All rights reserved. |
         <a href="license.html" style="color: #088178"> MIT License </a>
       </p>
     </div>
   </footer>
-   <button id="topBtn">â†‘</button>
-     <script src="try-on.js"></script> 
-    <script src="navbar.js"></script>
-    <script src="app.js"></script>
+   <button id="topBtn">↑</button>
+     <script type="module" src="js/virtual-tryon-engine.js"></script>
+     <script type="module" src="try-on.js"></script> 
+    <script type="module" src="navbar.js"></script>
+    <script type="module" src="app.js"></script>
     <script>loadNavbar('tryon');</script>
-    <script src="js/theme.js"></script>
+    
 <!-- <script>loadNavbar('tryon');</script> -->
         <script id="Current-Year">
         document.getElementById("Current-Year").textContent = new Date().getFullYear();
 
         
     </script>
+</main>
 </body>
 </html>
 

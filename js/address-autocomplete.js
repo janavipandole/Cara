@@ -21,11 +21,17 @@
   let debounceTimer = null;
 
   // ── Utility: debounce ──────────────────────────────────────────────────────
-  function debounce(fn, wait) {
+  // Expose debounce for reuse by other modules
+  window.debounce = function(fn, wait) {
     return function (...args) {
       clearTimeout(debounceTimer);
       debounceTimer = setTimeout(() => fn.apply(this, args), wait);
     };
+  }
+
+  // Expose debounce globally for reuse by other modules
+  if (typeof window !== 'undefined') {
+    window.addressAutocompleteDebounce = debounce;
   }
 
   // ── Create suggestions dropdown markup ─────────────────────────────────────
@@ -65,6 +71,7 @@
   }
 
   function selectItem(item) {
+    if (!item) return;
     if (addressInput) addressInput.value = item.street;
     if (cityInput) {
       cityInput.value = item.city;
@@ -99,6 +106,7 @@
   }
 
   function escapeHTML(str) {
+  if (!str) return '';
     return String(str)
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
@@ -115,13 +123,25 @@
       return;
     }
 
+    let loader = null;
+    if (typeof window.AutocompleteLoader === 'function') {
+      const loaderEl = document.getElementById('address-loader');
+      loader = new window.AutocompleteLoader(loaderEl);
+      loader.showLoader();
+    }
+
     try {
       const res = await fetch(`${SUGGEST_API}?q=${encodeURIComponent(val)}`);
       if (!res.ok) throw new Error('API error');
       const list = await res.json();
       showSuggestions(list);
-    } catch {
+    } catch (err) {
+      console.warn('Address autocomplete failed:', err);
       hideSuggestions();
+    } finally {
+      if (loader) {
+        loader.hideLoader();
+      }
     }
   }
 

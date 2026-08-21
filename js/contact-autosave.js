@@ -16,18 +16,33 @@ document.addEventListener('DOMContentLoaded', () => {
     if (el) {
       inputs[field] = el;
       // Load saved draft
-      const savedVal = localStorage.getItem(`cara_contact_draft_${field}`);
+      let savedVal = null;
+      try {
+        savedVal = localStorage.getItem(`cara_contact_draft_${field}`);
+      } catch (err) {
+        // Silently ignore localStorage failures in restricted environments
+      }
       if (savedVal) {
         el.value = savedVal;
       }
 
-      // Save on input
-      el.addEventListener('input', () => {
-        localStorage.setItem(`cara_contact_draft_${field}`, el.value);
-        showAutosaveStatus();
-      });
-    }
-  });
+            // Save on input
+            el.addEventListener("input", () => {
+                let val = el.value;
+                if (typeof window.BackendProfileSecurity === 'function') {
+                    const sec = new window.BackendProfileSecurity();
+                    val = sec.sanitizeField(val);
+                }
+                try {
+                    localStorage.setItem(`cara_contact_draft_${field}`, val);
+                    localStorage.setItem(`cara_contact_draft_${field}_ts`, Date.now());
+                } catch (err) {
+                    // Silently ignore localStorage failures in restricted environments
+                }
+                showAutosaveStatus();
+            });
+        }
+    });
 
   // Create a visual indicator for draft state
   const indicator = document.createElement('div');
@@ -51,7 +66,18 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
     fields.forEach((field) => {
-      localStorage.removeItem(`cara_contact_draft_${field}`);
+      try {
+        localStorage.removeItem(`cara_contact_draft_${field}`);
+      } catch (err) {
+        // Silently ignore localStorage failures in restricted environments
+      }
     });
   });
 });
+
+
+export function safeSaveContactForm(data) {
+  if (!data || typeof data !== 'object') return false;
+  if (!data.name && !data.email && !data.message) return false;
+  return true;
+}

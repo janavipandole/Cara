@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
   <!-- Character Encoding -->
   <meta charset="UTF-8" />
 
@@ -9,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Page Title -->
-  <title>Cara â€” Modern Eâ€‘Commerce</title>
+  <title>Cara — Modern E‑Commerce</title>
 
   <!-- Favicon -->
   <link rel="icon" type="image/jpeg" sizes="32x32" href="images/favicon.jpg" />
@@ -37,7 +36,7 @@
   />
   <meta
     property="og:image"
-    content="https://cara-seven-ashen.vercel.app/images/logo.png"
+    content="https://cara-seven-ashen.vercel.app/images/Dlogo.png"
   />
   <meta property="og:url" content="https://cara-seven-ashen.vercel.app/" />
   <meta property="og:type" content="website" />
@@ -51,7 +50,7 @@
   />
   <meta
     name="twitter:image"
-    content="https://cara-seven-ashen.vercel.app/images/logo.png"
+    content="https://cara-seven-ashen.vercel.app/images/Dlogo.png"
   />
   <meta name="twitter:site" content="@janavipandole" />
 
@@ -66,19 +65,10 @@
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="ui-fix.css" />
   <link rel="stylesheet" href="about.css" />
-  <link
-    href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
-    rel="stylesheet"
-  />
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  />
+  <link rel="stylesheet" href="theme-engine.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" integrity="sha384-L/vw44MdBs/7hovWr2rBVSRKqdti4Vw077yuSGQ2PO3tQARRLiLuMh8xhVmVrR0I" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
       body {
           font-family: Arial, sans-serif;
@@ -386,7 +376,8 @@
       }
   </style>
   <link rel="manifest" href="/manifest.json">
-  <script>
+  <script type="module" src="js/error-boundary.js"></script>
+<script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/service-worker.js');
@@ -394,14 +385,16 @@
     }
   </script>
   <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
+    <script type="module" src="js/config.js"></script>
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
 <!-- HEADER -->
 <section id="header" role="banner">
   <!-- Logo -->
-  <a href="index.html">
-    <img src="images/logo.png" alt="Cara Logo" />
+  <a href="index.html" aria-label="Cara Home"><img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" />
   </a>
 
   <div>
@@ -448,9 +441,9 @@
       </li>
 
       <!-- Close Button -->
-      <a href="javascript:void(0)" id="close" aria-label="Close menu" aria-hidden="false">
+      <li class="nav-close"><a href="javascript:void(0)" id="close" aria-label="Close menu" aria-hidden="false">
         <i class="fa-solid fa-xmark"></i>
-      </a>
+      </a></li>
     </ul>
   </div>
 
@@ -477,8 +470,10 @@
     ></i>
   </div>
 </section>
+</main>
 
-<main>
+<main id="main-content">
+  <div class="main-section">
   <section id="about-head">
     <h1>#KnowUs</h1>
     <p>Read all case studies about Us!</p>
@@ -561,7 +556,7 @@
     }
   </script>
   <section id="about-app">
-    <h1>Download Our <a href="javascript:void(0)">App</a></h1>
+    <h1>Download Our <a href="javascript:void(0)" aria-label="Interactive action">App</a></h1>
     <div class="video">
       <video autoplay muted loop src="images/about/1.mp4"></video>
     </div>
@@ -713,7 +708,7 @@
 <footer class="section-p1" role="contentinfo">
   <!-- Contact Column -->
   <div class="col">
-    <img class="logo" src="images/logo.png" alt="Cara Logo" />
+    <img class="logo" src="images/Dlogo.png" alt="Cara Logo" />
     <h4>Contact</h4>
     <p>
       <strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco
@@ -753,9 +748,7 @@
           target="_blank"
           rel="noopener noreferrer"
           aria-label="YouTube"
-        >
-          <i class="fab fa-youtube"></i>
-        </a>
+         aria-label="YouTube"><i class="fab fa-youtube"></i></a>
       </div>
     </div>
   </div>
@@ -852,17 +845,17 @@
       </div>
     </footer>
     
-    <button id="scrollTopBtn" type="button" title="Go to top">
+    <!-- <button id="scrollTopBtn" type="button" title="Go to top">
       ↑
-    </button>
+    </button> -->
 
     <!-- Scripts -->
-    <script src="navbar.js"></script>
+    <script type="module" src="navbar.js"></script>
     <script>
       loadNavbar('about');
     </script>
 
-    <script src="app.js"></script>
+    <script type="module" src="app.js"></script>
 
     <script>
       document.querySelector('.Current-Year').textContent =
@@ -891,18 +884,14 @@
   <!-- Copyright -->
   <div class="copyright">
     <p>
-      Â© Cara 2026. All rights reserved. |
+      © Cara 2026. All rights reserved. |
       <a href="license.html" style="color: #088178"> MIT License </a>
     </p>
   </div>
 </footer>
 
-<button id="scrollTopBtn" title="Go to top" aria-label="Go to top">
-  <i class="ri-arrow-up-line"></i>
-</button>
-
 <!-- Scripts -->
-<script src="navbar.js"></script>
+<script type="module" src="navbar.js"></script>
 <script>
   loadNavbar('about');
 </script>
@@ -927,8 +916,9 @@
   })();
 </script>
 
-<script src="app.js"></script>
-<script src="js/testimonials-carousel.js" defer></script>
+<script type="module" src="js/loyalty-rewards-engine.js"></script>
+<script type="module" src="app.js"></script>
+<script type="module" src="js/testimonials-carousel.js" defer></script>
 
 <script>
   const currentYearEl = document.querySelector('.Current-Year');

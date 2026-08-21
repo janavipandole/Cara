@@ -10,9 +10,6 @@ if (copyrightYearEl) {
   copyrightYearEl.textContent = new Date().getFullYear();
 }
 
-// ── Mock order database ───────────────────────────────────
-// In a real app this would be a backend API call.
-// We use a demo entry so reviewers can test the UI immediately.
 const MOCK_ORDERS = {
   'CARA-20261234': {
     id: 'CARA-20261234',
@@ -137,9 +134,13 @@ if (form) {
     setTimeout(function () {
       setLoading(false);
       // Check localStorage for custom mock orders first
-      const customOrders = JSON.parse(
-        localStorage.getItem('cara_custom_mock_orders') || '{}',
-      );
+      let customOrders = {};
+      try {
+        const stored = localStorage.getItem('cara_custom_mock_orders');
+        customOrders = stored ? JSON.parse(stored) : {};
+      } catch (e) {
+        customOrders = {};
+      }
       const order = customOrders[orderIdRaw] || MOCK_ORDERS[orderIdRaw];
 
       // For demo purposes any email works for the demo order
@@ -166,6 +167,7 @@ function setLoading(isLoading) {
 
 // ── Render the result card ────────────────────────────────
 function renderResult(order) {
+  if (!order) return;
   // Save order tracking parameters to localStorage for history retention
   localStorage.setItem('cara_last_tracked_id', order.id);
   const emailInput = document.getElementById('orderEmail');
@@ -183,9 +185,11 @@ function renderResult(order) {
 
   // Status badge colour
   const badge = document.getElementById('statusBadge');
-  badge.className = 'order-status-badge';
-  if (order.status === 'Delivered') badge.classList.add('delivered');
-  if (order.status === 'In Transit') badge.classList.add('in-transit');
+  if (badge) {
+    badge.className = 'order-status-badge';
+    if (order.status === 'Delivered') badge.classList.add('delivered');
+    if (order.status === 'In Transit') badge.classList.add('in-transit');
+  }
 
   // Dynamic live progress bar tracker (Simulated Distance Cover)
   let liveContainer = document.getElementById('liveProgressBarWrap');
@@ -445,9 +449,13 @@ document.addEventListener('DOMContentLoaded', () => {
       };
 
       // Retrieve existing custom mock orders
-      const customOrders = JSON.parse(
-        localStorage.getItem('cara_custom_mock_orders') || '{}',
-      );
+      let customOrders = {};
+      try {
+        const stored = localStorage.getItem('cara_custom_mock_orders');
+        customOrders = stored ? JSON.parse(stored) : {};
+      } catch (e) {
+        customOrders = {};
+      }
       customOrders[orderId] = customMockOrder;
       localStorage.setItem(
         'cara_custom_mock_orders',

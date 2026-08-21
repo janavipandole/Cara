@@ -1,22 +1,31 @@
 // Script tag injection shield
-document.addEventListener('DOMContentLoaded', () => {
+function installInputShield() {
+  if (typeof document === 'undefined') return;
   const form = document.querySelector('form');
   if (!form) return;
 
   form.addEventListener('submit', (e) => {
-    const textInputs = form.querySelectorAll("input[type='text'], textarea");
+    const textInputs = form.querySelectorAll("input[type='text'], input[type='search'], input[type='url'], input[type='tel'], textarea");
     let blocked = false;
 
     textInputs.forEach((input) => {
       const rawVal = input.value;
-      // Check for script tag presence or onload handlers
+      // Skip empty inputs so valid blank fields are never cleared.
+      if (!rawVal) return;
+      // Check for script tag presence or any event handler attribute
       if (
         /<script/i.test(rawVal) ||
-        /onload=/i.test(rawVal) ||
+        /\bon\w+=/i.test(rawVal) ||
         /javascript:/i.test(rawVal)
       ) {
         blocked = true;
         input.value = '';
+      } else if (
+        typeof window !== 'undefined' &&
+        typeof window.sanitizeHTML === 'function'
+      ) {
+        // Perform additional sanitization in-place
+        input.value = window.sanitizeHTML(rawVal);
       }
     });
 
@@ -25,4 +34,20 @@ document.addEventListener('DOMContentLoaded', () => {
       alert('Blocked potential Cross-Site Scripting input vector.');
     }
   });
-});
+
+  // Expose utility function globally for external use
+  window.containsSqlInjectionKeywords = containsSqlInjectionKeywords;
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', installInputShield);
+} else {
+  installInputShield();
+}
+
+function containsSqlInjectionKeywords(input) { if (!input || typeof input !== 'string') return false; return /\b(SELECT|INSERT|UPDATE|DELETE|DROP|UNION|ALTER)\b/i.test(input); }
+
+
+export function getInputShieldStatusHelper36() {
+  return { status: "ok", fn: "getInputShieldStatusHelper36" };
+}

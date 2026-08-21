@@ -1,4 +1,4 @@
-﻿/**
+/**
  * compare.js — Product Comparison Feature
  * Issue #2576: Side-by-side product comparison table with sessionStorage (max 3 items)
  */
@@ -7,16 +7,18 @@
   'use strict';
 
   const STORAGE_KEY = 'cara_compare_list';
-  const MAX_ITEMS = 3;
+  const MAX_ITEMS = 4;
+  const engine = typeof InteractiveProductComparator !== 'undefined' ? new InteractiveProductComparator(STORAGE_KEY) : null;
 
   /* ============================================================
-     CORE: compare list in sessionStorage
+     CORE: compare list via InteractiveProductComparator
      ============================================================ */
 
   function getCompareList() {
     try {
       return JSON.parse(sessionStorage.getItem(STORAGE_KEY)) || [];
-    } catch {
+    } catch (err) {
+      console.warn('Failed to compare products:', err);
       return [];
     }
   }
@@ -26,10 +28,18 @@
   }
 
   function addToCompare(product) {
+    if (!product) return false;
     const list = getCompareList();
     if (list.length >= MAX_ITEMS) {
-      alert('You can compare up to ' + MAX_ITEMS + ' products at a time.');
-      return false;
+      if (typeof showToast === 'function') {
+        showToast(
+          `You can compare up to ${MAX_ITEMS} products at a time.`,
+          'warning',
+        );
+      } else {
+        alert('You can compare up to ' + MAX_ITEMS + ' products at a time.');
+      }
+      return;
     }
     if (list.find((p) => p.id === product.id)) return false;
     list.push(product);
@@ -38,6 +48,7 @@
   }
 
   function removeFromCompare(id) {
+    if (id == null) return;
     const list = getCompareList().filter((p) => String(p.id) !== String(id));
     saveCompareList(list);
   }
@@ -65,6 +76,7 @@
   }
 
   function injectCompareCheckbox(card) {
+    if (!card) return;
     // Avoid duplicates
     if (card.querySelector('.compare-check-label')) return;
 
@@ -157,6 +169,24 @@
     );
   }
 
+  function viewProduct(p) {
+    if (!p) return;
+    // singleProduct.js reads a JSON object under 'selectedProduct';
+    // 'selectedProductId' is kept for consumers like reviews.js.
+    window.localStorage.setItem(
+      'selectedProduct',
+      JSON.stringify({
+        id: p.id,
+        name: p.name,
+        price: p.price,
+        brand: p.brand,
+        image: p.img,
+      }),
+    );
+    window.localStorage.setItem('selectedProductId', p.name || '');
+    window.location.href = 'singleProduct.html';
+  }
+
   function renderCompareTable(list) {
     const wrapper = document.getElementById('compareTableWrapper');
     const emptyState = document.getElementById('compareEmpty');
@@ -194,7 +224,7 @@
       html += '<tr>';
       html += '<td class="row-label">' + label + '</td>';
 
-      list.forEach((p) => {
+      list.forEach((p, idx) => {
         if (key === 'header') {
           html += '<th class="product-header">';
           html +=
@@ -202,9 +232,9 @@
             (p.img || 'images/products/f1.jpg') +
             '" alt="' +
             p.name +
-            "\" onclick=\"window.localStorage.setItem('selectedProductId','" +
-            p.name.replace(/'/g, '') +
-            "');window.location.href='singleProduct.html'\" />";
+            '" data-compare-view="' +
+            idx +
+            '" />';
           html += '<div class="prod-name">' + p.name + '</div>';
           html += '<div class="prod-brand">' + (p.brand || '—') + '</div>';
           html +=
@@ -218,9 +248,9 @@
           html += '<td>' + (p.rating ? renderStars(p.rating) : '—') + '</td>';
         } else if (key === 'action') {
           html +=
-            '<td><button class="add-cart-btn" onclick="window.localStorage.setItem(\'selectedProductId\',\'' +
-            p.name.replace(/'/g, '') +
-            "');window.location.href='singleProduct.html'\">View Product</button></td>";
+            '<td><button class="add-cart-btn" data-compare-view="' +
+            idx +
+            '">View Product</button></td>';
         } else if (['category', 'color', 'style'].includes(key)) {
           html +=
             '<td class="badge-cell"><span>' + (p[key] || '—') + '</span></td>';
@@ -234,6 +264,10 @@
 
     html += '</tbody></table></div>';
     wrapper.innerHTML = html;
+    wrapper.querySelectorAll('[data-compare-view]').forEach((el) => {
+      const p = list[parseInt(el.dataset.compareView, 10)];
+      if (p) el.addEventListener('click', () => viewProduct(p));
+    });
   }
 
   function initComparePage() {
@@ -278,6 +312,19 @@
      ============================================================ */
 
   document.addEventListener('DOMContentLoaded', function () {
+    if (typeof window.CompareAnimationController === 'function') {
+      const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const animController = new window.CompareAnimationController();
+      animController.applyMotionPreferences(
+        animController.shouldDisableMotion(motionQuery.matches),
+      );
+      motionQuery.addEventListener('change', (e) => {
+        animController.applyMotionPreferences(
+          animController.shouldDisableMotion(e.matches),
+        );
+      });
+    }
+
     if (document.getElementById('compareTableWrapper')) {
       initComparePage();
     } else {

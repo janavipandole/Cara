@@ -1,5 +1,19 @@
+import { SizeFitCalculator } from './js/size-fit-calculator.js';
+
 const modal = document.getElementById('size-chart-modal');
 const PRODUCT_DETAILS_REQUEST_KEY = 'product-details';
+
+const fitCalc = new SizeFitCalculator();
+document.addEventListener('DOMContentLoaded', () => {
+  const guideBtn = document.getElementById('btn-size-fit-guide');
+  if (guideBtn) {
+    guideBtn.addEventListener('click', () => {
+      const rec = fitCalc.recommendSize(95, 76, 'regular');
+      alert(`Recommended Size: ${rec}`);
+    });
+  }
+});
+
 
 function abortProductDetailsRequest() {
   if (window.CaraAPI && typeof window.CaraAPI.abortRequest === 'function') {
@@ -47,7 +61,7 @@ function loadProductDetails() {
 
     renderProductDetails({
       name: product.name || 'Product',
-      price: product.price || '$0.00',
+      price: product.price || '₹0.00',
       image: product.image || 'images/products/f1.jpg',
       brand: product.brand || 'Brand',
     });
@@ -76,8 +90,26 @@ function loadProductDetails() {
         })
         .catch((error) => {
           if (error && error.name !== 'AbortError') {
-            console.error('Failed to load product details:', error);
+            console.warn("[SingleProduct] Failed:", error);
           }
+        });
+
+      // Fetch Dynamic Social Proof
+      window.CaraAPI.fetchData(`/api/products/${product.id}/activity`, {
+        headers: { Accept: 'application/json' }
+      })
+        .then((activity) => {
+          if (activity && activity.message) {
+            const proofDiv = document.getElementById('dynamic-social-proof');
+            const proofMsg = document.getElementById('social-proof-message');
+            if (proofDiv && proofMsg) {
+              proofMsg.textContent = activity.message;
+              proofDiv.style.display = 'flex';
+            }
+          }
+        })
+        .catch((err) => {
+          console.warn('Failed to fetch social proof:', err);
         });
     }
   } catch (error) {
@@ -189,3 +221,39 @@ if (sizeDropdown) {
     }
   });
 }
+
+// PRODUCT REVIEWS LOGIC
+document.addEventListener('DOMContentLoaded', () => {
+  const reviewForm = document.getElementById('reviewForm');
+  if (reviewForm) {
+    reviewForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const name = document.getElementById('reviewerName').value;
+      const rating = document.getElementById('reviewRating').value;
+      const text = document.getElementById('reviewText').value;
+
+      if (!name || !rating || !text) return;
+
+      const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+      const newReview = document.createElement('div');
+      newReview.className = 'review-card fade-up';
+      newReview.style.cssText = 'border: 1px solid var(--glass-2); padding: 15px; border-radius: 12px; margin-bottom: 15px; background: rgba(255,255,255,0.02);';
+      newReview.innerHTML = `
+        <div class="review-header" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+            <span class="reviewer-name" style="font-weight: 700;">${name}</span>
+            <span class="review-stars" style="color: #f1c40f;">${stars}</span>
+        </div>
+        <p class="review-text" style="color: var(--muted); margin: 0;">${text}</p>
+      `;
+
+      document.getElementById('reviewsList').appendChild(newReview);
+      reviewForm.reset();
+
+      if (typeof window.showToast === 'function') {
+        window.showToast('Review submitted successfully!', 'success');
+      } else {
+        alert('Review submitted successfully!');
+      }
+    });
+  }
+});

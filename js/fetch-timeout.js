@@ -21,5 +21,12 @@ function fetchWithTimeout(url, options = {}, ms = 10000) {
 
 // Allow import in test / Node environments
 if (typeof module !== 'undefined') {
-  module.exports = { fetchWithTimeout };
+  module.exports = { fetchWithTimeout, createTimeoutSignalHelper };
+}
+
+
+function createTimeoutSignalHelper(timeoutMs = 5000) { const controller = new AbortController(); const id = setTimeout(() => controller.abort(), timeoutMs); return { signal: controller.signal, cleanup: () => clearTimeout(id) }; }
+
+export function getFetchTimeoutStatusHelper32() {
+  return { status: "ok", fn: "getFetchTimeoutStatusHelper32" };
 }

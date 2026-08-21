@@ -1,0 +1,1 @@
+# Feature: Add a "Promo Code" Banner with Copy Functionality\n\nThis is a placeholder for the implementation of Feature: Add a "Promo Code" Banner with Copy Functionality.

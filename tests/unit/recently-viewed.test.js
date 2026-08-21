@@ -112,6 +112,24 @@ describe('addRecentlyViewed', () => {
     expect(() => RecentlyViewed.addRecentlyViewed({})).not.toThrow();
     expect(RecentlyViewed.getRecentlyViewed()).toHaveLength(0);
   });
+
+  it('getRecentlyViewed reads back the persisted list', () => {
+    RecentlyViewed.addRecentlyViewed(product({ id: 7, name: 'Persisted Tee' }));
+    RecentlyViewed.addRecentlyViewed(product({ id: 8, name: 'Another Tee' }));
+
+    const list = RecentlyViewed.getRecentlyViewed();
+    expect(list).toHaveLength(2);
+    expect(list[0].name).toBe('Another Tee');
+    expect(list[1].name).toBe('Persisted Tee');
+  });
+
+  it('clearRecentlyViewed removes history from localStorage', () => {
+    RecentlyViewed.addRecentlyViewed(product({ id: 9, name: 'To Clear' }));
+    expect(RecentlyViewed.getRecentlyViewed()).toHaveLength(1);
+
+    RecentlyViewed.clearRecentlyViewed();
+    expect(RecentlyViewed.getRecentlyViewed()).toHaveLength(0);
+  });
 });
 
 describe('renderRecentlyViewed', () => {
@@ -185,6 +203,26 @@ describe('renderRecentlyViewed', () => {
     expect(document.getElementById('recently-viewed-section').hidden).toBe(
       true,
     );
+  });
+
+  it('applies both excludeId and excludeName when both are provided', () => {
+    setUpDom();
+    RecentlyViewed.addRecentlyViewed(product({ id: 1, name: 'A' }));
+    RecentlyViewed.addRecentlyViewed(product({ id: 2, name: 'B' }));
+    RecentlyViewed.addRecentlyViewed(product({ id: 3, name: 'C' }));
+
+    const list = RecentlyViewed.renderRecentlyViewed({
+      containerId: 'recently-viewed-container',
+      sectionId: 'recently-viewed-section',
+      excludeId: 2,
+      excludeName: 'A',
+    });
+
+    expect(list).toHaveLength(1);
+    expect(list[0].name).toBe('C');
+    expect(
+      document.getElementById('recently-viewed-container').children,
+    ).toHaveLength(1);
   });
 
   it('does nothing when the container is missing from the DOM', () => {

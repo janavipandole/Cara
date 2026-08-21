@@ -23,13 +23,22 @@
   const errorAlert = document.getElementById('analyticsError');
 
   // ── Format helpers ─────────────────────────────────────────────────────────
+  function _numberFormat(num, decimals, groupSize) {
+    const n = isFinite(num) ? num : 0;
+    const fixed = n.toFixed(decimals);
+    const parts = fixed.split('.');
+    parts[0] = parts[0].replace(/\B(?=(\d{groupSize})+(?!\d))/g, ',');
+    return parts.join('.');
+  }
+
   function _fmtRev(val) {
-    return (
-      '₹' +
-      parseFloat(val)
-        .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, '$&,')
-    );
+    const num = parseFloat(val);
+    const symbol =
+      (typeof window !== 'undefined' &&
+        window.CARA_CONFIG &&
+        window.CARA_CONFIG.CURRENCY_SYMBOL) ||
+      '₹';
+    return symbol + _numberFormat(num, 2, 3);
   }
 
   function _escape(str) {
@@ -57,12 +66,25 @@
         '<tr><td colspan="3" class="text-muted text-center">No sales recorded yet.</td></tr>';
       return;
     }
-    catTable.innerHTML = list
+    const validList = list.filter(
+      (r) =>
+        r &&
+        typeof r.category === 'string' &&
+        r.category.trim() !== '' &&
+        typeof r.units_sold === 'number' &&
+        isFinite(r.units_sold),
+    );
+    if (validList.length === 0) {
+      catTable.innerHTML =
+        '<tr><td colspan="3" class="text-muted text-center">No valid sales recorded.</td></tr>';
+      return;
+    }
+    catTable.innerHTML = validList
       .map(
         (r) => `
       <tr>
-        <td><strong>${_escape(r.category.toUpperCase())}</strong></td>
-        <td class="text-right">${r.units_sold.toLocaleString()} units</td>
+        <td><strong>${_escape(String(r.category || '').toUpperCase())}</strong></td>
+        <td class="text-right">${(Number(r.units_sold) || 0).toLocaleString()} units</td>
         <td class="text-right font-weight-bold text-teal">${_fmtRev(r.revenue)}</td>
       </tr>`,
       )
@@ -76,10 +98,19 @@
         '<p class="text-muted text-center">No orders to categorize.</p>';
       return;
     }
-    const maxVal = Math.max(...list.map((r) => r.count), 1);
+    const validList = list.filter(
+      (r) => r && typeof r.count === 'number' && isFinite(r.count),
+    );
+    if (validList.length === 0) {
+      statusWrap.innerHTML =
+        '<p class="text-muted text-center">No valid order status data.</p>';
+      return;
+    }
+    const maxVal = Math.max(...validList.map((r) => r.count), 1);
 
-    statusWrap.innerHTML = list
+    statusWrap.innerHTML = validList
       .map((r) => {
+        if (!r || !r.status) return '';
         const pct = Math.round((r.count / maxVal) * 100);
         return `
         <div class="status-dist-bar-wrap" role="group" aria-label="${r.status}: ${r.count} orders">
@@ -125,7 +156,7 @@
 
       if (errorAlert) errorAlert.style.display = 'none';
     } catch (err) {
-      console.error('[AdminAnalytics] Load failed:', err);
+      // Silently handle -- error surfaced via errorAlert DOM element
       if (errorAlert) {
         errorAlert.textContent = err.message || 'Error loading dashboard.';
         errorAlert.style.display = 'block';
@@ -135,12 +166,29 @@
   }
 
   // ── Initialise ─────────────────────────────────────────────────────────────
-  document.addEventListener('DOMContentLoaded', () => {
-    // Only load if dashboard components exist on page
-    if (revEl || catTable || statusWrap) {
+  function initDashboard() {
+    // Re-query the dashboard containers here rather than relying on the
+    // module-level refs, which are captured at script load time and may still
+    // be null when the script runs during initial parsing (before the DOM is
+    // ready). Only load if a dashboard container actually exists on the page.
+    if (
+      document.getElementById('analyticsRevenue') ||
+      document.getElementById('analyticsCategoryTable') ||
+      document.getElementById('analyticsStatusWrap')
+    ) {
       loadDashboard();
     }
-  });
+  }
+
+  // Load immediately when the script runs after DOMContentLoaded, and also on
+  // the event for scripts that execute during initial parsing.
+  document.addEventListener('DOMContentLoaded', initDashboard);
+  initDashboard();
 
   window.AdminDashboard = { refresh: loadDashboard };
 })();
+
+
+export function getAdminAnalyticsStatusHelper7() {
+  return { status: "ok", fn: "getAdminAnalyticsStatusHelper7" };
+}

@@ -1,0 +1,38 @@
+/* image-zoom.css
+ * Magnifying-glass effect for the main product image (#MainImg).
+ * The .image-zoom-lens element follows the cursor and shows a zoomed-in
+ * slice of the high-res image via background-position. Only active on
+ * fine-pointer (non-touch) devices — js/image-zoom.js bails out on touch.
+ */
+
+.image-zoom-container {
+  position: relative;
+  cursor: zoom-in;
+  overflow: hidden;
+}
+
+.image-zoom-target {
+  transition: opacity 0.15s ease;
+}
+
+.image-zoom-lens {
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  border: 2px solid #088178;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  z-index: 5;
+}
+
+/* On wider screens a slightly larger lens feels more natural. */
+@media (min-width: 768px) {
+  .image-zoom-lens {
+    width: 140px;
+    height: 140px;
+  }
+}

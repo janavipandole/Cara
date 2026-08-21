@@ -1,11 +1,25 @@
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from sqlalchemy.orm import Session
 from sqlalchemy import or_, func
 from typing import List, Optional
 from .. import models, schemas
 from ..database import get_db
+from ..limiter import limiter
 
 router = APIRouter()
+
+
+def _escape_like(term: str) -> str:
+    """Escape SQL LIKE wildcards so user input is matched literally.
+
+    A lone ``%`` or ``_`` in the query must not expand into a wildcard that
+    forces a full-table scan of the whole catalog.
+    """
+    return (
+        term.replace("\\", "\\\\")
+        .replace("%", "\\%")
+        .replace("_", "\\_")
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -13,7 +27,9 @@ router = APIRouter()
 # ---------------------------------------------------------------------------
 
 @router.get("/", response_model=List[schemas.Product])
+@limiter.limit("60/minute")
 def get_products(
+    request: Request,
     skip: int = 0,
     limit: int = Query(default=50, le=100),
     db: Session = Depends(get_db),
@@ -21,60 +37,18 @@ def get_products(
     return db.query(models.Product).offset(skip).limit(limit).all()
 
 
-@router.get("/{product_id}", response_model=schemas.Product)
-def get_product(product_id: int, db: Session = Depends(get_db)):
-    product = db.query(models.Product).filter(models.Product.id == product_id).first()
-    if not product:
-        raise HTTPException(status_code=404, detail="Product not found")
-    return product
-
-
-@router.post("/checkout")
-def checkout_cart(request: schemas.CheckoutRequest, db: Session = Depends(get_db)):
-    # Sort items to prevent deadlocks when locking multiple rows
-    items = sorted(request.items, key=lambda x: x.name)
-
-    try:
-        # Atomic block
-        for item in items:
-            product = db.query(models.Product).filter(
-                models.Product.name == item.name
-            ).with_for_update().first()
-
-            if not product:
-                db.rollback()
-                raise HTTPException(status_code=400, detail=f"Product '{item.name}' not found")
-
-            if product.stock < item.quantity:
-                db.rollback()
-                raise HTTPException(
-                    status_code=400,
-                    detail=f"Insufficient stock for '{product.name}'. Only {product.stock} remaining.",
-                )
-
-            product.stock -= item.quantity
-
-        db.commit()
-        return {"status": "success", "message": "Order placed successfully"}
-
-    except HTTPException:
-        raise
-    except Exception as e:
-        db.rollback()
-        raise HTTPException(status_code=500, detail=f"Internal server error during checkout: {str(e)}")
-
-
 # ---------------------------------------------------------------------------
-# New: Search & Filter endpoint
+# Search & Filter endpoints (literal paths must be registered before /{product_id})
 # ---------------------------------------------------------------------------
 
 class ProductSearchResponse:
     """Non-Pydantic helper — response is built as a plain dict for flexibility."""
     pass
 
-
 @router.get("/search/query", response_model=schemas.PaginatedProductsResponse)
+@limiter.limit("30/minute")
 def search_products(
+    request: Request,
     q: Optional[str] = Query(
         default=None,
         min_length=1,
@@ -117,11 +91,12 @@ def search_products(
 
     # --- Keyword search: case-insensitive match on name OR brand ---------
     if q:
-        search_term = f"%{q.strip()}%"
+        # Wildcards are escaped so a lone '%'/'_' cannot force a full scan.
+        search_term = f"%{_escape_like(q.strip())}%"
         query = query.filter(
             or_(
-                func.lower(models.Product.name).like(func.lower(search_term)),
-                func.lower(models.Product.brand).like(func.lower(search_term)),
+                func.lower(models.Product.name).like(func.lower(search_term), escape="\\"),
+                func.lower(models.Product.brand).like(func.lower(search_term), escape="\\"),
             )
         )
 
@@ -182,7 +157,8 @@ def search_products(
 
 
 @router.get("/search/categories", response_model=schemas.CategorySummaryResponse)
-def get_category_summary(db: Session = Depends(get_db)) -> dict:
+@limiter.limit("60/minute")
+def get_category_summary(request: Request, db: Session = Depends(get_db)) -> dict:
     """
     Return the distinct categories, subcategories, colours, and styles
     present in the catalog — useful for populating filter dropdown menus
@@ -217,3 +193,31 @@ def get_category_summary(db: Session = Depends(get_db)) -> dict:
             "max": price_range[1] if price_range[1] is not None else 0,
         },
     }
+
+
+# ---------------------------------------------------------------------------
+# Product by ID (must stay after literal /search/* paths)
+# ---------------------------------------------------------------------------
+
+@router.get("/{product_id}", response_model=schemas.Product)
+@limiter.limit("60/minute")
+def get_product(request: Request, product_id: int, db: Session = Depends(get_db)):
+    product = db.query(models.Product).filter(models.Product.id == product_id).first()
+    if not product:
+        raise HTTPException(status_code=404, detail="Product not found")
+    return product
+
+import random
+@router.get("/{product_id}/activity")
+def get_product_activity(product_id: int):
+    """
+    Simulated Redis analytics stream for Dynamic Social Proof (Issue 6209).
+    """
+    viewers = random.randint(5, 35)
+    buyers = random.randint(1, 10)
+    return {
+        "viewers": viewers,
+        "buyers_last_hour": buyers,
+        "message": f"🔥 {viewers} people are viewing this right now"
+    }
+

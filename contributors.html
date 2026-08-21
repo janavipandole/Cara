@@ -1,7 +1,6 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
   <!-- Character Encoding -->
   <meta charset="UTF-8" />
 
@@ -13,18 +12,11 @@
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="ui-fix.css" />
   <link rel="stylesheet" href="contributors.css" />
   <link rel="stylesheet" href="header-fix.css" />
 
-  <link
-    href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
-    rel="stylesheet"
-  />
-  <link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" integrity="sha384-L/vw44MdBs/7hovWr2rBVSRKqdti4Vw077yuSGQ2PO3tQARRLiLuMh8xhVmVrR0I" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha384-PPIZEGYM1v8zp5Py7UjFb79S58UeqCL9pYVnVPURKEqvioPROaVAJKKLzvH2rDnI" crossorigin="anonymous" />
   <link rel="manifest" href="/manifest.json">
   <script>
     if ('serviceWorker' in navigator) {
@@ -34,13 +26,15 @@
     }
   </script>
   <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
+    <script type="module" src="js/config.js"></script>
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
   <!-- HEADER -->
   <section id="header">
-    <a href="index.html">
-      <img
+    <a href="index.html" aria-label="Cara Home"><img
         id="siteLogo"
         src="images/oldlogo.png"
         alt="Cara Logo"
@@ -58,8 +52,7 @@
       </button>
     </div>
   </section>
-
-  <main class="contributors-page">
+<main id="main-content">
 
     <!-- HERO -->
     <section class="contributors-hero">
@@ -139,9 +132,7 @@
           <i class="fab fa-linkedin"></i>
         </a>
 
-        <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer">
-          <i class="fab fa-youtube"></i>
-        </a>
+        <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
 
       </div>
 
@@ -254,7 +245,7 @@
   <div class="copyright">
 
     <p>
-      Â© Cara 2026. All rights reserved.
+      © Cara 2026. All rights reserved.
       |
       <a href="license.html" style="color:#088178;">
         MIT License
@@ -265,13 +256,14 @@
 
 </footer>
 
-  <script src="navbar.js"></script>
-  <script src="js/fetch-timeout.js"></script>
-  <script src="contributors.js"></script>
+  <script type="module" src="navbar.js"></script>
+  <script type="module" src="js/fetch-timeout.js"></script>
+  <script type="module" src="contributors.js"></script>
 
   <script>
     loadNavbar("contributors");
   </script>
 
+</main>
 </body>
 </html>

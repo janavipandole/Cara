@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <!-- Character Encoding -->
     <meta charset="UTF-8" />
 
@@ -28,7 +27,7 @@
     <meta property="og:title" content="Contact Us | Cara — Modern E-Commerce">
     <meta property="og:description"
         content="Reach out to Cara — our team is here to help with any questions or feedback.">
-    <meta property="og:image" content="https://cara-seven-ashen.vercel.app/images/logo.png">
+    <meta property="og:image" content="https://cara-seven-ashen.vercel.app/images/Dlogo.png">
     <meta property="og:url" content="https://cara-seven-ashen.vercel.app/contact">
     <meta property="og:type" content="website">
 
@@ -44,7 +43,7 @@
     />
     <meta
       name="twitter:image"
-      content="https://cara-seven-ashen.vercel.app/images/logo.png"
+      content="https://cara-seven-ashen.vercel.app/images/Dlogo.png"
     />
     <meta name="twitter:site" content="@janavipandole" />
 
@@ -53,17 +52,9 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="ui-fix.css" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" integrity="sha384-L/vw44MdBs/7hovWr2rBVSRKqdti4Vw077yuSGQ2PO3tQARRLiLuMh8xhVmVrR0I" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous" referrerpolicy="no-referrer" />
   
   <style>
  body {
@@ -346,20 +337,23 @@ button.normal:hover {
 </style>
 
   <link rel="manifest" href="/manifest.json">
-  <script>
+  <script type="module" src="js/error-boundary.js"></script>
+<script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/service-worker.js');
       });
     }
   </script>
+    <script type="module" src="js/config.js"></script>
 </head>
   <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- HEADER -->
   <section id="header" role="banner">
   <!-- Logo -->
-  <a href="index.html">
-    <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
+  <a href="index.html" aria-label="Cara Home"><img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" />
   </a>
   <div>
     <ul id="navbar">
@@ -395,9 +389,9 @@ button.normal:hover {
         </button>
       </li>
 
-      <a href="javascript:void(0)" id="close" aria-label="Close menu" aria-hidden="false">
+      <li class="nav-close"><a href="javascript:void(0)" id="close" aria-label="Close menu" aria-hidden="false">
         <i class="fa-solid fa-xmark"></i>
-      </a>
+      </a></li>
     </ul>
   </div>
 
@@ -407,9 +401,11 @@ button.normal:hover {
     <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
   </div>
 </section>
+</main>
     <!-- Contact Header -->
-    <section id="about-head">
-        <h2>#Let's_Talk</h2>
+    <main id="main-content">
+  <section id="about-head">
+        <h1>#Let's_Talk</h1>
         <p>We'd love to hear from you! Whether you have a question, feedback, or partnership idea — our team is here to
             help.</p>
     </section>
@@ -478,7 +474,7 @@ button.normal:hover {
 
         <!-- DEPARTMENT -->
         <label for="department">Department</label>
-        <select id="department" name="department" required>
+        <select id="department" name="department" required aria-label="Select department">
           <option value="">Choose a department</option>
           <option value="orders">Orders & Shipping</option>
           <option value="returns">Returns & Refunds</option>
@@ -586,7 +582,7 @@ button.normal:hover {
     <footer class="section-p1" role="contentinfo">
       <!-- Contact Column -->
       <div class="col">
-        <img class="logo" src="images/logo.png" alt="Cara Logo" />
+        <img class="logo" src="images/Dlogo.png" alt="Cara Logo" />
         <h4>Contact</h4>
         <p>
           <strong>Address:</strong> 562 Wellington Road, Street 32, San
@@ -623,9 +619,7 @@ button.normal:hover {
               href="https://www.youtube.com/@JanaviPandole"
               target="_blank"
               rel="noopener noreferrer"
-            >
-              <i class="fab fa-youtube"></i>
-            </a>
+             aria-label="YouTube"><i class="fab fa-youtube"></i></a>
           </div>
         </div>
       </div>
@@ -734,9 +728,9 @@ button.normal:hover {
     </footer>
 
  <!-- Javascript -->
-    <script src="navbar.js"></script>
+    <script type="module" src="navbar.js"></script>
     <script>loadNavbar('contact');</script>
-    <script src="app.js"></script>
+    <script type="module" src="app.js"></script>
 <script>
 
 
@@ -807,12 +801,18 @@ form.addEventListener("submit", function (e) {
     isValid = false;
   }
 
+  
+const subject = document.getElementById("subject");
+  const department = document.getElementById("department");
+
   if (name.value.trim() === "") showError(name, "Name is required");
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email.value)) showError(email, "Valid email required");
+  if (subject.value.trim() === "") showError(subject, "Subject cannot be empty");
+  if (department.value === "") showError(department, "Please select a department");
   if (message.value.trim().length < 10) showError(message, "Message must be at least 10 characters");
 
-  if (isValid) {
+if (isValid) {
     const btn = form.querySelector("button");
     btn.classList.add("btn-loading");
 
@@ -824,7 +824,15 @@ form.addEventListener("submit", function (e) {
   }
 });
 
-
+[name, email, subject, department, message].forEach((field) => {
+  ["input", "change"].forEach((evt) => {
+    field.addEventListener(evt, () => {
+      field.classList.remove("input-error");
+      const next = field.nextElementSibling;
+      if (next && next.classList.contains("error-msg")) next.remove();
+    });
+  });
+});
 /* =========================
    NEWSLETTER FORM
 ========================= */
@@ -863,8 +871,9 @@ const yearEl = document.querySelector(".Current-Year");
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 </script>
-<script src="js/contact-autosave.js" defer></script>
-<script src="js/input-shield.js" defer></script>
+<script type="module" src="js/backend-profile-security.js"></script>
+<script type="module" src="js/contact-autosave.js" defer></script>
+<script type="module" src="js/input-shield.js" defer></script>
 </body>
 
 </html>

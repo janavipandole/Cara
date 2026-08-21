@@ -3,6 +3,23 @@ document.addEventListener('DOMContentLoaded', () => {
   const container = document.getElementById('shipping-calculator-target');
   if (!container) return;
 
+  const COUNTRY_RATES = {
+    IN: { base: 0,   standardDays: '5-7 days',  expressDays: '2-3 days',  expressExtra: 150 },
+    US: { base: 450, standardDays: '9-12 days', expressDays: '4-5 days',  expressExtra: 200 },
+    UK: { base: 450, standardDays: '9-12 days', expressDays: '4-5 days',  expressExtra: 200 },
+    CA: { base: 500, standardDays: '10-14 days', expressDays: '5-7 days', expressExtra: 220 },
+    AU: { base: 500, standardDays: '10-14 days', expressDays: '5-7 days', expressExtra: 220 },
+    DE: { base: 480, standardDays: '8-12 days',  expressDays: '3-5 days',  expressExtra: 210 },
+    FR: { base: 480, standardDays: '8-12 days',  expressDays: '3-5 days',  expressExtra: 210 },
+  };
+
+  const countryOptions = Object.entries(COUNTRY_RATES)
+    .map(([code, info]) => {
+      const label = code === 'IN' ? 'India (Domestic)' : `${code} (International)`;
+      return `<option value="${code}">${label}</option>`;
+    })
+    .join('');
+
   container.innerHTML = `
         <div style="background: rgba(8,129,120,0.04); border: 1px solid rgba(8,129,120,0.2); border-radius: 8px; padding: 20px; margin: 30px 0; font-family: sans-serif;">
             <h3 style="color:#088178; margin-top:0;"><i class="ri-truck-line"></i> Shipping Cost Estimator</h3>
@@ -10,16 +27,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div>
                     <label style="display:block; font-size:12px; font-weight:600; margin-bottom:4px;">Destination</label>
                     <select id="ship-country" style="width:100%; padding:8px; border:1px solid #ccc; border-radius:4px;">
-                        <option value="IN">India (Domestic)</option>
-                        <option value="US">United States (US)</option>
-                        <option value="UK">United Kingdom (UK)</option>
+                        ${countryOptions}
                     </select>
                 </div>
                 <div>
                     <label style="display:block; font-size:12px; font-weight:600; margin-bottom:4px;">Shipping Speed</label>
                     <select id="ship-speed" style="width:100%; padding:8px; border:1px solid #ccc; border-radius:4px;">
                         <option value="std">Standard Delivery (Free)</option>
-                        <option value="exp">Express Delivery (+₹150)</option>
+                        <option value="exp">Express Delivery</option>
                     </select>
                 </div>
             </div>
@@ -31,40 +46,23 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('calc-shipping-btn').addEventListener('click', () => {
     const country = document.getElementById('ship-country').value;
     const speed = document.getElementById('ship-speed').value;
-    let total = speed === 'exp' ? 150 : 0;
-    let days = speed === 'exp' ? '2-3 days' : '5-7 days';
-
-    if (country !== 'IN') {
-      total += 450; // International shipping
-      days = speed === 'exp' ? '4-5 days' : '9-12 days';
-    }
-
-    document.getElementById('calc-feedback').innerHTML = `
-            Estimated Cost: ₹${total} <br>
-            Estimated Time: ${days}
-        `;
-
-    // Dynamically update Cart Totals summary if elements exist
+    const info = COUNTRY_RATES[country] || COUNTRY_RATES.IN;
+    let total = info.base;
+    let days = info.standardDays;
+    if (speed === 'exp') { total += info.expressExtra; days = info.expressDays; }
+    document.getElementById('calc-feedback').textContent =
+      `Estimated Cost: ${total === 0 ? 'FREE' : '₹' + total} | Estimated Time: ${days}`;
     const shippingEl = document.getElementById('summary-shipping');
     const totalEl = document.getElementById('summary-total');
     const subtotalEl = document.getElementById('summary-subtotal');
     const taxEl = document.getElementById('summary-tax');
     const discountEl = document.getElementById('summary-discount');
-    if (shippingEl && totalEl && subtotalEl && taxEl) {
+    if (shippingEl && totalEl && subtotalEl && taxEl && discountEl) {
       shippingEl.textContent = total === 0 ? 'FREE' : '₹' + total;
-
-      const subtotalText = subtotalEl.textContent.replace(/[^\d\.]/g, '');
-      const subtotal = parseFloat(subtotalText) || 0;
-      const taxText = taxEl.textContent.replace(/[^\d\.]/g, '');
-      const tax = parseFloat(taxText) || 0;
-      const discount = discountEl
-        ? parseFloat(discountEl.textContent.replace(/[^\d\.]/g, '')) || 0
-        : 0;
-
-      const newTotal = Math.max(0, subtotal + tax + total - discount);
-      totalEl.textContent = '₹' + Math.round(newTotal).toLocaleString('en-IN');
+      const subtotal = parseFloat(subtotalEl.textContent.replace(/[^\d\.]/g, '')) || 0;
+      const tax = parseFloat(taxEl.textContent.replace(/[^\d\.]/g, '')) || 0;
+      const discount = discountEl ? parseFloat(discountEl.textContent.replace(/[^\d\.]/g, '')) || 0 : 0;
+      totalEl.textContent = '₹' + Math.round(Math.max(0, subtotal + tax + total - discount)).toLocaleString('en-IN');
     }
   });
 });
-
-// Shipping calculator applying regional fee rates inside cart summary containers.

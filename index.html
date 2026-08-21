@@ -2,13 +2,13 @@
 <html lang="en">
 
 <head>
-    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
   <!-- Preconnect and prefetch resources optimized -->
   <!-- Character Encoding -->
   <meta charset="UTF-8" />
+  <script src="js/store.js"></script>
 
   <!-- Content Security Policy (CSP) for Frontend Security -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: https://www.animatedimages.org https://cara-seven-ashen.vercel.app;" />
@@ -42,7 +42,7 @@
   <meta property="og:description" content="Shop the latest trends with our dark mode-enabled e-commerce experience." />
   <meta
       property="og:image"
-      content="https://cara-seven-ashen.vercel.app/images/logo.png"
+      content="https://cara-seven-ashen.vercel.app/images/Dlogo.png"
     />
   <meta property="og:url" 
   content="https://cara-seven-ashen.vercel.app/" />
@@ -54,7 +54,7 @@
   <meta name="twitter:description" content="Dark theme e-commerce site with modern features." />
   <meta
       name="twitter:image"
-      content="https://cara-seven-ashen.vercel.app/images/logo.png"
+      content="https://cara-seven-ashen.vercel.app/images/Dlogo.png"
     />
   <meta name="twitter:site" content="@janavipandole" />
 
@@ -76,14 +76,15 @@
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="style.css?v=2" />
-  <link rel="stylesheet" href="ui-fix.css" />
+  <link rel="stylesheet" href="a11y-utilities.css">
+  <link rel="stylesheet" href="theme-engine.css">
   <link rel="stylesheet" href="header-fix.css" />
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" integrity="sha384-L/vw44MdBs/7hovWr2rBVSRKqdti4Vw077yuSGQ2PO3tQARRLiLuMh8xhVmVrR0I" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="global.css">
   <link rel="stylesheet" href="live-sales-toast.css">
+  <link rel="stylesheet" href="stock-alert.css">
+  <link rel="stylesheet" href="exit-intent-popup.css">
 
   <!-- Inline Critical CSS -->
   <style>
@@ -122,9 +123,24 @@
       pointer-events: all !important;
     }
 
+    /* :focus-visible states for keyboard navigation accessibility */
+    *:focus-visible {
+      outline: 2px solid #088178;
+      outline-offset: 2px;
+    }
+    button:focus-visible,
+    a:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
+      outline: 2px solid #088178;
+      outline-offset: 2px;
+      border-radius: 3px;
+    }
 
   </style>
-<script src="js/error-logger.js"></script>
+<script type="module" src="js/error-boundary.js"></script>
+<script type="module" src="js/error-logger.js"></script>
   <link rel="manifest" href="/manifest.json">
   <script>
     if ('serviceWorker' in navigator) {
@@ -133,17 +149,19 @@
       });
     }
   </script>
+    <script type="module" src="js/config.js"></script>
 </head>
 
 <body>
-    <a href="#product1" class="skip-link" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to Content</a>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    
   <div id="main">
     <div id="top">
       <div id="workingArea">
         <section id="header" role="banner">
     <!-- Logo -->
-    <a href="index.html">
-      <img id="siteLogo" src="images/logo.png" alt="Cara Logo" />
+    <a href="index.html" aria-label="Cara Home"><img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" />
     </a>
     <div>
       <ul id="navbar" role="navigation" aria-label="Main navigation">
@@ -152,6 +170,7 @@
         <li><a href="blog.html">Blog</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="try-on.html">Try-On</a></li>
+        <li><a href="authenticity.html">Authenticity</a></li>
         <li><a href="community.html">Community</a></li>
         <li><a href="promotions.html">Promotions</a></li>
 
@@ -184,9 +203,9 @@
         </li>
 
         <!-- Close Button -->
-        <a href="javascript:void(0)" id="close" aria-label="Close menu" aria-hidden="false">
+        <li class="nav-close"><a href="javascript:void(0)" id="close" aria-label="Close menu" aria-hidden="false">
           <i class="fa-solid fa-xmark"></i>
-        </a>
+        </a></li>
       </ul>
     </div>
 
@@ -205,10 +224,15 @@
       id="searchBar"
       placeholder="Search products..."
     >
+    <button id="scanBarcodeBtn" aria-label="Scan barcode" title="Scan Barcode" style="display: none;">
+      <i class="ri-barcode-box-line"></i>
+    </button>
   </div>
 </section>
+</main>
 
-<section id="hero" class="hero-slider">
+<main id="main-content">
+  <section id="hero" class="hero-slider">
           <div class="slide active" style="background-image: url('images/hero4.png');" role="img" aria-label="Promotional banner featuring trending fashion for 2025">
             
             <div class="slide-content">
@@ -217,11 +241,9 @@
                 Trending Fashion 2025
               </div>
 
-              <h4 class="hero-small">Trade-in-offer</h4>
-
-<h2 class="hero-title">Super Value Deals</h2>
-
-<h1 class="hero-main">On All Products</h1>
+              <p class="hero-small">Trade-in-offer</p>
+<h1 class="hero-title">Super Value Deals</h1>
+<h2 class="hero-main">On All Products</h2>
 
 <p class="hero-desc">
   Save more with coupons & up to 70% off on premium fashion collections.
@@ -385,13 +407,13 @@
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
             <span>Nike</span>
           </div>
-          <h5>Cartoon Astronaut T-Shirts</h5>
+          <h3>Cartoon Astronaut T-Shirts</h3>
           <div class="star" aria-label="Rating: 4.5 out of 5"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-half-fill"></i><span class="rating-value">4.5</span></div>
           <h4>&#8377;2,499</h4>
           <div class="pro-action-bar">
-           <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="buyNow('Cartoon Astronaut T-Shirts','â‚¹2,499','images/products/f1.jpg',1,'M')">BUY NOW</button>
-            <a href="javascript:void(0)" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation();addToCart('Cartoon Astronaut T-Shirts','â‚¹2,499','images/products/f1.jpg',1,'M');return false;"><i class="ri-shopping-cart-2-line"></i></a>
-            <button type="button" class="wishlist-btn" data-product-name="Cartoon Astronaut T-Shirts" aria-label="Add Cartoon Astronaut T-Shirts to wishlist" title="Add to wishlist" aria-pressed="false" onclick="event.stopPropagation(); toggleWishlistItem({id:1, name:'Cartoon Astronaut T-Shirts', brand:'Nike', price:'â‚¹2,499', image:'images/products/f1.jpg', currentPrice:2499, previousPrice:2499}, this)"><i class="ri-heart-line" aria-hidden="true"></i></button>
+           <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="buyNow('Cartoon Astronaut T-Shirts','₹2,499','images/products/f1.jpg',1,'M')">BUY NOW</button>
+            <a href="javascript:void(0)" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation();addToCart('Cartoon Astronaut T-Shirts','₹2,499','images/products/f1.jpg',1,'M');return false;"><i class="ri-shopping-cart-2-line"></i></a>
+            <button type="button" class="wishlist-btn" data-product-name="Cartoon Astronaut T-Shirts" aria-label="Add Cartoon Astronaut T-Shirts to wishlist" title="Add to wishlist" aria-pressed="false" onclick="event.stopPropagation(); toggleWishlistItem({id:1, name:'Cartoon Astronaut T-Shirts', brand:'Nike', price:'₹2,499', image:'images/products/f1.jpg', currentPrice:2499, previousPrice:2499}, this)"><i class="ri-heart-line" aria-hidden="true"></i></button>
           </div>
         </div>
       </div>
@@ -403,13 +425,13 @@
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
             <span>H&amp;M</span>
           </div>
-          <h5>White Palm Leaf Casual Shirt</h5>
+          <h3>White Palm Leaf Casual Shirt</h3>
           <div class="star" aria-label="Rating: 3.5 out of 5"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-half-fill"></i><i class="ri-star-line"></i><span class="rating-value">3.5</span></div>
           <h4>&#8377;1,299</h4>
           <div class="pro-action-bar">
-           <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="buyNow('White Palm Leaf Casual Shirt','â‚¹1,299','images/products/f2.jpg',1,'M')">BUY NOW</button>
-            <a href="javascript:void(0)" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation();addToCart('White Palm Leaf Casual Shirt','â‚¹1,299','images/products/f2.jpg',1,'M');return false;"><i class="ri-shopping-cart-2-line"></i></a>
-            <button type="button" class="wishlist-btn" data-product-name="White Palm Leaf Casual Shirt" aria-label="Add White Palm Leaf Casual Shirt to wishlist" title="Add to wishlist" aria-pressed="false" onclick="event.stopPropagation(); toggleWishlistItem({id:2, name:'White Palm Leaf Casual Shirt', brand:'H&amp;M', price:'â‚¹1,299', image:'images/products/f2.jpg', currentPrice:1299, previousPrice:1299}, this)"><i class="ri-heart-line" aria-hidden="true"></i></button>
+           <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="buyNow('White Palm Leaf Casual Shirt','₹1,299','images/products/f2.jpg',1,'M')">BUY NOW</button>
+            <a href="javascript:void(0)" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation();addToCart('White Palm Leaf Casual Shirt','₹1,299','images/products/f2.jpg',1,'M');return false;"><i class="ri-shopping-cart-2-line"></i></a>
+            <button type="button" class="wishlist-btn" data-product-name="White Palm Leaf Casual Shirt" aria-label="Add White Palm Leaf Casual Shirt to wishlist" title="Add to wishlist" aria-pressed="false" onclick="event.stopPropagation(); toggleWishlistItem({id:2, name:'White Palm Leaf Casual Shirt', brand:'H&amp;M', price:'₹1,299', image:'images/products/f2.jpg', currentPrice:1299, previousPrice:1299}, this)"><i class="ri-heart-line" aria-hidden="true"></i></button>
           </div>
         </div>
       </div>
@@ -421,13 +443,13 @@
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
             <span>Zara</span>
           </div>
-          <h5>Vintage Rose Garden Shirt</h5>
+          <h3>Vintage Rose Garden Shirt</h3>
           <div class="star" aria-label="Rating: 4.0 out of 5"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-line"></i><span class="rating-value">4.0</span></div>
           <h4>&#8377;3,490</h4>
           <div class="pro-action-bar">
-           <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="buyNow('Vintage Rose Garden Shirt','â‚¹3,490','images/products/f3.jpg',1,'M')">BUY NOW</button>
-            <a href="javascript:void(0)" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation();addToCart('Vintage Rose Garden Shirt','â‚¹3,490','images/products/f3.jpg',1,'M');return false;"><i class="ri-shopping-cart-2-line"></i></a>
-            <button type="button" class="wishlist-btn" data-product-name="Vintage Rose Garden Shirt" aria-label="Add Vintage Rose Garden Shirt to wishlist" title="Add to wishlist" aria-pressed="false" onclick="event.stopPropagation(); toggleWishlistItem({id:3, name:'Vintage Rose Garden Shirt', brand:'Zara', price:'â‚¹3,490', image:'images/products/f3.jpg', currentPrice:3490, previousPrice:3490}, this)"><i class="ri-heart-line" aria-hidden="true"></i></button>
+           <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="buyNow('Vintage Rose Garden Shirt','₹3,490','images/products/f3.jpg',1,'M')">BUY NOW</button>
+            <a href="javascript:void(0)" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation();addToCart('Vintage Rose Garden Shirt','₹3,490','images/products/f3.jpg',1,'M');return false;"><i class="ri-shopping-cart-2-line"></i></a>
+            <button type="button" class="wishlist-btn" data-product-name="Vintage Rose Garden Shirt" aria-label="Add Vintage Rose Garden Shirt to wishlist" title="Add to wishlist" aria-pressed="false" onclick="event.stopPropagation(); toggleWishlistItem({id:3, name:'Vintage Rose Garden Shirt', brand:'Zara', price:'₹3,490', image:'images/products/f3.jpg', currentPrice:3490, previousPrice:3490}, this)"><i class="ri-heart-line" aria-hidden="true"></i></button>
           </div>
         </div>
       </div>
@@ -439,13 +461,13 @@
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
             <span>Levi's</span>
           </div>
-          <h5>Sakura Blossom Floral Shirt</h5>
+          <h3>Sakura Blossom Floral Shirt</h3>
           <div class="star" aria-label="Rating: 5.0 out of 5"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><span class="rating-value">5.0</span></div>
           <h4>&#8377;2,799</h4>
           <div class="pro-action-bar">
-           <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="buyNow('Sakura Blossom Floral Shirt','â‚¹2,799','images/products/f4.jpg',1,'M')">BUY NOW</button>
-            <a href="javascript:void(0)" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation();addToCart('Sakura Blossom Floral Shirt','â‚¹2,799','images/products/f4.jpg',1,'M');return false;"><i class="ri-shopping-cart-2-line"></i></a>
-            <button type="button" class="wishlist-btn" data-product-name="Sakura Blossom Floral Shirt" aria-label="Add Sakura Blossom Floral Shirt to wishlist" title="Add to wishlist" aria-pressed="false" onclick="event.stopPropagation(); toggleWishlistItem({id:4, name:'Sakura Blossom Floral Shirt', brand:'Levi\'s', price:'â‚¹2,799', image:'images/products/f4.jpg', currentPrice:2799, previousPrice:2799}, this)"><i class="ri-heart-line" aria-hidden="true"></i></button>
+           <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="buyNow('Sakura Blossom Floral Shirt','₹2,799','images/products/f4.jpg',1,'M')">BUY NOW</button>
+            <a href="javascript:void(0)" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation();addToCart('Sakura Blossom Floral Shirt','₹2,799','images/products/f4.jpg',1,'M');return false;"><i class="ri-shopping-cart-2-line"></i></a>
+            <button type="button" class="wishlist-btn" data-product-name="Sakura Blossom Floral Shirt" aria-label="Add Sakura Blossom Floral Shirt to wishlist" title="Add to wishlist" aria-pressed="false" onclick="event.stopPropagation(); toggleWishlistItem({id:4, name:'Sakura Blossom Floral Shirt', brand:'Levi\'s', price:'₹2,799', image:'images/products/f4.jpg', currentPrice:2799, previousPrice:2799}, this)"><i class="ri-heart-line" aria-hidden="true"></i></button>
           </div>
         </div>
       </div>
@@ -457,13 +479,13 @@
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
             <span>Puma</span>
           </div>
-          <h5>Pink Peony Patterned Shirt</h5>
+          <h3>Pink Peony Patterned Shirt</h3>
           <div class="star" aria-label="Rating: 3.0 out of 5"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-line"></i><i class="ri-star-line"></i><span class="rating-value">3.0</span></div>
           <h4>&#8377;1,999</h4>
           <div class="pro-action-bar">
-           <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="buyNow('Pink Peony Patterned Shirt','â‚¹1,999','images/products/f5.jpg',1,'M')">BUY NOW</button>
-            <a href="javascript:void(0)" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation();addToCart('Pink Peony Patterned Shirt','â‚¹1,999','images/products/f5.jpg',1,'M');return false;"><i class="ri-shopping-cart-2-line"></i></a>
-            <button type="button" class="wishlist-btn" data-product-name="Pink Peony Patterned Shirt" aria-label="Add Pink Peony Patterned Shirt to wishlist" title="Add to wishlist" aria-pressed="false" onclick="event.stopPropagation(); toggleWishlistItem({id:5, name:'Pink Peony Patterned Shirt', brand:'Puma', price:'â‚¹1,999', image:'images/products/f5.jpg', currentPrice:1999, previousPrice:1999}, this)"><i class="ri-heart-line" aria-hidden="true"></i></button>
+           <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="buyNow('Pink Peony Patterned Shirt','₹1,999','images/products/f5.jpg',1,'M')">BUY NOW</button>
+            <a href="javascript:void(0)" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation();addToCart('Pink Peony Patterned Shirt','₹1,999','images/products/f5.jpg',1,'M');return false;"><i class="ri-shopping-cart-2-line"></i></a>
+            <button type="button" class="wishlist-btn" data-product-name="Pink Peony Patterned Shirt" aria-label="Add Pink Peony Patterned Shirt to wishlist" title="Add to wishlist" aria-pressed="false" onclick="event.stopPropagation(); toggleWishlistItem({id:5, name:'Pink Peony Patterned Shirt', brand:'Puma', price:'₹1,999', image:'images/products/f5.jpg', currentPrice:1999, previousPrice:1999}, this)"><i class="ri-heart-line" aria-hidden="true"></i></button>
           </div>
         </div>
       </div>
@@ -475,13 +497,13 @@
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
             <span>Gap</span>
           </div>
-          <h5>Dual-Tone Corduroy Shirt</h5>
+          <h3>Dual-Tone Corduroy Shirt</h3>
           <div class="star" aria-label="Rating: 4.0 out of 5"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-line"></i><span class="rating-value">4.0</span></div>
           <h4>&#8377;2,299</h4>
           <div class="pro-action-bar">
-           <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="buyNow('Dual-Tone Corduroy Shirt','â‚¹2,299','images/products/f6.jpg',1,'M')">BUY NOW</button>
-            <a href="javascript:void(0)" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation();addToCart('Dual-Tone Corduroy Shirt','â‚¹2,299','images/products/f6.jpg',1,'M');return false;"><i class="ri-shopping-cart-2-line"></i></a>
-            <button type="button" class="wishlist-btn" data-product-name="Dual-Tone Corduroy Shirt" aria-label="Add Dual-Tone Corduroy Shirt to wishlist" title="Add to wishlist" aria-pressed="false" onclick="event.stopPropagation(); toggleWishlistItem({id:6, name:'Dual-Tone Corduroy Shirt', brand:'Gap', price:'â‚¹2,299', image:'images/products/f6.jpg', currentPrice:2299, previousPrice:2299}, this)"><i class="ri-heart-line" aria-hidden="true"></i></button>
+           <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="buyNow('Dual-Tone Corduroy Shirt','₹2,299','images/products/f6.jpg',1,'M')">BUY NOW</button>
+            <a href="javascript:void(0)" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation();addToCart('Dual-Tone Corduroy Shirt','₹2,299','images/products/f6.jpg',1,'M');return false;"><i class="ri-shopping-cart-2-line"></i></a>
+            <button type="button" class="wishlist-btn" data-product-name="Dual-Tone Corduroy Shirt" aria-label="Add Dual-Tone Corduroy Shirt to wishlist" title="Add to wishlist" aria-pressed="false" onclick="event.stopPropagation(); toggleWishlistItem({id:6, name:'Dual-Tone Corduroy Shirt', brand:'Gap', price:'₹2,299', image:'images/products/f6.jpg', currentPrice:2299, previousPrice:2299}, this)"><i class="ri-heart-line" aria-hidden="true"></i></button>
           </div>
         </div>
       </div>
@@ -493,13 +515,13 @@
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
             <span>Uniqlo</span>
           </div>
-          <h5>Embroidered Linen Trousers</h5>
+          <h3>Embroidered Linen Trousers</h3>
           <div class="star" aria-label="Rating: 4.5 out of 5"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-half-fill"></i><span class="rating-value">4.5</span></div>
           <h4>&#8377;3,990</h4>
           <div class="pro-action-bar">
-           <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="buyNow('Embroidered Linen Trousers','â‚¹3,990','images/products/f7.jpg',1,'M')">BUY NOW</button>
-            <a href="javascript:void(0)" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation();addToCart('Embroidered Linen Trousers','â‚¹3,990','images/products/f7.jpg',1,'M');return false;"><i class="ri-shopping-cart-2-line"></i></a>
-            <button type="button" class="wishlist-btn" data-product-name="Embroidered Linen Trousers" aria-label="Add Embroidered Linen Trousers to wishlist" title="Add to wishlist" aria-pressed="false" onclick="event.stopPropagation(); toggleWishlistItem({id:7, name:'Embroidered Linen Trousers', brand:'Uniqlo', price:'â‚¹3,990', image:'images/products/f7.jpg', currentPrice:3990, previousPrice:3990}, this)"><i class="ri-heart-line" aria-hidden="true"></i></button>
+           <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="buyNow('Embroidered Linen Trousers','₹3,990','images/products/f7.jpg',1,'M')">BUY NOW</button>
+            <a href="javascript:void(0)" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation();addToCart('Embroidered Linen Trousers','₹3,990','images/products/f7.jpg',1,'M');return false;"><i class="ri-shopping-cart-2-line"></i></a>
+            <button type="button" class="wishlist-btn" data-product-name="Embroidered Linen Trousers" aria-label="Add Embroidered Linen Trousers to wishlist" title="Add to wishlist" aria-pressed="false" onclick="event.stopPropagation(); toggleWishlistItem({id:7, name:'Embroidered Linen Trousers', brand:'Uniqlo', price:'₹3,990', image:'images/products/f7.jpg', currentPrice:3990, previousPrice:3990}, this)"><i class="ri-heart-line" aria-hidden="true"></i></button>
           </div>
         </div>
       </div>
@@ -511,13 +533,13 @@
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
             <span>Mango</span>
           </div>
-          <h5>Cat Print Long Sleeve Blouse</h5>
+          <h3>Cat Print Long Sleeve Blouse</h3>
           <div class="star" aria-label="Rating: 3.5 out of 5"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-half-fill"></i><i class="ri-star-line"></i><span class="rating-value">3.5</span></div>
           <h4>&#8377;2,699</h4>
           <div class="pro-action-bar">
-           <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="buyNow('Cat Print Long Sleeve Blouse','â‚¹2,699','images/products/f8.jpg',1,'M')">BUY NOW</button>
-            <a href="javascript:void(0)" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation();addToCart('Cat Print Long Sleeve Blouse','â‚¹2,699','images/products/f8.jpg',1,'M');return false;"><i class="ri-shopping-cart-2-line"></i></a>
-            <button type="button" class="wishlist-btn" data-product-name="Cat Print Long Sleeve Blouse" aria-label="Add Cat Print Long Sleeve Blouse to wishlist" title="Add to wishlist" aria-pressed="false" onclick="event.stopPropagation(); toggleWishlistItem({id:8, name:'Cat Print Long Sleeve Blouse', brand:'Mango', price:'â‚¹2,699', image:'images/products/f8.jpg', currentPrice:2699, previousPrice:2699}, this)"><i class="ri-heart-line" aria-hidden="true"></i></button>
+           <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="buyNow('Cat Print Long Sleeve Blouse','₹2,699','images/products/f8.jpg',1,'M')">BUY NOW</button>
+            <a href="javascript:void(0)" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation();addToCart('Cat Print Long Sleeve Blouse','₹2,699','images/products/f8.jpg',1,'M');return false;"><i class="ri-shopping-cart-2-line"></i></a>
+            <button type="button" class="wishlist-btn" data-product-name="Cat Print Long Sleeve Blouse" aria-label="Add Cat Print Long Sleeve Blouse to wishlist" title="Add to wishlist" aria-pressed="false" onclick="event.stopPropagation(); toggleWishlistItem({id:8, name:'Cat Print Long Sleeve Blouse', brand:'Mango', price:'₹2,699', image:'images/products/f8.jpg', currentPrice:2699, previousPrice:2699}, this)"><i class="ri-heart-line" aria-hidden="true"></i></button>
           </div>
         </div>
       </div>
@@ -531,7 +553,7 @@
       <button class="normal"  type="button"><a href="shop.html" style="color: #ffffff; text-decoration: none;">Explore More</a></button>
     </section>
 
-  <section id="product1" class="section-p1" role="region" aria-label="Products">
+  <section id="product2" class="section-p1" role="region" aria-label="Products">
     <h2>New Arrivals</h2>
     <p>Summer Collection New Modern Design</p>
     <div class="pro-container">
@@ -543,14 +565,14 @@
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
             <span>Tommy Hilfiger</span>
           </div>
-          <h5>Sky Blue Mandarin Collar Shirt</h5>
+          <h3>Sky Blue Mandarin Collar Shirt</h3>
           <div class="star" aria-label="Rating: 5.0 out of 5"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><span class="rating-value">5.0</span></div>
           <h4>&#8377;4,499</h4>
           <div class="pro-action-bar">
-           <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="buyNow('Sky Blue Mandarin Collar Shirt','â‚¹4,499','images/products/n1.jpg',1,'M')">BUY NOW</button>
-            <a href="javascript:void(0)" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation();addToCart('Sky Blue Mandarin Collar Shirt','â‚¹4,499','images/products/n1.jpg',1,'M');return false;"><i class="ri-shopping-cart-2-line"></i></a>
-            <button type="button" class="wishlist-btn" data-product-name="Sky Blue Mandarin Collar Shirt" aria-label="Add Sky Blue Mandarin Collar Shirt to wishlist" title="Add to wishlist" aria-pressed="false" onclick="event.stopPropagation(); toggleWishlistItem({id:9, name:'Sky Blue Mandarin Collar Shirt', brand:'Tommy Hilfiger', price:'â‚¹4,499', image:'images/products/n1.jpg', currentPrice:4499, previousPrice:4499}, this)"><i class="ri-heart-line" aria-hidden="true"></i></button>
-            <a href="javascript:void(0)" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation();addToCart('Sky Blue Mandarin Collar Shirt','â‚¹4,499','images/products/n1.jpg',1,'M');return false;"><i class="ri-shopping-cart-2-line"></i></a>
+           <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="buyNow('Sky Blue Mandarin Collar Shirt','₹4,499','images/products/n1.jpg',1,'M')">BUY NOW</button>
+            <a href="javascript:void(0)" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation();addToCart('Sky Blue Mandarin Collar Shirt','₹4,499','images/products/n1.jpg',1,'M');return false;"><i class="ri-shopping-cart-2-line"></i></a>
+            <button type="button" class="wishlist-btn" data-product-name="Sky Blue Mandarin Collar Shirt" aria-label="Add Sky Blue Mandarin Collar Shirt to wishlist" title="Add to wishlist" aria-pressed="false" onclick="event.stopPropagation(); toggleWishlistItem({id:9, name:'Sky Blue Mandarin Collar Shirt', brand:'Tommy Hilfiger', price:'₹4,499', image:'images/products/n1.jpg', currentPrice:4499, previousPrice:4499}, this)"><i class="ri-heart-line" aria-hidden="true"></i></button>
+            <a href="javascript:void(0)" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation();addToCart('Sky Blue Mandarin Collar Shirt','₹4,499','images/products/n1.jpg',1,'M');return false;"><i class="ri-shopping-cart-2-line"></i></a>
           </div>
         </div>
       </div>
@@ -562,14 +584,14 @@
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
             <span>Ralph Lauren</span>
           </div>
-          <h5>Navy Textured Formal Shirt</h5>
+          <h3>Navy Textured Formal Shirt</h3>
           <div class="star" aria-label="Rating: 4.5 out of 5"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-half-fill"></i><span class="rating-value">4.5</span></div>
           <h4>&#8377;6,999</h4>
           <div class="pro-action-bar">
-           <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="buyNow('Navy Textured Formal Shirt','â‚¹6,999','images/products/n2.jpg',1,'M')">BUY NOW</button>
-            <a href="javascript:void(0)" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation();addToCart('Navy Textured Formal Shirt','â‚¹6,999','images/products/n2.jpg',1,'M');return false;"><i class="ri-shopping-cart-2-line"></i></a>
-            <button type="button" class="wishlist-btn" data-product-name="Navy Textured Formal Shirt" aria-label="Add Navy Textured Formal Shirt to wishlist" title="Add to wishlist" aria-pressed="false" onclick="event.stopPropagation(); toggleWishlistItem({id:10, name:'Navy Textured Formal Shirt', brand:'Ralph Lauren', price:'â‚¹6,999', image:'images/products/n2.jpg', currentPrice:6999, previousPrice:6999}, this)"><i class="ri-heart-line" aria-hidden="true"></i></button>
-            <a href="javascript:void(0)" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation();addToCart('Navy Textured Formal Shirt','â‚¹6,999','images/products/n2.jpg',1,'M');return false;"><i class="ri-shopping-cart-2-line"></i></a>
+           <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="buyNow('Navy Textured Formal Shirt','₹6,999','images/products/n2.jpg',1,'M')">BUY NOW</button>
+            <a href="javascript:void(0)" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation();addToCart('Navy Textured Formal Shirt','₹6,999','images/products/n2.jpg',1,'M');return false;"><i class="ri-shopping-cart-2-line"></i></a>
+            <button type="button" class="wishlist-btn" data-product-name="Navy Textured Formal Shirt" aria-label="Add Navy Textured Formal Shirt to wishlist" title="Add to wishlist" aria-pressed="false" onclick="event.stopPropagation(); toggleWishlistItem({id:10, name:'Navy Textured Formal Shirt', brand:'Ralph Lauren', price:'₹6,999', image:'images/products/n2.jpg', currentPrice:6999, previousPrice:6999}, this)"><i class="ri-heart-line" aria-hidden="true"></i></button>
+            <a href="javascript:void(0)" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation();addToCart('Navy Textured Formal Shirt','₹6,999','images/products/n2.jpg',1,'M');return false;"><i class="ri-shopping-cart-2-line"></i></a>
           </div>
         </div>
       </div>
@@ -581,14 +603,14 @@
             <svg class="pro-brand-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 19h20L12 2zm0 3.5L19.5 18h-15L12 5.5z"/></svg>
             <span>Calvin Klein</span>
           </div>
-          <h5>Classic White Cotton Shirt</h5>
+          <h3>Classic White Cotton Shirt</h3>
           <div class="star" aria-label="Rating: 4.0 out of 5"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-line"></i><span class="rating-value">4.0</span></div>
           <h4>&#8377;5,499</h4>
           <div class="pro-action-bar">
-           <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="buyNow('Classic White Cotton Shirt','â‚¹5,499','images/products/n3.jpg',1,'M')">BUY NOW</button>
-            <a href="javascript:void(0)" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation();addToCart('Classic White Cotton Shirt','â‚¹5,499','images/products/n3.jpg',1,'M');return false;"><i class="ri-shopping-cart-2-line"></i></a>
-            <button type="button" class="wishlist-btn" data-product-name="Classic White Cotton Shirt" aria-label="Add Classic White Cotton Shirt to wishlist" title="Add to wishlist" aria-pressed="false" onclick="event.stopPropagation(); toggleWishlistItem({id:11, name:'Classic White Cotton Shirt', brand:'Calvin Klein', price:'â‚¹5,499', image:'images/products/n3.jpg', currentPrice:5499, previousPrice:5499}, this)"><i class="ri-heart-line" aria-hidden="true"></i></button>
-            <a href="javascript:void(0)" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation();addToCart('Classic White Cotton Shirt','â‚¹5,499','images/products/n3.jpg',1,'M');return false;"><i class="ri-shopping-cart-2-line"></i></a>
+           <button class="pro-buy-btn" aria-label="Buy Cartoon Astronaut T-Shirts" onclick="buyNow('Classic White Cotton Shirt','₹5,499','images/products/n3.jpg',1,'M')">BUY NOW</button>
+            <a href="javascript:void(0)" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation();addToCart('Classic White Cotton Shirt','₹5,499','images/products/n3.jpg',1,'M');return false;"><i class="ri-shopping-cart-2-line"></i></a>
+            <button type="button" class="wishlist-btn" data-product-name="Classic White Cotton Shirt" aria-label="Add Classic White Cotton Shirt to wishlist" title="Add to wishlist" aria-pressed="false" onclick="event.stopPropagation(); toggleWishlistItem({id:11, name:'Classic White Cotton Shirt', brand:'Calvin Klein', price:'₹5,499', image:'images/products/n3.jpg', currentPrice:5499, previousPrice:5499}, this)"><i class="ri-heart-line" aria-hidden="true"></i></button>
+            <a href="javascript:void(0)" class="pro-cart-btn" aria-label="Add to cart" onclick="event.stopPropagation();addToCart('Classic White Cotton Shirt','₹5,499','images/products/n3.jpg',1,'M');return false;"><i class="ri-shopping-cart-2-line"></i></a>
           </div>
         </div>
 
@@ -646,7 +668,7 @@
   <footer class="section-p1" role="contentinfo">
     <!-- Contact Column -->
     <div class="col">
-      <img class="logo" src="images/logo.png" alt="Cara Logo">
+      <img class="logo" src="images/Dlogo.png" alt="Cara Logo">
       <h4>Contact</h4>
       <p>
         <strong>Address:</strong> 562 Wellington Road, Street 32, San
@@ -667,9 +689,7 @@
           <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
             <i class="fab fa-linkedin"></i>
           </a>
-          <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-            <i class="fab fa-youtube"></i>
-          </a>
+          <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer" aria-label="YouTube" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
         </div>
       </div>
     </div>
@@ -747,16 +767,17 @@
     <!-- Copyright -->
     <div class="copyright">
       <p>
-        Â© Cara 2026. All rights reserved. |
+        © Cara <span id="footer-copyright-year">2026</span>. All rights reserved. |
+    <script>document.addEventListener('DOMContentLoaded', function() { var el = document.getElementById('footer-copyright-year'); if (el) el.textContent = new Date().getFullYear(); });</script>|
         <a href="license.html" style="color: #088178"> MIT License </a>
       </p>
     </div>
   </footer>
 
   <div id="toast-container"></div>
-   <button id="topBtn">â†‘</button>
-<script src="navbar.js"></script>
-<script src="js/newsletter-subscribe.js" defer></script>
+   <button id="topBtn">↑</button>
+<script type="module" src="navbar.js"></script>
+<script type="module" src="js/newsletter-subscribe.js" defer></script>
 <script>
   loadNavbar('home');
 </script>
@@ -783,8 +804,203 @@
   window.addEventListener('resize', updateHeaderHeight);
 </script>
 
-<script src="products.js"></script>
-<script src="app.js"></script>  
+<script type="module" src="products.js"></script>
+<script type="module" src="app.js"></script>  
+<script>
+
+const searchBar = document.getElementById("searchBar");
+
+searchBar.addEventListener("keyup", function() {
+
+  const input = searchBar.value.toLowerCase();
+
+  const products = document.querySelectorAll(".pro");
+
+  products.forEach(function(product){
+
+    const productName = product
+      .querySelector("h5")
+      .textContent
+      .toLowerCase();
+
+    if(productName.includes(input)){
+      product.style.display = "block";
+    }
+    else{
+      product.style.display = "none";
+    }
+
+  });
+
+});
+
+</script>
+<script>
+const btn = document.getElementById("backToTop");
+
+if (btn) {
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 200) {
+      btn.style.display = "block";
+    } else {
+      btn.style.display = "none";
+    }
+  });
+
+  btn.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+      <h2 >What's Your Style ?</h2>
+      <div class="quiz-options">
+        <button onclick="selectStyle('minimal')">Minimal</button>
+        <button onclick="selectStyle('street')">Street</button>
+        <button onclick="selectStyle('formal')">Formal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="section-p1" role="contentinfo">
+    <!-- Contact Column -->
+    <div class="col">
+      <img class="logo" src="images/Dlogo.png" alt="Cara Logo">
+      <h4>Contact</h4>
+      <p>
+        <strong>Address:</strong> 562 Wellington Road, Street 32, San
+        Francisco
+      </p>
+      <p><strong>Phone:</strong> +01 2222 365 / (+91) 01 2345 6789</p>
+      <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
+
+      <div class="follow">
+        <h4>Follow us</h4>
+        <div class="icon">
+          <a href="https://x.com/JanaviPandole" target="_blank" rel="noopener noreferrer" aria-label="X (formerly Twitter)">
+            <i class="fa-brands fa-x-twitter"></i>
+          </a>
+          <a title="GitHub" href="https://github.com/janavipandole" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://www.youtube.com/@JanaviPandole" target="_blank" rel="noopener noreferrer" aria-label="YouTube" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- About Column -->
+    <div class="col">
+      <h4>About</h4>
+      <a href="about.html">About Us</a>
+      <a href="delivery.html">Delivery Information</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms and Conditions</a>
+      <a href="contact.html">Contact Us</a>
+    </div>
+
+
+    <!-- My Account Column -->
+    <div class="col">
+      <h4>My Account</h4>
+      <a href="login.html">Sign In</a>
+      <a aria-label="Cart" href="cart.html">View Cart</a>
+      <a aria-label="Wishlist" href="wishlist.html">My Wishlist</a>
+      <a href="track-order.html">Track My Order</a>
+      <a href="contact.html">Help</a>
+    </div>
+
+    <!-- Newsletter Column -->
+    <div class="col newsletter-footer">
+      <h4>Newsletter</h4>
+      <p>
+        Get email updates about our latest shop and
+        <span>special offers.</span>
+      </p>
+
+      <form class="newsletter-form" role="form" aria-label="Newsletter subscription">
+        <input type="email" placeholder="Your email address" aria-label="Email address for newsletter" required="">
+        <button type="submit" class="normal" aria-label="Sign up for newsletter">Sign Up</button>
+      </form>
+    </div>
+
+    <!-- Install App Column -->
+    <div class="col install">
+      <h4>Install App</h4>
+      <p>From App Store or Google Play</p>
+
+      <div class="row">
+        <img src="images/pay/app.jpg" alt="Download from App Store">
+        <img src="images/pay/play.jpg" alt="Get it on Google Play">
+      </div>
+
+      <p>Secured Payment Gateways</p>
+
+      <div class="payment-icons">
+        <a href="https://www.visa.com" target="_blank" rel="noopener noreferrer" aria-label="Visa">
+          <i class="fab fa-cc-visa"></i>
+        </a>
+
+        <a href="https://www.mastercard.com" target="_blank" rel="noopener noreferrer" aria-label="Mastercard">
+          <i class="fab fa-cc-mastercard"></i>
+        </a>
+
+        <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" aria-label="PayPal">
+          <i class="fab fa-cc-paypal"></i>
+        </a>
+
+        <a href="https://www.americanexpress.com" target="_blank" rel="noopener noreferrer" aria-label="American Express">
+          <i class="fab fa-cc-amex"></i>
+        </a>
+
+        <a href="https://stripe.com" target="_blank" rel="noopener noreferrer" aria-label="Stripe">
+          <i class="fab fa-cc-stripe"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="copyright">
+      <p>
+        © Cara 2026. All rights reserved. |
+        <a href="license.html" style="color: #088178"> MIT License </a>
+      </p>
+    </div>
+  </footer>
+
+  <div id="toast-container"></div>
+   <button id="topBtn">↑</button>
+<script type="module" src="navbar.js"></script>
+<script type="module" src="js/newsletter-subscribe.js" defer></script>
+<script>
+  loadNavbar('home');
+</script>
+
+<!-- Runtime header height shim: measures header and sets --header-height CSS var -->
+<script>
+  function updateHeaderHeight() {
+    var header = document.getElementById('header');
+    if (!header) return;
+    // measure computed height (includes padding, border)
+    var h = Math.ceil(header.getBoundingClientRect().height);
+    document.documentElement.style.setProperty('--header-height', h + 'px');
+    // also ensure body padding is in sync (in case header-fix.css missing)
+    document.body.style.paddingTop = h + 'px';
+  }
+
+  // Run early and on resize/load
+  document.addEventListener('DOMContentLoaded', function () {
+    updateHeaderHeight();
+    // small delay in case fonts/layout change
+    setTimeout(updateHeaderHeight, 120);
+  });
+  window.addEventListener('load', updateHeaderHeight);
+  window.addEventListener('resize', updateHeaderHeight);
+</script>
+
+<script type="module" src="products.js"></script>
+<script type="module" src="app.js"></script>  
 <script>
 
 const searchBar = document.getElementById("searchBar");
@@ -834,13 +1050,32 @@ if (btn) {
   });
 }
 </script>
-<button id="backToTop">â†‘</button>
-<script src="js/session-lock.js" defer></script>
-<script src="js/live-sales-toast.js" defer></script>
+<button id="backToTop">↑</button>
+<script type="module" src="js/session-lock.js" defer></script>
+<script type="module" src="js/live-sales-toast.js" defer></script>
+<script src="js/cart-sync-manager.js" defer></script>
+<script src="js/rum-telemetry.js" defer></script>
+
+<!-- Exit-Intent Discount Pop-up -->
+<div id="exit-intent-overlay" class="exit-intent-overlay" role="dialog" aria-modal="true" aria-labelledby="exit-intent-title" aria-hidden="true">
+  <div class="exit-intent-popup">
+    <button type="button" class="exit-intent-popup__close" data-exit-intent-close aria-label="Close pop-up">&times;</button>
+    <i class="fa-solid fa-tag exit-intent-popup__icon" aria-hidden="true"></i>
+    <h2 id="exit-intent-title" class="exit-intent-popup__title">Wait! Here's 10% Off</h2>
+    <p class="exit-intent-popup__text">You're about to leave &mdash; don't miss out. Enter your email and get an instant 10% discount on your first order.</p>
+    <p class="exit-intent-popup__success" data-exit-intent-success>Thank you! Your discount code <strong>CARA10</strong> is ready at checkout.</p>
+    <form class="exit-intent-popup__form" data-exit-intent-form novalidate>
+      <input type="email" class="exit-intent-popup__input" placeholder="Enter your email address" aria-label="Email address" required>
+      <button type="submit" class="exit-intent-popup__cta" data-exit-intent-cta>Claim My 10% Off</button>
+    </form>
+    <p class="exit-intent-popup__disclaimer">No spam, unsubscribe at any time. One use per customer.</p>
+  </div>
+</div>
+<script src="js/exit-intent-popup.js" defer></script>
 </body>
 
 </html>
 
 <!-- Meta Content Security Policy configuration restricting script origins. -->
 
-<!-- Debounce Util --><script src='js/utils/debounce.js'></script>
+<!-- Debounce Util --><script type="module" src="js/utils/debounce.js"></script>

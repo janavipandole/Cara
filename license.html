@@ -1,8 +1,7 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <!-- Character encoding -->
     <meta charset="UTF-8">
 
@@ -21,11 +20,8 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="ui-fix.css" />
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" integrity="sha384-L/vw44MdBs/7hovWr2rBVSRKqdti4Vw077yuSGQ2PO3tQARRLiLuMh8xhVmVrR0I" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         .theme-toggle {
             pointer-events: all !important;
@@ -119,20 +115,24 @@
         }
     </style>
   <link rel="manifest" href="/manifest.json">
-  <script>
+  <script type="module" src="js/error-boundary.js"></script>
+<script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/service-worker.js');
       });
     }
   </script>
+    <script type="module" src="js/config.js"></script>
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Header Section -->
     <section id="header">
         <!-- Logo -->
-        <a href="index.html"><img src="images/logo.png" alt="Cara Logo"></a>
+        <a href="index.html" aria-label="Cara Home"><img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" /></a>
 
         <!-- Navigation Bar -->
         <div>
@@ -144,7 +144,7 @@
                 <li><a href="contact.html">Contact</a></li>
                 <li><a aria-label="Cart" href="cart.html" id="lg-bag"><i class="ri-shopping-bag-4-line"></i></a></li>
                 <li>
-                <a href="javascript:void(0)" id="close" aria-label="Close menu" aria-hidden="false"><i class="fa-solid fa-xmark"></i></a>
+                <li class="nav-close"><a href="javascript:void(0)" id="close" aria-label="Close menu" aria-hidden="false"><i class="fa-solid fa-xmark"></i></a></li>
             </ul>
         </div>
       <div class="mobile">
@@ -155,13 +155,14 @@
     <i class="fas fa-outdent" id="bar" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0"></i>
 </div>
     </section>
+<main id="main-content">
 
     <section id="license-content">
         <h1>MIT License</h1>
         <p class="license-meta">This project is licensed under the <span class="highlight">MIT License</span></p>
 
         <h2>Copyright Notice</h2>
-        <p>Copyright Â© <span class="Current-Year"></span> <strong>Janavi Pandole</strong></p>
+        <p>Copyright © <span class="Current-Year"></span> <strong>Janavi Pandole</strong></p>
 
         <div class="license-box">
             <p class="license-text">Permission is hereby granted, free of charge, to any person obtaining a copy of this
@@ -183,23 +184,23 @@
         <h2>What This Means</h2>
         <p>The MIT License is a permissive open-source license that allows you to:</p>
         <ul>
-            <li>âœ“ Use the code commercially</li>
-            <li>âœ“ Modify the code</li>
-            <li>âœ“ Distribute the code</li>
-            <li>âœ“ Use the code privately</li>
-            <li>âœ“ Sublicense the code</li>
+            <li>✓ Use the code commercially</li>
+            <li>✓ Modify the code</li>
+            <li>✓ Distribute the code</li>
+            <li>✓ Use the code privately</li>
+            <li>✓ Sublicense the code</li>
         </ul>
 
         <p style="margin-top: 30px;">The only requirement is that you include the original copyright notice and license
             text in any copy or substantial portion of the software.</p>
 
-        <a href="index.html" class="back-btn">â† Back to Home</a>
+        <a href="index.html" class="back-btn">← Back to Home</a>
     </section>
 
     <!-- Footer Section -->
     <footer class="section-p1">
         <div class="col">
-            <img class="logo" src="images/logo.png" alt="Cara Logo">
+            <img class="logo" src="images/Dlogo.png" alt="Cara Logo">
             <h4>Contact</h4>
             <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
             <p><strong>Phone:</strong> +01 2222 365 /(+91) 01 2345 6789</p>
@@ -213,7 +214,7 @@
                     <a href="https://www.linkedin.com/in/janavi-pandole-80a7b2290" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-linkedin"></i>
                     </a>
-                    <a href="https://www.youtube.com/@JanaviPandole"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.youtube.com/@JanaviPandole" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
         </div>
@@ -222,8 +223,8 @@
             <h4>About</h4>
             <a href="about.html">About us</a>
          <a href="delivery.html">Delivery Information</a>
-            <a href="javascript:void(0)">Privacy Policy</a>
-            <a href="javascript:void(0)">Terms & Conditions</a>
+            <a href="javascript:void(0)" aria-label="Interactive action">Privacy Policy</a>
+            <a href="javascript:void(0)" aria-label="Interactive action">Terms & Conditions</a>
             <a href="contact.html">Contact Us</a>
         </div>
         <!-- My Account Section -->
@@ -231,7 +232,7 @@
             <h4>My Account</h4>
             <a href="login.html">Sign In</a>
             <a aria-label="Cart" href="cart.html">View Cart</a>
-            <a href="javascript:void(0)">My Wishlist</a>
+            <a href="javascript:void(0)" aria-label="Interactive action">My Wishlist</a>
             <a href="track-order.html">Track My Order</a>
             <a href="contact.html">Help</a>
         </div>
@@ -254,11 +255,12 @@
         </div>
         <!-- Copyright Section -->
         <div class="copyright">
-            <p>Â© Cara 2026. All rights reserved. | <a href="license.html" style="color: #088178;">MIT License</a></p>
+            <p>© Cara 2026. All rights reserved. | <a href="license.html" style="color: #088178;">MIT License</a></p>
         </div>
     </footer>
+</main>
 
-    <script src="app.js"></script>
+    <script type="module" src="app.js"></script>
     <script>
        const year = new Date().getFullYear();
 
@@ -267,6 +269,7 @@ for (let el of document.querySelectorAll(".Current-Year")) {
 }
   
     </script>
+
 </body>
 
 </html>

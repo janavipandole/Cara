@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
   <!-- Character Encoding -->
   <meta charset="UTF-8" />
 
@@ -17,12 +16,14 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" integrity="sha384-L/vw44MdBs/7hovWr2rBVSRKqdti4Vw077yuSGQ2PO3tQARRLiLuMh8xhVmVrR0I" crossorigin="anonymous" />
 
   <!-- Checkout styles -->
   <link rel="stylesheet" href="checkout.css" />
+  <link rel="stylesheet" href="currency-converter.css" />
   <link rel="manifest" href="/manifest.json">
-  <script>
+  <script type="module" src="js/error-boundary.js"></script>
+<script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/service-worker.js');
@@ -30,15 +31,19 @@
     }
   </script>
   <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
+    <script type="module" src="js/config.js"></script>
+  <script src="assets/js/skip-link.js" defer></script>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
 
   <div class="checkout-container">
 
     <div class="checkout-header">
       <div class="back-to-cart">
         <a href="cart.html" class="back-link" aria-label="Back to cart"><i class="ri-arrow-left-line"></i> Back to Cart</a>
-        <a href="javascript:void(0)" id="logout-btn" style="display:none">Logout</a>
+        <a href="javascript:void(0)" id="logout-btn" style="display:none" aria-label="Interactive action">Logout</a>
       </div>
       <div class="logo" style="display: flex; align-items: center; gap: 15px;">
         <span>Cara</span>
@@ -50,7 +55,7 @@
 
 
   <!-- PAGE -->
-  <div class="page-wrapper">
+  <main id="main-content" class="page-wrapper" tabindex="-1">
 
     <!-- Back button -->
     <button class="back-btn" onclick="window.location.href='cart.html'">
@@ -65,6 +70,9 @@
     </div>
 
     <form id="checkoutForm" novalidate>
+<div class="checkout-grid">
+<div class="checkout-main">
+
 
       <div class="input-group">
         <label for="fullName">Full Name</label>
@@ -93,7 +101,10 @@
 
       <div class="input-group">
         <label for="address">Delivery Address</label>
-        <textarea id="address" placeholder="Enter full address" data-validate="address" autocomplete="street-address" required></textarea>
+        <div class="address-input-wrapper" style="position: relative;">
+          <textarea id="address" placeholder="Enter full address" data-validate="address" autocomplete="street-address" required></textarea>
+          <div id="address-loader" class="autocomplete-spinner" style="display: none; position: absolute; right: 10px; bottom: 10px; width: 16px; height: 16px; border: 2px solid #ccc; border-top-color: #088178; border-radius: 50%; animation: spin 0.6s linear infinite; z-index: 10;"></div>
+        </div>
         <span class="error-msg"></span>
       </div>
 
@@ -115,7 +126,7 @@
       <div class="input-group">
         <label for="paymentMethod">Select Payment Method</label>
 
-        <select id="paymentMethod" data-validate="paymentMethod" required>
+        <select id="paymentMethod" data-validate="paymentMethod" required aria-label="Select paymentMethod">
           <option value="">Choose Payment Method</option>
           <option value="cod">Cash On Delivery</option>
           <option value="online">Online Payment</option>
@@ -186,7 +197,9 @@
           </div>
 
       <!-- COLUMN PREVIEW OR SIDEBAR -->
-      <div class="totals-sidebar">
+      
+</div>
+<div class="totals-sidebar">
         <!-- Preview and Totals -->
         <fieldset class="card">
           <legend class="card-title">
@@ -245,7 +258,7 @@
               <span id="summary-shipping">Free</span>
             </div>
             <div class="total-row summary-row">
-              <span>Tax (5%)</span>
+              <span>Tax (18%)</span>
               <span id="summary-tax">₹0.00</span>
             </div>
             <hr class="summary-divider" style="border: 0; border-top: 1px solid var(--border); margin: 10px 0;">
@@ -263,25 +276,42 @@
         </fieldset>
       </div>
 
-    </form>
-  </div><!-- /page-wrapper -->
+    
+</div>
+</form>
+  </main><!-- /page-wrapper -->
 
   <!-- SUCCESS POPUP -->
-  <div class="success-overlay" id="successPopup">
-    <div class="popup-box">
+  <div class="success-overlay" id="successPopup" hidden>
+    <div
+      class="popup-box"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="successPopupTitle"
+      aria-describedby="successPopupDesc"
+      tabindex="-1"
+    >
       <div class="check-circle" aria-hidden="true"><i class="ri-check-line"></i></div>
-      <h2>Order Successful!</h2>
-      <p>Your order has been placed successfully. We'll send you a confirmation shortly.</p>
-      <button class="popup-btn" onclick="window.location.href='shop.html'">Continue Shopping</button>
+      <h2 id="successPopupTitle">Order Successful!</h2>
+      <p id="successPopupDesc">Your order has been placed successfully. We'll send you a confirmation shortly.</p>
+      <button type="button" class="popup-btn" id="successContinueBtn">Continue Shopping</button>
     </div>
   </div>
 
-  <script src="checkout.js"></script>
-  <script src="js/coupon-validator.js" defer></script>
-  <script src="js/gift-options.js" defer></script>
-  <script src="js/checkout-timer.js" defer></script>
-  <script src="js/loyalty.js" defer></script>
-  <script src="js/checkout-autosave.js" defer></script>
+  <script type="module" src="js/promo-discount-calculator.js"></script>
+  <script type="module" src="checkout.js"></script>
+  <script type="module" src="js/coupon-validator.js" defer></script>
+  <script type="module" src="js/gift-options.js" defer></script>
+  <script type="module" src="js/checkout-timer.js" defer></script>
+  
+  <script type="module" src="js/checkout-autosave.js" defer></script>
+  <script type="module" src="js/checkout-validator.js"></script>
+  <script src="js/autocomplete-loader.js" defer></script>
   <script src="js/address-autocomplete.js" defer></script>
+</main>
 </body>
 </html>
+
+<script src="js/checkout-vault.js"></script>
+<script src="js/checkout-wizard.js"></script>
+<script type="module" src="js/pincode-validation-engine.js"></script>

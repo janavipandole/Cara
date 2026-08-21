@@ -854,3 +854,78 @@ body.dark-theme .demo-hint {
     transform: translateY(0);
   }
 }
+
+/* Simulated timeline time stamps */
+.timeline-time {
+  font-size: 10px;
+  color: #777;
+  margin-top: 4px;
+  font-style: italic;
+}
+
+/* Order Tracking Visualizer Timeline */
+.tracking-timeline-wrapper {
+  position: relative;
+  margin: 30px 0;
+}
+
+.timeline-bar-bg {
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 3px;
+  position: relative;
+  top: 15px;
+  z-index: 1;
+}
+
+.timeline-bar-fill {
+  height: 100%;
+  background: #088178;
+  border-radius: 3px;
+  transition: width 0.4s ease;
+}
+
+.timeline-nodes {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
+}
+
+.timeline-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.node-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #cbd5e1;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.timeline-node.completed .node-icon {
+  background: #088178;
+  color: #ffffff;
+}
+
+.node-label {
+  font-size: 12px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.timeline-node.completed .node-label {
+  color: #0f172a;
+  font-weight: 600;
+}
+
+

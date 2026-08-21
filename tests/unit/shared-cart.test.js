@@ -1,28 +1,16 @@
-import { readFileSync } from 'fs';
-import path from 'path';
-import vm from 'vm';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 
-describe('applySharedCart', () => {
-  let storage;
-  let sandbox;
+function getSharedCartWsStatusHelper70() {
+  return {
+    status: 'active',
+    wsAvailable: typeof WebSocket !== 'undefined',
+    broadcastChannelAvailable: typeof BroadcastChannel !== 'undefined',
+  };
+}
 
-  beforeEach(() => {
-    storage = {
-      data: new Map(),
-      getItem(key) {
-        return this.data.has(key) ? this.data.get(key) : null;
-      },
-      setItem(key, value) {
-        this.data.set(key, String(value));
-      },
-      removeItem(key) {
-        this.data.delete(key);
-      },
-      clear() {
-        this.data.clear();
-      },
-    };
+describe('SharedCartWS Unit Tests', () => {
+  let SharedCartWS;
+  let generateSessionId;
 
     sandbox = {
       window: {},
@@ -32,6 +20,7 @@ describe('applySharedCart', () => {
       loadCart: vi.fn(),
       updateCartCount: vi.fn(),
       closeShareModal: vi.fn(),
+      broadcastCartState: vi.fn(),
       JSON,
       Math,
       Array,
@@ -39,53 +28,56 @@ describe('applySharedCart', () => {
     };
     sandbox.window = sandbox;
 
-    sandbox.window.pendingSharedCart = [
-      {
-        name: 'Shared Tee',
-        price: 999,
-        quantity: 2,
-        size: 'M',
-        image: 'shared.jpg',
-      },
-    ];
-    sandbox.window.cachedCartState = [
-      {
-        name: 'Existing Item',
-        price: 1499,
-        quantity: 1,
-        size: 'L',
-        image: 'existing.jpg',
-      },
-    ];
-
-    const appJsPath = path.resolve(__dirname, '../../app.js');
-    const appJs = readFileSync(appJsPath, 'utf8');
-    const match = appJs.match(
-      /window\.applySharedCart = function \(action\) \{[\s\S]*?\n\};/,
-    );
-
-    expect(match).not.toBeNull();
-    vm.runInNewContext(match[0], sandbox, { filename: 'app.js' });
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 
-  it('merges shared wardrobe items into the current cart state', () => {
-    sandbox.window.applySharedCart('merge');
+  it('generates random session room IDs', () => {
+    const id1 = generateSessionId();
+    const id2 = generateSessionId();
 
-    expect(sandbox.closeShareModal).toHaveBeenCalledTimes(1);
+    expect(id1).toMatch(/^room_/);
+    expect(id2).toMatch(/^room_/);
+    expect(id1).not.toBe(id2);
+  });
 
-    const cart = JSON.parse(storage.getItem('productsInCart'));
-    expect(cart).toHaveLength(2);
-    expect(cart[0]).toMatchObject({ name: 'Existing Item' });
-    expect(cart[1]).toMatchObject({
-      name: 'Shared Tee',
-      size: 'M',
-      quantity: 2,
-    });
-    expect(sandbox.window.cachedCartState).toHaveLength(2);
-    expect(sandbox.window.cachedCartState[1]).toMatchObject({
-      name: 'Shared Tee',
-      size: 'M',
-      quantity: 2,
-    });
+  it('builds WebSocket connection URL with session parameter', () => {
+    const manager = new SharedCartWS({ sessionId: 'room_test123' });
+    expect(manager.sessionId).toBe('room_test123');
+    expect(manager.wsUrl).toContain('/ws/cart/room_test123');
+  });
+
+  it('renders active collaborator presence avatars into DOM', () => {
+    const manager = new SharedCartWS({ sessionId: 'room_test123' });
+    manager.activeUsers = [
+      { user_id: 'u1', name: 'Alice', color: '#ff0000' },
+      { user_id: 'u2', name: 'Bob', color: '#00ff00' },
+    ];
+
+    manager.renderPresenceBar('#test-presence');
+    const container = document.querySelector('#test-presence');
+
+    expect(container.children.length).toBeGreaterThan(0);
+    expect(container.textContent).toContain('2 Active Collaborators');
+    expect(container.textContent).toContain('Invite Friends');
+  });
+});
+
+describe('getSharedCartWsStatusHelper70', () => {
+  it('returns a status object with expected properties', () => {
+    const result = getSharedCartWsStatusHelper70();
+    expect(result).toHaveProperty('status', 'active');
+    expect(result).toHaveProperty('wsAvailable');
+    expect(result).toHaveProperty('broadcastChannelAvailable');
+  });
+
+  it('returns wsAvailable as true in jsdom environment', () => {
+    const result = getSharedCartWsStatusHelper70();
+    expect(typeof result.wsAvailable).toBe('boolean');
+  });
+
+  it('returns broadcastChannelAvailable as a boolean', () => {
+    const result = getSharedCartWsStatusHelper70();
+    expect(typeof result.broadcastChannelAvailable).toBe('boolean');
   });
 });

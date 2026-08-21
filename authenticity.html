@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tap-to-View Authenticity | Cara</title>
+  
+  <link rel="icon" type="image/jpg" sizes="32x32" href="images/favicon.jpg" />
+  <meta name="description" content="Verify the authenticity of your premium Cara garments using NFC technology." />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="global.css">
+  <link rel="stylesheet" href="header-fix.css" />
+  <link rel="stylesheet" href="authenticity.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" integrity="sha384-L/vw44MdBs/7hovWr2rBVSRKqdti4Vw077yuSGQ2PO3tQARRLiLuMh8xhVmVrR0I" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  <div id="main">
+    <div id="top">
+      <div id="workingArea">
+        <section id="header" role="banner">
+          <a href="index.html">
+            <img id="siteLogo" src="images/Dlogo.png" alt="Cara Logo" />
+          </a>
+          <div id="navbar-container"></div>
+        </section>
+        
+        <!-- Authenticity Scanner Hero -->
+        <section id="authenticity-hero">
+          <div class="auth-container">
+            <div class="auth-glass-panel">
+              <h1 class="auth-title">Tap-to-View</h1>
+              <p class="auth-subtitle">Verify the authenticity of your Cara garment instantly.</p>
+              
+              <div id="nfc-status" class="nfc-status">
+                <div class="radar-container">
+                  <div class="radar"></div>
+                  <i class="ri-rfid-line nfc-icon"></i>
+                </div>
+                <p id="nfc-message">Ready to scan. Please tap "Start Scan" and bring your phone close to the garment's NFC tag.</p>
+              </div>
+              
+              <button id="start-scan-btn" class="auth-btn">
+                <i class="ri-scan-2-line"></i> Start Scan
+              </button>
+              
+              <div id="nfc-unsupported" class="nfc-error hidden">
+                <i class="ri-error-warning-line"></i>
+                <p>Web NFC is not supported on this browser/device. Please use Chrome for Android.</p>
+              </div>
+              
+              <!-- Authenticity Result (Hidden by default) -->
+              <div id="auth-result" class="auth-result hidden">
+                <div class="success-badge">
+                  <i class="ri-shield-check-fill"></i>
+                </div>
+                <h2 class="result-title">Authentic Garment Verified</h2>
+                <div class="result-details">
+                  <div class="detail-row">
+                    <span class="detail-label">Product ID:</span>
+                    <span class="detail-value" id="res-product-id">---</span>
+                  </div>
+                  <div class="detail-row">
+                    <span class="detail-label">Collection:</span>
+                    <span class="detail-value" id="res-collection">Premium AW25</span>
+                  </div>
+                  <div class="detail-row">
+                    <span class="detail-label">Manufactured:</span>
+                    <span class="detail-value" id="res-date">---</span>
+                  </div>
+                </div>
+                <button id="view-story-btn" class="auth-btn secondary-btn">
+                  View Garment Story <i class="ri-arrow-right-line"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+  
+  <script src="navbar.js"></script>
+  <script src="js/error-boundary.js"></script>
+  <script src="js/error-logger.js"></script>
+  <script>
+    loadNavbar('authenticity');
+  </script>
+  <script src="app.js"></script>
+  <script src="authenticity.js"></script>
+</body>
+</html>

@@ -1,10 +1,6 @@
 /* global Pose, showToast */
 document.addEventListener('DOMContentLoaded', () => {
-  // ============================================
-  // CARA VIRTUAL TRY-ON — Full Implementation
-  // Uses MediaPipe Pose (BlazePose) for body detection
-  // Canvas-based garment overlay with background removal
-  // ============================================
+  const tryOnCanvasEngine = typeof VirtualTryOnEngine !== 'undefined' ? new VirtualTryOnEngine() : null;
 
   // ---- DOM References ----
   const uploadInput = document.getElementById('photo-upload');
@@ -37,48 +33,56 @@ document.addEventListener('DOMContentLoaded', () => {
       name: 'Tropical Hibiscus Shirt',
       img: 'images/products/f1.jpg',
       category: 'top',
+      color: 'navy'
     },
     {
       id: 2,
       name: 'White Palm Leaf Shirt',
       img: 'images/products/f2.jpg',
       category: 'top',
+      color: 'white'
     },
     {
       id: 3,
       name: 'Vintage Rose Garden Shirt',
       img: 'images/products/f3.jpg',
       category: 'top',
+      color: 'white'
     },
     {
       id: 4,
       name: 'Sakura Blossom Shirt',
       img: 'images/products/f4.jpg',
       category: 'top',
+      color: 'blue'
     },
     {
       id: 5,
       name: 'Pink Peony Shirt',
       img: 'images/products/f5.jpg',
       category: 'top',
+      color: 'pink'
     },
     {
       id: 6,
       name: 'Dual-Tone Corduroy Shirt',
       img: 'images/products/f6.jpg',
       category: 'top',
+      color: 'khaki'
     },
     {
       id: 8,
       name: 'Cat Print Blouse',
       img: 'images/products/f8.jpg',
       category: 'top',
+      color: 'white'
     },
     {
       id: 9,
       name: 'Sky Blue Mandarin Shirt',
       img: 'images/products/n1.jpg',
       category: 'top',
+      color: 'blue'
     },
   ];
 
@@ -166,6 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
         startLiveDetection();
       })
       .catch((err) => {
+        console.warn("[TryOn] Failed:", err);
         window.logError('Camera error:', err);
         if (typeof showToast === 'function') {
           showToast(
@@ -173,9 +178,8 @@ document.addEventListener('DOMContentLoaded', () => {
             'error',
           );
         } else {
-          console.log(
-            'Toast: ' +
-              'Camera access blocked. Please enable webcam permission.',
+          console.info(
+            '[TryOn] Camera access blocked. Please enable webcam permission.',
           );
         }
       });
@@ -205,6 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         })
         .catch((err) => {
+          console.warn("[TryOn] Failed:", err);
           window.logError('Pose error:', err);
           if (isLiveMode) requestAnimationFrame(processFrame);
         });
@@ -330,6 +335,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  let selectedTopColor = null;
+
+  function checkOutfitCompatibility() {
+    const bottomSelect = document.getElementById('bottom-color-select');
+    const feedbackBox = document.getElementById('outfit-compatibility-feedback');
+    if (!bottomSelect || !feedbackBox) return;
+
+    const bottomColor = bottomSelect.value;
+    if (!selectedTopColor) {
+      feedbackBox.style.display = 'none';
+      return;
+    }
+
+    feedbackBox.style.display = 'block';
+    if (typeof window.OutfitCompatibility === 'function') {
+      const compatibility = new window.OutfitCompatibility();
+      const isCompatible = compatibility.isColorCompatible(selectedTopColor, bottomColor);
+      
+      if (isCompatible) {
+        feedbackBox.className = 'outfit-compatibility-compatible';
+        feedbackBox.textContent = `Nice choice! Selected top (${selectedTopColor}) and bottom (${bottomColor}) are color-compatible.`;
+      } else {
+        feedbackBox.className = 'outfit-compatibility-incompatible';
+        const fallbacks = compatibility.getRecommendedFallbacks(selectedTopColor);
+        feedbackBox.textContent = `Style Alert: Selected top (${selectedTopColor}) and bottom (${bottomColor}) are not color-compatible. Recommended bottom colors for this top: ${fallbacks.join(', ')}.`;
+      }
+    }
+  }
+
   // ============================================
   // OUTFIT SELECTION
   // ============================================
@@ -339,6 +373,10 @@ document.addEventListener('DOMContentLoaded', () => {
       .forEach((el) => el.classList.remove('selected'));
     element.classList.add('selected');
     hasOutfit = true;
+
+    const matchedProduct = tryOnProducts.find(p => element.src.includes(p.img));
+    selectedTopColor = matchedProduct ? matchedProduct.color : null;
+    checkOutfitCompatibility();
 
     // Load and process the garment image (remove background)
     const img = new Image();
@@ -350,6 +388,11 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     updateStep(3);
+  }
+
+  const bottomSelect = document.getElementById('bottom-color-select');
+  if (bottomSelect) {
+    bottomSelect.addEventListener('change', checkOutfitCompatibility);
   }
 
   // ============================================
@@ -737,6 +780,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Now render the final composite
         renderFinalComposite();
       } catch (err) {
+        console.warn("[TryOn] Failed:", err);
         window.logError('Try-on error:', err);
         aiStatus.innerText = 'ERROR';
         setTimeout(() => resetTryOn(), 2000);
@@ -906,9 +950,9 @@ document.addEventListener('click', function (e) {
   html.setAttribute('data-theme', next);
   localStorage.setItem('theme', next);
 
-  var icon = document.getElementById('themeIcon');
-  var iconM = document.getElementById('themeIconMobile');
-  var cls = next === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
+  const icon = document.getElementById('themeIcon');
+  const iconM = document.getElementById('themeIconMobile');
+  const cls = next === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
   if (icon) icon.className = cls;
   if (iconM) iconM.className = cls;
 });

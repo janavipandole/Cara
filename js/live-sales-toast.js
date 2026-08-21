@@ -54,6 +54,15 @@
     return arr[Math.floor(Math.random() * arr.length)];
   }
 
+  function _escape(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
   function getProducts() {
     return window.products || [];
   }
@@ -84,19 +93,21 @@
     toast.innerHTML = `
       <button class="live-sales-close" aria-label="Dismiss">&times;</button>
       <div class="live-sales-img-wrapper">
-        <img src="${product.img}" alt="${product.name}">
+        <img src="${_escape(product.img)}" alt="${_escape(product.name)}">
       </div>
       <div class="live-sales-details">
         <p class="live-sales-title">Recent Purchase</p>
         <p class="live-sales-message">
-          <span class="buyer">${buyer}</span> from ${city} bought a 
-          <span class="product">${product.name}</span>
+          <span class="buyer">${_escape(buyer)}</span> from ${_escape(city)} bought a
+          <span class="product">${_escape(product.name)}</span>
         </p>
-        <span class="live-sales-time">${time}</span>
+        <span class="live-sales-time">${_escape(time)}</span>
       </div>
     `;
 
     container.innerHTML = '';
+    toast.setAttribute('role', 'status');
+    toast.setAttribute('aria-live', 'polite');
     container.appendChild(toast);
 
     // Slide-in after a tick
@@ -147,16 +158,54 @@
   }
 
   function startToastCycle() {
-    // Show first toast after 6 seconds of landing
-    setTimeout(() => {
-      showLiveToast();
-      // Setup recurring timer afterwards
-      setInterval(showLiveToast, POPUP_INTERVAL);
-    }, 6000);
+    if (
+      window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
+      return;
+    }
+
+    let cycleTimer = null;
+    let initialTimer = null;
+
+    const clearCycle = () => {
+      if (initialTimer !== null) {
+        clearTimeout(initialTimer);
+        initialTimer = null;
+      }
+      if (cycleTimer !== null) {
+        clearInterval(cycleTimer);
+        cycleTimer = null;
+      }
+    };
+
+    const beginCycle = () => {
+      if (cycleTimer !== null) return;
+      initialTimer = setTimeout(() => {
+        showLiveToast();
+        cycleTimer = setInterval(showLiveToast, POPUP_INTERVAL);
+      }, 6000);
+    };
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        clearCycle();
+      } else {
+        beginCycle();
+      }
+    });
+
+    if (typeof window.addEventListener === 'function') {
+      window.addEventListener('pagehide', clearCycle);
+    }
+    beginCycle();
   }
 
-  // Auto-init on DOMContentLoaded
-  document.addEventListener('DOMContentLoaded', () => {
-    startToastCycle();
-  });
+  // Auto-init on DOMContentLoaded. The immediate idempotent call covers
+  // deferred scripts that load after DOMContentLoaded has already fired.
+  document.addEventListener('DOMContentLoaded', startToastCycle);
+  startToastCycle();
 })();
+
+
+export function getSalesToastDisplayDuration() { return DISPLAY_DURATION; }

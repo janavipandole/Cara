@@ -1,0 +1,332 @@
+# Contributing to Cara 🛍️
+
+First off, thank you for considering contributing to Cara!
+
+## 📋 Table of Contents
+
+- [Code of Conduct](#code-of-conduct)
+- [Getting Started](#getting-started)
+- [How Can I Contribute?](#how-can-i-contribute)
+- [Development Setup](#development-setup)
+- [Pull Request Process](#pull-request-process)
+- [Style Guidelines](#style-guidelines)
+- [Issue & PR Guidelines (ELUSoC_2026)](#issue--pr-guidelines-elusoc_2026)
+- [Issue Guidelines](#issue-guidelines)
+
+## Code of Conduct
+
+This project and everyone participating in it is governed by our Code of Conduct. By participating, you are expected to uphold this code.
+
+### Our Pledge
+
+We pledge to make participation in our project a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, religion, or sexual identity and orientation.
+
+## Getting Started
+
+### First Time Setup
+
+1. **Fork the repository** on GitHub
+2. **Clone your fork** locally:
+
+```
+git clone https://github.com/YOUR_USERNAME/Cara.git
+cd Cara
+```
+
+## How Can I Contribute?
+
+### 🐛 Reporting Bugs
+
+Before creating bug reports, please check the existing issues to avoid duplicates. When you create a bug report, include as many details as possible:
+
+- **Use a clear and descriptive title**
+- **Describe the exact steps to reproduce the problem**
+- **Provide specific examples** to demonstrate the steps
+- **Describe the behavior you observed** after following the steps
+- **Explain which behavior you expected** to see instead and why
+- **Include screenshots and animated GIFs** if possible
+- **Include your environment details** (OS, browser, Node.js version)
+
+### ✨ Suggesting Enhancements
+
+Enhancement suggestions are tracked as GitHub issues. When creating an enhancement suggestion:
+
+- **Use a clear and descriptive title**
+- **Provide a step-by-step description** of the suggested enhancement
+- **Provide specific examples** to demonstrate the enhancement
+- **Describe the current behavior** and explain the improvement
+- **Explain why this enhancement would be useful**
+
+### 🔧 Code Contributions
+
+#### Good First Issues
+
+Look for issues labeled `good first issue` or `beginner-friendly`. These are specifically chosen to be approachable for newcomers.
+
+#### Areas We Need Help
+
+- **Frontend Components**: New UI components or improving existing ones
+- **Backend APIs**: New endpoints or optimizing existing ones
+- **Documentation**: Improving or adding documentation
+- **Testing**: Writing unit tests or integration tests
+- **Accessibility**: Making the app more accessible
+- **Performance**: Optimizing app performance
+- **Mobile Responsiveness**: Improving mobile experience
+
+## Development Setup
+
+### Development Workflow
+
+1. **Create a new branch** for your feature/fix:
+
+```
+git checkout -b feature/your-feature-name
+# or
+git checkout -b fix/your-bug-fix
+```
+
+2. **Make your changes** following our style guidelines
+
+3. **Test your changes** thoroughly
+
+4. **Commit your changes** using conventional commits:
+
+```
+git commit -m "feat: add feature"
+```
+
+5. **Push to your fork**:
+
+```
+git push origin feature/your-feature-name
+```
+
+6. **Create a Pull Request** on GitHub
+
+### Running Tests
+
+The frontend uses Vitest with a jsdom environment. Unit tests live in `tests/unit/` and are run by the CI (`ci-pipeline.yml`) on every pull request.
+
+- Run the full test suite:
+
+```
+npm test
+```
+
+- Run a single test file while developing:
+
+```
+npx vitest run tests/unit/cart-coupon.test.js
+```
+
+- Add a new test co-located with the module under test, e.g. `tests/unit/<module>.test.js`, using the existing `describe` / `it` / `expect` style with ES module imports.
+
+Backend tests use pytest and live in `backend/tests/`:
+
+```
+cd backend && python3 -m pytest tests/ -v --no-header
+```
+
+Make sure the frontend vitest suite passes before opening a pull request.
+
+### Frontend Test Conventions
+
+Follow these conventions when adding tests to `tests/unit/`:
+
+- **Framework**: Use Vitest with `describe` / `it` / `expect` (BDD style). No Jest globals.
+- **Imports**: Use ES module imports, e.g. `import { fn } from '../../js/<module>.js'`. For modules that expose themselves on `window` or via `module.exports`, load them with `await import('../../js/<module>.js')` after `vi.resetModules()`.
+- **Style**: Single quotes, 2-space indent, semicolons — matching the existing test files.
+- **Coverage**: Only add a test file for a module that does not already have one in `tests/unit/`; extend the existing file otherwise. Never delete or weaken an existing test.
+- **Timers**: Use `vi.useFakeTimers()` for `setTimeout` / `setInterval` logic and restore with `vi.useRealTimers()` in `afterEach`.
+- **DOM**: Set up fresh markup in `beforeEach` with `document.body.innerHTML = ...`; clear it in `afterEach` where state leaks between tests.
+- **Async**: Mock `globalThis.fetch` (or the module's fetch dependency) with `vi.fn()` and always resolve a shape matching the real API contract.
+- **Verification**: Run `npx vitest run tests/unit/<module>.test.js` while developing and the full `npm test` before pushing.
+
+## Pull Request Process
+
+### Before Submitting
+
+- [ ] Check that your code follows our style guidelines
+- [ ] Run the linter and fix any issues: `npm run lint`
+- [ ] Test your changes manually
+- [ ] Link any related issue or feature request
+- [ ] Update documentation if needed
+- [ ] Add or update tests if applicable
+
+### PR Requirements
+
+1. **Title**: Use a clear and descriptive title
+
+2. **Description**: Include:
+   - What changes you made and why
+   - Link to any related issues
+   - Screenshots/GIFs for UI changes
+   - Testing instructions
+
+3. **Checklist**: Complete the PR checklist template
+
+### Review Process
+
+1. At least one maintainer will review your PR
+2. Address any requested changes
+3. Once approved, a maintainer will merge your PR
+
+## Style Guidelines
+
+### Code Style
+
+#### JavaScript/
+
+#### CSS/Styling
+
+## Issue Guidelines
+
+### Bug Reports
+
+Use the bug report template and include:
+
+- **Environment**: OS, browser, Node.js version
+- **Steps to reproduce**: Clear, numbered steps
+- **Expected behavior**: What should happen
+- **Actual behavior**: What actually happens
+- **Screenshots**: If applicable
+
+### Feature Requests
+
+Use the feature request template and include:
+
+- **Problem description**: What problem does this solve?
+- **Proposed solution**: How should it work?
+- **Alternatives considered**: Other approaches you've thought of
+- **Additional context**: Any other relevant information
+
+## Recognition
+
+Contributors will be recognized in:
+
+- README.md contributors section
+- GitHub contributors page
+- Release notes for significant contributions
+
+## Questions?
+
+Feel free to ask questions by:
+
+- Creating a discussion on GitHub
+- Joining our Discord community
+- Reaching out to maintainers
+
+---
+
+Thank you for contributing to Cara! Together.
+
+---
+
+## Common Code Patterns
+
+### localStorage Usage
+
+Store and retrieve structured data with fallback defaults:
+
+```javascript
+// Read with fallback
+function loadData() {
+  try {
+    var stored = localStorage.getItem('my_key');
+    return stored ? JSON.parse(stored) : { default: true };
+  } catch (e) {
+    return { default: true };
+  }
+}
+
+// Write with error handling
+function saveData(data) {
+  try {
+    localStorage.setItem('my_key', JSON.stringify(data));
+  } catch (e) {
+    // Ignore in restricted environments (private browsing, quota exceeded)
+  }
+}
+```
+
+### DOM Testing with Vitest
+
+Mock DOM elements and test component behavior:
+
+```javascript
+import { describe, it, expect, beforeEach } from 'vitest';
+
+describe('my-module', () => {
+  beforeEach(() => {
+    document.body.innerHTML = '';
+    // Set up fresh DOM for each test
+    var container = document.createElement('div');
+    container.id = 'test-target';
+    document.body.appendChild(container);
+  });
+
+  it('does something with the DOM', () => {
+    var el = document.getElementById('test-target');
+    expect(el).not.toBeNull();
+  });
+});
+```
+
+### Module Export Conventions
+
+The codebase uses dual export patterns to support both browser and Node.js:
+
+```javascript
+// Browser: attach to window object
+(function () {
+  'use strict';
+  
+  function myFunction() { /* ... */ }
+  
+  window.MyModule = { myFunction: myFunction };
+})();
+
+// ES Module: named exports
+export function myFunction() { /* ... */ }
+
+// CommonJS / Node.js (for tests and scripts)
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = MyModule;
+}
+```
+
+### Event Listener Testing
+
+Test that event handlers update state or DOM correctly:
+
+```javascript
+it('updates state on button click', () => {
+  var clicked = false;
+  var btn = document.createElement('button');
+  btn.addEventListener('click', () => { clicked = true; });
+  
+  btn.click();
+  expect(clicked).toBe(true);
+});
+```
+
+### Async Function Testing with Fetch Mocks
+
+Mock globalThis.fetch to test API call handlers:
+
+```javascript
+import { describe, it, expect, beforeEach, vi } from 'vitest';
+
+it('calls API and returns parsed response', async () => {
+  globalThis.fetch = vi.fn(() =>
+    Promise.resolve({
+      ok: true,
+      json: () => Promise.resolve({ data: 'value' })
+    })
+  );
+  
+  var result = await someAsyncFunction();
+  expect(result.data).toBe('value');
+  expect(fetch).toHaveBeenCalledTimes(1);
+});
+```

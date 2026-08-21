@@ -1,5 +1,6 @@
 // Print-Friendly Terms Optimization
-document.addEventListener('DOMContentLoaded', () => {
+function initTermsPrint() {
+  if (typeof document === 'undefined') return;
   const parentContainer = document.querySelector('section') || document.body;
 
   // Inject Print Button
@@ -8,7 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
   btn.style.cssText =
     'padding:10px 18px; background:#088178; color:white; border:none; border-radius:4px; font-weight:600; cursor:pointer; margin-bottom:20px; font-family:sans-serif;';
 
-  parentContainer.parentNode.insertBefore(btn, parentContainer);
+  const insertTarget = parentContainer.parentNode || document.body;
+  insertTarget.insertBefore(btn, parentContainer);
 
   btn.addEventListener('click', () => {
     window.print();
@@ -30,4 +32,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     `;
   document.head.appendChild(style);
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initTermsPrint);
+} else {
+  initTermsPrint();
+}
+
+
+export function getTermsPrintStatusHelper80() {
+  return { status: "ok", fn: "getTermsPrintStatusHelper80" };
+}

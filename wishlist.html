@@ -1,9 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
 
         <script>
             document.body.setAttribute(
@@ -16,13 +17,13 @@
     
     <!-- Viewport for Responsive Design -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wishlist â€” Cara</title>
+    <title>Wishlist — Cara</title>
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="ui-fix.css" />
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <link rel="stylesheet" href="toast-queue.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" integrity="sha384-L/vw44MdBs/7hovWr2rBVSRKqdti4Vw077yuSGQ2PO3tQARRLiLuMh8xhVmVrR0I" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous" />
 
     <style>
         :root {
@@ -481,6 +482,7 @@
     }
   </script>
   <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
+    <script type="module" src="js/config.js"></script>
 </head>
 
 <body>
@@ -501,17 +503,19 @@
             </div>
         </div>
     </header>
-
-    <main>
+<main id="main-content">
         <div class="wishlist-container" id="wishlistContainer" aria-live="polite"></div>
     </main>
 
-    <script src="products.js"></script>
+    <script type="module" src="products.js"></script>
 
     <!-- Wishlist Sharing Utility -->
-    <div style="max-width: 1200px; margin: 20px auto; padding: 0 20px; text-align: center;">
+    <div style="max-width: 1200px; margin: 20px auto; padding: 0 20px; text-align: center; display: flex; justify-content: center; gap: 10px;">
       <button onclick="shareWishlist()" style="background: #088178; color: #fff; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 16px;">
         <i class="ri-share-line"></i> Copy Shareable Wishlist Link
+      </button>
+      <button onclick="exportWishlist()" style="background: #088178; color: #fff; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 16px;">
+        <i class="ri-download-line"></i> Export Wishlist
       </button>
     </div>
     <script>
@@ -522,6 +526,32 @@
       navigator.clipboard.writeText(shareUrl).then(() => {
         alert("Wishlist sharing link copied to clipboard!");
       });
+    }
+
+    async function exportWishlist() {
+      try {
+        const items = localStorage.getItem("wishlist") || "[]";
+        
+        if (window.showSaveFilePicker) {
+          const handle = await window.showSaveFilePicker({
+            suggestedName: 'cara-wishlist.json',
+            types: [{
+              description: 'JSON Files',
+              accept: { 'application/json': ['.json'] },
+            }],
+          });
+          const writable = await handle.createWritable();
+          await writable.write(items);
+          await writable.close();
+        } else {
+          alert("File System Access API is not supported in this browser.");
+        }
+      } catch (err) {
+        if (err.name !== 'AbortError') {
+          console.error('Failed to export wishlist:', err);
+          alert("Failed to export wishlist.");
+        }
+      }
     }
     </script>
     <!-- Global Toast Component -->
@@ -545,12 +575,12 @@
         function parsePriceString(priceStr) {
             if (typeof priceStr === 'number') return Number.isFinite(priceStr) ? priceStr : 0;
             if (!priceStr) return 0;
-            return parseFloat(String(priceStr).replace(/[â‚¹$\s,]/g, '')) || 0;
+            return parseFloat(String(priceStr).replace(/[₹$\s,]/g, '')) || 0;
         }
 
         function formatRupee(amount) {
             const value = parsePriceString(amount);
-            return 'â‚¹' + Math.round(value).toLocaleString('en-IN');
+            return '₹' + Math.round(value).toLocaleString('en-IN');
         }
 
         function hasPriceDropped(item) {
@@ -566,7 +596,7 @@
         }
 
         function normalizeWishlistItem(item) {
-            const rawPrice = item.price || 'â‚¹0';
+            const rawPrice = item.price || '₹0';
             const currentPrice = typeof item.currentPrice === 'number'
                 ? item.currentPrice
                 : parsePriceString(rawPrice);
@@ -591,7 +621,16 @@
             }
 
             const items = parseStoredList("wishlist");
-            return Array.isArray(items) ? items.map(normalizeWishlistItem) : [];
+            const normalized = Array.isArray(items) ? items.map(normalizeWishlistItem) : [];
+            const uniqueItems = [];
+            const seenNames = new Set();
+            for (const item of normalized) {
+                if (!seenNames.has(item.name)) {
+                    seenNames.add(item.name);
+                    uniqueItems.push(item);
+                }
+            }
+            return uniqueItems;
         }
 
         function saveWishlistItems(items) {
@@ -599,7 +638,17 @@
                 return window.saveWishlist(items);
             }
 
-            localStorage.setItem("wishlist", JSON.stringify(items.map(normalizeWishlistItem)));
+            const uniqueItems = [];
+            const seenNames = new Set();
+            for (const item of items) {
+                const normalized = normalizeWishlistItem(item);
+                if (!seenNames.has(normalized.name)) {
+                    seenNames.add(normalized.name);
+                    uniqueItems.push(normalized);
+                }
+            }
+
+            localStorage.setItem("wishlist", JSON.stringify(uniqueItems));
             if (typeof window.updateWishlistCount === 'function') window.updateWishlistCount();
         }
 
@@ -739,7 +788,8 @@
         renderWishlist();
     </script>
 
-<script src="js/wishlist-notes.js" defer></script>
+<script src="js/wishlist-notes-tag-manager.js" defer></script>
+</main>
 </body>
 </html>
 

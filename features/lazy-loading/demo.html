@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Lazy Loading - Cara Premium Component</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="demo-wrapper">
+    <header class="demo-header">
+      <div class="logo"><i class="fa-solid fa-images"></i> CARA</div>
+      <h1 class="demo-title">Image Lazy Loading</h1>
+      <p class="demo-subtitle">Interactive Premium E-Commerce Component Demo</p>
+    </header>
+    
+    <main class="demo-content">
+      <div class="lazy-container">
+        <h3>Scroll down to load image</h3>
+        <div style="height:400px; border:1px dashed var(--glass-border); border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:20px;">
+          Scroll container placeholder
+        </div>
+        <img data-src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400" alt="Shoes" class="lazy-image" id="lazyImage">
+      </div>
+    </main>
+    
+    <footer class="demo-footer">
+      <p>Cara Premium Component Suite &copy; 2026</p>
+    </footer>
+  </div>
+  <script src="index.js"></script>
+</body>
+</html>

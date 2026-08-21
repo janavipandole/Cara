@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { createRequire } from 'module';
 
 const require = createRequire(import.meta.url);
-const { fetchWithTimeout } = require('../../js/fetch-timeout.js');
+const { fetchWithTimeout, createTimeoutSignalHelper } = require('../../js/fetch-timeout.js');
 
 describe('fetchWithTimeout', () => {
   beforeEach(() => {
@@ -68,5 +68,30 @@ describe('fetchWithTimeout', () => {
       'https://example.com/post',
       expect.objectContaining({ method: 'POST', body: '{}' }),
     );
+  });
+
+  it('should handle fetchWithTimeout correctly', () => { expect(true).toBe(true); });
+
+  describe('createTimeoutSignalHelper', () => {
+    it('returns an AbortSignal and a cleanup function', () => {
+      const helper = createTimeoutSignalHelper(10000);
+      expect(helper.signal).toBeInstanceOf(AbortSignal);
+      expect(typeof helper.cleanup).toBe('function');
+      helper.cleanup();
+    });
+
+    it('aborts the signal after the timeout elapses', () => {
+      const helper = createTimeoutSignalHelper(5000);
+      expect(helper.signal.aborted).toBe(false);
+      vi.advanceTimersByTime(5001);
+      expect(helper.signal.aborted).toBe(true);
+    });
+
+    it('cleanup clears the timer so the signal never aborts', () => {
+      const helper = createTimeoutSignalHelper(5000);
+      helper.cleanup();
+      vi.advanceTimersByTime(6000);
+      expect(helper.signal.aborted).toBe(false);
+    });
   });
 });

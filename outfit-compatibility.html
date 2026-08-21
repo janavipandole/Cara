@@ -1,7 +1,6 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
   <!-- Character encoding -->
   <meta charset="UTF-8" />
 
@@ -12,8 +11,8 @@
   <title>Outfit Compatibility Checker | Cara</title>
 
   <!-- Stylesheets -->
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" integrity="sha384-6FSSi597BTd6QcnsBNoLclRKxTOyyYqkaucRjFgCNr8wHVCp0COLClSPY4Vy/bjh" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha384-/o6I2CkkWC//PSjvWC/eYN7l3xM3tJm8ZzVkCOfp//W05QcE3mlGskpoHB6XqI+B" crossorigin="anonymous" />
   <link rel="stylesheet" href="style.css" />
   <style>
     .compat-page { 
@@ -268,23 +267,24 @@
     }
   </script>
   <meta name="description" content="Cara - The best ecommerce store for modern fashion and clothing.">
+    <script type="module" src="js/config.js"></script>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
   <!-- Header Section -->
   <header>
     <div id="header">
-      <a href="index.html" style="flex-shrink:0;">
-        <img id="siteLogo" loading="lazy" src="images/logo.png" alt="Cara Logo" style="height:50px;min-width:120px;object-fit:contain;" />
+      <a href="index.html" style="flex-shrink:0;" aria-label="Cara Home"><img id="siteLogo" loading="lazy" src="images/Dlogo.png" alt="Cara Logo" style="height:50px;min-width:120px;object-fit:contain;" />
       </a>
       <div id="navbar-container"></div>
       <a aria-label="Cart" href="cart.html"><i class="ri-shopping-bag-4-line"></i></a>
     </div>
   </header>
-
-  <main class="compat-page">
+<main id="main-content">
     <div class="compat-hero">
       <h1><i class="ri-t-shirt-line" style="color:#6366f1;"></i> Outfit Compatibility Checker</h1>
-      <p>Check if your top and bottom pieces work together â€” colour harmony, style matching, and occasion suitability all in one click.</p>
+      <p>Check if your top and bottom pieces work together — colour harmony, style matching, and occasion suitability all in one click.</p>
     </div>
 
     <div class="compat-card">
@@ -297,7 +297,7 @@
             <input type="text" id="top-item" placeholder="e.g. white dress shirt, blue hoodie" required />
             <label class="field-label" for="top-color">Colour</label>
             <div class="color-row">
-              <select id="top-color" class="compat-select">
+              <select id="top-color" class="compat-select" aria-label="Select top-color">
                 <option value="white">White</option>
                 <option value="black">Black</option>
                 <option value="grey">Grey</option>
@@ -321,7 +321,7 @@
             <input type="text" id="bottom-item" placeholder="e.g. black jeans, khaki chinos" required />
             <label class="field-label" for="bottom-color">Colour</label>
             <div class="color-row">
-              <select id="bottom-color" class="compat-select">
+              <select id="bottom-color" class="compat-select" aria-label="Select bottom-color">
                 <option value="white">White</option>
                 <option value="black" selected>Black</option>
                 <option value="grey">Grey</option>
@@ -344,7 +344,7 @@
         <div class="occasion-row">
           <p class="section-label">Occasion</p>
           <label for="occasion">Where are you wearing this?</label>
-          <select id="occasion" class="compat-select">
+          <select id="occasion" class="compat-select" aria-label="Select occasion">
             <option value="Any">Any / Not sure</option>
             <option value="Casual Day Out">Casual Day Out</option>
             <option value="Office / Work">Office / Work</option>
@@ -371,7 +371,7 @@
 
     <div class="info-banner">
       <i class="ri-information-line"></i>
-      <span>This tool analyses colour harmony and style cohesion based on widely accepted fashion principles. Results are suggestions â€” personal style always wins!</span>
+      <span>This tool analyses colour harmony and style cohesion based on widely accepted fashion principles. Results are suggestions — personal style always wins!</span>
     </div>
   </main>
 
@@ -379,9 +379,10 @@
     <p>&copy; 2025 Cara. All Rights Reserved.</p>
   </footer>
 
-  <script src="navbar.js"></script>
+  <script type="module" src="navbar.js"></script>
   <script>loadNavbar('outfit');</script>
   <script src="app.js"></script>
   <script src="outfit-compatibility.js"></script>
+</main>
 </body>
 </html>

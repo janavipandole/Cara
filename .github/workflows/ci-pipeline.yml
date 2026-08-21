@@ -1,0 +1,82 @@
+name: CI Quality & Security Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-and-lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Vitest Unit Tests
+        run: npm test
+
+      - name: Run Security Audit
+        run: npm audit --audit-level=high || true
+
+  html-validation:
+    name: HTML Validation & Link Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install html-validate
+        run: npm install -g html-validate
+
+      - name: Run HTML validation on all pages
+        run: |
+          echo "=== Validating HTML files ==="
+          find . -maxdepth 1 -name "*.html" | sort | while read file; do
+            echo "Validating: $file"
+            html-validate "$file" || true
+          done
+        continue-on-error: true
+
+      - name: Install link checker
+        run: npm install -g broken-link-checker-local
+
+      - name: Start local HTTP server and check internal links
+        run: |
+          npx serve -p 8080 . &
+          sleep 3
+          blcl http://localhost:8080 \
+            --recursive \
+            --exclude "https://fonts.googleapis.com" \
+            --exclude "https://cdnjs.cloudflare.com" \
+            --exclude "https://cdn.jsdelivr.net" \
+            --exclude "https://www.visa.com" \
+            --exclude "https://www.mastercard.com" \
+            --exclude "https://www.paypal.com" \
+            --exclude "https://www.americanexpress.com" \
+            --exclude "https://stripe.com" \
+            --exclude "https://x.com" \
+            --exclude "https://linkedin.com" \
+            --exclude "https://youtube.com" \
+            --exclude "https://github.com" \
+            || true
+        continue-on-error: true

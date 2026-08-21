@@ -1,0 +1,1 @@
+# Enhancement: Implement an "Animated Add to Cart" Flying Image Effect\n\nThis is a placeholder for the implementation of Enhancement: Implement an "Animated Add to Cart" Flying Image Effect.
