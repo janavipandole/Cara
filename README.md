@@ -254,7 +254,7 @@ Cart -
 - [x] **User Authentication** - Login and registration
 - [x] **Product Filters** - Filter by category, price, rating
 - [x] **Wishlist** - Save favorite products
-- [ ] **Product Reviews** - Customer ratings and reviews
+- [x] **Product Reviews** - Customer ratings and reviews
 - [x] **Order Tracking** - Track order status
 - [x] **Dark Mode** - Theme toggle functionality
 - [ ] **Multi-language Support** - Internationalization
