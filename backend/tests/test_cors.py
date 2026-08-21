@@ -25,9 +25,12 @@ def test_default_cors_includes_live_demo(reload_main, monkeypatch):
     monkeypatch.delenv("CORS_ORIGINS", raising=False)
     main = reload_main(CORS_ORIGINS=None)
     origins = main._cors_allow_origins()
-    assert "https://cara-seven-ashen.vercel.app" in origins
-    assert "https://cara-janavipandoles-projects.vercel.app" in origins
-    assert "http://localhost:5500" in origins
+    assert isinstance(origins, list)
+    assert {
+        "https://cara-seven-ashen.vercel.app",
+        "https://cara-janavipandoles-projects.vercel.app",
+        "http://localhost:5500",
+    }.issubset(set(origins))
 
 
 def test_cors_origins_env_override(reload_main):

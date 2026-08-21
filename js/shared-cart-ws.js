@@ -25,8 +25,24 @@
       .replace(/"/g, '&quot;');
   }
 
+  function _secureRandomString(length = 12) {
+    const charset = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    const arr = new Uint8Array(length);
+    if (typeof crypto !== 'undefined' && typeof crypto.getRandomValues === 'function') {
+      crypto.getRandomValues(arr);
+      return Array.from(arr, (n) => charset[n % charset.length]).join('');
+    }
+    const stamp = Date.now().toString(36);
+    return (stamp + '000000000000').slice(0, length);
+  }
+
+  function _safeBadgeColor(input) {
+    const color = String(input || '').trim();
+    return /^#[0-9a-fA-F]{6}$/.test(color) ? color : '#088178';
+  }
+
   function generateSessionId() {
-    return 'room_' + Math.random().toString(36).substring(2, 9);
+    return 'room_' + _secureRandomString(7);
   }
 
   function getQuerySessionId() {
@@ -39,9 +55,9 @@
     constructor(options = {}) {
       this.sessionId = options.sessionId || getQuerySessionId() || null;
       this.wsUrl = options.wsUrl || this.buildWsUrl(this.sessionId);
-      this.userId = options.userId || 'user_' + Math.random().toString(36).substring(2, 7);
+      this.userId = options.userId || 'user_' + _secureRandomString(5);
       this.userName = options.userName || 'Shopper ' + this.userId.slice(-3);
-      this.userColor = options.userColor || '#' + Math.floor(Math.random() * 16777215).toString(16);
+      this.userColor = options.userColor || _safeBadgeColor('#' + _secureRandomString(6));
       this.ws = null;
       this.activeUsers = [];
       this.onMessageCallback = options.onMessage || null;
@@ -147,29 +163,44 @@
       const el = typeof containerSelector === 'string' ? document.querySelector(containerSelector) : containerSelector;
       if (!el) return;
 
-      const avatars = this.activeUsers
-        .map(
-          (u) => `
-          <div class="user-avatar-badge" style="background: ${u.color || '#088178'}; color: white; width: 32px; height: 32px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; border: 2px solid white; margin-left: -8px;" title="${_wsEscape(u.name)}">
-            ${(_wsEscape(u.name) || 'S').charAt(0).toUpperCase()}
-          </div>
-        `
-        )
-        .join('');
+      const box = document.createElement('div');
+      box.className = 'shared-cart-presence-box';
+      box.style.cssText = 'display:flex;align-items:center;gap:10px;padding:10px;background:rgba(8,129,120,0.08);border-radius:10px;margin-bottom:15px;';
 
-      el.innerHTML = `
-        <div class="shared-cart-presence-box" style="display: flex; align-items: center; gap: 10px; padding: 10px; background: rgba(8,129,120,0.08); border-radius: 10px; margin-bottom: 15px;">
-          <div style="display: flex; margin-left: 8px;">${avatars || '<span style="font-size:13px;">No other shoppers</span>'}</div>
-          <span style="font-size: 13px; font-weight: 600; color: var(--text-primary);">
-            ${this.activeUsers.length} Active Collaborator${this.activeUsers.length === 1 ? '' : 's'}
-          </span>
-          <button type="button" class="copy-session-link-btn" style="margin-left: auto; background: var(--accent); color: white; border: none; padding: 6px 12px; border-radius: 20px; font-size: 12px; cursor: pointer;">
-            Invite Friends
-          </button>
-        </div>
-      `;
+      const avatarsWrap = document.createElement('div');
+      avatarsWrap.style.cssText = 'display:flex;margin-left:8px;';
+      if (!Array.isArray(this.activeUsers) || this.activeUsers.length === 0) {
+        const empty = document.createElement('span');
+        empty.style.fontSize = '13px';
+        empty.textContent = 'No other shoppers';
+        avatarsWrap.appendChild(empty);
+      } else {
+        this.activeUsers.forEach((u) => {
+          const safeName = String(u && u.name ? u.name : '');
+          const badge = document.createElement('div');
+          badge.className = 'user-avatar-badge';
+          badge.style.cssText = `background:${_safeBadgeColor(u && u.color)};color:white;width:32px;height:32px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border:2px solid white;margin-left:-8px;`;
+          badge.title = safeName;
+          badge.textContent = (safeName || 'S').charAt(0).toUpperCase();
+          avatarsWrap.appendChild(badge);
+        });
+      }
+      box.appendChild(avatarsWrap);
 
-      const copyBtn = el.querySelector('.copy-session-link-btn');
+      const status = document.createElement('span');
+      status.style.cssText = 'font-size:13px;font-weight:600;color:var(--text-primary);';
+      status.textContent = `${this.activeUsers.length} Active Collaborator${this.activeUsers.length === 1 ? '' : 's'}`;
+      box.appendChild(status);
+
+      const copyBtn = document.createElement('button');
+      copyBtn.type = 'button';
+      copyBtn.className = 'copy-session-link-btn';
+      copyBtn.style.cssText = 'margin-left:auto;background:var(--accent);color:white;border:none;padding:6px 12px;border-radius:20px;font-size:12px;cursor:pointer;';
+      copyBtn.textContent = 'Invite Friends';
+      box.appendChild(copyBtn);
+
+      el.replaceChildren(box);
+
       if (copyBtn) {
         copyBtn.addEventListener('click', () => {
           if (navigator.clipboard) {

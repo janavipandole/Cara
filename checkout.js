@@ -504,8 +504,7 @@ function submitCheckoutForm() {
         submitBtn.disabled = false;
         submitBtn.style.opacity = '';
         submitBtn.style.cursor = '';
-        submitBtn.innerHTML =
-          submitBtn.getAttribute('data-original-html') || 'Place Order';
+        submitBtn.textContent = submitBtn.getAttribute('data-original-label') || 'Place Order';
       }
 
       releaseWakeLock();
@@ -571,6 +570,21 @@ function parsePriceString(priceStr) {
   return isFinite(num) ? num : 0;
 }
 
+function escapeHtml(value) {
+  return String(value == null ? '' : value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function sanitizeImageUrl(url) {
+  const str = String(url || '').trim();
+  if (/^(https?:\/\/|\/|\.\/|\.\.\/|images\/)/i.test(str)) return str;
+  return 'images/products/placeholder.jpg';
+}
+
 function formatCurrency(amount) {
   const num = typeof amount === 'number' ? amount : parsePriceString(amount);
   if (!isFinite(num)) return '₹0';
@@ -584,31 +598,56 @@ function renderCheckoutItems() {
   if (!container) return;
 
   const cart = safeParseJSON('productsInCart');
+  container.innerHTML = '';
   if (cart.length === 0) {
-    container.innerHTML =
-      '<p style="font-size:14px; color:#555; text-align:center;">Your cart is empty.</p>';
+    const empty = document.createElement('p');
+    empty.style.cssText = 'font-size:14px; color:#555; text-align:center;';
+    empty.textContent = 'Your cart is empty.';
+    container.appendChild(empty);
     return;
   }
 
-  container.innerHTML = cart
-    .map((item) => {
-      const itemPrice = parsePriceString(item.price);
-      const itemQty = parseInt(item.quantity, 10) || 1;
-      const sizeStr = item.size ? `Size ${item.size}` : 'Standard';
-      return `
-      <div class="order-item" style="display: flex; gap: 15px; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 12px;">
-        <div class="item-thumb" style="width: 50px; height: 50px; border-radius: 6px; overflow: hidden; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; background: #fff;">
-          <img src="${item.image || item.img || 'images/products/placeholder.jpg'}" alt="${item.name}" style="max-width: 100%; max-height: 100%; object-fit: cover;" onerror="this.src='images/products/placeholder.jpg'">
-        </div>
-        <div class="item-info" style="flex: 1;">
-          <div class="item-name" style="font-weight: 600; font-size: 14px; color: var(--color-heading);">${item.name}</div>
-          <div class="item-meta" style="font-size: 12px; color: #777;">${sizeStr} · Qty ${itemQty}</div>
-        </div>
-        <span class="item-price-col" style="font-weight: 600; font-size: 14px; color: #088178;">${formatCurrency(itemPrice * itemQty * 100)}</span>
-      </div>
-    `;
-    })
-    .join('');
+  cart.forEach((item) => {
+    const itemPrice = parsePriceString(item.price);
+    const itemQty = parseInt(item.quantity, 10) || 1;
+    const sizeStr = item.size ? `Size ${item.size}` : 'Standard';
+    const safeImage = sanitizeImageUrl(item.image || item.img || 'images/products/placeholder.jpg');
+
+    const row = document.createElement('div');
+    row.className = 'order-item';
+    row.style.cssText = 'display:flex;gap:15px;align-items:center;border-bottom:1px solid var(--border);padding-bottom:12px;margin-bottom:12px;';
+
+    const thumb = document.createElement('div');
+    thumb.className = 'item-thumb';
+    thumb.style.cssText = 'width:50px;height:50px;border-radius:6px;overflow:hidden;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;background:#fff;';
+    const img = document.createElement('img');
+    img.src = safeImage;
+    img.alt = item.name || 'Product';
+    img.style.cssText = 'max-width:100%;max-height:100%;object-fit:cover;';
+    img.onerror = function () { this.src = 'images/products/placeholder.jpg'; };
+    thumb.appendChild(img);
+
+    const info = document.createElement('div');
+    info.className = 'item-info';
+    info.style.flex = '1';
+    const nameEl = document.createElement('div');
+    nameEl.className = 'item-name';
+    nameEl.style.cssText = 'font-weight:600;font-size:14px;color:var(--color-heading);';
+    nameEl.textContent = item.name || 'Product';
+    const metaEl = document.createElement('div');
+    metaEl.className = 'item-meta';
+    metaEl.style.cssText = 'font-size:12px;color:#777;';
+    metaEl.textContent = `${sizeStr} · Qty ${itemQty}`;
+    info.append(nameEl, metaEl);
+
+    const priceCol = document.createElement('span');
+    priceCol.className = 'item-price-col';
+    priceCol.style.cssText = 'font-weight:600;font-size:14px;color:#088178;';
+    priceCol.textContent = formatCurrency(itemPrice * itemQty * 100);
+
+    row.append(thumb, info, priceCol);
+    container.appendChild(row);
+  });
 }
 
 window.updateCheckoutSummary = function () {
@@ -681,11 +720,20 @@ window.updateCheckoutSummary = function () {
       const grandRow = document.querySelector('.total-row.grand');
       if (grandRow) grandRow.parentNode.insertBefore(couponRow, grandRow);
     }
-    couponRow.innerHTML = `
-      <span>Discount (${couponCode}) <button type="button" class="btn-remove-coupon" id="btnRemoveCoupon" aria-label="Remove coupon" style="background:none; border:none; color:#ef4444; cursor:pointer; font-weight:bold; font-size:16px; margin-left:5px; padding:0;">×</button></span>
-      <span>-${formatCurrency(couponDiscountCents)}</span>
-    `;
-    const removeBtn = document.getElementById('btnRemoveCoupon');
+    couponRow.innerHTML = '';
+    const labelSpan = document.createElement('span');
+    labelSpan.appendChild(document.createTextNode(`Discount (${couponCode}) `));
+    const removeBtn = document.createElement('button');
+    removeBtn.type = 'button';
+    removeBtn.className = 'btn-remove-coupon';
+    removeBtn.id = 'btnRemoveCoupon';
+    removeBtn.setAttribute('aria-label', 'Remove coupon');
+    removeBtn.style.cssText = 'background:none; border:none; color:#ef4444; cursor:pointer; font-weight:bold; font-size:16px; margin-left:5px; padding:0;';
+    removeBtn.textContent = '×';
+    labelSpan.appendChild(removeBtn);
+    const amountSpan = document.createElement('span');
+    amountSpan.textContent = `-${formatCurrency(couponDiscountCents)}`;
+    couponRow.append(labelSpan, amountSpan);
     if (removeBtn) {
       removeBtn.onclick = function () {
         if (typeof window.removeCoupon === 'function') {
