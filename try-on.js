@@ -123,7 +123,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // MODE SWITCHING (Camera / Upload)
   // ============================================
   function switchMode(mode) {
-
     document
       .getElementById('btn-camera')
       .classList.toggle('active', mode === 'camera');
@@ -384,7 +383,6 @@ document.addEventListener('DOMContentLoaded', () => {
     img.crossOrigin = 'anonymous';
     img.src = element.src;
     img.onload = () => {
-
       cleanedGarmentCanvas = removeGarmentBackground(img);
       checkReady();
     };
@@ -473,7 +471,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const rShoulder = landmarks[12];
     const lHip = landmarks[23];
     const rHip = landmarks[24];
-
 
     // Pixel distances
     const shoulderWidth = Math.sqrt(
@@ -656,11 +653,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ============================================
   // GARMENT OVERLAY RENDERING
-  // ==========================================// ---- Interactive Garment Adjustment State ----
+  // ============================================
+
+  // ---- Interactive Garment Adjustment State ----
   let garmentScale = 1.0;
   let garmentOffsetY = 0.0;
   let garmentOpacity = 0.9;
-
 
   // Dynamically inject Adjustment Sliders panel into the controls sidebar
   (function injectAdjustmentSliders() {

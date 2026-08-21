@@ -155,6 +155,7 @@ if (form) {
 
 // ── Set loading state on button ───────────────────────────
 function setLoading(isLoading) {
+  if (!trackBtn) return;
   if (isLoading) {
     trackBtn.classList.add('loading');
     trackBtn.disabled = true;
