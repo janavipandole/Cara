@@ -58,11 +58,27 @@ describe('InteractiveProductComparator Unit Tests', () => {
     expect(diffs).not.toContain('brand');
   });
 
-  it('should check if additional items can be added to product comparator', () => { expect(true).toBe(true); });
+  it('should check if additional items can be added to product comparator', () => {
+    expect(canAddMoreComparatorItems(0)).toBe(true);
+    expect(canAddMoreComparatorItems(3)).toBe(true);
+    expect(canAddMoreComparatorItems(4)).toBe(false);
+    expect(canAddMoreComparatorItems(5)).toBe(false);
+  });
 });
 
 describe('canAddMoreComparatorItems', () => {
   it('is exported as a callable function', () => {
     expect(typeof canAddMoreComparatorItems).toBe('function');
+  });
+
+  it('returns false for non-number counts', () => {
+    expect(canAddMoreComparatorItems('2')).toBe(false);
+    expect(canAddMoreComparatorItems(null)).toBe(false);
+    expect(canAddMoreComparatorItems(undefined)).toBe(false);
+  });
+
+  it('respects a custom maximum slot count', () => {
+    expect(canAddMoreComparatorItems(2, 3)).toBe(true);
+    expect(canAddMoreComparatorItems(3, 3)).toBe(false);
   });
 });
