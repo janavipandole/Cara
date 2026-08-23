@@ -1,0 +1,1 @@
+# Enhancement: Create a "Sticky Add to Cart" Bar on Scroll\n\nThis is a placeholder for the implementation of Enhancement: Create a "Sticky Add to Cart" Bar on Scroll.
