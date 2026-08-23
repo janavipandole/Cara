@@ -1,0 +1,1 @@
+# Feature: Add a Mobile "Bottom Navigation Bar"\n\nThis is a placeholder for the implementation of Feature: Add a Mobile "Bottom Navigation Bar".
