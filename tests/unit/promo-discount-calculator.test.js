@@ -34,12 +34,9 @@ describe('PromoDiscountCalculator Unit Tests', () => {
     expect(summary.grandTotal).toBe(90);
   });
 
-  it('should calculate flat discount correctly', () => {
-    const summary = calc.calculateTotal(50, 'FLAT15', 10);
-    expect(summary.subtotal).toBe(50);
-    expect(summary.discount).toBe(15);
-    expect(summary.shipping).toBe(10);
-    expect(summary.grandTotal).toBe(45);
+  it('should reject coupon codes the backend does not support', () => {
+    expect(calc.validateCoupon('FLAT15', 50).valid).toBe(false);
+    expect(calc.validateCoupon('FREESHIP', 50).valid).toBe(false);
   });
 
   it('should cap discount to maxCap threshold', () => {
