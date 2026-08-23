@@ -70,7 +70,20 @@ describe('fetchWithTimeout', () => {
     );
   });
 
-  it('should handle fetchWithTimeout correctly', () => { expect(true).toBe(true); });
+  it('should handle fetchWithTimeout correctly', async () => {
+    const mockFetch = vi
+      .fn()
+      .mockResolvedValue(new Response('ok', { status: 200 }));
+    vi.stubGlobal('fetch', mockFetch);
+
+    const result = await fetchWithTimeout('https://example.com/default');
+    expect(result.status).toBe(200);
+    // Credentials default to include.
+    const opts = mockFetch.mock.calls[0][1];
+    expect(opts.credentials).toBe('include');
+    // The signal option is always attached.
+    expect(opts.signal).toBeInstanceOf(AbortSignal);
+  });
 
   describe('createTimeoutSignalHelper', () => {
     it('returns an AbortSignal and a cleanup function', () => {
