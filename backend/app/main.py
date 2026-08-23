@@ -78,8 +78,9 @@ async def security_headers(request, call_next):
         "max-age=31536000; includeSubDomains"
     )
 
-    # Modern browser protections
+    # Modern browser protections – Spectre mitigation
     response.headers["Cross-Origin-Opener-Policy"] = "same-origin"
+    response.headers["Cross-Origin-Embedder-Policy"] = "require-corp"
     response.headers["Cross-Origin-Resource-Policy"] = "cross-origin"
 
     return response
