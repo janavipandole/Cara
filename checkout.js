@@ -652,63 +652,72 @@ function renderCheckoutItems() {
 
 window.updateCheckoutSummary = function () {
   const cart = safeParseJSON('productsInCart');
-  // All financial calculations use integer cents (paise) to avoid floating-point rounding errors.
-  // parsePriceString returns rupees (float); multiply by 100 and round to get integer paise.
+  const couponCode = localStorage.getItem('appliedCoupon') || '';
+  const COUPONS = window.CARA_COUPONS || {};
+  const couponPct = COUPONS[couponCode] || 0;
+  const hasUrgency =
+    !window.urgencyTimerExpired &&
+    document.getElementById('checkout-promo-alert-bar');
+  const hasGiftWrap = document.getElementById('gift-wrap-opt')?.checked;
+  const loyaltyPoints =
+    parseInt(localStorage.getItem('cara_applied_loyalty_points'), 10) || 0;
+
+  const workerPayload = {
+    cart,
+    couponCode,
+    couponPct,
+    hasUrgency: !!hasUrgency,
+    urgencyPct: window.CARA_CONFIG ? window.CARA_CONFIG.URGENCY_DISCOUNT_PCT : 0.05,
+    hasGiftWrap: !!hasGiftWrap,
+    giftCharge: window.CARA_CONFIG ? window.CARA_CONFIG.GIFT_WRAP_CHARGE : 99,
+    taxRate: window.CARA_CONFIG ? window.CARA_CONFIG.TAX_RATE : 0.18,
+    loyaltyPoints,
+    pointsPerRupee: window.CARA_CONFIG ? window.CARA_CONFIG.LOYALTY.POINTS_PER_RUPEE : 10,
+  };
+
+  const bgWorker = window.BackgroundWorker && window.BackgroundWorker.getInstance();
+  if (bgWorker) {
+    bgWorker
+      .post('CALCULATE_CHECKOUT_SUMMARY', workerPayload, 3000)
+      .then((result) => _applyCheckoutSummary(result, workerPayload))
+      .catch(() => _applyCheckoutSummary(_calculateCheckoutSummarySync(workerPayload), workerPayload));
+  } else {
+    _applyCheckoutSummary(_calculateCheckoutSummarySync(workerPayload), workerPayload);
+  }
+};
+
+function _calculateCheckoutSummarySync({ cart, couponCode, couponPct, hasUrgency, urgencyPct, hasGiftWrap, giftCharge, taxRate, loyaltyPoints, pointsPerRupee }) {
   const subtotalCents = cart.reduce(
     (sum, item) =>
       sum + Math.round(parsePriceString(item.price) * 100) * (parseInt(item.quantity, 10) || 1),
     0,
   );
   const subtotal = subtotalCents / 100;
-
-  // Check coupon discount
-  const couponCode = localStorage.getItem('appliedCoupon') || '';
-  const COUPONS = window.CARA_COUPONS || {};
-  const couponPct = COUPONS[couponCode] || 0;
   const couponDiscountCents = Math.round(subtotalCents * couponPct / 100);
-
-  // Check urgency discount if the timer is running
-  const hasUrgency =
-    !window.urgencyTimerExpired &&
-    document.getElementById('checkout-promo-alert-bar');
-  const urgencyDiscount = hasUrgency ? subtotal * (window.CARA_CONFIG ? window.CARA_CONFIG.URGENCY_DISCOUNT_PCT : 0.05) : 0;
-
-  // Check gift wrap
-  const hasGiftWrap = document.getElementById('gift-wrap-opt')?.checked;
-  const giftCharge = hasGiftWrap ? (window.CARA_CONFIG ? window.CARA_CONFIG.GIFT_WRAP_CHARGE : 99) : 0;
-
-  // Calculate tax
-  const tax = subtotal * (window.CARA_CONFIG ? window.CARA_CONFIG.TAX_RATE : 0.18);
-
-  // Check loyalty points discount
-  const loyaltyPoints =
-    parseInt(localStorage.getItem('cara_applied_loyalty_points'), 10) || 0;
-  const loyaltyDiscount = loyaltyPoints / (window.CARA_CONFIG ? window.CARA_CONFIG.LOYALTY.POINTS_PER_RUPEE : 10);
-
-  const taxCents = Math.round(subtotalCents * (window.CARA_CONFIG ? window.CARA_CONFIG.TAX_RATE : 0.18));
-  const giftChargeCents = Math.round(giftCharge * 100);
+  const urgencyDiscount = hasUrgency ? subtotal * urgencyPct : 0;
   const urgencyDiscountCents = Math.round(urgencyDiscount * 100);
+  const giftChargeCents = hasGiftWrap ? Math.round(giftCharge * 100) : 0;
+  const taxCents = Math.round(subtotalCents * taxRate);
+  const loyaltyDiscount = loyaltyPoints / pointsPerRupee;
   const loyaltyDiscountCents = Math.round(loyaltyDiscount * 100);
+  const grandTotalCents = Math.max(0, subtotalCents + taxCents + giftChargeCents - couponDiscountCents - urgencyDiscountCents - loyaltyDiscountCents);
 
-  // Grand Total in cents (integer, safe for Stripe)
-  const grandTotalCents = Math.max(
-    0,
-    subtotalCents +
-      taxCents +
-      giftChargeCents -
-      couponDiscountCents -
-      urgencyDiscountCents -
-      loyaltyDiscountCents,
-  );
+  return {
+    subtotalCents, taxCents, couponDiscountCents, urgencyDiscountCents,
+    giftChargeCents, loyaltyDiscountCents, grandTotalCents,
+    couponCode, loyaltyPoints, urgencyPct
+  };
+}
 
-  // Update DOM elements
+function _applyCheckoutSummary(result, { couponCode, couponPct }) {
+  const { subtotalCents, taxCents, couponDiscountCents, urgencyDiscountCents, giftChargeCents, loyaltyDiscountCents, grandTotalCents, loyaltyPoints, urgencyPct } = result;
+
   const subtotalEl = document.getElementById('summary-subtotal');
   if (subtotalEl) subtotalEl.textContent = formatCurrency(subtotalCents);
 
   const taxEl = document.getElementById('summary-tax');
   if (taxEl) taxEl.textContent = formatCurrency(taxCents);
 
-  // Update Coupon Row
   let couponRow = document.getElementById('summaryDiscountRow');
   if (couponCode) {
     if (!couponRow) {
@@ -758,7 +767,6 @@ window.updateCheckoutSummary = function () {
     if (couponRow) couponRow.remove();
   }
 
-  // Update Urgency Row
   let urgencyRow = document.getElementById('urgency-discount-row');
   if (urgencyDiscountCents > 0) {
     if (!urgencyRow) {
@@ -770,12 +778,11 @@ window.updateCheckoutSummary = function () {
       const divider = document.querySelector('.summary-divider');
       if (divider) divider.parentNode.insertBefore(urgencyRow, divider);
     }
-    urgencyRow.innerHTML = `<span>Urgency Promo (${window.CARA_CONFIG ? window.CARA_CONFIG.URGENCY_DISCOUNT_PCT * 100 : 5}%)</span><span id='urgency-discount-val'>-${formatCurrency(urgencyDiscountCents)}</span>`;
+    urgencyRow.innerHTML = `<span>Urgency Promo (${urgencyPct ? urgencyPct * 100 : 5}%)</span><span id='urgency-discount-val'>-${formatCurrency(urgencyDiscountCents)}</span>`;
   } else {
     if (urgencyRow) urgencyRow.remove();
   }
 
-  // Update Gift Wrap Row
   let giftRow = document.getElementById('gift-wrap-charge-row');
   if (giftChargeCents > 0) {
     if (!giftRow) {
@@ -796,7 +803,6 @@ window.updateCheckoutSummary = function () {
     if (giftRow) giftRow.remove();
   }
 
-  // Update Loyalty Row
   let loyaltyRow = document.getElementById('summary-loyalty-row');
   if (loyaltyPoints > 0) {
     if (!loyaltyRow) {
@@ -832,7 +838,7 @@ window.updateCheckoutSummary = function () {
 
   const totalEl = document.getElementById('summary-total');
   if (totalEl) totalEl.textContent = formatCurrency(grandTotalCents);
-};
+}
 
 function highlightError(el) {
   el.classList.add('is-invalid');
