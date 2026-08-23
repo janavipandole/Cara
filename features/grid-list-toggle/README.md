@@ -1,0 +1,1 @@
+# Feature: Implement a "Grid/List View" Toggle for Shop Page\n\nThis is a placeholder for the implementation of Feature: Implement a "Grid/List View" Toggle for Shop Page.
