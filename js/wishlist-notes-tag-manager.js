@@ -3,7 +3,7 @@
  * Provides user notes, custom tagging, filtering, and priority ranking for wishlist items.
  */
 
-class WishlistNotesTagManager {
+export class WishlistNotesTagManager {
   constructor(storageKey = 'cara_wishlist_notes_v2') {
     this.storageKey = storageKey;
     this.data = this.loadData();
@@ -78,16 +78,26 @@ class WishlistNotesTagManager {
       .map(([productId, item]) => ({ productId, ...item }));
   }
 
+  removeTag(productId, tag) {
+    if (!productId || !tag || !this.data[productId]) {
+      return { success: false, message: 'Invalid product ID or tag.' };
+    }
+    const cleanTag = tag.trim().toLowerCase();
+    this.data[productId].tags = (this.data[productId].tags || []).filter((t) => t !== cleanTag);
+    this.saveData();
+    return { success: true, tags: this.data[productId].tags };
+  }
+
   getProductMeta(productId) {
     return this.data[productId] || null;
   }
 }
 
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = WishlistNotesTagManager;
-} else {
+if (typeof window !== 'undefined') {
   window.WishlistNotesTagManager = WishlistNotesTagManager;
 }
+
+export default WishlistNotesTagManager;
 
 
 export function getWishlistNotesTagManagerStatusHelper93() {

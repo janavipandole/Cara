@@ -39,23 +39,26 @@ describe('BreadcrumbsGenerator', () => {
   });
 
   it('handles a trailing slash on the path', () => {
-    const crumbs = gen.generateBreadcrumbs('/shop/tshirts/');
+    const gen = new BreadcrumbsGenerator({ baseUrl: '' });
+    const crumbs = gen.generateFromPath('/shop/tshirts/');
     expect(crumbs.length).toBe(3);
-    expect(crumbs[2].label).toBe('Tshirts');
+    expect(crumbs[2].name).toBe('Tshirts');
   });
 
   it('returns only the home crumb for a root slash', () => {
-    const crumbs = gen.generateBreadcrumbs('/');
+    const gen = new BreadcrumbsGenerator({ baseUrl: '' });
+    const crumbs = gen.generateFromPath('/');
     expect(crumbs.length).toBe(1);
-    expect(crumbs[0].label).toBe('Home');
+    expect(crumbs[0].name).toBe('Home');
   });
 
   it('handles a deeply nested path with four segments', () => {
-    const crumbs = gen.generateBreadcrumbs('/men/formal/classic/shirts.html');
+    const gen = new BreadcrumbsGenerator({ baseUrl: '' });
+    const crumbs = gen.generateFromPath('/men/formal/classic/shirts.html');
     expect(crumbs.length).toBe(5);
     expect(crumbs[1].url).toBe('/men');
     expect(crumbs[2].url).toBe('/men/formal');
     expect(crumbs[3].url).toBe('/men/formal/classic');
-    expect(crumbs[4].url).toBeNull();
+    expect(crumbs[4].url).toBe('/men/formal/classic/shirts.html');
   });
 });

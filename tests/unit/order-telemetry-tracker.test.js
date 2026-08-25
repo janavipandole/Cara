@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-const OrderTelemetryTracker = require('../../js/order-telemetry-tracker.js');
+import { OrderTelemetryTracker } from '../../js/order-telemetry-tracker.js';
 
 describe('OrderTelemetryTracker Unit Tests', () => {
   let tracker;

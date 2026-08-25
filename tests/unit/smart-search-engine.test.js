@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-const SmartSearchEngine = require('../../js/smart-search-engine.js');
+import { SmartSearchEngine } from '../../js/smart-search-engine.js';
 
 describe('SmartSearchEngine Unit Tests', () => {
   let engine;

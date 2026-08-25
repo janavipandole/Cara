@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-const WishlistNotesTagManager = require('../../js/wishlist-notes-tag-manager.js');
+import WishlistNotesTagManager from '../../js/wishlist-notes-tag-manager.js';
 
 describe('WishlistNotesTagManager Unit Tests', () => {
   let manager;
@@ -82,5 +82,13 @@ describe('WishlistNotesTagManager Unit Tests', () => {
     manager.addTags('product-307', ['gift', 'winter']);
     const meta = manager.getProductMeta('product-307');
     expect(meta.tags).toEqual(['summer', 'gift', 'winter']);
+  });
+
+  it('should remove a specified tag from a product', () => {
+    manager.addTags('product-308', ['summer', 'gift', 'casual']);
+    const res = manager.removeTag('product-308', 'gift');
+    expect(res.success).toBe(true);
+    const meta = manager.getProductMeta('product-308');
+    expect(meta.tags).toEqual(['summer', 'casual']);
   });
 });

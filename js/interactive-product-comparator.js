@@ -3,7 +3,7 @@
  * Supports multi-item attribute matrix comparisons, difference highlighting, persistence, and state sync.
  */
 
-class InteractiveProductComparator {
+export class InteractiveProductComparator {
   constructor(storageKey = 'cara_compare_items_v2') {
     this.storageKey = storageKey;
     this.maxItems = 4;

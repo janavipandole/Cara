@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { canAddMoreComparatorItems } from '../../js/interactive-product-comparator.js';
-const InteractiveProductComparator = require('../../js/interactive-product-comparator.js');
+import { InteractiveProductComparator } from '../../js/interactive-product-comparator.js';
 
 describe('InteractiveProductComparator Unit Tests', () => {
   let comparator;

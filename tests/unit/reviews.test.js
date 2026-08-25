@@ -183,6 +183,7 @@ describe('reviews.js unit tests', function () {
     var fs = require('node:fs');
     var vm = require('node:vm');
     var src = fs.readFileSync(require.resolve('../../js/reviews.js'), 'utf8');
+    var cleanSrc = src.replace(/export\s+function/g, 'function');
     var sandbox = {
       window: window,
       document: document,
@@ -195,7 +196,7 @@ describe('reviews.js unit tests', function () {
       setTimeout: setTimeout
     };
     vm.createContext(sandbox);
-    vm.runInContext(src, sandbox, { filename: 'reviews.js' });
+    vm.runInContext(cleanSrc, sandbox, { filename: 'reviews.js' });
 
     // _render runs on DOMContentLoaded/readyState; force a manual invoke by
     // dispatching the event the module listens for.
