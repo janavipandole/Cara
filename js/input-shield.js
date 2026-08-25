@@ -1,30 +1,49 @@
 // Script tag injection shield
 function installInputShield() {
-  if (typeof document === 'undefined') return;
+  // Prevent errors in non-browser environments (SSR/Node)
+  if (typeof document === 'undefined' || typeof window === 'undefined') {
+    return;
+  }
+
   const form = document.querySelector('form');
   if (!form) return;
 
+  // Prevent duplicate event listeners if this function is called more than once
+  if (form.dataset.inputShieldInstalled === 'true') {
+    return;
+  }
+
+  form.dataset.inputShieldInstalled = 'true';
+
   form.addEventListener('submit', (e) => {
-    const textInputs = form.querySelectorAll("input[type='text'], input[type='search'], input[type='url'], input[type='tel'], textarea");
+    const textInputs = form.querySelectorAll(
+      "input[type='text'], input[type='search'], input[type='url'], input[type='tel'], textarea"
+    );
+
     let blocked = false;
 
     textInputs.forEach((input) => {
       const rawVal = input.value;
+
       // Skip empty inputs so valid blank fields are never cleared.
       if (!rawVal) return;
-      // Check for script tag presence or any event handler attribute
-      if (
-        /<script/i.test(rawVal) ||
-        /\bon\w+=/i.test(rawVal) ||
-        /javascript:/i.test(rawVal)
-      ) {
+
+      // Detect common XSS injection patterns.
+      const containsPotentialXSS =
+        /<script\b[^>]*>/i.test(rawVal) ||
+        /\bon\w+\s*=/i.test(rawVal) ||
+        /javascript\s*:/i.test(rawVal);
+
+      if (containsPotentialXSS) {
         blocked = true;
+
+        // Clear potentially dangerous input.
         input.value = '';
-      } else if (
-        typeof window !== 'undefined' &&
-        typeof window.sanitizeHTML === 'function'
-      ) {
-        // Perform additional sanitization in-place
+        return;
+      }
+
+      // Perform additional sanitization when available.
+      if (typeof window.sanitizeHTML === 'function') {
         input.value = window.sanitizeHTML(rawVal);
       }
     });
@@ -35,19 +54,40 @@ function installInputShield() {
     }
   });
 
-  // Expose utility function globally for external use
+  // Expose utility function globally for external use.
   window.containsSqlInjectionKeywords = containsSqlInjectionKeywords;
 }
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', installInputShield);
-} else {
-  installInputShield();
+// Safely initialize the input shield in browser environments.
+if (typeof document !== 'undefined') {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', installInputShield, {
+      once: true,
+    });
+  } else {
+    installInputShield();
+  }
 }
 
-function containsSqlInjectionKeywords(input) { if (!input || typeof input !== 'string') return false; return /\b(SELECT|INSERT|UPDATE|DELETE|DROP|UNION|ALTER)\b/i.test(input); }
+/**
+ * Performs a basic check for common SQL keywords.
+ *
+ * Note:
+ * This is only a client-side detection helper and must NOT
+ * be considered a replacement for parameterized queries,
+ * prepared statements, or server-side validation.
+ */
+function containsSqlInjectionKeywords(input) {
+  if (!input || typeof input !== 'string') {
+    return false;
+  }
 
+  return /\b(SELECT|INSERT|UPDATE|DELETE|DROP|UNION|ALTER)\b/i.test(input);
+}
 
 export function getInputShieldStatusHelper36() {
-  return { status: "ok", fn: "getInputShieldStatusHelper36" };
+  return {
+    status: 'ok',
+    fn: 'getInputShieldStatusHelper36',
+  };
 }
