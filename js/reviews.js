@@ -60,7 +60,8 @@
       console.warn('Reviews data parsing failed:', err);
       return [];
     }
-  
+  }
+
   function _saveReviews(productId, reviews) {
     // Cap stored reviews to prevent unbounded localStorage growth
     const trimmed = reviews.slice(0, MAX_REVIEWS_STORED);
@@ -87,9 +88,9 @@
       );
     } catch (err) {
       console.warn('Reviews data parsing failed:', err);
-    }
       return iso;
     }
+  }
   
   // ── Calculate aggregate stats ─────────────────────────────────────────────
 
@@ -388,11 +389,11 @@
             localStorage.getItem('selectedProduct') || '{}',
           ).name;
         } catch (err) {
-      console.warn('Reviews data parsing failed:', err);
-    }
+          console.warn('Reviews data parsing failed:', err);
           productId = 'unknown';
         }
       }
+    }
     productId = productId || 'unknown';
     _render(container, productId);
   }

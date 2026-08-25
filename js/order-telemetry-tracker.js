@@ -3,7 +3,7 @@
  * Provides live order tracking telemetry, carrier estimation, progress state calculations, and delivery milestones.
  */
 
-class OrderTelemetryTracker {
+export class OrderTelemetryTracker {
   constructor() {
     this.milestones = [
       { step: 1, key: 'ORDER_PLACED', label: 'Order Confirmed', percent: 25 },

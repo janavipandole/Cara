@@ -4,7 +4,7 @@
  */
 export class BreadcrumbsGenerator {
   constructor(options = {}) {
-    this.baseUrl = options.baseUrl || 'https://cara.example.com';
+    this.baseUrl = options.baseUrl !== undefined ? options.baseUrl : 'https://cara.example.com';
     this.customLabels = options.customLabels || {
       'shop': 'All Collections',
       'cart': 'Shopping Cart',

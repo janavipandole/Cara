@@ -3,7 +3,7 @@
  * Calculates item style match scores based on color harmony matrix, category balance, and aesthetic tags.
  */
 
-class OutfitCompatibilityEngine {
+export class OutfitCompatibilityEngine {
   constructor() {
     this.colorHarmony = {
       white: ['black', 'blue', 'red', 'green', 'gray', 'denim'],

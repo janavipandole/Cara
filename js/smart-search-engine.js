@@ -3,7 +3,7 @@
  * Features: Fuzzy keyword matching, Synonym mapping, Multi-category filtering, Price range query, and Search History management.
  */
 
-class SmartSearchEngine {
+export class SmartSearchEngine {
   constructor(products = []) {
     this.products = products;
     this.historyKey = 'cara_smart_search_history_v2';

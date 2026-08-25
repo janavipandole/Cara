@@ -39,11 +39,13 @@ describe('VirtualStylistEngine', () => {
   });
 
   it('should return an empty list for an empty catalog', () => {
+    const engine = new VirtualStylistEngine();
     const top = { category: 'shirts', color: 'blue' };
     expect(engine.recommendBottoms(top, [])).toEqual([]);
   });
 
   it('should fall back to the default palette for unknown colors', () => {
+    const engine = new VirtualStylistEngine();
     // 'purple' is not a palette key; black, white, and grey are allowed.
     expect(engine.isColorCompatible('purple', 'white')).toBe(true);
     expect(engine.isColorCompatible('purple', 'black')).toBe(true);
