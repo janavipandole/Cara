@@ -1,0 +1,1 @@
+# UI/UX: Add "Color Swatch Selection" on Product Cards\n\nThis is a placeholder for the implementation of UI/UX: Add "Color Swatch Selection" on Product Cards.
