@@ -2046,6 +2046,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const colorFilter = document.getElementById('color-filter');
       const searchInput = document.getElementById('searchInput');
       const suggestions = document.getElementById('searchSuggestions');
+      const priceMinInput = document.getElementById('price-min-input');
+      const priceMaxInput = document.getElementById('price-max-input');
 
       if (categoryFilter) categoryFilter.value = 'all';
       if (styleFilter) styleFilter.value = 'all';
@@ -2053,6 +2055,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (colorFilter) colorFilter.value = 'all';
       if (searchInput) searchInput.value = '';
       if (suggestions) suggestions.innerHTML = '';
+      if (priceMinInput) priceMinInput.value = priceMinInput.min;
+      if (priceMaxInput) priceMaxInput.value = priceMaxInput.max;
 
       location.reload();
     });
