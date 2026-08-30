@@ -12,6 +12,7 @@ cara.db
 .idea/
 *.swp
 *.swo
+.ipynb_checkpoints/
 
 # Build/Dist folders
 dist/
