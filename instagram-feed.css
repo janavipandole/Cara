@@ -1,0 +1,102 @@
+/* ============================================
+   SHOP THE LOOK — INSTAGRAM FEED (Issue #7956)
+   ============================================ */
+
+.instagram-feed-section {
+  text-align: center;
+}
+
+.instagram-feed-section h2 {
+  margin-bottom: 6px;
+}
+
+.instagram-feed-subtitle {
+  color: var(--text-secondary, #465b52);
+  margin-bottom: 30px;
+}
+
+.instagram-feed {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.instagram-feed-item {
+  position: relative;
+  display: block;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--card-bg, #f8f9fa);
+  text-decoration: none;
+}
+
+.instagram-feed-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.instagram-feed-item:hover img,
+.instagram-feed-item:focus-visible img {
+  transform: scale(1.08);
+}
+
+.instagram-feed-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px;
+  text-align: center;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.instagram-feed-item:hover .instagram-feed-overlay,
+.instagram-feed-item:focus-visible .instagram-feed-overlay {
+  opacity: 1;
+}
+
+.instagram-feed-overlay i {
+  font-size: 22px;
+}
+
+.instagram-feed-caption {
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.instagram-feed-caption strong {
+  display: block;
+  font-size: 14px;
+}
+
+@media (max-width: 992px) {
+  .instagram-feed {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .instagram-feed {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .instagram-feed-item img,
+  .instagram-feed-overlay {
+    transition: none;
+  }
+}
