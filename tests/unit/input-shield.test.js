@@ -87,4 +87,43 @@ describe('input-shield', () => {
     expect(event.defaultPrevented).toBe(true);
     expect(document.getElementById('field').value).toBe('');
   });
+
+  it('skips installation when the form is already flagged as protected', async () => {
+    setupForm('<script>alert(1)</script>');
+    document.getElementById('test-form').dataset.inputShieldInstalled = 'true';
+
+    await import('../../js/input-shield.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    const event = await submitBuild();
+    expect(event.defaultPrevented).toBe(false);
+  });
+
+  it('does not throw when imported in a non-browser environment', async () => {
+    const originalDocument = globalThis.document;
+    const originalWindow = globalThis.window;
+    vi.stubGlobal('document', undefined);
+    vi.stubGlobal('window', undefined);
+
+    await expect(import('../../js/input-shield.js')).resolves.toBeDefined();
+
+    vi.stubGlobal('document', originalDocument);
+    vi.stubGlobal('window', originalWindow);
+  });
+
+  it('blocks submit when an event handler attribute has surrounding whitespace', async () => {
+    setupForm('x onload = alert(1)');
+    await import('../../js/input-shield.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+    const event = await submitBuild();
+    expect(event.defaultPrevented).toBe(true);
+  });
+
+  it('blocks submit when a javascript: URI has whitespace before the colon', async () => {
+    setupForm('javascript :alert(1)');
+    await import('../../js/input-shield.js');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+    const event = await submitBuild();
+    expect(event.defaultPrevented).toBe(true);
+  });
 });

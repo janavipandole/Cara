@@ -59,7 +59,7 @@ function installInputShield() {
 }
 
 // Safely initialize the input shield in browser environments.
-if (typeof document !== 'undefined') {
+if (typeof document !== 'undefined' && typeof window !== 'undefined') {
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', installInputShield, {
       once: true,
