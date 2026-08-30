@@ -821,6 +821,8 @@ function filterProducts() {
   const brandSelect = document.getElementById('brand-filter');
   const colorSelect = document.getElementById('color-filter');
   const styleSelect = document.getElementById('style-filter');
+  const priceMinInput = document.getElementById('price-min-input');
+  const priceMaxInput = document.getElementById('price-max-input');
 
   const rawQuery = input ? input.value.trim() : '';
   const category = categorySelect ? categorySelect.value : 'all';
@@ -834,6 +836,10 @@ function filterProducts() {
   const styleValue = styleSelect
     ? styleSelect.value.toLowerCase().trim()
     : 'all';
+  const minPrice = priceMinInput ? Number(priceMinInput.value) : 0;
+  const maxPrice = priceMaxInput
+    ? Number(priceMaxInput.value)
+    : Number.MAX_SAFE_INTEGER;
 
   const workerPayload = {
     products,
@@ -843,6 +849,8 @@ function filterProducts() {
     brand: brandValue,
     color: colorValue,
     style: styleValue,
+    minPrice,
+    maxPrice,
   };
 
   const bgWorker = window.BackgroundWorker && window.BackgroundWorker.getInstance();
@@ -868,8 +876,21 @@ function filterProducts() {
   }
 }
 
-function _filterProductsSync({ products: list, query, category, sort, brand, color, style }) {
+function _filterProductsSync({
+  products: list,
+  query,
+  category,
+  sort,
+  brand,
+  color,
+  style,
+  minPrice,
+  maxPrice,
+}) {
   const q = query.toLowerCase();
+  const lowerBound = typeof minPrice === 'number' ? minPrice : 0;
+  const upperBound =
+    typeof maxPrice === 'number' ? maxPrice : Number.MAX_SAFE_INTEGER;
 
   let filteredProducts = list.filter((product) => {
     const matchesCategory = category === 'all' || product.category === category;
@@ -892,7 +913,9 @@ function _filterProductsSync({ products: list, query, category, sort, brand, col
     const matchesStyle =
       style === 'all' ||
       (product.style && product.style.toLowerCase() === style);
-    return matchesBrand && matchesColor && matchesStyle;
+    const matchesPrice =
+      product.price >= lowerBound && product.price <= upperBound;
+    return matchesBrand && matchesColor && matchesStyle && matchesPrice;
   });
 
   if (sort === 'low-high') {
@@ -917,6 +940,8 @@ function attachSearchListeners() {
   const brandSelect = document.getElementById('brand-filter');
   const colorSelect = document.getElementById('color-filter');
   const styleSelect = document.getElementById('style-filter');
+  const priceMinInput = document.getElementById('price-min-input');
+  const priceMaxInput = document.getElementById('price-max-input');
   const searchBtn = document.getElementById('searchBtn');
 
   if (input) {
@@ -937,6 +962,15 @@ function attachSearchListeners() {
   if (brandSelect) brandSelect.addEventListener('change', filterProducts);
   if (colorSelect) colorSelect.addEventListener('change', filterProducts);
   if (styleSelect) styleSelect.addEventListener('change', filterProducts);
+  if (priceMinInput || priceMaxInput) {
+    let priceDebounceTimer;
+    const debouncedFilter = () => {
+      clearTimeout(priceDebounceTimer);
+      priceDebounceTimer = setTimeout(filterProducts, 150);
+    };
+    if (priceMinInput) priceMinInput.addEventListener('input', debouncedFilter);
+    if (priceMaxInput) priceMaxInput.addEventListener('input', debouncedFilter);
+  }
   if (searchBtn) {
     searchBtn.addEventListener('click', (e) => {
       e.preventDefault();

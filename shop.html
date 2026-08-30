@@ -54,6 +54,7 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="shop.css" />
+    <link rel="stylesheet" href="price-range-slider.css" />
     <link rel="stylesheet" href="recently-viewed.css" />
     <link rel="stylesheet" href="compare.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" integrity="sha384-L/vw44MdBs/7hovWr2rBVSRKqdti4Vw077yuSGQ2PO3tQARRLiLuMh8xhVmVrR0I" crossorigin="anonymous" />
@@ -310,6 +311,40 @@
           </select>
         </div>
 
+        <!-- PRICE RANGE SLIDER -->
+        <div class="filter-container price-filter-container">
+          <label id="price-filter-label">Price</label>
+          <div class="price-slider" role="group" aria-labelledby="price-filter-label">
+            <div class="price-slider-track"></div>
+            <div class="price-slider-range" id="price-slider-range"></div>
+            <input
+              type="range"
+              id="price-min-input"
+              class="price-slider-input"
+              min="0"
+              max="7000"
+              step="100"
+              value="0"
+              aria-label="Minimum price"
+            />
+            <input
+              type="range"
+              id="price-max-input"
+              class="price-slider-input"
+              min="0"
+              max="7000"
+              step="100"
+              value="7000"
+              aria-label="Maximum price"
+            />
+          </div>
+          <div class="price-slider-values">
+            <span id="price-min-value">₹0</span>
+            <span class="price-slider-sep">&ndash;</span>
+            <span id="price-max-value">₹7,000</span>
+          </div>
+        </div>
+
         <!-- RESET BUTTON -->
         <div class="filter-container reset-wrapper">
           <label for="resetFiltersBtn" style="visibility: hidden">Reset</label>
@@ -516,6 +551,7 @@
     <script src="js/worker-manager.js"></script>
     <script type="module" src="products.js?v=1779120917219"></script>
     <script type="module" src="app.js?v=1779120917219"></script>
+    <script type="module" src="js/price-range-slider.js"></script>
     <script type="module" src="navbar.js"></script>
     <script type="module" src="js/smart-search-engine.js"></script>
     <script type="module" src="js/newsletter-subscribe.js" defer></script>

@@ -73,12 +73,17 @@ function filterProducts({
   brand,
   color,
   style,
+  minPrice,
+  maxPrice,
 }) {
   const q = (query || '').toLowerCase();
   const cat = category || 'all';
   const br = (brand || 'all').toLowerCase();
   const col = (color || 'all').toLowerCase();
   const st = (style || 'all').toLowerCase();
+  const lowerBound = typeof minPrice === 'number' ? minPrice : 0;
+  const upperBound =
+    typeof maxPrice === 'number' ? maxPrice : Number.MAX_SAFE_INTEGER;
 
   let filtered = products.filter(function (product) {
     var matchesCategory = cat === 'all' || product.category === cat;
@@ -100,6 +105,7 @@ function filterProducts({
       return false;
     if (st !== 'all' && (!product.style || product.style.toLowerCase() !== st))
       return false;
+    if (product.price < lowerBound || product.price > upperBound) return false;
 
     return true;
   });
