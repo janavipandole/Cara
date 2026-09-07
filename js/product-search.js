@@ -328,13 +328,6 @@
         priceMinInput.value = '';
         return;
       }
-      const minVal = parseFloat(priceMinInput.value) || 0;
-      const maxVal = parseFloat(priceMaxInput?.value) || 0;
-      if (priceMinInput.value !== '' && priceMaxInput.value !== '' && minVal > maxVal) {
-        priceMinInput.value = '';
-        alert('Minimum price cannot be greater than maximum price.');
-        return;
-      }
       filters.min_price = priceMinInput.value;
       // A minimum above the current maximum would return empty results.
       const maxVal = priceMaxInput ? parseFloat(priceMaxInput.value) : NaN;
@@ -353,13 +346,6 @@
       const val = parseFloat(priceMaxInput.value);
       if (priceMaxInput.value !== '' && (isNaN(val) || val < 0)) {
         priceMaxInput.value = '';
-        return;
-      }
-      const minVal = parseFloat(priceMinInput?.value) || 0;
-      const maxVal = parseFloat(priceMaxInput.value) || 0;
-      if (priceMinInput?.value !== '' && priceMaxInput.value !== '' && minVal > maxVal) {
-        priceMaxInput.value = '';
-        alert('Maximum price cannot be less than minimum price.');
         return;
       }
       filters.max_price = priceMaxInput.value;

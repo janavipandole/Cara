@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-const VirtualTryOnEngine = require('../../js/virtual-tryon-engine.js');
+import { VirtualTryOnEngine } from '../../js/virtual-tryon-engine.js';
 
 describe('VirtualTryOnEngine Unit Tests', () => {
   let engine;

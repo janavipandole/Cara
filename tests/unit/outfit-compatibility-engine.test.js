@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-const OutfitCompatibilityEngine = require('../../js/outfit-compatibility-engine.js');
+import { OutfitCompatibilityEngine } from '../../js/outfit-compatibility-engine.js';
 
 describe('OutfitCompatibilityEngine Unit Tests', () => {
   let engine;

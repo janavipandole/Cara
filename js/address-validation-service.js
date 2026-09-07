@@ -3,7 +3,7 @@
  * Validates street address formatting, postal code regex patterns per country, state detection, and sanitization.
  */
 
-class AddressValidationService {
+export class AddressValidationService {
   constructor() {
     this.postalRegex = {
       US: /^\d{5}(-\d{4})?$/,
@@ -56,7 +56,7 @@ class AddressValidationService {
       errors,
       sanitized: isValid
         ? {
-          street: street.trim().replace(/[<>]/g, ''),
+            street: street.trim().replace(/<[^>]*>/g, '').replace(/[<>]/g, ''),
             city: city.trim(),
             state: state.trim().toUpperCase(),
             postalCode: postalCode.trim().toUpperCase(),
@@ -67,11 +67,11 @@ class AddressValidationService {
   }
 }
 
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = AddressValidationService;
-} else {
+if (typeof window !== 'undefined') {
   window.AddressValidationService = AddressValidationService;
 }
+
+export default AddressValidationService;
 
 
 export function getAddressValidationServiceStatusHelper6() {

@@ -256,31 +256,34 @@ if (cardNumber)
   });
 
 // Format expiry date (MM/YY)
-expiry.addEventListener('input', function (e) {
-  let val = getDigits(e.target.value).slice(0, 4);
-  if (val.length >= 3) {
-    val = val.slice(0, 2) + '/' + val.slice(2);
-  }
-  e.target.value = val;
+if (expiry)
+  expiry.addEventListener('input', function (e) {
+    let val = getDigits(e.target.value).slice(0, 4);
+    if (val.length >= 3) {
+      val = val.slice(0, 2) + '/' + val.slice(2);
+    }
+    e.target.value = val;
 
-  if (this.classList.contains('is-invalid')) {
-    validateField(this);
-  }
-});
+    if (this.classList.contains('is-invalid')) {
+      validateField(this);
+    }
+  });
 
 // Restrict CVV input to digits and length
-cvv.addEventListener('input', function () {
-  this.value = getDigits(this.value).slice(0, 4);
-  if (this.classList.contains('is-invalid')) {
-    validateField(this);
-  }
-});
+if (cvv)
+  cvv.addEventListener('input', function () {
+    this.value = getDigits(this.value).slice(0, 4);
+    if (this.classList.contains('is-invalid')) {
+      validateField(this);
+    }
+  });
 
-cardName.addEventListener('input', function () {
-  if (this.classList.contains('is-invalid')) {
-    validateField(this);
-  }
-});
+if (cardName)
+  cardName.addEventListener('input', function () {
+    if (this.classList.contains('is-invalid')) {
+      validateField(this);
+    }
+  });
 
 // --- Show/Hide Card Details and clear validation states ---
 function applyPaymentMethod(method) {
@@ -327,26 +330,28 @@ window.selectPayment = function (method) {
   applyPaymentMethod(method);
 };
 
-paymentMethod.addEventListener('change', function () {
-  applyPaymentMethod(this.value);
-});
+if (paymentMethod)
+  paymentMethod.addEventListener('change', function () {
+    applyPaymentMethod(this.value);
+  });
 
 // --- Form Submission & Final Validation Check ---
 const form = document.getElementById('checkoutForm');
 const popup = document.getElementById('successPopup');
 
-form.addEventListener('submit', function (e) {
-  e.preventDefault();
+if (form)
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
 
-  try {
-    submitCheckoutForm();
-  } catch (error) {
-    CaraErrorBoundary.logError(error, '#checkoutForm submit');
-    if (typeof window.showToast === 'function') {
-      window.showToast('Something went wrong. Please try again.', 'error');
+    try {
+      submitCheckoutForm();
+    } catch (error) {
+      CaraErrorBoundary.logError(error, '#checkoutForm submit');
+      if (typeof window.showToast === 'function') {
+        window.showToast('Something went wrong. Please try again.', 'error');
+      }
     }
-  }
-});
+  });
 
 function submitCheckoutForm() {
   if (!form) return;
@@ -853,6 +858,12 @@ function highlightError(el) {
 function initCheckoutPage() {
   initCheckoutValidation();
   prefillAccountEmail();
+
+  if (typeof CaraErrorBoundary === 'undefined' || typeof CaraErrorBoundary.wrap !== 'function') {
+    renderCheckoutItems();
+    window.updateCheckoutSummary();
+    return;
+  }
 
   CaraErrorBoundary.wrap('#checkoutForm', function () {
     renderCheckoutItems();

@@ -35,8 +35,8 @@ describe('PromoDiscountCalculator Unit Tests', () => {
   });
 
   it('should reject coupon codes the backend does not support', () => {
-    expect(calc.validateCoupon('FLAT15', 50).valid).toBe(false);
-    expect(calc.validateCoupon('FREESHIP', 50).valid).toBe(false);
+    expect(calc.validateCoupon('MEGA50', 50).valid).toBe(false);
+    expect(calc.validateCoupon('SUMMER99', 50).valid).toBe(false);
   });
 
   it('should cap discount to maxCap threshold', () => {

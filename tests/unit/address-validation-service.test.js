@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-const AddressValidationService = require('../../js/address-validation-service.js');
+import AddressValidationService from '../../js/address-validation-service.js';
 
 describe('AddressValidationService Unit Tests', () => {
   let service;

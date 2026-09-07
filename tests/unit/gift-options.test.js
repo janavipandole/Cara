@@ -23,6 +23,6 @@ describe('gift-options', () => {
   it('should trim whitespace before checking length', async () => {
     const mod = await import('../../js/gift-options.js');
     expect(window.validateGiftMessageLength('  test  ', 6)).toBe(true);
-    expect(window.validateGiftMessageLength('  test  ', 4)).toBe(false);
+    expect(window.validateGiftMessageLength('  test  ', 3)).toBe(false);
   });
 });

@@ -3,7 +3,7 @@
  * Manages HTML5 Canvas rendering for virtual clothing previews, drag-and-drop overlays, scale transformation, and snapshot generation.
  */
 
-class VirtualTryOnEngine {
+export class VirtualTryOnEngine {
   constructor(canvasElement = null) {
     this.canvas = canvasElement;
     this.ctx = canvasElement ? canvasElement.getContext('2d') : null;

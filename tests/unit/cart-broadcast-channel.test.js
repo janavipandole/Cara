@@ -38,11 +38,15 @@ class FakeBroadcastChannel {
 }
 
 function extractCartSyncBlock(appJs) {
-  const match = appJs.match(
-    /const CART_BROADCAST_CHANNEL_NAME = 'cara_cart_state_sync';[\s\S]*?\n\}\);/,
+  const coreMatch = appJs.match(
+    /const CART_BROADCAST_CHANNEL_NAME = 'cara_cart_state_sync';[\s\S]*?initCartBroadcastChannel\(\);\n/,
   );
-  expect(match).not.toBeNull();
-  return match[0];
+  const storageMatch = appJs.match(
+    /window\.addEventListener\('storage', \(e\) => \{[\s\S]*?window\.loadCart\(\);\n  \}\n/,
+  );
+  expect(coreMatch).not.toBeNull();
+  expect(storageMatch).not.toBeNull();
+  return coreMatch[0] + '\n' + storageMatch[0] + '});';
 }
 
 describe('Multi-Tab Cart State Synchronization (#7558)', () => {

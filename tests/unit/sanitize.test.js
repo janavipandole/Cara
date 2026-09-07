@@ -87,4 +87,26 @@ describe('js/utils/sanitize.js — sanitizeHTML', () => {
     expect(() => sanitizeDOMNode(null)).not.toThrow();
     expect(() => sanitizeDOMNode({})).not.toThrow();
   });
+
+  it('supports whitelist option as an array of tags', () => {
+    const input = '<p>Hello <b>World</b> <script>alert(1)</script></p>';
+    const result = sanitizeHTML(input, ['b', 'p']);
+    expect(result).toContain('<p>');
+    expect(result).toContain('<b>World</b>');
+    expect(result).not.toContain('<script>');
+  });
+
+  it('supports whitelist option as an object configuration', () => {
+    const input = '<div><span>Text</span> <a href="http://example.com" onclick="bad()">Link</a></div>';
+    const result = sanitizeHTML(input, { whitelist: ['a', 'span'] });
+    expect(result).toContain('<span>Text</span>');
+    expect(result).toContain('<a href="http://example.com">Link</a>');
+    expect(result).not.toContain('onclick');
+  });
+
+  it('strips non-whitelisted tags when stripTags option is set', () => {
+    const input = '<p>Keep this <span>and this</span> but <em>not this</em></p>';
+    const result = sanitizeHTML(input, { whitelist: ['p', 'span'], stripTags: true });
+    expect(result).toBe('<p>Keep this <span>and this</span> but not this</p>');
+  });
 });

@@ -47,7 +47,6 @@
   ];
 
   const POPUP_INTERVAL = 25000; // 25 seconds
-  const DISPLAY_DURATION = 6000; // 6 seconds
   let dismissTimer = null;
 
   function getRandomElement(arr) {
@@ -207,5 +206,4 @@
   startToastCycle();
 })();
 
-
-export function getSalesToastDisplayDuration() { return DISPLAY_DURATION; }
+export function getSalesToastDisplayDuration() { return 6000; }

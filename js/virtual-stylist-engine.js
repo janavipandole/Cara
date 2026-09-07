@@ -12,6 +12,18 @@ export class VirtualStylistEngine {
     };
   }
 
+  isColorCompatible(colorA = '', colorB = '') {
+    const c1 = colorA.toLowerCase();
+    const c2 = colorB.toLowerCase();
+    if (c1 === c2) return true;
+    if (this.colorHarmonies[c1] && this.colorHarmonies[c1].includes(c2)) return true;
+    if (this.colorHarmonies[c2] && this.colorHarmonies[c2].includes(c1)) return true;
+
+    // Fall back to default palette for neutral / unknown colors: black, white, grey
+    const defaultAllowed = ['black', 'white', 'grey', 'gray'];
+    return defaultAllowed.includes(c1) || defaultAllowed.includes(c2);
+  }
+
   getColorCompatibility(colorA = '', colorB = '') {
     const c1 = colorA.toLowerCase();
     const c2 = colorB.toLowerCase();
@@ -20,13 +32,16 @@ export class VirtualStylistEngine {
     if (this.colorHarmonies[c1] && this.colorHarmonies[c1].includes(c2)) return 1.0;
     if (this.colorHarmonies[c2] && this.colorHarmonies[c2].includes(c1)) return 1.0;
     
+    const defaultAllowed = ['black', 'white', 'grey', 'gray'];
+    if (defaultAllowed.includes(c1) || defaultAllowed.includes(c2)) return 0.8;
+
     return 0.5; // Neutral default
   }
 
   calculateOutfitScore(topItem, bottomItem, footwearItem = null) {
     if (!topItem || !bottomItem) return 0;
 
-    let score = 50; // Base score
+    let score = 30; // Base score
 
     // Color harmony score (0 - 30 pts)
     const topBottomColorScore = this.getColorCompatibility(topItem.color, bottomItem.color);
