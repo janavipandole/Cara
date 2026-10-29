@@ -4949,3 +4949,97 @@ footer {
   content-visibility: auto;
   contain-intrinsic-size: auto 500px;
 }
+
+/* Enhancement #7972: Form Container Focus Highlights using :focus-within */
+
+/* Search container / Form wrapper highlight */
+.search-container:focus-within,
+.newsletter-form:focus-within,
+.coupon-input-group:focus-within {
+  border-color: #088178 !important; /* Brand accent color */
+  box-shadow: 0 0 8px rgba(8, 129, 120, 0.4) !important; /* Soft glowing effect */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+/* Back to Top Floating Action Button #7971 */
+.back-to-top-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 99;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: #088178; /* Brand accent color */
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+}
+
+.back-to-top-btn.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.back-to-top-btn:hover {
+  background-color: #06655e;
+  transform: translateY(-3px);
+}
+
+
+.mini-shipping-progress {
+  padding: 12px 16px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+  text-align: center;
+}
+
+.shipping-message {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 8px;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  width: 0%;
+  background-color: #007bff;
+  transition: width 0.4s ease, background-color 0.4s ease;
+}
+
+.progress-bar-fill.success {
+  background-color: #28a745; /* Success green */
+}
+
+.skip-to-footer {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #000;
+  color: #fff;
+  padding: 8px 16px;
+  z-index: 1000;
+  transition: top 0.3s ease;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.skip-to-footer:focus {
+  top: 0;
+}
