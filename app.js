@@ -503,6 +503,43 @@ window.addEventListener('storage', (e) => {
   /* ============================================================
    CART FUNCTIONALITY
    ============================================================ */
+<div class="mini-shipping-progress">
+  <p class="shipping-message" id="shipping-message">Calculating...</p>
+  <div class="progress-bar-container">
+    <div class="progress-bar-fill" id="progress-bar-fill"></div>
+  </div>
+</div>
+
+
+   function updateMiniCartShippingProgress() {
+  const messageEl = document.getElementById('shipping-message');
+  const fillEl = document.getElementById('progress-bar-fill');
+  
+  if (!messageEl || !fillEl) return;
+
+  const cart = loadCartFromStorage();
+  const currentCartTotal = cart.reduce((sum, item) => {
+    const price = parsePriceString(item.price);
+    const qty = item.quantity || 1;
+    return sum + (price * qty);
+  }, 0);
+
+  const threshold = window.CARA_CONFIG?.SHIPPING?.FREE_THRESHOLD || 3000;
+
+  if (currentCartTotal < threshold) {
+    const difference = Math.round(threshold - currentCartTotal);
+    const percentage = Math.min((currentCartTotal / threshold) * 100, 100);
+
+    messageEl.textContent = `Free shipping ke liye ₹${difference.toLocaleString('en-IN')} aur add karein!`;
+    fillEl.style.width = `${percentage}%`;
+    fillEl.classList.remove('success');
+  } else {
+    messageEl.textContent = "Badhai ho! Aapko FREE shipping mil rahi hai!";
+    fillEl.style.width = "100%";
+    fillEl.classList.add('success');
+  }
+}
+
 
   // Robust price parser
   function escapeHtml(str) {
@@ -2878,3 +2915,26 @@ window.saveForLater = function (index) {
     }
   }
 })();
+// Back to Top Button Logic #7971
+document.addEventListener('DOMContentLoaded', () => {
+  const backToTopBtn = document.getElementById('backToTopBtn');
+
+  if (backToTopBtn) {
+    // Show or hide button based on scroll position
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        backToTopBtn.classList.add('show');
+      } else {
+        backToTopBtn.classList.remove('show');
+      }
+    });
+
+    // Smooth scroll to top on click
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
+});
