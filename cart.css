@@ -971,3 +971,45 @@ body footer.section-p1 .copyright a {
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* Payment Methods Trust Banner Styles */
+.payment-trust-banner {
+  width: 100%;
+  background-color: #f8f9fa; /* Very light gray background */
+  padding: 25px 0;
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.payment-banner-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.payment-trust-banner h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333333;
+  margin-bottom: 15px;
+  letter-spacing: 0.5px;
+}
+
+.payment-icons-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.payment-icons-row i {
+  font-size: 36px;
+  color: #6c757d; /* Muted uniform color */
+  transition: color 0.3s ease;
+}
+
+.payment-icons-row i:hover {
+  color: #333333;
+}
