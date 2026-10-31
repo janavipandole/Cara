@@ -503,6 +503,43 @@ window.addEventListener('storage', (e) => {
   /* ============================================================
    CART FUNCTIONALITY
    ============================================================ */
+<div class="mini-shipping-progress">
+  <p class="shipping-message" id="shipping-message">Calculating...</p>
+  <div class="progress-bar-container">
+    <div class="progress-bar-fill" id="progress-bar-fill"></div>
+  </div>
+</div>
+
+
+   function updateMiniCartShippingProgress() {
+  const messageEl = document.getElementById('shipping-message');
+  const fillEl = document.getElementById('progress-bar-fill');
+  
+  if (!messageEl || !fillEl) return;
+
+  const cart = loadCartFromStorage();
+  const currentCartTotal = cart.reduce((sum, item) => {
+    const price = parsePriceString(item.price);
+    const qty = item.quantity || 1;
+    return sum + (price * qty);
+  }, 0);
+
+  const threshold = window.CARA_CONFIG?.SHIPPING?.FREE_THRESHOLD || 3000;
+
+  if (currentCartTotal < threshold) {
+    const difference = Math.round(threshold - currentCartTotal);
+    const percentage = Math.min((currentCartTotal / threshold) * 100, 100);
+
+    messageEl.textContent = `Free shipping ke liye ₹${difference.toLocaleString('en-IN')} aur add karein!`;
+    fillEl.style.width = `${percentage}%`;
+    fillEl.classList.remove('success');
+  } else {
+    messageEl.textContent = "Badhai ho! Aapko FREE shipping mil rahi hai!";
+    fillEl.style.width = "100%";
+    fillEl.classList.add('success');
+  }
+}
+
 
   // Robust price parser
   function escapeHtml(str) {
@@ -2878,3 +2915,76 @@ window.saveForLater = function (index) {
     }
   }
 })();
+// Back to Top Button Logic #7971
+document.addEventListener('DOMContentLoaded', () => {
+  const backToTopBtn = document.getElementById('backToTopBtn');
+
+  if (backToTopBtn) {
+    // Show or hide button based on scroll position
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        backToTopBtn.classList.add('show');
+      } else {
+        backToTopBtn.classList.remove('show');
+      }
+    });
+
+    // Smooth scroll to top on click
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  // 1. "Skip to footer" link dynamically create karna
+  if (!document.querySelector('.skip-to-footer')) {
+    const skipFooterLink = document.createElement('a');
+    skipFooterLink.href = '#site-footer';
+    skipFooterLink.className = 'skip-link skip-to-footer';
+    skipFooterLink.textContent = 'Skip to footer';
+    
+    // Body ke bilkul shuru mein insert karna (Skip to main content ke baad)
+    document.body.insertBefore(skipFooterLink, document.body.firstChild);
+  }
+
+  // 2. Ensure karna ki sabhi pages ke main <footer> par id="site-footer" ho
+  const footerElement = document.querySelector('footer');
+  if (footerElement && !footerElement.id) {
+    footerElement.id = 'site-footer';
+  }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const orderBumpCheckbox = document.getElementById('orderBumpCheckbox');
+  
+  if (!orderBumpCheckbox) return;
+
+  const subtotalElement = document.getElementById('cartSubtotal');
+  const totalElement = document.getElementById('cartTotal');
+
+  const bumpPrice = parseFloat(orderBumpCheckbox.getAttribute('data-bump-price')) || 5.00;
+
+  const parseCurrency = (el) => {
+    if (!el) return 0;
+    return parseFloat(el.textContent.replace(/[^0-9.-]+/g, "")) || 0;
+  };
+
+  orderBumpCheckbox.addEventListener('change', (e) => {
+    const currentSubtotal = parseCurrency(subtotalElement);
+    const currentTotal = parseCurrency(totalElement);
+
+    if (e.target.checked) {
+      if (subtotalElement) subtotalElement.textContent = `$${(currentSubtotal + bumpPrice).toFixed(2)}`;
+      if (totalElement) totalElement.textContent = `$${(currentTotal + bumpPrice).toFixed(2)}`;
+      e.target.closest('.order-bump-container')?.classList.add('bg-indigo-100', 'border-indigo-600');
+    } else {
+      if (subtotalElement) subtotalElement.textContent = `$${Math.max(0, currentSubtotal - bumpPrice).toFixed(2)}`;
+      if (totalElement) totalElement.textContent = `$${Math.max(0, currentTotal - bumpPrice).toFixed(2)}`;
+      e.target.closest('.order-bump-container')?.classList.remove('bg-indigo-100', 'border-indigo-600');
+    }
+  });
+});

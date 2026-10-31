@@ -1,6 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Order Bump Section -->
+<div class="order-bump-container border-2 border-dashed border-indigo-400 bg-indigo-50/50 p-4 rounded-xl my-4 flex items-start gap-3 transition-all">
+  <input 
+    type="checkbox" 
+    id="orderBumpCheckbox" 
+    class="mt-1.5 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer"
+    data-bump-price="5.00"
+  >
+  <div class="flex-1">
+    <div class="flex items-center gap-3">
+      <img src="path/to/shoe-cleaner-thumb.jpg" alt="Premium Shoe Cleaner" class="w-12 h-12 object-cover rounded-lg border border-indigo-200">
+      <div>
+        <span class="inline-block bg-indigo-600 text-white text-xs font-semibold px-2 py-0.5 rounded-full mb-1">One-Time Offer</span>
+        <h4 class="text-sm font-bold text-gray-900">Add Premium Shoe Cleaner for just $5!</h4>
+      </div>
+    </div>
+    <p class="text-xs text-gray-600 mt-2">Protect your kicks instantly. Checked box adds $5.00 to your order total.</p>
+  </div>
+</div>
+
+
   <!-- Character Encoding -->
   <meta charset="UTF-8" />
 
@@ -351,6 +372,21 @@
       });
     }
   });</script>
+
+
+  <!-- Payment Methods Trust Banner -->
+<div class="payment-trust-banner">
+  <div class="payment-banner-container">
+    <h3>Guaranteed Safe & Secure Checkout</h3>
+    <div class="payment-icons-row">
+      <i class="fab fa-cc-visa" title="Visa"></i>
+      <i class="fab fa-cc-mastercard" title="MasterCard"></i>
+      <i class="fab fa-cc-paypal" title="PayPal"></i>
+      <i class="fab fa-cc-apple-pay" title="Apple Pay"></i>
+    </div>
+  </div>
+</div>
+
    <footer class="section-p1" style="background-color: #3d485a !important; color: #ffffff !important; padding: 25px 40px 40px !important; margin: 40px auto 0 auto !important; border-top: 1px solid rgba(255, 255, 255, 0.1); display: grid !important; grid-template-columns: repeat(4, 1fr) !important; gap: 30px !important; max-width: 1400px !important; width: 100% !important; box-sizing: border-box !important; clear: both !important;">
         
   <!-- COLUMN 1: CONTACT & SOCIALS -->
