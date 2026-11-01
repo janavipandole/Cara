@@ -1,0 +1,24 @@
+// Confetti trigger function on successful order
+function triggerOrderSuccess() {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
+    if (!prefersReducedMotion) {
+        // Load confetti script dynamically if not loaded in HTML head
+        if (typeof confetti === 'undefined') {
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js';
+            script.onload = runConfetti;
+            document.head.appendChild(script);
+        } else {
+            runConfetti();
+        }
+    }
+}
+
+function runConfetti() {
+    confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+    });
+}

@@ -4949,3 +4949,175 @@ footer {
   content-visibility: auto;
   contain-intrinsic-size: auto 500px;
 }
+
+/* Enhancement #7972: Form Container Focus Highlights using :focus-within */
+
+/* Search container / Form wrapper highlight */
+.search-container:focus-within,
+.newsletter-form:focus-within,
+.coupon-input-group:focus-within {
+  border-color: #088178 !important; /* Brand accent color */
+  box-shadow: 0 0 8px rgba(8, 129, 120, 0.4) !important; /* Soft glowing effect */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+/* Back to Top Floating Action Button #7971 */
+.back-to-top-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 99;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: #088178; /* Brand accent color */
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+}
+
+.back-to-top-btn.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.back-to-top-btn:hover {
+  background-color: #06655e;
+  transform: translateY(-3px);
+}
+
+
+.mini-shipping-progress {
+  padding: 12px 16px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+  text-align: center;
+}
+
+.shipping-message {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 8px;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  width: 0%;
+  background-color: #007bff;
+  transition: width 0.4s ease, background-color 0.4s ease;
+}
+
+.progress-bar-fill.success {
+  background-color: #28a745; /* Success green */
+}
+
+.skip-to-footer {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #000;
+  color: #fff;
+  padding: 8px 16px;
+  z-index: 1000;
+  transition: top 0.3s ease;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.skip-to-footer:focus {
+  top: 0;
+}
+
+/* 1. Muted / Gray Text Fixes (Light Gray to Darker Slate for 4.5:1 Ratio) */
+p, .text-muted, .subtitle {
+    color: #4a5568; /* Previously light gray (#777 / #888) -> Updated to high-contrast dark gray */
+}
+
+/* 2. Form Field Placeholders Fix */
+input::placeholder,
+textarea::placeholder {
+    color: #595959; /* Ensures placeholder text meets accessibility standards on white backgrounds */
+    opacity: 1;
+}
+
+/* 3. Button Text & Background Contrast */
+.button, button, .btn-primary {
+    background-color: #088178; /* Existing brand color */
+    color: #ffffff; /* Stark white text for high contrast */
+    font-weight: 600;
+}
+
+/* 4. Footer Link States */
+footer a {
+    color: #222222; /* High contrast against light footer background */
+}
+
+footer a:hover {
+    color: #088178;
+}
+
+/* 5. Hero Banner / Overlay Text Readability */
+.hero-banner {
+    position: relative;
+    background-image: url('banner.jpg');
+}
+
+/* Add a semi-transparent dark overlay behind text on images */
+.hero-banner::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* Ensures text readability over any background image */
+    z-index: 1;
+}
+
+.hero-banner .hero-text {
+    position: relative;
+    z-index: 2;
+    color: #ffffff;
+}
+
+:root {
+  --bg-color: #fff;
+  --text-color: #1a1a1a;
+  --border-color: #e2e9e1;
+  --header-bg: #f8f9fa;
+}
+
+.dark-theme {
+  --bg-color: #121212;
+  --text-color: #f1f1f1;
+  --border-color: #333;
+  --header-bg: #1e1e1e;
+}
+
+/* Apply variables to your layout elements */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+header {
+  background-color: var(--header-bg);
+  border-bottom: 1px solid var(--border-color);
+}
