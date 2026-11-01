@@ -5095,3 +5095,29 @@ footer a:hover {
     z-index: 2;
     color: #ffffff;
 }
+
+:root {
+  --bg-color: #fff;
+  --text-color: #1a1a1a;
+  --border-color: #e2e9e1;
+  --header-bg: #f8f9fa;
+}
+
+.dark-theme {
+  --bg-color: #121212;
+  --text-color: #f1f1f1;
+  --border-color: #333;
+  --header-bg: #1e1e1e;
+}
+
+/* Apply variables to your layout elements */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+header {
+  background-color: var(--header-bg);
+  border-bottom: 1px solid var(--border-color);
+}
